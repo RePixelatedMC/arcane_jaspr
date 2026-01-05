@@ -160,6 +160,12 @@ class ArcaneStyleData {
   /// Overflow Y axis
   final OverflowAxis? overflowY;
 
+  /// Custom overflow
+  final String? overflowCustom;
+
+  /// Custom display
+  final String? displayCustom;
+
   // -------------------------------------------------------------------------
   // Sizing
   // -------------------------------------------------------------------------
@@ -203,6 +209,9 @@ class ArcaneStyleData {
   /// Flex shorthand (combines grow, shrink, basis)
   final FlexPreset? flex;
 
+  /// Custom flex value
+  final String? flexCustom;
+
   // -------------------------------------------------------------------------
   // Grid
   // -------------------------------------------------------------------------
@@ -243,6 +252,12 @@ class ArcaneStyleData {
 
   /// Custom margin via EdgeInsets
   final EdgeInsets? marginCustom;
+
+  /// Custom margin as raw string (e.g., '0 auto 20px auto')
+  final String? marginStringCustom;
+
+  /// Custom padding as raw string (e.g., '10px 20px')
+  final String? paddingStringCustom;
 
   /// Gap for flex/grid layouts
   final Gap? gap;
@@ -325,6 +340,9 @@ class ArcaneStyleData {
   /// Outline preset
   final OutlinePreset? outline;
 
+  /// Custom outline
+  final String? outlineCustom;
+
   /// Outline offset
   final String? outlineOffset;
 
@@ -356,20 +374,32 @@ class ArcaneStyleData {
   /// Font weight (from arcane.dart)
   final FontWeight? fontWeight;
 
+  /// Custom font weight
+  final String? fontWeightCustom;
+
   /// Line height preset
   final LineHeight? lineHeight;
 
   /// Letter spacing preset
   final LetterSpacing? letterSpacing;
 
+  /// Custom letter spacing
+  final String? letterSpacingCustom;
+
   /// Text alignment (from arcane.dart)
   final TextAlign? textAlign;
+
+  /// Custom text alignment
+  final String? textAlignCustom;
 
   /// Text decoration
   final TextDecoration? textDecoration;
 
   /// Text transform
   final TextTransform? textTransform;
+
+  /// Custom text transform
+  final String? textTransformCustom;
 
   /// White space handling
   final WhiteSpace? whiteSpace;
@@ -411,6 +441,9 @@ class ArcaneStyleData {
   /// Cursor preset
   final Cursor? cursor;
 
+  /// Custom cursor
+  final String? cursorCustom;
+
   /// Pointer events
   final PointerEvents? pointerEvents;
 
@@ -426,6 +459,9 @@ class ArcaneStyleData {
   /// Backdrop filter
   final BackdropFilter? backdropFilter;
 
+  /// Custom filter (e.g., 'grayscale(100%)', 'blur(5px)')
+  final String? filterCustom;
+
   /// Animation easing
   final Easing? easing;
 
@@ -436,8 +472,18 @@ class ArcaneStyleData {
   /// Object fit
   final ObjectFit? objectFit;
 
+  /// Custom object fit
+  final String? objectFitCustom;
+
   /// Object position
   final ObjectPosition? objectPosition;
+
+  // -------------------------------------------------------------------------
+  // Table
+  // -------------------------------------------------------------------------
+
+  /// Border collapse for tables
+  final String? borderCollapse;
 
   // -------------------------------------------------------------------------
   // Raw escape hatch
@@ -462,6 +508,8 @@ class ArcaneStyleData {
     this.overflow,
     this.overflowX,
     this.overflowY,
+    this.overflowCustom,
+    this.displayCustom,
     // Sizing
     this.width,
     this.height,
@@ -476,6 +524,7 @@ class ArcaneStyleData {
     this.flexShrink,
     this.flexBasis,
     this.flex,
+    this.flexCustom,
     // Grid
     this.gridColumns,
     this.gridColumnsCustom,
@@ -489,6 +538,8 @@ class ArcaneStyleData {
     this.paddingCustom,
     this.margin,
     this.marginCustom,
+    this.marginStringCustom,
+    this.paddingStringCustom,
     this.gap,
     this.gapCustom,
     this.rowGap,
@@ -515,6 +566,7 @@ class ArcaneStyleData {
     this.borderRadiusCustom,
     this.borderRadiusClass,
     this.outline,
+    this.outlineCustom,
     this.outlineOffset,
     this.borderWidth,
     this.borderLeftWidth,
@@ -525,11 +577,15 @@ class ArcaneStyleData {
     this.fontSize,
     this.fontSizeCustom,
     this.fontWeight,
+    this.fontWeightCustom,
     this.lineHeight,
     this.letterSpacing,
+    this.letterSpacingCustom,
     this.textAlign,
+    this.textAlignCustom,
     this.textDecoration,
     this.textTransform,
+    this.textTransformCustom,
     this.whiteSpace,
     this.wordBreak,
     this.textOverflow,
@@ -543,15 +599,20 @@ class ArcaneStyleData {
     this.opacity,
     this.opacityCustom,
     this.cursor,
+    this.cursorCustom,
     this.pointerEvents,
     this.userSelect,
     this.transform,
     this.transformCustom,
     this.backdropFilter,
+    this.filterCustom,
     this.easing,
     // Object
     this.objectFit,
+    this.objectFitCustom,
     this.objectPosition,
+    // Table
+    this.borderCollapse,
     // Raw
     this.raw,
   });
@@ -577,6 +638,8 @@ class ArcaneStyleData {
     if (overflow != null) css['overflow'] = overflow!.css;
     if (overflowX != null) css['overflow-x'] = overflowX!.css;
     if (overflowY != null) css['overflow-y'] = overflowY!.css;
+    if (overflowCustom != null) css['overflow'] = overflowCustom!;
+    if (displayCustom != null) css['display'] = displayCustom!;
 
     // Sizing
     if (width != null) css['width'] = width!.widthCss;
@@ -592,6 +655,7 @@ class ArcaneStyleData {
     if (flexShrink != null) css['flex-shrink'] = '$flexShrink';
     if (flexBasis != null) css['flex-basis'] = flexBasis!;
     if (flex != null) css['flex'] = flex!.css;
+    if (flexCustom != null) css['flex'] = flexCustom!;
 
     // Grid
     if (gridColumns != null) css['grid-template-columns'] = gridColumns!.css;
@@ -607,8 +671,10 @@ class ArcaneStyleData {
     // Spacing
     if (padding != null) css['padding'] = padding!.css;
     if (paddingCustom != null) css['padding'] = paddingCustom!.padding;
+    if (paddingStringCustom != null) css['padding'] = paddingStringCustom!;
     if (margin != null) css['margin'] = margin!.css;
     if (marginCustom != null) css['margin'] = marginCustom!.margin;
+    if (marginStringCustom != null) css['margin'] = marginStringCustom!;
     if (gap != null) css['gap'] = gap!.css;
     if (gapCustom != null) css['gap'] = gapCustom!;
     if (rowGap != null) css['row-gap'] = rowGap!.css;
@@ -638,6 +704,7 @@ class ArcaneStyleData {
     if (borderRadiusCustom != null) css['border-radius'] = borderRadiusCustom!;
     if (borderRadiusClass != null) css['border-radius'] = borderRadiusClass!.css;
     if (outline != null) css['outline'] = outline!.css;
+    if (outlineCustom != null) css['outline'] = outlineCustom!;
     if (outlineOffset != null) css['outline-offset'] = outlineOffset!;
     if (borderWidth != null) css['border-width'] = borderWidth!.css;
     if (borderLeftWidth != null) css['border-left-width'] = borderLeftWidth!.css;
@@ -653,11 +720,15 @@ class ArcaneStyleData {
     if (fontSize != null) css['font-size'] = fontSize!.css;
     if (fontSizeCustom != null) css['font-size'] = fontSizeCustom!;
     if (fontWeight != null) css['font-weight'] = fontWeight!.css;
+    if (fontWeightCustom != null) css['font-weight'] = fontWeightCustom!;
     if (lineHeight != null) css['line-height'] = lineHeight!.css;
     if (letterSpacing != null) css['letter-spacing'] = letterSpacing!.css;
+    if (letterSpacingCustom != null) css['letter-spacing'] = letterSpacingCustom!;
     if (textAlign != null) css['text-align'] = textAlign!.css;
+    if (textAlignCustom != null) css['text-align'] = textAlignCustom!;
     if (textDecoration != null) css['text-decoration'] = textDecoration!.css;
     if (textTransform != null) css['text-transform'] = textTransform!.css;
+    if (textTransformCustom != null) css['text-transform'] = textTransformCustom!;
     if (whiteSpace != null) css['white-space'] = whiteSpace!.css;
     if (wordBreak != null) css['word-break'] = wordBreak!.css;
     if (textOverflow != null) css['text-overflow'] = textOverflow!.css;
@@ -672,6 +743,7 @@ class ArcaneStyleData {
     if (opacity != null) css['opacity'] = opacity!.css;
     if (opacityCustom != null) css['opacity'] = '$opacityCustom';
     if (cursor != null) css['cursor'] = cursor!.css;
+    if (cursorCustom != null) css['cursor'] = cursorCustom!;
     if (pointerEvents != null) css['pointer-events'] = pointerEvents!.css;
     if (userSelect != null) css['user-select'] = userSelect!.css;
     if (transform != null) css['transform'] = transform!.css;
@@ -680,10 +752,15 @@ class ArcaneStyleData {
       css['backdrop-filter'] = backdropFilter!.css;
       css['-webkit-backdrop-filter'] = backdropFilter!.css;
     }
+    if (filterCustom != null) css['filter'] = filterCustom!;
 
     // Object
     if (objectFit != null) css['object-fit'] = objectFit!.css;
+    if (objectFitCustom != null) css['object-fit'] = objectFitCustom!;
     if (objectPosition != null) css['object-position'] = objectPosition!.css;
+
+    // Table
+    if (borderCollapse != null) css['border-collapse'] = borderCollapse!;
 
     // Raw overrides (applied last to allow full customization)
     if (raw != null) css.addAll(raw!);
@@ -712,6 +789,8 @@ class ArcaneStyleData {
     if (overflow != null) css['overflow'] = overflow!.css;
     if (overflowX != null) css['overflow-x'] = overflowX!.css;
     if (overflowY != null) css['overflow-y'] = overflowY!.css;
+    if (overflowCustom != null) css['overflow'] = overflowCustom!;
+    if (displayCustom != null) css['display'] = displayCustom!;
 
     // Sizing
     if (width != null) css['width'] = width!.widthCss;
@@ -727,6 +806,7 @@ class ArcaneStyleData {
     if (flexShrink != null) css['flex-shrink'] = '$flexShrink';
     if (flexBasis != null) css['flex-basis'] = flexBasis!;
     if (flex != null) css['flex'] = flex!.css;
+    if (flexCustom != null) css['flex'] = flexCustom!;
 
     // Grid
     if (gridColumns != null) css['grid-template-columns'] = gridColumns!.css;
@@ -742,8 +822,10 @@ class ArcaneStyleData {
     // Spacing
     if (padding != null) css['padding'] = padding!.css;
     if (paddingCustom != null) css['padding'] = paddingCustom!.padding;
+    if (paddingStringCustom != null) css['padding'] = paddingStringCustom!;
     if (margin != null) css['margin'] = margin!.css;
     if (marginCustom != null) css['margin'] = marginCustom!.margin;
+    if (marginStringCustom != null) css['margin'] = marginStringCustom!;
     if (gap != null) css['gap'] = gap!.css;
     if (gapCustom != null) css['gap'] = gapCustom!;
     if (rowGap != null) css['row-gap'] = rowGap!.css;
@@ -773,6 +855,7 @@ class ArcaneStyleData {
     if (borderRadiusCustom != null) css['border-radius'] = borderRadiusCustom!;
     if (borderRadiusClass != null) css['border-radius'] = borderRadiusClass!.css;
     if (outline != null) css['outline'] = outline!.css;
+    if (outlineCustom != null) css['outline'] = outlineCustom!;
     if (outlineOffset != null) css['outline-offset'] = outlineOffset!;
     if (borderWidth != null) css['border-width'] = borderWidth!.css;
     if (borderLeftWidth != null) css['border-left-width'] = borderLeftWidth!.css;
@@ -788,11 +871,15 @@ class ArcaneStyleData {
     if (fontSize != null) css['font-size'] = fontSize!.css;
     if (fontSizeCustom != null) css['font-size'] = fontSizeCustom!;
     if (fontWeight != null) css['font-weight'] = fontWeight!.css;
+    if (fontWeightCustom != null) css['font-weight'] = fontWeightCustom!;
     if (lineHeight != null) css['line-height'] = lineHeight!.css;
     if (letterSpacing != null) css['letter-spacing'] = letterSpacing!.css;
+    if (letterSpacingCustom != null) css['letter-spacing'] = letterSpacingCustom!;
     if (textAlign != null) css['text-align'] = textAlign!.css;
+    if (textAlignCustom != null) css['text-align'] = textAlignCustom!;
     if (textDecoration != null) css['text-decoration'] = textDecoration!.css;
     if (textTransform != null) css['text-transform'] = textTransform!.css;
+    if (textTransformCustom != null) css['text-transform'] = textTransformCustom!;
     if (whiteSpace != null) css['white-space'] = whiteSpace!.css;
     if (wordBreak != null) css['word-break'] = wordBreak!.css;
     if (textOverflow != null) css['text-overflow'] = textOverflow!.css;
@@ -807,6 +894,7 @@ class ArcaneStyleData {
     if (opacity != null) css['opacity'] = opacity!.css;
     if (opacityCustom != null) css['opacity'] = '$opacityCustom';
     if (cursor != null) css['cursor'] = cursor!.css;
+    if (cursorCustom != null) css['cursor'] = cursorCustom!;
     if (pointerEvents != null) css['pointer-events'] = pointerEvents!.css;
     if (userSelect != null) css['user-select'] = userSelect!.css;
     if (transform != null) css['transform'] = transform!.css;
@@ -815,10 +903,15 @@ class ArcaneStyleData {
       css['backdrop-filter'] = backdropFilter!.css;
       css['-webkit-backdrop-filter'] = backdropFilter!.css;
     }
+    if (filterCustom != null) css['filter'] = filterCustom!;
 
     // Object
     if (objectFit != null) css['object-fit'] = objectFit!.css;
+    if (objectFitCustom != null) css['object-fit'] = objectFitCustom!;
     if (objectPosition != null) css['object-position'] = objectPosition!.css;
+
+    // Table
+    if (borderCollapse != null) css['border-collapse'] = borderCollapse!;
 
     // Raw overrides (applied last to allow full customization)
     if (raw != null) css.addAll(raw!);
@@ -843,6 +936,8 @@ class ArcaneStyleData {
       overflow: other.overflow ?? overflow,
       overflowX: other.overflowX ?? overflowX,
       overflowY: other.overflowY ?? overflowY,
+      overflowCustom: other.overflowCustom ?? overflowCustom,
+      displayCustom: other.displayCustom ?? displayCustom,
       // Sizing
       width: other.width ?? width,
       height: other.height ?? height,
@@ -857,6 +952,7 @@ class ArcaneStyleData {
       flexShrink: other.flexShrink ?? flexShrink,
       flexBasis: other.flexBasis ?? flexBasis,
       flex: other.flex ?? flex,
+      flexCustom: other.flexCustom ?? flexCustom,
       // Grid
       gridColumns: other.gridColumns ?? gridColumns,
       gridColumnsCustom: other.gridColumnsCustom ?? gridColumnsCustom,
@@ -870,6 +966,8 @@ class ArcaneStyleData {
       paddingCustom: other.paddingCustom ?? paddingCustom,
       margin: other.margin ?? margin,
       marginCustom: other.marginCustom ?? marginCustom,
+      marginStringCustom: other.marginStringCustom ?? marginStringCustom,
+      paddingStringCustom: other.paddingStringCustom ?? paddingStringCustom,
       gap: other.gap ?? gap,
       gapCustom: other.gapCustom ?? gapCustom,
       rowGap: other.rowGap ?? rowGap,
@@ -896,6 +994,7 @@ class ArcaneStyleData {
       borderRadiusCustom: other.borderRadiusCustom ?? borderRadiusCustom,
       borderRadiusClass: other.borderRadiusClass ?? borderRadiusClass,
       outline: other.outline ?? outline,
+      outlineCustom: other.outlineCustom ?? outlineCustom,
       outlineOffset: other.outlineOffset ?? outlineOffset,
       borderWidth: other.borderWidth ?? borderWidth,
       borderLeftWidth: other.borderLeftWidth ?? borderLeftWidth,
@@ -906,11 +1005,15 @@ class ArcaneStyleData {
       fontSize: other.fontSize ?? fontSize,
       fontSizeCustom: other.fontSizeCustom ?? fontSizeCustom,
       fontWeight: other.fontWeight ?? fontWeight,
+      fontWeightCustom: other.fontWeightCustom ?? fontWeightCustom,
       lineHeight: other.lineHeight ?? lineHeight,
       letterSpacing: other.letterSpacing ?? letterSpacing,
+      letterSpacingCustom: other.letterSpacingCustom ?? letterSpacingCustom,
       textAlign: other.textAlign ?? textAlign,
+      textAlignCustom: other.textAlignCustom ?? textAlignCustom,
       textDecoration: other.textDecoration ?? textDecoration,
       textTransform: other.textTransform ?? textTransform,
+      textTransformCustom: other.textTransformCustom ?? textTransformCustom,
       whiteSpace: other.whiteSpace ?? whiteSpace,
       wordBreak: other.wordBreak ?? wordBreak,
       textOverflow: other.textOverflow ?? textOverflow,
@@ -924,15 +1027,20 @@ class ArcaneStyleData {
       opacity: other.opacity ?? opacity,
       opacityCustom: other.opacityCustom ?? opacityCustom,
       cursor: other.cursor ?? cursor,
+      cursorCustom: other.cursorCustom ?? cursorCustom,
       pointerEvents: other.pointerEvents ?? pointerEvents,
       userSelect: other.userSelect ?? userSelect,
       transform: other.transform ?? transform,
       transformCustom: other.transformCustom ?? transformCustom,
       backdropFilter: other.backdropFilter ?? backdropFilter,
+      filterCustom: other.filterCustom ?? filterCustom,
       easing: other.easing ?? easing,
       // Object
       objectFit: other.objectFit ?? objectFit,
+      objectFitCustom: other.objectFitCustom ?? objectFitCustom,
       objectPosition: other.objectPosition ?? objectPosition,
+      // Table
+      borderCollapse: other.borderCollapse ?? borderCollapse,
       // Raw - merge maps
       raw: {...?raw, ...?other.raw},
     );
@@ -953,6 +1061,8 @@ class ArcaneStyleData {
     Overflow? overflow,
     OverflowAxis? overflowX,
     OverflowAxis? overflowY,
+    String? overflowCustom,
+    String? displayCustom,
     // Sizing
     Size? width,
     Size? height,
@@ -967,6 +1077,7 @@ class ArcaneStyleData {
     int? flexShrink,
     String? flexBasis,
     FlexPreset? flex,
+    String? flexCustom,
     // Grid
     GridColumns? gridColumns,
     String? gridColumnsCustom,
@@ -980,6 +1091,8 @@ class ArcaneStyleData {
     EdgeInsets? paddingCustom,
     MarginPreset? margin,
     EdgeInsets? marginCustom,
+    String? marginStringCustom,
+    String? paddingStringCustom,
     Gap? gap,
     String? gapCustom,
     Gap? rowGap,
@@ -1006,6 +1119,7 @@ class ArcaneStyleData {
     String? borderRadiusCustom,
     BorderRadius? borderRadiusClass,
     OutlinePreset? outline,
+    String? outlineCustom,
     String? outlineOffset,
     BorderWidth? borderWidth,
     BorderWidth? borderLeftWidth,
@@ -1016,11 +1130,15 @@ class ArcaneStyleData {
     FontSize? fontSize,
     String? fontSizeCustom,
     FontWeight? fontWeight,
+    String? fontWeightCustom,
     LineHeight? lineHeight,
     LetterSpacing? letterSpacing,
+    String? letterSpacingCustom,
     TextAlign? textAlign,
+    String? textAlignCustom,
     TextDecoration? textDecoration,
     TextTransform? textTransform,
+    String? textTransformCustom,
     WhiteSpace? whiteSpace,
     WordBreak? wordBreak,
     TextOverflow? textOverflow,
@@ -1034,15 +1152,20 @@ class ArcaneStyleData {
     Opacity? opacity,
     double? opacityCustom,
     Cursor? cursor,
+    String? cursorCustom,
     PointerEvents? pointerEvents,
     UserSelect? userSelect,
     Transform? transform,
     String? transformCustom,
     BackdropFilter? backdropFilter,
+    String? filterCustom,
     Easing? easing,
     // Object
     ObjectFit? objectFit,
+    String? objectFitCustom,
     ObjectPosition? objectPosition,
+    // Table
+    String? borderCollapse,
     // Raw
     Map<String, String>? raw,
   }) {
@@ -1061,6 +1184,8 @@ class ArcaneStyleData {
       overflow: overflow ?? this.overflow,
       overflowX: overflowX ?? this.overflowX,
       overflowY: overflowY ?? this.overflowY,
+      overflowCustom: overflowCustom ?? this.overflowCustom,
+      displayCustom: displayCustom ?? this.displayCustom,
       width: width ?? this.width,
       height: height ?? this.height,
       widthCustom: widthCustom ?? this.widthCustom,
@@ -1074,6 +1199,7 @@ class ArcaneStyleData {
       flexShrink: flexShrink ?? this.flexShrink,
       flexBasis: flexBasis ?? this.flexBasis,
       flex: flex ?? this.flex,
+      flexCustom: flexCustom ?? this.flexCustom,
       gridColumns: gridColumns ?? this.gridColumns,
       gridColumnsCustom: gridColumnsCustom ?? this.gridColumnsCustom,
       gridRows: gridRows ?? this.gridRows,
@@ -1085,6 +1211,8 @@ class ArcaneStyleData {
       paddingCustom: paddingCustom ?? this.paddingCustom,
       margin: margin ?? this.margin,
       marginCustom: marginCustom ?? this.marginCustom,
+      marginStringCustom: marginStringCustom ?? this.marginStringCustom,
+      paddingStringCustom: paddingStringCustom ?? this.paddingStringCustom,
       gap: gap ?? this.gap,
       gapCustom: gapCustom ?? this.gapCustom,
       rowGap: rowGap ?? this.rowGap,
@@ -1108,6 +1236,7 @@ class ArcaneStyleData {
       borderRadiusCustom: borderRadiusCustom ?? this.borderRadiusCustom,
       borderRadiusClass: borderRadiusClass ?? this.borderRadiusClass,
       outline: outline ?? this.outline,
+      outlineCustom: outlineCustom ?? this.outlineCustom,
       outlineOffset: outlineOffset ?? this.outlineOffset,
       borderWidth: borderWidth ?? this.borderWidth,
       borderLeftWidth: borderLeftWidth ?? this.borderLeftWidth,
@@ -1117,11 +1246,15 @@ class ArcaneStyleData {
       fontSize: fontSize ?? this.fontSize,
       fontSizeCustom: fontSizeCustom ?? this.fontSizeCustom,
       fontWeight: fontWeight ?? this.fontWeight,
+      fontWeightCustom: fontWeightCustom ?? this.fontWeightCustom,
       lineHeight: lineHeight ?? this.lineHeight,
       letterSpacing: letterSpacing ?? this.letterSpacing,
+      letterSpacingCustom: letterSpacingCustom ?? this.letterSpacingCustom,
       textAlign: textAlign ?? this.textAlign,
+      textAlignCustom: textAlignCustom ?? this.textAlignCustom,
       textDecoration: textDecoration ?? this.textDecoration,
       textTransform: textTransform ?? this.textTransform,
+      textTransformCustom: textTransformCustom ?? this.textTransformCustom,
       whiteSpace: whiteSpace ?? this.whiteSpace,
       wordBreak: wordBreak ?? this.wordBreak,
       textOverflow: textOverflow ?? this.textOverflow,
@@ -1134,14 +1267,18 @@ class ArcaneStyleData {
       opacity: opacity ?? this.opacity,
       opacityCustom: opacityCustom ?? this.opacityCustom,
       cursor: cursor ?? this.cursor,
+      cursorCustom: cursorCustom ?? this.cursorCustom,
       pointerEvents: pointerEvents ?? this.pointerEvents,
       userSelect: userSelect ?? this.userSelect,
       transform: transform ?? this.transform,
       transformCustom: transformCustom ?? this.transformCustom,
       backdropFilter: backdropFilter ?? this.backdropFilter,
+      filterCustom: filterCustom ?? this.filterCustom,
       easing: easing ?? this.easing,
       objectFit: objectFit ?? this.objectFit,
+      objectFitCustom: objectFitCustom ?? this.objectFitCustom,
       objectPosition: objectPosition ?? this.objectPosition,
+      borderCollapse: borderCollapse ?? this.borderCollapse,
       raw: raw ?? this.raw,
     );
   }

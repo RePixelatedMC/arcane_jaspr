@@ -121,6 +121,12 @@ class DemoRegistry {
     'tracker': ViewDemos.tracker,
     'surface-card': ViewDemos.surfaceCard,
     'switcher': ViewDemos.switcher,
+    'flexi-cards': ViewDemos.flexiCards,
+    'slot-counter': ViewDemos.slotCounter,
+    'arrow-link': ViewDemos.arrowLink,
+    'feature-showcase': ViewDemos.featureShowcase,
+    'world-map': ViewDemos.worldMap,
+    'usa-map': ViewDemos.usaMap,
 
     // Navigation components
     'header': NavigationDemos.header,

@@ -204,6 +204,7 @@ export 'component/layout/aspect_ratio.dart';
 export 'component/layout/resizable.dart';
 export 'component/layout/section_header.dart';
 export 'component/layout/footer_column.dart';
+export 'component/layout/feature_showcase.dart';
 
 // ============================================================================
 // Input components
@@ -263,6 +264,7 @@ export 'component/view/skeleton.dart';
 export 'component/view/chip.dart' hide ArcaneChip, ArcaneChipGroup;
 export 'component/view/status_indicator.dart' hide ArcaneStatusBadge;
 export 'component/view/animated_counter.dart';
+export 'component/view/slot_counter.dart';
 export 'component/view/gradient_text.dart';
 export 'component/view/social_icons.dart' hide ArcaneSocialIcon;
 export 'component/view/settings_section.dart';
@@ -287,6 +289,14 @@ export 'component/view/switcher.dart';
 export 'component/view/surface_card.dart';
 export 'component/view/tracker.dart';
 export 'component/view/icon.dart';
+export 'component/view/flexi_cards.dart';
+export 'component/view/arrow_link.dart';
+export 'component/view/world_map/world_map.dart';
+export 'component/view/world_map/world_map_data.dart';
+export 'component/view/world_map/world_map_paths.dart';
+export 'component/view/usa_map/usa_map.dart';
+export 'component/view/usa_map/usa_map_data.dart';
+export 'component/view/usa_map/usa_map_paths.dart';
 
 // ============================================================================
 // Navigation components

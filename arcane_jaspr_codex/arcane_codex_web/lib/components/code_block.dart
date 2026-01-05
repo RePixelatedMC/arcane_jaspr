@@ -81,7 +81,7 @@ class _CodeBlockState extends State<CodeBlock> {
             ],
           ),
 
-        // Copy button (top-right, overlaid)
+        // Copy button with tooltip (top-right, overlaid)
         ArcaneDiv(
           styles: const ArcaneStyleData(
             position: Position.absolute,
@@ -91,34 +91,48 @@ class _CodeBlockState extends State<CodeBlock> {
             zIndex: ZIndex.dropdown,
           ),
           children: [
-            ArcaneIconButton.ghost(
-              icon: _copied ? ArcaneIcon.check(size: IconSize.sm) : ArcaneIcon.copy(size: IconSize.sm),
-              size: IconButtonSize.small,
-              onPressed: _copyToClipboard,
+            ArcaneTooltip(
+              content: _copied ? 'Copied!' : 'Copy code',
+              position: TooltipPosition.left,
+              child: ArcaneIconButton.ghost(
+                icon: _copied ? ArcaneIcon.check(size: IconSize.sm) : ArcaneIcon.copy(size: IconSize.sm),
+                size: IconButtonSize.small,
+                onPressed: _copyToClipboard,
+              ),
             ),
           ],
         ),
 
-        // Code content
+        // Code content with syntax highlighting
         ArcaneDiv(
           styles: ArcaneStyleData(
-            padding: PaddingPreset.lg,
             overflow: Overflow.auto,
             maxHeight: '500px',
             // Add top padding when there's a language label or title
             raw: (component.language != null || component.title != null)
-                ? const {'padding-top': '40px'}
+                ? const {'padding-top': '32px'}
                 : null,
           ),
           children: [
-            ArcaneCodeBlock(
-              style: CodeBlockStyle.minimal,
-              styles: const ArcaneStyleData(
-                margin: MarginPreset.none,
-                textColor: TextColor.primary,
-              ),
+            Component.element(
+              tag: 'pre',
+              styles: const Styles(raw: {
+                'margin': '0',
+                'padding': '16px',
+                'background': 'transparent',
+                'overflow': 'auto',
+              }),
               children: [
-                ArcaneText(component.code),
+                Component.element(
+                  tag: 'code',
+                  classes: 'language-${component.language ?? 'dart'}',
+                  styles: const Styles(raw: {
+                    'font-family': 'var(--font-mono)',
+                    'font-size': '13px',
+                    'line-height': '1.6',
+                  }),
+                  children: [Component.text(component.code)],
+                ),
               ],
             ),
           ],

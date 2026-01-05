@@ -9,6 +9,59 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+#### ArcaneUSAMap Component
+New interactive SVG map of the United States with state highlighting and location pins:
+- Interactive state hover and click with `onStateTap` and `onStateHover` callbacks
+- Location pins with tooltips via `ArcaneUSAMapLocation` data model
+- State highlighting with `activeStates` set
+- Style presets: `standard`, `subtle`, `prominent`
+- Full customization via `ArcaneUSAMapStyle`
+
+```dart
+ArcaneUSAMap(
+  locations: [
+    ArcaneUSAMapLocation(
+      id: 'nyc',
+      name: 'New York City',
+      latitude: 40.7128,
+      longitude: -74.0060,
+      code: 'NYC',
+      state: 'NY',
+    ),
+  ],
+  activeStates: {'CA', 'TX', 'NY'},
+  onStateTap: (stateCode) => print('Tapped $stateCode'),
+  onLocationTap: (location) => print('Tapped ${location.name}'),
+)
+```
+
+#### Documentation
+- Added documentation page for `ArcaneArrowLink` component
+- Added documentation page for `ArcaneFeatureShowcase` component
+- Added documentation page for `ArcaneWorldMap` component
+- Added documentation page for `ArcaneUSAMap` component
+- Added interactive demos for all new components in the codex
+
+#### ArcaneFlexiCards Locked Dimensions
+Added optional height/width pre/post lock parameters to `ArcaneFlexiCards` for precise control over card dimensions during hover transitions:
+- `heightPreLock` - Locked height for collapsed (non-hovered) cards
+- `heightPostLock` - Locked height for expanded (hovered) cards
+- `widthPreLock` - Locked width for collapsed (non-hovered) cards
+- `widthPostLock` - Locked width for expanded (hovered) cards
+
+```dart
+ArcaneFlexiCards(
+  items: items,
+  heightPreLock: '200px',   // Height when collapsed
+  heightPostLock: '280px',  // Height when expanded
+)
+```
+
+#### Documentation
+- Added documentation page for `ArcaneFlexiCards` component
+- Added documentation page for `ArcaneSlotCounter` component
+- Added interactive demos for both components in the codex
+
 #### Convenience Features for Improved Developer Experience
 
 **ArcaneStyleData Presets**

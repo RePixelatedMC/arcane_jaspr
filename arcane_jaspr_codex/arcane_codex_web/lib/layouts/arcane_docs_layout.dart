@@ -89,6 +89,22 @@ class ArcaneDocsLayout extends PageLayoutBase {
     // Load stylesheet AFTER theme variables so our overrides take precedence
     yield link(rel: 'stylesheet', href: '$assetPrefix/styles.css');
 
+    // Highlight.js for syntax highlighting
+    yield link(
+      rel: 'stylesheet',
+      href: 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css',
+    );
+    yield script(
+      attributes: const {
+        'src': 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js',
+      },
+    );
+    yield script(
+      attributes: const {
+        'src': 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/dart.min.js',
+      },
+    );
+
     // Theme initialization script - runs before page renders to prevent flash
     yield script(content: '''
       (function() {

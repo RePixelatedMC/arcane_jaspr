@@ -4,9 +4,30 @@ import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, T
 import '../../util/tokens/tokens.dart';
 
 /// Text with gradient color
+///
+/// ```dart
+/// // Using gradient string
+/// ArcaneGradientText(
+///   content: 'Hello World',
+///   gradient: 'linear-gradient(135deg, #059669, #0891B2)',
+/// )
+///
+/// // Using start/end colors
+/// ArcaneGradientText(
+///   content: 'Hello World',
+///   gradientStart: '#059669',
+///   gradientEnd: '#0891B2',
+/// )
+///
+/// // Using brand gradient (accent colors)
+/// ArcaneGradientText.brand(content: 'Hello World')
+/// ```
 class ArcaneGradientText extends StatelessComponent {
   /// Text content
   final String content;
+
+  /// Full gradient CSS value (takes precedence over start/end)
+  final String? gradient;
 
   /// Gradient start color
   final String? gradientStart;
@@ -17,39 +38,69 @@ class ArcaneGradientText extends StatelessComponent {
   /// Gradient angle
   final String? gradientAngle;
 
-  /// Font size
+  /// Font size (defaults to 'inherit' for inline use)
   final String fontSize;
 
-  /// Font weight
+  /// Font weight (defaults to 'inherit' for inline use)
   final String fontWeight;
 
   const ArcaneGradientText({
     required this.content,
+    this.gradient,
     this.gradientStart,
     this.gradientEnd,
     this.gradientAngle,
-    this.fontSize = '32px',
-    this.fontWeight = '700',
+    this.fontSize = 'inherit',
+    this.fontWeight = 'inherit',
     super.key,
   });
 
+  /// Creates gradient text using the brand/accent gradient
+  const ArcaneGradientText.brand({
+    required this.content,
+    this.fontSize = 'inherit',
+    this.fontWeight = 'inherit',
+    super.key,
+  })  : gradient = ArcaneColors.accentGradient,
+        gradientStart = null,
+        gradientEnd = null,
+        gradientAngle = null;
+
+  /// Creates gradient text using accent to info colors
+  const ArcaneGradientText.accent({
+    required this.content,
+    this.fontSize = 'inherit',
+    this.fontWeight = 'inherit',
+    super.key,
+  })  : gradient = null,
+        gradientStart = ArcaneColors.accent,
+        gradientEnd = ArcaneColors.info,
+        gradientAngle = '135deg';
+
   @override
   Component build(BuildContext context) {
-    final String start = gradientStart ?? ArcaneColors.success;
-    final String end = gradientEnd ?? ArcaneColors.info;
-    final String angle = gradientAngle ?? '135deg';
+    // Use full gradient if provided, otherwise build from start/end
+    final String backgroundGradient;
+    if (gradient != null) {
+      backgroundGradient = gradient!;
+    } else {
+      final String start = gradientStart ?? ArcaneColors.success;
+      final String end = gradientEnd ?? ArcaneColors.info;
+      final String angle = gradientAngle ?? '135deg';
+      backgroundGradient = 'linear-gradient($angle, $start 0%, $end 100%)';
+    }
 
     return span(
       classes: 'arcane-gradient-text',
       styles: Styles(raw: {
         'font-size': fontSize,
         'font-weight': fontWeight,
-        'background': 'linear-gradient($angle, $start 0%, $end 100%)',
+        'background': backgroundGradient,
         '-webkit-background-clip': 'text',
         'background-clip': 'text',
         'color': ArcaneColors.transparent,
       }),
-      [text(content)],
+      [Component.text(content)],
     );
   }
 }
@@ -87,7 +138,7 @@ class ArcaneAnimatedGradientText extends StatelessComponent {
         'color': ArcaneColors.transparent,
         'animation': 'arcane-gradient-shift 5s ease infinite',
       }),
-      [text(content)],
+      [Component.text(content)],
     );
   }
 
@@ -139,7 +190,7 @@ class ArcaneGlowText extends StatelessComponent {
         'color': color,
         'text-shadow': '0 0 ${10 * intensity}px $color, 0 0 ${20 * intensity}px $color, 0 0 ${40 * intensity}px ${color}60',
       }),
-      [text(content)],
+      [Component.text(content)],
     );
   }
 }
@@ -187,7 +238,7 @@ class ArcaneOutlineText extends StatelessComponent {
         '-webkit-text-stroke': '${strokeWidth}px $stroke',
         'color': fill,
       }),
-      [text(content)],
+      [Component.text(content)],
     );
   }
 }

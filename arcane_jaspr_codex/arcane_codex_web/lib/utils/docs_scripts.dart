@@ -49,6 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
   ${_themePresetButtons()}
   ${_searchFunctionality(basePath)}
   ${_codeBlockCopyButtons()}
+  ${_syntaxHighlighting()}
   ${_interactiveComponents()}
 });
 ''';
@@ -213,6 +214,37 @@ document.querySelectorAll('pre').forEach(function(pre) {
     });
   });
 });
+''';
+
+  static String _syntaxHighlighting() => '''
+// ===== SYNTAX HIGHLIGHTING =====
+if (typeof hljs !== 'undefined') {
+  // Configure highlight.js
+  hljs.configure({
+    ignoreUnescapedHTML: true,
+    languages: ['dart', 'javascript', 'yaml', 'bash', 'json', 'html', 'css']
+  });
+
+  // Add language classes to code blocks that don't have them
+  document.querySelectorAll('pre code').forEach(function(block) {
+    // If no language class, assume Dart
+    if (!block.className || !block.className.includes('language-')) {
+      block.classList.add('language-dart');
+    }
+  });
+
+  // Also handle .arcane-code-block which uses plain code elements
+  document.querySelectorAll('.arcane-code-block').forEach(function(block) {
+    var codeEl = document.createElement('code');
+    codeEl.className = 'language-dart';
+    codeEl.textContent = block.textContent;
+    block.textContent = '';
+    block.appendChild(codeEl);
+  });
+
+  // Run highlighting
+  hljs.highlightAll();
+}
 ''';
 
   // Interactive component scripts are now handled by ArcaneApp's built-in
