@@ -190,26 +190,65 @@ if (searchInput) {
 
   static String _codeBlockCopyButtons() => '''
 // ===== CODE BLOCK COPY BUTTONS =====
-document.querySelectorAll('pre').forEach(function(pre) {
+document.querySelectorAll('.prose pre').forEach(function(pre) {
+  // Skip if already wrapped or inside a component demo
+  if (pre.parentNode.classList.contains('code-block-wrapper')) return;
+  if (pre.closest('.arcane-code-block')) return;
+
   var wrapper = document.createElement('div');
   wrapper.className = 'code-block-wrapper';
+  // Add inline styles as fallback
+  wrapper.style.position = 'relative';
+  wrapper.style.margin = '1rem 0';
   pre.parentNode.insertBefore(wrapper, pre);
   wrapper.appendChild(pre);
+  pre.style.paddingRight = '50px';
 
   var copyBtn = document.createElement('button');
   copyBtn.className = 'copy-code-btn';
+  // Inline styles as fallback for positioning
+  copyBtn.style.position = 'absolute';
+  copyBtn.style.top = '8px';
+  copyBtn.style.right = '8px';
+  copyBtn.style.padding = '6px 8px';
+  copyBtn.style.background = 'var(--arcane-surface)';
+  copyBtn.style.border = '1px solid var(--arcane-border)';
+  copyBtn.style.borderRadius = 'var(--arcane-radius-sm)';
+  copyBtn.style.color = 'var(--arcane-muted)';
+  copyBtn.style.cursor = 'pointer';
+  copyBtn.style.display = 'flex';
+  copyBtn.style.alignItems = 'center';
+  copyBtn.style.justifyContent = 'center';
+  copyBtn.style.transition = 'all 0.15s ease';
   copyBtn.innerHTML = '${DocsIcons.copy.replaceAll('\n', '')}';
   copyBtn.title = 'Copy code';
   wrapper.appendChild(copyBtn);
+
+  copyBtn.onmouseenter = function() {
+    copyBtn.style.background = 'var(--arcane-surface-variant)';
+    copyBtn.style.color = 'var(--arcane-accent)';
+    copyBtn.style.borderColor = 'var(--arcane-accent)';
+  };
+  copyBtn.onmouseleave = function() {
+    if (!copyBtn.classList.contains('copied')) {
+      copyBtn.style.background = 'var(--arcane-surface)';
+      copyBtn.style.color = 'var(--arcane-muted)';
+      copyBtn.style.borderColor = 'var(--arcane-border)';
+    }
+  };
 
   copyBtn.addEventListener('click', function() {
     var code = pre.querySelector('code') || pre;
     navigator.clipboard.writeText(code.textContent).then(function() {
       copyBtn.innerHTML = '${DocsIcons.check.replaceAll('\n', '')}';
       copyBtn.classList.add('copied');
+      copyBtn.style.color = 'var(--arcane-success)';
+      copyBtn.style.borderColor = 'var(--arcane-success)';
       setTimeout(function() {
         copyBtn.innerHTML = '${DocsIcons.copy.replaceAll('\n', '')}';
         copyBtn.classList.remove('copied');
+        copyBtn.style.color = 'var(--arcane-muted)';
+        copyBtn.style.borderColor = 'var(--arcane-border)';
       }, ${DocsScriptConfig.copyFeedbackTimeout});
     });
   });

@@ -392,6 +392,76 @@ class ArcaneColors {
   /// Accent gradient (accent to secondary transition)
   static const String accentGradient =
       'linear-gradient(135deg, var(--arcane-accent) 0%, var(--arcane-secondary) 100%)';
+
+  // ---------------------------------------------------------------------------
+  // Rainbow Color Palette (Tailwind-inspired)
+  // ---------------------------------------------------------------------------
+
+  /// Red
+  static const String red = '#EF4444';
+  static const String redRgb = '239, 68, 68';
+  static const String redAlpha20 = 'rgba(239, 68, 68, 0.2)';
+  static const String redAlpha40 = 'rgba(239, 68, 68, 0.4)';
+
+  /// Orange
+  static const String orange = '#F97316';
+  static const String orangeRgb = '249, 115, 22';
+  static const String orangeAlpha20 = 'rgba(249, 115, 22, 0.2)';
+  static const String orangeAlpha40 = 'rgba(249, 115, 22, 0.4)';
+
+  /// Yellow/Amber
+  static const String yellow = '#EAB308';
+  static const String yellowRgb = '234, 179, 8';
+  static const String yellowAlpha20 = 'rgba(234, 179, 8, 0.2)';
+  static const String yellowAlpha40 = 'rgba(234, 179, 8, 0.4)';
+
+  /// Green
+  static const String green = '#22C55E';
+  static const String greenRgb = '34, 197, 94';
+  static const String greenAlpha20 = 'rgba(34, 197, 94, 0.2)';
+  static const String greenAlpha40 = 'rgba(34, 197, 94, 0.4)';
+
+  /// Teal
+  static const String teal = '#14B8A6';
+  static const String tealRgb = '20, 184, 166';
+  static const String tealAlpha20 = 'rgba(20, 184, 166, 0.2)';
+  static const String tealAlpha40 = 'rgba(20, 184, 166, 0.4)';
+
+  /// Cyan
+  static const String cyan = '#06B6D4';
+  static const String cyanRgb = '6, 182, 212';
+  static const String cyanAlpha20 = 'rgba(6, 182, 212, 0.2)';
+  static const String cyanAlpha40 = 'rgba(6, 182, 212, 0.4)';
+
+  /// Blue
+  static const String blue = '#3B82F6';
+  static const String blueRgb = '59, 130, 246';
+  static const String blueAlpha20 = 'rgba(59, 130, 246, 0.2)';
+  static const String blueAlpha40 = 'rgba(59, 130, 246, 0.4)';
+
+  /// Indigo
+  static const String indigo = '#6366F1';
+  static const String indigoRgb = '99, 102, 241';
+  static const String indigoAlpha20 = 'rgba(99, 102, 241, 0.2)';
+  static const String indigoAlpha40 = 'rgba(99, 102, 241, 0.4)';
+
+  /// Purple/Violet
+  static const String purple = '#8B5CF6';
+  static const String purpleRgb = '139, 92, 246';
+  static const String purpleAlpha20 = 'rgba(139, 92, 246, 0.2)';
+  static const String purpleAlpha40 = 'rgba(139, 92, 246, 0.4)';
+
+  /// Pink
+  static const String pink = '#EC4899';
+  static const String pinkRgb = '236, 72, 153';
+  static const String pinkAlpha20 = 'rgba(236, 72, 153, 0.2)';
+  static const String pinkAlpha40 = 'rgba(236, 72, 153, 0.4)';
+
+  /// Rose
+  static const String rose = '#F43F5E';
+  static const String roseRgb = '244, 63, 94';
+  static const String roseAlpha20 = 'rgba(244, 63, 94, 0.2)';
+  static const String roseAlpha40 = 'rgba(244, 63, 94, 0.4)';
 }
 
 // =============================================================================
@@ -769,11 +839,21 @@ class ArcaneEffects {
   // Backdrop effects
   // ---------------------------------------------------------------------------
 
+  /// Light backdrop blur (for badges, chips)
+  static const String backdropBlurLight = 'blur(8px)';
+
   /// Backdrop blur
   static const String backdropBlur = 'blur(12px)';
 
   /// Strong backdrop blur
   static const String backdropBlurStrong = 'blur(20px)';
+
+  // ---------------------------------------------------------------------------
+  // Text shadows
+  // ---------------------------------------------------------------------------
+
+  /// Text shadow for legibility on colored backgrounds
+  static const String textShadowContrast = '0 1px 3px rgba(0, 0, 0, 0.8), 0 0 8px rgba(0, 0, 0, 0.5)';
 
   // ---------------------------------------------------------------------------
   // Hover transforms

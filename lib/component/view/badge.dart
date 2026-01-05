@@ -164,11 +164,11 @@ class ArcaneBadge extends StatelessComponent {
         'line-height': '1',
         'white-space': 'nowrap',
 
-        // Appearance from style preset
-        ...effectiveStyle.styles,
-
-        // Border radius (pill shape)
+        // Default border radius (can be overridden by style)
         'border-radius': ArcaneRadius.full,
+
+        // Appearance from style preset (can override border-radius)
+        ...effectiveStyle.styles,
       }),
       [
         if (icon != null) icon!,

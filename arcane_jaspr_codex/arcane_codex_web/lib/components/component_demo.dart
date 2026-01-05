@@ -155,9 +155,11 @@ class _DemoCodeBlockState extends State<_DemoCodeBlock> {
         ArcaneDiv(
           styles: const ArcaneStyleData(
             position: Position.absolute,
-            raw: {'top': '8px', 'right': '8px', 'z-index': '10'},
+            top: '8px',
+            right: '8px',
+            zIndex: ZIndex.dropdown,
             display: Display.flex,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            alignItems: AlignItems.center,
             gap: Gap.xs,
           ),
           children: [
