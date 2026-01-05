@@ -38,82 +38,93 @@ class _CodeBlockState extends State<CodeBlock> {
 
   @override
   Component build(BuildContext context) {
-    return ArcaneDiv(
-      styles: const ArcaneStyleData(
-        position: Position.relative,
-        margin: MarginPreset.bottomMd,
-        borderRadius: Radius.lg,
-        overflow: Overflow.hidden,
-        background: Background.code,
-        border: BorderPreset.standard,
-      ),
-      children: [
+    final hasLabel = component.language != null || component.title != null;
+
+    // Use raw div() with explicit inline styles to ensure positioning works
+    return div(
+      styles: const Styles(raw: {
+        'position': 'relative',
+        'margin-bottom': '16px',
+        'border-radius': '8px',
+        'overflow': 'hidden',
+        'background': 'var(--arcane-code-background, var(--arcane-surface-variant))',
+        'border': '1px solid var(--arcane-border)',
+      }),
+      [
         // Language label (top-left, if present)
-        if (component.language != null || component.title != null)
-          ArcaneDiv(
-            styles: const ArcaneStyleData(
-              position: Position.absolute,
-              top: '0',
-              left: '0',
-              padding: PaddingPreset.smMd,
-              zIndex: ZIndex.base,
-            ),
-            children: [
+        if (hasLabel)
+          div(
+            styles: const Styles(raw: {
+              'position': 'absolute',
+              'top': '0',
+              'left': '0',
+              'padding': '8px 12px',
+              'z-index': '1',
+            }),
+            [
               if (component.title != null)
-                ArcaneSpan(
-                  styles: const ArcaneStyleData(
-                    fontSize: FontSize.xs,
-                    textColor: TextColor.muted,
-                  ),
-                  child: ArcaneText(component.title!),
+                span(
+                  styles: const Styles(raw: {
+                    'font-size': '12px',
+                    'color': 'var(--arcane-muted)',
+                  }),
+                  [Component.text(component.title!)],
                 )
               else if (component.language != null)
-                ArcaneSpan(
-                  styles: const ArcaneStyleData(
-                    fontSize: FontSize.xs,
-                    textColor: TextColor.muted,
-                    padding: PaddingPreset.badge,
-                    background: Background.glassTint,
-                    borderRadius: Radius.xs,
-                  ),
-                  child: ArcaneText(component.language!),
+                span(
+                  styles: const Styles(raw: {
+                    'font-size': '11px',
+                    'color': 'var(--arcane-muted)',
+                    'padding': '2px 8px',
+                    'background': 'rgba(255,255,255,0.1)',
+                    'border-radius': '4px',
+                  }),
+                  [Component.text(component.language!)],
                 ),
             ],
           ),
 
-        // Copy button with tooltip (top-right, overlaid)
-        ArcaneDiv(
-          styles: const ArcaneStyleData(
-            position: Position.absolute,
-            top: '0',
-            right: '0',
-            padding: PaddingPreset.sm,
-            zIndex: ZIndex.dropdown,
-          ),
-          children: [
-            ArcaneTooltip(
-              content: _copied ? 'Copied!' : 'Copy code',
-              position: TooltipPosition.left,
-              child: ArcaneIconButton.ghost(
-                icon: _copied ? ArcaneIcon.check(size: IconSize.sm) : ArcaneIcon.copy(size: IconSize.sm),
-                size: IconButtonSize.small,
-                onPressed: _copyToClipboard,
-              ),
+        // Copy button (top-right, overlaid)
+        div(
+          styles: const Styles(raw: {
+            'position': 'absolute',
+            'top': '8px',
+            'right': '8px',
+            'z-index': '10',
+          }),
+          [
+            button(
+              styles: Styles(raw: {
+                'display': 'flex',
+                'align-items': 'center',
+                'justify-content': 'center',
+                'width': '28px',
+                'height': '28px',
+                'padding': '0',
+                'border': 'none',
+                'background': 'transparent',
+                'color': _copied ? 'var(--arcane-success)' : 'var(--arcane-muted)',
+                'cursor': 'pointer',
+                'border-radius': '4px',
+              }),
+              events: {'click': (_) => _copyToClipboard()},
+              [
+                _copied
+                    ? ArcaneIcon.check(size: IconSize.sm)
+                    : ArcaneIcon.copy(size: IconSize.sm),
+              ],
             ),
           ],
         ),
 
         // Code content with syntax highlighting
-        ArcaneDiv(
-          styles: ArcaneStyleData(
-            overflow: Overflow.auto,
-            maxHeight: '500px',
-            // Add top padding when there's a language label or title
-            raw: (component.language != null || component.title != null)
-                ? const {'padding-top': '32px'}
-                : null,
-          ),
-          children: [
+        div(
+          styles: Styles(raw: {
+            'overflow': 'auto',
+            'max-height': '500px',
+            if (hasLabel) 'padding-top': '32px',
+          }),
+          [
             Component.element(
               tag: 'pre',
               styles: const Styles(raw: {

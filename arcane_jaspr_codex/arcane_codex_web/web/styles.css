@@ -300,6 +300,12 @@ section h4, section h5, section h6 {
   height: 16px;
 }
 
+/* Demo code block copy buttons */
+.demo-code-block button:hover {
+  background: var(--arcane-surface-variant) !important;
+  color: var(--arcane-accent) !important;
+}
+
 /* ============================================
    SELECTION
    ============================================ */

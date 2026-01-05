@@ -69,6 +69,10 @@ import 'package:arcane_jaspr/component/screen/navigation_screen.dart'
     as _navigation_screen;
 import 'package:arcane_jaspr/component/screen/screen.dart' as _screen;
 import 'package:arcane_jaspr/component/support/app.dart' as _app;
+import 'package:arcane_jaspr/component/view/usa_map/usa_map.dart' as _usa_map;
+import 'package:arcane_jaspr/component/view/world_map/world_map.dart'
+    as _world_map;
+import 'package:arcane_jaspr/component/view/arrow_link.dart' as _arrow_link;
 import 'package:arcane_jaspr/component/view/avatar.dart' as _avatar;
 import 'package:arcane_jaspr/component/view/bar.dart' as _bar;
 import 'package:arcane_jaspr/component/view/card.dart' as _card;
@@ -78,6 +82,7 @@ import 'package:arcane_jaspr/component/view/data_table.dart' as _data_table;
 import 'package:arcane_jaspr/component/view/disclosure.dart' as _disclosure;
 import 'package:arcane_jaspr/component/view/expander.dart' as _expander;
 import 'package:arcane_jaspr/component/view/feature_card.dart' as _feature_card;
+import 'package:arcane_jaspr/component/view/flexi_cards.dart' as _flexi_cards;
 import 'package:arcane_jaspr/component/view/game_tile.dart' as _game_tile;
 import 'package:arcane_jaspr/component/view/glass.dart' as _glass;
 import 'package:arcane_jaspr/component/view/gradient_text.dart'
@@ -179,6 +184,9 @@ ServerOptions get defaultServerOptions => ServerOptions(
     ..._navigation_screen.ArcaneResponsiveScaffold.styles,
     ..._screen.ArcaneScreen.styles,
     ..._app.ArcaneApp.styles,
+    ..._usa_map.ArcaneUSAMap.styles,
+    ..._world_map.ArcaneWorldMap.styles,
+    ..._arrow_link.ArcaneArrowLink.styles,
     ..._avatar.ArcaneAvatarBadge.styles,
     ..._bar.ArcaneBar.styles,
     ..._card.ArcaneCard.styles,
@@ -191,6 +199,8 @@ ServerOptions get defaultServerOptions => ServerOptions(
     ..._expander.ArcaneExpander.styles,
     ..._feature_card.ArcaneFeatureCard.styles,
     ..._feature_card.ArcaneIconCard.styles,
+    ..._flexi_cards.ArcaneFlexiCards.styles,
+    ..._flexi_cards.ArcaneFlexiCardsSimple.styles,
     ..._game_tile.ArcaneGameCard.styles,
     ..._game_tile.ArcaneGameTile.styles,
     ..._glass.ArcaneGlassCard.styles,

@@ -145,65 +145,92 @@ class _DemoCodeBlockState extends State<_DemoCodeBlock> {
     final isLong = lines.length > 10;
     final displayCode = _expanded || !isLong ? component.code : '${lines.take(10).join('\n')}\n...';
 
-    return ArcaneDiv(
-      styles: const ArcaneStyleData(
-        background: Background.code,
-        position: Position.relative,
-      ),
-      children: [
-        // Actions overlay - top right
-        ArcaneDiv(
-          styles: const ArcaneStyleData(
-            position: Position.absolute,
-            top: '8px',
-            right: '8px',
-            zIndex: ZIndex.dropdown,
-            display: Display.flex,
-            alignItems: AlignItems.center,
-            gap: Gap.xs,
-          ),
-          children: [
+    // Use raw div() with explicit inline styles to ensure positioning works
+    return div(
+      styles: const Styles(raw: {
+        'position': 'relative',
+        'background': 'var(--arcane-code-background, var(--arcane-surface-variant))',
+      }),
+      [
+        // Actions overlay - positioned absolute top-right
+        div(
+          styles: const Styles(raw: {
+            'position': 'absolute',
+            'top': '8px',
+            'right': '8px',
+            'z-index': '10',
+            'display': 'flex',
+            'align-items': 'center',
+            'gap': '8px',
+          }),
+          [
             // Language badge
-            ArcaneSpan(
-              styles: const ArcaneStyleData(
-                fontSize: FontSize.xs,
-                textColor: TextColor.muted,
-                padding: PaddingPreset.badge,
-                background: Background.glassTint,
-                borderRadius: Radius.xs,
-              ),
-              child: ArcaneText(component.language),
+            span(
+              styles: const Styles(raw: {
+                'font-size': '11px',
+                'color': 'var(--arcane-muted)',
+                'padding': '2px 8px',
+                'background': 'rgba(255,255,255,0.1)',
+                'border-radius': '4px',
+              }),
+              [Component.text(component.language)],
             ),
+            // Expand/collapse button (if code is long)
             if (isLong)
-              ArcaneTooltip(
-                content: _expanded ? 'Show less' : 'Show more',
-                position: TooltipPosition.bottom,
-                child: ArcaneIconButton.ghost(
-                  icon: _expanded ? ArcaneIcon.minimize2(size: IconSize.sm) : ArcaneIcon.maximize2(size: IconSize.sm),
-                  size: IconButtonSize.small,
-                  onPressed: _toggleExpanded,
-                ),
+              button(
+                styles: Styles(raw: {
+                  'display': 'flex',
+                  'align-items': 'center',
+                  'justify-content': 'center',
+                  'width': '28px',
+                  'height': '28px',
+                  'padding': '0',
+                  'border': 'none',
+                  'background': 'transparent',
+                  'color': 'var(--arcane-muted)',
+                  'cursor': 'pointer',
+                  'border-radius': '4px',
+                }),
+                events: {'click': (_) => _toggleExpanded()},
+                [
+                  _expanded
+                      ? ArcaneIcon.minimize2(size: IconSize.sm)
+                      : ArcaneIcon.maximize2(size: IconSize.sm),
+                ],
               ),
-            ArcaneTooltip(
-              content: _copied ? 'Copied!' : 'Copy code',
-              position: TooltipPosition.bottom,
-              child: ArcaneIconButton.ghost(
-                icon: _copied ? ArcaneIcon.check(size: IconSize.sm) : ArcaneIcon.copy(size: IconSize.sm),
-                size: IconButtonSize.small,
-                onPressed: _copyToClipboard,
-              ),
+            // Copy button
+            button(
+              styles: Styles(raw: {
+                'display': 'flex',
+                'align-items': 'center',
+                'justify-content': 'center',
+                'width': '28px',
+                'height': '28px',
+                'padding': '0',
+                'border': 'none',
+                'background': 'transparent',
+                'color': _copied ? 'var(--arcane-success)' : 'var(--arcane-muted)',
+                'cursor': 'pointer',
+                'border-radius': '4px',
+              }),
+              events: {'click': (_) => _copyToClipboard()},
+              [
+                _copied
+                    ? ArcaneIcon.check(size: IconSize.sm)
+                    : ArcaneIcon.copy(size: IconSize.sm),
+              ],
             ),
           ],
         ),
 
         // Code content with syntax highlighting
-        ArcaneDiv(
-          styles: ArcaneStyleData(
-            overflow: Overflow.auto,
-            maxHeight: _expanded ? 'none' : '300px',
-            raw: const {'padding-top': '40px'}, // Space for overlay buttons
-          ),
-          children: [
+        div(
+          styles: Styles(raw: {
+            'overflow': 'auto',
+            'max-height': _expanded ? 'none' : '300px',
+            'padding-top': '40px', // Space for overlay buttons
+          }),
+          [
             Component.element(
               tag: 'pre',
               styles: const Styles(raw: {

@@ -689,7 +689,7 @@ class ArcaneStyleData {
 
     // Colors
     if (background != null) css['background-color'] = background!.css;
-    if (backgroundCustom != null) css['background-color'] = backgroundCustom!;
+    if (backgroundCustom != null) css['background'] = backgroundCustom!;
     if (textColor != null) css['color'] = textColor!.css;
     if (textColorCustom != null) css['color'] = textColorCustom!;
 
@@ -840,7 +840,7 @@ class ArcaneStyleData {
 
     // Colors
     if (background != null) css['background-color'] = background!.css;
-    if (backgroundCustom != null) css['background-color'] = backgroundCustom!;
+    if (backgroundCustom != null) css['background'] = backgroundCustom!;
     if (textColor != null) css['color'] = textColor!.css;
     if (textColorCustom != null) css['color'] = textColorCustom!;
 

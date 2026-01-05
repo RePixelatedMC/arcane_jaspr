@@ -75,11 +75,23 @@ class BadgeStyle {
   // Rainbow Color Variants (with backdrop blur, minimal corners)
   // =========================================================================
 
+  /// Gray/Neutral badge
+  static const BadgeStyle gray = BadgeStyle._({
+    'background-color': ArcaneColors.grayAlpha35,
+    'color': ArcaneColors.gray,
+    'border': '1px solid ${ArcaneColors.grayAlpha50}',
+    'border-radius': ArcaneRadius.xs,
+    'backdrop-filter': ArcaneEffects.backdropBlurLight,
+    '-webkit-backdrop-filter': ArcaneEffects.backdropBlurLight,
+    'text-shadow': ArcaneEffects.textShadowContrast,
+    'font-size': '0.85rem',
+  });
+
   /// Red badge
   static const BadgeStyle red = BadgeStyle._({
-    'background-color': ArcaneColors.redAlpha20,
+    'background-color': ArcaneColors.redAlpha35,
     'color': ArcaneColors.red,
-    'border': '1px solid ${ArcaneColors.redAlpha40}',
+    'border': '1px solid ${ArcaneColors.redAlpha50}',
     'border-radius': ArcaneRadius.xs,
     'backdrop-filter': ArcaneEffects.backdropBlurLight,
     '-webkit-backdrop-filter': ArcaneEffects.backdropBlurLight,
@@ -89,9 +101,9 @@ class BadgeStyle {
 
   /// Orange badge
   static const BadgeStyle orange = BadgeStyle._({
-    'background-color': ArcaneColors.orangeAlpha20,
+    'background-color': ArcaneColors.orangeAlpha35,
     'color': ArcaneColors.orange,
-    'border': '1px solid ${ArcaneColors.orangeAlpha40}',
+    'border': '1px solid ${ArcaneColors.orangeAlpha50}',
     'border-radius': ArcaneRadius.xs,
     'backdrop-filter': ArcaneEffects.backdropBlurLight,
     '-webkit-backdrop-filter': ArcaneEffects.backdropBlurLight,
@@ -101,9 +113,9 @@ class BadgeStyle {
 
   /// Amber/Yellow badge
   static const BadgeStyle yellow = BadgeStyle._({
-    'background-color': ArcaneColors.yellowAlpha20,
+    'background-color': ArcaneColors.yellowAlpha35,
     'color': ArcaneColors.yellow,
-    'border': '1px solid ${ArcaneColors.yellowAlpha40}',
+    'border': '1px solid ${ArcaneColors.yellowAlpha50}',
     'border-radius': ArcaneRadius.xs,
     'backdrop-filter': ArcaneEffects.backdropBlurLight,
     '-webkit-backdrop-filter': ArcaneEffects.backdropBlurLight,
@@ -113,9 +125,9 @@ class BadgeStyle {
 
   /// Green badge
   static const BadgeStyle green = BadgeStyle._({
-    'background-color': ArcaneColors.greenAlpha20,
+    'background-color': ArcaneColors.greenAlpha35,
     'color': ArcaneColors.green,
-    'border': '1px solid ${ArcaneColors.greenAlpha40}',
+    'border': '1px solid ${ArcaneColors.greenAlpha50}',
     'border-radius': ArcaneRadius.xs,
     'backdrop-filter': ArcaneEffects.backdropBlurLight,
     '-webkit-backdrop-filter': ArcaneEffects.backdropBlurLight,
@@ -125,9 +137,9 @@ class BadgeStyle {
 
   /// Teal badge
   static const BadgeStyle teal = BadgeStyle._({
-    'background-color': ArcaneColors.tealAlpha20,
+    'background-color': ArcaneColors.tealAlpha35,
     'color': ArcaneColors.teal,
-    'border': '1px solid ${ArcaneColors.tealAlpha40}',
+    'border': '1px solid ${ArcaneColors.tealAlpha50}',
     'border-radius': ArcaneRadius.xs,
     'backdrop-filter': ArcaneEffects.backdropBlurLight,
     '-webkit-backdrop-filter': ArcaneEffects.backdropBlurLight,
@@ -137,9 +149,9 @@ class BadgeStyle {
 
   /// Cyan badge
   static const BadgeStyle cyan = BadgeStyle._({
-    'background-color': ArcaneColors.cyanAlpha20,
+    'background-color': ArcaneColors.cyanAlpha35,
     'color': ArcaneColors.cyan,
-    'border': '1px solid ${ArcaneColors.cyanAlpha40}',
+    'border': '1px solid ${ArcaneColors.cyanAlpha50}',
     'border-radius': ArcaneRadius.xs,
     'backdrop-filter': ArcaneEffects.backdropBlurLight,
     '-webkit-backdrop-filter': ArcaneEffects.backdropBlurLight,
@@ -149,9 +161,9 @@ class BadgeStyle {
 
   /// Blue badge
   static const BadgeStyle blue = BadgeStyle._({
-    'background-color': ArcaneColors.blueAlpha20,
+    'background-color': ArcaneColors.blueAlpha35,
     'color': ArcaneColors.blue,
-    'border': '1px solid ${ArcaneColors.blueAlpha40}',
+    'border': '1px solid ${ArcaneColors.blueAlpha50}',
     'border-radius': ArcaneRadius.xs,
     'backdrop-filter': ArcaneEffects.backdropBlurLight,
     '-webkit-backdrop-filter': ArcaneEffects.backdropBlurLight,
@@ -161,9 +173,9 @@ class BadgeStyle {
 
   /// Indigo badge
   static const BadgeStyle indigo = BadgeStyle._({
-    'background-color': ArcaneColors.indigoAlpha20,
+    'background-color': ArcaneColors.indigoAlpha35,
     'color': ArcaneColors.indigo,
-    'border': '1px solid ${ArcaneColors.indigoAlpha40}',
+    'border': '1px solid ${ArcaneColors.indigoAlpha50}',
     'border-radius': ArcaneRadius.xs,
     'backdrop-filter': ArcaneEffects.backdropBlurLight,
     '-webkit-backdrop-filter': ArcaneEffects.backdropBlurLight,
@@ -173,9 +185,9 @@ class BadgeStyle {
 
   /// Purple/Violet badge
   static const BadgeStyle purple = BadgeStyle._({
-    'background-color': ArcaneColors.purpleAlpha20,
+    'background-color': ArcaneColors.purpleAlpha35,
     'color': ArcaneColors.purple,
-    'border': '1px solid ${ArcaneColors.purpleAlpha40}',
+    'border': '1px solid ${ArcaneColors.purpleAlpha50}',
     'border-radius': ArcaneRadius.xs,
     'backdrop-filter': ArcaneEffects.backdropBlurLight,
     '-webkit-backdrop-filter': ArcaneEffects.backdropBlurLight,
@@ -185,9 +197,9 @@ class BadgeStyle {
 
   /// Pink badge
   static const BadgeStyle pink = BadgeStyle._({
-    'background-color': ArcaneColors.pinkAlpha20,
+    'background-color': ArcaneColors.pinkAlpha35,
     'color': ArcaneColors.pink,
-    'border': '1px solid ${ArcaneColors.pinkAlpha40}',
+    'border': '1px solid ${ArcaneColors.pinkAlpha50}',
     'border-radius': ArcaneRadius.xs,
     'backdrop-filter': ArcaneEffects.backdropBlurLight,
     '-webkit-backdrop-filter': ArcaneEffects.backdropBlurLight,
@@ -197,9 +209,9 @@ class BadgeStyle {
 
   /// Rose badge
   static const BadgeStyle rose = BadgeStyle._({
-    'background-color': ArcaneColors.roseAlpha20,
+    'background-color': ArcaneColors.roseAlpha35,
     'color': ArcaneColors.rose,
-    'border': '1px solid ${ArcaneColors.roseAlpha40}',
+    'border': '1px solid ${ArcaneColors.roseAlpha50}',
     'border-radius': ArcaneRadius.xs,
     'backdrop-filter': ArcaneEffects.backdropBlurLight,
     '-webkit-backdrop-filter': ArcaneEffects.backdropBlurLight,
