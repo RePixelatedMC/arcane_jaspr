@@ -2,7 +2,7 @@
 title: ArcaneUSAMap
 description: An interactive, themeable SVG USA map component
 layout: docs
-demo: usa-map
+component: usa-map
 ---
 
 # ArcaneUSAMap

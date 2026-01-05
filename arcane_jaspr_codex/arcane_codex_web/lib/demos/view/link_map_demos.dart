@@ -116,12 +116,13 @@ class LinkMapDemos {
             ArcaneDiv(
               styles: const ArcaneStyleData(
                 widthCustom: '100%',
-                maxWidthCustom: '800px',
+                minHeight: '450px',
                 borderRadius: Radius.lg,
                 overflow: Overflow.hidden,
               ),
               children: [
                 ArcaneWorldMap(
+                  height: '400px',
                   locations: [
                     ArcaneMapLocation(
                       id: 'nyc',
@@ -179,12 +180,13 @@ class LinkMapDemos {
             ArcaneDiv(
               styles: const ArcaneStyleData(
                 widthCustom: '100%',
-                maxWidthCustom: '800px',
+                minHeight: '450px',
                 borderRadius: Radius.lg,
                 overflow: Overflow.hidden,
               ),
               children: [
                 ArcaneWorldMap(
+                  height: '400px',
                   style: ArcaneWorldMapStyle.subtle,
                   locations: [
                     ArcaneMapLocation(
@@ -221,12 +223,13 @@ class LinkMapDemos {
             ArcaneDiv(
               styles: const ArcaneStyleData(
                 widthCustom: '100%',
-                maxWidthCustom: '700px',
+                minHeight: '400px',
                 borderRadius: Radius.lg,
                 overflow: Overflow.hidden,
               ),
               children: [
                 ArcaneUSAMap(
+                  height: '350px',
                   locations: [
                     ArcaneUSAMapLocation(
                       id: 'nyc',
@@ -284,12 +287,13 @@ class LinkMapDemos {
             ArcaneDiv(
               styles: const ArcaneStyleData(
                 widthCustom: '100%',
-                maxWidthCustom: '700px',
+                minHeight: '400px',
                 borderRadius: Radius.lg,
                 overflow: Overflow.hidden,
               ),
               children: [
                 ArcaneUSAMap(
+                  height: '350px',
                   style: ArcaneUSAMapStyle.prominent,
                   activeStates: {'CA', 'TX', 'NY', 'FL'},
                   locations: [

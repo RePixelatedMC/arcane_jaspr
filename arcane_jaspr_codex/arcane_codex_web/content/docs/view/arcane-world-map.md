@@ -2,7 +2,7 @@
 title: ArcaneWorldMap
 description: An interactive, themeable SVG world map component
 layout: docs
-demo: world-map
+component: world-map
 ---
 
 # ArcaneWorldMap

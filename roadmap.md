@@ -194,13 +194,13 @@ ArcaneForm(
 **Problem:** Several common input types are missing.
 
 **Components to Add:**
-- [ ] `ArcaneTextarea` - Multi-line text input with auto-resize, character counter
+- [X] `ArcaneTextarea` - Multi-line text input with auto-resize, character counter
 - [x] `ArcaneDatePicker` - Date selection with calendar popup
 - [ ] `ArcaneTimePicker` - Time selection
-- [ ] `ArcaneDateTimePicker` - Combined date/time
+- [X] `ArcaneDateTimePicker` - Combined date/time
 - [x] `ArcaneDateRangePicker` - Date range selection (via ArcaneCalendar range mode)
 - [x] `ArcaneRadioGroup` - Radio button group with proper ARIA
-- [ ] `ArcaneMultiSelect` - Multiple selection with checkboxes
+- [X] `ArcaneMultiSelect` - Multiple selection with checkboxes
 - [x] `ArcaneCombobox` - Searchable select with custom input
 - [ ] `ArcanePhoneInput` - Phone number with country code
 - [ ] `ArcaneCurrencyInput` - Currency formatting

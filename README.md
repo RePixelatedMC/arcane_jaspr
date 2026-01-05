@@ -1,17 +1,196 @@
 # Arcane Jaspr
 
-A modern, comprehensive UI component library for [Jaspr](https://github.com/schultek/jaspr) web applications. Build beautiful, accessible interfaces with semantic HTML and CSS—no Flutter widgets required.
+A Flutter-like UI component library for [Jaspr](https://github.com/schultek/jaspr) web applications. Write familiar Dart code, get semantic HTML + CSS.
 
 **Works everywhere**: Full interactivity on both hydrated Jaspr apps and static sites.
 
+## The Problem: Web Development in Dart
+
+Building web UIs in Dart traditionally means wrestling with raw HTML and CSS strings:
+
+### Raw HTML + CSS (The Pain)
+
+```html
+<div style="display: flex; flex-direction: column; gap: 8px; width: 100%;">
+  <label style="font-size: 0.875rem; font-weight: 500; color: var(--text-secondary);">
+    Username
+  </label>
+  <input
+    type="text"
+    placeholder="Enter username"
+    style="
+      padding: 10px 14px;
+      font-size: 0.875rem;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      background: var(--surface);
+      color: var(--text-primary);
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    "
+  />
+  <span style="font-size: 0.75rem; color: var(--text-muted);">
+    Choose a unique username
+  </span>
+</div>
+```
+
+Problems:
+- No autocomplete for CSS properties
+- Typos become runtime bugs
+- Copy-paste styling everywhere
+- No type safety
+
+### Jaspr (Better, but...)
+
+```dart
+div(
+  styles: Styles(raw: {
+    'display': 'flex',
+    'flex-direction': 'column',
+    'gap': '8px',
+    'width': '100%',
+  }),
+  [
+    label(
+      styles: Styles(raw: {
+        'font-size': '0.875rem',
+        'font-weight': '500',
+        'color': 'var(--text-secondary)',
+      }),
+      [text('Username')],
+    ),
+    input(
+      type: InputType.text,
+      attributes: {'placeholder': 'Enter username'},
+      styles: Styles(raw: {
+        'padding': '10px 14px',
+        'font-size': '0.875rem',
+        'border': '1px solid var(--border-color)',
+        'border-radius': '8px',
+        'background': 'var(--surface)',
+        'color': 'var(--text-primary)',
+        // ... more CSS strings
+      }),
+      [],
+    ),
+    span(
+      styles: Styles(raw: {'font-size': '0.75rem', 'color': 'var(--text-muted)'}),
+      [text('Choose a unique username')],
+    ),
+  ],
+)
+```
+
+Still requires:
+- Memorizing CSS property names
+- String-based values with no validation
+- Manual theming integration
+
+### Arcane Jaspr (The Solution)
+
+```dart
+ArcaneTextInput(
+  label: 'Username',
+  placeholder: 'Enter username',
+  helperText: 'Choose a unique username',
+  onChanged: (value) => print(value),
+)
+```
+
+**That's it.** One component, type-safe, themed, accessible.
+
+## Flutter Developers Feel at Home
+
+If you know Flutter, you already know Arcane Jaspr:
+
+| Flutter | Arcane Jaspr |
+|---------|-------------|
+| `TextField(decoration: InputDecoration(...))` | `ArcaneTextInput(label: ..., placeholder: ...)` |
+| `DropdownButton(items: [...])` | `ArcaneSelector(options: [...])` |
+| `Column(children: [...])` | `ArcaneColumn(children: [...])` |
+| `Container(padding: ..., child: ...)` | `ArcaneDiv(styles: ArcaneStyleData(...), children: [...])` |
+| `ElevatedButton(onPressed: ...)` | `ArcaneButton.primary(onPressed: ...)` |
+
+### Type-Safe Styling with Enums
+
+No more magic strings. Every CSS property is an enum:
+
+```dart
+// Flutter
+Container(
+  padding: EdgeInsets.all(16),
+  decoration: BoxDecoration(
+    color: Colors.surface,
+    borderRadius: BorderRadius.circular(8),
+    boxShadow: [BoxShadow(...)],
+  ),
+  child: child,
+)
+
+// Arcane Jaspr
+ArcaneDiv(
+  styles: const ArcaneStyleData(
+    padding: PaddingPreset.lg,          // Not 'padding': '16px'
+    background: Background.surface,     // Not 'background': 'var(--surface)'
+    borderRadius: Radius.md,            // Not 'border-radius': '8px'
+    shadow: Shadow.md,                  // Not 'box-shadow': '0 4px 6px...'
+  ),
+  children: [child],
+)
+```
+
+## Real-World Examples
+
+### Searchable Dropdown (ArcaneSelector)
+
+**Raw HTML approach** - ~150 lines of HTML, CSS, and JavaScript
+
+**Arcane Jaspr approach:**
+
+```dart
+ArcaneSelector<String>(
+  label: 'Country',
+  options: [
+    ArcaneSelectorOption(value: 'us', label: 'United States', icon: flagUs),
+    ArcaneSelectorOption(value: 'uk', label: 'United Kingdom', icon: flagUk),
+    ArcaneSelectorOption(value: 'ca', label: 'Canada', icon: flagCa),
+  ],
+  value: selectedCountry,
+  onChanged: (value) => setState(() => selectedCountry = value),
+  searchable: true,              // Built-in search
+  clearable: true,               // Built-in clear button
+  size: SelectorSize.md,         // Enum, not 'height': '40px'
+  dropdownDirection: DropdownDirection.down,  // Type-safe positioning
+)
+```
+
+### Inline Editable Text (ArcaneMutableText)
+
+**The old way:** Build a text display, build an input, manage edit state, handle keyboard events, style both states...
+
+**Arcane Jaspr:**
+
+```dart
+ArcaneMutableText(
+  value: documentTitle,
+  placeholder: 'Untitled Document',
+  onSave: (newTitle) => updateTitle(newTitle),
+  trigger: MutableTextTrigger.click,       // or .doubleClick, .icon
+  inputType: MutableTextInputType.text,    // or .multiline, .number
+  displayStyle: MutableTextStyle.subtle,   // or .prominent, .minimal
+  selectAllOnEdit: true,
+)
+```
+
 ## Features
 
-- **50+ Components** — Buttons, inputs, dialogs, navigation, data display, and more
-- **One-Line Theming** — 20+ built-in themes with full customization
-- **Static Site Support** — Automatic JavaScript fallbacks when hydration is unavailable
-- **Type-Safe Styling** — `ArcaneStyleData` with enum-based CSS properties
-- **Firebase Auth** — Built-in authentication UI with OAuth support
-- **Accessible** — ARIA attributes, keyboard navigation, semantic HTML
+- **75+ Components** - Buttons, inputs, dialogs, navigation, data display, and more
+- **One-Line Theming** - 20+ built-in themes with full customization
+- **Static Site Support** - Automatic JavaScript fallbacks when hydration is unavailable
+- **Type-Safe Styling** - `ArcaneStyleData` with enum-based CSS properties
+- **Firebase Auth** - Built-in authentication UI with OAuth support
+- **Accessible** - ARIA attributes, keyboard navigation, semantic HTML
 
 ## Installation
 
@@ -81,203 +260,46 @@ ArcaneApp(
 )
 ```
 
-## Components
-
-### Buttons
-
-```dart
-ArcaneButton.primary(label: 'Primary', onPressed: () {})
-ArcaneButton.secondary(label: 'Secondary', onPressed: () {})
-ArcaneButton.outline(label: 'Outline', onPressed: () {})
-ArcaneButton.ghost(label: 'Ghost', onPressed: () {})
-ArcaneButton.destructive(label: 'Delete', onPressed: () {})
-ArcaneButton.link(label: 'Link', onPressed: () {})
-
-ArcaneIconButton(icon: ArcaneIcon.settings, onPressed: () {})
-```
+## Components at a Glance
 
 ### Inputs
-
 ```dart
-// Text
 ArcaneTextInput(label: 'Email', placeholder: 'you@example.com')
-ArcaneTextArea(label: 'Bio', rows: 4, resize: TextAreaResize.both)
-ArcaneSearch(placeholder: 'Search...')
-
-// Selection
-ArcaneSelect(options: [...], value: selected)
 ArcaneSelector(options: [...], value: selected, searchable: true)
 ArcaneCheckbox(checked: true, onChanged: (_) {})
-ArcaneRadio(selected: true, label: 'Option A')
-ArcaneToggleSwitch(value: true, onChanged: (_) {})
-
-// Specialized
 ArcaneSlider(value: 50, min: 0, max: 100)
-ArcaneRangeSlider(minValue: 20, maxValue: 80)
-ArcaneNumberInput(value: 5, min: 0, max: 10)
-ArcaneColorInput(value: '#10b981', label: 'Color')
-ArcaneTagInput(tags: ['React', 'Vue'], placeholder: 'Add tag...')
-ArcaneFileUpload(onFilesSelected: (_) {})
-
-// Time & Date
-ArcaneTimePicker(value: TimeOfDay(hour: 14, minute: 30))
-ArcaneFormattedInput.date(initialMonth: '01', initialDay: '15', initialYear: '2024')
-ArcaneFormattedInput.phone()
-ArcaneFormattedInput.creditCard()
-
-// Toggles
-ArcaneThemeToggle(isDark: true, onChanged: (_) {})
-ArcaneCycleButton(options: [...], value: 'a')
-ArcaneToggleButton(value: false, label: 'Bold')
-ArcaneToggleButtonGroup(options: ['S', 'M', 'L'], selectedIndex: 1)
+ArcaneMutableText(value: 'Click to edit', onSave: (v) {})
 ```
 
 ### Layout
-
 ```dart
-// Flex
 ArcaneRow(children: [...])
 ArcaneColumn(children: [...])
-ArcaneCenter(child: ...)
-
-// Containers
-ArcaneContainer(maxWidth: MaxWidth.lg, child: ...)
 ArcaneCard(child: ...)
-ArcaneSection(header: 'Title', children: [...])
-
-// Grid
-ArcaneDiv(
-  styles: ArcaneStyleData(
-    display: Display.grid,
-    gridColumns: GridColumns.three,
-    gap: Gap.lg,
-  ),
-  children: [...],
-)
-
-// Spacing
-ArcanePadding(padding: PaddingPreset.lg, child: ...)
-ArcaneGutter.medium()
-ArcaneSpacer()
-
-// Scroll Rail (sticky sidebar)
-ArcaneScrollRail(
-  width: '280px',
-  topOffset: '64px',
-  children: [...],
-)
+ArcaneContainer(maxWidth: MaxWidth.lg, child: ...)
 ```
 
 ### Navigation
-
 ```dart
 ArcaneBar(titleText: 'App', trailing: [...])
 ArcaneSidebar(children: [...])
-ArcaneBottomNav(items: [...], selectedIndex: 0)
 ArcaneTabs(tabs: [...])
 ArcaneDropdownMenu(trigger: ..., items: [...])
-ArcaneBreadcrumb(items: [...])
 ```
 
 ### Display
-
 ```dart
 ArcaneAvatar(imageUrl: '...', size: 48)
-ArcaneAvatarBadge(status: AvatarBadgeStatus.online, child: avatar)
 ArcaneBadge(label: 'New', variant: BadgeVariant.success)
-ArcaneChip(label: 'Tag', onRemove: () {})
-ArcaneDivider()
 ArcaneProgressBar(value: 0.75)
-ArcaneLoader()
-ArcaneSkeleton(width: 200, height: 20)
-ArcaneEmptyState(message: 'No items found')
-ArcaneTooltip(message: 'Help', child: ...)
-ArcaneAccordion(items: [...])
 ArcaneDataTable(columns: [...], rows: [...])
-ArcaneSwitcher(direction: SwitcherDirection.fade, child: content)
-ArcaneSurfaceCard(effect: SurfaceEffect.frosted, child: content)
-ArcaneTracker(data: [...])  // GitHub-style contribution grid
-ArcaneDotIndicator(count: 5, currentIndex: 2)  // Carousel dots
 ```
 
-### Feedback & Dialogs
-
+### Feedback
 ```dart
-ArcaneDialog(title: 'Confirm', child: ..., onClose: () {})
-ArcaneSheet(position: SheetPosition.bottom, child: content)  // Slide-in panel
-ArcaneActionSheet(actions: [...])  // Mobile action sheet
-ArcaneAlertBanner(message: 'Success!', variant: AlertVariant.success)
+ArcaneDialog(title: 'Confirm', child: ...)
 ArcaneToast(message: 'Saved!')
-ArcaneItemPicker(items: [...], onSelect: (item) {})  // Item picker dialog
-ArcaneEmailDialog(onSubmit: (email) {})  // Email input dialog
-ArcaneTimeDialog(onConfirm: (time) {})  // Time picker dialog
-```
-
-### Screens
-
-```dart
-ArcaneScreen(header: ..., child: content)
-ArcaneFillScreen(child: content)  // Full viewport height
-ArcaneChatScreen(  // Chat interface
-  provider: chatProvider,
-  currentUserId: 'user123',
-  style: ChatStyle.bubbles,  // or .tiles
-)
-```
-
-## Styling System
-
-Use `ArcaneStyleData` for type-safe, enum-based CSS:
-
-```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
-    display: Display.flex,
-    flexDirection: FlexDirection.column,
-    padding: PaddingPreset.lg,
-    gap: Gap.md,
-    background: Background.surface,
-    borderRadius: Radius.lg,
-    shadow: Shadow.md,
-  ),
-  children: [...],
-)
-```
-
-### Flex Presets
-
-```dart
-flex: FlexPreset.expand,    // flex: 1 1 0% (fill available space)
-flex: FlexPreset.none,      // flex: 0 0 auto (fixed size)
-flex: FlexPreset.auto,      // flex: 1 1 auto
-flex: FlexPreset.equal,     // flex: 1 1 0 (equal distribution)
-```
-
-### Grid Templates
-
-```dart
-gridColumns: GridColumns.three,        // repeat(3, 1fr)
-gridColumns: GridColumns.autoFitMd,    // repeat(auto-fit, minmax(280px, 1fr))
-gridColumns: GridColumns.sidebar,      // 280px 1fr
-gridRows: GridRows.headerContentFooter, // auto 1fr auto
-```
-
-### Border Width
-
-```dart
-borderLeft: BorderPreset.accent,
-borderLeftWidth: BorderWidth.thick,  // 3px
-```
-
-### Raw CSS Fallback
-
-```dart
-ArcaneDiv(
-  styles: ArcaneStyleData(
-    raw: {'backdrop-filter': 'blur(10px)'},
-  ),
-  children: [...],
-)
+ArcaneAlertBanner(message: 'Success!', variant: AlertVariant.success)
 ```
 
 ## Static Site Support
@@ -285,156 +307,15 @@ ArcaneDiv(
 `ArcaneApp` automatically injects JavaScript fallbacks for static sites built with `jaspr build`. All interactive components work without hydration:
 
 ```dart
-// Works on both hydrated apps and static sites
 ArcaneApp(
   theme: ArcaneTheme.green,
-  child: MyContent(),
+  child: MyContent(),  // Works on static sites!
 )
-
-// Opt out if using full Jaspr hydration
-ArcaneApp(
-  includeFallbackScripts: false,
-  child: MyContent(),
-)
-```
-
-### Supported Components
-
-All interactive components have JavaScript fallbacks:
-- Sliders, range sliders
-- Color inputs, number inputs, formatted inputs
-- Checkboxes, radios, toggle switches
-- Theme toggles, cycle buttons
-- Dropdowns, selectors, item pickers
-- Tabs, accordions, dot indicators
-- Dialogs, toasts, popovers
-- Sheets, drawers, mobile menus
-- Time pickers, date pickers
-- Trackers, chat screens
-- And more...
-
-## Authentication
-
-Built-in Firebase authentication with OAuth:
-
-```dart
-// 1. Wrap app with provider
-ArcaneAuthProvider(
-  serverApiUrl: 'https://api.example.com',
-  redirectOnLogin: '/dashboard',
-  child: App(),
-)
-
-// 2. Protect routes
-AuthGuard(redirectTo: '/login', child: Dashboard())
-
-// 3. Guest-only routes
-GuestGuard(redirectTo: '/dashboard', child: LoginPage())
-
-// 4. Pre-built auth UI
-ArcaneLoginCard(
-  methods: [AuthMethod.email, AuthMethod.github, AuthMethod.google],
-  signupRoute: '/signup',
-)
-
-// 5. Access auth state
-if (context.isAuthenticated) {
-  final user = context.currentUser;
-}
-
-context.signInWithGitHub();
-context.signOut();
-```
-
-### Social Sign-In Buttons
-
-```dart
-GithubSignInButton(onPressed: () => context.signInWithGitHub())
-GoogleSignInButton(onPressed: () => context.signInWithGoogle())
-AppleSignInButton(onPressed: () => context.signInWithApple())
-```
-
-### Password Policies
-
-```dart
-PasswordPolicy.weak     // 6+ chars
-PasswordPolicy.medium   // 8+ chars, uppercase, number
-PasswordPolicy.strong   // 8+ chars, upper, lower, number, special
-
-// Custom
-PasswordPolicy(
-  minLength: 12,
-  requireUppercase: true,
-  requireSpecialChar: true,
-)
-```
-
-## CSS Custom Properties
-
-All themes generate 150+ CSS variables:
-
-```css
---arcane-accent           /* Primary accent color */
---arcane-accent-50..950   /* Full accent swatch */
---arcane-background       /* Page background */
---arcane-surface          /* Card/container surface */
---arcane-on-surface       /* Text on surface */
---arcane-border           /* Border color */
---arcane-success          /* Success states */
---arcane-warning          /* Warning states */
---arcane-error            /* Error states */
---arcane-info             /* Info states */
-```
-
-## Project Structure
-
-```
-lib/
-├── arcane_jaspr.dart       # Main export
-├── component/
-│   ├── auth/               # Auth UI components
-│   ├── button/             # Social sign-in buttons
-│   ├── dialog/             # Modals, toasts, popovers
-│   ├── feedback/           # Alerts, loaders, progress
-│   ├── form/               # Form fields, validation
-│   ├── html/               # HTML element wrappers
-│   ├── input/              # Buttons, inputs, toggles
-│   ├── layout/             # Containers, grids, tabs
-│   ├── navigation/         # Sidebar, header, nav
-│   ├── screen/             # Full-page screens
-│   └── view/               # Display components
-├── provider/               # Auth context, guards
-├── service/                # Firebase auth service
-└── util/
-    ├── appearance/         # Colors, themes
-    ├── interactivity/      # Static site scripts
-    ├── style_types/        # ArcaneStyleData enums
-    └── tokens/             # Design tokens
 ```
 
 ## Documentation
 
 Full documentation with live examples: **[arcanearts.github.io/arcane_jaspr](https://arcanearts.github.io/arcane_jaspr/)**
-
-```bash
-cd arcane_jaspr_codex/arcane_codex_web
-jaspr serve  # http://localhost:8080
-```
-
-## Commands
-
-```bash
-dart pub get                    # Install dependencies
-dart analyze lib/               # Run analyzer
-dart test -p chrome             # Run tests
-dart run build_runner build     # Code generation
-```
-
-## Dependencies
-
-- `jaspr: ^0.22.0` — Core web framework
-- `web: ^1.1.1` — Web APIs
-- `http: ^1.6.0` — HTTP client
 
 ## License
 

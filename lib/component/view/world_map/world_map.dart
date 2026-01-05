@@ -67,26 +67,13 @@ class ArcaneWorldMap extends StatefulComponent {
 
   @css
   static final List<StyleRule> styles = [
-    // Pin hover effects
+    // Pin hover effects - use filter only, no transform to avoid SVG origin issues
     css('.arcane-map-pin').styles(raw: {
       'cursor': 'pointer',
-      'transition': 'transform 150ms ease, filter 150ms ease',
+      'transition': 'filter 150ms ease, opacity 150ms ease',
     }),
     css('.arcane-map-pin:hover').styles(raw: {
-      'transform': 'scale(1.3)',
-      'filter': 'drop-shadow(0 0 6px ${ArcaneColors.accent})',
-    }),
-
-    // Pulse animation keyframes
-    css('@keyframes arcane-map-pulse').styles(raw: {
-      '0%': 'opacity: 1; r: 6',
-      '100%': 'opacity: 0; r: 18',
-    }),
-
-    // Pulse circle
-    css('.arcane-map-pulse').styles(raw: {
-      'animation': 'arcane-map-pulse 1.5s ease-out infinite',
-      'transform-origin': 'center',
+      'filter': 'drop-shadow(0 0 8px var(--arcane-accent)) brightness(1.2)',
     }),
 
     // Tooltip container
@@ -232,10 +219,9 @@ class _ArcaneWorldMapState extends State<ArcaneWorldMap> {
   }
 
   Component _buildPin(ArcaneMapLocation location) {
-    final (x, y) = ArcaneMapProjection.latLngToSvg(
-      location.latitude,
-      location.longitude,
-    );
+    // Use pre-calculated SVG coordinates if available, otherwise convert lat/lng
+    final (double x, double y) = ArcaneMapProjection.citySvgCoords[location.id] ??
+        ArcaneMapProjection.latLngToSvg(location.latitude, location.longitude);
 
     final style = component.style;
     final isHovered = _hoveredLocation?.id == location.id;
@@ -267,17 +253,6 @@ class _ArcaneWorldMapState extends State<ArcaneWorldMap> {
         'click': (_) => _handlePinTap(location),
       },
       children: [
-        // Pulse animation circle (when hovered)
-        if (isHovered && style.pinPulse)
-          ArcaneSvgCircle(
-            cx: '0',
-            cy: '0',
-            r: '$pinSize',
-            fill: 'none',
-            stroke: pinColor,
-            strokeWidth: '2',
-          ),
-
         // Outer glow
         ArcaneSvgCircle(
           cx: '0',
@@ -306,10 +281,9 @@ class _ArcaneWorldMapState extends State<ArcaneWorldMap> {
   }
 
   Component _buildTooltip(ArcaneMapLocation location) {
-    final (x, y) = ArcaneMapProjection.latLngToSvg(
-      location.latitude,
-      location.longitude,
-    );
+    // Use pre-calculated SVG coordinates if available, otherwise convert lat/lng
+    final (double x, double y) = ArcaneMapProjection.citySvgCoords[location.id] ??
+        ArcaneMapProjection.latLngToSvg(location.latitude, location.longitude);
 
     // Convert SVG coordinates to percentage for positioning
     final leftPercent = (x / ArcaneMapProjection.mapWidth) * 100;

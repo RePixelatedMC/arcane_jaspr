@@ -92,20 +92,13 @@ class ArcaneUSAMap extends StatefulComponent {
       'filter': 'brightness(1.2)',
     }),
 
-    // Pin hover effects
+    // Pin hover effects - use filter only, no transform to avoid SVG origin issues
     css('.arcane-usa-map-pin').styles(raw: {
       'cursor': 'pointer',
-      'transition': 'transform 150ms ease, filter 150ms ease',
+      'transition': 'filter 150ms ease, opacity 150ms ease',
     }),
     css('.arcane-usa-map-pin:hover').styles(raw: {
-      'transform': 'scale(1.3)',
-      'filter': 'drop-shadow(0 0 6px ${ArcaneColors.accent})',
-    }),
-
-    // Pulse animation keyframes
-    css('@keyframes arcane-usa-map-pulse').styles(raw: {
-      '0%': 'opacity: 1; r: 6',
-      '100%': 'opacity: 0; r: 18',
+      'filter': 'drop-shadow(0 0 8px var(--arcane-accent)) brightness(1.2)',
     }),
 
     // Tooltip container
@@ -241,10 +234,9 @@ class _ArcaneUSAMapState extends State<ArcaneUSAMap> {
   }
 
   Component _buildPin(ArcaneUSAMapLocation location) {
-    final (x, y) = ArcaneUSAMapProjection.latLngToSvg(
-      location.latitude,
-      location.longitude,
-    );
+    // Use pre-calculated SVG coordinates if available, otherwise convert lat/lng
+    final (double x, double y) = ArcaneUSAMapProjection.citySvgCoords[location.id] ??
+        ArcaneUSAMapProjection.latLngToSvg(location.latitude, location.longitude);
 
     final style = component.style;
     final isHovered = _hoveredLocation?.id == location.id;
@@ -304,10 +296,9 @@ class _ArcaneUSAMapState extends State<ArcaneUSAMap> {
   }
 
   Component _buildTooltip(ArcaneUSAMapLocation location) {
-    final (x, y) = ArcaneUSAMapProjection.latLngToSvg(
-      location.latitude,
-      location.longitude,
-    );
+    // Use pre-calculated SVG coordinates if available, otherwise convert lat/lng
+    final (double x, double y) = ArcaneUSAMapProjection.citySvgCoords[location.id] ??
+        ArcaneUSAMapProjection.latLngToSvg(location.latitude, location.longitude);
 
     // Convert SVG coordinates to percentage for positioning
     final leftPercent = (x / ArcaneUSAMapProjection.mapWidth) * 100;

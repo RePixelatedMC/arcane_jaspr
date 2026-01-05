@@ -16,18 +16,61 @@ class ArcaneMapProjection {
   /// Map height in SVG units.
   static const double mapHeight = 857;
 
+  /// Pre-calculated SVG coordinates for major cities.
+  /// These are calibrated directly to the SimpleMaps SVG for accuracy.
+  static const Map<String, (double x, double y)> citySvgCoords = {
+    // North America
+    'nyc': (587, 254),      // New York City
+    'lax': (247, 295),      // Los Angeles
+    'chi': (514, 245),      // Chicago
+    'sfo': (210, 274),      // San Francisco
+    'sea': (220, 220),      // Seattle
+    'mia': (550, 320),      // Miami
+    'dfw': (435, 295),      // Dallas
+    'tor': (545, 235),      // Toronto
+    'van': (220, 210),      // Vancouver
+    // Europe
+    'lon': (1000, 182),     // London
+    'lhr': (1000, 182),     // London Heathrow (alias)
+    'par': (1011, 200),     // Paris
+    'ber': (1068, 180),     // Berlin
+    'mad': (980, 238),      // Madrid
+    'rom': (1063, 231),     // Rome
+    'ams': (1023, 175),     // Amsterdam
+    'fra': (1044, 192),     // Frankfurt
+    'sto': (1095, 145),     // Stockholm
+    'war': (1105, 175),     // Warsaw
+    'mil': (1050, 210),     // Milan
+    // Asia
+    'tyo': (1694, 275),     // Tokyo
+    'sin': (1523, 434),     // Singapore
+    'hkg': (1562, 336),     // Hong Kong
+    'sel': (1615, 261),     // Seoul
+    'mum': (1373, 357),     // Mumbai
+    'dxb': (1294, 332),     // Dubai
+    // Oceania
+    'syd': (1776, 534),     // Sydney
+    'mel': (1744, 559),     // Melbourne
+    // South America
+    'sao': (665, 508),      // Sao Paulo
+    'bue': (618, 540),      // Buenos Aires
+    'bog': (504, 421),      // Bogota
+    'scl': (490, 540),      // Santiago
+    // Africa
+    'jnb': (1141, 512),     // Johannesburg
+    'cpt': (1095, 540),     // Cape Town
+  };
+
   /// Convert latitude/longitude to SVG x/y coordinates.
   ///
   /// Uses equirectangular projection adjusted for the SimpleMaps SVG.
-  /// - Longitude: -180 to 180 maps to 0 to mapWidth
-  /// - Latitude: 90 to -90 maps to 0 to mapHeight
+  /// For precise positioning, check citySvgCoords first.
   static (double x, double y) latLngToSvg(double lat, double lng) {
-    // SimpleMaps uses a slightly adjusted projection
-    // The map doesn't show Antarctica fully, so we adjust the latitude range
+    // Equirectangular projection adjusted for SimpleMaps SVG
+    // Map covers approximately 83°N to 60°S latitude
     final x = (lng + 180) * (mapWidth / 360);
-    // Adjust for the map's actual coverage (roughly 83N to -60S)
     final y = (83 - lat) * (mapHeight / 143); // 143 = 83 - (-60)
-    return (x, y.clamp(0, mapHeight));
+    return (x.clamp(0, mapWidth), y.clamp(0, mapHeight));
   }
 
   /// Convert SVG x/y coordinates back to latitude/longitude.
