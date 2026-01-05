@@ -254,7 +254,7 @@ section h4, section h5, section h6 {
    CODE BLOCKS
    ============================================ */
 .code-block-wrapper {
-  position: relative;
+  position: relative !important;
   margin: 1rem 0;
 }
 
@@ -264,20 +264,21 @@ section h4, section h5, section h6 {
 }
 
 .copy-code-btn {
-  position: absolute;
-  top: 8px;
-  right: 8px;
+  position: absolute !important;
+  top: 8px !important;
+  right: 8px !important;
   padding: 6px 8px;
   background: var(--arcane-surface);
   border: 1px solid var(--arcane-border);
   border-radius: var(--arcane-radius-sm);
   color: var(--arcane-muted);
   cursor: pointer;
-  opacity: 0;
+  opacity: 1;
   transition: all var(--arcane-transition-fast);
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 10;
 }
 
 .code-block-wrapper:hover .copy-code-btn {

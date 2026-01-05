@@ -33,8 +33,9 @@ class TooltipScripts {
       });
     });
 
-    document.querySelectorAll('[title]:not(.arcane-tooltip-trigger)').forEach(function(el) {
+    document.querySelectorAll('[title]:not(.arcane-tooltip-trigger):not([data-no-tooltip])').forEach(function(el) {
       if (el.dataset.arcaneTooltipBound) return;
+      if (el.dataset.noTooltip) return; // Skip elements that opt out
       var title = el.getAttribute('title');
       if (!title) return;
 
