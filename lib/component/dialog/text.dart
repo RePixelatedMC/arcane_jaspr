@@ -117,7 +117,7 @@ class _TextInputDialogState extends State<ArcaneTextInputDialog> {
           if (component.message != null)
             div(
               styles: const Styles(raw: {
-                'color': ArcaneColors.muted,
+                'color': ArcaneColors.mutedForeground,
                 'font-size': ArcaneTypography.fontSm,
                 'line-height': ArcaneTypography.lineHeightRelaxed,
               }),

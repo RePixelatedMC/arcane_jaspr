@@ -108,7 +108,7 @@ class AuthButton extends StatelessComponent {
         return {
           ...baseStyles,
           'background': 'transparent',
-          'color': ArcaneColors.muted,
+          'color': ArcaneColors.mutedForeground,
           'border': 'none',
           'padding': '8px 16px',
         };

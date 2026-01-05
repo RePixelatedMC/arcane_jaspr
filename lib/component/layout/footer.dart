@@ -111,7 +111,7 @@ class ArcaneFooter extends StatelessComponent {
                       styles: const Styles(raw: {
                         'margin': '${ArcaneSpacing.md} 0 0 0',
                         'font-size': ArcaneTypography.fontSm,
-                        'color': ArcaneColors.muted,
+                        'color': ArcaneColors.mutedForeground,
                         'max-width': '280px',
                         'line-height': ArcaneTypography.lineHeightRelaxed,
                       }),
@@ -239,7 +239,7 @@ class ArcaneFooter extends StatelessComponent {
                 [text(copyright!)],
                 styles: const Styles(raw: {
                   'font-size': ArcaneTypography.fontXs,
-                  'color': ArcaneColors.muted,
+                  'color': ArcaneColors.mutedForeground,
                 }),
               ),
 
@@ -263,7 +263,7 @@ class ArcaneFooter extends StatelessComponent {
   Component _buildLink(ArcaneFooterLink link) {
     final Styles linkStyles = const Styles(raw: {
       'font-size': ArcaneTypography.fontSm,
-      'color': ArcaneColors.muted,
+      'color': ArcaneColors.mutedForeground,
       'text-decoration': 'none',
       'transition': ArcaneEffects.transitionFast,
     });
@@ -285,7 +285,7 @@ class ArcaneFooter extends StatelessComponent {
       attributes: {'type': 'button'},
       styles: const Styles(raw: {
         'font-size': ArcaneTypography.fontSm,
-        'color': ArcaneColors.muted,
+        'color': ArcaneColors.mutedForeground,
         'text-decoration': 'none',
         'transition': ArcaneEffects.transitionFast,
         'background': 'none',
@@ -337,7 +337,7 @@ class ArcaneSocialIcon extends StatelessComponent {
       'width': '36px',
       'height': '36px',
       'border-radius': ArcaneRadius.md,
-      'color': ArcaneColors.muted,
+      'color': ArcaneColors.mutedForeground,
       'background': 'none',
       'border': 'none',
       'cursor': 'pointer',

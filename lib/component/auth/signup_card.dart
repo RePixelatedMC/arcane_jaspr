@@ -160,7 +160,7 @@ class _ArcaneSignupCardState extends State<ArcaneSignupCard> {
           styles: ArcaneStyleData(
             margin: MarginPreset.bottomLg,
             fontSize: FontSize.sm,
-            textColor: TextColor.muted,
+            textColor: TextColor.mutedForeground,
             textAlign: TextAlign.center,
           ),
           children: [Component.text('Get started with your free account')],
@@ -233,7 +233,7 @@ class _ArcaneSignupCardState extends State<ArcaneSignupCard> {
               ArcaneDiv(
                 styles: ArcaneStyleData(
                   fontSize: FontSize.xs,
-                  textColor: TextColor.muted,
+                  textColor: TextColor.mutedForeground,
                   textTransform: TextTransform.uppercase,
                   letterSpacing: LetterSpacing.wide,
                 ),
@@ -334,7 +334,7 @@ class _ArcaneSignupCardState extends State<ArcaneSignupCard> {
                       attributes: <String, String>{'for': 'terms'},
                       styles: const Styles(raw: <String, String>{
                         'font-size': ArcaneTypography.fontSizeSm,
-                        'color': ArcaneColors.muted,
+                        'color': ArcaneColors.mutedForeground,
                         'cursor': 'pointer',
                       }),
                       <Component>[
@@ -385,7 +385,7 @@ class _ArcaneSignupCardState extends State<ArcaneSignupCard> {
               margin: MarginPreset.topLg,
               textAlign: TextAlign.center,
               fontSize: FontSize.sm,
-              textColor: TextColor.muted,
+              textColor: TextColor.mutedForeground,
             ),
             children: <Component>[
               const Component.text('Already have an account? '),
@@ -459,7 +459,7 @@ class _ArcaneSignupCardState extends State<ArcaneSignupCard> {
             styles: const ArcaneStyleData(
               margin: MarginPreset.topXs,
               fontSize: FontSize.xs,
-              textColor: TextColor.muted,
+              textColor: TextColor.mutedForeground,
             ),
             children: [Component.text(hint)],
           ),

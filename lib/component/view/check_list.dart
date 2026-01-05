@@ -287,7 +287,7 @@ class ArcaneFeatureRow extends StatelessComponent {
         span(
           styles: Styles(raw: {
             'font-size': ArcaneTypography.fontSizeSm,
-            'color': included ? ArcaneColors.onSurface : ArcaneColors.muted,
+            'color': included ? ArcaneColors.onSurface : ArcaneColors.mutedForeground,
           }),
           [text(feature)],
         ),

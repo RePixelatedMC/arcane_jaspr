@@ -157,7 +157,7 @@ class ArcaneAlertBanner extends StatelessComponent {
           ArcaneColors.surfaceVariant,
           ArcaneColors.border,
           ArcaneColors.onSurface,
-          ArcaneColors.muted,
+          ArcaneColors.mutedForeground,
         ),
     };
 
@@ -323,7 +323,7 @@ class ArcaneProgressBar extends StatelessComponent {
             styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontXs,
               'font-weight': ArcaneTypography.weightMedium,
-              'color': ArcaneColors.muted,
+              'color': ArcaneColors.mutedForeground,
               'min-width': '40px',
               'text-align': 'right',
             }),
@@ -387,7 +387,7 @@ class ArcaneLoader extends StatelessComponent {
             classes: 'arcane-loader-text',
             styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontSm,
-              'color': ArcaneColors.muted,
+              'color': ArcaneColors.mutedForeground,
             }),
             [text(label!)],
           ),

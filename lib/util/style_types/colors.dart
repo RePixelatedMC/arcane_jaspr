@@ -324,11 +324,11 @@ enum TextColor {
   String get css => switch (this) {
         TextColor.primary => ArcaneColors.onBackground,
         TextColor.secondary => ArcaneColors.onSurface,
-        TextColor.muted => ArcaneColors.muted,
+        TextColor.muted => ArcaneColors.mutedForeground, // Text color, not background
         TextColor.mutedForeground => ArcaneColors.mutedForeground,
         TextColor.subtle => ArcaneColors.textSubtle,
         TextColor.faint => ArcaneColors.textFaint,
-        TextColor.accent => ArcaneColors.accent,
+        TextColor.accent => ArcaneColors.primary, // Use primary for readable accent text
         TextColor.accentForeground => ArcaneColors.accentForeground,
         TextColor.success => ArcaneColors.success,
         TextColor.successForeground => ArcaneColors.successForeground,

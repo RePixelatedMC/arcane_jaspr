@@ -147,7 +147,7 @@ class ArcaneNumberInput extends StatelessComponent {
                     : ArcaneColors.surface,
                 'color': (canDecrement && !disabled)
                     ? ArcaneColors.onSurface
-                    : ArcaneColors.muted,
+                    : ArcaneColors.mutedForeground,
                 'font-size': fontSize,
                 'font-weight': ArcaneTypography.weightBold,
                 'cursor': (canDecrement && !disabled) ? 'pointer' : 'not-allowed',
@@ -185,7 +185,7 @@ class ArcaneNumberInput extends StatelessComponent {
                 if (prefix != null)
                   span(
                     classes: 'arcane-number-input-prefix',
-                    styles: const Styles(raw: {'color': ArcaneColors.muted}),
+                    styles: const Styles(raw: {'color': ArcaneColors.mutedForeground}),
                     [text(prefix!)],
                   ),
                 span(
@@ -195,7 +195,7 @@ class ArcaneNumberInput extends StatelessComponent {
                 if (suffix != null)
                   span(
                     classes: 'arcane-number-input-suffix',
-                    styles: const Styles(raw: {'color': ArcaneColors.muted}),
+                    styles: const Styles(raw: {'color': ArcaneColors.mutedForeground}),
                     [text(suffix!)],
                   ),
               ],
@@ -222,7 +222,7 @@ class ArcaneNumberInput extends StatelessComponent {
                     : ArcaneColors.surface,
                 'color': (canIncrement && !disabled)
                     ? ArcaneColors.onSurface
-                    : ArcaneColors.muted,
+                    : ArcaneColors.mutedForeground,
                 'font-size': fontSize,
                 'font-weight': ArcaneTypography.weightBold,
                 'cursor': (canIncrement && !disabled) ? 'pointer' : 'not-allowed',

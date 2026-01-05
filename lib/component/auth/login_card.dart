@@ -126,7 +126,7 @@ class _ArcaneLoginCardState extends State<ArcaneLoginCard> {
           styles: ArcaneStyleData(
             margin: MarginPreset.bottomLg,
             fontSize: FontSize.sm,
-            textColor: TextColor.muted,
+            textColor: TextColor.mutedForeground,
             textAlign: TextAlign.center,
           ),
           children: [Component.text('Sign in to your account')],
@@ -196,7 +196,7 @@ class _ArcaneLoginCardState extends State<ArcaneLoginCard> {
               ArcaneDiv(
                 styles: ArcaneStyleData(
                   fontSize: FontSize.xs,
-                  textColor: TextColor.muted,
+                  textColor: TextColor.mutedForeground,
                   textTransform: TextTransform.uppercase,
                   letterSpacing: LetterSpacing.wide,
                 ),
@@ -349,7 +349,7 @@ class _ArcaneLoginCardState extends State<ArcaneLoginCard> {
               margin: MarginPreset.topLg,
               textAlign: TextAlign.center,
               fontSize: FontSize.sm,
-              textColor: TextColor.muted,
+              textColor: TextColor.mutedForeground,
             ),
             children: <Component>[
               const Component.text("Don't have an account? "),

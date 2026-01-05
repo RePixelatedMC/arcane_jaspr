@@ -134,7 +134,7 @@ class ArcaneSectionHeader extends StatelessComponent {
           p(
             styles: Styles(raw: {
               'font-size': ArcaneTypography.fontSizeLg,
-              'color': descriptionColor ?? ArcaneColors.muted,
+              'color': descriptionColor ?? ArcaneColors.mutedForeground,
               'max-width': effectiveDescriptionMaxWidth,
               'margin': align == SectionHeaderAlign.center ? '0 auto' : '0',
               'line-height': '1.6',

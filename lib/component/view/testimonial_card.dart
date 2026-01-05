@@ -66,7 +66,7 @@ class ArcaneTestimonialCard extends StatelessComponent {
                     'font-size': ArcaneTypography.fontMd,
                     'color': i < rating!
                         ? ArcaneColors.warning
-                        : ArcaneColors.muted,
+                        : ArcaneColors.mutedForeground,
                   }),
                   [text('★')],
                 ),
@@ -176,7 +176,7 @@ class ArcaneTestimonialCard extends StatelessComponent {
                   div(
                     styles: const Styles(raw: {
                       'font-size': ArcaneTypography.fontSm,
-                      'color': ArcaneColors.muted,
+                      'color': ArcaneColors.mutedForeground,
                       'margin-top': '2px',
                     }),
                     [
@@ -238,7 +238,7 @@ class ArcaneRatingStars extends StatelessComponent {
               'font-size': '${size}px',
               'color': i < rating
                   ? ArcaneColors.warning
-                  : ArcaneColors.muted,
+                  : ArcaneColors.mutedForeground,
               if (interactive) 'cursor': 'pointer',
               'transition': ArcaneEffects.transitionFast,
             }),

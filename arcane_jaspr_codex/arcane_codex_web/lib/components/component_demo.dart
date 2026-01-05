@@ -69,7 +69,7 @@ class ComponentDemo extends StatelessComponent {
                 ArcaneDiv(
                   styles: const ArcaneStyleData(
                     fontSize: FontSize.sm,
-                    textColor: TextColor.muted,
+                    textColor: TextColor.mutedForeground,
                   ),
                   children: [ArcaneText(description!)],
                 ),
@@ -297,7 +297,7 @@ class ComponentDemoRow extends StatelessComponent {
             styles: const ArcaneStyleData(
               fontWeight: FontWeight.w600,
               fontSize: FontSize.sm,
-              textColor: TextColor.muted,
+              textColor: TextColor.mutedForeground,
               margin: MarginPreset.bottomSm,
             ),
             children: [ArcaneText(title!)],

@@ -564,19 +564,29 @@ class ArcaneTypography {
   ArcaneTypography._();
 
   // ---------------------------------------------------------------------------
-  // Font Families
+  // Font Families (use CSS variables from stylesheet)
   // ---------------------------------------------------------------------------
 
-  /// System/inherit font family (body text)
-  static const String fontFamily =
+  /// Body font family (from stylesheet)
+  static const String fontFamily = 'var(--arcane-font-sans)';
+
+  /// Heading font family (from stylesheet)
+  static const String fontFamilyHeading = 'var(--arcane-font-heading)';
+
+  /// Monospace font family (from stylesheet)
+  static const String fontFamilyMono = 'var(--arcane-font-mono)';
+
+  // ---------------------------------------------------------------------------
+  // Static font fallbacks (for non-themed contexts)
+  // ---------------------------------------------------------------------------
+
+  static const String fontFamilyStatic =
       "'Akzidenz-GroteskPro', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
 
-  /// Heading font family
-  static const String fontFamilyHeading =
+  static const String fontFamilyHeadingStatic =
       "'ITCAvantGardeStd', 'Akzidenz-GroteskPro', -apple-system, BlinkMacSystemFont, sans-serif";
 
-  /// Monospace font family
-  static const String fontFamilyMono =
+  static const String fontFamilyMonoStatic =
       "'JetBrains Mono', 'Fira Code', 'Consolas', monospace";
 
   // ---------------------------------------------------------------------------
@@ -718,23 +728,29 @@ class ArcaneRadius {
   /// No radius (0)
   static const String none = '0';
 
-  /// Extra small radius
-  static const String xs = '4px';
+  /// Extra small radius (stylesheet-reactive with theme fallback)
+  static const String xs =
+      'var(--arcane-style-radius-xs, var(--arcane-radius-xs, 4px))';
 
-  /// Small radius (theme-reactive)
-  static const String sm = 'var(--arcane-radius-sm)';
+  /// Small radius (stylesheet-reactive with theme fallback)
+  static const String sm =
+      'var(--arcane-style-radius-sm, var(--arcane-radius-sm))';
 
-  /// Medium radius (theme-reactive)
-  static const String md = 'var(--arcane-radius-md)';
+  /// Medium radius (stylesheet-reactive with theme fallback)
+  static const String md =
+      'var(--arcane-style-radius-md, var(--arcane-radius-md))';
 
-  /// Large radius (theme-reactive)
-  static const String lg = 'var(--arcane-radius-lg)';
+  /// Large radius (stylesheet-reactive with theme fallback)
+  static const String lg =
+      'var(--arcane-style-radius-lg, var(--arcane-radius-lg))';
 
-  /// Extra large radius (theme-reactive)
-  static const String xl = 'var(--arcane-radius-xl)';
+  /// Extra large radius (stylesheet-reactive with theme fallback)
+  static const String xl =
+      'var(--arcane-style-radius-xl, var(--arcane-radius-xl))';
 
-  /// 2x Extra large radius (theme-reactive)
-  static const String xxl = 'var(--arcane-radius-2xl)';
+  /// 2x Extra large radius (stylesheet-reactive with theme fallback)
+  static const String xxl =
+      'var(--arcane-style-radius-2xl, var(--arcane-radius-2xl))';
 
   /// Full/pill radius
   static const String full = 'var(--arcane-radius-full)';
@@ -746,6 +762,7 @@ class ArcaneRadius {
   // Static fallbacks (for non-themed contexts)
   // ---------------------------------------------------------------------------
 
+  static const String xsStatic = '3px';
   static const String smStatic = '6px';
   static const String mdStatic = '8px';
   static const String lgStatic = '12px';
@@ -759,50 +776,61 @@ class ArcaneRadius {
 // =============================================================================
 
 /// Effect tokens for shadows, transitions, and animations
+///
+/// These tokens are stylesheet-reactive: they use the active stylesheet's
+/// values when available, falling back to theme defaults.
 class ArcaneEffects {
   ArcaneEffects._();
 
   // ---------------------------------------------------------------------------
-  // Transitions
+  // Transitions (stylesheet-reactive with theme fallback)
   // ---------------------------------------------------------------------------
 
-  /// Fast transition (150ms)
-  static const String transitionFast = 'var(--arcane-transition-fast)';
+  /// Fast transition (100-150ms depending on stylesheet)
+  static const String transitionFast =
+      'var(--arcane-style-transition-fast, var(--arcane-transition-fast))';
 
-  /// Normal transition (200ms)
-  static const String transitionNormal = 'var(--arcane-transition)';
+  /// Normal transition (150-200ms depending on stylesheet)
+  static const String transitionNormal =
+      'var(--arcane-style-transition, var(--arcane-transition))';
 
   /// Alias for transitionNormal
   static const String transition = transitionNormal;
 
-  /// Slow transition (300ms)
-  static const String transitionSlow = 'var(--arcane-transition-slow)';
+  /// Slow transition (200-300ms depending on stylesheet)
+  static const String transitionSlow =
+      'var(--arcane-style-transition-slow, var(--arcane-transition-slow))';
 
   /// Bounce transition
   static const String transitionBounce =
       '0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
 
   // ---------------------------------------------------------------------------
-  // Shadows
+  // Shadows (stylesheet-reactive with theme fallback)
   // ---------------------------------------------------------------------------
 
   /// No shadow
   static const String shadowNone = 'none';
 
-  /// Extra small shadow
-  static const String shadowXs = 'var(--arcane-shadow-xs)';
+  /// Extra small shadow (stylesheet-reactive)
+  static const String shadowXs =
+      'var(--arcane-style-shadow-xs, var(--arcane-shadow-xs))';
 
-  /// Small shadow
-  static const String shadowSm = 'var(--arcane-shadow-sm)';
+  /// Small shadow (stylesheet-reactive)
+  static const String shadowSm =
+      'var(--arcane-style-shadow-sm, var(--arcane-shadow-sm))';
 
-  /// Medium shadow (default)
-  static const String shadowMd = 'var(--arcane-shadow)';
+  /// Medium shadow (default, stylesheet-reactive)
+  static const String shadowMd =
+      'var(--arcane-style-shadow-md, var(--arcane-shadow))';
 
-  /// Large shadow
-  static const String shadowLg = 'var(--arcane-shadow-lg)';
+  /// Large shadow (stylesheet-reactive)
+  static const String shadowLg =
+      'var(--arcane-style-shadow-lg, var(--arcane-shadow-lg))';
 
-  /// Extra large shadow
-  static const String shadowXl = 'var(--arcane-shadow-xl)';
+  /// Extra large shadow (stylesheet-reactive)
+  static const String shadowXl =
+      'var(--arcane-style-shadow-xl, var(--arcane-shadow-xl))';
 
   // ---------------------------------------------------------------------------
   // Static shadow fallbacks

@@ -112,7 +112,7 @@ class ArcaneStatCard extends StatelessComponent {
           div(
             styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontSm,
-              'color': ArcaneColors.muted,
+              'color': ArcaneColors.mutedForeground,
               'margin-top': ArcaneSpacing.xs,
             }),
             [text(label)],
@@ -122,7 +122,7 @@ class ArcaneStatCard extends StatelessComponent {
           div(
             styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontSm,
-              'color': ArcaneColors.muted,
+              'color': ArcaneColors.mutedForeground,
               'padding-top': ArcaneSpacing.md,
               'border-top': '1px solid ${ArcaneColors.border}',
             }),

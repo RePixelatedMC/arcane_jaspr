@@ -154,7 +154,7 @@ class ArcaneCheckbox extends StatelessComponent {
                 span(
                   styles: const Styles(raw: {
                     'font-size': ArcaneTypography.fontSm,
-                    'color': ArcaneColors.muted,
+                    'color': ArcaneColors.mutedForeground,
                     'display': 'block',
                     'margin-top': '2px',
                   }),
@@ -273,7 +273,7 @@ class ArcaneRadio extends StatelessComponent {
                 span(
                   styles: const Styles(raw: {
                     'font-size': ArcaneTypography.fontSm,
-                    'color': ArcaneColors.muted,
+                    'color': ArcaneColors.mutedForeground,
                     'display': 'block',
                     'margin-top': '2px',
                   }),

@@ -65,7 +65,7 @@ class ArcaneStatusIndicator extends StatelessComponent {
   String get _color {
     return switch (status) {
       StatusType.online || StatusType.success => ArcaneColors.success,
-      StatusType.offline => ArcaneColors.muted,
+      StatusType.offline => ArcaneColors.mutedForeground,
       StatusType.busy || StatusType.error => ArcaneColors.error,
       StatusType.away || StatusType.warning => ArcaneColors.warning,
       StatusType.info => ArcaneColors.info,
@@ -116,7 +116,7 @@ class ArcaneStatusIndicator extends StatelessComponent {
           span(
             styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontMd,
-              'color': ArcaneColors.muted,
+              'color': ArcaneColors.mutedForeground,
             }),
             [text(label!)],
           ),
@@ -164,7 +164,7 @@ class ArcaneStatusBadge extends StatelessComponent {
     return switch (status) {
       StatusType.online || StatusType.success =>
         (ArcaneColors.success, ArcaneColors.successAlpha15),
-      StatusType.offline => (ArcaneColors.muted, ArcaneColors.mutedAlpha15),
+      StatusType.offline => (ArcaneColors.mutedForeground, ArcaneColors.mutedAlpha15),
       StatusType.busy || StatusType.error =>
         (ArcaneColors.error, ArcaneColors.errorAlpha15),
       StatusType.away || StatusType.warning =>

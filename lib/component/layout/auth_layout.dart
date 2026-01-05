@@ -211,7 +211,7 @@ class ArcaneAuthBackLink extends StatelessComponent {
       classes: 'arcane-auth-back-link',
       styles: const Styles(raw: {
         'font-size': ArcaneTypography.fontSm,
-        'color': ArcaneColors.muted,
+        'color': ArcaneColors.mutedForeground,
         'text-decoration': 'none',
         'display': 'inline-flex',
         'align-items': 'center',

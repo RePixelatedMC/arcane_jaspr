@@ -500,7 +500,7 @@ class ArcaneTimeline extends StatelessComponent {
               span(
                 styles: const Styles(raw: {
                   'font-size': ArcaneTypography.fontXs,
-                  'color': ArcaneColors.muted,
+                  'color': ArcaneColors.mutedForeground,
                 }),
                 [text(item.date!)],
               ),
@@ -511,7 +511,7 @@ class ArcaneTimeline extends StatelessComponent {
           div(
             styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontSm,
-              'color': ArcaneColors.muted,
+              'color': ArcaneColors.mutedForeground,
               'margin-bottom': ArcaneSpacing.xs,
             }),
             [text(item.subtitle!)],
@@ -528,7 +528,7 @@ class ArcaneTimeline extends StatelessComponent {
           div(
             styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontSm,
-              'color': ArcaneColors.muted,
+              'color': ArcaneColors.mutedForeground,
               'line-height': ArcaneTypography.leadingRelaxed,
             }),
             [text(item.description!)],
@@ -554,7 +554,7 @@ class ArcaneTimeline extends StatelessComponent {
       TimelineStatus.pending => {
           'bg': 'transparent',
           'border': ArcaneColors.border,
-          'text': ArcaneColors.muted,
+          'text': ArcaneColors.mutedForeground,
           'line': ArcaneColors.border,
         },
       TimelineStatus.error => {
@@ -566,7 +566,7 @@ class ArcaneTimeline extends StatelessComponent {
       TimelineStatus.default_ => {
           'bg': 'transparent',
           'border': ArcaneColors.border,
-          'text': ArcaneColors.muted,
+          'text': ArcaneColors.mutedForeground,
           'line': ArcaneColors.border,
         },
     };

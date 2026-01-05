@@ -250,7 +250,7 @@ class ArcaneToggleButtonGroup extends StatelessComponent {
                   i == selectedIndex ? ArcaneColors.surface : ArcaneColors.transparent,
               'color': i == selectedIndex
                   ? ArcaneColors.onSurface
-                  : ArcaneColors.muted,
+                  : ArcaneColors.mutedForeground,
               'cursor': 'pointer',
               'transition': ArcaneEffects.transitionFast,
               if (i == selectedIndex) 'box-shadow': ArcaneEffects.shadowSm,

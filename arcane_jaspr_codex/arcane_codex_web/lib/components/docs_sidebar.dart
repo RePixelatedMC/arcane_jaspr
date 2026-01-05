@@ -19,13 +19,14 @@ class DocsSidebar extends StatelessComponent {
       showBorder: true,
       padding: '0',
       scrollPersistenceId: 'docs-sidebar',
+      // Use same background as page - ShadCN style
+      background: 'var(--arcane-background)',
       children: [
         // Header
         ArcaneDiv(
           styles: const ArcaneStyleData(
             padding: PaddingPreset.md,
             borderBottom: BorderPreset.subtle,
-            background: Background.surfaceVariant,
           ),
           children: [
             ArcaneLink(
@@ -45,7 +46,7 @@ class DocsSidebar extends StatelessComponent {
             ArcaneDiv(
               styles: const ArcaneStyleData(
                 fontSize: FontSize.sm,
-                textColor: TextColor.muted,
+                textColor: TextColor.mutedForeground,
                 margin: MarginPreset.topXs,
               ),
               children: [const ArcaneText('Documentation')],
@@ -284,51 +285,30 @@ class DocsSidebar extends StatelessComponent {
   Component _buildFixedSection(String title, Component icon, List<Component> items) {
     return ArcaneDiv(
       styles: const ArcaneStyleData(
-        margin: MarginPreset.bottomSm,
+        margin: MarginPreset.bottomMd,
       ),
       children: [
-        // Section header (not clickable)
+        // Section header - ShadCN style: minimal, no background
         ArcaneDiv(
           styles: const ArcaneStyleData(
             display: Display.flex,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            gap: Gap.sm,
             crossAxisAlignment: CrossAxisAlignment.center,
             fontSize: FontSize.xs,
-            fontWeight: FontWeight.w700,
-            textTransform: TextTransform.uppercase,
-            letterSpacing: LetterSpacing.wide,
-            padding: PaddingPreset.smMd,
-            background: Background.surfaceVariant,
-            borderRadius: Radius.sm,
-            textColor: TextColor.onSurface,
+            fontWeight: FontWeight.w500,
+            padding: PaddingPreset.horizontalSm,
+            margin: MarginPreset.bottomXs,
+            textColor: TextColor.mutedForeground,
           ),
           children: [
-            ArcaneRow(
-              gapSize: Gap.sm,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                icon,
-                ArcaneText(title),
-                // Item count badge
-                ArcaneDiv(
-                  styles: const ArcaneStyleData(
-                    fontSize: FontSize.xs,
-                    textColor: TextColor.muted,
-                    background: Background.surface,
-                    padding: PaddingPreset.xs,
-                    borderRadius: Radius.full,
-                  ),
-                  children: [ArcaneText('${items.length}')],
-                ),
-              ],
-            ),
+            icon,
+            ArcaneText(title),
           ],
         ),
         // Items (always visible)
         ArcaneDiv(
           styles: const ArcaneStyleData(
             padding: PaddingPreset.horizontalSm,
-            margin: MarginPreset.topXs,
           ),
           children: items,
         ),
@@ -338,8 +318,6 @@ class DocsSidebar extends StatelessComponent {
 
   /// Build a collapsible section using ArcaneDisclosure
   Component _buildCollapsibleSection(String title, Component icon, List<Component> items, {bool defaultOpen = false}) {
-    final itemCount = items.length;
-
     return ArcaneDisclosure.minimal(
       open: defaultOpen,
       summary: ArcaneRow(
@@ -350,23 +328,10 @@ class DocsSidebar extends StatelessComponent {
           ArcaneDiv(
             styles: const ArcaneStyleData(
               fontSize: FontSize.xs,
-              fontWeight: FontWeight.w700,
-              textTransform: TextTransform.uppercase,
-              letterSpacing: LetterSpacing.wide,
-              textColor: TextColor.onSurface,
+              fontWeight: FontWeight.w500,
+              textColor: TextColor.mutedForeground,
             ),
             children: [ArcaneText(title)],
-          ),
-          // Item count badge
-          ArcaneDiv(
-            styles: const ArcaneStyleData(
-              fontSize: FontSize.xs,
-              textColor: TextColor.muted,
-              background: Background.surface,
-              padding: PaddingPreset.xs,
-              borderRadius: Radius.full,
-            ),
-            children: [ArcaneText('$itemCount')],
           ),
         ],
       ),
@@ -396,11 +361,10 @@ class DocsSidebar extends StatelessComponent {
         crossAxisAlignment: CrossAxisAlignment.center,
         textDecoration: TextDecoration.none,
         padding: PaddingPreset.buttonSm,
-        textColor: isActive ? TextColor.accent : TextColor.onSurfaceVariant,
-        fontWeight: isActive ? FontWeight.w600 : FontWeight.normal,
-        background: isActive ? Background.accentContainer : Background.transparent,
-        borderLeft: isActive ? BorderPreset.accent : BorderPreset.none,
-        borderLeftWidth: BorderWidth.thick,
+        // ShadCN-style: muted background for active, no border indicator
+        textColor: isActive ? TextColor.primary : TextColor.mutedForeground,
+        fontWeight: isActive ? FontWeight.w500 : FontWeight.normal,
+        background: isActive ? Background.muted : Background.transparent,
       ),
       child: ArcaneSpan(child: ArcaneText(label)),
     );

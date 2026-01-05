@@ -290,7 +290,7 @@ class ArcaneAlert extends StatelessComponent {
               'padding': '0',
               'border': 'none',
               'background': 'transparent',
-              'color': isSolid ? foreground : ArcaneColors.muted,
+              'color': isSolid ? foreground : ArcaneColors.mutedForeground,
               'cursor': 'pointer',
               'border-radius': ArcaneRadius.sm,
               'transition': ArcaneEffects.transitionFast,

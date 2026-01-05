@@ -171,7 +171,7 @@ class ArcaneDisclosure extends StatelessComponent {
                 tag: 'span',
                 classes: 'arcane-disclosure-chevron',
                 styles: Styles(raw: {
-                  'color': ArcaneColors.muted,
+                  'color': ArcaneColors.mutedForeground,
                   'font-size': ArcaneTypography.fontSm,
                   'transition': ArcaneEffects.transitionFast,
                 }),

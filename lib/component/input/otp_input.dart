@@ -236,7 +236,7 @@ class _ArcaneOtpInputState extends State<ArcaneOtpInput> {
               if (sepPos != null && i == sepPos && component.separator != null)
                 span(
                   styles: const Styles(raw: {
-                    'color': ArcaneColors.muted,
+                    'color': ArcaneColors.mutedForeground,
                     'font-size': ArcaneTypography.fontLg,
                     'margin': '0 ${ArcaneSpacing.xs}',
                   }),

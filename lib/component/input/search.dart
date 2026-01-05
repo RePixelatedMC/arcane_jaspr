@@ -169,7 +169,7 @@ class _ArcaneSearchState extends State<ArcaneSearch> {
               'height': '20px',
               'border-radius': ArcaneRadius.full,
               'background': ArcaneColors.surfaceVariant,
-              'color': ArcaneColors.muted,
+              'color': ArcaneColors.mutedForeground,
               'border': 'none',
               'cursor': 'pointer',
               'transition': ArcaneEffects.transitionFast,
@@ -187,7 +187,7 @@ class _ArcaneSearchState extends State<ArcaneSearch> {
     return Search(
       width: const Unit.pixels(20),
       height: const Unit.pixels(20),
-      attributes: {'stroke': ArcaneColors.muted},
+      attributes: {'stroke': ArcaneColors.mutedForeground},
     );
   }
 

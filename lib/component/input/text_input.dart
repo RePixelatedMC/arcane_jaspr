@@ -209,7 +209,7 @@ class ArcaneTextInput extends StatelessComponent {
                       'display': 'flex',
                       'align-items': 'center',
                       'padding-left': ArcaneSpacing.sm,
-                      'color': ArcaneColors.muted,
+                      'color': ArcaneColors.mutedForeground,
                     }),
                   ),
                 input(
@@ -250,7 +250,7 @@ class ArcaneTextInput extends StatelessComponent {
                       'display': 'flex',
                       'align-items': 'center',
                       'padding-right': ArcaneSpacing.sm,
-                      'color': ArcaneColors.muted,
+                      'color': ArcaneColors.mutedForeground,
                     }),
                   ),
               ],
@@ -274,7 +274,7 @@ class ArcaneTextInput extends StatelessComponent {
               classes: 'arcane-text-input-helper',
               styles: const Styles(raw: {
                 'font-size': ArcaneTypography.fontSm,
-                'color': ArcaneColors.muted,
+                'color': ArcaneColors.mutedForeground,
               }),
             ),
         ],
@@ -291,7 +291,7 @@ class ArcaneTextInput extends StatelessComponent {
       'box-shadow': '0 0 0 2px ${ArcaneColors.accentContainer}',
     }),
     css('.arcane-text-input::placeholder').styles(raw: {
-      'color': ArcaneColors.muted,
+      'color': ArcaneColors.mutedForeground,
     }),
     css('.arcane-text-input-container:focus-within').styles(raw: {
       'border-color': ArcaneColors.accent,
@@ -497,7 +497,7 @@ class ArcaneTextArea extends StatelessComponent {
               [text(helperText!)],
               styles: const Styles(raw: {
                 'font-size': ArcaneTypography.fontSm,
-                'color': ArcaneColors.muted,
+                'color': ArcaneColors.mutedForeground,
               }),
             ),
         ],
@@ -514,7 +514,7 @@ class ArcaneTextArea extends StatelessComponent {
       'box-shadow': '0 0 0 2px ${ArcaneColors.accentContainer}',
     }),
     css('.arcane-textarea::placeholder').styles(raw: {
-      'color': ArcaneColors.muted,
+      'color': ArcaneColors.mutedForeground,
     }),
   ];
 }

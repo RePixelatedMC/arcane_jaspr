@@ -194,7 +194,7 @@ class _ArcaneCommandState extends State<ArcaneCommand> {
               [
                 const span(
                   styles: Styles(raw: {
-                    'color': ArcaneColors.muted,
+                    'color': ArcaneColors.mutedForeground,
                     'font-size': ArcaneTypography.fontLg,
                   }),
                   [Component.text('🔍')],
@@ -242,7 +242,7 @@ class _ArcaneCommandState extends State<ArcaneCommand> {
                     styles: const Styles(raw: {
                       'padding': ArcaneSpacing.lg,
                       'text-align': 'center',
-                      'color': ArcaneColors.muted,
+                      'color': ArcaneColors.mutedForeground,
                       'font-size': ArcaneTypography.fontSm,
                     }),
                     [Component.text(component.emptyMessage)],
@@ -256,7 +256,7 @@ class _ArcaneCommandState extends State<ArcaneCommand> {
                           'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
                           'font-size': ArcaneTypography.fontXs,
                           'font-weight': ArcaneTypography.weightSemibold,
-                          'color': ArcaneColors.muted,
+                          'color': ArcaneColors.mutedForeground,
                           'text-transform': 'uppercase',
                           'letter-spacing': '0.05em',
                         }),
@@ -279,7 +279,7 @@ class _ArcaneCommandState extends State<ArcaneCommand> {
                 'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
                 'border-top': '1px solid ${ArcaneColors.border}',
                 'font-size': ArcaneTypography.fontXs,
-                'color': ArcaneColors.muted,
+                'color': ArcaneColors.mutedForeground,
               }),
               [
                 _buildKeyHint('↵', 'Select'),
@@ -328,7 +328,7 @@ class _ArcaneCommandState extends State<ArcaneCommand> {
           span(
             styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontXs,
-              'color': ArcaneColors.muted,
+              'color': ArcaneColors.mutedForeground,
               'padding': '2px ${ArcaneSpacing.xs}',
               'background-color': ArcaneColors.surfaceVariant,
               'border-radius': ArcaneRadius.sm,

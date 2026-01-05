@@ -284,7 +284,7 @@ class ArcaneDrawer extends StatelessComponent {
                         'padding': '0',
                         'border': 'none',
                         'background': 'transparent',
-                        'color': ArcaneColors.muted,
+                        'color': ArcaneColors.mutedForeground,
                         'cursor': 'pointer',
                         'border-radius': ArcaneRadius.sm,
                         'font-size': ArcaneTypography.fontLg,

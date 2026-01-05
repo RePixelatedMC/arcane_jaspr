@@ -105,7 +105,7 @@ class _ArcaneTabsState extends State<ArcaneTabs> {
         'padding': '10px ${ArcaneSpacing.md}',
         'font-size': ArcaneTypography.fontSm,
         'font-weight': isSelected ? ArcaneTypography.weightSemibold : ArcaneTypography.weightMedium,
-        'color': isSelected ? ArcaneColors.accent : ArcaneColors.muted,
+        'color': isSelected ? ArcaneColors.accent : ArcaneColors.mutedForeground,
         'background': ArcaneColors.transparent,
         'border': 'none',
         'border-bottom': isSelected
@@ -206,7 +206,7 @@ class ArcaneTabBar extends StatelessComponent {
         'padding': '10px ${ArcaneSpacing.md}',
         'font-size': ArcaneTypography.fontSm,
         'font-weight': isSelected ? ArcaneTypography.weightSemibold : ArcaneTypography.weightMedium,
-        'color': isSelected ? ArcaneColors.accent : ArcaneColors.muted,
+        'color': isSelected ? ArcaneColors.accent : ArcaneColors.mutedForeground,
         'background': ArcaneColors.transparent,
         'border': 'none',
         'border-bottom': isSelected

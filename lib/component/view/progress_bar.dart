@@ -119,7 +119,7 @@ class ArcaneProgressBar extends StatelessComponent {
               if (showPercentage)
                 span(
                   styles: const Styles(raw: {
-                    'color': ArcaneColors.muted,
+                    'color': ArcaneColors.mutedForeground,
                   }),
                   [text('$percent%')],
                 ),
@@ -230,7 +230,7 @@ class ArcaneCircularProgress extends StatelessComponent {
               span(
                 styles: const Styles(raw: {
                   'font-size': ArcaneTypography.fontSm,
-                  'color': ArcaneColors.muted,
+                  'color': ArcaneColors.mutedForeground,
                 }),
                 [text(label!)],
               ),

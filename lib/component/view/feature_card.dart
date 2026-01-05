@@ -100,7 +100,7 @@ class ArcaneFeatureCard extends StatelessComponent {
             styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontMd,
               'line-height': ArcaneTypography.leadingRelaxed,
-              'color': ArcaneColors.muted,
+              'color': ArcaneColors.mutedForeground,
               'margin': '0',
             }),
             [text(description)],
@@ -226,7 +226,7 @@ class ArcaneIconCard extends StatelessComponent {
           classes: 'arcane-icon-card-subtitle',
           styles: const Styles(raw: {
             'font-size': ArcaneTypography.fontSm,
-            'color': ArcaneColors.muted,
+            'color': ArcaneColors.mutedForeground,
             'margin-top': ArcaneSpacing.xs,
           }),
           [text(subtitle!)],

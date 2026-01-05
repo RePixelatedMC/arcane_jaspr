@@ -200,19 +200,19 @@ class ArcaneTabs extends StatelessComponent {
               ? '2px solid ${ArcaneColors.accent}'
               : '2px solid transparent',
           'margin-bottom': '-1px',
-          'color': isActive ? ArcaneColors.accent : ArcaneColors.muted,
+          'color': isActive ? ArcaneColors.accent : ArcaneColors.mutedForeground,
           'border-radius': '0',
         },
       TabsStyle.pills => {
           'background': isActive ? ArcaneColors.accent : 'transparent',
           'border': 'none',
-          'color': isActive ? ArcaneColors.onSurface : ArcaneColors.muted,
+          'color': isActive ? ArcaneColors.onSurface : ArcaneColors.mutedForeground,
           'border-radius': ArcaneRadius.full,
         },
       TabsStyle.segmented => {
           'background': isActive ? ArcaneColors.surface : 'transparent',
           'border': 'none',
-          'color': isActive ? ArcaneColors.onSurface : ArcaneColors.muted,
+          'color': isActive ? ArcaneColors.onSurface : ArcaneColors.mutedForeground,
           'border-radius': ArcaneRadius.sm,
           if (isActive) 'box-shadow': ArcaneEffects.shadowSm,
         },
@@ -221,7 +221,7 @@ class ArcaneTabs extends StatelessComponent {
           'border': isActive
               ? '1px solid ${ArcaneColors.border}'
               : '1px solid transparent',
-          'color': isActive ? ArcaneColors.onSurface : ArcaneColors.muted,
+          'color': isActive ? ArcaneColors.onSurface : ArcaneColors.mutedForeground,
           'border-radius': ArcaneRadius.sm,
         },
     };

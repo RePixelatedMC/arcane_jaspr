@@ -53,7 +53,7 @@ class AuthFormCard extends StatelessComponent {
               ArcaneDiv(
                 styles: const ArcaneStyleData(
                   fontSize: FontSize.sm,
-                  textColor: TextColor.muted,
+                  textColor: TextColor.mutedForeground,
                   lineHeight: LineHeight.normal,
                 ),
                 children: [Component.text(subtitle!)],

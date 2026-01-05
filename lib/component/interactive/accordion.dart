@@ -134,7 +134,7 @@ class _ArcaneAccordionState extends State<ArcaneAccordion> {
               classes: 'arcane-accordion-icon',
               styles: Styles(raw: {
                 'font-size': ArcaneTypography.fontXs,
-                'color': ArcaneColors.muted,
+                'color': ArcaneColors.mutedForeground,
                 'transform': isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
                 'transition': ArcaneEffects.transitionFast,
               }),
@@ -156,7 +156,7 @@ class _ArcaneAccordionState extends State<ArcaneAccordion> {
               styles: const Styles(raw: {
                 'font-size': ArcaneTypography.fontSm,
                 'line-height': ArcaneTypography.lineHeightRelaxed,
-                'color': ArcaneColors.muted,
+                'color': ArcaneColors.mutedForeground,
               }),
               [
                 if (item.customContent != null)

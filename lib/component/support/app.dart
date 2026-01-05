@@ -1,5 +1,19 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
+import 'package:jaspr/dom.dart'
+    hide
+        Color,
+        Colors,
+        ColorScheme,
+        Gap,
+        Padding,
+        TextAlign,
+        TextOverflow,
+        Border,
+        BorderRadius,
+        BoxShadow,
+        FontWeight;
+import 'package:jaspr/dom.dart' as dom
+    show link;
 import 'package:fast_log/fast_log.dart';
 
 import '../../util/appearance/theme.dart';
@@ -126,6 +140,7 @@ class _ArcaneAppState extends State<ArcaneApp> {
     info('_ArcaneAppState.build() started');
 
     final theme = component.theme;
+    final styleSheet = theme.styleSheet;
     verbose('_ArcaneAppState.build() - got theme');
 
     final isDark = theme.brightness == Brightness.dark;
@@ -134,6 +149,42 @@ class _ArcaneAppState extends State<ArcaneApp> {
     verbose('_ArcaneAppState.build() - getting cssVariables...');
     final cssVars = theme.cssVariables;
     verbose('_ArcaneAppState.build() - cssVariables count: ${cssVars.length}');
+
+    // Build font loading elements
+    final List<Component> fontElements = [];
+
+    // Google Fonts link (for ShadCN's Inter, etc.)
+    if (styleSheet.googleFontUrl != null) {
+      verbose(
+          '_ArcaneAppState.build() - adding Google Font: ${styleSheet.googleFontUrl}');
+      fontElements.addAll([
+        const dom.link(
+          href: 'https://fonts.googleapis.com',
+          rel: 'preconnect',
+        ),
+        const dom.link(
+          href: 'https://fonts.gstatic.com',
+          rel: 'preconnect',
+          attributes: {'crossorigin': ''},
+        ),
+        dom.link(
+          href: styleSheet.googleFontUrl!,
+          rel: 'stylesheet',
+        ),
+      ]);
+    }
+
+    // Custom @font-face CSS (for Codex's custom fonts)
+    if (styleSheet.fontFaceCss != null &&
+        styleSheet.fontFaceCss!.isNotEmpty) {
+      verbose('_ArcaneAppState.build() - adding @font-face CSS');
+      fontElements.add(
+        Component.element(
+          tag: 'style',
+          children: [RawText(styleSheet.fontFaceCss!)],
+        ),
+      );
+    }
 
     verbose('_ArcaneAppState.build() - creating div...');
     final rootDiv = div(
@@ -144,12 +195,13 @@ class _ArcaneAppState extends State<ArcaneApp> {
         'min-height': '100vh',
         'background-color': 'var(--arcane-background)',
         'color': 'var(--arcane-on-background)',
-        'font-family':
-            '"GeistSans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        'font-family': 'var(--arcane-font-sans)',
         '-webkit-font-smoothing': 'antialiased',
         '-moz-osx-font-smoothing': 'grayscale',
       }),
       [
+        // Font loading elements first
+        ...fontElements,
         component.child,
         // Include fallback scripts for static sites
         if (component.includeFallbackScripts) const ArcaneScriptsComponent(),

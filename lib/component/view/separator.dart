@@ -255,7 +255,7 @@ class ArcaneSeparator extends StatelessComponent {
             [text(label!)],
             styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontSm,
-              'color': ArcaneColors.muted,
+              'color': ArcaneColors.mutedForeground,
               'white-space': 'nowrap',
               'padding': '0 ${ArcaneSpacing.xs}',
             }),
@@ -264,7 +264,7 @@ class ArcaneSeparator extends StatelessComponent {
           span(
             [icon!],
             styles: const Styles(raw: {
-              'color': ArcaneColors.muted,
+              'color': ArcaneColors.mutedForeground,
             }),
           ),
 

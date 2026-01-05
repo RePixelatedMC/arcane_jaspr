@@ -117,7 +117,7 @@ class _ExpanderState extends State<ArcaneExpander> {
               span(
                 classes: 'arcane-expander-icon',
                 styles: Styles(raw: {
-                  'color': ArcaneColors.muted,
+                  'color': ArcaneColors.mutedForeground,
                   'transition': ArcaneEffects.transitionFast,
                   'transform': _isExpanded ? 'rotate(180deg)' : 'rotate(0)',
                 }),
@@ -251,7 +251,7 @@ class _AccordionState extends State<ArcaneAccordion> {
             ),
             span(
               styles: Styles(raw: {
-                'color': ArcaneColors.muted,
+                'color': ArcaneColors.mutedForeground,
                 'transition': ArcaneEffects.transitionFast,
                 'transform': isExpanded ? 'rotate(180deg)' : 'rotate(0)',
               }),

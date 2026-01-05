@@ -203,7 +203,7 @@ class ArcaneCtaLink extends StatelessComponent {
       case CtaLinkVariant.ghost:
         return {
           'background': background ?? 'transparent',
-          'color': ArcaneColors.muted,
+          'color': ArcaneColors.mutedForeground,
           'border': border ?? 'none',
         };
       case CtaLinkVariant.accent:

@@ -188,21 +188,21 @@ class TextPresets {
   static const ArcaneStyleData body = ArcaneStyleData(
     fontSize: FontSize.base,
     lineHeight: LineHeight.relaxed,
-    textColor: TextColor.muted,
+    textColor: TextColor.mutedForeground,
   );
 
   /// Body large
   static const ArcaneStyleData bodyLarge = ArcaneStyleData(
     fontSize: FontSize.lg,
     lineHeight: LineHeight.relaxed,
-    textColor: TextColor.muted,
+    textColor: TextColor.mutedForeground,
   );
 
   /// Body small
   static const ArcaneStyleData bodySmall = ArcaneStyleData(
     fontSize: FontSize.sm,
     lineHeight: LineHeight.normal,
-    textColor: TextColor.muted,
+    textColor: TextColor.mutedForeground,
   );
 
   /// Label text
@@ -337,7 +337,7 @@ class ButtonPresets {
   /// Ghost button
   static const ArcaneStyleData ghost = ArcaneStyleData(
     background: Background.transparent,
-    textColor: TextColor.muted,
+    textColor: TextColor.mutedForeground,
     border: BorderPreset.none,
   );
 
@@ -457,7 +457,7 @@ class BadgePresets {
   /// Secondary badge
   static const ArcaneStyleData secondary = ArcaneStyleData(
     background: Background.surface,
-    textColor: TextColor.muted,
+    textColor: TextColor.mutedForeground,
   );
 
   /// Success badge
@@ -488,7 +488,7 @@ class BadgePresets {
   static const ArcaneStyleData outline = ArcaneStyleData(
     background: Background.transparent,
     border: BorderPreset.standard,
-    textColor: TextColor.muted,
+    textColor: TextColor.mutedForeground,
   );
 }
 

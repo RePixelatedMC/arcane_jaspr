@@ -81,7 +81,7 @@ class ArcaneAnimatedCounter extends StatelessComponent {
           div(
             styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontMd,
-              'color': ArcaneColors.muted,
+              'color': ArcaneColors.mutedForeground,
               'margin-top': ArcaneSpacing.sm,
             }),
             [text(label!)],
@@ -197,7 +197,7 @@ class ArcaneMetricDisplay extends StatelessComponent {
         div(
           styles: const Styles(raw: {
             'font-size': ArcaneTypography.fontSm,
-            'color': ArcaneColors.muted,
+            'color': ArcaneColors.mutedForeground,
           }),
           [text(label)],
         ),

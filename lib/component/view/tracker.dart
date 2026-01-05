@@ -170,7 +170,7 @@ class ArcaneTracker extends StatelessComponent {
               'align-items': 'center',
               'gap': ArcaneSpacing.md,
               'font-size': ArcaneTypography.fontXs,
-              'color': ArcaneColors.muted,
+              'color': ArcaneColors.mutedForeground,
             }),
             [
               span([text('Less')]),
@@ -323,7 +323,7 @@ class ArcaneUptimeTracker extends StatelessComponent {
               span(
                 styles: const Styles(raw: {
                   'font-size': ArcaneTypography.fontXs,
-                  'color': ArcaneColors.muted,
+                  'color': ArcaneColors.mutedForeground,
                 }),
                 [text('${days.length} days')],
               ),

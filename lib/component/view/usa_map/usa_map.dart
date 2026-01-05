@@ -98,7 +98,7 @@ class ArcaneUSAMap extends StatefulComponent {
       'transition': 'filter 150ms ease, opacity 150ms ease',
     }),
     css('.arcane-usa-map-pin:hover').styles(raw: {
-      'filter': 'drop-shadow(0 0 8px var(--arcane-accent)) brightness(1.2)',
+      'filter': 'drop-shadow(0 0 8px var(--arcane-primary)) brightness(1.2)',
     }),
 
     // Tooltip container
@@ -193,9 +193,10 @@ class _ArcaneUSAMapState extends State<ArcaneUSAMap> {
               final isHovered = _hoveredState == stateCode;
               final isActive = component.activeStates.contains(stateCode);
 
+              // Using primary instead of accent for ShadCN compatibility
               String fill;
               if (isActive) {
-                fill = style.stateActiveFill ?? ArcaneColors.accent;
+                fill = style.stateActiveFill ?? ArcaneColors.primary;
               } else if (isHovered) {
                 fill = style.stateHoverFill ?? ArcaneColors.onSurfaceAlpha08;
               } else {
@@ -242,13 +243,14 @@ class _ArcaneUSAMapState extends State<ArcaneUSAMap> {
     final isHovered = _hoveredLocation?.id == location.id;
 
     // Determine pin color based on state
+    // Using primary instead of accent for ShadCN compatibility
     final String pinColor;
     if (location.isActive) {
       pinColor = style.pinActiveColor ?? ArcaneColors.success;
     } else if (isHovered) {
-      pinColor = style.pinHoverColor ?? ArcaneColors.accentHover;
+      pinColor = style.pinHoverColor ?? ArcaneColors.ring;
     } else {
-      pinColor = style.pinColor ?? ArcaneColors.accent;
+      pinColor = style.pinColor ?? ArcaneColors.primary;
     }
 
     final pinSize = style.pinSize;
@@ -268,12 +270,12 @@ class _ArcaneUSAMapState extends State<ArcaneUSAMap> {
         'click': (_) => _handlePinTap(location),
       },
       children: [
-        // Outer glow
+        // Outer glow (using primary RGB for ShadCN compatibility)
         ArcaneSvgCircle(
           cx: '0',
           cy: '0',
           r: '${pinSize + 4}',
-          fill: 'rgba(var(--arcane-accent-rgb), $glowAlpha)',
+          fill: 'rgba(var(--arcane-primary-rgb), $glowAlpha)',
         ),
 
         // Main pin
@@ -349,7 +351,7 @@ class _ArcaneUSAMapState extends State<ArcaneUSAMap> {
           ArcaneDiv(
             styles: const ArcaneStyleData(
               fontSize: FontSize.sm,
-              textColor: TextColor.muted,
+              textColor: TextColor.mutedForeground,
               margin: MarginPreset.bottomSm,
             ),
             children: [
@@ -379,7 +381,7 @@ class _ArcaneUSAMapState extends State<ArcaneUSAMap> {
           ArcaneDiv(
             styles: const ArcaneStyleData(
               fontSize: FontSize.sm,
-              textColor: TextColor.muted,
+              textColor: TextColor.mutedForeground,
               margin: MarginPreset.topSm,
               lineHeight: LineHeight.relaxed,
             ),

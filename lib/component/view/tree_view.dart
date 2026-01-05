@@ -235,7 +235,7 @@ class _ArcaneTreeViewState extends State<ArcaneTreeView> {
                   'height': '16px',
                   'margin-right': ArcaneSpacing.xs,
                   'font-size': '10px',
-                  'color': ArcaneColors.muted,
+                  'color': ArcaneColors.mutedForeground,
                   'transform': isExpanded ? 'rotate(90deg)' : 'rotate(0deg)',
                   'transition': 'transform 0.2s ease',
                 }),

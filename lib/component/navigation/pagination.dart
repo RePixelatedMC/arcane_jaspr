@@ -193,7 +193,7 @@ class ArcanePagination extends StatelessComponent {
             span(
               styles: Styles(raw: {
                 'padding': padding,
-                'color': ArcaneColors.muted,
+                'color': ArcaneColors.mutedForeground,
               }),
               [text('…')],
             )
@@ -266,7 +266,7 @@ class ArcanePagination extends StatelessComponent {
           span(
             styles: Styles(raw: {
               'font-size': fontSize,
-              'color': ArcaneColors.muted,
+              'color': ArcaneColors.mutedForeground,
             }),
             [text('Page $currentPage of $totalPages')],
           ),

@@ -37,7 +37,7 @@ import '../../util/style_types/arcane_style_data.dart';
 /// ArcaneParagraph(
 ///   styles: ArcaneStyleData(
 ///     fontSize: FontSize.lg,
-///     textColor: TextColor.muted,
+///     textColor: TextColor.mutedForeground,
 ///     lineHeight: LineHeight.relaxed,
 ///   ),
 ///   child: ArcaneText('This is a paragraph of text.'),

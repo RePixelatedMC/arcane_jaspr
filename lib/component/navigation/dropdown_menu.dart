@@ -208,7 +208,7 @@ class _ArcaneDropdownMenuState extends State<ArcaneDropdownMenu> {
             span(
               styles: const Styles(raw: {
                 'font-size': ArcaneTypography.fontXs,
-                'color': ArcaneColors.muted,
+                'color': ArcaneColors.mutedForeground,
               }),
               [text(item.description!)],
             ),
@@ -316,7 +316,7 @@ class _ArcaneMegaMenuState extends State<ArcaneMegaMenu> {
             'padding': '8px 12px',
             'font-size': ArcaneTypography.fontSm,
             'font-weight': ArcaneTypography.weightMedium,
-            'color': _isOpen ? ArcaneColors.onSurface : ArcaneColors.muted,
+            'color': _isOpen ? ArcaneColors.onSurface : ArcaneColors.mutedForeground,
             'background': 'none',
             'border': 'none',
             'cursor': 'pointer',
@@ -370,7 +370,7 @@ class _ArcaneMegaMenuState extends State<ArcaneMegaMenu> {
                           'font-weight': ArcaneTypography.weightSemibold,
                           'text-transform': 'uppercase',
                           'letter-spacing': '0.05em',
-                          'color': ArcaneColors.muted,
+                          'color': ArcaneColors.mutedForeground,
                           'margin-bottom': ArcaneSpacing.sm,
                         }),
                         [text(section.title!)],
@@ -432,7 +432,7 @@ class _ArcaneMegaMenuState extends State<ArcaneMegaMenu> {
             div(
               styles: const Styles(raw: {
                 'font-size': ArcaneTypography.fontXs,
-                'color': ArcaneColors.muted,
+                'color': ArcaneColors.mutedForeground,
                 'margin-top': '2px',
               }),
               [text(item.description!)],

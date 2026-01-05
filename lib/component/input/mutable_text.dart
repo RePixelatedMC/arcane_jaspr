@@ -272,7 +272,7 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
             [text(component.helperText!)],
             styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontSm,
-              'color': ArcaneColors.muted,
+              'color': ArcaneColors.mutedForeground,
             }),
           ),
       ],
@@ -302,7 +302,7 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
               span(
                 [component.prefix!],
                 styles: const Styles(raw: {
-                  'color': ArcaneColors.muted,
+                  'color': ArcaneColors.mutedForeground,
                   'padding': '${ArcaneSpacing.xs} 0',
                 }),
               ),
@@ -389,7 +389,7 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
               span(
                 [component.suffix!],
                 styles: const Styles(raw: {
-                  'color': ArcaneColors.muted,
+                  'color': ArcaneColors.mutedForeground,
                   'padding': '${ArcaneSpacing.xs} 0',
                 }),
               ),
@@ -423,7 +423,7 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
                   'width': '28px',
                   'height': '28px',
                   'background': ArcaneColors.surfaceVariant,
-                  'color': ArcaneColors.muted,
+                  'color': ArcaneColors.mutedForeground,
                   'border': 'none',
                   'border-radius': ArcaneRadius.sm,
                   'cursor': 'pointer',
@@ -444,7 +444,7 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
               'font-size': ArcaneTypography.fontXs,
               'color': _editValue.length >= component.maxLength
                   ? ArcaneColors.error
-                  : ArcaneColors.muted,
+                  : ArcaneColors.mutedForeground,
               'text-align': 'right',
             }),
           ),
@@ -467,7 +467,7 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
           'padding-bottom': '2px',
         },
       MutableTextStyle.dashed => {
-          'border-bottom': '1px dashed ${ArcaneColors.muted}',
+          'border-bottom': '1px dashed ${ArcaneColors.mutedForeground}',
           'padding-bottom': '2px',
         },
       MutableTextStyle.input => {
@@ -544,7 +544,7 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
             text(showPlaceholder ? component.placeholder! : component.value),
           ],
           styles: Styles(raw: {
-            if (showPlaceholder) 'color': ArcaneColors.muted,
+            if (showPlaceholder) 'color': ArcaneColors.mutedForeground,
             if (showPlaceholder) 'font-style': 'italic',
           }),
         ),
@@ -559,7 +559,7 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
           span(
             [text('✎')],
             styles: const Styles(raw: {
-              'color': ArcaneColors.muted,
+              'color': ArcaneColors.mutedForeground,
               'font-size': '14px',
               'margin-left': ArcaneSpacing.xs,
             }),
@@ -627,7 +627,7 @@ extension ArcaneMutableTextFactories on ArcaneMutableText {
       displayStyle: MutableTextStyle.dashed,
       textStyles: {
         'font-size': ArcaneTypography.fontSm,
-        'color': ArcaneColors.muted,
+        'color': ArcaneColors.mutedForeground,
       },
     );
   }

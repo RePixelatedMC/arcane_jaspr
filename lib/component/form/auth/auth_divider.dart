@@ -36,7 +36,7 @@ class AuthDivider extends StatelessComponent {
         ArcaneDiv(
           styles: const ArcaneStyleData(
             fontSize: FontSize.xs,
-            textColor: TextColor.muted,
+            textColor: TextColor.mutedForeground,
             textTransform: TextTransform.lowercase,
             whiteSpace: WhiteSpace.nowrap,
           ),

@@ -113,7 +113,7 @@ class ArcaneEmptyState extends StatelessComponent {
           if (icon != null)
             div(
               styles: const Styles(raw: {
-                'color': ArcaneColors.muted,
+                'color': ArcaneColors.mutedForeground,
                 'font-size': ArcaneTypography.font4xl,
                 'opacity': '0.5',
               }),
@@ -132,7 +132,7 @@ class ArcaneEmptyState extends StatelessComponent {
             div(
               styles: const Styles(raw: {
                 'font-size': ArcaneTypography.fontSm,
-                'color': ArcaneColors.muted,
+                'color': ArcaneColors.mutedForeground,
                 'max-width': '400px',
               }),
               [text(message!)],
@@ -189,7 +189,7 @@ class ArcaneLoadingState extends StatelessComponent {
             div(
               styles: const Styles(raw: {
                 'font-size': ArcaneTypography.fontSm,
-                'color': ArcaneColors.muted,
+                'color': ArcaneColors.mutedForeground,
               }),
               [text(message!)],
             ),
@@ -255,7 +255,7 @@ class ArcaneErrorState extends StatelessComponent {
             div(
               styles: const Styles(raw: {
                 'font-size': ArcaneTypography.fontSm,
-                'color': ArcaneColors.muted,
+                'color': ArcaneColors.mutedForeground,
                 'max-width': '400px',
               }),
               [text(message!)],

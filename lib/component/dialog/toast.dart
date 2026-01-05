@@ -376,7 +376,7 @@ class _ArcaneToastState extends State<ArcaneToast> {
                 classes: 'arcane-toast-description',
                 styles: const Styles(raw: {
                   'font-size': ArcaneTypography.fontXs,
-                  'color': ArcaneColors.muted,
+                  'color': ArcaneColors.mutedForeground,
                   'line-height': '1.5',
                   'margin-top': '4px',
                 }),
@@ -427,7 +427,7 @@ class _ArcaneToastState extends State<ArcaneToast> {
               'padding': '0',
               'border': 'none',
               'background': 'transparent',
-              'color': ArcaneColors.muted,
+              'color': ArcaneColors.mutedForeground,
               'cursor': 'pointer',
               'border-radius': ArcaneRadius.sm,
               'transition': ArcaneEffects.transitionFast,

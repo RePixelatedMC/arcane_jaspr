@@ -106,7 +106,7 @@ class _ArcaneForgotPasswordCardState extends State<ArcaneForgotPasswordCard> {
           styles: const ArcaneStyleData(
             margin: MarginPreset.bottomLg,
             fontSize: FontSize.sm,
-            textColor: TextColor.muted,
+            textColor: TextColor.mutedForeground,
             textAlign: TextAlign.center,
           ),
           children: [

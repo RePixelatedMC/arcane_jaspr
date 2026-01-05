@@ -117,7 +117,7 @@ class ArcanePricingCard extends StatelessComponent {
               span(
                 styles: const Styles(raw: {
                   'font-size': ArcaneTypography.fontSm,
-                  'color': ArcaneColors.muted,
+                  'color': ArcaneColors.mutedForeground,
                 }),
                 [text(tier.currency)],
               ),
@@ -134,7 +134,7 @@ class ArcanePricingCard extends StatelessComponent {
               span(
                 styles: const Styles(raw: {
                   'font-size': ArcaneTypography.fontSm,
-                  'color': ArcaneColors.muted,
+                  'color': ArcaneColors.mutedForeground,
                 }),
                 [text('/${tier.period}')],
               ),
@@ -155,7 +155,7 @@ class ArcanePricingCard extends StatelessComponent {
           classes: 'arcane-pricing-description',
           styles: const Styles(raw: {
             'font-size': ArcaneTypography.fontMd,
-            'color': ArcaneColors.muted,
+            'color': ArcaneColors.mutedForeground,
             'margin': '0 0 ${ArcaneSpacing.xl} 0',
             'line-height': ArcaneTypography.leadingNormal,
           }),

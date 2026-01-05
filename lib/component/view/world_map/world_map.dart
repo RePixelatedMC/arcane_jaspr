@@ -73,7 +73,7 @@ class ArcaneWorldMap extends StatefulComponent {
       'transition': 'filter 150ms ease, opacity 150ms ease',
     }),
     css('.arcane-map-pin:hover').styles(raw: {
-      'filter': 'drop-shadow(0 0 8px var(--arcane-accent)) brightness(1.2)',
+      'filter': 'drop-shadow(0 0 8px var(--arcane-primary)) brightness(1.2)',
     }),
 
     // Tooltip container
@@ -227,13 +227,15 @@ class _ArcaneWorldMapState extends State<ArcaneWorldMap> {
     final isHovered = _hoveredLocation?.id == location.id;
 
     // Determine pin color based on state
+    // Using primary instead of accent for ShadCN compatibility
+    // (accent is a background color in ShadCN, primary is always prominent)
     final String pinColor;
     if (location.isActive) {
       pinColor = style.pinActiveColor ?? ArcaneColors.success;
     } else if (isHovered) {
-      pinColor = style.pinHoverColor ?? ArcaneColors.accentHover;
+      pinColor = style.pinHoverColor ?? ArcaneColors.ring;
     } else {
-      pinColor = style.pinColor ?? ArcaneColors.accent;
+      pinColor = style.pinColor ?? ArcaneColors.primary;
     }
 
     final pinSize = style.pinSize;
@@ -253,12 +255,12 @@ class _ArcaneWorldMapState extends State<ArcaneWorldMap> {
         'click': (_) => _handlePinTap(location),
       },
       children: [
-        // Outer glow
+        // Outer glow (using primary RGB for ShadCN compatibility)
         ArcaneSvgCircle(
           cx: '0',
           cy: '0',
           r: '${pinSize + 4}',
-          fill: 'rgba(var(--arcane-accent-rgb), $glowAlpha)',
+          fill: 'rgba(var(--arcane-primary-rgb), $glowAlpha)',
         ),
 
         // Main pin
@@ -334,7 +336,7 @@ class _ArcaneWorldMapState extends State<ArcaneWorldMap> {
           ArcaneDiv(
             styles: const ArcaneStyleData(
               fontSize: FontSize.sm,
-              textColor: TextColor.muted,
+              textColor: TextColor.mutedForeground,
               margin: MarginPreset.bottomSm,
             ),
             children: [Component.text(location.region!)],
@@ -360,7 +362,7 @@ class _ArcaneWorldMapState extends State<ArcaneWorldMap> {
           ArcaneDiv(
             styles: const ArcaneStyleData(
               fontSize: FontSize.sm,
-              textColor: TextColor.muted,
+              textColor: TextColor.mutedForeground,
               margin: MarginPreset.topSm,
               lineHeight: LineHeight.relaxed,
             ),

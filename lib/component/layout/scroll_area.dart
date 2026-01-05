@@ -281,7 +281,7 @@ class ArcaneScrollArea extends StatelessComponent {
       'background': ArcaneColors.transparent,
     }),
     css('.arcane-scroll-area::-webkit-scrollbar-thumb').styles(raw: {
-      'background': ArcaneColors.muted,
+      'background': ArcaneColors.mutedForeground,
       'border-radius': ArcaneRadius.full,
       'border': '2px solid transparent',
       'background-clip': 'padding-box',
@@ -300,7 +300,7 @@ class ArcaneScrollArea extends StatelessComponent {
     }),
     // Firefox thin scrollbar
     css('.arcane-scroll-area').styles(raw: {
-      'scrollbar-color': '${ArcaneColors.muted} transparent',
+      'scrollbar-color': '${ArcaneColors.mutedForeground} transparent',
     }),
   ];
 }

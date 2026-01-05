@@ -75,7 +75,7 @@ class ArcaneBottomNavigationBar extends StatelessComponent {
         'padding': ArcaneSpacing.sm,
         'background': ArcaneColors.transparent,
         'border': 'none',
-        'color': isSelected ? ArcaneColors.accent : ArcaneColors.muted,
+        'color': isSelected ? ArcaneColors.accent : ArcaneColors.mutedForeground,
         'cursor': 'pointer',
         'transition': ArcaneEffects.transitionFast,
         'position': 'relative',

@@ -55,7 +55,7 @@ class IconButtonStyle {
   static const IconButtonStyle ghost = IconButtonStyle._(
     base: {
       'background-color': ArcaneColors.transparent,
-      'color': ArcaneColors.muted,
+      'color': ArcaneColors.mutedForeground,
       'border': 'none',
     },
     hover: {

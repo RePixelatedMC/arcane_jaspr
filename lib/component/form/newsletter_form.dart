@@ -365,7 +365,7 @@ class _WaitlistFormState extends State<ArcaneWaitlistForm> {
             [text(component.description!)],
             styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontSm,
-              'color': ArcaneColors.muted,
+              'color': ArcaneColors.mutedForeground,
               'line-height': ArcaneTypography.lineHeightRelaxed,
             }),
           ),

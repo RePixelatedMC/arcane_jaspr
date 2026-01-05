@@ -94,7 +94,7 @@ class ArcaneBar extends StatelessComponent {
                 classes: 'arcane-bar-subtitle',
                 styles: const Styles(raw: {
                   'font-size': ArcaneTypography.fontXs,
-                  'color': ArcaneColors.muted,
+                  'color': ArcaneColors.mutedForeground,
                   'white-space': 'nowrap',
                   'overflow': 'hidden',
                   'text-overflow': 'ellipsis',
@@ -258,7 +258,7 @@ class ArcaneDialogBar extends StatelessComponent {
               'border-radius': ArcaneRadius.full,
               'background': ArcaneColors.transparent,
               'border': 'none',
-              'color': ArcaneColors.muted,
+              'color': ArcaneColors.mutedForeground,
               'cursor': 'pointer',
               'transition': ArcaneEffects.transitionFast,
               'font-size': ArcaneTypography.fontXl,

@@ -59,7 +59,7 @@ class ArcaneCardSection extends StatelessComponent {
                     styles: const Styles(raw: {
                       'font-size': ArcaneTypography.fontSm,
                       'font-weight': ArcaneTypography.weightSemibold,
-                      'color': ArcaneColors.muted,
+                      'color': ArcaneColors.mutedForeground,
                       'text-transform': 'uppercase',
                       'letter-spacing': '0.05em',
                     }),
@@ -136,7 +136,7 @@ class ArcaneListCard extends StatelessComponent {
               'padding': '${ArcaneSpacing.md} ${ArcaneSpacing.lg}',
               'font-size': ArcaneTypography.fontSm,
               'font-weight': ArcaneTypography.weightSemibold,
-              'color': ArcaneColors.muted,
+              'color': ArcaneColors.mutedForeground,
               'border-bottom': '1px solid ${ArcaneColors.border}',
               'background-color': ArcaneColors.surfaceVariant,
             }),

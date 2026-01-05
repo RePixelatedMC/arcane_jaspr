@@ -91,7 +91,7 @@ class _CodeSnippetState extends State<ArcaneCodeSnippet> {
                   styles: const Styles(raw: {
                     'font-size': ArcaneTypography.fontSm,
                     'font-weight': ArcaneTypography.weightMedium,
-                    'color': ArcaneColors.muted,
+                    'color': ArcaneColors.mutedForeground,
                   }),
                   [text(component.title!)],
                 )
@@ -100,7 +100,7 @@ class _CodeSnippetState extends State<ArcaneCodeSnippet> {
                   styles: const Styles(raw: {
                     'font-size': ArcaneTypography.fontXs,
                     'font-weight': ArcaneTypography.weightMedium,
-                    'color': ArcaneColors.muted,
+                    'color': ArcaneColors.mutedForeground,
                     'text-transform': 'uppercase',
                     'padding': '${ArcaneSpacing.xs} ${ArcaneSpacing.sm}',
                     'background-color': ArcaneColors.surfaceVariant,
@@ -136,7 +136,7 @@ class _CodeSnippetState extends State<ArcaneCodeSnippet> {
                   'width': '28px',
                   'height': '28px',
                   'padding': '0',
-                  'color': _copied ? ArcaneColors.success : ArcaneColors.muted,
+                  'color': _copied ? ArcaneColors.success : ArcaneColors.mutedForeground,
                   'background': ArcaneColors.transparent,
                   'border': 'none',
                   'border-radius': ArcaneRadius.sm,
@@ -200,7 +200,7 @@ class _CodeSnippetState extends State<ArcaneCodeSnippet> {
                                 'font-family': ArcaneTypography.fontFamilyMono,
                                 'font-size': ArcaneTypography.fontSm,
                                 'line-height': ArcaneTypography.leadingRelaxed,
-                                'color': ArcaneColors.muted,
+                                'color': ArcaneColors.mutedForeground,
                                 'text-align': 'right',
                                 'min-width': '${lines.length.toString().length * 8 + 8}px',
                               }),
@@ -367,7 +367,7 @@ class _TerminalState extends State<ArcaneTerminal> {
               span(
                 styles: const Styles(raw: {
                   'font-size': ArcaneTypography.fontSm,
-                  'color': ArcaneColors.muted,
+                  'color': ArcaneColors.mutedForeground,
                   'flex': '1',
                 }),
                 [text(component.title!)],
@@ -400,7 +400,7 @@ class _TerminalState extends State<ArcaneTerminal> {
                   'width': '28px',
                   'height': '28px',
                   'padding': '0',
-                  'color': _copied ? ArcaneColors.success : ArcaneColors.muted,
+                  'color': _copied ? ArcaneColors.success : ArcaneColors.mutedForeground,
                   'background': ArcaneColors.transparent,
                   'border': 'none',
                   'border-radius': ArcaneRadius.sm,

@@ -45,7 +45,7 @@ class _InteractiveDemoState extends State<InteractiveDemo> {
           styles: const ArcaneStyleData(
             fontSize: FontSize.sm,
             fontWeight: FontWeight.w600,
-            textColor: TextColor.muted,
+            textColor: TextColor.mutedForeground,
             margin: MarginPreset.bottomMd,
             textTransform: TextTransform.uppercase,
             letterSpacing: LetterSpacing.wide,
@@ -58,6 +58,8 @@ class _InteractiveDemoState extends State<InteractiveDemo> {
             flexWrap: FlexWrap.wrap,
             alignItems: AlignItems.center,
             gap: Gap.md,
+            overflow: Overflow.auto,
+            maxWidthCustom: '100%',
           ),
           children: demoRegistry.getDemo(component.componentType),
         ),

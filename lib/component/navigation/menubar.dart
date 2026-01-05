@@ -180,7 +180,7 @@ class ArcaneMenubar extends StatelessComponent {
           ),
           const span(
             styles: Styles(raw: {
-              'color': ArcaneColors.muted,
+              'color': ArcaneColors.mutedForeground,
               'font-size': ArcaneTypography.fontXs,
             }),
             [Component.text('▶')],
@@ -239,7 +239,7 @@ class ArcaneMenubar extends StatelessComponent {
           span(
             styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontXs,
-              'color': ArcaneColors.muted,
+              'color': ArcaneColors.mutedForeground,
             }),
             [Component.text(item.shortcut!)],
           ),

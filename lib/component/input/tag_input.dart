@@ -231,7 +231,7 @@ class _ArcaneTagInputState extends State<ArcaneTagInput> {
           span(
             styles: Styles(raw: {
               'font-size': ArcaneTypography.fontXs,
-              'color': hasError ? ArcaneColors.error : ArcaneColors.muted,
+              'color': hasError ? ArcaneColors.error : ArcaneColors.mutedForeground,
             }),
             [text(hasError ? component.errorText! : component.helperText!)],
           ),

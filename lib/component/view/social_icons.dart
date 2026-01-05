@@ -190,7 +190,7 @@ class ArcaneSocialLinks extends StatelessComponent {
               'align-items': 'center',
               'gap': ArcaneSpacing.sm,
               'text-decoration': 'none',
-              'color': ArcaneColors.muted,
+              'color': ArcaneColors.mutedForeground,
               'font-size': ArcaneTypography.fontSm,
               'transition': ArcaneEffects.transitionFast,
             }),

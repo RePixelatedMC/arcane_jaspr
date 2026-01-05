@@ -167,7 +167,7 @@ class ArcaneSlider extends StatelessComponent {
                     'font-size': ArcaneTypography.fontSm,
                     'font-weight': ArcaneTypography.weightMedium,
                     'font-variant-numeric': 'tabular-nums',
-                    'color': ArcaneColors.muted,
+                    'color': ArcaneColors.mutedForeground,
                     'min-width': '40px',
                     'text-align': 'right',
                   }),
@@ -231,7 +231,7 @@ class ArcaneSlider extends StatelessComponent {
                     'transform': 'translateY(-50%)',
                     'width': '3px',
                     'height': 'calc($trackHeight + 4px)',
-                    'background': ArcaneColors.muted,
+                    'background': ArcaneColors.mutedForeground,
                     'border-radius': ArcaneRadius.full,
                     'opacity': '0.5',
                   }),
@@ -326,14 +326,14 @@ class ArcaneSlider extends StatelessComponent {
               span(
                 styles: const Styles(raw: {
                   'font-size': ArcaneTypography.fontXs,
-                  'color': ArcaneColors.muted,
+                  'color': ArcaneColors.mutedForeground,
                 }),
                 [text(min.toStringAsFixed(0))],
               ),
               span(
                 styles: const Styles(raw: {
                   'font-size': ArcaneTypography.fontXs,
-                  'color': ArcaneColors.muted,
+                  'color': ArcaneColors.mutedForeground,
                 }),
                 [text(max.toStringAsFixed(0))],
               ),
@@ -366,7 +366,7 @@ class ArcaneSlider extends StatelessComponent {
             styles: Styles(raw: {
               'width': '2px',
               'height': '2px',
-              'background': ArcaneColors.muted,
+              'background': ArcaneColors.mutedForeground,
               'border-radius': ArcaneRadius.full,
             }),
             [],
@@ -484,7 +484,7 @@ class ArcaneRangeSlider extends StatelessComponent {
                   styles: const Styles(raw: {
                     'font-size': ArcaneTypography.fontSm,
                     'font-variant-numeric': 'tabular-nums',
-                    'color': ArcaneColors.muted,
+                    'color': ArcaneColors.mutedForeground,
                   }),
                   [
                     text('${minValue.toStringAsFixed(0)} – ${maxValue.toStringAsFixed(0)}'),

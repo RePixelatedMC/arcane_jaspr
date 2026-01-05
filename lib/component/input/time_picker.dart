@@ -281,7 +281,7 @@ class _ArcaneTimePickerState extends State<ArcaneTimePicker> {
                 '1px solid ${hasError ? ArcaneColors.error : ArcaneColors.border}',
             'border-radius': ArcaneRadius.md,
             'font-size': sizeStyles['fontSize']!,
-            'color': hasValue ? ArcaneColors.onSurface : ArcaneColors.muted,
+            'color': hasValue ? ArcaneColors.onSurface : ArcaneColors.mutedForeground,
             'cursor': component.disabled ? 'not-allowed' : 'pointer',
             'transition': ArcaneEffects.transitionFast,
             'text-align': 'left',
@@ -293,7 +293,7 @@ class _ArcaneTimePickerState extends State<ArcaneTimePicker> {
           [
             const span(
               styles: Styles(raw: {
-                'color': ArcaneColors.muted,
+                'color': ArcaneColors.mutedForeground,
               }),
               [Component.text('🕐')],
             ),
@@ -314,7 +314,7 @@ class _ArcaneTimePickerState extends State<ArcaneTimePicker> {
                   'aria-label': 'Clear time',
                 },
                 styles: const Styles(raw: {
-                  'color': ArcaneColors.muted,
+                  'color': ArcaneColors.mutedForeground,
                   'cursor': 'pointer',
                   'transition': ArcaneEffects.transitionFast,
                 }),
@@ -389,7 +389,7 @@ class _ArcaneTimePickerState extends State<ArcaneTimePicker> {
                           styles: Styles(raw: {
                             'font-size': ArcaneTypography.fontXs,
                             'font-weight': ArcaneTypography.weightMedium,
-                            'color': ArcaneColors.muted,
+                            'color': ArcaneColors.mutedForeground,
                             'text-transform': 'uppercase',
                             'margin-bottom': ArcaneSpacing.xs,
                           }),
@@ -523,7 +523,7 @@ class _ArcaneTimePickerState extends State<ArcaneTimePicker> {
           styles: const Styles(raw: {
             'font-size': ArcaneTypography.fontXs,
             'font-weight': ArcaneTypography.weightMedium,
-            'color': ArcaneColors.muted,
+            'color': ArcaneColors.mutedForeground,
             'text-transform': 'uppercase',
             'margin-bottom': ArcaneSpacing.xs,
           }),

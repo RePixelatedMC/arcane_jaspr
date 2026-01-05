@@ -1,3 +1,4 @@
+import 'package:arcane_jaspr/aliases.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight, StyleRule;
 
@@ -232,9 +233,11 @@ class ArcaneCloseButton extends StatelessComponent {
 
   Component _buildCloseIcon() {
     return span(
-      styles: const Styles(raw: {
+      styles: const Styles(
+          raw: {
         'font-size': '1.25em',
         'line-height': '1',
+
       }),
       [text('×')],
     );

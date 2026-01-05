@@ -96,7 +96,7 @@ class ArcaneIntegrationCard extends StatelessComponent {
                     styles: const Styles(raw: {
                       'font-size': ArcaneTypography.fontXl,
                       'font-weight': ArcaneTypography.weightSemibold,
-                      'color': ArcaneColors.muted,
+                      'color': ArcaneColors.mutedForeground,
                     }),
                     [text(name.substring(0, 1).toUpperCase())],
                   ),
@@ -112,7 +112,7 @@ class ArcaneIntegrationCard extends StatelessComponent {
                   'font-weight': ArcaneTypography.weightMedium,
                   'text-transform': 'uppercase',
                   'letter-spacing': '0.05em',
-                  'color': ArcaneColors.muted,
+                  'color': ArcaneColors.mutedForeground,
                   'background-color': ArcaneColors.surfaceVariant,
                   'border-radius': ArcaneRadius.full,
                 }),
@@ -145,7 +145,7 @@ class ArcaneIntegrationCard extends StatelessComponent {
                 styles: const Styles(raw: {
                   'font-size': ArcaneTypography.fontSm,
                   'line-height': ArcaneTypography.leadingNormal,
-                  'color': ArcaneColors.muted,
+                  'color': ArcaneColors.mutedForeground,
                 }),
                 [text(description!)],
               ),
@@ -260,7 +260,7 @@ class ArcaneIntegrationGrid extends StatelessComponent {
                 div(
                   styles: const Styles(raw: {
                     'font-size': ArcaneTypography.fontMd,
-                    'color': ArcaneColors.muted,
+                    'color': ArcaneColors.mutedForeground,
                   }),
                   [text(description!)],
                 ),

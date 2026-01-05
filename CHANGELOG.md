@@ -7,6 +7,74 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.7.1]
 
+### Changed (BREAKING)
+
+#### Unified Stylesheet System
+**BREAKING**: Complete redesign of the theming system. `ArcaneStyleSheet` is now a COMPLETE design system containing ALL colors, typography, layout, and component defaults.
+
+**Migration:**
+```dart
+// OLD (no longer works)
+ArcaneApp(
+  theme: ArcaneTheme.green,
+  child: MyApp(),
+)
+
+// NEW
+ArcaneApp(
+  theme: ArcaneTheme.codex,  // or ArcaneTheme.shadcn
+  child: MyApp(),
+)
+```
+
+**What Changed:**
+- `ThemeSchema` and all color theme presets (`ArcaneTheme.red`, `.green`, `.blue`, etc.) are **REMOVED**
+- Stylesheets now define **ALL 38 colors** (19 light mode + 19 dark mode)
+- Font loading (Google Fonts or custom @font-face) is built into the stylesheet
+- Only two theme presets: `ArcaneTheme.codex` (default) and `ArcaneTheme.shadcn`
+
+**Stylesheet Features:**
+- `CodexStyleSheet` - Gaming aesthetic with custom fonts (Akzidenz-GroteskPro, ITCAvantGardeStd), emerald accent, glass effects, rich shadows
+- `ShadcnStyleSheet` - Minimal design matching [tweakcn.com](https://tweakcn.com/editor/theme) exactly, Inter font via Google Fonts, uses **oklch** color space directly from ShadCN spec, no glass effects
+
+**Color System:**
+Each stylesheet defines:
+- Core colors: background, foreground, card, popover, primary, secondary, muted, accent, destructive, border, input, ring
+- Semantic colors: success, warning, info (with foreground variants)
+- Chart colors: 5 colors per mode for data visualization
+- Sidebar colors: separate palette for sidebar UI
+
+**Typography System:**
+- `fontSans` - Body text font stack
+- `fontHeading` - Heading font stack
+- `fontMono` - Monospace/code font stack
+- `googleFontUrl` - Google Fonts URL (ShadcnStyleSheet uses Inter)
+- `fontFaceCss` - Custom @font-face CSS (CodexStyleSheet uses custom fonts)
+
+**ArcaneApp Font Loading:**
+`ArcaneApp` now automatically injects font loading based on the stylesheet:
+- Google Fonts: preconnect links and stylesheet injection
+- Custom fonts: @font-face CSS style block injection
+
+**Creating Custom Stylesheets:**
+```dart
+class MyStyleSheet extends ArcaneStyleSheet {
+  const MyStyleSheet();
+
+  @override String get id => 'my-style';
+  @override String get name => 'My Style';
+
+  // Override ALL color properties for light and dark modes
+  @override Color get backgroundLight => const Color(0xFFFFFFFF);
+  @override Color get backgroundDark => const Color(0xFF000000);
+  // ... 36 more color properties
+
+  // Override typography
+  @override String get fontSans => "'My Font', sans-serif";
+  @override String? get googleFontUrl => 'https://fonts.googleapis.com/...';
+}
+```
+
 ### Added
 
 #### ArcaneUSAMap Component
@@ -35,12 +103,56 @@ ArcaneUSAMap(
 )
 ```
 
+#### ShadCN Color Presets
+Added `ShadcnColorPreset` system for selecting different gray scale palettes. ShadCN supports five gray scale options matching the official ui.shadcn.com theming:
+- `ShadcnColorPreset.neutral` - Pure grayscale with no color tint (default)
+- `ShadcnColorPreset.stone` - Warm gray with yellow/brown undertones
+- `ShadcnColorPreset.zinc` - Cool gray with purple undertones
+- `ShadcnColorPreset.gray` - Balanced gray with slight blue undertones
+- `ShadcnColorPreset.slate` - Blue-tinted gray
+
+All colors use oklch color space directly from the Tailwind CSS v4 palette.
+
+```dart
+// Default (Neutral)
+ArcaneApp(
+  theme: ArcaneTheme(styleSheet: ShadcnStyleSheet()),
+  child: MyApp(),
+)
+
+// Zinc preset (cool gray with purple tint)
+ArcaneApp(
+  theme: ArcaneTheme(
+    styleSheet: ShadcnStyleSheet(colorPreset: ShadcnColorPreset.zinc),
+  ),
+  child: MyApp(),
+)
+
+// Slate preset (blue-tinted gray)
+ArcaneApp(
+  theme: ArcaneTheme(
+    styleSheet: ShadcnStyleSheet(colorPreset: ShadcnColorPreset.slate),
+  ),
+  child: MyApp(),
+)
+```
+
+Each preset defines complete light and dark mode color values for all 19 ShadCN theme tokens.
+
 #### Documentation
 - Added documentation page for `ArcaneArrowLink` component
 - Added documentation page for `ArcaneFeatureShowcase` component
 - Added documentation page for `ArcaneWorldMap` component
 - Added documentation page for `ArcaneUSAMap` component
 - Added interactive demos for all new components in the codex
+
+#### Documentation Site Improvements (Arcane Codex)
+- **Preset Selector**: Added working ShadCN color preset selector to docs header. Uses native `<select>` element for static site compatibility. Allows switching between Neutral, Stone, Zinc, Gray, and Slate presets with localStorage persistence
+- **Theme Toggle**: Redesigned theme toggle button with proper icon swapping. Uses `ArcaneIcon.sun/moon` with JavaScript fallback for static sites
+- **ShadCN-style Header**: Redesigned header with compact search trigger (command palette style with `Cmd+K` badge), native preset selector with custom chevron, and cleaner button styling
+- **ShadCN-style Sidebar**: Cleaner navigation using page background (not muted), muted backgrounds for active items (removed left border indicator), simplified section headers
+- **Code Blocks**: Redesigned markdown code blocks with darker background (oklch), subtle copy button that appears on hover, improved light/dark mode support
+- **Breadcrumbs**: Added automatic breadcrumb navigation to content pages using `ArcaneBreadcrumbs` component
 
 #### ArcaneFlexiCards Locked Dimensions
 Added optional height/width pre/post lock parameters to `ArcaneFlexiCards` for precise control over card dimensions during hover transitions:
@@ -167,6 +279,59 @@ Split large component files for better maintainability:
 - `mutable_text.dart`: Extracted `mutable_text_types.dart` (trigger/input/style enums)
 
 All types are re-exported from their parent files, so imports remain unchanged.
+
+### Changed
+
+**Stylesheet System Refactoring**
+Major refactoring to make the theming system truly stylesheet-agnostic. Previously, the docs layout had ShadCN-specific code scattered throughout. Now, changing the design system requires modifying exactly ONE line:
+
+```dart
+// In arcane_docs_layout.dart - change this ONE constant:
+const ArcaneStyleSheet _docsStyleSheet = ShadcnStyleSheet(); // or CodexStyleSheet()
+```
+
+**New APIs:**
+- `StyleSheetVariant` class - Generic variant representation with `id`, `displayName`, and optional `icon`
+- `ArcaneStyleSheet.variants` - Returns available variants for a stylesheet
+- `ArcaneStyleSheet.currentVariantId` - The currently selected variant ID
+- `ArcaneStyleSheet.withVariant(String)` - Creates stylesheet instance with different variant
+- `ArcaneStyleSheet.cssClassForVariant(String)` - Generates CSS class name for variant
+- `ArcaneStyleSheet.generateAllVariantsCss(Brightness)` - Generates CSS variables for all variants
+- `ArcaneStyleSheet.generateCompleteCss()` - Generates complete CSS string for all variants (light and dark modes)
+
+**ShadcnStyleSheet variant support:**
+- Implements `variants` returning all 5 color presets (Neutral, Stone, Zinc, Gray, Slate)
+- Implements `withVariant` to switch between presets
+
+**CodexStyleSheet:**
+- Uses default variant implementation (single variant "codex")
+- Automatically shows no variant selector in UI (only shown when variants.length > 1)
+
+**Docs Layout Changes:**
+- Removed all ShadCN-specific imports and references
+- Uses generic `ArcaneStyleSheet` interface throughout
+- CSS generation uses `stylesheet.generateCompleteCss()` instead of iterating ShadCN presets
+- Automatic Google Font or custom @font-face loading based on stylesheet
+- Variant selector automatically adapts to available variants
+
+**JavaScript Changes (docs_scripts.dart):**
+- Renamed `getCurrentPreset()` to `getCurrentVariant()`
+- Renamed `setPreset()` to `setVariant()`
+- Uses `arcane-theme-variant` localStorage key
+- Variant selector ID changed from `preset-select` to `variant-select`
+
+### Fixed
+
+**Color Contrast Improvements**
+- Fixed `IconButtonStyle.ghost` using `ArcaneColors.muted` (invisible) - now uses `ArcaneColors.mutedForeground`
+- Fixed `ArcaneStyles.bodyText`, `.mutedText`, `.tinyText` using invisible muted color
+- These fixes improve visibility of `ArcaneIconButton`, `ArcaneCloseButton`, and text using common style presets
+
+**Map Component Demo Fixes**
+- Fixed map pin positioning in demos by correcting location IDs to match pre-calculated SVG coordinates:
+  - World map: `tok` -> `tyo`, `sgp` -> `sin`, `sf` -> `sfo`
+  - USA map: `sf` -> `sfo`
+- Removed unintended `isActive: true` flags that caused pins to appear green
 
 ### Documentation
 - Updated ArcaneCard documentation with `children:` and `onClick` parameters

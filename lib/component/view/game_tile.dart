@@ -113,7 +113,7 @@ class ArcaneGameTile extends StatelessComponent {
               span(
                 styles: const Styles(raw: {
                   'font-size': ArcaneTypography.fontXl,
-                  'color': ArcaneColors.muted,
+                  'color': ArcaneColors.mutedForeground,
                   'font-weight': ArcaneTypography.weightBold,
                 }),
                 [text(name.isNotEmpty ? name[0].toUpperCase() : '?')],
@@ -137,7 +137,7 @@ class ArcaneGameTile extends StatelessComponent {
           div(
             styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontXs,
-              'color': ArcaneColors.muted,
+              'color': ArcaneColors.mutedForeground,
             }),
             [text(subtitle!)],
           ),
@@ -229,7 +229,7 @@ class ArcaneGameSelector extends StatelessComponent {
                 div(
                   styles: const Styles(raw: {
                     'font-size': ArcaneTypography.fontSm,
-                    'color': ArcaneColors.muted,
+                    'color': ArcaneColors.mutedForeground,
                   }),
                   [text(description!)],
                 ),
@@ -366,7 +366,7 @@ class ArcaneGameCard extends StatelessComponent {
                       span(
                         styles: const Styles(raw: {
                           'font-size': ArcaneTypography.fontLg,
-                          'color': ArcaneColors.muted,
+                          'color': ArcaneColors.mutedForeground,
                           'font-weight': ArcaneTypography.weightBold,
                         }),
                         [text(name.isNotEmpty ? name[0].toUpperCase() : '?')],
@@ -420,7 +420,7 @@ class ArcaneGameCard extends StatelessComponent {
                 styles: const Styles(raw: {
                   'font-size': ArcaneTypography.fontSm,
                   'line-height': ArcaneTypography.leadingNormal,
-                  'color': ArcaneColors.muted,
+                  'color': ArcaneColors.mutedForeground,
                 }),
                 [text(description!)],
               ),
@@ -440,7 +440,7 @@ class ArcaneGameCard extends StatelessComponent {
                       styles: const Styles(raw: {
                         'padding': '${ArcaneSpacing.xs} ${ArcaneSpacing.sm}',
                         'font-size': ArcaneTypography.fontXs,
-                        'color': ArcaneColors.muted,
+                        'color': ArcaneColors.mutedForeground,
                         'background-color': ArcaneColors.surfaceVariant,
                         'border-radius': ArcaneRadius.sm,
                       }),

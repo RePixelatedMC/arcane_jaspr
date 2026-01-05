@@ -140,7 +140,7 @@ class _TimeDialogState extends State<ArcaneTimeDialog> {
           if (component.message != null)
             div(
               styles: const Styles(raw: {
-                'color': ArcaneColors.muted,
+                'color': ArcaneColors.mutedForeground,
                 'font-size': ArcaneTypography.fontSm,
                 'line-height': ArcaneTypography.lineHeightRelaxed,
               }),
@@ -172,7 +172,7 @@ class _TimeDialogState extends State<ArcaneTimeDialog> {
                   styles: const Styles(raw: {
                     'font-size': ArcaneTypography.fontLg,
                     'margin-left': ArcaneSpacing.sm,
-                    'color': ArcaneColors.muted,
+                    'color': ArcaneColors.mutedForeground,
                   }),
                   [text(_isPM ? 'PM' : 'AM')],
                 ),
@@ -232,7 +232,7 @@ class _TimeDialogState extends State<ArcaneTimeDialog> {
                       styles: const Styles(raw: {
                         'font-size': ArcaneTypography.fontXs,
                         'font-weight': ArcaneTypography.weightMedium,
-                        'color': ArcaneColors.muted,
+                        'color': ArcaneColors.mutedForeground,
                         'text-transform': 'uppercase',
                         'text-align': 'center',
                         'margin-bottom': ArcaneSpacing.xs,
@@ -325,7 +325,7 @@ class _TimeDialogState extends State<ArcaneTimeDialog> {
           styles: const Styles(raw: {
             'font-size': ArcaneTypography.fontXs,
             'font-weight': ArcaneTypography.weightMedium,
-            'color': ArcaneColors.muted,
+            'color': ArcaneColors.mutedForeground,
             'text-transform': 'uppercase',
             'text-align': 'center',
             'margin-bottom': ArcaneSpacing.xs,

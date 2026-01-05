@@ -170,7 +170,7 @@ class ArcaneResizable extends StatelessComponent {
                     'width': '4px',
                     'height': '4px',
                     'border-radius': '50%',
-                    'background-color': ArcaneColors.muted,
+                    'background-color': ArcaneColors.mutedForeground,
                   }),
                   [],
                 ),

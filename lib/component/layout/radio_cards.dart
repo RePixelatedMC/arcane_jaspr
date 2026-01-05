@@ -91,7 +91,7 @@ class _ArcaneRadioCardsState<T> extends State<ArcaneRadioCards<T>> {
           div(
             styles: Styles(raw: {
               'margin-bottom': ArcaneSpacing.sm,
-              'color': isSelected ? ArcaneColors.accent : ArcaneColors.muted,
+              'color': isSelected ? ArcaneColors.accent : ArcaneColors.mutedForeground,
             }),
             [item.icon!],
           ),
@@ -110,7 +110,7 @@ class _ArcaneRadioCardsState<T> extends State<ArcaneRadioCards<T>> {
             classes: 'arcane-radio-card-subtitle',
             styles: Styles(raw: {
               'font-size': ArcaneTypography.fontSm,
-              'color': isSelected ? ArcaneColors.accent : ArcaneColors.muted,
+              'color': isSelected ? ArcaneColors.accent : ArcaneColors.mutedForeground,
             }),
             [Component.text(item.subtitle!)],
           ),

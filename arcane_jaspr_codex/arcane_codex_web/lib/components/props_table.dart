@@ -80,7 +80,7 @@ class PropsTable extends StatelessComponent {
                     styles: const ArcaneStyleData(
                       fontFamily: FontFamily.mono,
                       fontSize: FontSize.sm,
-                      textColor: TextColor.muted,
+                      textColor: TextColor.mutedForeground,
                     ),
                     child: ArcaneText(prop.type),
                   ),
@@ -95,14 +95,14 @@ class PropsTable extends StatelessComponent {
                             padding: PaddingPreset.inlineCode,
                             background: Background.glassTint,
                             borderRadius: Radius.xs,
-                            textColor: TextColor.muted,
+                            textColor: TextColor.mutedForeground,
                           ),
                           child: ArcaneText(prop.defaultValue!),
                         )
                       : ArcaneSpan(
                           styles: const ArcaneStyleData(
                             fontSize: FontSize.sm,
-                            textColor: TextColor.muted,
+                            textColor: TextColor.mutedForeground,
                           ),
                           child: const ArcaneText('-'),
                         ),
@@ -182,7 +182,7 @@ class EnumTable extends StatelessComponent {
           ArcaneDiv(
             styles: const ArcaneStyleData(
               fontSize: FontSize.sm,
-              textColor: TextColor.muted,
+              textColor: TextColor.mutedForeground,
               margin: MarginPreset.bottomMd,
             ),
             children: [ArcaneText(description!)],
@@ -216,7 +216,7 @@ class EnumTable extends StatelessComponent {
                     styles: const ArcaneStyleData(
                       fontFamily: FontFamily.mono,
                       fontSize: FontSize.sm,
-                      textColor: TextColor.muted,
+                      textColor: TextColor.mutedForeground,
                     ),
                     child: ArcaneText(value.cssValue),
                   ),

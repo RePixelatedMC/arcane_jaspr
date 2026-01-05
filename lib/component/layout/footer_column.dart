@@ -161,7 +161,7 @@ class ArcaneFooterBrandColumn extends StatelessComponent {
           p(
             styles: Styles(raw: {
               'font-size': ArcaneTypography.fontSizeSm,
-              'color': ArcaneColors.muted,
+              'color': ArcaneColors.mutedForeground,
               'line-height': '1.6',
               'margin': '0 0 ${ArcaneSpacing.md} 0',
               'max-width': descriptionMaxWidth ?? '280px',

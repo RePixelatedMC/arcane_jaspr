@@ -211,7 +211,7 @@ class ArcaneRadioGroup<T> extends StatelessComponent {
             [text(helperText!)],
             styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontSm,
-              'color': ArcaneColors.muted,
+              'color': ArcaneColors.mutedForeground,
             }),
           ),
       ],
@@ -334,7 +334,7 @@ class ArcaneRadioGroup<T> extends StatelessComponent {
                 [text(option.description!)],
                 styles: const Styles(raw: {
                   'font-size': ArcaneTypography.fontSm,
-                  'color': ArcaneColors.muted,
+                  'color': ArcaneColors.mutedForeground,
                   'margin-top': '2px',
                 }),
               ),
@@ -402,7 +402,7 @@ class ArcaneRadioGroup<T> extends StatelessComponent {
             if (option.icon != null)
               div(
                 styles: Styles(raw: {
-                  'color': isSelected ? ArcaneColors.accent : ArcaneColors.muted,
+                  'color': isSelected ? ArcaneColors.accent : ArcaneColors.mutedForeground,
                 }),
                 [option.icon!],
               ),
@@ -438,7 +438,7 @@ class ArcaneRadioGroup<T> extends StatelessComponent {
             [text(option.description!)],
             styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontSm,
-              'color': ArcaneColors.muted,
+              'color': ArcaneColors.mutedForeground,
             }),
           ),
       ],

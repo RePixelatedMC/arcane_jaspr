@@ -129,7 +129,7 @@ class ArcaneKbd extends StatelessComponent {
           'background': 'transparent',
           'border': '1px solid ${ArcaneColors.border}',
           'border-radius': ArcaneRadius.sm,
-          'color': ArcaneColors.muted,
+          'color': ArcaneColors.mutedForeground,
         },
     };
   }
@@ -153,7 +153,7 @@ class ArcaneKbd extends StatelessComponent {
             if (i < keys!.length - 1)
               span(
                 styles: const Styles(raw: {
-                  'color': ArcaneColors.muted,
+                  'color': ArcaneColors.mutedForeground,
                   'font-size': ArcaneTypography.fontXs,
                 }),
                 [text(separator)],

@@ -122,7 +122,7 @@ class ArcaneFeatureShowcase extends StatelessComponent {
                     classes: 'arcane-feature-showcase-subtitle',
                     styles: Styles(raw: {
                       'font-size': ArcaneTypography.fontLg,
-                      'color': ArcaneColors.muted,
+                      'color': ArcaneColors.mutedForeground,
                       'margin': '0',
                       'max-width': '600px',
                       if (centerHeader) 'margin-left': 'auto',

@@ -231,7 +231,7 @@ class _ArcaneDatePickerState extends State<ArcaneDatePicker> {
             'border': '1px solid ${hasError ? ArcaneColors.error : ArcaneColors.border}',
             'border-radius': ArcaneRadius.md,
             'font-size': sizeStyles['fontSize']!,
-            'color': hasValue ? ArcaneColors.onSurface : ArcaneColors.muted,
+            'color': hasValue ? ArcaneColors.onSurface : ArcaneColors.mutedForeground,
             'cursor': component.disabled ? 'not-allowed' : 'pointer',
             'transition': ArcaneEffects.transitionFast,
             'text-align': 'left',
@@ -243,7 +243,7 @@ class _ArcaneDatePickerState extends State<ArcaneDatePicker> {
           [
             const span(
               styles: Styles(raw: {
-                'color': ArcaneColors.muted,
+                'color': ArcaneColors.mutedForeground,
               }),
               [Component.text('📅')],
             ),
@@ -264,7 +264,7 @@ class _ArcaneDatePickerState extends State<ArcaneDatePicker> {
                   'aria-label': 'Clear date',
                 },
                 styles: const Styles(raw: {
-                  'color': ArcaneColors.muted,
+                  'color': ArcaneColors.mutedForeground,
                   'cursor': 'pointer',
                   'transition': ArcaneEffects.transitionFast,
                 }),

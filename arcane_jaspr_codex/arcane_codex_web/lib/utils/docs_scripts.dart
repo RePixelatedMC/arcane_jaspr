@@ -31,9 +31,6 @@ class DocsScriptConfig {
   /// Copy feedback timeout in milliseconds
   static const int copyFeedbackTimeout = 2000;
 
-  /// Default theme preset
-  static const String defaultThemePreset = 'green';
-
   /// Default theme mode
   static const String defaultThemeMode = 'dark';
 }
@@ -46,7 +43,7 @@ class DocsScripts {
 document.addEventListener('DOMContentLoaded', function() {
   ${_themeUtilities()}
   ${_themeToggleHandler()}
-  ${_themePresetButtons()}
+  ${_variantSelectorHandler()}
   ${_searchFunctionality(basePath)}
   ${_codeBlockCopyButtons()}
   ${_syntaxHighlighting()}
@@ -57,36 +54,46 @@ document.addEventListener('DOMContentLoaded', function() {
 
   static String _themeUtilities() => '''
 // ===== THEME UTILITIES =====
-function getCurrentTheme() {
-  return localStorage.getItem('arcane-theme-preset') || '${DocsScriptConfig.defaultThemePreset}';
-}
+// Stylesheet-agnostic theming - works with any ArcaneStyleSheet
 function getCurrentMode() {
   return localStorage.getItem('arcane-theme-mode') || '${DocsScriptConfig.defaultThemeMode}';
 }
-function setTheme(preset, mode) {
-  localStorage.setItem('arcane-theme-preset', preset);
+function getCurrentVariant() {
+  // Get from localStorage, fallback to window.arcaneThemeVariant (set by server)
+  return localStorage.getItem('arcane-theme-variant') || window.arcaneThemeVariant || 'shadcn-neutral';
+}
+function updateClasses() {
+  var mode = getCurrentMode();
+  var variant = getCurrentVariant();
+  var root = document.getElementById('arcane-root');
+  if (root) {
+    // CSS class format: arcane-{variant-id} arcane-{mode}
+    root.className = 'arcane-' + variant + ' ' + (mode === 'dark' ? 'arcane-dark' : 'arcane-light');
+  }
+}
+function setMode(mode) {
   localStorage.setItem('arcane-theme-mode', mode);
-  document.documentElement.className = 'theme-' + preset + '-' + mode;
+  updateClasses();
   updateModeToggleIcon(mode);
-  updateThemeButtons(preset);
+}
+function setVariant(variantId) {
+  localStorage.setItem('arcane-theme-variant', variantId);
+  updateClasses();
 }
 function updateModeToggleIcon(mode) {
   var themeToggle = document.getElementById('theme-toggle');
   if (!themeToggle) return;
-  var iconContainer = themeToggle.querySelector('div > div');
+  var iconContainer = themeToggle.querySelector('.theme-icon');
   if (iconContainer) {
-    iconContainer.innerHTML = mode === 'dark'
-      ? '${DocsIcons.sun.replaceAll('\n', '')}'
-      : '${DocsIcons.moon.replaceAll('\n', '')}';
+    // Lucide-style SVGs matching ArcaneIcon.sun/moon (16px for IconSize.sm)
+    var sunIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>';
+    var moonIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>';
+    iconContainer.innerHTML = mode === 'dark' ? sunIcon : moonIcon;
   }
 }
-function updateThemeButtons(activePreset) {
-  document.querySelectorAll('[data-theme-preset]').forEach(function(btn) {
-    var isActive = btn.dataset.themePreset === activePreset;
-    btn.style.outline = isActive ? '2px solid var(--arcane-accent)' : 'none';
-    btn.style.outlineOffset = isActive ? '2px' : '0';
-  });
-}
+// Initialize on load
+updateClasses();
+updateModeToggleIcon(getCurrentMode());
 ''';
 
   static String _themeToggleHandler() => '''
@@ -96,21 +103,9 @@ if (themeToggle) {
   themeToggle.addEventListener('click', function() {
     var currentMode = getCurrentMode();
     var newMode = currentMode === 'dark' ? 'light' : 'dark';
-    setTheme(getCurrentTheme(), newMode);
+    setMode(newMode);
   });
 }
-''';
-
-  static String _themePresetButtons() => '''
-// ===== THEME PRESET BUTTONS =====
-document.querySelectorAll('[data-theme-preset]').forEach(function(btn) {
-  btn.addEventListener('click', function() {
-    var preset = this.dataset.themePreset;
-    setTheme(preset, getCurrentMode());
-  });
-});
-// Initialize button states
-updateThemeButtons(getCurrentTheme());
 ''';
 
   static String _searchFunctionality(String basePath) => '''
@@ -180,18 +175,28 @@ if (searchInput) {
     }
   });
   document.addEventListener('click', function(e) {
-    if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) hideResults();
+    if (searchResults && !searchInput.contains(e.target) && !searchResults.contains(e.target)) hideResults();
   });
   searchInput.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') { hideResults(); this.blur(); }
+  });
+
+  // Keyboard shortcut: Cmd+K or Ctrl+K to focus search
+  document.addEventListener('keydown', function(e) {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      e.preventDefault();
+      searchInput.focus();
+      searchInput.select();
+    }
   });
 }
 ''';
 
   static String _codeBlockCopyButtons() => '''
 // ===== CODE BLOCK COPY BUTTONS =====
-var copyIconSvg = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
-var checkIconSvg = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+// SVGs use currentColor to inherit from CSS
+var copyIconSvg = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+var checkIconSvg = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>';
 
 var proseBlocks = document.querySelectorAll('.prose pre');
 proseBlocks.forEach(function(pre, index) {
@@ -205,7 +210,6 @@ proseBlocks.forEach(function(pre, index) {
 
   var wrapper = document.createElement('div');
   wrapper.className = 'code-block-wrapper';
-  wrapper.style.cssText = 'position: relative !important; margin: 1rem 0;';
   pre.parentNode.insertBefore(wrapper, pre);
   wrapper.appendChild(pre);
   pre.style.paddingRight = '50px';
@@ -214,24 +218,8 @@ proseBlocks.forEach(function(pre, index) {
   copyBtn.className = 'copy-code-btn';
   copyBtn.setAttribute('data-no-tooltip', 'true');
   copyBtn.setAttribute('type', 'button');
-  copyBtn.style.cssText = 'position: absolute !important; top: 8px !important; right: 8px !important; padding: 6px 8px; background: #1f2937; border: 1px solid #374151; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 100; opacity: 1;';
   copyBtn.innerHTML = copyIconSvg;
   wrapper.appendChild(copyBtn);
-
-  copyBtn.onmouseenter = function() {
-    this.style.background = '#374151';
-    this.style.borderColor = '#22c55e';
-    var svg = this.querySelector('svg');
-    if (svg && !this.classList.contains('copied')) svg.setAttribute('stroke', '#22c55e');
-  };
-  copyBtn.onmouseleave = function() {
-    if (!this.classList.contains('copied')) {
-      this.style.background = '#1f2937';
-      this.style.borderColor = '#374151';
-      var svg = this.querySelector('svg');
-      if (svg) svg.setAttribute('stroke', '#9ca3af');
-    }
-  };
 
   copyBtn.onclick = function(e) {
     e.preventDefault();
@@ -243,11 +231,9 @@ proseBlocks.forEach(function(pre, index) {
     navigator.clipboard.writeText(text).then(function() {
       btn.innerHTML = checkIconSvg;
       btn.classList.add('copied');
-      btn.style.borderColor = '#22c55e';
       setTimeout(function() {
         btn.innerHTML = copyIconSvg;
         btn.classList.remove('copied');
-        btn.style.borderColor = '#374151';
       }, ${DocsScriptConfig.copyFeedbackTimeout});
     }).catch(function(err) {
       console.error('[Arcane] Copy failed:', err);
@@ -262,11 +248,9 @@ proseBlocks.forEach(function(pre, index) {
         document.execCommand('copy');
         btn.innerHTML = checkIconSvg;
         btn.classList.add('copied');
-        btn.style.borderColor = '#22c55e';
         setTimeout(function() {
           btn.innerHTML = copyIconSvg;
           btn.classList.remove('copied');
-          btn.style.borderColor = '#374151';
         }, ${DocsScriptConfig.copyFeedbackTimeout});
       } catch(e) {
         console.error('[Arcane] Fallback copy failed:', e);
@@ -314,5 +298,21 @@ if (typeof hljs !== 'undefined') {
   static String _interactiveComponents() => '''
 // Component interactivity is now handled by ArcaneApp's built-in scripts.
 // See: lib/util/interactivity/arcane_scripts.dart
+''';
+
+  static String _variantSelectorHandler() => '''
+// ===== VARIANT SELECTOR (stylesheet-agnostic) =====
+var variantSelect = document.getElementById('variant-select');
+if (variantSelect) {
+  // Set initial value from localStorage
+  var savedVariant = getCurrentVariant();
+  variantSelect.value = savedVariant;
+
+  // Handle change events
+  variantSelect.addEventListener('change', function(e) {
+    var variantId = e.target.value;
+    setVariant(variantId);
+  });
+}
 ''';
 }

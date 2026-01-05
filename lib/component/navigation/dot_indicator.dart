@@ -131,7 +131,7 @@ class ArcaneDotIndicator extends StatelessComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-dot:hover:not(:disabled):not(.active)').styles(raw: {
-      'background': ArcaneColors.muted,
+      'background': ArcaneColors.mutedForeground,
     }),
     css('.arcane-dot:focus-visible').styles(raw: {
       'outline': '2px solid ${ArcaneColors.accent}',
@@ -224,7 +224,7 @@ class ArcaneStepIndicator extends StatelessComponent {
                       : ArcaneColors.surfaceVariant,
                   'color': i <= currentStep
                       ? ArcaneColors.accentForeground
-                      : ArcaneColors.muted,
+                      : ArcaneColors.mutedForeground,
                   'cursor': allowStepNavigation && i <= currentStep
                       ? 'pointer'
                       : 'default',
@@ -247,7 +247,7 @@ class ArcaneStepIndicator extends StatelessComponent {
                   'font-size': fontSize,
                   'color': i == currentStep
                       ? ArcaneColors.onSurface
-                      : ArcaneColors.muted,
+                      : ArcaneColors.mutedForeground,
                   'font-weight': i == currentStep
                       ? ArcaneTypography.weightMedium
                       : ArcaneTypography.weightNormal,

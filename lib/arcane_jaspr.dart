@@ -152,6 +152,10 @@ export 'package:jaspr/dom.dart'
 // ============================================================================
 export 'util/appearance/colors.dart';
 export 'util/appearance/color_scheme.dart';
+export 'util/appearance/style_sheet.dart';
+export 'util/appearance/stylesheets/shadcn_style.dart';
+export 'util/appearance/stylesheets/shadcn_presets.dart';
+export 'util/appearance/stylesheets/codex_style.dart';
 export 'util/appearance/theme.dart';
 export 'util/arcane.dart';
 export 'util/interactivity/arcane_scripts.dart';

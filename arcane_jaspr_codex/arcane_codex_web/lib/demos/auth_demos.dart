@@ -261,7 +261,7 @@ class AuthDemos {
                 ArcaneDiv(
                   styles: const ArcaneStyleData(
                     fontSize: FontSize.sm,
-                    textColor: TextColor.muted,
+                    textColor: TextColor.mutedForeground,
                   ),
                   children: [ArcaneText(PasswordPolicy.weak.description)],
                 ),
@@ -283,7 +283,7 @@ class AuthDemos {
                 ArcaneDiv(
                   styles: const ArcaneStyleData(
                     fontSize: FontSize.sm,
-                    textColor: TextColor.muted,
+                    textColor: TextColor.mutedForeground,
                   ),
                   children: [ArcaneText(PasswordPolicy.medium.description)],
                 ),
@@ -305,7 +305,7 @@ class AuthDemos {
                 ArcaneDiv(
                   styles: const ArcaneStyleData(
                     fontSize: FontSize.sm,
-                    textColor: TextColor.muted,
+                    textColor: TextColor.mutedForeground,
                   ),
                   children: [ArcaneText(PasswordPolicy.strong.description)],
                 ),

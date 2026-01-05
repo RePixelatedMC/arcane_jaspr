@@ -389,7 +389,7 @@ class ArcaneSteps extends StatelessComponent {
           div(
             styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontSm,
-              'color': ArcaneColors.muted,
+              'color': ArcaneColors.mutedForeground,
               'line-height': ArcaneTypography.leadingNormal,
             }),
             [text(step.description!)],
@@ -423,7 +423,7 @@ class ArcaneSteps extends StatelessComponent {
       StepStatus.pending => {
           'bg': 'transparent',
           'border': ArcaneColors.border,
-          'text': ArcaneColors.muted,
+          'text': ArcaneColors.mutedForeground,
           'line': ArcaneColors.border,
         },
     };

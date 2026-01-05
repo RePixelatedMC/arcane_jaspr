@@ -141,7 +141,7 @@ class LinkMapDemos {
                       region: 'Europe',
                     ),
                     ArcaneMapLocation(
-                      id: 'tok',
+                      id: 'tyo',
                       name: 'Tokyo',
                       latitude: 35.6762,
                       longitude: 139.6503,
@@ -165,7 +165,7 @@ class LinkMapDemos {
                       region: 'Europe',
                     ),
                     ArcaneMapLocation(
-                      id: 'sgp',
+                      id: 'sin',
                       name: 'Singapore',
                       latitude: 1.3521,
                       longitude: 103.8198,
@@ -190,13 +190,12 @@ class LinkMapDemos {
                   style: ArcaneWorldMapStyle.subtle,
                   locations: [
                     ArcaneMapLocation(
-                      id: 'sf',
+                      id: 'sfo',
                       name: 'San Francisco',
                       latitude: 37.7749,
                       longitude: -122.4194,
                       code: 'SFO',
                       region: 'North America',
-                      isActive: true,
                     ),
                     ArcaneMapLocation(
                       id: 'ams',
@@ -298,13 +297,12 @@ class LinkMapDemos {
                   activeStates: {'CA', 'TX', 'NY', 'FL'},
                   locations: [
                     ArcaneUSAMapLocation(
-                      id: 'sf',
+                      id: 'sfo',
                       name: 'San Francisco',
                       latitude: 37.7749,
                       longitude: -122.4194,
                       code: 'SFO',
                       state: 'CA',
-                      isActive: true,
                     ),
                     ArcaneUSAMapLocation(
                       id: 'aus',

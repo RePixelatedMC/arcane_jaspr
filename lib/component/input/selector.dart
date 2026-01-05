@@ -350,7 +350,7 @@ class _ArcaneSelectorState<T> extends State<ArcaneSelector<T>> {
                 styles: const Styles(raw: {
                   'display': 'flex',
                   'align-items': 'center',
-                  'color': ArcaneColors.muted,
+                  'color': ArcaneColors.mutedForeground,
                 }),
                 [component.prefix!],
               ),
@@ -359,7 +359,7 @@ class _ArcaneSelectorState<T> extends State<ArcaneSelector<T>> {
             span(
               styles: Styles(raw: {
                 'flex': '1',
-                'color': _hasSelection ? ArcaneColors.onSurface : ArcaneColors.muted,
+                'color': _hasSelection ? ArcaneColors.onSurface : ArcaneColors.mutedForeground,
                 'font-size': _currentSize['fontSize']!,
                 'overflow': 'hidden',
                 'text-overflow': 'ellipsis',
@@ -394,7 +394,7 @@ class _ArcaneSelectorState<T> extends State<ArcaneSelector<T>> {
                   'display': 'flex',
                   'align-items': 'center',
                   'padding': '2px',
-                  'color': ArcaneColors.muted,
+                  'color': ArcaneColors.mutedForeground,
                   'cursor': 'pointer',
                   'border-radius': ArcaneRadius.sm,
                 }),
@@ -411,7 +411,7 @@ class _ArcaneSelectorState<T> extends State<ArcaneSelector<T>> {
             if (!component.loading)
               span(
                 styles: Styles(raw: {
-                  'color': ArcaneColors.muted,
+                  'color': ArcaneColors.mutedForeground,
                   'transition': ArcaneEffects.transitionFast,
                   'transform': _isOpen ? 'rotate(180deg)' : 'rotate(0)',
                   'font-size': _currentSize['iconSize']!,
@@ -488,7 +488,7 @@ class _ArcaneSelectorState<T> extends State<ArcaneSelector<T>> {
                 div(
                   styles: const Styles(raw: {
                     'padding': '${ArcaneSpacing.lg} ${ArcaneSpacing.md}',
-                    'color': ArcaneColors.muted,
+                    'color': ArcaneColors.mutedForeground,
                     'font-size': ArcaneTypography.fontMd,
                     'text-align': 'center',
                   }),
@@ -506,7 +506,7 @@ class _ArcaneSelectorState<T> extends State<ArcaneSelector<T>> {
                       div(
                         styles: const Styles(raw: {
                           'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
-                          'color': ArcaneColors.muted,
+                          'color': ArcaneColors.mutedForeground,
                           'font-size': ArcaneTypography.fontMd,
                           'text-align': 'center',
                         }),
@@ -529,7 +529,7 @@ class _ArcaneSelectorState<T> extends State<ArcaneSelector<T>> {
                     'justify-content': 'space-between',
                     'align-items': 'center',
                     'font-size': ArcaneTypography.fontSm,
-                    'color': ArcaneColors.muted,
+                    'color': ArcaneColors.mutedForeground,
                     'background': ArcaneColors.surfaceVariant,
                   }),
                   [
@@ -568,7 +568,7 @@ class _ArcaneSelectorState<T> extends State<ArcaneSelector<T>> {
             classes: 'arcane-selector-helper',
             styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontSm,
-              'color': ArcaneColors.muted,
+              'color': ArcaneColors.mutedForeground,
             }),
             [text(component.helperText!)],
           ),
@@ -683,7 +683,7 @@ class _ArcaneSelectorState<T> extends State<ArcaneSelector<T>> {
               span(
                 styles: const Styles(raw: {
                   'font-size': ArcaneTypography.fontSm,
-                  'color': ArcaneColors.muted,
+                  'color': ArcaneColors.mutedForeground,
                   'overflow': 'hidden',
                   'text-overflow': 'ellipsis',
                   'white-space': 'nowrap',
@@ -698,7 +698,7 @@ class _ArcaneSelectorState<T> extends State<ArcaneSelector<T>> {
           span(
             styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontSm,
-              'color': ArcaneColors.muted,
+              'color': ArcaneColors.mutedForeground,
               'flex-shrink': '0',
             }),
             [text(option.description!)],

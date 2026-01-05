@@ -171,7 +171,7 @@ class _EmailDialogState extends State<ArcaneEmailDialog> {
           if (component.message != null)
             div(
               styles: const Styles(raw: {
-                'color': ArcaneColors.muted,
+                'color': ArcaneColors.mutedForeground,
                 'font-size': ArcaneTypography.fontSm,
                 'line-height': ArcaneTypography.lineHeightRelaxed,
               }),
@@ -199,7 +199,7 @@ class _EmailDialogState extends State<ArcaneEmailDialog> {
                     styles: const Styles(raw: {
                       'position': 'absolute',
                       'left': ArcaneSpacing.sm,
-                      'color': ArcaneColors.muted,
+                      'color': ArcaneColors.mutedForeground,
                       'pointer-events': 'none',
                     }),
                     [text('✉')],
@@ -263,7 +263,7 @@ class _EmailDialogState extends State<ArcaneEmailDialog> {
               if (component.requireWorkEmail)
                 span(
                   styles: const Styles(raw: {
-                    'color': ArcaneColors.muted,
+                    'color': ArcaneColors.mutedForeground,
                     'font-size': ArcaneTypography.fontXs,
                   }),
                   [text('Please use your work email address')],

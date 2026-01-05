@@ -275,7 +275,7 @@ class ArcaneAvatarGroup extends StatelessComponent {
               'border-radius': ArcaneRadius.full,
               'background': ArcaneColors.surfaceVariant,
               'border': '2px solid ${ArcaneColors.background}',
-              'color': ArcaneColors.muted,
+              'color': ArcaneColors.mutedForeground,
               'font-size': ArcaneTypography.fontSm,
               'font-weight': ArcaneTypography.weightMedium,
             }),
@@ -333,7 +333,7 @@ class ArcaneAvatarBadge extends StatelessComponent {
     this.size = 12,
     this.position = AvatarBadgePosition.bottomRight,
     super.key,
-  })  : color = ArcaneColors.muted,
+  })  : color = ArcaneColors.mutedForeground,
         content = null,
         pulse = false;
 

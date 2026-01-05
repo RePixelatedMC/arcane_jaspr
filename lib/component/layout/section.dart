@@ -49,7 +49,7 @@ class ArcaneSection extends StatelessComponent {
                 styles: Styles(raw: {
                   'font-size': ArcaneTypography.fontSm,
                   'font-weight': ArcaneTypography.weightSemibold,
-                  'color': ArcaneColors.muted,
+                  'color': ArcaneColors.mutedForeground,
                   'text-transform': 'uppercase',
                   'letter-spacing': '0.05em',
                   'margin-bottom': '${gap}px',

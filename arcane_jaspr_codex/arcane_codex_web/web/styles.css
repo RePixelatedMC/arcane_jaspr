@@ -1,13 +1,121 @@
 /* ============================================
-   ARCANE CODEX - COMPLETE THEME SYSTEM
+   ARCANE CODEX - COMPLETE THEME SYSTEM (ShadCN)
    ============================================ */
 
 /* ============================================
-   WEB FONTS
-   Using Inter (clean, modern sans-serif) and Fira Code (for code)
+   GOOGLE FONTS - Inter (ShadCN default)
    ============================================ */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* ============================================
+   CUSTOM FONTS - Akzidenz-GroteskPro & ITCAvantGardeStd (optional)
+   ============================================ */
+
+/* Akzidenz-GroteskPro - Body Text */
+@font-face {
+  font-family: 'Akzidenz-GroteskPro';
+  src: url('fonts/Akzidenz-GroteskPro/akzidenzgroteskpro_light.woff2') format('woff2'),
+       url('fonts/Akzidenz-GroteskPro/akzidenzgroteskpro_light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Akzidenz-GroteskPro';
+  src: url('fonts/Akzidenz-GroteskPro/akzidenzgroteskpro_regular.woff2') format('woff2'),
+       url('fonts/Akzidenz-GroteskPro/akzidenzgroteskpro_regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Akzidenz-GroteskPro';
+  src: url('fonts/Akzidenz-GroteskPro/akzidenzgroteskpro_md.woff2') format('woff2'),
+       url('fonts/Akzidenz-GroteskPro/akzidenzgroteskpro_md.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Akzidenz-GroteskPro';
+  src: url('fonts/Akzidenz-GroteskPro/akzidenzgroteskpro_bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ITCAvantGardeStd - Headings */
+@font-face {
+  font-family: 'ITCAvantGardeStd';
+  src: url('fonts/ITCAvantGardeStd/ITCAvantGardeStd-Bk.woff2') format('woff2'),
+       url('fonts/ITCAvantGardeStd/ITCAvantGardeStd-Bk.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ITCAvantGardeStd';
+  src: url('fonts/ITCAvantGardeStd/ITCAvantGardeStd-Md.woff2') format('woff2'),
+       url('fonts/ITCAvantGardeStd/ITCAvantGardeStd-Md.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ITCAvantGardeStd';
+  src: url('fonts/ITCAvantGardeStd/ITCAvantGardeStd-Demi.woff2') format('woff2'),
+       url('fonts/ITCAvantGardeStd/ITCAvantGardeStd-Demi.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ITCAvantGardeStd';
+  src: url('fonts/ITCAvantGardeStd/ITCAvantGardeStd-Bold.woff2') format('woff2'),
+       url('fonts/ITCAvantGardeStd/ITCAvantGardeStd-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Hack Font - Code/Monospace */
+@font-face {
+  font-family: 'Hack';
+  src: url('fonts/HackFont/Hack-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Hack';
+  src: url('fonts/HackFont/Hack-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Hack';
+  src: url('fonts/HackFont/Hack-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Hack';
+  src: url('fonts/HackFont/Hack-BoldItalic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
 
 /* Reset */
 *, *::before, *::after {
@@ -17,13 +125,14 @@
 }
 
 /* ============================================
-   ROOT CSS VARIABLES - DARK MODE DEFAULT
-   These apply immediately without any class
+   ROOT CSS VARIABLES - DEFAULT FONTS
+   Stylesheet will override via --arcane-style-font-*
    ============================================ */
 :root {
-  /* Typography - using Google Fonts */
-  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-mono: "Fira Code", "JetBrains Mono", "SF Mono", Consolas, monospace;
+  /* Fallback fonts - stylesheet CSS vars take precedence */
+  --font-sans: var(--arcane-font-sans, 'Akzidenz-GroteskPro', -apple-system, BlinkMacSystemFont, sans-serif);
+  --font-heading: var(--arcane-font-heading, 'ITCAvantGardeStd', 'Akzidenz-GroteskPro', sans-serif);
+  --font-mono: var(--arcane-font-mono, 'Hack', 'Fira Code', monospace);
 }
 
 /* ============================================
@@ -56,6 +165,7 @@ body {
 
 .prose h1, .prose h2, .prose h3,
 .prose h4, .prose h5, .prose h6 {
+  font-family: var(--font-heading);
   color: var(--arcane-on-surface);
   font-weight: 600;
   line-height: 1.25;
@@ -83,14 +193,15 @@ body {
 }
 
 .prose a {
-  color: var(--arcane-accent);
+  color: var(--arcane-primary);
   text-decoration: none;
   transition: color var(--arcane-transition-fast);
 }
 
 .prose a:hover {
-  color: var(--arcane-accent-hover);
+  color: var(--arcane-primary);
   text-decoration: underline;
+  opacity: 0.8;
 }
 
 .prose strong, .prose b {
@@ -108,37 +219,46 @@ body {
 }
 
 .prose li::marker {
-  color: var(--arcane-muted);
+  color: var(--arcane-muted-foreground);
 }
 
 .prose blockquote {
-  border-left: 4px solid var(--arcane-accent);
+  border-left: 4px solid var(--arcane-border);
   padding-left: 1rem;
   margin: 1rem 0;
   font-style: italic;
-  color: var(--arcane-muted);
+  color: var(--arcane-muted-foreground);
 }
 
 .prose pre {
-  background-color: var(--arcane-surface-variant);
+  background-color: oklch(0.145 0 0);
   border: 1px solid var(--arcane-border);
-  border-radius: var(--arcane-radius-md);
-  padding: 1rem;
+  border-radius: 8px;
+  padding: 16px 20px;
   overflow-x: auto;
-  margin: 1rem 0;
+  margin: 1.5rem 0;
+  position: relative;
+}
+
+/* Light mode code blocks */
+.arcane-light .prose pre {
+  background-color: oklch(0.97 0 0);
+  border-color: var(--arcane-border);
 }
 
 .prose code {
   font-family: var(--font-mono);
-  font-size: 0.875rem;
+  font-size: 13px;
+  line-height: 1.7;
   color: var(--arcane-on-surface);
 }
 
 .prose :not(pre) > code {
-  background-color: var(--arcane-surface-variant);
-  color: var(--arcane-accent);
-  padding: 0.125rem 0.375rem;
+  background-color: var(--arcane-muted);
+  color: var(--arcane-foreground);
+  padding: 2px 6px;
   border-radius: 4px;
+  font-size: 0.875em;
 }
 
 .prose hr {
@@ -194,7 +314,7 @@ section h4, section h5, section h6 {
 }
 
 .content a, section a {
-  color: var(--arcane-accent);
+  color: var(--arcane-primary);
 }
 
 /* ============================================
@@ -213,7 +333,7 @@ section h4, section h5, section h6 {
 }
 
 .toc-content a {
-  color: var(--arcane-muted);
+  color: var(--arcane-muted-foreground);
   text-decoration: none;
   font-size: 13px;
   display: block;
@@ -240,7 +360,7 @@ section h4, section h5, section h6 {
 .anchor-link {
   opacity: 0;
   margin-left: 0.5rem;
-  color: var(--arcane-muted);
+  color: var(--arcane-muted-foreground);
   transition: opacity var(--arcane-transition-fast);
 }
 
@@ -255,7 +375,7 @@ section h4, section h5, section h6 {
    ============================================ */
 .code-block-wrapper {
   position: relative !important;
-  margin: 1rem 0;
+  margin: 1.5rem 0;
 }
 
 .code-block-wrapper pre {
@@ -265,16 +385,16 @@ section h4, section h5, section h6 {
 
 .copy-code-btn {
   position: absolute !important;
-  top: 8px !important;
-  right: 8px !important;
-  padding: 6px 8px;
-  background: var(--arcane-surface);
-  border: 1px solid var(--arcane-border);
-  border-radius: var(--arcane-radius-sm);
-  color: var(--arcane-muted);
+  top: 12px !important;
+  right: 12px !important;
+  padding: 6px;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  color: var(--arcane-muted-foreground);
   cursor: pointer;
-  opacity: 1;
-  transition: all var(--arcane-transition-fast);
+  opacity: 0;
+  transition: all 0.15s ease;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -282,43 +402,48 @@ section h4, section h5, section h6 {
 }
 
 .code-block-wrapper:hover .copy-code-btn {
-  opacity: 1;
+  opacity: 0.7;
 }
 
 .copy-code-btn:hover {
-  background: var(--arcane-surface-variant);
-  color: var(--arcane-accent);
-  border-color: var(--arcane-accent);
+  opacity: 1 !important;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--arcane-foreground);
+}
+
+.arcane-light .copy-code-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
 }
 
 .copy-code-btn.copied {
   color: var(--arcane-success);
-  border-color: var(--arcane-success);
+  opacity: 1 !important;
 }
 
 .copy-code-btn svg {
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
 }
 
 /* Demo code block copy buttons */
 .demo-code-block button:hover {
   background: var(--arcane-surface-variant) !important;
-  color: var(--arcane-accent) !important;
+  color: var(--arcane-foreground) !important;
 }
 
 /* ============================================
    SELECTION
    ============================================ */
 ::selection {
-  background-color: rgba(var(--arcane-accent-rgb), 0.2);
+  background-color: rgba(var(--arcane-accent-rgb), 0.5);
+  color: var(--arcane-foreground);
 }
 
 /* ============================================
    FOCUS STATES
    ============================================ */
 button:focus-visible {
-  outline: 2px solid var(--arcane-accent);
+  outline: 2px solid var(--arcane-ring);
   outline-offset: 2px;
 }
 
@@ -326,12 +451,12 @@ button:focus-visible {
    SEARCH
    ============================================ */
 #docs-search:focus {
-  border-color: var(--arcane-accent);
-  box-shadow: 0 0 0 3px rgba(var(--arcane-accent-rgb), 0.15);
+  border-color: var(--arcane-ring);
+  box-shadow: 0 0 0 3px rgba(var(--arcane-foreground-rgb), 0.1);
 }
 
 #docs-search::placeholder {
-  color: var(--arcane-muted);
+  color: var(--arcane-muted-foreground);
   opacity: 0.7;
 }
 
@@ -340,15 +465,29 @@ button:focus-visible {
 }
 
 /* ============================================
-   THEME TOGGLE
+   HEADER CONTROLS
    ============================================ */
 #theme-toggle:hover {
-  background: var(--arcane-surface-variant);
-  transform: scale(1.05);
+  background: var(--arcane-muted);
+  border-color: var(--arcane-border);
 }
 
 #theme-toggle:active {
-  transform: scale(0.95);
+  transform: scale(0.98);
+}
+
+#search-trigger:hover {
+  background: var(--arcane-muted);
+  border-color: var(--arcane-muted-foreground);
+}
+
+#preset-select:hover {
+  border-color: var(--arcane-muted-foreground);
+}
+
+#preset-select:focus {
+  border-color: var(--arcane-ring);
+  outline: none;
 }
 
 /* ============================================

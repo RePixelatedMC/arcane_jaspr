@@ -173,7 +173,7 @@ class ArcaneLoadingOverlay extends StatelessComponent {
         if (message != null)
           span(
             styles: const Styles(raw: {
-              'color': ArcaneColors.muted,
+              'color': ArcaneColors.mutedForeground,
               'font-size': ArcaneTypography.fontBase,
             }),
             [text(message!)],

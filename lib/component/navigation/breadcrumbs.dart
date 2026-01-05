@@ -146,7 +146,7 @@ class ArcaneBreadcrumbs extends StatelessComponent {
                 span(
                   attributes: {'aria-hidden': 'true'},
                   styles: const Styles(raw: {
-                    'color': ArcaneColors.muted,
+                    'color': ArcaneColors.mutedForeground,
                     'user-select': 'none',
                   }),
                   [customSeparator ?? text(_separatorText)],
@@ -196,7 +196,7 @@ class ArcaneBreadcrumbs extends StatelessComponent {
     return a(
       href: item.href!,
       styles: Styles(raw: {
-        'color': ArcaneColors.muted,
+        'color': ArcaneColors.mutedForeground,
         'text-decoration': 'none',
         'padding': padding,
         'border-radius': ArcaneRadius.sm,

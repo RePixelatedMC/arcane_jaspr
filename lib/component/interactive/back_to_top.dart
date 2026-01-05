@@ -66,7 +66,7 @@ class ArcaneBackToTop extends StatelessComponent {
         span(
           styles: const Styles(raw: {
             'font-size': '1.25rem',
-            'color': ArcaneColors.muted,
+            'color': ArcaneColors.mutedForeground,
             'transform': 'rotate(-90deg)',
             'transition': ArcaneEffects.transitionFast,
           }),

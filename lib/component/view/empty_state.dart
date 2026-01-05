@@ -170,7 +170,7 @@ class ArcaneEmptyState extends StatelessComponent {
           div(
             styles: Styles(raw: {
               'font-size': descSize,
-              'color': ArcaneColors.muted,
+              'color': ArcaneColors.mutedForeground,
               'max-width': '360px',
             }),
             [text(description!)],

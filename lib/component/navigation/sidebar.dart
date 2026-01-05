@@ -150,7 +150,7 @@ class _ArcaneSidebarState extends State<ArcaneSidebar> {
                   'border-radius': ArcaneRadius.md,
                   'background': ArcaneColors.transparent,
                   'border': 'none',
-                  'color': ArcaneColors.muted,
+                  'color': ArcaneColors.mutedForeground,
                   'cursor': 'pointer',
                   'transition': ArcaneEffects.transitionFast,
                 }),
@@ -211,7 +211,7 @@ class ArcaneSidebarGroup extends StatelessComponent {
             styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontXs,
               'font-weight': ArcaneTypography.weightSemibold,
-              'color': ArcaneColors.muted,
+              'color': ArcaneColors.mutedForeground,
               'text-transform': 'uppercase',
               'letter-spacing': '0.05em',
               'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.sm}',

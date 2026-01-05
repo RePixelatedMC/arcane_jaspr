@@ -208,7 +208,7 @@ class ArcaneCommonStyles {
 
   /// Body text style
   static Map<String, String> get bodyText => {
-        'color': ArcaneColors.muted,
+        'color': ArcaneColors.mutedForeground,
         'line-height': ArcaneTypography.lineHeightRelaxed,
         'margin': '0',
       };
@@ -223,13 +223,13 @@ class ArcaneCommonStyles {
   /// Muted/secondary text
   static Map<String, String> get mutedText => {
         'font-size': ArcaneTypography.fontSm,
-        'color': ArcaneColors.muted,
+        'color': ArcaneColors.mutedForeground,
       };
 
   /// Tiny text (captions, footnotes)
   static Map<String, String> get tinyText => {
         'font-size': ArcaneTypography.fontXs,
-        'color': ArcaneColors.muted,
+        'color': ArcaneColors.mutedForeground,
       };
 
   /// Monospace text (for code)

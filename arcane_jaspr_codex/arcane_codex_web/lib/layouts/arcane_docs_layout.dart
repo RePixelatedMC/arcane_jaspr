@@ -8,6 +8,20 @@ import '../demos/demo_registry.dart';
 import '../utils/constants.dart';
 import '../utils/docs_scripts.dart';
 
+// =============================================================================
+// STYLESHEET CONFIGURATION
+// =============================================================================
+// Change this ONE constant to swap the entire design system.
+// All CSS generation, variant selection, and theming adapts automatically.
+//
+// Available options:
+//   const ShadcnStyleSheet()  - ShadCN design (minimal, modern, with color presets)
+//   const CodexStyleSheet()   - Codex design (gaming aesthetic, glass effects)
+//
+// Or create your own by extending ArcaneStyleSheet.
+// =============================================================================
+const ArcaneStyleSheet _docsStyleSheet = ShadcnStyleSheet();
+
 /// Custom documentation layout using Arcane UI components
 class ArcaneDocsLayout extends PageLayoutBase {
   const ArcaneDocsLayout();
@@ -15,76 +29,48 @@ class ArcaneDocsLayout extends PageLayoutBase {
   @override
   Pattern get name => 'docs';
 
-  /// Generate CSS variable declarations for a theme
-  static String _generateThemeCss(ArcaneTheme theme) {
-    final vars = theme.cssVariables;
-    return vars.entries.map((e) => '  ${e.key}: ${e.value};').join('\n');
-  }
-
-  /// All available theme presets with their CSS class names
-  static const List<(String id, String name, ArcaneTheme theme)> _allThemes = [
-    // Primary colors
-    ('red', 'Red', ArcaneTheme.red),
-    ('orange', 'Orange', ArcaneTheme.orange),
-    ('yellow', 'Yellow', ArcaneTheme.yellow),
-    ('green', 'Green', ArcaneTheme.green),
-    ('blue', 'Blue', ArcaneTheme.blue),
-    ('indigo', 'Indigo', ArcaneTheme.indigo),
-    ('purple', 'Purple', ArcaneTheme.purple),
-    ('pink', 'Pink', ArcaneTheme.pink),
-    // Neutrals
-    ('dark-grey', 'Dark Grey', ArcaneTheme.darkGrey),
-    ('grey', 'Grey', ArcaneTheme.grey),
-    ('light-grey', 'Light Grey', ArcaneTheme.lightGrey),
-    ('white', 'White', ArcaneTheme.white),
-    ('black', 'Black', ArcaneTheme.black),
-    // OLED
-    ('oled-red', 'OLED Red', ArcaneTheme.oledRed),
-    ('oled-green', 'OLED Green', ArcaneTheme.oledGreen),
-    ('oled-blue', 'OLED Blue', ArcaneTheme.oledBlue),
-    ('oled-purple', 'OLED Purple', ArcaneTheme.oledPurple),
-    ('oled-white', 'OLED White', ArcaneTheme.oledWhite),
-  ];
-
   @override
   Iterable<Component> buildHead(Page page) sync* {
     yield* super.buildHead(page);
 
-    // Note: super.buildHead already handles the base tag, so we don't add another one
     final assetPrefix = AppConstants.baseUrl.isNotEmpty ? AppConstants.baseUrl : '';
     yield link(
         rel: 'icon', type: 'image/x-icon', href: '$assetPrefix/favicon.ico');
     yield meta(name: 'viewport', content: 'width=device-width, initial-scale=1');
 
-    // Generate CSS variables for ALL themes (dark and light modes)
-    final cssBuffer = StringBuffer();
-
-    // Default theme (green dark) for :root
-    final defaultTheme =
-        ArcaneTheme.green.copyWith(themeMode: ThemeMode.dark);
-    cssBuffer.writeln(':root {');
-    cssBuffer.writeln(_generateThemeCss(defaultTheme));
-    cssBuffer.writeln('}');
-
-    // Generate CSS for each theme in both dark and light modes
-    for (final (id, _, theme) in _allThemes) {
-      final darkTheme = theme.copyWith(themeMode: ThemeMode.dark);
-      final lightTheme = theme.copyWith(themeMode: ThemeMode.light);
-
-      cssBuffer.writeln('html.theme-$id-dark, .theme-$id-dark {');
-      cssBuffer.writeln(_generateThemeCss(darkTheme));
-      cssBuffer.writeln('}');
-
-      cssBuffer.writeln('html.theme-$id-light, .theme-$id-light {');
-      cssBuffer.writeln(_generateThemeCss(lightTheme));
-      cssBuffer.writeln('}');
-    }
-
+    // Generate CSS for ALL variants of the configured stylesheet
+    // This is stylesheet-agnostic - works with any ArcaneStyleSheet implementation
     yield Component.element(
       tag: 'style',
       attributes: {'id': 'arcane-theme-vars'},
-      children: [RawText(cssBuffer.toString())],
+      children: [RawText(_docsStyleSheet.generateCompleteCss())],
     );
+
+    // Load custom fonts if the stylesheet provides them
+    if (_docsStyleSheet.fontFaceCss != null) {
+      yield Component.element(
+        tag: 'style',
+        attributes: {'id': 'arcane-font-face'},
+        children: [RawText(_docsStyleSheet.fontFaceCss!)],
+      );
+    }
+
+    // Load Google Fonts if the stylesheet uses them
+    if (_docsStyleSheet.googleFontUrl != null) {
+      yield link(
+        rel: 'preconnect',
+        href: 'https://fonts.googleapis.com',
+      );
+      yield link(
+        rel: 'preconnect',
+        href: 'https://fonts.gstatic.com',
+        attributes: const {'crossorigin': ''},
+      );
+      yield link(
+        rel: 'stylesheet',
+        href: _docsStyleSheet.googleFontUrl!,
+      );
+    }
 
     // Load stylesheet AFTER theme variables so our overrides take precedence
     yield link(rel: 'stylesheet', href: '$assetPrefix/styles.css');
@@ -105,12 +91,14 @@ class ArcaneDocsLayout extends PageLayoutBase {
       },
     );
 
-    // Theme initialization script - runs before page renders to prevent flash
+    // Theme initialization script - stylesheet-agnostic
+    // Stores the default variant ID for the configured stylesheet
+    final defaultVariantId = _docsStyleSheet.currentVariantId;
     yield script(content: '''
       (function() {
-        var savedTheme = localStorage.getItem('arcane-theme-preset') || 'green';
-        var savedMode = localStorage.getItem('arcane-theme-mode') || 'dark';
-        document.documentElement.className = 'theme-' + savedTheme + '-' + savedMode;
+        // Store values for later use by docs_scripts.dart
+        window.arcaneThemeMode = localStorage.getItem('arcane-theme-mode') || 'dark';
+        window.arcaneThemeVariant = localStorage.getItem('arcane-theme-variant') || '$defaultVariantId';
       })();
     ''');
   }
@@ -129,7 +117,7 @@ class ArcaneDocsLayout extends PageLayoutBase {
   }
 }
 
-/// Stateful wrapper for theme toggling
+/// Documentation page wrapper with light/dark mode toggle and preset selector
 class ThemedDocsPage extends StatefulComponent {
   final String? title;
   final String? description;
@@ -152,20 +140,15 @@ class ThemedDocsPage extends StatefulComponent {
 }
 
 class _ThemedDocsPageState extends State<ThemedDocsPage> {
-  bool _isDark = true; // Default to dark theme
-
-  @override
-  void initState() {
-    super.initState();
-    // Theme is read from localStorage via JavaScript on client side
-    // The initial _isDark value stays true (dark mode default)
-    // JavaScript in the page handles initial theme application
-  }
+  bool _isDark = true;
+  String _variantId = _docsStyleSheet.currentVariantId;
 
   void _toggleTheme() {
     setState(() => _isDark = !_isDark);
-    // The actual DOM update happens via JavaScript called from the button onClick
-    // This state update is just for re-rendering components with the new theme
+  }
+
+  void _setVariant(String variantId) {
+    setState(() => _variantId = variantId);
   }
 
   @override
@@ -174,25 +157,30 @@ class _ThemedDocsPageState extends State<ThemedDocsPage> {
       isDark: _isDark,
       onThemeToggle: _toggleTheme,
     );
-    final theme = ArcaneTheme.green.copyWith(
+
+    // Get the stylesheet instance for the selected variant
+    final ArcaneStyleSheet currentSheet = _docsStyleSheet.withVariant(_variantId);
+
+    final theme = ArcaneTheme(
+      styleSheet: currentSheet,
       themeMode: _isDark ? ThemeMode.dark : ThemeMode.light,
     );
 
-    // Don't use ArcaneApp - it applies inline CSS that overrides class-based theming
-    // Instead use a simple wrapper that respects CSS variables from <head>
+    // Build class string using stylesheet's variant system
+    final rootClasses = '${currentSheet.cssClassForVariant(_variantId)} ${_isDark ? 'arcane-dark' : 'arcane-light'}';
+
     return ArcaneThemeProvider(
       theme: theme,
-      child: div(
+      child: ArcaneDiv(
         id: 'arcane-root',
-        styles: const Styles(raw: {
-          'min-height': '100vh',
-          'background-color': 'var(--arcane-surface)',
-          'color': 'var(--arcane-on-surface)',
-          'font-family': 'var(--font-sans)',
-          '-webkit-font-smoothing': 'antialiased',
-          '-moz-osx-font-smoothing': 'grayscale',
-        }),
-        [
+        classes: rootClasses,
+        styles: const ArcaneStyleData(
+          minHeight: '100vh',
+          background: Background.background,
+          textColor: TextColor.primary,
+          fontFamily: FontFamily.sans,
+        ),
+        children: [
           _buildPageLayout(demoRegistry),
           ..._buildScripts(),
         ],
@@ -202,15 +190,12 @@ class _ThemedDocsPageState extends State<ThemedDocsPage> {
 
   /// Main page layout structure
   Component _buildPageLayout(DemoRegistry demoRegistry) {
-    return div(
-      styles: const Styles(raw: {
-        'display': 'flex',
-        'min-height': '100vh',
-        'background': 'var(--arcane-surface)',
-        'color': 'var(--arcane-on-surface)',
-        'font-family': 'inherit',
-      }),
-      [
+    return ArcaneDiv(
+      styles: const ArcaneStyleData(
+        display: Display.flex,
+        minHeight: '100vh',
+      ),
+      children: [
         DocsSidebar(currentPath: component.currentPath),
         _buildMainArea(demoRegistry),
       ],
@@ -227,7 +212,13 @@ class _ThemedDocsPageState extends State<ThemedDocsPage> {
         minHeight: '100vh',
       ),
       children: [
-        DocsHeader(isDark: _isDark, onThemeToggle: _toggleTheme),
+        DocsHeader(
+          isDark: _isDark,
+          onThemeToggle: _toggleTheme,
+          variants: _docsStyleSheet.variants,
+          currentVariantId: _variantId,
+          onVariantChanged: _setVariant,
+        ),
         _buildContentArea(demoRegistry),
       ],
     );
@@ -259,6 +250,7 @@ class _ThemedDocsPageState extends State<ThemedDocsPage> {
         minWidth: '0',
       ),
       children: [
+        _buildBreadcrumbs(),
         if (component.title != null) _buildTitle(),
         if (component.description != null) _buildDescription(),
         // Use @client InteractiveDemo for hydrated, interactive demos
@@ -267,6 +259,66 @@ class _ThemedDocsPageState extends State<ThemedDocsPage> {
         div(classes: 'prose', [component.content]),
       ],
     );
+  }
+
+  /// Build breadcrumbs from current path
+  Component _buildBreadcrumbs() {
+    final path = component.currentPath;
+    final segments = path.split('/').where((s) => s.isNotEmpty).toList();
+
+    if (segments.isEmpty) {
+      return const ArcaneDiv(children: []);
+    }
+
+    final items = <BreadcrumbItem>[];
+
+    // Add "Docs" as first item if path starts with /docs
+    if (segments.isNotEmpty && segments[0] == 'docs') {
+      items.add(const BreadcrumbItem(
+        label: 'Docs',
+        href: '/docs',
+      ));
+
+      // Build remaining segments
+      String currentHref = '/docs';
+      for (int i = 1; i < segments.length; i++) {
+        currentHref += '/${segments[i]}';
+        final isLast = i == segments.length - 1;
+        final label = _formatSegment(segments[i]);
+
+        items.add(BreadcrumbItem(
+          label: label,
+          href: isLast ? null : currentHref,
+        ));
+      }
+    }
+
+    if (items.isEmpty) {
+      return const ArcaneDiv(children: []);
+    }
+
+    return ArcaneDiv(
+      styles: const ArcaneStyleData(
+        margin: MarginPreset.bottomMd,
+      ),
+      children: [
+        ArcaneBreadcrumbs(
+          items: items,
+          separator: BreadcrumbSeparator.chevron,
+          size: BreadcrumbSize.sm,
+        ),
+      ],
+    );
+  }
+
+  /// Format path segment into readable label
+  String _formatSegment(String segment) {
+    // Handle arcane- prefix for component pages
+    if (segment.startsWith('arcane-')) {
+      return 'Arcane${segment.substring(7).split('-').map((s) => s.isEmpty ? '' : s[0].toUpperCase() + s.substring(1)).join('')}';
+    }
+    // Capitalize first letter of each word
+    return segment.split('-').map((s) => s.isEmpty ? '' : s[0].toUpperCase() + s.substring(1)).join(' ');
   }
 
   Component _buildTitle() {
@@ -285,7 +337,7 @@ class _ThemedDocsPageState extends State<ThemedDocsPage> {
     return ArcaneDiv(
       styles: const ArcaneStyleData(
         margin: MarginPreset.bottomXl,
-        textColor: TextColor.muted,
+        textColor: TextColor.mutedForeground,
         fontSize: FontSize.lg,
       ),
       children: [ArcaneText(component.description!)],

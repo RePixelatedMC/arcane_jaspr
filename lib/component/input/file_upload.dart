@@ -249,7 +249,7 @@ class _ArcaneFileUploadState extends State<ArcaneFileUpload> {
                     ),
                     span(
                       styles: const Styles(raw: {
-                        'color': ArcaneColors.muted,
+                        'color': ArcaneColors.mutedForeground,
                         'flex-shrink': '0',
                         'margin-left': ArcaneSpacing.sm,
                       }),
@@ -265,7 +265,7 @@ class _ArcaneFileUploadState extends State<ArcaneFileUpload> {
           span(
             styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontXs,
-              'color': ArcaneColors.muted,
+              'color': ArcaneColors.mutedForeground,
             }),
             [text(component.helperText!)],
           ),
@@ -325,7 +325,7 @@ class _ArcaneFileUploadState extends State<ArcaneFileUpload> {
         div(
           styles: Styles(raw: {
             'font-size': iconSize,
-            'color': _isDragOver ? ArcaneColors.accent : ArcaneColors.muted,
+            'color': _isDragOver ? ArcaneColors.accent : ArcaneColors.mutedForeground,
           }),
           [text('📁')],
         ),

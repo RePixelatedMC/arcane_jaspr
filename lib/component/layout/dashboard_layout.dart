@@ -200,7 +200,7 @@ class ArcaneDashboardLayout extends StatelessComponent {
             styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontXs,
               'font-weight': ArcaneTypography.weightSemibold,
-              'color': ArcaneColors.muted,
+              'color': ArcaneColors.mutedForeground,
               'text-transform': 'uppercase',
               'letter-spacing': '0.05em',
               'padding': '0 ${ArcaneSpacing.md}',
@@ -224,7 +224,7 @@ class ArcaneDashboardLayout extends StatelessComponent {
         'align-items': 'center',
         'gap': ArcaneSpacing.sm,
         'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
-        'color': isActive ? ArcaneColors.accent : ArcaneColors.muted,
+        'color': isActive ? ArcaneColors.accent : ArcaneColors.mutedForeground,
         'text-decoration': 'none',
         'font-size': ArcaneTypography.fontSm,
         'font-weight':
@@ -424,7 +424,7 @@ class ArcaneDashboardUserMenu extends StatelessComponent {
                 div(
                   styles: const Styles(raw: {
                     'font-size': ArcaneTypography.fontXs,
-                    'color': ArcaneColors.muted,
+                    'color': ArcaneColors.mutedForeground,
                   }),
                   [Component.text(userSubtitle!)],
                 ),

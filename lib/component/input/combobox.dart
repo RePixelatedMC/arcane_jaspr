@@ -221,7 +221,7 @@ class _ArcaneComboboxState<T> extends State<ArcaneCombobox<T>> {
             'border': '1px solid ${hasError ? ArcaneColors.error : ArcaneColors.border}',
             'border-radius': ArcaneRadius.md,
             'font-size': sizeStyles['fontSize']!,
-            'color': hasValue ? ArcaneColors.onSurface : ArcaneColors.muted,
+            'color': hasValue ? ArcaneColors.onSurface : ArcaneColors.mutedForeground,
             'cursor': component.disabled ? 'not-allowed' : 'pointer',
             'transition': ArcaneEffects.transitionFast,
             'text-align': 'left',
@@ -242,7 +242,7 @@ class _ArcaneComboboxState<T> extends State<ArcaneCombobox<T>> {
             ),
             span(
               styles: Styles(raw: {
-                'color': ArcaneColors.muted,
+                'color': ArcaneColors.mutedForeground,
                 'transition': ArcaneEffects.transitionFast,
                 'transform': _isOpen ? 'rotate(180deg)' : 'rotate(0)',
               }),
@@ -319,7 +319,7 @@ class _ArcaneComboboxState<T> extends State<ArcaneCombobox<T>> {
                       styles: const Styles(raw: {
                         'padding': ArcaneSpacing.md,
                         'text-align': 'center',
-                        'color': ArcaneColors.muted,
+                        'color': ArcaneColors.mutedForeground,
                         'font-size': ArcaneTypography.fontSm,
                       }),
                       [Component.text(component.emptyMessage)],
@@ -365,7 +365,7 @@ class _ArcaneComboboxState<T> extends State<ArcaneCombobox<T>> {
                                 div(
                                   styles: const Styles(raw: {
                                     'font-size': ArcaneTypography.fontXs,
-                                    'color': ArcaneColors.muted,
+                                    'color': ArcaneColors.mutedForeground,
                                   }),
                                   [Component.text(option.description!)],
                                 ),

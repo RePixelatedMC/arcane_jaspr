@@ -257,7 +257,7 @@ class ArcaneCallout extends StatelessComponent {
               'padding': '0',
               'border': 'none',
               'background': 'transparent',
-              'color': ArcaneColors.muted,
+              'color': ArcaneColors.mutedForeground,
               'cursor': 'pointer',
               'border-radius': ArcaneRadius.sm,
               'transition': ArcaneEffects.transitionFast,

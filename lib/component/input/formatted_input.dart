@@ -387,7 +387,7 @@ class _FormattedInputState extends State<ArcaneFormattedInput> {
     return span(
       classes: 'arcane-formatted-input-static',
       styles: Styles(raw: {
-        'color': ArcaneColors.muted,
+        'color': ArcaneColors.mutedForeground,
         'font-size': fontSize,
         'user-select': 'none',
       }),

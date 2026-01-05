@@ -203,7 +203,7 @@ class _ChatScreenState<M extends AbstractChatMessage, U extends AbstractChatUser
                   'display': 'flex',
                   'justify-content': 'center',
                   'padding': ArcaneSpacing.xl,
-                  'color': ArcaneColors.muted,
+                  'color': ArcaneColors.mutedForeground,
                 }),
                 [text('Loading messages...')],
               )
@@ -213,7 +213,7 @@ class _ChatScreenState<M extends AbstractChatMessage, U extends AbstractChatUser
                   'display': 'flex',
                   'justify-content': 'center',
                   'padding': ArcaneSpacing.xl,
-                  'color': ArcaneColors.muted,
+                  'color': ArcaneColors.mutedForeground,
                 }),
                 [text('No messages yet')],
               )
@@ -414,7 +414,7 @@ class _ChatScreenState<M extends AbstractChatMessage, U extends AbstractChatUser
                   span(
                     styles: const Styles(raw: {
                       'font-size': ArcaneTypography.fontXs,
-                      'color': ArcaneColors.muted,
+                      'color': ArcaneColors.mutedForeground,
                     }),
                     [text(_formatTimestamp(message.timestamp))],
                   ),

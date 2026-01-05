@@ -239,7 +239,7 @@ class ArcaneCarouselSection extends StatelessComponent {
               p(
                 styles: const Styles(raw: {
                   'font-size': ArcaneTypography.fontLg,
-                  'color': ArcaneColors.muted,
+                  'color': ArcaneColors.mutedForeground,
                   'max-width': ArcaneLayout.maxWidthText,
                   'margin': '0 auto',
                 }),

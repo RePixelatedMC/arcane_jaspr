@@ -85,7 +85,7 @@ class AuthBrandingPanel extends StatelessComponent {
           ArcaneDiv(
             styles: const ArcaneStyleData(
               fontSize: FontSize.base,
-              textColor: TextColor.muted,
+              textColor: TextColor.mutedForeground,
               margin: MarginPreset.bottomXl,
               lineHeight: LineHeight.relaxed,
             ),
@@ -215,7 +215,7 @@ class AuthBrandingPanel extends StatelessComponent {
                     ArcaneDiv(
                       styles: const ArcaneStyleData(
                         fontSize: FontSize.xs,
-                        textColor: TextColor.muted,
+                        textColor: TextColor.mutedForeground,
                       ),
                       children: [Component.text(testimonialTitle!)],
                     ),

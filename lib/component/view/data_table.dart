@@ -111,7 +111,7 @@ class _DataTableState<T> extends State<ArcaneDataTable<T>> {
         styles: const Styles(raw: {
           'padding': '${ArcaneSpacing.massive} ${ArcaneSpacing.xl}',
           'text-align': 'center',
-          'color': ArcaneColors.muted,
+          'color': ArcaneColors.mutedForeground,
         }),
         [text(component.emptyMessage)],
       );

@@ -231,7 +231,7 @@ class _ItemPickerState<T> extends State<ArcaneItemPicker<T>> {
                   styles: const Styles(raw: {
                     'padding': ArcaneSpacing.lg,
                     'text-align': 'center',
-                    'color': ArcaneColors.muted,
+                    'color': ArcaneColors.mutedForeground,
                     'font-size': ArcaneTypography.fontSm,
                   }),
                   [text('No items found')],
@@ -250,7 +250,7 @@ class _ItemPickerState<T> extends State<ArcaneItemPicker<T>> {
                 'background': ArcaneColors.surfaceVariant,
                 'border-radius': ArcaneRadius.md,
                 'font-size': ArcaneTypography.fontSm,
-                'color': ArcaneColors.muted,
+                'color': ArcaneColors.mutedForeground,
               }),
               [text('${_multiSelection.length} item(s) selected')],
             ),
@@ -390,7 +390,7 @@ class ItemPickerOption<T> extends StatelessComponent {
               span(
                 styles: const Styles(raw: {
                   'font-size': ArcaneTypography.fontXs,
-                  'color': ArcaneColors.muted,
+                  'color': ArcaneColors.mutedForeground,
                 }),
                 [text(subtitle!)],
               ),

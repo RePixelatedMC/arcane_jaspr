@@ -89,7 +89,7 @@ class ArcaneSettingsSection extends StatelessComponent {
           p(
             styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontSm,
-              'color': ArcaneColors.muted,
+              'color': ArcaneColors.mutedForeground,
               'margin': '0 0 ${ArcaneSpacing.md} 0',
             }),
             [Component.text(description!)],
@@ -134,7 +134,7 @@ class ArcaneSettingsInfoRow extends StatelessComponent {
         span(
           styles: const Styles(raw: {
             'font-size': ArcaneTypography.fontSm,
-            'color': ArcaneColors.muted,
+            'color': ArcaneColors.mutedForeground,
           }),
           [Component.text(label)],
         ),
@@ -208,7 +208,7 @@ class ArcaneSettingsToggleRow extends StatelessComponent {
               div(
                 styles: const Styles(raw: {
                   'font-size': ArcaneTypography.fontXs,
-                  'color': ArcaneColors.muted,
+                  'color': ArcaneColors.mutedForeground,
                   'margin-top': '2px',
                 }),
                 [Component.text(description!)],
@@ -296,7 +296,7 @@ class ArcaneSettingsSubheader extends StatelessComponent {
           p(
             styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontXs,
-              'color': ArcaneColors.muted,
+              'color': ArcaneColors.mutedForeground,
               'margin': '0',
             }),
             [Component.text(description!)],
@@ -344,7 +344,7 @@ class ArcaneSettingsNote extends StatelessComponent {
         p(
           styles: const Styles(raw: {
             'font-size': ArcaneTypography.fontSm,
-            'color': ArcaneColors.muted,
+            'color': ArcaneColors.mutedForeground,
             'margin': '0',
           }),
           [Component.text(text)],

@@ -78,7 +78,7 @@ class ArcaneFieldWrapper extends StatelessComponent {
                   styles: Styles(raw: {
                     'color': hasError
                         ? ArcaneColors.error
-                        : ArcaneColors.muted,
+                        : ArcaneColors.mutedForeground,
                     'font-size': '1rem',
                   }),
                   [Component.text(icon!)],
@@ -115,7 +115,7 @@ class ArcaneFieldWrapper extends StatelessComponent {
             classes: 'arcane-field-description',
             styles: const Styles(raw: {
               'font-size': ArcaneTypography.fontXs,
-              'color': ArcaneColors.muted,
+              'color': ArcaneColors.mutedForeground,
               'line-height': ArcaneTypography.lineHeightRelaxed,
             }),
             [Component.text(description!)],
@@ -204,7 +204,7 @@ class ArcaneFormSection extends StatelessComponent {
                 div(
                   styles: const Styles(raw: {
                     'font-size': ArcaneTypography.fontSm,
-                    'color': ArcaneColors.muted,
+                    'color': ArcaneColors.mutedForeground,
                     'line-height': ArcaneTypography.lineHeightRelaxed,
                   }),
                   [Component.text(description!)],

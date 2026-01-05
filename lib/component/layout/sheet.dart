@@ -304,7 +304,7 @@ class ArcaneSheet extends StatelessComponent {
                         styles: Styles(raw: {
                           'width': '36px',
                           'height': '4px',
-                          'background': ArcaneColors.muted,
+                          'background': ArcaneColors.mutedForeground,
                           'border-radius': ArcaneRadius.full,
                           'opacity': '0.4',
                         }),
@@ -353,7 +353,7 @@ class ArcaneSheet extends StatelessComponent {
                               span(
                                 styles: const Styles(raw: {
                                   'font-size': ArcaneTypography.fontSm,
-                                  'color': ArcaneColors.muted,
+                                  'color': ArcaneColors.mutedForeground,
                                 }),
                                 [Component.text(description!)],
                               ),
@@ -373,7 +373,7 @@ class ArcaneSheet extends StatelessComponent {
                             'padding': '0',
                             'border': 'none',
                             'background': 'transparent',
-                            'color': ArcaneColors.muted,
+                            'color': ArcaneColors.mutedForeground,
                             'cursor': 'pointer',
                             'border-radius': ArcaneRadius.sm,
                             'font-size': ArcaneTypography.fontXl,
@@ -517,7 +517,7 @@ class ArcaneActionSheet extends StatelessComponent {
                   div(
                     styles: const Styles(raw: {
                       'font-size': ArcaneTypography.fontSm,
-                      'color': ArcaneColors.muted,
+                      'color': ArcaneColors.mutedForeground,
                     }),
                     [Component.text(message!)],
                   ),

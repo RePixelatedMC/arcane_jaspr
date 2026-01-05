@@ -311,7 +311,7 @@ class ArcaneInfoTooltip extends StatelessComponent {
           'justify-content': 'center',
           'width': '${size}px',
           'height': '${size}px',
-          'color': ArcaneColors.muted,
+          'color': ArcaneColors.mutedForeground,
           'cursor': 'help',
           'transition': ArcaneEffects.transitionFast,
         }),

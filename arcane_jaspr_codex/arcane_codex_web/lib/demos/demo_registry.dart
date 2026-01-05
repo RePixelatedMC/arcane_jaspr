@@ -172,7 +172,6 @@ class DemoRegistry {
     // Concept demos
     'aliases': ConceptDemos.aliases,
     'styling': ConceptDemos.styling,
-    'theming': ConceptDemos.theming,
     'tokens': ConceptDemos.tokens,
   };
 
@@ -238,7 +237,7 @@ class DemoRegistry {
   static List<Component> _defaultDemo() => [
         ArcaneDiv(
           styles: const ArcaneStyleData(
-            textColor: TextColor.muted,
+            textColor: TextColor.mutedForeground,
             fontStyle: FontStyle.italic,
           ),
           children: [ArcaneText('Demo coming soon...')],

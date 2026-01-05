@@ -14,9 +14,23 @@ class Arcane {
   /// Set the global theme (called by ArcaneApp)
   static set globalTheme(ArcaneTheme theme) => _globalTheme = theme;
 
+  /// Get the global stylesheet
+  static ArcaneStyleSheet get styleSheet => _globalTheme.styleSheet;
+
+  /// Check if using Codex stylesheet
+  static bool get isCodexStyle => styleSheet is CodexStyleSheet;
+
+  /// Check if using ShadCN stylesheet
+  static bool get isShadcnStyle => styleSheet is ShadcnStyleSheet;
+
   /// Get theme from context or fall back to global
   static ArcaneTheme themeOf(BuildContext context) {
     return ArcaneTheme.maybeOf(context) ?? globalTheme;
+  }
+
+  /// Get stylesheet from context or fall back to global
+  static ArcaneStyleSheet styleSheetOf(BuildContext context) {
+    return themeOf(context).styleSheet;
   }
 
   /// Navigate to a new component (client-side routing)
