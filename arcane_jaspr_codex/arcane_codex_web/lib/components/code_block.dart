@@ -1,5 +1,4 @@
 import 'package:arcane_jaspr/arcane_jaspr.dart';
-import 'package:web/web.dart' as web;
 
 /// A code block component with syntax highlighting and copy-to-clipboard functionality.
 ///
@@ -25,7 +24,8 @@ class _CodeBlockState extends State<CodeBlock> {
   bool _copied = false;
 
   void _copyToClipboard() {
-    web.window.navigator.clipboard.writeText(component.code);
+    // Clipboard copy is handled by JavaScript via data-code attribute
+    // This just updates the visual state
     setState(() => _copied = true);
 
     // Reset after 2 seconds
@@ -94,6 +94,7 @@ class _CodeBlockState extends State<CodeBlock> {
           }),
           [
             button(
+              attributes: {'data-code': component.code},
               styles: Styles(raw: {
                 'display': 'flex',
                 'align-items': 'center',

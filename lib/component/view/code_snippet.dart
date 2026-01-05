@@ -1,6 +1,5 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
-import 'package:web/web.dart' as web;
 
 import '../../util/tokens/tokens.dart';
 import 'icon.dart';
@@ -51,7 +50,8 @@ class _CodeSnippetState extends State<ArcaneCodeSnippet> {
   bool _copied = false;
 
   void _copyToClipboard() {
-    web.window.navigator.clipboard.writeText(component.code);
+    // Clipboard copy is handled by JavaScript via data-code attribute
+    // This just updates the visual state
     setState(() => _copied = true);
     // Reset after 2 seconds
     Future.delayed(const Duration(seconds: 2), () {
@@ -313,8 +313,8 @@ class _TerminalState extends State<ArcaneTerminal> {
   bool _copied = false;
 
   void _copyToClipboard() {
-    final String allCommands = component.commands.join('\n');
-    web.window.navigator.clipboard.writeText(allCommands);
+    // Clipboard copy is handled by JavaScript via data-code attribute
+    // This just updates the visual state
     setState(() => _copied = true);
     // Reset after 2 seconds
     Future.delayed(const Duration(seconds: 2), () {

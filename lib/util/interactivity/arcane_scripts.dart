@@ -72,6 +72,7 @@ class ArcaneScripts {
     bindToggleButtons();
     bindButtons();
     bindThemeToggles();
+    bindCopyButtons();
 
     // Navigation
     bindTabs();

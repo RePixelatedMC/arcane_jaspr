@@ -1,5 +1,4 @@
 import 'package:arcane_jaspr/arcane_jaspr.dart';
-import 'package:web/web.dart' as web;
 
 /// A wrapper component that displays a live component demo alongside its code.
 ///
@@ -129,7 +128,8 @@ class _DemoCodeBlockState extends State<_DemoCodeBlock> {
   }
 
   void _copyToClipboard() {
-    web.window.navigator.clipboard.writeText(component.code);
+    // Clipboard copy is handled by JavaScript via data-code attribute
+    // This just updates the visual state
     setState(() => _copied = true);
 
     Future.delayed(const Duration(seconds: 2), () {
@@ -200,6 +200,7 @@ class _DemoCodeBlockState extends State<_DemoCodeBlock> {
               ),
             // Copy button
             button(
+              attributes: {'data-code': component.code},
               styles: Styles(raw: {
                 'display': 'flex',
                 'align-items': 'center',
