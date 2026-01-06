@@ -104,9 +104,9 @@ class _ArcaneLoginCardState extends State<ArcaneLoginCard> {
         // Header
         if (component.header != null) ...<Component>[
           component.header!,
-          const ArcaneDiv(
-            styles: ArcaneStyleData(heightCustom: ArcaneSpacing.lg),
-            children: <Component>[],
+          div(
+            styles: const Styles(raw: {'height': '1.5rem'}),
+            [],
           ),
         ],
 
@@ -138,8 +138,8 @@ class _ArcaneLoginCardState extends State<ArcaneLoginCard> {
             styles: const ArcaneStyleData(
               padding: PaddingPreset.md,
               margin: MarginPreset.bottomMd,
-              backgroundCustom: ArcaneColors.errorAlpha10,
-              borderCustom: '1px solid ${ArcaneColors.errorAlpha30}',
+              backgroundCustom: 'hsl(var(--destructive) / 0.1)',
+              borderCustom: '1px solid hsl(var(--destructive) / 0.3)',
               borderRadius: Radius.md,
               textColor: TextColor.error,
               fontSize: FontSize.sm,
@@ -177,24 +177,24 @@ class _ArcaneLoginCardState extends State<ArcaneLoginCard> {
 
         // Divider
         if (_hasSocialMethods && _hasEmailMethod)
-          const ArcaneDiv(
-            styles: ArcaneStyleData(
+          ArcaneDiv(
+            styles: const ArcaneStyleData(
               display: Display.flex,
               alignItems: AlignItems.center,
               gap: Gap.md,
               margin: MarginPreset.verticalLg,
             ),
             children: <Component>[
-              ArcaneDiv(
-                styles: ArcaneStyleData(
-                  flexGrow: 1,
-                  heightCustom: '1px',
-                  backgroundCustom: ArcaneColors.border,
-                ),
-                children: <Component>[],
+              div(
+                styles: const Styles(raw: {
+                  'flex': '1',
+                  'height': '1px',
+                  'background-color': 'var(--border)',
+                }),
+                [],
               ),
               ArcaneDiv(
-                styles: ArcaneStyleData(
+                styles: const ArcaneStyleData(
                   fontSize: FontSize.xs,
                   textColor: TextColor.mutedForeground,
                   textTransform: TextTransform.uppercase,
@@ -202,13 +202,13 @@ class _ArcaneLoginCardState extends State<ArcaneLoginCard> {
                 ),
                 children: [Component.text('or continue with email')],
               ),
-              ArcaneDiv(
-                styles: ArcaneStyleData(
-                  flexGrow: 1,
-                  heightCustom: '1px',
-                  backgroundCustom: ArcaneColors.border,
-                ),
-                children: <Component>[],
+              div(
+                styles: const Styles(raw: {
+                  'flex': '1',
+                  'height': '1px',
+                  'background-color': 'var(--border)',
+                }),
+                [],
               ),
             ],
           ),
@@ -230,10 +230,10 @@ class _ArcaneLoginCardState extends State<ArcaneLoginCard> {
                   const label(
                     styles: Styles(raw: <String, String>{
                       'display': 'block',
-                      'margin-bottom': ArcaneSpacing.xs,
-                      'font-size': ArcaneTypography.fontSizeSm,
+                      'margin-bottom': '0.25rem',
+                      'font-size': '0.875rem',
                       'font-weight': '500',
-                      'color': ArcaneColors.onBackground,
+                      'color': 'var(--foreground)',
                     }),
                     <Component>[Component.text('Email')],
                   ),
@@ -246,14 +246,14 @@ class _ArcaneLoginCardState extends State<ArcaneLoginCard> {
                     },
                     styles: const Styles(raw: <String, String>{
                       'width': '100%',
-                      'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
-                      'font-size': ArcaneTypography.fontSizeSm,
-                      'background': ArcaneColors.backgroundSecondary,
-                      'border': '1px solid ${ArcaneColors.border}',
-                      'border-radius': ArcaneRadius.md,
-                      'color': ArcaneColors.onBackground,
+                      'padding': '0.5rem 1rem',
+                      'font-size': '0.875rem',
+                      'background': 'var(--muted)',
+                      'border': '1px solid var(--border)',
+                      'border-radius': '0.375rem',
+                      'color': 'var(--foreground)',
                       'outline': 'none',
-                      'transition': ArcaneEffects.transitionFast,
+                      'transition': 'all 150ms ease',
                       'box-sizing': 'border-box',
                     }),
                     events: {
@@ -282,9 +282,9 @@ class _ArcaneLoginCardState extends State<ArcaneLoginCard> {
                     children: <Component>[
                       const label(
                         styles: Styles(raw: <String, String>{
-                          'font-size': ArcaneTypography.fontSizeSm,
+                          'font-size': '0.875rem',
                           'font-weight': '500',
-                          'color': ArcaneColors.onBackground,
+                          'color': 'var(--foreground)',
                         }),
                         <Component>[Component.text('Password')],
                       ),
@@ -292,8 +292,8 @@ class _ArcaneLoginCardState extends State<ArcaneLoginCard> {
                         a(
                           href: component.forgotPasswordRoute!,
                           styles: const Styles(raw: <String, String>{
-                            'font-size': ArcaneTypography.fontXs,
-                            'color': ArcaneColors.accent,
+                            'font-size': '0.75rem',
+                            'color': 'var(--accent)',
                             'text-decoration': 'none',
                           }),
                           <Component>[const Component.text('Forgot password?')],
@@ -309,14 +309,14 @@ class _ArcaneLoginCardState extends State<ArcaneLoginCard> {
                     },
                     styles: const Styles(raw: <String, String>{
                       'width': '100%',
-                      'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
-                      'font-size': ArcaneTypography.fontSizeSm,
-                      'background': ArcaneColors.backgroundSecondary,
-                      'border': '1px solid ${ArcaneColors.border}',
-                      'border-radius': ArcaneRadius.md,
-                      'color': ArcaneColors.onBackground,
+                      'padding': '0.5rem 1rem',
+                      'font-size': '0.875rem',
+                      'background': 'var(--muted)',
+                      'border': '1px solid var(--border)',
+                      'border-radius': '0.375rem',
+                      'color': 'var(--foreground)',
                       'outline': 'none',
-                      'transition': ArcaneEffects.transitionFast,
+                      'transition': 'all 150ms ease',
                       'box-sizing': 'border-box',
                     }),
                     events: {
@@ -356,7 +356,7 @@ class _ArcaneLoginCardState extends State<ArcaneLoginCard> {
               a(
                 href: component.signupRoute!,
                 styles: const Styles(raw: <String, String>{
-                  'color': ArcaneColors.accent,
+                  'color': 'var(--accent)',
                   'text-decoration': 'none',
                   'font-weight': '500',
                 }),

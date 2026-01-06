@@ -33,7 +33,6 @@ import 'package:jaspr_lucide/jaspr_lucide.dart' hide Factory, Target, Key, List,
 
 import '../../util/arcane.dart';
 import '../../util/style_types/index.dart';
-import '../../util/tokens/tokens.dart';
 import '../html/div.dart';
 import '../html/arcane_link.dart';
 import '../typography/text.dart';
@@ -235,7 +234,7 @@ class _ArcaneSearchBarState extends State<ArcaneSearchBar> {
               'background': 'var(--arcane-surface)',
               'border': '1px solid var(--arcane-outline)',
               'border-radius': '8px',
-              'box-shadow': '0 4px 12px ${ArcaneColors.onSurfaceAlpha20}',
+              'box-shadow': '0 4px 12px rgb(0 0 0 / 0.15)',
               'overflow-y': 'auto',
               'max-height': component.dropdownMaxHeight,
               // Hidden by default - shown via JS or state

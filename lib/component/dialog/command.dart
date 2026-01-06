@@ -1,19 +1,10 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart'
-    hide
-        Color,
-        Colors,
-        ColorScheme,
-        Gap,
-        Padding,
-        TextAlign,
-        TextOverflow,
-        Border,
-        BorderRadius,
-        BoxShadow,
-        FontWeight;
 
-import '../../util/tokens/tokens.dart';
+import '../../core/theme_provider.dart';
+
+// Re-export for backwards compatibility
+export '../../core/props/command_props.dart'
+    show CommandItemProps, CommandGroupProps;
 
 /// A command palette for quick actions and navigation.
 ///
@@ -29,15 +20,15 @@ import '../../util/tokens/tokens.dart';
 ///       heading: 'Actions',
 ///       items: [
 ///         CommandItem(
-///           icon: span([Component.text('📝')]),
+///           icon: span([Component.text('\u{1F4DD}')]),
 ///           label: 'New Document',
-///           shortcut: '⌘N',
+///           shortcut: '\u{2318}N',
 ///           onSelect: () => createDoc(),
 ///         ),
 ///         CommandItem(
-///           icon: span([Component.text('🔍')]),
+///           icon: span([Component.text('\u{1F50D}')]),
 ///           label: 'Search',
-///           shortcut: '⌘K',
+///           shortcut: '\u{2318}K',
 ///           onSelect: () => openSearch(),
 ///         ),
 ///       ],
@@ -80,23 +71,6 @@ class ArcaneCommand extends StatefulComponent {
 
   @override
   State<ArcaneCommand> createState() => _ArcaneCommandState();
-
-  @css
-  static final List<StyleRule> styles = [
-    css('.arcane-command-input:focus').styles(raw: {
-      'outline': 'none',
-    }),
-    css('.arcane-command-item:hover').styles(raw: {
-      'background-color': ArcaneColors.surfaceVariant,
-    }),
-    css('.arcane-command-item.selected').styles(raw: {
-      'background-color': ArcaneColors.accentContainer,
-    }),
-    css('.arcane-command-item:focus').styles(raw: {
-      'background-color': ArcaneColors.surfaceVariant,
-      'outline': 'none',
-    }),
-  ];
 }
 
 class _ArcaneCommandState extends State<ArcaneCommand> {
@@ -126,240 +100,54 @@ class _ArcaneCommandState extends State<ArcaneCommand> {
     component.onSearch?.call(value);
   }
 
-  void _selectItem(CommandItem item) {
-    if (item.disabled) return;
+  void _selectItem(CommandItemProps item) {
     item.onSelect?.call();
     component.onClose?.call();
   }
 
   @override
   Component build(BuildContext context) {
-    if (!component.isOpen) {
-      return const div([], styles: Styles(raw: {'display': 'none'}));
-    }
+    // Convert CommandGroup to CommandGroupProps
+    final groupProps = component.groups
+        .map((g) => CommandGroupProps(
+              heading: g.heading,
+              items: g.items
+                  .map((i) => CommandItemProps(
+                        label: i.label,
+                        icon: i.icon,
+                        shortcut: i.shortcut,
+                        onSelect: i.onSelect,
+                        disabled: i.disabled,
+                        keywords: i.keywords,
+                      ))
+                  .toList(),
+            ))
+        .toList();
 
-    final items = _filteredItems;
+    // Convert filtered items to props
+    final filteredItemProps = _filteredItems
+        .map((i) => CommandItemProps(
+              label: i.label,
+              icon: i.icon,
+              shortcut: i.shortcut,
+              onSelect: i.onSelect,
+              disabled: i.disabled,
+              keywords: i.keywords,
+            ))
+        .toList();
 
-    return div(
-      classes: 'arcane-command-overlay',
-      attributes: {
-        'data-command': 'true',
-      },
-      styles: const Styles(raw: {
-        'position': 'fixed',
-        'inset': '0',
-        'z-index': '9999',
-        'display': 'flex',
-        'align-items': 'flex-start',
-        'justify-content': 'center',
-        'padding-top': '20vh',
-        'background-color': 'rgba(0, 0, 0, 0.5)',
-      }),
-      events: {
-        'click': (e) {
-          // Close when clicking overlay
-          final target = e.target as dynamic;
-          if (target.classList.contains('arcane-command-overlay')) {
-            component.onClose?.call();
-          }
-        },
-      },
-      [
-        div(
-          classes: 'arcane-command-dialog',
-          attributes: {
-            'role': 'dialog',
-            'aria-modal': 'true',
-            'aria-label': 'Command palette',
-          },
-          styles: const Styles(raw: {
-            'width': '100%',
-            'max-width': '640px',
-            'background-color': ArcaneColors.surface,
-            'border': '1px solid ${ArcaneColors.border}',
-            'border-radius': ArcaneRadius.lg,
-            'box-shadow': ArcaneEffects.shadowXl,
-            'overflow': 'hidden',
-          }),
-          [
-            // Search input
-            div(
-              styles: const Styles(raw: {
-                'display': 'flex',
-                'align-items': 'center',
-                'gap': ArcaneSpacing.sm,
-                'padding': ArcaneSpacing.md,
-                'border-bottom': '1px solid ${ArcaneColors.border}',
-              }),
-              [
-                const span(
-                  styles: Styles(raw: {
-                    'color': ArcaneColors.mutedForeground,
-                    'font-size': ArcaneTypography.fontLg,
-                  }),
-                  [Component.text('🔍')],
-                ),
-                input(
-                  classes: 'arcane-command-input',
-                  type: InputType.text,
-                  attributes: {
-                    'placeholder': component.placeholder,
-                    'autofocus': 'true',
-                    'autocomplete': 'off',
-                    'spellcheck': 'false',
-                  },
-                  styles: const Styles(raw: {
-                    'flex': '1',
-                    'background': 'transparent',
-                    'border': 'none',
-                    'font-size': ArcaneTypography.fontMd,
-                    'color': ArcaneColors.onSurface,
-                  }),
-                  events: {
-                    'input': (e) {
-                      final target = e.target as dynamic;
-                      _handleSearch(target.value as String);
-                    },
-                  },
-                ),
-              ],
-            ),
-
-            // Results
-            div(
-              classes: 'arcane-command-list',
-              attributes: {
-                'role': 'listbox',
-              },
-              styles: const Styles(raw: {
-                'max-height': '400px',
-                'overflow-y': 'auto',
-                'padding': ArcaneSpacing.sm,
-              }),
-              [
-                if (items.isEmpty)
-                  div(
-                    styles: const Styles(raw: {
-                      'padding': ArcaneSpacing.lg,
-                      'text-align': 'center',
-                      'color': ArcaneColors.mutedForeground,
-                      'font-size': ArcaneTypography.fontSm,
-                    }),
-                    [Component.text(component.emptyMessage)],
-                  )
-                else if (_searchQuery.isEmpty)
-                  // Show groups when not searching
-                  for (final group in component.groups) ...[
-                    if (group.heading != null)
-                      div(
-                        styles: const Styles(raw: {
-                          'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
-                          'font-size': ArcaneTypography.fontXs,
-                          'font-weight': ArcaneTypography.weightSemibold,
-                          'color': ArcaneColors.mutedForeground,
-                          'text-transform': 'uppercase',
-                          'letter-spacing': '0.05em',
-                        }),
-                        [Component.text(group.heading!)],
-                      ),
-                    for (final item in group.items) _buildItem(item),
-                  ]
-                else
-                  // Show flat list when searching
-                  for (final item in items) _buildItem(item),
-              ],
-            ),
-
-            // Footer with keyboard hints
-            div(
-              styles: const Styles(raw: {
-                'display': 'flex',
-                'align-items': 'center',
-                'gap': ArcaneSpacing.md,
-                'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
-                'border-top': '1px solid ${ArcaneColors.border}',
-                'font-size': ArcaneTypography.fontXs,
-                'color': ArcaneColors.mutedForeground,
-              }),
-              [
-                _buildKeyHint('↵', 'Select'),
-                _buildKeyHint('↑↓', 'Navigate'),
-                _buildKeyHint('esc', 'Close'),
-              ],
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Component _buildItem(CommandItem item) {
-    return div(
-      classes: 'arcane-command-item ${item.disabled ? 'disabled' : ''}',
-      attributes: {
-        'role': 'option',
-        'aria-selected': 'false',
-        if (item.disabled) 'aria-disabled': 'true',
-      },
-      styles: Styles(raw: {
-        'display': 'flex',
-        'align-items': 'center',
-        'gap': ArcaneSpacing.sm,
-        'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
-        'border-radius': ArcaneRadius.sm,
-        'cursor': item.disabled ? 'not-allowed' : 'pointer',
-        'transition': ArcaneEffects.transitionFast,
-        if (item.disabled) 'opacity': '0.5',
-      }),
-      events: {
-        'click': (e) => _selectItem(item),
-      },
-      [
-        if (item.icon != null) item.icon!,
-        span(
-          styles: const Styles(raw: {
-            'flex': '1',
-            'font-size': ArcaneTypography.fontSm,
-            'color': ArcaneColors.onSurface,
-          }),
-          [Component.text(item.label)],
-        ),
-        if (item.shortcut != null)
-          span(
-            styles: const Styles(raw: {
-              'font-size': ArcaneTypography.fontXs,
-              'color': ArcaneColors.mutedForeground,
-              'padding': '2px ${ArcaneSpacing.xs}',
-              'background-color': ArcaneColors.surfaceVariant,
-              'border-radius': ArcaneRadius.sm,
-              'font-family': ArcaneTypography.fontFamilyMono,
-            }),
-            [Component.text(item.shortcut!)],
-          ),
-      ],
-    );
-  }
-
-  Component _buildKeyHint(String key, String label) {
-    return div(
-      styles: const Styles(raw: {
-        'display': 'flex',
-        'align-items': 'center',
-        'gap': ArcaneSpacing.xs,
-      }),
-      [
-        span(
-          styles: const Styles(raw: {
-            'padding': '2px 6px',
-            'background-color': ArcaneColors.surfaceVariant,
-            'border-radius': ArcaneRadius.sm,
-            'font-family': ArcaneTypography.fontFamilyMono,
-          }),
-          [Component.text(key)],
-        ),
-        span([Component.text(label)]),
-      ],
-    );
+    // Delegate rendering to the current stylesheet's command renderer
+    return context.renderers.command(CommandProps(
+      isOpen: component.isOpen,
+      onClose: component.onClose,
+      groups: groupProps,
+      placeholder: component.placeholder,
+      emptyMessage: component.emptyMessage,
+      searchQuery: _searchQuery,
+      filteredItems: filteredItemProps,
+      onSearch: _handleSearch,
+      onSelectItem: _selectItem,
+    ));
   }
 }
 

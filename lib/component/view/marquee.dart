@@ -1,7 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/tokens/tokens.dart';
 import 'fade_edge.dart';
 
 /// Scroll direction for the marquee
@@ -70,7 +69,7 @@ class ArcaneMarquee extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final effectiveGap = gap ?? ArcaneSpacing.lg;
+    final effectiveGap = gap ?? '1.5rem';
     final marqueeId = id ?? 'arcane-marquee-${hashCode}';
     final animationName = 'arcane-marquee-scroll-$marqueeId';
 
@@ -107,7 +106,7 @@ class ArcaneMarquee extends StatelessComponent {
               styles: Styles(raw: {
                 'display': 'flex',
                 'gap': effectiveGap,
-                'padding': '0 ${ArcaneSpacing.sm}',
+                'padding': '0 0.5rem',
               }),
               children,
             ),
@@ -116,7 +115,7 @@ class ArcaneMarquee extends StatelessComponent {
               styles: Styles(raw: {
                 'display': 'flex',
                 'gap': effectiveGap,
-                'padding': '0 ${ArcaneSpacing.sm}',
+                'padding': '0 0.5rem',
               }),
               children,
             ),
@@ -188,7 +187,7 @@ class ArcaneMarqueeReverse extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final effectiveGap = gap ?? ArcaneSpacing.lg;
+    final effectiveGap = gap ?? '1.5rem';
     final marqueeId = id ?? 'arcane-marquee-reverse-${hashCode}';
     final animationName = 'arcane-marquee-scroll-reverse-$marqueeId';
 
@@ -225,7 +224,7 @@ class ArcaneMarqueeReverse extends StatelessComponent {
               styles: Styles(raw: {
                 'display': 'flex',
                 'gap': effectiveGap,
-                'padding': '0 ${ArcaneSpacing.sm}',
+                'padding': '0 0.5rem',
               }),
               children,
             ),
@@ -234,7 +233,7 @@ class ArcaneMarqueeReverse extends StatelessComponent {
               styles: Styles(raw: {
                 'display': 'flex',
                 'gap': effectiveGap,
-                'padding': '0 ${ArcaneSpacing.sm}',
+                'padding': '0 0.5rem',
               }),
               children,
             ),

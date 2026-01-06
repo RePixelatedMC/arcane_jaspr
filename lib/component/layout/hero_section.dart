@@ -1,7 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/tokens/tokens.dart';
 import '../typography/headline.dart';
 
 /// A hero section component (Supabase-style)
@@ -55,7 +54,7 @@ class ArcaneHeroSection extends StatelessComponent {
         'flex-direction': 'column',
         'align-items': centered ? 'center' : 'flex-start',
         'text-align': centered ? 'center' : 'left',
-        'padding': '${verticalPadding}px ${ArcaneSpacing.lg}',
+        'padding': '${verticalPadding}px 1.5rem',
       }),
       [
         // Content wrapper
@@ -66,7 +65,7 @@ class ArcaneHeroSection extends StatelessComponent {
             'display': 'flex',
             'flex-direction': 'column',
             'align-items': centered ? 'center' : 'flex-start',
-            'gap': ArcaneSpacing.lg,
+            'gap': '1.5rem',
           }),
           [
             // Badge
@@ -93,8 +92,8 @@ class ArcaneHeroSection extends StatelessComponent {
                 styles: Styles(raw: {
                   'display': 'flex',
                   'flex-wrap': 'wrap',
-                  'gap': ArcaneSpacing.sm,
-                  'margin-top': ArcaneSpacing.sm,
+                  'gap': '0.5rem',
+                  'margin-top': '0.5rem',
                   if (centered) 'justify-content': 'center',
                 }),
                 [
@@ -110,7 +109,7 @@ class ArcaneHeroSection extends StatelessComponent {
           div(
             classes: 'arcane-hero-media',
             styles: const Styles(raw: {
-              'margin-top': ArcaneSpacing.xxl,
+              'margin-top': '3rem',
               'width': '100%',
               'max-width': '1200px',
             }),

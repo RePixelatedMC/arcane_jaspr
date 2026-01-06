@@ -1,166 +1,102 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
+import 'package:jaspr/dom.dart' as dom;
 
-import '../../util/tokens/tokens.dart';
-import '../../util/tokens/style_presets.dart';
-
-/// Progress bar size
-enum ProgressSize {
-  sm,
-  md,
-  lg,
-}
+import '../../core/props/progress_props.dart';
+import '../../core/theme_provider.dart';
 
 /// Progress bar component with various styles
 ///
-/// Use style presets for cleaner code:
 /// ```dart
 /// ArcaneProgressBar(
 ///   value: 0.75,
-///   style: ProgressStyle.success,
+///   variant: ProgressVariant.success,
 /// )
 /// ```
 class ArcaneProgressBar extends StatelessComponent {
-  final double value; // 0.0 to 1.0
-  final String? label;
+  final double value;
   final ProgressSize size;
-  final ProgressStyle? style;
-  final bool showPercentage;
-  final bool animated;
+  final ProgressVariant variant;
+  final bool indeterminate;
+  final bool showValue;
+  final String? trackColor;
+  final String? indicatorColor;
 
   const ArcaneProgressBar({
     required this.value,
-    this.label,
-    this.size = ProgressSize.md,
-    this.style,
-    this.showPercentage = false,
-    this.animated = true,
+    this.size = ProgressSize.medium,
+    this.variant = ProgressVariant.primary,
+    this.indeterminate = false,
+    this.showValue = false,
+    this.trackColor,
+    this.indicatorColor,
     super.key,
   });
 
   /// Standard progress bar
   const ArcaneProgressBar.standard({
     required this.value,
-    this.label,
-    this.size = ProgressSize.md,
-    this.showPercentage = false,
-    this.animated = true,
+    this.size = ProgressSize.medium,
+    this.showValue = false,
     super.key,
-  }) : style = ProgressStyle.standard;
+  })  : variant = ProgressVariant.primary,
+        indeterminate = false,
+        trackColor = null,
+        indicatorColor = null;
 
   /// Success progress bar
   const ArcaneProgressBar.success({
     required this.value,
-    this.label,
-    this.size = ProgressSize.md,
-    this.showPercentage = false,
-    this.animated = true,
+    this.size = ProgressSize.medium,
+    this.showValue = false,
     super.key,
-  }) : style = ProgressStyle.success;
+  })  : variant = ProgressVariant.success,
+        indeterminate = false,
+        trackColor = null,
+        indicatorColor = null;
 
   /// Warning progress bar
   const ArcaneProgressBar.warning({
     required this.value,
-    this.label,
-    this.size = ProgressSize.md,
-    this.showPercentage = false,
-    this.animated = true,
+    this.size = ProgressSize.medium,
+    this.showValue = false,
     super.key,
-  }) : style = ProgressStyle.warning;
+  })  : variant = ProgressVariant.warning,
+        indeterminate = false,
+        trackColor = null,
+        indicatorColor = null;
 
   /// Error progress bar
   const ArcaneProgressBar.error({
     required this.value,
-    this.label,
-    this.size = ProgressSize.md,
-    this.showPercentage = false,
-    this.animated = true,
+    this.size = ProgressSize.medium,
+    this.showValue = false,
     super.key,
-  }) : style = ProgressStyle.error;
+  })  : variant = ProgressVariant.error,
+        indeterminate = false,
+        trackColor = null,
+        indicatorColor = null;
 
   @override
   Component build(BuildContext context) {
-    final effectiveStyle = style ?? ProgressStyle.standard;
-    final percent = (value.clamp(0.0, 1.0) * 100).round();
-
-    final height = switch (size) {
-      ProgressSize.sm => '4px',
-      ProgressSize.md => '8px',
-      ProgressSize.lg => '12px',
-    };
-
-    final fillGradient = effectiveStyle.gradientValue ??
-        'linear-gradient(90deg, ${effectiveStyle.fillColor} 0%, ${effectiveStyle.fillColor} 100%)';
-
-    return div(
-      classes: 'arcane-progress-bar',
-      styles: const Styles(raw: {
-        'width': '100%',
-      }),
-      [
-        if (label != null || showPercentage)
-          div(
-            classes: 'arcane-progress-bar-header',
-            styles: const Styles(raw: {
-              'display': 'flex',
-              'justify-content': 'space-between',
-              'margin-bottom': ArcaneSpacing.sm,
-              'font-size': ArcaneTypography.fontMd,
-            }),
-            [
-              if (label != null)
-                span(
-                  styles: const Styles(raw: {
-                    'color': ArcaneColors.onSurface,
-                    'font-weight': ArcaneTypography.weightMedium,
-                  }),
-                  [text(label!)],
-                ),
-              if (showPercentage)
-                span(
-                  styles: const Styles(raw: {
-                    'color': ArcaneColors.mutedForeground,
-                  }),
-                  [text('$percent%')],
-                ),
-            ],
-          ),
-        // Track
-        div(
-          classes: 'arcane-progress-bar-track',
-          styles: Styles(raw: {
-            'width': '100%',
-            'height': height,
-            'background': effectiveStyle.trackColor,
-            'border-radius': ArcaneRadius.full,
-            'overflow': 'hidden',
-          }),
-          [
-            // Fill
-            div(
-              classes: 'arcane-progress-bar-fill',
-              styles: Styles(raw: {
-                'width': '$percent%',
-                'height': '100%',
-                'background': fillGradient,
-                'border-radius': ArcaneRadius.full,
-                'transition': animated ? 'width 0.5s ease-out' : 'none',
-              }),
-              [],
-            ),
-          ],
-        ),
-      ],
-    );
+    return context.renderers.progress(ProgressProps(
+      value: value,
+      size: size,
+      variant: variant,
+      indeterminate: indeterminate,
+      showValue: showValue,
+      trackColor: trackColor,
+      indicatorColor: indicatorColor,
+    ));
   }
 }
 
 /// Circular progress indicator
 class ArcaneCircularProgress extends StatelessComponent {
-  final double value; // 0.0 to 1.0
+  final double value;
   final String? size;
   final String? strokeWidth;
-  final ProgressStyle? style;
+  final String? fillColor;
+  final String? trackColor;
   final String? label;
   final bool showPercentage;
 
@@ -168,7 +104,8 @@ class ArcaneCircularProgress extends StatelessComponent {
     required this.value,
     this.size,
     this.strokeWidth,
-    this.style,
+    this.fillColor,
+    this.trackColor,
     this.label,
     this.showPercentage = true,
     super.key,
@@ -176,14 +113,15 @@ class ArcaneCircularProgress extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final effectiveStyle = style ?? ProgressStyle.standard;
     final percent = (value.clamp(0.0, 1.0) * 100).round();
     final actualSize = size ?? '80px';
     final actualStroke = strokeWidth ?? '8px';
+    final effectiveFillColor = fillColor ?? 'var(--primary)';
+    final effectiveTrackColor = trackColor ?? 'var(--muted)';
 
-    return div(
+    return dom.div(
       classes: 'arcane-circular-progress',
-      styles: Styles(raw: {
+      styles: dom.Styles(raw: {
         'position': 'relative',
         'width': actualSize,
         'height': actualSize,
@@ -193,24 +131,24 @@ class ArcaneCircularProgress extends StatelessComponent {
       }),
       [
         // Background circle using conic gradient
-        div(
-          styles: Styles(raw: {
+        dom.div(
+          styles: dom.Styles(raw: {
             'position': 'absolute',
             'width': '100%',
             'height': '100%',
-            'border-radius': ArcaneRadius.full,
+            'border-radius': '9999px',
             'background':
-                'conic-gradient(${effectiveStyle.fillColor} 0deg ${value * 360}deg, ${effectiveStyle.trackColor} ${value * 360}deg 360deg)',
+                'conic-gradient($effectiveFillColor 0deg ${value * 360}deg, $effectiveTrackColor ${value * 360}deg 360deg)',
             'mask':
-                'radial-gradient(farthest-side, transparent calc(100% - $actualStroke), ${ArcaneColors.onSurface} calc(100% - $actualStroke))',
+                'radial-gradient(farthest-side, transparent calc(100% - $actualStroke), #fff calc(100% - $actualStroke))',
             '-webkit-mask':
-                'radial-gradient(farthest-side, transparent calc(100% - $actualStroke), ${ArcaneColors.onSurface} calc(100% - $actualStroke))',
+                'radial-gradient(farthest-side, transparent calc(100% - $actualStroke), #fff calc(100% - $actualStroke))',
           }),
           [],
         ),
         // Center content
-        div(
-          styles: const Styles(raw: {
+        dom.div(
+          styles: const dom.Styles(raw: {
             'display': 'flex',
             'flex-direction': 'column',
             'align-items': 'center',
@@ -218,21 +156,21 @@ class ArcaneCircularProgress extends StatelessComponent {
           }),
           [
             if (showPercentage)
-              span(
-                styles: const Styles(raw: {
-                  'font-size': ArcaneTypography.fontXl,
-                  'font-weight': ArcaneTypography.weightBold,
-                  'color': ArcaneColors.onSurface,
+              dom.span(
+                styles: const dom.Styles(raw: {
+                  'font-size': '1.25rem',
+                  'font-weight': '700',
+                  'color': 'var(--foreground)',
                 }),
-                [text('$percent%')],
+                [dom.text('$percent%')],
               ),
             if (label != null)
-              span(
-                styles: const Styles(raw: {
-                  'font-size': ArcaneTypography.fontSm,
-                  'color': ArcaneColors.mutedForeground,
+              dom.span(
+                styles: const dom.Styles(raw: {
+                  'font-size': '0.875rem',
+                  'color': 'var(--muted-foreground)',
                 }),
-                [text(label!)],
+                [dom.text(label!)],
               ),
           ],
         ),
@@ -256,14 +194,14 @@ class ArcaneLoadingSpinner extends StatelessComponent {
   Component build(BuildContext context) {
     final actualSize = size ?? '24px';
 
-    return div(
+    return dom.div(
       classes: 'arcane-loading-spinner',
-      styles: Styles(raw: {
+      styles: dom.Styles(raw: {
         'width': actualSize,
         'height': actualSize,
-        'border': '3px solid ${ArcaneColors.border}',
-        'border-top-color': color ?? ArcaneColors.accent,
-        'border-radius': ArcaneRadius.full,
+        'border': '3px solid var(--border)',
+        'border-top-color': color ?? 'var(--primary)',
+        'border-radius': '9999px',
         'animation': 'arcane-spin 0.75s linear infinite',
       }),
       [],

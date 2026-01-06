@@ -1,7 +1,11 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/tokens/tokens.dart';
+import '../../core/theme_provider.dart';
+
+// Re-export props for backwards compatibility
+export '../../core/props/loader_props.dart'
+    show LoaderVariant, LoaderProps, LoadingOverlayProps;
 
 /// Spinner loader component
 class ArcaneLoader extends StatelessComponent {
@@ -18,18 +22,11 @@ class ArcaneLoader extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return div(
-      classes: 'arcane-loader-spinner',
-      styles: Styles(raw: {
-        'width': size,
-        'height': size,
-        'border': '$strokeWidth solid ${ArcaneColors.border}',
-        'border-top-color': color ?? ArcaneColors.success,
-        'border-radius': ArcaneRadius.full,
-        'animation': 'spin 1s linear infinite',
-      }),
-      [],
-    );
+    return context.renderers.loader(LoaderProps.spinner(
+      size: size,
+      color: color,
+      strokeWidth: strokeWidth,
+    ));
   }
 
   @css
@@ -53,28 +50,10 @@ class ArcaneDotsLoader extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return div(
-      classes: 'arcane-dots-loader',
-      styles: const Styles(raw: {
-        'display': 'flex',
-        'gap': ArcaneSpacing.xs,
-        'align-items': 'center',
-      }),
-      [
-        for (int i = 0; i < 3; i++)
-          div(
-            styles: Styles(raw: {
-              'width': dotSize,
-              'height': dotSize,
-              'border-radius': ArcaneRadius.full,
-              'background': color ?? ArcaneColors.success,
-              'animation': 'dotBounce 1.4s infinite ease-in-out both',
-              'animation-delay': '${i * 0.16}s',
-            }),
-            [],
-          ),
-      ],
-    );
+    return context.renderers.loader(LoaderProps.dots(
+      color: color,
+      dotSize: dotSize,
+    ));
   }
 
   @css
@@ -99,36 +78,10 @@ class ArcanePulseLoader extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return div(
-      classes: 'arcane-pulse-loader',
-      styles: Styles(raw: {
-        'position': 'relative',
-        'width': size,
-        'height': size,
-      }),
-      [
-        div(
-          styles: Styles(raw: {
-            'position': 'absolute',
-            'inset': '0',
-            'border-radius': ArcaneRadius.full,
-            'background': color ?? ArcaneColors.success,
-            'opacity': '0.4',
-            'animation': 'pulseGrow 1.5s infinite ease-in-out',
-          }),
-          [],
-        ),
-        div(
-          styles: Styles(raw: {
-            'position': 'absolute',
-            'inset': '25%',
-            'border-radius': ArcaneRadius.full,
-            'background': color ?? ArcaneColors.success,
-          }),
-          [],
-        ),
-      ],
-    );
+    return context.renderers.loader(LoaderProps.pulse(
+      size: size,
+      color: color,
+    ));
   }
 
   @css
@@ -153,33 +106,10 @@ class ArcaneLoadingOverlay extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return div(
-      classes: 'arcane-loading-overlay',
-      styles: const Styles(raw: {
-        'position': 'fixed',
-        'inset': '0',
-        'display': 'flex',
-        'flex-direction': 'column',
-        'align-items': 'center',
-        'justify-content': 'center',
-        'gap': ArcaneSpacing.xl,
-        'background': ArcaneColors.backgroundOverlay,
-        'backdrop-filter': 'blur(8px)',
-        '-webkit-backdrop-filter': 'blur(8px)',
-        'z-index': '9999',
-      }),
-      [
-        loader ?? const ArcaneLoader(size: '48px'),
-        if (message != null)
-          span(
-            styles: const Styles(raw: {
-              'color': ArcaneColors.mutedForeground,
-              'font-size': ArcaneTypography.fontBase,
-            }),
-            [text(message!)],
-          ),
-      ],
-    );
+    return context.renderers.loadingOverlay(LoadingOverlayProps(
+      loader: loader,
+      message: message,
+    ));
   }
 }
 

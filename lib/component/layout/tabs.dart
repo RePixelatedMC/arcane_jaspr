@@ -1,7 +1,6 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight, StyleRule;
 
-import '../../util/tokens/tokens.dart';
+import '../../core/theme_provider.dart';
 
 /// A tab component for switching between views.
 class ArcaneTabs extends StatefulComponent {
@@ -49,100 +48,24 @@ class _ArcaneTabsState extends State<ArcaneTabs> {
 
   @override
   Component build(BuildContext context) {
-    return div(
-      classes: 'arcane-tabs',
-      styles: const Styles(raw: {
-        'display': 'flex',
-        'flex-direction': 'column',
-        'width': '100%',
-      }),
-      [
-        // Tab list
-        div(
-          classes: 'arcane-tabs-list',
-          attributes: {'role': 'tablist'},
-          styles: const Styles(raw: {
-            'display': 'flex',
-            'border-bottom': '1px solid ${ArcaneColors.border}',
-            'gap': ArcaneSpacing.xs,
-          }),
-          [
-            for (var i = 0; i < component.tabs.length; i++)
-              _buildTab(context, i, component.tabs[i]),
-          ],
-        ),
-        // Tab panel
-        div(
-          classes: 'arcane-tabs-panel',
-          attributes: {'role': 'tabpanel'},
-          styles: const Styles(raw: {
-            'padding-top': ArcaneSpacing.md,
-          }),
-          [
-            if (_selectedIndex < component.tabs.length)
-              component.tabs[_selectedIndex].content,
-          ],
-        ),
-      ],
-    );
-  }
+    // Convert ArcaneTabItem to TabItemProps
+    final List<TabItemProps> tabProps = component.tabs
+        .map((tab) => TabItemProps(
+              label: tab.label,
+              content: tab.content,
+              icon: tab.icon,
+              badge: tab.badge,
+              disabled: tab.disabled,
+            ))
+        .toList();
 
-  Component _buildTab(BuildContext context, int index, ArcaneTabItem tab) {
-    final bool isSelected = index == _selectedIndex;
-    final bool isDisabled = tab.disabled;
-
-    return button(
-      classes: 'arcane-tab ${isSelected ? 'selected' : ''} ${isDisabled ? 'disabled' : ''}',
-      attributes: {
-        'role': 'tab',
-        'aria-selected': '$isSelected',
-        if (isDisabled) 'aria-disabled': 'true',
-      },
-      styles: Styles(raw: {
-        'display': 'flex',
-        'align-items': 'center',
-        'gap': ArcaneSpacing.sm,
-        'padding': '10px ${ArcaneSpacing.md}',
-        'font-size': ArcaneTypography.fontSm,
-        'font-weight': isSelected ? ArcaneTypography.weightSemibold : ArcaneTypography.weightMedium,
-        'color': isSelected ? ArcaneColors.accent : ArcaneColors.mutedForeground,
-        'background': ArcaneColors.transparent,
-        'border': 'none',
-        'border-bottom': isSelected
-            ? '2px solid ${ArcaneColors.accent}'
-            : '2px solid ${ArcaneColors.transparent}',
-        'margin-bottom': '-1px',
-        'cursor': isDisabled ? 'not-allowed' : 'pointer',
-        'opacity': isDisabled ? '0.5' : '1',
-        'transition': ArcaneEffects.transitionFast,
-        if (component.fill) 'flex': '1',
-        if (component.fill) 'justify-content': 'center',
-      }),
-      events: {
-        'click': (event) {
-          if (!isDisabled) {
-            _selectTab(index);
-          }
-        },
-      },
-      [
-        if (tab.icon != null) tab.icon!,
-        Component.text(tab.label),
-        if (tab.badge != null)
-          span(
-            classes: 'arcane-tab-badge',
-            styles: const Styles(raw: {
-              'background-color': ArcaneColors.accent,
-              'color': ArcaneColors.accentForeground,
-              'font-size': ArcaneTypography.fontXs,
-              'padding': '2px 6px',
-              'border-radius': ArcaneRadius.full,
-              'font-weight': ArcaneTypography.weightMedium,
-            }),
-            [Component.text(tab.badge!)],
-          ),
-      ],
-    );
+    // Delegate rendering to the current stylesheet's tabs renderer
+    return context.renderers.tabs(TabsProps(
+      tabs: tabProps,
+      selectedIndex: _selectedIndex,
+      onChanged: _selectTab,
+      fill: component.fill,
+    ));
   }
 }
 
@@ -164,6 +87,7 @@ class ArcaneTabItem {
 }
 
 /// A simple tab bar without content (for custom tab handling)
+/// ShadCN Reference: https://ui.shadcn.com/docs/components/tabs
 class ArcaneTabBar extends StatelessComponent {
   final List<ArcaneTabBarItem> tabs;
   final int selectedIndex;
@@ -180,52 +104,21 @@ class ArcaneTabBar extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return div(
-      classes: 'arcane-tab-bar',
-      attributes: {'role': 'tablist'},
-      styles: const Styles(raw: {
-        'display': 'flex',
-        'border-bottom': '1px solid ${ArcaneColors.border}',
-      }),
-      [
-        for (var i = 0; i < tabs.length; i++)
-          _buildTab(context, i, tabs[i]),
-      ],
-    );
-  }
+    // Convert ArcaneTabBarItem to TabBarItemProps
+    final List<TabBarItemProps> tabProps = tabs
+        .map((tab) => TabBarItemProps(
+              label: tab.label,
+              icon: tab.icon,
+            ))
+        .toList();
 
-  Component _buildTab(BuildContext context, int index, ArcaneTabBarItem tab) {
-    final bool isSelected = index == selectedIndex;
-
-    return button(
-      classes: 'arcane-tab-bar-item ${isSelected ? 'selected' : ''}',
-      styles: Styles(raw: {
-        'display': 'flex',
-        'align-items': 'center',
-        'gap': ArcaneSpacing.sm,
-        'padding': '10px ${ArcaneSpacing.md}',
-        'font-size': ArcaneTypography.fontSm,
-        'font-weight': isSelected ? ArcaneTypography.weightSemibold : ArcaneTypography.weightMedium,
-        'color': isSelected ? ArcaneColors.accent : ArcaneColors.mutedForeground,
-        'background': ArcaneColors.transparent,
-        'border': 'none',
-        'border-bottom': isSelected
-            ? '2px solid ${ArcaneColors.accent}'
-            : '2px solid ${ArcaneColors.transparent}',
-        'margin-bottom': '-1px',
-        'cursor': 'pointer',
-        'transition': ArcaneEffects.transitionFast,
-        if (fill) 'flex': '1',
-        if (fill) 'justify-content': 'center',
-      }),
-      events: {
-        'click': (event) => onChanged(index),
-      },
-      [
-        if (tab.icon != null) tab.icon!,
-        Component.text(tab.label),
-      ],
-    );
+    // Delegate rendering to the current stylesheet's tabBar renderer
+    return context.renderers.tabBar(TabBarProps(
+      tabs: tabProps,
+      selectedIndex: selectedIndex,
+      onChanged: onChanged,
+      fill: fill,
+    ));
   }
 }
 

@@ -13,8 +13,6 @@ import 'package:jaspr/dom.dart'
         BoxShadow,
         FontWeight;
 
-import '../../util/tokens/tokens.dart';
-
 /// Severity level for tracker cells
 enum TrackerLevel {
   /// All fine / healthy
@@ -130,10 +128,10 @@ class ArcaneTracker extends StatelessComponent {
       return levelColors![level]!;
     }
     return switch (level) {
-      TrackerLevel.fine => ArcaneColors.success,
-      TrackerLevel.warning => ArcaneColors.warning,
-      TrackerLevel.critical => ArcaneColors.error,
-      TrackerLevel.unknown => ArcaneColors.surfaceVariant,
+      TrackerLevel.fine => 'hsl(142 76% 36%)',
+      TrackerLevel.warning => 'hsl(38 92% 50%)',
+      TrackerLevel.critical => 'var(--destructive)',
+      TrackerLevel.unknown => 'var(--muted)',
     };
   }
 
@@ -144,7 +142,7 @@ class ArcaneTracker extends StatelessComponent {
       styles: const Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': ArcaneSpacing.md,
+        'gap': '1rem',
       }),
       [
         // Grid
@@ -168,9 +166,9 @@ class ArcaneTracker extends StatelessComponent {
             styles: const Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
-              'gap': ArcaneSpacing.md,
-              'font-size': ArcaneTypography.fontXs,
-              'color': ArcaneColors.mutedForeground,
+              'gap': '1rem',
+              'font-size': '0.75rem',
+              'color': 'var(--muted-foreground)',
             }),
             [
               span([text('Less')]),
@@ -179,7 +177,7 @@ class ArcaneTracker extends StatelessComponent {
                   styles: Styles(raw: {
                     'width': '${cellSize}px',
                     'height': '${cellSize}px',
-                    'border-radius': ArcaneRadius.sm,
+                    'border-radius': '0.25rem',
                     'background': _getColor(level),
                   }),
                   [],
@@ -204,10 +202,10 @@ class ArcaneTracker extends StatelessComponent {
       styles: Styles(raw: {
         'width': '${cellSize}px',
         'height': '${cellSize}px',
-        'border-radius': ArcaneRadius.sm,
+        'border-radius': '0.25rem',
         'background': _getColor(cellData.level),
         'cursor': onCellTap != null ? 'pointer' : 'default',
-        'transition': ArcaneEffects.transitionFast,
+        'transition': 'all 150ms ease',
       }),
       events: onCellTap != null
           ? {'click': (_) => onCellTap!(index, cellData)}
@@ -265,10 +263,10 @@ class ArcaneUptimeTracker extends StatelessComponent {
   });
 
   String _getBarColor(double uptime) {
-    if (uptime >= 99.9) return ArcaneColors.success;
-    if (uptime >= 99.0) return ArcaneColors.successContainer;
-    if (uptime >= 95.0) return ArcaneColors.warning;
-    return ArcaneColors.error;
+    if (uptime >= 99.9) return 'hsl(142 76% 36%)';
+    if (uptime >= 99.0) return 'hsl(142 76% 50%)';
+    if (uptime >= 95.0) return 'hsl(38 92% 50%)';
+    return 'var(--destructive)';
   }
 
   @override
@@ -278,7 +276,7 @@ class ArcaneUptimeTracker extends StatelessComponent {
       styles: const Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': ArcaneSpacing.sm,
+        'gap': '0.5rem',
       }),
       [
         // Bars
@@ -304,7 +302,7 @@ class ArcaneUptimeTracker extends StatelessComponent {
                   'min-height': '2px',
                   'background': _getBarColor(day.uptime),
                   'border-radius': '${barWidth / 2}px ${barWidth / 2}px 0 0',
-                  'transition': ArcaneEffects.transitionFast,
+                  'transition': 'all 150ms ease',
                 }),
                 [],
               ),
@@ -322,16 +320,16 @@ class ArcaneUptimeTracker extends StatelessComponent {
             [
               span(
                 styles: const Styles(raw: {
-                  'font-size': ArcaneTypography.fontXs,
-                  'color': ArcaneColors.mutedForeground,
+                  'font-size': '0.75rem',
+                  'color': 'var(--muted-foreground)',
                 }),
                 [text('${days.length} days')],
               ),
               span(
                 styles: const Styles(raw: {
-                  'font-size': ArcaneTypography.fontSm,
-                  'font-weight': ArcaneTypography.weightMedium,
-                  'color': ArcaneColors.success,
+                  'font-size': '0.875rem',
+                  'font-weight': '500',
+                  'color': 'hsl(142 76% 36%)',
                 }),
                 [
                   text(

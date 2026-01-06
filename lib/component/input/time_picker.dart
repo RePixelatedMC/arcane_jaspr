@@ -13,8 +13,6 @@ import 'package:jaspr/dom.dart'
         BoxShadow,
         FontWeight;
 
-import '../../util/tokens/tokens.dart';
-
 /// Represents a time of day with hour and minute.
 class TimeOfDay {
   final int hour;
@@ -133,22 +131,22 @@ class ArcaneTimePicker extends StatefulComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-time-picker-trigger:hover:not(.disabled)').styles(raw: {
-      'border-color': ArcaneColors.accent,
+      'border-color': 'var(--accent)',
     }),
     css('.arcane-time-picker-trigger:focus').styles(raw: {
-      'border-color': ArcaneColors.accent,
-      'box-shadow': '0 0 0 2px ${ArcaneColors.accentContainer}',
+      'border-color': 'var(--accent)',
+      'box-shadow': '0 0 0 2px hsl(var(--accent) / 0.2)',
       'outline': 'none',
     }),
     css('.arcane-time-picker-clear:hover').styles(raw: {
-      'color': ArcaneColors.error,
+      'color': 'var(--destructive)',
     }),
     css('.arcane-time-picker-option:hover').styles(raw: {
-      'background-color': ArcaneColors.surfaceVariant,
+      'background-color': 'var(--muted)',
     }),
     css('.arcane-time-picker-option.selected').styles(raw: {
-      'background-color': ArcaneColors.accent,
-      'color': ArcaneColors.accentForeground,
+      'background-color': 'var(--accent)',
+      'color': 'var(--accent-foreground)',
     }),
   ];
 }
@@ -245,16 +243,16 @@ class _ArcaneTimePickerState extends State<ArcaneTimePicker> {
         'position': 'relative',
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': ArcaneSpacing.xs,
+        'gap': '0.25rem',
       }),
       [
         // Label
         if (component.label != null)
           span(
             styles: const Styles(raw: {
-              'font-size': ArcaneTypography.fontSm,
-              'font-weight': ArcaneTypography.weightMedium,
-              'color': ArcaneColors.onSurface,
+              'font-size': '0.875rem',
+              'font-weight': '500',
+              'color': 'var(--foreground)',
             }),
             [Component.text(component.label!)],
           ),
@@ -272,18 +270,18 @@ class _ArcaneTimePickerState extends State<ArcaneTimePicker> {
           styles: Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
-            'gap': ArcaneSpacing.sm,
+            'gap': '0.5rem',
             'width': '100%',
             'height': sizeStyles['height']!,
-            'padding': '0 ${ArcaneSpacing.md}',
-            'background-color': ArcaneColors.surface,
+            'padding': '0 1rem',
+            'background-color': 'var(--card)',
             'border':
-                '1px solid ${hasError ? ArcaneColors.error : ArcaneColors.border}',
-            'border-radius': ArcaneRadius.md,
+                '1px solid ${hasError ? 'var(--destructive)' : 'var(--border)'}',
+            'border-radius': '0.375rem',
             'font-size': sizeStyles['fontSize']!,
-            'color': hasValue ? ArcaneColors.onSurface : ArcaneColors.mutedForeground,
+            'color': hasValue ? 'var(--foreground)' : 'var(--muted-foreground)',
             'cursor': component.disabled ? 'not-allowed' : 'pointer',
-            'transition': ArcaneEffects.transitionFast,
+            'transition': 'all 150ms ease',
             'text-align': 'left',
             if (component.disabled) 'opacity': '0.5',
           }),
@@ -293,7 +291,7 @@ class _ArcaneTimePickerState extends State<ArcaneTimePicker> {
           [
             const span(
               styles: Styles(raw: {
-                'color': ArcaneColors.mutedForeground,
+                'color': 'var(--muted-foreground)',
               }),
               [Component.text('🕐')],
             ),
@@ -314,9 +312,9 @@ class _ArcaneTimePickerState extends State<ArcaneTimePicker> {
                   'aria-label': 'Clear time',
                 },
                 styles: const Styles(raw: {
-                  'color': ArcaneColors.mutedForeground,
+                  'color': 'var(--muted-foreground)',
                   'cursor': 'pointer',
-                  'transition': ArcaneEffects.transitionFast,
+                  'transition': 'all 150ms ease',
                 }),
                 events: {
                   'click': (e) {
@@ -337,13 +335,13 @@ class _ArcaneTimePickerState extends State<ArcaneTimePicker> {
               'position': 'absolute',
               'top': '100%',
               'left': '0',
-              'margin-top': ArcaneSpacing.xs,
+              'margin-top': '0.25rem',
               'z-index': '100',
-              'background-color': ArcaneColors.surface,
-              'border': '1px solid ${ArcaneColors.border}',
-              'border-radius': ArcaneRadius.lg,
-              'box-shadow': ArcaneEffects.shadowLg,
-              'padding': ArcaneSpacing.md,
+              'background-color': 'var(--card)',
+              'border': '1px solid var(--border)',
+              'border-radius': '0.5rem',
+              'box-shadow': '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
+              'padding': '1rem',
               'min-width': '280px',
             }),
             [
@@ -351,7 +349,7 @@ class _ArcaneTimePickerState extends State<ArcaneTimePicker> {
               div(
                 styles: const Styles(raw: {
                   'display': 'flex',
-                  'gap': ArcaneSpacing.md,
+                  'gap': '1rem',
                 }),
                 [
                   // Hours column
@@ -382,16 +380,16 @@ class _ArcaneTimePickerState extends State<ArcaneTimePicker> {
                       styles: const Styles(raw: {
                         'display': 'flex',
                         'flex-direction': 'column',
-                        'gap': ArcaneSpacing.xs,
+                        'gap': '0.25rem',
                       }),
                       [
                         const span(
                           styles: Styles(raw: {
-                            'font-size': ArcaneTypography.fontXs,
-                            'font-weight': ArcaneTypography.weightMedium,
-                            'color': ArcaneColors.mutedForeground,
+                            'font-size': '0.75rem',
+                            'font-weight': '500',
+                            'color': 'var(--muted-foreground)',
                             'text-transform': 'uppercase',
-                            'margin-bottom': ArcaneSpacing.xs,
+                            'margin-bottom': '0.25rem',
                           }),
                           [Component.text('Period')],
                         ),
@@ -399,17 +397,17 @@ class _ArcaneTimePickerState extends State<ArcaneTimePicker> {
                           classes:
                               'arcane-time-picker-option ${!_isPM ? 'selected' : ''}',
                           styles: Styles(raw: {
-                            'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
+                            'padding': '0.5rem 1rem',
                             'border': 'none',
-                            'border-radius': ArcaneRadius.md,
+                            'border-radius': '0.375rem',
                             'background-color':
-                                !_isPM ? ArcaneColors.accent : 'transparent',
+                                !_isPM ? 'var(--accent)' : 'transparent',
                             'color': !_isPM
-                                ? ArcaneColors.accentForeground
-                                : ArcaneColors.onSurface,
+                                ? 'var(--accent-foreground)'
+                                : 'var(--foreground)',
                             'cursor': 'pointer',
-                            'font-size': ArcaneTypography.fontSm,
-                            'transition': ArcaneEffects.transitionFast,
+                            'font-size': '0.875rem',
+                            'transition': 'all 150ms ease',
                           }),
                           events: {
                             'click': (e) {
@@ -422,17 +420,17 @@ class _ArcaneTimePickerState extends State<ArcaneTimePicker> {
                           classes:
                               'arcane-time-picker-option ${_isPM ? 'selected' : ''}',
                           styles: Styles(raw: {
-                            'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
+                            'padding': '0.5rem 1rem',
                             'border': 'none',
-                            'border-radius': ArcaneRadius.md,
+                            'border-radius': '0.375rem',
                             'background-color':
-                                _isPM ? ArcaneColors.accent : 'transparent',
+                                _isPM ? 'var(--accent)' : 'transparent',
                             'color': _isPM
-                                ? ArcaneColors.accentForeground
-                                : ArcaneColors.onSurface,
+                                ? 'var(--accent-foreground)'
+                                : 'var(--foreground)',
                             'cursor': 'pointer',
-                            'font-size': ArcaneTypography.fontSm,
-                            'transition': ArcaneEffects.transitionFast,
+                            'font-size': '0.875rem',
+                            'transition': 'all 150ms ease',
                           }),
                           events: {
                             'click': (e) {
@@ -451,21 +449,21 @@ class _ArcaneTimePickerState extends State<ArcaneTimePicker> {
                 styles: const Styles(raw: {
                   'display': 'flex',
                   'justify-content': 'flex-end',
-                  'gap': ArcaneSpacing.sm,
-                  'margin-top': ArcaneSpacing.md,
-                  'padding-top': ArcaneSpacing.md,
-                  'border-top': '1px solid ${ArcaneColors.border}',
+                  'gap': '0.5rem',
+                  'margin-top': '1rem',
+                  'padding-top': '1rem',
+                  'border-top': '1px solid var(--border)',
                 }),
                 [
                   button(
                     styles: const Styles(raw: {
-                      'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
-                      'border': '1px solid ${ArcaneColors.border}',
-                      'border-radius': ArcaneRadius.md,
+                      'padding': '0.5rem 1rem',
+                      'border': '1px solid var(--border)',
+                      'border-radius': '0.375rem',
                       'background-color': 'transparent',
-                      'color': ArcaneColors.onSurface,
+                      'color': 'var(--foreground)',
                       'cursor': 'pointer',
-                      'font-size': ArcaneTypography.fontSm,
+                      'font-size': '0.875rem',
                     }),
                     events: {
                       'click': (e) => setState(() => _isOpen = false),
@@ -474,13 +472,13 @@ class _ArcaneTimePickerState extends State<ArcaneTimePicker> {
                   ),
                   button(
                     styles: const Styles(raw: {
-                      'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
+                      'padding': '0.5rem 1rem',
                       'border': 'none',
-                      'border-radius': ArcaneRadius.md,
-                      'background-color': ArcaneColors.accent,
-                      'color': ArcaneColors.accentForeground,
+                      'border-radius': '0.375rem',
+                      'background-color': 'var(--accent)',
+                      'color': 'var(--accent-foreground)',
                       'cursor': 'pointer',
-                      'font-size': ArcaneTypography.fontSm,
+                      'font-size': '0.875rem',
                     }),
                     events: {
                       'click': (e) => _confirm(),
@@ -496,8 +494,8 @@ class _ArcaneTimePickerState extends State<ArcaneTimePicker> {
         if (hasError)
           span(
             styles: const Styles(raw: {
-              'font-size': ArcaneTypography.fontSm,
-              'color': ArcaneColors.error,
+              'font-size': '0.875rem',
+              'color': 'var(--destructive)',
             }),
             [Component.text(component.error!)],
           ),
@@ -516,16 +514,16 @@ class _ArcaneTimePickerState extends State<ArcaneTimePicker> {
       styles: const Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': ArcaneSpacing.xs,
+        'gap': '0.25rem',
       }),
       [
         span(
           styles: const Styles(raw: {
-            'font-size': ArcaneTypography.fontXs,
-            'font-weight': ArcaneTypography.weightMedium,
-            'color': ArcaneColors.mutedForeground,
+            'font-size': '0.75rem',
+            'font-weight': '500',
+            'color': 'var(--muted-foreground)',
             'text-transform': 'uppercase',
-            'margin-bottom': ArcaneSpacing.xs,
+            'margin-bottom': '0.25rem',
           }),
           [Component.text(label)],
         ),
@@ -543,20 +541,20 @@ class _ArcaneTimePickerState extends State<ArcaneTimePicker> {
                 classes:
                     'arcane-time-picker-option ${value == selectedValue ? 'selected' : ''}',
                 styles: Styles(raw: {
-                  'padding': '${ArcaneSpacing.xs} ${ArcaneSpacing.md}',
+                  'padding': '0.25rem 1rem',
                   'border': 'none',
-                  'border-radius': ArcaneRadius.md,
+                  'border-radius': '0.375rem',
                   'background-color': value == selectedValue
-                      ? ArcaneColors.accent
+                      ? 'var(--accent)'
                       : 'transparent',
                   'color': value == selectedValue
-                      ? ArcaneColors.accentForeground
-                      : ArcaneColors.onSurface,
+                      ? 'var(--accent-foreground)'
+                      : 'var(--foreground)',
                   'cursor': 'pointer',
-                  'font-size': ArcaneTypography.fontSm,
+                  'font-size': '0.875rem',
                   'text-align': 'center',
                   'min-width': '48px',
-                  'transition': ArcaneEffects.transitionFast,
+                  'transition': 'all 150ms ease',
                 }),
                 events: {
                   'click': (e) => onSelect(value),
@@ -583,16 +581,16 @@ enum TimePickerSize {
 extension TimePickerSizeExtension on TimePickerSize {
   Map<String, String> get styles => switch (this) {
         TimePickerSize.sm => {
-            'height': ArcaneLayout.inputHeightSm,
-            'fontSize': ArcaneTypography.fontSm,
+            'height': '32px',
+            'fontSize': '0.875rem',
           },
         TimePickerSize.md => {
-            'height': ArcaneLayout.inputHeightMd,
-            'fontSize': ArcaneTypography.fontSm,
+            'height': '40px',
+            'fontSize': '0.875rem',
           },
         TimePickerSize.lg => {
-            'height': ArcaneLayout.inputHeightLg,
-            'fontSize': ArcaneTypography.fontMd,
+            'height': '48px',
+            'fontSize': '1rem',
           },
       };
 }

@@ -1,8 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/tokens/tokens.dart';
-
 /// File upload style variants
 enum FileUploadStyle {
   /// Default dropzone style
@@ -157,9 +155,9 @@ class _ArcaneFileUploadState extends State<ArcaneFileUpload> {
 
   (String padding, String fontSize, String iconSize) get _sizeStyles =>
       switch (component.size) {
-        FileUploadSize.sm => (ArcaneSpacing.md, ArcaneTypography.fontSm, '24px'),
-        FileUploadSize.md => (ArcaneSpacing.lg, ArcaneTypography.fontMd, '32px'),
-        FileUploadSize.lg => (ArcaneSpacing.xl, ArcaneTypography.fontLg, '48px'),
+        FileUploadSize.sm => ('1rem', '0.875rem', '24px'),
+        FileUploadSize.md => ('1.5rem', '1rem', '32px'),
+        FileUploadSize.lg => ('2rem', '1.125rem', '48px'),
       };
 
   void _handleFiles(dynamic files) {
@@ -195,16 +193,16 @@ class _ArcaneFileUploadState extends State<ArcaneFileUpload> {
       styles: const Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': ArcaneSpacing.sm,
+        'gap': '0.5rem',
       }),
       [
         // Label
         if (component.label != null)
           label(
             styles: const Styles(raw: {
-              'font-size': ArcaneTypography.fontSm,
-              'font-weight': ArcaneTypography.weightMedium,
-              'color': ArcaneColors.onSurface,
+              'font-size': '0.875rem',
+              'font-weight': '500',
+              'color': 'var(--foreground)',
             }),
             [text(component.label!)],
           ),
@@ -223,7 +221,7 @@ class _ArcaneFileUploadState extends State<ArcaneFileUpload> {
             styles: const Styles(raw: {
               'display': 'flex',
               'flex-direction': 'column',
-              'gap': ArcaneSpacing.xs,
+              'gap': '0.25rem',
             }),
             [
               for (final file in _selectedFiles)
@@ -232,15 +230,15 @@ class _ArcaneFileUploadState extends State<ArcaneFileUpload> {
                     'display': 'flex',
                     'align-items': 'center',
                     'justify-content': 'space-between',
-                    'padding': ArcaneSpacing.sm,
-                    'background': ArcaneColors.surfaceVariant,
-                    'border-radius': ArcaneRadius.sm,
-                    'font-size': ArcaneTypography.fontSm,
+                    'padding': '0.5rem',
+                    'background': 'var(--muted)',
+                    'border-radius': '0.125rem',
+                    'font-size': '0.875rem',
                   }),
                   [
                     span(
                       styles: const Styles(raw: {
-                        'color': ArcaneColors.onSurface,
+                        'color': 'var(--foreground)',
                         'overflow': 'hidden',
                         'text-overflow': 'ellipsis',
                         'white-space': 'nowrap',
@@ -249,9 +247,9 @@ class _ArcaneFileUploadState extends State<ArcaneFileUpload> {
                     ),
                     span(
                       styles: const Styles(raw: {
-                        'color': ArcaneColors.mutedForeground,
+                        'color': 'var(--muted-foreground)',
                         'flex-shrink': '0',
-                        'margin-left': ArcaneSpacing.sm,
+                        'margin-left': '0.5rem',
                       }),
                       [text(file.formattedSize)],
                     ),
@@ -264,8 +262,8 @@ class _ArcaneFileUploadState extends State<ArcaneFileUpload> {
         if (component.helperText != null)
           span(
             styles: const Styles(raw: {
-              'font-size': ArcaneTypography.fontXs,
-              'color': ArcaneColors.mutedForeground,
+              'font-size': '0.75rem',
+              'color': 'var(--muted-foreground)',
             }),
             [text(component.helperText!)],
           ),
@@ -280,18 +278,18 @@ class _ArcaneFileUploadState extends State<ArcaneFileUpload> {
         'flex-direction': 'column',
         'align-items': 'center',
         'justify-content': 'center',
-        'gap': ArcaneSpacing.md,
+        'gap': '1rem',
         'padding': padding,
         'border': _isDragOver
-            ? '2px dashed ${ArcaneColors.accent}'
-            : '2px dashed ${ArcaneColors.border}',
-        'border-radius': ArcaneRadius.lg,
+            ? '2px dashed var(--accent)'
+            : '2px dashed var(--border)',
+        'border-radius': '0.5rem',
         'background': _isDragOver
-            ? 'rgba(var(--arcane-accent-rgb), 0.05)'
+            ? 'hsl(var(--accent) / 0.05)'
             : 'transparent',
         'cursor': component.disabled ? 'not-allowed' : 'pointer',
         'opacity': component.disabled ? '0.5' : '1',
-        'transition': ArcaneEffects.transitionFast,
+        'transition': 'all 150ms ease',
         'text-align': 'center',
       }),
       events: {
@@ -325,7 +323,7 @@ class _ArcaneFileUploadState extends State<ArcaneFileUpload> {
         div(
           styles: Styles(raw: {
             'font-size': iconSize,
-            'color': _isDragOver ? ArcaneColors.accent : ArcaneColors.mutedForeground,
+            'color': _isDragOver ? 'var(--accent)' : 'var(--muted-foreground)',
           }),
           [text('📁')],
         ),
@@ -334,7 +332,7 @@ class _ArcaneFileUploadState extends State<ArcaneFileUpload> {
         div(
           styles: Styles(raw: {
             'font-size': fontSize,
-            'color': ArcaneColors.onSurface,
+            'color': 'var(--foreground)',
           }),
           [text(_dropzoneText)],
         ),
@@ -342,8 +340,8 @@ class _ArcaneFileUploadState extends State<ArcaneFileUpload> {
         // Browse button
         span(
           styles: const Styles(raw: {
-            'color': ArcaneColors.accent,
-            'font-weight': ArcaneTypography.weightMedium,
+            'color': 'var(--accent)',
+            'font-weight': '500',
             'text-decoration': 'underline',
           }),
           [text(component.browseText)],
@@ -360,7 +358,7 @@ class _ArcaneFileUploadState extends State<ArcaneFileUpload> {
       styles: const Styles(raw: {
         'display': 'inline-flex',
         'align-items': 'center',
-        'gap': ArcaneSpacing.sm,
+        'gap': '0.5rem',
       }),
       [
         button(
@@ -369,17 +367,17 @@ class _ArcaneFileUploadState extends State<ArcaneFileUpload> {
           styles: Styles(raw: {
             'display': 'inline-flex',
             'align-items': 'center',
-            'gap': ArcaneSpacing.xs,
+            'gap': '0.25rem',
             'padding': '10px 20px',
             'font-size': fontSize,
-            'font-weight': ArcaneTypography.weightMedium,
-            'background': ArcaneColors.surfaceVariant,
-            'border': '1px solid ${ArcaneColors.border}',
-            'border-radius': ArcaneRadius.md,
-            'color': ArcaneColors.onSurface,
+            'font-weight': '500',
+            'background': 'var(--muted)',
+            'border': '1px solid var(--border)',
+            'border-radius': '0.375rem',
+            'color': 'var(--foreground)',
             'cursor': component.disabled ? 'not-allowed' : 'pointer',
             'opacity': component.disabled ? '0.5' : '1',
-            'transition': ArcaneEffects.transitionFast,
+            'transition': 'all 150ms ease',
           }),
           events: {
             'click': (_) {
@@ -403,14 +401,14 @@ class _ArcaneFileUploadState extends State<ArcaneFileUpload> {
       styles: const Styles(raw: {
         'display': 'inline-flex',
         'align-items': 'center',
-        'gap': ArcaneSpacing.xs,
+        'gap': '0.25rem',
       }),
       [
         a(
           href: '#',
           styles: Styles(raw: {
             'font-size': fontSize,
-            'color': ArcaneColors.accent,
+            'color': 'var(--accent)',
             'text-decoration': 'underline',
             'cursor': component.disabled ? 'not-allowed' : 'pointer',
             'opacity': component.disabled ? '0.5' : '1',

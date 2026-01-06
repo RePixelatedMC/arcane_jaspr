@@ -1,26 +1,16 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/tokens/tokens.dart';
+import '../../core/theme_provider.dart';
 
-/// Empty state style variants
-enum EmptyStateStyle {
-  /// Default centered style
-  centered,
+// Re-export props for backwards compatibility
+export '../../core/props/empty_state_props.dart'
+    show EmptyStateStyleVariant, EmptyStateSizeVariant, EmptyStateProps;
 
-  /// Compact inline style
-  compact,
+/// Empty state style variants (local alias)
+typedef EmptyStateStyle = EmptyStateStyleVariant;
 
-  /// Card-wrapped style
-  card,
-}
-
-/// Empty state size variants
-enum EmptyStateSize {
-  sm,
-  md,
-  lg,
-}
+/// Empty state size variants (local alias)
+typedef EmptyStateSize = EmptyStateSizeVariant;
 
 /// Empty state placeholder component
 ///
@@ -119,90 +109,29 @@ class ArcaneEmptyState extends StatelessComponent {
   })  : icon = null,
         emoji = '📡';
 
-  (String iconSize, String titleSize, String descSize, String padding, String gap) get _sizeStyles =>
-      switch (size) {
-        EmptyStateSize.sm => ('32px', ArcaneTypography.fontMd, ArcaneTypography.fontSm, ArcaneSpacing.md, ArcaneSpacing.sm),
-        EmptyStateSize.md => ('48px', ArcaneTypography.fontLg, ArcaneTypography.fontMd, ArcaneSpacing.xl, ArcaneSpacing.md),
-        EmptyStateSize.lg => ('64px', ArcaneTypography.fontXl, ArcaneTypography.fontLg, ArcaneSpacing.xxl, ArcaneSpacing.lg),
+  EmptyStateStyleVariant get _propsStyle => switch (style) {
+        EmptyStateStyle.centered => EmptyStateStyleVariant.centered,
+        EmptyStateStyle.compact => EmptyStateStyleVariant.compact,
+        EmptyStateStyle.card => EmptyStateStyleVariant.card,
+      };
+
+  EmptyStateSizeVariant get _propsSize => switch (size) {
+        EmptyStateSize.sm => EmptyStateSizeVariant.sm,
+        EmptyStateSize.md => EmptyStateSizeVariant.md,
+        EmptyStateSize.lg => EmptyStateSizeVariant.lg,
       };
 
   @override
   Component build(BuildContext context) {
-    final (iconSize, titleSize, descSize, padding, gap) = _sizeStyles;
-
-    final content = div(
-      styles: Styles(raw: {
-        'display': 'flex',
-        'flex-direction': 'column',
-        'align-items': 'center',
-        'justify-content': 'center',
-        'text-align': 'center',
-        'padding': padding,
-        'gap': gap,
-      }),
-      [
-        // Icon/Emoji
-        if (icon != null || emoji != null)
-          div(
-            styles: Styles(raw: {
-              'font-size': iconSize,
-              'line-height': '1',
-              'opacity': '0.6',
-            }),
-            [
-              if (icon != null) icon!,
-              if (icon == null && emoji != null) text(emoji!),
-            ],
-          ),
-
-        // Title
-        div(
-          styles: Styles(raw: {
-            'font-size': titleSize,
-            'font-weight': ArcaneTypography.weightSemibold,
-            'color': ArcaneColors.onSurface,
-          }),
-          [text(title)],
-        ),
-
-        // Description
-        if (description != null)
-          div(
-            styles: Styles(raw: {
-              'font-size': descSize,
-              'color': ArcaneColors.mutedForeground,
-              'max-width': '360px',
-            }),
-            [text(description!)],
-          ),
-
-        // Actions
-        if (action != null || secondaryAction != null)
-          div(
-            styles: const Styles(raw: {
-              'display': 'flex',
-              'gap': ArcaneSpacing.sm,
-              'margin-top': ArcaneSpacing.sm,
-            }),
-            [
-              if (action != null) action!,
-              if (secondaryAction != null) secondaryAction!,
-            ],
-          ),
-      ],
-    );
-
-    if (style == EmptyStateStyle.card) {
-      return div(
-        styles: const Styles(raw: {
-          'background': ArcaneColors.surface,
-          'border': '1px solid ${ArcaneColors.border}',
-          'border-radius': ArcaneRadius.lg,
-        }),
-        [content],
-      );
-    }
-
-    return content;
+    return context.renderers.emptyState(EmptyStateProps(
+      icon: icon,
+      emoji: emoji,
+      title: title,
+      description: description,
+      action: action,
+      secondaryAction: secondaryAction,
+      style: _propsStyle,
+      size: _propsSize,
+    ));
   }
 }

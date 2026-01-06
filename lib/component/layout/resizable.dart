@@ -13,13 +13,13 @@ import 'package:jaspr/dom.dart'
         BoxShadow,
         FontWeight;
 
-import '../../util/tokens/tokens.dart';
-
-/// A resizable panel group with draggable dividers.
+/// A resizable panel group with draggable dividers matching shadcn/ui.
+/// ShadCN Reference: https://ui.shadcn.com/docs/components/resizable
 ///
 /// Allows users to resize panels by dragging the handles between them.
+/// ShadCN ResizablePanelGroup: flex h-full w-full data-[panel-group-direction=vertical]:flex-col
+/// ShadCN ResizableHandle: relative flex w-px items-center justify-center bg-border after:absolute after:inset-y-0 after:left-1/2 after:w-1 after:-translate-x-1/2
 ///
-/// Example:
 /// ```dart
 /// ArcaneResizable(
 ///   direction: ResizeDirection.horizontal,
@@ -134,6 +134,7 @@ class ArcaneResizable extends StatelessComponent {
   }
 
   Component _buildHandle(bool isHorizontal, int index) {
+    // ShadCN ResizableHandle: relative flex w-px items-center justify-center bg-border after:absolute after:inset-y-0 after:left-1/2 after:w-1 after:-translate-x-1/2
     return div(
       classes: 'arcane-resizable-handle',
       attributes: {
@@ -144,36 +145,62 @@ class ArcaneResizable extends StatelessComponent {
         'tabindex': '0',
       },
       styles: Styles(raw: {
-        'flex': '0 0 ${handleSize}px',
+        'position': 'relative',
+        // ShadCN: w-px (1px) for horizontal, h-px for vertical
+        'flex': '0 0 ${isHorizontal ? '1px' : '1px'}',
+        // ShadCN: flex items-center justify-center
         'display': 'flex',
         'align-items': 'center',
         'justify-content': 'center',
-        'background-color': ArcaneColors.border,
+        // ShadCN: bg-border
+        'background-color': 'var(--border)',
         'cursor': isHorizontal ? 'col-resize' : 'row-resize',
-        'transition': ArcaneEffects.transitionFast,
-        'position': 'relative',
+        // ShadCN: focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-1
+        'outline': 'none',
+        // ShadCN: transition-colors (implied)
+        'transition': 'background-color 150ms ease',
         'z-index': '10',
       }),
       [
+        // ShadCN: data-[panel-group-direction=vertical]:h-1 data-[panel-group-direction=vertical]:w-2.5
+        // ShadCN: data-[panel-group-direction=horizontal]:h-2.5 data-[panel-group-direction=horizontal]:w-1
         if (showGrip)
           div(
             classes: 'arcane-resizable-grip',
             styles: Styles(raw: {
               'display': 'flex',
-              'flex-direction': isHorizontal ? 'column' : 'row',
-              'gap': '2px',
+              'align-items': 'center',
+              'justify-content': 'center',
+              // ShadCN: z-10 rounded-sm border bg-border
+              'z-index': '10',
+              'border-radius': '0.25rem',
+              'border': '1px solid var(--border)',
+              'background-color': 'var(--border)',
+              // ShadCN: h-4 w-3 (horizontal) / h-3 w-4 (vertical)
+              'width': isHorizontal ? '12px' : '16px',
+              'height': isHorizontal ? '16px' : '12px',
             }),
             [
-              for (var i = 0; i < 3; i++)
-                const div(
-                  styles: Styles(raw: {
-                    'width': '4px',
-                    'height': '4px',
-                    'border-radius': '50%',
-                    'background-color': ArcaneColors.mutedForeground,
-                  }),
-                  [],
-                ),
+              // Grip dots in a flex container
+              div(
+                styles: Styles(raw: {
+                  'display': 'flex',
+                  'flex-direction': isHorizontal ? 'column' : 'row',
+                  'gap': '1px',
+                }),
+                [
+                  for (var i = 0; i < 3; i++)
+                    const div(
+                      styles: Styles(raw: {
+                        'width': '2px',
+                        'height': '2px',
+                        'border-radius': '50%',
+                        'background-color': 'var(--muted-foreground)',
+                      }),
+                      [],
+                    ),
+                ],
+              ),
             ],
           ),
       ],
@@ -182,19 +209,24 @@ class ArcaneResizable extends StatelessComponent {
 
   @css
   static final List<StyleRule> styles = [
+    // ShadCN: hover state
     css('.arcane-resizable-handle:hover').styles(raw: {
-      'background-color': ArcaneColors.surfaceVariant,
+      'background-color': 'var(--accent)',
     }),
+    css('.arcane-resizable-handle:hover .arcane-resizable-grip').styles(raw: {
+      'background-color': 'var(--accent)',
+    }),
+    // ShadCN: active state
     css('.arcane-resizable-handle:active').styles(raw: {
-      'background-color': ArcaneColors.accent,
+      'background-color': 'var(--primary)',
     }),
-    css('.arcane-resizable-handle:focus').styles(raw: {
+    // ShadCN: focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-1
+    css('.arcane-resizable-handle:focus-visible').styles(raw: {
       'outline': 'none',
-      'background-color': ArcaneColors.accentContainer,
+      'box-shadow': '0 0 0 1px var(--ring)',
     }),
-    css('.arcane-resizable-handle:active .arcane-resizable-grip div')
-        .styles(raw: {
-      'background-color': ArcaneColors.accentForeground,
+    css('.arcane-resizable-handle:active .arcane-resizable-grip').styles(raw: {
+      'background-color': 'var(--primary)',
     }),
     css('.arcane-resizable.dragging').styles(raw: {
       'user-select': 'none',

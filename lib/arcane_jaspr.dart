@@ -148,25 +148,28 @@ export 'package:jaspr/dom.dart'
         TextTransform;
 
 // ============================================================================
-// Utilities
+// Core System (NEW)
 // ============================================================================
-export 'util/appearance/colors.dart';
-export 'util/appearance/color_scheme.dart';
-export 'util/appearance/style_sheet.dart';
-export 'util/appearance/stylesheets/shadcn_style.dart';
-export 'util/appearance/stylesheets/shadcn_presets.dart';
-export 'util/appearance/stylesheets/codex_style.dart';
-export 'util/appearance/theme.dart';
-export 'util/arcane.dart';
-export 'util/interactivity/arcane_scripts.dart';
-export 'util/tools/styles.dart';
+export 'core/theme_provider.dart';
+export 'core/renderers.dart' hide SheetPosition;
+export 'core/props/button_props.dart';
 
 // ============================================================================
-// Design Tokens & Style Presets
+// Stylesheets (NEW)
 // ============================================================================
-export 'util/tokens/tokens.dart';
-export 'util/tokens/style_presets.dart';
-export 'util/tokens/common_styles.dart';
+export 'stylesheets/stylesheet.dart';
+export 'stylesheets/shadcn/shadcn_stylesheet.dart';
+
+// ============================================================================
+// Core Utilities
+// ============================================================================
+export 'util/appearance/colors.dart';
+export 'util/appearance/color_scheme.dart' hide Brightness, ThemeMode; // Use from theme_provider
+export 'util/appearance/style_sheet.dart';
+export 'util/appearance/stylesheets/stylesheets.dart';
+export 'util/appearance/theme.dart' hide Brightness, ThemeMode, ArcaneThemeProvider, ArcaneThemeContext; // Use from theme_provider
+export 'util/arcane.dart';
+export 'util/interactivity/arcane_scripts.dart';
 
 // ============================================================================
 // Enum-Based Style Types (Flutter-like declarative styling)
@@ -221,6 +224,7 @@ export 'component/input/search_bar.dart';
 export 'component/input/selector.dart';
 export 'component/input/fab.dart';
 export 'component/input/toggle_switch.dart';
+export 'component/input/toggle_group.dart';
 export 'component/input/text_input.dart' hide TextInput;
 export 'component/input/slider.dart';
 export 'component/input/checkbox.dart';
@@ -276,7 +280,7 @@ export 'component/view/empty_state.dart' hide ArcaneEmptyState;
 export 'component/view/callout.dart';
 export 'component/view/kbd.dart';
 export 'component/view/meter.dart';
-export 'component/view/alert.dart' hide AlertStyle;
+export 'component/view/alert.dart';
 export 'component/view/tabs.dart' hide ArcaneTabs;
 export 'component/view/tree_view.dart';
 export 'component/view/popover.dart';
@@ -290,7 +294,7 @@ export 'component/view/author_card.dart';
 export 'component/view/code_window.dart' hide ArcaneCodeSnippet;
 export 'component/view/check_list.dart';
 export 'component/view/switcher.dart';
-export 'component/view/surface_card.dart';
+export 'component/view/surface_card.dart' hide ShadowIntensity;
 export 'component/view/tracker.dart';
 export 'component/view/icon.dart';
 export 'component/view/flexi_cards.dart';
@@ -327,7 +331,7 @@ export 'component/screen/chat_screen.dart';
 // ============================================================================
 // Dialog components
 // ============================================================================
-export 'component/dialog/dialog.dart' hide ArcaneSheet, SheetPosition;
+export 'component/dialog/dialog.dart';
 export 'component/dialog/confirm.dart';
 export 'component/dialog/text.dart';
 export 'component/dialog/toast.dart';
@@ -347,7 +351,7 @@ export 'component/form/newsletter_form.dart';
 // ============================================================================
 // Feedback components
 // ============================================================================
-export 'component/feedback/alert_banner.dart' hide ArcaneProgressBar, ArcaneLoader;
+export 'component/feedback/alert_banner.dart' hide ArcaneProgressBar, ArcaneLoader, AlertVariant;
 export 'component/feedback/tooltip.dart';
 export 'component/feedback/loader.dart';
 export 'component/feedback/status_badge.dart' hide StatusType;

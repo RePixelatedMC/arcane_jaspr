@@ -13,8 +13,6 @@ import 'package:jaspr/dom.dart'
         BoxShadow,
         FontWeight;
 
-import '../../util/tokens/tokens.dart';
-
 /// A settings section card with a title and content.
 ///
 /// Use this for grouping related settings in a dashboard.
@@ -52,13 +50,13 @@ class ArcaneSettingsSection extends StatelessComponent {
     return div(
       classes: 'arcane-settings-section ${danger ? 'danger' : ''}',
       styles: Styles(raw: {
-        'background': danger ? ArcaneColors.errorAlpha05 : ArcaneColors.surface,
+        'background': danger ? 'hsl(var(--destructive) / 0.05)' : 'var(--card)',
         'border': danger
-            ? '1px solid ${ArcaneColors.errorAlpha20}'
-            : '1px solid ${ArcaneColors.border}',
-        'border-radius': ArcaneRadius.lg,
-        'padding': ArcaneSpacing.lg,
-        'margin-bottom': ArcaneSpacing.lg,
+            ? '1px solid hsl(var(--destructive) / 0.2)'
+            : '1px solid var(--border)',
+        'border-radius': '0.5rem',
+        'padding': '1.5rem',
+        'margin-bottom': '1.5rem',
       }),
       [
         // Header
@@ -67,17 +65,17 @@ class ArcaneSettingsSection extends StatelessComponent {
           styles: Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
-            'gap': ArcaneSpacing.sm,
-            'margin-bottom': ArcaneSpacing.lg,
-            'padding-bottom': ArcaneSpacing.md,
-            'border-bottom': '1px solid ${danger ? ArcaneColors.errorAlpha20 : ArcaneColors.border}',
+            'gap': '0.5rem',
+            'margin-bottom': '1.5rem',
+            'padding-bottom': '1rem',
+            'border-bottom': '1px solid ${danger ? 'hsl(var(--destructive) / 0.2)' : 'var(--border)'}',
           }),
           [
             h2(
               styles: Styles(raw: {
-                'font-size': ArcaneTypography.fontLg,
-                'font-weight': ArcaneTypography.weightSemibold,
-                'color': danger ? ArcaneColors.error : ArcaneColors.onSurface,
+                'font-size': '1.125rem',
+                'font-weight': '600',
+                'color': danger ? 'var(--destructive)' : 'var(--foreground)',
                 'margin': '0',
               }),
               [Component.text(title)],
@@ -88,9 +86,9 @@ class ArcaneSettingsSection extends StatelessComponent {
         if (description != null)
           p(
             styles: const Styles(raw: {
-              'font-size': ArcaneTypography.fontSm,
-              'color': ArcaneColors.mutedForeground,
-              'margin': '0 0 ${ArcaneSpacing.md} 0',
+              'font-size': '0.875rem',
+              'color': 'var(--muted-foreground)',
+              'margin': '0 0 1rem 0',
             }),
             [Component.text(description!)],
           ),
@@ -127,22 +125,22 @@ class ArcaneSettingsInfoRow extends StatelessComponent {
         'display': 'flex',
         'justify-content': 'space-between',
         'align-items': 'center',
-        'padding': '${ArcaneSpacing.md} 0',
-        'border-bottom': '1px solid ${ArcaneColors.border}',
+        'padding': '1rem 0',
+        'border-bottom': '1px solid var(--border)',
       }),
       [
         span(
           styles: const Styles(raw: {
-            'font-size': ArcaneTypography.fontSm,
-            'color': ArcaneColors.mutedForeground,
+            'font-size': '0.875rem',
+            'color': 'var(--muted-foreground)',
           }),
           [Component.text(label)],
         ),
         span(
           styles: Styles(raw: {
-            'font-size': ArcaneTypography.fontSm,
-            'color': ArcaneColors.onSurface,
-            if (monospace) 'font-family': ArcaneTypography.fontFamilyMono,
+            'font-size': '0.875rem',
+            'color': 'var(--foreground)',
+            if (monospace) 'font-family': 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
           }),
           [Component.text(value)],
         ),
@@ -185,8 +183,8 @@ class ArcaneSettingsToggleRow extends StatelessComponent {
         'display': 'flex',
         'justify-content': 'space-between',
         'align-items': 'center',
-        'padding': ArcaneSpacing.md,
-        'border-bottom': '1px solid ${ArcaneColors.border}',
+        'padding': '1rem',
+        'border-bottom': '1px solid var(--border)',
         if (disabled) 'opacity': '0.5',
       }),
       [
@@ -198,17 +196,17 @@ class ArcaneSettingsToggleRow extends StatelessComponent {
           [
             div(
               styles: const Styles(raw: {
-                'font-size': ArcaneTypography.fontSm,
-                'font-weight': ArcaneTypography.weightMedium,
-                'color': ArcaneColors.onSurface,
+                'font-size': '0.875rem',
+                'font-weight': '500',
+                'color': 'var(--foreground)',
               }),
               [Component.text(title)],
             ),
             if (description != null)
               div(
                 styles: const Styles(raw: {
-                  'font-size': ArcaneTypography.fontXs,
-                  'color': ArcaneColors.mutedForeground,
+                  'font-size': '0.75rem',
+                  'color': 'var(--muted-foreground)',
                   'margin-top': '2px',
                 }),
                 [Component.text(description!)],
@@ -227,12 +225,12 @@ class ArcaneSettingsToggleRow extends StatelessComponent {
           styles: Styles(raw: {
             'width': '44px',
             'height': '24px',
-            'background': enabled ? ArcaneColors.accent : ArcaneColors.surfaceVariant,
+            'background': enabled ? 'var(--accent)' : 'var(--muted)',
             'border-radius': '12px',
             'border': 'none',
             'cursor': disabled ? 'not-allowed' : 'pointer',
             'position': 'relative',
-            'transition': ArcaneEffects.transitionFast,
+            'transition': 'all 150ms ease',
             'flex-shrink': '0',
           }),
           events: {
@@ -245,12 +243,12 @@ class ArcaneSettingsToggleRow extends StatelessComponent {
               styles: Styles(raw: {
                 'width': '20px',
                 'height': '20px',
-                'background': ArcaneColors.accentForeground,
-                'border-radius': ArcaneRadius.full,
+                'background': 'var(--accent-foreground)',
+                'border-radius': '9999px',
                 'position': 'absolute',
                 'top': '2px',
                 'left': enabled ? '22px' : '2px',
-                'transition': ArcaneEffects.transitionFast,
+                'transition': 'all 150ms ease',
               }),
               [],
             ),
@@ -280,23 +278,23 @@ class ArcaneSettingsSubheader extends StatelessComponent {
     return div(
       classes: 'arcane-settings-subheader',
       styles: const Styles(raw: {
-        'margin-bottom': ArcaneSpacing.md,
+        'margin-bottom': '1rem',
       }),
       [
         div(
           styles: Styles(raw: {
-            'font-size': ArcaneTypography.fontSm,
-            'font-weight': ArcaneTypography.weightMedium,
-            'color': ArcaneColors.onSurface,
-            'margin-bottom': description != null ? ArcaneSpacing.xs : '0',
+            'font-size': '0.875rem',
+            'font-weight': '500',
+            'color': 'var(--foreground)',
+            'margin-bottom': description != null ? '0.25rem' : '0',
           }),
           [Component.text(title)],
         ),
         if (description != null)
           p(
             styles: const Styles(raw: {
-              'font-size': ArcaneTypography.fontXs,
-              'color': ArcaneColors.mutedForeground,
+              'font-size': '0.75rem',
+              'color': 'var(--muted-foreground)',
               'margin': '0',
             }),
             [Component.text(description!)],
@@ -335,16 +333,16 @@ class ArcaneSettingsNote extends StatelessComponent {
     return div(
       classes: 'arcane-settings-note ${variant.name}',
       styles: Styles(raw: {
-        'margin-top': ArcaneSpacing.md,
-        'padding': ArcaneSpacing.md,
+        'margin-top': '1rem',
+        'padding': '1rem',
         'background': colors.background,
-        'border-radius': ArcaneRadius.md,
+        'border-radius': '0.375rem',
       }),
       [
         p(
           styles: const Styles(raw: {
-            'font-size': ArcaneTypography.fontSm,
-            'color': ArcaneColors.mutedForeground,
+            'font-size': '0.875rem',
+            'color': 'var(--muted-foreground)',
             'margin': '0',
           }),
           [Component.text(text)],
@@ -356,11 +354,11 @@ class ArcaneSettingsNote extends StatelessComponent {
   ({String background}) _getColors() {
     switch (variant) {
       case ArcaneSettingsNoteVariant.info:
-        return (background: ArcaneColors.primaryAlpha10);
+        return (background: 'hsl(var(--accent) / 0.1)');
       case ArcaneSettingsNoteVariant.warning:
-        return (background: ArcaneColors.warningAlpha10);
+        return (background: 'hsl(38 92% 50% / 0.1)');
       case ArcaneSettingsNoteVariant.success:
-        return (background: ArcaneColors.successAlpha10);
+        return (background: 'hsl(142 76% 36% / 0.1)');
     }
   }
 }

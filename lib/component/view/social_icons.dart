@@ -1,8 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/tokens/tokens.dart';
-
 /// Social media platforms
 enum SocialPlatform {
   twitter,
@@ -80,7 +78,7 @@ class ArcaneSocialIcon extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final String iconColor = color ?? ArcaneColors.muted;
+    final String iconColor = color ?? 'var(--muted)';
 
     final Component content = div(
       classes: 'arcane-social-icon',
@@ -90,12 +88,12 @@ class ArcaneSocialIcon extends StatelessComponent {
         'display': 'flex',
         'align-items': 'center',
         'justify-content': 'center',
-        'border-radius': ArcaneRadius.md,
-        if (showBackground) 'background': ArcaneColors.surfaceVariant,
+        'border-radius': '0.375rem',
+        if (showBackground) 'background': 'var(--muted)',
         'color': iconColor,
         'font-size': 'calc($size * 0.5)',
-        'font-weight': ArcaneTypography.weightSemibold,
-        'transition': ArcaneEffects.transitionFast,
+        'font-weight': '600',
+        'transition': 'all 150ms ease',
         'cursor': 'pointer',
       }),
       [text(_icon)],
@@ -116,8 +114,8 @@ class ArcaneSocialIcon extends StatelessComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-social-icon:hover').styles(raw: {
-      'color': ArcaneColors.onSurface,
-      'background': ArcaneColors.accent,
+      'color': 'var(--foreground)',
+      'background': 'var(--accent)',
     }),
   ];
 }
@@ -188,11 +186,11 @@ class ArcaneSocialLinks extends StatelessComponent {
             styles: const Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
-              'gap': ArcaneSpacing.sm,
+              'gap': '0.5rem',
               'text-decoration': 'none',
-              'color': ArcaneColors.mutedForeground,
-              'font-size': ArcaneTypography.fontSm,
-              'transition': ArcaneEffects.transitionFast,
+              'color': 'var(--muted-foreground)',
+              'font-size': '0.875rem',
+              'transition': 'all 150ms ease',
             }),
             [
               ArcaneSocialIcon(
@@ -211,7 +209,7 @@ class ArcaneSocialLinks extends StatelessComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-social-link:hover').styles(raw: {
-      'color': ArcaneColors.onSurface,
+      'color': 'var(--foreground)',
     }),
   ];
 }

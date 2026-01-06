@@ -13,8 +13,6 @@ import 'package:jaspr/dom.dart'
         BoxShadow,
         FontWeight;
 
-import '../../util/tokens/tokens.dart';
-
 /// An infinite scrolling carousel that auto-scrolls horizontally.
 ///
 /// Duplicates content for seamless looping and pauses on hover.
@@ -56,11 +54,11 @@ class ArcaneInfiniteCarousel extends StatelessComponent {
   const ArcaneInfiniteCarousel({
     super.key,
     required this.children,
-    this.gap = ArcaneSpacing.lg,
+    this.gap = '1.5rem',
     this.animationDuration = 60,
     this.showFadeEdges = true,
     this.fadeWidth = '150px',
-    this.backgroundColor = ArcaneColors.surface,
+    this.backgroundColor = 'var(--card)',
   }) : trackClass = null;
 
   /// Creates a carousel with a custom track class for CSS animation
@@ -68,11 +66,11 @@ class ArcaneInfiniteCarousel extends StatelessComponent {
     super.key,
     required this.children,
     required this.trackClass,
-    this.gap = ArcaneSpacing.lg,
+    this.gap = '1.5rem',
     this.animationDuration = 60,
     this.showFadeEdges = true,
     this.fadeWidth = '150px',
-    this.backgroundColor = ArcaneColors.surface,
+    this.backgroundColor = 'var(--card)',
   });
 
   @override
@@ -131,7 +129,7 @@ class ArcaneInfiniteCarousel extends StatelessComponent {
               styles: Styles(raw: {
                 'display': 'flex',
                 'gap': gap,
-                'padding': '0 ${ArcaneSpacing.sm}',
+                'padding': '0 0.5rem',
               }),
               children,
             ),
@@ -140,7 +138,7 @@ class ArcaneInfiniteCarousel extends StatelessComponent {
               styles: Styles(raw: {
                 'display': 'flex',
                 'gap': gap,
-                'padding': '0 ${ArcaneSpacing.sm}',
+                'padding': '0 0.5rem',
               }),
               children,
             ),
@@ -186,8 +184,8 @@ class ArcaneCarouselSection extends StatelessComponent {
     required this.title,
     this.subtitle,
     required this.carousel,
-    this.backgroundColor = ArcaneColors.surface,
-    this.padding = ArcaneSpacing.huge,
+    this.backgroundColor = 'var(--card)',
+    this.padding = '4rem',
   });
 
   @override
@@ -203,10 +201,10 @@ class ArcaneCarouselSection extends StatelessComponent {
         // Section header
         div(
           styles: const Styles(raw: {
-            'max-width': ArcaneLayout.maxWidthContent,
+            'max-width': '72rem',
             'margin': '0 auto',
-            'margin-bottom': ArcaneSpacing.xxl,
-            'padding': '0 ${ArcaneSpacing.lg}',
+            'margin-bottom': '3rem',
+            'padding': '0 1.5rem',
             'text-align': 'center',
           }),
           [
@@ -215,22 +213,22 @@ class ArcaneCarouselSection extends StatelessComponent {
               span(
                 styles: const Styles(raw: {
                   'display': 'inline-block',
-                  'font-size': ArcaneTypography.fontSm,
-                  'font-weight': ArcaneTypography.weightMedium,
-                  'color': ArcaneColors.accent,
+                  'font-size': '0.875rem',
+                  'font-weight': '500',
+                  'color': 'var(--accent)',
                   'text-transform': 'uppercase',
                   'letter-spacing': '0.05em',
-                  'margin-bottom': ArcaneSpacing.md,
+                  'margin-bottom': '1rem',
                 }),
                 [Component.text(label!)],
               ),
             // Title
             h2(
               styles: const Styles(raw: {
-                'font-size': ArcaneTypography.font4xl,
-                'font-weight': ArcaneTypography.weightBold,
-                'color': ArcaneColors.onBackground,
-                'margin': '0 0 ${ArcaneSpacing.md} 0',
+                'font-size': '2.25rem',
+                'font-weight': '700',
+                'color': 'var(--foreground)',
+                'margin': '0 0 1rem 0',
               }),
               [Component.text(title)],
             ),
@@ -238,9 +236,9 @@ class ArcaneCarouselSection extends StatelessComponent {
             if (subtitle != null)
               p(
                 styles: const Styles(raw: {
-                  'font-size': ArcaneTypography.fontLg,
-                  'color': ArcaneColors.mutedForeground,
-                  'max-width': ArcaneLayout.maxWidthText,
+                  'font-size': '1.125rem',
+                  'color': 'var(--muted-foreground)',
+                  'max-width': '40rem',
                   'margin': '0 auto',
                 }),
                 [Component.text(subtitle!)],

@@ -13,8 +13,6 @@ import 'package:jaspr/dom.dart'
         BoxShadow,
         FontWeight;
 
-import '../../util/tokens/tokens.dart';
-
 /// Data class for a flexi card item.
 class ArcaneFlexiCardItem {
   /// Icon component displayed at the top of the card
@@ -142,7 +140,7 @@ class ArcaneFlexiCards extends StatefulComponent {
     this.expandedFlex = 2.0,
     this.scaleHeight = false,
     this.heightScaleFactor = 1.05,
-    this.gap = ArcaneSpacing.lg,
+    this.gap = '1.5rem',
     this.minCardWidth = '200px',
     this.transitionDuration = 300,
     this.expandLongTextOnHover = true,
@@ -162,7 +160,7 @@ class ArcaneFlexiCards extends StatefulComponent {
       'transition': 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)',
     }),
     css('.arcane-flexi-card:hover').styles(raw: {
-      'border-color': ArcaneColors.accent,
+      'border-color': 'var(--accent)',
     }),
     css('.arcane-flexi-card-long-text').styles(raw: {
       'transition': 'opacity 200ms ease, max-height 300ms ease',
@@ -222,10 +220,10 @@ class _ArcaneFlexiCardsState extends State<ArcaneFlexiCards> {
         div(
           classes: 'arcane-flexi-card-header',
           styles: const Styles(raw: {
-            'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
-            'border-bottom': '1px solid ${ArcaneColors.border}',
-            'margin': '-${ArcaneSpacing.lg}',
-            'margin-bottom': ArcaneSpacing.md,
+            'padding': '0.5rem 1rem',
+            'border-bottom': '1px solid var(--border)',
+            'margin': '-1.5rem',
+            'margin-bottom': '1rem',
           }),
           [item.header!],
         ),
@@ -239,10 +237,10 @@ class _ArcaneFlexiCardsState extends State<ArcaneFlexiCards> {
           'justify-content': 'center',
           'width': '56px',
           'height': '56px',
-          'border-radius': ArcaneRadius.lg,
-          'background-color': ArcaneColors.accent,
-          'color': ArcaneColors.accentForeground,
-          'margin-bottom': ArcaneSpacing.md,
+          'border-radius': '0.5rem',
+          'background-color': 'var(--accent)',
+          'color': 'var(--accent-foreground)',
+          'margin-bottom': '1rem',
           'flex-shrink': '0',
         }),
         [item.icon],
@@ -252,10 +250,10 @@ class _ArcaneFlexiCardsState extends State<ArcaneFlexiCards> {
       div(
         classes: 'arcane-flexi-card-title',
         styles: const Styles(raw: {
-          'font-size': ArcaneTypography.fontLg,
-          'font-weight': ArcaneTypography.weightSemibold,
-          'color': ArcaneColors.onSurface,
-          'margin-bottom': ArcaneSpacing.sm,
+          'font-size': '1.125rem',
+          'font-weight': '600',
+          'color': 'var(--foreground)',
+          'margin-bottom': '0.5rem',
         }),
         [Component.text(item.shortText)],
       ),
@@ -264,12 +262,12 @@ class _ArcaneFlexiCardsState extends State<ArcaneFlexiCards> {
       div(
         classes: 'arcane-flexi-card-long-text',
         styles: Styles(raw: {
-          'font-size': ArcaneTypography.fontMd,
-          'line-height': ArcaneTypography.leadingRelaxed,
-          'color': ArcaneColors.mutedForeground,
+          'font-size': '1rem',
+          'line-height': '1.7',
+          'color': 'var(--muted-foreground)',
           'opacity': showLongText ? '1' : '0',
           'max-height': showLongText ? '200px' : '0',
-          'margin-bottom': showLongText ? ArcaneSpacing.md : '0',
+          'margin-bottom': showLongText ? '1rem' : '0',
         }),
         [Component.text(item.longText)],
       ),
@@ -285,8 +283,8 @@ class _ArcaneFlexiCardsState extends State<ArcaneFlexiCards> {
         div(
           classes: 'arcane-flexi-card-footer',
           styles: Styles(raw: {
-            'padding-top': ArcaneSpacing.md,
-            'border-top': '1px solid ${ArcaneColors.border}',
+            'padding-top': '1rem',
+            'border-top': '1px solid var(--border)',
             'opacity': showLongText ? '1' : '0.6',
             'transition': 'opacity 200ms ease',
           }),
@@ -326,10 +324,10 @@ class _ArcaneFlexiCardsState extends State<ArcaneFlexiCards> {
       'min-width': component.minCardWidth,
       'display': 'flex',
       'flex-direction': 'column',
-      'padding': ArcaneSpacing.lg,
-      'background-color': ArcaneColors.card,
-      'border': '1px solid ${ArcaneColors.border}',
-      'border-radius': ArcaneRadius.xl,
+      'padding': '1.5rem',
+      'background-color': 'var(--card)',
+      'border': '1px solid var(--border)',
+      'border-radius': '0.75rem',
       'transform': transform,
       'transform-origin': 'center center',
       'transition': 'all ${component.transitionDuration}ms cubic-bezier(0.4, 0, 0.2, 1)',
@@ -397,7 +395,7 @@ class ArcaneFlexiCardsSimple extends StatelessComponent {
 
   const ArcaneFlexiCardsSimple({
     required this.items,
-    this.gap = ArcaneSpacing.lg,
+    this.gap = '1.5rem',
     super.key,
   });
 
@@ -425,10 +423,10 @@ class ArcaneFlexiCardsSimple extends StatelessComponent {
         'min-width': '200px',
         'display': 'flex',
         'flex-direction': 'column',
-        'padding': ArcaneSpacing.lg,
-        'background-color': ArcaneColors.card,
-        'border': '1px solid ${ArcaneColors.border}',
-        'border-radius': ArcaneRadius.xl,
+        'padding': '1.5rem',
+        'background-color': 'var(--card)',
+        'border': '1px solid var(--border)',
+        'border-radius': '0.75rem',
       }),
       [
         // Icon
@@ -439,10 +437,10 @@ class ArcaneFlexiCardsSimple extends StatelessComponent {
             'justify-content': 'center',
             'width': '56px',
             'height': '56px',
-            'border-radius': ArcaneRadius.lg,
-            'background-color': ArcaneColors.accent,
-            'color': ArcaneColors.accentForeground,
-            'margin-bottom': ArcaneSpacing.md,
+            'border-radius': '0.5rem',
+            'background-color': 'var(--accent)',
+            'color': 'var(--accent-foreground)',
+            'margin-bottom': '1rem',
           }),
           [item.icon],
         ),
@@ -451,10 +449,10 @@ class ArcaneFlexiCardsSimple extends StatelessComponent {
         div(
           classes: 'arcane-flexi-card-simple-title',
           styles: const Styles(raw: {
-            'font-size': ArcaneTypography.fontLg,
-            'font-weight': ArcaneTypography.weightSemibold,
-            'color': ArcaneColors.onSurface,
-            'margin-bottom': ArcaneSpacing.sm,
+            'font-size': '1.125rem',
+            'font-weight': '600',
+            'color': 'var(--foreground)',
+            'margin-bottom': '0.5rem',
           }),
           [Component.text(item.shortText)],
         ),
@@ -463,9 +461,9 @@ class ArcaneFlexiCardsSimple extends StatelessComponent {
         div(
           classes: 'arcane-flexi-card-simple-desc',
           styles: const Styles(raw: {
-            'font-size': ArcaneTypography.fontMd,
-            'line-height': ArcaneTypography.leadingRelaxed,
-            'color': ArcaneColors.mutedForeground,
+            'font-size': '1rem',
+            'line-height': '1.7',
+            'color': 'var(--muted-foreground)',
           }),
           [Component.text(item.longText)],
         ),
@@ -478,8 +476,8 @@ class ArcaneFlexiCardsSimple extends StatelessComponent {
           div(
             classes: 'arcane-flexi-card-simple-footer',
             styles: const Styles(raw: {
-              'padding-top': ArcaneSpacing.md,
-              'border-top': '1px solid ${ArcaneColors.border}',
+              'padding-top': '1rem',
+              'border-top': '1px solid var(--border)',
             }),
             [item.footer!],
           ),
@@ -510,14 +508,14 @@ class ArcaneFlexiCardsSimple extends StatelessComponent {
     // Hovered card expands
     css('.arcane-flexi-card-simple:hover').styles(raw: {
       'flex': '2',
-      'border-color': ArcaneColors.accent,
+      'border-color': 'var(--accent)',
     }),
 
     // Show description on hover
     css('.arcane-flexi-card-simple:hover .arcane-flexi-card-simple-desc').styles(raw: {
       'opacity': '1',
       'max-height': '200px',
-      'margin-bottom': ArcaneSpacing.md,
+      'margin-bottom': '1rem',
     }),
 
     // Siblings of hovered card shrink (using :has which is now widely supported)

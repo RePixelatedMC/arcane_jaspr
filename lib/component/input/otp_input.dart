@@ -1,19 +1,17 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart'
-    hide
-        Color,
-        Colors,
-        ColorScheme,
-        Gap,
-        Padding,
-        TextAlign,
-        TextOverflow,
-        Border,
-        BorderRadius,
-        BoxShadow,
-        FontWeight;
 
-import '../../util/tokens/tokens.dart';
+import '../../core/theme_provider.dart';
+
+// Re-export props for backwards compatibility
+export '../../core/props/otp_input_props.dart'
+    show OtpInputSizeVariant, OtpInputProps;
+
+/// Size variants for OTP input
+enum OtpInputSize {
+  sm,
+  md,
+  lg,
+}
 
 /// One-time password input with separate digit fields.
 ///
@@ -107,28 +105,6 @@ class ArcaneOtpInput extends StatefulComponent {
 
   @override
   State<ArcaneOtpInput> createState() => _ArcaneOtpInputState();
-
-  @css
-  static final List<StyleRule> styles = [
-    css('.arcane-otp-digit:focus').styles(raw: {
-      'border-color': ArcaneColors.accent,
-      'box-shadow': '0 0 0 2px ${ArcaneColors.accentContainer}',
-      'outline': 'none',
-    }),
-    css('.arcane-otp-digit:focus-visible').styles(raw: {
-      'border-color': ArcaneColors.accent,
-      'box-shadow': '0 0 0 2px ${ArcaneColors.accentContainer}',
-    }),
-    css('.arcane-otp-digit.error').styles(raw: {
-      'border-color': ArcaneColors.error,
-    }),
-    css('.arcane-otp-digit.error:focus').styles(raw: {
-      'box-shadow': '0 0 0 2px rgba(239, 68, 68, 0.2)',
-    }),
-    css('.arcane-otp-digit.filled').styles(raw: {
-      'border-color': ArcaneColors.accent,
-    }),
-  ];
 }
 
 class _ArcaneOtpInputState extends State<ArcaneOtpInput> {
@@ -167,11 +143,6 @@ class _ArcaneOtpInputState extends State<ArcaneOtpInput> {
 
       component.onChange?.call(_fullValue);
 
-      // Auto-advance to next field
-      if (index < component.length - 1) {
-        // Focus next will be handled by JS
-      }
-
       // Check if complete
       if (_digits.every((d) => d.isNotEmpty)) {
         component.onComplete?.call(_fullValue);
@@ -197,127 +168,25 @@ class _ArcaneOtpInputState extends State<ArcaneOtpInput> {
     }
   }
 
+  OtpInputSizeVariant get _propsSize => switch (component.size) {
+        OtpInputSize.sm => OtpInputSizeVariant.sm,
+        OtpInputSize.md => OtpInputSizeVariant.md,
+        OtpInputSize.lg => OtpInputSizeVariant.lg,
+      };
+
   @override
   Component build(BuildContext context) {
-    final hasError = component.error != null;
-    final sizeStyles = component.size.styles;
-    final sepPos = component.separatorPosition;
-
-    return div(
-      classes: 'arcane-otp-input ${hasError ? 'error' : ''} ${component.disabled ? 'disabled' : ''}',
-      styles: const Styles(raw: {
-        'display': 'flex',
-        'flex-direction': 'column',
-        'gap': ArcaneSpacing.sm,
-      }),
-      [
-        // Label
-        if (component.label != null)
-          span(
-            styles: const Styles(raw: {
-              'font-size': ArcaneTypography.fontSm,
-              'font-weight': ArcaneTypography.weightMedium,
-              'color': ArcaneColors.onSurface,
-            }),
-            [Component.text(component.label!)],
-          ),
-
-        // Digit inputs row
-        div(
-          classes: 'arcane-otp-digits',
-          styles: const Styles(raw: {
-            'display': 'flex',
-            'align-items': 'center',
-            'gap': ArcaneSpacing.sm,
-          }),
-          [
-            for (var i = 0; i < component.length; i++) ...[
-              // Separator
-              if (sepPos != null && i == sepPos && component.separator != null)
-                span(
-                  styles: const Styles(raw: {
-                    'color': ArcaneColors.mutedForeground,
-                    'font-size': ArcaneTypography.fontLg,
-                    'margin': '0 ${ArcaneSpacing.xs}',
-                  }),
-                  [Component.text(component.separator!)],
-                ),
-
-              // Digit input
-              input(
-                classes: 'arcane-otp-digit ${hasError ? 'error' : ''} ${_digits[i].isNotEmpty ? 'filled' : ''}',
-                type: component.obscure ? InputType.password : InputType.text,
-                attributes: {
-                  'maxlength': '1',
-                  'inputmode': 'numeric',
-                  'pattern': '[0-9]*',
-                  'autocomplete': 'one-time-code',
-                  'aria-label': 'Digit ${i + 1} of ${component.length}',
-                  'data-otp-index': '$i',
-                  'data-otp-length': '${component.length}',
-                  if (component.disabled) 'disabled': 'true',
-                  'value': _digits[i],
-                },
-                styles: Styles(raw: {
-                  'width': sizeStyles['size']!,
-                  'height': sizeStyles['size']!,
-                  'font-size': sizeStyles['fontSize']!,
-                  'text-align': 'center',
-                  'font-weight': ArcaneTypography.weightSemibold,
-                  'color': ArcaneColors.onSurface,
-                  'background-color': ArcaneColors.surface,
-                  'border': '2px solid ${hasError ? ArcaneColors.error : ArcaneColors.border}',
-                  'border-radius': ArcaneRadius.md,
-                  'transition': ArcaneEffects.transitionFast,
-                  'caret-color': 'transparent',
-                  if (component.disabled) 'opacity': '0.5',
-                  if (component.disabled) 'cursor': 'not-allowed',
-                }),
-                events: {
-                  'input': (e) {
-                    final target = e.target as dynamic;
-                    _handleInput(i, target.value as String);
-                  },
-                },
-              ),
-            ],
-          ],
-        ),
-
-        // Error message
-        if (hasError)
-          span(
-            styles: const Styles(raw: {
-              'font-size': ArcaneTypography.fontSm,
-              'color': ArcaneColors.error,
-            }),
-            [Component.text(component.error!)],
-          ),
-      ],
-    );
+    return context.renderers.otpInput(OtpInputProps(
+      length: component.length,
+      digits: _digits,
+      obscure: component.obscure,
+      size: _propsSize,
+      disabled: component.disabled,
+      error: component.error,
+      label: component.label,
+      separator: component.separator,
+      separatorPosition: component.separatorPosition,
+      onInput: _handleInput,
+    ));
   }
-}
-
-/// Size variants for OTP input
-enum OtpInputSize {
-  sm,
-  md,
-  lg,
-}
-
-extension OtpInputSizeExtension on OtpInputSize {
-  Map<String, String> get styles => switch (this) {
-        OtpInputSize.sm => {
-            'size': '40px',
-            'fontSize': ArcaneTypography.fontMd,
-          },
-        OtpInputSize.md => {
-            'size': '48px',
-            'fontSize': ArcaneTypography.fontLg,
-          },
-        OtpInputSize.lg => {
-            'size': '56px',
-            'fontSize': ArcaneTypography.fontXl,
-          },
-      };
 }

@@ -24,13 +24,13 @@ class AuthDivider extends StatelessComponent {
       ),
       children: [
         // Left line
-        const ArcaneDiv(
-          styles: ArcaneStyleData(
-            flexGrow: 1,
-            heightCustom: '1px',
-            backgroundCustom: ArcaneColors.border,
-          ),
-          children: [],
+        div(
+          styles: const Styles(raw: {
+            'flex': '1',
+            'height': '1px',
+            'background-color': 'var(--border)',
+          }),
+          [],
         ),
         // Text
         ArcaneDiv(
@@ -43,13 +43,13 @@ class AuthDivider extends StatelessComponent {
           children: [Component.text(text)],
         ),
         // Right line
-        const ArcaneDiv(
-          styles: ArcaneStyleData(
-            flexGrow: 1,
-            heightCustom: '1px',
-            backgroundCustom: ArcaneColors.border,
-          ),
-          children: [],
+        div(
+          styles: const Styles(raw: {
+            'flex': '1',
+            'height': '1px',
+            'background-color': 'var(--border)',
+          }),
+          [],
         ),
       ],
     );

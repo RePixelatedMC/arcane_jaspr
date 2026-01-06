@@ -2,7 +2,6 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
 import '../../util/arcane.dart';
-import '../../util/tokens/tokens.dart';
 
 /// A glassmorphism container component.
 ///
@@ -38,18 +37,18 @@ class ArcaneGlass extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final effectiveRadius = radius != null ? '${radius}px' : ArcaneRadius.lg;
+    final effectiveRadius = radius != null ? '${radius}px' : '0.5rem';
 
     return div(
       classes: 'arcane-glass',
       styles: Styles(raw: {
-        'background-color': 'rgba(${ArcaneColors.surfaceRgb}, $opacity)',
+        'background-color': 'hsl(var(--card) / $opacity)',
         'backdrop-filter': 'blur(${blur}px)',
         '-webkit-backdrop-filter': 'blur(${blur}px)',
         'border-radius': effectiveRadius,
         if (padding != null) 'padding': padding!.padding,
-        if (border) 'border': '1px solid ${ArcaneColors.onSurfaceAlpha10}',
-        'box-shadow': ArcaneEffects.shadowMd,
+        if (border) 'border': '1px solid hsl(var(--border) / 0.5)',
+        'box-shadow': '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
       }),
       [child],
     );
@@ -93,7 +92,7 @@ class ArcaneGlassCard extends StatelessComponent {
         classes: 'arcane-glass-card clickable',
         styles: const Styles(raw: {
           'cursor': 'pointer',
-          'transition': ArcaneEffects.transitionFast,
+          'transition': 'all 150ms ease',
         }),
         events: {
           'click': (event) => onTap!(),
@@ -108,7 +107,7 @@ class ArcaneGlassCard extends StatelessComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-glass-card.clickable:hover').styles(raw: {
-      'transform': ArcaneEffects.hoverLift,
+      'transform': 'translateY(-2px)',
     }),
     css('.arcane-glass-card.clickable:active').styles(raw: {
       'transform': 'translateY(0)',
@@ -141,9 +140,9 @@ class ArcaneGradientGlass extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final effectiveRadius = radius != null ? '${radius}px' : ArcaneRadius.lg;
-    final start = gradientStart ?? ArcaneColors.accent;
-    final end = gradientEnd ?? ArcaneColors.accentHover;
+    final effectiveRadius = radius != null ? '${radius}px' : '0.5rem';
+    final start = gradientStart ?? 'var(--accent)';
+    final end = gradientEnd ?? 'var(--accent)';
 
     return div(
       classes: 'arcane-gradient-glass',
@@ -153,7 +152,7 @@ class ArcaneGradientGlass extends StatelessComponent {
         '-webkit-backdrop-filter': 'blur(${blur}px)',
         'border-radius': effectiveRadius,
         if (padding != null) 'padding': padding!.padding,
-        'border': '1px solid ${ArcaneColors.onSurfaceAlpha20}',
+        'border': '1px solid hsl(var(--border) / 0.3)',
       }),
       [child],
     );

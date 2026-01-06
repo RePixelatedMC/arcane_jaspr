@@ -1,32 +1,44 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart'
-    hide
-        Color,
-        Colors,
-        ColorScheme,
-        Gap,
-        Padding,
-        TextAlign,
-        TextOverflow,
-        Border,
-        BorderRadius,
-        BoxShadow,
-        FontWeight;
-import 'package:jaspr/dom.dart' as dom
-    show link;
-import 'package:fast_log/fast_log.dart';
+import 'package:jaspr/dom.dart' as dom;
 
-import '../../util/appearance/theme.dart';
-import '../../util/arcane.dart';
+import '../../core/theme_provider.dart';
+import '../../stylesheets/shadcn/shadcn_stylesheet.dart';
 import '../../util/interactivity/arcane_scripts.dart';
+
+export '../../core/theme_provider.dart';
+export '../../stylesheets/stylesheet.dart';
+export '../../stylesheets/shadcn/shadcn_stylesheet.dart';
 
 /// Root application component for Arcane Jaspr apps.
 ///
-/// Wraps the app with theme provider and applies CSS custom properties.
+/// Wraps the app with a theme provider and applies base CSS from the stylesheet.
 /// Automatically injects fallback JavaScript for static sites.
+///
+/// ## Basic Usage
+///
+/// ```dart
+/// ArcaneApp(
+///   child: MyApp(),
+/// )
+/// ```
+///
+/// ## With Stylesheet
+///
+/// ```dart
+/// ArcaneApp(
+///   stylesheet: ShadcnStylesheet(),
+///   brightness: Brightness.dark,
+///   child: MyApp(),
+/// )
+/// ```
 class ArcaneApp extends StatefulComponent {
-  /// The theme configuration
-  final ArcaneTheme theme;
+  /// The stylesheet to use for rendering components.
+  /// Defaults to ShadCN.
+  final ArcaneStylesheet stylesheet;
+
+  /// Current brightness mode.
+  /// Defaults to dark.
+  final Brightness brightness;
 
   /// The child component to render
   final Component child;
@@ -45,13 +57,11 @@ class ArcaneApp extends StatefulComponent {
   /// When true (default), JavaScript is injected that provides interactivity
   /// for Arcane components when Jaspr client hydration is unavailable
   /// (e.g., on static sites built with `jaspr build`).
-  ///
-  /// The scripts automatically detect if hydration is active and skip
-  /// themselves if so, preventing any conflicts.
   final bool includeFallbackScripts;
 
   const ArcaneApp({
-    this.theme = const ArcaneTheme(),
+    this.stylesheet = const ShadcnStylesheet(),
+    this.brightness = Brightness.dark,
     required this.child,
     this.title,
     this.description,
@@ -62,181 +72,112 @@ class ArcaneApp extends StatefulComponent {
 
   @override
   State<ArcaneApp> createState() => _ArcaneAppState();
-
-  @css
-  static final List<StyleRule> styles = [
-    // Reset styles
-    css('*, *::before, *::after').styles(raw: {
-      'box-sizing': 'border-box',
-      'margin': '0',
-      'padding': '0',
-    }),
-    css('html, body').styles(raw: {
-      'height': '100%',
-      'margin': '0',
-      'padding': '0',
-    }),
-    css('body').styles(raw: {
-      'line-height': '1.5',
-    }),
-    css('img, picture, video, canvas, svg').styles(raw: {
-      'display': 'block',
-      'max-width': '100%',
-    }),
-    css('input, button, textarea, select').styles(raw: {
-      'font': 'inherit',
-    }),
-    css('p, h1, h2, h3, h4, h5, h6').styles(raw: {
-      'overflow-wrap': 'break-word',
-    }),
-    css('a').styles(raw: {
-      'color': 'inherit',
-      'text-decoration': 'none',
-    }),
-    css('button').styles(raw: {
-      'cursor': 'pointer',
-      'background': 'none',
-      'border': 'none',
-    }),
-    // Scrollbar styling
-    css('::-webkit-scrollbar').styles(raw: {
-      'width': '8px',
-      'height': '8px',
-    }),
-    css('::-webkit-scrollbar-track').styles(raw: {
-      'background': 'var(--arcane-surface-variant)',
-      'border-radius': '4px',
-    }),
-    css('::-webkit-scrollbar-thumb').styles(raw: {
-      'background': 'var(--arcane-outline)',
-      'border-radius': '4px',
-    }),
-    css('::-webkit-scrollbar-thumb:hover').styles(raw: {
-      'background': 'var(--arcane-on-surface-variant)',
-    }),
-  ];
 }
 
 class _ArcaneAppState extends State<ArcaneApp> {
   @override
-  void initState() {
-    super.initState();
-    info('_ArcaneAppState.initState()');
-    // Set global theme reference
-    Arcane.globalTheme = component.theme;
-    verbose('_ArcaneAppState.initState() - globalTheme set');
-  }
-
-  @override
-  void didUpdateComponent(ArcaneApp oldComponent) {
-    super.didUpdateComponent(oldComponent);
-    if (oldComponent.theme != component.theme) {
-      Arcane.globalTheme = component.theme;
-    }
-  }
-
-  @override
   Component build(BuildContext context) {
-    info('_ArcaneAppState.build() started');
+    final bool isDark = component.brightness == Brightness.dark;
+    final ArcaneStylesheet stylesheet = component.stylesheet;
 
-    final theme = component.theme;
-    final styleSheet = theme.styleSheet;
-    verbose('_ArcaneAppState.build() - got theme');
+    // Build font loading elements from stylesheet
+    final List<Component> headElements = [];
 
-    final isDark = theme.brightness == Brightness.dark;
-    verbose('_ArcaneAppState.build() - isDark: $isDark');
-
-    verbose('_ArcaneAppState.build() - getting cssVariables...');
-    final cssVars = theme.cssVariables;
-    verbose('_ArcaneAppState.build() - cssVariables count: ${cssVars.length}');
-
-    // Build font loading elements
-    final List<Component> fontElements = [];
-
-    // Google Fonts link (for ShadCN's Inter, etc.)
-    if (styleSheet.googleFontUrl != null) {
-      verbose(
-          '_ArcaneAppState.build() - adding Google Font: ${styleSheet.googleFontUrl}');
-      fontElements.addAll([
-        const dom.link(
-          href: 'https://fonts.googleapis.com',
-          rel: 'preconnect',
-        ),
-        const dom.link(
-          href: 'https://fonts.gstatic.com',
-          rel: 'preconnect',
-          attributes: {'crossorigin': ''},
-        ),
-        dom.link(
-          href: styleSheet.googleFontUrl!,
-          rel: 'stylesheet',
-        ),
-      ]);
-    }
-
-    // Custom @font-face CSS (for Codex's custom fonts)
-    if (styleSheet.fontFaceCss != null &&
-        styleSheet.fontFaceCss!.isNotEmpty) {
-      verbose('_ArcaneAppState.build() - adding @font-face CSS');
-      fontElements.add(
+    // External CSS URLs (Google Fonts, etc.)
+    for (final String url in stylesheet.externalCssUrls) {
+      if (url.contains('fonts.googleapis.com')) {
+        headElements.addAll([
+          const Component.element(
+            tag: 'link',
+            attributes: {
+              'href': 'https://fonts.googleapis.com',
+              'rel': 'preconnect',
+            },
+            children: [],
+          ),
+          const Component.element(
+            tag: 'link',
+            attributes: {
+              'href': 'https://fonts.gstatic.com',
+              'rel': 'preconnect',
+              'crossorigin': '',
+            },
+            children: [],
+          ),
+        ]);
+      }
+      headElements.add(
         Component.element(
-          tag: 'style',
-          children: [RawText(styleSheet.fontFaceCss!)],
+          tag: 'link',
+          attributes: {
+            'href': url,
+            'rel': 'stylesheet',
+          },
+          children: const [],
         ),
       );
     }
 
-    verbose('_ArcaneAppState.build() - creating div...');
-    final rootDiv = div(
+    // Base CSS from stylesheet
+    final String? baseCss = stylesheet.baseCss;
+    if (baseCss != null && baseCss.isNotEmpty) {
+      headElements.add(
+        Component.element(
+          tag: 'style',
+          children: [dom.RawText(baseCss)],
+        ),
+      );
+    }
+
+    // Build the root div
+    final Component rootDiv = dom.div(
       id: 'arcane-root',
-      classes: isDark ? 'arcane-dark' : 'arcane-light',
-      styles: Styles(raw: {
-        ...cssVars,
+      classes: isDark ? 'dark' : 'light',
+      styles: const dom.Styles(raw: {
         'min-height': '100vh',
-        'background-color': 'var(--arcane-background)',
-        'color': 'var(--arcane-on-background)',
-        'font-family': 'var(--arcane-font-sans)',
+        'background-color': 'var(--background)',
+        'color': 'var(--foreground)',
+        'font-family': 'var(--font-sans)',
         '-webkit-font-smoothing': 'antialiased',
         '-moz-osx-font-smoothing': 'grayscale',
       }),
       [
-        // Font loading elements first
-        ...fontElements,
+        // Head elements (fonts, base CSS)
+        ...headElements,
+        // Main content
         component.child,
-        // Include fallback scripts for static sites
+        // Fallback scripts for static sites
         if (component.includeFallbackScripts) const ArcaneScriptsComponent(),
       ],
     );
-    verbose('_ArcaneAppState.build() - div created');
 
-    verbose('_ArcaneAppState.build() - creating ArcaneThemeProvider...');
-    final result = ArcaneThemeProvider(
-      theme: theme,
+    // Wrap with theme provider
+    return ArcaneThemeProvider(
+      stylesheet: stylesheet,
+      brightness: component.brightness,
       child: rootDiv,
     );
-    info('_ArcaneAppState.build() - complete');
-
-    return result;
   }
 }
 
 /// ArcaneWindow for web - just wraps ArcaneApp with optional background styling
 class ArcaneWindow extends StatelessComponent {
-  final ArcaneTheme theme;
+  final ArcaneStylesheet stylesheet;
+  final Brightness brightness;
   final Component child;
-  final Color? windowColor;
 
   const ArcaneWindow({
-    this.theme = const ArcaneTheme(),
+    this.stylesheet = const ShadcnStylesheet(),
+    this.brightness = Brightness.dark,
     required this.child,
-    this.windowColor,
     super.key,
   });
 
   @override
   Component build(BuildContext context) {
     return ArcaneApp(
-      theme: theme,
+      stylesheet: stylesheet,
+      brightness: brightness,
       child: child,
     );
   }

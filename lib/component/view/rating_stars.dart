@@ -1,8 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/tokens/tokens.dart';
-
 /// Star rating display component
 class ArcaneRatingStars extends StatelessComponent {
   /// Rating value (0.0 to 5.0)
@@ -35,25 +33,25 @@ class ArcaneRatingStars extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final String effectiveFilledColor = filledColor ?? ArcaneColors.warning;
-    final String effectiveEmptyColor = emptyColor ?? ArcaneColors.muted;
+    final String effectiveFilledColor = filledColor ?? 'hsl(38 92% 50%)';
+    final String effectiveEmptyColor = emptyColor ?? 'var(--muted)';
 
     return div(
       classes: 'arcane-rating-stars',
       styles: const Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
-        'gap': ArcaneSpacing.xs,
+        'gap': '0.25rem',
       }),
       [
         for (var i = 0; i < totalStars; i++) _buildStar(i, effectiveFilledColor, effectiveEmptyColor),
         if (showValue)
           span(
             styles: const Styles(raw: {
-              'margin-left': ArcaneSpacing.sm,
-              'color': ArcaneColors.onSurface,
-              'font-weight': ArcaneTypography.weightSemibold,
-              'font-size': ArcaneTypography.fontSm,
+              'margin-left': '0.5rem',
+              'color': 'var(--foreground)',
+              'font-weight': '600',
+              'font-size': '0.875rem',
             }),
             [text(rating.toStringAsFixed(1))],
           ),

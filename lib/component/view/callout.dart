@@ -1,8 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/tokens/tokens.dart';
-
 /// Callout style variants
 enum CalloutStyle {
   /// Informational callout
@@ -136,7 +134,7 @@ class ArcaneCallout extends StatelessComponent {
   }) : style = CalloutStyle.tip;
 
   String get _defaultIcon => switch (style) {
-        CalloutStyle.info => 'ℹ️',
+        CalloutStyle.info => 'i',
         CalloutStyle.success => '✓',
         CalloutStyle.warning => '⚠',
         CalloutStyle.error => '✕',
@@ -148,39 +146,39 @@ class ArcaneCallout extends StatelessComponent {
   (String background, String border, String iconColor) get _styleColors =>
       switch (style) {
         CalloutStyle.info => (
-            ArcaneColors.infoAlpha10,
-            ArcaneColors.info,
-            ArcaneColors.info
+            'hsl(199 89% 48% / 0.1)',
+            'hsl(199 89% 48%)',
+            'hsl(199 89% 48%)'
           ),
         CalloutStyle.success => (
-            ArcaneColors.successAlpha10,
-            ArcaneColors.success,
-            ArcaneColors.success
+            'hsl(142 76% 36% / 0.1)',
+            'hsl(142 76% 36%)',
+            'hsl(142 76% 36%)'
           ),
         CalloutStyle.warning => (
-            ArcaneColors.warningAlpha10,
-            ArcaneColors.warning,
-            ArcaneColors.warning
+            'hsl(38 92% 50% / 0.1)',
+            'hsl(38 92% 50%)',
+            'hsl(38 92% 50%)'
           ),
         CalloutStyle.error => (
-            ArcaneColors.errorAlpha10,
-            ArcaneColors.error,
-            ArcaneColors.error
+            'hsl(var(--destructive) / 0.1)',
+            'var(--destructive)',
+            'var(--destructive)'
           ),
         CalloutStyle.neutral => (
-            ArcaneColors.surfaceVariant,
-            ArcaneColors.border,
-            ArcaneColors.muted
+            'var(--muted)',
+            'var(--border)',
+            'var(--muted-foreground)'
           ),
         CalloutStyle.tip => (
-            ArcaneColors.accentAlpha10,
-            ArcaneColors.accent,
-            ArcaneColors.accent
+            'hsl(var(--accent) / 0.1)',
+            'var(--accent)',
+            'var(--accent)'
           ),
         CalloutStyle.note => (
-            ArcaneColors.primaryAlpha10,
-            ArcaneColors.primary,
-            ArcaneColors.primary
+            'hsl(var(--primary) / 0.1)',
+            'var(--primary)',
+            'var(--primary)'
           ),
       };
 
@@ -191,11 +189,11 @@ class ArcaneCallout extends StatelessComponent {
     return div(
       styles: Styles(raw: {
         'display': 'flex',
-        'gap': ArcaneSpacing.md,
-        'padding': ArcaneSpacing.md,
+        'gap': '1rem',
+        'padding': '1rem',
         'background': background,
         'border-left': '4px solid $borderColor',
-        'border-radius': ArcaneRadius.md,
+        'border-radius': '0.375rem',
       }),
       [
         // Icon
@@ -209,7 +207,7 @@ class ArcaneCallout extends StatelessComponent {
               'align-items': 'center',
               'justify-content': 'center',
               'color': iconColor,
-              'font-size': ArcaneTypography.fontMd,
+              'font-size': '1rem',
             }),
             [icon ?? text(_defaultIcon)],
           ),
@@ -224,18 +222,18 @@ class ArcaneCallout extends StatelessComponent {
             if (title != null)
               div(
                 styles: const Styles(raw: {
-                  'font-weight': ArcaneTypography.weightSemibold,
-                  'color': ArcaneColors.onSurface,
-                  'margin-bottom': ArcaneSpacing.xs,
+                  'font-weight': '600',
+                  'color': 'var(--foreground)',
+                  'margin-bottom': '0.25rem',
                 }),
                 [text(title!)],
               ),
             if (content != null)
               div(
                 styles: const Styles(raw: {
-                  'font-size': ArcaneTypography.fontSm,
-                  'color': ArcaneColors.onSurface,
-                  'line-height': ArcaneTypography.lineHeightRelaxed,
+                  'font-size': '0.875rem',
+                  'color': 'var(--foreground)',
+                  'line-height': '1.7',
                 }),
                 [text(content!)],
               ),
@@ -257,10 +255,10 @@ class ArcaneCallout extends StatelessComponent {
               'padding': '0',
               'border': 'none',
               'background': 'transparent',
-              'color': ArcaneColors.mutedForeground,
+              'color': 'var(--muted-foreground)',
               'cursor': 'pointer',
-              'border-radius': ArcaneRadius.sm,
-              'transition': ArcaneEffects.transitionFast,
+              'border-radius': '0.125rem',
+              'transition': 'all 150ms ease',
             }),
             events: {'click': (_) => onDismiss?.call()},
             [text('×')],

@@ -1,8 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight, StyleRule;
 
-import '../../util/tokens/tokens.dart';
-
 /// A group of selectable cards where only one can be selected at a time.
 class ArcaneRadioCards<T> extends StatefulComponent {
   /// The items to display
@@ -64,16 +62,16 @@ class _ArcaneRadioCardsState<T> extends State<ArcaneRadioCards<T>> {
         'display': 'flex',
         'flex-direction': 'column',
         'align-items': 'flex-start',
-        'padding': ArcaneSpacing.md,
-        'border-radius': ArcaneRadius.md,
+        'padding': '1rem',
+        'border-radius': '0.375rem',
         'border': isSelected
-            ? '2px solid ${ArcaneColors.accent}'
-            : '2px solid ${ArcaneColors.border}',
+            ? '2px solid var(--accent)'
+            : '2px solid var(--border)',
         'background-color':
-            isSelected ? ArcaneColors.accentContainer : ArcaneColors.surface,
+            isSelected ? 'hsl(var(--accent) / 0.1)' : 'var(--card)',
         'cursor': isDisabled ? 'not-allowed' : 'pointer',
         'opacity': isDisabled ? '0.5' : '1',
-        'transition': ArcaneEffects.transitionFast,
+        'transition': 'all 150ms ease',
         'text-align': 'left',
         if (component.cardWidth != null) 'width': '${component.cardWidth}px',
         'flex': component.cardWidth == null ? '1' : 'none',
@@ -90,8 +88,8 @@ class _ArcaneRadioCardsState<T> extends State<ArcaneRadioCards<T>> {
         if (item.icon != null)
           div(
             styles: Styles(raw: {
-              'margin-bottom': ArcaneSpacing.sm,
-              'color': isSelected ? ArcaneColors.accent : ArcaneColors.mutedForeground,
+              'margin-bottom': '0.5rem',
+              'color': isSelected ? 'var(--accent)' : 'var(--muted-foreground)',
             }),
             [item.icon!],
           ),
@@ -99,9 +97,9 @@ class _ArcaneRadioCardsState<T> extends State<ArcaneRadioCards<T>> {
           div(
             classes: 'arcane-radio-card-title',
             styles: Styles(raw: {
-              'font-weight': ArcaneTypography.weightSemibold,
-              'color': isSelected ? ArcaneColors.accent : ArcaneColors.onSurface,
-              'margin-bottom': item.subtitle != null ? ArcaneSpacing.xs : '0',
+              'font-weight': '600',
+              'color': isSelected ? 'var(--accent)' : 'var(--foreground)',
+              'margin-bottom': item.subtitle != null ? '0.25rem' : '0',
             }),
             [Component.text(item.title!)],
           ),
@@ -109,8 +107,8 @@ class _ArcaneRadioCardsState<T> extends State<ArcaneRadioCards<T>> {
           div(
             classes: 'arcane-radio-card-subtitle',
             styles: Styles(raw: {
-              'font-size': ArcaneTypography.fontSm,
-              'color': isSelected ? ArcaneColors.accent : ArcaneColors.mutedForeground,
+              'font-size': '0.875rem',
+              'color': isSelected ? 'var(--accent)' : 'var(--muted-foreground)',
             }),
             [Component.text(item.subtitle!)],
           ),
@@ -196,18 +194,18 @@ class ArcaneChip extends StatelessComponent {
         'align-items': 'center',
         'gap': '6px',
         'padding': '6px 12px',
-        'border-radius': ArcaneRadius.full,
-        'font-size': ArcaneTypography.fontSm,
+        'border-radius': '9999px',
+        'font-size': '0.875rem',
         'border': selected
-            ? '1px solid ${ArcaneColors.accent}'
-            : '1px solid ${ArcaneColors.border}',
+            ? '1px solid var(--accent)'
+            : '1px solid var(--border)',
         'background-color': selected
-            ? ArcaneColors.accentContainer
-            : ArcaneColors.surface,
-        'color': selected ? ArcaneColors.accent : ArcaneColors.onSurface,
+            ? 'hsl(var(--accent) / 0.1)'
+            : 'var(--card)',
+        'color': selected ? 'var(--accent)' : 'var(--foreground)',
         'cursor': disabled ? 'not-allowed' : 'pointer',
         'opacity': disabled ? '0.5' : '1',
-        'transition': ArcaneEffects.transitionFast,
+        'transition': 'all 150ms ease',
       }),
       events: {
         'click': (event) {
@@ -224,7 +222,7 @@ class ArcaneChip extends StatelessComponent {
             styles: const Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
-              'margin-left': ArcaneSpacing.xs,
+              'margin-left': '0.25rem',
               'color': 'inherit',
               'opacity': '0.7',
               'background': 'none',

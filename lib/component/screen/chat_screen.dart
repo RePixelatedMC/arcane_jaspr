@@ -13,7 +13,6 @@ import 'package:jaspr/dom.dart'
         BoxShadow,
         FontWeight;
 
-import '../../util/tokens/tokens.dart';
 import '../view/avatar.dart';
 
 /// Chat style variant
@@ -125,11 +124,11 @@ class ArcaneChatScreen<M extends AbstractChatMessage, U extends AbstractChatUser
   @css
   static final List<StyleRule> styles = [
     css('.arcane-chat-input:focus').styles(raw: {
-      'border-color': ArcaneColors.accent,
-      'box-shadow': '0 0 0 2px ${ArcaneColors.accentContainer}',
+      'border-color': 'var(--accent)',
+      'box-shadow': '0 0 0 2px hsl(var(--accent) / 0.1)',
     }),
     css('.arcane-chat-send:hover').styles(raw: {
-      'background': ArcaneColors.accentHover,
+      'background': 'hsl(var(--accent) / 0.9)',
     }),
   ];
 }
@@ -179,7 +178,7 @@ class _ChatScreenState<M extends AbstractChatMessage, U extends AbstractChatUser
         'display': 'flex',
         'flex-direction': 'column',
         'height': '100%',
-        'background': ArcaneColors.background,
+        'background': 'var(--background)',
       }),
       [
         // Header
@@ -191,10 +190,10 @@ class _ChatScreenState<M extends AbstractChatMessage, U extends AbstractChatUser
           styles: Styles(raw: {
             'flex': '1',
             'overflow-y': 'auto',
-            'padding': component.gutter ? ArcaneSpacing.md : '0',
+            'padding': component.gutter ? '1rem' : '0',
             'display': 'flex',
             'flex-direction': 'column',
-            'gap': ArcaneSpacing.sm,
+            'gap': '0.5rem',
           }),
           [
             if (_loading)
@@ -202,8 +201,8 @@ class _ChatScreenState<M extends AbstractChatMessage, U extends AbstractChatUser
                 styles: const Styles(raw: {
                   'display': 'flex',
                   'justify-content': 'center',
-                  'padding': ArcaneSpacing.xl,
-                  'color': ArcaneColors.mutedForeground,
+                  'padding': '2rem',
+                  'color': 'var(--muted-foreground)',
                 }),
                 [text('Loading messages...')],
               )
@@ -212,8 +211,8 @@ class _ChatScreenState<M extends AbstractChatMessage, U extends AbstractChatUser
                 styles: const Styles(raw: {
                   'display': 'flex',
                   'justify-content': 'center',
-                  'padding': ArcaneSpacing.xl,
-                  'color': ArcaneColors.mutedForeground,
+                  'padding': '2rem',
+                  'color': 'var(--muted-foreground)',
                 }),
                 [text('No messages yet')],
               )
@@ -228,15 +227,15 @@ class _ChatScreenState<M extends AbstractChatMessage, U extends AbstractChatUser
           div(
             classes: 'arcane-chat-input-area',
             styles: const Styles(raw: {
-              'padding': ArcaneSpacing.md,
-              'border-top': '1px solid ${ArcaneColors.border}',
-              'background': ArcaneColors.surface,
+              'padding': '1rem',
+              'border-top': '1px solid var(--border)',
+              'background': 'var(--card)',
             }),
             [
               div(
                 styles: const Styles(raw: {
                   'display': 'flex',
-                  'gap': ArcaneSpacing.sm,
+                  'gap': '0.5rem',
                   'align-items': 'flex-end',
                 }),
                 [
@@ -249,12 +248,12 @@ class _ChatScreenState<M extends AbstractChatMessage, U extends AbstractChatUser
                     },
                     styles: const Styles(raw: {
                       'flex': '1',
-                      'padding': '10px ${ArcaneSpacing.sm}',
-                      'border': '1px solid ${ArcaneColors.border}',
-                      'border-radius': ArcaneRadius.lg,
-                      'background': ArcaneColors.background,
-                      'color': ArcaneColors.onSurface,
-                      'font-size': ArcaneTypography.fontSm,
+                      'padding': '10px 0.5rem',
+                      'border': '1px solid var(--border)',
+                      'border-radius': '0.5rem',
+                      'background': 'var(--background)',
+                      'color': 'var(--foreground)',
+                      'font-size': '0.875rem',
                       'font-family': 'inherit',
                       'resize': 'none',
                       'outline': 'none',
@@ -288,20 +287,20 @@ class _ChatScreenState<M extends AbstractChatMessage, U extends AbstractChatUser
                           'width': '40px',
                           'height': '40px',
                           'border': 'none',
-                          'border-radius': ArcaneRadius.full,
-                          'background': ArcaneColors.accent,
-                          'color': ArcaneColors.accentForeground,
+                          'border-radius': '9999px',
+                          'background': 'var(--accent)',
+                          'color': 'var(--accent-foreground)',
                           'cursor': 'pointer',
                           'display': 'flex',
                           'align-items': 'center',
                           'justify-content': 'center',
-                          'font-size': ArcaneTypography.fontLg,
-                          'transition': ArcaneEffects.transitionFast,
+                          'font-size': '1.125rem',
+                          'transition': 'all 150ms ease',
                         }),
                         events: {
                           'click': (_) => _sendMessage(),
                         },
-                        [text('➤')],
+                        [text('\u27a4')],
                       ),
                 ],
               ),
@@ -326,7 +325,7 @@ class _ChatScreenState<M extends AbstractChatMessage, U extends AbstractChatUser
         'display': 'flex',
         'flex-direction': isCurrentUser ? 'row-reverse' : 'row',
         'align-items': 'flex-end',
-        'gap': ArcaneSpacing.sm,
+        'gap': '0.5rem',
       }),
       [
         // Avatar (for received messages)
@@ -340,25 +339,25 @@ class _ChatScreenState<M extends AbstractChatMessage, U extends AbstractChatUser
         div(
           styles: Styles(raw: {
             'max-width': '70%',
-            'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
+            'padding': '0.5rem 1rem',
             'border-radius': isCurrentUser
-                ? '${ArcaneRadius.lg} ${ArcaneRadius.lg} ${ArcaneRadius.sm} ${ArcaneRadius.lg}'
-                : '${ArcaneRadius.lg} ${ArcaneRadius.lg} ${ArcaneRadius.lg} ${ArcaneRadius.sm}',
+                ? '0.5rem 0.5rem 0.25rem 0.5rem'
+                : '0.5rem 0.5rem 0.5rem 0.25rem',
             'background': isCurrentUser
-                ? ArcaneColors.accent
-                : ArcaneColors.surfaceVariant,
+                ? 'var(--accent)'
+                : 'var(--muted)',
             'color': isCurrentUser
-                ? ArcaneColors.accentForeground
-                : ArcaneColors.onSurface,
+                ? 'var(--accent-foreground)'
+                : 'var(--foreground)',
           }),
           [
             message.messageWidget,
             if (component.showTimestamps)
               div(
                 styles: Styles(raw: {
-                  'font-size': ArcaneTypography.fontXs,
+                  'font-size': '0.75rem',
                   'opacity': '0.7',
-                  'margin-top': ArcaneSpacing.xs,
+                  'margin-top': '0.25rem',
                   'text-align': isCurrentUser ? 'right' : 'left',
                 }),
                 [text(_formatTimestamp(message.timestamp))],
@@ -374,9 +373,9 @@ class _ChatScreenState<M extends AbstractChatMessage, U extends AbstractChatUser
       classes: 'arcane-chat-tile',
       styles: const Styles(raw: {
         'display': 'flex',
-        'gap': ArcaneSpacing.sm,
-        'padding': ArcaneSpacing.sm,
-        'border-radius': ArcaneRadius.md,
+        'gap': '0.5rem',
+        'padding': '0.5rem',
+        'border-radius': '0.375rem',
       }),
       [
         // Avatar
@@ -398,23 +397,23 @@ class _ChatScreenState<M extends AbstractChatMessage, U extends AbstractChatUser
               styles: const Styles(raw: {
                 'display': 'flex',
                 'align-items': 'baseline',
-                'gap': ArcaneSpacing.sm,
-                'margin-bottom': ArcaneSpacing.xs,
+                'gap': '0.5rem',
+                'margin-bottom': '0.25rem',
               }),
               [
                 span(
                   styles: const Styles(raw: {
-                    'font-weight': ArcaneTypography.weightMedium,
-                    'color': ArcaneColors.onSurface,
-                    'font-size': ArcaneTypography.fontSm,
+                    'font-weight': '500',
+                    'color': 'var(--foreground)',
+                    'font-size': '0.875rem',
                   }),
                   [text(isCurrentUser ? 'You' : 'User')],
                 ),
                 if (component.showTimestamps)
                   span(
                     styles: const Styles(raw: {
-                      'font-size': ArcaneTypography.fontXs,
-                      'color': ArcaneColors.mutedForeground,
+                      'font-size': '0.75rem',
+                      'color': 'var(--muted-foreground)',
                     }),
                     [text(_formatTimestamp(message.timestamp))],
                   ),

@@ -1,8 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/tokens/tokens.dart';
-
 /// Layout direction for stat display
 enum StatDisplayLayout {
   /// Value on top, label below (default)
@@ -74,7 +72,7 @@ class ArcaneStatDisplay extends StatelessComponent {
     this.labelFontSize,
     this.textAlign,
     super.key,
-  }) : valueColor = ArcaneColors.accent;
+  }) : valueColor = 'var(--accent)';
 
   /// Create with brand-colored value
   const ArcaneStatDisplay.brand({
@@ -86,14 +84,14 @@ class ArcaneStatDisplay extends StatelessComponent {
     this.labelFontSize,
     this.textAlign,
     super.key,
-  }) : valueColor = ArcaneColors.accent;
+  }) : valueColor = 'var(--accent)';
 
   @override
   Component build(BuildContext context) {
-    final effectiveValueColor = valueColor ?? ArcaneColors.accent;
-    final effectiveLabelColor = labelColor ?? ArcaneColors.muted;
-    final effectiveValueSize = valueFontSize ?? ArcaneTypography.fontSize2xl;
-    final effectiveLabelSize = labelFontSize ?? ArcaneTypography.fontSizeSm;
+    final effectiveValueColor = valueColor ?? 'var(--accent)';
+    final effectiveLabelColor = labelColor ?? 'var(--muted)';
+    final effectiveValueSize = valueFontSize ?? '1.5rem';
+    final effectiveLabelSize = labelFontSize ?? '0.875rem';
     final effectiveAlign = textAlign ?? 'center';
 
     if (layout == StatDisplayLayout.horizontal) {
@@ -101,7 +99,7 @@ class ArcaneStatDisplay extends StatelessComponent {
         styles: Styles(raw: {
           'display': 'flex',
           'align-items': 'baseline',
-          'gap': ArcaneSpacing.sm,
+          'gap': '0.5rem',
           'text-align': effectiveAlign,
         }),
         [
@@ -137,7 +135,7 @@ class ArcaneStatDisplay extends StatelessComponent {
             'font-size': effectiveValueSize,
             'font-weight': '700',
             'color': effectiveValueColor,
-            'margin-bottom': ArcaneSpacing.xs,
+            'margin-bottom': '0.25rem',
           }),
           [text(value)],
         ),
@@ -190,7 +188,7 @@ class ArcaneStatRow extends StatelessComponent {
     return div(
       styles: Styles(raw: {
         'display': 'flex',
-        'gap': gap ?? ArcaneSpacing.xxl,
+        'gap': gap ?? '3rem',
         'justify-content': justifyContent ?? 'center',
         'align-items': 'flex-start',
         if (wrap) 'flex-wrap': 'wrap',

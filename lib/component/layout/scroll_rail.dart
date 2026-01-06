@@ -13,8 +13,6 @@ import 'package:jaspr/dom.dart'
         BoxShadow,
         FontWeight;
 
-import '../../util/tokens/tokens.dart';
-
 /// Scroll rail position
 enum ScrollRailPosition {
   /// Rail on the left side
@@ -102,7 +100,7 @@ class ArcaneScrollRail extends StatelessComponent {
     this.bottomOffset = '0px',
     this.showBorder = true,
     this.background,
-    this.padding = ArcaneSpacing.md,
+    this.padding = '1rem',
     this.customScrollbar = true,
     this.scrollPersistenceId,
     super.key,
@@ -117,7 +115,7 @@ class ArcaneScrollRail extends StatelessComponent {
     this.bottomOffset = '0px',
     this.showBorder = true,
     this.background,
-    this.padding = ArcaneSpacing.md,
+    this.padding = '1rem',
     this.customScrollbar = true,
     this.scrollPersistenceId,
     super.key,
@@ -132,7 +130,7 @@ class ArcaneScrollRail extends StatelessComponent {
     this.bottomOffset = '0px',
     this.showBorder = true,
     this.background,
-    this.padding = ArcaneSpacing.md,
+    this.padding = '1rem',
     this.customScrollbar = true,
     this.scrollPersistenceId,
     super.key,
@@ -150,9 +148,7 @@ class ArcaneScrollRail extends StatelessComponent {
 
   String get _borderStyle {
     if (!showBorder) return 'none';
-    return position == ScrollRailPosition.left
-        ? '1px solid ${ArcaneColors.borderSubtle}'
-        : '1px solid ${ArcaneColors.borderSubtle}';
+    return '1px solid hsl(var(--border) / 0.5)';
   }
 
   @override
@@ -172,7 +168,7 @@ class ArcaneScrollRail extends StatelessComponent {
         'flex-shrink': '0',
         'overflow-y': 'auto',
         'overflow-x': 'hidden',
-        'background': background ?? ArcaneColors.surface,
+        'background': background ?? 'var(--card)',
         if (position == ScrollRailPosition.left)
           'border-right': _borderStyle
         else
@@ -180,8 +176,7 @@ class ArcaneScrollRail extends StatelessComponent {
         // Custom scrollbar styling
         if (customScrollbar) ...{
           'scrollbar-width': 'thin',
-          'scrollbar-color':
-              '${ArcaneColors.borderMedium} ${ArcaneColors.transparent}',
+          'scrollbar-color': 'var(--border) transparent',
         },
       }),
       [
@@ -293,7 +288,7 @@ class ArcaneScrollRailLayout extends StatelessComponent {
       styles: Styles(raw: {
         'flex': '1',
         'min-width': '0',
-        'background': contentBackground ?? ArcaneColors.surface,
+        'background': contentBackground ?? 'var(--card)',
       }),
       [child],
     );

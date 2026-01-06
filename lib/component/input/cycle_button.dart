@@ -1,23 +1,22 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight, StyleRule;
 
-import '../../util/tokens/tokens.dart';
-import '../../util/tokens/style_presets.dart';
-import 'button.dart';
+import '../../core/theme_provider.dart';
+
+export '../../core/props/cycle_button_props.dart'
+    show CycleButtonSize, CycleButtonVariant, CycleOption;
 
 /// A button that cycles through a list of values on each click.
 ///
-/// Use style presets for cleaner code:
 /// ```dart
-/// CycleButton(
+/// ArcaneCycleButton(
 ///   options: [CycleOption(value: 1, label: 'One'), ...],
 ///   value: 1,
-///   style: ButtonStyle.outline,
+///   variant: CycleButtonVariant.outline,
 /// )
 /// ```
-class ArcaneCycleButton<T> extends StatefulComponent {
+class ArcaneCycleButton<T> extends StatelessComponent {
   /// The available options
-  final List<ArcaneCycleOption<T>> options;
+  final List<CycleOption<T>> options;
 
   /// The current value
   final T value;
@@ -25,179 +24,97 @@ class ArcaneCycleButton<T> extends StatefulComponent {
   /// Callback when value changes
   final void Function(T value)? onChanged;
 
-  /// Button style preset (preferred)
-  final ButtonStyle? style;
+  /// Button style variant
+  final CycleButtonVariant variant;
 
   /// Button size
-  final ButtonSize size;
+  final CycleButtonSize size;
 
   /// Whether the button is disabled
   final bool disabled;
+
+  /// Optional element ID
+  final String? id;
+
+  /// Additional HTML attributes
+  final Map<String, String>? attributes;
 
   const ArcaneCycleButton({
     required this.options,
     required this.value,
     this.onChanged,
-    this.style,
-    this.size = ButtonSize.medium,
+    this.variant = CycleButtonVariant.outline,
+    this.size = CycleButtonSize.medium,
     this.disabled = false,
+    this.id,
+    this.attributes,
     super.key,
   });
 
   @override
-  State<ArcaneCycleButton<T>> createState() => _ArcaneCycleButtonState<T>();
-}
-
-class _ArcaneCycleButtonState<T> extends State<ArcaneCycleButton<T>> {
-  void _cycle() {
-    if (component.disabled || component.onChanged == null) return;
-
-    final currentIndex = component.options.indexWhere((opt) => opt.value == component.value);
-    final nextIndex = (currentIndex + 1) % component.options.length;
-    component.onChanged!(component.options[nextIndex].value);
-  }
-
-  @override
   Component build(BuildContext context) {
-    final effectiveStyle = component.style ?? ButtonStyle.outline;
-    final currentIndex = component.options.indexWhere((opt) => opt.value == component.value);
-    final currentOption = currentIndex >= 0
-        ? component.options[currentIndex]
-        : component.options.first;
-
-    // Get size-specific styles
-    final sizeStyle = switch (component.size) {
-      ButtonSize.small => ButtonSizeStyle.sm,
-      ButtonSize.medium => ButtonSizeStyle.md,
-      ButtonSize.large => ButtonSizeStyle.lg,
-    };
-
-    // Encode options as JSON for static site JavaScript
-    final optionsJson = component.options
-        .map((opt) => opt.label ?? opt.value.toString())
-        .toList()
-        .join('|');
-
-    return button(
-      classes: 'arcane-cycle-button ${component.disabled ? 'disabled' : ''}',
-      attributes: {
-        if (component.disabled) 'disabled': 'true',
-        'type': 'button',
-        'data-options': optionsJson,
-        'data-index': '${currentIndex >= 0 ? currentIndex : 0}',
-      },
-      styles: Styles(raw: {
-        'display': 'inline-flex',
-        'align-items': 'center',
-        'justify-content': 'center',
-        'gap': ArcaneSpacing.sm,
-        ...sizeStyle.styles,
-        'font-weight': ArcaneTypography.weightMedium,
-        'border-radius': ArcaneRadius.md,
-        ...effectiveStyle.base,
-        'cursor': component.disabled ? 'not-allowed' : 'pointer',
-        'opacity': component.disabled ? '0.5' : '1',
-        'transition': ArcaneEffects.transitionFast,
-        'white-space': 'nowrap',
-      }),
-      events: {
-        'click': (event) => _cycle(),
-      },
-      [
-        if (currentOption.icon != null) currentOption.icon!,
-        if (currentOption.label != null)
-          span(
-            classes: 'arcane-cycle-button-label',
-            [text(currentOption.label!)],
-          ),
-        // Cycle indicator
-        span(
-          classes: 'arcane-cycle-button-indicator',
-          styles: const Styles(raw: {
-            'font-size': '0.75em',
-            'opacity': '0.7',
-            'display': 'inline-block',
-          }),
-          [text('⟳')],
-        ),
-      ],
-    );
+    return context.renderers.cycleButton<T>(CycleButtonProps<T>(
+      options: options,
+      value: value,
+      onChanged: onChanged,
+      variant: variant,
+      size: size,
+      disabled: disabled,
+      id: id,
+      attributes: attributes,
+    ));
   }
-}
-
-/// An option for ArcaneCycleButton
-class ArcaneCycleOption<T> {
-  final T value;
-  final String? label;
-  final Component? icon;
-
-  const ArcaneCycleOption({
-    required this.value,
-    this.label,
-    this.icon,
-  });
 }
 
 /// A toggle button (on/off state)
 class ArcaneToggleButton extends StatelessComponent {
+  /// Whether the button is pressed/active
   final bool value;
+
+  /// Callback when value changes
   final void Function(bool value)? onChanged;
+
+  /// Optional label text
   final String? label;
+
+  /// Optional icon
   final Component? icon;
-  final ButtonSize size;
+
+  /// Button size
+  final CycleButtonSize size;
+
+  /// Whether the button is disabled
   final bool disabled;
+
+  /// Optional element ID
+  final String? id;
+
+  /// Additional HTML attributes
+  final Map<String, String>? attributes;
 
   const ArcaneToggleButton({
     required this.value,
     this.onChanged,
     this.label,
     this.icon,
-    this.size = ButtonSize.medium,
+    this.size = CycleButtonSize.medium,
     this.disabled = false,
+    this.id,
+    this.attributes,
     super.key,
   });
 
   @override
   Component build(BuildContext context) {
-    final sizeStyle = switch (size) {
-      ButtonSize.small => ButtonSizeStyle.sm,
-      ButtonSize.medium => ButtonSizeStyle.md,
-      ButtonSize.large => ButtonSizeStyle.lg,
-    };
-
-    return button(
-      classes: 'arcane-toggle-button ${value ? 'active' : ''} ${disabled ? 'disabled' : ''}',
-      attributes: {
-        if (disabled) 'disabled': 'true',
-        'type': 'button',
-        'aria-pressed': '$value',
-      },
-      styles: Styles(raw: {
-        'display': 'inline-flex',
-        'align-items': 'center',
-        'justify-content': 'center',
-        'gap': ArcaneSpacing.sm,
-        ...sizeStyle.styles,
-        'font-weight': ArcaneTypography.weightMedium,
-        'border-radius': ArcaneRadius.md,
-        'background-color': value ? ArcaneColors.accent : ArcaneColors.transparent,
-        'color': value ? ArcaneColors.accentForeground : ArcaneColors.onSurface,
-        'border': value ? 'none' : '1px solid ${ArcaneColors.border}',
-        'cursor': disabled ? 'not-allowed' : 'pointer',
-        'opacity': disabled ? '0.5' : '1',
-        'transition': ArcaneEffects.transitionFast,
-      }),
-      events: {
-        'click': (event) {
-          if (!disabled && onChanged != null) {
-            onChanged!(!value);
-          }
-        },
-      },
-      [
-        if (icon != null) icon!,
-        if (label != null) text(label!),
-      ],
-    );
+    return context.renderers.toggleButton(ToggleButtonProps(
+      value: value,
+      onChanged: onChanged,
+      label: label,
+      icon: icon,
+      size: size,
+      disabled: disabled,
+      id: id,
+      attributes: attributes,
+    ));
   }
 }

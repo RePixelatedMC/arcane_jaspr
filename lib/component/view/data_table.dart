@@ -1,8 +1,10 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/arcane.dart';
-import '../../util/tokens/tokens.dart';
+import '../../core/theme_provider.dart';
+
+// Re-export for backwards compatibility
+export '../../core/props/data_table_props.dart'
+    show DataTableTextAlign, DataColumnProps;
 
 /// A data table component for displaying tabular data.
 class ArcaneDataTable<T> extends StatefulComponent {
@@ -52,16 +54,6 @@ class ArcaneDataTable<T> extends StatefulComponent {
 
   @override
   State<ArcaneDataTable<T>> createState() => _DataTableState<T>();
-
-  @css
-  static final List<StyleRule> styles = [
-    css('.arcane-data-table-row.clickable:hover').styles(raw: {
-      'background-color': ArcaneColors.surfaceVariant,
-    }),
-    css('.arcane-data-table-row.selected.clickable:hover').styles(raw: {
-      'background-color': ArcaneColors.accentContainer,
-    }),
-  ];
 }
 
 class _DataTableState<T> extends State<ArcaneDataTable<T>> {
@@ -105,154 +97,31 @@ class _DataTableState<T> extends State<ArcaneDataTable<T>> {
 
   @override
   Component build(BuildContext context) {
-    if (component.items.isEmpty) {
-      return div(
-        classes: 'arcane-data-table-empty',
-        styles: const Styles(raw: {
-          'padding': '${ArcaneSpacing.massive} ${ArcaneSpacing.xl}',
-          'text-align': 'center',
-          'color': ArcaneColors.mutedForeground,
-        }),
-        [text(component.emptyMessage)],
-      );
-    }
+    // Convert ArcaneDataColumn to DataColumnProps
+    final columnProps = component.columns
+        .map((c) => DataColumnProps<T>(
+              header: c.header,
+              builder: c.builder,
+              align: c.align,
+              width: c.width,
+              sortable: c.sortable,
+            ))
+        .toList();
 
-    return div(
-      classes: 'arcane-data-table-container',
-      styles: const Styles(raw: {
-        'overflow-x': 'auto',
-        'border': '1px solid ${ArcaneColors.border}',
-        'border-radius': ArcaneRadius.lg,
-      }),
-      [
-        table(
-          classes: 'arcane-data-table',
-          styles: const Styles(raw: {
-            'width': '100%',
-            'border-collapse': 'collapse',
-            'font-size': ArcaneTypography.fontSm,
-          }),
-          [
-            // Header
-            if (component.showHeader)
-              thead(
-                classes: 'arcane-data-table-header',
-                styles: Styles(raw: {
-                  'background-color': ArcaneColors.surfaceVariant,
-                  if (component.stickyHeader) 'position': 'sticky',
-                  if (component.stickyHeader) 'top': '0',
-                  if (component.stickyHeader) 'z-index': '1',
-                }),
-                [
-                  tr([
-                    if (component.selectable)
-                      th(
-                        styles: const Styles(raw: {
-                          'padding': '${ArcaneSpacing.md} ${ArcaneSpacing.lg}',
-                          'text-align': 'center',
-                          'width': '48px',
-                        }),
-                        [
-                          input(
-                            type: InputType.checkbox,
-                            attributes: {
-                              if (_selectedItems.length ==
-                                  component.items.length)
-                                'checked': 'true',
-                            },
-                            events: {
-                              'change': (event) => _toggleSelectAll(),
-                            },
-                          ),
-                        ],
-                      ),
-                    for (final column in component.columns)
-                      th(
-                        styles: Styles(raw: {
-                          'padding': '${ArcaneSpacing.md} ${ArcaneSpacing.lg}',
-                          'text-align': column.align.css,
-                          'font-weight': ArcaneTypography.weightSemibold,
-                          'color': ArcaneColors.onSurface,
-                          'white-space': 'nowrap',
-                          if (column.width != null)
-                            'width': '${column.width}px',
-                        }),
-                        [text(column.header)],
-                      ),
-                  ]),
-                ],
-              ),
-
-            // Body
-            tbody(
-              classes: 'arcane-data-table-body',
-              [
-                for (var i = 0; i < component.items.length; i++)
-                  _buildRow(context, i, component.items[i]),
-              ],
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Component _buildRow(BuildContext context, int index, T item) {
-    final bool isSelected = _selectedItems.contains(item);
-    final bool isClickable = component.onRowTap != null;
-
-    return tr(
-      classes: 'arcane-data-table-row ${isSelected ? 'selected' : ''} ${isClickable ? 'clickable' : ''}',
-      styles: Styles(raw: {
-        'background-color': isSelected
-            ? ArcaneColors.accentContainer
-            : ArcaneColors.surface,
-        if (component.showDividers)
-          'border-bottom': '1px solid ${ArcaneColors.border}',
-        if (isClickable) 'cursor': 'pointer',
-        'transition': ArcaneEffects.transitionFast,
-      }),
-      events: isClickable
-          ? {
-              'click': (event) => component.onRowTap!(item),
-            }
-          : null,
-      [
-        if (component.selectable)
-          td(
-            styles: const Styles(raw: {
-              'padding': '${ArcaneSpacing.md} ${ArcaneSpacing.lg}',
-              'text-align': 'center',
-            }),
-            [
-              input(
-                type: InputType.checkbox,
-                attributes: {
-                  if (isSelected) 'checked': 'true',
-                },
-                events: {
-                  'change': (event) {
-                    event.stopPropagation();
-                    _toggleSelection(item);
-                  },
-                  'click': (event) => event.stopPropagation(),
-                },
-              ),
-            ],
-          ),
-        for (final column in component.columns)
-          td(
-            styles: Styles(raw: {
-              'padding': '${ArcaneSpacing.md} ${ArcaneSpacing.lg}',
-              'text-align': column.align.css,
-              'color': isSelected
-                  ? ArcaneColors.accent
-                  : ArcaneColors.onSurface,
-            }),
-            [column.builder(item)],
-          ),
-      ],
-    );
+    // Delegate rendering to the current stylesheet's data table renderer
+    return context.renderers.dataTable<T>(DataTableProps<T>(
+      items: component.items,
+      columns: columnProps,
+      onRowTap: component.onRowTap,
+      selectable: component.selectable,
+      selectedItems: _selectedItems,
+      showDividers: component.showDividers,
+      showHeader: component.showHeader,
+      stickyHeader: component.stickyHeader,
+      emptyMessage: component.emptyMessage,
+      onToggleSelection: _toggleSelection,
+      onToggleSelectAll: _toggleSelectAll,
+    ));
   }
 }
 
@@ -260,14 +129,14 @@ class _DataTableState<T> extends State<ArcaneDataTable<T>> {
 class ArcaneDataColumn<T> {
   final String header;
   final Component Function(T item) builder;
-  final TextAlign align;
+  final DataTableTextAlign align;
   final double? width;
   final bool sortable;
 
   const ArcaneDataColumn({
     required this.header,
     required this.builder,
-    this.align = TextAlign.left,
+    this.align = DataTableTextAlign.left,
     this.width,
     this.sortable = false,
   });

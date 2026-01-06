@@ -1,7 +1,6 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/tokens/tokens.dart';
+import '../../core/theme_provider.dart';
 
 /// An accordion item data model
 class ArcaneAccordionItem {
@@ -18,7 +17,8 @@ class ArcaneAccordionItem {
   });
 }
 
-/// An accordion/collapsible component (Supabase-style)
+/// An accordion/collapsible component matching shadcn/ui
+/// Reference: https://ui.shadcn.com/docs/components/accordion
 class ArcaneAccordion extends StatefulComponent {
   /// Accordion items
   final List<ArcaneAccordionItem> items;
@@ -26,25 +26,18 @@ class ArcaneAccordion extends StatefulComponent {
   /// Whether multiple items can be open at once
   final bool allowMultiple;
 
-  /// Whether to show borders between items
+  /// Whether to show outer border (shadcn default has no outer border)
   final bool bordered;
 
   const ArcaneAccordion({
     required this.items,
     this.allowMultiple = false,
-    this.bordered = true,
+    this.bordered = false, // ShadCN default: no outer border
     super.key,
   });
 
   @override
   State<ArcaneAccordion> createState() => _ArcaneAccordionState();
-
-  @css
-  static final List<StyleRule> styles = [
-    css('.arcane-accordion-trigger:hover').styles(raw: {
-      'background-color': ArcaneColors.surfaceVariant,
-    }),
-  ];
 }
 
 class _ArcaneAccordionState extends State<ArcaneAccordion> {
@@ -76,99 +69,23 @@ class _ArcaneAccordionState extends State<ArcaneAccordion> {
 
   @override
   Component build(BuildContext context) {
-    return div(
-      classes: 'arcane-accordion',
-      styles: Styles(raw: {
-        'display': 'flex',
-        'flex-direction': 'column',
-        if (component.bordered) 'border': '1px solid ${ArcaneColors.border}',
-        if (component.bordered) 'border-radius': ArcaneRadius.md,
-        'overflow': 'hidden',
-      }),
-      [
-        for (int i = 0; i < component.items.length; i++)
-          _buildItem(i, component.items[i]),
-      ],
-    );
-  }
+    // Convert ArcaneAccordionItem to AccordionItemProps
+    final List<AccordionItemProps> itemProps = component.items
+        .map((item) => AccordionItemProps(
+              title: item.title,
+              content: item.content,
+              customContent: item.customContent,
+            ))
+        .toList();
 
-  Component _buildItem(int index, ArcaneAccordionItem item) {
-    final bool isOpen = _openItems.contains(index);
-    final bool isFirst = index == 0;
-
-    return div(
-      classes: 'arcane-accordion-item ${isOpen ? 'open' : ''}',
-      styles: Styles(raw: {
-        if (!isFirst && component.bordered)
-          'border-top': '1px solid ${ArcaneColors.border}',
-      }),
-      [
-        // Header/trigger
-        button(
-          classes: 'arcane-accordion-trigger',
-          attributes: {
-            'type': 'button',
-            'aria-expanded': isOpen.toString(),
-          },
-          styles: const Styles(raw: {
-            'display': 'flex',
-            'align-items': 'center',
-            'justify-content': 'space-between',
-            'width': '100%',
-            'padding': '${ArcaneSpacing.lg} 20px',
-            'background': 'none',
-            'border': 'none',
-            'text-align': 'left',
-            'font-size': ArcaneTypography.fontBase,
-            'font-weight': ArcaneTypography.weightMedium,
-            'color': ArcaneColors.onSurface,
-            'cursor': 'pointer',
-            'transition': ArcaneEffects.transitionFast,
-          }),
-          events: {
-            'click': (e) => _toggleItem(index),
-          },
-          [
-            span([text(item.title)]),
-            span(
-              classes: 'arcane-accordion-icon',
-              styles: Styles(raw: {
-                'font-size': ArcaneTypography.fontXs,
-                'color': ArcaneColors.mutedForeground,
-                'transform': isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-                'transition': ArcaneEffects.transitionFast,
-              }),
-              [text('▼')],
-            ),
-          ],
-        ),
-
-        // Content panel
-        div(
-          classes: 'arcane-accordion-panel',
-          styles: Styles(raw: {
-            'display': isOpen ? 'block' : 'none',
-            'padding': '0 20px ${ArcaneSpacing.lg}',
-          }),
-          [
-            div(
-              classes: 'arcane-accordion-content',
-              styles: const Styles(raw: {
-                'font-size': ArcaneTypography.fontSm,
-                'line-height': ArcaneTypography.lineHeightRelaxed,
-                'color': ArcaneColors.mutedForeground,
-              }),
-              [
-                if (item.customContent != null)
-                  item.customContent!
-                else
-                  text(item.content),
-              ],
-            ),
-          ],
-        ),
-      ],
-    );
+    // Delegate rendering to the current stylesheet's accordion renderer
+    return context.renderers.accordion(AccordionProps(
+      items: itemProps,
+      openItems: _openItems,
+      onToggle: _toggleItem,
+      allowMultiple: component.allowMultiple,
+      bordered: component.bordered,
+    ));
   }
 }
 

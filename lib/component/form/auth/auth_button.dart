@@ -72,14 +72,14 @@ class AuthButton extends StatelessComponent {
       'display': 'inline-flex',
       'align-items': 'center',
       'justify-content': 'center',
-      'gap': ArcaneSpacing.xs,
+      'gap': '0.25rem',
       'padding': '12px 24px',
-      'font-size': ArcaneTypography.fontSizeSm,
+      'font-size': '0.875rem',
       'font-weight': '600',
       'font-family': 'inherit',
-      'border-radius': ArcaneRadius.md,
+      'border-radius': '0.375rem',
       'cursor': disabled || loading ? 'not-allowed' : 'pointer',
-      'transition': ArcaneEffects.transitionNormal,
+      'transition': 'all 150ms ease',
       'position': 'relative',
       'width': fullWidth ? '100%' : 'auto',
       'opacity': disabled ? '0.5' : '1',
@@ -89,26 +89,25 @@ class AuthButton extends StatelessComponent {
       case AuthButtonVariant.primary:
         return {
           ...baseStyles,
-          'background':
-              'linear-gradient(135deg, ${ArcaneColors.accent} 0%, ${ArcaneColors.info} 100%)',
-          'color': ArcaneColors.accentForeground,
+          'background': 'linear-gradient(135deg, var(--accent) 0%, var(--info) 100%)',
+          'color': 'var(--accent-foreground)',
           'border': 'none',
-          'box-shadow': '0 0 20px ${ArcaneColors.accentContainer}',
+          'box-shadow': '0 0 20px hsl(var(--accent) / 0.3)',
         };
 
       case AuthButtonVariant.secondary:
         return {
           ...baseStyles,
           'background': 'transparent',
-          'color': ArcaneColors.onBackground,
-          'border': '1px solid ${ArcaneColors.border}',
+          'color': 'var(--foreground)',
+          'border': '1px solid var(--border)',
         };
 
       case AuthButtonVariant.ghost:
         return {
           ...baseStyles,
           'background': 'transparent',
-          'color': ArcaneColors.mutedForeground,
+          'color': 'var(--muted-foreground)',
           'border': 'none',
           'padding': '8px 16px',
         };
@@ -130,9 +129,9 @@ class AuthButton extends StatelessComponent {
             'height': '18px',
             'border': '2px solid transparent',
             'border-top-color': variant == AuthButtonVariant.primary
-                ? ArcaneColors.accentForeground
-                : ArcaneColors.accent,
-            'border-radius': ArcaneRadius.full,
+                ? 'var(--accent-foreground)'
+                : 'var(--accent)',
+            'border-radius': '9999px',
             'animation': 'spin 0.8s linear infinite',
           }),
           [],

@@ -1,8 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/tokens/tokens.dart';
-
 /// A footer link group
 class ArcaneFooterLinkGroup {
   final String title;
@@ -81,9 +79,9 @@ class ArcaneFooter extends StatelessComponent {
       tag: 'footer',
       classes: 'arcane-footer',
       styles: const Styles(raw: {
-        'background-color': ArcaneColors.surface,
-        'border-top': '1px solid ${ArcaneColors.border}',
-        'padding': '64px ${ArcaneSpacing.lg} ${ArcaneSpacing.lg}',
+        'background-color': 'var(--card)',
+        'border-top': '1px solid var(--border)',
+        'padding': '64px 1.5rem 1.5rem',
       }),
       children: [
         // Main footer content
@@ -94,7 +92,7 @@ class ArcaneFooter extends StatelessComponent {
             'margin': '0 auto',
             'display': 'grid',
             'grid-template-columns': 'repeat(auto-fit, minmax(160px, 1fr))',
-            'gap': ArcaneSpacing.xxl,
+            'gap': '3rem',
           }),
           [
             // Brand column
@@ -109,11 +107,11 @@ class ArcaneFooter extends StatelessComponent {
                   if (description != null)
                     p(
                       styles: const Styles(raw: {
-                        'margin': '${ArcaneSpacing.md} 0 0 0',
-                        'font-size': ArcaneTypography.fontSm,
-                        'color': ArcaneColors.mutedForeground,
+                        'margin': '1rem 0 0 0',
+                        'font-size': '0.875rem',
+                        'color': 'var(--muted-foreground)',
                         'max-width': '280px',
-                        'line-height': ArcaneTypography.lineHeightRelaxed,
+                        'line-height': '1.6',
                       }),
                       [text(description!)],
                     ),
@@ -122,8 +120,8 @@ class ArcaneFooter extends StatelessComponent {
                       classes: 'arcane-footer-social',
                       styles: const Styles(raw: {
                         'display': 'flex',
-                        'gap': ArcaneSpacing.md,
-                        'margin-top': ArcaneSpacing.lg,
+                        'gap': '1rem',
+                        'margin-top': '1.5rem',
                       }),
                       socialLinks!,
                     ),
@@ -138,10 +136,10 @@ class ArcaneFooter extends StatelessComponent {
                   div(
                     classes: 'arcane-footer-group-title',
                     styles: const Styles(raw: {
-                      'font-size': ArcaneTypography.fontSm,
-                      'font-weight': ArcaneTypography.weightSemibold,
-                      'color': ArcaneColors.onSurface,
-                      'margin-bottom': ArcaneSpacing.md,
+                      'font-size': '0.875rem',
+                      'font-weight': '600',
+                      'color': 'var(--foreground)',
+                      'margin-bottom': '1rem',
                     }),
                     [text(group.title)],
                   ),
@@ -150,7 +148,7 @@ class ArcaneFooter extends StatelessComponent {
                     styles: const Styles(raw: {
                       'display': 'flex',
                       'flex-direction': 'column',
-                      'gap': ArcaneSpacing.sm,
+                      'gap': '0.5rem',
                     }),
                     [
                       for (final link in group.links)
@@ -167,17 +165,17 @@ class ArcaneFooter extends StatelessComponent {
                 [
                   div(
                     styles: const Styles(raw: {
-                      'font-size': ArcaneTypography.fontSm,
-                      'font-weight': ArcaneTypography.weightSemibold,
-                      'color': ArcaneColors.onSurface,
-                      'margin-bottom': ArcaneSpacing.md,
+                      'font-size': '0.875rem',
+                      'font-weight': '600',
+                      'color': 'var(--foreground)',
+                      'margin-bottom': '1rem',
                     }),
                     [text('Subscribe to our newsletter')],
                   ),
                   div(
                     styles: const Styles(raw: {
                       'display': 'flex',
-                      'gap': ArcaneSpacing.sm,
+                      'gap': '0.5rem',
                     }),
                     [
                       input(
@@ -188,26 +186,26 @@ class ArcaneFooter extends StatelessComponent {
                         styles: const Styles(raw: {
                           'flex': '1',
                           'padding': '10px 14px',
-                          'font-size': ArcaneTypography.fontSm,
-                          'background-color': ArcaneColors.surfaceVariant,
-                          'border': '1px solid ${ArcaneColors.border}',
-                          'border-radius': ArcaneRadius.md,
-                          'color': ArcaneColors.onSurface,
+                          'font-size': '0.875rem',
+                          'background-color': 'var(--muted)',
+                          'border': '1px solid var(--border)',
+                          'border-radius': '0.375rem',
+                          'color': 'var(--foreground)',
                           'outline': 'none',
                         }),
                       ),
                       button(
                         attributes: {'type': 'submit'},
                         styles: const Styles(raw: {
-                          'padding': '10px ${ArcaneSpacing.md}',
-                          'font-size': ArcaneTypography.fontSm,
-                          'font-weight': ArcaneTypography.weightMedium,
-                          'background-color': ArcaneColors.accent,
-                          'color': ArcaneColors.accentForeground,
+                          'padding': '10px 1rem',
+                          'font-size': '0.875rem',
+                          'font-weight': '500',
+                          'background-color': 'var(--accent)',
+                          'color': 'var(--accent-foreground)',
                           'border': 'none',
-                          'border-radius': ArcaneRadius.md,
+                          'border-radius': '0.375rem',
                           'cursor': 'pointer',
-                          'transition': ArcaneEffects.transitionFast,
+                          'transition': 'all 150ms ease',
                         }),
                         [text(newsletterButtonText)],
                       ),
@@ -223,14 +221,14 @@ class ArcaneFooter extends StatelessComponent {
           classes: 'arcane-footer-bottom',
           styles: const Styles(raw: {
             'max-width': '1200px',
-            'margin': '${ArcaneSpacing.xxl} auto 0',
-            'padding-top': ArcaneSpacing.lg,
-            'border-top': '1px solid ${ArcaneColors.border}',
+            'margin': '3rem auto 0',
+            'padding-top': '1.5rem',
+            'border-top': '1px solid var(--border)',
             'display': 'flex',
             'justify-content': 'space-between',
             'align-items': 'center',
             'flex-wrap': 'wrap',
-            'gap': ArcaneSpacing.md,
+            'gap': '1rem',
           }),
           [
             // Copyright
@@ -238,8 +236,8 @@ class ArcaneFooter extends StatelessComponent {
               span(
                 [text(copyright!)],
                 styles: const Styles(raw: {
-                  'font-size': ArcaneTypography.fontXs,
-                  'color': ArcaneColors.mutedForeground,
+                  'font-size': '0.75rem',
+                  'color': 'var(--muted-foreground)',
                 }),
               ),
 
@@ -248,7 +246,7 @@ class ArcaneFooter extends StatelessComponent {
               div(
                 styles: const Styles(raw: {
                   'display': 'flex',
-                  'gap': ArcaneSpacing.lg,
+                  'gap': '1.5rem',
                 }),
                 [
                   for (final link in bottomLinks!) _buildLink(link),
@@ -261,11 +259,11 @@ class ArcaneFooter extends StatelessComponent {
   }
 
   Component _buildLink(ArcaneFooterLink link) {
-    final Styles linkStyles = const Styles(raw: {
-      'font-size': ArcaneTypography.fontSm,
-      'color': ArcaneColors.mutedForeground,
+    const Styles linkStyles = Styles(raw: {
+      'font-size': '0.875rem',
+      'color': 'var(--muted-foreground)',
       'text-decoration': 'none',
-      'transition': ArcaneEffects.transitionFast,
+      'transition': 'all 150ms ease',
     });
 
     if (link.href != null) {
@@ -284,10 +282,10 @@ class ArcaneFooter extends StatelessComponent {
       classes: 'arcane-footer-link',
       attributes: {'type': 'button'},
       styles: const Styles(raw: {
-        'font-size': ArcaneTypography.fontSm,
-        'color': ArcaneColors.mutedForeground,
+        'font-size': '0.875rem',
+        'color': 'var(--muted-foreground)',
         'text-decoration': 'none',
-        'transition': ArcaneEffects.transitionFast,
+        'transition': 'all 150ms ease',
         'background': 'none',
         'border': 'none',
         'padding': '0',
@@ -301,7 +299,7 @@ class ArcaneFooter extends StatelessComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-footer-link:hover').styles(raw: {
-      'color': ArcaneColors.onSurface,
+      'color': 'var(--foreground)',
     }),
   ];
 }
@@ -330,18 +328,18 @@ class ArcaneSocialIcon extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final Styles iconStyles = const Styles(raw: {
+    const Styles iconStyles = Styles(raw: {
       'display': 'flex',
       'align-items': 'center',
       'justify-content': 'center',
       'width': '36px',
       'height': '36px',
-      'border-radius': ArcaneRadius.md,
-      'color': ArcaneColors.mutedForeground,
+      'border-radius': '0.375rem',
+      'color': 'var(--muted-foreground)',
       'background': 'none',
       'border': 'none',
       'cursor': 'pointer',
-      'transition': ArcaneEffects.transitionFast,
+      'transition': 'all 150ms ease',
     });
 
     if (href != null) {
@@ -373,8 +371,8 @@ class ArcaneSocialIcon extends StatelessComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-social-icon:hover').styles(raw: {
-      'color': ArcaneColors.onSurface,
-      'background-color': ArcaneColors.surfaceVariant,
+      'color': 'var(--foreground)',
+      'background-color': 'var(--muted)',
     }),
   ];
 }

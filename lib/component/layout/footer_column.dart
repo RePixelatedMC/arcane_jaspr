@@ -1,8 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/tokens/tokens.dart';
-
 /// A link item for footer columns
 class FooterLink {
   /// Display label
@@ -62,9 +60,9 @@ class ArcaneFooterColumn extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final effectiveTitleColor = titleColor ?? ArcaneColors.onBackground;
-    final effectiveLinkColor = linkColor ?? ArcaneColors.muted;
-    final effectiveLinkGap = linkGap ?? ArcaneSpacing.sm;
+    final effectiveTitleColor = titleColor ?? 'var(--foreground)';
+    final effectiveLinkColor = linkColor ?? 'var(--muted-foreground)';
+    final effectiveLinkGap = linkGap ?? '0.5rem';
 
     return div(
       styles: const Styles(raw: {
@@ -76,13 +74,13 @@ class ArcaneFooterColumn extends StatelessComponent {
         // Title
         h4(
           styles: Styles(raw: {
-            'font-family': ArcaneTypography.fontFamilyHeading,
-            'font-size': ArcaneTypography.fontSizeSm,
+            'font-family': 'ui-sans-serif, system-ui, sans-serif',
+            'font-size': '0.875rem',
             'font-weight': '600',
             'color': effectiveTitleColor,
             'text-transform': 'uppercase',
-            'letter-spacing': ArcaneTypography.letterSpacingWide,
-            'margin': '0 0 ${ArcaneSpacing.md} 0',
+            'letter-spacing': '0.05em',
+            'margin': '0 0 1rem 0',
           }),
           [text(title)],
         ),
@@ -91,7 +89,7 @@ class ArcaneFooterColumn extends StatelessComponent {
               href: link.href,
               styles: Styles(raw: {
                 'display': 'block',
-                'font-size': ArcaneTypography.fontSizeSm,
+                'font-size': '0.875rem',
                 'color': effectiveLinkColor,
                 'text-decoration': 'none',
                 'margin-bottom': effectiveLinkGap,
@@ -152,7 +150,7 @@ class ArcaneFooterBrandColumn extends StatelessComponent {
         // Logo
         div(
           styles: const Styles(raw: {
-            'margin-bottom': ArcaneSpacing.md,
+            'margin-bottom': '1rem',
           }),
           [logo],
         ),
@@ -160,10 +158,10 @@ class ArcaneFooterBrandColumn extends StatelessComponent {
         if (description != null)
           p(
             styles: Styles(raw: {
-              'font-size': ArcaneTypography.fontSizeSm,
-              'color': ArcaneColors.mutedForeground,
+              'font-size': '0.875rem',
+              'color': 'var(--muted-foreground)',
               'line-height': '1.6',
-              'margin': '0 0 ${ArcaneSpacing.md} 0',
+              'margin': '0 0 1rem 0',
               'max-width': descriptionMaxWidth ?? '280px',
             }),
             [text(description!)],

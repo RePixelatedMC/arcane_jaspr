@@ -1,6 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 
-import 'toast_types.dart';
+import '../../core/props/toast_props.dart';
 
 /// Toast data for the queue
 class ToastData {

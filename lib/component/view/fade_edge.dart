@@ -1,8 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/tokens/tokens.dart';
-
 /// Direction of the fade effect
 enum FadeDirection {
   /// Fades from left edge to transparent
@@ -96,7 +94,7 @@ class ArcaneFadeEdge extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final effectiveColor = color ?? ArcaneColors.background;
+    final effectiveColor = color ?? 'var(--background)';
     final isHorizontal =
         direction == FadeDirection.left || direction == FadeDirection.right;
 

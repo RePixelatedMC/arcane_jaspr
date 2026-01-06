@@ -1,7 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/tokens/tokens.dart';
 import '../navigation/bottom_navigation_bar.dart';
 import '../navigation/sidebar.dart';
 
@@ -95,7 +94,7 @@ class _ArcaneNavigationScreenState extends State<ArcaneNavigationScreen> {
         'display': 'flex',
         'flex-direction': 'column',
         'height': '100vh',
-        'background-color': ArcaneColors.background,
+        'background-color': 'var(--background)',
       }),
       [
         // Main content area with sidebar

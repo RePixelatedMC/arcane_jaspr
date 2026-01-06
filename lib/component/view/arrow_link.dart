@@ -13,7 +13,6 @@ import 'package:jaspr/dom.dart'
         BoxShadow,
         FontWeight;
 
-import '../../util/tokens/tokens.dart';
 import 'icon.dart';
 
 /// Size options for arrow links
@@ -105,10 +104,10 @@ class ArcaneArrowLink extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     final String fontSize = switch (size) {
-      ArrowLinkSize.xs => ArcaneTypography.fontXs,
-      ArrowLinkSize.sm => ArcaneTypography.fontSm,
-      ArrowLinkSize.md => ArcaneTypography.fontMd,
-      ArrowLinkSize.lg => ArcaneTypography.fontLg,
+      ArrowLinkSize.xs => '0.75rem',
+      ArrowLinkSize.sm => '0.875rem',
+      ArrowLinkSize.md => '1rem',
+      ArrowLinkSize.lg => '1.125rem',
     };
 
     final IconSize iconSize = switch (size) {
@@ -118,7 +117,7 @@ class ArcaneArrowLink extends StatelessComponent {
       ArrowLinkSize.lg => IconSize.md,
     };
 
-    final String color = accent ? ArcaneColors.accent : ArcaneColors.muted;
+    final String color = accent ? 'var(--accent)' : 'var(--muted-foreground)';
 
     final List<Component> content = [
       if (showArrow && arrowBefore) ArcaneIcon.arrowLeft(size: iconSize),
@@ -129,12 +128,12 @@ class ArcaneArrowLink extends StatelessComponent {
     final Map<String, String> styles = {
       'display': 'inline-flex',
       'align-items': 'center',
-      'gap': ArcaneSpacing.sm,
+      'gap': '0.5rem',
       'font-size': fontSize,
       'color': color,
       'text-decoration': 'none',
       'cursor': 'pointer',
-      'transition': ArcaneEffects.transitionFast,
+      'transition': 'all 150ms ease',
     };
 
     if (href != null) {

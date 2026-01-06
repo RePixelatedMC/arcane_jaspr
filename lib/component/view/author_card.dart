@@ -1,8 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/tokens/tokens.dart';
-
 /// Size variants for author card
 enum AuthorCardSize {
   /// Small: 32px avatar
@@ -92,16 +90,16 @@ class ArcaneAuthorCard extends StatelessComponent {
     final avatarSize = _getAvatarSize();
     final nameFontSize = _getNameFontSize();
     final roleFontSize = _getRoleFontSize();
-    final effectiveNameColor = nameColor ?? ArcaneColors.onBackground;
-    final effectiveRoleColor = roleColor ?? ArcaneColors.muted;
+    final effectiveNameColor = nameColor ?? 'var(--foreground)';
+    final effectiveRoleColor = roleColor ?? 'var(--muted-foreground)';
     final effectiveInitials = initials ?? (name.isNotEmpty ? name[0].toUpperCase() : '?');
-    final effectiveAvatarBg = avatarBackground ?? ArcaneColors.accent;
+    final effectiveAvatarBg = avatarBackground ?? 'var(--accent)';
 
     return div(
       styles: const Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
-        'gap': ArcaneSpacing.md,
+        'gap': '1rem',
       }),
       [
         // Avatar
@@ -133,7 +131,7 @@ class ArcaneAuthorCard extends StatelessComponent {
                 styles: Styles(raw: {
                   'font-size': _getInitialsFontSize(),
                   'font-weight': '600',
-                  'color': ArcaneColors.accentForeground,
+                  'color': 'var(--accent-foreground)',
                 }),
                 [text(effectiveInitials)],
               ),
@@ -182,33 +180,33 @@ class ArcaneAuthorCard extends StatelessComponent {
   String _getNameFontSize() {
     switch (size) {
       case AuthorCardSize.sm:
-        return ArcaneTypography.fontSizeXs;
+        return '0.75rem';
       case AuthorCardSize.md:
-        return ArcaneTypography.fontSizeSm;
+        return '0.875rem';
       case AuthorCardSize.lg:
-        return ArcaneTypography.fontSizeBase;
+        return '1rem';
     }
   }
 
   String _getRoleFontSize() {
     switch (size) {
       case AuthorCardSize.sm:
-        return ArcaneTypography.fontSizeXs;
+        return '0.75rem';
       case AuthorCardSize.md:
-        return ArcaneTypography.fontSizeXs;
+        return '0.75rem';
       case AuthorCardSize.lg:
-        return ArcaneTypography.fontSizeSm;
+        return '0.875rem';
     }
   }
 
   String _getInitialsFontSize() {
     switch (size) {
       case AuthorCardSize.sm:
-        return ArcaneTypography.fontSizeXs;
+        return '0.75rem';
       case AuthorCardSize.md:
-        return ArcaneTypography.fontSizeSm;
+        return '0.875rem';
       case AuthorCardSize.lg:
-        return ArcaneTypography.fontSizeBase;
+        return '1rem';
     }
   }
 }

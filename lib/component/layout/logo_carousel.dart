@@ -1,8 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/tokens/tokens.dart';
-
 /// A logo item for the carousel
 class ArcaneLogoItem {
   final String name;
@@ -65,7 +63,7 @@ class ArcaneLogoCarousel extends StatelessComponent {
       styles: const Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': ArcaneSpacing.lg,
+        'gap': '1.5rem',
         'width': '100%',
         'overflow': 'hidden',
       }),
@@ -76,9 +74,9 @@ class ArcaneLogoCarousel extends StatelessComponent {
             classes: 'arcane-logo-carousel-title',
             styles: const Styles(raw: {
               'text-align': 'center',
-              'font-size': ArcaneTypography.fontSm,
-              'font-weight': ArcaneTypography.weightMedium,
-              'color': ArcaneColors.mutedForeground,
+              'font-size': '0.875rem',
+              'font-weight': '500',
+              'color': 'var(--muted-foreground)',
               'text-transform': 'uppercase',
               'letter-spacing': '0.05em',
             }),
@@ -131,14 +129,14 @@ class ArcaneLogoCarousel extends StatelessComponent {
                   'object-fit': 'contain',
                   if (grayscale) 'filter': 'grayscale(100%)',
                   'opacity': grayscale ? '0.6' : '1',
-                  'transition': ArcaneEffects.transitionFast,
+                  'transition': 'all 150ms ease',
                 }),
               )
             : span(
                 styles: Styles(raw: {
-                  'font-size': ArcaneTypography.fontLg,
-                  'font-weight': ArcaneTypography.weightSemibold,
-                  'color': ArcaneColors.mutedForeground,
+                  'font-size': '1.125rem',
+                  'font-weight': '600',
+                  'color': 'var(--muted-foreground)',
                   if (grayscale) 'filter': 'grayscale(100%)',
                   'opacity': grayscale ? '0.6' : '1',
                 }),
@@ -197,7 +195,7 @@ class ArcaneLogoCarousel extends StatelessComponent {
     css('.arcane-logo-carousel-item:hover span').styles(raw: {
       'filter': 'grayscale(0%)',
       'opacity': '1',
-      'color': ArcaneColors.onSurface,
+      'color': 'var(--foreground)',
     }),
   ];
 }
@@ -239,16 +237,16 @@ class ArcaneLogoGrid extends StatelessComponent {
       styles: const Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': ArcaneSpacing.lg,
+        'gap': '1.5rem',
       }),
       [
         if (title != null)
           div(
             styles: const Styles(raw: {
               'text-align': 'center',
-              'font-size': ArcaneTypography.fontSm,
-              'font-weight': ArcaneTypography.weightMedium,
-              'color': ArcaneColors.mutedForeground,
+              'font-size': '0.875rem',
+              'font-weight': '500',
+              'color': 'var(--muted-foreground)',
               'text-transform': 'uppercase',
               'letter-spacing': '0.05em',
             }),
@@ -285,15 +283,15 @@ class ArcaneLogoGrid extends StatelessComponent {
                         'object-fit': 'contain',
                         if (grayscale) 'filter': 'grayscale(100%)',
                         'opacity': grayscale ? '0.6' : '1',
-                        'transition': ArcaneEffects.transitionFast,
+                        'transition': 'all 150ms ease',
                       }),
                     )
                   else
                     span(
                       styles: const Styles(raw: {
-                        'font-size': ArcaneTypography.fontMd,
-                        'font-weight': ArcaneTypography.weightSemibold,
-                        'color': ArcaneColors.mutedForeground,
+                        'font-size': '1rem',
+                        'font-weight': '600',
+                        'color': 'var(--muted-foreground)',
                       }),
                       [text(logo.name)],
                     ),

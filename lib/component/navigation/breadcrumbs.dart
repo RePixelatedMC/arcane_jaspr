@@ -1,7 +1,10 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/tokens/tokens.dart';
+import '../../core/theme_provider.dart';
+
+// Re-export for backwards compatibility
+export '../../core/props/breadcrumbs_props.dart'
+    show BreadcrumbItemProps, BreadcrumbSeparatorStyle, BreadcrumbSizeVariant;
 
 /// A breadcrumb item in the navigation trail
 class BreadcrumbItem {
@@ -29,10 +32,10 @@ enum BreadcrumbSeparator {
   /// Chevron separator (>)
   chevron,
 
-  /// Arrow separator (→)
+  /// Arrow separator (->)
   arrow,
 
-  /// Dot separator (•)
+  /// Dot separator (.)
   dot,
 }
 
@@ -43,7 +46,8 @@ enum BreadcrumbSize {
   lg,
 }
 
-/// Navigation breadcrumbs component
+/// Navigation breadcrumbs component matching shadcn/ui.
+/// ShadCN Reference: https://ui.shadcn.com/docs/components/breadcrumb
 ///
 /// Shows the current page location within a navigational hierarchy.
 ///
@@ -85,131 +89,46 @@ class ArcaneBreadcrumbs extends StatelessComponent {
     super.key,
   });
 
-  String get _separatorText => switch (separator) {
-        BreadcrumbSeparator.slash => '/',
-        BreadcrumbSeparator.chevron => '›',
-        BreadcrumbSeparator.arrow => '→',
-        BreadcrumbSeparator.dot => '•',
-      };
-
-  (String fontSize, String gap, String padding) get _sizeStyles =>
-      switch (size) {
-        BreadcrumbSize.sm => (
-            ArcaneTypography.fontXs,
-            ArcaneSpacing.xs,
-            '2px 4px'
-          ),
-        BreadcrumbSize.md => (
-            ArcaneTypography.fontSm,
-            ArcaneSpacing.sm,
-            '4px 8px'
-          ),
-        BreadcrumbSize.lg =>
-          (ArcaneTypography.fontMd, ArcaneSpacing.md, '6px 12px'),
-      };
-
   @override
   Component build(BuildContext context) {
-    final (fontSize, gap, padding) = _sizeStyles;
+    // Convert BreadcrumbItem to BreadcrumbItemProps
+    final itemProps = items
+        .map((item) => BreadcrumbItemProps(
+              label: item.label,
+              href: item.href,
+              icon: item.icon,
+            ))
+        .toList();
 
-    return nav(
-      attributes: {'aria-label': 'Breadcrumb'},
-      styles: Styles(raw: {
-        'display': 'flex',
-        'align-items': 'center',
-        'gap': gap,
-        'font-size': fontSize,
-      }),
-      [
-        ol(
-          styles: Styles(raw: {
-            'display': 'flex',
-            'align-items': 'center',
-            'gap': gap,
-            'list-style': 'none',
-            'margin': '0',
-            'padding': '0',
-          }),
-          [
-            for (var i = 0; i < items.length; i++) ...[
-              li(
-                styles: const Styles(raw: {
-                  'display': 'flex',
-                  'align-items': 'center',
-                  'gap': ArcaneSpacing.xs,
-                }),
-                [
-                  _buildBreadcrumbItem(items[i], i, isLast: i == items.length - 1),
-                ],
-              ),
-              if (i < items.length - 1)
-                span(
-                  attributes: {'aria-hidden': 'true'},
-                  styles: const Styles(raw: {
-                    'color': ArcaneColors.mutedForeground,
-                    'user-select': 'none',
-                  }),
-                  [customSeparator ?? text(_separatorText)],
-                ),
-            ],
-          ],
-        ),
-      ],
-    );
-  }
+    // Convert separator enum
+    final separatorStyle = switch (separator) {
+      BreadcrumbSeparator.slash => BreadcrumbSeparatorStyle.slash,
+      BreadcrumbSeparator.chevron => BreadcrumbSeparatorStyle.chevron,
+      BreadcrumbSeparator.arrow => BreadcrumbSeparatorStyle.arrow,
+      BreadcrumbSeparator.dot => BreadcrumbSeparatorStyle.dot,
+    };
 
-  Component _buildBreadcrumbItem(BreadcrumbItem item, int index,
-      {required bool isLast}) {
-    final (fontSize, _, padding) = _sizeStyles;
+    // Convert size enum
+    final sizeVariant = switch (size) {
+      BreadcrumbSize.sm => BreadcrumbSizeVariant.sm,
+      BreadcrumbSize.md => BreadcrumbSizeVariant.md,
+      BreadcrumbSize.lg => BreadcrumbSizeVariant.lg,
+    };
 
-    final content = span(
-      styles: const Styles(raw: {
-        'display': 'inline-flex',
-        'align-items': 'center',
-        'gap': ArcaneSpacing.xs,
-      }),
-      [
-        if (item.icon != null) item.icon!,
-        if (showHomeIcon && index == 0 && item.icon == null)
-          span(
-            styles: const Styles(raw: {'font-size': '1.1em'}),
-            [text('🏠')],
-          ),
-        text(item.label),
-      ],
-    );
-
-    if (isLast || item.href == null) {
-      // Current page - not a link
-      return span(
-        attributes: {'aria-current': 'page'},
-        styles: Styles(raw: {
-          'color': ArcaneColors.onSurface,
-          'font-weight': ArcaneTypography.weightMedium,
-          'padding': padding,
-        }),
-        [content],
-      );
-    }
-
-    // Navigable link
-    return a(
-      href: item.href!,
-      styles: Styles(raw: {
-        'color': ArcaneColors.mutedForeground,
-        'text-decoration': 'none',
-        'padding': padding,
-        'border-radius': ArcaneRadius.sm,
-        'transition': ArcaneEffects.transitionFast,
-      }),
-      events: onItemClick != null
-          ? {
-              'click': (event) {
-                onItemClick!(item, index);
+    return context.renderers.breadcrumbs(BreadcrumbsProps(
+      items: itemProps,
+      separator: separatorStyle,
+      size: sizeVariant,
+      showHomeIcon: showHomeIcon,
+      customSeparator: customSeparator,
+      onItemClick: onItemClick != null
+          ? (BreadcrumbItemProps itemProp, int index) {
+              // Find the original BreadcrumbItem
+              if (index < items.length) {
+                onItemClick!(items[index], index);
               }
             }
           : null,
-      [content],
-    );
+    ));
   }
 }

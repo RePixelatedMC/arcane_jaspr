@@ -1,8 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/tokens/tokens.dart';
-
 /// An integration/partner card (Supabase-style)
 class ArcaneIntegrationCard extends StatelessComponent {
   /// Integration name
@@ -48,12 +46,12 @@ class ArcaneIntegrationCard extends StatelessComponent {
       styles: Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': ArcaneSpacing.lg,
-        'padding': ArcaneSpacing.xl,
-        'background-color': ArcaneColors.surface,
-        'border': '1px solid ${featured ? ArcaneColors.accent : ArcaneColors.border}',
-        'border-radius': ArcaneRadius.md,
-        'transition': ArcaneEffects.transitionFast,
+        'gap': '1.5rem',
+        'padding': '2rem',
+        'background-color': 'var(--card)',
+        'border': '1px solid ${featured ? 'var(--accent)' : 'var(--border)'}',
+        'border-radius': '0.375rem',
+        'transition': 'all 150ms ease',
         'cursor': (href != null || onTap != null) ? 'pointer' : 'default',
       }),
       [
@@ -74,8 +72,8 @@ class ArcaneIntegrationCard extends StatelessComponent {
                 'display': 'flex',
                 'align-items': 'center',
                 'justify-content': 'center',
-                'background-color': ArcaneColors.surfaceVariant,
-                'border-radius': ArcaneRadius.md,
+                'background-color': 'var(--muted)',
+                'border-radius': '0.375rem',
                 'overflow': 'hidden',
               }),
               [
@@ -94,9 +92,9 @@ class ArcaneIntegrationCard extends StatelessComponent {
                 else
                   span(
                     styles: const Styles(raw: {
-                      'font-size': ArcaneTypography.fontXl,
-                      'font-weight': ArcaneTypography.weightSemibold,
-                      'color': ArcaneColors.mutedForeground,
+                      'font-size': '1.25rem',
+                      'font-weight': '600',
+                      'color': 'var(--muted-foreground)',
                     }),
                     [text(name.substring(0, 1).toUpperCase())],
                   ),
@@ -107,14 +105,14 @@ class ArcaneIntegrationCard extends StatelessComponent {
             if (category != null)
               span(
                 styles: const Styles(raw: {
-                  'padding': '${ArcaneSpacing.xs} ${ArcaneSpacing.sm}',
-                  'font-size': ArcaneTypography.fontXs,
-                  'font-weight': ArcaneTypography.weightMedium,
+                  'padding': '0.25rem 0.5rem',
+                  'font-size': '0.75rem',
+                  'font-weight': '500',
                   'text-transform': 'uppercase',
                   'letter-spacing': '0.05em',
-                  'color': ArcaneColors.mutedForeground,
-                  'background-color': ArcaneColors.surfaceVariant,
-                  'border-radius': ArcaneRadius.full,
+                  'color': 'var(--muted-foreground)',
+                  'background-color': 'var(--muted)',
+                  'border-radius': '9999px',
                 }),
                 [text(category!)],
               ),
@@ -126,15 +124,15 @@ class ArcaneIntegrationCard extends StatelessComponent {
           styles: const Styles(raw: {
             'display': 'flex',
             'flex-direction': 'column',
-            'gap': ArcaneSpacing.sm,
+            'gap': '0.5rem',
           }),
           [
             // Name
             div(
               styles: const Styles(raw: {
-                'font-size': ArcaneTypography.fontMd,
-                'font-weight': ArcaneTypography.weightSemibold,
-                'color': ArcaneColors.onSurface,
+                'font-size': '1rem',
+                'font-weight': '600',
+                'color': 'var(--foreground)',
               }),
               [text(name)],
             ),
@@ -143,9 +141,9 @@ class ArcaneIntegrationCard extends StatelessComponent {
             if (description != null)
               div(
                 styles: const Styles(raw: {
-                  'font-size': ArcaneTypography.fontSm,
-                  'line-height': ArcaneTypography.leadingNormal,
-                  'color': ArcaneColors.mutedForeground,
+                  'font-size': '0.875rem',
+                  'line-height': '1.5',
+                  'color': 'var(--muted-foreground)',
                 }),
                 [text(description!)],
               ),
@@ -158,11 +156,11 @@ class ArcaneIntegrationCard extends StatelessComponent {
             styles: const Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
-              'gap': ArcaneSpacing.xs,
+              'gap': '0.25rem',
               'margin-top': 'auto',
-              'font-size': ArcaneTypography.fontSm,
-              'font-weight': ArcaneTypography.weightMedium,
-              'color': ArcaneColors.accent,
+              'font-size': '0.875rem',
+              'font-weight': '500',
+              'color': 'var(--accent)',
             }),
             [
               text('Learn more'),
@@ -197,8 +195,8 @@ class ArcaneIntegrationCard extends StatelessComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-integration-card:hover').styles(raw: {
-      'border-color': ArcaneColors.accent,
-      'box-shadow': ArcaneEffects.shadowMd,
+      'border-color': 'var(--accent)',
+      'box-shadow': '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
     }),
   ];
 }
@@ -236,7 +234,7 @@ class ArcaneIntegrationGrid extends StatelessComponent {
       styles: const Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': ArcaneSpacing.xxl,
+        'gap': '3rem',
       }),
       [
         if (title != null || description != null)
@@ -244,23 +242,23 @@ class ArcaneIntegrationGrid extends StatelessComponent {
             styles: const Styles(raw: {
               'display': 'flex',
               'flex-direction': 'column',
-              'gap': ArcaneSpacing.sm,
+              'gap': '0.5rem',
             }),
             [
               if (title != null)
                 div(
                   styles: const Styles(raw: {
-                    'font-size': ArcaneTypography.font2xl,
-                    'font-weight': ArcaneTypography.weightSemibold,
-                    'color': ArcaneColors.onSurface,
+                    'font-size': '1.5rem',
+                    'font-weight': '600',
+                    'color': 'var(--foreground)',
                   }),
                   [text(title!)],
                 ),
               if (description != null)
                 div(
                   styles: const Styles(raw: {
-                    'font-size': ArcaneTypography.fontMd,
-                    'color': ArcaneColors.mutedForeground,
+                    'font-size': '1rem',
+                    'color': 'var(--muted-foreground)',
                   }),
                   [text(description!)],
                 ),

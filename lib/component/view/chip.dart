@@ -1,29 +1,23 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
+import 'package:jaspr/dom.dart' as dom;
 
-import '../../util/tokens/tokens.dart';
-import '../../util/tokens/style_presets.dart';
+import '../../core/theme_provider.dart';
 
-/// Chip size variants
-enum ChipSize {
-  small,
-  medium,
-  large,
-}
+// Re-export for backwards compatibility
+export '../../core/props/chip_props.dart' show ChipSize, ChipVariant;
 
 /// Chip/tag component for labels and filters
 ///
-/// Use style presets for cleaner code:
 /// ```dart
 /// ArcaneChip(
 ///   label: 'Active',
-///   style: ChipStyle.success,
+///   variant: ChipVariant.success,
 /// )
 /// ```
 class ArcaneChip extends StatelessComponent {
   final String label;
   final Component? icon;
-  final ChipStyle? style;
+  final ChipVariant variant;
   final ChipSize size;
   final bool removable;
   final void Function()? onRemove;
@@ -32,7 +26,7 @@ class ArcaneChip extends StatelessComponent {
   const ArcaneChip({
     required this.label,
     this.icon,
-    this.style,
+    this.variant = ChipVariant.standard,
     this.size = ChipSize.medium,
     this.removable = false,
     this.onRemove,
@@ -49,7 +43,7 @@ class ArcaneChip extends StatelessComponent {
     this.onRemove,
     this.onTap,
     super.key,
-  }) : style = ChipStyle.primary;
+  }) : variant = ChipVariant.primary;
 
   /// Success chip
   const ArcaneChip.success({
@@ -60,7 +54,7 @@ class ArcaneChip extends StatelessComponent {
     this.onRemove,
     this.onTap,
     super.key,
-  }) : style = ChipStyle.success;
+  }) : variant = ChipVariant.success;
 
   /// Warning chip
   const ArcaneChip.warning({
@@ -71,7 +65,7 @@ class ArcaneChip extends StatelessComponent {
     this.onRemove,
     this.onTap,
     super.key,
-  }) : style = ChipStyle.warning;
+  }) : variant = ChipVariant.warning;
 
   /// Error chip
   const ArcaneChip.error({
@@ -82,7 +76,7 @@ class ArcaneChip extends StatelessComponent {
     this.onRemove,
     this.onTap,
     super.key,
-  }) : style = ChipStyle.error;
+  }) : variant = ChipVariant.error;
 
   /// Outline chip
   const ArcaneChip.outline({
@@ -93,85 +87,64 @@ class ArcaneChip extends StatelessComponent {
     this.onRemove,
     this.onTap,
     super.key,
-  }) : style = ChipStyle.outline;
+  }) : variant = ChipVariant.outline;
 
   @override
   Component build(BuildContext context) {
-    final effectiveStyle = style ?? ChipStyle.standard;
-
-    final (padding, fontSize) = switch (size) {
-      ChipSize.small => ('${ArcaneSpacing.xs} ${ArcaneSpacing.sm}', ArcaneTypography.fontXs),
-      ChipSize.medium => ('6px ${ArcaneSpacing.sm}', ArcaneTypography.fontSm),
-      ChipSize.large => ('${ArcaneSpacing.sm} ${ArcaneSpacing.md}', ArcaneTypography.fontMd),
-    };
-
-    return span(
-      classes: 'arcane-chip ${onTap != null ? 'clickable' : ''}',
-      styles: Styles(raw: {
-        'display': 'inline-flex',
-        'align-items': 'center',
-        'gap': ArcaneSpacing.xs,
-        'padding': padding,
-        'border-radius': ArcaneRadius.full,
-        ...effectiveStyle.styles,
-        'font-size': fontSize,
-        'font-weight': ArcaneTypography.weightMedium,
-        'white-space': 'nowrap',
-        if (onTap != null) 'cursor': 'pointer',
-        'transition': ArcaneEffects.transitionFast,
-      }),
-      events: onTap != null
-          ? {
-              'click': (event) => onTap!(),
-            }
-          : null,
-      [
-        if (icon != null) icon!,
-        text(label),
-        if (removable)
-          span(
-            classes: 'arcane-chip-remove',
-            styles: const Styles(raw: {
-              'margin-left': '2px',
-              'cursor': 'pointer',
-              'opacity': '0.7',
-              'font-size': '1.1em',
-              'line-height': '1',
-            }),
-            events: {
-              'click': (event) {
-                event.stopPropagation();
-                onRemove?.call();
-              },
-            },
-            [text('×')],
-          ),
-      ],
-    );
+    return context.renderers.chip(ChipProps(
+      label: label,
+      icon: icon,
+      variant: variant,
+      size: size,
+      removable: removable,
+      onRemove: onRemove,
+      onTap: onTap,
+    ));
   }
 }
 
 /// Chip group for multiple chips
+///
+/// Accepts either [ArcaneChip] widgets or [ChipProps] for rendering.
 class ArcaneChipGroup extends StatelessComponent {
-  final List<ArcaneChip> chips;
+  final List<Component>? _chips;
+  final List<ChipProps>? _chipProps;
   final String? gap;
 
+  /// Create a chip group from ArcaneChip widgets
   const ArcaneChipGroup({
-    required this.chips,
+    required List<Component> chips,
     this.gap,
     super.key,
-  });
+  })  : _chips = chips,
+        _chipProps = null;
+
+  /// Create a chip group from ChipProps
+  const ArcaneChipGroup.fromProps({
+    required List<ChipProps> chips,
+    this.gap,
+    super.key,
+  })  : _chips = null,
+        _chipProps = chips;
 
   @override
   Component build(BuildContext context) {
-    return div(
+    if (_chipProps != null) {
+      return context.renderers.chipGroup(ChipGroupProps(
+        chips: _chipProps,
+        gap: gap,
+      ));
+    }
+
+    // Render chip widgets directly in a flex container
+    return dom.div(
       classes: 'arcane-chip-group',
-      styles: Styles(raw: {
+      styles: dom.Styles(raw: {
         'display': 'flex',
         'flex-wrap': 'wrap',
-        'gap': gap ?? ArcaneSpacing.sm,
+        'gap': gap ?? '0.5rem',
       }),
-      chips,
+      _chips!,
     );
   }
 }

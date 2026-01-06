@@ -5,5 +5,6 @@
 /// - [ShadcnStyleSheet] - Minimal shadcn/ui style (border-focused, clean)
 library;
 
-export 'codex_style.dart';
-export 'shadcn_style.dart';
+export 'codex/codex_style.dart';
+export 'shadcn/shadcn_style.dart';
+export 'shadcn/shadcn_presets.dart';

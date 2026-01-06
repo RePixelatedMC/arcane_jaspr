@@ -1,23 +1,26 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/tokens/tokens.dart';
-import '../../util/tokens/style_presets.dart';
+/// Divider style variants
+enum DividerVariant {
+  standard,
+  subtle,
+  bold,
+}
 
 /// A horizontal divider component
 ///
-/// Use style presets for cleaner code:
 /// ```dart
 /// ArcaneDivider(
-///   style: DividerStyle.subtle,
+///   variant: DividerVariant.subtle,
 /// )
 /// ```
 class ArcaneDivider extends StatelessComponent {
   /// Vertical margin
   final double? margin;
 
-  /// Style preset
-  final DividerStyle? style;
+  /// Style variant
+  final DividerVariant variant;
 
   /// Optional label in the middle
   final String? label;
@@ -27,7 +30,7 @@ class ArcaneDivider extends StatelessComponent {
 
   const ArcaneDivider({
     this.margin,
-    this.style,
+    this.variant = DividerVariant.standard,
     this.label,
     this.dashed = false,
     super.key,
@@ -39,7 +42,7 @@ class ArcaneDivider extends StatelessComponent {
     this.label,
     this.dashed = false,
     super.key,
-  }) : style = DividerStyle.standard;
+  }) : variant = DividerVariant.standard;
 
   /// Subtle divider
   const ArcaneDivider.subtle({
@@ -47,7 +50,7 @@ class ArcaneDivider extends StatelessComponent {
     this.label,
     this.dashed = false,
     super.key,
-  }) : style = DividerStyle.subtle;
+  }) : variant = DividerVariant.subtle;
 
   /// Bold divider
   const ArcaneDivider.bold({
@@ -55,12 +58,18 @@ class ArcaneDivider extends StatelessComponent {
     this.label,
     this.dashed = false,
     super.key,
-  }) : style = DividerStyle.bold;
+  }) : variant = DividerVariant.bold;
+
+  (String height, String color) get _variantStyles => switch (variant) {
+        DividerVariant.standard => ('1px', 'var(--border)'),
+        DividerVariant.subtle => ('1px', 'var(--muted)'),
+        DividerVariant.bold => ('2px', 'var(--border)'),
+      };
 
   @override
   Component build(BuildContext context) {
-    final effectiveStyle = style ?? DividerStyle.standard;
     final effectiveMargin = margin ?? 16;
+    final (height, color) = _variantStyles;
 
     if (label != null) {
       return div(
@@ -68,24 +77,25 @@ class ArcaneDivider extends StatelessComponent {
         styles: Styles(raw: {
           'display': 'flex',
           'align-items': 'center',
-          'gap': ArcaneSpacing.md,
+          'gap': '1rem',
           'margin': '${effectiveMargin}px 0',
         }),
         [
           div(
             styles: Styles(raw: {
               'flex': '1',
-              ...effectiveStyle.styles,
+              'height': height,
+              'background-color': color,
               if (dashed)
                 'background':
-                    'repeating-linear-gradient(to right, ${effectiveStyle.styles['background-color']} 0, ${effectiveStyle.styles['background-color']} 4px, transparent 4px, transparent 8px)',
+                    'repeating-linear-gradient(to right, $color 0, $color 4px, transparent 4px, transparent 8px)',
             }),
             [],
           ),
           span(
             styles: const Styles(raw: {
-              'font-size': ArcaneTypography.fontSm,
-              'color': ArcaneColors.mutedForeground,
+              'font-size': '0.875rem',
+              'color': 'var(--muted-foreground)',
               'white-space': 'nowrap',
             }),
             [text(label!)],
@@ -93,10 +103,11 @@ class ArcaneDivider extends StatelessComponent {
           div(
             styles: Styles(raw: {
               'flex': '1',
-              ...effectiveStyle.styles,
+              'height': height,
+              'background-color': color,
               if (dashed)
                 'background':
-                    'repeating-linear-gradient(to right, ${effectiveStyle.styles['background-color']} 0, ${effectiveStyle.styles['background-color']} 4px, transparent 4px, transparent 8px)',
+                    'repeating-linear-gradient(to right, $color 0, $color 4px, transparent 4px, transparent 8px)',
             }),
             [],
           ),
@@ -109,10 +120,11 @@ class ArcaneDivider extends StatelessComponent {
       styles: Styles(raw: {
         'margin': '${effectiveMargin}px 0',
         'border': 'none',
-        ...effectiveStyle.styles,
+        'height': height,
+        'background-color': color,
         if (dashed)
           'background':
-              'repeating-linear-gradient(to right, ${effectiveStyle.styles['background-color']} 0, ${effectiveStyle.styles['background-color']} 4px, transparent 4px, transparent 8px)',
+              'repeating-linear-gradient(to right, $color 0, $color 4px, transparent 4px, transparent 8px)',
       }),
     );
   }
@@ -123,41 +135,37 @@ class ArcaneVerticalDivider extends StatelessComponent {
   /// Horizontal margin
   final double? margin;
 
-  /// Style preset
-  final DividerStyle? style;
+  /// Style variant
+  final DividerVariant variant;
 
   /// Height (null for full height)
   final double? height;
 
   const ArcaneVerticalDivider({
     this.margin,
-    this.style,
+    this.variant = DividerVariant.standard,
     this.height,
     super.key,
   });
 
   @override
   Component build(BuildContext context) {
-    final effectiveStyle = style ?? DividerStyle.standard;
     final effectiveMargin = margin ?? 16;
+    final (width, color) = switch (variant) {
+      DividerVariant.standard => ('1px', 'var(--border)'),
+      DividerVariant.subtle => ('1px', 'var(--muted)'),
+      DividerVariant.bold => ('2px', 'var(--border)'),
+    };
 
     return div(
       classes: 'arcane-divider-vertical',
       styles: Styles(raw: {
-        'width': effectiveStyle.styles['height'] ?? '1px',
+        'width': width,
         'margin': '0 ${effectiveMargin}px',
-        'background-color': effectiveStyle.styles['background-color'] ?? ArcaneColors.border,
+        'background-color': color,
         if (height != null) 'height': '${height}px' else 'align-self': 'stretch',
       }),
       [],
     );
   }
 }
-
-/// Legacy alias for backwards compatibility
-@Deprecated('Use ArcaneDivider instead')
-typedef Divider = ArcaneDivider;
-
-/// Legacy alias for backwards compatibility
-@Deprecated('Use ArcaneVerticalDivider instead')
-typedef VerticalDivider = ArcaneVerticalDivider;

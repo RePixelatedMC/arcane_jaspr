@@ -2,7 +2,6 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
 import '../../util/arcane.dart';
-import '../../util/tokens/tokens.dart';
 import '../view/bar.dart';
 
 /// Base screen component that provides consistent layout structure.
@@ -93,7 +92,7 @@ class ArcaneScreen extends StatelessComponent {
         'flex-direction': 'column',
         'height': '100%',
         'position': 'relative',
-        'background-color': ArcaneColors.background,
+        'background-color': 'var(--background)',
       }),
       [
         // Background layer
@@ -189,7 +188,7 @@ class ArcaneScreen extends StatelessComponent {
       classes: 'arcane-screen-loading',
       styles: const Styles(raw: {
         'height': '3px',
-        'background-color': ArcaneColors.border,
+        'background-color': 'var(--border)',
         'overflow': 'hidden',
         'flex-shrink': '0',
       }),
@@ -198,10 +197,10 @@ class ArcaneScreen extends StatelessComponent {
           classes: 'arcane-screen-loading-bar ${loadingIndeterminate ? 'indeterminate' : ''}',
           styles: Styles(raw: {
             'height': '100%',
-            'background-color': ArcaneColors.accent,
+            'background-color': 'var(--accent)',
             if (!loadingIndeterminate)
               'width': '${(loadingProgress ?? 0) * 100}%',
-            if (!loadingIndeterminate) 'transition': ArcaneEffects.transitionFast,
+            if (!loadingIndeterminate) 'transition': 'all 150ms ease',
             if (loadingIndeterminate) 'width': '30%',
             if (loadingIndeterminate)
               'animation': 'arcane-loading-slide 1.5s ease-in-out infinite',

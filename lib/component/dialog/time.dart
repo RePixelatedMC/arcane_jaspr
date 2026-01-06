@@ -13,7 +13,6 @@ import 'package:jaspr/dom.dart'
         BoxShadow,
         FontWeight;
 
-import '../../util/tokens/tokens.dart';
 import '../input/button.dart';
 import '../input/time_picker.dart';
 import 'dialog.dart';
@@ -82,15 +81,15 @@ class ArcaneTimeDialog extends StatefulComponent {
       'width': '4px',
     }),
     css('.arcane-time-dialog-column::-webkit-scrollbar-thumb').styles(raw: {
-      'background': ArcaneColors.border,
-      'border-radius': ArcaneRadius.full,
+      'background': 'var(--border)',
+      'border-radius': '9999px',
     }),
     css('.arcane-time-dialog-option:hover').styles(raw: {
-      'background': ArcaneColors.surfaceVariant,
+      'background': 'var(--muted)',
     }),
     css('.arcane-time-dialog-option.selected').styles(raw: {
-      'background': ArcaneColors.accent,
-      'color': ArcaneColors.accentForeground,
+      'background': 'var(--accent)',
+      'color': 'var(--accent-foreground)',
     }),
   ];
 }
@@ -134,15 +133,15 @@ class _TimeDialogState extends State<ArcaneTimeDialog> {
         styles: const Styles(raw: {
           'display': 'flex',
           'flex-direction': 'column',
-          'gap': ArcaneSpacing.lg,
+          'gap': '1.5rem',
         }),
         [
           if (component.message != null)
             div(
               styles: const Styles(raw: {
-                'color': ArcaneColors.mutedForeground,
-                'font-size': ArcaneTypography.fontSm,
-                'line-height': ArcaneTypography.lineHeightRelaxed,
+                'color': 'var(--muted-foreground)',
+                'font-size': '0.875rem',
+                'line-height': '1.625',
               }),
               [text(component.message!)],
             ),
@@ -153,11 +152,11 @@ class _TimeDialogState extends State<ArcaneTimeDialog> {
               'display': 'flex',
               'justify-content': 'center',
               'align-items': 'center',
-              'gap': ArcaneSpacing.sm,
-              'font-size': ArcaneTypography.font3xl,
-              'font-weight': ArcaneTypography.weightBold,
+              'gap': '0.5rem',
+              'font-size': '1.875rem',
+              'font-weight': '700',
               'font-variant-numeric': 'tabular-nums',
-              'color': ArcaneColors.onSurface,
+              'color': 'var(--foreground)',
             }),
             [
               text(_hour.toString().padLeft(2, '0')),
@@ -170,9 +169,9 @@ class _TimeDialogState extends State<ArcaneTimeDialog> {
               if (!component.use24Hour)
                 span(
                   styles: const Styles(raw: {
-                    'font-size': ArcaneTypography.fontLg,
-                    'margin-left': ArcaneSpacing.sm,
-                    'color': ArcaneColors.mutedForeground,
+                    'font-size': '1.125rem',
+                    'margin-left': '0.5rem',
+                    'color': 'var(--muted-foreground)',
                   }),
                   [text(_isPM ? 'PM' : 'AM')],
                 ),
@@ -184,7 +183,7 @@ class _TimeDialogState extends State<ArcaneTimeDialog> {
             styles: const Styles(raw: {
               'display': 'flex',
               'justify-content': 'center',
-              'gap': ArcaneSpacing.md,
+              'gap': '1rem',
             }),
             [
               // Hours column
@@ -225,17 +224,17 @@ class _TimeDialogState extends State<ArcaneTimeDialog> {
                   styles: const Styles(raw: {
                     'display': 'flex',
                     'flex-direction': 'column',
-                    'gap': ArcaneSpacing.xs,
+                    'gap': '0.25rem',
                   }),
                   [
                     span(
                       styles: const Styles(raw: {
-                        'font-size': ArcaneTypography.fontXs,
-                        'font-weight': ArcaneTypography.weightMedium,
-                        'color': ArcaneColors.mutedForeground,
+                        'font-size': '0.75rem',
+                        'font-weight': '500',
+                        'color': 'var(--muted-foreground)',
                         'text-transform': 'uppercase',
                         'text-align': 'center',
-                        'margin-bottom': ArcaneSpacing.xs,
+                        'margin-bottom': '0.25rem',
                       }),
                       [text('Period')],
                     ),
@@ -243,19 +242,18 @@ class _TimeDialogState extends State<ArcaneTimeDialog> {
                       classes:
                           'arcane-time-dialog-option ${!_isPM ? 'selected' : ''}',
                       styles: Styles(raw: {
-                        'padding':
-                            '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
+                        'padding': '0.5rem 1rem',
                         'border': 'none',
-                        'border-radius': ArcaneRadius.md,
+                        'border-radius': '0.375rem',
                         'background': !_isPM
-                            ? ArcaneColors.accent
+                            ? 'var(--accent)'
                             : 'transparent',
                         'color': !_isPM
-                            ? ArcaneColors.accentForeground
-                            : ArcaneColors.onSurface,
+                            ? 'var(--accent-foreground)'
+                            : 'var(--foreground)',
                         'cursor': 'pointer',
-                        'font-size': ArcaneTypography.fontSm,
-                        'transition': ArcaneEffects.transitionFast,
+                        'font-size': '0.875rem',
+                        'transition': 'all 150ms ease',
                       }),
                       events: {
                         'click': (_) {
@@ -268,18 +266,17 @@ class _TimeDialogState extends State<ArcaneTimeDialog> {
                       classes:
                           'arcane-time-dialog-option ${_isPM ? 'selected' : ''}',
                       styles: Styles(raw: {
-                        'padding':
-                            '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
+                        'padding': '0.5rem 1rem',
                         'border': 'none',
-                        'border-radius': ArcaneRadius.md,
+                        'border-radius': '0.375rem',
                         'background':
-                            _isPM ? ArcaneColors.accent : 'transparent',
+                            _isPM ? 'var(--accent)' : 'transparent',
                         'color': _isPM
-                            ? ArcaneColors.accentForeground
-                            : ArcaneColors.onSurface,
+                            ? 'var(--accent-foreground)'
+                            : 'var(--foreground)',
                         'cursor': 'pointer',
-                        'font-size': ArcaneTypography.fontSm,
-                        'transition': ArcaneEffects.transitionFast,
+                        'font-size': '0.875rem',
+                        'transition': 'all 150ms ease',
                       }),
                       events: {
                         'click': (_) {
@@ -318,17 +315,17 @@ class _TimeDialogState extends State<ArcaneTimeDialog> {
       styles: const Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': ArcaneSpacing.xs,
+        'gap': '0.25rem',
       }),
       [
         span(
           styles: const Styles(raw: {
-            'font-size': ArcaneTypography.fontXs,
-            'font-weight': ArcaneTypography.weightMedium,
-            'color': ArcaneColors.mutedForeground,
+            'font-size': '0.75rem',
+            'font-weight': '500',
+            'color': 'var(--muted-foreground)',
             'text-transform': 'uppercase',
             'text-align': 'center',
-            'margin-bottom': ArcaneSpacing.xs,
+            'margin-bottom': '0.25rem',
           }),
           [text(label)],
         ),
@@ -347,20 +344,20 @@ class _TimeDialogState extends State<ArcaneTimeDialog> {
                 classes:
                     'arcane-time-dialog-option ${value == selectedValue ? 'selected' : ''}',
                 styles: Styles(raw: {
-                  'padding': '${ArcaneSpacing.xs} ${ArcaneSpacing.md}',
+                  'padding': '0.25rem 1rem',
                   'border': 'none',
-                  'border-radius': ArcaneRadius.md,
+                  'border-radius': '0.375rem',
                   'background': value == selectedValue
-                      ? ArcaneColors.accent
+                      ? 'var(--accent)'
                       : 'transparent',
                   'color': value == selectedValue
-                      ? ArcaneColors.accentForeground
-                      : ArcaneColors.onSurface,
+                      ? 'var(--accent-foreground)'
+                      : 'var(--foreground)',
                   'cursor': 'pointer',
-                  'font-size': ArcaneTypography.fontSm,
+                  'font-size': '0.875rem',
                   'text-align': 'center',
                   'min-width': '48px',
-                  'transition': ArcaneEffects.transitionFast,
+                  'transition': 'all 150ms ease',
                 }),
                 events: {
                   'click': (_) => onSelect(value),

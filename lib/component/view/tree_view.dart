@@ -1,8 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/tokens/tokens.dart';
-
 /// Tree node data
 class TreeNode {
   /// Unique identifier
@@ -176,7 +174,7 @@ class _ArcaneTreeViewState extends State<ArcaneTreeView> {
     return div(
       attributes: {'role': 'tree'},
       styles: const Styles(raw: {
-        'font-size': ArcaneTypography.fontSm,
+        'font-size': '0.875rem',
       }),
       [
         for (final node in component.nodes)
@@ -210,9 +208,9 @@ class _ArcaneTreeViewState extends State<ArcaneTreeView> {
             'padding-left': '${indent + 12}px',
             'cursor': node.disabled ? 'not-allowed' : 'pointer',
             'opacity': node.disabled ? '0.5' : '1',
-            'background': isSelected ? ArcaneColors.surfaceVariant : 'transparent',
-            'border-radius': ArcaneRadius.sm,
-            'transition': ArcaneEffects.transitionFast,
+            'background': isSelected ? 'var(--muted)' : 'transparent',
+            'border-radius': '0.25rem',
+            'transition': 'all 150ms ease',
             'user-select': 'none',
           }),
           events: {
@@ -233,9 +231,9 @@ class _ArcaneTreeViewState extends State<ArcaneTreeView> {
                   'justify-content': 'center',
                   'width': '16px',
                   'height': '16px',
-                  'margin-right': ArcaneSpacing.xs,
+                  'margin-right': '0.25rem',
                   'font-size': '10px',
-                  'color': ArcaneColors.mutedForeground,
+                  'color': 'var(--muted-foreground)',
                   'transform': isExpanded ? 'rotate(90deg)' : 'rotate(0deg)',
                   'transition': 'transform 0.2s ease',
                 }),
@@ -245,7 +243,7 @@ class _ArcaneTreeViewState extends State<ArcaneTreeView> {
               const span(
                 styles: Styles(raw: {
                   'width': '16px',
-                  'margin-right': ArcaneSpacing.xs,
+                  'margin-right': '0.25rem',
                 }),
                 [],
               ),
@@ -254,7 +252,7 @@ class _ArcaneTreeViewState extends State<ArcaneTreeView> {
             if (node.icon != null)
               span(
                 styles: const Styles(raw: {
-                  'margin-right': ArcaneSpacing.xs,
+                  'margin-right': '0.25rem',
                   'display': 'inline-flex',
                   'align-items': 'center',
                 }),
@@ -264,10 +262,8 @@ class _ArcaneTreeViewState extends State<ArcaneTreeView> {
             // Node label
             span(
               styles: Styles(raw: {
-                'color': isSelected ? ArcaneColors.accent : ArcaneColors.onSurface,
-                'font-weight': isSelected
-                    ? ArcaneTypography.weightMedium
-                    : ArcaneTypography.weightNormal,
+                'color': isSelected ? 'var(--accent)' : 'var(--foreground)',
+                'font-weight': isSelected ? '500' : '400',
               }),
               [text(node.label)],
             ),
@@ -279,7 +275,7 @@ class _ArcaneTreeViewState extends State<ArcaneTreeView> {
           div(
             attributes: {'role': 'group'},
             styles: Styles(raw: {
-              if (showLines) 'border-left': '1px solid ${ArcaneColors.border}',
+              if (showLines) 'border-left': '1px solid var(--border)',
               if (showLines) 'margin-left': '${indent + 20}px',
             }),
             [

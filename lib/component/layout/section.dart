@@ -2,7 +2,6 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight, StyleRule;
 
 import '../../util/arcane.dart';
-import '../../util/tokens/tokens.dart';
 
 /// A section component for grouping related content with an optional header.
 class ArcaneSection extends StatelessComponent {
@@ -47,9 +46,9 @@ class ArcaneSection extends StatelessComponent {
             ? div(
                 classes: 'arcane-section-header',
                 styles: Styles(raw: {
-                  'font-size': ArcaneTypography.fontSm,
-                  'font-weight': ArcaneTypography.weightSemibold,
-                  'color': ArcaneColors.mutedForeground,
+                  'font-size': '0.875rem',
+                  'font-weight': '600',
+                  'color': 'var(--muted-foreground)',
                   'text-transform': 'uppercase',
                   'letter-spacing': '0.05em',
                   'margin-bottom': '${gap}px',
@@ -63,7 +62,7 @@ class ArcaneSection extends StatelessComponent {
             classes: 'arcane-section-divider',
             styles: Styles(raw: {
               'height': '1px',
-              'background-color': ArcaneColors.border,
+              'background-color': 'var(--border)',
               'margin-bottom': '${gap}px',
             }),
             [],
@@ -90,9 +89,9 @@ class ArcaneSection extends StatelessComponent {
         classes: 'arcane-section arcane-section-card',
         styles: Styles(raw: {
           'padding': effectivePadding.padding,
-          'background-color': ArcaneColors.surface,
-          'border-radius': ArcaneRadius.lg,
-          'border': '1px solid ${ArcaneColors.border}',
+          'background-color': 'var(--card)',
+          'border-radius': '0.5rem',
+          'border': '1px solid var(--border)',
         }),
         sectionChildren,
       );

@@ -13,7 +13,6 @@ import 'package:jaspr/dom.dart'
         BoxShadow,
         FontWeight;
 
-import '../../util/tokens/tokens.dart';
 import 'mutable_text_types.dart';
 
 export 'mutable_text_types.dart';
@@ -131,8 +130,8 @@ class ArcaneMutableText extends StatefulComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-mutable-text-input:focus').styles(raw: {
-      'border-color': ArcaneColors.accent,
-      'box-shadow': '0 0 0 2px ${ArcaneColors.accentContainer}',
+      'border-color': 'var(--accent)',
+      'box-shadow': '0 0 0 2px hsl(var(--accent) / 0.2)',
     }),
   ];
 }
@@ -213,8 +212,8 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
 
     // Base text styles
     final Map<String, String> baseTextStyles = {
-      'font-size': ArcaneTypography.fontMd,
-      'color': ArcaneColors.onSurface,
+      'font-size': '1rem',
+      'color': 'var(--foreground)',
       'line-height': '1.5',
       ...?component.textStyles,
     };
@@ -224,7 +223,7 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
       styles: const Styles(raw: {
         'display': 'inline-flex',
         'flex-direction': 'column',
-        'gap': ArcaneSpacing.xs,
+        'gap': '0.25rem',
         'width': '100%',
       }),
       [
@@ -233,9 +232,9 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
           Component.element(
             tag: 'label',
             styles: const Styles(raw: {
-              'font-size': ArcaneTypography.fontSm,
-              'font-weight': ArcaneTypography.weightMedium,
-              'color': ArcaneColors.onSurface,
+              'font-size': '0.875rem',
+              'font-weight': '500',
+              'color': 'var(--foreground)',
             }),
             children: [
               text(component.label!),
@@ -243,7 +242,7 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
                 span(
                   [text(' *')],
                   styles: const Styles(raw: {
-                    'color': ArcaneColors.error,
+                    'color': 'var(--destructive)',
                   }),
                 ),
             ],
@@ -263,16 +262,16 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
           span(
             [text(_error!)],
             styles: const Styles(raw: {
-              'font-size': ArcaneTypography.fontSm,
-              'color': ArcaneColors.error,
+              'font-size': '0.875rem',
+              'color': 'var(--destructive)',
             }),
           )
         else if (component.helperText != null)
           span(
             [text(component.helperText!)],
             styles: const Styles(raw: {
-              'font-size': ArcaneTypography.fontSm,
-              'color': ArcaneColors.mutedForeground,
+              'font-size': '0.875rem',
+              'color': 'var(--muted-foreground)',
             }),
           ),
       ],
@@ -287,14 +286,14 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
       styles: const Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': ArcaneSpacing.xs,
+        'gap': '0.25rem',
       }),
       [
         div(
           styles: const Styles(raw: {
             'display': 'flex',
             'align-items': 'flex-start',
-            'gap': ArcaneSpacing.xs,
+            'gap': '0.25rem',
           }),
           [
             // Prefix
@@ -302,8 +301,8 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
               span(
                 [component.prefix!],
                 styles: const Styles(raw: {
-                  'color': ArcaneColors.mutedForeground,
-                  'padding': '${ArcaneSpacing.xs} 0',
+                  'color': 'var(--muted-foreground)',
+                  'padding': '0.25rem 0',
                 }),
               ),
 
@@ -324,12 +323,12 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
                   ...baseTextStyles,
                   'flex': '1',
                   'min-width': '0',
-                  'padding': '${ArcaneSpacing.xs} ${ArcaneSpacing.sm}',
-                  'background': ArcaneColors.input,
+                  'padding': '0.25rem 0.5rem',
+                  'background': 'var(--input)',
                   'border': hasError
-                      ? '1px solid ${ArcaneColors.error}'
-                      : '1px solid ${ArcaneColors.border}',
-                  'border-radius': ArcaneRadius.md,
+                      ? '1px solid var(--destructive)'
+                      : '1px solid var(--border)',
+                  'border-radius': '0.375rem',
                   'outline': 'none',
                   'resize': 'vertical',
                   'font-family': 'inherit',
@@ -363,12 +362,12 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
                   ...baseTextStyles,
                   'flex': '1',
                   'min-width': '0',
-                  'padding': '${ArcaneSpacing.xs} ${ArcaneSpacing.sm}',
-                  'background': ArcaneColors.input,
+                  'padding': '0.25rem 0.5rem',
+                  'background': 'var(--input)',
                   'border': hasError
-                      ? '1px solid ${ArcaneColors.error}'
-                      : '1px solid ${ArcaneColors.border}',
-                  'border-radius': ArcaneRadius.md,
+                      ? '1px solid var(--destructive)'
+                      : '1px solid var(--border)',
+                  'border-radius': '0.375rem',
                   'outline': 'none',
                 }),
                 events: {
@@ -389,8 +388,8 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
               span(
                 [component.suffix!],
                 styles: const Styles(raw: {
-                  'color': ArcaneColors.mutedForeground,
-                  'padding': '${ArcaneSpacing.xs} 0',
+                  'color': 'var(--muted-foreground)',
+                  'padding': '0.25rem 0',
                 }),
               ),
 
@@ -404,10 +403,10 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
                   'justify-content': 'center',
                   'width': '28px',
                   'height': '28px',
-                  'background': ArcaneColors.accent,
-                  'color': ArcaneColors.accentForeground,
+                  'background': 'var(--accent)',
+                  'color': 'var(--accent-foreground)',
                   'border': 'none',
-                  'border-radius': ArcaneRadius.sm,
+                  'border-radius': '0.125rem',
                   'cursor': 'pointer',
                   'font-size': '14px',
                 }),
@@ -422,10 +421,10 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
                   'justify-content': 'center',
                   'width': '28px',
                   'height': '28px',
-                  'background': ArcaneColors.surfaceVariant,
-                  'color': ArcaneColors.mutedForeground,
+                  'background': 'var(--muted)',
+                  'color': 'var(--muted-foreground)',
                   'border': 'none',
-                  'border-radius': ArcaneRadius.sm,
+                  'border-radius': '0.125rem',
                   'cursor': 'pointer',
                   'font-size': '14px',
                 }),
@@ -441,10 +440,10 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
           span(
             [text('${_editValue.length}/${component.maxLength}')],
             styles: Styles(raw: {
-              'font-size': ArcaneTypography.fontXs,
+              'font-size': '0.75rem',
               'color': _editValue.length >= component.maxLength
-                  ? ArcaneColors.error
-                  : ArcaneColors.mutedForeground,
+                  ? 'var(--destructive)'
+                  : 'var(--muted-foreground)',
               'text-align': 'right',
             }),
           ),
@@ -458,33 +457,33 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
     final Map<String, String> styleVariant = switch (component.displayStyle) {
       MutableTextStyle.inline => {},
       MutableTextStyle.subtle => {
-          'padding': '${ArcaneSpacing.xs} ${ArcaneSpacing.sm}',
-          'border-radius': ArcaneRadius.sm,
-          'margin': '-${ArcaneSpacing.xs} -${ArcaneSpacing.sm}',
+          'padding': '0.25rem 0.5rem',
+          'border-radius': '0.125rem',
+          'margin': '-0.25rem -0.5rem',
         },
       MutableTextStyle.underline => {
-          'border-bottom': '1px solid ${ArcaneColors.border}',
+          'border-bottom': '1px solid var(--border)',
           'padding-bottom': '2px',
         },
       MutableTextStyle.dashed => {
-          'border-bottom': '1px dashed ${ArcaneColors.mutedForeground}',
+          'border-bottom': '1px dashed var(--muted-foreground)',
           'padding-bottom': '2px',
         },
       MutableTextStyle.input => {
-          'padding': '${ArcaneSpacing.xs} ${ArcaneSpacing.sm}',
-          'border': '1px solid ${ArcaneColors.border}',
-          'border-radius': ArcaneRadius.md,
-          'background': ArcaneColors.transparent,
+          'padding': '0.25rem 0.5rem',
+          'border': '1px solid var(--border)',
+          'border-radius': '0.375rem',
+          'background': 'transparent',
         },
     };
 
     // Hover styles for subtle mode
     final Map<String, String> hoverStyles = switch (component.displayStyle) {
       MutableTextStyle.subtle when _isHovered && !component.disabled => {
-          'background': ArcaneColors.surfaceVariant,
+          'background': 'var(--muted)',
         },
       MutableTextStyle.input when _isHovered && !component.disabled => {
-          'border-color': ArcaneColors.accent,
+          'border-color': 'var(--accent)',
         },
       _ => {},
     };
@@ -515,12 +514,12 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
       styles: Styles(raw: {
         'display': 'inline-flex',
         'align-items': 'center',
-        'gap': ArcaneSpacing.xs,
+        'gap': '0.25rem',
         ...baseTextStyles,
         ...styleVariant,
         ...hoverStyles,
         'cursor': component.disabled ? 'default' : 'pointer',
-        'transition': ArcaneEffects.transitionFast,
+        'transition': 'all 150ms ease',
         if (component.disabled) 'opacity': '0.5',
       }),
       events: {
@@ -544,7 +543,7 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
             text(showPlaceholder ? component.placeholder! : component.value),
           ],
           styles: Styles(raw: {
-            if (showPlaceholder) 'color': ArcaneColors.mutedForeground,
+            if (showPlaceholder) 'color': 'var(--muted-foreground)',
             if (showPlaceholder) 'font-style': 'italic',
           }),
         ),
@@ -559,9 +558,9 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
           span(
             [text('✎')],
             styles: const Styles(raw: {
-              'color': ArcaneColors.mutedForeground,
+              'color': 'var(--muted-foreground)',
               'font-size': '14px',
-              'margin-left': ArcaneSpacing.xs,
+              'margin-left': '0.25rem',
             }),
           ),
       ],
@@ -592,9 +591,9 @@ extension ArcaneMutableTextFactories on ArcaneMutableText {
       onSave: onSave,
       placeholder: placeholder,
       displayStyle: MutableTextStyle.inline,
-      textStyles: {
-        'font-size': ArcaneTypography.font2xl,
-        'font-weight': ArcaneTypography.weightBold,
+      textStyles: const {
+        'font-size': '1.5rem',
+        'font-weight': '700',
       },
     );
   }
@@ -625,9 +624,9 @@ extension ArcaneMutableTextFactories on ArcaneMutableText {
       onSave: onSave,
       placeholder: placeholder,
       displayStyle: MutableTextStyle.dashed,
-      textStyles: {
-        'font-size': ArcaneTypography.fontSm,
-        'color': ArcaneColors.mutedForeground,
+      textStyles: const {
+        'font-size': '0.875rem',
+        'color': 'var(--muted-foreground)',
       },
     );
   }

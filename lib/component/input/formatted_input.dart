@@ -13,8 +13,6 @@ import 'package:jaspr/dom.dart'
         BoxShadow,
         FontWeight;
 
-import '../../util/tokens/tokens.dart';
-
 /// A part of a formatted input (editable segment or static text).
 class InputPart {
   /// Whether this part is editable
@@ -254,8 +252,8 @@ class ArcaneFormattedInput extends StatefulComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-formatted-input-segment input:focus').styles(raw: {
-      'border-color': ArcaneColors.accent,
-      'box-shadow': '0 0 0 2px ${ArcaneColors.accentContainer}',
+      'border-color': 'var(--accent)',
+      'box-shadow': '0 0 0 2px hsl(var(--accent) / 0.2)',
     }),
   ];
 }
@@ -286,9 +284,9 @@ class _FormattedInputState extends State<ArcaneFormattedInput> {
   Component build(BuildContext context) {
     final hasError = component.error != null;
     final (height, fontSize) = switch (component.size) {
-      FormattedInputSize.sm => (ArcaneLayout.inputHeightSm, ArcaneTypography.fontSm),
-      FormattedInputSize.md => (ArcaneLayout.inputHeightMd, ArcaneTypography.fontSm),
-      FormattedInputSize.lg => (ArcaneLayout.inputHeightLg, ArcaneTypography.fontMd),
+      FormattedInputSize.sm => ('32px', '0.875rem'),
+      FormattedInputSize.md => ('40px', '0.875rem'),
+      FormattedInputSize.lg => ('48px', '1rem'),
     };
 
     return div(
@@ -296,16 +294,16 @@ class _FormattedInputState extends State<ArcaneFormattedInput> {
       styles: const Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': ArcaneSpacing.xs,
+        'gap': '0.25rem',
       }),
       [
         // Label
         if (component.label != null)
           span(
             styles: const Styles(raw: {
-              'font-size': ArcaneTypography.fontSm,
-              'font-weight': ArcaneTypography.weightMedium,
-              'color': ArcaneColors.onSurface,
+              'font-size': '0.875rem',
+              'font-weight': '500',
+              'color': 'var(--foreground)',
             }),
             [text(component.label!)],
           ),
@@ -316,10 +314,10 @@ class _FormattedInputState extends State<ArcaneFormattedInput> {
           styles: Styles(raw: {
             'display': 'inline-flex',
             'align-items': 'center',
-            'padding': '0 ${ArcaneSpacing.sm}',
-            'background': ArcaneColors.surface,
-            'border': '1px solid ${hasError ? ArcaneColors.error : ArcaneColors.border}',
-            'border-radius': ArcaneRadius.md,
+            'padding': '0 0.5rem',
+            'background': 'var(--card)',
+            'border': '1px solid ${hasError ? 'var(--destructive)' : 'var(--border)'}',
+            'border-radius': '0.375rem',
             'height': height,
             if (component.disabled) 'opacity': '0.5',
             if (component.disabled) 'pointer-events': 'none',
@@ -337,8 +335,8 @@ class _FormattedInputState extends State<ArcaneFormattedInput> {
         if (hasError)
           span(
             styles: const Styles(raw: {
-              'font-size': ArcaneTypography.fontXs,
-              'color': ArcaneColors.error,
+              'font-size': '0.75rem',
+              'color': 'var(--destructive)',
             }),
             [text(component.error!)],
           ),
@@ -364,7 +362,7 @@ class _FormattedInputState extends State<ArcaneFormattedInput> {
             'padding': '4px',
             'border': 'none',
             'background': 'transparent',
-            'color': ArcaneColors.onSurface,
+            'color': 'var(--foreground)',
             'font-size': fontSize,
             'text-align': 'center',
             'outline': 'none',
@@ -387,7 +385,7 @@ class _FormattedInputState extends State<ArcaneFormattedInput> {
     return span(
       classes: 'arcane-formatted-input-static',
       styles: Styles(raw: {
-        'color': ArcaneColors.mutedForeground,
+        'color': 'var(--muted-foreground)',
         'font-size': fontSize,
         'user-select': 'none',
       }),

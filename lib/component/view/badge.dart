@@ -1,36 +1,34 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/tokens/tokens.dart';
-import '../../util/tokens/style_presets.dart';
+import '../../core/props/badge_props.dart';
+import '../../core/theme_provider.dart';
 
-/// Badge variants (legacy - prefer using BadgeStyle presets)
-@Deprecated('Use style parameter with BadgeStyle presets instead')
-enum BadgeVariant {
-  /// Default/neutral badge
-  default_,
-  /// Primary/accent colored badge
-  primary,
-  /// Secondary/muted badge
-  secondary,
-  /// Success badge (green)
-  success,
-  /// Warning badge (amber)
-  warning,
-  /// Destructive/error badge (red)
-  destructive,
-  /// Outline badge
-  outline,
-}
+// Re-export for convenience
+export '../../core/props/badge_props.dart' show BadgeVariant, BadgeSize;
 
-/// Badge size
-enum BadgeSize { sm, md, lg }
-
-/// A pill-shaped badge/label component
+/// A pill-shaped badge/label component.
 ///
-/// Use style presets for cleaner code:
+/// The actual rendering is delegated to the current stylesheet's renderer,
+/// ensuring consistent API regardless of which design system is active.
+///
+/// ## Basic Usage
+///
 /// ```dart
-/// ArcaneBadge('Active', style: BadgeStyle.success)
+/// ArcaneBadge('Active')
+/// ArcaneBadge('New', variant: BadgeVariant.success)
+/// ```
+///
+/// ## Variants
+///
+/// Use named constructors for common variants:
+///
+/// ```dart
+/// ArcaneBadge.primary('Premium')
+/// ArcaneBadge.success('Active')
+/// ArcaneBadge.warning('Pending')
+/// ArcaneBadge.error('Failed')
+/// ArcaneBadge.info('Beta')
+/// ArcaneBadge.outline('Draft')
 /// ```
 class ArcaneBadge extends StatelessComponent {
   /// The badge text
@@ -39,12 +37,8 @@ class ArcaneBadge extends StatelessComponent {
   /// Optional leading icon
   final Component? icon;
 
-  /// Style preset (preferred over variant)
-  final BadgeStyle? style;
-
-  /// Badge variant (legacy - use style instead)
-  @Deprecated('Use style parameter with BadgeStyle presets instead')
-  final BadgeVariant? variant;
+  /// Badge style variant
+  final BadgeVariant variant;
 
   /// Badge size
   final BadgeSize size;
@@ -52,9 +46,8 @@ class ArcaneBadge extends StatelessComponent {
   const ArcaneBadge(
     this.label, {
     this.icon,
-    this.style,
-    @Deprecated('Use style parameter instead') this.variant,
-    this.size = BadgeSize.md,
+    this.variant = BadgeVariant.standard,
+    this.size = BadgeSize.medium,
     super.key,
   });
 
@@ -62,118 +55,74 @@ class ArcaneBadge extends StatelessComponent {
   const ArcaneBadge.primary(
     this.label, {
     this.icon,
-    this.size = BadgeSize.md,
+    this.size = BadgeSize.medium,
     super.key,
-  })  : style = BadgeStyle.primary,
-        variant = null;
+  }) : variant = BadgeVariant.primary;
+
+  /// Secondary badge
+  const ArcaneBadge.secondary(
+    this.label, {
+    this.icon,
+    this.size = BadgeSize.medium,
+    super.key,
+  }) : variant = BadgeVariant.secondary;
 
   /// Success badge
   const ArcaneBadge.success(
     this.label, {
     this.icon,
-    this.size = BadgeSize.md,
+    this.size = BadgeSize.medium,
     super.key,
-  })  : style = BadgeStyle.success,
-        variant = null;
+  }) : variant = BadgeVariant.success;
 
   /// Warning badge
   const ArcaneBadge.warning(
     this.label, {
     this.icon,
-    this.size = BadgeSize.md,
+    this.size = BadgeSize.medium,
     super.key,
-  })  : style = BadgeStyle.warning,
-        variant = null;
+  }) : variant = BadgeVariant.warning;
 
   /// Error/destructive badge
   const ArcaneBadge.error(
     this.label, {
     this.icon,
-    this.size = BadgeSize.md,
+    this.size = BadgeSize.medium,
     super.key,
-  })  : style = BadgeStyle.error,
-        variant = null;
+  }) : variant = BadgeVariant.error;
 
   /// Alias for error
   const ArcaneBadge.destructive(
     this.label, {
     this.icon,
-    this.size = BadgeSize.md,
+    this.size = BadgeSize.medium,
     super.key,
-  })  : style = BadgeStyle.error,
-        variant = null;
+  }) : variant = BadgeVariant.error;
 
   /// Info badge
   const ArcaneBadge.info(
     this.label, {
     this.icon,
-    this.size = BadgeSize.md,
+    this.size = BadgeSize.medium,
     super.key,
-  })  : style = BadgeStyle.info,
-        variant = null;
+  }) : variant = BadgeVariant.info;
 
   /// Outline badge
   const ArcaneBadge.outline(
     this.label, {
     this.icon,
-    this.size = BadgeSize.md,
+    this.size = BadgeSize.medium,
     super.key,
-  })  : style = BadgeStyle.outline,
-        variant = null;
-
-  /// Convert legacy variant to style preset
-  BadgeStyle _variantToStyle(BadgeVariant v) {
-    return switch (v) {
-      BadgeVariant.default_ => BadgeStyle.standard,
-      BadgeVariant.primary => BadgeStyle.primary,
-      BadgeVariant.secondary => BadgeStyle.secondary,
-      BadgeVariant.success => BadgeStyle.success,
-      BadgeVariant.warning => BadgeStyle.warning,
-      BadgeVariant.destructive => BadgeStyle.error,
-      BadgeVariant.outline => BadgeStyle.outline,
-    };
-  }
+  }) : variant = BadgeVariant.outline;
 
   @override
   Component build(BuildContext context) {
-    // Resolve effective style
-    final effectiveStyle = style ??
-        (variant != null ? _variantToStyle(variant!) : BadgeStyle.standard);
-
-    // Get size-specific styles
-    final (paddingH, paddingV, fontSize) = switch (size) {
-      BadgeSize.sm => (ArcaneSpacing.xs, '2px', ArcaneTypography.fontXs),
-      BadgeSize.md => (ArcaneSpacing.sm, '3px', ArcaneTypography.fontXs),
-      BadgeSize.lg => (ArcaneSpacing.sm, ArcaneSpacing.xs, ArcaneTypography.fontSm),
-    };
-
-    return span(
-      classes: 'arcane-badge',
-      styles: Styles(raw: {
-        // Layout
-        'display': 'inline-flex',
-        'align-items': 'center',
-        'gap': ArcaneSpacing.xs,
-
-        // Size
-        'padding': '$paddingV $paddingH',
-        'font-size': fontSize,
-
-        // Typography
-        'font-weight': ArcaneTypography.weightMedium,
-        'line-height': '1',
-        'white-space': 'nowrap',
-
-        // Default border radius (can be overridden by style)
-        'border-radius': ArcaneRadius.full,
-
-        // Appearance from style preset (can override border-radius)
-        ...effectiveStyle.styles,
-      }),
-      [
-        if (icon != null) icon!,
-        text(label),
-      ],
-    );
+    // Delegate to the current stylesheet's badge renderer
+    return context.renderers.badge(BadgeProps(
+      label: label,
+      icon: icon,
+      variant: variant,
+      size: size,
+    ));
   }
 }

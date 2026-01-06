@@ -1,25 +1,16 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart'
-    hide
-        Color,
-        Colors,
-        ColorScheme,
-        Gap,
-        Padding,
-        TextAlign,
-        TextOverflow,
-        Border,
-        BorderRadius,
-        BoxShadow,
-        FontWeight;
 
-import '../../util/tokens/tokens.dart';
+import '../../core/theme_provider.dart';
 
-/// A context menu that appears on right-click.
+// Re-export props for backwards compatibility
+export '../../core/props/context_menu_props.dart'
+    show ContextMenuItemProps, ContextMenuProps;
+
+/// A context menu that appears on right-click matching shadcn/ui.
+/// ShadCN Reference: https://ui.shadcn.com/docs/components/context-menu
 ///
 /// Wrap any component with ArcaneContextMenu to add a right-click menu.
 ///
-/// Example:
 /// ```dart
 /// ArcaneContextMenu(
 ///   trigger: ArcaneCard(child: content),
@@ -44,172 +35,31 @@ class ArcaneContextMenu extends StatelessComponent {
     super.key,
   });
 
+  List<ContextMenuItemProps> _convertItems(List<ContextMenuItem> items) {
+    return items.map((item) {
+      if (item.isSeparator) {
+        return const ContextMenuItemProps.separator();
+      }
+      return ContextMenuItemProps(
+        label: item.label,
+        icon: item.icon,
+        onSelect: item.onSelect,
+        destructive: item.destructive,
+        disabled: item.disabled,
+        shortcut: item.shortcut,
+        submenu:
+            item.submenu != null ? _convertItems(item.submenu!) : null,
+      );
+    }).toList();
+  }
+
   @override
   Component build(BuildContext context) {
-    return div(
-      classes: 'arcane-context-menu-trigger',
-      attributes: {
-        'data-context-menu': 'true',
-      },
-      styles: const Styles(raw: {
-        'display': 'contents',
-      }),
-      [
-        trigger,
-        // Hidden menu template
-        div(
-          classes: 'arcane-context-menu',
-          attributes: {
-            'role': 'menu',
-            'aria-hidden': 'true',
-          },
-          styles: const Styles(raw: {
-            'display': 'none',
-            'position': 'fixed',
-            'z-index': '9999',
-            'min-width': '180px',
-            'padding': ArcaneSpacing.xs,
-            'background-color': ArcaneColors.surface,
-            'border': '1px solid ${ArcaneColors.border}',
-            'border-radius': ArcaneRadius.md,
-            'box-shadow': ArcaneEffects.shadowLg,
-          }),
-          [
-            for (final item in items) _buildMenuItem(item),
-          ],
-        ),
-      ],
-    );
+    return context.renderers.contextMenu(ContextMenuProps(
+      trigger: trigger,
+      items: _convertItems(items),
+    ));
   }
-
-  Component _buildMenuItem(ContextMenuItem item) {
-    if (item.isSeparator) {
-      return const div(
-        classes: 'arcane-context-menu-separator',
-        styles: Styles(raw: {
-          'height': '1px',
-          'margin': '${ArcaneSpacing.xs} 0',
-          'background-color': ArcaneColors.border,
-        }),
-        [],
-      );
-    }
-
-    if (item.submenu != null && item.submenu!.isNotEmpty) {
-      return div(
-        classes: 'arcane-context-menu-item arcane-context-menu-submenu-trigger ${item.disabled ? 'disabled' : ''}',
-        attributes: {
-          'role': 'menuitem',
-          'aria-haspopup': 'true',
-          if (item.disabled) 'aria-disabled': 'true',
-        },
-        styles: Styles(raw: {
-          'display': 'flex',
-          'align-items': 'center',
-          'gap': ArcaneSpacing.sm,
-          'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
-          'border-radius': ArcaneRadius.sm,
-          'cursor': item.disabled ? 'not-allowed' : 'pointer',
-          'transition': ArcaneEffects.transitionFast,
-          'position': 'relative',
-          if (item.disabled) 'opacity': '0.5',
-        }),
-        [
-          if (item.icon != null) item.icon!,
-          span(
-            styles: Styles(raw: {
-              'flex': '1',
-              'font-size': ArcaneTypography.fontSm,
-              'color': item.destructive
-                  ? ArcaneColors.error
-                  : ArcaneColors.onSurface,
-            }),
-            [Component.text(item.label)],
-          ),
-          const span(
-            styles: Styles(raw: {
-              'color': ArcaneColors.mutedForeground,
-              'font-size': ArcaneTypography.fontXs,
-            }),
-            [Component.text('▶')],
-          ),
-          // Submenu
-          div(
-            classes: 'arcane-context-menu-submenu',
-            styles: const Styles(raw: {
-              'display': 'none',
-              'position': 'absolute',
-              'left': '100%',
-              'top': '0',
-              'min-width': '160px',
-              'padding': ArcaneSpacing.xs,
-              'background-color': ArcaneColors.surface,
-              'border': '1px solid ${ArcaneColors.border}',
-              'border-radius': ArcaneRadius.md,
-              'box-shadow': ArcaneEffects.shadowLg,
-            }),
-            [
-              for (final subitem in item.submenu!) _buildMenuItem(subitem),
-            ],
-          ),
-        ],
-      );
-    }
-
-    return div(
-      classes: 'arcane-context-menu-item ${item.disabled ? 'disabled' : ''} ${item.destructive ? 'destructive' : ''}',
-      attributes: {
-        'role': 'menuitem',
-        if (item.disabled) 'aria-disabled': 'true',
-        if (item.shortcut != null) 'data-shortcut': item.shortcut!,
-      },
-      styles: Styles(raw: {
-        'display': 'flex',
-        'align-items': 'center',
-        'gap': ArcaneSpacing.sm,
-        'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
-        'border-radius': ArcaneRadius.sm,
-        'cursor': item.disabled ? 'not-allowed' : 'pointer',
-        'transition': ArcaneEffects.transitionFast,
-        if (item.disabled) 'opacity': '0.5',
-      }),
-      [
-        if (item.icon != null) item.icon!,
-        span(
-          styles: Styles(raw: {
-            'flex': '1',
-            'font-size': ArcaneTypography.fontSm,
-            'color':
-                item.destructive ? ArcaneColors.error : ArcaneColors.onSurface,
-          }),
-          [Component.text(item.label)],
-        ),
-        if (item.shortcut != null)
-          span(
-            styles: const Styles(raw: {
-              'font-size': ArcaneTypography.fontXs,
-              'color': ArcaneColors.mutedForeground,
-            }),
-            [Component.text(item.shortcut!)],
-          ),
-      ],
-    );
-  }
-
-  @css
-  static final List<StyleRule> styles = [
-    css('.arcane-context-menu-item:hover:not(.disabled)').styles(raw: {
-      'background-color': ArcaneColors.surfaceVariant,
-    }),
-    css('.arcane-context-menu-item.destructive:hover:not(.disabled)')
-        .styles(raw: {
-      'background-color': 'rgba(239, 68, 68, 0.1)',
-    }),
-    css('.arcane-context-menu-submenu-trigger:hover .arcane-context-menu-submenu')
-        .styles(raw: {
-      'display': 'block',
-    }),
-  ];
 }
 
 /// A context menu item
@@ -229,7 +79,7 @@ class ContextMenuItem {
   /// Whether this item is disabled
   final bool disabled;
 
-  /// Keyboard shortcut hint (e.g., "⌘C")
+  /// Keyboard shortcut hint (e.g., "Cmd+C")
   final String? shortcut;
 
   /// Submenu items

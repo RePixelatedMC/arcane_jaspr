@@ -1,30 +1,16 @@
 import 'dart:async';
 
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart'
-    hide
-        Color,
-        Colors,
-        ColorScheme,
-        Gap,
-        Padding,
-        TextAlign,
-        TextOverflow,
-        Border,
-        BorderRadius,
-        BoxShadow,
-        FontWeight;
 
-import 'package:jaspr_lucide/jaspr_lucide.dart' hide Factory, Target, Key, List, Timer, View, Map;
-
-import '../../util/tokens/tokens.dart';
-import 'toast_types.dart';
+import '../../core/theme_provider.dart';
 import 'toast_manager.dart';
 
-export 'toast_types.dart';
+// Re-export for backwards compatibility
+export '../../core/props/toast_props.dart' show ToastVariant, ToastPosition, ToastAction;
 export 'toast_manager.dart';
 
-/// A toast notification component.
+/// A toast notification component matching shadcn/ui Sonner.
+/// ShadCN Reference: https://ui.shadcn.com/docs/components/toast
 ///
 /// Can be used standalone or with the global [toast] API.
 ///
@@ -115,40 +101,6 @@ class ArcaneToast extends StatefulComponent {
 
   @override
   State<ArcaneToast> createState() => _ArcaneToastState();
-
-  @css
-  static final List<StyleRule> styles = [
-    // Entry animation
-    css('@keyframes arcane-toast-enter').styles(raw: {
-      '0%': 'opacity: 0; transform: translateY(16px) scale(0.95)',
-      '100%': 'opacity: 1; transform: translateY(0) scale(1)',
-    }),
-    // Exit animation
-    css('@keyframes arcane-toast-exit').styles(raw: {
-      '0%': 'opacity: 1; transform: translateY(0) scale(1)',
-      '100%': 'opacity: 0; transform: translateY(-16px) scale(0.95)',
-    }),
-    // Spinner animation
-    css('@keyframes arcane-toast-spin').styles(raw: {
-      '0%': 'transform: rotate(0deg)',
-      '100%': 'transform: rotate(360deg)',
-    }),
-    // Progress bar animation
-    css('@keyframes arcane-toast-progress').styles(raw: {
-      '0%': 'width: 100%',
-      '100%': 'width: 0%',
-    }),
-    // Hover effects
-    css('.arcane-toast:hover .arcane-toast-close').styles(raw: {
-      'opacity': '1',
-    }),
-    css('.arcane-toast-close:hover').styles(raw: {
-      'background': 'rgba(255, 255, 255, 0.1)',
-    }),
-    css('.arcane-toast-action:hover').styles(raw: {
-      'opacity': '0.8',
-    }),
-  ];
 }
 
 class _ArcaneToastState extends State<ArcaneToast> {
@@ -219,243 +171,26 @@ class _ArcaneToastState extends State<ArcaneToast> {
     _startExitAnimation();
   }
 
-  Component _buildIcon() {
-    if (component.icon != null) {
-      return component.icon!;
-    }
-
-    final iconWidget = switch (component.variant) {
-      ToastVariant.success => CircleCheck(width: const Unit.pixels(20), height: const Unit.pixels(20)),
-      ToastVariant.error => CircleX(width: const Unit.pixels(20), height: const Unit.pixels(20)),
-      ToastVariant.warning => TriangleAlert(width: const Unit.pixels(20), height: const Unit.pixels(20)),
-      ToastVariant.info => Info(width: const Unit.pixels(20), height: const Unit.pixels(20)),
-      ToastVariant.loading => Loader(width: const Unit.pixels(20), height: const Unit.pixels(20)),
-    };
-
-    final isLoading = component.variant == ToastVariant.loading;
-
-    return div(
-      styles: Styles(raw: {
-        'color': _getIconColor(),
-        if (isLoading) 'animation': 'arcane-toast-spin 1s linear infinite',
-      }),
-      [iconWidget],
-    );
-  }
-
-  String _getIconColor() {
-    return switch (component.variant) {
-      ToastVariant.success => ArcaneColors.success,
-      ToastVariant.error => ArcaneColors.error,
-      ToastVariant.warning => ArcaneColors.warning,
-      ToastVariant.info => ArcaneColors.info,
-      ToastVariant.loading => ArcaneColors.accent,
-    };
-  }
-
-  String _getBorderColor() {
-    return switch (component.variant) {
-      ToastVariant.success => ArcaneColors.successAlpha30,
-      ToastVariant.error => ArcaneColors.errorAlpha30,
-      ToastVariant.warning => ArcaneColors.warningAlpha30,
-      ToastVariant.info => ArcaneColors.infoAlpha30,
-      ToastVariant.loading => ArcaneColors.border,
-    };
-  }
-
-  String _getBackgroundColor() {
-    return switch (component.variant) {
-      ToastVariant.success => ArcaneColors.successAlpha05,
-      ToastVariant.error => ArcaneColors.errorAlpha05,
-      ToastVariant.warning => ArcaneColors.warningAlpha05,
-      ToastVariant.info => ArcaneColors.infoAlpha05,
-      ToastVariant.loading => ArcaneColors.surface,
-    };
-  }
-
-  String _getProgressColor() {
-    return switch (component.variant) {
-      ToastVariant.success => ArcaneColors.success,
-      ToastVariant.error => ArcaneColors.error,
-      ToastVariant.warning => ArcaneColors.warning,
-      ToastVariant.info => ArcaneColors.info,
-      ToastVariant.loading => ArcaneColors.accent,
-    };
-  }
-
   @override
   Component build(BuildContext context) {
-    return div(
-      classes: 'arcane-toast arcane-toast-${component.variant.name}',
-      id: component.id != null ? 'toast-${component.id}' : null,
-      attributes: {
-        'role': 'alert',
-        'aria-live':
-            component.variant == ToastVariant.error ? 'assertive' : 'polite',
-        'aria-atomic': 'true',
-        'data-variant': component.variant.name,
-        'data-duration': '${component.duration}',
-        'data-dismissible': '${component.dismissible}',
-        'data-position': component.position.name,
-      },
-      styles: Styles(raw: {
-        'display': 'flex',
-        'align-items': 'flex-start',
-        'gap': ArcaneSpacing.sm,
-        'padding': ArcaneSpacing.md,
-        'background': _getBackgroundColor(),
-        'border': '1px solid ${_getBorderColor()}',
-        'border-radius': ArcaneRadius.lg,
-        'box-shadow': ArcaneEffects.shadowLg,
-        'min-width': '320px',
-        'max-width': '420px',
-        'pointer-events': 'auto',
-        'position': 'relative',
-        'overflow': 'hidden',
-        'backdrop-filter': 'blur(8px)',
-        'transition': 'all 200ms cubic-bezier(0.4, 0, 0.2, 1)',
-        'animation': _isExiting
-            ? 'arcane-toast-exit 200ms cubic-bezier(0.4, 0, 1, 1) forwards'
-            : 'arcane-toast-enter 300ms cubic-bezier(0, 0, 0.2, 1) forwards',
-      }),
-      events: {
-        'mouseenter': (_) => _onMouseEnter(),
-        'mouseleave': (_) => _onMouseLeave(),
-      },
-      [
-        // Icon
-        div(
-          classes: 'arcane-toast-icon',
-          styles: const Styles(raw: {
-            'display': 'flex',
-            'align-items': 'center',
-            'justify-content': 'center',
-            'width': '20px',
-            'height': '20px',
-            'flex-shrink': '0',
-            'margin-top': '2px',
-          }),
-          [_buildIcon()],
-        ),
-
-        // Content
-        div(
-          classes: 'arcane-toast-content',
-          styles: const Styles(raw: {
-            'flex': '1',
-            'min-width': '0',
-            'display': 'flex',
-            'flex-direction': 'column',
-            'gap': '2px',
-          }),
-          [
-            if (component.title != null)
-              span(
-                classes: 'arcane-toast-title',
-                styles: const Styles(raw: {
-                  'font-weight': ArcaneTypography.weightSemibold,
-                  'font-size': ArcaneTypography.fontSm,
-                  'color': ArcaneColors.onSurface,
-                  'line-height': '1.4',
-                }),
-                [Component.text(component.title!)],
-              ),
-            span(
-              classes: 'arcane-toast-message',
-              styles: Styles(raw: {
-                'font-size': ArcaneTypography.fontSm,
-                'color': component.title != null
-                    ? ArcaneColors.muted
-                    : ArcaneColors.onSurface,
-                'line-height': '1.5',
-              }),
-              [Component.text(component.message)],
-            ),
-            if (component.description != null)
-              span(
-                classes: 'arcane-toast-description',
-                styles: const Styles(raw: {
-                  'font-size': ArcaneTypography.fontXs,
-                  'color': ArcaneColors.mutedForeground,
-                  'line-height': '1.5',
-                  'margin-top': '4px',
-                }),
-                [Component.text(component.description!)],
-              ),
-            if (component.action != null)
-              div(
-                styles: const Styles(raw: {'margin-top': ArcaneSpacing.sm}),
-                [
-                  button(
-                    classes: 'arcane-toast-action',
-                    attributes: {'type': 'button'},
-                    styles: Styles(raw: {
-                      'display': 'inline-flex',
-                      'align-items': 'center',
-                      'padding': '${ArcaneSpacing.xs} ${ArcaneSpacing.sm}',
-                      'font-size': ArcaneTypography.fontXs,
-                      'font-weight': ArcaneTypography.weightMedium,
-                      'color': component.action!.destructive
-                          ? ArcaneColors.error
-                          : ArcaneColors.accent,
-                      'background': 'transparent',
-                      'border':
-                          '1px solid ${component.action!.destructive ? ArcaneColors.errorAlpha30 : ArcaneColors.border}',
-                      'border-radius': ArcaneRadius.sm,
-                      'cursor': 'pointer',
-                      'transition': ArcaneEffects.transitionFast,
-                    }),
-                    events: {'click': (_) => component.action!.onPressed()},
-                    [Component.text(component.action!.label)],
-                  ),
-                ],
-              ),
-          ],
-        ),
-
-        // Close button
-        if (component.dismissible)
-          button(
-            classes: 'arcane-toast-close',
-            attributes: {'type': 'button', 'aria-label': 'Dismiss'},
-            styles: const Styles(raw: {
-              'display': 'flex',
-              'align-items': 'center',
-              'justify-content': 'center',
-              'width': '24px',
-              'height': '24px',
-              'padding': '0',
-              'border': 'none',
-              'background': 'transparent',
-              'color': ArcaneColors.mutedForeground,
-              'cursor': 'pointer',
-              'border-radius': ArcaneRadius.sm,
-              'transition': ArcaneEffects.transitionFast,
-              'flex-shrink': '0',
-              'opacity': '0.7',
-            }),
-            events: {'click': (_) => _onDismissClick()},
-            [X(width: const Unit.pixels(16), height: const Unit.pixels(16))],
-          ),
-
-        // Progress bar
-        if (component.duration > 0 && !_isHovered && !_isExiting)
-          div(
-            classes: 'arcane-toast-progress',
-            styles: Styles(raw: {
-              'position': 'absolute',
-              'bottom': '0',
-              'left': '0',
-              'height': '2px',
-              'background': _getProgressColor(),
-              'border-radius': '0 0 0 ${ArcaneRadius.lg}',
-              'animation':
-                  'arcane-toast-progress ${component.duration}ms linear forwards',
-            }),
-            [],
-          ),
-      ],
-    );
+    // Delegate rendering to the current stylesheet's toast renderer
+    return context.renderers.toast(ToastProps(
+      message: component.message,
+      title: component.title,
+      description: component.description,
+      variant: component.variant,
+      position: component.position,
+      duration: component.duration,
+      dismissible: component.dismissible,
+      action: component.action,
+      icon: component.icon,
+      id: component.id,
+      isExiting: _isExiting,
+      isHovered: _isHovered,
+      onMouseEnter: _onMouseEnter,
+      onMouseLeave: _onMouseLeave,
+      onDismiss: _onDismissClick,
+    ));
   }
 }
 
@@ -500,90 +235,33 @@ class _ToastContainerState extends State<_ToastContainer> {
     setState(() {});
   }
 
-  Map<String, String> _getPositionStyles() {
-    final offset = '${component.offset}px';
-
-    return switch (component.position) {
-      ToastPosition.topLeft => {
-          'top': offset,
-          'left': offset,
-          'align-items': 'flex-start',
-          'flex-direction': 'column',
-        },
-      ToastPosition.topCenter => {
-          'top': offset,
-          'left': '50%',
-          'transform': 'translateX(-50%)',
-          'align-items': 'center',
-          'flex-direction': 'column',
-        },
-      ToastPosition.topRight => {
-          'top': offset,
-          'right': offset,
-          'align-items': 'flex-end',
-          'flex-direction': 'column',
-        },
-      ToastPosition.bottomLeft => {
-          'bottom': offset,
-          'left': offset,
-          'align-items': 'flex-start',
-          'flex-direction': 'column-reverse',
-        },
-      ToastPosition.bottomCenter => {
-          'bottom': offset,
-          'left': '50%',
-          'transform': 'translateX(-50%)',
-          'align-items': 'center',
-          'flex-direction': 'column-reverse',
-        },
-      ToastPosition.bottomRight => {
-          'bottom': offset,
-          'right': offset,
-          'align-items': 'flex-end',
-          'flex-direction': 'column-reverse',
-        },
-    };
-  }
-
   @override
   Component build(BuildContext context) {
     final toasts = ToastManager.instance.toasts.take(component.maxVisible);
 
-    return div(
-      classes: 'arcane-toaster',
-      attributes: {
-        'role': 'region',
-        'aria-label': 'Notifications',
-        'data-position': component.position.name,
-      },
-      styles: Styles(raw: {
-        'position': 'fixed',
-        'z-index': ArcaneZIndex.toast,
-        'display': 'flex',
-        'gap': '${component.gap}px',
-        'pointer-events': 'none',
-        'max-height': 'calc(100vh - 40px)',
-        'overflow': 'visible',
-        ..._getPositionStyles(),
-      }),
-      [
-        for (final data in toasts)
-          ArcaneToast(
-            key: ValueKey(data.id),
-            id: data.id,
-            message: data.message,
-            title: data.title,
-            description: data.description,
-            variant: data.variant,
-            duration: data.duration,
-            dismissible: data.dismissible,
-            action: data.action,
-            icon: data.icon,
-            position: data.position,
-            onClose: () => ToastManager.instance.dismiss(data.id),
-          ),
-      ],
-    );
+    // Build ToastProps from ToastData
+    final toastPropsList = toasts.map((data) => ToastProps(
+      message: data.message,
+      title: data.title,
+      description: data.description,
+      variant: data.variant,
+      position: data.position,
+      duration: data.duration,
+      dismissible: data.dismissible,
+      action: data.action,
+      icon: data.icon,
+      id: data.id,
+    )).toList();
+
+    // We still render individual ArcaneToast components for state management
+    // The container just positions them
+    return context.renderers.toastContainer(ToastContainerProps(
+      position: component.position,
+      maxVisible: component.maxVisible,
+      gap: component.gap,
+      offset: component.offset,
+      toasts: toastPropsList,
+    ));
   }
 }
 

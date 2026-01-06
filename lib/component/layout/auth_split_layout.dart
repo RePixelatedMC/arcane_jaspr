@@ -54,10 +54,10 @@ class AuthSplitLayout extends StatelessComponent {
         'display': 'flex',
         'flex-direction': 'column',
         'justify-content': 'center',
-        'padding': ArcaneSpacing.xxxl,
+        'padding': '3rem',
         'position': 'relative',
         'overflow': 'hidden',
-        'background': ArcaneColors.backgroundSecondary,
+        'background': 'var(--muted)',
       }),
       classes: 'auth-branding-panel',
       [
@@ -77,8 +77,7 @@ class AuthSplitLayout extends StatelessComponent {
                 'left': '-10%',
                 'width': '60%',
                 'height': '60%',
-                'background':
-                    'radial-gradient(circle, ${ArcaneColors.accentContainer} 0%, transparent 70%)',
+                'background': 'radial-gradient(circle, hsl(var(--accent) / 0.2) 0%, transparent 70%)',
               }),
               [],
             ),
@@ -90,8 +89,7 @@ class AuthSplitLayout extends StatelessComponent {
                 'right': '-10%',
                 'width': '50%',
                 'height': '50%',
-                'background':
-                    'radial-gradient(circle, ${ArcaneColors.secondaryGlow} 0%, transparent 70%)',
+                'background': 'radial-gradient(circle, hsl(var(--secondary) / 0.15) 0%, transparent 70%)',
               }),
               [],
             ),
@@ -100,8 +98,7 @@ class AuthSplitLayout extends StatelessComponent {
               styles: Styles(raw: {
                 'position': 'absolute',
                 'inset': '0',
-                'background-image':
-                    'linear-gradient(${ArcaneColors.onSurfaceAlpha03} 1px, transparent 1px), linear-gradient(90deg, ${ArcaneColors.onSurfaceAlpha03} 1px, transparent 1px)',
+                'background-image': 'linear-gradient(hsl(var(--foreground) / 0.03) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground) / 0.03) 1px, transparent 1px)',
                 'background-size': '40px 40px',
               }),
               [],
@@ -140,7 +137,7 @@ class AuthSplitLayout extends StatelessComponent {
           div(
             styles: const Styles(raw: {
               'display': 'none',
-              'margin-bottom': ArcaneSpacing.xl,
+              'margin-bottom': '1.5rem',
             }),
             classes: 'auth-mobile-header',
             [mobileHeader!],

@@ -1,16 +1,26 @@
 import 'package:arcane_jaspr/aliases.dart';
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight, StyleRule;
+import 'package:jaspr/dom.dart' as dom;
 
-import '../../util/tokens/tokens.dart';
-import '../../util/tokens/style_presets.dart';
+import '../../core/props/icon_button_props.dart';
+import '../../core/theme_provider.dart';
 import 'button.dart';
 
-/// Icon button size variants
-enum IconButtonSize {
-  small,
-  medium,
-  large,
+// Re-export for backwards compatibility
+export '../../core/props/icon_button_props.dart'
+    show IconButtonSize, IconButtonVariant;
+
+/// Style presets for icon buttons.
+///
+/// Maps to IconButtonVariant internally.
+enum IconButtonStyle {
+  primary,
+  secondary,
+  outline,
+  ghost,
+  destructive,
+  success,
+  warning,
 }
 
 /// An icon-only button component.
@@ -108,102 +118,51 @@ class ArcaneIconButton extends StatelessComponent {
   })  : style = IconButtonStyle.destructive,
         variant = null;
 
-  /// Convert legacy variant to style preset
-  IconButtonStyle _variantToStyle(ButtonVariant v) {
+  /// Convert legacy variant to IconButtonVariant for props
+  IconButtonVariant _variantToVariant(ButtonVariant v) {
     return switch (v) {
-      ButtonVariant.primary => IconButtonStyle.primary,
-      ButtonVariant.secondary => IconButtonStyle.secondary,
-      ButtonVariant.outline => IconButtonStyle.outline,
-      ButtonVariant.ghost => IconButtonStyle.ghost,
-      ButtonVariant.destructive => IconButtonStyle.destructive,
-      ButtonVariant.success => IconButtonStyle.success,
-      ButtonVariant.warning => IconButtonStyle.warning,
-      ButtonVariant.link => IconButtonStyle.ghost,
+      ButtonVariant.primary => IconButtonVariant.primary,
+      ButtonVariant.secondary => IconButtonVariant.secondary,
+      ButtonVariant.outline => IconButtonVariant.outline,
+      ButtonVariant.ghost => IconButtonVariant.ghost,
+      ButtonVariant.destructive => IconButtonVariant.destructive,
+      ButtonVariant.success => IconButtonVariant.success,
+      ButtonVariant.warning => IconButtonVariant.warning,
+      ButtonVariant.info => IconButtonVariant.primary, // Map info to primary
+      ButtonVariant.link => IconButtonVariant.ghost,
+    };
+  }
+
+  /// Convert IconButtonStyle to IconButtonVariant for props
+  IconButtonVariant _styleToVariant(IconButtonStyle s) {
+    return switch (s) {
+      IconButtonStyle.primary => IconButtonVariant.primary,
+      IconButtonStyle.secondary => IconButtonVariant.secondary,
+      IconButtonStyle.outline => IconButtonVariant.outline,
+      IconButtonStyle.ghost => IconButtonVariant.ghost,
+      IconButtonStyle.destructive => IconButtonVariant.destructive,
+      IconButtonStyle.success => IconButtonVariant.success,
+      IconButtonStyle.warning => IconButtonVariant.warning,
     };
   }
 
   @override
   Component build(BuildContext context) {
-    final isDisabled = disabled || loading;
+    // Resolve variant from style or legacy variant
+    final IconButtonVariant effectiveVariant = style != null
+        ? _styleToVariant(style!)
+        : (variant != null ? _variantToVariant(variant!) : IconButtonVariant.ghost);
 
-    // Resolve effective style
-    final effectiveStyle = style ??
-        (variant != null ? _variantToStyle(variant!) : IconButtonStyle.ghost);
-
-    // Get size-specific dimensions
-    final (dimension, iconSize) = switch (size) {
-      IconButtonSize.small => (28.0, 14.0),
-      IconButtonSize.medium => (36.0, 18.0),
-      IconButtonSize.large => (44.0, 22.0),
-    };
-
-    return button(
-      classes: 'arcane-icon-button ${isDisabled ? 'disabled' : ''}',
-      attributes: {
-        if (isDisabled) 'disabled': 'true',
-        'type': 'button',
-        if (tooltip != null) 'title': tooltip!,
-        if (tooltip != null) 'aria-label': tooltip!,
-      },
-      styles: Styles(raw: {
-        // Layout
-        'display': 'inline-flex',
-        'align-items': 'center',
-        'justify-content': 'center',
-        'width': '${dimension}px',
-        'height': '${dimension}px',
-        'flex-shrink': '0',
-
-        // Appearance from style preset
-        ...effectiveStyle.base,
-
-        // Shape
-        'border-radius': ArcaneRadius.md,
-
-        // Interaction
-        'cursor': isDisabled ? 'not-allowed' : 'pointer',
-        'opacity': isDisabled ? '0.5' : '1',
-        'transition': ArcaneEffects.transitionFast,
-      }),
-      events: {
-        'click': (event) {
-          if (!isDisabled && onPressed != null) {
-            onPressed!();
-          }
-        },
-      },
-      [
-        if (loading)
-          _buildSpinner(iconSize)
-        else
-          div(
-            styles: Styles(raw: {
-              'width': '${iconSize}px',
-              'height': '${iconSize}px',
-              'display': 'flex',
-              'align-items': 'center',
-              'justify-content': 'center',
-            }),
-            [icon],
-          ),
-      ],
-    );
-  }
-
-  Component _buildSpinner(double size) {
-    return span(
-      classes: 'arcane-icon-button-spinner',
-      styles: Styles(raw: {
-        'display': 'inline-block',
-        'width': '${size}px',
-        'height': '${size}px',
-        'border': '2px solid currentColor',
-        'border-right-color': ArcaneColors.transparent,
-        'border-radius': ArcaneRadius.full,
-        'animation': 'arcane-spin 0.75s linear infinite',
-      }),
-      [],
-    );
+    // Delegate to the current stylesheet's icon button renderer
+    return context.renderers.iconButton(IconButtonProps(
+      icon: icon,
+      onPressed: onPressed,
+      variant: effectiveVariant,
+      size: size,
+      disabled: disabled,
+      loading: loading,
+      tooltip: tooltip,
+    ));
   }
 }
 
@@ -232,14 +191,12 @@ class ArcaneCloseButton extends StatelessComponent {
   }
 
   Component _buildCloseIcon() {
-    return span(
-      styles: const Styles(
-          raw: {
+    return dom.span(
+      styles: const dom.Styles(raw: {
         'font-size': '1.25em',
         'line-height': '1',
-
       }),
-      [text('×')],
+      [Component.text('\u00D7')],
     );
   }
 }

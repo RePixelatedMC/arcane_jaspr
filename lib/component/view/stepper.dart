@@ -13,8 +13,6 @@ import 'package:jaspr/dom.dart'
         BoxShadow,
         FontWeight;
 
-import '../../util/tokens/tokens.dart';
-
 /// Steps layout options
 enum StepsLayout {
   /// Vertical layout with numbers on the left
@@ -152,9 +150,9 @@ class ArcaneSteps extends StatelessComponent {
       };
 
   String get _numberSize => switch (size) {
-        StepsSize.sm => ArcaneTypography.fontSm,
-        StepsSize.md => ArcaneTypography.fontMd,
-        StepsSize.lg => ArcaneTypography.fontLg,
+        StepsSize.sm => '0.875rem',
+        StepsSize.md => '1rem',
+        StepsSize.lg => '1.125rem',
       };
 
   StepStatus _getEffectiveStatus(int index) {
@@ -197,9 +195,9 @@ class ArcaneSteps extends StatelessComponent {
       classes: 'arcane-steps-item',
       styles: Styles(raw: {
         'display': 'flex',
-        'gap': ArcaneSpacing.lg,
+        'gap': '1.5rem',
         'position': 'relative',
-        'padding-bottom': isLast ? '0' : ArcaneSpacing.xl,
+        'padding-bottom': isLast ? '0' : '2rem',
       }),
       [
         // Number indicator and connector column
@@ -220,10 +218,10 @@ class ArcaneSteps extends StatelessComponent {
                 styles: Styles(raw: {
                   'width': _connectorSize,
                   'flex': '1',
-                  'min-height': ArcaneSpacing.lg,
+                  'min-height': '1.5rem',
                   'background': status == StepStatus.complete
                       ? colors['line']!
-                      : ArcaneColors.border,
+                      : 'var(--border)',
                   'position': 'absolute',
                   'top': _indicatorSize,
                   'bottom': '0',
@@ -294,8 +292,8 @@ class ArcaneSteps extends StatelessComponent {
                   'height': _connectorSize,
                   'background': status == StepStatus.complete
                       ? colors['line']!
-                      : ArcaneColors.border,
-                  'margin': '0 ${ArcaneSpacing.sm}',
+                      : 'var(--border)',
+                  'margin': '0 0.5rem',
                 }),
                 [],
               ),
@@ -304,9 +302,9 @@ class ArcaneSteps extends StatelessComponent {
         // Content below
         div(
           styles: const Styles(raw: {
-            'margin-top': ArcaneSpacing.md,
+            'margin-top': '1rem',
             'text-align': 'center',
-            'padding-right': ArcaneSpacing.sm,
+            'padding-right': '0.5rem',
           }),
           [
             _buildContent(step, status, colors, centered: true),
@@ -329,19 +327,19 @@ class ArcaneSteps extends StatelessComponent {
       styles: Styles(raw: {
         'width': _indicatorSize,
         'height': _indicatorSize,
-        'border-radius': ArcaneRadius.full,
-        'background': isFilled ? colors['bg']! : ArcaneColors.background,
+        'border-radius': '9999px',
+        'background': isFilled ? colors['bg']! : 'var(--background)',
         'border': '2px solid ${colors['border']!}',
         'display': 'flex',
         'align-items': 'center',
         'justify-content': 'center',
         'font-size': _numberSize,
-        'font-weight': ArcaneTypography.weightSemibold,
+        'font-weight': '600',
         'color': isFilled ? colors['text']! : colors['border']!,
         'flex-shrink': '0',
         'z-index': '1',
         'cursor': isClickable ? 'pointer' : 'default',
-        'transition': ArcaneEffects.transitionFast,
+        'transition': 'all 150ms ease',
         'padding': '0',
       }),
       events: isClickable
@@ -373,13 +371,13 @@ class ArcaneSteps extends StatelessComponent {
         // Title
         div(
           styles: Styles(raw: {
-            'font-size': ArcaneTypography.fontMd,
-            'font-weight': ArcaneTypography.weightSemibold,
+            'font-size': '1rem',
+            'font-weight': '600',
             'color': status == StepStatus.pending
-                ? ArcaneColors.muted
-                : ArcaneColors.onSurface,
+                ? 'var(--muted)'
+                : 'var(--foreground)',
             'margin-bottom': step.description != null || step.content != null
-                ? ArcaneSpacing.xs
+                ? '0.25rem'
                 : '0',
           }),
           [text(step.title)],
@@ -388,9 +386,9 @@ class ArcaneSteps extends StatelessComponent {
         if (step.description != null)
           div(
             styles: const Styles(raw: {
-              'font-size': ArcaneTypography.fontSm,
-              'color': ArcaneColors.mutedForeground,
-              'line-height': ArcaneTypography.leadingNormal,
+              'font-size': '0.875rem',
+              'color': 'var(--muted-foreground)',
+              'line-height': '1.5',
             }),
             [text(step.description!)],
           ),
@@ -398,7 +396,7 @@ class ArcaneSteps extends StatelessComponent {
         if (step.content != null)
           div(
             styles: const Styles(raw: {
-              'margin-top': ArcaneSpacing.sm,
+              'margin-top': '0.5rem',
             }),
             [step.content!],
           ),
@@ -409,22 +407,22 @@ class ArcaneSteps extends StatelessComponent {
   Map<String, String> _getStatusColors(StepStatus status) {
     return switch (status) {
       StepStatus.complete => {
-          'bg': ArcaneColors.success,
-          'border': ArcaneColors.success,
-          'text': ArcaneColors.background,
-          'line': ArcaneColors.success,
+          'bg': 'hsl(142 76% 36%)',
+          'border': 'hsl(142 76% 36%)',
+          'text': 'var(--background)',
+          'line': 'hsl(142 76% 36%)',
         },
       StepStatus.current => {
-          'bg': ArcaneColors.accent,
-          'border': ArcaneColors.accent,
-          'text': ArcaneColors.background,
-          'line': ArcaneColors.accent,
+          'bg': 'var(--accent)',
+          'border': 'var(--accent)',
+          'text': 'var(--background)',
+          'line': 'var(--accent)',
         },
       StepStatus.pending => {
           'bg': 'transparent',
-          'border': ArcaneColors.border,
-          'text': ArcaneColors.mutedForeground,
-          'line': ArcaneColors.border,
+          'border': 'var(--border)',
+          'text': 'var(--muted-foreground)',
+          'line': 'var(--border)',
         },
     };
   }

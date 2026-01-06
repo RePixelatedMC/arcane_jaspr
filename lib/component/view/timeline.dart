@@ -13,8 +13,6 @@ import 'package:jaspr/dom.dart'
         BoxShadow,
         FontWeight;
 
-import '../../util/tokens/tokens.dart';
-
 /// Timeline layout options
 enum TimelineLayout {
   /// Vertical layout with content on the right
@@ -164,9 +162,9 @@ class ArcaneTimeline extends StatelessComponent {
       };
 
   String get _iconSize => switch (size) {
-        TimelineSize.sm => ArcaneTypography.fontXs,
-        TimelineSize.md => ArcaneTypography.fontSm,
-        TimelineSize.lg => ArcaneTypography.fontMd,
+        TimelineSize.sm => '0.75rem',
+        TimelineSize.md => '0.875rem',
+        TimelineSize.lg => '1rem',
       };
 
   @override
@@ -200,9 +198,9 @@ class ArcaneTimeline extends StatelessComponent {
       classes: 'arcane-timeline-item',
       styles: Styles(raw: {
         'display': 'flex',
-        'gap': ArcaneSpacing.lg,
+        'gap': '1.5rem',
         'position': 'relative',
-        'padding-bottom': isLast ? '0' : ArcaneSpacing.xl,
+        'padding-bottom': isLast ? '0' : '2rem',
       }),
       [
         // Indicator and connector column
@@ -223,10 +221,10 @@ class ArcaneTimeline extends StatelessComponent {
                 styles: Styles(raw: {
                   'width': _connectorWidth,
                   'flex': '1',
-                  'min-height': ArcaneSpacing.lg,
+                  'min-height': '1.5rem',
                   'background': item.status == TimelineStatus.complete
                       ? colors['line']!
-                      : ArcaneColors.border,
+                      : 'var(--border)',
                   'position': 'absolute',
                   'top': _indicatorSize,
                   'bottom': '0',
@@ -296,8 +294,8 @@ class ArcaneTimeline extends StatelessComponent {
                   'height': _connectorWidth,
                   'background': item.status == TimelineStatus.complete
                       ? colors['line']!
-                      : ArcaneColors.border,
-                  'margin': '0 ${ArcaneSpacing.sm}',
+                      : 'var(--border)',
+                  'margin': '0 0.5rem',
                 }),
                 [],
               ),
@@ -306,9 +304,9 @@ class ArcaneTimeline extends StatelessComponent {
         // Content below
         div(
           styles: const Styles(raw: {
-            'margin-top': ArcaneSpacing.md,
+            'margin-top': '1rem',
             'text-align': 'center',
-            'padding-right': ArcaneSpacing.md,
+            'padding-right': '1rem',
           }),
           [
             _buildContent(item, colors, centered: true),
@@ -343,9 +341,9 @@ class ArcaneTimeline extends StatelessComponent {
       styles: Styles(raw: {
         'display': 'grid',
         'grid-template-columns': '1fr auto 1fr',
-        'gap': ArcaneSpacing.lg,
+        'gap': '1.5rem',
         'position': 'relative',
-        'padding-bottom': isLast ? '0' : ArcaneSpacing.xl,
+        'padding-bottom': isLast ? '0' : '2rem',
       }),
       [
         // Left content (shows on even indexes)
@@ -376,10 +374,10 @@ class ArcaneTimeline extends StatelessComponent {
                 styles: Styles(raw: {
                   'width': _connectorWidth,
                   'flex': '1',
-                  'min-height': ArcaneSpacing.lg,
+                  'min-height': '1.5rem',
                   'background': item.status == TimelineStatus.complete
                       ? colors['line']!
-                      : ArcaneColors.border,
+                      : 'var(--border)',
                   'position': 'absolute',
                   'top': _indicatorSize,
                   'bottom': '0',
@@ -414,18 +412,18 @@ class ArcaneTimeline extends StatelessComponent {
       styles: Styles(raw: {
         'width': _indicatorSize,
         'height': _indicatorSize,
-        'border-radius': ArcaneRadius.full,
-        'background': isFilled ? colors['bg']! : ArcaneColors.background,
+        'border-radius': '9999px',
+        'background': isFilled ? colors['bg']! : 'var(--background)',
         'border': '2px solid ${colors['border']!}',
         'display': 'flex',
         'align-items': 'center',
         'justify-content': 'center',
         'font-size': _iconSize,
-        'font-weight': ArcaneTypography.weightSemibold,
+        'font-weight': '600',
         'color': isFilled ? colors['text']! : colors['border']!,
         'flex-shrink': '0',
         'z-index': '1',
-        'transition': ArcaneEffects.transitionFast,
+        'transition': 'all 150ms ease',
       }),
       [
         if (hasCustomIcon)
@@ -439,18 +437,18 @@ class ArcaneTimeline extends StatelessComponent {
             styles: Styles(raw: {
               'width': '8px',
               'height': '8px',
-              'border-radius': ArcaneRadius.full,
+              'border-radius': '9999px',
               'background': colors['text']!,
             }),
             [],
           )
         else
-          const div(
-            styles: Styles(raw: {
+          div(
+            styles: const Styles(raw: {
               'width': '8px',
               'height': '8px',
-              'border-radius': ArcaneRadius.full,
-              'background': ArcaneColors.border,
+              'border-radius': '9999px',
+              'background': 'var(--border)',
             }),
             [],
           ),
@@ -482,25 +480,25 @@ class ArcaneTimeline extends StatelessComponent {
             'display': 'flex',
             'flex-wrap': 'wrap',
             'align-items': 'center',
-            'gap': ArcaneSpacing.sm,
-            'margin-bottom': ArcaneSpacing.xs,
+            'gap': '0.5rem',
+            'margin-bottom': '0.25rem',
           }),
           [
             span(
               styles: Styles(raw: {
-                'font-size': ArcaneTypography.fontMd,
-                'font-weight': ArcaneTypography.weightSemibold,
+                'font-size': '1rem',
+                'font-weight': '600',
                 'color': item.status == TimelineStatus.pending
-                    ? ArcaneColors.muted
-                    : ArcaneColors.onSurface,
+                    ? 'var(--muted-foreground)'
+                    : 'var(--foreground)',
               }),
               [text(item.title)],
             ),
             if (item.date != null)
               span(
                 styles: const Styles(raw: {
-                  'font-size': ArcaneTypography.fontXs,
-                  'color': ArcaneColors.mutedForeground,
+                  'font-size': '0.75rem',
+                  'color': 'var(--muted-foreground)',
                 }),
                 [text(item.date!)],
               ),
@@ -510,9 +508,9 @@ class ArcaneTimeline extends StatelessComponent {
         if (item.subtitle != null)
           div(
             styles: const Styles(raw: {
-              'font-size': ArcaneTypography.fontSm,
-              'color': ArcaneColors.mutedForeground,
-              'margin-bottom': ArcaneSpacing.xs,
+              'font-size': '0.875rem',
+              'color': 'var(--muted-foreground)',
+              'margin-bottom': '0.25rem',
             }),
             [text(item.subtitle!)],
           ),
@@ -520,16 +518,16 @@ class ArcaneTimeline extends StatelessComponent {
         if (item.content != null)
           div(
             styles: const Styles(raw: {
-              'margin-top': ArcaneSpacing.sm,
+              'margin-top': '0.5rem',
             }),
             [item.content!],
           )
         else if (item.description != null)
           div(
             styles: const Styles(raw: {
-              'font-size': ArcaneTypography.fontSm,
-              'color': ArcaneColors.mutedForeground,
-              'line-height': ArcaneTypography.leadingRelaxed,
+              'font-size': '0.875rem',
+              'color': 'var(--muted-foreground)',
+              'line-height': '1.7',
             }),
             [text(item.description!)],
           ),
@@ -540,34 +538,34 @@ class ArcaneTimeline extends StatelessComponent {
   Map<String, String> _getStatusColors(TimelineStatus status) {
     return switch (status) {
       TimelineStatus.complete => {
-          'bg': ArcaneColors.success,
-          'border': ArcaneColors.success,
-          'text': ArcaneColors.background,
-          'line': ArcaneColors.success,
+          'bg': 'hsl(142 76% 36%)',
+          'border': 'hsl(142 76% 36%)',
+          'text': 'var(--background)',
+          'line': 'hsl(142 76% 36%)',
         },
       TimelineStatus.current => {
-          'bg': ArcaneColors.accent,
-          'border': ArcaneColors.accent,
-          'text': ArcaneColors.background,
-          'line': ArcaneColors.accent,
+          'bg': 'var(--accent)',
+          'border': 'var(--accent)',
+          'text': 'var(--background)',
+          'line': 'var(--accent)',
         },
       TimelineStatus.pending => {
           'bg': 'transparent',
-          'border': ArcaneColors.border,
-          'text': ArcaneColors.mutedForeground,
-          'line': ArcaneColors.border,
+          'border': 'var(--border)',
+          'text': 'var(--muted-foreground)',
+          'line': 'var(--border)',
         },
       TimelineStatus.error => {
-          'bg': ArcaneColors.error,
-          'border': ArcaneColors.error,
-          'text': ArcaneColors.background,
-          'line': ArcaneColors.error,
+          'bg': 'var(--destructive)',
+          'border': 'var(--destructive)',
+          'text': 'var(--background)',
+          'line': 'var(--destructive)',
         },
       TimelineStatus.default_ => {
           'bg': 'transparent',
-          'border': ArcaneColors.border,
-          'text': ArcaneColors.mutedForeground,
-          'line': ArcaneColors.border,
+          'border': 'var(--border)',
+          'text': 'var(--muted-foreground)',
+          'line': 'var(--border)',
         },
     };
   }

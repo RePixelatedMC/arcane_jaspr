@@ -2,7 +2,6 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
 import '../../util/arcane.dart';
-import '../../util/tokens/tokens.dart';
 
 /// A list tile component for displaying items in a list.
 class ArcaneTile extends StatelessComponent {
@@ -68,16 +67,16 @@ class ArcaneTile extends StatelessComponent {
       styles: Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
-        'gap': ArcaneSpacing.sm,
+        'gap': '0.5rem',
         'padding': effectivePadding.padding,
         'background-color':
-            selected ? ArcaneColors.accentContainer : ArcaneColors.transparent,
+            selected ? 'hsl(var(--accent) / 0.1)' : 'transparent',
         'cursor': disabled
             ? 'not-allowed'
             : (onTap != null ? 'pointer' : 'default'),
         'opacity': disabled ? '0.5' : '1',
-        'transition': ArcaneEffects.transitionFast,
-        'border-radius': ArcaneRadius.md,
+        'transition': 'all 150ms ease',
+        'border-radius': '0.375rem',
       }),
       events: onTap != null && !disabled
           ? {
@@ -94,7 +93,7 @@ class ArcaneTile extends StatelessComponent {
               'display': 'flex',
               'align-items': 'center',
               'justify-content': 'center',
-              'color': selected ? ArcaneColors.accent : ArcaneColors.mutedForeground,
+              'color': selected ? 'var(--accent)' : 'var(--muted-foreground)',
             }),
             [leading!],
           ),
@@ -107,7 +106,7 @@ class ArcaneTile extends StatelessComponent {
             'min-width': '0',
             'display': 'flex',
             'flex-direction': 'column',
-            'gap': dense ? '2px' : ArcaneSpacing.xs,
+            'gap': dense ? '2px' : '0.25rem',
           }),
           [
             // Title
@@ -117,9 +116,9 @@ class ArcaneTile extends StatelessComponent {
               span(
                 classes: 'arcane-tile-title',
                 styles: Styles(raw: {
-                  'font-size': dense ? ArcaneTypography.fontSm : ArcaneTypography.fontMd,
-                  'font-weight': ArcaneTypography.weightMedium,
-                  'color': selected ? ArcaneColors.accent : ArcaneColors.onSurface,
+                  'font-size': dense ? '0.875rem' : '1rem',
+                  'font-weight': '500',
+                  'color': selected ? 'var(--accent)' : 'var(--foreground)',
                   'white-space': 'nowrap',
                   'overflow': 'hidden',
                   'text-overflow': 'ellipsis',
@@ -134,8 +133,8 @@ class ArcaneTile extends StatelessComponent {
               span(
                 classes: 'arcane-tile-subtitle',
                 styles: Styles(raw: {
-                  'font-size': dense ? ArcaneTypography.fontXs : ArcaneTypography.fontSm,
-                  'color': selected ? ArcaneColors.accent : ArcaneColors.mutedForeground,
+                  'font-size': dense ? '0.75rem' : '0.875rem',
+                  'color': selected ? 'var(--accent)' : 'var(--muted-foreground)',
                   'white-space': 'nowrap',
                   'overflow': 'hidden',
                   'text-overflow': 'ellipsis',
@@ -153,7 +152,7 @@ class ArcaneTile extends StatelessComponent {
               'flex-shrink': '0',
               'display': 'flex',
               'align-items': 'center',
-              'color': selected ? ArcaneColors.accent : ArcaneColors.mutedForeground,
+              'color': selected ? 'var(--accent)' : 'var(--muted-foreground)',
             }),
             [trailing!],
           ),
@@ -164,10 +163,10 @@ class ArcaneTile extends StatelessComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-tile.clickable:hover:not(.disabled)').styles(raw: {
-      'background-color': ArcaneColors.surfaceVariant,
+      'background-color': 'var(--muted)',
     }),
     css('.arcane-tile.clickable.selected:hover:not(.disabled)').styles(raw: {
-      'background-color': ArcaneColors.accentContainer,
+      'background-color': 'hsl(var(--accent) / 0.1)',
     }),
   ];
 }
@@ -203,22 +202,20 @@ class ArcaneNavTile extends StatelessComponent {
       styles: Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
-        'gap': ArcaneSpacing.sm,
+        'gap': '0.5rem',
         'width': '100%',
-        'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
+        'padding': '0.5rem 1rem',
         'background-color':
-            selected ? ArcaneColors.accentContainer : ArcaneColors.transparent,
-        'color': selected ? ArcaneColors.accent : ArcaneColors.onSurface,
-        'border-radius': ArcaneRadius.md,
+            selected ? 'hsl(var(--accent) / 0.1)' : 'transparent',
+        'color': selected ? 'var(--accent)' : 'var(--foreground)',
+        'border-radius': '0.375rem',
         'border': 'none',
         'cursor': disabled ? 'not-allowed' : 'pointer',
         'opacity': disabled ? '0.5' : '1',
-        'transition': ArcaneEffects.transitionFast,
+        'transition': 'all 150ms ease',
         'text-align': 'left',
-        'font-size': ArcaneTypography.fontMd,
-        'font-weight': selected
-            ? ArcaneTypography.weightSemibold
-            : ArcaneTypography.weightMedium,
+        'font-size': '1rem',
+        'font-weight': selected ? '600' : '500',
       }),
       events: {
         'click': (event) {
@@ -253,12 +250,12 @@ class ArcaneNavTile extends StatelessComponent {
           span(
             classes: 'arcane-nav-tile-badge',
             styles: const Styles(raw: {
-              'background-color': ArcaneColors.accent,
-              'color': ArcaneColors.accentForeground,
-              'font-size': ArcaneTypography.fontXs,
+              'background-color': 'var(--accent)',
+              'color': 'var(--accent-foreground)',
+              'font-size': '0.75rem',
               'padding': '2px 6px',
-              'border-radius': ArcaneRadius.full,
-              'font-weight': ArcaneTypography.weightMedium,
+              'border-radius': '9999px',
+              'font-weight': '500',
             }),
             [text(badge!)],
           ),
@@ -269,7 +266,7 @@ class ArcaneNavTile extends StatelessComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-nav-tile:hover:not(:disabled):not(.selected)').styles(raw: {
-      'background-color': ArcaneColors.surfaceVariant,
+      'background-color': 'var(--muted)',
     }),
   ];
 }

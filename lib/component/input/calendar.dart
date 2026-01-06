@@ -1,19 +1,30 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart'
-    hide
-        Color,
-        Colors,
-        ColorScheme,
-        Gap,
-        Padding,
-        TextAlign,
-        TextOverflow,
-        Border,
-        BorderRadius,
-        BoxShadow,
-        FontWeight;
 
-import '../../util/tokens/tokens.dart';
+import '../../core/theme_provider.dart';
+
+// Re-export props for backwards compatibility
+export '../../core/props/calendar_props.dart'
+    show CalendarModeVariant, DateRangeValue, CalendarProps;
+
+/// Calendar selection mode
+enum CalendarMode {
+  /// Select a single date
+  single,
+
+  /// Select a date range
+  range,
+}
+
+/// A date range
+class DateRange {
+  final DateTime start;
+  final DateTime end;
+
+  const DateRange({
+    required this.start,
+    required this.end,
+  });
+}
 
 /// A calendar component for date selection.
 ///
@@ -83,45 +94,11 @@ class ArcaneCalendar extends StatefulComponent {
 
   @override
   State<ArcaneCalendar> createState() => _ArcaneCalendarState();
-
-  @css
-  static final List<StyleRule> styles = [
-    css('.arcane-calendar-day:hover:not(.disabled):not(.outside)').styles(raw: {
-      'background-color': ArcaneColors.surfaceVariant,
-    }),
-    css('.arcane-calendar-day.selected').styles(raw: {
-      'background-color': ArcaneColors.accent,
-      'color': ArcaneColors.accentForeground,
-    }),
-    css('.arcane-calendar-day.today:not(.selected)').styles(raw: {
-      'border': '1px solid ${ArcaneColors.accent}',
-    }),
-    css('.arcane-calendar-day.in-range').styles(raw: {
-      'background-color': ArcaneColors.accentContainer,
-    }),
-    css('.arcane-calendar-day.range-start').styles(raw: {
-      'border-top-left-radius': ArcaneRadius.md,
-      'border-bottom-left-radius': ArcaneRadius.md,
-    }),
-    css('.arcane-calendar-day.range-end').styles(raw: {
-      'border-top-right-radius': ArcaneRadius.md,
-      'border-bottom-right-radius': ArcaneRadius.md,
-    }),
-    css('.arcane-calendar-nav-btn:hover').styles(raw: {
-      'background-color': ArcaneColors.surfaceVariant,
-    }),
-  ];
 }
 
 class _ArcaneCalendarState extends State<ArcaneCalendar> {
   late DateTime _displayMonth;
   DateTime? _rangeStart;
-
-  static const List<String> _weekDays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
-  static const List<String> _months = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
-  ];
 
   @override
   void initState() {
@@ -159,23 +136,8 @@ class _ArcaneCalendarState extends State<ArcaneCalendar> {
     return false;
   }
 
-  bool _isSelected(DateTime date) {
-    if (component.selected == null) return false;
-    return _isSameDay(date, component.selected!);
-  }
-
-  bool _isToday(DateTime date) {
-    return _isSameDay(date, DateTime.now());
-  }
-
   bool _isSameDay(DateTime a, DateTime b) {
     return a.year == b.year && a.month == b.month && a.day == b.day;
-  }
-
-  bool _isInRange(DateTime date) {
-    if (component.selectedRange == null) return false;
-    return date.isAfter(component.selectedRange!.start.subtract(const Duration(days: 1))) &&
-           date.isBefore(component.selectedRange!.end.add(const Duration(days: 1)));
   }
 
   void _selectDate(DateTime date) {
@@ -195,292 +157,37 @@ class _ArcaneCalendarState extends State<ArcaneCalendar> {
     }
   }
 
-  List<DateTime> _getDaysInMonth() {
-    final days = <DateTime>[];
-    final firstDay = DateTime(_displayMonth.year, _displayMonth.month, 1);
-    final lastDay = DateTime(_displayMonth.year, _displayMonth.month + 1, 0);
+  CalendarModeVariant get _propsMode => switch (component.mode) {
+        CalendarMode.single => CalendarModeVariant.single,
+        CalendarMode.range => CalendarModeVariant.range,
+      };
 
-    // Add days from previous month to fill first week
-    var startWeekday = firstDay.weekday % 7; // Convert to 0-6 (Sun-Sat)
-    if (component.firstDayOfWeek == 1) {
-      startWeekday = (firstDay.weekday - 1) % 7;
-    }
-
-    for (var i = startWeekday - 1; i >= 0; i--) {
-      days.add(firstDay.subtract(Duration(days: i + 1)));
-    }
-
-    // Add days of current month
-    for (var i = 1; i <= lastDay.day; i++) {
-      days.add(DateTime(_displayMonth.year, _displayMonth.month, i));
-    }
-
-    // Add days from next month to complete last week
-    final remaining = 7 - (days.length % 7);
-    if (remaining < 7) {
-      for (var i = 1; i <= remaining; i++) {
-        days.add(DateTime(_displayMonth.year, _displayMonth.month + 1, i));
-      }
-    }
-
-    return days;
-  }
-
-  int _getWeekNumber(DateTime date) {
-    final firstDayOfYear = DateTime(date.year, 1, 1);
-    final dayOfYear = date.difference(firstDayOfYear).inDays + 1;
-    return ((dayOfYear - date.weekday + 10) / 7).floor();
+  DateRangeValue? get _propsSelectedRange {
+    if (component.selectedRange == null) return null;
+    return DateRangeValue(
+      start: component.selectedRange!.start,
+      end: component.selectedRange!.end,
+    );
   }
 
   @override
   Component build(BuildContext context) {
-    final days = _getDaysInMonth();
-    final weekDays = component.firstDayOfWeek == 1
-        ? [..._weekDays.sublist(1), _weekDays[0]]
-        : _weekDays;
-
-    return div(
-      classes: 'arcane-calendar',
-      attributes: {
-        'data-calendar': 'true',
-        'role': 'application',
-        'aria-label': 'Calendar',
-      },
-      styles: const Styles(raw: {
-        'display': 'flex',
-        'flex-direction': 'column',
-        'gap': ArcaneSpacing.sm,
-        'padding': ArcaneSpacing.md,
-        'background-color': ArcaneColors.surface,
-        'border': '1px solid ${ArcaneColors.border}',
-        'border-radius': ArcaneRadius.lg,
-        'width': 'fit-content',
-      }),
-      [
-        // Header with navigation
-        div(
-          styles: const Styles(raw: {
-            'display': 'flex',
-            'align-items': 'center',
-            'justify-content': 'space-between',
-            'gap': ArcaneSpacing.sm,
-          }),
-          [
-            button(
-              classes: 'arcane-calendar-nav-btn',
-              attributes: {
-                'type': 'button',
-                'aria-label': 'Previous month',
-              },
-              styles: const Styles(raw: {
-                'display': 'flex',
-                'align-items': 'center',
-                'justify-content': 'center',
-                'width': '32px',
-                'height': '32px',
-                'background': 'transparent',
-                'border': 'none',
-                'border-radius': ArcaneRadius.sm,
-                'cursor': 'pointer',
-                'color': ArcaneColors.onSurface,
-                'transition': ArcaneEffects.transitionFast,
-              }),
-              events: {'click': (e) => _previousMonth()},
-              [const Component.text('◀')],
-            ),
-            span(
-              styles: const Styles(raw: {
-                'font-weight': ArcaneTypography.weightSemibold,
-                'font-size': ArcaneTypography.fontMd,
-                'color': ArcaneColors.onSurface,
-              }),
-              [Component.text('${_months[_displayMonth.month - 1]} ${_displayMonth.year}')],
-            ),
-            button(
-              classes: 'arcane-calendar-nav-btn',
-              attributes: {
-                'type': 'button',
-                'aria-label': 'Next month',
-              },
-              styles: const Styles(raw: {
-                'display': 'flex',
-                'align-items': 'center',
-                'justify-content': 'center',
-                'width': '32px',
-                'height': '32px',
-                'background': 'transparent',
-                'border': 'none',
-                'border-radius': ArcaneRadius.sm,
-                'cursor': 'pointer',
-                'color': ArcaneColors.onSurface,
-                'transition': ArcaneEffects.transitionFast,
-              }),
-              events: {'click': (e) => _nextMonth()},
-              [const Component.text('▶')],
-            ),
-          ],
-        ),
-
-        // Week day headers
-        div(
-          styles: Styles(raw: {
-            'display': 'grid',
-            'grid-template-columns': component.showWeekNumbers
-                ? 'auto repeat(7, 1fr)'
-                : 'repeat(7, 1fr)',
-            'gap': '2px',
-          }),
-          [
-            if (component.showWeekNumbers)
-              const div(
-                styles: Styles(raw: {
-                  'width': '32px',
-                }),
-                [],
-              ),
-            for (final day in weekDays)
-              div(
-                styles: const Styles(raw: {
-                  'display': 'flex',
-                  'align-items': 'center',
-                  'justify-content': 'center',
-                  'height': '32px',
-                  'font-size': ArcaneTypography.fontXs,
-                  'font-weight': ArcaneTypography.weightMedium,
-                  'color': ArcaneColors.mutedForeground,
-                }),
-                [Component.text(day)],
-              ),
-          ],
-        ),
-
-        // Calendar grid
-        div(
-          styles: Styles(raw: {
-            'display': 'grid',
-            'grid-template-columns': component.showWeekNumbers
-                ? 'auto repeat(7, 1fr)'
-                : 'repeat(7, 1fr)',
-            'gap': '2px',
-          }),
-          [
-            for (var i = 0; i < days.length; i++) ...[
-              // Week number at start of each row
-              if (component.showWeekNumbers && i % 7 == 0)
-                div(
-                  styles: const Styles(raw: {
-                    'display': 'flex',
-                    'align-items': 'center',
-                    'justify-content': 'center',
-                    'width': '32px',
-                    'height': '32px',
-                    'font-size': ArcaneTypography.fontXs,
-                    'color': ArcaneColors.mutedForeground,
-                  }),
-                  [Component.text('${_getWeekNumber(days[i])}')],
-                ),
-              _buildDay(days[i]),
-            ],
-          ],
-        ),
-
-        // Today button
-        if (component.showToday)
-          button(
-            attributes: {
-              'type': 'button',
-            },
-            styles: const Styles(raw: {
-              'padding': '${ArcaneSpacing.xs} ${ArcaneSpacing.sm}',
-              'background': 'transparent',
-              'border': '1px solid ${ArcaneColors.border}',
-              'border-radius': ArcaneRadius.sm,
-              'font-size': ArcaneTypography.fontSm,
-              'color': ArcaneColors.mutedForeground,
-              'cursor': 'pointer',
-              'transition': ArcaneEffects.transitionFast,
-              'align-self': 'center',
-            }),
-            events: {'click': (e) => _goToToday()},
-            [const Component.text('Today')],
-          ),
-      ],
-    );
+    return context.renderers.calendar(CalendarProps(
+      selected: component.selected,
+      displayMonth: _displayMonth,
+      minDate: component.minDate,
+      maxDate: component.maxDate,
+      showWeekNumbers: component.showWeekNumbers,
+      showToday: component.showToday,
+      firstDayOfWeek: component.firstDayOfWeek,
+      mode: _propsMode,
+      selectedRange: _propsSelectedRange,
+      rangeStart: _rangeStart,
+      isDisabled: _isDisabled,
+      onPreviousMonth: _previousMonth,
+      onNextMonth: _nextMonth,
+      onGoToToday: _goToToday,
+      onSelectDate: _selectDate,
+    ));
   }
-
-  Component _buildDay(DateTime date) {
-    final isOutside = date.month != _displayMonth.month;
-    final isDisabled = _isDisabled(date);
-    final isSelected = _isSelected(date);
-    final isToday = _isToday(date);
-    final isInRange = _isInRange(date);
-    final isRangeStart = component.selectedRange != null &&
-        _isSameDay(date, component.selectedRange!.start);
-    final isRangeEnd = component.selectedRange != null &&
-        _isSameDay(date, component.selectedRange!.end);
-
-    final classes = [
-      'arcane-calendar-day',
-      if (isOutside) 'outside',
-      if (isDisabled) 'disabled',
-      if (isSelected) 'selected',
-      if (isToday && component.showToday) 'today',
-      if (isInRange) 'in-range',
-      if (isRangeStart) 'range-start',
-      if (isRangeEnd) 'range-end',
-    ].join(' ');
-
-    return button(
-      classes: classes,
-      attributes: {
-        'type': 'button',
-        'aria-label': '${date.day} ${_months[date.month - 1]} ${date.year}',
-        'aria-selected': '$isSelected',
-        if (isDisabled) 'disabled': 'true',
-      },
-      styles: Styles(raw: {
-        'display': 'flex',
-        'align-items': 'center',
-        'justify-content': 'center',
-        'width': '32px',
-        'height': '32px',
-        'border': 'none',
-        'border-radius': ArcaneRadius.sm,
-        'background': isSelected ? ArcaneColors.accent : 'transparent',
-        'font-size': ArcaneTypography.fontSm,
-        'color': isSelected
-            ? ArcaneColors.accentForeground
-            : isOutside
-                ? ArcaneColors.muted
-                : ArcaneColors.onSurface,
-        'cursor': isDisabled ? 'not-allowed' : 'pointer',
-        'transition': ArcaneEffects.transitionFast,
-        if (isDisabled) 'opacity': '0.5',
-      }),
-      events: {
-        'click': (e) => _selectDate(date),
-      },
-      [Component.text('${date.day}')],
-    );
-  }
-}
-
-/// Calendar selection mode
-enum CalendarMode {
-  /// Select a single date
-  single,
-
-  /// Select a date range
-  range,
-}
-
-/// A date range
-class DateRange {
-  final DateTime start;
-  final DateTime end;
-
-  const DateRange({
-    required this.start,
-    required this.end,
-  });
 }

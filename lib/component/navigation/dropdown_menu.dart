@@ -1,7 +1,10 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
+import 'package:jaspr/dom.dart' as dom;
 
-import '../../util/tokens/tokens.dart';
+import '../../core/theme_provider.dart';
+
+// Re-export for backwards compatibility
+export '../../core/props/dropdown_menu_props.dart' show DropdownAlignment;
 
 /// A dropdown menu item
 class ArcaneDropdownItem {
@@ -34,7 +37,8 @@ class ArcaneDropdownItem {
         divider = true;
 }
 
-/// A dropdown menu component (Supabase-style)
+/// A dropdown menu component matching shadcn/ui.
+/// ShadCN Reference: https://ui.shadcn.com/docs/components/dropdown-menu
 class ArcaneDropdownMenu extends StatefulComponent {
   /// Trigger element
   final Component trigger;
@@ -58,24 +62,6 @@ class ArcaneDropdownMenu extends StatefulComponent {
 
   @override
   State<ArcaneDropdownMenu> createState() => _ArcaneDropdownMenuState();
-
-  @css
-  static final List<StyleRule> styles = [
-    css('@keyframes arcane-dropdown-fade').styles(raw: {
-      '0%': 'opacity: 0; transform: translateY(-8px)',
-      '100%': 'opacity: 1; transform: translateY(0)',
-    }),
-    css('.arcane-dropdown-item:hover:not(:disabled)').styles(raw: {
-      'background-color': ArcaneColors.surfaceVariant,
-    }),
-  ];
-}
-
-/// Dropdown alignment
-enum DropdownAlignment {
-  left,
-  right,
-  center,
 }
 
 class _ArcaneDropdownMenuState extends State<ArcaneDropdownMenu> {
@@ -91,159 +77,29 @@ class _ArcaneDropdownMenuState extends State<ArcaneDropdownMenu> {
 
   @override
   Component build(BuildContext context) {
-    final (String left, String right, String transform) = switch (component.alignment) {
-      DropdownAlignment.left => ('0', 'auto', 'none'),
-      DropdownAlignment.right => ('auto', '0', 'none'),
-      DropdownAlignment.center => ('50%', 'auto', 'translateX(-50%)'),
-    };
+    // Convert ArcaneDropdownItem to DropdownItemProps
+    final List<DropdownItemProps> itemProps = component.items
+        .map((item) => DropdownItemProps(
+              label: item.label,
+              href: item.href,
+              onTap: item.onTap,
+              icon: item.icon,
+              description: item.description,
+              disabled: item.disabled,
+              divider: item.divider,
+            ))
+        .toList();
 
-    return div(
-      classes: 'arcane-dropdown ${_isOpen ? 'open' : ''}',
-      styles: const Styles(raw: {
-        'position': 'relative',
-        'display': 'inline-block',
-      }),
-      [
-        // Trigger
-        div(
-          classes: 'arcane-dropdown-trigger',
-          events: {
-            'click': (e) => _toggle(),
-          },
-          [component.trigger],
-        ),
-
-        // Backdrop to close on click outside
-        if (_isOpen)
-          div(
-            classes: 'arcane-dropdown-backdrop',
-            styles: const Styles(raw: {
-              'position': 'fixed',
-              'inset': '0',
-              'z-index': '99',
-            }),
-            events: {
-              'click': (e) => _close(),
-            },
-            [],
-          ),
-
-        // Menu
-        if (_isOpen)
-          div(
-            classes: 'arcane-dropdown-menu',
-            styles: Styles(raw: {
-              'position': 'absolute',
-              'top': '100%',
-              'left': left,
-              'right': right,
-              'transform': transform,
-              'z-index': '100',
-              'margin-top': ArcaneSpacing.sm,
-              if (component.width != null) 'width': '${component.width}px' else 'min-width': '200px',
-              'padding': ArcaneSpacing.sm,
-              'background-color': ArcaneColors.surface,
-              'border': '1px solid ${ArcaneColors.border}',
-              'border-radius': ArcaneRadius.md,
-              'box-shadow': ArcaneEffects.shadowLg,
-              'animation': 'arcane-dropdown-fade 0.15s ease-out',
-            }),
-            [
-              for (final item in component.items)
-                if (item.divider)
-                  const div(
-                    classes: 'arcane-dropdown-divider',
-                    styles: Styles(raw: {
-                      'height': '1px',
-                      'margin': '${ArcaneSpacing.sm} 0',
-                      'background-color': ArcaneColors.border,
-                    }),
-                    [],
-                  )
-                else
-                  _buildItem(item),
-            ],
-          ),
-      ],
-    );
-  }
-
-  Component _buildItem(ArcaneDropdownItem item) {
-    final Styles itemStyles = Styles(raw: {
-      'display': 'flex',
-      'align-items': 'center',
-      'gap': ArcaneSpacing.sm,
-      'padding': '10px ${ArcaneSpacing.sm}',
-      'font-size': ArcaneTypography.fontSm,
-      'color': item.disabled ? ArcaneColors.muted : ArcaneColors.onSurface,
-      'text-decoration': 'none',
-      'border-radius': ArcaneRadius.sm,
-      'cursor': item.disabled ? 'not-allowed' : 'pointer',
-      'transition': ArcaneEffects.transitionFast,
-      'background': 'none',
-      'border': 'none',
-      'width': '100%',
-      'text-align': 'left',
-    });
-
-    final List<Component> content = [
-      if (item.icon != null)
-        span(
-          styles: Styles(raw: {
-            'flex-shrink': '0',
-            'opacity': item.disabled ? '0.5' : '1',
-          }),
-          [item.icon!],
-        ),
-      div(
-        styles: const Styles(raw: {
-          'flex': '1',
-          'display': 'flex',
-          'flex-direction': 'column',
-          'gap': '2px',
-        }),
-        [
-          span([text(item.label)]),
-          if (item.description != null)
-            span(
-              styles: const Styles(raw: {
-                'font-size': ArcaneTypography.fontXs,
-                'color': ArcaneColors.mutedForeground,
-              }),
-              [text(item.description!)],
-            ),
-        ],
-      ),
-    ];
-
-    if (item.href != null && !item.disabled) {
-      return a(
-        href: item.href!,
-        classes: 'arcane-dropdown-item',
-        styles: itemStyles,
-        events: {
-          'click': (e) => _close(),
-        },
-        content,
-      );
-    }
-
-    return button(
-      classes: 'arcane-dropdown-item',
-      attributes: {
-        'type': 'button',
-        if (item.disabled) 'disabled': 'true',
-      },
-      styles: itemStyles,
-      events: {
-        if (!item.disabled && item.onTap != null)
-          'click': (e) {
-            _close();
-            item.onTap!();
-          },
-      },
-      content,
-    );
+    // Delegate rendering to the current stylesheet's dropdown menu renderer
+    return context.renderers.dropdownMenu(DropdownMenuProps(
+      trigger: component.trigger,
+      items: itemProps,
+      isOpen: _isOpen,
+      onToggle: _toggle,
+      onClose: _close,
+      alignment: component.alignment,
+      width: component.width,
+    ));
   }
 }
 
@@ -267,16 +123,6 @@ class ArcaneMegaMenu extends StatefulComponent {
 
   @override
   State<ArcaneMegaMenu> createState() => _ArcaneMegaMenuState();
-
-  @css
-  static final List<StyleRule> styles = [
-    css('.arcane-mega-menu-trigger:hover').styles(raw: {
-      'color': ArcaneColors.onSurface,
-    }),
-    css('.arcane-mega-menu-item:hover').styles(raw: {
-      'background-color': ArcaneColors.surfaceVariant,
-    }),
-  ];
 }
 
 /// A section in a mega menu
@@ -295,9 +141,9 @@ class _ArcaneMegaMenuState extends State<ArcaneMegaMenu> {
 
   @override
   Component build(BuildContext context) {
-    return div(
+    return dom.div(
       classes: 'arcane-mega-menu ${_isOpen ? 'open' : ''}',
-      styles: const Styles(raw: {
+      styles: const dom.Styles(raw: {
         'position': 'relative',
       }),
       events: {
@@ -306,80 +152,80 @@ class _ArcaneMegaMenuState extends State<ArcaneMegaMenu> {
       },
       [
         // Trigger
-        button(
+        dom.button(
           classes: 'arcane-mega-menu-trigger',
           attributes: {'type': 'button'},
-          styles: Styles(raw: {
+          styles: dom.Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
-            'gap': ArcaneSpacing.xs,
+            'gap': '0.25rem',
             'padding': '8px 12px',
-            'font-size': ArcaneTypography.fontSm,
-            'font-weight': ArcaneTypography.weightMedium,
-            'color': _isOpen ? ArcaneColors.onSurface : ArcaneColors.mutedForeground,
+            'font-size': '0.875rem',
+            'font-weight': '500',
+            'color': _isOpen ? 'var(--foreground)' : 'var(--muted-foreground)',
             'background': 'none',
             'border': 'none',
             'cursor': 'pointer',
-            'transition': ArcaneEffects.transitionFast,
+            'transition': 'color 150ms ease',
           }),
           [
-            text(component.label),
-            span(
-              styles: Styles(raw: {
-                'font-size': ArcaneTypography.fontXs,
+            Component.text(component.label),
+            dom.span(
+              styles: dom.Styles(raw: {
+                'font-size': '0.75rem',
                 'transform': _isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-                'transition': ArcaneEffects.transitionFast,
+                'transition': 'transform 150ms ease',
               }),
-              [text('▼')],
+              [Component.text('\u25BC')],
             ),
           ],
         ),
 
         // Menu panel
         if (_isOpen)
-          div(
+          dom.div(
             classes: 'arcane-mega-menu-panel',
-            styles: const Styles(raw: {
+            styles: const dom.Styles(raw: {
               'position': 'absolute',
               'top': '100%',
               'left': '50%',
               'transform': 'translateX(-50%)',
               'z-index': '100',
-              'margin-top': ArcaneSpacing.sm,
-              'padding': ArcaneSpacing.lg,
-              'background-color': ArcaneColors.surface,
-              'border': '1px solid ${ArcaneColors.border}',
-              'border-radius': ArcaneRadius.md,
-              'box-shadow': ArcaneEffects.shadowXl,
+              'margin-top': '0.5rem',
+              'padding': '1rem',
+              'background-color': 'var(--popover)',
+              'border': '1px solid var(--border)',
+              'border-radius': '0.375rem',
+              'box-shadow': '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
               'display': 'flex',
-              'gap': ArcaneSpacing.xxl,
+              'gap': '2rem',
               'animation': 'arcane-dropdown-fade 0.15s ease-out',
             }),
             [
               for (final section in component.sections)
-                div(
+                dom.div(
                   classes: 'arcane-mega-menu-section',
-                  styles: const Styles(raw: {
+                  styles: const dom.Styles(raw: {
                     'min-width': '180px',
                   }),
                   [
                     if (section.title != null)
-                      div(
-                        styles: const Styles(raw: {
-                          'font-size': ArcaneTypography.fontXs,
-                          'font-weight': ArcaneTypography.weightSemibold,
+                      dom.div(
+                        styles: const dom.Styles(raw: {
+                          'font-size': '0.75rem',
+                          'font-weight': '600',
                           'text-transform': 'uppercase',
                           'letter-spacing': '0.05em',
-                          'color': ArcaneColors.mutedForeground,
-                          'margin-bottom': ArcaneSpacing.sm,
+                          'color': 'var(--muted-foreground)',
+                          'margin-bottom': '0.5rem',
                         }),
-                        [text(section.title!)],
+                        [Component.text(section.title!)],
                       ),
-                    div(
-                      styles: const Styles(raw: {
+                    dom.div(
+                      styles: const dom.Styles(raw: {
                         'display': 'flex',
                         'flex-direction': 'column',
-                        'gap': ArcaneSpacing.xs,
+                        'gap': '0.25rem',
                       }),
                       [
                         for (final item in section.items)
@@ -389,11 +235,11 @@ class _ArcaneMegaMenuState extends State<ArcaneMegaMenu> {
                   ],
                 ),
               if (component.footer != null)
-                div(
+                dom.div(
                   classes: 'arcane-mega-menu-footer',
-                  styles: const Styles(raw: {
-                    'padding-left': ArcaneSpacing.lg,
-                    'border-left': '1px solid ${ArcaneColors.border}',
+                  styles: const dom.Styles(raw: {
+                    'padding-left': '1rem',
+                    'border-left': '1px solid var(--border)',
                   }),
                   [component.footer!],
                 ),
@@ -404,71 +250,71 @@ class _ArcaneMegaMenuState extends State<ArcaneMegaMenu> {
   }
 
   Component _buildMegaItem(ArcaneDropdownItem item) {
-    final Component itemContent = div(
-      styles: const Styles(raw: {
+    final Component itemContent = dom.div(
+      styles: const dom.Styles(raw: {
         'display': 'flex',
         'align-items': 'flex-start',
-        'gap': ArcaneSpacing.sm,
+        'gap': '0.5rem',
       }),
       [
         if (item.icon != null)
-          span(
-            styles: const Styles(raw: {
+          dom.span(
+            styles: const dom.Styles(raw: {
               'flex-shrink': '0',
               'margin-top': '2px',
             }),
             [item.icon!],
           ),
-        div([
-          div(
-            styles: const Styles(raw: {
-              'font-size': ArcaneTypography.fontSm,
-              'font-weight': ArcaneTypography.weightMedium,
-              'color': ArcaneColors.onSurface,
+        dom.div([
+          dom.div(
+            styles: const dom.Styles(raw: {
+              'font-size': '0.875rem',
+              'font-weight': '500',
+              'color': 'var(--foreground)',
             }),
-            [text(item.label)],
+            [Component.text(item.label)],
           ),
           if (item.description != null)
-            div(
-              styles: const Styles(raw: {
-                'font-size': ArcaneTypography.fontXs,
-                'color': ArcaneColors.mutedForeground,
+            dom.div(
+              styles: const dom.Styles(raw: {
+                'font-size': '0.75rem',
+                'color': 'var(--muted-foreground)',
                 'margin-top': '2px',
               }),
-              [text(item.description!)],
+              [Component.text(item.description!)],
             ),
         ]),
       ],
     );
 
     if (item.href != null) {
-      return a(
+      return dom.a(
         href: item.href!,
         classes: 'arcane-mega-menu-item',
-        styles: const Styles(raw: {
+        styles: const dom.Styles(raw: {
           'display': 'block',
-          'padding': '10px ${ArcaneSpacing.sm}',
+          'padding': '10px 0.5rem',
           'text-decoration': 'none',
-          'border-radius': ArcaneRadius.sm,
-          'transition': ArcaneEffects.transitionFast,
+          'border-radius': '0.25rem',
+          'transition': 'background-color 150ms ease',
         }),
         [itemContent],
       );
     }
 
-    return button(
+    return dom.button(
       classes: 'arcane-mega-menu-item',
       attributes: {'type': 'button'},
-      styles: const Styles(raw: {
+      styles: const dom.Styles(raw: {
         'display': 'block',
         'width': '100%',
-        'padding': '10px ${ArcaneSpacing.sm}',
+        'padding': '10px 0.5rem',
         'text-align': 'left',
         'background': 'none',
         'border': 'none',
-        'border-radius': ArcaneRadius.sm,
+        'border-radius': '0.25rem',
         'cursor': 'pointer',
-        'transition': ArcaneEffects.transitionFast,
+        'transition': 'background-color 150ms ease',
       }),
       events: {
         if (item.onTap != null) 'click': (e) => item.onTap!(),

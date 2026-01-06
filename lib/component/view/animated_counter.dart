@@ -1,8 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/tokens/tokens.dart';
-
 /// Animated counter display for statistics
 class ArcaneAnimatedCounter extends StatelessComponent {
   /// The value to display
@@ -54,8 +52,8 @@ class ArcaneAnimatedCounter extends StatelessComponent {
         div(
           styles: Styles(raw: {
             'font-size': fontSize,
-            'font-weight': ArcaneTypography.weightBold,
-            'color': hasGradient ? ArcaneColors.transparent : (color ?? ArcaneColors.onSurface),
+            'font-weight': '700',
+            'color': hasGradient ? 'transparent' : (color ?? 'var(--foreground)'),
             'background': hasGradient
                 ? 'linear-gradient(135deg, $gradientStart 0%, $gradientEnd 100%)'
                 : 'none',
@@ -80,9 +78,9 @@ class ArcaneAnimatedCounter extends StatelessComponent {
         if (label != null)
           div(
             styles: const Styles(raw: {
-              'font-size': ArcaneTypography.fontMd,
-              'color': ArcaneColors.mutedForeground,
-              'margin-top': ArcaneSpacing.sm,
+              'font-size': '1rem',
+              'color': 'var(--muted-foreground)',
+              'margin-top': '0.5rem',
             }),
             [text(label!)],
           ),
@@ -156,15 +154,15 @@ class ArcaneMetricDisplay extends StatelessComponent {
         'flex-direction': 'column',
         'align-items': 'center',
         'text-align': 'center',
-        'gap': ArcaneSpacing.sm,
+        'gap': '0.5rem',
       }),
       [
         if (icon != null)
           div(
             styles: const Styles(raw: {
-              'font-size': ArcaneTypography.font2xl,
-              'color': ArcaneColors.accent,
-              'margin-bottom': ArcaneSpacing.xs,
+              'font-size': '1.5rem',
+              'color': 'var(--accent)',
+              'margin-bottom': '0.25rem',
             }),
             [text(icon!)],
           ),
@@ -172,23 +170,23 @@ class ArcaneMetricDisplay extends StatelessComponent {
           styles: const Styles(raw: {
             'display': 'flex',
             'align-items': 'baseline',
-            'gap': ArcaneSpacing.sm,
+            'gap': '0.5rem',
           }),
           [
             span(
               styles: const Styles(raw: {
-                'font-size': ArcaneTypography.font3xl,
-                'font-weight': ArcaneTypography.weightBold,
-                'color': ArcaneColors.onSurface,
+                'font-size': '1.875rem',
+                'font-weight': '700',
+                'color': 'var(--foreground)',
               }),
               [text(value)],
             ),
             if (trend != null)
               span(
                 styles: Styles(raw: {
-                  'font-size': ArcaneTypography.fontSm,
-                  'font-weight': ArcaneTypography.weightMedium,
-                  'color': trendPositive ? ArcaneColors.success : ArcaneColors.error,
+                  'font-size': '0.875rem',
+                  'font-weight': '500',
+                  'color': trendPositive ? 'hsl(142 76% 36%)' : 'var(--destructive)',
                 }),
                 [text('${trendPositive ? '↑' : '↓'}$trend')],
               ),
@@ -196,8 +194,8 @@ class ArcaneMetricDisplay extends StatelessComponent {
         ),
         div(
           styles: const Styles(raw: {
-            'font-size': ArcaneTypography.fontSm,
-            'color': ArcaneColors.mutedForeground,
+            'font-size': '0.875rem',
+            'color': 'var(--muted-foreground)',
           }),
           [text(label)],
         ),

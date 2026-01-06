@@ -468,6 +468,93 @@ abstract class ArcaneStyleSheet {
   String get focusRingStyle;
 
   // ===========================================================================
+  // COMPONENT STRUCTURE TOKENS
+  // ===========================================================================
+
+  /// Tokens for interactive elements (buttons, toggles, clickable items).
+  /// Override in subclasses to customize interactive component appearance.
+  InteractiveTokens get interactiveTokens => const InteractiveTokens();
+
+  /// Tokens for container elements (cards, dialogs, sheets, panels).
+  /// Override in subclasses to customize container appearance.
+  ContainerTokens get containerTokens => const ContainerTokens();
+
+  /// Tokens for input elements (text inputs, selects, textareas).
+  /// Override in subclasses to customize input field appearance.
+  InputTokens get inputTokens => const InputTokens();
+
+  /// Tokens for indicator elements (checkboxes, radios, toggle switches).
+  /// Override in subclasses to customize indicator appearance.
+  IndicatorTokens get indicatorTokens => const IndicatorTokens();
+
+  // ===========================================================================
+  // EFFECTS & DECORATIONS
+  // ===========================================================================
+
+  /// Custom CSS for decorative effects (scan lines, halftone, paper texture, etc.)
+  /// Override in subclasses to add unique visual effects.
+  String? get decorativeEffectsCss => null;
+
+  /// Border decoration style (solid, dashed, dotted, or SVG reference for hand-drawn)
+  String get borderStyle => 'solid';
+
+  /// Pattern overlay CSS (noise texture, grid, etc.)
+  String? get patternOverlayCss => null;
+
+  // ===========================================================================
+  // ANIMATION SYSTEM
+  // ===========================================================================
+
+  /// Easing function for elastic/bouncy effects
+  String get easingBounce => 'cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+
+  /// Whether to prefer reduced motion by default
+  bool get prefersReducedMotion => false;
+
+  // ===========================================================================
+  // RAW CSS INJECTION (Escape Hatch)
+  // ===========================================================================
+
+  /// Additional CSS rules to inject for unique stylesheet effects.
+  /// Use for effects that can't be expressed through tokens.
+  String? get additionalCss => null;
+
+  // ===========================================================================
+  // SHAPE RESOLUTION HELPERS
+  // ===========================================================================
+
+  /// Resolve ComponentShape to CSS border-radius value
+  String resolveShape(ComponentShape shape, {String? customValue}) {
+    if (shape == ComponentShape.custom && customValue != null) {
+      return customValue;
+    }
+    return switch (shape) {
+      ComponentShape.sharp => radiusXs,
+      ComponentShape.rounded => radiusMd,
+      ComponentShape.softRounded => radiusLg,
+      ComponentShape.pill => '9999px',
+      ComponentShape.circle => '50%',
+      ComponentShape.custom => customValue ?? '0',
+    };
+  }
+
+  /// Resolve ShadowIntensity to CSS box-shadow value
+  String resolveShadow(ShadowIntensity intensity) {
+    return switch (intensity) {
+      ShadowIntensity.none => 'none',
+      ShadowIntensity.subtle => shadowXs,
+      ShadowIntensity.standard => shadowSm,
+      ShadowIntensity.elevated => shadowMd,
+      ShadowIntensity.dramatic => shadowLg,
+    };
+  }
+
+  /// Resolve BorderWeight to CSS border-width value
+  String resolveBorderWeight(BorderWeight weight) {
+    return weight.css;
+  }
+
+  // ===========================================================================
   // CSS VARIABLE GENERATION
   // ===========================================================================
 
@@ -701,7 +788,7 @@ abstract class ArcaneStyleSheet {
       // SPACING
       // =====================================================================
       '--arcane-spacing': spacing,
-      '--arcane-scaling': '${spacingScale}',
+      '--arcane-scaling': '$spacingScale',
 
       // =====================================================================
       // SHADOWS
@@ -745,6 +832,99 @@ abstract class ArcaneStyleSheet {
       '--arcane-accent-glow': 'rgba(${rgb(accent)}, 0.10)',
       '--arcane-secondary-glow': 'rgba(${rgb(secondary)}, 0.10)',
       '--arcane-grid-color': 'rgba(${rgb(accent)}, 0.03)',
+
+      // =====================================================================
+      // COMPONENT STRUCTURE - INTERACTIVE GROUP
+      // =====================================================================
+      '--arcane-interactive-radius': resolveShape(
+        interactiveTokens.shape,
+        customValue: interactiveTokens.customRadius,
+      ),
+      '--arcane-interactive-border-width':
+          resolveBorderWeight(interactiveTokens.borderWeight),
+      '--arcane-interactive-hover-shadow':
+          resolveShadow(interactiveTokens.hoverShadow),
+      '--arcane-interactive-focus-ring-width': interactiveTokens.focusRingWidth,
+      '--arcane-interactive-focus-ring-offset':
+          interactiveTokens.focusRingOffset,
+      '--arcane-interactive-use-gradients':
+          interactiveTokens.useGradients ? '1' : '0',
+
+      // =====================================================================
+      // COMPONENT STRUCTURE - CONTAINER GROUP
+      // =====================================================================
+      '--arcane-container-radius': resolveShape(
+        containerTokens.shape,
+        customValue: containerTokens.customRadius,
+      ),
+      '--arcane-container-shadow': resolveShadow(containerTokens.shadow),
+      '--arcane-container-border-width':
+          resolveBorderWeight(containerTokens.borderWeight),
+      '--arcane-container-backdrop-blur': containerTokens.backdropBlur,
+      '--arcane-container-use-glass': containerTokens.useBackdropBlur ? '1' : '0',
+      '--arcane-container-surface-opacity': '${containerTokens.surfaceOpacity}',
+
+      // =====================================================================
+      // COMPONENT STRUCTURE - INPUT GROUP
+      // =====================================================================
+      '--arcane-input-radius': resolveShape(
+        inputTokens.shape,
+        customValue: inputTokens.customRadius,
+      ),
+      '--arcane-input-border-width':
+          resolveBorderWeight(inputTokens.borderWeight),
+      '--arcane-input-focus-shadow': resolveShadow(inputTokens.focusShadow),
+      '--arcane-input-filled-default': inputTokens.filledByDefault ? '1' : '0',
+
+      // =====================================================================
+      // COMPONENT STRUCTURE - INDICATOR GROUP
+      // =====================================================================
+      '--arcane-indicator-checkbox-radius': resolveShape(
+        indicatorTokens.checkboxShape,
+        customValue: indicatorTokens.checkboxCustomRadius,
+      ),
+      '--arcane-indicator-checkbox-border':
+          resolveBorderWeight(indicatorTokens.checkboxBorder),
+      '--arcane-indicator-radio-radius': resolveShape(
+        indicatorTokens.radioShape,
+        customValue: indicatorTokens.radioCustomRadius,
+      ),
+      '--arcane-indicator-radio-border':
+          resolveBorderWeight(indicatorTokens.radioBorder),
+      '--arcane-indicator-toggle-track-radius': resolveShape(
+        indicatorTokens.toggleTrackShape,
+        customValue: indicatorTokens.toggleTrackCustomRadius,
+      ),
+      '--arcane-indicator-toggle-thumb-radius': resolveShape(
+        indicatorTokens.toggleThumbShape,
+        customValue: indicatorTokens.toggleThumbCustomRadius,
+      ),
+      '--arcane-indicator-thumb-shadow':
+          indicatorTokens.thumbShadow ? shadowSm : 'none',
+      '--arcane-indicator-use-gradient':
+          indicatorTokens.useGradientFill ? '1' : '0',
+
+      // =====================================================================
+      // TOGGLE THUMB COLOR STATES
+      // =====================================================================
+      '--arcane-toggle-thumb-on': indicatorTokens.thumbOnColor,
+      '--arcane-toggle-thumb-off': indicatorTokens.thumbOffColor,
+      '--arcane-toggle-track-on': indicatorTokens.trackOnColor,
+      '--arcane-toggle-track-off': indicatorTokens.trackOffColor,
+
+      // =====================================================================
+      // CHECKBOX/RADIO COLOR STATES
+      // =====================================================================
+      '--arcane-indicator-checked-bg': primary.css,
+      '--arcane-indicator-unchecked-border': border.css,
+      '--arcane-indicator-border-width':
+          resolveBorderWeight(indicatorTokens.checkboxBorder),
+      '--arcane-indicator-check-color': primaryForeground.css,
+
+      // =====================================================================
+      // ANIMATION
+      // =====================================================================
+      '--arcane-style-easing-bounce': easingBounce,
     };
   }
 

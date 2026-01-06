@@ -1,8 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/tokens/tokens.dart';
-
 /// Style for the check icon
 enum CheckStyle {
   /// Checkmark (✓)
@@ -69,7 +67,7 @@ class ArcaneCheckItem extends StatelessComponent {
     this.fontSize,
     this.gap,
     super.key,
-  }) : iconColor = ArcaneColors.accent;
+  }) : iconColor = 'var(--accent)';
 
   /// Create with success/green colored icon
   const ArcaneCheckItem.success({
@@ -79,14 +77,14 @@ class ArcaneCheckItem extends StatelessComponent {
     this.fontSize,
     this.gap,
     super.key,
-  }) : iconColor = ArcaneColors.success;
+  }) : iconColor = 'hsl(142 76% 36%)';
 
   @override
   Component build(BuildContext context) {
-    final effectiveIconColor = iconColor ?? ArcaneColors.accent;
-    final effectiveTextColor = textColor ?? ArcaneColors.onSurface;
-    final effectiveFontSize = fontSize ?? ArcaneTypography.fontSizeBase;
-    final effectiveGap = gap ?? ArcaneSpacing.sm;
+    final effectiveIconColor = iconColor ?? 'var(--accent)';
+    final effectiveTextColor = textColor ?? 'var(--foreground)';
+    final effectiveFontSize = fontSize ?? '1rem';
+    final effectiveGap = gap ?? '0.5rem';
 
     return div(
       styles: Styles(raw: {
@@ -195,7 +193,7 @@ class ArcaneCheckList extends StatelessComponent {
     this.listGap,
     this.alignItems,
     super.key,
-  }) : iconColor = ArcaneColors.accent;
+  }) : iconColor = 'var(--accent)';
 
   /// Create with success/green colored icons
   const ArcaneCheckList.success({
@@ -207,11 +205,11 @@ class ArcaneCheckList extends StatelessComponent {
     this.listGap,
     this.alignItems,
     super.key,
-  }) : iconColor = ArcaneColors.success;
+  }) : iconColor = 'hsl(142 76% 36%)';
 
   @override
   Component build(BuildContext context) {
-    final effectiveListGap = listGap ?? ArcaneSpacing.md;
+    final effectiveListGap = listGap ?? '1rem';
     final effectiveAlignItems = alignItems ?? 'flex-start';
 
     return div(
@@ -267,27 +265,27 @@ class ArcaneFeatureRow extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final effectiveIncludedColor = includedColor ?? ArcaneColors.success;
-    final effectiveExcludedColor = excludedColor ?? ArcaneColors.muted;
+    final effectiveIncludedColor = includedColor ?? 'hsl(142 76% 36%)';
+    final effectiveExcludedColor = excludedColor ?? 'var(--muted)';
 
     return div(
       styles: const Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
-        'gap': ArcaneSpacing.sm,
+        'gap': '0.5rem',
       }),
       [
         span(
           styles: Styles(raw: {
-            'font-size': ArcaneTypography.fontSizeSm,
+            'font-size': '0.875rem',
             'color': included ? effectiveIncludedColor : effectiveExcludedColor,
           }),
           [text(included ? '\u2713' : '\u2717')],
         ),
         span(
           styles: Styles(raw: {
-            'font-size': ArcaneTypography.fontSizeSm,
-            'color': included ? ArcaneColors.onSurface : ArcaneColors.mutedForeground,
+            'font-size': '0.875rem',
+            'color': included ? 'var(--foreground)' : 'var(--muted-foreground)',
           }),
           [text(feature)],
         ),

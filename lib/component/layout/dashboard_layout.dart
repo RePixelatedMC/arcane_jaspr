@@ -13,8 +13,6 @@ import 'package:jaspr/dom.dart'
         BoxShadow,
         FontWeight;
 
-import '../../util/tokens/tokens.dart';
-
 /// A navigation item for the dashboard sidebar
 class ArcaneDashboardNavItem {
   /// The display label
@@ -92,8 +90,8 @@ class ArcaneDashboardLayout extends StatelessComponent {
     this.sidebarFooter,
     this.topBar,
     this.sidebarWidth = '256px',
-    this.backgroundColor = ArcaneColors.background,
-    this.sidebarBackgroundColor = ArcaneColors.surface,
+    this.backgroundColor = 'var(--background)',
+    this.sidebarBackgroundColor = 'var(--card)',
   });
 
   @override
@@ -104,8 +102,8 @@ class ArcaneDashboardLayout extends StatelessComponent {
         'min-height': '100vh',
         'display': 'flex',
         'background': backgroundColor,
-        'color': ArcaneColors.onBackground,
-        'font-family': ArcaneTypography.fontFamily,
+        'color': 'var(--foreground)',
+        'font-family': 'ui-sans-serif, system-ui, sans-serif',
       }),
       [
         // Sidebar
@@ -143,7 +141,7 @@ class ArcaneDashboardLayout extends StatelessComponent {
       styles: Styles(raw: {
         'width': sidebarWidth,
         'background': sidebarBackgroundColor,
-        'border-right': '1px solid ${ArcaneColors.border}',
+        'border-right': '1px solid var(--border)',
         'display': 'flex',
         'flex-direction': 'column',
         'min-height': '100vh',
@@ -155,8 +153,8 @@ class ArcaneDashboardLayout extends StatelessComponent {
           div(
             classes: 'arcane-dashboard-sidebar-header',
             styles: const Styles(raw: {
-              'padding': ArcaneSpacing.lg,
-              'border-bottom': '1px solid ${ArcaneColors.border}',
+              'padding': '1.5rem',
+              'border-bottom': '1px solid var(--border)',
               'flex-shrink': '0',
             }),
             [sidebarHeader!],
@@ -166,7 +164,7 @@ class ArcaneDashboardLayout extends StatelessComponent {
           classes: 'arcane-dashboard-sidebar-nav',
           styles: const Styles(raw: {
             'flex': '1',
-            'padding': ArcaneSpacing.md,
+            'padding': '1rem',
             'overflow-y': 'auto',
           }),
           navigation.map(_buildNavGroup).toList(),
@@ -176,8 +174,8 @@ class ArcaneDashboardLayout extends StatelessComponent {
           div(
             classes: 'arcane-dashboard-sidebar-footer',
             styles: const Styles(raw: {
-              'padding': ArcaneSpacing.md,
-              'border-top': '1px solid ${ArcaneColors.border}',
+              'padding': '1rem',
+              'border-top': '1px solid var(--border)',
               'flex-shrink': '0',
             }),
             [sidebarFooter!],
@@ -190,7 +188,7 @@ class ArcaneDashboardLayout extends StatelessComponent {
     return div(
       classes: 'arcane-dashboard-nav-group',
       styles: const Styles(raw: {
-        'margin-bottom': ArcaneSpacing.lg,
+        'margin-bottom': '1.5rem',
       }),
       [
         // Group label
@@ -198,13 +196,13 @@ class ArcaneDashboardLayout extends StatelessComponent {
           div(
             classes: 'arcane-dashboard-nav-group-label',
             styles: const Styles(raw: {
-              'font-size': ArcaneTypography.fontXs,
-              'font-weight': ArcaneTypography.weightSemibold,
-              'color': ArcaneColors.mutedForeground,
+              'font-size': '0.75rem',
+              'font-weight': '600',
+              'color': 'var(--muted-foreground)',
               'text-transform': 'uppercase',
               'letter-spacing': '0.05em',
-              'padding': '0 ${ArcaneSpacing.md}',
-              'margin-bottom': ArcaneSpacing.sm,
+              'padding': '0 1rem',
+              'margin-bottom': '0.5rem',
             }),
             [Component.text(group.label!)],
           ),
@@ -222,20 +220,19 @@ class ArcaneDashboardLayout extends StatelessComponent {
       styles: Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
-        'gap': ArcaneSpacing.sm,
-        'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
-        'color': isActive ? ArcaneColors.accent : ArcaneColors.mutedForeground,
+        'gap': '0.5rem',
+        'padding': '0.5rem 1rem',
+        'color': isActive ? 'var(--accent)' : 'var(--muted-foreground)',
         'text-decoration': 'none',
-        'font-size': ArcaneTypography.fontSm,
-        'font-weight':
-            isActive ? ArcaneTypography.weightSemibold : ArcaneTypography.weightMedium,
-        'border-radius': ArcaneRadius.md,
-        'background': isActive ? ArcaneColors.accentContainer : ArcaneColors.transparent,
+        'font-size': '0.875rem',
+        'font-weight': isActive ? '600' : '500',
+        'border-radius': '0.375rem',
+        'background': isActive ? 'hsl(var(--accent) / 0.1)' : 'transparent',
         'border': isActive
-            ? '1px solid ${ArcaneColors.accent}'
+            ? '1px solid var(--accent)'
             : '1px solid transparent',
-        'transition': ArcaneEffects.transitionFast,
-        'margin-bottom': ArcaneSpacing.xs,
+        'transition': 'all 150ms ease',
+        'margin-bottom': '0.25rem',
       }),
       [
         // Icon
@@ -263,12 +260,12 @@ class ArcaneDashboardLayout extends StatelessComponent {
           span(
             classes: 'arcane-dashboard-nav-badge',
             styles: const Styles(raw: {
-              'background': ArcaneColors.accent,
-              'color': ArcaneColors.accentForeground,
-              'font-size': ArcaneTypography.fontXs,
+              'background': 'var(--accent)',
+              'color': 'var(--accent-foreground)',
+              'font-size': '0.75rem',
               'padding': '2px 6px',
-              'border-radius': ArcaneRadius.full,
-              'font-weight': ArcaneTypography.weightMedium,
+              'border-radius': '9999px',
+              'font-weight': '500',
             }),
             [Component.text(item.badge!)],
           ),
@@ -279,8 +276,8 @@ class ArcaneDashboardLayout extends StatelessComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-dashboard-nav-item:hover:not(.active)').styles(raw: {
-      'background-color': ArcaneColors.surfaceVariant,
-      'color': ArcaneColors.onSurface,
+      'background-color': 'var(--muted)',
+      'color': 'var(--foreground)',
     }),
   ];
 }
@@ -302,7 +299,7 @@ class ArcaneDashboardTopBar extends StatelessComponent {
     super.key,
     this.leading,
     this.trailing,
-    this.backgroundColor = ArcaneColors.surface,
+    this.backgroundColor = 'var(--card)',
   });
 
   @override
@@ -313,9 +310,9 @@ class ArcaneDashboardTopBar extends StatelessComponent {
         'display': 'flex',
         'justify-content': 'space-between',
         'align-items': 'center',
-        'padding': '${ArcaneSpacing.md} ${ArcaneSpacing.xl}',
+        'padding': '1rem 2rem',
         'background': backgroundColor,
-        'border-bottom': '1px solid ${ArcaneColors.border}',
+        'border-bottom': '1px solid var(--border)',
         'flex-shrink': '0',
       }),
       [
@@ -330,7 +327,7 @@ class ArcaneDashboardTopBar extends StatelessComponent {
           styles: const Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
-            'gap': ArcaneSpacing.md,
+            'gap': '1rem',
           }),
           [if (trailing != null) trailing!],
         ),
@@ -369,13 +366,13 @@ class ArcaneDashboardUserMenu extends StatelessComponent {
       styles: const Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
-        'gap': ArcaneSpacing.sm,
-        'padding': ArcaneSpacing.sm,
-        'background': ArcaneColors.transparent,
+        'gap': '0.5rem',
+        'padding': '0.5rem',
+        'background': 'transparent',
         'border': 'none',
-        'border-radius': ArcaneRadius.md,
+        'border-radius': '0.375rem',
         'cursor': 'pointer',
-        'transition': ArcaneEffects.transitionFast,
+        'transition': 'all 150ms ease',
       }),
       events: {
         if (onTap != null) 'click': (e) => onTap!(),
@@ -386,10 +383,10 @@ class ArcaneDashboardUserMenu extends StatelessComponent {
           styles: const Styles(raw: {
             'width': '36px',
             'height': '36px',
-            'border-radius': ArcaneRadius.full,
+            'border-radius': '9999px',
             'overflow': 'hidden',
             'flex-shrink': '0',
-            'background': ArcaneColors.surfaceVariant,
+            'background': 'var(--muted)',
           }),
           [
             if (avatarUrl != null)
@@ -414,17 +411,17 @@ class ArcaneDashboardUserMenu extends StatelessComponent {
               if (userName != null)
                 div(
                   styles: const Styles(raw: {
-                    'font-size': ArcaneTypography.fontSm,
-                    'font-weight': ArcaneTypography.weightMedium,
-                    'color': ArcaneColors.onSurface,
+                    'font-size': '0.875rem',
+                    'font-weight': '500',
+                    'color': 'var(--foreground)',
                   }),
                   [Component.text(userName!)],
                 ),
               if (userSubtitle != null)
                 div(
                   styles: const Styles(raw: {
-                    'font-size': ArcaneTypography.fontXs,
-                    'color': ArcaneColors.mutedForeground,
+                    'font-size': '0.75rem',
+                    'color': 'var(--muted-foreground)',
                   }),
                   [Component.text(userSubtitle!)],
                 ),
@@ -437,7 +434,7 @@ class ArcaneDashboardUserMenu extends StatelessComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-dashboard-user-menu:hover').styles(raw: {
-      'background-color': ArcaneColors.surfaceVariant,
+      'background-color': 'var(--muted)',
     }),
   ];
 }

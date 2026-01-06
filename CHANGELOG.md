@@ -7,6 +7,165 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.7.1]
 
+### Removed
+
+#### Old Token System Infrastructure
+The legacy token system has been completely removed. Components now use CSS variables directly.
+
+**Deleted Files:**
+- `lib/util/tokens/tokens.dart` - Old `ArcaneColors`, `ArcaneSpacing`, `ArcaneTypography`, `ArcaneRadius`, `ArcaneEffects`, `ArcaneLayout`, `ArcaneZIndex` classes
+- `lib/util/tokens/style_presets.dart` - Old `ButtonStyle`, `InputStyle`, `CardStyle`, etc.
+- `lib/util/tokens/common_styles.dart` - Old common style maps
+- `lib/util/tokens/index.dart` - Token barrel export
+- `lib/util/tokens/styles/` - All old style token files
+- `lib/util/tools/styles.dart` - Old `ArcaneStyles` helper class
+- `lib/util/tokens/` directory - Completely removed
+- `lib/util/tools/` directory - Completely removed
+
+**Updated Style Type Files:**
+All enum-based style types now use direct CSS values instead of token references:
+- `lib/util/style_types/borders.dart` - Direct CSS variables (`var(--border)`, etc.)
+- `lib/util/style_types/colors.dart` - Direct CSS variables (`var(--foreground)`, etc.)
+- `lib/util/style_types/effects.dart` - Direct CSS values for shadows, transitions
+- `lib/util/style_types/layout.dart` - Direct pixel/string values for z-index, max-width
+- `lib/util/style_types/spacing.dart` - Direct pixel values for spacing
+- `lib/util/style_types/typography.dart` - Direct rem values for font sizes
+
+**Barrel Export Cleanup:**
+- Removed token exports from `lib/arcane_jaspr.dart`
+
+### Added
+
+#### Additional Component Renderers
+Extended the renderer architecture to cover more UI components:
+- **Chip**: `ChipProps`, `ChipGroupProps`, `ShadcnChip` renderer for tags and labels with removable option
+- **Kbd**: `KbdProps`, `ShadcnKbd` renderer for keyboard shortcut display
+- **ThemeToggle**: `ThemeToggleProps`, `ThemeToggleSimpleProps`, `ShadcnThemeToggle` and `ShadcnThemeToggleSimple` renderers
+
+#### Renderer-Based Component Architecture (TIER 7)
+Migrated additional input components to the renderer architecture:
+- **NumberInput**: `NumberInputProps`, `ShadcnNumberInput` renderer with increment/decrement controls
+- **ColorInput**: `ColorInputProps`, `ShadcnColorInput` renderer with swatch preview and hex input
+- **Search**: `SearchProps`, `ShadcnSearch` renderer with icon, loading state, and clear button
+- **FAB**: `FABProps`, `ShadcnFAB` renderer with size, position, and variant support
+- **CycleButton**: `CycleButtonProps`, `ShadcnCycleButton` renderer for cycling through options
+- **ToggleButton**: `ToggleButtonProps`, `ShadcnToggleButton` renderer for on/off states
+
+### Changed
+- **ArcaneTextInput**: Removed old `InputStyle` and `InputSizeStyle` parameters, now uses `TextInputSize` enum
+- **ArcaneTextArea**: Removed `style` parameter, now uses CSS variables directly
+- **ArcaneSelect**: Replaced `InputSizeStyle` with `TextInputSize`, uses CSS variables directly
+- **ArcaneCycleButton**: Changed from `ButtonStyle` to `CycleButtonVariant`, removed `ArcaneCycleOption` (now `CycleOption`)
+- **ArcaneFAB**: Changed from `FABStyle` to `FABVariant`
+
+### Removed
+- Removed `style_presets.dart` dependency from all component wrappers
+- Removed `ArcaneCycleOption` class (replaced by `CycleOption` from props)
+
+#### Renderer-Based Component Architecture (TIER 6)
+Migrated additional ShadCN primitives to the renderer architecture:
+- **Calendar**: `CalendarProps`, `ShadcnCalendar` renderer
+- **DatePicker**: `DatePickerProps`, `ShadcnDatePicker` renderer
+- **Loader**: `LoaderProps`, `LoadingOverlayProps`, `ShadcnLoader` renderer
+- **OtpInput**: `OtpInputProps`, `ShadcnOtpInput` renderer
+- **Select**: `SelectProps`, `ShadcnSelect` renderer
+- **ContextMenu**: `ContextMenuProps`, `ShadcnContextMenu` renderer
+- **HoverCard**: `HovercardProps`, `ShadcnHovercard` renderer
+- **ToggleGroup**: `ToggleGroupProps`, `ShadcnToggleGroup` renderer
+- **Menubar**: `MenubarProps`, `ShadcnMenubar` renderer
+
+#### CSS Variable Namespace Unification
+`ShadcnStylesheet` now includes comprehensive `--arcane-xxx` CSS variable aliases ensuring that components using `ArcaneColors` tokens work consistently with the new renderer-based stylesheet system:
+- Core color aliases (background, foreground, card, surface, primary, secondary, accent)
+- RGB channel variables for rgba() compositing
+- Semantic status colors (success, warning, info, destructive)
+- Typography variables (font-sans, font-heading, font-mono)
+- Radius tokens (xs through 2xl, plus component-specific)
+- Shadow tokens (xs through xl)
+- Transition tokens (fast, normal, slow)
+- Component structure tokens (interactive-radius, container-radius, input-radius)
+- Style fallback aliases (--arcane-style-xxx variants)
+
+This ensures theming consistency whether components use the new ShadCN renderer variables (`var(--foreground)`) or legacy ArcaneColors tokens (`var(--arcane-foreground)`).
+
+#### Component Structure Token System
+Stylesheets now control ALL component structural properties, enabling radically different design languages:
+
+**Semantic Token Groups:**
+- `InteractiveTokens` - Buttons, toggles, clickable elements (shape, hover effects, gradients)
+- `ContainerTokens` - Cards, dialogs, sheets (shape, shadows, backdrop blur)
+- `InputTokens` - Text inputs, selects, form fields (shape, borders, focus styles)
+- `IndicatorTokens` - Checkboxes, radios, toggle switches (shapes, colors, animations)
+
+**New Component Shape System:**
+- `ComponentShape` enum: `sharp`, `rounded`, `softRounded`, `pill`, `circle`, `custom`
+- Each component type can have a different shape per stylesheet
+- Radio buttons can be circles, rounded-squares, or sharp-squares
+- Toggle thumbs can be circles or rounded-squares
+
+**New CSS Variables:**
+```css
+/* Interactive elements (buttons) */
+--arcane-interactive-radius
+--arcane-interactive-border-width
+--arcane-interactive-hover-shadow
+
+/* Containers (cards, dialogs) */
+--arcane-container-radius
+--arcane-container-shadow
+--arcane-container-border-width
+
+/* Input fields */
+--arcane-input-radius
+--arcane-input-border-width
+
+/* Indicators (checkbox, radio, toggle) */
+--arcane-indicator-checkbox-radius
+--arcane-indicator-radio-radius
+--arcane-indicator-toggle-track-radius
+--arcane-indicator-toggle-thumb-radius
+--arcane-toggle-thumb-on / --arcane-toggle-thumb-off
+--arcane-toggle-track-on / --arcane-toggle-track-off
+--arcane-indicator-checked-bg
+--arcane-indicator-unchecked-border
+--arcane-indicator-check-color
+```
+
+**Stylesheet Differences:**
+- **Codex**: Sharp corners, rounded-square toggle thumbs, light thumb when ON
+- **ShadCN**: Soft rounded corners, circular toggle thumbs, background-colored thumb
+
+**New ArcaneRadius Token References:**
+```dart
+ArcaneRadius.interactive  // For buttons
+ArcaneRadius.container    // For cards/dialogs
+ArcaneRadius.input        // For text inputs
+ArcaneRadius.indicator    // For checkboxes
+ArcaneRadius.radio        // For radio buttons
+ArcaneRadius.toggleTrack  // For toggle track
+ArcaneRadius.toggleThumb  // For toggle thumb
+```
+
+#### Stylesheet Folder Reorganization
+Stylesheets are now organized into separate folders:
+- `lib/util/appearance/stylesheets/codex/codex_style.dart`
+- `lib/util/appearance/stylesheets/shadcn/shadcn_style.dart`
+- `lib/util/appearance/stylesheets/shadcn/shadcn_presets.dart`
+
+### Changed
+
+#### Components Updated to Use Stylesheet-Reactive Tokens
+Components now use CSS variables that respond to stylesheet changes:
+
+- **Toggle Switch**: Track and thumb shapes/colors now come from stylesheet
+- **Radio Group**: Radio circle shape now comes from `--arcane-indicator-radio-radius`
+- **Checkbox**: Checkbox shape now comes from `--arcane-indicator-checkbox-radius`
+- **Buttons**: Border-radius now uses `--arcane-interactive-radius`
+- **Icon Buttons**: Border-radius now uses `--arcane-interactive-radius`
+- **Cards**: Border-radius now uses `--arcane-container-radius`
+- **Dialogs/Sheets**: Border-radius now uses `--arcane-container-radius`
+- **Text Inputs**: Border-radius now uses `--arcane-input-radius`
+
 ### Changed (BREAKING)
 
 #### Unified Stylesheet System

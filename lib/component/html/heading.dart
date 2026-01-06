@@ -26,7 +26,6 @@ import 'package:jaspr/dom.dart'
         events;
 
 import '../../util/style_types/arcane_style_data.dart';
-import '../../util/tokens/tokens.dart';
 
 /// Heading level enum
 enum HeadingLevel { h1, h2, h3, h4, h5, h6 }
@@ -334,7 +333,7 @@ class ArcaneHeading extends StatelessComponent {
     // Apply heading font family as default, user styles override
     final baseStyles = styles?.toMap() ?? <String, String>{};
     final mergedStyles = Styles(raw: {
-      'font-family': ArcaneTypography.fontFamilyHeading,
+      'font-family': 'var(--font-heading, ui-sans-serif, system-ui, sans-serif)',
       ...baseStyles,
     });
 

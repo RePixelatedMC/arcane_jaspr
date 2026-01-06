@@ -1,5 +1,3 @@
-import '../tokens/tokens.dart';
-
 /// Box shadow presets for depth and emphasis.
 ///
 /// Shadows create visual hierarchy by simulating elevation.
@@ -89,22 +87,22 @@ enum Shadow {
   glowPink;
 
   String get css => switch (this) {
-        Shadow.none => ArcaneEffects.shadowNone,
-        Shadow.xs => ArcaneEffects.shadowXs,
-        Shadow.sm => ArcaneEffects.shadowSm,
-        Shadow.md => ArcaneEffects.shadowMd,
-        Shadow.lg => ArcaneEffects.shadowLg,
-        Shadow.xl => ArcaneEffects.shadowXl,
-        Shadow.card => ArcaneEffects.shadowCard,
-        Shadow.glowAccent => ArcaneEffects.glowAccent,
-        Shadow.glowSuccess => ArcaneEffects.glowSuccess,
-        Shadow.glowError => ArcaneEffects.glowError,
-        Shadow.glowPrimary => ArcaneEffects.glowPrimary,
-        Shadow.glowGreen => ArcaneEffects.glowGreen,
-        Shadow.glowCyan => ArcaneEffects.glowCyan,
-        Shadow.glowPurple => ArcaneEffects.glowPurple,
-        Shadow.glowOrange => ArcaneEffects.glowOrange,
-        Shadow.glowPink => ArcaneEffects.glowPink,
+        Shadow.none => 'none',
+        Shadow.xs => 'var(--arcane-shadow-xs, 0 1px 3px 0 rgba(0, 0, 0, 0.05))',
+        Shadow.sm => 'var(--arcane-shadow-sm, 0 1px 3px 0 rgba(0, 0, 0, 0.1))',
+        Shadow.md => 'var(--arcane-shadow-md, 0 4px 6px -1px rgba(0, 0, 0, 0.1))',
+        Shadow.lg => 'var(--arcane-shadow-lg, 0 10px 15px -3px rgba(0, 0, 0, 0.1))',
+        Shadow.xl => 'var(--arcane-shadow-xl, 0 20px 25px -5px rgba(0, 0, 0, 0.1))',
+        Shadow.card => '0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1)',
+        Shadow.glowAccent => '0 0 20px var(--primary), 0 0 40px hsl(var(--primary) / 0.1)',
+        Shadow.glowSuccess => '0 0 20px var(--success), 0 0 40px hsl(var(--success) / 0.1)',
+        Shadow.glowError => '0 0 20px var(--destructive), 0 0 40px hsl(var(--destructive) / 0.1)',
+        Shadow.glowPrimary => '0 0 20px rgba(16, 185, 129, 0.3), 0 0 40px rgba(16, 185, 129, 0.1)',
+        Shadow.glowGreen => '0 0 20px rgba(16, 185, 129, 0.3), 0 0 40px rgba(16, 185, 129, 0.1)',
+        Shadow.glowCyan => '0 0 20px rgba(6, 182, 212, 0.3), 0 0 40px rgba(6, 182, 212, 0.1)',
+        Shadow.glowPurple => '0 0 20px rgba(139, 92, 246, 0.3), 0 0 40px rgba(139, 92, 246, 0.1)',
+        Shadow.glowOrange => '0 0 20px rgba(249, 115, 22, 0.3), 0 0 40px rgba(249, 115, 22, 0.1)',
+        Shadow.glowPink => '0 0 20px rgba(236, 72, 153, 0.3), 0 0 40px rgba(236, 72, 153, 0.1)',
       };
 }
 
@@ -180,10 +178,10 @@ enum Transition {
 
   String get css => switch (this) {
         Transition.none => 'none',
-        Transition.fast => ArcaneEffects.transitionFast,
-        Transition.normal => ArcaneEffects.transitionNormal,
-        Transition.slow => ArcaneEffects.transitionSlow,
-        Transition.bounce => ArcaneEffects.transitionBounce,
+        Transition.fast => 'all 150ms ease',
+        Transition.normal => 'all 200ms ease',
+        Transition.slow => 'all 300ms ease',
+        Transition.bounce => 'all 300ms cubic-bezier(0.68, -0.55, 0.265, 1.55)',
         Transition.allFast => 'all 0.15s ease',
         Transition.allNormal => 'all 0.2s ease',
         Transition.allSlow => 'all 0.3s ease',
@@ -398,9 +396,9 @@ enum Transform {
 
   String get css => switch (this) {
         Transform.none => 'none',
-        Transform.hoverLift => ArcaneEffects.hoverLift,
-        Transform.hoverScale => ArcaneEffects.hoverScale,
-        Transform.hoverScaleSubtle => ArcaneEffects.hoverScaleSubtle,
+        Transform.hoverLift => 'translateY(-2px)',
+        Transform.hoverScale => 'scale(1.05)',
+        Transform.hoverScaleSubtle => 'scale(1.02)',
         Transform.center => 'translate(-50%, -50%)',
         Transform.centerX => 'translateX(-50%)',
         Transform.centerY => 'translateY(-50%)',
@@ -421,8 +419,8 @@ enum BackdropFilter {
 
   String get css => switch (this) {
         BackdropFilter.none => 'none',
-        BackdropFilter.blur => ArcaneEffects.backdropBlur,
-        BackdropFilter.blurStrong => ArcaneEffects.backdropBlurStrong,
+        BackdropFilter.blur => 'blur(16px)',
+        BackdropFilter.blurStrong => 'blur(24px)',
         BackdropFilter.blurLight => 'blur(8px)',
       };
 }

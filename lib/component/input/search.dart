@@ -1,13 +1,11 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight, StyleRule;
 
-import 'package:jaspr_lucide/jaspr_lucide.dart' hide Factory, Target, Key, List, Timer, View, Map;
+import '../../core/theme_provider.dart';
 
-import '../../util/tokens/tokens.dart';
-import '../../util/tokens/style_presets.dart';
+export '../../core/props/search_props.dart' show SearchSize, SearchStyle;
 
 /// A search input component with optional icon and clear button.
-class ArcaneSearch extends StatefulComponent {
+class ArcaneSearch extends StatelessComponent {
   /// Placeholder text
   final String placeholder;
 
@@ -38,11 +36,17 @@ class ArcaneSearch extends StatefulComponent {
   /// Whether the input is disabled
   final bool disabled;
 
-  /// Size preset
-  final InputSizeStyle size;
+  /// Size variant
+  final SearchSize size;
 
-  /// Style preset
-  final InputStyle? style;
+  /// Style variant
+  final SearchStyle style;
+
+  /// Optional element ID
+  final String? id;
+
+  /// Additional HTML attributes
+  final Map<String, String>? attributes;
 
   const ArcaneSearch({
     this.placeholder = 'Search...',
@@ -55,155 +59,30 @@ class ArcaneSearch extends StatefulComponent {
     this.icon,
     this.autofocus = false,
     this.disabled = false,
-    this.size = InputSizeStyle.md,
-    this.style,
+    this.size = SearchSize.md,
+    this.style = SearchStyle.standard,
+    this.id,
+    this.attributes,
     super.key,
   });
 
   @override
-  State<ArcaneSearch> createState() => _ArcaneSearchState();
-}
-
-class _ArcaneSearchState extends State<ArcaneSearch> {
-  late String _value;
-
-  @override
-  void initState() {
-    super.initState();
-    _value = component.value ?? '';
-  }
-
-  @override
-  void didUpdateComponent(ArcaneSearch oldComponent) {
-    super.didUpdateComponent(oldComponent);
-    if (component.value != null && component.value != _value) {
-      _value = component.value!;
-    }
-  }
-
-  void _handleChange(String value) {
-    setState(() {
-      _value = value;
-    });
-    component.onChanged?.call(value);
-  }
-
-  void _handleClear() {
-    setState(() {
-      _value = '';
-    });
-    component.onChanged?.call('');
-  }
-
-  void _handleSubmit() {
-    component.onSubmitted?.call(_value);
-  }
-
-  @override
   Component build(BuildContext context) {
-    final effectiveStyle = component.style ?? InputStyle.standard;
-
-    return div(
-      classes: 'arcane-search ${component.disabled ? 'disabled' : ''}',
-      styles: Styles(raw: {
-        'display': 'flex',
-        'align-items': 'center',
-        'gap': ArcaneSpacing.sm,
-        'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
-        ...effectiveStyle.base,
-        'opacity': component.disabled ? '0.5' : '1',
-      }),
-      [
-        // Search icon
-        if (component.loading)
-          _buildSpinner()
-        else if (component.icon != null)
-          component.icon!
-        else if (component.showIcon)
-          _buildSearchIcon(),
-
-        // Input field
-        input(
-          type: InputType.text,
-          classes: 'arcane-search-input',
-          attributes: {
-            'placeholder': component.placeholder,
-            'value': _value,
-            if (component.autofocus) 'autofocus': 'true',
-            if (component.disabled) 'disabled': 'true',
-          },
-          styles: const Styles(raw: {
-            'flex': '1',
-            'border': 'none',
-            'background': ArcaneColors.transparent,
-            'color': ArcaneColors.onSurface,
-            'font-size': ArcaneTypography.fontMd,
-            'outline': 'none',
-            'min-width': '0',
-          }),
-          events: {
-            'input': (event) {
-              final target = event.target;
-              if (target != null) {
-                _handleChange((target as dynamic).value ?? '');
-              }
-            },
-            'keydown': (event) {
-              if ((event as dynamic).key == 'Enter') {
-                _handleSubmit();
-              }
-            },
-          },
-        ),
-
-        // Clear button
-        if (component.showClear && _value.isNotEmpty)
-          button(
-            classes: 'arcane-search-clear',
-            attributes: {'type': 'button'},
-            styles: const Styles(raw: {
-              'display': 'flex',
-              'align-items': 'center',
-              'justify-content': 'center',
-              'width': '20px',
-              'height': '20px',
-              'border-radius': ArcaneRadius.full,
-              'background': ArcaneColors.surfaceVariant,
-              'color': ArcaneColors.mutedForeground,
-              'border': 'none',
-              'cursor': 'pointer',
-              'transition': ArcaneEffects.transitionFast,
-            }),
-            events: {
-              'click': (event) => _handleClear(),
-            },
-            [text('×')],
-          ),
-      ],
-    );
-  }
-
-  Component _buildSearchIcon() {
-    return Search(
-      width: const Unit.pixels(20),
-      height: const Unit.pixels(20),
-      attributes: {'stroke': ArcaneColors.mutedForeground},
-    );
-  }
-
-  Component _buildSpinner() {
-    return const span(
-      classes: 'arcane-search-spinner',
-      styles: Styles(raw: {
-        'display': 'inline-block',
-        'width': '16px',
-        'height': '16px',
-        'border': '2px solid ${ArcaneColors.border}',
-        'border-right-color': ArcaneColors.accent,
-        'border-radius': ArcaneRadius.full,
-        'animation': 'arcane-spin 0.75s linear infinite',
-      }),
-      [],
-    );
+    return context.renderers.search(SearchProps(
+      placeholder: placeholder,
+      value: value,
+      onChanged: onChanged,
+      onSubmitted: onSubmitted,
+      showClear: showClear,
+      showIcon: showIcon,
+      loading: loading,
+      icon: icon,
+      autofocus: autofocus,
+      disabled: disabled,
+      size: size,
+      style: style,
+      id: id,
+      attributes: attributes,
+    ));
   }
 }

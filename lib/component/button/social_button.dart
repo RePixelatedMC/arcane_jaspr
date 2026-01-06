@@ -60,18 +60,23 @@ class SocialSignInButton extends StatelessComponent {
     final Map<String, String> sizeStyles = switch (size) {
       ButtonSize.small => <String, String>{
           'padding': '8px 12px',
-          'font-size': ArcaneTypography.fontXs,
-          'gap': ArcaneSpacing.xs,
+          'font-size': '0.75rem',
+          'gap': '0.25rem',
         },
       ButtonSize.medium => <String, String>{
           'padding': '10px 16px',
-          'font-size': ArcaneTypography.fontSizeSm,
-          'gap': ArcaneSpacing.xs,
+          'font-size': '0.875rem',
+          'gap': '0.25rem',
         },
       ButtonSize.large => <String, String>{
           'padding': '12px 20px',
-          'font-size': ArcaneTypography.fontSizeBase,
-          'gap': ArcaneSpacing.sm,
+          'font-size': '1rem',
+          'gap': '0.5rem',
+        },
+      ButtonSize.icon || ButtonSize.iconSmall || ButtonSize.iconLarge => <String, String>{
+          'padding': '10px',
+          'font-size': '0.875rem',
+          'gap': '0',
         },
     };
 
@@ -89,12 +94,12 @@ class SocialSignInButton extends StatelessComponent {
         'font-weight': '500',
         'font-family': 'inherit',
         'background': backgroundColor ?? 'transparent',
-        'color': foregroundColor ?? ArcaneColors.onBackground,
-        'border': '1px solid ${borderColor ?? ArcaneColors.border}',
-        'border-radius': ArcaneRadius.md,
+        'color': foregroundColor ?? 'var(--foreground)',
+        'border': '1px solid ${borderColor ?? 'var(--border)'}',
+        'border-radius': '0.375rem',
         'cursor': isDisabled ? 'not-allowed' : 'pointer',
         'opacity': isDisabled ? '0.5' : '1',
-        'transition': ArcaneEffects.transitionFast,
+        'transition': 'all 150ms ease',
         'white-space': 'nowrap',
         'user-select': 'none',
         if (fullWidth) 'width': '100%',
@@ -110,7 +115,7 @@ class SocialSignInButton extends StatelessComponent {
             final dynamic target = event.target;
             if (target != null) {
               (target as dynamic).style.background =
-                  hoverBackgroundColor ?? ArcaneColors.backgroundSecondary;
+                  hoverBackgroundColor ?? 'var(--muted)';
             }
           }
         },
@@ -140,7 +145,7 @@ class SocialSignInButton extends StatelessComponent {
         'height': '16px',
         'border': '2px solid currentColor',
         'border-right-color': 'transparent',
-        'border-radius': ArcaneRadius.full,
+        'border-radius': '9999px',
         'animation': 'arcane-spin 0.75s linear infinite',
       }),
       <Component>[],

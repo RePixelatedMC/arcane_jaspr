@@ -1,8 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/tokens/tokens.dart';
-
 /// Theme configuration for [CardCarousel] widgets.
 class ArcaneCardCarouselTheme {
   /// The intensity level for the edge gradient fade effect (1-12).
@@ -50,7 +48,7 @@ class ArcaneCardCarousel extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     final int effectiveSharpness = (sharpness ?? 9).clamp(1, 12);
-    final String effectiveFeatherColor = featherColor ?? ArcaneColors.background;
+    final String effectiveFeatherColor = featherColor ?? 'var(--background)';
 
     // Generate gradient stops based on sharpness
     final List<String> transparentStops = List.generate(effectiveSharpness, (_) => 'transparent');
@@ -93,7 +91,7 @@ class ArcaneCardCarousel extends StatelessComponent {
             'background': 'linear-gradient(to right, $leftGradient)',
             'pointer-events': 'none',
             'opacity': '0',
-            'transition': ArcaneEffects.transition,
+            'transition': 'all 200ms ease',
           }),
           [],
         ),
@@ -110,7 +108,7 @@ class ArcaneCardCarousel extends StatelessComponent {
             'background': 'linear-gradient(to left, $rightGradient)',
             'pointer-events': 'none',
             'opacity': '1',
-            'transition': ArcaneEffects.transition,
+            'transition': 'all 200ms ease',
           }),
           [],
         ),
@@ -164,10 +162,10 @@ class ArcaneNavigableCarousel extends StatefulComponent {
   static final List<StyleRule> styles = [
     css('.arcane-carousel-prev:hover:not([disabled]), .arcane-carousel-next:hover:not([disabled])')
         .styles(raw: {
-      'background-color': ArcaneColors.surfaceVariant,
+      'background-color': 'var(--muted)',
     }),
     css('.arcane-carousel-indicators button:hover').styles(raw: {
-      'background-color': ArcaneColors.accent,
+      'background-color': 'var(--accent)',
       'opacity': '0.7',
     }),
   ];
@@ -230,7 +228,7 @@ class _NavigableCarouselState extends State<ArcaneNavigableCarousel> {
                 'display': 'flex',
                 'gap': '${component.gap}px',
                 'transform': 'translateX($translatePercent%)',
-                'transition': ArcaneEffects.transition,
+                'transition': 'all 200ms ease',
               }),
               [
                 for (final child in component.children)
@@ -258,23 +256,23 @@ class _NavigableCarouselState extends State<ArcaneNavigableCarousel> {
             },
             styles: Styles(raw: {
               'position': 'absolute',
-              'left': ArcaneSpacing.sm,
+              'left': '0.5rem',
               'top': '50%',
               'transform': 'translateY(-50%)',
               'width': '36px',
               'height': '36px',
-              'border-radius': ArcaneRadius.full,
+              'border-radius': '9999px',
               'border': 'none',
-              'background-color': ArcaneColors.surface,
-              'color': ArcaneColors.onSurface,
+              'background-color': 'var(--card)',
+              'color': 'var(--foreground)',
               'cursor': _currentIndex == 0 ? 'not-allowed' : 'pointer',
               'opacity': _currentIndex == 0 ? '0.5' : '1',
-              'box-shadow': ArcaneEffects.shadowSm,
+              'box-shadow': '0 1px 2px 0 rgb(0 0 0 / 0.05)',
               'display': 'flex',
               'align-items': 'center',
               'justify-content': 'center',
               'z-index': '10',
-              'transition': ArcaneEffects.transitionFast,
+              'transition': 'all 150ms ease',
             }),
             events: {
               'click': (_) => _goToPrevious(),
@@ -292,23 +290,23 @@ class _NavigableCarouselState extends State<ArcaneNavigableCarousel> {
             },
             styles: Styles(raw: {
               'position': 'absolute',
-              'right': ArcaneSpacing.sm,
+              'right': '0.5rem',
               'top': '50%',
               'transform': 'translateY(-50%)',
               'width': '36px',
               'height': '36px',
-              'border-radius': ArcaneRadius.full,
+              'border-radius': '9999px',
               'border': 'none',
-              'background-color': ArcaneColors.surface,
-              'color': ArcaneColors.onSurface,
+              'background-color': 'var(--card)',
+              'color': 'var(--foreground)',
               'cursor': _currentIndex >= _maxIndex ? 'not-allowed' : 'pointer',
               'opacity': _currentIndex >= _maxIndex ? '0.5' : '1',
-              'box-shadow': ArcaneEffects.shadowSm,
+              'box-shadow': '0 1px 2px 0 rgb(0 0 0 / 0.05)',
               'display': 'flex',
               'align-items': 'center',
               'justify-content': 'center',
               'z-index': '10',
-              'transition': ArcaneEffects.transitionFast,
+              'transition': 'all 150ms ease',
             }),
             events: {
               'click': (_) => _goToNext(),
@@ -324,8 +322,8 @@ class _NavigableCarouselState extends State<ArcaneNavigableCarousel> {
             styles: const Styles(raw: {
               'display': 'flex',
               'justify-content': 'center',
-              'gap': ArcaneSpacing.sm,
-              'margin-top': ArcaneSpacing.lg,
+              'gap': '0.5rem',
+              'margin-top': '1.5rem',
             }),
             [
               for (int i = 0; i <= _maxIndex; i++)
@@ -337,13 +335,13 @@ class _NavigableCarouselState extends State<ArcaneNavigableCarousel> {
                   styles: Styles(raw: {
                     'width': i == _currentIndex ? '24px' : '8px',
                     'height': '8px',
-                    'border-radius': ArcaneRadius.sm,
+                    'border-radius': '0.25rem',
                     'border': 'none',
                     'background-color': i == _currentIndex
-                        ? ArcaneColors.accent
-                        : ArcaneColors.border,
+                        ? 'var(--accent)'
+                        : 'var(--border)',
                     'cursor': 'pointer',
-                    'transition': ArcaneEffects.transitionFast,
+                    'transition': 'all 150ms ease',
                     'padding': '0',
                   }),
                   events: {
@@ -390,7 +388,7 @@ class ArcaneHeroCarousel extends StatefulComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-hero-carousel button:hover').styles(raw: {
-      'background-color': ArcaneColors.overlayStrong,
+      'background-color': 'rgba(0, 0, 0, 0.6)',
     }),
   ];
 }
@@ -451,19 +449,19 @@ class _HeroCarouselState extends State<ArcaneHeroCarousel> {
             attributes: {'type': 'button', 'aria-label': 'Previous'},
             styles: const Styles(raw: {
               'position': 'absolute',
-              'left': ArcaneSpacing.lg,
+              'left': '1.5rem',
               'top': '50%',
               'transform': 'translateY(-50%)',
               'width': '48px',
               'height': '48px',
-              'border-radius': ArcaneRadius.full,
+              'border-radius': '9999px',
               'border': 'none',
-              'background-color': ArcaneColors.overlay,
+              'background-color': 'rgba(0, 0, 0, 0.4)',
               'color': 'white',
               'cursor': 'pointer',
               'font-size': '1.25rem',
               'z-index': '10',
-              'transition': ArcaneEffects.transitionFast,
+              'transition': 'all 150ms ease',
             }),
             events: {'click': (_) => _goToPrevious()},
             [const Component.text('<')],
@@ -472,19 +470,19 @@ class _HeroCarouselState extends State<ArcaneHeroCarousel> {
             attributes: {'type': 'button', 'aria-label': 'Next'},
             styles: const Styles(raw: {
               'position': 'absolute',
-              'right': ArcaneSpacing.lg,
+              'right': '1.5rem',
               'top': '50%',
               'transform': 'translateY(-50%)',
               'width': '48px',
               'height': '48px',
-              'border-radius': ArcaneRadius.full,
+              'border-radius': '9999px',
               'border': 'none',
-              'background-color': ArcaneColors.overlay,
+              'background-color': 'rgba(0, 0, 0, 0.4)',
               'color': 'white',
               'cursor': 'pointer',
               'font-size': '1.25rem',
               'z-index': '10',
-              'transition': ArcaneEffects.transitionFast,
+              'transition': 'all 150ms ease',
             }),
             events: {'click': (_) => _goToNext()},
             [const Component.text('>')],
@@ -496,11 +494,11 @@ class _HeroCarouselState extends State<ArcaneHeroCarousel> {
           div(
             styles: const Styles(raw: {
               'position': 'absolute',
-              'bottom': ArcaneSpacing.lg,
+              'bottom': '1.5rem',
               'left': '50%',
               'transform': 'translateX(-50%)',
               'display': 'flex',
-              'gap': ArcaneSpacing.sm,
+              'gap': '0.5rem',
               'z-index': '10',
             }),
             [
@@ -510,11 +508,11 @@ class _HeroCarouselState extends State<ArcaneHeroCarousel> {
                   styles: Styles(raw: {
                     'width': '12px',
                     'height': '12px',
-                    'border-radius': ArcaneRadius.full,
+                    'border-radius': '9999px',
                     'border': '2px solid white',
-                    'background-color': i == _currentIndex ? 'white' : ArcaneColors.transparent,
+                    'background-color': i == _currentIndex ? 'white' : 'transparent',
                     'cursor': 'pointer',
-                    'transition': ArcaneEffects.transitionFast,
+                    'transition': 'all 150ms ease',
                     'padding': '0',
                   }),
                   events: {'click': (_) => _goToIndex(i)},

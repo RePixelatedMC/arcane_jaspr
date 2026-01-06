@@ -13,8 +13,6 @@ import 'package:jaspr/dom.dart'
         BoxShadow,
         FontWeight;
 
-import '../../util/tokens/tokens.dart';
-
 /// Surface effect types for cards
 enum SurfaceEffect {
   /// No effect (plain surface)
@@ -154,21 +152,21 @@ class ArcaneSurfaceCard extends StatelessComponent {
         backgroundColor = null;
 
   String get _backgroundStyle {
-    final effectiveBgColor = backgroundColor ?? ArcaneColors.surface;
+    final effectiveBgColor = backgroundColor ?? 'var(--card)';
 
     return switch (effect) {
       SurfaceEffect.none => effectiveBgColor,
       SurfaceEffect.blur =>
-        'rgba(from $effectiveBgColor r g b / $backgroundOpacity)',
+        'hsl(from $effectiveBgColor h s l / $backgroundOpacity)',
       SurfaceEffect.frosted =>
-        'rgba(from $effectiveBgColor r g b / $backgroundOpacity)',
+        'hsl(from $effectiveBgColor h s l / $backgroundOpacity)',
       SurfaceEffect.glass =>
         'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)',
       SurfaceEffect.ice =>
         'linear-gradient(135deg, rgba(200,220,255,${backgroundOpacity * 0.3}) 0%, rgba(180,200,255,${backgroundOpacity * 0.2}) 100%)',
       SurfaceEffect.gradient => gradientColors != null && gradientColors!.length >= 2
           ? 'linear-gradient(${gradientAngle}deg, ${gradientColors!.join(', ')})'
-          : 'linear-gradient(${gradientAngle}deg, ${ArcaneColors.accent}, ${ArcaneColors.accentHover})',
+          : 'linear-gradient(${gradientAngle}deg, var(--accent), var(--accent))',
     };
   }
 
@@ -190,10 +188,10 @@ class ArcaneSurfaceCard extends StatelessComponent {
 
   String get _shadowStyle => switch (shadow) {
         ShadowIntensity.none => 'none',
-        ShadowIntensity.sm => ArcaneEffects.shadowSm,
-        ShadowIntensity.md => ArcaneEffects.shadowMd,
-        ShadowIntensity.lg => ArcaneEffects.shadowLg,
-        ShadowIntensity.xl => ArcaneEffects.shadowXl,
+        ShadowIntensity.sm => '0 1px 2px 0 rgb(0 0 0 / 0.05)',
+        ShadowIntensity.md => '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
+        ShadowIntensity.lg => '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
+        ShadowIntensity.xl => '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
       };
 
   @override
@@ -204,13 +202,13 @@ class ArcaneSurfaceCard extends StatelessComponent {
       classes: 'arcane-surface-card arcane-surface-${effect.name}',
       styles: Styles(raw: {
         'background': _backgroundStyle,
-        'border-radius': borderRadius ?? ArcaneRadius.lg,
-        'padding': padding ?? ArcaneSpacing.lg,
-        if (showBorder) 'border': '1px solid ${ArcaneColors.border}',
+        'border-radius': borderRadius ?? '0.5rem',
+        'padding': padding ?? '1.5rem',
+        if (showBorder) 'border': '1px solid var(--border)',
         'box-shadow': _shadowStyle,
         if (backdropFilter != null) 'backdrop-filter': backdropFilter,
         if (backdropFilter != null) '-webkit-backdrop-filter': backdropFilter,
-        'transition': ArcaneEffects.transitionFast,
+        'transition': 'all 150ms ease',
       }),
       [child],
     );
@@ -275,11 +273,11 @@ class ArcaneThumbHashCard extends StatelessComponent {
       },
       styles: Styles(raw: {
         'position': 'relative',
-        'border-radius': borderRadius ?? ArcaneRadius.lg,
+        'border-radius': borderRadius ?? '0.5rem',
         'overflow': 'hidden',
         // Placeholder gradient (would be replaced by decoded thumbhash)
         'background':
-            'linear-gradient(135deg, ${ArcaneColors.surfaceVariant} 0%, ${ArcaneColors.surface} 100%)',
+            'linear-gradient(135deg, var(--muted) 0%, var(--card) 100%)',
       }),
       [
         // Overlay for text readability
@@ -299,7 +297,7 @@ class ArcaneThumbHashCard extends StatelessComponent {
           styles: Styles(raw: {
             'position': 'relative',
             'z-index': '1',
-            'padding': padding ?? ArcaneSpacing.lg,
+            'padding': padding ?? '1.5rem',
           }),
           [child],
         ),

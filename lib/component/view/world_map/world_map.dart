@@ -79,7 +79,7 @@ class ArcaneWorldMap extends StatefulComponent {
     // Tooltip container
     css('.arcane-map-tooltip').styles(raw: {
       'position': 'absolute',
-      'z-index': ArcaneZIndex.tooltip,
+      'z-index': '1070',
       'pointer-events': 'none',
       'opacity': '0',
       'visibility': 'hidden',
@@ -115,9 +115,9 @@ class _ArcaneWorldMapState extends State<ArcaneWorldMap> {
     final style = component.style;
 
     // Default colors using theme tokens
-    final landFill = style.landFill ?? ArcaneColors.surfaceVariant;
-    final landStroke = style.landStroke ?? ArcaneColors.border;
-    final oceanFill = style.oceanFill ?? ArcaneColors.background;
+    final landFill = style.landFill ?? 'var(--muted)';
+    final landStroke = style.landStroke ?? 'var(--border)';
+    final oceanFill = style.oceanFill ?? 'var(--background)';
 
     // Use a wrapper with inline style for aspect-ratio since ArcaneStyleData
     // doesn't have built-in aspectRatio support yet
@@ -231,11 +231,11 @@ class _ArcaneWorldMapState extends State<ArcaneWorldMap> {
     // (accent is a background color in ShadCN, primary is always prominent)
     final String pinColor;
     if (location.isActive) {
-      pinColor = style.pinActiveColor ?? ArcaneColors.success;
+      pinColor = style.pinActiveColor ?? 'var(--success)';
     } else if (isHovered) {
-      pinColor = style.pinHoverColor ?? ArcaneColors.ring;
+      pinColor = style.pinHoverColor ?? 'var(--ring)';
     } else {
-      pinColor = style.pinColor ?? ArcaneColors.primary;
+      pinColor = style.pinColor ?? 'var(--primary)';
     }
 
     final pinSize = style.pinSize;

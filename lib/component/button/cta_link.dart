@@ -1,8 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/tokens/tokens.dart';
-
 /// CTA link button style variants
 enum CtaLinkVariant {
   /// Solid accent background
@@ -146,9 +144,9 @@ class ArcaneCtaLink extends StatelessComponent {
       styles: Styles(raw: {
         'display': 'inline-flex',
         'align-items': 'center',
-        'gap': ArcaneSpacing.sm,
+        'gap': '0.5rem',
         'padding': padding,
-        'border-radius': ArcaneRadius.md,
+        'border-radius': '0.375rem',
         'font-size': fontSize,
         'font-weight': '500',
         'text-decoration': 'none',
@@ -167,22 +165,22 @@ class ArcaneCtaLink extends StatelessComponent {
   String _getPadding() {
     switch (size) {
       case CtaLinkSize.sm:
-        return '${ArcaneSpacing.xs} ${ArcaneSpacing.sm}';
+        return '0.25rem 0.5rem';
       case CtaLinkSize.md:
-        return '${ArcaneSpacing.sm} ${ArcaneSpacing.lg}';
+        return '0.5rem 1.5rem';
       case CtaLinkSize.lg:
-        return '${ArcaneSpacing.md} ${ArcaneSpacing.xl}';
+        return '1rem 2rem';
     }
   }
 
   String _getFontSize() {
     switch (size) {
       case CtaLinkSize.sm:
-        return ArcaneTypography.fontSizeXs;
+        return '0.75rem';
       case CtaLinkSize.md:
-        return ArcaneTypography.fontSizeSm;
+        return '0.875rem';
       case CtaLinkSize.lg:
-        return ArcaneTypography.fontSizeBase;
+        return '1rem';
     }
   }
 
@@ -190,26 +188,26 @@ class ArcaneCtaLink extends StatelessComponent {
     switch (variant) {
       case CtaLinkVariant.primary:
         return {
-          'background': background ?? ArcaneColors.accent,
-          'color': ArcaneColors.accentForeground,
+          'background': background ?? 'var(--accent)',
+          'color': 'var(--accent-foreground)',
           'border': border ?? 'none',
         };
       case CtaLinkVariant.secondary:
         return {
           'background': background ?? 'transparent',
-          'color': ArcaneColors.onBackground,
-          'border': border ?? '1px solid ${ArcaneColors.border}',
+          'color': 'var(--foreground)',
+          'border': border ?? '1px solid var(--border)',
         };
       case CtaLinkVariant.ghost:
         return {
           'background': background ?? 'transparent',
-          'color': ArcaneColors.mutedForeground,
+          'color': 'var(--muted-foreground)',
           'border': border ?? 'none',
         };
       case CtaLinkVariant.accent:
         return {
-          'background': background ?? ArcaneColors.accentGradient,
-          'color': ArcaneColors.onBackground,
+          'background': background ?? 'linear-gradient(135deg, var(--accent) 0%, hsl(199 89% 48%) 100%)',
+          'color': 'var(--foreground)',
           'border': border ?? 'none',
         };
     }

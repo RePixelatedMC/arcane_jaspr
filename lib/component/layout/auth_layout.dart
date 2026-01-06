@@ -13,8 +13,6 @@ import 'package:jaspr/dom.dart'
         BoxShadow,
         FontWeight;
 
-import '../../util/tokens/tokens.dart';
-
 /// A layout for authentication screens with centered content and optional background effects.
 ///
 /// Provides a full-viewport container with optional grid pattern and glow effects,
@@ -57,11 +55,11 @@ class ArcaneAuthLayout extends StatelessComponent {
     this.footer,
     this.showGrid = true,
     this.showGlows = true,
-    this.primaryGlowColor = ArcaneColors.accentGlow,
-    this.secondaryGlowColor = ArcaneColors.secondaryGlow,
-    this.gridColor = ArcaneColors.gridColor,
+    this.primaryGlowColor = 'hsl(var(--accent) / 0.15)',
+    this.secondaryGlowColor = 'hsl(199 89% 48% / 0.15)',
+    this.gridColor = 'hsl(var(--border) / 0.3)',
     this.maxWidth = '420px',
-    this.backgroundColor = ArcaneColors.background,
+    this.backgroundColor = 'var(--background)',
   });
 
   /// Creates an auth layout with accent-colored glows based on theme
@@ -73,10 +71,10 @@ class ArcaneAuthLayout extends StatelessComponent {
     this.showGrid = true,
     this.showGlows = true,
     this.maxWidth = '420px',
-    this.backgroundColor = ArcaneColors.background,
-  })  : primaryGlowColor = ArcaneColors.accentGlow,
-        secondaryGlowColor = ArcaneColors.secondaryGlow,
-        gridColor = ArcaneColors.gridColor;
+    this.backgroundColor = 'var(--background)',
+  })  : primaryGlowColor = 'hsl(var(--accent) / 0.15)',
+        secondaryGlowColor = 'hsl(199 89% 48% / 0.15)',
+        gridColor = 'hsl(var(--border) / 0.3)';
 
   @override
   Component build(BuildContext context) {
@@ -88,7 +86,7 @@ class ArcaneAuthLayout extends StatelessComponent {
         'align-items': 'center',
         'justify-content': 'center',
         'background': backgroundColor,
-        'padding': ArcaneSpacing.lg,
+        'padding': '1.5rem',
         'position': 'relative',
         'overflow': 'hidden',
       }),
@@ -112,7 +110,7 @@ class ArcaneAuthLayout extends StatelessComponent {
                 styles: const Styles(raw: {
                   'display': 'flex',
                   'justify-content': 'center',
-                  'margin-bottom': ArcaneSpacing.xl,
+                  'margin-bottom': '2rem',
                 }),
                 [header!],
               ),
@@ -124,7 +122,7 @@ class ArcaneAuthLayout extends StatelessComponent {
                 classes: 'arcane-auth-footer',
                 styles: const Styles(raw: {
                   'text-align': 'center',
-                  'margin-top': ArcaneSpacing.xl,
+                  'margin-top': '2rem',
                 }),
                 [footer!],
               ),
@@ -210,13 +208,13 @@ class ArcaneAuthBackLink extends StatelessComponent {
       href: href,
       classes: 'arcane-auth-back-link',
       styles: const Styles(raw: {
-        'font-size': ArcaneTypography.fontSm,
-        'color': ArcaneColors.mutedForeground,
+        'font-size': '0.875rem',
+        'color': 'var(--muted-foreground)',
         'text-decoration': 'none',
         'display': 'inline-flex',
         'align-items': 'center',
-        'gap': ArcaneSpacing.xs,
-        'transition': ArcaneEffects.transitionFast,
+        'gap': '0.25rem',
+        'transition': 'all 150ms ease',
       }),
       [Component.text('\u2190 $text')],
     );
@@ -225,7 +223,7 @@ class ArcaneAuthBackLink extends StatelessComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-auth-back-link:hover').styles(raw: {
-      'color': ArcaneColors.accent,
+      'color': 'var(--accent)',
     }),
   ];
 }

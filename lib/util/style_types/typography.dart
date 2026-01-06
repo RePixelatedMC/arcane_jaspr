@@ -1,5 +1,3 @@
-import '../tokens/tokens.dart';
-
 /// Font size presets using a modular typographic scale.
 ///
 /// Sizes are defined in rem units for accessibility (respects user
@@ -72,18 +70,18 @@ enum FontSize {
   inherit;
 
   String get css => switch (this) {
-        FontSize.xs => ArcaneTypography.fontXs,
-        FontSize.sm => ArcaneTypography.fontSizeSm,
-        FontSize.md => ArcaneTypography.fontSizeMd,
-        FontSize.base => ArcaneTypography.fontSizeBase,
-        FontSize.lg => ArcaneTypography.fontLg,
-        FontSize.xl => ArcaneTypography.fontXl,
-        FontSize.xl2 => ArcaneTypography.font2xl,
-        FontSize.xl3 => ArcaneTypography.font3xl,
-        FontSize.xl4 => ArcaneTypography.font4xl,
-        FontSize.xl5 => ArcaneTypography.font5xl,
-        FontSize.hero => ArcaneTypography.fontHero,
-        FontSize.mega => ArcaneTypography.fontMega,
+        FontSize.xs => '0.75rem',
+        FontSize.sm => '0.875rem',
+        FontSize.md => '0.9375rem',
+        FontSize.base => '1rem',
+        FontSize.lg => '1.125rem',
+        FontSize.xl => '1.25rem',
+        FontSize.xl2 => '1.5rem',
+        FontSize.xl3 => '2rem',
+        FontSize.xl4 => '2.5rem',
+        FontSize.xl5 => '3rem',
+        FontSize.hero => '3.5rem',
+        FontSize.mega => '4.5rem',
         FontSize.inherit => 'inherit',
       };
 }
@@ -132,10 +130,10 @@ enum LineHeight {
 
   String get css => switch (this) {
         LineHeight.none => '1',
-        LineHeight.tight => ArcaneTypography.lineHeightTight,
-        LineHeight.snug => ArcaneTypography.lineHeightSnug,
-        LineHeight.normal => ArcaneTypography.lineHeightNormal,
-        LineHeight.relaxed => ArcaneTypography.lineHeightRelaxed,
+        LineHeight.tight => '1.1',
+        LineHeight.snug => '1.25',
+        LineHeight.normal => '1.5',
+        LineHeight.relaxed => '1.625',
         LineHeight.loose => '2',
       };
 }
@@ -162,10 +160,10 @@ enum LetterSpacing {
 
   String get css => switch (this) {
         LetterSpacing.tighter => '-0.05em',
-        LetterSpacing.tight => ArcaneTypography.letterSpacingTight,
-        LetterSpacing.normal => ArcaneTypography.letterSpacingNormal,
-        LetterSpacing.wide => ArcaneTypography.letterSpacingWide,
-        LetterSpacing.wider => ArcaneTypography.letterSpacingWidest,
+        LetterSpacing.tight => '-0.025em',
+        LetterSpacing.normal => '0',
+        LetterSpacing.wide => '0.025em',
+        LetterSpacing.wider => '0.05em',
         LetterSpacing.widest => '0.2em',
       };
 }
@@ -270,9 +268,9 @@ enum FontFamily {
   inherit;
 
   String get css => switch (this) {
-        FontFamily.sans => ArcaneTypography.fontFamily,
-        FontFamily.heading => ArcaneTypography.fontFamilyHeading,
-        FontFamily.mono => ArcaneTypography.fontFamilyMono,
+        FontFamily.sans => 'var(--font-sans, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif)',
+        FontFamily.heading => 'var(--font-heading, var(--font-sans, system-ui, -apple-system, sans-serif))',
+        FontFamily.mono => 'var(--font-mono, ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace)',
         FontFamily.inherit => 'inherit',
       };
 }

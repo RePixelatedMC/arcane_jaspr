@@ -1,8 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/tokens/tokens.dart';
-
 /// Text with gradient color
 ///
 /// ```dart
@@ -61,7 +59,7 @@ class ArcaneGradientText extends StatelessComponent {
     this.fontSize = 'inherit',
     this.fontWeight = 'inherit',
     super.key,
-  })  : gradient = ArcaneColors.accentGradient,
+  })  : gradient = 'linear-gradient(135deg, var(--accent) 0%, hsl(199 89% 48%) 100%)',
         gradientStart = null,
         gradientEnd = null,
         gradientAngle = null;
@@ -73,8 +71,8 @@ class ArcaneGradientText extends StatelessComponent {
     this.fontWeight = 'inherit',
     super.key,
   })  : gradient = null,
-        gradientStart = ArcaneColors.accent,
-        gradientEnd = ArcaneColors.info,
+        gradientStart = 'var(--accent)',
+        gradientEnd = 'hsl(199 89% 48%)',
         gradientAngle = '135deg';
 
   @override
@@ -84,8 +82,8 @@ class ArcaneGradientText extends StatelessComponent {
     if (gradient != null) {
       backgroundGradient = gradient!;
     } else {
-      final String start = gradientStart ?? ArcaneColors.success;
-      final String end = gradientEnd ?? ArcaneColors.info;
+      final String start = gradientStart ?? 'hsl(142 76% 36%)';
+      final String end = gradientEnd ?? 'hsl(199 89% 48%)';
       final String angle = gradientAngle ?? '135deg';
       backgroundGradient = 'linear-gradient($angle, $start 0%, $end 100%)';
     }
@@ -98,7 +96,7 @@ class ArcaneGradientText extends StatelessComponent {
         'background': backgroundGradient,
         '-webkit-background-clip': 'text',
         'background-clip': 'text',
-        'color': ArcaneColors.transparent,
+        'color': 'transparent',
       }),
       [Component.text(content)],
     );
@@ -131,11 +129,11 @@ class ArcaneAnimatedGradientText extends StatelessComponent {
         'font-size': fontSize,
         'font-weight': fontWeight,
         'background':
-            'linear-gradient(135deg, ${ArcaneColors.success} 0%, ${ArcaneColors.info} 25%, ${ArcaneColors.accent} 50%, ${ArcaneColors.error} 75%, ${ArcaneColors.success} 100%)',
+            'linear-gradient(135deg, hsl(142 76% 36%) 0%, hsl(199 89% 48%) 25%, var(--accent) 50%, var(--destructive) 75%, hsl(142 76% 36%) 100%)',
         'background-size': '200% 200%',
         '-webkit-background-clip': 'text',
         'background-clip': 'text',
-        'color': ArcaneColors.transparent,
+        'color': 'transparent',
         'animation': 'arcane-gradient-shift 5s ease infinite',
       }),
       [Component.text(content)],
@@ -180,7 +178,7 @@ class ArcaneGlowText extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final String color = glowColor ?? ArcaneColors.accent;
+    final String color = glowColor ?? 'var(--accent)';
 
     return span(
       classes: 'arcane-glow-text',
@@ -227,8 +225,8 @@ class ArcaneOutlineText extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final String stroke = strokeColor ?? ArcaneColors.accent;
-    final String fill = fillColor ?? ArcaneColors.transparent;
+    final String stroke = strokeColor ?? 'var(--accent)';
+    final String fill = fillColor ?? 'transparent';
 
     return span(
       classes: 'arcane-outline-text',

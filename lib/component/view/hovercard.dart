@@ -1,21 +1,12 @@
 import 'dart:async';
 
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart'
-    hide
-        Color,
-        Colors,
-        ColorScheme,
-        Gap,
-        Padding,
-        TextAlign,
-        TextOverflow,
-        Border,
-        BorderRadius,
-        BoxShadow,
-        FontWeight;
 
-import '../../util/tokens/tokens.dart';
+import '../../core/theme_provider.dart';
+
+// Re-export props for backwards compatibility
+export '../../core/props/hovercard_props.dart'
+    show HovercardPositionVariant, HovercardProps;
 
 /// Hovercard position relative to the trigger element
 enum HovercardPosition {
@@ -45,6 +36,7 @@ enum HovercardPosition {
 }
 
 /// A floating card that appears on hover with rich, interactive content.
+/// ShadCN Reference: https://ui.shadcn.com/docs/components/hover-card
 ///
 /// Unlike tooltips, hovercards can contain interactive elements like buttons
 /// and links. The card stays open while the user hovers over either the
@@ -154,145 +146,38 @@ class _ArcaneHovercardState extends State<ArcaneHovercard> {
     }
   }
 
-  void _handleTriggerEnter() {
+  void _handleMouseEnter() {
     _cancelTimers();
     _startOpenTimer();
   }
 
-  void _handleTriggerLeave() {
+  void _handleMouseLeave() {
     _cancelTimers();
     _startCloseTimer();
   }
 
-  (String, String, String?) get _positionStyles {
-    final offsetPx = '${component.offset}px';
-
-    return switch (component.position) {
-      HovercardPosition.top => (
-          'bottom',
-          'calc(100% + $offsetPx)',
-          'left: 50%; transform: translateX(-50%);'
-        ),
-      HovercardPosition.bottom => (
-          'top',
-          'calc(100% + $offsetPx)',
-          'left: 50%; transform: translateX(-50%);'
-        ),
-      HovercardPosition.left => (
-          'right',
-          'calc(100% + $offsetPx)',
-          'top: 50%; transform: translateY(-50%);'
-        ),
-      HovercardPosition.right => (
-          'left',
-          'calc(100% + $offsetPx)',
-          'top: 50%; transform: translateY(-50%);'
-        ),
-      HovercardPosition.topStart => (
-          'bottom',
-          'calc(100% + $offsetPx)',
-          'left: 0;'
-        ),
-      HovercardPosition.topEnd => (
-          'bottom',
-          'calc(100% + $offsetPx)',
-          'right: 0;'
-        ),
-      HovercardPosition.bottomStart => (
-          'top',
-          'calc(100% + $offsetPx)',
-          'left: 0;'
-        ),
-      HovercardPosition.bottomEnd => (
-          'top',
-          'calc(100% + $offsetPx)',
-          'right: 0;'
-        ),
-    };
-  }
-
-  String get _arrowPosition => switch (component.position) {
-        HovercardPosition.top ||
-        HovercardPosition.topStart ||
-        HovercardPosition.topEnd =>
-          'bottom: -6px; left: 50%; transform: translateX(-50%) rotate(45deg);',
-        HovercardPosition.bottom ||
-        HovercardPosition.bottomStart ||
-        HovercardPosition.bottomEnd =>
-          'top: -6px; left: 50%; transform: translateX(-50%) rotate(45deg);',
-        HovercardPosition.left =>
-          'right: -6px; top: 50%; transform: translateY(-50%) rotate(45deg);',
-        HovercardPosition.right =>
-          'left: -6px; top: 50%; transform: translateY(-50%) rotate(45deg);',
+  HovercardPositionVariant get _propsPosition => switch (component.position) {
+        HovercardPosition.top => HovercardPositionVariant.top,
+        HovercardPosition.bottom => HovercardPositionVariant.bottom,
+        HovercardPosition.left => HovercardPositionVariant.left,
+        HovercardPosition.right => HovercardPositionVariant.right,
+        HovercardPosition.topStart => HovercardPositionVariant.topStart,
+        HovercardPosition.topEnd => HovercardPositionVariant.topEnd,
+        HovercardPosition.bottomStart => HovercardPositionVariant.bottomStart,
+        HovercardPosition.bottomEnd => HovercardPositionVariant.bottomEnd,
       };
-
-  Map<String, String> _parseStyleString(String styleString) {
-    final result = <String, String>{};
-    for (final part in styleString.split(';')) {
-      if (part.trim().isNotEmpty && part.contains(':')) {
-        final key = part.split(':')[0].trim();
-        final value = part.split(':')[1].trim().replaceAll(';', '');
-        result[key] = value;
-      }
-    }
-    return result;
-  }
 
   @override
   Component build(BuildContext context) {
-    final (positionProp, positionValue, alignment) = _positionStyles;
-
-    // Put mouse events on the outer wrapper so there's no gap between
-    // trigger and card that would cause premature closing
-    return div(
-      styles: const Styles(raw: {
-        'position': 'relative',
-        'display': 'inline-block',
-      }),
-      events: {
-        'mouseenter': (_) => _handleTriggerEnter(),
-        'mouseleave': (_) => _handleTriggerLeave(),
-      },
-      [
-        // Trigger (no events needed - outer wrapper handles it)
-        component.trigger,
-
-        // Hovercard content
-        if (_isOpen)
-          div(
-            styles: Styles(raw: {
-              'position': 'absolute',
-              positionProp: positionValue,
-              if (alignment != null) ..._parseStyleString(alignment),
-              'z-index': ArcaneZIndex.tooltip,
-              'min-width': '200px',
-              'background': ArcaneColors.surface,
-              'border': '1px solid ${ArcaneColors.border}',
-              'border-radius': ArcaneRadius.lg,
-              'box-shadow': ArcaneEffects.shadowLg,
-              'padding': ArcaneSpacing.md,
-            }),
-            [
-              // Arrow
-              if (component.showArrow)
-                div(
-                  styles: Styles(raw: {
-                    'position': 'absolute',
-                    'width': '12px',
-                    'height': '12px',
-                    'background': ArcaneColors.surface,
-                    'border-left': '1px solid ${ArcaneColors.border}',
-                    'border-top': '1px solid ${ArcaneColors.border}',
-                    ..._parseStyleString(_arrowPosition),
-                  }),
-                  [],
-                ),
-
-              // Content
-              component.content,
-            ],
-          ),
-      ],
-    );
+    return context.renderers.hovercard(HovercardProps(
+      trigger: component.trigger,
+      content: component.content,
+      position: _propsPosition,
+      showArrow: component.showArrow,
+      offset: component.offset,
+      isOpen: _isOpen,
+      onMouseEnter: _handleMouseEnter,
+      onMouseLeave: _handleMouseLeave,
+    ));
   }
 }

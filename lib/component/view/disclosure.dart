@@ -13,8 +13,6 @@ import 'package:jaspr/dom.dart'
         BoxShadow,
         FontWeight;
 
-import '../../util/tokens/tokens.dart';
-
 /// A disclosure widget that uses native HTML details/summary elements.
 ///
 /// Unlike [ArcaneExpander], this component works on static sites without
@@ -95,28 +93,28 @@ class ArcaneDisclosure extends StatelessComponent {
       String contentBorder,
     ) = switch (variant) {
       DisclosureVariant.default_ => (
-          ArcaneColors.transparent,
+          'transparent',
           'none',
-          ArcaneColors.surfaceVariant,
-          '1px solid ${ArcaneColors.border}',
+          'var(--muted)',
+          '1px solid var(--border)',
         ),
       DisclosureVariant.minimal => (
-          ArcaneColors.transparent,
+          'transparent',
           'none',
-          ArcaneColors.transparent,
+          'transparent',
           'none',
         ),
       DisclosureVariant.bordered => (
-          ArcaneColors.transparent,
-          '1px solid ${ArcaneColors.border}',
-          ArcaneColors.transparent,
-          '1px solid ${ArcaneColors.border}',
+          'transparent',
+          '1px solid var(--border)',
+          'transparent',
+          '1px solid var(--border)',
         ),
       DisclosureVariant.filled => (
-          ArcaneColors.surface,
-          '1px solid ${ArcaneColors.border}',
-          ArcaneColors.surfaceVariant,
-          '1px solid ${ArcaneColors.border}',
+          'var(--card)',
+          '1px solid var(--border)',
+          'var(--muted)',
+          '1px solid var(--border)',
         ),
     };
 
@@ -135,7 +133,7 @@ class ArcaneDisclosure extends StatelessComponent {
       styles: Styles(raw: {
         'background-color': containerBg,
         'border': containerBorder,
-        'border-radius': ArcaneRadius.lg,
+        'border-radius': '0.5rem',
         'overflow': 'hidden',
       }),
       children: [
@@ -147,11 +145,11 @@ class ArcaneDisclosure extends StatelessComponent {
             'display': 'flex',
             'align-items': 'center',
             'justify-content': 'space-between',
-            'gap': ArcaneSpacing.md,
-            'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
+            'gap': '1rem',
+            'padding': '0.5rem 1rem',
             'background-color': summaryBg,
             'cursor': 'pointer',
-            'transition': ArcaneEffects.transitionFast,
+            'transition': 'all 150ms ease',
             'list-style': 'none',
             '-webkit-user-select': 'none',
             'user-select': 'none',
@@ -171,9 +169,9 @@ class ArcaneDisclosure extends StatelessComponent {
                 tag: 'span',
                 classes: 'arcane-disclosure-chevron',
                 styles: Styles(raw: {
-                  'color': ArcaneColors.mutedForeground,
-                  'font-size': ArcaneTypography.fontSm,
-                  'transition': ArcaneEffects.transitionFast,
+                  'color': 'var(--muted-foreground)',
+                  'font-size': '0.875rem',
+                  'transition': 'all 150ms ease',
                 }),
                 children: [Component.text('▼')],
               ),
@@ -184,7 +182,7 @@ class ArcaneDisclosure extends StatelessComponent {
           tag: 'div',
           classes: 'arcane-disclosure-content',
           styles: Styles(raw: {
-            'padding': ArcaneSpacing.md,
+            'padding': '1rem',
             'border-top': contentBorder,
           }),
           children: [child],
@@ -208,11 +206,11 @@ class ArcaneDisclosure extends StatelessComponent {
     }),
     // Hover effect on summary
     css('.arcane-disclosure summary:hover').styles(raw: {
-      'background-color': ArcaneColors.surfaceVariant,
+      'background-color': 'var(--muted)',
     }),
     // Focus styles for accessibility
     css('.arcane-disclosure summary:focus').styles(raw: {
-      'outline': '2px solid ${ArcaneColors.accent}',
+      'outline': '2px solid var(--accent)',
       'outline-offset': '-2px',
     }),
     css('.arcane-disclosure summary:focus:not(:focus-visible)').styles(raw: {
@@ -259,7 +257,7 @@ class ArcaneDisclosureGroup extends StatelessComponent {
 
   const ArcaneDisclosureGroup({
     required this.items,
-    this.gap = ArcaneSpacing.sm,
+    this.gap = '0.5rem',
     this.variant = DisclosureVariant.default_,
     this.initialOpenIndex,
     super.key,

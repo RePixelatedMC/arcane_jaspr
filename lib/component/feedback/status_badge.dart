@@ -1,8 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/tokens/tokens.dart';
-
 /// Status indicator types
 enum StatusType {
   /// Green - operational, success, active
@@ -159,11 +157,11 @@ class ArcaneStatusBadge extends StatelessComponent {
       styles: Styles(raw: {
         'display': 'inline-flex',
         'align-items': 'center',
-        'gap': ArcaneSpacing.sm,
+        'gap': '0.5rem',
         'padding': padding,
         'background': effectiveBackground,
         'border': '1px solid $effectiveBorder',
-        'border-radius': ArcaneRadius.sm,
+        'border-radius': '0.25rem',
       }),
       [
         // Pulse indicator
@@ -185,7 +183,7 @@ class ArcaneStatusBadge extends StatelessComponent {
             'font-weight': size == StatusBadgeSize.sm ? '400' : '500',
             'color': size == StatusBadgeSize.sm
                 ? (indicatorColor ?? color)
-                : ArcaneColors.onSurface,
+                : 'var(--foreground)',
           }),
           [text(label)],
         ),
@@ -196,30 +194,30 @@ class ArcaneStatusBadge extends StatelessComponent {
   String _getStatusColor() {
     switch (status) {
       case StatusType.success:
-        return ArcaneColors.success;
+        return 'hsl(142 76% 36%)';
       case StatusType.warning:
-        return ArcaneColors.warning;
+        return 'hsl(38 92% 50%)';
       case StatusType.error:
-        return ArcaneColors.error;
+        return 'var(--destructive)';
       case StatusType.info:
-        return ArcaneColors.info;
+        return 'hsl(199 89% 48%)';
       case StatusType.offline:
-        return ArcaneColors.muted;
+        return 'var(--muted)';
     }
   }
 
   String _getStatusRgb() {
     switch (status) {
       case StatusType.success:
-        return ArcaneColors.successRgb;
+        return '34, 197, 94';
       case StatusType.warning:
-        return ArcaneColors.warningRgb;
+        return '245, 158, 11';
       case StatusType.error:
-        return ArcaneColors.errorRgb;
+        return '239, 68, 68';
       case StatusType.info:
-        return ArcaneColors.infoRgb;
+        return '14, 165, 233';
       case StatusType.offline:
-        return ArcaneColors.mutedRgb;
+        return '115, 115, 115';
     }
   }
 
@@ -237,22 +235,22 @@ class ArcaneStatusBadge extends StatelessComponent {
   String _getPadding() {
     switch (size) {
       case StatusBadgeSize.sm:
-        return '${ArcaneSpacing.xs} ${ArcaneSpacing.sm}';
+        return '0.25rem 0.5rem';
       case StatusBadgeSize.md:
-        return '${ArcaneSpacing.xs} ${ArcaneSpacing.md}';
+        return '0.25rem 1rem';
       case StatusBadgeSize.lg:
-        return '${ArcaneSpacing.sm} ${ArcaneSpacing.lg}';
+        return '0.5rem 1.5rem';
     }
   }
 
   String _getFontSize() {
     switch (size) {
       case StatusBadgeSize.sm:
-        return ArcaneTypography.fontSizeXs;
+        return '0.75rem';
       case StatusBadgeSize.md:
-        return ArcaneTypography.fontSizeSm;
+        return '0.875rem';
       case StatusBadgeSize.lg:
-        return ArcaneTypography.fontSizeBase;
+        return '1rem';
     }
   }
 }

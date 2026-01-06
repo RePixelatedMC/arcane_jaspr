@@ -84,9 +84,9 @@ class _ArcaneForgotPasswordCardState extends State<ArcaneForgotPasswordCard> {
         // Header
         if (component.header != null) ...<Component>[
           component.header!,
-          const ArcaneDiv(
-            styles: ArcaneStyleData(heightCustom: ArcaneSpacing.lg),
-            children: <Component>[],
+          div(
+            styles: const Styles(raw: {'height': '1.5rem'}),
+            [],
           ),
         ],
 
@@ -124,8 +124,8 @@ class _ArcaneForgotPasswordCardState extends State<ArcaneForgotPasswordCard> {
             styles: ArcaneStyleData(
               padding: PaddingPreset.md,
               margin: MarginPreset.bottomMd,
-              backgroundCustom: ArcaneColors.successAlpha10,
-              borderCustom: '1px solid ${ArcaneColors.successAlpha30}',
+              backgroundCustom: 'hsl(142 76% 36% / 0.1)',
+              borderCustom: '1px solid hsl(142 76% 36% / 0.3)',
               borderRadius: Radius.md,
               textColor: TextColor.success,
               fontSize: FontSize.sm,
@@ -142,8 +142,8 @@ class _ArcaneForgotPasswordCardState extends State<ArcaneForgotPasswordCard> {
             styles: const ArcaneStyleData(
               padding: PaddingPreset.md,
               margin: MarginPreset.bottomMd,
-              backgroundCustom: ArcaneColors.errorAlpha10,
-              borderCustom: '1px solid ${ArcaneColors.errorAlpha30}',
+              backgroundCustom: 'hsl(var(--destructive) / 0.1)',
+              borderCustom: '1px solid hsl(var(--destructive) / 0.3)',
               borderRadius: Radius.md,
               textColor: TextColor.error,
               fontSize: FontSize.sm,
@@ -168,10 +168,10 @@ class _ArcaneForgotPasswordCardState extends State<ArcaneForgotPasswordCard> {
                   const label(
                     styles: Styles(raw: <String, String>{
                       'display': 'block',
-                      'margin-bottom': ArcaneSpacing.xs,
-                      'font-size': ArcaneTypography.fontSizeSm,
+                      'margin-bottom': '0.25rem',
+                      'font-size': '0.875rem',
                       'font-weight': '500',
-                      'color': ArcaneColors.onBackground,
+                      'color': 'var(--foreground)',
                     }),
                     <Component>[Component.text('Email')],
                   ),
@@ -184,14 +184,14 @@ class _ArcaneForgotPasswordCardState extends State<ArcaneForgotPasswordCard> {
                     },
                     styles: const Styles(raw: <String, String>{
                       'width': '100%',
-                      'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
-                      'font-size': ArcaneTypography.fontSizeSm,
-                      'background': ArcaneColors.backgroundSecondary,
-                      'border': '1px solid ${ArcaneColors.border}',
-                      'border-radius': ArcaneRadius.md,
-                      'color': ArcaneColors.onBackground,
+                      'padding': '0.5rem 1rem',
+                      'font-size': '0.875rem',
+                      'background': 'var(--muted)',
+                      'border': '1px solid var(--border)',
+                      'border-radius': '0.375rem',
+                      'color': 'var(--foreground)',
                       'outline': 'none',
-                      'transition': ArcaneEffects.transitionFast,
+                      'transition': 'all 150ms ease',
                       'box-sizing': 'border-box',
                     }),
                     events: {
@@ -237,8 +237,8 @@ class _ArcaneForgotPasswordCardState extends State<ArcaneForgotPasswordCard> {
               a(
                 href: component.loginRoute!,
                 styles: const Styles(raw: <String, String>{
-                  'font-size': ArcaneTypography.fontSizeSm,
-                  'color': ArcaneColors.accent,
+                  'font-size': '0.875rem',
+                  'color': 'var(--accent)',
                   'text-decoration': 'none',
                 }),
                 <Component>[const Component.text('Back to sign in')],

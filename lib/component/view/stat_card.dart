@@ -1,8 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/tokens/tokens.dart';
-
 /// Stat card for displaying metrics with optional trend indicator
 class ArcaneStatCard extends StatelessComponent {
   /// Label text
@@ -42,13 +40,13 @@ class ArcaneStatCard extends StatelessComponent {
     return div(
       classes: 'arcane-stat-card',
       styles: const Styles(raw: {
-        'background': ArcaneColors.card,
-        'border': '1px solid ${ArcaneColors.border}',
-        'border-radius': ArcaneRadius.lg,
-        'padding': ArcaneSpacing.xl,
+        'background': 'var(--card)',
+        'border': '1px solid var(--border)',
+        'border-radius': '0.5rem',
+        'padding': '2rem',
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': ArcaneSpacing.lg,
+        'gap': '1.5rem',
       }),
       [
         // Header with icon and trend
@@ -64,13 +62,13 @@ class ArcaneStatCard extends StatelessComponent {
                 styles: Styles(raw: {
                   'width': '48px',
                   'height': '48px',
-                  'border-radius': ArcaneRadius.md,
+                  'border-radius': '0.375rem',
                   'background': iconBackground ??
-                      'linear-gradient(135deg, ${ArcaneColors.accentContainer} 0%, ${ArcaneColors.accent}20 100%)',
+                      'linear-gradient(135deg, hsl(var(--accent) / 0.2) 0%, hsl(var(--accent) / 0.1) 100%)',
                   'display': 'flex',
                   'align-items': 'center',
                   'justify-content': 'center',
-                  'font-size': ArcaneTypography.fontXl,
+                  'font-size': '1.25rem',
                 }),
                 [text(icon!)],
               ),
@@ -79,17 +77,17 @@ class ArcaneStatCard extends StatelessComponent {
                 styles: Styles(raw: {
                   'display': 'flex',
                   'align-items': 'center',
-                  'gap': ArcaneSpacing.xs,
-                  'padding': '${ArcaneSpacing.xs} ${ArcaneSpacing.sm}',
-                  'border-radius': ArcaneRadius.sm,
+                  'gap': '0.25rem',
+                  'padding': '0.25rem 0.5rem',
+                  'border-radius': '0.25rem',
                   'background': trendPositive
-                      ? '${ArcaneColors.success}15'
-                      : '${ArcaneColors.error}15',
+                      ? 'hsl(142 76% 36% / 0.15)'
+                      : 'hsl(var(--destructive) / 0.15)',
                   'color': trendPositive
-                      ? ArcaneColors.success
-                      : ArcaneColors.error,
-                  'font-size': ArcaneTypography.fontSm,
-                  'font-weight': ArcaneTypography.weightMedium,
+                      ? 'hsl(142 76% 36%)'
+                      : 'var(--destructive)',
+                  'font-size': '0.875rem',
+                  'font-weight': '500',
                 }),
                 [
                   text(trendPositive ? '↑' : '↓'),
@@ -102,18 +100,18 @@ class ArcaneStatCard extends StatelessComponent {
         div([
           div(
             styles: const Styles(raw: {
-              'font-size': ArcaneTypography.font3xl,
-              'font-weight': ArcaneTypography.weightBold,
-              'color': ArcaneColors.onSurface,
+              'font-size': '2rem',
+              'font-weight': '700',
+              'color': 'var(--foreground)',
               'line-height': '1.2',
             }),
             [text(value)],
           ),
           div(
             styles: const Styles(raw: {
-              'font-size': ArcaneTypography.fontSm,
-              'color': ArcaneColors.mutedForeground,
-              'margin-top': ArcaneSpacing.xs,
+              'font-size': '0.875rem',
+              'color': 'var(--muted-foreground)',
+              'margin-top': '0.25rem',
             }),
             [text(label)],
           ),
@@ -121,10 +119,10 @@ class ArcaneStatCard extends StatelessComponent {
         if (description != null)
           div(
             styles: const Styles(raw: {
-              'font-size': ArcaneTypography.fontSm,
-              'color': ArcaneColors.mutedForeground,
-              'padding-top': ArcaneSpacing.md,
-              'border-top': '1px solid ${ArcaneColors.border}',
+              'font-size': '0.875rem',
+              'color': 'var(--muted-foreground)',
+              'padding-top': '1rem',
+              'border-top': '1px solid var(--border)',
             }),
             [text(description!)],
           ),

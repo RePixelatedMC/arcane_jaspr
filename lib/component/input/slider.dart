@@ -1,26 +1,43 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
+import 'package:jaspr/dom.dart' as dom;
 
-import '../../util/tokens/tokens.dart';
-import '../../util/tokens/style_presets.dart';
-import 'slider_types.dart';
+// Re-export for backwards compatibility
+export '../../core/props/slider_props.dart' show SliderSize, SliderVariant;
 
-export 'slider_types.dart';
+import '../../core/props/slider_props.dart';
+import '../../core/theme_provider.dart';
 
-/// Range slider input component with modern shadcn-inspired design.
+/// Range slider input component matching shadcn/ui design.
 ///
-/// Features:
-/// - Clean, minimal track design
-/// - Smooth thumb with hover/focus states
-/// - Optional value tooltip
-/// - Optional step markers
-/// - Multiple size variants
+/// The actual rendering is delegated to the current stylesheet's renderer,
+/// ensuring consistent API regardless of which design system is active.
+///
+/// ## Basic Usage
 ///
 /// ```dart
 /// ArcaneSlider(
 ///   value: 50,
 ///   onChanged: (v) => setState(() => value = v),
 /// )
+/// ```
+///
+/// ## With Label and Value Display
+///
+/// ```dart
+/// ArcaneSlider(
+///   value: 75,
+///   label: 'Volume',
+///   showValue: true,
+///   valueSuffix: '%',
+///   onChanged: (v) => setState(() => volume = v),
+/// )
+/// ```
+///
+/// ## Variants
+///
+/// ```dart
+/// ArcaneSlider.primary(value: 50, label: 'Primary')
+/// ArcaneSlider.success(value: 50, label: 'Success')
 /// ```
 class ArcaneSlider extends StatelessComponent {
   /// Current value
@@ -50,8 +67,8 @@ class ArcaneSlider extends StatelessComponent {
   /// Number of decimal places for value display
   final int valueDecimals;
 
-  /// Style preset
-  final SliderStyle? style;
+  /// Color variant
+  final SliderVariant variant;
 
   /// Size variant
   final SliderSize size;
@@ -75,7 +92,7 @@ class ArcaneSlider extends StatelessComponent {
     this.valuePrefix,
     this.valueSuffix,
     this.valueDecimals = 0,
-    this.style,
+    this.variant = SliderVariant.primary,
     this.size = SliderSize.md,
     this.showSteps = false,
     this.disabled = false,
@@ -99,7 +116,7 @@ class ArcaneSlider extends StatelessComponent {
     this.disabled = false,
     this.onChanged,
     super.key,
-  }) : style = SliderStyle.primary;
+  }) : variant = SliderVariant.primary;
 
   /// Success styled slider
   const ArcaneSlider.success({
@@ -117,262 +134,63 @@ class ArcaneSlider extends StatelessComponent {
     this.disabled = false,
     this.onChanged,
     super.key,
-  }) : style = SliderStyle.success;
+  }) : variant = SliderVariant.success;
+
+  /// Warning styled slider
+  const ArcaneSlider.warning({
+    required this.value,
+    this.min = 0,
+    this.max = 100,
+    this.step,
+    this.label,
+    this.showValue = true,
+    this.valuePrefix,
+    this.valueSuffix,
+    this.valueDecimals = 0,
+    this.size = SliderSize.md,
+    this.showSteps = false,
+    this.disabled = false,
+    this.onChanged,
+    super.key,
+  }) : variant = SliderVariant.warning;
+
+  /// Error styled slider
+  const ArcaneSlider.error({
+    required this.value,
+    this.min = 0,
+    this.max = 100,
+    this.step,
+    this.label,
+    this.showValue = true,
+    this.valuePrefix,
+    this.valueSuffix,
+    this.valueDecimals = 0,
+    this.size = SliderSize.md,
+    this.showSteps = false,
+    this.disabled = false,
+    this.onChanged,
+    super.key,
+  }) : variant = SliderVariant.error;
 
   @override
   Component build(BuildContext context) {
-    final effectiveStyle = style ?? SliderStyle.primary;
-    final percentage = ((value - min) / (max - min) * 100).clamp(0.0, 100.0);
-
-    // Size-specific dimensions
-    final (trackHeight, thumbSize, hitAreaHeight) = switch (size) {
-      SliderSize.sm => ('4px', '14px', '24px'),
-      SliderSize.md => ('6px', '18px', '32px'),
-      SliderSize.lg => ('8px', '22px', '40px'),
-    };
-
-    final thumbSizeNum = int.parse(thumbSize.replaceAll('px', ''));
-
-    return div(
-      classes: 'arcane-slider ${disabled ? 'disabled' : ''}',
-      styles: Styles(raw: {
-        'width': '100%',
-        'opacity': disabled ? '0.5' : '1',
-        'pointer-events': disabled ? 'none' : 'auto',
-      }),
-      [
-        // Label row
-        if (label != null || showValue)
-          div(
-            styles: const Styles(raw: {
-              'display': 'flex',
-              'justify-content': 'space-between',
-              'align-items': 'center',
-              'margin-bottom': ArcaneSpacing.sm,
-            }),
-            [
-              if (label != null)
-                span(
-                  styles: const Styles(raw: {
-                    'font-size': ArcaneTypography.fontSm,
-                    'font-weight': ArcaneTypography.weightMedium,
-                    'color': ArcaneColors.onSurface,
-                  }),
-                  [text(label!)],
-                ),
-              if (showValue)
-                span(
-                  classes: 'arcane-slider-value',
-                  styles: const Styles(raw: {
-                    'font-size': ArcaneTypography.fontSm,
-                    'font-weight': ArcaneTypography.weightMedium,
-                    'font-variant-numeric': 'tabular-nums',
-                    'color': ArcaneColors.mutedForeground,
-                    'min-width': '40px',
-                    'text-align': 'right',
-                  }),
-                  [
-                    text(
-                      '${valuePrefix ?? ''}${value.toStringAsFixed(valueDecimals)}${valueSuffix ?? ''}',
-                    ),
-                  ],
-                ),
-            ],
-          ),
-
-        // Track container with hit area
-        div(
-          classes: 'arcane-slider-track-container',
-          styles: Styles(raw: {
-            'position': 'relative',
-            'width': '100%',
-            'height': hitAreaHeight,
-            'display': 'flex',
-            'align-items': 'center',
-            'cursor': 'pointer',
-          }),
-          [
-            // Track background
-            div(
-              classes: 'arcane-slider-track',
-              styles: Styles(raw: {
-                'position': 'absolute',
-                'left': '0',
-                'right': '0',
-                'height': trackHeight,
-                'background': ArcaneColors.surfaceVariant,
-                'border-radius': ArcaneRadius.full,
-                'overflow': 'visible',
-              }),
-              [
-                // Start indicator - visible marker at 0%
-                div(
-                  classes: 'arcane-slider-start-indicator',
-                  styles: Styles(raw: {
-                    'position': 'absolute',
-                    'left': '-1px',
-                    'top': '50%',
-                    'transform': 'translateY(-50%)',
-                    'width': '3px',
-                    'height': 'calc($trackHeight + 4px)',
-                    'background': effectiveStyle.activeColor,
-                    'border-radius': ArcaneRadius.full,
-                    'opacity': '0.7',
-                  }),
-                  [],
-                ),
-                // End indicator - visible marker at 100%
-                div(
-                  classes: 'arcane-slider-end-indicator',
-                  styles: Styles(raw: {
-                    'position': 'absolute',
-                    'right': '-1px',
-                    'top': '50%',
-                    'transform': 'translateY(-50%)',
-                    'width': '3px',
-                    'height': 'calc($trackHeight + 4px)',
-                    'background': ArcaneColors.mutedForeground,
-                    'border-radius': ArcaneRadius.full,
-                    'opacity': '0.5',
-                  }),
-                  [],
-                ),
-                // Active/filled track
-                div(
-                  classes: 'arcane-slider-track-fill',
-                  styles: Styles(raw: {
-                    'position': 'absolute',
-                    'left': '0',
-                    'top': '0',
-                    'width': '$percentage%',
-                    'height': '100%',
-                    'background': effectiveStyle.activeColor,
-                    'border-radius': ArcaneRadius.full,
-                    'transition': 'width 0.1s ease-out',
-                  }),
-                  [],
-                ),
-              ],
-            ),
-
-            // Step markers (if enabled)
-            if (showSteps && step != null) _buildStepMarkers(trackHeight),
-
-            // Thumb
-            div(
-              classes: 'arcane-slider-thumb',
-              styles: Styles(raw: {
-                'position': 'absolute',
-                'left': 'calc($percentage% - ${thumbSizeNum / 2}px)',
-                'top': '50%',
-                'transform': 'translateY(-50%)',
-                'width': thumbSize,
-                'height': thumbSize,
-                'background': ArcaneColors.background,
-                'border': '2px solid ${effectiveStyle.activeColor}',
-                'border-radius': ArcaneRadius.full,
-                'box-shadow': '0 1px 3px ${ArcaneColors.onSurfaceAlpha20}',
-                'transition': 'transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease',
-                'pointer-events': 'none',
-                'z-index': '2',
-              }),
-              [],
-            ),
-
-            // Hidden native range input for interaction
-            input(
-              type: InputType.range,
-              classes: 'arcane-slider-input',
-              attributes: {
-                'min': min.toString(),
-                'max': max.toString(),
-                'value': value.toString(),
-                'step': step?.toString() ?? 'any',
-                if (disabled) 'disabled': 'true',
-              },
-              styles: const Styles(raw: {
-                'position': 'absolute',
-                'width': '100%',
-                'height': '100%',
-                'opacity': '0',
-                'cursor': 'pointer',
-                'margin': '0',
-                'z-index': '3',
-              }),
-              events: onChanged == null
-                  ? null
-                  : {
-                      'input': (e) {
-                        final newValue =
-                            double.tryParse((e.target as dynamic)?.value ?? '');
-                        if (newValue != null) {
-                          onChanged!(newValue);
-                        }
-                      },
-                    },
-            ),
-          ],
-        ),
-
-        // Min/Max labels (optional, shown when no label is provided)
-        if (label == null && !showValue)
-          div(
-            styles: const Styles(raw: {
-              'display': 'flex',
-              'justify-content': 'space-between',
-              'margin-top': ArcaneSpacing.xs,
-            }),
-            [
-              span(
-                styles: const Styles(raw: {
-                  'font-size': ArcaneTypography.fontXs,
-                  'color': ArcaneColors.mutedForeground,
-                }),
-                [text(min.toStringAsFixed(0))],
-              ),
-              span(
-                styles: const Styles(raw: {
-                  'font-size': ArcaneTypography.fontXs,
-                  'color': ArcaneColors.mutedForeground,
-                }),
-                [text(max.toStringAsFixed(0))],
-              ),
-            ],
-          ),
-      ],
-    );
-  }
-
-  Component _buildStepMarkers(String trackHeight) {
-    if (step == null || step! <= 0) return const div([], styles: Styles(raw: {}));
-
-    final steps = ((max - min) / step!).floor();
-    if (steps > 20) return const div([], styles: Styles(raw: {})); // Too many steps
-
-    return div(
-      styles: Styles(raw: {
-        'position': 'absolute',
-        'left': '0',
-        'right': '0',
-        'height': trackHeight,
-        'display': 'flex',
-        'justify-content': 'space-between',
-        'align-items': 'center',
-        'pointer-events': 'none',
-      }),
-      [
-        for (var i = 0; i <= steps; i++)
-          const div(
-            styles: Styles(raw: {
-              'width': '2px',
-              'height': '2px',
-              'background': ArcaneColors.mutedForeground,
-              'border-radius': ArcaneRadius.full,
-            }),
-            [],
-          ),
-      ],
-    );
+    // Delegate to the current stylesheet's slider renderer
+    return context.renderers.slider(SliderProps(
+      value: value,
+      min: min,
+      max: max,
+      step: step,
+      label: label,
+      showValue: showValue,
+      valuePrefix: valuePrefix,
+      valueSuffix: valueSuffix,
+      valueDecimals: valueDecimals,
+      variant: variant,
+      size: size,
+      showSteps: showSteps,
+      disabled: disabled,
+      onChanged: onChanged,
+    ));
   }
 }
 
@@ -410,8 +228,8 @@ class ArcaneRangeSlider extends StatelessComponent {
   /// Whether to show range values
   final bool showValues;
 
-  /// Style preset
-  final SliderStyle? style;
+  /// Color variant
+  final SliderVariant variant;
 
   /// Size variant
   final SliderSize size;
@@ -430,7 +248,7 @@ class ArcaneRangeSlider extends StatelessComponent {
     this.step,
     this.label,
     this.showValues = true,
-    this.style,
+    this.variant = SliderVariant.primary,
     this.size = SliderSize.md,
     this.disabled = false,
     this.onChanged,
@@ -439,7 +257,6 @@ class ArcaneRangeSlider extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final effectiveStyle = style ?? SliderStyle.primary;
     final minPercent = ((minValue - min) / (max - min) * 100).clamp(0.0, 100.0);
     final maxPercent = ((maxValue - min) / (max - min) * 100).clamp(0.0, 100.0);
 
@@ -451,9 +268,17 @@ class ArcaneRangeSlider extends StatelessComponent {
 
     final thumbSizeNum = int.parse(thumbSize.replaceAll('px', ''));
 
-    return div(
+    // Get active color based on variant
+    final activeColor = switch (variant) {
+      SliderVariant.primary => 'var(--primary)',
+      SliderVariant.success => 'var(--success)',
+      SliderVariant.warning => 'var(--warning)',
+      SliderVariant.error => 'var(--destructive)',
+    };
+
+    return dom.div(
       classes: 'arcane-range-slider ${disabled ? 'disabled' : ''}',
-      styles: Styles(raw: {
+      styles: dom.Styles(raw: {
         'width': '100%',
         'opacity': disabled ? '0.5' : '1',
         'pointer-events': disabled ? 'none' : 'auto',
@@ -461,42 +286,42 @@ class ArcaneRangeSlider extends StatelessComponent {
       [
         // Label row
         if (label != null || showValues)
-          div(
-            styles: const Styles(raw: {
+          dom.div(
+            styles: const dom.Styles(raw: {
               'display': 'flex',
               'justify-content': 'space-between',
               'align-items': 'center',
-              'margin-bottom': ArcaneSpacing.sm,
+              'margin-bottom': '0.5rem',
             }),
             [
               if (label != null)
-                span(
-                  styles: const Styles(raw: {
-                    'font-size': ArcaneTypography.fontSm,
-                    'font-weight': ArcaneTypography.weightMedium,
-                    'color': ArcaneColors.onSurface,
+                dom.span(
+                  styles: const dom.Styles(raw: {
+                    'font-size': '0.875rem',
+                    'font-weight': '500',
+                    'color': 'var(--foreground)',
                   }),
-                  [text(label!)],
+                  [dom.text(label!)],
                 ),
               if (showValues)
-                span(
+                dom.span(
                   classes: 'arcane-range-slider-values',
-                  styles: const Styles(raw: {
-                    'font-size': ArcaneTypography.fontSm,
+                  styles: const dom.Styles(raw: {
+                    'font-size': '0.875rem',
                     'font-variant-numeric': 'tabular-nums',
-                    'color': ArcaneColors.mutedForeground,
+                    'color': 'var(--muted-foreground)',
                   }),
                   [
-                    text('${minValue.toStringAsFixed(0)} – ${maxValue.toStringAsFixed(0)}'),
+                    dom.text('${minValue.toStringAsFixed(0)} - ${maxValue.toStringAsFixed(0)}'),
                   ],
                 ),
             ],
           ),
 
         // Track container
-        div(
+        dom.div(
           classes: 'arcane-range-slider-track-container',
-          styles: Styles(raw: {
+          styles: dom.Styles(raw: {
             'position': 'relative',
             'width': '100%',
             'height': hitAreaHeight,
@@ -506,60 +331,60 @@ class ArcaneRangeSlider extends StatelessComponent {
           }),
           [
             // Track background
-            div(
+            dom.div(
               classes: 'arcane-range-slider-track',
-              styles: Styles(raw: {
+              styles: dom.Styles(raw: {
                 'position': 'absolute',
                 'left': '0',
                 'right': '0',
                 'height': trackHeight,
-                'background': ArcaneColors.surfaceVariant,
-                'border-radius': ArcaneRadius.full,
+                'background': 'var(--muted)',
+                'border-radius': '9999px',
                 'overflow': 'visible',
               }),
               [
                 // Start indicator - visible marker at 0%
-                div(
+                dom.div(
                   classes: 'arcane-range-slider-start-indicator',
-                  styles: Styles(raw: {
+                  styles: dom.Styles(raw: {
                     'position': 'absolute',
                     'left': '-1px',
                     'top': '50%',
                     'transform': 'translateY(-50%)',
                     'width': '3px',
                     'height': 'calc($trackHeight + 4px)',
-                    'background': effectiveStyle.activeColor,
-                    'border-radius': ArcaneRadius.full,
+                    'background': activeColor,
+                    'border-radius': '9999px',
                     'opacity': '0.7',
                   }),
                   [],
                 ),
                 // End indicator - visible marker at 100%
-                div(
+                dom.div(
                   classes: 'arcane-range-slider-end-indicator',
-                  styles: Styles(raw: {
+                  styles: dom.Styles(raw: {
                     'position': 'absolute',
                     'right': '-1px',
                     'top': '50%',
                     'transform': 'translateY(-50%)',
                     'width': '3px',
                     'height': 'calc($trackHeight + 4px)',
-                    'background': effectiveStyle.activeColor,
-                    'border-radius': ArcaneRadius.full,
+                    'background': activeColor,
+                    'border-radius': '9999px',
                     'opacity': '0.7',
                   }),
                   [],
                 ),
                 // Active range
-                div(
+                dom.div(
                   classes: 'arcane-range-slider-track-fill',
-                  styles: Styles(raw: {
+                  styles: dom.Styles(raw: {
                     'position': 'absolute',
                     'left': '$minPercent%',
                     'width': '${maxPercent - minPercent}%',
                     'height': '100%',
-                    'background': effectiveStyle.activeColor,
-                    'border-radius': ArcaneRadius.full,
+                    'background': activeColor,
+                    'border-radius': '9999px',
                   }),
                   [],
                 ),
@@ -567,19 +392,19 @@ class ArcaneRangeSlider extends StatelessComponent {
             ),
 
             // Min thumb
-            div(
+            dom.div(
               classes: 'arcane-range-slider-thumb arcane-range-slider-thumb-min',
-              styles: Styles(raw: {
+              styles: dom.Styles(raw: {
                 'position': 'absolute',
                 'left': 'calc($minPercent% - ${thumbSizeNum / 2}px)',
                 'top': '50%',
                 'transform': 'translateY(-50%)',
                 'width': thumbSize,
                 'height': thumbSize,
-                'background': ArcaneColors.background,
-                'border': '2px solid ${effectiveStyle.activeColor}',
-                'border-radius': ArcaneRadius.full,
-                'box-shadow': '0 1px 3px ${ArcaneColors.onSurfaceAlpha20}',
+                'background': 'var(--background)',
+                'border': '2px solid $activeColor',
+                'border-radius': '9999px',
+                'box-shadow': '0 1px 3px hsl(var(--foreground) / 0.2)',
                 'transition': 'transform 0.15s ease, box-shadow 0.15s ease',
                 'pointer-events': 'none',
                 'z-index': '2',
@@ -588,19 +413,19 @@ class ArcaneRangeSlider extends StatelessComponent {
             ),
 
             // Max thumb
-            div(
+            dom.div(
               classes: 'arcane-range-slider-thumb arcane-range-slider-thumb-max',
-              styles: Styles(raw: {
+              styles: dom.Styles(raw: {
                 'position': 'absolute',
                 'left': 'calc($maxPercent% - ${thumbSizeNum / 2}px)',
                 'top': '50%',
                 'transform': 'translateY(-50%)',
                 'width': thumbSize,
                 'height': thumbSize,
-                'background': ArcaneColors.background,
-                'border': '2px solid ${effectiveStyle.activeColor}',
-                'border-radius': ArcaneRadius.full,
-                'box-shadow': '0 1px 3px ${ArcaneColors.onSurfaceAlpha20}',
+                'background': 'var(--background)',
+                'border': '2px solid $activeColor',
+                'border-radius': '9999px',
+                'box-shadow': '0 1px 3px hsl(var(--foreground) / 0.2)',
                 'transition': 'transform 0.15s ease, box-shadow 0.15s ease',
                 'pointer-events': 'none',
                 'z-index': '2',
@@ -609,8 +434,8 @@ class ArcaneRangeSlider extends StatelessComponent {
             ),
 
             // Hidden min input
-            input(
-              type: InputType.range,
+            dom.input(
+              type: dom.InputType.range,
               classes: 'arcane-range-slider-input arcane-range-slider-input-min',
               attributes: {
                 'min': min.toString(),
@@ -619,7 +444,7 @@ class ArcaneRangeSlider extends StatelessComponent {
                 'step': step?.toString() ?? 'any',
                 if (disabled) 'disabled': 'true',
               },
-              styles: const Styles(raw: {
+              styles: const dom.Styles(raw: {
                 'position': 'absolute',
                 'width': '100%',
                 'height': '100%',
@@ -633,8 +458,9 @@ class ArcaneRangeSlider extends StatelessComponent {
                   ? null
                   : {
                       'input': (e) {
-                        final newMin =
-                            double.tryParse((e.target as dynamic)?.value ?? '');
+                        final dynamic target = e.target;
+                        final String? valueStr = target?.value;
+                        final double? newMin = double.tryParse(valueStr ?? '');
                         if (newMin != null && newMin < maxValue) {
                           onChanged!(newMin, maxValue);
                         }
@@ -643,8 +469,8 @@ class ArcaneRangeSlider extends StatelessComponent {
             ),
 
             // Hidden max input - covers the right portion
-            input(
-              type: InputType.range,
+            dom.input(
+              type: dom.InputType.range,
               classes: 'arcane-range-slider-input arcane-range-slider-input-max',
               attributes: {
                 'min': min.toString(),
@@ -653,7 +479,7 @@ class ArcaneRangeSlider extends StatelessComponent {
                 'step': step?.toString() ?? 'any',
                 if (disabled) 'disabled': 'true',
               },
-              styles: Styles(raw: {
+              styles: dom.Styles(raw: {
                 'position': 'absolute',
                 'left': '${(minPercent + maxPercent) / 2}%',
                 'width': '${100 - (minPercent + maxPercent) / 2}%',
@@ -668,8 +494,9 @@ class ArcaneRangeSlider extends StatelessComponent {
                   ? null
                   : {
                       'input': (e) {
-                        final newMax =
-                            double.tryParse((e.target as dynamic)?.value ?? '');
+                        final dynamic target = e.target;
+                        final String? valueStr = target?.value;
+                        final double? newMax = double.tryParse(valueStr ?? '');
                         if (newMax != null && newMax > minValue) {
                           onChanged!(minValue, newMax);
                         }

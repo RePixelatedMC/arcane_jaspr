@@ -1,33 +1,35 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/tokens/tokens.dart';
-import '../../util/tokens/style_presets.dart';
+import '../../core/props/avatar_props.dart';
+import '../../core/theme_provider.dart';
 
-/// Avatar size presets
-enum AvatarSize {
-  xs,
-  sm,
-  md,
-  lg,
-  xl,
-}
+// Re-export for convenience
+export '../../core/props/avatar_props.dart' show AvatarSize, AvatarShape;
 
-/// Avatar component for displaying user images or initials
+/// Avatar component for displaying user images or initials.
 ///
-/// Use style presets for cleaner code:
+/// The actual rendering is delegated to the current stylesheet's renderer.
+///
+/// ## Basic Usage
+///
 /// ```dart
-/// ArcaneAvatar(
-///   initials: 'JD',
-///   style: AvatarStyle.circle,
-///   size: AvatarSize.lg,
-/// )
+/// ArcaneAvatar(initials: 'JD')
+/// ArcaneAvatar(imageUrl: 'https://example.com/avatar.jpg')
+/// ```
+///
+/// ## Shapes
+///
+/// ```dart
+/// ArcaneAvatar.circle(initials: 'AB')
+/// ArcaneAvatar.rounded(initials: 'CD')
+/// ArcaneAvatar.square(initials: 'EF')
 /// ```
 class ArcaneAvatar extends StatelessComponent {
   final String? imageUrl;
   final String? initials;
   final AvatarSize size;
-  final AvatarStyle? style;
+  final AvatarShape shape;
   final String? borderColor;
   final bool showStatus;
   final String? statusColor;
@@ -37,7 +39,7 @@ class ArcaneAvatar extends StatelessComponent {
     this.imageUrl,
     this.initials,
     this.size = AvatarSize.md,
-    this.style,
+    this.shape = AvatarShape.circle,
     this.borderColor,
     this.showStatus = false,
     this.statusColor,
@@ -55,7 +57,7 @@ class ArcaneAvatar extends StatelessComponent {
     this.statusColor,
     this.onTap,
     super.key,
-  }) : style = AvatarStyle.circle;
+  }) : shape = AvatarShape.circle;
 
   /// Rounded square avatar
   const ArcaneAvatar.rounded({
@@ -67,7 +69,7 @@ class ArcaneAvatar extends StatelessComponent {
     this.statusColor,
     this.onTap,
     super.key,
-  }) : style = AvatarStyle.rounded;
+  }) : shape = AvatarShape.rounded;
 
   /// Square avatar
   const ArcaneAvatar.square({
@@ -79,100 +81,40 @@ class ArcaneAvatar extends StatelessComponent {
     this.statusColor,
     this.onTap,
     super.key,
-  }) : style = AvatarStyle.square;
+  }) : shape = AvatarShape.square;
 
   @override
   Component build(BuildContext context) {
-    final effectiveStyle = style ?? AvatarStyle.circle;
-
-    final (dimension, fontSize, statusSize) = switch (size) {
-      AvatarSize.xs => ('24px', ArcaneTypography.fontXs, '8px'),
-      AvatarSize.sm => ('32px', ArcaneTypography.fontSm, '10px'),
-      AvatarSize.md => ('48px', ArcaneTypography.fontReg, '12px'),
-      AvatarSize.lg => ('64px', ArcaneTypography.fontXl, '14px'),
-      AvatarSize.xl => ('96px', ArcaneTypography.font2xl, '18px'),
-    };
-
-    return div(
-      classes: 'arcane-avatar',
-      styles: Styles(raw: {
-        'position': 'relative',
-        'display': 'inline-flex',
-        'align-items': 'center',
-        'justify-content': 'center',
-        'width': dimension,
-        'height': dimension,
-        ...effectiveStyle.styles,
-        'background': imageUrl != null
-            ? 'url($imageUrl) center/cover no-repeat'
-            : 'linear-gradient(135deg, ${ArcaneColors.accent} 0%, ${ArcaneColors.accentHover} 100%)',
-        if (borderColor != null) 'border': '2px solid $borderColor',
-        'color': ArcaneColors.accentForeground,
-        'font-weight': ArcaneTypography.weightSemibold,
-        'font-size': fontSize,
-        'flex-shrink': '0',
-        if (onTap != null) 'cursor': 'pointer',
-      }),
-      events: onTap != null
-          ? {
-              'click': (event) => onTap!(),
-            }
-          : null,
-      [
-        if (imageUrl == null && initials != null) text(initials!),
-        if (showStatus)
-          div(
-            classes: 'arcane-avatar-status',
-            styles: Styles(raw: {
-              'position': 'absolute',
-              'bottom': '0',
-              'right': '0',
-              'width': statusSize,
-              'height': statusSize,
-              'border-radius': ArcaneRadius.full,
-              'background': statusColor ?? ArcaneColors.success,
-              'border': '2px solid ${ArcaneColors.background}',
-            }),
-            [],
-          ),
-      ],
-    );
+    // Delegate to the current stylesheet's avatar renderer
+    return context.renderers.avatar(AvatarProps(
+      imageUrl: imageUrl,
+      initials: initials,
+      size: size,
+      shape: shape,
+      borderColor: borderColor,
+      showStatus: showStatus,
+      statusColor: statusColor,
+      onTap: onTap,
+    ));
   }
 }
 
 /// Direction for avatar group stacking
 enum AvatarGroupDirection {
-  /// Stack avatars to the left (each overlaps the previous from the right)
   toLeft,
-
-  /// Stack avatars to the right (each overlaps the previous from the left)
   toRight,
-
-  /// Stack avatars upward (each overlaps the previous from below)
   toTop,
-
-  /// Stack avatars downward (each overlaps the previous from above)
   toBottom,
 }
 
 /// Avatar group for stacking multiple avatars with overlap.
 ///
-/// ```dart
-/// ArcaneAvatarGroup.toLeft(
-///   avatars: [
-///     ArcaneAvatar(initials: 'AB'),
-///     ArcaneAvatar(initials: 'CD'),
-///     ArcaneAvatar(initials: 'EF'),
-///   ],
-/// )
-/// ```
+/// This component is NOT yet migrated to the new renderer system.
 class ArcaneAvatarGroup extends StatelessComponent {
   final List<ArcaneAvatar> avatars;
   final int maxVisible;
   final AvatarSize size;
   final AvatarGroupDirection direction;
-
-  /// Amount of overlap in pixels
   final int overlap;
 
   const ArcaneAvatarGroup({
@@ -184,7 +126,6 @@ class ArcaneAvatarGroup extends StatelessComponent {
     super.key,
   });
 
-  /// Stack avatars to the left
   const ArcaneAvatarGroup.toLeft({
     required this.avatars,
     this.maxVisible = 4,
@@ -193,7 +134,6 @@ class ArcaneAvatarGroup extends StatelessComponent {
     super.key,
   }) : direction = AvatarGroupDirection.toLeft;
 
-  /// Stack avatars to the right
   const ArcaneAvatarGroup.toRight({
     required this.avatars,
     this.maxVisible = 4,
@@ -202,7 +142,6 @@ class ArcaneAvatarGroup extends StatelessComponent {
     super.key,
   }) : direction = AvatarGroupDirection.toRight;
 
-  /// Stack avatars upward
   const ArcaneAvatarGroup.toTop({
     required this.avatars,
     this.maxVisible = 4,
@@ -211,7 +150,6 @@ class ArcaneAvatarGroup extends StatelessComponent {
     super.key,
   }) : direction = AvatarGroupDirection.toTop;
 
-  /// Stack avatars downward
   const ArcaneAvatarGroup.toBottom({
     required this.avatars,
     this.maxVisible = 4,
@@ -237,7 +175,6 @@ class ArcaneAvatarGroup extends StatelessComponent {
       AvatarSize.xl => '96px',
     };
 
-    // Determine margin property based on direction
     final (marginProp, zIndexFn) = switch (direction) {
       AvatarGroupDirection.toLeft => ('margin-right', (int i, int len) => i),
       AvatarGroupDirection.toRight => ('margin-left', (int i, int len) => len - i),
@@ -272,12 +209,12 @@ class ArcaneAvatarGroup extends StatelessComponent {
               'justify-content': 'center',
               'width': dimension,
               'height': dimension,
-              'border-radius': ArcaneRadius.full,
-              'background': ArcaneColors.surfaceVariant,
-              'border': '2px solid ${ArcaneColors.background}',
-              'color': ArcaneColors.mutedForeground,
-              'font-size': ArcaneTypography.fontSm,
-              'font-weight': ArcaneTypography.weightMedium,
+              'border-radius': '9999px',
+              'background': 'var(--muted)',
+              'border': '2px solid var(--background)',
+              'color': 'var(--muted-foreground)',
+              'font-size': '0.875rem',
+              'font-weight': '500',
             }),
             [text('+$overflow')],
           ),
@@ -286,28 +223,22 @@ class ArcaneAvatarGroup extends StatelessComponent {
   }
 }
 
+/// Position for avatar badge
+enum AvatarBadgePosition {
+  topLeft,
+  topRight,
+  bottomLeft,
+  bottomRight,
+}
+
 /// Badge displayed on an avatar (e.g., online status, notification count)
 ///
-/// ```dart
-/// ArcaneAvatar(
-///   initials: 'JD',
-///   badge: ArcaneAvatarBadge.online(),
-/// )
-/// ```
+/// This component is NOT yet migrated to the new renderer system.
 class ArcaneAvatarBadge extends StatelessComponent {
-  /// Badge size in pixels
   final int size;
-
-  /// Badge color
   final String color;
-
-  /// Optional content (e.g., count)
   final String? content;
-
-  /// Badge position
   final AvatarBadgePosition position;
-
-  /// Whether to pulse/animate
   final bool pulse;
 
   const ArcaneAvatarBadge({
@@ -319,49 +250,44 @@ class ArcaneAvatarBadge extends StatelessComponent {
     super.key,
   });
 
-  /// Online status badge (green)
   const ArcaneAvatarBadge.online({
     this.size = 12,
     this.position = AvatarBadgePosition.bottomRight,
     this.pulse = false,
     super.key,
-  })  : color = ArcaneColors.success,
+  })  : color = 'var(--success, #22c55e)',
         content = null;
 
-  /// Offline status badge (gray)
   const ArcaneAvatarBadge.offline({
     this.size = 12,
     this.position = AvatarBadgePosition.bottomRight,
     super.key,
-  })  : color = ArcaneColors.mutedForeground,
+  })  : color = 'var(--muted-foreground)',
         content = null,
         pulse = false;
 
-  /// Busy status badge (red)
   const ArcaneAvatarBadge.busy({
     this.size = 12,
     this.position = AvatarBadgePosition.bottomRight,
     super.key,
-  })  : color = ArcaneColors.error,
+  })  : color = 'var(--destructive)',
         content = null,
         pulse = false;
 
-  /// Away status badge (yellow)
   const ArcaneAvatarBadge.away({
     this.size = 12,
     this.position = AvatarBadgePosition.bottomRight,
     super.key,
-  })  : color = ArcaneColors.warning,
+  })  : color = 'var(--warning, #f59e0b)',
         content = null,
         pulse = false;
 
-  /// Notification count badge
   const ArcaneAvatarBadge.count(
     int count, {
     this.size = 18,
     this.position = AvatarBadgePosition.topRight,
     super.key,
-  })  : color = ArcaneColors.error,
+  })  : color = 'var(--destructive)',
         content = '$count',
         pulse = false;
 
@@ -384,17 +310,17 @@ class ArcaneAvatarBadge extends StatelessComponent {
         ..._positionStyles,
         'min-width': '${size}px',
         'height': '${size}px',
-        'border-radius': ArcaneRadius.full,
+        'border-radius': '9999px',
         'background': color,
-        'border': '2px solid ${ArcaneColors.background}',
+        'border': '2px solid var(--background)',
         'display': 'flex',
         'align-items': 'center',
         'justify-content': 'center',
         if (content != null) ...{
           'padding': '0 4px',
           'font-size': '${size - 6}px',
-          'font-weight': ArcaneTypography.weightBold,
-          'color': ArcaneColors.errorForeground,
+          'font-weight': '700',
+          'color': 'var(--destructive-foreground, #fff)',
         },
       }),
       [
@@ -413,12 +339,4 @@ class ArcaneAvatarBadge extends StatelessComponent {
       '50%': 'opacity: 0.5',
     }),
   ];
-}
-
-/// Position for avatar badge
-enum AvatarBadgePosition {
-  topLeft,
-  topRight,
-  bottomLeft,
-  bottomRight,
 }

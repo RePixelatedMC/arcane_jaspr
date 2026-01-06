@@ -1,8 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/tokens/tokens.dart';
-
 /// A bottom navigation bar component.
 class ArcaneBottomNavigationBar extends StatelessComponent {
   /// The navigation items
@@ -42,9 +40,9 @@ class ArcaneBottomNavigationBar extends StatelessComponent {
         'align-items': 'center',
         'justify-content': 'space-around',
         'height': '${height}px',
-        'background-color': ArcaneColors.surface,
-        'border-top': '1px solid ${ArcaneColors.border}',
-        'padding': '0 ${ArcaneSpacing.sm}',
+        'background-color': 'var(--card)',
+        'border-top': '1px solid var(--border)',
+        'padding': '0 0.5rem',
         'flex-shrink': '0',
       }),
       [
@@ -69,15 +67,15 @@ class ArcaneBottomNavigationBar extends StatelessComponent {
         'flex-direction': 'column',
         'align-items': 'center',
         'justify-content': 'center',
-        'gap': ArcaneSpacing.xs,
+        'gap': '0.25rem',
         'flex': '1',
         'height': '100%',
-        'padding': ArcaneSpacing.sm,
-        'background': ArcaneColors.transparent,
+        'padding': '0.5rem',
+        'background': 'transparent',
         'border': 'none',
-        'color': isSelected ? ArcaneColors.accent : ArcaneColors.mutedForeground,
+        'color': isSelected ? 'var(--accent)' : 'var(--muted-foreground)',
         'cursor': 'pointer',
-        'transition': ArcaneEffects.transitionFast,
+        'transition': 'all 150ms ease',
         'position': 'relative',
       }),
       events: {
@@ -98,9 +96,9 @@ class ArcaneBottomNavigationBar extends StatelessComponent {
             'justify-content': 'center',
             'width': '48px',
             'height': '32px',
-            'border-radius': ArcaneRadius.lg,
-            'background-color': isSelected ? ArcaneColors.accentContainer : ArcaneColors.transparent,
-            'transition': ArcaneEffects.transitionFast,
+            'border-radius': '0.5rem',
+            'background-color': isSelected ? 'hsl(var(--accent) / 0.1)' : 'transparent',
+            'transition': 'all 150ms ease',
           }),
           [
             div(
@@ -119,15 +117,15 @@ class ArcaneBottomNavigationBar extends StatelessComponent {
                 styles: const Styles(raw: {
                   'position': 'absolute',
                   'top': '0',
-                  'right': ArcaneSpacing.xs,
+                  'right': '0.25rem',
                   'min-width': '16px',
                   'height': '16px',
-                  'padding': '0 ${ArcaneSpacing.xs}',
-                  'background-color': ArcaneColors.error,
-                  'color': ArcaneColors.errorForeground,
+                  'padding': '0 0.25rem',
+                  'background-color': 'var(--destructive)',
+                  'color': 'var(--destructive-foreground)',
                   'font-size': '0.625rem',
-                  'font-weight': ArcaneTypography.weightSemibold,
-                  'border-radius': ArcaneRadius.sm,
+                  'font-weight': '600',
+                  'border-radius': '0.25rem',
                   'display': 'flex',
                   'align-items': 'center',
                   'justify-content': 'center',
@@ -142,8 +140,8 @@ class ArcaneBottomNavigationBar extends StatelessComponent {
           span(
             classes: 'arcane-bottom-nav-label',
             styles: Styles(raw: {
-              'font-size': ArcaneTypography.fontXs,
-              'font-weight': isSelected ? ArcaneTypography.weightSemibold : ArcaneTypography.weightMedium,
+              'font-size': '0.75rem',
+              'font-weight': isSelected ? '600' : '500',
               'white-space': 'nowrap',
               'overflow': 'hidden',
               'text-overflow': 'ellipsis',
@@ -159,7 +157,7 @@ class ArcaneBottomNavigationBar extends StatelessComponent {
   static final List<StyleRule> styles = [
     css('.arcane-bottom-nav-item:hover:not(.selected) .arcane-bottom-nav-icon')
         .styles(raw: {
-      'background-color': ArcaneColors.surfaceVariant,
+      'background-color': 'var(--muted)',
     }),
   ];
 }

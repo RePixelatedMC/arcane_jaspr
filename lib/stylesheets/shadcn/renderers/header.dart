@@ -1,0 +1,260 @@
+import 'package:jaspr/jaspr.dart';
+import 'package:jaspr/dom.dart' as dom;
+
+import '../../../core/props/header_props.dart';
+
+/// ShadCN-style header/navbar component
+class ShadcnHeader extends StatelessComponent {
+  final HeaderProps props;
+
+  const ShadcnHeader(this.props, {super.key});
+
+  @override
+  Component build(BuildContext context) {
+    return dom.header(
+      classes:
+          'arcane-header ${props.sticky ? 'sticky' : ''} ${props.transparent ? 'transparent' : ''}',
+      styles: dom.Styles(raw: {
+        'display': 'flex',
+        'align-items': 'center',
+        'justify-content': 'space-between',
+        'padding': '0 24px',
+        'height': '64px',
+        'background-color':
+            props.transparent ? 'transparent' : 'var(--background)',
+        if (props.bordered) 'border-bottom': '1px solid var(--border)',
+        if (props.sticky) 'position': 'sticky',
+        if (props.sticky) 'top': '0',
+        if (props.sticky) 'z-index': '50',
+        if (!props.transparent) 'backdrop-filter': 'blur(12px)',
+      }),
+      [
+        // Left section: Logo + Nav
+        dom.div(
+          classes: 'arcane-header-left',
+          styles: const dom.Styles(raw: {
+            'display': 'flex',
+            'align-items': 'center',
+            'gap': '32px',
+          }),
+          [
+            // Logo
+            dom.div(
+              classes: 'arcane-header-logo',
+              [props.logo],
+            ),
+
+            // Navigation
+            dom.nav(
+              classes: 'arcane-header-nav',
+              styles: const dom.Styles(raw: {
+                'display': 'flex',
+                'align-items': 'center',
+                'gap': '4px',
+              }),
+              [
+                for (final item in props.navItems) _buildNavItem(item),
+              ],
+            ),
+          ],
+        ),
+
+        // Right section: Search + Actions
+        dom.div(
+          classes: 'arcane-header-right',
+          styles: const dom.Styles(raw: {
+            'display': 'flex',
+            'align-items': 'center',
+            'gap': '16px',
+          }),
+          [
+            // Search
+            if (props.showSearch)
+              dom.div(
+                classes: 'arcane-header-search',
+                styles: const dom.Styles(raw: {
+                  'position': 'relative',
+                }),
+                [
+                  dom.input(
+                    type: dom.InputType.search,
+                    attributes: {
+                      'placeholder': props.searchPlaceholder,
+                    },
+                    styles: const dom.Styles(raw: {
+                      'padding': '8px 12px 8px 36px',
+                      'font-size': '14px',
+                      'background-color': 'var(--muted)',
+                      'border': '1px solid var(--border)',
+                      'border-radius': '6px',
+                      'color': 'var(--foreground)',
+                      'width': '200px',
+                      'outline': 'none',
+                      'transition': 'border-color 150ms ease, width 150ms ease',
+                    }),
+                    events: props.onSearch != null
+                        ? {
+                            'input': (e) {
+                              // TODO: Extract value and call onSearch
+                            },
+                          }
+                        : null,
+                  ),
+                  // Search icon placeholder
+                  dom.span(
+                    styles: const dom.Styles(raw: {
+                      'position': 'absolute',
+                      'left': '12px',
+                      'top': '50%',
+                      'transform': 'translateY(-50%)',
+                      'color': 'var(--muted-foreground)',
+                      'font-size': '14px',
+                      'pointer-events': 'none',
+                    }),
+                    [dom.text('\u{1F50D}')], // Magnifying glass
+                  ),
+                ],
+              ),
+
+            // Actions
+            if (props.actions != null) ...props.actions!,
+          ],
+        ),
+      ],
+    );
+  }
+
+  Component _buildNavItem(NavItemProps item) {
+    final bool hasChildren =
+        item.children != null && item.children!.isNotEmpty;
+
+    return dom.div(
+      classes:
+          'arcane-nav-item ${hasChildren ? 'has-dropdown' : ''} ${item.isActive ? 'active' : ''}',
+      styles: const dom.Styles(raw: {
+        'position': 'relative',
+      }),
+      [
+        if (item.href != null)
+          dom.a(
+            href: item.href!,
+            classes: 'arcane-nav-link',
+            styles: dom.Styles(raw: {
+              'display': 'flex',
+              'align-items': 'center',
+              'gap': '4px',
+              'padding': '8px 12px',
+              'font-size': '14px',
+              'font-weight': '500',
+              'color': item.isActive
+                  ? 'var(--foreground)'
+                  : 'var(--muted-foreground)',
+              'text-decoration': 'none',
+              'border-radius': '6px',
+              'transition': 'color 150ms ease, background-color 150ms ease',
+            }),
+            [
+              dom.text(item.label),
+              if (hasChildren)
+                dom.span(
+                  styles: const dom.Styles(raw: {'font-size': '10px'}),
+                  [dom.text('\u{25BC}')], // Down arrow
+                ),
+            ],
+          )
+        else
+          dom.button(
+            classes: 'arcane-nav-link',
+            attributes: {'type': 'button'},
+            styles: dom.Styles(raw: {
+              'display': 'flex',
+              'align-items': 'center',
+              'gap': '4px',
+              'padding': '8px 12px',
+              'font-size': '14px',
+              'font-weight': '500',
+              'color': item.isActive
+                  ? 'var(--foreground)'
+                  : 'var(--muted-foreground)',
+              'background': 'none',
+              'border': 'none',
+              'border-radius': '6px',
+              'cursor': 'pointer',
+              'transition': 'color 150ms ease, background-color 150ms ease',
+            }),
+            events: item.onTap != null ? {'click': (_) => item.onTap!()} : null,
+            [
+              dom.text(item.label),
+              if (hasChildren)
+                dom.span(
+                  styles: const dom.Styles(raw: {'font-size': '10px'}),
+                  [dom.text('\u{25BC}')], // Down arrow
+                ),
+            ],
+          ),
+      ],
+    );
+  }
+}
+
+/// ShadCN-style standalone nav link
+class ShadcnNavLink extends StatelessComponent {
+  final NavLinkProps props;
+
+  const ShadcnNavLink(this.props, {super.key});
+
+  @override
+  Component build(BuildContext context) {
+    final List<Component> content = [
+      dom.text(props.label),
+      if (props.showArrow)
+        dom.span(
+          classes: 'nav-link-arrow',
+          styles: const dom.Styles(raw: {
+            'transition': 'transform 150ms ease',
+          }),
+          [dom.text('\u{2192}')], // Right arrow
+        ),
+    ];
+
+    if (props.href != null) {
+      return dom.a(
+        href: props.href!,
+        classes: 'arcane-nav-link-standalone',
+        styles: dom.Styles(raw: {
+          'display': 'inline-flex',
+          'align-items': 'center',
+          'gap': '4px',
+          'font-size': '14px',
+          'font-weight': '500',
+          'color':
+              props.isActive ? 'var(--primary)' : 'var(--muted-foreground)',
+          'text-decoration': 'none',
+          'transition': 'color 150ms ease',
+        }),
+        content,
+      );
+    }
+
+    return dom.button(
+      classes: 'arcane-nav-link-standalone',
+      attributes: {'type': 'button'},
+      styles: dom.Styles(raw: {
+        'display': 'inline-flex',
+        'align-items': 'center',
+        'gap': '4px',
+        'font-size': '14px',
+        'font-weight': '500',
+        'color': props.isActive ? 'var(--primary)' : 'var(--muted-foreground)',
+        'text-decoration': 'none',
+        'transition': 'color 150ms ease',
+        'background': 'none',
+        'border': 'none',
+        'padding': '0',
+        'cursor': 'pointer',
+      }),
+      events: props.onTap != null ? {'click': (_) => props.onTap!()} : null,
+      content,
+    );
+  }
+}

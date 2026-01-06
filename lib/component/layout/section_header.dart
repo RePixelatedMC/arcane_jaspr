@@ -1,8 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/tokens/tokens.dart';
-
 /// Text alignment for section header
 enum SectionHeaderAlign {
   left,
@@ -95,7 +93,7 @@ class ArcaneSectionHeader extends StatelessComponent {
   Component build(BuildContext context) {
     final textAlign = _getTextAlign();
     final effectiveDescriptionMaxWidth = descriptionMaxWidth ?? '640px';
-    final effectiveMarginBottom = marginBottom ?? ArcaneSpacing.xxl;
+    final effectiveMarginBottom = marginBottom ?? '3rem';
 
     return div(
       styles: Styles(raw: {
@@ -108,23 +106,23 @@ class ArcaneSectionHeader extends StatelessComponent {
           span(
             styles: Styles(raw: {
               'display': 'inline-block',
-              'font-size': ArcaneTypography.fontSizeSm,
+              'font-size': '0.875rem',
               'font-weight': '500',
-              'color': labelColor ?? ArcaneColors.accent,
+              'color': labelColor ?? 'var(--accent)',
               'text-transform': 'uppercase',
-              'letter-spacing': ArcaneTypography.letterSpacingWide,
-              'margin-bottom': ArcaneSpacing.md,
+              'letter-spacing': '0.05em',
+              'margin-bottom': '1rem',
             }),
             [text(label!)],
           ),
         // Heading
         h2(
           styles: Styles(raw: {
-            'font-family': ArcaneTypography.fontFamilyHeading,
-            'font-size': ArcaneTypography.fontSize4xl,
+            'font-family': 'ui-sans-serif, system-ui, sans-serif',
+            'font-size': '2.25rem',
             'font-weight': '700',
-            'color': headingColor ?? ArcaneColors.onBackground,
-            'margin': '0 0 ${ArcaneSpacing.md} 0',
+            'color': headingColor ?? 'var(--foreground)',
+            'margin': '0 0 1rem 0',
             'line-height': '1.2',
           }),
           [text(heading)],
@@ -133,8 +131,8 @@ class ArcaneSectionHeader extends StatelessComponent {
         if (description != null)
           p(
             styles: Styles(raw: {
-              'font-size': ArcaneTypography.fontSizeLg,
-              'color': descriptionColor ?? ArcaneColors.mutedForeground,
+              'font-size': '1.125rem',
+              'color': descriptionColor ?? 'var(--muted-foreground)',
               'max-width': effectiveDescriptionMaxWidth,
               'margin': align == SectionHeaderAlign.center ? '0 auto' : '0',
               'line-height': '1.6',

@@ -1,8 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/tokens/tokens.dart';
-
 /// Style variants for the code window
 enum CodeWindowStyle {
   /// Dark background (default)
@@ -83,8 +81,8 @@ class ArcaneCodeWindow extends StatelessComponent {
     return div(
       styles: Styles(raw: {
         'background': effectiveBodyBg,
-        'border': '1px solid ${ArcaneColors.borderSubtle}',
-        'border-radius': ArcaneRadius.lg,
+        'border': '1px solid var(--border)',
+        'border-radius': '0.5rem',
         'overflow': 'hidden',
       }),
       [
@@ -93,10 +91,10 @@ class ArcaneCodeWindow extends StatelessComponent {
           styles: Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
-            'gap': ArcaneSpacing.sm,
-            'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
+            'gap': '0.5rem',
+            'padding': '0.5rem 1rem',
             'background': effectiveHeaderBg,
-            'border-bottom': '1px solid ${ArcaneColors.borderSubtle}',
+            'border-bottom': '1px solid var(--border)',
           }),
           [
             // Traffic light buttons
@@ -111,9 +109,9 @@ class ArcaneCodeWindow extends StatelessComponent {
                 styles: Styles(raw: {
                   'flex': '1',
                   'text-align': showButtons ? 'center' : 'left',
-                  'font-size': ArcaneTypography.fontSizeXs,
-                  'color': ArcaneColors.mutedForeground,
-                  'font-family': ArcaneTypography.fontFamilyMono,
+                  'font-size': '0.75rem',
+                  'color': 'var(--muted-foreground)',
+                  'font-family': 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
                 }),
                 [text(title!)],
               ),
@@ -123,9 +121,9 @@ class ArcaneCodeWindow extends StatelessComponent {
         pre(
           styles: Styles(raw: {
             'margin': '0',
-            'padding': ArcaneSpacing.md,
-            'font-family': ArcaneTypography.fontFamilyMono,
-            'font-size': ArcaneTypography.fontSizeSm,
+            'padding': '1rem',
+            'font-family': 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
+            'font-size': '0.875rem',
             'line-height': '1.6',
             'color': effectiveCodeColor,
             'overflow-x': 'auto',
@@ -153,7 +151,7 @@ class ArcaneCodeWindow extends StatelessComponent {
   String _getHeaderBackground() {
     switch (style) {
       case CodeWindowStyle.dark:
-        return ArcaneColors.surfaceVariant;
+        return 'var(--muted)';
       case CodeWindowStyle.light:
         return '#f5f5f5';
       case CodeWindowStyle.terminal:
@@ -164,7 +162,7 @@ class ArcaneCodeWindow extends StatelessComponent {
   String _getBodyBackground() {
     switch (style) {
       case CodeWindowStyle.dark:
-        return ArcaneColors.card;
+        return 'var(--card)';
       case CodeWindowStyle.light:
         return '#ffffff';
       case CodeWindowStyle.terminal:
@@ -175,7 +173,7 @@ class ArcaneCodeWindow extends StatelessComponent {
   String _getCodeColor() {
     switch (style) {
       case CodeWindowStyle.dark:
-        return ArcaneColors.onSurface;
+        return 'var(--foreground)';
       case CodeWindowStyle.light:
         return '#1a1a1a';
       case CodeWindowStyle.terminal:
@@ -189,12 +187,12 @@ class ArcaneCodeWindow extends StatelessComponent {
 /// For inline or compact code display.
 ///
 /// ```dart
-/// ArcaneCodeSnippet(
+/// ArcaneCodePreview(
 ///   code: 'const x = 42;',
 ///   language: 'dart',
 /// )
 /// ```
-class ArcaneCodeSnippet extends StatelessComponent {
+class ArcaneCodePreview extends StatelessComponent {
   /// The code to display
   final String code;
 
@@ -204,7 +202,7 @@ class ArcaneCodeSnippet extends StatelessComponent {
   /// Whether to use monospace font
   final bool mono;
 
-  const ArcaneCodeSnippet({
+  const ArcaneCodePreview({
     required this.code,
     this.language,
     this.mono = true,
@@ -215,20 +213,20 @@ class ArcaneCodeSnippet extends StatelessComponent {
   Component build(BuildContext context) {
     return div(
       styles: const Styles(raw: {
-        'background': ArcaneColors.surfaceVariant,
-        'border': '1px solid ${ArcaneColors.borderSubtle}',
-        'border-radius': ArcaneRadius.md,
+        'background': 'var(--muted)',
+        'border': '1px solid var(--border)',
+        'border-radius': '0.375rem',
         'overflow': 'hidden',
       }),
       [
         if (language != null)
           div(
             styles: const Styles(raw: {
-              'padding': '${ArcaneSpacing.xs} ${ArcaneSpacing.sm}',
-              'background': ArcaneColors.surface,
-              'border-bottom': '1px solid ${ArcaneColors.borderSubtle}',
-              'font-size': ArcaneTypography.fontSizeXs,
-              'color': ArcaneColors.mutedForeground,
+              'padding': '0.25rem 0.5rem',
+              'background': 'var(--card)',
+              'border-bottom': '1px solid var(--border)',
+              'font-size': '0.75rem',
+              'color': 'var(--muted-foreground)',
               'text-transform': 'uppercase',
             }),
             [text(language!)],
@@ -236,11 +234,11 @@ class ArcaneCodeSnippet extends StatelessComponent {
         pre(
           styles: Styles(raw: {
             'margin': '0',
-            'padding': ArcaneSpacing.sm,
-            if (mono) 'font-family': ArcaneTypography.fontFamilyMono,
-            'font-size': ArcaneTypography.fontSizeSm,
+            'padding': '0.5rem',
+            if (mono) 'font-family': 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
+            'font-size': '0.875rem',
             'line-height': '1.5',
-            'color': ArcaneColors.onSurface,
+            'color': 'var(--foreground)',
             'overflow-x': 'auto',
           }),
           [Component.element(tag: 'code', children: [Component.text(code)])],

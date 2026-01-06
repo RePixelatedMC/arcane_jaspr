@@ -1,46 +1,23 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart'
-    hide
-        Color,
-        Colors,
-        ColorScheme,
-        Gap,
-        Padding,
-        TextAlign,
-        TextOverflow,
-        Border,
-        BorderRadius,
-        BoxShadow,
-        FontWeight;
+import 'package:jaspr/dom.dart' as dom;
 
-import '../../util/appearance/colors.dart';
+import '../../core/props/card_props.dart';
+import '../../core/theme_provider.dart';
 import '../../util/arcane.dart';
-import '../../util/tokens/tokens.dart';
-import '../../util/tokens/style_presets.dart';
-import '../../util/tokens/common_styles.dart';
 
 /// A card component with consistent styling.
 ///
-/// Use style presets for cleaner code:
 /// ```dart
-/// // Using child:
 /// ArcaneCard(
-///   style: CardStyle.elevated,
+///   variant: CardVariant.elevated,
 ///   child: Text('Content'),
 /// )
 ///
-/// // Using children: for multiple elements
 /// ArcaneCard(
-///   style: CardStyle.elevated,
 ///   children: [
 ///     ArcaneHeading.h3(text: 'Title'),
 ///     Text('Content'),
 ///   ],
-/// )
-///
-/// // Using onClick (alias for onTap):
-/// ArcaneCard(
-///   child: Text('Clickable'),
 ///   onClick: () => print('clicked'),
 /// )
 /// ```
@@ -48,48 +25,36 @@ class ArcaneCard extends StatelessComponent {
   /// The child component (single)
   final Component? _child;
 
-  /// The children components - convenience parameter
+  /// The children components
   final List<Component>? _children;
 
-  /// Style preset (preferred)
-  final CardStyle? style;
+  /// Visual style variant
+  final CardVariant variant;
 
-  /// Custom padding (overrides style)
-  final EdgeInsets? padding;
+  /// Custom padding
+  final String? padding;
 
-  /// Border radius (overrides style)
-  final double? radius;
-
-  /// Whether to show a border (legacy, use CardStyle instead)
-  final bool border;
-
-  /// Elevation level (legacy, use CardStyle instead)
-  final int elevation;
+  /// Border radius
+  final String? borderRadius;
 
   /// Click handler
   final void Function()? _onTap;
 
-  /// Custom background color (overrides style)
-  final Color? color;
+  /// Custom background color
+  final String? backgroundColor;
 
   /// Whether to fill width
   final bool fillWidth;
 
-  /// Creates a card.
-  ///
-  /// Provide either [child] or [children].
-  /// Use [onTap] or [onClick] for click handling.
   const ArcaneCard({
     Component? child,
     List<Component>? children,
-    this.style,
+    this.variant = CardVariant.elevated,
     this.padding,
-    this.radius,
-    this.border = true,
-    this.elevation = 0,
+    this.borderRadius,
     void Function()? onTap,
     void Function()? onClick,
-    this.color,
+    this.backgroundColor,
     this.fillWidth = false,
     super.key,
   })  : _child = child,
@@ -103,18 +68,16 @@ class ArcaneCard extends StatelessComponent {
     Component? child,
     List<Component>? children,
     this.padding,
-    this.radius,
+    this.borderRadius,
     void Function()? onTap,
     void Function()? onClick,
-    this.color,
+    this.backgroundColor,
     this.fillWidth = false,
     super.key,
   })  : _child = child,
         _children = children,
         _onTap = onTap ?? onClick,
-        style = CardStyle.elevated,
-        border = true,
-        elevation = 2,
+        variant = CardVariant.elevated,
         assert(child != null || children != null,
             'Either child or children must be provided');
 
@@ -123,18 +86,16 @@ class ArcaneCard extends StatelessComponent {
     Component? child,
     List<Component>? children,
     this.padding,
-    this.radius,
+    this.borderRadius,
     void Function()? onTap,
     void Function()? onClick,
-    this.color,
+    this.backgroundColor,
     this.fillWidth = false,
     super.key,
   })  : _child = child,
         _children = children,
         _onTap = onTap ?? onClick,
-        style = CardStyle.flat,
-        border = true,
-        elevation = 0,
+        variant = CardVariant.flat,
         assert(child != null || children != null,
             'Either child or children must be provided');
 
@@ -143,18 +104,16 @@ class ArcaneCard extends StatelessComponent {
     Component? child,
     List<Component>? children,
     this.padding,
-    this.radius,
+    this.borderRadius,
     void Function()? onTap,
     void Function()? onClick,
-    this.color,
+    this.backgroundColor,
     this.fillWidth = false,
     super.key,
   })  : _child = child,
         _children = children,
         _onTap = onTap ?? onClick,
-        style = CardStyle.outlined,
-        border = true,
-        elevation = 0,
+        variant = CardVariant.outlined,
         assert(child != null || children != null,
             'Either child or children must be provided');
 
@@ -163,18 +122,16 @@ class ArcaneCard extends StatelessComponent {
     Component? child,
     List<Component>? children,
     this.padding,
-    this.radius,
+    this.borderRadius,
     void Function()? onTap,
     void Function()? onClick,
-    this.color,
+    this.backgroundColor,
     this.fillWidth = false,
     super.key,
   })  : _child = child,
         _children = children,
         _onTap = onTap ?? onClick,
-        style = CardStyle.ghost,
-        border = false,
-        elevation = 0,
+        variant = CardVariant.ghost,
         assert(child != null || children != null,
             'Either child or children must be provided');
 
@@ -183,18 +140,16 @@ class ArcaneCard extends StatelessComponent {
     Component? child,
     List<Component>? children,
     this.padding,
-    this.radius,
+    this.borderRadius,
     void Function()? onTap,
     void Function()? onClick,
-    this.color,
+    this.backgroundColor,
     this.fillWidth = false,
     super.key,
   })  : _child = child,
         _children = children,
         _onTap = onTap ?? onClick,
-        style = CardStyle.glass,
-        border = true,
-        elevation = 0,
+        variant = CardVariant.glass,
         assert(child != null || children != null,
             'Either child or children must be provided');
 
@@ -203,85 +158,32 @@ class ArcaneCard extends StatelessComponent {
     Component? child,
     List<Component>? children,
     this.padding,
-    this.radius,
+    this.borderRadius,
     void Function()? onTap,
     void Function()? onClick,
-    this.color,
+    this.backgroundColor,
     this.fillWidth = false,
     super.key,
   })  : _child = child,
         _children = children,
         _onTap = onTap ?? onClick,
-        style = CardStyle.interactive,
-        border = true,
-        elevation = 0,
+        variant = CardVariant.interactive,
         assert(child != null || children != null,
             'Either child or children must be provided');
 
   @override
   Component build(BuildContext context) {
-    // Resolve content: children takes precedence over child
-    final content = _children ?? [_child!];
-
-    // Build card styles
-    final Map<String, String> cardStyles = {
-      // Start with style preset if provided
-      if (style != null) ...style!.styles,
-
-      // Or use legacy elevation-based approach
-      if (style == null) ...{
-        'background-color': color?.css ?? ArcaneColors.card,
-        'color': ArcaneColors.cardForeground,
-        'border-radius': radius != null ? '${radius}px' : ArcaneRadius.lg,
-        if (border) 'border': '1px solid ${ArcaneColors.border}',
-        'box-shadow': switch (elevation) {
-          0 => ArcaneEffects.shadowNone,
-          1 => ArcaneEffects.shadowSm,
-          2 => ArcaneEffects.shadowMd,
-          3 => ArcaneEffects.shadowLg,
-          _ => ArcaneEffects.shadowXl,
-        },
-        'transition': ArcaneEffects.transitionNormal,
-      },
-
-      // Overrides
-      if (color != null) 'background-color': color!.css,
-      if (radius != null) 'border-radius': '${radius}px',
-      if (padding != null) 'padding': padding!.padding,
-      if (padding == null) 'padding': ArcaneSpacing.lg,
-      if (fillWidth) 'width': '100%',
-      if (_onTap != null) 'cursor': 'pointer',
-    };
-
-    if (_onTap != null) {
-      return button(
-        classes: 'arcane-card clickable',
-        attributes: {'type': 'button'},
-        styles: Styles(raw: cardStyles),
-        events: {
-          'click': (event) => _onTap!(),
-        },
-        content,
-      );
-    } else {
-      return div(
-        classes: 'arcane-card',
-        styles: Styles(raw: cardStyles),
-        content,
-      );
-    }
+    return context.renderers.card(CardProps(
+      child: _child,
+      children: _children,
+      variant: variant,
+      padding: padding,
+      borderRadius: borderRadius,
+      backgroundColor: backgroundColor,
+      fillWidth: fillWidth,
+      onTap: _onTap,
+    ));
   }
-
-  @css
-  static final List<StyleRule> styles = [
-    css('.arcane-card.clickable:hover').styles(raw: {
-      'border-color': ArcaneColors.outline,
-      'transform': ArcaneEffects.hoverLift,
-    }),
-    css('.arcane-card.clickable:active').styles(raw: {
-      'transform': 'translateY(0)',
-    }),
-  ];
 }
 
 /// A card with header, body, and footer sections
@@ -289,7 +191,6 @@ class ArcaneStructuredCard extends StatelessComponent {
   final Component? header;
   final Component body;
   final Component? footer;
-  final CardStyle? style;
   final EdgeInsets? padding;
   final double? radius;
   final bool border;
@@ -303,7 +204,6 @@ class ArcaneStructuredCard extends StatelessComponent {
     this.header,
     required this.body,
     this.footer,
-    this.style,
     this.padding,
     this.radius,
     this.border = true,
@@ -317,26 +217,23 @@ class ArcaneStructuredCard extends StatelessComponent {
   Component build(BuildContext context) {
     // Generate shadow based on elevation
     final boxShadow = switch (elevation) {
-      0 => ArcaneEffects.shadowNone,
-      1 => ArcaneEffects.shadowSm,
-      2 => ArcaneEffects.shadowMd,
-      3 => ArcaneEffects.shadowLg,
-      _ => ArcaneEffects.shadowXl,
+      0 => 'none',
+      1 => '0 1px 2px 0 rgb(0 0 0 / 0.05)',
+      2 => '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
+      3 => '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
+      _ => '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
     };
 
-    return div(
+    return dom.div(
       classes: 'arcane-structured-card',
-      styles: Styles(raw: {
-        // Start with style preset or defaults
-        if (style != null) ...style!.styles else ...{
-          'background-color': ArcaneColors.surface,
-          'border-radius': radius != null ? '${radius}px' : ArcaneRadius.lg,
-          if (border) 'border': '1px solid ${ArcaneColors.outlineVariant}',
-          'box-shadow': boxShadow,
-        },
+      styles: dom.Styles(raw: {
+        'background-color': 'var(--card)',
+        'border-radius': radius != null ? '${radius}px' : '0.75rem',
+        if (border) 'border': '1px solid var(--border)',
+        'box-shadow': boxShadow,
         'overflow': 'hidden',
         if (_onTap != null) 'cursor': 'pointer',
-        if (_onTap != null) 'transition': ArcaneEffects.transitionFast,
+        if (_onTap != null) 'transition': 'all 150ms ease',
       }),
       events: _onTap != null
           ? {
@@ -345,28 +242,28 @@ class ArcaneStructuredCard extends StatelessComponent {
           : null,
       [
         if (header != null)
-          div(
+          dom.div(
             classes: 'arcane-structured-card-header',
-            styles: const Styles(raw: {
-              'padding': ArcaneSpacing.md,
-              'border-bottom': '1px solid ${ArcaneColors.outlineVariant}',
+            styles: const dom.Styles(raw: {
+              'padding': '1rem',
+              'border-bottom': '1px solid var(--border)',
             }),
             [header!],
           ),
-        div(
+        dom.div(
           classes: 'arcane-structured-card-body',
-          styles: Styles(raw: {
+          styles: dom.Styles(raw: {
             'padding': (padding ?? const EdgeInsets.all(16)).padding,
           }),
           [body],
         ),
         if (footer != null)
-          div(
+          dom.div(
             classes: 'arcane-structured-card-footer',
-            styles: const Styles(raw: {
-              'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
-              'border-top': '1px solid ${ArcaneColors.outlineVariant}',
-              'background-color': ArcaneColors.surfaceVariant,
+            styles: const dom.Styles(raw: {
+              'padding': '0.5rem 1rem',
+              'border-top': '1px solid var(--border)',
+              'background-color': 'var(--muted)',
             }),
             [footer!],
           ),
@@ -404,11 +301,11 @@ class ArcaneImageCard extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return div(
+    return dom.div(
       classes: 'arcane-image-card ${_onTap != null ? 'clickable' : ''}',
-      styles: Styles(raw: {
+      styles: dom.Styles(raw: {
         'position': 'relative',
-        'border-radius': radius != null ? '${radius}px' : ArcaneRadius.lg,
+        'border-radius': radius != null ? '${radius}px' : '0.75rem',
         'overflow': 'hidden',
         if (height != null) 'height': '${height}px',
         if (_onTap != null) 'cursor': 'pointer',
@@ -420,46 +317,47 @@ class ArcaneImageCard extends StatelessComponent {
           : null,
       [
         // Image
-        img(
+        dom.img(
           src: imageUrl,
           alt: title ?? '',
-          styles: Styles(raw: {
-            ...ArcaneCommonStyles.imageCover,
+          styles: dom.Styles(raw: {
+            'width': '100%',
+            'height': '100%',
             'object-fit': fit.css,
           }),
         ),
 
         // Overlay gradient
         if (title != null || subtitle != null || overlay != null)
-          div(
+          dom.div(
             classes: 'arcane-image-card-overlay',
-            styles: const Styles(raw: {
+            styles: const dom.Styles(raw: {
               'position': 'absolute',
               'bottom': '0',
               'left': '0',
               'right': '0',
-              'padding': ArcaneSpacing.md,
+              'padding': '1rem',
               'background':
-                  'linear-gradient(to top, rgba(${ArcaneColors.backgroundRgb}, 0.7), transparent)',
-              'color': ArcaneColors.onBackground,
+                  'linear-gradient(to top, hsl(var(--background) / 0.8), transparent)',
+              'color': 'var(--foreground)',
             }),
             [
               if (title != null)
-                div(
-                  styles: const Styles(raw: {
-                    'font-size': ArcaneTypography.fontReg,
-                    'font-weight': ArcaneTypography.weightSemibold,
+                dom.div(
+                  styles: const dom.Styles(raw: {
+                    'font-size': '1rem',
+                    'font-weight': '600',
                   }),
-                  [text(title!)],
+                  [dom.text(title!)],
                 ),
               if (subtitle != null)
-                div(
-                  styles: const Styles(raw: {
-                    'font-size': ArcaneTypography.fontMd,
+                dom.div(
+                  styles: const dom.Styles(raw: {
+                    'font-size': '0.875rem',
                     'opacity': '0.9',
-                    'margin-top': ArcaneSpacing.xs,
+                    'margin-top': '0.25rem',
                   }),
-                  [text(subtitle!)],
+                  [dom.text(subtitle!)],
                 ),
               if (overlay != null) overlay!,
             ],
@@ -467,12 +365,4 @@ class ArcaneImageCard extends StatelessComponent {
       ],
     );
   }
-
-  @css
-  static final List<StyleRule> styles = [
-    css('.arcane-image-card.clickable:hover').styles(raw: {
-      'transform': ArcaneEffects.hoverScale,
-      'transition': 'transform 200ms ease',
-    }),
-  ];
 }

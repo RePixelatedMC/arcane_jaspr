@@ -1,8 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/tokens/tokens.dart';
-
 /// A testimonial/quote card component (Supabase-style)
 class ArcaneTestimonialCard extends StatelessComponent {
   /// The testimonial quote text
@@ -44,10 +42,10 @@ class ArcaneTestimonialCard extends StatelessComponent {
       styles: const Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'padding': ArcaneSpacing.xl,
-        'background-color': ArcaneColors.card,
-        'border': '1px solid ${ArcaneColors.border}',
-        'border-radius': ArcaneRadius.xl,
+        'padding': '2rem',
+        'background-color': 'var(--card)',
+        'border': '1px solid var(--border)',
+        'border-radius': '0.75rem',
       }),
       [
         // Rating stars
@@ -57,16 +55,16 @@ class ArcaneTestimonialCard extends StatelessComponent {
             styles: const Styles(raw: {
               'display': 'flex',
               'gap': '2px',
-              'margin-bottom': ArcaneSpacing.lg,
+              'margin-bottom': '1.5rem',
             }),
             [
               for (var i = 0; i < 5; i++)
                 span(
                   styles: Styles(raw: {
-                    'font-size': ArcaneTypography.fontMd,
+                    'font-size': '1rem',
                     'color': i < rating!
-                        ? ArcaneColors.warning
-                        : ArcaneColors.mutedForeground,
+                        ? 'hsl(38 92% 50%)'
+                        : 'var(--muted-foreground)',
                   }),
                   [text('★')],
                 ),
@@ -78,10 +76,10 @@ class ArcaneTestimonialCard extends StatelessComponent {
           classes: 'arcane-testimonial-quote',
           styles: const Styles(raw: {
             'position': 'relative',
-            'font-size': ArcaneTypography.fontMd,
-            'line-height': ArcaneTypography.leadingRelaxed,
-            'color': ArcaneColors.onSurface,
-            'margin-bottom': ArcaneSpacing.lg,
+            'font-size': '1rem',
+            'line-height': '1.7',
+            'color': 'var(--foreground)',
+            'margin-bottom': '1.5rem',
             'flex': '1',
           }),
           [
@@ -91,8 +89,8 @@ class ArcaneTestimonialCard extends StatelessComponent {
                   'position': 'absolute',
                   'top': '-8px',
                   'left': '-4px',
-                  'font-size': ArcaneTypography.font4xl,
-                  'color': ArcaneColors.accent,
+                  'font-size': '2.5rem',
+                  'color': 'var(--accent)',
                   'opacity': '0.3',
                   'font-family': 'Georgia, serif',
                   'line-height': '1',
@@ -102,7 +100,7 @@ class ArcaneTestimonialCard extends StatelessComponent {
             p(
               styles: Styles(raw: {
                 'margin': '0',
-                if (showQuotes) 'padding-left': ArcaneSpacing.lg,
+                if (showQuotes) 'padding-left': '1.5rem',
               }),
               [text(quote)],
             ),
@@ -115,7 +113,7 @@ class ArcaneTestimonialCard extends StatelessComponent {
           styles: const Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
-            'gap': ArcaneSpacing.md,
+            'gap': '1rem',
           }),
           [
             // Avatar
@@ -125,7 +123,7 @@ class ArcaneTestimonialCard extends StatelessComponent {
                 styles: const Styles(raw: {
                   'width': '44px',
                   'height': '44px',
-                  'border-radius': ArcaneRadius.full,
+                  'border-radius': '9999px',
                   'overflow': 'hidden',
                   'flex-shrink': '0',
                 }),
@@ -147,14 +145,14 @@ class ArcaneTestimonialCard extends StatelessComponent {
                 styles: const Styles(raw: {
                   'width': '44px',
                   'height': '44px',
-                  'border-radius': ArcaneRadius.full,
-                  'background-color': ArcaneColors.accentContainer,
-                  'color': ArcaneColors.accent,
+                  'border-radius': '9999px',
+                  'background-color': 'hsl(var(--accent) / 0.1)',
+                  'color': 'var(--accent)',
                   'display': 'flex',
                   'align-items': 'center',
                   'justify-content': 'center',
-                  'font-weight': ArcaneTypography.weightSemibold,
-                  'font-size': ArcaneTypography.fontMd,
+                  'font-weight': '600',
+                  'font-size': '1rem',
                   'flex-shrink': '0',
                 }),
                 [text(authorName[0].toUpperCase())],
@@ -166,17 +164,17 @@ class ArcaneTestimonialCard extends StatelessComponent {
               [
                 div(
                   styles: const Styles(raw: {
-                    'font-weight': ArcaneTypography.weightSemibold,
-                    'font-size': ArcaneTypography.fontMd,
-                    'color': ArcaneColors.onSurface,
+                    'font-weight': '600',
+                    'font-size': '1rem',
+                    'color': 'var(--foreground)',
                   }),
                   [text(authorName)],
                 ),
                 if (authorTitle != null || authorCompany != null)
                   div(
                     styles: const Styles(raw: {
-                      'font-size': ArcaneTypography.fontSm,
-                      'color': ArcaneColors.mutedForeground,
+                      'font-size': '0.875rem',
+                      'color': 'var(--muted-foreground)',
                       'margin-top': '2px',
                     }),
                     [
@@ -197,7 +195,7 @@ class ArcaneTestimonialCard extends StatelessComponent {
 }
 
 /// Rating stars component
-class ArcaneRatingStars extends StatelessComponent {
+class ArcaneRatingStarsSimple extends StatelessComponent {
   /// Rating value (0-5)
   final double rating;
 
@@ -213,7 +211,7 @@ class ArcaneRatingStars extends StatelessComponent {
   /// Callback when rating changes (for interactive mode)
   final void Function(int)? onRatingChanged;
 
-  const ArcaneRatingStars({
+  const ArcaneRatingStarsSimple({
     required this.rating,
     this.maxStars = 5,
     this.size = 16,
@@ -237,10 +235,10 @@ class ArcaneRatingStars extends StatelessComponent {
             styles: Styles(raw: {
               'font-size': '${size}px',
               'color': i < rating
-                  ? ArcaneColors.warning
-                  : ArcaneColors.mutedForeground,
+                  ? 'hsl(38 92% 50%)'
+                  : 'var(--muted-foreground)',
               if (interactive) 'cursor': 'pointer',
-              'transition': ArcaneEffects.transitionFast,
+              'transition': 'all 150ms ease',
             }),
             events: interactive
                 ? {

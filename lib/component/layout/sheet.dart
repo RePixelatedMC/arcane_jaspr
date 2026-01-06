@@ -1,27 +1,22 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart'
-    hide
-        Color,
-        Colors,
-        ColorScheme,
-        Gap,
-        Padding,
-        TextAlign,
-        TextOverflow,
-        Border,
-        BorderRadius,
-        BoxShadow,
-        FontWeight;
+import 'package:jaspr/dom.dart' as dom;
 
-import '../../util/tokens/tokens.dart';
+import '../../core/theme_provider.dart';
+import '../../core/props/dialog_props.dart' as props;
 import 'sheet_types.dart';
 
 export 'sheet_types.dart';
 
-/// A modal sheet that slides in from screen edges.
+// Re-export props for backwards compatibility
+export '../../core/props/dialog_props.dart' show SheetSizeVariant, SheetProps;
+
+/// A modal sheet that slides in from screen edges matching shadcn/ui.
+/// ShadCN Reference: https://ui.shadcn.com/docs/components/sheet
 ///
 /// Sheets are used for forms, filters, action menus, and other
 /// content that requires user attention without navigating away.
+/// ShadCN SheetOverlay: fixed inset-0 z-50 bg-black/80
+/// ShadCN SheetContent: fixed z-50 gap-4 bg-background p-6 shadow-lg transition ease-in-out
 ///
 /// ```dart
 /// ArcaneSheet(
@@ -146,283 +141,41 @@ class ArcaneSheet extends StatelessComponent {
     super.key,
   }) : position = SheetPosition.end;
 
-  bool get _isVertical =>
-      position == SheetPosition.bottom || position == SheetPosition.top;
-
-  String? get _sizeValue {
-    if (size == SheetSize.auto) return null;
-    if (_isVertical) {
-      return switch (size) {
-        SheetSize.auto => null,
-        SheetSize.sm => '30vh',
-        SheetSize.md => '50vh',
-        SheetSize.lg => '70vh',
-        SheetSize.xl => '90vh',
-        SheetSize.full => '100vh',
+  props.SheetPosition get _propsPosition => switch (position) {
+        SheetPosition.bottom => props.SheetPosition.bottom,
+        SheetPosition.top => props.SheetPosition.top,
+        SheetPosition.end => props.SheetPosition.right,
+        SheetPosition.start => props.SheetPosition.left,
       };
-    } else {
-      return switch (size) {
-        SheetSize.auto => null,
-        SheetSize.sm => '280px',
-        SheetSize.md => '400px',
-        SheetSize.lg => '540px',
-        SheetSize.xl => '720px',
-        SheetSize.full => '100vw',
-      };
-    }
-  }
 
-  Map<String, String> get _positionStyles {
-    final sizeVal = _sizeValue;
-    return switch (position) {
-      SheetPosition.bottom => {
-          'bottom': '0',
-          'left': '0',
-          'right': '0',
-          if (sizeVal != null) 'height': sizeVal,
-          'max-height': '90vh',
-          'transform': isOpen ? 'translateY(0)' : 'translateY(100%)',
-        },
-      SheetPosition.top => {
-          'top': '0',
-          'left': '0',
-          'right': '0',
-          if (sizeVal != null) 'height': sizeVal,
-          'max-height': '90vh',
-          'transform': isOpen ? 'translateY(0)' : 'translateY(-100%)',
-        },
-      SheetPosition.end => {
-          'top': '0',
-          'right': '0',
-          'bottom': '0',
-          if (sizeVal != null) 'width': sizeVal else 'width': '400px',
-          'max-width': '100vw',
-          'transform': isOpen ? 'translateX(0)' : 'translateX(100%)',
-        },
-      SheetPosition.start => {
-          'top': '0',
-          'left': '0',
-          'bottom': '0',
-          if (sizeVal != null) 'width': sizeVal else 'width': '400px',
-          'max-width': '100vw',
-          'transform': isOpen ? 'translateX(0)' : 'translateX(-100%)',
-        },
-    };
-  }
-
-  String get _borderRadius => switch (position) {
-        SheetPosition.bottom =>
-          '${ArcaneRadius.xl} ${ArcaneRadius.xl} 0 0',
-        SheetPosition.top =>
-          '0 0 ${ArcaneRadius.xl} ${ArcaneRadius.xl}',
-        SheetPosition.end =>
-          '${ArcaneRadius.xl} 0 0 ${ArcaneRadius.xl}',
-        SheetPosition.start =>
-          '0 ${ArcaneRadius.xl} ${ArcaneRadius.xl} 0',
+  props.SheetSizeVariant get _propsSize => switch (size) {
+        SheetSize.auto => props.SheetSizeVariant.auto,
+        SheetSize.sm => props.SheetSizeVariant.sm,
+        SheetSize.md => props.SheetSizeVariant.md,
+        SheetSize.lg => props.SheetSizeVariant.lg,
+        SheetSize.xl => props.SheetSizeVariant.xl,
+        SheetSize.full => props.SheetSizeVariant.full,
       };
 
   @override
   Component build(BuildContext context) {
-    return div(
-      classes: 'arcane-sheet ${isOpen ? 'open' : 'closed'}',
-      attributes: {
-        'data-sheet': 'true',
-        'data-position': position.name,
-      },
-      styles: Styles(raw: {
-        'position': 'fixed',
-        'top': '0',
-        'left': '0',
-        'right': '0',
-        'bottom': '0',
-        'z-index': '1100',
-        'pointer-events': isOpen ? 'auto' : 'none',
-      }),
-      [
-        // Backdrop
-        if (showBackdrop)
-          div(
-            classes: 'arcane-sheet-backdrop',
-            styles: Styles(raw: {
-              'position': 'absolute',
-              'top': '0',
-              'left': '0',
-              'right': '0',
-              'bottom': '0',
-              'background': ArcaneColors.overlay,
-              'opacity': isOpen ? '1' : '0',
-              'transition': 'opacity 0.3s ease',
-            }),
-            events:
-                closeOnBackdropClick ? {'click': (_) => onClose?.call()} : null,
-            [],
-          ),
-
-        // Sheet container (for centering bottom sheets if needed)
-        div(
-          classes: 'arcane-sheet-container',
-          styles: Styles(raw: {
-            'position': 'absolute',
-            if (position == SheetPosition.bottom) ...{
-              'bottom': '0',
-              'left': '50%',
-              'transform': isOpen
-                  ? 'translateX(-50%) translateY(0)'
-                  : 'translateX(-50%) translateY(100%)',
-              'width': maxWidth ?? '100%',
-              'max-width': maxWidth ?? '100%',
-            } else
-              ..._positionStyles,
-            'transition': 'transform 0.3s cubic-bezier(0.32, 0.72, 0, 1)',
-          }),
-          [
-            // Sheet panel
-            div(
-              classes: 'arcane-sheet-panel',
-              styles: Styles(raw: {
-                'background': ArcaneColors.surface,
-                'box-shadow': ArcaneEffects.shadowXl,
-                'display': 'flex',
-                'flex-direction': 'column',
-                'border-radius': size == SheetSize.full ? '0' : _borderRadius,
-                'border': '1px solid ${ArcaneColors.border}',
-                if (position == SheetPosition.bottom && size == SheetSize.auto)
-                  'max-height': '85vh',
-              }),
-              [
-                // Drag handle (for bottom/top sheets)
-                if (showDragHandle && _isVertical)
-                  const div(
-                    classes: 'arcane-sheet-drag-handle',
-                    styles: Styles(raw: {
-                      'display': 'flex',
-                      'justify-content': 'center',
-                      'padding': '${ArcaneSpacing.sm} 0',
-                    }),
-                    [
-                      div(
-                        styles: Styles(raw: {
-                          'width': '36px',
-                          'height': '4px',
-                          'background': ArcaneColors.mutedForeground,
-                          'border-radius': ArcaneRadius.full,
-                          'opacity': '0.4',
-                        }),
-                        [],
-                      ),
-                    ],
-                  ),
-
-                // Header
-                if (header != null || title != null || showCloseButton)
-                  div(
-                    classes: 'arcane-sheet-header',
-                    styles: const Styles(raw: {
-                      'display': 'flex',
-                      'align-items': 'flex-start',
-                      'justify-content': 'space-between',
-                      'gap': ArcaneSpacing.md,
-                      'padding': ArcaneSpacing.lg,
-                      'padding-top':
-                          ArcaneSpacing.md, // Less if drag handle shown
-                    }),
-                    [
-                      if (header != null)
-                        div(
-                          styles: const Styles(raw: {'flex': '1'}),
-                          [header!],
-                        )
-                      else if (title != null)
-                        div(
-                          styles: const Styles(raw: {
-                            'flex': '1',
-                            'display': 'flex',
-                            'flex-direction': 'column',
-                            'gap': ArcaneSpacing.xs,
-                          }),
-                          [
-                            span(
-                              styles: const Styles(raw: {
-                                'font-size': ArcaneTypography.fontLg,
-                                'font-weight': ArcaneTypography.weightSemibold,
-                                'color': ArcaneColors.onSurface,
-                              }),
-                              [Component.text(title!)],
-                            ),
-                            if (description != null)
-                              span(
-                                styles: const Styles(raw: {
-                                  'font-size': ArcaneTypography.fontSm,
-                                  'color': ArcaneColors.mutedForeground,
-                                }),
-                                [Component.text(description!)],
-                              ),
-                          ],
-                        ),
-                      if (showCloseButton)
-                        button(
-                          type: ButtonType.button,
-                          classes: 'arcane-sheet-close',
-                          attributes: {'aria-label': 'Close sheet'},
-                          styles: const Styles(raw: {
-                            'width': '32px',
-                            'height': '32px',
-                            'display': 'flex',
-                            'align-items': 'center',
-                            'justify-content': 'center',
-                            'padding': '0',
-                            'border': 'none',
-                            'background': 'transparent',
-                            'color': ArcaneColors.mutedForeground,
-                            'cursor': 'pointer',
-                            'border-radius': ArcaneRadius.sm,
-                            'font-size': ArcaneTypography.fontXl,
-                            'transition': ArcaneEffects.transitionFast,
-                            'flex-shrink': '0',
-                          }),
-                          events: {'click': (_) => onClose?.call()},
-                          [text('×')],
-                        ),
-                    ],
-                  ),
-
-                // Content
-                div(
-                  classes: 'arcane-sheet-content',
-                  styles: const Styles(raw: {
-                    'flex': '1',
-                    'overflow': 'auto',
-                    'padding': '0 ${ArcaneSpacing.lg} ${ArcaneSpacing.lg}',
-                  }),
-                  [child],
-                ),
-
-                // Footer
-                if (footer != null)
-                  div(
-                    classes: 'arcane-sheet-footer',
-                    styles: const Styles(raw: {
-                      'padding': ArcaneSpacing.lg,
-                      'border-top': '1px solid ${ArcaneColors.border}',
-                      'flex-shrink': '0',
-                    }),
-                    [footer!],
-                  ),
-              ],
-            ),
-          ],
-        ),
-      ],
-    );
+    return context.renderers.sheet(props.SheetProps(
+      isOpen: isOpen,
+      child: child,
+      position: _propsPosition,
+      size: _propsSize,
+      onClose: onClose,
+      showCloseButton: showCloseButton,
+      title: title,
+      description: description,
+      header: header,
+      footer: footer,
+      showBackdrop: showBackdrop,
+      closeOnBackdropClick: closeOnBackdropClick,
+      showDragHandle: showDragHandle,
+      maxWidth: maxWidth,
+    ));
   }
-
-  @css
-  static final List<StyleRule> styles = [
-    css('.arcane-sheet-close:hover').styles(raw: {
-      'color': ArcaneColors.onSurface,
-      'background': ArcaneColors.surfaceVariant,
-    }),
-  ];
 }
 
 /// Action sheet with a list of actions (mobile-style).
@@ -486,38 +239,38 @@ class ArcaneActionSheet extends StatelessComponent {
       onClose: onClose,
       showCloseButton: false,
       showDragHandle: true,
-      child: div(
-        styles: const Styles(raw: {
+      child: dom.div(
+        styles: const dom.Styles(raw: {
           'display': 'flex',
           'flex-direction': 'column',
-          'gap': ArcaneSpacing.xs,
+          'gap': '4px',
         }),
         [
           // Title and message
           if (title != null || message != null)
-            div(
-              styles: const Styles(raw: {
+            dom.div(
+              styles: const dom.Styles(raw: {
                 'text-align': 'center',
-                'padding-bottom': ArcaneSpacing.md,
-                'margin-bottom': ArcaneSpacing.sm,
-                'border-bottom': '1px solid ${ArcaneColors.border}',
+                'padding-bottom': '16px',
+                'margin-bottom': '8px',
+                'border-bottom': '1px solid var(--border)',
               }),
               [
                 if (title != null)
-                  div(
-                    styles: const Styles(raw: {
-                      'font-size': ArcaneTypography.fontMd,
-                      'font-weight': ArcaneTypography.weightSemibold,
-                      'color': ArcaneColors.onSurface,
-                      'margin-bottom': ArcaneSpacing.xs,
+                  dom.div(
+                    styles: const dom.Styles(raw: {
+                      'font-size': '1rem',
+                      'font-weight': '600',
+                      'color': 'var(--foreground)',
+                      'margin-bottom': '4px',
                     }),
                     [Component.text(title!)],
                   ),
                 if (message != null)
-                  div(
-                    styles: const Styles(raw: {
-                      'font-size': ArcaneTypography.fontSm,
-                      'color': ArcaneColors.mutedForeground,
+                  dom.div(
+                    styles: const dom.Styles(raw: {
+                      'font-size': '0.875rem',
+                      'color': 'var(--muted-foreground)',
                     }),
                     [Component.text(message!)],
                   ),
@@ -529,25 +282,24 @@ class ArcaneActionSheet extends StatelessComponent {
 
           // Cancel button
           if (showCancel) ...[
-            const div(
-              styles: Styles(raw: {
-                'height': ArcaneSpacing.sm,
+            dom.div(
+              styles: const dom.Styles(raw: {
+                'height': '8px',
               }),
               [],
             ),
-            button(
-              type: ButtonType.button,
-              styles: const Styles(raw: {
+            dom.button(
+              styles: const dom.Styles(raw: {
                 'width': '100%',
-                'padding': ArcaneSpacing.md,
+                'padding': '16px',
                 'border': 'none',
-                'background': ArcaneColors.surfaceVariant,
-                'color': ArcaneColors.onSurface,
-                'font-size': ArcaneTypography.fontMd,
-                'font-weight': ArcaneTypography.weightMedium,
-                'border-radius': ArcaneRadius.lg,
+                'background': 'var(--secondary)',
+                'color': 'var(--foreground)',
+                'font-size': '1rem',
+                'font-weight': '500',
+                'border-radius': '8px',
                 'cursor': 'pointer',
-                'transition': ArcaneEffects.transitionFast,
+                'transition': 'background 150ms ease',
               }),
               events: {'click': (_) => onClose?.call()},
               [Component.text(cancelLabel)],
@@ -559,24 +311,22 @@ class ArcaneActionSheet extends StatelessComponent {
   }
 
   Component _buildActionItem(ActionSheetItem action) {
-    return button(
-      type: ButtonType.button,
+    return dom.button(
       classes: 'arcane-action-sheet-item ${action.destructive ? 'destructive' : ''}',
-      styles: Styles(raw: {
+      styles: dom.Styles(raw: {
         'width': '100%',
         'display': 'flex',
         'align-items': 'center',
-        'gap': ArcaneSpacing.md,
-        'padding': ArcaneSpacing.md,
+        'gap': '16px',
+        'padding': '16px',
         'border': 'none',
         'background': 'transparent',
-        'color':
-            action.destructive ? ArcaneColors.error : ArcaneColors.onSurface,
-        'font-size': ArcaneTypography.fontMd,
-        'border-radius': ArcaneRadius.md,
+        'color': action.destructive ? 'var(--destructive)' : 'var(--foreground)',
+        'font-size': '1rem',
+        'border-radius': '6px',
         'cursor': action.disabled ? 'not-allowed' : 'pointer',
         'opacity': action.disabled ? '0.5' : '1',
-        'transition': ArcaneEffects.transitionFast,
+        'transition': 'background 150ms ease',
       }),
       events: action.disabled
           ? null
@@ -588,14 +338,14 @@ class ArcaneActionSheet extends StatelessComponent {
             },
       [
         if (action.icon != null)
-          span(
-            styles: const Styles(raw: {
-              'font-size': ArcaneTypography.fontLg,
+          dom.span(
+            styles: const dom.Styles(raw: {
+              'font-size': '1.125rem',
             }),
             [Component.text(action.icon!)],
           ),
-        span(
-          styles: const Styles(raw: {
+        dom.span(
+          styles: const dom.Styles(raw: {
             'flex': '1',
             'text-align': 'left',
           }),
@@ -605,13 +355,6 @@ class ArcaneActionSheet extends StatelessComponent {
       ],
     );
   }
-
-  @css
-  static final List<StyleRule> actionSheetStyles = [
-    css('.arcane-action-sheet-item:hover:not(:disabled)').styles(raw: {
-      'background': ArcaneColors.surfaceVariant,
-    }),
-  ];
 }
 
 /// An action item for [ArcaneActionSheet].

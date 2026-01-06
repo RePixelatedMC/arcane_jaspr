@@ -1,5 +1,3 @@
-import '../tokens/tokens.dart';
-
 // CSS variable references for QualityNode brand colors
 const String _qnBorder = 'var(--qn-border, rgba(5, 150, 105, 0.25))';
 
@@ -96,23 +94,23 @@ enum BorderPreset {
 
   String get css => switch (this) {
         BorderPreset.none => 'none',
-        BorderPreset.subtle => '1px solid ${ArcaneColors.borderSubtle}',
-        BorderPreset.standard => '1px solid ${ArcaneColors.border}',
-        BorderPreset.medium => '1px solid ${ArcaneColors.borderMedium}',
-        BorderPreset.light => '1px solid ${ArcaneColors.borderLight}',
-        BorderPreset.accent => '1px solid ${ArcaneColors.accent}',
-        BorderPreset.success => '1px solid ${ArcaneColors.success}',
-        BorderPreset.warning => '1px solid ${ArcaneColors.warning}',
-        BorderPreset.error => '1px solid ${ArcaneColors.error}',
-        BorderPreset.info => '1px solid ${ArcaneColors.info}',
-        BorderPreset.focus => '2px solid ${ArcaneColors.ring}',
-        BorderPreset.accentThick => '2px solid ${ArcaneColors.accent}',
-        BorderPreset.dashedSubtle => '1px dashed ${ArcaneColors.borderSubtle}',
-        BorderPreset.dashedStandard => '1px dashed ${ArcaneColors.border}',
+        BorderPreset.subtle => '1px solid var(--input)',
+        BorderPreset.standard => '1px solid var(--border)',
+        BorderPreset.medium => '1px solid hsl(var(--foreground) / 0.10)',
+        BorderPreset.light => '1px solid hsl(var(--foreground) / 0.15)',
+        BorderPreset.accent => '1px solid var(--primary)',
+        BorderPreset.success => '1px solid var(--success)',
+        BorderPreset.warning => '1px solid var(--warning)',
+        BorderPreset.error => '1px solid var(--destructive)',
+        BorderPreset.info => '1px solid var(--info)',
+        BorderPreset.focus => '2px solid var(--ring)',
+        BorderPreset.accentThick => '2px solid var(--primary)',
+        BorderPreset.dashedSubtle => '1px dashed var(--input)',
+        BorderPreset.dashedStandard => '1px dashed var(--border)',
         BorderPreset.brand => '1px solid $_qnBorder',
-        BorderPreset.brandThick => '2px solid ${ArcaneColors.accent}',
-        BorderPreset.topSubtle => '1px solid ${ArcaneColors.borderSubtle}',
-        BorderPreset.bottomSubtle => '1px solid ${ArcaneColors.borderSubtle}',
+        BorderPreset.brandThick => '2px solid var(--primary)',
+        BorderPreset.topSubtle => '1px solid var(--input)',
+        BorderPreset.bottomSubtle => '1px solid var(--input)',
       };
 }
 
@@ -173,28 +171,28 @@ enum Radius {
   circle;
 
   String get css => switch (this) {
-        Radius.none => ArcaneRadius.none,
-        Radius.xs => ArcaneRadius.xs,
-        Radius.sm => ArcaneRadius.sm,
-        Radius.md => ArcaneRadius.md,
-        Radius.lg => ArcaneRadius.lg,
-        Radius.xl => ArcaneRadius.xl,
-        Radius.xxl => ArcaneRadius.xxl,
-        Radius.full => ArcaneRadius.full,
-        Radius.circle => ArcaneRadius.circle,
+        Radius.none => '0',
+        Radius.xs => 'var(--arcane-radius-xs, 4px)',
+        Radius.sm => 'var(--arcane-radius-sm, 6px)',
+        Radius.md => 'var(--arcane-radius-md, 8px)',
+        Radius.lg => 'var(--arcane-radius-lg, 10px)',
+        Radius.xl => 'var(--arcane-radius-xl, 14px)',
+        Radius.xxl => 'var(--arcane-radius-2xl, 18px)',
+        Radius.full => 'var(--arcane-radius-full, 9999px)',
+        Radius.circle => '50%',
       };
 
   /// Static (non-CSS-variable) value for calculations
   String get staticCss => switch (this) {
-        Radius.none => ArcaneRadius.none,
-        Radius.xs => ArcaneRadius.xs,
-        Radius.sm => ArcaneRadius.smStatic,
-        Radius.md => ArcaneRadius.mdStatic,
-        Radius.lg => ArcaneRadius.lgStatic,
-        Radius.xl => ArcaneRadius.xlStatic,
-        Radius.xxl => ArcaneRadius.xxlStatic,
-        Radius.full => ArcaneRadius.fullStatic,
-        Radius.circle => ArcaneRadius.circle,
+        Radius.none => '0',
+        Radius.xs => '4px',
+        Radius.sm => '6px',
+        Radius.md => '8px',
+        Radius.lg => '12px',
+        Radius.xl => '16px',
+        Radius.xxl => '24px',
+        Radius.full => '9999px',
+        Radius.circle => '50%',
       };
 }
 
@@ -296,9 +294,9 @@ enum OutlinePreset {
 
   String get css => switch (this) {
         OutlinePreset.none => 'none',
-        OutlinePreset.focus => '2px solid ${ArcaneColors.ring}',
-        OutlinePreset.focusAccent => '2px solid ${ArcaneColors.accent}',
-        OutlinePreset.focusError => '2px solid ${ArcaneColors.error}',
-        OutlinePreset.ring => '2px solid ${ArcaneColors.ring}',
+        OutlinePreset.focus => '2px solid var(--ring)',
+        OutlinePreset.focusAccent => '2px solid var(--primary)',
+        OutlinePreset.focusError => '2px solid var(--destructive)',
+        OutlinePreset.ring => '2px solid var(--ring)',
       };
 }

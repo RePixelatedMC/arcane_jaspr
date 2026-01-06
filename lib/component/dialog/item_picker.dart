@@ -13,7 +13,6 @@ import 'package:jaspr/dom.dart'
         BoxShadow,
         FontWeight;
 
-import '../../util/tokens/tokens.dart';
 import '../input/button.dart';
 import 'dialog.dart';
 
@@ -98,15 +97,15 @@ class ArcaneItemPicker<T> extends StatefulComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-item-picker-item:hover').styles(raw: {
-      'background': ArcaneColors.surfaceVariant,
+      'background': 'var(--muted)',
     }),
     css('.arcane-item-picker-item.selected').styles(raw: {
-      'background': ArcaneColors.accentContainer,
-      'border-color': ArcaneColors.accent,
+      'background': 'hsl(var(--accent) / 0.1)',
+      'border-color': 'var(--accent)',
     }),
     css('.arcane-item-picker-search input:focus').styles(raw: {
-      'border-color': ArcaneColors.accent,
-      'box-shadow': '0 0 0 2px ${ArcaneColors.accentContainer}',
+      'border-color': 'var(--accent)',
+      'box-shadow': '0 0 0 2px hsl(var(--accent) / 0.1)',
     }),
   ];
 }
@@ -178,7 +177,7 @@ class _ItemPickerState<T> extends State<ArcaneItemPicker<T>> {
         styles: const Styles(raw: {
           'display': 'flex',
           'flex-direction': 'column',
-          'gap': ArcaneSpacing.md,
+          'gap': '1rem',
         }),
         [
           // Search box
@@ -194,13 +193,13 @@ class _ItemPickerState<T> extends State<ArcaneItemPicker<T>> {
                   },
                   styles: const Styles(raw: {
                     'width': '100%',
-                    'padding': '10px ${ArcaneSpacing.sm}',
+                    'padding': '10px 0.5rem',
                     'padding-left': '36px',
-                    'border': '1px solid ${ArcaneColors.border}',
-                    'border-radius': ArcaneRadius.md,
-                    'background': ArcaneColors.surface,
-                    'color': ArcaneColors.onSurface,
-                    'font-size': ArcaneTypography.fontSm,
+                    'border': '1px solid var(--border)',
+                    'border-radius': '0.375rem',
+                    'background': 'var(--card)',
+                    'color': 'var(--foreground)',
+                    'font-size': '0.875rem',
                     'outline': 'none',
                   }),
                   events: {
@@ -223,16 +222,16 @@ class _ItemPickerState<T> extends State<ArcaneItemPicker<T>> {
               'overflow-y': 'auto',
               'display': 'flex',
               'flex-direction': 'column',
-              'gap': ArcaneSpacing.xs,
+              'gap': '0.25rem',
             }),
             [
               if (filteredItems.isEmpty)
                 div(
                   styles: const Styles(raw: {
-                    'padding': ArcaneSpacing.lg,
+                    'padding': '1.5rem',
                     'text-align': 'center',
-                    'color': ArcaneColors.mutedForeground,
-                    'font-size': ArcaneTypography.fontSm,
+                    'color': 'var(--muted-foreground)',
+                    'font-size': '0.875rem',
                   }),
                   [text('No items found')],
                 )
@@ -246,11 +245,11 @@ class _ItemPickerState<T> extends State<ArcaneItemPicker<T>> {
           if (component.multiSelect && _multiSelection.isNotEmpty)
             div(
               styles: const Styles(raw: {
-                'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
-                'background': ArcaneColors.surfaceVariant,
-                'border-radius': ArcaneRadius.md,
-                'font-size': ArcaneTypography.fontSm,
-                'color': ArcaneColors.mutedForeground,
+                'padding': '0.5rem 1rem',
+                'background': 'var(--muted)',
+                'border-radius': '0.375rem',
+                'font-size': '0.875rem',
+                'color': 'var(--muted-foreground)',
               }),
               [text('${_multiSelection.length} item(s) selected')],
             ),
@@ -283,15 +282,15 @@ class _ItemPickerState<T> extends State<ArcaneItemPicker<T>> {
         'width': '100%',
         'display': 'flex',
         'align-items': 'center',
-        'gap': ArcaneSpacing.sm,
-        'padding': ArcaneSpacing.sm,
-        'border': '1px solid ${selected ? ArcaneColors.accent : ArcaneColors.border}',
-        'border-radius': ArcaneRadius.md,
-        'background': selected ? ArcaneColors.accentContainer : 'transparent',
-        'color': ArcaneColors.onSurface,
+        'gap': '0.5rem',
+        'padding': '0.5rem',
+        'border': '1px solid ${selected ? 'var(--accent)' : 'var(--border)'}',
+        'border-radius': '0.375rem',
+        'background': selected ? 'hsl(var(--accent) / 0.1)' : 'transparent',
+        'color': 'var(--foreground)',
         'cursor': 'pointer',
         'text-align': 'left',
-        'transition': ArcaneEffects.transitionFast,
+        'transition': 'all 150ms ease',
       }),
       events: {
         'click': (_) => _selectItem(item),
@@ -303,9 +302,9 @@ class _ItemPickerState<T> extends State<ArcaneItemPicker<T>> {
             styles: Styles(raw: {
               'width': '18px',
               'height': '18px',
-              'border-radius': ArcaneRadius.sm,
-              'border': '2px solid ${selected ? ArcaneColors.accent : ArcaneColors.border}',
-              'background': selected ? ArcaneColors.accent : 'transparent',
+              'border-radius': '0.25rem',
+              'border': '2px solid ${selected ? 'var(--accent)' : 'var(--border)'}',
+              'background': selected ? 'var(--accent)' : 'transparent',
               'display': 'flex',
               'align-items': 'center',
               'justify-content': 'center',
@@ -315,7 +314,7 @@ class _ItemPickerState<T> extends State<ArcaneItemPicker<T>> {
               if (selected)
                 span(
                   styles: const Styles(raw: {
-                    'color': ArcaneColors.accentForeground,
+                    'color': 'var(--accent-foreground)',
                     'font-size': '12px',
                   }),
                   [text('✓')],
@@ -336,8 +335,8 @@ class _ItemPickerState<T> extends State<ArcaneItemPicker<T>> {
         if (!component.multiSelect && selected)
           span(
             styles: const Styles(raw: {
-              'color': ArcaneColors.accent,
-              'font-size': ArcaneTypography.fontLg,
+              'color': 'var(--accent)',
+              'font-size': '1.125rem',
             }),
             [text('✓')],
           ),
@@ -374,7 +373,7 @@ class ItemPickerOption<T> extends StatelessComponent {
       styles: const Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
-        'gap': ArcaneSpacing.sm,
+        'gap': '0.5rem',
       }),
       [
         if (leading != null) leading!,
@@ -389,8 +388,8 @@ class ItemPickerOption<T> extends StatelessComponent {
             if (subtitle != null)
               span(
                 styles: const Styles(raw: {
-                  'font-size': ArcaneTypography.fontXs,
-                  'color': ArcaneColors.mutedForeground,
+                  'font-size': '0.75rem',
+                  'color': 'var(--muted-foreground)',
                 }),
                 [text(subtitle!)],
               ),

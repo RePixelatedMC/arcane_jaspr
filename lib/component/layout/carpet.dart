@@ -3,7 +3,6 @@ import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, T
 
 import '../../util/arcane.dart';
 import '../../util/appearance/colors.dart';
-import '../../util/tokens/tokens.dart';
 
 /// A background container component that provides a subtle surface layer.
 ///
@@ -36,15 +35,15 @@ class ArcaneCarpet extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     final EdgeInsets effectivePadding = padding ?? const EdgeInsets.all(16);
-    final String effectiveRadius = radius != null ? '${radius}px' : ArcaneRadius.md;
+    final String effectiveRadius = radius != null ? '${radius}px' : '0.375rem';
 
     return div(
       classes: 'arcane-carpet',
       styles: Styles(raw: {
-        'background-color': color?.css ?? ArcaneColors.surfaceVariant,
+        'background-color': color?.css ?? 'var(--muted)',
         'border-radius': effectiveRadius,
         'padding': effectivePadding.padding,
-        if (border) 'border': '1px solid ${ArcaneColors.border}',
+        if (border) 'border': '1px solid var(--border)',
       }),
       [child],
     );
@@ -72,7 +71,7 @@ class ArcaneSurface extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final String effectiveRadius = radius != null ? '${radius}px' : ArcaneRadius.md;
+    final String effectiveRadius = radius != null ? '${radius}px' : '0.375rem';
 
     // Generate shadow based on elevation
     String boxShadow;
@@ -81,28 +80,28 @@ class ArcaneSurface extends StatelessComponent {
         boxShadow = 'none';
         break;
       case 1:
-        boxShadow = ArcaneEffects.shadowXs;
+        boxShadow = '0 1px 2px 0 hsl(0 0% 0% / 0.05)';
         break;
       case 2:
-        boxShadow = ArcaneEffects.shadowSm;
+        boxShadow = '0 1px 3px 0 hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1)';
         break;
       case 3:
-        boxShadow = ArcaneEffects.shadowMd;
+        boxShadow = '0 4px 6px -1px hsl(0 0% 0% / 0.1), 0 2px 4px -2px hsl(0 0% 0% / 0.1)';
         break;
       case 4:
-        boxShadow = ArcaneEffects.shadowLg;
+        boxShadow = '0 10px 15px -3px hsl(0 0% 0% / 0.1), 0 4px 6px -4px hsl(0 0% 0% / 0.1)';
         break;
       default:
-        boxShadow = ArcaneEffects.shadowXl;
+        boxShadow = '0 20px 25px -5px hsl(0 0% 0% / 0.1), 0 8px 10px -6px hsl(0 0% 0% / 0.1)';
     }
 
     return div(
       classes: 'arcane-surface',
       styles: Styles(raw: {
-        'background-color': color?.css ?? ArcaneColors.surface,
+        'background-color': color?.css ?? 'var(--card)',
         'border-radius': effectiveRadius,
         if (padding != null) 'padding': padding!.padding,
-        if (border) 'border': '1px solid ${ArcaneColors.border}',
+        if (border) 'border': '1px solid var(--border)',
         'box-shadow': boxShadow,
       }),
       [child],
@@ -134,7 +133,7 @@ class ArcaneDivider extends StatelessComponent {
         classes: 'arcane-divider-vertical',
         styles: Styles(raw: {
           'width': '${thickness ?? 1}px',
-          'background-color': color?.css ?? ArcaneColors.border,
+          'background-color': color?.css ?? 'var(--border)',
           'align-self': 'stretch',
           if (indent != null) 'margin-top': '${indent}px',
           if (endIndent != null) 'margin-bottom': '${endIndent}px',
@@ -146,7 +145,7 @@ class ArcaneDivider extends StatelessComponent {
         classes: 'arcane-divider',
         styles: Styles(raw: {
           'height': '${thickness ?? 1}px',
-          'background-color': color?.css ?? ArcaneColors.border,
+          'background-color': color?.css ?? 'var(--border)',
           'width': '100%',
           if (indent != null) 'margin-left': '${indent}px',
           if (endIndent != null) 'margin-right': '${endIndent}px',

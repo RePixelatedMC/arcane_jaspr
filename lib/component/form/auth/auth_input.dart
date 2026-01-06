@@ -68,10 +68,10 @@ class AuthInput extends StatelessComponent {
           htmlFor: inputId,
           styles: const Styles(raw: {
             'display': 'block',
-            'font-size': ArcaneTypography.fontSizeSm,
+            'font-size': '0.875rem',
             'font-weight': '500',
-            'color': ArcaneColors.onBackground,
-            'margin-bottom': ArcaneSpacing.xs,
+            'color': 'var(--foreground)',
+            'margin-bottom': '0.25rem',
           }),
         ),
         // Input container
@@ -100,14 +100,14 @@ class AuthInput extends StatelessComponent {
               styles: Styles(raw: {
                 'width': '100%',
                 'padding': '12px 16px',
-                'font-size': ArcaneTypography.fontSizeSm,
+                'font-size': '0.875rem',
                 'font-family': 'inherit',
-                'color': ArcaneColors.onBackground,
-                'background': ArcaneColors.surface,
+                'color': 'var(--foreground)',
+                'background': 'var(--card)',
                 'border': hasError
-                    ? '1px solid ${ArcaneColors.error}'
-                    : '1px solid ${ArcaneColors.border}',
-                'border-radius': ArcaneRadius.md,
+                    ? '1px solid var(--destructive)'
+                    : '1px solid var(--border)',
+                'border-radius': '0.375rem',
                 'outline': 'none',
                 'transition': 'border-color 0.2s ease, box-shadow 0.2s ease',
                 'box-sizing': 'border-box',

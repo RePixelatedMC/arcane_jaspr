@@ -1,8 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/tokens/tokens.dart';
-
 /// A wrapper widget for form fields providing consistent styling and layout.
 ///
 /// This component displays form field values with metadata such as labels,
@@ -58,7 +56,7 @@ class ArcaneFieldWrapper extends StatelessComponent {
       styles: const Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': ArcaneSpacing.xs,
+        'gap': '0.25rem',
         'width': '100%',
       }),
       [
@@ -69,7 +67,7 @@ class ArcaneFieldWrapper extends StatelessComponent {
             styles: const Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
-              'gap': ArcaneSpacing.sm,
+              'gap': '0.5rem',
             }),
             [
               if (leading != null) leading!,
@@ -77,8 +75,8 @@ class ArcaneFieldWrapper extends StatelessComponent {
                 span(
                   styles: Styles(raw: {
                     'color': hasError
-                        ? ArcaneColors.error
-                        : ArcaneColors.mutedForeground,
+                        ? 'var(--destructive)'
+                        : 'var(--muted-foreground)',
                     'font-size': '1rem',
                   }),
                   [Component.text(icon!)],
@@ -87,19 +85,19 @@ class ArcaneFieldWrapper extends StatelessComponent {
                 label(
                   classes: 'arcane-field-label',
                   styles: Styles(raw: {
-                    'font-size': ArcaneTypography.fontSm,
-                    'font-weight': ArcaneTypography.weightMedium,
+                    'font-size': '0.875rem',
+                    'font-weight': '500',
                     'color': hasError
-                        ? ArcaneColors.error
-                        : ArcaneColors.onSurface,
+                        ? 'var(--destructive)'
+                        : 'var(--foreground)',
                   }),
                   [
                     Component.text(labelText!),
                     if (required)
                       const span(
                         styles: Styles(raw: {
-                          'color': ArcaneColors.error,
-                          'margin-left': ArcaneSpacing.xs,
+                          'color': 'var(--destructive)',
+                          'margin-left': '0.25rem',
                         }),
                         [Component.text('*')],
                       ),
@@ -114,9 +112,9 @@ class ArcaneFieldWrapper extends StatelessComponent {
           div(
             classes: 'arcane-field-description',
             styles: const Styles(raw: {
-              'font-size': ArcaneTypography.fontXs,
-              'color': ArcaneColors.mutedForeground,
-              'line-height': ArcaneTypography.lineHeightRelaxed,
+              'font-size': '0.75rem',
+              'color': 'var(--muted-foreground)',
+              'line-height': '1.625',
             }),
             [Component.text(description!)],
           ),
@@ -137,9 +135,9 @@ class ArcaneFieldWrapper extends StatelessComponent {
             styles: const Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
-              'gap': ArcaneSpacing.xs,
-              'font-size': ArcaneTypography.fontXs,
-              'color': ArcaneColors.error,
+              'gap': '0.25rem',
+              'font-size': '0.75rem',
+              'color': 'var(--destructive)',
             }),
             [
               const span([Component.text('!')]),
@@ -187,25 +185,25 @@ class ArcaneFormSection extends StatelessComponent {
           div(
             classes: 'arcane-form-section-header',
             styles: const Styles(raw: {
-              'margin-bottom': ArcaneSpacing.sm,
+              'margin-bottom': '0.5rem',
             }),
             [
               if (title != null)
                 div(
                   styles: Styles(raw: {
-                    'font-size': ArcaneTypography.fontBase,
-                    'font-weight': ArcaneTypography.weightSemibold,
-                    'color': ArcaneColors.onSurface,
-                    'margin-bottom': description != null ? ArcaneSpacing.xs : '0',
+                    'font-size': '1rem',
+                    'font-weight': '600',
+                    'color': 'var(--foreground)',
+                    'margin-bottom': description != null ? '0.25rem' : '0',
                   }),
                   [Component.text(title!)],
                 ),
               if (description != null)
                 div(
                   styles: const Styles(raw: {
-                    'font-size': ArcaneTypography.fontSm,
-                    'color': ArcaneColors.mutedForeground,
-                    'line-height': ArcaneTypography.lineHeightRelaxed,
+                    'font-size': '0.875rem',
+                    'color': 'var(--muted-foreground)',
+                    'line-height': '1.625',
                   }),
                   [Component.text(description!)],
                 ),
@@ -258,7 +256,7 @@ class ArcaneForm extends StatefulComponent {
   static final List<StyleRule> styles = [
     css('.arcane-form button[type="button"]:hover').styles(
       raw: {
-        'background-color': ArcaneColors.surfaceVariant,
+        'background-color': 'var(--muted)',
       },
     ),
     css('.arcane-form button[type="submit"]:hover').styles(
@@ -293,10 +291,10 @@ class _ArcaneFormState extends State<ArcaneForm> {
             styles: const Styles(raw: {
               'display': 'flex',
               'justify-content': 'flex-end',
-              'gap': ArcaneSpacing.sm,
-              'margin-top': ArcaneSpacing.lg,
-              'padding-top': ArcaneSpacing.lg,
-              'border-top': '1px solid ${ArcaneColors.border}',
+              'gap': '0.5rem',
+              'margin-top': '1.5rem',
+              'padding-top': '1.5rem',
+              'border-top': '1px solid var(--border)',
             }),
             [
               if (component.onCancel != null)
@@ -304,14 +302,14 @@ class _ArcaneFormState extends State<ArcaneForm> {
                   attributes: {'type': 'button'},
                   styles: const Styles(raw: {
                     'padding': '10px 20px',
-                    'border': '1px solid ${ArcaneColors.border}',
-                    'border-radius': ArcaneRadius.md,
-                    'background-color': ArcaneColors.transparent,
-                    'color': ArcaneColors.onSurface,
-                    'font-size': ArcaneTypography.fontSm,
-                    'font-weight': ArcaneTypography.weightMedium,
+                    'border': '1px solid var(--border)',
+                    'border-radius': '0.375rem',
+                    'background-color': 'transparent',
+                    'color': 'var(--foreground)',
+                    'font-size': '0.875rem',
+                    'font-weight': '500',
                     'cursor': 'pointer',
-                    'transition': ArcaneEffects.transitionFast,
+                    'transition': 'all 150ms ease',
                   }),
                   events: {
                     'click': (_) => component.onCancel?.call(),
@@ -323,13 +321,13 @@ class _ArcaneFormState extends State<ArcaneForm> {
                 styles: const Styles(raw: {
                   'padding': '10px 20px',
                   'border': 'none',
-                  'border-radius': ArcaneRadius.md,
-                  'background-color': ArcaneColors.accent,
-                  'color': ArcaneColors.accentForeground,
-                  'font-size': ArcaneTypography.fontSm,
-                  'font-weight': ArcaneTypography.weightMedium,
+                  'border-radius': '0.375rem',
+                  'background-color': 'var(--accent)',
+                  'color': 'var(--accent-foreground)',
+                  'font-size': '0.875rem',
+                  'font-weight': '500',
                   'cursor': 'pointer',
-                  'transition': ArcaneEffects.transitionFast,
+                  'transition': 'all 150ms ease',
                 }),
                 [Component.text(component.submitText!)],
               ),

@@ -1,5 +1,3 @@
-import '../tokens/tokens.dart';
-
 /// CSS display property for controlling element rendering.
 ///
 /// The display property defines how an element generates boxes
@@ -162,14 +160,14 @@ enum MaxWidth {
 
   String get css => switch (this) {
         MaxWidth.none => 'none',
-        MaxWidth.card => ArcaneLayout.maxWidthCard,
-        MaxWidth.form => ArcaneLayout.maxWidthForm,
-        MaxWidth.text => ArcaneLayout.maxWidthText,
+        MaxWidth.card => '400px',
+        MaxWidth.form => '480px',
+        MaxWidth.text => '680px',
         MaxWidth.narrowText => '560px',
-        MaxWidth.narrow => ArcaneLayout.maxWidthNarrow,
-        MaxWidth.content => ArcaneLayout.maxWidthContent,
-        MaxWidth.container => ArcaneLayout.maxWidthContainer,
-        MaxWidth.full => ArcaneLayout.maxWidthFull,
+        MaxWidth.narrow => '800px',
+        MaxWidth.content => '1024px',
+        MaxWidth.container => '1280px',
+        MaxWidth.full => '100%',
       };
 }
 
@@ -249,15 +247,15 @@ enum ZIndex {
         ZIndex.auto => 'auto',
         ZIndex.below => '-1',
         ZIndex.base => '0',
-        ZIndex.dropdown => ArcaneZIndex.dropdown,
-        ZIndex.sticky => ArcaneZIndex.sticky,
-        ZIndex.fixed => ArcaneZIndex.fixed,
-        ZIndex.fab => ArcaneZIndex.fab,
-        ZIndex.modalBackdrop => ArcaneZIndex.modalBackdrop,
-        ZIndex.modal => ArcaneZIndex.modal,
-        ZIndex.popover => ArcaneZIndex.popover,
-        ZIndex.tooltip => ArcaneZIndex.tooltip,
-        ZIndex.toast => ArcaneZIndex.toast,
+        ZIndex.dropdown => '1000',
+        ZIndex.sticky => '1010',
+        ZIndex.fixed => '1020',
+        ZIndex.fab => '1030',
+        ZIndex.modalBackdrop => '1040',
+        ZIndex.modal => '1050',
+        ZIndex.popover => '1060',
+        ZIndex.tooltip => '1070',
+        ZIndex.toast => '1080',
       };
 }
 

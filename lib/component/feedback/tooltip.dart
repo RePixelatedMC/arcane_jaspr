@@ -1,31 +1,14 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart'
-    hide
-        Color,
-        Colors,
-        ColorScheme,
-        Gap,
-        Padding,
-        TextAlign,
-        TextOverflow,
-        Border,
-        BorderRadius,
-        BoxShadow,
-        FontWeight;
-
+import 'package:jaspr/dom.dart' as dom;
 import 'package:jaspr_lucide/jaspr_lucide.dart' hide Factory, Target, Key, List, Timer, View, Map;
 
-import '../../util/tokens/tokens.dart';
+import '../../core/theme_provider.dart';
 
-/// Tooltip position
-enum TooltipPosition {
-  top,
-  bottom,
-  left,
-  right,
-}
+// Re-export for backwards compatibility
+export '../../core/props/tooltip_props.dart' show TooltipPosition;
 
 /// A tooltip component that shows on hover.
+/// ShadCN Reference: https://ui.shadcn.com/docs/components/tooltip
 ///
 /// ```dart
 /// ArcaneTooltip(
@@ -56,137 +39,14 @@ class ArcaneTooltip extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return div(
-      classes: 'arcane-tooltip-trigger',
-      attributes: {
-        'data-tooltip': content,
-        'data-tooltip-position': position.name,
-      },
-      styles: const Styles(raw: {
-        'position': 'relative',
-        'display': 'inline-flex',
-      }),
-      [
-        child,
-        // Tooltip element (hidden by default, shown via CSS :hover)
-        div(
-          classes: 'arcane-tooltip arcane-tooltip-${position.name}',
-          attributes: {'role': 'tooltip'},
-          styles: Styles(raw: {
-            'position': 'absolute',
-            'z-index': ArcaneZIndex.tooltip,
-            'padding': '${ArcaneSpacing.xs} ${ArcaneSpacing.sm}',
-            'max-width': '${maxWidth}px',
-            'font-size': ArcaneTypography.fontXs,
-            'font-weight': ArcaneTypography.weightMedium,
-            'line-height': '1.4',
-            'color': ArcaneColors.tooltipForeground,
-            'background': ArcaneColors.tooltip,
-            'border-radius': ArcaneRadius.md,
-            'box-shadow': ArcaneEffects.shadowMd,
-            'white-space': 'nowrap',
-            'pointer-events': 'none',
-            'opacity': '0',
-            'visibility': 'hidden',
-            'transition': 'opacity 150ms ease, visibility 150ms ease, transform 150ms ease',
-            ..._getPositionStyles(),
-          }),
-          [
-            Component.text(content),
-            // Arrow
-            div(
-              classes: 'arcane-tooltip-arrow',
-              styles: Styles(raw: {
-                'position': 'absolute',
-                'width': '8px',
-                'height': '8px',
-                'background': ArcaneColors.tooltip,
-                'transform': 'rotate(45deg)',
-                ..._getArrowStyles(),
-              }),
-              [],
-            ),
-          ],
-        ),
-      ],
-    );
+    // Delegate rendering to the current stylesheet's tooltip renderer
+    return context.renderers.tooltip(TooltipProps(
+      child: child,
+      content: content,
+      position: position,
+      maxWidth: maxWidth,
+    ));
   }
-
-  Map<String, String> _getPositionStyles() {
-    return switch (position) {
-      TooltipPosition.top => {
-          'bottom': '100%',
-          'left': '50%',
-          'transform': 'translateX(-50%) translateY(-4px)',
-          'margin-bottom': '8px',
-        },
-      TooltipPosition.bottom => {
-          'top': '100%',
-          'left': '50%',
-          'transform': 'translateX(-50%) translateY(4px)',
-          'margin-top': '8px',
-        },
-      TooltipPosition.left => {
-          'right': '100%',
-          'top': '50%',
-          'transform': 'translateY(-50%) translateX(-4px)',
-          'margin-right': '8px',
-        },
-      TooltipPosition.right => {
-          'left': '100%',
-          'top': '50%',
-          'transform': 'translateY(-50%) translateX(4px)',
-          'margin-left': '8px',
-        },
-    };
-  }
-
-  Map<String, String> _getArrowStyles() {
-    return switch (position) {
-      TooltipPosition.top => {
-          'bottom': '-4px',
-          'left': '50%',
-          'margin-left': '-4px',
-        },
-      TooltipPosition.bottom => {
-          'top': '-4px',
-          'left': '50%',
-          'margin-left': '-4px',
-        },
-      TooltipPosition.left => {
-          'right': '-4px',
-          'top': '50%',
-          'margin-top': '-4px',
-        },
-      TooltipPosition.right => {
-          'left': '-4px',
-          'top': '50%',
-          'margin-top': '-4px',
-        },
-    };
-  }
-
-  @css
-  static final List<StyleRule> styles = [
-    // Show tooltip on hover
-    css('.arcane-tooltip-trigger:hover .arcane-tooltip').styles(raw: {
-      'opacity': '1',
-      'visibility': 'visible',
-    }),
-    // Animate in from correct direction
-    css('.arcane-tooltip-trigger:hover .arcane-tooltip-top').styles(raw: {
-      'transform': 'translateX(-50%) translateY(0)',
-    }),
-    css('.arcane-tooltip-trigger:hover .arcane-tooltip-bottom').styles(raw: {
-      'transform': 'translateX(-50%) translateY(0)',
-    }),
-    css('.arcane-tooltip-trigger:hover .arcane-tooltip-left').styles(raw: {
-      'transform': 'translateY(-50%) translateX(0)',
-    }),
-    css('.arcane-tooltip-trigger:hover .arcane-tooltip-right').styles(raw: {
-      'transform': 'translateY(-50%) translateX(0)',
-    }),
-  ];
 }
 
 /// Short alias for ArcaneTooltip
@@ -216,67 +76,13 @@ class ArcaneTooltipCustom extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return div(
-      classes: 'arcane-tooltip-trigger',
-      attributes: {
-        'data-tooltip-position': position.name,
-      },
-      styles: const Styles(raw: {
-        'position': 'relative',
-        'display': 'inline-flex',
-      }),
-      [
-        child,
-        div(
-          classes: 'arcane-tooltip arcane-tooltip-custom arcane-tooltip-${position.name}',
-          styles: Styles(raw: {
-            'position': 'absolute',
-            'z-index': ArcaneZIndex.tooltip,
-            'padding': ArcaneSpacing.md,
-            if (maxWidth != null) 'max-width': '${maxWidth}px',
-            'background': ArcaneColors.surface,
-            'border': '1px solid ${ArcaneColors.border}',
-            'border-radius': ArcaneRadius.lg,
-            'box-shadow': ArcaneEffects.shadowLg,
-            'pointer-events': 'none',
-            'opacity': '0',
-            'visibility': 'hidden',
-            'transition': 'opacity 150ms ease, visibility 150ms ease, transform 150ms ease',
-            ..._getPositionStyles(),
-          }),
-          [tooltipContent],
-        ),
-      ],
-    );
-  }
-
-  Map<String, String> _getPositionStyles() {
-    return switch (position) {
-      TooltipPosition.top => {
-          'bottom': '100%',
-          'left': '50%',
-          'transform': 'translateX(-50%) translateY(-4px)',
-          'margin-bottom': '8px',
-        },
-      TooltipPosition.bottom => {
-          'top': '100%',
-          'left': '50%',
-          'transform': 'translateX(-50%) translateY(4px)',
-          'margin-top': '8px',
-        },
-      TooltipPosition.left => {
-          'right': '100%',
-          'top': '50%',
-          'transform': 'translateY(-50%) translateX(-4px)',
-          'margin-right': '8px',
-        },
-      TooltipPosition.right => {
-          'left': '100%',
-          'top': '50%',
-          'transform': 'translateY(-50%) translateX(4px)',
-          'margin-left': '8px',
-        },
-    };
+    // Delegate rendering to the current stylesheet's tooltip renderer
+    return context.renderers.tooltip(TooltipProps(
+      child: child,
+      customContent: tooltipContent,
+      position: position,
+      maxWidth: maxWidth ?? 250,
+    ));
   }
 }
 
@@ -303,27 +109,20 @@ class ArcaneInfoTooltip extends StatelessComponent {
     return ArcaneTooltip(
       content: content,
       position: position,
-      child: span(
+      child: dom.span(
         classes: 'arcane-info-tooltip-icon',
-        styles: Styles(raw: {
+        styles: dom.Styles(raw: {
           'display': 'inline-flex',
           'align-items': 'center',
           'justify-content': 'center',
           'width': '${size}px',
           'height': '${size}px',
-          'color': ArcaneColors.mutedForeground,
+          'color': 'var(--muted-foreground)',
           'cursor': 'help',
-          'transition': ArcaneEffects.transitionFast,
+          'transition': 'color 150ms ease',
         }),
-        [Info(width: const Unit.pixels(16), height: const Unit.pixels(16))],
+        [Info(width: const dom.Unit.pixels(16), height: const dom.Unit.pixels(16))],
       ),
     );
   }
-
-  @css
-  static final List<StyleRule> styles = [
-    css('.arcane-info-tooltip-icon:hover').styles(raw: {
-      'color': ArcaneColors.onSurface,
-    }),
-  ];
 }

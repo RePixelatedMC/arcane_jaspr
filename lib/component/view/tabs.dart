@@ -1,8 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/tokens/tokens.dart';
-
 /// Tab item data
 class TabItem {
   /// Unique identifier
@@ -133,9 +131,9 @@ class ArcaneTabs extends StatelessComponent {
   }) : style = TabsStyle.segmented;
 
   (String padding, String fontSize, String gap) get _sizeStyles => switch (size) {
-        TabsSize.sm => ('6px 12px', ArcaneTypography.fontXs, ArcaneSpacing.xs),
-        TabsSize.md => ('10px 16px', ArcaneTypography.fontSm, ArcaneSpacing.sm),
-        TabsSize.lg => ('14px 24px', ArcaneTypography.fontMd, ArcaneSpacing.md),
+        TabsSize.sm => ('6px 12px', '0.75rem', '0.25rem'),
+        TabsSize.md => ('10px 16px', '0.875rem', '0.5rem'),
+        TabsSize.lg => ('14px 24px', '1rem', '1rem'),
       };
 
   @override
@@ -146,7 +144,7 @@ class ArcaneTabs extends StatelessComponent {
       styles: const Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': ArcaneSpacing.md,
+        'gap': '1rem',
       }),
       [
         // Tab bar
@@ -156,16 +154,16 @@ class ArcaneTabs extends StatelessComponent {
             'display': 'flex',
             'gap': style == TabsStyle.segmented ? '0' : gap,
             if (style == TabsStyle.underline)
-              'border-bottom': '1px solid ${ArcaneColors.border}',
+              'border-bottom': '1px solid var(--border)',
             if (style == TabsStyle.segmented) ...{
-              'background': ArcaneColors.surfaceVariant,
+              'background': 'var(--muted)',
               'padding': '4px',
-              'border-radius': ArcaneRadius.md,
+              'border-radius': '0.375rem',
             },
             if (style == TabsStyle.boxed) ...{
-              'background': ArcaneColors.surfaceVariant,
+              'background': 'var(--muted)',
               'padding': '4px',
-              'border-radius': ArcaneRadius.md,
+              'border-radius': '0.375rem',
             },
           }),
           [
@@ -197,32 +195,32 @@ class ArcaneTabs extends StatelessComponent {
           'background': 'transparent',
           'border': 'none',
           'border-bottom': isActive
-              ? '2px solid ${ArcaneColors.accent}'
+              ? '2px solid var(--accent)'
               : '2px solid transparent',
           'margin-bottom': '-1px',
-          'color': isActive ? ArcaneColors.accent : ArcaneColors.mutedForeground,
+          'color': isActive ? 'var(--accent)' : 'var(--muted-foreground)',
           'border-radius': '0',
         },
       TabsStyle.pills => {
-          'background': isActive ? ArcaneColors.accent : 'transparent',
+          'background': isActive ? 'var(--accent)' : 'transparent',
           'border': 'none',
-          'color': isActive ? ArcaneColors.onSurface : ArcaneColors.mutedForeground,
-          'border-radius': ArcaneRadius.full,
+          'color': isActive ? 'var(--foreground)' : 'var(--muted-foreground)',
+          'border-radius': '9999px',
         },
       TabsStyle.segmented => {
-          'background': isActive ? ArcaneColors.surface : 'transparent',
+          'background': isActive ? 'var(--card)' : 'transparent',
           'border': 'none',
-          'color': isActive ? ArcaneColors.onSurface : ArcaneColors.mutedForeground,
-          'border-radius': ArcaneRadius.sm,
-          if (isActive) 'box-shadow': ArcaneEffects.shadowSm,
+          'color': isActive ? 'var(--foreground)' : 'var(--muted-foreground)',
+          'border-radius': '0.25rem',
+          if (isActive) 'box-shadow': '0 1px 2px 0 rgb(0 0 0 / 0.05)',
         },
       TabsStyle.boxed => {
-          'background': isActive ? ArcaneColors.surface : 'transparent',
+          'background': isActive ? 'var(--card)' : 'transparent',
           'border': isActive
-              ? '1px solid ${ArcaneColors.border}'
+              ? '1px solid var(--border)'
               : '1px solid transparent',
-          'color': isActive ? ArcaneColors.onSurface : ArcaneColors.mutedForeground,
-          'border-radius': ArcaneRadius.sm,
+          'color': isActive ? 'var(--foreground)' : 'var(--muted-foreground)',
+          'border-radius': '0.25rem',
         },
     };
 
@@ -238,15 +236,13 @@ class ArcaneTabs extends StatelessComponent {
         'display': 'inline-flex',
         'align-items': 'center',
         'justify-content': 'center',
-        'gap': ArcaneSpacing.xs,
+        'gap': '0.25rem',
         'padding': padding,
         'font-size': fontSize,
-        'font-weight': isActive
-            ? ArcaneTypography.weightMedium
-            : ArcaneTypography.weightNormal,
+        'font-weight': isActive ? '500' : '400',
         'cursor': isDisabled ? 'not-allowed' : 'pointer',
         'opacity': isDisabled ? '0.5' : '1',
-        'transition': ArcaneEffects.transitionFast,
+        'transition': 'all 150ms ease',
         'white-space': 'nowrap',
         if (fullWidth) 'flex': '1',
         ...tabStyles,
@@ -268,11 +264,11 @@ class ArcaneTabs extends StatelessComponent {
               'min-width': '18px',
               'height': '18px',
               'padding': '0 6px',
-              'background': ArcaneColors.accent,
-              'color': ArcaneColors.onSurface,
-              'font-size': ArcaneTypography.fontXs,
-              'font-weight': ArcaneTypography.weightMedium,
-              'border-radius': ArcaneRadius.full,
+              'background': 'var(--accent)',
+              'color': 'var(--foreground)',
+              'font-size': '0.75rem',
+              'font-weight': '500',
+              'border-radius': '9999px',
             }),
             [text(tab.badge!)],
           ),

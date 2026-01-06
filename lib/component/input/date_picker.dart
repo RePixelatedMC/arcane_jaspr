@@ -1,20 +1,18 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart'
-    hide
-        Color,
-        Colors,
-        ColorScheme,
-        Gap,
-        Padding,
-        TextAlign,
-        TextOverflow,
-        Border,
-        BorderRadius,
-        BoxShadow,
-        FontWeight;
 
-import '../../util/tokens/tokens.dart';
+import '../../core/theme_provider.dart';
 import 'calendar.dart';
+
+// Re-export props for backwards compatibility
+export '../../core/props/date_picker_props.dart'
+    show DatePickerSizeVariant, DatePickerProps;
+
+/// Size variants for date picker
+enum DatePickerSize {
+  sm,
+  md,
+  lg,
+}
 
 /// A date picker input with calendar dropdown.
 ///
@@ -113,30 +111,23 @@ class ArcaneDatePicker extends StatefulComponent {
 
   @override
   State<ArcaneDatePicker> createState() => _ArcaneDatePickerState();
-
-  @css
-  static final List<StyleRule> styles = [
-    css('.arcane-date-picker-trigger:hover:not(.disabled)').styles(raw: {
-      'border-color': ArcaneColors.accent,
-    }),
-    css('.arcane-date-picker-trigger:focus').styles(raw: {
-      'border-color': ArcaneColors.accent,
-      'box-shadow': '0 0 0 2px ${ArcaneColors.accentContainer}',
-      'outline': 'none',
-    }),
-    css('.arcane-date-picker-clear:hover').styles(raw: {
-      'color': ArcaneColors.error,
-    }),
-  ];
 }
 
 class _ArcaneDatePickerState extends State<ArcaneDatePicker> {
   bool _isOpen = false;
+  late DateTime _displayMonth;
 
   static const List<String> _months = [
     'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
     'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    _displayMonth = component.value ?? DateTime.now();
+    _displayMonth = DateTime(_displayMonth.year, _displayMonth.month, 1);
+  }
 
   String _defaultFormat(DateTime date) {
     return '${_months[date.month - 1]} ${date.day}, ${date.year}';
@@ -180,165 +171,80 @@ class _ArcaneDatePickerState extends State<ArcaneDatePicker> {
     }
   }
 
-  @override
-  Component build(BuildContext context) {
-    final hasError = component.error != null;
-    final hasValue = component.mode == CalendarMode.range
-        ? component.rangeValue != null
-        : component.value != null;
-    final sizeStyles = component.size.styles;
+  bool _isDisabled(DateTime date) {
+    if (component.disabledDates?.call(date) ?? false) return true;
+    if (component.minDate != null && date.isBefore(component.minDate!)) return true;
+    if (component.maxDate != null && date.isAfter(component.maxDate!)) return true;
+    return false;
+  }
 
-    return div(
-      classes: 'arcane-date-picker ${_isOpen ? 'open' : ''} ${component.disabled ? 'disabled' : ''} ${hasError ? 'error' : ''}',
-      attributes: {
-        'data-date-picker': 'true',
-      },
-      styles: const Styles(raw: {
-        'position': 'relative',
-        'display': 'flex',
-        'flex-direction': 'column',
-        'gap': ArcaneSpacing.xs,
-      }),
-      [
-        // Label
-        if (component.label != null)
-          span(
-            styles: const Styles(raw: {
-              'font-size': ArcaneTypography.fontSm,
-              'font-weight': ArcaneTypography.weightMedium,
-              'color': ArcaneColors.onSurface,
-            }),
-            [Component.text(component.label!)],
-          ),
+  DatePickerSizeVariant get _propsSize => switch (component.size) {
+        DatePickerSize.sm => DatePickerSizeVariant.sm,
+        DatePickerSize.md => DatePickerSizeVariant.md,
+        DatePickerSize.lg => DatePickerSizeVariant.lg,
+      };
 
-        // Trigger button
-        button(
-          classes: 'arcane-date-picker-trigger ${component.disabled ? 'disabled' : ''}',
-          attributes: {
-            'type': 'button',
-            'aria-haspopup': 'dialog',
-            'aria-expanded': '$_isOpen',
-            if (component.disabled) 'disabled': 'true',
-          },
-          styles: Styles(raw: {
-            'display': 'flex',
-            'align-items': 'center',
-            'gap': ArcaneSpacing.sm,
-            'width': '100%',
-            'height': sizeStyles['height']!,
-            'padding': '0 ${ArcaneSpacing.md}',
-            'background-color': ArcaneColors.surface,
-            'border': '1px solid ${hasError ? ArcaneColors.error : ArcaneColors.border}',
-            'border-radius': ArcaneRadius.md,
-            'font-size': sizeStyles['fontSize']!,
-            'color': hasValue ? ArcaneColors.onSurface : ArcaneColors.mutedForeground,
-            'cursor': component.disabled ? 'not-allowed' : 'pointer',
-            'transition': ArcaneEffects.transitionFast,
-            'text-align': 'left',
-            if (component.disabled) 'opacity': '0.5',
-          }),
-          events: {
-            'click': (e) => _toggleOpen(),
-          },
-          [
-            const span(
-              styles: Styles(raw: {
-                'color': ArcaneColors.mutedForeground,
-              }),
-              [Component.text('📅')],
-            ),
-            span(
-              styles: const Styles(raw: {
-                'flex': '1',
-                'overflow': 'hidden',
-                'text-overflow': 'ellipsis',
-                'white-space': 'nowrap',
-              }),
-              [Component.text(_displayText)],
-            ),
-            if (hasValue && component.clearable)
-              span(
-                classes: 'arcane-date-picker-clear',
-                attributes: {
-                  'role': 'button',
-                  'aria-label': 'Clear date',
-                },
-                styles: const Styles(raw: {
-                  'color': ArcaneColors.mutedForeground,
-                  'cursor': 'pointer',
-                  'transition': ArcaneEffects.transitionFast,
-                }),
-                events: {
-                  'click': (e) {
-                    e.stopPropagation();
-                    _clear();
-                  },
-                },
-                [const Component.text('✕')],
-              ),
-          ],
-        ),
+  CalendarModeVariant get _propsMode => switch (component.mode) {
+        CalendarMode.single => CalendarModeVariant.single,
+        CalendarMode.range => CalendarModeVariant.range,
+      };
 
-        // Calendar dropdown
-        if (_isOpen)
-          div(
-            classes: 'arcane-date-picker-dropdown',
-            styles: const Styles(raw: {
-              'position': 'absolute',
-              'top': '100%',
-              'left': '0',
-              'margin-top': ArcaneSpacing.xs,
-              'z-index': '100',
-              'box-shadow': ArcaneEffects.shadowLg,
-            }),
-            [
-              ArcaneCalendar(
-                selected: component.value,
-                onSelect: _selectDate,
-                selectedRange: component.rangeValue,
-                onRangeSelect: _selectRange,
-                mode: component.mode,
-                minDate: component.minDate,
-                maxDate: component.maxDate,
-                disabledDates: component.disabledDates,
-              ),
-            ],
-          ),
-
-        // Error message
-        if (hasError)
-          span(
-            styles: const Styles(raw: {
-              'font-size': ArcaneTypography.fontSm,
-              'color': ArcaneColors.error,
-            }),
-            [Component.text(component.error!)],
-          ),
-      ],
+  DateRangeValue? get _propsRangeValue {
+    if (component.rangeValue == null) return null;
+    return DateRangeValue(
+      start: component.rangeValue!.start,
+      end: component.rangeValue!.end,
     );
   }
-}
 
-/// Size variants for date picker
-enum DatePickerSize {
-  sm,
-  md,
-  lg,
-}
-
-extension DatePickerSizeExtension on DatePickerSize {
-  Map<String, String> get styles => switch (this) {
-        DatePickerSize.sm => {
-            'height': ArcaneLayout.inputHeightSm,
-            'fontSize': ArcaneTypography.fontSm,
-          },
-        DatePickerSize.md => {
-            'height': ArcaneLayout.inputHeightMd,
-            'fontSize': ArcaneTypography.fontSm,
-          },
-        DatePickerSize.lg => {
-            'height': ArcaneLayout.inputHeightLg,
-            'fontSize': ArcaneTypography.fontMd,
-          },
-      };
+  @override
+  Component build(BuildContext context) {
+    return context.renderers.datePicker(DatePickerProps(
+      value: component.value,
+      label: component.label,
+      placeholder: component.placeholder,
+      minDate: component.minDate,
+      maxDate: component.maxDate,
+      disabled: component.disabled,
+      error: component.error,
+      clearable: component.clearable,
+      size: _propsSize,
+      mode: _propsMode,
+      rangeValue: _propsRangeValue,
+      isOpen: _isOpen,
+      displayText: _displayText,
+      onToggle: _toggleOpen,
+      onSelect: _selectDate,
+      onRangeSelect: (range) => _selectRange(DateRange(start: range.start, end: range.end)),
+      onClear: _clear,
+      calendarProps: _isOpen
+          ? CalendarProps(
+              selected: component.value,
+              displayMonth: _displayMonth,
+              minDate: component.minDate,
+              maxDate: component.maxDate,
+              mode: _propsMode,
+              selectedRange: _propsRangeValue,
+              isDisabled: _isDisabled,
+              onPreviousMonth: () {
+                setState(() {
+                  _displayMonth = DateTime(_displayMonth.year, _displayMonth.month - 1, 1);
+                });
+              },
+              onNextMonth: () {
+                setState(() {
+                  _displayMonth = DateTime(_displayMonth.year, _displayMonth.month + 1, 1);
+                });
+              },
+              onGoToToday: () {
+                final now = DateTime.now();
+                setState(() {
+                  _displayMonth = DateTime(now.year, now.month, 1);
+                });
+              },
+              onSelectDate: _selectDate,
+            )
+          : null,
+    ));
+  }
 }

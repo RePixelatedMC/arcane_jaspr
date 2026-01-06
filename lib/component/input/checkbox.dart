@@ -1,32 +1,51 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
+import 'package:jaspr/dom.dart' as dom;
 
-import '../../util/tokens/tokens.dart';
-import '../../util/tokens/style_presets.dart';
+// Re-export for backwards compatibility
+export '../../core/props/checkbox_props.dart' show CheckboxSize, CheckboxVariant;
 
-/// Checkbox size variants
-enum CheckboxSize {
-  small,
-  medium,
-  large,
-}
+import '../../core/props/checkbox_props.dart';
+import '../../core/theme_provider.dart';
 
-/// Checkbox input component
+/// Checkbox input component.
 ///
-/// Use style presets for cleaner code:
+/// The actual rendering is delegated to the current stylesheet's renderer,
+/// ensuring consistent API regardless of which design system is active.
+///
+/// ## Basic Usage
+///
 /// ```dart
 /// ArcaneCheckbox(
 ///   checked: true,
-///   style: CheckboxStyle.success,
-///   onToggle: (value) => print(value),  // or use onChanged
+///   onChanged: (value) => print(value),
 /// )
+/// ```
+///
+/// ## With Label and Description
+///
+/// ```dart
+/// ArcaneCheckbox(
+///   checked: isChecked,
+///   label: 'Accept terms',
+///   description: 'You agree to our terms of service.',
+///   onChanged: (value) => setState(() => isChecked = value),
+/// )
+/// ```
+///
+/// ## Variants
+///
+/// ```dart
+/// ArcaneCheckbox.primary(checked: true, label: 'Primary')
+/// ArcaneCheckbox.success(checked: true, label: 'Success')
+/// ArcaneCheckbox.warning(checked: true, label: 'Warning')
+/// ArcaneCheckbox.error(checked: true, label: 'Error')
 /// ```
 class ArcaneCheckbox extends StatelessComponent {
   final bool checked;
   final String? label;
   final String? description;
   final CheckboxSize size;
-  final CheckboxStyle? style;
+  final CheckboxVariant variant;
   final bool disabled;
   final void Function(bool)? _onChanged;
 
@@ -38,7 +57,7 @@ class ArcaneCheckbox extends StatelessComponent {
     this.label,
     this.description,
     this.size = CheckboxSize.medium,
-    this.style,
+    this.variant = CheckboxVariant.primary,
     this.disabled = false,
     void Function(bool)? onChanged,
     void Function(bool)? onToggle,
@@ -56,7 +75,7 @@ class ArcaneCheckbox extends StatelessComponent {
     void Function(bool)? onToggle,
     super.key,
   })  : _onChanged = onChanged ?? onToggle,
-        style = CheckboxStyle.primary;
+        variant = CheckboxVariant.primary;
 
   /// Success checkbox
   const ArcaneCheckbox.success({
@@ -69,111 +88,63 @@ class ArcaneCheckbox extends StatelessComponent {
     void Function(bool)? onToggle,
     super.key,
   })  : _onChanged = onChanged ?? onToggle,
-        style = CheckboxStyle.success;
+        variant = CheckboxVariant.success;
+
+  /// Warning checkbox
+  const ArcaneCheckbox.warning({
+    required this.checked,
+    this.label,
+    this.description,
+    this.size = CheckboxSize.medium,
+    this.disabled = false,
+    void Function(bool)? onChanged,
+    void Function(bool)? onToggle,
+    super.key,
+  })  : _onChanged = onChanged ?? onToggle,
+        variant = CheckboxVariant.warning;
+
+  /// Error/destructive checkbox
+  const ArcaneCheckbox.error({
+    required this.checked,
+    this.label,
+    this.description,
+    this.size = CheckboxSize.medium,
+    this.disabled = false,
+    void Function(bool)? onChanged,
+    void Function(bool)? onToggle,
+    super.key,
+  })  : _onChanged = onChanged ?? onToggle,
+        variant = CheckboxVariant.error;
 
   @override
   Component build(BuildContext context) {
-    final effectiveStyle = style ?? CheckboxStyle.success;
-
-    // Size dimensions
-    final boxSize = switch (size) {
-      CheckboxSize.small => '16px',
-      CheckboxSize.medium => '20px',
-      CheckboxSize.large => '24px',
-    };
-
-    final checkSize = switch (size) {
-      CheckboxSize.small => ArcaneTypography.fontXs,
-      CheckboxSize.medium => ArcaneTypography.fontSm,
-      CheckboxSize.large => ArcaneTypography.fontMd,
-    };
-
-    return div(
-      styles: Styles(raw: {
-        'display': 'flex',
-        'align-items': 'flex-start',
-        'gap': ArcaneSpacing.sm,
-        'cursor': disabled ? 'not-allowed' : 'pointer',
-        'opacity': disabled ? '0.5' : '1',
-      }),
-      events: disabled || _onChanged == null
-          ? null
-          : {
-              'click': (event) => _onChanged!(!checked),
-            },
-      [
-        // Checkbox box
-        div(
-          styles: Styles(raw: {
-            'width': boxSize,
-            'height': boxSize,
-            'border-radius': ArcaneRadius.sm,
-            'background': checked
-                ? effectiveStyle.checkedColor
-                : ArcaneColors.transparent,
-            'border': checked
-                ? '2px solid ${effectiveStyle.checkedColor}'
-                : '2px solid ${effectiveStyle.uncheckedBorder}',
-            'display': 'flex',
-            'align-items': 'center',
-            'justify-content': 'center',
-            'flex-shrink': '0',
-            'transition': ArcaneEffects.transitionFast,
-          }),
-          [
-            if (checked)
-              span(
-                styles: Styles(raw: {
-                  'color': effectiveStyle.checkColor,
-                  'font-size': checkSize,
-                  'font-weight': ArcaneTypography.weightBold,
-                  'line-height': '1',
-                }),
-                [text('✓')],
-              ),
-          ],
-        ),
-        // Label and description
-        if (label != null || description != null)
-          div(
-            styles: const Styles(raw: {
-              'flex': '1',
-            }),
-            [
-              if (label != null)
-                span(
-                  styles: const Styles(raw: {
-                    'font-size': ArcaneTypography.fontMd,
-                    'font-weight': ArcaneTypography.weightMedium,
-                    'color': ArcaneColors.onSurface,
-                    'display': 'block',
-                  }),
-                  [text(label!)],
-                ),
-              if (description != null)
-                span(
-                  styles: const Styles(raw: {
-                    'font-size': ArcaneTypography.fontSm,
-                    'color': ArcaneColors.mutedForeground,
-                    'display': 'block',
-                    'margin-top': '2px',
-                  }),
-                  [text(description!)],
-                ),
-            ],
-          ),
-      ],
-    );
+    // Delegate to the current stylesheet's checkbox renderer
+    return context.renderers.checkbox(CheckboxProps(
+      checked: checked,
+      label: label,
+      description: description,
+      size: size,
+      variant: variant,
+      disabled: disabled,
+      onChanged: _onChanged,
+    ));
   }
 }
 
-/// Radio button component
+/// Radio button component matching shadcn/ui
+/// Reference: https://ui.shadcn.com/docs/components/radio-group
+///
+/// ShadCN Radio:
+/// - Size: h-4 w-4 (16px), rounded-full
+/// - Border: border border-primary
+/// - Selected: inner dot h-2.5 w-2.5 (10px), bg-primary-foreground
+/// - Focus: ring-2 ring-ring ring-offset-2
 class ArcaneRadio extends StatelessComponent {
   final bool selected;
   final String? label;
   final String? description;
   final CheckboxSize size;
-  final CheckboxStyle? style;
+  final CheckboxVariant variant;
   final bool disabled;
   final void Function()? _onSelected;
 
@@ -185,7 +156,7 @@ class ArcaneRadio extends StatelessComponent {
     this.label,
     this.description,
     this.size = CheckboxSize.medium,
-    this.style,
+    this.variant = CheckboxVariant.primary,
     this.disabled = false,
     void Function()? onSelected,
     void Function()? onTap,
@@ -194,28 +165,39 @@ class ArcaneRadio extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final effectiveStyle = style ?? CheckboxStyle.success;
-
-    // Size dimensions
+    // ShadCN size dimensions
+    // Default: h-4 w-4 (16px), inner dot h-2.5 w-2.5 (10px)
     final radioSize = switch (size) {
-      CheckboxSize.small => '16px',
-      CheckboxSize.medium => '20px',
-      CheckboxSize.large => '24px',
+      CheckboxSize.small => '14px', // h-3.5
+      CheckboxSize.medium => '16px', // h-4 (shadcn default)
+      CheckboxSize.large => '20px', // h-5
     };
 
+    // Inner dot is roughly 62.5% of the outer circle size
     final dotSize = switch (size) {
       CheckboxSize.small => '8px',
-      CheckboxSize.medium => '10px',
+      CheckboxSize.medium => '10px', // h-2.5 (shadcn default)
       CheckboxSize.large => '12px',
     };
 
-    return div(
-      styles: Styles(raw: {
+    // Get border and dot color based on variant
+    final (borderColor, dotColor) = switch (variant) {
+      CheckboxVariant.primary => ('var(--primary)', 'var(--primary)'),
+      CheckboxVariant.success => ('var(--success)', 'var(--success)'),
+      CheckboxVariant.warning => ('var(--warning)', 'var(--warning)'),
+      CheckboxVariant.error => ('var(--destructive)', 'var(--destructive)'),
+    };
+
+    return dom.div(
+      classes: 'arcane-radio-wrapper',
+      styles: dom.Styles(raw: {
         'display': 'flex',
         'align-items': 'flex-start',
-        'gap': ArcaneSpacing.sm,
+        'gap': '0.5rem',
         'cursor': disabled ? 'not-allowed' : 'pointer',
+        // ShadCN: disabled:opacity-50 disabled:cursor-not-allowed
         'opacity': disabled ? '0.5' : '1',
+        'pointer-events': disabled ? 'none' : 'auto',
       }),
       events: disabled || _onSelected == null
           ? null
@@ -223,30 +205,34 @@ class ArcaneRadio extends StatelessComponent {
               'click': (event) => _onSelected!(),
             },
       [
-        // Radio circle
-        div(
-          styles: Styles(raw: {
+        // Radio circle - ShadCN styling
+        dom.div(
+          classes: 'arcane-radio',
+          styles: dom.Styles(raw: {
             'width': radioSize,
             'height': radioSize,
-            'border-radius': ArcaneRadius.full,
-            'background': ArcaneColors.transparent,
-            'border': selected
-                ? '2px solid ${effectiveStyle.checkedColor}'
-                : '2px solid ${effectiveStyle.uncheckedBorder}',
+            // ShadCN: rounded-full
+            'border-radius': '9999px',
+            'background': 'transparent',
+            // ShadCN: border border-primary
+            'border': '1px solid $borderColor',
             'display': 'flex',
             'align-items': 'center',
             'justify-content': 'center',
             'flex-shrink': '0',
-            'transition': ArcaneEffects.transitionFast,
+            // ShadCN: transition-colors
+            'transition': 'color 150ms ease, background-color 150ms ease, border-color 150ms ease',
           }),
           [
             if (selected)
-              div(
-                styles: Styles(raw: {
+              dom.div(
+                styles: dom.Styles(raw: {
                   'width': dotSize,
                   'height': dotSize,
-                  'border-radius': ArcaneRadius.full,
-                  'background': effectiveStyle.checkedColor,
+                  // ShadCN: rounded-full
+                  'border-radius': '9999px',
+                  // ShadCN: bg-primary when checked (fill the dot with primary color)
+                  'background': dotColor,
                 }),
                 [],
               ),
@@ -254,30 +240,33 @@ class ArcaneRadio extends StatelessComponent {
         ),
         // Label and description
         if (label != null || description != null)
-          div(
-            styles: const Styles(raw: {
+          dom.div(
+            styles: const dom.Styles(raw: {
               'flex': '1',
             }),
             [
               if (label != null)
-                span(
-                  styles: const Styles(raw: {
-                    'font-size': ArcaneTypography.fontMd,
-                    'font-weight': ArcaneTypography.weightMedium,
-                    'color': ArcaneColors.onSurface,
+                dom.span(
+                  styles: const dom.Styles(raw: {
+                    // ShadCN: text-sm font-medium
+                    'font-size': '14px',
+                    'font-weight': '500',
+                    'color': 'var(--foreground)',
                     'display': 'block',
+                    'line-height': '1',
                   }),
-                  [text(label!)],
+                  [dom.text(label!)],
                 ),
               if (description != null)
-                span(
-                  styles: const Styles(raw: {
-                    'font-size': ArcaneTypography.fontSm,
-                    'color': ArcaneColors.mutedForeground,
+                dom.span(
+                  styles: const dom.Styles(raw: {
+                    // ShadCN: text-sm text-muted-foreground
+                    'font-size': '14px',
+                    'color': 'var(--muted-foreground)',
                     'display': 'block',
-                    'margin-top': '2px',
+                    'margin-top': '4px',
                   }),
-                  [text(description!)],
+                  [dom.text(description!)],
                 ),
             ],
           ),

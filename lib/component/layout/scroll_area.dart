@@ -1,66 +1,31 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart'
-    hide
-        Color,
-        Colors,
-        ColorScheme,
-        Gap,
-        Padding,
-        TextAlign,
-        TextOverflow,
-        Border,
-        BorderRadius,
-        BoxShadow,
-        FontWeight;
 
-import '../../util/tokens/tokens.dart';
+import '../../core/theme_provider.dart';
 
-/// Scroll direction
-enum ScrollDirection {
-  /// Vertical scrolling only
-  vertical,
+// Re-export props for backwards compatibility
+export '../../core/props/scroll_area_props.dart'
+    show
+        ScrollDirectionVariant,
+        ScrollbarVisibilityVariant,
+        ScrollbarStyleVariant,
+        ScrollAreaProps,
+        VirtualScrollProps;
 
-  /// Horizontal scrolling only
-  horizontal,
+/// Scroll direction (local alias)
+typedef ScrollDirection = ScrollDirectionVariant;
 
-  /// Both directions
-  both,
-}
+/// Scrollbar visibility (local alias)
+typedef ScrollbarVisibility = ScrollbarVisibilityVariant;
 
-/// Scrollbar visibility
-enum ScrollbarVisibility {
-  /// Always visible
-  always,
+/// Scrollbar style (local alias)
+typedef ScrollbarStyle = ScrollbarStyleVariant;
 
-  /// Visible on hover
-  hover,
-
-  /// Auto (browser default)
-  auto_,
-
-  /// Hidden (still scrollable)
-  hidden,
-}
-
-/// Scrollbar style
-enum ScrollbarStyle {
-  /// Default browser scrollbar
-  default_,
-
-  /// Thin scrollbar
-  thin,
-
-  /// Minimal (very thin, mostly transparent)
-  minimal,
-
-  /// Custom styled scrollbar
-  custom,
-}
-
-/// A scrollable area with custom styled scrollbars.
-/// Similar to shadcn's ScrollArea component.
+/// A scrollable area with custom styled scrollbars matching shadcn/ui.
+/// ShadCN Reference: https://ui.shadcn.com/docs/components/scroll-area
 ///
-/// Usage:
+/// ShadCN: relative overflow-hidden
+/// ShadCN ScrollBar: flex touch-none select-none transition-colors h-full w-2.5 / w-full h-2.5
+///
 /// ```dart
 /// ArcaneScrollArea(
 ///   height: '400px',
@@ -164,145 +129,46 @@ class ArcaneScrollArea extends StatelessComponent {
         direction = ScrollDirection.horizontal,
         scrollbarSize = '8px';
 
+  ScrollDirectionVariant get _propsDirection => switch (direction) {
+        ScrollDirection.vertical => ScrollDirectionVariant.vertical,
+        ScrollDirection.horizontal => ScrollDirectionVariant.horizontal,
+        ScrollDirection.both => ScrollDirectionVariant.both,
+      };
+
+  ScrollbarVisibilityVariant get _propsScrollbar => switch (scrollbar) {
+        ScrollbarVisibility.always => ScrollbarVisibilityVariant.always,
+        ScrollbarVisibility.hover => ScrollbarVisibilityVariant.hover,
+        ScrollbarVisibility.auto_ => ScrollbarVisibilityVariant.auto_,
+        ScrollbarVisibility.hidden => ScrollbarVisibilityVariant.hidden,
+      };
+
+  ScrollbarStyleVariant get _propsScrollbarStyle => switch (scrollbarStyle) {
+        ScrollbarStyle.default_ => ScrollbarStyleVariant.default_,
+        ScrollbarStyle.thin => ScrollbarStyleVariant.thin,
+        ScrollbarStyle.minimal => ScrollbarStyleVariant.minimal,
+        ScrollbarStyle.custom => ScrollbarStyleVariant.custom,
+      };
+
   @override
   Component build(BuildContext context) {
-    // Overflow values based on direction
-    final (String overflowX, String overflowY) = switch (direction) {
-      ScrollDirection.vertical => ('hidden', 'auto'),
-      ScrollDirection.horizontal => ('auto', 'hidden'),
-      ScrollDirection.both => ('auto', 'auto'),
-    };
-
-    // Scrollbar visibility styles
-    final Map<String, String> scrollbarVisibilityStyles =
-        switch (scrollbar) {
-      ScrollbarVisibility.always => {},
-      ScrollbarVisibility.hover => {
-          'scrollbar-width': 'none', // Firefox
-        },
-      ScrollbarVisibility.auto_ => {},
-      ScrollbarVisibility.hidden => {
-          'scrollbar-width': 'none',
-          '-ms-overflow-style': 'none',
-        },
-    };
-
-    // Generate unique class for this instance
-    final scrollClassName =
-        'arcane-scroll-area-${identityHashCode(this)}';
-
-    return div(
-      classes: 'arcane-scroll-area $scrollClassName ${className ?? ""}',
-      styles: Styles(raw: {
-        'position': 'relative',
-        if (height != null) 'height': height!,
-        if (width != null) 'width': width!,
-        if (maxHeight != null) 'max-height': maxHeight!,
-        if (maxWidth != null) 'max-width': maxWidth!,
-        'overflow-x': overflowX,
-        'overflow-y': overflowY,
-        if (padding != null) 'padding': padding!,
-        ...scrollbarVisibilityStyles,
-        // Smooth scrolling
-        'scroll-behavior': 'smooth',
-        // Touch scrolling
-        '-webkit-overflow-scrolling': 'touch',
-      }),
-      [
-        // Scroll shadows (top/bottom or left/right gradients)
-        if (showScrollShadows) ...[
-          _buildScrollShadow(direction, isStart: true),
-          _buildScrollShadow(direction, isStart: false),
-        ],
-
-        // Content
-        child,
-      ],
-    );
+    return context.renderers.scrollArea(ScrollAreaProps(
+      child: child,
+      height: height,
+      width: width,
+      maxHeight: maxHeight,
+      maxWidth: maxWidth,
+      direction: _propsDirection,
+      scrollbar: _propsScrollbar,
+      scrollbarStyle: _propsScrollbarStyle,
+      trackColor: trackColor,
+      thumbColor: thumbColor,
+      scrollbarSize: scrollbarSize,
+      showScrollShadows: showScrollShadows,
+      padding: padding,
+      className: className,
+      instanceId: identityHashCode(this),
+    ));
   }
-
-  Component _buildScrollShadow(ScrollDirection direction, {required bool isStart}) {
-    final isVertical = direction == ScrollDirection.vertical ||
-        direction == ScrollDirection.both;
-    final isHorizontal = direction == ScrollDirection.horizontal ||
-        direction == ScrollDirection.both;
-
-    if (isVertical && !isHorizontal) {
-      return div(
-        classes: 'arcane-scroll-shadow ${isStart ? "top" : "bottom"}',
-        styles: Styles(raw: {
-          'position': 'sticky',
-          if (isStart) 'top': '0',
-          if (!isStart) 'bottom': '0',
-          'left': '0',
-          'right': '0',
-          'height': '24px',
-          'background': isStart
-              ? 'linear-gradient(to bottom, ${ArcaneColors.background}, transparent)'
-              : 'linear-gradient(to top, ${ArcaneColors.background}, transparent)',
-          'pointer-events': 'none',
-          'z-index': '1',
-        }),
-        [],
-      );
-    }
-
-    if (isHorizontal) {
-      return div(
-        classes: 'arcane-scroll-shadow ${isStart ? "left" : "right"}',
-        styles: Styles(raw: {
-          'position': 'sticky',
-          if (isStart) 'left': '0',
-          if (!isStart) 'right': '0',
-          'top': '0',
-          'bottom': '0',
-          'width': '24px',
-          'background': isStart
-              ? 'linear-gradient(to right, ${ArcaneColors.background}, transparent)'
-              : 'linear-gradient(to left, ${ArcaneColors.background}, transparent)',
-          'pointer-events': 'none',
-          'z-index': '1',
-        }),
-        [],
-      );
-    }
-
-    return const span([], styles: Styles(raw: {'display': 'none'}));
-  }
-
-  @css
-  static final List<StyleRule> styles = [
-    // Thin scrollbar (webkit)
-    css('.arcane-scroll-area::-webkit-scrollbar').styles(raw: {
-      'width': '8px',
-      'height': '8px',
-    }),
-    css('.arcane-scroll-area::-webkit-scrollbar-track').styles(raw: {
-      'background': ArcaneColors.transparent,
-    }),
-    css('.arcane-scroll-area::-webkit-scrollbar-thumb').styles(raw: {
-      'background': ArcaneColors.mutedForeground,
-      'border-radius': ArcaneRadius.full,
-      'border': '2px solid transparent',
-      'background-clip': 'padding-box',
-    }),
-    css('.arcane-scroll-area::-webkit-scrollbar-thumb:hover').styles(raw: {
-      'background': ArcaneColors.onSurface,
-      'background-clip': 'padding-box',
-    }),
-    // Hover to show scrollbar
-    css('.arcane-scroll-area:hover').styles(raw: {
-      'scrollbar-width': 'thin', // Firefox
-    }),
-    css('.arcane-scroll-area:hover::-webkit-scrollbar').styles(raw: {
-      'width': '8px',
-      'height': '8px',
-    }),
-    // Firefox thin scrollbar
-    css('.arcane-scroll-area').styles(raw: {
-      'scrollbar-color': '${ArcaneColors.mutedForeground} transparent',
-    }),
-  ];
 }
 
 /// A virtualized scroll list for large datasets.
@@ -341,59 +207,14 @@ class _ArcaneVirtualScrollState<T> extends State<ArcaneVirtualScroll<T>> {
 
   @override
   Component build(BuildContext context) {
-    final items = component.items;
-    final itemHeight = component.itemHeight;
-    final overscan = component.overscan;
-
-    // Parse height to get container size (simplified - assumes px)
-    final containerHeight =
-        double.tryParse(component.height.replaceAll('px', '')) ?? 400;
-
-    // Calculate visible range
-    final startIndex =
-        ((_scrollTop / itemHeight).floor() - overscan).clamp(0, items.length);
-    final visibleCount = ((containerHeight / itemHeight).ceil() + overscan * 2)
-        .clamp(0, items.length - startIndex);
-    final endIndex = (startIndex + visibleCount).clamp(0, items.length);
-
-    final totalHeight = items.length * itemHeight;
-
-    return div(
-      classes: 'arcane-virtual-scroll',
-      styles: Styles(raw: {
-        'height': component.height,
-        'overflow-y': 'auto',
-        'position': 'relative',
-      }),
-      events: {
-        'scroll': (e) {
-          final target = e.target as dynamic;
-          setState(() => _scrollTop = (target.scrollTop as num).toDouble());
-        },
-      },
-      [
-        // Total height spacer
-        div(
-          styles: Styles(raw: {
-            'height': '${totalHeight}px',
-            'position': 'relative',
-          }),
-          [
-            // Visible items
-            for (var i = startIndex; i < endIndex; i++)
-              div(
-                styles: Styles(raw: {
-                  'position': 'absolute',
-                  'top': '${i * itemHeight}px',
-                  'left': '0',
-                  'right': '0',
-                  'height': '${itemHeight}px',
-                }),
-                [component.itemBuilder(context, items[i], i)],
-              ),
-          ],
-        ),
-      ],
-    );
+    return context.renderers.virtualScroll<T>(VirtualScrollProps<T>(
+      items: component.items,
+      itemBuilder: component.itemBuilder,
+      itemHeight: component.itemHeight,
+      height: component.height,
+      overscan: component.overscan,
+      scrollTop: _scrollTop,
+      onScroll: (scrollTop) => setState(() => _scrollTop = scrollTop),
+    ));
   }
 }

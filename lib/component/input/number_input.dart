@@ -1,14 +1,8 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/tokens/tokens.dart';
+import '../../core/theme_provider.dart';
 
-/// Number input size variants
-enum NumberInputSize {
-  sm,
-  md,
-  lg,
-}
+export '../../core/props/number_input_props.dart' show NumberInputSize;
 
 /// Numeric input with increment/decrement controls.
 ///
@@ -56,6 +50,12 @@ class ArcaneNumberInput extends StatelessComponent {
   /// Number of decimal places to display
   final int decimals;
 
+  /// Optional element ID
+  final String? id;
+
+  /// Additional HTML attributes
+  final Map<String, String>? attributes;
+
   const ArcaneNumberInput({
     required this.value,
     this.min = 0,
@@ -68,180 +68,27 @@ class ArcaneNumberInput extends StatelessComponent {
     this.prefix,
     this.suffix,
     this.decimals = 0,
+    this.id,
+    this.attributes,
     super.key,
   });
 
   @override
   Component build(BuildContext context) {
-    final (height, fontSize, buttonWidth) = switch (size) {
-      NumberInputSize.sm => ('32px', ArcaneTypography.fontSm, '32px'),
-      NumberInputSize.md => ('40px', ArcaneTypography.fontMd, '40px'),
-      NumberInputSize.lg => ('48px', ArcaneTypography.fontLg, '48px'),
-    };
-
-    final canDecrement = value > min;
-    final canIncrement = value < max;
-    final displayValue = decimals > 0
-        ? value.toStringAsFixed(decimals)
-        : value.toInt().toString();
-
-    return div(
-      classes: 'arcane-number-input',
-      attributes: {
-        'data-value': value.toString(),
-        'data-min': min.toString(),
-        'data-max': max.toString(),
-        'data-step': step.toString(),
-        'data-decimals': decimals.toString(),
-        'data-disabled': disabled.toString(),
-      },
-      styles: const Styles(raw: {
-        'display': 'flex',
-        'flex-direction': 'column',
-        'gap': ArcaneSpacing.sm,
-      }),
-      [
-        // Label
-        if (label != null)
-          span(
-            classes: 'arcane-number-input-label',
-            styles: const Styles(raw: {
-              'font-size': ArcaneTypography.fontSm,
-              'font-weight': ArcaneTypography.weightMedium,
-              'color': ArcaneColors.onSurface,
-            }),
-            [text(label!)],
-          ),
-
-        // Input container
-        div(
-          classes: 'arcane-number-input-container',
-          styles: Styles(raw: {
-            'display': 'inline-flex',
-            'align-items': 'stretch',
-            'height': height,
-            'border': '1px solid ${ArcaneColors.border}',
-            'border-radius': ArcaneRadius.md,
-            'overflow': 'hidden',
-            'opacity': disabled ? '0.5' : '1',
-          }),
-          [
-            // Decrement button
-            button(
-              type: ButtonType.button,
-              classes: 'arcane-number-input-decrement',
-              attributes: {
-                if (!canDecrement || disabled) 'disabled': 'true',
-              },
-              styles: Styles(raw: {
-                'display': 'flex',
-                'align-items': 'center',
-                'justify-content': 'center',
-                'width': buttonWidth,
-                'height': '100%',
-                'padding': '0',
-                'border': 'none',
-                'border-right': '1px solid ${ArcaneColors.border}',
-                'background': (canDecrement && !disabled)
-                    ? ArcaneColors.surfaceVariant
-                    : ArcaneColors.surface,
-                'color': (canDecrement && !disabled)
-                    ? ArcaneColors.onSurface
-                    : ArcaneColors.mutedForeground,
-                'font-size': fontSize,
-                'font-weight': ArcaneTypography.weightBold,
-                'cursor': (canDecrement && !disabled) ? 'pointer' : 'not-allowed',
-                'transition': ArcaneEffects.transitionFast,
-                'user-select': 'none',
-              }),
-              events: (canDecrement && !disabled)
-                  ? {
-                      'click': (_) {
-                        final newValue = (value - step).clamp(min, max);
-                        onChanged?.call(decimals > 0 ? newValue : newValue.toInt());
-                      },
-                    }
-                  : null,
-              [text('-')],
-            ),
-
-            // Value display
-            div(
-              classes: 'arcane-number-input-value',
-              styles: Styles(raw: {
-                'display': 'flex',
-                'align-items': 'center',
-                'justify-content': 'center',
-                'gap': ArcaneSpacing.xs,
-                'min-width': '60px',
-                'padding': '0 ${ArcaneSpacing.sm}',
-                'background': ArcaneColors.input,
-                'font-size': fontSize,
-                'font-weight': ArcaneTypography.weightMedium,
-                'font-variant-numeric': 'tabular-nums',
-                'color': ArcaneColors.onSurface,
-              }),
-              [
-                if (prefix != null)
-                  span(
-                    classes: 'arcane-number-input-prefix',
-                    styles: const Styles(raw: {'color': ArcaneColors.mutedForeground}),
-                    [text(prefix!)],
-                  ),
-                span(
-                  classes: 'arcane-number-input-display',
-                  [text(displayValue)],
-                ),
-                if (suffix != null)
-                  span(
-                    classes: 'arcane-number-input-suffix',
-                    styles: const Styles(raw: {'color': ArcaneColors.mutedForeground}),
-                    [text(suffix!)],
-                  ),
-              ],
-            ),
-
-            // Increment button
-            button(
-              type: ButtonType.button,
-              classes: 'arcane-number-input-increment',
-              attributes: {
-                if (!canIncrement || disabled) 'disabled': 'true',
-              },
-              styles: Styles(raw: {
-                'display': 'flex',
-                'align-items': 'center',
-                'justify-content': 'center',
-                'width': buttonWidth,
-                'height': '100%',
-                'padding': '0',
-                'border': 'none',
-                'border-left': '1px solid ${ArcaneColors.border}',
-                'background': (canIncrement && !disabled)
-                    ? ArcaneColors.surfaceVariant
-                    : ArcaneColors.surface,
-                'color': (canIncrement && !disabled)
-                    ? ArcaneColors.onSurface
-                    : ArcaneColors.mutedForeground,
-                'font-size': fontSize,
-                'font-weight': ArcaneTypography.weightBold,
-                'cursor': (canIncrement && !disabled) ? 'pointer' : 'not-allowed',
-                'transition': ArcaneEffects.transitionFast,
-                'user-select': 'none',
-              }),
-              events: (canIncrement && !disabled)
-                  ? {
-                      'click': (_) {
-                        final newValue = (value + step).clamp(min, max);
-                        onChanged?.call(decimals > 0 ? newValue : newValue.toInt());
-                      },
-                    }
-                  : null,
-              [text('+')],
-            ),
-          ],
-        ),
-      ],
-    );
+    return context.renderers.numberInput(NumberInputProps(
+      value: value,
+      min: min,
+      max: max,
+      step: step,
+      onChanged: onChanged,
+      size: size,
+      disabled: disabled,
+      label: label,
+      prefix: prefix,
+      suffix: suffix,
+      decimals: decimals,
+      id: id,
+      attributes: attributes,
+    ));
   }
 }

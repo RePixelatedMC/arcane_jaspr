@@ -13,8 +13,6 @@ import 'package:jaspr/dom.dart'
         BoxShadow,
         FontWeight;
 
-import '../../util/tokens/tokens.dart';
-
 /// Dot indicator size variants
 enum DotIndicatorSize {
   /// Small dots (6px)
@@ -81,9 +79,9 @@ class ArcaneDotIndicator extends StatelessComponent {
       DotIndicatorSize.lg => '10px',
     };
 
-    final effectiveSpacing = spacing ?? ArcaneSpacing.sm;
-    final effectiveActiveColor = activeColor ?? ArcaneColors.accent;
-    final effectiveInactiveColor = inactiveColor ?? ArcaneColors.surfaceVariant;
+    final effectiveSpacing = spacing ?? '0.5rem';
+    final effectiveActiveColor = activeColor ?? 'var(--accent)';
+    final effectiveInactiveColor = inactiveColor ?? 'var(--muted)';
 
     return div(
       classes: 'arcane-dot-indicator',
@@ -110,7 +108,7 @@ class ArcaneDotIndicator extends StatelessComponent {
             styles: Styles(raw: {
               'width': i == index ? 'calc($dotSize * 2)' : dotSize,
               'height': dotSize,
-              'border-radius': ArcaneRadius.full,
+              'border-radius': '9999px',
               'background': i == index
                   ? effectiveActiveColor
                   : effectiveInactiveColor,
@@ -131,10 +129,10 @@ class ArcaneDotIndicator extends StatelessComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-dot:hover:not(:disabled):not(.active)').styles(raw: {
-      'background': ArcaneColors.mutedForeground,
+      'background': 'var(--muted-foreground)',
     }),
     css('.arcane-dot:focus-visible').styles(raw: {
-      'outline': '2px solid ${ArcaneColors.accent}',
+      'outline': '2px solid var(--accent)',
       'outline-offset': '2px',
     }),
   ];
@@ -177,9 +175,9 @@ class ArcaneStepIndicator extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     final (circleSize, fontSize, lineHeight) = switch (size) {
-      StepIndicatorSize.sm => ('24px', ArcaneTypography.fontXs, '2px'),
-      StepIndicatorSize.md => ('32px', ArcaneTypography.fontSm, '3px'),
-      StepIndicatorSize.lg => ('40px', ArcaneTypography.fontMd, '4px'),
+      StepIndicatorSize.sm => ('24px', '0.75rem', '2px'),
+      StepIndicatorSize.md => ('32px', '0.875rem', '3px'),
+      StepIndicatorSize.lg => ('40px', '1rem', '4px'),
     };
 
     return div(
@@ -198,7 +196,7 @@ class ArcaneStepIndicator extends StatelessComponent {
               'display': 'flex',
               'flex-direction': 'column',
               'align-items': 'center',
-              'gap': ArcaneSpacing.xs,
+              'gap': '0.25rem',
             }),
             [
               // Circle
@@ -212,30 +210,30 @@ class ArcaneStepIndicator extends StatelessComponent {
                 styles: Styles(raw: {
                   'width': circleSize,
                   'height': circleSize,
-                  'border-radius': ArcaneRadius.full,
+                  'border-radius': '9999px',
                   'display': 'flex',
                   'align-items': 'center',
                   'justify-content': 'center',
                   'font-size': fontSize,
-                  'font-weight': ArcaneTypography.weightMedium,
+                  'font-weight': '500',
                   'border': 'none',
                   'background': i <= currentStep
-                      ? ArcaneColors.accent
-                      : ArcaneColors.surfaceVariant,
+                      ? 'var(--accent)'
+                      : 'var(--muted)',
                   'color': i <= currentStep
-                      ? ArcaneColors.accentForeground
-                      : ArcaneColors.mutedForeground,
+                      ? 'var(--accent-foreground)'
+                      : 'var(--muted-foreground)',
                   'cursor': allowStepNavigation && i <= currentStep
                       ? 'pointer'
                       : 'default',
-                  'transition': ArcaneEffects.transitionFast,
+                  'transition': 'all 150ms ease',
                 }),
                 events: allowStepNavigation && i <= currentStep && onStepTap != null
                     ? {'click': (_) => onStepTap!(i)}
                     : null,
                 [
                   if (i < currentStep)
-                    text('✓')
+                    text('\u2713')
                   else
                     text('${i + 1}'),
                 ],
@@ -246,11 +244,11 @@ class ArcaneStepIndicator extends StatelessComponent {
                 styles: Styles(raw: {
                   'font-size': fontSize,
                   'color': i == currentStep
-                      ? ArcaneColors.onSurface
-                      : ArcaneColors.mutedForeground,
+                      ? 'var(--foreground)'
+                      : 'var(--muted-foreground)',
                   'font-weight': i == currentStep
-                      ? ArcaneTypography.weightMedium
-                      : ArcaneTypography.weightNormal,
+                      ? '500'
+                      : '400',
                   'text-align': 'center',
                   'white-space': 'nowrap',
                 }),
@@ -266,12 +264,12 @@ class ArcaneStepIndicator extends StatelessComponent {
               styles: Styles(raw: {
                 'flex': '1',
                 'height': lineHeight,
-                'margin': '0 ${ArcaneSpacing.sm}',
+                'margin': '0 0.5rem',
                 'margin-top': 'calc($circleSize / 2 - $lineHeight / 2)',
                 'background': i < currentStep
-                    ? ArcaneColors.accent
-                    : ArcaneColors.border,
-                'transition': ArcaneEffects.transitionFast,
+                    ? 'var(--accent)'
+                    : 'var(--border)',
+                'transition': 'all 150ms ease',
               }),
               [],
             ),
@@ -286,7 +284,7 @@ class ArcaneStepIndicator extends StatelessComponent {
       'transform': 'scale(1.1)',
     }),
     css('.arcane-step-circle:focus-visible').styles(raw: {
-      'outline': '2px solid ${ArcaneColors.accent}',
+      'outline': '2px solid var(--accent)',
       'outline-offset': '2px',
     }),
   ];

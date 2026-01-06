@@ -2,7 +2,6 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight, StyleRule;
 
 import '../../util/appearance/colors.dart';
-import '../../util/tokens/tokens.dart';
 import '../view/bar.dart';
 
 /// A screen that fills the entire viewport.
@@ -85,7 +84,7 @@ class ArcaneFillScreen extends StatelessComponent {
         'min-height': '100vh',
         'height': '100%',
         'position': 'relative',
-        'background-color': ArcaneColors.background,
+        'background-color': 'var(--background)',
       }),
       [
         // Background
@@ -165,7 +164,7 @@ class ArcaneFillScreen extends StatelessComponent {
       classes: 'arcane-fill-screen-loading',
       styles: const Styles(raw: {
         'height': '3px',
-        'background-color': ArcaneColors.border,
+        'background-color': 'var(--border)',
         'overflow': 'hidden',
         'flex-shrink': '0',
       }),
@@ -173,7 +172,7 @@ class ArcaneFillScreen extends StatelessComponent {
         div(
           styles: Styles(raw: {
             'height': '100%',
-            'background-color': ArcaneColors.accent,
+            'background-color': 'var(--accent)',
             if (!loadingIndeterminate)
               'width': '${(loadingProgress ?? 0) * 100}%',
             if (loadingIndeterminate) 'width': '30%',
@@ -206,7 +205,7 @@ class ArcaneFullScreen extends StatelessComponent {
         'min-height': '100vh',
         'width': '100%',
         'background-color':
-            backgroundColor?.css ?? ArcaneColors.background,
+            backgroundColor?.css ?? 'var(--background)',
       }),
       [child],
     );

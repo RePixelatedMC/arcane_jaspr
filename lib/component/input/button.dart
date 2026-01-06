@@ -1,45 +1,45 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight, FontStyle, StyleRule, Display, Position, Overflow, Cursor, Visibility, Radius;
 
-import '../../util/tokens/tokens.dart';
-import '../../util/tokens/style_presets.dart';
-import '../../util/style_types/index.dart';
+import '../../core/props/button_props.dart';
+import '../../core/theme_provider.dart';
 
-/// Button style variants (legacy - prefer using ButtonStyle presets)
-@Deprecated('Use style parameter with ButtonStyle presets instead')
-enum ButtonVariant {
-  /// Primary action button with accent color
-  primary,
-  /// Secondary/muted button
-  secondary,
-  /// Outline button with border
-  outline,
-  /// Ghost button (transparent background)
-  ghost,
-  /// Destructive/danger button
-  destructive,
-  /// Link-style button
-  link,
-  /// Success button (green)
-  success,
-  /// Warning button (amber)
-  warning,
-}
-
-/// Button size variants
-enum ButtonSize {
-  small,
-  medium,
-  large,
-}
+// Re-export for backwards compatibility
+export '../../core/props/button_props.dart' show ButtonVariant, ButtonSize;
 
 /// A styled button component.
 ///
-/// Use style presets for cleaner code:
+/// The actual rendering is delegated to the current stylesheet's renderer,
+/// ensuring consistent API regardless of which design system is active.
+///
+/// ## Basic Usage
+///
 /// ```dart
 /// ArcaneButton(
-///   label: 'Delete',
-///   style: ButtonStyle.destructive,
+///   label: 'Click Me',
+///   onPressed: () => print('Clicked!'),
+/// )
+/// ```
+///
+/// ## Variants
+///
+/// Use named constructors for common variants:
+///
+/// ```dart
+/// ArcaneButton.primary(label: 'Save')
+/// ArcaneButton.secondary(label: 'Cancel')
+/// ArcaneButton.outline(label: 'Edit')
+/// ArcaneButton.ghost(label: 'More')
+/// ArcaneButton.destructive(label: 'Delete')
+/// ArcaneButton.link(label: 'Learn more')
+/// ```
+///
+/// ## With Icons
+///
+/// ```dart
+/// ArcaneButton(
+///   label: 'Download',
+///   icon: Icon(LucideIcons.download),
+///   onPressed: () {},
 /// )
 /// ```
 class ArcaneButton extends StatelessComponent {
@@ -58,12 +58,8 @@ class ArcaneButton extends StatelessComponent {
   /// Click handler
   final void Function()? onPressed;
 
-  /// Style preset (preferred over variant)
-  final ButtonStyle? style;
-
-  /// Button variant (legacy - use style instead)
-  @Deprecated('Use style parameter with ButtonStyle presets instead')
-  final ButtonVariant? variant;
+  /// Button style variant
+  final ButtonVariant variant;
 
   /// Button size
   final ButtonSize size;
@@ -77,27 +73,6 @@ class ArcaneButton extends StatelessComponent {
   /// Whether to expand to full width
   final bool fullWidth;
 
-  /// Padding preset (overrides default for size)
-  final PaddingPreset? padding;
-
-  /// Background override
-  final Background? background;
-
-  /// Border preset override
-  final BorderPreset? border;
-
-  /// Border radius override
-  final Radius? borderRadius;
-
-  /// Text color override
-  final TextColor? textColor;
-
-  /// Shadow preset
-  final Shadow? shadow;
-
-  /// Additional ArcaneStyleData for full customization
-  final ArcaneStyleData? customStyle;
-
   /// Custom HTML attributes (e.g., data-* attributes)
   final Map<String, String>? attributes;
 
@@ -110,19 +85,11 @@ class ArcaneButton extends StatelessComponent {
     this.icon,
     this.trailing,
     this.onPressed,
-    this.style,
-    @Deprecated('Use style parameter instead') this.variant,
+    this.variant = ButtonVariant.primary,
     this.size = ButtonSize.medium,
     this.disabled = false,
     this.loading = false,
     this.fullWidth = false,
-    this.padding,
-    this.background,
-    this.border,
-    this.borderRadius,
-    this.textColor,
-    this.shadow,
-    this.customStyle,
     this.attributes,
     this.id,
     super.key,
@@ -139,18 +106,10 @@ class ArcaneButton extends StatelessComponent {
     this.disabled = false,
     this.loading = false,
     this.fullWidth = false,
-    this.padding,
-    this.background,
-    this.border,
-    this.borderRadius,
-    this.textColor,
-    this.shadow,
-    this.customStyle,
     this.attributes,
     this.id,
     super.key,
-  })  : style = ButtonStyle.primary,
-        variant = null;
+  }) : variant = ButtonVariant.primary;
 
   /// Secondary button constructor
   const ArcaneButton.secondary({
@@ -163,18 +122,10 @@ class ArcaneButton extends StatelessComponent {
     this.disabled = false,
     this.loading = false,
     this.fullWidth = false,
-    this.padding,
-    this.background,
-    this.border,
-    this.borderRadius,
-    this.textColor,
-    this.shadow,
-    this.customStyle,
     this.attributes,
     this.id,
     super.key,
-  })  : style = ButtonStyle.secondary,
-        variant = null;
+  }) : variant = ButtonVariant.secondary;
 
   /// Outline button constructor
   const ArcaneButton.outline({
@@ -187,18 +138,10 @@ class ArcaneButton extends StatelessComponent {
     this.disabled = false,
     this.loading = false,
     this.fullWidth = false,
-    this.padding,
-    this.background,
-    this.border,
-    this.borderRadius,
-    this.textColor,
-    this.shadow,
-    this.customStyle,
     this.attributes,
     this.id,
     super.key,
-  })  : style = ButtonStyle.outline,
-        variant = null;
+  }) : variant = ButtonVariant.outline;
 
   /// Ghost button constructor
   const ArcaneButton.ghost({
@@ -211,18 +154,10 @@ class ArcaneButton extends StatelessComponent {
     this.disabled = false,
     this.loading = false,
     this.fullWidth = false,
-    this.padding,
-    this.background,
-    this.border,
-    this.borderRadius,
-    this.textColor,
-    this.shadow,
-    this.customStyle,
     this.attributes,
     this.id,
     super.key,
-  })  : style = ButtonStyle.ghost,
-        variant = null;
+  }) : variant = ButtonVariant.ghost;
 
   /// Destructive button constructor
   const ArcaneButton.destructive({
@@ -235,18 +170,10 @@ class ArcaneButton extends StatelessComponent {
     this.disabled = false,
     this.loading = false,
     this.fullWidth = false,
-    this.padding,
-    this.background,
-    this.border,
-    this.borderRadius,
-    this.textColor,
-    this.shadow,
-    this.customStyle,
     this.attributes,
     this.id,
     super.key,
-  })  : style = ButtonStyle.destructive,
-        variant = null;
+  }) : variant = ButtonVariant.destructive;
 
   /// Warning button constructor
   const ArcaneButton.warning({
@@ -259,18 +186,10 @@ class ArcaneButton extends StatelessComponent {
     this.disabled = false,
     this.loading = false,
     this.fullWidth = false,
-    this.padding,
-    this.background,
-    this.border,
-    this.borderRadius,
-    this.textColor,
-    this.shadow,
-    this.customStyle,
     this.attributes,
     this.id,
     super.key,
-  })  : style = ButtonStyle.warning,
-        variant = null;
+  }) : variant = ButtonVariant.warning;
 
   /// Success button constructor
   const ArcaneButton.success({
@@ -283,18 +202,10 @@ class ArcaneButton extends StatelessComponent {
     this.disabled = false,
     this.loading = false,
     this.fullWidth = false,
-    this.padding,
-    this.background,
-    this.border,
-    this.borderRadius,
-    this.textColor,
-    this.shadow,
-    this.customStyle,
     this.attributes,
     this.id,
     super.key,
-  })  : style = ButtonStyle.success,
-        variant = null;
+  }) : variant = ButtonVariant.success;
 
   /// Link button constructor
   const ArcaneButton.link({
@@ -307,143 +218,43 @@ class ArcaneButton extends StatelessComponent {
     this.disabled = false,
     this.loading = false,
     this.fullWidth = false,
-    this.padding,
-    this.background,
-    this.border,
-    this.borderRadius,
-    this.textColor,
-    this.shadow,
-    this.customStyle,
     this.attributes,
     this.id,
     super.key,
-  })  : style = ButtonStyle.link,
-        variant = null;
+  }) : variant = ButtonVariant.link;
 
-  /// Convert legacy variant to style preset
-  ButtonStyle _variantToStyle(ButtonVariant v) {
-    return switch (v) {
-      ButtonVariant.primary => ButtonStyle.primary,
-      ButtonVariant.secondary => ButtonStyle.secondary,
-      ButtonVariant.outline => ButtonStyle.outline,
-      ButtonVariant.ghost => ButtonStyle.ghost,
-      ButtonVariant.destructive => ButtonStyle.destructive,
-      ButtonVariant.success => ButtonStyle.success,
-      ButtonVariant.warning => ButtonStyle.warning,
-      ButtonVariant.link => ButtonStyle.link,
-    };
-  }
+  /// Info button constructor
+  const ArcaneButton.info({
+    this.label,
+    this.child,
+    this.icon,
+    this.trailing,
+    this.onPressed,
+    this.size = ButtonSize.medium,
+    this.disabled = false,
+    this.loading = false,
+    this.fullWidth = false,
+    this.attributes,
+    this.id,
+    super.key,
+  }) : variant = ButtonVariant.info;
 
   @override
   Component build(BuildContext context) {
-    final isDisabled = disabled || loading;
-
-    // Resolve effective style (prefer style, fall back to variant, default to primary)
-    final effectiveStyle = style ??
-        (variant != null ? _variantToStyle(variant!) : ButtonStyle.primary);
-
-    // Get size-specific values using tokens
-    final sizeStyle = switch (size) {
-      ButtonSize.small => ButtonSizeStyle.sm,
-      ButtonSize.medium => ButtonSizeStyle.md,
-      ButtonSize.large => ButtonSizeStyle.lg,
-    };
-
-    // Check if this is a link style
-    final isLink = effectiveStyle == ButtonStyle.link;
-
-    // Build the complete style map using tokens
-    final Map<String, String> buttonStyles = {
-      // Layout
-      'display': 'inline-flex',
-      'align-items': 'center',
-      'justify-content': 'center',
-
-      // Size
-      ...sizeStyle.styles,
-
-      // Typography
-      'font-weight': ArcaneTypography.weightMedium,
-      'letter-spacing': ArcaneTypography.letterSpacingTight,
-      'line-height': ArcaneTypography.lineHeightNormal,
-
-      // Appearance from style preset
-      ...effectiveStyle.base,
-
-      // Border radius
-      'border-radius': ArcaneRadius.md,
-
-      // Interaction
-      'cursor': isDisabled ? 'not-allowed' : 'pointer',
-      'opacity': isDisabled ? '0.5' : '1',
-      'transition': ArcaneEffects.transitionFast,
-      'white-space': 'nowrap',
-      'user-select': 'none',
-      '-webkit-user-select': 'none',
-
-      // Conditional styles
-      if (fullWidth) 'width': '100%',
-
-      // Link-specific overrides
-      if (isLink) 'padding': '0',
-      if (isLink) 'min-height': 'auto',
-      if (isLink) 'border-radius': '0',
-    };
-
-    // Apply enum-based overrides (these take precedence)
-    if (padding != null) buttonStyles['padding'] = padding!.css;
-    if (background != null) buttonStyles['background-color'] = background!.css;
-    if (border != null) buttonStyles['border'] = border!.css;
-    if (borderRadius != null) buttonStyles['border-radius'] = borderRadius!.css;
-    if (textColor != null) buttonStyles['color'] = textColor!.css;
-    if (shadow != null) buttonStyles['box-shadow'] = shadow!.css;
-
-    // Apply full custom style if provided (highest precedence)
-    if (customStyle != null) {
-      buttonStyles.addAll(customStyle!.toMap());
-    }
-
-    return button(
+    // Delegate to the current stylesheet's button renderer
+    return context.renderers.button(ButtonProps(
+      label: label,
+      child: child,
+      icon: icon,
+      trailing: trailing,
+      onPressed: onPressed,
+      variant: variant,
+      size: size,
+      disabled: disabled,
+      loading: loading,
+      fullWidth: fullWidth,
       id: id,
-      classes: 'arcane-button ${isDisabled ? 'disabled' : ''}',
-      attributes: {
-        if (isDisabled) 'disabled': 'true',
-        'type': 'button',
-        ...?attributes,
-      },
-      styles: Styles(raw: buttonStyles),
-      events: {
-        'click': (event) {
-          if (!isDisabled && onPressed != null) {
-            onPressed!();
-          }
-        },
-      },
-      [
-        if (loading)
-          _buildSpinner()
-        else if (icon != null)
-          icon!,
-        if (label != null) text(label!),
-        if (child != null) child!,
-        if (trailing != null && !loading) trailing!,
-      ],
-    );
-  }
-
-  Component _buildSpinner() {
-    return const span(
-      classes: 'arcane-button-spinner',
-      styles: Styles(raw: {
-        'display': 'inline-block',
-        'width': '16px',
-        'height': '16px',
-        'border': '2px solid currentColor',
-        'border-right-color': ArcaneColors.transparent,
-        'border-radius': ArcaneRadius.full,
-        'animation': 'arcane-spin 0.75s linear infinite',
-      }),
-      [],
-    );
+      attributes: attributes,
+    ));
   }
 }

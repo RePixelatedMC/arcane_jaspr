@@ -1,10 +1,8 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/tokens/tokens.dart';
-
-/// Alert/banner variants
-enum AlertVariant {
+/// Alert/banner variants for ArcaneAlertBanner
+enum AlertBannerVariant {
   info,
   success,
   warning,
@@ -21,7 +19,7 @@ class ArcaneAlertBanner extends StatelessComponent {
   final String? title;
 
   /// Alert variant
-  final AlertVariant variant;
+  final AlertBannerVariant variant;
 
   /// Optional icon
   final Component? icon;
@@ -103,61 +101,61 @@ class ArcaneAlertBanner extends StatelessComponent {
     final (String bgColor, String borderColor, String textColor, String iconColor) = switch (variant) {
       AlertVariant.info => filled
           ? (
-              ArcaneColors.info,
-              ArcaneColors.info,
-              ArcaneColors.infoForeground,
-              ArcaneColors.infoForeground,
+              'hsl(199 89% 48%)',
+              'hsl(199 89% 48%)',
+              'white',
+              'white',
             )
           : (
-              ArcaneColors.transparent,
-              ArcaneColors.info,
-              ArcaneColors.onSurface,
-              ArcaneColors.info,
+              'transparent',
+              'hsl(199 89% 48%)',
+              'var(--foreground)',
+              'hsl(199 89% 48%)',
             ),
       AlertVariant.success => filled
           ? (
-              ArcaneColors.success,
-              ArcaneColors.success,
-              ArcaneColors.successForeground,
-              ArcaneColors.successForeground,
+              'hsl(142 76% 36%)',
+              'hsl(142 76% 36%)',
+              'white',
+              'white',
             )
           : (
-              ArcaneColors.transparent,
-              ArcaneColors.success,
-              ArcaneColors.onSurface,
-              ArcaneColors.success,
+              'transparent',
+              'hsl(142 76% 36%)',
+              'var(--foreground)',
+              'hsl(142 76% 36%)',
             ),
       AlertVariant.warning => filled
           ? (
-              ArcaneColors.warning,
-              ArcaneColors.warning,
-              ArcaneColors.warningForeground,
-              ArcaneColors.warningForeground,
+              'hsl(38 92% 50%)',
+              'hsl(38 92% 50%)',
+              'black',
+              'black',
             )
           : (
-              ArcaneColors.transparent,
-              ArcaneColors.warning,
-              ArcaneColors.onSurface,
-              ArcaneColors.warning,
+              'transparent',
+              'hsl(38 92% 50%)',
+              'var(--foreground)',
+              'hsl(38 92% 50%)',
             ),
       AlertVariant.error => filled
           ? (
-              ArcaneColors.error,
-              ArcaneColors.error,
-              ArcaneColors.errorForeground,
-              ArcaneColors.errorForeground,
+              'var(--destructive)',
+              'var(--destructive)',
+              'white',
+              'white',
             )
           : (
-              ArcaneColors.transparent,
-              ArcaneColors.error,
-              ArcaneColors.onSurface,
-              ArcaneColors.error,
+              'transparent',
+              'var(--destructive)',
+              'var(--foreground)',
+              'var(--destructive)',
             ),
       AlertVariant.neutral => (
-          ArcaneColors.surfaceVariant,
-          ArcaneColors.border,
-          ArcaneColors.onSurface,
-          ArcaneColors.mutedForeground,
+          'var(--muted)',
+          'var(--border)',
+          'var(--foreground)',
+          'var(--muted-foreground)',
         ),
     };
 
@@ -174,11 +172,11 @@ class ArcaneAlertBanner extends StatelessComponent {
       styles: Styles(raw: {
         'display': 'flex',
         'align-items': 'flex-start',
-        'gap': ArcaneSpacing.md,
-        'padding': ArcaneSpacing.lg,
+        'gap': '1rem',
+        'padding': '1.5rem',
         'background-color': bgColor,
         'border': '1px solid $borderColor',
-        'border-radius': ArcaneRadius.md,
+        'border-radius': '0.375rem',
         'color': textColor,
       }),
       [
@@ -205,17 +203,17 @@ class ArcaneAlertBanner extends StatelessComponent {
               div(
                 classes: 'arcane-alert-title',
                 styles: const Styles(raw: {
-                  'font-weight': ArcaneTypography.weightSemibold,
-                  'font-size': ArcaneTypography.fontBase,
-                  'margin-bottom': ArcaneSpacing.xs,
+                  'font-weight': '600',
+                  'font-size': '1rem',
+                  'margin-bottom': '0.25rem',
                 }),
                 [text(title!)],
               ),
             div(
               classes: 'arcane-alert-message',
               styles: const Styles(raw: {
-                'font-size': ArcaneTypography.fontSm,
-                'line-height': ArcaneTypography.lineHeightRelaxed,
+                'font-size': '0.875rem',
+                'line-height': '1.625',
               }),
               [text(message)],
             ),
@@ -235,7 +233,7 @@ class ArcaneAlertBanner extends StatelessComponent {
             },
             styles: const Styles(raw: {
               'flex-shrink': '0',
-              'padding': ArcaneSpacing.xs,
+              'padding': '0.25rem',
               'background': 'none',
               'border': 'none',
               'color': 'inherit',
@@ -243,7 +241,7 @@ class ArcaneAlertBanner extends StatelessComponent {
               'cursor': 'pointer',
               'font-size': '1rem',
               'line-height': '1',
-              'transition': ArcaneEffects.transitionFast,
+              'transition': 'all 150ms ease',
             }),
             events: {
               'click': (e) => onDismiss?.call(),
@@ -288,7 +286,7 @@ class ArcaneProgressBar extends StatelessComponent {
       styles: const Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
-        'gap': ArcaneSpacing.md,
+        'gap': '1rem',
       }),
       [
         div(
@@ -296,8 +294,8 @@ class ArcaneProgressBar extends StatelessComponent {
           styles: Styles(raw: {
             'flex': '1',
             'height': '${height}px',
-            'background-color': ArcaneColors.surfaceVariant,
-            'border-radius': ArcaneRadius.full,
+            'background-color': 'var(--muted)',
+            'border-radius': '9999px',
             'overflow': 'hidden',
           }),
           [
@@ -306,11 +304,11 @@ class ArcaneProgressBar extends StatelessComponent {
               styles: Styles(raw: {
                 'height': '100%',
                 'width': indeterminate ? '50%' : '${value.clamp(0, 100)}%',
-                'background-color': color ?? ArcaneColors.accent,
-                'border-radius': ArcaneRadius.full,
+                'background-color': color ?? 'var(--accent)',
+                'border-radius': '9999px',
                 'transition': indeterminate
                     ? 'none'
-                    : ArcaneEffects.transition,
+                    : 'all 200ms ease',
                 if (indeterminate) 'animation': 'arcane-progress-indeterminate 1.5s ease-in-out infinite',
               }),
               [],
@@ -321,9 +319,9 @@ class ArcaneProgressBar extends StatelessComponent {
           span(
             classes: 'arcane-progress-label',
             styles: const Styles(raw: {
-              'font-size': ArcaneTypography.fontXs,
-              'font-weight': ArcaneTypography.weightMedium,
-              'color': ArcaneColors.mutedForeground,
+              'font-size': '0.75rem',
+              'font-weight': '500',
+              'color': 'var(--muted-foreground)',
               'min-width': '40px',
               'text-align': 'right',
             }),
@@ -367,7 +365,7 @@ class ArcaneLoader extends StatelessComponent {
       styles: const Styles(raw: {
         'display': 'inline-flex',
         'align-items': 'center',
-        'gap': ArcaneSpacing.md,
+        'gap': '1rem',
       }),
       [
         div(
@@ -375,9 +373,9 @@ class ArcaneLoader extends StatelessComponent {
           styles: Styles(raw: {
             'width': '${size}px',
             'height': '${size}px',
-            'border': '2px solid ${ArcaneColors.border}',
-            'border-top-color': color ?? ArcaneColors.accent,
-            'border-radius': ArcaneRadius.full,
+            'border': '2px solid var(--border)',
+            'border-top-color': color ?? 'var(--accent)',
+            'border-radius': '9999px',
             'animation': 'arcane-spin 0.8s linear infinite',
           }),
           [],
@@ -386,8 +384,8 @@ class ArcaneLoader extends StatelessComponent {
           span(
             classes: 'arcane-loader-text',
             styles: const Styles(raw: {
-              'font-size': ArcaneTypography.fontSm,
-              'color': ArcaneColors.mutedForeground,
+              'font-size': '0.875rem',
+              'color': 'var(--muted-foreground)',
             }),
             [text(label!)],
           ),

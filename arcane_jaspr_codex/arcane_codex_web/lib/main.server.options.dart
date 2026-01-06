@@ -28,6 +28,7 @@ import 'package:arcane_jaspr/component/form/field_wrapper.dart'
 import 'package:arcane_jaspr/component/form/newsletter_form.dart'
     as _newsletter_form;
 import 'package:arcane_jaspr/component/input/calendar.dart' as _calendar;
+import 'package:arcane_jaspr/component/input/checkbox.dart' as _checkbox;
 import 'package:arcane_jaspr/component/input/combobox.dart' as _combobox;
 import 'package:arcane_jaspr/component/input/date_picker.dart' as _date_picker;
 import 'package:arcane_jaspr/component/input/formatted_input.dart'
@@ -38,6 +39,8 @@ import 'package:arcane_jaspr/component/input/otp_input.dart' as _otp_input;
 import 'package:arcane_jaspr/component/input/radio_group.dart' as _radio_group;
 import 'package:arcane_jaspr/component/input/text_input.dart' as _text_input;
 import 'package:arcane_jaspr/component/input/time_picker.dart' as _time_picker;
+import 'package:arcane_jaspr/component/input/toggle_group.dart'
+    as _toggle_group;
 import 'package:arcane_jaspr/component/interactive/accordion.dart'
     as _accordion;
 import 'package:arcane_jaspr/component/interactive/back_to_top.dart'
@@ -53,6 +56,8 @@ import 'package:arcane_jaspr/component/layout/scroll_area.dart' as _scroll_area;
 import 'package:arcane_jaspr/component/layout/sheet.dart' as _sheet;
 import 'package:arcane_jaspr/component/navigation/bottom_navigation_bar.dart'
     as _bottom_navigation_bar;
+import 'package:arcane_jaspr/component/navigation/breadcrumbs.dart'
+    as _breadcrumbs;
 import 'package:arcane_jaspr/component/navigation/context_menu.dart'
     as _context_menu;
 import 'package:arcane_jaspr/component/navigation/dot_indicator.dart'
@@ -63,6 +68,8 @@ import 'package:arcane_jaspr/component/navigation/header.dart' as _header;
 import 'package:arcane_jaspr/component/navigation/menubar.dart' as _menubar;
 import 'package:arcane_jaspr/component/navigation/mobile_menu.dart'
     as _mobile_menu;
+import 'package:arcane_jaspr/component/navigation/pagination.dart'
+    as _pagination;
 import 'package:arcane_jaspr/component/navigation/sidebar.dart' as _sidebar;
 import 'package:arcane_jaspr/component/screen/chat_screen.dart' as _chat_screen;
 import 'package:arcane_jaspr/component/screen/navigation_screen.dart'
@@ -72,6 +79,7 @@ import 'package:arcane_jaspr/component/support/app.dart' as _app;
 import 'package:arcane_jaspr/component/view/usa_map/usa_map.dart' as _usa_map;
 import 'package:arcane_jaspr/component/view/world_map/world_map.dart'
     as _world_map;
+import 'package:arcane_jaspr/component/view/alert.dart' as _alert;
 import 'package:arcane_jaspr/component/view/arrow_link.dart' as _arrow_link;
 import 'package:arcane_jaspr/component/view/avatar.dart' as _avatar;
 import 'package:arcane_jaspr/component/view/bar.dart' as _bar;
@@ -144,6 +152,8 @@ ServerOptions get defaultServerOptions => ServerOptions(
     ..._field_wrapper.ArcaneForm.styles,
     ..._newsletter_form.ArcaneNewsletterForm.styles,
     ..._calendar.ArcaneCalendar.styles,
+    ..._checkbox.ArcaneCheckbox.styles,
+    ..._checkbox.ArcaneRadio.styles,
     ..._combobox.ArcaneCombobox.styles,
     ..._date_picker.ArcaneDatePicker.styles,
     ..._formatted_input.ArcaneFormattedInput.styles,
@@ -154,6 +164,7 @@ ServerOptions get defaultServerOptions => ServerOptions(
     ..._text_input.ArcaneTextArea.styles,
     ..._text_input.ArcaneTextInput.styles,
     ..._time_picker.ArcaneTimePicker.styles,
+    ..._toggle_group.ArcaneToggleGroup.styles,
     ..._accordion.ArcaneAccordion.styles,
     ..._back_to_top.ArcaneBackToTop.styles,
     ..._back_to_top.ArcaneFloatingActionButton.styles,
@@ -169,6 +180,7 @@ ServerOptions get defaultServerOptions => ServerOptions(
     ..._sheet.ArcaneActionSheet.actionSheetStyles,
     ..._sheet.ArcaneSheet.styles,
     ..._bottom_navigation_bar.ArcaneBottomNavigationBar.styles,
+    ..._breadcrumbs.ArcaneBreadcrumbs.styles,
     ..._context_menu.ArcaneContextMenu.styles,
     ..._dot_indicator.ArcaneDotIndicator.styles,
     ..._dot_indicator.ArcaneStepIndicator.styles,
@@ -178,6 +190,7 @@ ServerOptions get defaultServerOptions => ServerOptions(
     ..._header.ArcaneNavLink.styles,
     ..._menubar.ArcaneMenubar.styles,
     ..._mobile_menu.ArcaneMobileMenu.styles,
+    ..._pagination.ArcanePagination.styles,
     ..._sidebar.ArcaneSidebar.styles,
     ..._sidebar.ArcaneSidebarItem.styles,
     ..._chat_screen.ArcaneChatScreen.styles,
@@ -186,6 +199,7 @@ ServerOptions get defaultServerOptions => ServerOptions(
     ..._app.ArcaneApp.styles,
     ..._usa_map.ArcaneUSAMap.styles,
     ..._world_map.ArcaneWorldMap.styles,
+    ..._alert.ArcaneAlert.styles,
     ..._arrow_link.ArcaneArrowLink.styles,
     ..._avatar.ArcaneAvatarBadge.styles,
     ..._bar.ArcaneBar.styles,

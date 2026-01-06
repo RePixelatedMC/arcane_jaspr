@@ -104,7 +104,7 @@ class ArcaneUSAMap extends StatefulComponent {
     // Tooltip container
     css('.arcane-usa-map-tooltip').styles(raw: {
       'position': 'absolute',
-      'z-index': ArcaneZIndex.tooltip,
+      'z-index': '1070',
       'pointer-events': 'none',
       'opacity': '0',
       'visibility': 'hidden',
@@ -154,9 +154,9 @@ class _ArcaneUSAMapState extends State<ArcaneUSAMap> {
     final style = component.style;
 
     // Default colors using theme tokens
-    final stateFill = style.stateFill ?? ArcaneColors.surfaceVariant;
-    final stateStroke = style.stateStroke ?? ArcaneColors.border;
-    final backgroundFill = style.backgroundFill ?? ArcaneColors.background;
+    final stateFill = style.stateFill ?? 'var(--muted)';
+    final stateStroke = style.stateStroke ?? 'var(--border)';
+    final backgroundFill = style.backgroundFill ?? 'var(--background)';
 
     return Component.element(
       tag: 'div',
@@ -196,9 +196,9 @@ class _ArcaneUSAMapState extends State<ArcaneUSAMap> {
               // Using primary instead of accent for ShadCN compatibility
               String fill;
               if (isActive) {
-                fill = style.stateActiveFill ?? ArcaneColors.primary;
+                fill = style.stateActiveFill ?? 'var(--primary)';
               } else if (isHovered) {
-                fill = style.stateHoverFill ?? ArcaneColors.onSurfaceAlpha08;
+                fill = style.stateHoverFill ?? 'hsl(var(--foreground) / 0.08)';
               } else {
                 fill = stateFill;
               }
@@ -246,11 +246,11 @@ class _ArcaneUSAMapState extends State<ArcaneUSAMap> {
     // Using primary instead of accent for ShadCN compatibility
     final String pinColor;
     if (location.isActive) {
-      pinColor = style.pinActiveColor ?? ArcaneColors.success;
+      pinColor = style.pinActiveColor ?? 'var(--success)';
     } else if (isHovered) {
-      pinColor = style.pinHoverColor ?? ArcaneColors.ring;
+      pinColor = style.pinHoverColor ?? 'var(--ring)';
     } else {
-      pinColor = style.pinColor ?? ArcaneColors.primary;
+      pinColor = style.pinColor ?? 'var(--primary)';
     }
 
     final pinSize = style.pinSize;

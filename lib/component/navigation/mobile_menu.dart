@@ -1,8 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/tokens/tokens.dart';
-
 /// Mobile navigation item
 class ArcaneMobileNavItem {
   final String label;
@@ -56,19 +54,19 @@ class ArcaneMobileMenu extends StatefulComponent {
       '100%': 'opacity: 1; transform: translateX(0)',
     }),
     css('.arcane-mobile-menu-close:hover').styles(raw: {
-      'color': ArcaneColors.onSurface,
+      'color': 'var(--foreground)',
     }),
     css('.arcane-mobile-nav-button:hover').styles(raw: {
-      'background-color': ArcaneColors.surfaceVariant,
+      'background-color': 'var(--muted)',
     }),
     css('.arcane-mobile-nav-link:hover').styles(raw: {
-      'background-color': ArcaneColors.surfaceVariant,
+      'background-color': 'var(--muted)',
     }),
     css('.arcane-mobile-nav-children a:hover').styles(raw: {
-      'color': ArcaneColors.onSurface,
+      'color': 'var(--foreground)',
     }),
     css('.arcane-mobile-nav-children button:hover').styles(raw: {
-      'color': ArcaneColors.onSurface,
+      'color': 'var(--foreground)',
     }),
   ];
 }
@@ -100,7 +98,7 @@ class _ArcaneMobileMenuState extends State<ArcaneMobileMenu> {
         'z-index': '1000',
         'display': 'flex',
         'flex-direction': 'column',
-        'background-color': ArcaneColors.surface,
+        'background-color': 'var(--card)',
         'animation': 'arcane-mobile-menu-slide 0.2s ease-out',
       }),
       [
@@ -111,8 +109,8 @@ class _ArcaneMobileMenuState extends State<ArcaneMobileMenu> {
             'display': 'flex',
             'align-items': 'center',
             'justify-content': 'space-between',
-            'padding': '${ArcaneSpacing.md} 20px',
-            'border-bottom': '1px solid ${ArcaneColors.border}',
+            'padding': '1rem 20px',
+            'border-bottom': '1px solid var(--border)',
           }),
           [
             if (component.logo != null) component.logo! else const div([]),
@@ -129,16 +127,16 @@ class _ArcaneMobileMenuState extends State<ArcaneMobileMenu> {
                 'width': '40px',
                 'height': '40px',
                 'font-size': '1.5rem',
-                'color': ArcaneColors.mutedForeground,
+                'color': 'var(--muted-foreground)',
                 'background': 'none',
                 'border': 'none',
                 'cursor': 'pointer',
-                'transition': ArcaneEffects.transitionFast,
+                'transition': 'all 150ms ease',
               }),
               events: {
                 'click': (e) => component.onClose?.call(),
               },
-              [text('×')],
+              [text('\u00d7')],
             ),
           ],
         ),
@@ -149,7 +147,7 @@ class _ArcaneMobileMenuState extends State<ArcaneMobileMenu> {
           styles: const Styles(raw: {
             'flex': '1',
             'overflow-y': 'auto',
-            'padding': '${ArcaneSpacing.md} 0',
+            'padding': '1rem 0',
           }),
           [
             for (var i = 0; i < component.items.length; i++)
@@ -163,7 +161,7 @@ class _ArcaneMobileMenuState extends State<ArcaneMobileMenu> {
             classes: 'arcane-mobile-menu-footer',
             styles: const Styles(raw: {
               'padding': '20px',
-              'border-top': '1px solid ${ArcaneColors.border}',
+              'border-top': '1px solid var(--border)',
             }),
             [component.cta!],
           ),
@@ -189,14 +187,14 @@ class _ArcaneMobileMenuState extends State<ArcaneMobileMenu> {
               'justify-content': 'space-between',
               'width': '100%',
               'padding': '14px 20px',
-              'font-size': ArcaneTypography.fontMd,
-              'font-weight': ArcaneTypography.weightMedium,
-              'color': ArcaneColors.onSurface,
+              'font-size': '1rem',
+              'font-weight': '500',
+              'color': 'var(--foreground)',
               'background': 'none',
               'border': 'none',
               'cursor': 'pointer',
               'text-align': 'left',
-              'transition': ArcaneEffects.transitionFast,
+              'transition': 'all 150ms ease',
             }),
             events: {
               'click': (e) => _toggleExpand(index),
@@ -206,7 +204,7 @@ class _ArcaneMobileMenuState extends State<ArcaneMobileMenu> {
                 styles: const Styles(raw: {
                   'display': 'flex',
                   'align-items': 'center',
-                  'gap': ArcaneSpacing.sm,
+                  'gap': '0.5rem',
                 }),
                 [
                   if (item.icon != null) item.icon!,
@@ -214,12 +212,12 @@ class _ArcaneMobileMenuState extends State<ArcaneMobileMenu> {
                 ],
               ),
               span(
-                [text('▼')],
+                [text('\u25bc')],
                 styles: Styles(raw: {
-                  'font-size': ArcaneTypography.fontXs,
-                  'color': ArcaneColors.mutedForeground,
+                  'font-size': '0.75rem',
+                  'color': 'var(--muted-foreground)',
                   'transform': isExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
-                  'transition': ArcaneEffects.transitionFast,
+                  'transition': 'all 150ms ease',
                 }),
               ),
             ],
@@ -231,13 +229,13 @@ class _ArcaneMobileMenuState extends State<ArcaneMobileMenu> {
             styles: const Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
-              'gap': ArcaneSpacing.sm,
+              'gap': '0.5rem',
               'padding': '14px 20px',
-              'font-size': ArcaneTypography.fontMd,
-              'font-weight': ArcaneTypography.weightMedium,
-              'color': ArcaneColors.onSurface,
+              'font-size': '1rem',
+              'font-weight': '500',
+              'color': 'var(--foreground)',
               'text-decoration': 'none',
-              'transition': ArcaneEffects.transitionFast,
+              'transition': 'all 150ms ease',
             }),
             [
               if (item.icon != null) item.icon!,
@@ -251,17 +249,17 @@ class _ArcaneMobileMenuState extends State<ArcaneMobileMenu> {
             styles: const Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
-              'gap': ArcaneSpacing.sm,
+              'gap': '0.5rem',
               'width': '100%',
               'padding': '14px 20px',
-              'font-size': ArcaneTypography.fontMd,
-              'font-weight': ArcaneTypography.weightMedium,
-              'color': ArcaneColors.onSurface,
+              'font-size': '1rem',
+              'font-weight': '500',
+              'color': 'var(--foreground)',
               'background': 'none',
               'border': 'none',
               'cursor': 'pointer',
               'text-align': 'left',
-              'transition': ArcaneEffects.transitionFast,
+              'transition': 'all 150ms ease',
             }),
             events: {
               if (item.onTap != null) 'click': (e) => item.onTap!(),
@@ -277,8 +275,8 @@ class _ArcaneMobileMenuState extends State<ArcaneMobileMenu> {
           div(
             classes: 'arcane-mobile-nav-children',
             styles: const Styles(raw: {
-              'background-color': ArcaneColors.surfaceVariant,
-              'padding': '${ArcaneSpacing.sm} 0',
+              'background-color': 'var(--muted)',
+              'padding': '0.5rem 0',
             }),
             [
               for (final child in item.children!)
@@ -288,12 +286,12 @@ class _ArcaneMobileMenuState extends State<ArcaneMobileMenu> {
                     styles: const Styles(raw: {
                       'display': 'flex',
                       'align-items': 'center',
-                      'gap': ArcaneSpacing.sm,
-                      'padding': '${ArcaneSpacing.sm} 20px ${ArcaneSpacing.sm} 44px',
-                      'font-size': ArcaneTypography.fontSm,
-                      'color': ArcaneColors.mutedForeground,
+                      'gap': '0.5rem',
+                      'padding': '0.5rem 20px 0.5rem 44px',
+                      'font-size': '0.875rem',
+                      'color': 'var(--muted-foreground)',
                       'text-decoration': 'none',
-                      'transition': ArcaneEffects.transitionFast,
+                      'transition': 'all 150ms ease',
                     }),
                     [
                       if (child.icon != null) child.icon!,
@@ -306,16 +304,16 @@ class _ArcaneMobileMenuState extends State<ArcaneMobileMenu> {
                     styles: const Styles(raw: {
                       'display': 'flex',
                       'align-items': 'center',
-                      'gap': ArcaneSpacing.sm,
+                      'gap': '0.5rem',
                       'width': '100%',
-                      'padding': '${ArcaneSpacing.sm} 20px ${ArcaneSpacing.sm} 44px',
-                      'font-size': ArcaneTypography.fontSm,
-                      'color': ArcaneColors.mutedForeground,
+                      'padding': '0.5rem 20px 0.5rem 44px',
+                      'font-size': '0.875rem',
+                      'color': 'var(--muted-foreground)',
                       'background': 'none',
                       'border': 'none',
                       'cursor': 'pointer',
                       'text-align': 'left',
-                      'transition': ArcaneEffects.transitionFast,
+                      'transition': 'all 150ms ease',
                     }),
                     events: {
                       if (child.onTap != null) 'click': (e) => child.onTap!(),
@@ -367,7 +365,7 @@ class ArcaneHamburgerButton extends StatelessComponent {
         'gap': '5px',
         'width': '${size + 16}px',
         'height': '${size + 16}px',
-        'padding': ArcaneSpacing.sm,
+        'padding': '0.5rem',
         'background': 'none',
         'border': 'none',
         'cursor': 'pointer',
@@ -383,9 +381,9 @@ class ArcaneHamburgerButton extends StatelessComponent {
             'display': 'block',
             'width': '${size}px',
             'height': '2px',
-            'background-color': ArcaneColors.onSurface,
+            'background-color': 'var(--foreground)',
             'border-radius': '1px',
-            'transition': ArcaneEffects.transitionFast,
+            'transition': 'all 150ms ease',
             if (isOpen) 'transform': 'translateY(7px) rotate(45deg)',
           }),
         ),
@@ -396,9 +394,9 @@ class ArcaneHamburgerButton extends StatelessComponent {
             'display': 'block',
             'width': '${size}px',
             'height': '2px',
-            'background-color': ArcaneColors.onSurface,
+            'background-color': 'var(--foreground)',
             'border-radius': '1px',
-            'transition': ArcaneEffects.transitionFast,
+            'transition': 'all 150ms ease',
             if (isOpen) 'opacity': '0',
           }),
         ),
@@ -409,9 +407,9 @@ class ArcaneHamburgerButton extends StatelessComponent {
             'display': 'block',
             'width': '${size}px',
             'height': '2px',
-            'background-color': ArcaneColors.onSurface,
+            'background-color': 'var(--foreground)',
             'border-radius': '1px',
-            'transition': ArcaneEffects.transitionFast,
+            'transition': 'all 150ms ease',
             if (isOpen) 'transform': 'translateY(-7px) rotate(-45deg)',
           }),
         ),

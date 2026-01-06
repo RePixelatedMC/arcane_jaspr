@@ -1,8 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/tokens/tokens.dart';
-
 /// A back to top button (Supabase-style)
 class ArcaneBackToTop extends StatelessComponent {
   /// Whether the button is visible
@@ -51,12 +49,12 @@ class ArcaneBackToTop extends StatelessComponent {
         'justify-content': 'center',
         'width': '${size}px',
         'height': '${size}px',
-        'background-color': ArcaneColors.surface,
-        'border': '1px solid ${ArcaneColors.border}',
-        'border-radius': ArcaneRadius.full,
-        'box-shadow': ArcaneEffects.shadowLg,
+        'background-color': 'var(--card)',
+        'border': '1px solid var(--border)',
+        'border-radius': '9999px',
+        'box-shadow': '0 10px 15px -3px hsl(0 0% 0% / 0.1), 0 4px 6px -4px hsl(0 0% 0% / 0.1)',
         'cursor': 'pointer',
-        'transition': ArcaneEffects.transitionFast,
+        'transition': 'all 150ms ease',
         'animation': 'arcane-back-to-top-fade 0.2s ease-out',
       }),
       events: {
@@ -66,11 +64,11 @@ class ArcaneBackToTop extends StatelessComponent {
         span(
           styles: const Styles(raw: {
             'font-size': '1.25rem',
-            'color': ArcaneColors.mutedForeground,
+            'color': 'var(--muted-foreground)',
             'transform': 'rotate(-90deg)',
-            'transition': ArcaneEffects.transitionFast,
+            'transition': 'all 150ms ease',
           }),
-          [text('→')],
+          [text('\u2192')],
         ),
       ],
     );
@@ -84,10 +82,10 @@ class ArcaneBackToTop extends StatelessComponent {
     }),
     css('.arcane-back-to-top:hover').styles(raw: {
       'transform': 'translateY(-4px)',
-      'box-shadow': ArcaneEffects.shadowXl,
+      'box-shadow': '0 20px 25px -5px hsl(0 0% 0% / 0.1), 0 8px 10px -6px hsl(0 0% 0% / 0.1)',
     }),
     css('.arcane-back-to-top:hover span').styles(raw: {
-      'color': ArcaneColors.accent,
+      'color': 'var(--accent)',
     }),
   ];
 }
@@ -125,7 +123,7 @@ class ArcaneScrollProgress extends StatelessComponent {
         'width': '100%',
         'height': '${height}px',
         'z-index': '1000',
-        'background-color': ArcaneColors.surfaceVariant,
+        'background-color': 'var(--muted)',
       }),
       [
         div(
@@ -133,7 +131,7 @@ class ArcaneScrollProgress extends StatelessComponent {
           styles: Styles(raw: {
             'height': '100%',
             'width': '${progress.clamp(0, 100)}%',
-            'background-color': color ?? ArcaneColors.accent,
+            'background-color': color ?? 'var(--accent)',
             'transition': 'width 0.1s ease-out',
           }),
           [],
@@ -190,17 +188,17 @@ class ArcaneFloatingActionButton extends StatelessComponent {
         'display': 'flex',
         'align-items': 'center',
         'justify-content': 'center',
-        'gap': ArcaneSpacing.sm,
+        'gap': '0.5rem',
         if (label == null) 'width': '${size}px',
         'height': '${size}px',
         if (label != null) 'padding': '0 20px',
-        'background-color': accent ? ArcaneColors.accent : ArcaneColors.surface,
-        'color': accent ? ArcaneColors.accentForeground : ArcaneColors.onSurface,
-        'border': accent ? 'none' : '1px solid ${ArcaneColors.border}',
-        'border-radius': ArcaneRadius.full,
-        'box-shadow': ArcaneEffects.shadowLg,
+        'background-color': accent ? 'var(--accent)' : 'var(--card)',
+        'color': accent ? 'var(--accent-foreground)' : 'var(--foreground)',
+        'border': accent ? 'none' : '1px solid var(--border)',
+        'border-radius': '9999px',
+        'box-shadow': '0 10px 15px -3px hsl(0 0% 0% / 0.1), 0 4px 6px -4px hsl(0 0% 0% / 0.1)',
         'cursor': 'pointer',
-        'transition': ArcaneEffects.transitionFast,
+        'transition': 'all 150ms ease',
       }),
       events: {
         if (onTap != null) 'click': (e) => onTap!(),
@@ -210,8 +208,8 @@ class ArcaneFloatingActionButton extends StatelessComponent {
         if (label != null)
           span(
             styles: const Styles(raw: {
-              'font-size': ArcaneTypography.fontSm,
-              'font-weight': ArcaneTypography.weightMedium,
+              'font-size': '0.875rem',
+              'font-weight': '500',
             }),
             [text(label!)],
           ),
@@ -223,7 +221,7 @@ class ArcaneFloatingActionButton extends StatelessComponent {
   static final List<StyleRule> styles = [
     css('.arcane-fab:hover').styles(raw: {
       'transform': 'scale(1.05)',
-      'box-shadow': ArcaneEffects.shadowXl,
+      'box-shadow': '0 20px 25px -5px hsl(0 0% 0% / 0.1), 0 8px 10px -6px hsl(0 0% 0% / 0.1)',
     }),
     css('.arcane-fab:active').styles(raw: {
       'transform': 'scale(0.98)',

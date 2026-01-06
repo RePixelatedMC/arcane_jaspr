@@ -2,7 +2,6 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
 import '../../util/arcane.dart';
-import '../../util/tokens/tokens.dart';
 
 /// A component that centers its content both horizontally and vertically.
 class ArcaneCenterBody extends StatelessComponent {
@@ -106,15 +105,15 @@ class ArcaneEmptyState extends StatelessComponent {
           'flex-direction': 'column',
           'align-items': 'center',
           'text-align': 'center',
-          'padding': '${ArcaneSpacing.massive} ${ArcaneSpacing.xl}',
-          'gap': ArcaneSpacing.lg,
+          'padding': '4rem 2rem',
+          'gap': '1.5rem',
         }),
         [
           if (icon != null)
             div(
               styles: const Styles(raw: {
-                'color': ArcaneColors.mutedForeground,
-                'font-size': ArcaneTypography.font4xl,
+                'color': 'var(--muted-foreground)',
+                'font-size': '2.5rem',
                 'opacity': '0.5',
               }),
               [icon!],
@@ -122,17 +121,17 @@ class ArcaneEmptyState extends StatelessComponent {
           if (title != null)
             div(
               styles: const Styles(raw: {
-                'font-size': ArcaneTypography.fontXl,
-                'font-weight': ArcaneTypography.weightSemibold,
-                'color': ArcaneColors.onSurface,
+                'font-size': '1.25rem',
+                'font-weight': '600',
+                'color': 'var(--foreground)',
               }),
               [text(title!)],
             ),
           if (message != null)
             div(
               styles: const Styles(raw: {
-                'font-size': ArcaneTypography.fontSm,
-                'color': ArcaneColors.mutedForeground,
+                'font-size': '0.875rem',
+                'color': 'var(--muted-foreground)',
                 'max-width': '400px',
               }),
               [text(message!)],
@@ -140,7 +139,7 @@ class ArcaneEmptyState extends StatelessComponent {
           if (action != null)
             div(
               styles: const Styles(raw: {
-                'margin-top': ArcaneSpacing.sm,
+                'margin-top': '0.5rem',
               }),
               [action!],
             ),
@@ -168,8 +167,8 @@ class ArcaneLoadingState extends StatelessComponent {
           'display': 'flex',
           'flex-direction': 'column',
           'align-items': 'center',
-          'gap': ArcaneSpacing.lg,
-          'padding': '${ArcaneSpacing.massive} ${ArcaneSpacing.xl}',
+          'gap': '1.5rem',
+          'padding': '4rem 2rem',
         }),
         [
           // Spinner
@@ -178,9 +177,9 @@ class ArcaneLoadingState extends StatelessComponent {
             styles: Styles(raw: {
               'width': '40px',
               'height': '40px',
-              'border': '3px solid ${ArcaneColors.border}',
-              'border-top-color': ArcaneColors.accent,
-              'border-radius': ArcaneRadius.full,
+              'border': '3px solid var(--border)',
+              'border-top-color': 'var(--accent)',
+              'border-radius': '9999px',
               'animation': 'arcane-spin 0.75s linear infinite',
             }),
             [],
@@ -188,8 +187,8 @@ class ArcaneLoadingState extends StatelessComponent {
           if (message != null)
             div(
               styles: const Styles(raw: {
-                'font-size': ArcaneTypography.fontSm,
-                'color': ArcaneColors.mutedForeground,
+                'font-size': '0.875rem',
+                'color': 'var(--muted-foreground)',
               }),
               [text(message!)],
             ),
@@ -230,32 +229,32 @@ class ArcaneErrorState extends StatelessComponent {
           'flex-direction': 'column',
           'align-items': 'center',
           'text-align': 'center',
-          'padding': '${ArcaneSpacing.massive} ${ArcaneSpacing.xl}',
-          'gap': ArcaneSpacing.lg,
+          'padding': '4rem 2rem',
+          'gap': '1.5rem',
         }),
         [
           // Error icon
           div(
             styles: const Styles(raw: {
-              'color': ArcaneColors.error,
-              'font-size': ArcaneTypography.font4xl,
+              'color': 'var(--destructive)',
+              'font-size': '2.5rem',
             }),
             [text('⚠')],
           ),
           if (title != null)
             div(
               styles: const Styles(raw: {
-                'font-size': ArcaneTypography.fontXl,
-                'font-weight': ArcaneTypography.weightSemibold,
-                'color': ArcaneColors.onSurface,
+                'font-size': '1.25rem',
+                'font-weight': '600',
+                'color': 'var(--foreground)',
               }),
               [text(title!)],
             ),
           if (message != null)
             div(
               styles: const Styles(raw: {
-                'font-size': ArcaneTypography.fontSm,
-                'color': ArcaneColors.mutedForeground,
+                'font-size': '0.875rem',
+                'color': 'var(--muted-foreground)',
                 'max-width': '400px',
               }),
               [text(message!)],
@@ -263,7 +262,7 @@ class ArcaneErrorState extends StatelessComponent {
           if (action != null)
             div(
               styles: const Styles(raw: {
-                'margin-top': ArcaneSpacing.sm,
+                'margin-top': '0.5rem',
               }),
               [action!],
             ),

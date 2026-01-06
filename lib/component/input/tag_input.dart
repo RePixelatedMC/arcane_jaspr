@@ -1,19 +1,13 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/tokens/tokens.dart';
+import '../../core/theme_provider.dart';
 
-/// Tag input style variants
-enum TagInputStyle {
-  /// Default style with border
-  outline,
+// Re-export props for backwards compatibility
+export '../../core/props/tag_input_props.dart'
+    show TagInputStyleVariant, TagInputProps;
 
-  /// Filled background style
-  filled,
-
-  /// Ghost/minimal style
-  ghost,
-}
+/// Tag input style variants (local alias)
+typedef TagInputStyle = TagInputStyleVariant;
 
 /// Tag/chip input component
 ///
@@ -107,177 +101,32 @@ class _ArcaneTagInputState extends State<ArcaneTagInput> {
     }
   }
 
+  TagInputStyleVariant get _propsStyle => switch (component.style) {
+        TagInputStyle.outline => TagInputStyleVariant.outline,
+        TagInputStyle.filled => TagInputStyleVariant.filled,
+        TagInputStyle.ghost => TagInputStyleVariant.ghost,
+      };
+
   @override
   Component build(BuildContext context) {
-    final hasError = component.errorText != null;
-
-    final containerStyles = switch (component.style) {
-      TagInputStyle.outline => {
-          'background': ArcaneColors.input,
-          'border': hasError
-              ? '1px solid ${ArcaneColors.error}'
-              : _isFocused
-                  ? '1px solid ${ArcaneColors.accent}'
-                  : '1px solid ${ArcaneColors.border}',
-        },
-      TagInputStyle.filled => {
-          'background': ArcaneColors.surfaceVariant,
-          'border': hasError
-              ? '1px solid ${ArcaneColors.error}'
-              : _isFocused
-                  ? '1px solid ${ArcaneColors.accent}'
-                  : '1px solid transparent',
-        },
-      TagInputStyle.ghost => {
-          'background': 'transparent',
-          'border': hasError
-              ? '1px solid ${ArcaneColors.error}'
-              : _isFocused
-                  ? '1px solid ${ArcaneColors.accent}'
-                  : '1px solid transparent',
-        },
-    };
-
-    return div(
-      styles: const Styles(raw: {
-        'display': 'flex',
-        'flex-direction': 'column',
-        'gap': ArcaneSpacing.sm,
-      }),
-      [
-        // Label
-        if (component.label != null)
-          label(
-            styles: const Styles(raw: {
-              'font-size': ArcaneTypography.fontSm,
-              'font-weight': ArcaneTypography.weightMedium,
-              'color': ArcaneColors.onSurface,
-            }),
-            [text(component.label!)],
-          ),
-
-        // Input container
-        div(
-          styles: Styles(raw: {
-            'display': 'flex',
-            'flex-wrap': 'wrap',
-            'align-items': 'center',
-            'gap': ArcaneSpacing.xs,
-            'padding': ArcaneSpacing.sm,
-            'border-radius': ArcaneRadius.md,
-            'min-height': '44px',
-            'transition': ArcaneEffects.transitionFast,
-            'cursor': component.disabled ? 'not-allowed' : 'text',
-            'opacity': component.disabled ? '0.5' : '1',
-            ...containerStyles,
-          }),
-          [
-            // Tags
-            for (var i = 0; i < component.tags.length; i++)
-              component.tagBuilder?.call(
-                    component.tags[i],
-                    () => _removeTag(i),
-                  ) ??
-                  _buildDefaultTag(component.tags[i], i),
-
-            // Input field
-            if (!component.disabled &&
-                (component.maxTags == null ||
-                    component.tags.length < component.maxTags!))
-              input(
-                type: InputType.text,
-                attributes: {
-                  'placeholder': component.tags.isEmpty ? component.placeholder : '',
-                  'value': _inputValue,
-                },
-                styles: const Styles(raw: {
-                  'flex': '1',
-                  'min-width': '80px',
-                  'border': 'none',
-                  'background': 'transparent',
-                  'outline': 'none',
-                  'font-size': ArcaneTypography.fontSm,
-                  'color': ArcaneColors.onSurface,
-                  'padding': '4px',
-                }),
-                events: {
-                  'focus': (_) => setState(() => _isFocused = true),
-                  'blur': (_) => setState(() => _isFocused = false),
-                  'input': (event) {
-                    final target = event.target;
-                    if (target != null) {
-                      setState(() => _inputValue = (target as dynamic).value ?? '');
-                    }
-                  },
-                  'keydown': (event) {
-                    final key = (event as dynamic).key;
-                    if (key == 'Enter') {
-                      event.preventDefault();
-                      _handleKeyDown('Enter');
-                    } else if (key == 'Backspace') {
-                      _handleKeyDown('Backspace');
-                    } else if (key == ',') {
-                      event.preventDefault();
-                      _handleKeyDown(',');
-                    }
-                  },
-                },
-              ),
-          ],
-        ),
-
-        // Helper/Error text
-        if (component.helperText != null || hasError)
-          span(
-            styles: Styles(raw: {
-              'font-size': ArcaneTypography.fontXs,
-              'color': hasError ? ArcaneColors.error : ArcaneColors.mutedForeground,
-            }),
-            [text(hasError ? component.errorText! : component.helperText!)],
-          ),
-      ],
-    );
-  }
-
-  Component _buildDefaultTag(String tag, int index) {
-    return span(
-      styles: const Styles(raw: {
-        'display': 'inline-flex',
-        'align-items': 'center',
-        'gap': ArcaneSpacing.xs,
-        'padding': '4px 8px',
-        'background': ArcaneColors.accent,
-        'color': ArcaneColors.accentForeground,
-        'border-radius': ArcaneRadius.full,
-        'font-size': ArcaneTypography.fontXs,
-        'font-weight': ArcaneTypography.weightMedium,
-      }),
-      [
-        text(tag),
-        if (!component.disabled)
-          button(
-            type: ButtonType.button,
-            styles: const Styles(raw: {
-              'display': 'inline-flex',
-              'align-items': 'center',
-              'justify-content': 'center',
-              'width': '16px',
-              'height': '16px',
-              'padding': '0',
-              'border': 'none',
-              'background': ArcaneColors.onSurfaceAlpha20,
-              'border-radius': ArcaneRadius.full,
-              'color': 'inherit',
-              'cursor': 'pointer',
-              'font-size': '12px',
-              'line-height': '1',
-            }),
-            events: {
-              'click': (_) => _removeTag(index),
-            },
-            [text('×')],
-          ),
-      ],
-    );
+    return context.renderers.tagInput(TagInputProps(
+      tags: component.tags,
+      onTagsChanged: component.onTagsChanged,
+      placeholder: component.placeholder,
+      style: _propsStyle,
+      maxTags: component.maxTags,
+      allowDuplicates: component.allowDuplicates,
+      disabled: component.disabled,
+      label: component.label,
+      helperText: component.helperText,
+      errorText: component.errorText,
+      inputValue: _inputValue,
+      isFocused: _isFocused,
+      onInputChange: (value) => setState(() => _inputValue = value),
+      onKeyDown: _handleKeyDown,
+      onRemoveTag: _removeTag,
+      onFocusChange: (focused) => setState(() => _isFocused = focused),
+      tagBuilder: component.tagBuilder,
+    ));
   }
 }

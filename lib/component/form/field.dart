@@ -1,7 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/tokens/tokens.dart';
 import 'provider.dart';
 
 /// Metadata class holding descriptive information for an [ArcaneField].
@@ -250,12 +249,12 @@ class _StringFieldBuilder extends StatelessComponent {
         },
         styles: const Styles(raw: {
           'width': '100%',
-          'padding': '10px ${ArcaneSpacing.md}',
-          'border': '1px solid ${ArcaneColors.border}',
-          'border-radius': ArcaneRadius.md,
-          'background-color': ArcaneColors.surface,
-          'color': ArcaneColors.onSurface,
-          'font-size': ArcaneTypography.fontSm,
+          'padding': '10px 1rem',
+          'border': '1px solid var(--border)',
+          'border-radius': '0.375rem',
+          'background-color': 'var(--card)',
+          'color': 'var(--foreground)',
+          'font-size': '0.875rem',
           'resize': 'vertical',
           'font-family': 'inherit',
           'outline': 'none',
@@ -281,12 +280,12 @@ class _StringFieldBuilder extends StatelessComponent {
       },
       styles: const Styles(raw: {
         'width': '100%',
-        'padding': '10px ${ArcaneSpacing.md}',
-        'border': '1px solid ${ArcaneColors.border}',
-        'border-radius': ArcaneRadius.md,
-        'background-color': ArcaneColors.surface,
-        'color': ArcaneColors.onSurface,
-        'font-size': ArcaneTypography.fontSm,
+        'padding': '10px 1rem',
+        'border': '1px solid var(--border)',
+        'border-radius': '0.375rem',
+        'background-color': 'var(--card)',
+        'color': 'var(--foreground)',
+        'font-size': '0.875rem',
         'outline': 'none',
       }),
       events: {
@@ -319,7 +318,7 @@ class _BoolFieldBuilder extends StatelessComponent {
       styles: const Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
-        'gap': ArcaneSpacing.sm,
+        'gap': '0.5rem',
         'cursor': 'pointer',
       }),
       [
@@ -331,7 +330,7 @@ class _BoolFieldBuilder extends StatelessComponent {
           styles: const Styles(raw: {
             'width': '18px',
             'height': '18px',
-            'accent-color': ArcaneColors.accent,
+            'accent-color': 'var(--accent)',
             'cursor': 'pointer',
           }),
           events: {
@@ -346,8 +345,8 @@ class _BoolFieldBuilder extends StatelessComponent {
         if (labelText != null)
           span(
             styles: const Styles(raw: {
-              'color': ArcaneColors.onSurface,
-              'font-size': ArcaneTypography.fontSm,
+              'color': 'var(--foreground)',
+              'font-size': '0.875rem',
             }),
             [Component.text(labelText!)],
           ),
@@ -376,12 +375,12 @@ class _SelectFieldBuilder<T> extends StatelessComponent {
       classes: 'arcane-field-select',
       styles: const Styles(raw: {
         'width': '100%',
-        'padding': '10px ${ArcaneSpacing.md}',
-        'border': '1px solid ${ArcaneColors.border}',
-        'border-radius': ArcaneRadius.md,
-        'background-color': ArcaneColors.surface,
-        'color': ArcaneColors.onSurface,
-        'font-size': ArcaneTypography.fontSm,
+        'padding': '10px 1rem',
+        'border': '1px solid var(--border)',
+        'border-radius': '0.375rem',
+        'background-color': 'var(--card)',
+        'color': 'var(--foreground)',
+        'font-size': '0.875rem',
         'outline': 'none',
         'cursor': 'pointer',
       }),
@@ -415,12 +414,12 @@ class ArcaneFieldStyles {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-field-textarea:focus, .arcane-field-input:focus').styles(raw: {
-      'border-color': ArcaneColors.accent,
-      'box-shadow': '0 0 0 2px ${ArcaneColors.accentContainer}',
+      'border-color': 'var(--accent)',
+      'box-shadow': '0 0 0 2px hsl(var(--accent) / 0.1)',
     }),
     css('.arcane-field-select:focus').styles(raw: {
-      'border-color': ArcaneColors.accent,
-      'box-shadow': '0 0 0 2px ${ArcaneColors.accentContainer}',
+      'border-color': 'var(--accent)',
+      'box-shadow': '0 0 0 2px hsl(var(--accent) / 0.1)',
     }),
   ];
 }

@@ -13,7 +13,6 @@ import 'package:jaspr/dom.dart'
         BoxShadow,
         FontWeight;
 
-import '../../util/tokens/tokens.dart';
 import '../view/flexi_cards.dart';
 
 /// A feature showcase section using FlexiCards.
@@ -72,7 +71,7 @@ class ArcaneFeatureShowcase extends StatelessComponent {
     required this.items,
     this.expandedFlex = 2.5,
     this.collapsedFlex = 1.0,
-    this.gap = ArcaneSpacing.lg,
+    this.gap = '1.5rem',
     this.minCardWidth = '280px',
     this.expandOnHover = true,
     this.background,
@@ -85,7 +84,7 @@ class ArcaneFeatureShowcase extends StatelessComponent {
     return section(
       classes: 'arcane-feature-showcase',
       styles: Styles(raw: {
-        'padding': '${ArcaneSpacing.xxl} ${ArcaneSpacing.lg}',
+        'padding': '3rem 1.5rem',
         if (background != null) 'background': background!,
       }),
       [
@@ -101,17 +100,17 @@ class ArcaneFeatureShowcase extends StatelessComponent {
               classes: 'arcane-feature-showcase-header',
               styles: Styles(raw: {
                 if (centerHeader) 'text-align': 'center',
-                'margin-bottom': ArcaneSpacing.xxl,
+                'margin-bottom': '3rem',
               }),
               [
                 // Title
                 h2(
                   classes: 'arcane-feature-showcase-title',
                   styles: const Styles(raw: {
-                    'font-size': ArcaneTypography.font2xl,
-                    'font-weight': ArcaneTypography.weightBold,
-                    'color': ArcaneColors.onSurface,
-                    'margin': '0 0 ${ArcaneSpacing.md} 0',
+                    'font-size': '1.5rem',
+                    'font-weight': '700',
+                    'color': 'var(--foreground)',
+                    'margin': '0 0 1rem 0',
                   }),
                   [Component.text(title)],
                 ),
@@ -121,8 +120,8 @@ class ArcaneFeatureShowcase extends StatelessComponent {
                   p(
                     classes: 'arcane-feature-showcase-subtitle',
                     styles: Styles(raw: {
-                      'font-size': ArcaneTypography.fontLg,
-                      'color': ArcaneColors.mutedForeground,
+                      'font-size': '1.125rem',
+                      'color': 'var(--muted-foreground)',
                       'margin': '0',
                       'max-width': '600px',
                       if (centerHeader) 'margin-left': 'auto',

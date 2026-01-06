@@ -1,7 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight, StyleRule;
 
-import '../../util/tokens/tokens.dart';
 import '../input/button.dart';
 import 'dialog.dart';
 
@@ -56,22 +55,22 @@ class ArcaneConfirmDialog extends StatelessComponent {
           'flex-direction': 'column',
           'align-items': 'center',
           'text-align': 'center',
-          'gap': ArcaneSpacing.md,
+          'gap': '1rem',
         }),
         [
           if (icon != null)
             div(
               styles: Styles(raw: {
                 'font-size': '3rem',
-                'color': destructive ? ArcaneColors.error : ArcaneColors.accent,
+                'color': destructive ? 'var(--destructive)' : 'var(--accent)',
               }),
               [icon!],
             ),
           div(
             styles: const Styles(raw: {
-              'color': ArcaneColors.onSurface,
-              'font-size': ArcaneTypography.fontSm,
-              'line-height': ArcaneTypography.lineHeightRelaxed,
+              'color': 'var(--foreground)',
+              'font-size': '0.875rem',
+              'line-height': '1.625',
             }),
             [text(message)],
           ),
@@ -125,22 +124,22 @@ class ArcaneAlertDialog extends StatelessComponent {
           'flex-direction': 'column',
           'align-items': 'center',
           'text-align': 'center',
-          'gap': ArcaneSpacing.md,
+          'gap': '1rem',
         }),
         [
           if (icon != null)
             div(
               styles: const Styles(raw: {
                 'font-size': '3rem',
-                'color': ArcaneColors.accent,
+                'color': 'var(--accent)',
               }),
               [icon!],
             ),
           div(
             styles: const Styles(raw: {
-              'color': ArcaneColors.onSurface,
-              'font-size': ArcaneTypography.fontSm,
-              'line-height': ArcaneTypography.lineHeightRelaxed,
+              'color': 'var(--foreground)',
+              'font-size': '0.875rem',
+              'line-height': '1.625',
             }),
             [text(message)],
           ),

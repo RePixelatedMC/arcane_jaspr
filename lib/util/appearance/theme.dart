@@ -3,8 +3,8 @@ import 'package:jaspr/jaspr.dart';
 import 'color_scheme.dart';
 import 'colors.dart';
 import 'style_sheet.dart';
-import 'stylesheets/codex_style.dart';
-import 'stylesheets/shadcn_style.dart';
+import 'stylesheets/codex/codex_style.dart';
+import 'stylesheets/shadcn/shadcn_style.dart';
 
 export 'color_scheme.dart' show Brightness, ThemeMode;
 export 'colors.dart';

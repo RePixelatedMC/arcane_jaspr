@@ -2,7 +2,6 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight, StyleRule;
 
 import '../../util/arcane.dart';
-import '../../util/tokens/tokens.dart';
 
 /// A card with section-style content organization.
 class ArcaneCardSection extends StatelessComponent {
@@ -40,7 +39,7 @@ class ArcaneCardSection extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final String effectiveRadius = radius != null ? '${radius}px' : ArcaneRadius.lg;
+    final String effectiveRadius = radius != null ? '${radius}px' : '0.5rem';
     final EdgeInsets effectivePadding = padding ?? const EdgeInsets.all(16);
 
     final Component? headerWidget = headerComponent ??
@@ -51,15 +50,15 @@ class ArcaneCardSection extends StatelessComponent {
                   'display': 'flex',
                   'align-items': 'center',
                   'justify-content': 'space-between',
-                  'gap': ArcaneSpacing.md,
+                  'gap': '1rem',
                   'margin-bottom': '${gap}px',
                 }),
                 [
                   span(
                     styles: const Styles(raw: {
-                      'font-size': ArcaneTypography.fontSm,
-                      'font-weight': ArcaneTypography.weightSemibold,
-                      'color': ArcaneColors.mutedForeground,
+                      'font-size': '0.875rem',
+                      'font-weight': '600',
+                      'color': 'var(--muted-foreground)',
                       'text-transform': 'uppercase',
                       'letter-spacing': '0.05em',
                     }),
@@ -69,7 +68,7 @@ class ArcaneCardSection extends StatelessComponent {
                     div(
                       styles: const Styles(raw: {
                         'display': 'flex',
-                        'gap': ArcaneSpacing.sm,
+                        'gap': '0.5rem',
                       }),
                       trailing!,
                     ),
@@ -80,9 +79,9 @@ class ArcaneCardSection extends StatelessComponent {
     return div(
       classes: 'arcane-card-section',
       styles: Styles(raw: {
-        'background-color': ArcaneColors.surface,
+        'background-color': 'var(--card)',
         'border-radius': effectiveRadius,
-        'border': '1px solid ${ArcaneColors.border}',
+        'border': '1px solid var(--border)',
         'padding': effectivePadding.padding,
       }),
       [
@@ -118,14 +117,14 @@ class ArcaneListCard extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final String effectiveRadius = radius != null ? '${radius}px' : ArcaneRadius.lg;
+    final String effectiveRadius = radius != null ? '${radius}px' : '0.5rem';
 
     return div(
       classes: 'arcane-list-card',
       styles: Styles(raw: {
-        'background-color': ArcaneColors.surface,
+        'background-color': 'var(--card)',
         'border-radius': effectiveRadius,
-        'border': '1px solid ${ArcaneColors.border}',
+        'border': '1px solid var(--border)',
         'overflow': 'hidden',
       }),
       [
@@ -133,23 +132,23 @@ class ArcaneListCard extends StatelessComponent {
           div(
             classes: 'arcane-list-card-header',
             styles: const Styles(raw: {
-              'padding': '${ArcaneSpacing.md} ${ArcaneSpacing.lg}',
-              'font-size': ArcaneTypography.fontSm,
-              'font-weight': ArcaneTypography.weightSemibold,
-              'color': ArcaneColors.mutedForeground,
-              'border-bottom': '1px solid ${ArcaneColors.border}',
-              'background-color': ArcaneColors.surfaceVariant,
+              'padding': '1rem 1.5rem',
+              'font-size': '0.875rem',
+              'font-weight': '600',
+              'color': 'var(--muted-foreground)',
+              'border-bottom': '1px solid var(--border)',
+              'background-color': 'var(--muted)',
             }),
             [text(header!)],
           ),
         for (var i = 0; i < children.length; i++) ...[
           children[i],
           if (divided && i < children.length - 1)
-            const div(
-              styles: Styles(raw: {
+            div(
+              styles: const Styles(raw: {
                 'height': '1px',
-                'background-color': ArcaneColors.border,
-                'margin': '0 ${ArcaneSpacing.lg}',
+                'background-color': 'var(--border)',
+                'margin': '0 1.5rem',
               }),
               [],
             ),

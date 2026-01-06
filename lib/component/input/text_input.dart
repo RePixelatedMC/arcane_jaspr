@@ -1,17 +1,18 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
+import 'package:jaspr/dom.dart' as dom;
 
-import '../../util/tokens/tokens.dart';
-import '../../util/tokens/style_presets.dart';
+export '../../core/props/text_input_props.dart'
+    show TextInputSize, TextInputVariant, TextInputType;
+
+import '../../core/props/text_input_props.dart';
+import '../../core/theme_provider.dart';
 
 /// A styled text input component
 ///
-/// Use style presets for cleaner code:
 /// ```dart
 /// ArcaneTextInput(
-///   style: InputStyle.standard,
-///   size: InputSizeStyle.md,
-///   onInput: (value) => print(value),  // or use onChange
+///   placeholder: 'Enter text...',
+///   onInput: (value) => print(value),
 /// )
 /// ```
 class ArcaneTextInput extends StatelessComponent {
@@ -19,13 +20,10 @@ class ArcaneTextInput extends StatelessComponent {
   final String? placeholder;
 
   /// Input type
-  final InputType type;
+  final dom.InputType type;
 
-  /// Style preset (preferred)
-  final InputStyle? style;
-
-  /// Size preset
-  final InputSizeStyle size;
+  /// Size variant
+  final TextInputSize size;
 
   /// Whether input is disabled
   final bool disabled;
@@ -80,9 +78,8 @@ class ArcaneTextInput extends StatelessComponent {
   /// Use [onChange] or [onInput] for value change handling.
   const ArcaneTextInput({
     this.placeholder,
-    this.type = InputType.text,
-    this.style,
-    this.size = InputSizeStyle.md,
+    this.type = dom.InputType.text,
+    this.size = TextInputSize.md,
     this.disabled = false,
     this.required = false,
     this.readOnly = false,
@@ -103,201 +100,44 @@ class ArcaneTextInput extends StatelessComponent {
     super.key,
   }) : _onChange = onChange ?? onInput;
 
-  @override
-  Component build(BuildContext context) {
-    final effectiveStyle = style ?? InputStyle.standard;
-    final hasError = error != null;
-
-    // Build input styles
-    final Map<String, String> inputStyles = {
-      'flex': '1',
-      'font-family': 'inherit',
-      'outline': 'none',
-      ...size.styles,
-      ...effectiveStyle.base,
-      if (hasError) ...effectiveStyle.error,
-      if (disabled) ...effectiveStyle.disabled,
-      if (fullWidth) 'width': '100%',
+  /// Map InputType to TextInputType
+  TextInputType _mapInputType(dom.InputType t) {
+    return switch (t) {
+      dom.InputType.text => TextInputType.text,
+      dom.InputType.email => TextInputType.email,
+      dom.InputType.password => TextInputType.password,
+      dom.InputType.number => TextInputType.number,
+      dom.InputType.tel => TextInputType.tel,
+      dom.InputType.url => TextInputType.url,
+      dom.InputType.search => TextInputType.search,
+      _ => TextInputType.text,
     };
-
-    final inputElement = input(
-      type: type,
-      id: id,
-      name: name,
-      classes: 'arcane-text-input',
-      attributes: {
-        if (placeholder != null) 'placeholder': placeholder!,
-        if (value != null) 'value': value!,
-        if (disabled) 'disabled': 'true',
-        if (required) 'required': 'true',
-        if (readOnly) 'readonly': 'true',
-      },
-      styles: Styles(raw: inputStyles),
-      events: {
-        if (_onChange != null)
-          'input': (e) {
-            final target = e.target as dynamic;
-            _onChange!(target.value as String);
-          },
-        if (onFocus != null) 'focus': (e) => onFocus!(),
-        if (onBlur != null) 'blur': (e) => onBlur!(),
-        if (onSubmit != null)
-          'keydown': (e) {
-            if ((e as dynamic).key == 'Enter') {
-              final target = e.target as dynamic;
-              onSubmit!(target.value as String);
-            }
-          },
-      },
-    );
-
-    // Build with wrapper if prefix/suffix or label
-    if (prefix != null ||
-        suffix != null ||
-        label != null ||
-        error != null ||
-        helperText != null) {
-      return div(
-        classes: 'arcane-text-input-wrapper',
-        styles: Styles(raw: {
-          'display': 'flex',
-          'flex-direction': 'column',
-          'gap': ArcaneSpacing.xs,
-          if (fullWidth) 'width': '100%',
-        }),
-        [
-          // Label
-          if (label != null)
-            Component.element(
-              tag: 'label',
-              attributes: id != null ? {'for': id!} : null,
-              styles: const Styles(raw: {
-                'font-size': ArcaneTypography.fontMd,
-                'font-weight': ArcaneTypography.weightMedium,
-                'color': ArcaneColors.onSurface,
-              }),
-              children: [
-                text(label!),
-                if (required)
-                  span(
-                    [text('*')],
-                    styles: const Styles(raw: {
-                      'color': ArcaneColors.error,
-                      'margin-left': ArcaneSpacing.xs,
-                    }),
-                  ),
-              ],
-            ),
-
-          // Input with prefix/suffix
-          if (prefix != null || suffix != null)
-            div(
-              classes: 'arcane-text-input-container',
-              styles: Styles(raw: {
-                'display': 'flex',
-                'align-items': 'center',
-                ...effectiveStyle.base,
-                if (hasError) ...effectiveStyle.error,
-                'overflow': 'hidden',
-              }),
-              [
-                if (prefix != null)
-                  span(
-                    [prefix!],
-                    classes: 'arcane-text-input-prefix',
-                    styles: const Styles(raw: {
-                      'display': 'flex',
-                      'align-items': 'center',
-                      'padding-left': ArcaneSpacing.sm,
-                      'color': ArcaneColors.mutedForeground,
-                    }),
-                  ),
-                input(
-                  type: type,
-                  id: id,
-                  name: name,
-                  classes: 'arcane-text-input',
-                  attributes: {
-                    if (placeholder != null) 'placeholder': placeholder!,
-                    if (value != null) 'value': value!,
-                    if (disabled) 'disabled': 'true',
-                    if (required) 'required': 'true',
-                    if (readOnly) 'readonly': 'true',
-                  },
-                  styles: Styles(raw: {
-                    'flex': '1',
-                    ...size.styles,
-                    'background': ArcaneColors.transparent,
-                    'border': 'none',
-                    'color': ArcaneColors.onSurface,
-                    'outline': 'none',
-                  }),
-                  events: {
-                    if (_onChange != null)
-                      'input': (e) {
-                        final target = e.target as dynamic;
-                        _onChange!(target.value as String);
-                      },
-                    if (onFocus != null) 'focus': (e) => onFocus!(),
-                    if (onBlur != null) 'blur': (e) => onBlur!(),
-                  },
-                ),
-                if (suffix != null)
-                  span(
-                    [suffix!],
-                    classes: 'arcane-text-input-suffix',
-                    styles: const Styles(raw: {
-                      'display': 'flex',
-                      'align-items': 'center',
-                      'padding-right': ArcaneSpacing.sm,
-                      'color': ArcaneColors.mutedForeground,
-                    }),
-                  ),
-              ],
-            )
-          else
-            inputElement,
-
-          // Error or helper text
-          if (error != null)
-            span(
-              [text(error!)],
-              classes: 'arcane-text-input-error',
-              styles: const Styles(raw: {
-                'font-size': ArcaneTypography.fontSm,
-                'color': ArcaneColors.error,
-              }),
-            )
-          else if (helperText != null)
-            span(
-              [text(helperText!)],
-              classes: 'arcane-text-input-helper',
-              styles: const Styles(raw: {
-                'font-size': ArcaneTypography.fontSm,
-                'color': ArcaneColors.mutedForeground,
-              }),
-            ),
-        ],
-      );
-    }
-
-    return inputElement;
   }
 
-  @css
-  static final List<StyleRule> styles = [
-    css('.arcane-text-input:focus').styles(raw: {
-      'border-color': ArcaneColors.accent,
-      'box-shadow': '0 0 0 2px ${ArcaneColors.accentContainer}',
-    }),
-    css('.arcane-text-input::placeholder').styles(raw: {
-      'color': ArcaneColors.mutedForeground,
-    }),
-    css('.arcane-text-input-container:focus-within').styles(raw: {
-      'border-color': ArcaneColors.accent,
-      'box-shadow': '0 0 0 2px ${ArcaneColors.accentContainer}',
-    }),
-  ];
+  @override
+  Component build(BuildContext context) {
+    return context.renderers.textInput(TextInputProps(
+      placeholder: placeholder,
+      type: _mapInputType(type),
+      value: value,
+      name: name,
+      id: id,
+      size: size,
+      disabled: disabled,
+      required: required,
+      readOnly: readOnly,
+      fullWidth: fullWidth,
+      label: label,
+      helperText: helperText,
+      error: error,
+      prefix: prefix,
+      suffix: suffix,
+      onChanged: _onChange,
+      onFocus: onFocus,
+      onBlur: onBlur,
+      onSubmit: onSubmit,
+    ));
+  }
 }
 
 /// Resize direction for textarea
@@ -325,9 +165,6 @@ class ArcaneTextArea extends StatelessComponent {
 
   /// Number of columns (affects initial width)
   final int? cols;
-
-  /// Style preset
-  final InputStyle? style;
 
   /// Whether disabled
   final bool disabled;
@@ -381,7 +218,6 @@ class ArcaneTextArea extends StatelessComponent {
     this.placeholder,
     this.rows = 4,
     this.cols,
-    this.style,
     this.disabled = false,
     this.required = false,
     this.resize = TextAreaResize.vertical,
@@ -403,7 +239,6 @@ class ArcaneTextArea extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final effectiveStyle = style ?? InputStyle.standard;
     final hasError = error != null;
 
     // Map resize enum to CSS value
@@ -426,39 +261,44 @@ class ArcaneTextArea extends StatelessComponent {
         if (disabled) 'disabled': 'true',
         if (required) 'required': 'true',
       },
-      styles: Styles(raw: {
+      styles: dom.Styles(raw: {
         if (fullWidth) 'width': '100%',
-        'padding': '${ArcaneSpacing.sm} ${ArcaneSpacing.md}',
-        'font-size': ArcaneTypography.fontMd,
+        'padding': '0.5rem 1rem',
+        'font-size': '1rem',
         'font-family': 'inherit',
-        'line-height': ArcaneTypography.lineHeightRelaxed,
-        ...effectiveStyle.base,
-        if (hasError) ...effectiveStyle.error,
+        'line-height': '1.625',
+        // Base styles using CSS variables
+        'background-color': 'var(--background)',
+        'border': hasError ? '1px solid var(--destructive)' : '1px solid var(--input)',
+        'border-radius': '0.375rem',
+        'color': 'var(--foreground)',
+        'transition': 'color 150ms ease, border-color 150ms ease, box-shadow 150ms ease',
         'outline': 'none',
         'resize': resizeValue,
         if (minWidth != null) 'min-width': minWidth!,
         if (maxWidth != null) 'max-width': maxWidth!,
         if (minHeight != null) 'min-height': minHeight!,
         if (maxHeight != null) 'max-height': maxHeight!,
-        if (disabled) ...effectiveStyle.disabled,
+        if (disabled) 'opacity': '0.5',
+        if (disabled) 'cursor': 'not-allowed',
       }),
       events: {
         if (_onChange != null)
           'input': (e) {
             final target = e.target as dynamic;
-            _onChange!(target.value as String);
+            _onChange(target.value as String);
           },
       },
-      children: value != null ? [text(value!)] : [],
+      children: value != null ? [Component.text(value!)] : [],
     );
 
     if (label != null || error != null || helperText != null) {
-      return div(
+      return dom.div(
         classes: 'arcane-textarea-wrapper',
-        styles: Styles(raw: {
+        styles: dom.Styles(raw: {
           'display': 'flex',
           'flex-direction': 'column',
-          'gap': ArcaneSpacing.xs,
+          'gap': '0.25rem',
           if (fullWidth) 'width': '100%',
         }),
         [
@@ -466,39 +306,41 @@ class ArcaneTextArea extends StatelessComponent {
             Component.element(
               tag: 'label',
               attributes: id != null ? {'for': id!} : null,
-              styles: const Styles(raw: {
-                'font-size': ArcaneTypography.fontMd,
-                'font-weight': ArcaneTypography.weightMedium,
-                'color': ArcaneColors.onSurface,
+              styles: const dom.Styles(raw: {
+                'font-size': '1rem',
+                'font-weight': '500',
+                'color': 'var(--foreground)',
               }),
               children: [
-                text(label!),
+                Component.text(label!),
                 if (required)
-                  span(
-                    [text('*')],
-                    styles: const Styles(raw: {
-                      'color': ArcaneColors.error,
-                      'margin-left': ArcaneSpacing.xs,
+                  dom.span(
+                    styles: const dom.Styles(raw: {
+                      'color': 'var(--destructive)',
+                      'margin-left': '0.25rem',
                     }),
+                    [Component.text('*')],
                   ),
               ],
             ),
           textareaElement,
           if (error != null)
-            span(
-              [text(error!)],
-              styles: const Styles(raw: {
-                'font-size': ArcaneTypography.fontSm,
-                'color': ArcaneColors.error,
+            dom.span(
+              classes: 'arcane-textarea-error',
+              styles: const dom.Styles(raw: {
+                'font-size': '0.875rem',
+                'color': 'var(--destructive)',
               }),
+              [Component.text(error!)],
             )
           else if (helperText != null)
-            span(
-              [text(helperText!)],
-              styles: const Styles(raw: {
-                'font-size': ArcaneTypography.fontSm,
-                'color': ArcaneColors.mutedForeground,
+            dom.span(
+              classes: 'arcane-textarea-helper',
+              styles: const dom.Styles(raw: {
+                'font-size': '0.875rem',
+                'color': 'var(--muted-foreground)',
               }),
+              [Component.text(helperText!)],
             ),
         ],
       );
@@ -506,17 +348,6 @@ class ArcaneTextArea extends StatelessComponent {
 
     return textareaElement;
   }
-
-  @css
-  static final List<StyleRule> styles = [
-    css('.arcane-textarea:focus').styles(raw: {
-      'border-color': ArcaneColors.accent,
-      'box-shadow': '0 0 0 2px ${ArcaneColors.accentContainer}',
-    }),
-    css('.arcane-textarea::placeholder').styles(raw: {
-      'color': ArcaneColors.mutedForeground,
-    }),
-  ];
 }
 
 /// A select/dropdown input component
@@ -530,11 +361,8 @@ class ArcaneSelect extends StatelessComponent {
   /// Placeholder text
   final String? placeholder;
 
-  /// Size preset
-  final InputSizeStyle size;
-
-  /// Style preset
-  final InputStyle? style;
+  /// Size variant
+  final TextInputSize size;
 
   /// Whether disabled
   final bool disabled;
@@ -567,8 +395,7 @@ class ArcaneSelect extends StatelessComponent {
     required this.options,
     this.value,
     this.placeholder,
-    this.size = InputSizeStyle.md,
-    this.style,
+    this.size = TextInputSize.md,
     this.disabled = false,
     this.required = false,
     this.name,
@@ -584,8 +411,26 @@ class ArcaneSelect extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final effectiveStyle = style ?? InputStyle.standard;
     final hasError = error != null;
+
+    // Size styles
+    final Map<String, String> sizeStyles = switch (size) {
+      TextInputSize.sm => {
+          'height': '36px',
+          'padding': '0 12px',
+          'font-size': '14px',
+        },
+      TextInputSize.md => {
+          'height': '40px',
+          'padding': '8px 12px',
+          'font-size': '16px',
+        },
+      TextInputSize.lg => {
+          'height': '44px',
+          'padding': '0 16px',
+          'font-size': '16px',
+        },
+    };
 
     final selectElement = Component.element(
       tag: 'select',
@@ -596,12 +441,16 @@ class ArcaneSelect extends StatelessComponent {
         if (disabled) 'disabled': 'true',
         if (required) 'required': 'true',
       },
-      styles: Styles(raw: {
-        ...size.styles,
+      styles: dom.Styles(raw: {
+        ...sizeStyles,
         'padding-right': '36px',
         'font-family': 'inherit',
-        ...effectiveStyle.base,
-        if (hasError) ...effectiveStyle.error,
+        // Base styles using CSS variables
+        'background-color': 'var(--background)',
+        'border': hasError ? '1px solid var(--destructive)' : '1px solid var(--input)',
+        'border-radius': '0.375rem',
+        'color': 'var(--foreground)',
+        'transition': 'color 150ms ease, border-color 150ms ease, box-shadow 150ms ease',
         'cursor': 'pointer',
         'appearance': 'none',
         'background-image':
@@ -609,13 +458,14 @@ class ArcaneSelect extends StatelessComponent {
         'background-repeat': 'no-repeat',
         'background-position': 'right 12px center',
         if (fullWidth) 'width': '100%',
-        if (disabled) ...effectiveStyle.disabled,
+        if (disabled) 'opacity': '0.5',
+        if (disabled) 'cursor': 'not-allowed',
       }),
       events: {
         if (_onChange != null)
           'change': (e) {
             final target = e.target as dynamic;
-            _onChange!(target.value as String);
+            _onChange(target.value as String);
           },
       },
       children: [
@@ -623,7 +473,7 @@ class ArcaneSelect extends StatelessComponent {
           Component.element(
             tag: 'option',
             attributes: {'value': '', 'disabled': 'true', 'selected': 'true'},
-            children: [text(placeholder!)],
+            children: [Component.text(placeholder!)],
           ),
         for (final opt in options)
           Component.element(
@@ -633,18 +483,18 @@ class ArcaneSelect extends StatelessComponent {
               if (opt.disabled) 'disabled': 'true',
               if (value == opt.value) 'selected': 'true',
             },
-            children: [text(opt.label)],
+            children: [Component.text(opt.label)],
           ),
       ],
     );
 
     if (label != null || error != null) {
-      return div(
+      return dom.div(
         classes: 'arcane-select-wrapper',
-        styles: Styles(raw: {
+        styles: dom.Styles(raw: {
           'display': 'flex',
           'flex-direction': 'column',
-          'gap': ArcaneSpacing.xs,
+          'gap': '0.25rem',
           if (fullWidth) 'width': '100%',
         }),
         [
@@ -652,31 +502,32 @@ class ArcaneSelect extends StatelessComponent {
             Component.element(
               tag: 'label',
               attributes: id != null ? {'for': id!} : null,
-              styles: const Styles(raw: {
-                'font-size': ArcaneTypography.fontMd,
-                'font-weight': ArcaneTypography.weightMedium,
-                'color': ArcaneColors.onSurface,
+              styles: const dom.Styles(raw: {
+                'font-size': '1rem',
+                'font-weight': '500',
+                'color': 'var(--foreground)',
               }),
               children: [
-                text(label!),
+                Component.text(label!),
                 if (required)
-                  span(
-                    [text('*')],
-                    styles: const Styles(raw: {
-                      'color': ArcaneColors.error,
-                      'margin-left': ArcaneSpacing.xs,
+                  dom.span(
+                    styles: const dom.Styles(raw: {
+                      'color': 'var(--destructive)',
+                      'margin-left': '0.25rem',
                     }),
+                    [Component.text('*')],
                   ),
               ],
             ),
           selectElement,
           if (error != null)
-            span(
-              [text(error!)],
-              styles: const Styles(raw: {
-                'font-size': ArcaneTypography.fontSm,
-                'color': ArcaneColors.error,
+            dom.span(
+              classes: 'arcane-select-error',
+              styles: const dom.Styles(raw: {
+                'font-size': '0.875rem',
+                'color': 'var(--destructive)',
               }),
+              [Component.text(error!)],
             ),
         ],
       );
@@ -684,14 +535,6 @@ class ArcaneSelect extends StatelessComponent {
 
     return selectElement;
   }
-
-  @css
-  static final List<StyleRule> styles = [
-    css('.arcane-select:focus').styles(raw: {
-      'border-color': ArcaneColors.accent,
-      'box-shadow': '0 0 0 2px ${ArcaneColors.accentContainer}',
-    }),
-  ];
 }
 
 /// Select option model

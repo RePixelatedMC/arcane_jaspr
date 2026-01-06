@@ -1,7 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../util/tokens/tokens.dart';
 import '../input/button.dart';
 import 'dialog.dart';
 
@@ -65,12 +64,12 @@ class ArcaneTextInputDialog extends StatefulComponent {
   @css
   static final List<StyleRule> styles = [
     css('.arcane-text-input-dialog-input input:focus').styles(raw: {
-      'border-color': ArcaneColors.accent,
-      'box-shadow': '0 0 0 2px ${ArcaneColors.accentContainer}',
+      'border-color': 'var(--accent)',
+      'box-shadow': '0 0 0 2px hsl(var(--accent) / 0.1)',
     }),
     css('.arcane-text-input-dialog-input textarea:focus').styles(raw: {
-      'border-color': ArcaneColors.accent,
-      'box-shadow': '0 0 0 2px ${ArcaneColors.accentContainer}',
+      'border-color': 'var(--accent)',
+      'box-shadow': '0 0 0 2px hsl(var(--accent) / 0.1)',
     }),
   ];
 }
@@ -111,15 +110,15 @@ class _TextInputDialogState extends State<ArcaneTextInputDialog> {
         styles: const Styles(raw: {
           'display': 'flex',
           'flex-direction': 'column',
-          'gap': ArcaneSpacing.md,
+          'gap': '1rem',
         }),
         [
           if (component.message != null)
             div(
               styles: const Styles(raw: {
-                'color': ArcaneColors.mutedForeground,
-                'font-size': ArcaneTypography.fontSm,
-                'line-height': ArcaneTypography.lineHeightRelaxed,
+                'color': 'var(--muted-foreground)',
+                'font-size': '0.875rem',
+                'line-height': '1.625',
               }),
               [text(component.message!)],
             ),
@@ -130,7 +129,7 @@ class _TextInputDialogState extends State<ArcaneTextInputDialog> {
             styles: const Styles(raw: {
               'display': 'flex',
               'flex-direction': 'column',
-              'gap': ArcaneSpacing.xs,
+              'gap': '0.25rem',
             }),
             [
               if (isMultiline)
@@ -143,14 +142,14 @@ class _TextInputDialogState extends State<ArcaneTextInputDialog> {
                   },
                   styles: Styles(raw: {
                     'width': '100%',
-                    'padding': '10px ${ArcaneSpacing.sm}',
+                    'padding': '10px 0.5rem',
                     'border': _error != null
-                        ? '1px solid ${ArcaneColors.error}'
-                        : '1px solid ${ArcaneColors.border}',
-                    'border-radius': ArcaneRadius.md,
-                    'background-color': ArcaneColors.surface,
-                    'color': ArcaneColors.onSurface,
-                    'font-size': ArcaneTypography.fontSm,
+                        ? '1px solid var(--destructive)'
+                        : '1px solid var(--border)',
+                    'border-radius': '0.375rem',
+                    'background-color': 'var(--card)',
+                    'color': 'var(--foreground)',
+                    'font-size': '0.875rem',
                     'resize': 'vertical',
                     'font-family': 'inherit',
                     'outline': 'none',
@@ -182,14 +181,14 @@ class _TextInputDialogState extends State<ArcaneTextInputDialog> {
                   },
                   styles: Styles(raw: {
                     'width': '100%',
-                    'padding': '10px ${ArcaneSpacing.sm}',
+                    'padding': '10px 0.5rem',
                     'border': _error != null
-                        ? '1px solid ${ArcaneColors.error}'
-                        : '1px solid ${ArcaneColors.border}',
-                    'border-radius': ArcaneRadius.md,
-                    'background-color': ArcaneColors.surface,
-                    'color': ArcaneColors.onSurface,
-                    'font-size': ArcaneTypography.fontSm,
+                        ? '1px solid var(--destructive)'
+                        : '1px solid var(--border)',
+                    'border-radius': '0.375rem',
+                    'background-color': 'var(--card)',
+                    'color': 'var(--foreground)',
+                    'font-size': '0.875rem',
                     'outline': 'none',
                   }),
                   events: {
@@ -213,8 +212,8 @@ class _TextInputDialogState extends State<ArcaneTextInputDialog> {
               if (_error != null)
                 span(
                   styles: const Styles(raw: {
-                    'color': ArcaneColors.error,
-                    'font-size': ArcaneTypography.fontXs,
+                    'color': 'var(--destructive)',
+                    'font-size': '0.75rem',
                   }),
                   [text(_error!)],
                 ),

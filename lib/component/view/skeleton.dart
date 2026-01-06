@@ -1,66 +1,60 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
+import 'package:jaspr/dom.dart' as dom;
 
-import '../../util/tokens/tokens.dart';
+import '../../core/props/skeleton_props.dart';
+import '../../core/theme_provider.dart';
 
 /// Skeleton loading placeholder component
+/// ShadCN Reference: https://ui.shadcn.com/docs/components/skeleton
+///
+/// ```dart
+/// ArcaneSkeleton(width: '100%', height: '20px')
+/// ArcaneSkeleton.circle(height: '48px')
+/// ```
 class ArcaneSkeleton extends StatelessComponent {
+  final SkeletonShape shape;
   final String? width;
   final String? height;
   final String? borderRadius;
-  final bool circle;
+  final bool animate;
 
   const ArcaneSkeleton({
+    this.shape = SkeletonShape.rectangle,
     this.width,
     this.height,
     this.borderRadius,
-    this.circle = false,
+    this.animate = true,
     super.key,
   });
 
   /// Circle skeleton
   const ArcaneSkeleton.circle({
     this.height,
+    this.animate = true,
     super.key,
-  })  : width = null,
-        borderRadius = null,
-        circle = true;
+  })  : shape = SkeletonShape.circle,
+        width = null,
+        borderRadius = null;
 
   /// Text line skeleton
   const ArcaneSkeleton.line({
     this.width,
+    this.animate = true,
     super.key,
-  })  : height = null,
-        borderRadius = null,
-        circle = false;
+  })  : shape = SkeletonShape.text,
+        height = null,
+        borderRadius = null;
 
   @override
   Component build(BuildContext context) {
-    final effectiveWidth = circle ? (height ?? '48px') : (width ?? '100%');
-    final effectiveHeight = height ?? '20px';
-    final effectiveRadius = circle ? ArcaneRadius.full : (borderRadius ?? ArcaneRadius.md);
-
-    return div(
-      classes: 'arcane-skeleton',
-      styles: Styles(raw: {
-        'width': effectiveWidth,
-        'height': effectiveHeight,
-        'border-radius': effectiveRadius,
-        'background': 'linear-gradient(90deg, ${ArcaneColors.surfaceVariant} 0%, ${ArcaneColors.surface} 50%, ${ArcaneColors.surfaceVariant} 100%)',
-        'background-size': '200% 100%',
-        'animation': 'arcane-shimmer 1.5s infinite',
-      }),
-      [],
-    );
+    return context.renderers.skeleton(SkeletonProps(
+      shape: shape,
+      width: width,
+      height: height,
+      borderRadius: borderRadius,
+      animate: animate,
+    ));
   }
-
-  @css
-  static final List<StyleRule> styles = [
-    css('@keyframes arcane-shimmer').styles(raw: {
-      '0%': 'background-position: -200% 0',
-      '100%': 'background-position: 200% 0',
-    }),
-  ];
 }
 
 /// Skeleton card placeholder
@@ -76,34 +70,38 @@ class ArcaneSkeletonCard extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return div(
+    return dom.div(
       classes: 'arcane-skeleton-card',
-      styles: const Styles(raw: {
-        'background': ArcaneColors.card,
-        'border': '1px solid ${ArcaneColors.border}',
-        'border-radius': ArcaneRadius.lg,
-        'padding': ArcaneSpacing.lg,
+      styles: const dom.Styles(raw: {
+        'background-color': 'var(--card)',
+        'border': '1px solid var(--border)',
+        'border-radius': '0.5rem',
+        'padding': '24px',
       }),
       [
         // Header with avatar
         if (showAvatar)
-          const div(
-            styles: Styles(raw: {
+          dom.div(
+            styles: const dom.Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
-              'gap': ArcaneSpacing.md,
-              'margin-bottom': ArcaneSpacing.lg,
+              'gap': '16px',
+              'margin-bottom': '24px',
             }),
             [
-              ArcaneSkeleton(width: '48px', height: '48px', circle: true),
-              div(
-                styles: Styles(raw: {
+              const ArcaneSkeleton(
+                shape: SkeletonShape.circle,
+                width: '48px',
+                height: '48px',
+              ),
+              dom.div(
+                styles: const dom.Styles(raw: {
                   'flex': '1',
                   'display': 'flex',
                   'flex-direction': 'column',
-                  'gap': ArcaneSpacing.sm,
+                  'gap': '8px',
                 }),
-                [
+                const [
                   ArcaneSkeleton(width: '40%', height: '16px'),
                   ArcaneSkeleton(width: '60%', height: '14px'),
                 ],
@@ -112,9 +110,9 @@ class ArcaneSkeletonCard extends StatelessComponent {
           ),
         // Content lines
         for (var i = 0; i < lines; i++)
-          div(
-            styles: Styles(raw: {
-              if (i < lines - 1) 'margin-bottom': ArcaneSpacing.sm,
+          dom.div(
+            styles: dom.Styles(raw: {
+              if (i < lines - 1) 'margin-bottom': '8px',
             }),
             [
               ArcaneSkeleton(
@@ -141,12 +139,12 @@ class ArcaneSkeletonText extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return div(
+    return dom.div(
       classes: 'arcane-skeleton-text',
-      styles: const Styles(raw: {
+      styles: const dom.Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': ArcaneSpacing.sm,
+        'gap': '0.5rem',
       }),
       [
         for (var i = 0; i < lines; i++)
