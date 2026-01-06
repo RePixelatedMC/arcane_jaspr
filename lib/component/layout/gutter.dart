@@ -1,50 +1,65 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight, FontStyle, StyleRule, Display, Position, Overflow, Cursor, Visibility, Radius;
+import 'package:jaspr/dom.dart'
+    hide
+        Color,
+        Colors,
+        ColorScheme,
+        Gap,
+        Padding,
+        TextAlign,
+        TextOverflow,
+        Border,
+        BorderRadius,
+        BoxShadow,
+        FontWeight,
+        FontStyle,
+        StyleRule,
+        Display,
+        Position,
+        Overflow,
+        Cursor,
+        Visibility,
+        Radius;
 
+import '../../core/theme_provider.dart';
 import '../../util/style_types/index.dart';
 
-/// Gutter size options
-enum ArcaneGutterSize {
-  xsmall(4),
-  small(8),
-  medium(16),
-  large(24),
-  xlarge(32);
+export '../../core/props/gutter_props.dart';
 
-  final double pixels;
-  const ArcaneGutterSize(this.pixels);
-}
+/// Re-export for backwards compatibility
+typedef ArcaneGutterSize = GutterSize;
 
 /// A spacing component that provides consistent gaps between elements.
 class ArcaneGutter extends StatelessComponent {
   /// The size of the gutter
-  final ArcaneGutterSize size;
+  final GutterSize size;
 
   /// Whether to render as a horizontal gutter
   final bool horizontal;
 
   const ArcaneGutter({
-    this.size = ArcaneGutterSize.medium,
+    this.size = GutterSize.medium,
     this.horizontal = false,
     super.key,
   });
 
-  const ArcaneGutter.xsmall({this.horizontal = false, super.key}) : size = ArcaneGutterSize.xsmall;
-  const ArcaneGutter.small({this.horizontal = false, super.key}) : size = ArcaneGutterSize.small;
-  const ArcaneGutter.medium({this.horizontal = false, super.key}) : size = ArcaneGutterSize.medium;
-  const ArcaneGutter.large({this.horizontal = false, super.key}) : size = ArcaneGutterSize.large;
-  const ArcaneGutter.xlarge({this.horizontal = false, super.key}) : size = ArcaneGutterSize.xlarge;
+  const ArcaneGutter.xsmall({this.horizontal = false, super.key})
+      : size = GutterSize.xsmall;
+  const ArcaneGutter.small({this.horizontal = false, super.key})
+      : size = GutterSize.small;
+  const ArcaneGutter.medium({this.horizontal = false, super.key})
+      : size = GutterSize.medium;
+  const ArcaneGutter.large({this.horizontal = false, super.key})
+      : size = GutterSize.large;
+  const ArcaneGutter.xlarge({this.horizontal = false, super.key})
+      : size = GutterSize.xlarge;
 
   @override
   Component build(BuildContext context) {
-    return div(
-      classes: 'arcane-gutter',
-      styles: Styles(raw: {
-        if (horizontal) 'width': '${size.pixels}px' else 'height': '${size.pixels}px',
-        'flex-shrink': '0',
-      }),
-      [],
-    );
+    return context.renderers.gutter(GutterProps(
+      size: size,
+      horizontal: horizontal,
+    ));
   }
 }
 
@@ -55,21 +70,25 @@ class ArcaneGap extends StatelessComponent {
 
   const ArcaneGap(this.size, {this.horizontal = false, super.key});
 
-  const ArcaneGap.xs({super.key}) : size = 4, horizontal = false;
-  const ArcaneGap.sm({super.key}) : size = 8, horizontal = false;
-  const ArcaneGap.md({super.key}) : size = 16, horizontal = false;
-  const ArcaneGap.lg({super.key}) : size = 24, horizontal = false;
-  const ArcaneGap.xl({super.key}) : size = 32, horizontal = false;
+  const ArcaneGap.xs({super.key})
+      : size = 4,
+        horizontal = false;
+  const ArcaneGap.sm({super.key})
+      : size = 8,
+        horizontal = false;
+  const ArcaneGap.md({super.key})
+      : size = 16,
+        horizontal = false;
+  const ArcaneGap.lg({super.key})
+      : size = 24,
+        horizontal = false;
+  const ArcaneGap.xl({super.key})
+      : size = 32,
+        horizontal = false;
 
   @override
   Component build(BuildContext context) {
-    return div(
-      styles: Styles(raw: {
-        if (horizontal) 'width': '${size}px' else 'height': '${size}px',
-        'flex-shrink': '0',
-      }),
-      [],
-    );
+    return context.renderers.gap(GapProps(size, horizontal: horizontal));
   }
 }
 

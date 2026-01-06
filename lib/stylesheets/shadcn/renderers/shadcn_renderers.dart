@@ -110,6 +110,19 @@ import 'hero_section.dart';
 import 'footer.dart';
 import 'dashboard_layout.dart';
 import 'feature_showcase.dart';
+import 'footer_column.dart';
+import 'auth_split_layout.dart';
+import 'section_header.dart';
+import 'cta_banner.dart';
+import 'logo_carousel.dart';
+import 'carpet.dart';
+import 'gutter.dart';
+import 'flow.dart';
+import 'button_panel.dart';
+import 'aspect_ratio.dart';
+import 'scroll_rail.dart';
+import 'resizable.dart';
+import 'radio_cards.dart';
 
 /// ShadCN component renderers.
 ///
@@ -405,6 +418,78 @@ class ShadcnRenderers extends ComponentRenderers {
   Component featureShowcase(FeatureShowcaseProps props) => ShadcnFeatureShowcase(props);
 
   @override
+  Component footerColumn(FooterColumnProps props) => renderFooterColumn(props);
+
+  @override
+  Component footerBrandColumn(FooterBrandColumnProps props) => renderFooterBrandColumn(props);
+
+  @override
+  Component authSplitLayout(AuthSplitLayoutProps props) => renderAuthSplitLayout(props);
+
+  @override
+  Component sectionHeader(SectionHeaderProps props) => renderSectionHeader(props);
+
+  @override
+  Component ctaBanner(CtaBannerProps props) => renderCtaBanner(props);
+
+  @override
+  Component logoCarousel(LogoCarouselProps props) => renderLogoCarousel(props);
+
+  @override
+  Component logoGrid(LogoGridProps props) => renderLogoGrid(props);
+
+  @override
+  Component carpet(CarpetProps props) => renderCarpet(props);
+
+  @override
+  Component surface(SurfaceProps props) => renderSurface(props);
+
+  @override
+  Component arcaneDivider(ArcaneDividerProps props) => renderArcaneDivider(props);
+
+  @override
+  Component gutter(GutterProps props) => renderGutter(props);
+
+  @override
+  Component gap(GapProps props) => renderGap(props);
+
+  @override
+  Component flow(FlowProps props) => renderFlow(props);
+
+  @override
+  Component row(RowProps props) => renderRow(props);
+
+  @override
+  Component column(ColumnProps props) => renderColumn(props);
+
+  @override
+  Component center(CenterProps props) => renderCenter(props);
+
+  @override
+  Component spacer(SpacerProps props) => renderSpacer(props);
+
+  @override
+  Component expanded(ExpandedProps props) => renderExpanded(props);
+
+  @override
+  Component sizedBox(SizedBoxProps props) => renderSizedBox(props);
+
+  @override
+  Component paddingWrapper(PaddingWrapperProps props) => renderPaddingWrapper(props);
+
+  @override
+  Component buttonPanel(ButtonPanelProps props) => renderButtonPanel(props);
+
+  @override
+  Component toolbar(ToolbarProps props) => renderToolbar(props);
+
+  @override
+  Component buttonGroup(ButtonGroupProps props) => renderButtonGroup(props);
+
+  @override
+  Component aspectRatio(AspectRatioProps props) => renderAspectRatio(props);
+
+  @override
   Component confirmDialog(ConfirmDialogProps props) => ShadcnConfirmDialog(props);
 
   @override
@@ -643,4 +728,34 @@ class ShadcnRenderers extends ComponentRenderers {
 
   @override
   Component stepIndicator(StepIndicatorProps props) => ShadcnStepIndicator(props);
+
+  // ==========================================================================
+  // SCROLL RAIL COMPONENTS
+  // ==========================================================================
+
+  @override
+  Component scrollRail(ScrollRailProps props) => renderScrollRail(props);
+
+  @override
+  Component scrollRailLayout(ScrollRailLayoutProps props) => renderScrollRailLayout(props);
+
+  // ==========================================================================
+  // RESIZABLE COMPONENTS
+  // ==========================================================================
+
+  @override
+  Component resizable(ResizableProps props) => renderResizable(props);
+
+  // ==========================================================================
+  // RADIO CARDS COMPONENTS
+  // ==========================================================================
+
+  @override
+  Component radioCards<T>(RadioCardsProps<T> props) => ShadcnRadioCards<T>(props);
+
+  @override
+  Component selectableChipGroup(SelectableChipGroupProps props) => renderSelectableChipGroup(props);
+
+  @override
+  Component arcaneChip(ArcaneChipProps props) => renderArcaneChip(props);
 }

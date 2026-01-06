@@ -1,4 +1,3 @@
-import 'package:jaspr/jaspr.dart';
 
 /// Social media platforms
 enum SocialPlatform {

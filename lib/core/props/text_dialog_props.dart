@@ -1,4 +1,3 @@
-import 'package:jaspr/jaspr.dart';
 
 /// Properties for text input dialog components.
 class TextInputDialogProps {

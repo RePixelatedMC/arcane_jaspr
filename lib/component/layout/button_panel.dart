@@ -1,7 +1,9 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight, StyleRule;
 
+import '../../core/theme_provider.dart';
 import '../../util/arcane.dart';
+
+export '../../core/props/button_panel_props.dart';
 
 /// A panel component for action buttons, typically used in dialogs or footers.
 ///
@@ -33,20 +35,13 @@ class ArcaneButtonPanel extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final EdgeInsets effectivePadding = padding ?? const EdgeInsets.symmetric(vertical: 8);
-
-    return div(
-      classes: 'arcane-button-panel',
-      styles: Styles(raw: {
-        'display': 'flex',
-        'flex-wrap': 'wrap',
-        'justify-content': mainAxisAlignment.css,
-        'align-items': 'center',
-        'gap': '${gap}px',
-        'padding': effectivePadding.padding,
-      }),
-      children,
-    );
+    return context.renderers.buttonPanel(ButtonPanelProps(
+      children: children,
+      mainAxisAlignment: mainAxisAlignment,
+      gap: gap,
+      responsive: responsive,
+      padding: padding,
+    ));
   }
 }
 
@@ -69,21 +64,13 @@ class ArcaneToolbar extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final EdgeInsets effectivePadding =
-        padding ?? const EdgeInsets.symmetric(horizontal: 8, vertical: 4);
-
-    return div(
-      classes: 'arcane-toolbar',
-      styles: Styles(raw: {
-        'display': 'flex',
-        'flex-direction': 'row',
-        'justify-content': mainAxisAlignment.css,
-        'align-items': crossAxisAlignment.css,
-        'gap': '${gap}px',
-        'padding': effectivePadding.padding,
-      }),
-      children,
-    );
+    return context.renderers.toolbar(ToolbarProps(
+      children: children,
+      mainAxisAlignment: mainAxisAlignment,
+      crossAxisAlignment: crossAxisAlignment,
+      gap: gap,
+      padding: padding,
+    ));
   }
 }
 
@@ -102,14 +89,10 @@ class ArcaneButtonGroup extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return div(
-      classes: 'arcane-button-group',
-      styles: Styles(raw: {
-        'display': 'flex',
-        'flex-direction': vertical ? 'column' : 'row',
-        if (gap > 0) 'gap': '${gap}px',
-      }),
-      children,
-    );
+    return context.renderers.buttonGroup(ButtonGroupProps(
+      children: children,
+      vertical: vertical,
+      gap: gap,
+    ));
   }
 }

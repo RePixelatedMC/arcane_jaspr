@@ -60,7 +60,7 @@ class DataViewDemos {
             ArcaneCallout(
               title: 'Note',
               content: 'This is an important callout message.',
-              style: CalloutStyle.info,
+              variant: CalloutVariant.info,
             ),
           ],
         ),

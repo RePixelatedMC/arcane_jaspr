@@ -142,17 +142,17 @@ class CardViewDemos {
               children: [
                 ArcaneFlexiCards(
                   items: [
-                    ArcaneFlexiCardItem(
+                    FlexiCardItem(
                       icon: ArcaneIcon.server(),
                       shortText: 'Fast Servers',
                       longText: 'Enterprise-grade hardware with NVMe SSDs for blazing fast performance.',
                     ),
-                    ArcaneFlexiCardItem(
+                    FlexiCardItem(
                       icon: ArcaneIcon.shield(),
                       shortText: 'DDoS Protection',
                       longText: 'Multi-layer protection against attacks with real-time mitigation.',
                     ),
-                    ArcaneFlexiCardItem(
+                    FlexiCardItem(
                       icon: ArcaneIcon.zap(),
                       shortText: 'Low Latency',
                       longText: 'Optimized routing for minimal ping and maximum responsiveness.',
@@ -167,17 +167,17 @@ class CardViewDemos {
               children: [
                 ArcaneFlexiCards(
                   items: [
-                    ArcaneFlexiCardItem(
+                    FlexiCardItem(
                       icon: ArcaneIcon.code(),
                       shortText: 'Development',
                       longText: 'Full-featured development environment with hot reload.',
                     ),
-                    ArcaneFlexiCardItem(
+                    FlexiCardItem(
                       icon: ArcaneIcon.rocket(),
                       shortText: 'Deployment',
                       longText: 'One-click deployment to production with zero downtime.',
                     ),
-                    ArcaneFlexiCardItem(
+                    FlexiCardItem(
                       icon: ArcaneIcon.sparkles(),
                       shortText: 'Analytics',
                       longText: 'Real-time analytics and monitoring for your applications.',
@@ -200,17 +200,17 @@ class CardViewDemos {
             ArcaneText('Latency Counters', weight: FontWeight.w600),
             ArcaneSlotCounterRow(
               counters: [
-                ArcaneSlotCounter.latency(
+                SlotCounterProps.latency(
                   label: 'NYC',
                   minLatency: 5,
                   maxLatency: 45,
                 ),
-                ArcaneSlotCounter.latency(
+                SlotCounterProps.latency(
                   label: 'LON',
                   minLatency: 15,
                   maxLatency: 80,
                 ),
-                ArcaneSlotCounter.latency(
+                SlotCounterProps.latency(
                   label: 'TOK',
                   minLatency: 30,
                   maxLatency: 120,
@@ -222,13 +222,13 @@ class CardViewDemos {
               gapSize: Gap.lg,
               children: [
                 ArcaneSlotCounterCard(
-                  background: Background.surface,
-                  border: BorderPreset.subtle,
-                  counter: ArcaneSlotCounter.percentage(
+                  showBackground: true,
+                  showBorder: true,
+                  counter: SlotCounterProps.percentage(
                     label: 'Uptime',
                     minValue: 99,
                     maxValue: 100,
-                    valueColor: TextColor.success,
+                    valueColor: SlotCounterColor.success,
                   ),
                 ),
               ],
@@ -238,7 +238,7 @@ class CardViewDemos {
               label: 'Revenue',
               minValue: 1000,
               maxValue: 9999,
-              valueFontSize: FontSize.xl2,
+              valueSize: SlotCounterSize.xl,
             ),
             ArcaneText('Custom Counter', weight: FontWeight.w600),
             ArcaneSlotCounter(
@@ -247,8 +247,8 @@ class CardViewDemos {
               prefix: '<',
               suffix: 'ms',
               label: 'Response Time',
-              valueFontSize: FontSize.lg,
-              valueColor: TextColor.accent,
+              valueSize: SlotCounterSize.lg,
+              valueColor: SlotCounterColor.accent,
               minDigits: 3,
             ),
           ],

@@ -1,44 +1,4 @@
-import 'package:jaspr/jaspr.dart';
-import 'appearance/theme.dart';
-
-/// Core Arcane utility class for app-wide operations
-class Arcane {
-  Arcane._();
-
-  /// Global theme reference (set by ArcaneApp)
-  static ArcaneTheme _globalTheme = const ArcaneTheme();
-
-  /// Get the global theme
-  static ArcaneTheme get globalTheme => _globalTheme;
-
-  /// Set the global theme (called by ArcaneApp)
-  static set globalTheme(ArcaneTheme theme) => _globalTheme = theme;
-
-  /// Get the global stylesheet
-  static ArcaneStyleSheet get styleSheet => _globalTheme.styleSheet;
-
-  /// Check if using Codex stylesheet
-  static bool get isCodexStyle => styleSheet is CodexStyleSheet;
-
-  /// Check if using ShadCN stylesheet
-  static bool get isShadcnStyle => styleSheet is ShadcnStyleSheet;
-
-  /// Get theme from context or fall back to global
-  static ArcaneTheme themeOf(BuildContext context) {
-    return ArcaneTheme.maybeOf(context) ?? globalTheme;
-  }
-
-  /// Get stylesheet from context or fall back to global
-  static ArcaneStyleSheet styleSheetOf(BuildContext context) {
-    return themeOf(context).styleSheet;
-  }
-
-  /// Navigate to a new component (client-side routing)
-  static void navigateTo(BuildContext context, String path) {
-    // In Jaspr, navigation is typically handled differently
-    // This is a placeholder for routing integration
-  }
-}
+import 'appearance/colors.dart';
 
 /// Edge insets for padding/margin
 class EdgeInsets {

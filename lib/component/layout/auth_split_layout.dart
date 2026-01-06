@@ -1,4 +1,8 @@
-import 'package:arcane_jaspr/arcane_jaspr.dart';
+import 'package:jaspr/jaspr.dart';
+
+import '../../core/theme_provider.dart';
+
+export '../../core/props/auth_split_layout_props.dart';
 
 /// Split-screen layout for authentication pages.
 ///
@@ -28,129 +32,11 @@ class AuthSplitLayout extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final leftPanel = _buildBrandingPanel();
-    final rightPanel = _buildFormPanel();
-
-    return ArcaneDiv(
-      styles: const ArcaneStyleData(
-        display: Display.flex,
-        minHeight: '100vh',
-        background: Background.background,
-      ),
-      children: [
-        // Branding panel (hidden on mobile)
-        if (!reverseSides) leftPanel else rightPanel,
-        // Form panel
-        if (!reverseSides) rightPanel else leftPanel,
-      ],
-    );
-  }
-
-  Component _buildBrandingPanel() {
-    // Using raw div for complex media query styling
-    return div(
-      styles: const Styles(raw: {
-        'flex': '1',
-        'display': 'flex',
-        'flex-direction': 'column',
-        'justify-content': 'center',
-        'padding': '3rem',
-        'position': 'relative',
-        'overflow': 'hidden',
-        'background': 'var(--muted)',
-      }),
-      classes: 'auth-branding-panel',
-      [
-        // Background gradient glow
-        const ArcaneDiv(
-          styles: ArcaneStyleData(
-            position: Position.absolute,
-            inset: '0',
-            pointerEvents: PointerEvents.none,
-          ),
-          children: [
-            // Top-left green glow
-            div(
-              styles: Styles(raw: {
-                'position': 'absolute',
-                'top': '-20%',
-                'left': '-10%',
-                'width': '60%',
-                'height': '60%',
-                'background': 'radial-gradient(circle, hsl(var(--accent) / 0.2) 0%, transparent 70%)',
-              }),
-              [],
-            ),
-            // Bottom-right cyan glow
-            div(
-              styles: Styles(raw: {
-                'position': 'absolute',
-                'bottom': '-20%',
-                'right': '-10%',
-                'width': '50%',
-                'height': '50%',
-                'background': 'radial-gradient(circle, hsl(var(--secondary) / 0.15) 0%, transparent 70%)',
-              }),
-              [],
-            ),
-            // Subtle grid pattern
-            div(
-              styles: Styles(raw: {
-                'position': 'absolute',
-                'inset': '0',
-                'background-image': 'linear-gradient(hsl(var(--foreground) / 0.03) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground) / 0.03) 1px, transparent 1px)',
-                'background-size': '40px 40px',
-              }),
-              [],
-            ),
-          ],
-        ),
-        // Content
-        ArcaneDiv(
-          styles: const ArcaneStyleData(
-            position: Position.relative,
-            zIndex: ZIndex.base,
-            maxWidth: MaxWidth.form,
-            margin: MarginPreset.auto,
-          ),
-          children: [brandingContent],
-        ),
-      ],
-    );
-  }
-
-  Component _buildFormPanel() {
-    return ArcaneDiv(
-      styles: const ArcaneStyleData(
-        flexGrow: 1,
-        display: Display.flex,
-        flexDirection: FlexDirection.column,
-        justifyContent: JustifyContent.center,
-        alignItems: AlignItems.center,
-        padding: PaddingPreset.lgXl,
-        background: Background.background,
-        minHeight: '100vh',
-      ),
-      children: [
-        // Mobile header (only shown on mobile when branding panel is hidden)
-        if (mobileHeader != null)
-          div(
-            styles: const Styles(raw: {
-              'display': 'none',
-              'margin-bottom': '1.5rem',
-            }),
-            classes: 'auth-mobile-header',
-            [mobileHeader!],
-          ),
-        // Form content
-        ArcaneDiv(
-          styles: const ArcaneStyleData(
-            width: Size.full,
-            maxWidthCustom: '420px',
-          ),
-          children: [formContent],
-        ),
-      ],
-    );
+    return context.renderers.authSplitLayout(AuthSplitLayoutProps(
+      brandingContent: brandingContent,
+      formContent: formContent,
+      mobileHeader: mobileHeader,
+      reverseSides: reverseSides,
+    ));
   }
 }

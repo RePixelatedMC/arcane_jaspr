@@ -1,17 +1,8 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart'
-    hide
-        Color,
-        Colors,
-        ColorScheme,
-        Gap,
-        Padding,
-        TextAlign,
-        TextOverflow,
-        Border,
-        BorderRadius,
-        BoxShadow,
-        FontWeight;
+
+import '../../core/theme_provider.dart';
+
+export '../../core/props/aspect_ratio_props.dart';
 
 /// A container that maintains a specific aspect ratio.
 ///
@@ -95,36 +86,11 @@ class ArcaneAspectRatio extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final allClasses = [
-      'arcane-aspect-ratio',
-      if (classes != null) classes,
-    ].join(' ');
-
-    return Component.element(
-      tag: 'div',
-      classes: allClasses,
-      styles: Styles(raw: {
-        'position': 'relative',
-        'width': '100%',
-        'aspect-ratio': ratio.toString(),
-        'overflow': 'hidden',
-        ...?styles,
-      }),
-      children: [
-        // Child wrapper for absolute positioning fallback
-        Component.element(
-          tag: 'div',
-          classes: 'arcane-aspect-ratio-content',
-          styles: const Styles(raw: {
-            'position': 'absolute',
-            'top': '0',
-            'left': '0',
-            'width': '100%',
-            'height': '100%',
-          }),
-          children: [child],
-        ),
-      ],
-    );
+    return context.renderers.aspectRatio(AspectRatioProps(
+      ratio: ratio,
+      child: child,
+      classes: classes,
+      styles: styles,
+    ));
   }
 }

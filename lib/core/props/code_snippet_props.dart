@@ -1,4 +1,3 @@
-import 'package:jaspr/jaspr.dart';
 
 /// Properties for code snippet components.
 class CodeSnippetProps {

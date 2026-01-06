@@ -1,44 +1,9 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart'
-    hide
-        Color,
-        Colors,
-        ColorScheme,
-        Gap,
-        Padding,
-        TextAlign,
-        TextOverflow,
-        Border,
-        BorderRadius,
-        BoxShadow,
-        FontWeight;
 
-/// Scroll rail position
-enum ScrollRailPosition {
-  /// Rail on the left side
-  left,
+import '../../core/theme_provider.dart';
 
-  /// Rail on the right side
-  right,
-}
-
-/// Scroll rail sizing
-enum ScrollRailSize {
-  /// Narrow rail (200px)
-  narrow,
-
-  /// Small rail (240px)
-  sm,
-
-  /// Medium rail (280px)
-  md,
-
-  /// Large rail (320px)
-  lg,
-
-  /// Extra large rail (360px)
-  xl,
-}
+// Re-export enums from props for convenience
+export '../../core/props/scroll_rail_props.dart' show ScrollRailPosition, ScrollRailSize;
 
 /// A scrollable sidebar rail that maintains position independently of page scroll.
 ///
@@ -136,85 +101,21 @@ class ArcaneScrollRail extends StatelessComponent {
     super.key,
   }) : position = ScrollRailPosition.right;
 
-  String get _widthValue =>
-      width ??
-      switch (size) {
-        ScrollRailSize.narrow => '200px',
-        ScrollRailSize.sm => '240px',
-        ScrollRailSize.md => '280px',
-        ScrollRailSize.lg => '320px',
-        ScrollRailSize.xl => '360px',
-      };
-
-  String get _borderStyle {
-    if (!showBorder) return 'none';
-    return '1px solid hsl(var(--border) / 0.5)';
-  }
-
   @override
   Component build(BuildContext context) {
-    final String heightCalc = 'calc(100vh - $topOffset - $bottomOffset)';
-    final String scrollbarId =
-        scrollPersistenceId ?? 'scroll-rail-${position.name}';
-
-    return div(
-      id: scrollbarId,
-      styles: Styles(raw: {
-        'position': 'sticky',
-        'top': topOffset,
-        'width': _widthValue,
-        'height': heightCalc,
-        'max-height': heightCalc,
-        'flex-shrink': '0',
-        'overflow-y': 'auto',
-        'overflow-x': 'hidden',
-        'background': background ?? 'var(--card)',
-        if (position == ScrollRailPosition.left)
-          'border-right': _borderStyle
-        else
-          'border-left': _borderStyle,
-        // Custom scrollbar styling
-        if (customScrollbar) ...{
-          'scrollbar-width': 'thin',
-          'scrollbar-color': 'var(--border) transparent',
-        },
-      }),
-      [
-        // Inner container with padding
-        div(
-          styles: Styles(raw: {
-            'padding': padding,
-            'min-height': '100%',
-          }),
-          children,
-        ),
-        // Script for scroll persistence
-        if (scrollPersistenceId != null)
-          script(content: '''
-            (function() {
-              var rail = document.getElementById('$scrollbarId');
-              if (!rail) return;
-
-              var storageKey = 'scroll-rail-$scrollbarId';
-
-              // Restore scroll position
-              var savedPos = sessionStorage.getItem(storageKey);
-              if (savedPos) {
-                rail.scrollTop = parseInt(savedPos, 10);
-              }
-
-              // Save scroll position on scroll
-              var saveTimeout;
-              rail.addEventListener('scroll', function() {
-                clearTimeout(saveTimeout);
-                saveTimeout = setTimeout(function() {
-                  sessionStorage.setItem(storageKey, rail.scrollTop.toString());
-                }, 100);
-              });
-            })();
-          '''),
-      ],
-    );
+    return context.renderers.scrollRail(ScrollRailProps(
+      position: position,
+      size: size,
+      width: width,
+      topOffset: topOffset,
+      bottomOffset: bottomOffset,
+      showBorder: showBorder,
+      background: background,
+      padding: padding,
+      customScrollbar: customScrollbar,
+      scrollPersistenceId: scrollPersistenceId,
+      children: children,
+    ));
   }
 }
 
@@ -273,35 +174,16 @@ class ArcaneScrollRailLayout extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final railComponent = ArcaneScrollRail(
-      position: railPosition,
-      size: railSize,
-      width: railWidth,
-      topOffset: headerHeight,
+    return context.renderers.scrollRailLayout(ScrollRailLayoutProps(
+      rail: rail,
+      child: child,
+      railPosition: railPosition,
+      railSize: railSize,
+      railWidth: railWidth,
+      headerHeight: headerHeight,
       showBorder: showBorder,
-      background: railBackground,
-      scrollPersistenceId: 'main-rail',
-      children: [rail],
-    );
-
-    final mainContent = div(
-      styles: Styles(raw: {
-        'flex': '1',
-        'min-width': '0',
-        'background': contentBackground ?? 'var(--card)',
-      }),
-      [child],
-    );
-
-    return div(
-      styles: const Styles(raw: {
-        'display': 'flex',
-        'min-height': '100vh',
-        'width': '100%',
-      }),
-      railPosition == ScrollRailPosition.left
-          ? [railComponent, mainContent]
-          : [mainContent, railComponent],
-    );
+      railBackground: railBackground,
+      contentBackground: contentBackground,
+    ));
   }
 }

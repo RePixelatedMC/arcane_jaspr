@@ -108,6 +108,19 @@ import 'props/hero_section_props.dart';
 import 'props/footer_props.dart';
 import 'props/dashboard_layout_props.dart';
 import 'props/feature_showcase_props.dart';
+import 'props/footer_column_props.dart';
+import 'props/auth_split_layout_props.dart';
+import 'props/section_header_props.dart';
+import 'props/cta_banner_props.dart';
+import 'props/logo_carousel_props.dart';
+import 'props/carpet_props.dart';
+import 'props/gutter_props.dart';
+import 'props/flow_props.dart';
+import 'props/button_panel_props.dart';
+import 'props/aspect_ratio_props.dart';
+import 'props/scroll_rail_props.dart';
+import 'props/resizable_props.dart';
+import 'props/radio_cards_props.dart';
 
 export 'props/alert_props.dart';
 export 'props/auth_branding_panel_props.dart';
@@ -132,6 +145,19 @@ export 'props/hero_section_props.dart';
 export 'props/footer_props.dart';
 export 'props/dashboard_layout_props.dart';
 export 'props/feature_showcase_props.dart';
+export 'props/footer_column_props.dart';
+export 'props/auth_split_layout_props.dart';
+export 'props/section_header_props.dart';
+export 'props/cta_banner_props.dart';
+export 'props/logo_carousel_props.dart';
+export 'props/carpet_props.dart';
+export 'props/gutter_props.dart';
+export 'props/flow_props.dart';
+export 'props/button_panel_props.dart';
+export 'props/aspect_ratio_props.dart';
+export 'props/scroll_rail_props.dart';
+export 'props/resizable_props.dart';
+export 'props/radio_cards_props.dart';
 export 'props/author_card_props.dart';
 export 'props/feature_card_props.dart';
 export 'props/testimonial_card_props.dart';
@@ -564,6 +590,78 @@ abstract class ComponentRenderers {
   /// Render a feature showcase component
   Component featureShowcase(FeatureShowcaseProps props);
 
+  /// Render a footer column component
+  Component footerColumn(FooterColumnProps props);
+
+  /// Render a footer brand column component
+  Component footerBrandColumn(FooterBrandColumnProps props);
+
+  /// Render an auth split layout component
+  Component authSplitLayout(AuthSplitLayoutProps props);
+
+  /// Render a section header component
+  Component sectionHeader(SectionHeaderProps props);
+
+  /// Render a CTA banner component
+  Component ctaBanner(CtaBannerProps props);
+
+  /// Render a logo carousel component
+  Component logoCarousel(LogoCarouselProps props);
+
+  /// Render a logo grid component
+  Component logoGrid(LogoGridProps props);
+
+  /// Render a carpet component
+  Component carpet(CarpetProps props);
+
+  /// Render a surface component
+  Component surface(SurfaceProps props);
+
+  /// Render an arcane divider component
+  Component arcaneDivider(ArcaneDividerProps props);
+
+  /// Render a gutter component
+  Component gutter(GutterProps props);
+
+  /// Render a gap component
+  Component gap(GapProps props);
+
+  /// Render a flow layout component
+  Component flow(FlowProps props);
+
+  /// Render a row layout component
+  Component row(RowProps props);
+
+  /// Render a column layout component
+  Component column(ColumnProps props);
+
+  /// Render a center component
+  Component center(CenterProps props);
+
+  /// Render a spacer component
+  Component spacer(SpacerProps props);
+
+  /// Render an expanded component
+  Component expanded(ExpandedProps props);
+
+  /// Render a sized box component
+  Component sizedBox(SizedBoxProps props);
+
+  /// Render a padding wrapper component
+  Component paddingWrapper(PaddingWrapperProps props);
+
+  /// Render a button panel component
+  Component buttonPanel(ButtonPanelProps props);
+
+  /// Render a toolbar component
+  Component toolbar(ToolbarProps props);
+
+  /// Render a button group component
+  Component buttonGroup(ButtonGroupProps props);
+
+  /// Render an aspect ratio container
+  Component aspectRatio(AspectRatioProps props);
+
   /// Render a confirm dialog component
   Component confirmDialog(ConfirmDialogProps props);
 
@@ -914,4 +1012,34 @@ abstract class ComponentRenderers {
 
   /// Render a step indicator component
   Component stepIndicator(StepIndicatorProps props);
+
+  // ==========================================================================
+  // SCROLL RAIL COMPONENTS
+  // ==========================================================================
+
+  /// Render a scroll rail component
+  Component scrollRail(ScrollRailProps props);
+
+  /// Render a scroll rail layout component
+  Component scrollRailLayout(ScrollRailLayoutProps props);
+
+  // ==========================================================================
+  // RESIZABLE COMPONENTS
+  // ==========================================================================
+
+  /// Render a resizable panel group component
+  Component resizable(ResizableProps props);
+
+  // ==========================================================================
+  // RADIO CARDS COMPONENTS
+  // ==========================================================================
+
+  /// Render a radio cards component
+  Component radioCards<T>(RadioCardsProps<T> props);
+
+  /// Render a selectable chip group component
+  Component selectableChipGroup(SelectableChipGroupProps props);
+
+  /// Render a selectable chip component
+  Component arcaneChip(ArcaneChipProps props);
 }

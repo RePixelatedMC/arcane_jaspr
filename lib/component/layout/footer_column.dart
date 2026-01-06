@@ -1,8 +1,9 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
 import '../../core/props/footer_props.dart';
+import '../../core/theme_provider.dart';
 
+export '../../core/props/footer_column_props.dart';
 // Re-export FooterLink for convenience
 export '../../core/props/footer_props.dart' show FooterLink;
 
@@ -47,51 +48,13 @@ class ArcaneFooterColumn extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final effectiveTitleColor = titleColor ?? 'var(--foreground)';
-    final effectiveLinkColor = linkColor ?? 'var(--muted-foreground)';
-    final effectiveLinkGap = linkGap ?? '0.5rem';
-
-    return div(
-      styles: const Styles(raw: {
-        'display': 'flex',
-        'flex-direction': 'column',
-        'align-items': 'flex-start',
-      }),
-      [
-        // Title
-        h4(
-          styles: Styles(raw: {
-            'font-family': 'ui-sans-serif, system-ui, sans-serif',
-            'font-size': '0.875rem',
-            'font-weight': '600',
-            'color': effectiveTitleColor,
-            'text-transform': 'uppercase',
-            'letter-spacing': '0.05em',
-            'margin': '0 0 1rem 0',
-          }),
-          [text(title)],
-        ),
-        // Links
-        ...links.map((link) => a(
-              href: link.href ?? '#',
-              styles: Styles(raw: {
-                'display': 'block',
-                'font-size': '0.875rem',
-                'color': effectiveLinkColor,
-                'text-decoration': 'none',
-                'margin-bottom': effectiveLinkGap,
-                'transition': 'color 150ms ease',
-              }),
-              [
-                if (link.icon != null) ...[
-                  span([text(link.icon!)]),
-                  text(' '),
-                ],
-                text(link.label),
-              ],
-            )),
-      ],
-    );
+    return context.renderers.footerColumn(FooterColumnProps(
+      title: title,
+      links: links,
+      titleColor: titleColor,
+      linkColor: linkColor,
+      linkGap: linkGap,
+    ));
   }
 }
 
@@ -127,35 +90,11 @@ class ArcaneFooterBrandColumn extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return div(
-      styles: const Styles(raw: {
-        'display': 'flex',
-        'flex-direction': 'column',
-        'align-items': 'flex-start',
-      }),
-      [
-        // Logo
-        div(
-          styles: const Styles(raw: {
-            'margin-bottom': '1rem',
-          }),
-          [logo],
-        ),
-        // Description
-        if (description != null)
-          p(
-            styles: Styles(raw: {
-              'font-size': '0.875rem',
-              'color': 'var(--muted-foreground)',
-              'line-height': '1.6',
-              'margin': '0 0 1rem 0',
-              'max-width': descriptionMaxWidth ?? '280px',
-            }),
-            [text(description!)],
-          ),
-        // Bottom content
-        if (bottomContent != null) bottomContent!,
-      ],
-    );
+    return context.renderers.footerBrandColumn(FooterBrandColumnProps(
+      logo: logo,
+      description: description,
+      bottomContent: bottomContent,
+      descriptionMaxWidth: descriptionMaxWidth,
+    ));
   }
 }

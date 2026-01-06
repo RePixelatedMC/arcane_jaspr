@@ -1,4 +1,3 @@
-import 'package:jaspr/jaspr.dart';
 
 /// Properties for email dialog components.
 class EmailDialogProps {

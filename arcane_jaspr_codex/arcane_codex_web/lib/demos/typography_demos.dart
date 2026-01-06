@@ -82,7 +82,7 @@ class TypographyDemos {
       ];
 
   static List<Component> pre() => [
-        ArcanePre(
+        ArcaneCodeBlock(
           children: [ArcaneText('Preformatted\n  text\n    block')],
         ),
       ];

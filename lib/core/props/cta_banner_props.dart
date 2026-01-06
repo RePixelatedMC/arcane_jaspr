@@ -1,11 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 
-import '../../core/theme_provider.dart';
-
-export '../../core/props/cta_banner_props.dart';
-
-/// Call-to-action banner with gradient background.
-class ArcaneCtaBanner extends StatelessComponent {
+/// Properties for CTA banner components.
+class CtaBannerProps {
   /// Banner title
   final String title;
 
@@ -27,7 +23,7 @@ class ArcaneCtaBanner extends StatelessComponent {
   /// Background image URL
   final String? backgroundImage;
 
-  const ArcaneCtaBanner({
+  const CtaBannerProps({
     required this.title,
     this.subtitle,
     this.primaryAction,
@@ -35,19 +31,5 @@ class ArcaneCtaBanner extends StatelessComponent {
     this.gradientStart,
     this.gradientEnd,
     this.backgroundImage,
-    super.key,
   });
-
-  @override
-  Component build(BuildContext context) {
-    return context.renderers.ctaBanner(CtaBannerProps(
-      title: title,
-      subtitle: subtitle,
-      primaryAction: primaryAction,
-      secondaryAction: secondaryAction,
-      gradientStart: gradientStart,
-      gradientEnd: gradientEnd,
-      backgroundImage: backgroundImage,
-    ));
-  }
 }

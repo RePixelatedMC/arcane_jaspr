@@ -15,29 +15,16 @@ import 'package:arcane_jaspr/component/feedback/alert_banner.dart'
     as _alert_banner;
 import 'package:arcane_jaspr/component/feedback/loader.dart' as _loader;
 import 'package:arcane_jaspr/component/form/field.dart' as _field;
-import 'package:arcane_jaspr/component/form/field_wrapper.dart'
-    as _field_wrapper;
-import 'package:arcane_jaspr/component/form/newsletter_form.dart'
-    as _newsletter_form;
 import 'package:arcane_jaspr/component/input/formatted_input.dart'
     as _formatted_input;
 import 'package:arcane_jaspr/component/input/mutable_text.dart'
     as _mutable_text;
 import 'package:arcane_jaspr/component/interactive/back_to_top.dart'
     as _back_to_top;
-import 'package:arcane_jaspr/component/layout/auth_layout.dart' as _auth_layout;
 import 'package:arcane_jaspr/component/layout/dashboard_layout.dart'
     as _dashboard_layout;
-import 'package:arcane_jaspr/component/layout/footer.dart' as _footer;
 import 'package:arcane_jaspr/component/layout/logo_carousel.dart'
     as _logo_carousel;
-import 'package:arcane_jaspr/component/layout/resizable.dart' as _resizable;
-import 'package:arcane_jaspr/component/navigation/bottom_navigation_bar.dart'
-    as _bottom_navigation_bar;
-import 'package:arcane_jaspr/component/navigation/dot_indicator.dart'
-    as _dot_indicator;
-import 'package:arcane_jaspr/component/navigation/mobile_menu.dart'
-    as _mobile_menu;
 import 'package:arcane_jaspr/component/screen/chat_screen.dart' as _chat_screen;
 import 'package:arcane_jaspr/component/screen/navigation_screen.dart'
     as _navigation_screen;
@@ -83,24 +70,13 @@ ServerOptions get defaultServerOptions => ServerOptions(
     ..._loader.ArcaneLoader.styles,
     ..._loader.ArcanePulseLoader.styles,
     ..._field.ArcaneFieldStyles.styles,
-    ..._field_wrapper.ArcaneForm.styles,
-    ..._newsletter_form.ArcaneNewsletterForm.styles,
     ..._formatted_input.ArcaneFormattedInput.styles,
     ..._mutable_text.ArcaneMutableText.styles,
     ..._back_to_top.ArcaneBackToTop.styles,
     ..._back_to_top.ArcaneFloatingActionButton.styles,
-    ..._auth_layout.ArcaneAuthBackLink.styles,
-    ..._dashboard_layout.ArcaneDashboardLayout.styles,
     ..._dashboard_layout.ArcaneDashboardUserMenu.styles,
-    ..._footer.ArcaneFooter.styles,
-    ..._footer.ArcaneSocialIcon.styles,
     ..._logo_carousel.ArcaneLogoCarousel.styles,
     ..._logo_carousel.ArcaneLogoGrid.styles,
-    ..._resizable.ArcaneResizable.styles,
-    ..._bottom_navigation_bar.ArcaneBottomNavigationBar.styles,
-    ..._dot_indicator.ArcaneDotIndicator.styles,
-    ..._dot_indicator.ArcaneStepIndicator.styles,
-    ..._mobile_menu.ArcaneMobileMenu.styles,
     ..._chat_screen.ArcaneChatScreen.styles,
     ..._navigation_screen.ArcaneResponsiveScaffold.styles,
     ..._screen.ArcaneScreen.styles,

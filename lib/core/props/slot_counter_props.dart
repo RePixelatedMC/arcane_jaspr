@@ -1,4 +1,3 @@
-import 'package:jaspr/jaspr.dart';
 
 /// Size variant for slot counter display.
 enum SlotCounterSize { xs, sm, md, lg, xl }
@@ -94,6 +93,66 @@ class SlotCounterProps {
     this.minDigits,
     this.onValueChange,
   });
+
+  /// Creates a latency/ping display with sensible defaults
+  factory SlotCounterProps.latency({
+    int minLatency = 5,
+    int maxLatency = 150,
+    String? label,
+    SlotCounterSize valueSize = SlotCounterSize.lg,
+    SlotCounterColor valueColor = SlotCounterColor.accent,
+    bool autoStart = true,
+  }) {
+    return SlotCounterProps(
+      minValue: minLatency,
+      maxValue: maxLatency,
+      suffix: 'ms',
+      label: label,
+      valueSize: valueSize,
+      valueColor: valueColor,
+      basePauseSeconds: 4,
+      randomPauseSeconds: 5,
+      spinDurationMs: 1200,
+      autoStart: autoStart,
+    );
+  }
+
+  /// Creates a percentage display
+  factory SlotCounterProps.percentage({
+    int minValue = 0,
+    int maxValue = 100,
+    String? label,
+    SlotCounterSize valueSize = SlotCounterSize.xl,
+    SlotCounterColor valueColor = SlotCounterColor.accent,
+  }) {
+    return SlotCounterProps(
+      minValue: minValue,
+      maxValue: maxValue,
+      suffix: '%',
+      label: label,
+      valueSize: valueSize,
+      valueColor: valueColor,
+    );
+  }
+
+  /// Creates a currency display
+  factory SlotCounterProps.currency({
+    int minValue = 0,
+    int maxValue = 10000,
+    String currencySymbol = '\$',
+    String? label,
+    SlotCounterSize valueSize = SlotCounterSize.xl,
+    SlotCounterColor valueColor = SlotCounterColor.accent,
+  }) {
+    return SlotCounterProps(
+      minValue: minValue,
+      maxValue: maxValue,
+      prefix: currencySymbol,
+      label: label,
+      valueSize: valueSize,
+      valueColor: valueColor,
+    );
+  }
 }
 
 /// Props for the SlotCounterRow component.

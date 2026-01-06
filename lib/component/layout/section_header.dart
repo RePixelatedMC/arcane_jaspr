@@ -1,12 +1,8 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-/// Text alignment for section header
-enum SectionHeaderAlign {
-  left,
-  center,
-  right,
-}
+import '../../core/theme_provider.dart';
+
+export '../../core/props/section_header_props.dart';
 
 /// A reusable section header with label, heading, and description.
 ///
@@ -91,66 +87,16 @@ class ArcaneSectionHeader extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final textAlign = _getTextAlign();
-    final effectiveDescriptionMaxWidth = descriptionMaxWidth ?? '640px';
-    final effectiveMarginBottom = marginBottom ?? '3rem';
-
-    return div(
-      styles: Styles(raw: {
-        'text-align': textAlign,
-        'margin-bottom': effectiveMarginBottom,
-      }),
-      [
-        // Label
-        if (label != null)
-          span(
-            styles: Styles(raw: {
-              'display': 'inline-block',
-              'font-size': '0.875rem',
-              'font-weight': '500',
-              'color': labelColor ?? 'var(--accent)',
-              'text-transform': 'uppercase',
-              'letter-spacing': '0.05em',
-              'margin-bottom': '1rem',
-            }),
-            [text(label!)],
-          ),
-        // Heading
-        h2(
-          styles: Styles(raw: {
-            'font-family': 'ui-sans-serif, system-ui, sans-serif',
-            'font-size': '2.25rem',
-            'font-weight': '700',
-            'color': headingColor ?? 'var(--foreground)',
-            'margin': '0 0 1rem 0',
-            'line-height': '1.2',
-          }),
-          [text(heading)],
-        ),
-        // Description
-        if (description != null)
-          p(
-            styles: Styles(raw: {
-              'font-size': '1.125rem',
-              'color': descriptionColor ?? 'var(--muted-foreground)',
-              'max-width': effectiveDescriptionMaxWidth,
-              'margin': align == SectionHeaderAlign.center ? '0 auto' : '0',
-              'line-height': '1.6',
-            }),
-            [text(description!)],
-          ),
-      ],
-    );
-  }
-
-  String _getTextAlign() {
-    switch (align) {
-      case SectionHeaderAlign.left:
-        return 'left';
-      case SectionHeaderAlign.center:
-        return 'center';
-      case SectionHeaderAlign.right:
-        return 'right';
-    }
+    return context.renderers.sectionHeader(SectionHeaderProps(
+      label: label,
+      heading: heading,
+      description: description,
+      align: align,
+      descriptionMaxWidth: descriptionMaxWidth,
+      marginBottom: marginBottom,
+      labelColor: labelColor,
+      headingColor: headingColor,
+      descriptionColor: descriptionColor,
+    ));
   }
 }

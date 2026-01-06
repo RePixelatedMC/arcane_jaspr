@@ -1,6 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight, FontStyle, StyleRule, Display, Position, Overflow, Cursor, Visibility, FlexWrap, WhiteSpace;
 
+import '../../core/theme_provider.dart';
 import '../../util/arcane.dart';
 import '../../util/appearance/colors.dart';
 import '../../util/style_types/index.dart';
@@ -45,19 +46,16 @@ class ArcaneFlow extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return div(
-      classes: 'arcane-flow',
-      styles: Styles(raw: {
-        'display': 'flex',
-        'flex-wrap': 'wrap',
-        'flex-direction': reverse ? 'row-reverse' : 'row',
-        'justify-content': mainAxisAlignment.css,
-        'align-items': crossAxisAlignment.css,
-        'align-content': wrapAlignment.css,
-        'gap': '${rowGap ?? gap}px ${columnGap ?? gap}px',
-      }),
-      children,
-    );
+    return context.renderers.flow(FlowProps(
+      children: children,
+      mainAxisAlignment: mainAxisAlignment,
+      crossAxisAlignment: crossAxisAlignment,
+      wrapAlignment: wrapAlignment,
+      gap: gap,
+      rowGap: rowGap,
+      columnGap: columnGap,
+      reverse: reverse,
+    ));
   }
 }
 
@@ -109,7 +107,18 @@ class ArcaneRow extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    // Build base styles
+    // For simple cases without style, use renderer
+    if (style == null && gapSize == null) {
+      return context.renderers.row(RowProps(
+        children: children,
+        mainAxisAlignment: mainAxisAlignment,
+        crossAxisAlignment: crossAxisAlignment,
+        mainAxisSize: mainAxisSize,
+        gap: gap,
+      ));
+    }
+
+    // Build base styles for complex cases
     final Map<String, String> baseStyles = {
       'display': 'flex',
       'flex-direction': 'row',
@@ -186,7 +195,18 @@ class ArcaneColumn extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    // Build base styles
+    // For simple cases without style, use renderer
+    if (style == null && gapSize == null) {
+      return context.renderers.column(ColumnProps(
+        children: children,
+        mainAxisAlignment: mainAxisAlignment,
+        crossAxisAlignment: crossAxisAlignment,
+        mainAxisSize: mainAxisSize,
+        gap: gap,
+      ));
+    }
+
+    // Build base styles for complex cases
     final Map<String, String> baseStyles = {
       'display': 'flex',
       'flex-direction': 'column',
@@ -223,13 +243,7 @@ class ArcaneSpacer extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return div(
-      classes: 'arcane-spacer',
-      styles: Styles(raw: {
-        'flex': '$flex',
-      }),
-      [],
-    );
+    return context.renderers.spacer(SpacerProps(flex: flex));
   }
 }
 
@@ -241,17 +255,7 @@ class ArcaneCenter extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return div(
-      classes: 'arcane-center',
-      styles: const Styles(raw: {
-        'display': 'flex',
-        'justify-content': 'center',
-        'align-items': 'center',
-        'width': '100%',
-        'height': '100%',
-      }),
-      [child],
-    );
+    return context.renderers.center(CenterProps(child: child));
   }
 }
 
@@ -264,15 +268,7 @@ class ArcaneExpanded extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return div(
-      classes: 'arcane-expanded',
-      styles: Styles(raw: {
-        'flex': '$flex',
-        'min-width': '0',
-        'min-height': '0',
-      }),
-      [child],
-    );
+    return context.renderers.expanded(ExpandedProps(child: child, flex: flex));
   }
 }
 
@@ -289,13 +285,10 @@ class ArcanePadding extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return div(
-      classes: 'arcane-padding',
-      styles: Styles(raw: {
-        'padding': padding.padding,
-      }),
-      [child],
-    );
+    return context.renderers.paddingWrapper(PaddingWrapperProps(
+      padding: padding,
+      child: child,
+    ));
   }
 }
 
@@ -319,19 +312,11 @@ class ArcaneSizedBox extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final bool isExpand = width == double.infinity || height == double.infinity;
-
-    return div(
-      classes: 'arcane-sized-box',
-      styles: Styles(raw: {
-        if (width != null && !isExpand) 'width': '${width}px',
-        if (height != null && !isExpand) 'height': '${height}px',
-        if (width == double.infinity) 'width': '100%',
-        if (height == double.infinity) 'height': '100%',
-        'flex-shrink': '0',
-      }),
-      child != null ? [child!] : [],
-    );
+    return context.renderers.sizedBox(SizedBoxProps(
+      width: width,
+      height: height,
+      child: child,
+    ));
   }
 }
 

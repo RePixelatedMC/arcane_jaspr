@@ -1,25 +1,29 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
+import 'package:jaspr/dom.dart'
+    hide
+        Color,
+        Colors,
+        ColorScheme,
+        Gap,
+        Padding,
+        TextAlign,
+        TextOverflow,
+        Border,
+        BorderRadius,
+        BoxShadow,
+        FontWeight;
 
-/// A logo item for the carousel
-class ArcaneLogoItem {
-  final String name;
-  final String? imageUrl;
-  final Component? customLogo;
-  final String? href;
+import '../../core/theme_provider.dart';
 
-  const ArcaneLogoItem({
-    required this.name,
-    this.imageUrl,
-    this.customLogo,
-    this.href,
-  });
-}
+export '../../core/props/logo_carousel_props.dart';
+
+/// Re-export for backwards compatibility
+typedef ArcaneLogoItem = LogoItem;
 
 /// An infinite scrolling logo carousel (Supabase-style)
 class ArcaneLogoCarousel extends StatelessComponent {
   /// Logo items
-  final List<ArcaneLogoItem> logos;
+  final List<LogoItem> logos;
 
   /// Animation duration in seconds
   final int duration;
@@ -56,123 +60,16 @@ class ArcaneLogoCarousel extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final String animationName = reverse ? 'arcane-scroll-reverse' : 'arcane-scroll';
-
-    return div(
-      classes: 'arcane-logo-carousel',
-      styles: const Styles(raw: {
-        'display': 'flex',
-        'flex-direction': 'column',
-        'gap': '1.5rem',
-        'width': '100%',
-        'overflow': 'hidden',
-      }),
-      [
-        // Optional title
-        if (title != null)
-          div(
-            classes: 'arcane-logo-carousel-title',
-            styles: const Styles(raw: {
-              'text-align': 'center',
-              'font-size': '0.875rem',
-              'font-weight': '500',
-              'color': 'var(--muted-foreground)',
-              'text-transform': 'uppercase',
-              'letter-spacing': '0.05em',
-            }),
-            [text(title!)],
-          ),
-
-        // Carousel track
-        div(
-          classes: 'arcane-logo-carousel-track ${pauseOnHover ? 'pause-on-hover' : ''}',
-          styles: Styles(raw: {
-            'display': 'flex',
-            'width': 'max-content',
-            'animation': '$animationName ${duration}s linear infinite',
-          }),
-          [
-            // First set of logos
-            _buildLogoSet(),
-            // Duplicate set for seamless loop
-            _buildLogoSet(),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Component _buildLogoSet() {
-    return div(
-      classes: 'arcane-logo-carousel-set',
-      styles: Styles(raw: {
-        'display': 'flex',
-        'align-items': 'center',
-        'gap': '${gap}px',
-        'padding': '0 ${gap / 2}px',
-      }),
-      [
-        for (final logo in logos) _buildLogo(logo),
-      ],
-    );
-  }
-
-  Component _buildLogo(ArcaneLogoItem logo) {
-    final Component logoContent = logo.customLogo ??
-        (logo.imageUrl != null
-            ? img(
-                src: logo.imageUrl!,
-                alt: logo.name,
-                styles: Styles(raw: {
-                  'height': '${logoHeight}px',
-                  'width': 'auto',
-                  'object-fit': 'contain',
-                  if (grayscale) 'filter': 'grayscale(100%)',
-                  'opacity': grayscale ? '0.6' : '1',
-                  'transition': 'all 150ms ease',
-                }),
-              )
-            : span(
-                styles: Styles(raw: {
-                  'font-size': '1.125rem',
-                  'font-weight': '600',
-                  'color': 'var(--muted-foreground)',
-                  if (grayscale) 'filter': 'grayscale(100%)',
-                  'opacity': grayscale ? '0.6' : '1',
-                }),
-                [text(logo.name)],
-              ));
-
-    if (logo.href != null) {
-      return a(
-        href: logo.href!,
-        classes: 'arcane-logo-carousel-item',
-        attributes: {
-          'target': '_blank',
-          'rel': 'noopener noreferrer',
-          'aria-label': logo.name,
-        },
-        styles: const Styles(raw: {
-          'display': 'flex',
-          'align-items': 'center',
-          'justify-content': 'center',
-          'flex-shrink': '0',
-          'text-decoration': 'none',
-        }),
-        [logoContent],
-      );
-    }
-
-    return div(
-      classes: 'arcane-logo-carousel-item',
-      styles: const Styles(raw: {
-        'display': 'flex',
-        'align-items': 'center',
-        'justify-content': 'center',
-        'flex-shrink': '0',
-      }),
-      [logoContent],
-    );
+    return context.renderers.logoCarousel(LogoCarouselProps(
+      logos: logos,
+      duration: duration,
+      logoHeight: logoHeight,
+      gap: gap,
+      pauseOnHover: pauseOnHover,
+      reverse: reverse,
+      grayscale: grayscale,
+      title: title,
+    ));
   }
 
   @css
@@ -203,7 +100,7 @@ class ArcaneLogoCarousel extends StatelessComponent {
 /// A static logo grid
 class ArcaneLogoGrid extends StatelessComponent {
   /// Logo items
-  final List<ArcaneLogoItem> logos;
+  final List<LogoItem> logos;
 
   /// Logo height
   final double logoHeight;
@@ -232,75 +129,14 @@ class ArcaneLogoGrid extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return div(
-      classes: 'arcane-logo-grid',
-      styles: const Styles(raw: {
-        'display': 'flex',
-        'flex-direction': 'column',
-        'gap': '1.5rem',
-      }),
-      [
-        if (title != null)
-          div(
-            styles: const Styles(raw: {
-              'text-align': 'center',
-              'font-size': '0.875rem',
-              'font-weight': '500',
-              'color': 'var(--muted-foreground)',
-              'text-transform': 'uppercase',
-              'letter-spacing': '0.05em',
-            }),
-            [text(title!)],
-          ),
-        div(
-          classes: 'arcane-logo-grid-container',
-          styles: Styles(raw: {
-            'display': 'grid',
-            'grid-template-columns': 'repeat($columns, 1fr)',
-            'gap': '${gap}px',
-            'align-items': 'center',
-            'justify-items': 'center',
-          }),
-          [
-            for (final logo in logos)
-              div(
-                classes: 'arcane-logo-grid-item',
-                styles: const Styles(raw: {
-                  'display': 'flex',
-                  'align-items': 'center',
-                  'justify-content': 'center',
-                }),
-                [
-                  if (logo.customLogo != null)
-                    logo.customLogo!
-                  else if (logo.imageUrl != null)
-                    img(
-                      src: logo.imageUrl!,
-                      alt: logo.name,
-                      styles: Styles(raw: {
-                        'height': '${logoHeight}px',
-                        'width': 'auto',
-                        'object-fit': 'contain',
-                        if (grayscale) 'filter': 'grayscale(100%)',
-                        'opacity': grayscale ? '0.6' : '1',
-                        'transition': 'all 150ms ease',
-                      }),
-                    )
-                  else
-                    span(
-                      styles: const Styles(raw: {
-                        'font-size': '1rem',
-                        'font-weight': '600',
-                        'color': 'var(--muted-foreground)',
-                      }),
-                      [text(logo.name)],
-                    ),
-                ],
-              ),
-          ],
-        ),
-      ],
-    );
+    return context.renderers.logoGrid(LogoGridProps(
+      logos: logos,
+      logoHeight: logoHeight,
+      gap: gap,
+      grayscale: grayscale,
+      title: title,
+      columns: columns,
+    ));
   }
 
   @css

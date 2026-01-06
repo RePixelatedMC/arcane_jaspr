@@ -7,6 +7,40 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.7.1]
 
+### Added
+
+#### Renderer-Based Component Architecture (TIER 8 - Layout Components)
+Migrated remaining layout components to the renderer architecture:
+
+- **ScrollRail**: `ScrollRailProps`, `ScrollRailLayoutProps` - Sticky scrollable sidebar rail with scroll persistence
+- **Resizable**: `ResizableProps`, `ResizablePanelData` - Resizable panel groups with draggable dividers
+- **RadioCards**: `RadioCardsProps`, `RadioCardItemData` - Selectable card groups
+- **SelectableChipGroup**: `SelectableChipGroupProps`, `ArcaneChipProps` - Selection chip containers
+- **Flow**: Updated `ArcaneFlow`, `ArcaneRow`, `ArcaneColumn`, `ArcaneSpacer`, `ArcaneCenter`, `ArcaneExpanded`, `ArcanePadding`, `ArcaneSizedBox` to delegate to renderers
+
+#### SlotCounterProps Factory Methods
+Added convenience factory constructors to `SlotCounterProps`:
+- `SlotCounterProps.latency()` - Pre-configured latency/ping display
+- `SlotCounterProps.percentage()` - Pre-configured percentage display
+- `SlotCounterProps.currency()` - Pre-configured currency display
+
+### Changed
+
+- **ArcaneScrollRail**: Now delegates to `context.renderers.scrollRail()`
+- **ArcaneScrollRailLayout**: Now delegates to `context.renderers.scrollRailLayout()`
+- **ArcaneResizable**: Now delegates to `context.renderers.resizable()`, factory constructors `sidebarLayout` and `splitView` now return proper `ArcaneResizable` instances
+- **ArcaneRadioCards**: Now delegates to `context.renderers.radioCards()`
+- **ArcaneChipGroup**: Renamed internal props to `SelectableChipGroupProps` to avoid conflict with `ChipGroupProps`
+- **ArcaneChip**: Now delegates to `context.renderers.arcaneChip()`
+- **ArcaneFlow/Row/Column/etc**: Now delegate to respective renderer methods
+
+### Fixed
+
+- Fixed `FlexiCardItem` export - codex demos now use correct class name
+- Fixed `ArcaneCodeBlock` naming - replaces legacy `ArcanePre`
+- Fixed `CalloutVariant` usage - replaces legacy `CalloutStyle`
+- Fixed `SlotCounterColor` usage - codex demos now use correct enum type
+
 ### Removed
 
 #### Old Token System Infrastructure
