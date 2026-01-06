@@ -364,7 +364,7 @@ class ArcaneContainer extends StatelessComponent {
         styles['border'] = decoration!.border!.css;
       }
       if (decoration!.boxShadow != null) {
-        styles['box-shadow'] = decoration!.boxShadow!.map((s) => s.css).join(', ');
+        styles['box-shadow'] = decoration!.boxShadow!.map((shadow) => shadow.css).join(', ');
       }
     }
 

@@ -61,14 +61,14 @@ class ArcaneBackToTop extends StatelessComponent {
         if (onTap != null) 'click': (e) => onTap!(),
       },
       [
-        span(
-          styles: const Styles(raw: {
+        const span(
+          styles: Styles(raw: {
             'font-size': '1.25rem',
             'color': 'var(--muted-foreground)',
             'transform': 'rotate(-90deg)',
             'transition': 'all 150ms ease',
           }),
-          [text('\u2192')],
+          [Component.text('\u2192')],
         ),
       ],
     );
@@ -211,7 +211,7 @@ class ArcaneFloatingActionButton extends StatelessComponent {
               'font-size': '0.875rem',
               'font-weight': '500',
             }),
-            [text(label!)],
+            [Component.text(label!)],
           ),
       ],
     );

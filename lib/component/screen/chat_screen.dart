@@ -197,24 +197,24 @@ class _ChatScreenState<M extends AbstractChatMessage, U extends AbstractChatUser
           }),
           [
             if (_loading)
-              div(
-                styles: const Styles(raw: {
+              const div(
+                styles: Styles(raw: {
                   'display': 'flex',
                   'justify-content': 'center',
                   'padding': '2rem',
                   'color': 'var(--muted-foreground)',
                 }),
-                [text('Loading messages...')],
+                [Component.text('Loading messages...')],
               )
             else if (_messages.isEmpty)
-              div(
-                styles: const Styles(raw: {
+              const div(
+                styles: Styles(raw: {
                   'display': 'flex',
                   'justify-content': 'center',
                   'padding': '2rem',
                   'color': 'var(--muted-foreground)',
                 }),
-                [text('No messages yet')],
+                [Component.text('No messages yet')],
               )
             else
               for (final message in _messages)
@@ -275,7 +275,7 @@ class _ChatScreenState<M extends AbstractChatMessage, U extends AbstractChatUser
                         }
                       },
                     },
-                    [text(_inputValue)],
+                    [Component.text(_inputValue)],
                   ),
 
                   // Send button
@@ -300,7 +300,7 @@ class _ChatScreenState<M extends AbstractChatMessage, U extends AbstractChatUser
                         events: {
                           'click': (_) => _sendMessage(),
                         },
-                        [text('\u27a4')],
+                        [const Component.text('\u27a4')],
                       ),
                 ],
               ),
@@ -360,7 +360,7 @@ class _ChatScreenState<M extends AbstractChatMessage, U extends AbstractChatUser
                   'margin-top': '0.25rem',
                   'text-align': isCurrentUser ? 'right' : 'left',
                 }),
-                [text(_formatTimestamp(message.timestamp))],
+                [Component.text(_formatTimestamp(message.timestamp))],
               ),
           ],
         ),
@@ -407,7 +407,7 @@ class _ChatScreenState<M extends AbstractChatMessage, U extends AbstractChatUser
                     'color': 'var(--foreground)',
                     'font-size': '0.875rem',
                   }),
-                  [text(isCurrentUser ? 'You' : 'User')],
+                  [Component.text(isCurrentUser ? 'You' : 'User')],
                 ),
                 if (component.showTimestamps)
                   span(
@@ -415,7 +415,7 @@ class _ChatScreenState<M extends AbstractChatMessage, U extends AbstractChatUser
                       'font-size': '0.75rem',
                       'color': 'var(--muted-foreground)',
                     }),
-                    [text(_formatTimestamp(message.timestamp))],
+                    [Component.text(_formatTimestamp(message.timestamp))],
                   ),
               ],
             ),
@@ -450,7 +450,7 @@ class SimpleChatMessage implements AbstractChatMessage {
   });
 
   @override
-  Component get messageWidget => text(content);
+  Component get messageWidget => Component.text(content);
 }
 
 /// Simple chat user implementation

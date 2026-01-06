@@ -1,6 +1,5 @@
 import 'package:jaspr/jaspr.dart';
 
-import '../../core/props/button_props.dart';
 import '../../core/theme_provider.dart';
 
 export '../../core/props/button_props.dart' show ButtonVariant, ButtonSize;

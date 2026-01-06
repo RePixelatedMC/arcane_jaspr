@@ -43,7 +43,7 @@ class ShadcnDatePicker extends StatelessComponent {
               'font-weight': '500',
               'color': 'var(--foreground)',
             }),
-            [dom.text(props.label!)],
+            [Component.text(props.label!)],
           ),
 
         // Trigger button
@@ -76,11 +76,11 @@ class ShadcnDatePicker extends StatelessComponent {
               ? {'click': (_) => props.onToggle!()}
               : null,
           [
-            dom.span(
-              styles: const dom.Styles(raw: {
+            const dom.span(
+              styles: dom.Styles(raw: {
                 'color': 'var(--muted-foreground)',
               }),
-              [dom.text('\u{1F4C5}')], // Calendar emoji
+              [Component.text('\u{1F4C5}')], // Calendar emoji
             ),
             dom.span(
               styles: const dom.Styles(raw: {
@@ -89,7 +89,7 @@ class ShadcnDatePicker extends StatelessComponent {
                 'text-overflow': 'ellipsis',
                 'white-space': 'nowrap',
               }),
-              [dom.text(props.displayText)],
+              [Component.text(props.displayText)],
             ),
             if (hasValue && props.clearable)
               dom.span(
@@ -111,7 +111,7 @@ class ShadcnDatePicker extends StatelessComponent {
                         },
                       }
                     : null,
-                [dom.text('\u{2715}')], // X character
+                [const Component.text('\u{2715}')], // X character
               ),
           ],
         ),
@@ -138,7 +138,7 @@ class ShadcnDatePicker extends StatelessComponent {
               'font-size': '14px',
               'color': 'var(--destructive)',
             }),
-            [dom.text(props.error!)],
+            [Component.text(props.error!)],
           ),
       ],
     );

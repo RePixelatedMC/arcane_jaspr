@@ -93,14 +93,14 @@ class ShadcnDisclosure extends StatelessComponent {
               [props.summary],
             ),
             if (props.showChevron)
-              dom.span(
+              const dom.span(
                 classes: 'arcane-disclosure-chevron',
-                styles: const dom.Styles(raw: {
+                styles: dom.Styles(raw: {
                   'color': 'var(--muted-foreground)',
                   'font-size': '0.875rem',
                   'transition': 'transform 150ms ease',
                 }),
-                [dom.text('\u25BC')],
+                [Component.text('\u25BC')],
               ),
           ],
         ),

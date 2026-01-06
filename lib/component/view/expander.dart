@@ -13,7 +13,6 @@ import 'package:jaspr/dom.dart'
         BoxShadow,
         FontWeight;
 
-import '../../core/props/expander_props.dart';
 import '../../core/theme_provider.dart';
 import '../../util/arcane.dart';
 
@@ -174,7 +173,7 @@ class _AccordionState extends State<ArcaneAccordion> {
                 'font-weight': '500',
                 'color': 'var(--foreground)',
               }),
-              [text(item.title)],
+              [Component.text(item.title)],
             ),
             span(
               styles: Styles(raw: {
@@ -182,7 +181,7 @@ class _AccordionState extends State<ArcaneAccordion> {
                 'transition': 'transform 150ms ease',
                 'transform': isExpanded ? 'rotate(180deg)' : 'rotate(0)',
               }),
-              [text('\u25BC')],
+              [const Component.text('\u25BC')],
             ),
           ],
         ),

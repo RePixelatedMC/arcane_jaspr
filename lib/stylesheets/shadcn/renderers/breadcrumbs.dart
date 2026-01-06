@@ -81,7 +81,7 @@ class ShadcnBreadcrumbs extends StatelessComponent {
                     'color': 'var(--muted-foreground)',
                     'user-select': 'none',
                   }),
-                  [props.customSeparator ?? dom.text(_separatorText)],
+                  [props.customSeparator ?? Component.text(_separatorText)],
                 ),
             ],
           ],
@@ -101,11 +101,11 @@ class ShadcnBreadcrumbs extends StatelessComponent {
       [
         if (item.icon != null) item.icon!,
         if (props.showHomeIcon && index == 0 && item.icon == null)
-          dom.span(
-            styles: const dom.Styles(raw: {'font-size': '1.1em'}),
-            [dom.text('\u{2302}')], // Home symbol
+          const dom.span(
+            styles: dom.Styles(raw: {'font-size': '1.1em'}),
+            [Component.text('\u{2302}')], // Home symbol
           ),
-        dom.text(item.label),
+        Component.text(item.label),
       ],
     );
 

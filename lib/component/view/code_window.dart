@@ -1,6 +1,5 @@
 import 'package:jaspr/jaspr.dart';
 
-import '../../core/props/code_window_props.dart';
 import '../../core/theme_provider.dart';
 
 // Re-export enums for usage

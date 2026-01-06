@@ -1,6 +1,5 @@
 import 'package:jaspr/jaspr.dart';
 
-import '../../core/props/disclosure_props.dart';
 import '../../core/theme_provider.dart';
 
 // Re-export enums for usage

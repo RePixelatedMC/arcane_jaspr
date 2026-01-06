@@ -123,7 +123,7 @@ class ShadcnLoadingOverlay extends StatelessComponent {
               'color': 'var(--muted-foreground)',
               'font-size': '16px',
             }),
-            [dom.text(props.message!)],
+            [Component.text(props.message!)],
           ),
       ],
     );

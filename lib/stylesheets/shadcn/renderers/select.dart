@@ -97,11 +97,11 @@ class ShadcnSelect<T> extends StatelessComponent {
               'gap': '4px',
             }),
             [
-              dom.text(props.label!),
+              Component.text(props.label!),
               if (props.required)
-                dom.span(
-                  styles: const dom.Styles(raw: {'color': 'var(--destructive)'}),
-                  [dom.text('*')],
+                const dom.span(
+                  styles: dom.Styles(raw: {'color': 'var(--destructive)'}),
+                  [Component.text('*')],
                 ),
             ],
           ),
@@ -158,7 +158,7 @@ class ShadcnSelect<T> extends StatelessComponent {
                 'text-overflow': 'ellipsis',
                 'white-space': 'nowrap',
               }),
-              [dom.text(displayText)],
+              [Component.text(displayText)],
             ),
 
             // Loading spinner
@@ -196,7 +196,7 @@ class ShadcnSelect<T> extends StatelessComponent {
                         },
                       }
                     : null,
-                [dom.text('\u{00D7}')], // Times symbol
+                [const Component.text('\u{00D7}')], // Times symbol
               ),
 
             // Arrow - ShadCN SelectIcon
@@ -208,7 +208,7 @@ class ShadcnSelect<T> extends StatelessComponent {
                   'transform': props.isOpen ? 'rotate(180deg)' : 'rotate(0)',
                   'font-size': size['iconSize']!,
                 }),
-                [dom.text('\u{25BC}')], // Down arrow
+                [const Component.text('\u{25BC}')], // Down arrow
               ),
           ],
         ),
@@ -285,7 +285,7 @@ class ShadcnSelect<T> extends StatelessComponent {
                     'font-size': '14px',
                     'text-align': 'center',
                   }),
-                  [dom.text(props.loadingText)],
+                  [Component.text(props.loadingText)],
                 )
               // Options - ShadCN SelectItem
               else
@@ -303,7 +303,7 @@ class ShadcnSelect<T> extends StatelessComponent {
                           'font-size': '14px',
                           'text-align': 'center',
                         }),
-                        [dom.text(props.emptyMessage)],
+                        [Component.text(props.emptyMessage)],
                       )
                     else
                       for (final option in props.filteredOptions)
@@ -320,7 +320,7 @@ class ShadcnSelect<T> extends StatelessComponent {
               'font-size': '12px',
               'color': 'var(--muted-foreground)',
             }),
-            [dom.text(props.helperText!)],
+            [Component.text(props.helperText!)],
           ),
 
         // Error message
@@ -330,7 +330,7 @@ class ShadcnSelect<T> extends StatelessComponent {
               'font-size': '12px',
               'color': 'var(--destructive)',
             }),
-            [dom.text(props.error!)],
+            [Component.text(props.error!)],
           ),
       ],
     );
@@ -393,13 +393,13 @@ class ShadcnSelect<T> extends StatelessComponent {
             }),
             [
               if (isSelected)
-                dom.span(
-                  styles: const dom.Styles(raw: {
+                const dom.span(
+                  styles: dom.Styles(raw: {
                     'color': 'var(--primary-foreground)',
                     'font-size': '10px',
                     'font-weight': '700',
                   }),
-                  [dom.text('\u{2713}')], // Checkmark
+                  [Component.text('\u{2713}')], // Checkmark
                 ),
             ],
           ),
@@ -423,7 +423,7 @@ class ShadcnSelect<T> extends StatelessComponent {
                 'text-overflow': 'ellipsis',
                 'white-space': 'nowrap',
               }),
-              [dom.text(option.label)],
+              [Component.text(option.label)],
             ),
             if (option.subtitle != null)
               dom.span(
@@ -434,7 +434,7 @@ class ShadcnSelect<T> extends StatelessComponent {
                   'text-overflow': 'ellipsis',
                   'white-space': 'nowrap',
                 }),
-                [dom.text(option.subtitle!)],
+                [Component.text(option.subtitle!)],
               ),
           ],
         ),
@@ -447,17 +447,17 @@ class ShadcnSelect<T> extends StatelessComponent {
               'color': 'var(--muted-foreground)',
               'flex-shrink': '0',
             }),
-            [dom.text(option.description!)],
+            [Component.text(option.description!)],
           ),
 
         // Checkmark for single select
         if (!props.multiSelect && isSelected)
-          dom.span(
-            styles: const dom.Styles(raw: {
+          const dom.span(
+            styles: dom.Styles(raw: {
               'color': 'var(--primary)',
               'flex-shrink': '0',
             }),
-            [dom.text('\u{2713}')],
+            [Component.text('\u{2713}')],
           ),
       ],
     );

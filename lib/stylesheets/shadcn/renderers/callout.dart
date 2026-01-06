@@ -93,7 +93,7 @@ class ShadcnCallout extends StatelessComponent {
               'color': iconColor,
               'font-size': '1rem',
             }),
-            [props.icon ?? dom.text(_defaultIcon)],
+            [props.icon ?? Component.text(_defaultIcon)],
           ),
 
         // Content
@@ -112,7 +112,7 @@ class ShadcnCallout extends StatelessComponent {
                   'color': 'var(--foreground)',
                   'margin-bottom': '0.25rem',
                 }),
-                [dom.text(props.title!)],
+                [Component.text(props.title!)],
               ),
             if (props.content != null)
               dom.div(
@@ -122,7 +122,7 @@ class ShadcnCallout extends StatelessComponent {
                   'color': 'var(--foreground)',
                   'line-height': '1.7',
                 }),
-                [dom.text(props.content!)],
+                [Component.text(props.content!)],
               ),
             if (props.child != null) props.child!,
           ],
@@ -151,7 +151,7 @@ class ShadcnCallout extends StatelessComponent {
             events: {
               'click': (_) => props.onDismiss?.call(),
             },
-            [dom.text('\u00D7')],
+            [const Component.text('\u00D7')],
           ),
       ],
     );

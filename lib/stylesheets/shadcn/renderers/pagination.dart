@@ -92,7 +92,7 @@ class ShadcnPagination extends StatelessComponent {
                       'width': minWidth,
                       'color': 'var(--muted-foreground)',
                     }),
-                    [dom.text('\u{2026}')], // Ellipsis
+                    [const Component.text('\u{2026}')], // Ellipsis
                   )
                 else
                   _buildButton(
@@ -169,7 +169,7 @@ class ShadcnPagination extends StatelessComponent {
                   'click': (_) =>
                       props.onPageChange?.call(props.currentPage - 1),
                 },
-          [dom.text(props.previousText)],
+          [Component.text(props.previousText)],
         ),
 
         // Page count
@@ -179,7 +179,7 @@ class ShadcnPagination extends StatelessComponent {
               'font-size': fontSize,
               'color': 'var(--muted-foreground)',
             }),
-            [dom.text('Page ${props.currentPage} of ${props.totalPages}')],
+            [Component.text('Page ${props.currentPage} of ${props.totalPages}')],
           ),
 
         // Next
@@ -202,7 +202,7 @@ class ShadcnPagination extends StatelessComponent {
                   'click': (_) =>
                       props.onPageChange?.call(props.currentPage + 1),
                 },
-          [dom.text(props.nextText)],
+          [Component.text(props.nextText)],
         ),
       ],
     );
@@ -280,7 +280,7 @@ class ShadcnPagination extends StatelessComponent {
           : {
               'click': (_) => props.onPageChange?.call(page),
             },
-      [dom.text(content)],
+      [Component.text(content)],
     );
   }
 }

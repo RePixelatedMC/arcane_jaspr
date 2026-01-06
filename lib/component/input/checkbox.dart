@@ -3,7 +3,6 @@ import 'package:jaspr/dom.dart' as dom;
 
 export '../../core/props/checkbox_props.dart' show CheckboxSize, CheckboxVariant;
 
-import '../../core/props/checkbox_props.dart';
 import '../../core/theme_provider.dart';
 
 /// Checkbox input component.
@@ -254,7 +253,7 @@ class ArcaneRadio extends StatelessComponent {
                     'display': 'block',
                     'line-height': '1',
                   }),
-                  [dom.text(label!)],
+                  [Component.text(label!)],
                 ),
               if (description != null)
                 dom.span(
@@ -265,7 +264,7 @@ class ArcaneRadio extends StatelessComponent {
                     'display': 'block',
                     'margin-top': '4px',
                   }),
-                  [dom.text(description!)],
+                  [Component.text(description!)],
                 ),
             ],
           ),

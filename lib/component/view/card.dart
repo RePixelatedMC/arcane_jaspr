@@ -1,7 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
-import '../../core/props/card_props.dart';
 import '../../core/theme_provider.dart';
 import '../../util/arcane.dart';
 
@@ -348,7 +347,7 @@ class ArcaneImageCard extends StatelessComponent {
                     'font-size': '1rem',
                     'font-weight': '600',
                   }),
-                  [dom.text(title!)],
+                  [Component.text(title!)],
                 ),
               if (subtitle != null)
                 dom.div(
@@ -357,7 +356,7 @@ class ArcaneImageCard extends StatelessComponent {
                     'opacity': '0.9',
                     'margin-top': '0.25rem',
                   }),
-                  [dom.text(subtitle!)],
+                  [Component.text(subtitle!)],
                 ),
               if (overlay != null) overlay!,
             ],

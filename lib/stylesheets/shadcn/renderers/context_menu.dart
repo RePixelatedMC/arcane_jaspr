@@ -90,14 +90,14 @@ class ShadcnContextMenu extends StatelessComponent {
                   ? 'var(--destructive)'
                   : 'var(--popover-foreground)',
             }),
-            [dom.text(item.label)],
+            [Component.text(item.label)],
           ),
-          dom.span(
-            styles: const dom.Styles(raw: {
+          const dom.span(
+            styles: dom.Styles(raw: {
               'color': 'var(--muted-foreground)',
               'font-size': '12px',
             }),
-            [dom.text('\u{203A}')], // Right arrow
+            [Component.text('\u{203A}')], // Right arrow
           ),
           // Submenu - ShadCN ContextMenuSubContent
           dom.div(
@@ -157,7 +157,7 @@ class ShadcnContextMenu extends StatelessComponent {
                 ? 'var(--destructive)'
                 : 'var(--popover-foreground)',
           }),
-          [dom.text(item.label)],
+          [Component.text(item.label)],
         ),
         if (item.shortcut != null)
           // ShadCN ContextMenuShortcut
@@ -168,7 +168,7 @@ class ShadcnContextMenu extends StatelessComponent {
               'letter-spacing': '0.1em',
               'color': 'var(--muted-foreground)',
             }),
-            [dom.text(item.shortcut!)],
+            [Component.text(item.shortcut!)],
           ),
       ],
     );

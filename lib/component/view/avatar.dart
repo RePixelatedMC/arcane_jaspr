@@ -1,7 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../core/props/avatar_props.dart';
 import '../../core/theme_provider.dart';
 
 // Re-export for convenience
@@ -216,7 +215,7 @@ class ArcaneAvatarGroup extends StatelessComponent {
               'font-size': '0.875rem',
               'font-weight': '500',
             }),
-            [text('+$overflow')],
+            [Component.text('+$overflow')],
           ),
       ],
     );
@@ -324,7 +323,7 @@ class ArcaneAvatarBadge extends StatelessComponent {
         },
       }),
       [
-        if (content != null) text(content!),
+        if (content != null) Component.text(content!),
       ],
     );
   }

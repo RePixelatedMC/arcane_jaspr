@@ -84,7 +84,7 @@ class ShadcnDivider extends StatelessComponent {
             'color': 'var(--muted-foreground)',
             'white-space': 'nowrap',
           }),
-          [dom.text(props.label!)],
+          [Component.text(props.label!)],
         ),
 
         // Right line

@@ -58,7 +58,7 @@ class _ShadcnCodeSnippetState extends State<ShadcnCodeSnippet> {
                     'font-weight': '500',
                     'color': 'var(--muted-foreground)',
                   }),
-                  [dom.text(component.props.title!)],
+                  [Component.text(component.props.title!)],
                 )
               else if (component.props.language != null)
                 dom.span(
@@ -71,7 +71,7 @@ class _ShadcnCodeSnippetState extends State<ShadcnCodeSnippet> {
                     'background-color': 'var(--muted)',
                     'border-radius': '0.25rem',
                   }),
-                  [dom.text(component.props.language!)],
+                  [Component.text(component.props.language!)],
                 ),
             ],
           ),
@@ -179,7 +179,7 @@ class _ShadcnCodeSnippetState extends State<ShadcnCodeSnippet> {
                   'text-align': 'right',
                   'min-width': '${lines.length.toString().length * 8 + 8}px',
                 }),
-                [dom.text('${i + 1}')],
+                [Component.text('${i + 1}')],
               ),
           ],
         ),
@@ -202,7 +202,7 @@ class _ShadcnCodeSnippetState extends State<ShadcnCodeSnippet> {
         'color': 'var(--foreground)',
         'white-space': 'pre',
       }),
-      children: [dom.text(component.props.code)],
+      children: [Component.text(component.props.code)],
     );
   }
 }
@@ -228,7 +228,7 @@ class ShadcnInlineCode extends StatelessComponent {
         'border-radius': '0.25rem',
         'color': 'var(--accent)',
       }),
-      children: [dom.text(props.code)],
+      children: [Component.text(props.code)],
     );
   }
 }
@@ -299,7 +299,7 @@ class _ShadcnTerminalState extends State<ShadcnTerminal> {
                   'color': 'var(--muted-foreground)',
                   'flex': '1',
                 }),
-                [dom.text(component.props.title!)],
+                [Component.text(component.props.title!)],
               ),
           ],
         ),
@@ -365,7 +365,7 @@ class _ShadcnTerminalState extends State<ShadcnTerminal> {
                       'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
                   'font-size': '0.875rem',
                 }),
-                [dom.text('${component.props.prompt} ')],
+                [Component.text('${component.props.prompt} ')],
               ),
               dom.span(
                 styles: const dom.Styles(raw: {
@@ -374,9 +374,9 @@ class _ShadcnTerminalState extends State<ShadcnTerminal> {
                       'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
                   'font-size': '0.875rem',
                 }),
-                [dom.text(cmd)],
+                [Component.text(cmd)],
               ),
-              dom.text('\n'),
+              const Component.text('\n'),
             ],
           ],
         ),

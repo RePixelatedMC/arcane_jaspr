@@ -120,8 +120,6 @@ class PasswordPolicy {
       return requirements.first;
     }
 
-    return requirements.first +
-        ', ' +
-        requirements.sublist(1).join(', ');
+    return '${requirements.first}, ${requirements.sublist(1).join(', ')}';
   }
 }

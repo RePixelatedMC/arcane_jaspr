@@ -41,7 +41,7 @@ class ShadcnOtpInput extends StatelessComponent {
               'font-weight': '500',
               'color': 'var(--foreground)',
             }),
-            [dom.text(props.label!)],
+            [Component.text(props.label!)],
           ),
 
         // Digit inputs row
@@ -62,7 +62,7 @@ class ShadcnOtpInput extends StatelessComponent {
                     'font-size': '18px',
                     'margin': '0 4px',
                   }),
-                  [dom.text(props.separator!)],
+                  [Component.text(props.separator!)],
                 ),
 
               // Digit input
@@ -117,7 +117,7 @@ class ShadcnOtpInput extends StatelessComponent {
               'font-size': '14px',
               'color': 'var(--destructive)',
             }),
-            [dom.text(props.error!)],
+            [Component.text(props.error!)],
           ),
       ],
     );

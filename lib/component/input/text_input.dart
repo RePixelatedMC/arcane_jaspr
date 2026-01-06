@@ -4,7 +4,6 @@ import 'package:jaspr/dom.dart' as dom;
 export '../../core/props/text_input_props.dart'
     show TextInputSize, TextInputVariant, TextInputType;
 
-import '../../core/props/text_input_props.dart';
 import '../../core/theme_provider.dart';
 
 /// A styled text input component

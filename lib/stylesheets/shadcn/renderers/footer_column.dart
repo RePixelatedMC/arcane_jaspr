@@ -27,7 +27,7 @@ Component renderFooterColumn(FooterColumnProps props) {
           'letter-spacing': '0.05em',
           'margin': '0 0 1rem 0',
         }),
-        [dom.text(props.title)],
+        [Component.text(props.title)],
       ),
       // Links
       ...props.links.map((link) => dom.a(
@@ -42,10 +42,10 @@ Component renderFooterColumn(FooterColumnProps props) {
             }),
             [
               if (link.icon != null) ...[
-                dom.span([dom.text(link.icon!)]),
-                dom.text(' '),
+                dom.span([Component.text(link.icon!)]),
+                const Component.text(' '),
               ],
-              dom.text(link.label),
+              Component.text(link.label),
             ],
           )),
     ],
@@ -78,7 +78,7 @@ Component renderFooterBrandColumn(FooterBrandColumnProps props) {
             'margin': '0 0 1rem 0',
             'max-width': props.descriptionMaxWidth ?? '280px',
           }),
-          [dom.text(props.description!)],
+          [Component.text(props.description!)],
         ),
       // Bottom content
       if (props.bottomContent != null) props.bottomContent!,

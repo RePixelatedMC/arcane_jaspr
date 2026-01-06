@@ -1,6 +1,5 @@
 import 'package:jaspr/jaspr.dart';
 
-import '../../core/props/animated_counter_props.dart';
 import '../../core/theme_provider.dart';
 
 // Re-export props for usage

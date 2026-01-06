@@ -1,6 +1,5 @@
 import 'package:jaspr/jaspr.dart';
 
-import '../../core/props/separator_props.dart';
 import '../../core/theme_provider.dart';
 
 /// A visual separator/divider component.

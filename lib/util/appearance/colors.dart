@@ -1,5 +1,6 @@
 /// Color utilities for Arcane Jaspr
 /// Provides a simple color representation for CSS output
+library;
 
 class Color {
   final int value;
@@ -41,13 +42,13 @@ class Color {
 
   /// Convert to CSS hex string
   String get hex {
-    String r = red.toRadixString(16).padLeft(2, '0');
-    String g = green.toRadixString(16).padLeft(2, '0');
-    String b = blue.toRadixString(16).padLeft(2, '0');
+    final String r = red.toRadixString(16).padLeft(2, '0');
+    final String g = green.toRadixString(16).padLeft(2, '0');
+    final String b = blue.toRadixString(16).padLeft(2, '0');
     if (alpha == 255) {
       return '#$r$g$b';
     }
-    String a = alpha.toRadixString(16).padLeft(2, '0');
+    final String a = alpha.toRadixString(16).padLeft(2, '0');
     return '#$r$g$b$a';
   }
 
@@ -162,7 +163,7 @@ extension _DoublePow on double {
     // For now, approximate for sRGB linearization
     double result = 1;
     double term = 1;
-    double lnBase = _ln(this);
+    final double lnBase = _ln(this);
     for (int i = 1; i < 20; i++) {
       term *= exp * lnBase / i;
       result += term;
@@ -172,7 +173,7 @@ extension _DoublePow on double {
 
   double _ln(double x) {
     if (x <= 0) return double.negativeInfinity;
-    double y = (x - 1) / (x + 1);
+    final double y = (x - 1) / (x + 1);
     double result = 0;
     double term = y;
     for (int i = 1; i < 40; i += 2) {

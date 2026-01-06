@@ -4,7 +4,7 @@
 /// ```dart
 /// import 'package:arcane_jaspr/util/style_types/index.dart';
 /// ```
-library style_types;
+library;
 
 // Core style data class
 export 'arcane_style_data.dart';

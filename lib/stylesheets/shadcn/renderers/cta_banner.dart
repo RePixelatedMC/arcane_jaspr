@@ -49,7 +49,7 @@ Component renderCtaBanner(CtaBannerProps props) {
               'color': 'var(--foreground)',
               'margin': '0 0 1rem 0',
             }),
-            [dom.text(props.title)],
+            [Component.text(props.title)],
           ),
           // Subtitle
           if (props.subtitle != null)
@@ -60,7 +60,7 @@ Component renderCtaBanner(CtaBannerProps props) {
                 'margin': '0 0 2rem 0',
                 'line-height': '1.6',
               }),
-              [dom.text(props.subtitle!)],
+              [Component.text(props.subtitle!)],
             ),
           // Actions
           if (props.primaryAction != null || props.secondaryAction != null)

@@ -27,7 +27,7 @@ Component renderSectionHeader(SectionHeaderProps props) {
             'letter-spacing': '0.05em',
             'margin-bottom': '1rem',
           }),
-          [dom.text(props.label!)],
+          [Component.text(props.label!)],
         ),
       // Heading
       dom.h2(
@@ -39,7 +39,7 @@ Component renderSectionHeader(SectionHeaderProps props) {
           'margin': '0 0 1rem 0',
           'line-height': '1.2',
         }),
-        [dom.text(props.heading)],
+        [Component.text(props.heading)],
       ),
       // Description
       if (props.description != null)
@@ -52,7 +52,7 @@ Component renderSectionHeader(SectionHeaderProps props) {
                 props.align == SectionHeaderAlign.center ? '0 auto' : '0',
             'line-height': '1.6',
           }),
-          [dom.text(props.description!)],
+          [Component.text(props.description!)],
         ),
     ],
   );

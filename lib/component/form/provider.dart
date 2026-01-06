@@ -72,10 +72,10 @@ class ArcaneFieldMapProvider<T> extends ArcaneFieldProvider<T> {
 
   @override
   Future<T> onGetValue(String k) async {
-    List<String> parts = k.split('.');
+    final List<String> parts = k.split('.');
     Map<String, dynamic> current = storage;
     for (int i = 0; i < parts.length; i++) {
-      String part = parts[i];
+      final String part = parts[i];
 
       if (i == parts.length - 1) {
         if (current.containsKey(part)) {
@@ -97,10 +97,10 @@ class ArcaneFieldMapProvider<T> extends ArcaneFieldProvider<T> {
 
   @override
   Future<void> onSetValue(String k, T value) async {
-    List<String> parts = k.split('.');
+    final List<String> parts = k.split('.');
     Map<String, dynamic> current = storage;
     for (int i = 0; i < parts.length; i++) {
-      String part = parts[i];
+      final String part = parts[i];
       if (i == parts.length - 1) {
         current[part] = value;
       } else {

@@ -51,7 +51,7 @@ class ShadcnCodeWindow extends StatelessComponent {
                   'font-family':
                       'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
                 }),
-                [dom.text(props.title!)],
+                [Component.text(props.title!)],
               ),
           ],
         ),
@@ -142,7 +142,7 @@ class ShadcnCodePreview extends StatelessComponent {
               'color': 'var(--muted-foreground)',
               'text-transform': 'uppercase',
             }),
-            [dom.text(props.language!)],
+            [Component.text(props.language!)],
           ),
         dom.pre(
           styles: dom.Styles(raw: {

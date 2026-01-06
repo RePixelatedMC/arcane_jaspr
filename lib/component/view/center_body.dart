@@ -1,7 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../../core/props/center_body_props.dart';
 import '../../core/theme_provider.dart';
 import '../../util/arcane.dart';
 
@@ -109,7 +108,7 @@ class ArcaneEmptyState extends StatelessComponent {
                 'font-weight': '600',
                 'color': 'var(--foreground)',
               }),
-              [text(title!)],
+              [Component.text(title!)],
             ),
           if (message != null)
             div(
@@ -118,7 +117,7 @@ class ArcaneEmptyState extends StatelessComponent {
                 'color': 'var(--muted-foreground)',
                 'max-width': '400px',
               }),
-              [text(message!)],
+              [Component.text(message!)],
             ),
           if (action != null)
             div(

@@ -13,7 +13,8 @@
 ///   @override
 ///   Component build(BuildContext context) {
 ///     return ArcaneApp(
-///       theme: ArcaneTheme.green,
+///       stylesheet: ShadcnStylesheet(),
+///       brightness: Brightness.dark,
 ///       child: ArcaneColumn(
 ///         gapSize: Gap.md,
 ///         children: [
@@ -50,11 +51,12 @@
 ///
 /// ### Theming
 ///
-/// Choose from 18 built-in themes or create custom ones:
+/// Use stylesheets for consistent component rendering:
 ///
 /// ```dart
 /// ArcaneApp(
-///   theme: ArcaneTheme.blue,  // or .green, .purple, .oledBlue, etc.
+///   stylesheet: ShadcnStylesheet(),  // Modern, accessible design
+///   brightness: Brightness.dark,     // or Brightness.light
 ///   child: myApp,
 /// )
 /// ```
@@ -164,10 +166,6 @@ export 'stylesheets/shadcn/shadcn_stylesheet.dart';
 // Core Utilities
 // ============================================================================
 export 'util/appearance/colors.dart';
-export 'util/appearance/color_scheme.dart' hide Brightness, ThemeMode; // Use from theme_provider
-export 'util/appearance/style_sheet.dart';
-export 'util/appearance/stylesheets/stylesheets.dart';
-export 'util/appearance/theme.dart' hide Brightness, ThemeMode, ArcaneThemeProvider, ArcaneThemeContext; // Use from theme_provider
 export 'util/arcane.dart';
 export 'util/interactivity/arcane_scripts.dart';
 

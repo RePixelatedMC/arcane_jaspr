@@ -110,7 +110,7 @@ class ShadcnCheckbox extends StatelessComponent {
                   'font-weight': '700',
                   'line-height': '1',
                 }),
-                [dom.text('\u2713')], // Unicode checkmark
+                [const Component.text('\u2713')], // Unicode checkmark
               ),
           ],
         ),
@@ -132,7 +132,7 @@ class ShadcnCheckbox extends StatelessComponent {
                     'display': 'block',
                     'line-height': '1',
                   }),
-                  [dom.text(props.label!)],
+                  [Component.text(props.label!)],
                 ),
               if (props.description != null)
                 dom.span(
@@ -143,7 +143,7 @@ class ShadcnCheckbox extends StatelessComponent {
                     'display': 'block',
                     'margin-top': '0.25rem', // 4px
                   }),
-                  [dom.text(props.description!)],
+                  [Component.text(props.description!)],
                 ),
             ],
           ),

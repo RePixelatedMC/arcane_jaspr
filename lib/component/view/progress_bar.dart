@@ -1,6 +1,5 @@
 import 'package:jaspr/jaspr.dart';
 
-import '../../core/props/progress_props.dart';
 import '../../core/theme_provider.dart';
 
 /// Progress bar component with various styles

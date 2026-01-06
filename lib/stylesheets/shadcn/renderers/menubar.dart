@@ -71,7 +71,7 @@ class ShadcnMenubar extends StatelessComponent {
           events: {
             'click': (_) => props.onMenuChange?.call(isOpen ? null : index),
           },
-          [dom.text(menu.label)],
+          [Component.text(menu.label)],
         ),
 
         // ShadCN MenubarContent
@@ -146,21 +146,21 @@ class ShadcnMenubar extends StatelessComponent {
       [
         // Checkbox indicator
         if (item.isCheckbox && item.checked)
-          dom.span(
-            styles: const dom.Styles(raw: {
+          const dom.span(
+            styles: dom.Styles(raw: {
               'position': 'absolute',
               'left': '8px',
               'color': 'var(--foreground)',
               'font-size': '12px',
             }),
-            [dom.text('\u{2713}')], // Checkmark
+            [Component.text('\u{2713}')], // Checkmark
           ),
 
         if (item.icon != null) item.icon!,
 
         dom.span(
           styles: const dom.Styles(raw: {'flex': '1'}),
-          [dom.text(item.label)],
+          [Component.text(item.label)],
         ),
 
         if (item.shortcut != null)
@@ -172,7 +172,7 @@ class ShadcnMenubar extends StatelessComponent {
               'letter-spacing': '0.1em',
               'color': 'var(--muted-foreground)',
             }),
-            [dom.text(item.shortcut!)],
+            [Component.text(item.shortcut!)],
           ),
       ],
     );

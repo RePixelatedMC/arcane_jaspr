@@ -1,6 +1,5 @@
 import 'package:jaspr/jaspr.dart';
 
-import '../../core/props/divider_props.dart';
 import '../../core/theme_provider.dart';
 
 export '../../core/props/divider_props.dart' show DividerVariant, DividerOrientation;

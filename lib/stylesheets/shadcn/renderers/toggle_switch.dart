@@ -134,7 +134,7 @@ class ShadcnToggleSwitch extends StatelessComponent {
         'user-select': 'none',
         'line-height': '1',
       }),
-      [dom.text(props.label!)],
+      [Component.text(props.label!)],
     );
 
     return dom.label(

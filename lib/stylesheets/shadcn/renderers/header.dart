@@ -106,8 +106,8 @@ class ShadcnHeader extends StatelessComponent {
                         : null,
                   ),
                   // Search icon placeholder
-                  dom.span(
-                    styles: const dom.Styles(raw: {
+                  const dom.span(
+                    styles: dom.Styles(raw: {
                       'position': 'absolute',
                       'left': '12px',
                       'top': '50%',
@@ -116,7 +116,7 @@ class ShadcnHeader extends StatelessComponent {
                       'font-size': '14px',
                       'pointer-events': 'none',
                     }),
-                    [dom.text('\u{1F50D}')], // Magnifying glass
+                    [Component.text('\u{1F50D}')], // Magnifying glass
                   ),
                 ],
               ),
@@ -159,11 +159,11 @@ class ShadcnHeader extends StatelessComponent {
               'transition': 'color 150ms ease, background-color 150ms ease',
             }),
             [
-              dom.text(item.label),
+              Component.text(item.label),
               if (hasChildren)
-                dom.span(
-                  styles: const dom.Styles(raw: {'font-size': '10px'}),
-                  [dom.text('\u{25BC}')], // Down arrow
+                const dom.span(
+                  styles: dom.Styles(raw: {'font-size': '10px'}),
+                  [Component.text('\u{25BC}')], // Down arrow
                 ),
             ],
           )
@@ -189,11 +189,11 @@ class ShadcnHeader extends StatelessComponent {
             }),
             events: item.onTap != null ? {'click': (_) => item.onTap!()} : null,
             [
-              dom.text(item.label),
+              Component.text(item.label),
               if (hasChildren)
-                dom.span(
-                  styles: const dom.Styles(raw: {'font-size': '10px'}),
-                  [dom.text('\u{25BC}')], // Down arrow
+                const dom.span(
+                  styles: dom.Styles(raw: {'font-size': '10px'}),
+                  [Component.text('\u{25BC}')], // Down arrow
                 ),
             ],
           ),
@@ -211,14 +211,14 @@ class ShadcnNavLink extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     final List<Component> content = [
-      dom.text(props.label),
+      Component.text(props.label),
       if (props.showArrow)
-        dom.span(
+        const dom.span(
           classes: 'nav-link-arrow',
-          styles: const dom.Styles(raw: {
+          styles: dom.Styles(raw: {
             'transition': 'transform 150ms ease',
           }),
-          [dom.text('\u{2192}')], // Right arrow
+          [Component.text('\u{2192}')], // Right arrow
         ),
     ];
 

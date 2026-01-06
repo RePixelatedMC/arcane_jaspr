@@ -103,7 +103,7 @@ class ShadcnAlert extends StatelessComponent {
               'font-size': '16px',
               'margin-top': '1px',
             }),
-            [props.icon ?? dom.text(_defaultIcon)],
+            [props.icon ?? Component.text(_defaultIcon)],
           ),
 
         // Content
@@ -125,7 +125,7 @@ class ShadcnAlert extends StatelessComponent {
                   'color': isSolid ? 'var(--primary-foreground)' : 'var(--foreground)',
                   if (props.message != null || props.child != null) 'margin-bottom': '4px',
                 }),
-                [dom.text(props.title!)],
+                [Component.text(props.title!)],
               ),
             // Description
             if (props.message != null)
@@ -136,7 +136,7 @@ class ShadcnAlert extends StatelessComponent {
                   'line-height': '1.625',
                   'color': isSolid ? 'var(--primary-foreground)' : 'var(--muted-foreground)',
                 }),
-                [dom.text(props.message!)],
+                [Component.text(props.message!)],
               ),
             if (props.child != null) props.child!,
             if (props.action != null)
@@ -175,7 +175,7 @@ class ShadcnAlert extends StatelessComponent {
               'font-size': '16px',
             }),
             events: {'click': (_) => props.onDismiss?.call()},
-            [dom.text('\u00D7')], // ×
+            [const Component.text('\u00D7')], // ×
           ),
       ],
     );

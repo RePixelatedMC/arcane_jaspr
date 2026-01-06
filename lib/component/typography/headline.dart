@@ -116,7 +116,7 @@ class ArcaneHeadline extends StatelessComponent {
 
     final classes = 'arcane-headline arcane-${level.name} ${className ?? ''}';
     final styles = Styles(raw: baseStyles);
-    final children = [text(content)];
+    final children = [Component.text(content)];
 
     return switch (level) {
       HeadlineLevel.h1 => h1(classes: classes, styles: styles, children),
@@ -171,7 +171,7 @@ class ArcaneSubheadline extends StatelessComponent {
         'margin': '0',
         'max-width': '65ch', // Optimal reading width
       }),
-      [text(content)],
+      [Component.text(content)],
     );
   }
 }
@@ -216,7 +216,7 @@ class ArcaneBodyText extends StatelessComponent {
         'text-align': align,
         'margin': '0',
       }),
-      [text(content)],
+      [Component.text(content)],
     );
   }
 }

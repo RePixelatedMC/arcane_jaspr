@@ -237,11 +237,11 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
               'color': 'var(--foreground)',
             }),
             children: [
-              text(component.label!),
+              Component.text(component.label!),
               if (component.required)
-                span(
-                  [text(' *')],
-                  styles: const Styles(raw: {
+                const span(
+                  [Component.text(' *')],
+                  styles: Styles(raw: {
                     'color': 'var(--destructive)',
                   }),
                 ),
@@ -260,7 +260,7 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
         // Helper text or error
         if (_error != null)
           span(
-            [text(_error!)],
+            [Component.text(_error!)],
             styles: const Styles(raw: {
               'font-size': '0.875rem',
               'color': 'var(--destructive)',
@@ -268,7 +268,7 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
           )
         else if (component.helperText != null)
           span(
-            [text(component.helperText!)],
+            [Component.text(component.helperText!)],
             styles: const Styles(raw: {
               'font-size': '0.875rem',
               'color': 'var(--muted-foreground)',
@@ -344,7 +344,7 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
                     if (component.saveOnBlur) _save();
                   },
                 },
-                children: [text(_editValue)],
+                children: [Component.text(_editValue)],
               )
             else
               input(
@@ -411,7 +411,7 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
                   'font-size': '14px',
                 }),
                 events: {'click': (e) => _save()},
-                [text('✓')],
+                [const Component.text('✓')],
               ),
               button(
                 attributes: {'type': 'button', 'aria-label': 'Cancel'},
@@ -429,7 +429,7 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
                   'font-size': '14px',
                 }),
                 events: {'click': (e) => _cancel()},
-                [text('✕')],
+                [const Component.text('✕')],
               ),
             ],
           ],
@@ -438,7 +438,7 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
         // Character count
         if (component.showCharCount && component.maxLength > 0)
           span(
-            [text('${_editValue.length}/${component.maxLength}')],
+            [Component.text('${_editValue.length}/${component.maxLength}')],
             styles: Styles(raw: {
               'font-size': '0.75rem',
               'color': _editValue.length >= component.maxLength
@@ -540,7 +540,7 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
         // Text content
         span(
           [
-            text(showPlaceholder ? component.placeholder! : component.value),
+            Component.text(showPlaceholder ? component.placeholder! : component.value),
           ],
           styles: Styles(raw: {
             if (showPlaceholder) 'color': 'var(--muted-foreground)',
@@ -555,9 +555,9 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
         if (_isHovered &&
             !component.disabled &&
             component.trigger == MutableTextTrigger.hover)
-          span(
-            [text('✎')],
-            styles: const Styles(raw: {
+          const span(
+            [Component.text('✎')],
+            styles: Styles(raw: {
               'color': 'var(--muted-foreground)',
               'font-size': '14px',
               'margin-left': '0.25rem',

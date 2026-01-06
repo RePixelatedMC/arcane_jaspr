@@ -1,6 +1,5 @@
 import 'package:jaspr/jaspr.dart';
 
-import '../../core/props/footer_props.dart';
 import '../../core/theme_provider.dart';
 
 export '../../core/props/footer_column_props.dart';

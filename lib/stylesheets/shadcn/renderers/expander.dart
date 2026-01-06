@@ -85,7 +85,7 @@ class _ShadcnExpanderState extends State<ShadcnExpander> {
                   'transition': 'transform 150ms ease',
                   'transform': _isExpanded ? 'rotate(180deg)' : 'rotate(0)',
                 }),
-                [dom.text('\u25BC')],
+                [const Component.text('\u25BC')],
               ),
           ],
         ),

@@ -118,9 +118,9 @@ class ArcaneLoaderStyles extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return Component.element(
+    return const Component.element(
       tag: 'style',
-      children: [text('''
+      children: [Component.text('''
         @keyframes spin {
           to { transform: rotate(360deg); }
         }

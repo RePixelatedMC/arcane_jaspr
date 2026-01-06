@@ -260,7 +260,7 @@ class _ThemedDocsPageState extends State<ThemedDocsPage> {
   /// Build breadcrumbs from current path
   Component _buildBreadcrumbs() {
     final path = component.currentPath;
-    final segments = path.split('/').where((s) => s.isNotEmpty).toList();
+    final segments = path.split('/').where((segment) => segment.isNotEmpty).toList();
 
     if (segments.isEmpty) {
       return const ArcaneDiv(children: []);
@@ -311,10 +311,10 @@ class _ThemedDocsPageState extends State<ThemedDocsPage> {
   String _formatSegment(String segment) {
     // Handle arcane- prefix for component pages
     if (segment.startsWith('arcane-')) {
-      return 'Arcane${segment.substring(7).split('-').map((s) => s.isEmpty ? '' : s[0].toUpperCase() + s.substring(1)).join('')}';
+      return 'Arcane${segment.substring(7).split('-').map((word) => word.isEmpty ? '' : word[0].toUpperCase() + word.substring(1)).join('')}';
     }
     // Capitalize first letter of each word
-    return segment.split('-').map((s) => s.isEmpty ? '' : s[0].toUpperCase() + s.substring(1)).join(' ');
+    return segment.split('-').map((word) => word.isEmpty ? '' : word[0].toUpperCase() + word.substring(1)).join(' ');
   }
 
   Component _buildTitle() {

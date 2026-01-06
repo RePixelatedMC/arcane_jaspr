@@ -100,7 +100,7 @@ class ShadcnBadge extends StatelessComponent {
       styles: dom.Styles(raw: allStyles),
       [
         if (props.icon != null) props.icon!,
-        dom.text(props.label),
+        Component.text(props.label),
       ],
     );
   }

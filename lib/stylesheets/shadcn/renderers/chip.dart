@@ -72,7 +72,7 @@ class ShadcnChip extends StatelessComponent {
           : null,
       [
         if (props.icon != null) props.icon!,
-        dom.text(props.label),
+        Component.text(props.label),
         if (props.removable)
           dom.span(
             classes: 'arcane-chip-remove',
@@ -92,7 +92,7 @@ class ShadcnChip extends StatelessComponent {
                 props.onRemove?.call();
               },
             },
-            [dom.text('\u00D7')], // × character
+            [const Component.text('\u00D7')], // × character
           ),
       ],
     );

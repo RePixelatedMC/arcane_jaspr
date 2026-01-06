@@ -81,7 +81,7 @@ class ShadcnAvatar extends StatelessComponent {
             'font-size': fontSize,
             'text-transform': 'uppercase',
           }),
-          [if (props.initials != null) dom.text(props.initials!)],
+          [if (props.initials != null) Component.text(props.initials!)],
         ),
       );
     }

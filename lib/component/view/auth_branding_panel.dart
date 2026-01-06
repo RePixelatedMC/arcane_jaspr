@@ -1,6 +1,5 @@
 import 'package:jaspr/jaspr.dart';
 
-import '../../core/props/auth_branding_panel_props.dart';
 import '../../core/theme_provider.dart';
 
 // Re-export props for usage

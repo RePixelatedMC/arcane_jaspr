@@ -77,7 +77,7 @@ class ShadcnSeparator extends StatelessComponent {
               'color': 'var(--muted-foreground)',
               'white-space': 'nowrap',
             }),
-            [dom.text(props.label!)],
+            [Component.text(props.label!)],
           )
         else if (props.icon != null)
           dom.span(

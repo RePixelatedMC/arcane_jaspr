@@ -3,7 +3,6 @@ import 'package:jaspr/dom.dart' as dom;
 
 export '../../core/props/slider_props.dart' show SliderSize, SliderVariant;
 
-import '../../core/props/slider_props.dart';
 import '../../core/theme_provider.dart';
 
 /// Range slider input component matching shadcn/ui design.
@@ -300,7 +299,7 @@ class ArcaneRangeSlider extends StatelessComponent {
                     'font-weight': '500',
                     'color': 'var(--foreground)',
                   }),
-                  [dom.text(label!)],
+                  [Component.text(label!)],
                 ),
               if (showValues)
                 dom.span(
@@ -311,7 +310,7 @@ class ArcaneRangeSlider extends StatelessComponent {
                     'color': 'var(--muted-foreground)',
                   }),
                   [
-                    dom.text('${minValue.toStringAsFixed(0)} - ${maxValue.toStringAsFixed(0)}'),
+                    Component.text('${minValue.toStringAsFixed(0)} - ${maxValue.toStringAsFixed(0)}'),
                   ],
                 ),
             ],

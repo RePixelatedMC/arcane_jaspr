@@ -30,7 +30,7 @@ Component renderLogoCarousel(LogoCarouselProps props) {
             'text-transform': 'uppercase',
             'letter-spacing': '0.05em',
           }),
-          [dom.text(props.title!)],
+          [Component.text(props.title!)],
         ),
 
       // Carousel track
@@ -91,7 +91,7 @@ Component _buildLogo(LogoItem logo, LogoCarouselProps props) {
                 if (props.grayscale) 'filter': 'grayscale(100%)',
                 'opacity': props.grayscale ? '0.6' : '1',
               }),
-              [dom.text(logo.name)],
+              [Component.text(logo.name)],
             ));
 
   if (logo.href != null) {
@@ -146,7 +146,7 @@ Component renderLogoGrid(LogoGridProps props) {
             'text-transform': 'uppercase',
             'letter-spacing': '0.05em',
           }),
-          [dom.text(props.title!)],
+          [Component.text(props.title!)],
         ),
       dom.div(
         classes: 'arcane-logo-grid-container',
@@ -189,7 +189,7 @@ Component renderLogoGrid(LogoGridProps props) {
                       'font-weight': '600',
                       'color': 'var(--muted-foreground)',
                     }),
-                    [dom.text(logo.name)],
+                    [Component.text(logo.name)],
                   ),
               ],
             ),

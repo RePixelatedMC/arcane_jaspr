@@ -4,7 +4,6 @@ import 'package:jaspr/dom.dart' as dom;
 export '../../core/props/toggle_switch_props.dart'
     show ToggleSwitchSize, ToggleSwitchVariant;
 
-import '../../core/props/toggle_switch_props.dart';
 import '../../core/theme_provider.dart';
 
 /// A toggle switch component.
@@ -231,7 +230,7 @@ class ArcaneToggleButtonGroup extends StatelessComponent {
                 }
               },
             },
-            [dom.text(options[i])],
+            [Component.text(options[i])],
           ),
       ],
     );

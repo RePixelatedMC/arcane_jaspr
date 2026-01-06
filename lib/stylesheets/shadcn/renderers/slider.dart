@@ -63,7 +63,7 @@ class ShadcnSlider extends StatelessComponent {
                     'font-weight': '500', // font-medium
                     'color': 'var(--foreground)',
                   }),
-                  [dom.text(props.label!)],
+                  [Component.text(props.label!)],
                 ),
               if (props.showValue)
                 dom.span(
@@ -77,7 +77,7 @@ class ShadcnSlider extends StatelessComponent {
                     'text-align': 'right',
                   }),
                   [
-                    dom.text(
+                    Component.text(
                       '${props.valuePrefix ?? ''}${props.value.toStringAsFixed(props.valueDecimals)}${props.valueSuffix ?? ''}',
                     ),
                   ],
@@ -218,14 +218,14 @@ class ShadcnSlider extends StatelessComponent {
                   'font-size': '0.75rem', // text-xs
                   'color': 'var(--muted-foreground)',
                 }),
-                [dom.text(props.min.toStringAsFixed(0))],
+                [Component.text(props.min.toStringAsFixed(0))],
               ),
               dom.span(
                 styles: const dom.Styles(raw: {
                   'font-size': '0.75rem', // text-xs
                   'color': 'var(--muted-foreground)',
                 }),
-                [dom.text(props.max.toStringAsFixed(0))],
+                [Component.text(props.max.toStringAsFixed(0))],
               ),
             ],
           ),

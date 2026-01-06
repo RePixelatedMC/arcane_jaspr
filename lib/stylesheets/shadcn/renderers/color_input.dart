@@ -46,7 +46,7 @@ class ShadcnColorInput extends StatelessComponent {
               'font-weight': '500',
               'color': 'var(--foreground)',
             }),
-            [text(props.label!)],
+            [Component.text(props.label!)],
           ),
 
         // Main input row

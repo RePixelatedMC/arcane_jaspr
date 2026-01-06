@@ -106,15 +106,15 @@ class ShadcnSidebar extends StatelessComponent {
                               ? 'rotate(0)'
                               : 'rotate(180deg)'),
                     }),
-                    [dom.text('<')],
+                    [const Component.text('<')],
                   ),
                   if (!props.isCollapsed)
-                    dom.span(
-                      styles: const dom.Styles(raw: {
+                    const dom.span(
+                      styles: dom.Styles(raw: {
                         'margin-left': '8px',
                         'font-size': '14px',
                       }),
-                      [dom.text('Collapse')],
+                      [Component.text('Collapse')],
                     ),
                 ],
               ),
@@ -195,7 +195,7 @@ class ShadcnSidebarItem extends StatelessComponent {
               'text-overflow': 'ellipsis',
               'white-space': 'nowrap',
             }),
-            [dom.text(props.label)],
+            [Component.text(props.label)],
           ),
         if (!props.collapsed && props.badge != null)
           dom.span(
@@ -208,7 +208,7 @@ class ShadcnSidebarItem extends StatelessComponent {
               'border-radius': '9999px',
               'font-weight': '500',
             }),
-            [dom.text(props.badge!)],
+            [Component.text(props.badge!)],
           ),
       ],
     );
@@ -250,7 +250,7 @@ class ShadcnSidebarGroup extends StatelessComponent {
               'font-weight': '500',
               'color': 'var(--muted-foreground)',
             }),
-            [dom.text(props.label!)],
+            [Component.text(props.label!)],
           ),
         // ShadCN SidebarGroupContent
         dom.div(

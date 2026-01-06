@@ -1,6 +1,5 @@
 import 'package:jaspr/jaspr.dart';
 
-import '../../core/props/tile_props.dart';
 import '../../core/theme_provider.dart';
 import '../../util/arcane.dart';
 

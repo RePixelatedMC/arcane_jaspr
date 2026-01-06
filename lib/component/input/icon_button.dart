@@ -1,9 +1,6 @@
 import 'package:arcane_jaspr/aliases.dart';
-import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
-import '../../core/props/icon_button_props.dart';
-import '../../core/theme_provider.dart';
 
 export '../../core/props/icon_button_props.dart'
     show IconButtonSize, IconButtonVariant;

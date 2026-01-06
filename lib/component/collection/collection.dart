@@ -54,7 +54,7 @@ class ArcaneCollection extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     final List<Component> items = builder != null
-        ? List.generate(childCount ?? 0, (i) => builder!(context, i))
+        ? List.generate(childCount ?? 0, (index) => builder!(context, index))
         : children;
 
     final Map<String, String> containerStyles = {
@@ -128,7 +128,7 @@ class ArcaneListView extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     final List<Component> items = builder != null
-        ? List.generate(itemCount ?? 0, (i) => builder!(context, i))
+        ? List.generate(itemCount ?? 0, (index) => builder!(context, index))
         : children;
 
     return div(
@@ -192,7 +192,7 @@ class ArcaneGridView extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     final List<Component> items = builder != null
-        ? List.generate(itemCount ?? 0, (i) => builder!(context, i))
+        ? List.generate(itemCount ?? 0, (index) => builder!(context, index))
         : children;
 
     final String gridTemplateColumns = minItemWidth != null
@@ -274,7 +274,7 @@ class ArcaneRepeater extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     return Component.fragment(
-      List.generate(count, (i) => builder(context, i)),
+      List.generate(count, (index) => builder(context, index)),
     );
   }
 }

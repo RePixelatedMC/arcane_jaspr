@@ -53,7 +53,7 @@ class ShadcnNumberInput extends StatelessComponent {
               'font-weight': '500',
               'color': 'var(--foreground)',
             }),
-            [text(props.label!)],
+            [Component.text(props.label!)],
           ),
 
         // Input container
@@ -108,7 +108,7 @@ class ShadcnNumberInput extends StatelessComponent {
                       },
                     }
                   : null,
-              [text('-')],
+              [const Component.text('-')],
             ),
 
             // Value display
@@ -133,18 +133,18 @@ class ShadcnNumberInput extends StatelessComponent {
                     classes: 'arcane-number-input-prefix',
                     styles:
                         const Styles(raw: {'color': 'var(--muted-foreground)'}),
-                    [text(props.prefix!)],
+                    [Component.text(props.prefix!)],
                   ),
                 span(
                   classes: 'arcane-number-input-display',
-                  [text(displayValue)],
+                  [Component.text(displayValue)],
                 ),
                 if (props.suffix != null)
                   span(
                     classes: 'arcane-number-input-suffix',
                     styles:
                         const Styles(raw: {'color': 'var(--muted-foreground)'}),
-                    [text(props.suffix!)],
+                    [Component.text(props.suffix!)],
                   ),
               ],
             ),
@@ -188,7 +188,7 @@ class ShadcnNumberInput extends StatelessComponent {
                       },
                     }
                   : null,
-              [text('+')],
+              [const Component.text('+')],
             ),
           ],
         ),

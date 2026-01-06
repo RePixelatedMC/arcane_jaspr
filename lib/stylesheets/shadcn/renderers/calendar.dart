@@ -133,7 +133,7 @@ class ShadcnCalendar extends StatelessComponent {
               events: props.onPreviousMonth != null
                   ? {'click': (_) => props.onPreviousMonth!()}
                   : null,
-              [dom.text('<')],
+              [const Component.text('<')],
             ),
             dom.span(
               styles: const dom.Styles(raw: {
@@ -141,7 +141,7 @@ class ShadcnCalendar extends StatelessComponent {
                 'font-size': '14px',
                 'color': 'var(--foreground)',
               }),
-              [dom.text('${_months[displayMonth.month - 1]} ${displayMonth.year}')],
+              [Component.text('${_months[displayMonth.month - 1]} ${displayMonth.year}')],
             ),
             dom.button(
               classes: 'arcane-calendar-nav-btn',
@@ -165,7 +165,7 @@ class ShadcnCalendar extends StatelessComponent {
               events: props.onNextMonth != null
                   ? {'click': (_) => props.onNextMonth!()}
                   : null,
-              [dom.text('>')],
+              [const Component.text('>')],
             ),
           ],
         ),
@@ -196,7 +196,7 @@ class ShadcnCalendar extends StatelessComponent {
                   'font-weight': '500',
                   'color': 'var(--muted-foreground)',
                 }),
-                [dom.text(day)],
+                [Component.text(day)],
               ),
           ],
         ),
@@ -223,7 +223,7 @@ class ShadcnCalendar extends StatelessComponent {
                     'font-size': '12px',
                     'color': 'var(--muted-foreground)',
                   }),
-                  [dom.text('${_getWeekNumber(days[i])}')],
+                  [Component.text('${_getWeekNumber(days[i])}')],
                 ),
               _buildDay(days[i]),
             ],
@@ -248,7 +248,7 @@ class ShadcnCalendar extends StatelessComponent {
             events: props.onGoToToday != null
                 ? {'click': (_) => props.onGoToToday!()}
                 : null,
-            [dom.text('Today')],
+            [const Component.text('Today')],
           ),
       ],
     );
@@ -305,7 +305,7 @@ class ShadcnCalendar extends StatelessComponent {
       events: props.onSelectDate != null && !isDisabled
           ? {'click': (_) => props.onSelectDate!(date)}
           : null,
-      [dom.text('${date.day}')],
+      [Component.text('${date.day}')],
     );
   }
 }

@@ -1,6 +1,5 @@
 import 'package:jaspr/jaspr.dart';
 
-import '../../core/props/game_tile_props.dart';
 import '../../core/theme_provider.dart';
 
 // Re-export props for usage

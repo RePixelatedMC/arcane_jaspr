@@ -142,7 +142,7 @@ class ShadcnButton extends StatelessComponent {
     }
 
     if (props.label != null) {
-      children.add(dom.text(props.label!));
+      children.add(Component.text(props.label!));
     }
 
     if (props.child != null) {

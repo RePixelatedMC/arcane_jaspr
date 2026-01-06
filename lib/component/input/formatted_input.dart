@@ -88,10 +88,10 @@ class FormattedValue {
 
   /// Gets values from all editable parts
   List<String?> get values =>
-      parts.where((p) => p.editable).map((p) => p.value).toList();
+      parts.where((part) => part.editable).map((part) => part.value).toList();
 
   /// Gets the combined string value
-  String get combinedValue => parts.map((p) => p.value ?? p.staticText ?? '').join();
+  String get combinedValue => parts.map((part) => part.value ?? part.staticText ?? '').join();
 }
 
 /// A formatted/patterned input for structured data like dates, phone numbers, etc.
@@ -305,7 +305,7 @@ class _FormattedInputState extends State<ArcaneFormattedInput> {
               'font-weight': '500',
               'color': 'var(--foreground)',
             }),
-            [text(component.label!)],
+            [Component.text(component.label!)],
           ),
 
         // Input parts container
@@ -338,7 +338,7 @@ class _FormattedInputState extends State<ArcaneFormattedInput> {
               'font-size': '0.75rem',
               'color': 'var(--destructive)',
             }),
-            [text(component.error!)],
+            [Component.text(component.error!)],
           ),
       ],
     );
@@ -389,7 +389,7 @@ class _FormattedInputState extends State<ArcaneFormattedInput> {
         'font-size': fontSize,
         'user-select': 'none',
       }),
-      [text(part.staticText ?? '')],
+      [Component.text(part.staticText ?? '')],
     );
   }
 }

@@ -1,7 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
-import '../../core/props/skeleton_props.dart';
 import '../../core/theme_provider.dart';
 
 /// Skeleton loading placeholder component

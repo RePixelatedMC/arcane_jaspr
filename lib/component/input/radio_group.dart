@@ -3,7 +3,6 @@ import 'package:jaspr/jaspr.dart';
 export '../../core/props/radio_group_props.dart'
     show RadioGroupLayout, RadioGroupVariant, RadioOptionProps;
 
-import '../../core/props/radio_group_props.dart';
 import '../../core/theme_provider.dart';
 
 /// Radio button option model

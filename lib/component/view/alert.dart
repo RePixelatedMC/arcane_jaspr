@@ -1,6 +1,5 @@
 import 'package:jaspr/jaspr.dart';
 
-import '../../core/props/alert_props.dart';
 import '../../core/theme_provider.dart';
 
 /// Inline alert component
