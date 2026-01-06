@@ -1,6 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
+import '../../../component/view/icon.dart';
 import '../../../core/props/time_picker_props.dart';
 
 /// ShadCN Time Picker renderer.
@@ -81,17 +82,11 @@ class ShadcnTimePicker extends StatelessComponent {
           },
           [
             // Clock icon
-            const dom.span(
-              styles: dom.Styles(raw: {
-                'width': '16px',
-                'height': '16px',
+            dom.span(
+              styles: const dom.Styles(raw: {
                 'color': 'var(--muted-foreground)',
               }),
-              [
-                dom.RawText('''<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 100%; height: 100%;">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                </svg>'''),
-              ],
+              [ArcaneIcon.clock(size: IconSize.sm)],
             ),
             dom.span(
               styles: const dom.Styles(raw: {
@@ -120,11 +115,7 @@ class ShadcnTimePicker extends StatelessComponent {
                     props.onClear?.call();
                   },
                 },
-                [
-                  const dom.RawText('''<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 14px; height: 14px;">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                  </svg>'''),
-                ],
+                [ArcaneIcon.x(size: IconSize.xs)],
               ),
           ],
         ),

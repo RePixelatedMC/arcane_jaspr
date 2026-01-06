@@ -46,7 +46,7 @@ class _InteractiveDemoState extends State<InteractiveDemo> {
           margin: MarginPreset.bottomXl,
           padding: PaddingPreset.lg,
           borderRadius: Radius.lg,
-          background: Background.surfaceVariant,
+          background: Background.transparent,
           border: BorderPreset.subtle,
         ),
         children: [

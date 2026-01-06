@@ -48,7 +48,6 @@ import 'props/fab_props.dart';
 import 'props/cycle_button_props.dart';
 import 'props/chip_props.dart';
 import 'props/kbd_props.dart';
-import 'props/theme_toggle_props.dart';
 import 'props/divider_props.dart';
 import 'props/callout_props.dart';
 import 'props/disclosure_props.dart';
@@ -211,7 +210,6 @@ export 'props/fab_props.dart';
 export 'props/cycle_button_props.dart';
 export 'props/chip_props.dart';
 export 'props/kbd_props.dart';
-export 'props/theme_toggle_props.dart';
 export 'props/divider_props.dart';
 export 'props/callout_props.dart';
 export 'props/disclosure_props.dart';
@@ -364,12 +362,6 @@ abstract class ComponentRenderers {
 
   /// Render a keyboard shortcut display component
   Component kbd(KbdProps props);
-
-  /// Render a theme toggle component
-  Component themeToggle(ThemeToggleProps props);
-
-  /// Render a simple theme toggle component
-  Component themeToggleSimple(ThemeToggleSimpleProps props);
 
   /// Render a divider component
   Component divider(DividerProps props);

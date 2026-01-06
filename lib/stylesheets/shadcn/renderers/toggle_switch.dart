@@ -28,23 +28,23 @@ class ShadcnToggleSwitch extends StatelessComponent {
     final double thumbTranslate =
         props.value ? (width - thumbSize - thumbOffset * 2) : 0.0;
 
-    // Get variant colors
+    // Get variant colors - inactive uses muted with border for better visibility
     final (String activeColor, String inactiveColor) = switch (props.variant) {
       ToggleSwitchVariant.primary => (
           'var(--primary)',
-          'var(--input)',
+          'var(--muted)',
         ),
       ToggleSwitchVariant.success => (
           'var(--success, #22c55e)',
-          'var(--input)',
+          'var(--muted)',
         ),
       ToggleSwitchVariant.warning => (
           'var(--warning, #f59e0b)',
-          'var(--input)',
+          'var(--muted)',
         ),
       ToggleSwitchVariant.error => (
           'var(--destructive)',
-          'var(--input)',
+          'var(--muted)',
         ),
     };
 
@@ -64,8 +64,8 @@ class ShadcnToggleSwitch extends StatelessComponent {
         'flex-shrink': '0',
         'width': '${width}px',
         'height': '${height}px',
-        'padding': '0',
-        'border': '2px solid transparent',
+        'padding': '${thumbOffset}px',
+        'border': props.value ? 'none' : '1px solid var(--border)',
         // ShadCN: rounded-full
         'border-radius': '9999px',
         // ShadCN: bg-input (off) / bg-primary (on)
@@ -75,8 +75,9 @@ class ShadcnToggleSwitch extends StatelessComponent {
         'opacity': props.disabled ? '0.5' : '1',
         'pointer-events': props.disabled ? 'none' : 'auto',
         // ShadCN: transition-colors
-        'transition': 'background-color 150ms ease',
+        'transition': 'background-color 150ms ease, border-color 150ms ease',
         'outline': 'none',
+        'box-sizing': 'border-box',
       }),
       events: {
         'click': (event) {
@@ -93,9 +94,7 @@ class ShadcnToggleSwitch extends StatelessComponent {
         dom.span(
           classes: 'arcane-toggle-thumb',
           styles: dom.Styles(raw: {
-            'position': 'absolute',
-            'top': '${thumbOffset}px',
-            'left': '${thumbOffset}px',
+            'display': 'block',
             'width': '${thumbSize}px',
             'height': '${thumbSize}px',
             // ShadCN: rounded-full
@@ -109,6 +108,7 @@ class ShadcnToggleSwitch extends StatelessComponent {
             'transform': 'translateX(${thumbTranslate}px)',
             'transition': 'transform 150ms ease',
             'pointer-events': 'none',
+            'flex-shrink': '0',
           }),
           [],
         ),

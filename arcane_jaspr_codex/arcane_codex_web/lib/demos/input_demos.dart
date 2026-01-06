@@ -177,10 +177,6 @@ class InputDemos {
         ),
       ];
 
-  static List<Component> themeToggle(bool isDark, VoidCallback onToggle) => [
-        ArcaneThemeToggle(isDark: isDark, onChanged: (_) => onToggle()),
-      ];
-
   static List<Component> tagInput() => [
         ArcaneDiv(
           styles: const ArcaneStyleData(widthCustom: '300px'),

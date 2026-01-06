@@ -226,7 +226,6 @@ export 'component/input/toggle_group.dart';
 export 'component/input/text_input.dart' hide TextInput;
 export 'component/input/slider.dart';
 export 'component/input/checkbox.dart';
-export 'component/input/theme_toggle.dart';
 export 'component/input/tag_input.dart';
 export 'component/input/number_input.dart';
 export 'component/input/file_upload.dart';

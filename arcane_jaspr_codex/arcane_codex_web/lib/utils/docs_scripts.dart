@@ -1,23 +1,16 @@
 // JavaScript utilities for the documentation site
 // Extracted from arcane_docs_layout.dart for better maintainability
 
-/// SVG icons used in the documentation site
+/// SVG icons used in JavaScript (for dynamic DOM manipulation)
+/// Note: Theme icons use ArcaneIcon components rendered server-side
 class DocsIcons {
-  /// Sun icon for light mode
-  static const String sun = '''
-<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>''';
-
-  /// Moon icon for dark mode
-  static const String moon = '''
-<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>''';
-
-  /// Copy icon for code blocks
+  /// Copy icon for code blocks (Lucide copy icon)
   static const String copy = '''
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>''';
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg>''';
 
-  /// Checkmark icon for copied state
+  /// Check icon for copied state (Lucide check icon)
   static const String check = '''
-<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>''';
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>''';
 }
 
 /// Configuration constants for scripts
@@ -54,21 +47,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
   static String _themeUtilities() => '''
 // ===== THEME UTILITIES =====
-// Stylesheet-agnostic theming - works with any ArcaneStyleSheet
+// Dark mode uses .dark class on root element
 function getCurrentMode() {
   return localStorage.getItem('arcane-theme-mode') || '${DocsScriptConfig.defaultThemeMode}';
 }
-function getCurrentVariant() {
-  // Get from localStorage, fallback to window.arcaneThemeVariant (set by server)
-  return localStorage.getItem('arcane-theme-variant') || window.arcaneThemeVariant || 'shadcn-neutral';
-}
 function updateClasses() {
   var mode = getCurrentMode();
-  var variant = getCurrentVariant();
   var root = document.getElementById('arcane-root');
   if (root) {
-    // CSS class format: arcane-{variant-id} arcane-{mode}
-    root.className = 'arcane-' + variant + ' ' + (mode === 'dark' ? 'arcane-dark' : 'arcane-light');
+    root.className = mode === 'dark' ? 'dark' : '';
   }
 }
 function setMode(mode) {
@@ -76,19 +63,15 @@ function setMode(mode) {
   updateClasses();
   updateModeToggleIcon(mode);
 }
-function setVariant(variantId) {
-  localStorage.setItem('arcane-theme-variant', variantId);
-  updateClasses();
-}
 function updateModeToggleIcon(mode) {
   var themeToggle = document.getElementById('theme-toggle');
   if (!themeToggle) return;
-  var iconContainer = themeToggle.querySelector('.theme-icon');
-  if (iconContainer) {
-    // Lucide-style SVGs matching ArcaneIcon.sun/moon (16px for IconSize.sm)
-    var sunIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>';
-    var moonIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>';
-    iconContainer.innerHTML = mode === 'dark' ? sunIcon : moonIcon;
+  // Toggle visibility of sun/moon icons (rendered by ArcaneIcon)
+  var sunIcon = themeToggle.querySelector('.theme-icon-sun');
+  var moonIcon = themeToggle.querySelector('.theme-icon-moon');
+  if (sunIcon && moonIcon) {
+    sunIcon.style.display = mode === 'dark' ? 'flex' : 'none';
+    moonIcon.style.display = mode === 'dark' ? 'none' : 'flex';
   }
 }
 // Initialize on load
@@ -194,9 +177,9 @@ if (searchInput) {
 
   static String _codeBlockCopyButtons() => '''
 // ===== CODE BLOCK COPY BUTTONS =====
-// SVGs use currentColor to inherit from CSS
-var copyIconSvg = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
-var checkIconSvg = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+// Lucide icons matching ArcaneIcon.copy() and ArcaneIcon.check()
+var copyIconSvg = '${DocsIcons.copy}';
+var checkIconSvg = '${DocsIcons.check}';
 
 var proseBlocks = document.querySelectorAll('.prose pre');
 proseBlocks.forEach(function(pre, index) {
@@ -300,19 +283,6 @@ if (typeof hljs !== 'undefined') {
 // See: lib/util/interactivity/arcane_scripts.dart
 ''';
 
-  static String _variantSelectorHandler() => '''
-// ===== VARIANT SELECTOR (stylesheet-agnostic) =====
-var variantSelect = document.getElementById('variant-select');
-if (variantSelect) {
-  // Set initial value from localStorage
-  var savedVariant = getCurrentVariant();
-  variantSelect.value = savedVariant;
-
-  // Handle change events
-  variantSelect.addEventListener('change', function(e) {
-    var variantId = e.target.value;
-    setVariant(variantId);
-  });
-}
-''';
+  // Variant selector removed - using single stylesheet system
+  static String _variantSelectorHandler() => '';
 }

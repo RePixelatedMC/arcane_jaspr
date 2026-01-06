@@ -56,7 +56,6 @@ import 'time_dialog.dart';
 import 'alert_banner.dart';
 import 'status_badge.dart' as status_badge_renderer;
 import 'kbd.dart';
-import 'theme_toggle.dart';
 import 'divider.dart';
 import 'callout.dart';
 import 'disclosure.dart';
@@ -232,12 +231,6 @@ class ShadcnRenderers extends ComponentRenderers {
 
   @override
   Component kbd(KbdProps props) => ShadcnKbd(props);
-
-  @override
-  Component themeToggle(ThemeToggleProps props) => ShadcnThemeToggle(props);
-
-  @override
-  Component themeToggleSimple(ThemeToggleSimpleProps props) => ShadcnThemeToggleSimple(props);
 
   @override
   Component divider(DividerProps props) => ShadcnDivider(props);

@@ -20,7 +20,6 @@ class DocsSidebar extends StatelessComponent {
       padding: '0',
       scrollPersistenceId: 'docs-sidebar',
       // Use same background as page - ShadCN style
-      background: 'var(--arcane-background)',
       children: [
         // Header
         ArcaneDiv(
@@ -104,7 +103,6 @@ class DocsSidebar extends StatelessComponent {
               _buildNavItem(label: 'ArcaneToggleButtonGroup', href: '/docs/inputs/arcane-toggle-button-group'),
               _buildNavItem(label: 'ArcaneCycleButton', href: '/docs/inputs/arcane-cycle-button'),
               _buildNavItem(label: 'ArcaneSelector', href: '/docs/inputs/arcane-selector'),
-              _buildNavItem(label: 'ArcaneThemeToggle', href: '/docs/inputs/arcane-theme-toggle'),
               _buildNavItem(label: 'ArcaneTagInput', href: '/docs/inputs/arcane-tag-input'),
               _buildNavItem(label: 'ArcaneNumberInput', href: '/docs/inputs/arcane-number-input'),
               _buildNavItem(label: 'ArcaneFileUpload', href: '/docs/inputs/arcane-file-upload'),

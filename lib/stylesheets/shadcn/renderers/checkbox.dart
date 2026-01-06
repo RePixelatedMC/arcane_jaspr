@@ -28,23 +28,23 @@ class ShadcnCheckbox extends StatelessComponent {
       CheckboxSize.large => '14px',
     };
 
-    // Get variant colors
+    // Get variant colors - border is always the variant color (like radio)
     final (String checkedBg, String borderColor) = switch (props.variant) {
       CheckboxVariant.primary => (
           'var(--primary)',
-          props.checked ? 'var(--primary)' : 'var(--input)',
+          'var(--primary)',
         ),
       CheckboxVariant.success => (
           'var(--success, #22c55e)',
-          props.checked ? 'var(--success, #22c55e)' : 'var(--input)',
+          'var(--success, #22c55e)',
         ),
       CheckboxVariant.warning => (
           'var(--warning, #f59e0b)',
-          props.checked ? 'var(--warning, #f59e0b)' : 'var(--input)',
+          'var(--warning, #f59e0b)',
         ),
       CheckboxVariant.error => (
           'var(--destructive)',
-          props.checked ? 'var(--destructive)' : 'var(--input)',
+          'var(--destructive)',
         ),
     };
 

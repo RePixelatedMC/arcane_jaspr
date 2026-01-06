@@ -1,6 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
+import '../../../component/view/icon.dart';
 import '../../../core/props/file_upload_props.dart';
 
 /// ShadCN File Upload renderer.
@@ -9,11 +10,11 @@ class ShadcnFileUpload extends StatelessComponent {
 
   const ShadcnFileUpload(this.props, {super.key});
 
-  (String padding, String fontSize, String iconSize) get _sizeStyles =>
+  (String padding, String fontSize, IconSize iconSize) get _sizeStyles =>
       switch (props.size) {
-        FileUploadSize.sm => ('1rem', '0.875rem', '24px'),
-        FileUploadSize.md => ('1.5rem', '1rem', '32px'),
-        FileUploadSize.lg => ('2rem', '1.125rem', '48px'),
+        FileUploadSize.sm => ('1rem', '0.875rem', IconSize.lg),
+        FileUploadSize.md => ('1.5rem', '1rem', IconSize.xl),
+        FileUploadSize.lg => ('2rem', '1.125rem', IconSize.xl2),
       };
 
   @override
@@ -103,7 +104,7 @@ class ShadcnFileUpload extends StatelessComponent {
     );
   }
 
-  Component _buildDropzone(String padding, String fontSize, String iconSize) {
+  Component _buildDropzone(String padding, String fontSize, IconSize iconSize) {
     return dom.div(
       classes: 'arcane-file-upload-dropzone',
       styles: dom.Styles(raw: {
@@ -133,18 +134,11 @@ class ShadcnFileUpload extends StatelessComponent {
       },
       [
         // Upload icon
-        dom.div(
+        dom.span(
           styles: dom.Styles(raw: {
-            'width': iconSize,
-            'height': iconSize,
             'color': props.isDragOver ? 'var(--primary)' : 'var(--muted-foreground)',
           }),
-          [
-            // Upload cloud icon SVG
-            const dom.RawText('''<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 100%; height: 100%;">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0 3 3m-3-3-3 3M6.75 19.5a4.5 4.5 0 0 1-1.41-8.775 5.25 5.25 0 0 1 10.233-2.33 3 3 0 0 1 3.758 3.848A3.752 3.752 0 0 1 18 19.5H6.75Z" />
-            </svg>'''),
-          ],
+          [ArcaneIcon.cloudUpload(size: iconSize)],
         ),
 
         // Text
@@ -202,10 +196,7 @@ class ShadcnFileUpload extends StatelessComponent {
             'click': (_) => props.onClick?.call(),
           },
           [
-            // Paperclip icon
-            const dom.RawText('''<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 16px; height: 16px;">
-              <path stroke-linecap="round" stroke-linejoin="round" d="m18.375 12.739-7.693 7.693a4.5 4.5 0 0 1-6.364-6.364l10.94-10.94A3 3 0 1 1 19.5 7.372L8.552 18.32m.009-.01-.01.01m5.699-9.941-7.81 7.81a1.5 1.5 0 0 0 2.112 2.13" />
-            </svg>'''),
+            ArcaneIcon.paperclip(size: IconSize.sm),
             Component.text(props.browseText),
           ],
         ),

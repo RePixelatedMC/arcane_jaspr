@@ -71,7 +71,6 @@ class ArcaneScripts {
     bindCycleButtons();
     bindToggleButtons();
     bindButtons();
-    bindThemeToggles();
     bindCopyButtons();
 
     // Navigation

@@ -207,8 +207,9 @@ class ShadcnToggleButton extends StatelessComponent {
         ...sizeStyles,
         'font-weight': '500',
         'border-radius': '0.375rem',
-        'background-color': props.value ? 'var(--accent)' : 'transparent',
-        'color': props.value ? 'var(--accent-foreground)' : 'var(--foreground)',
+        // Active: primary background, inactive: muted background with border
+        'background-color': props.value ? 'var(--primary)' : 'var(--muted)',
+        'color': props.value ? 'var(--primary-foreground)' : 'var(--foreground)',
         'border': props.value ? 'none' : '1px solid var(--border)',
         'cursor': props.disabled ? 'not-allowed' : 'pointer',
         'opacity': props.disabled ? '0.5' : '1',

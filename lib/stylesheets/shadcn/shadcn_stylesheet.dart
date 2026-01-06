@@ -25,8 +25,8 @@ class ShadcnStylesheet extends ArcaneStylesheet {
 
   @override
   List<String> get externalCssUrls => const [
-        'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
-      ];
+    'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
+  ];
 
   @override
   String get baseCss => '''
@@ -36,28 +36,28 @@ class ShadcnStylesheet extends ArcaneStylesheet {
 :root {
   /* Core ShadCN Variables */
   --background: #ffffff;
-  --foreground: #0a0a0a;
+  --foreground: #09090b;
 
   --card: #ffffff;
-  --card-foreground: #0a0a0a;
+  --card-foreground: #09090b;
 
   --popover: #ffffff;
-  --popover-foreground: #0a0a0a;
+  --popover-foreground: #09090b;
 
-  --primary: #171717;
-  --primary-foreground: #fafafa;
+  --primary: #09090b;
+  --primary-foreground: #f9fafb;
 
-  --secondary: #f5f5f5;
-  --secondary-foreground: #171717;
+  --secondary: #f4f4f5;
+  --secondary-foreground: #09090b;
 
-  --muted: #f5f5f5;
-  --muted-foreground: #737373;
+  --muted: #f4f4f5;
+  --muted-foreground: #71717a;
 
-  --accent: #f5f5f5;
-  --accent-foreground: #171717;
+  --accent: #f4f4f5;
+  --accent-foreground: #09090b;
 
   --destructive: #ef4444;
-  --destructive-foreground: #fafafa;
+  --destructive-foreground: #f9fafb;
 
   --success: #22c55e;
   --success-foreground: #ffffff;
@@ -68,9 +68,9 @@ class ShadcnStylesheet extends ArcaneStylesheet {
   --info: #3b82f6;
   --info-foreground: #ffffff;
 
-  --border: #e5e5e5;
-  --input: #e5e5e5;
-  --ring: #0a0a0a;
+  --border: #e4e4e7;
+  --input: #e4e4e7;
+  --ring: #09090b;
 
   --radius: 0.5rem;
 
@@ -87,7 +87,7 @@ class ShadcnStylesheet extends ArcaneStylesheet {
   --arcane-on-background: var(--foreground);
   --arcane-card: var(--card);
   --arcane-card-foreground: var(--card-foreground);
-  --arcane-card-hover: #f5f5f5;
+  --arcane-card-hover: #f4f4f5;
   --arcane-card-alt: var(--secondary);
   --arcane-popover: var(--popover);
   --arcane-popover-foreground: var(--popover-foreground);
@@ -101,8 +101,8 @@ class ShadcnStylesheet extends ArcaneStylesheet {
   --arcane-on-secondary: var(--secondary-foreground);
   --arcane-accent: var(--accent);
   --arcane-accent-foreground: var(--accent-foreground);
-  --arcane-accent-hover: #e5e5e5;
-  --arcane-accent-container: rgba(245, 245, 245, 0.1);
+  --arcane-accent-hover: #e4e4e7;
+  --arcane-accent-container: rgba(244, 244, 245, 0.1);
 
   /* Surface (Material-style aliases) */
   --arcane-surface: var(--card);
@@ -152,23 +152,23 @@ class ShadcnStylesheet extends ArcaneStylesheet {
 
   /* RGB Channels for rgba() compositing */
   --arcane-background-rgb: 255, 255, 255;
-  --arcane-foreground-rgb: 10, 10, 10;
-  --arcane-on-background-rgb: 10, 10, 10;
-  --arcane-primary-rgb: 23, 23, 23;
-  --arcane-secondary-rgb: 245, 245, 245;
-  --arcane-accent-rgb: 245, 245, 245;
-  --arcane-muted-rgb: 115, 115, 115;
+  --arcane-foreground-rgb: 9, 9, 11;
+  --arcane-on-background-rgb: 9, 9, 11;
+  --arcane-primary-rgb: 9, 9, 11;
+  --arcane-secondary-rgb: 244, 244, 245;
+  --arcane-accent-rgb: 244, 244, 245;
+  --arcane-muted-rgb: 113, 113, 122;
   --arcane-destructive-rgb: 239, 68, 68;
   --arcane-success-rgb: 34, 197, 94;
   --arcane-warning-rgb: 245, 158, 11;
   --arcane-info-rgb: 59, 130, 246;
   --arcane-surface-rgb: 255, 255, 255;
-  --arcane-on-surface-rgb: 10, 10, 10;
-  --arcane-surface-variant-rgb: 245, 245, 245;
-  --arcane-on-surface-variant-rgb: 23, 23, 23;
+  --arcane-on-surface-rgb: 9, 9, 11;
+  --arcane-surface-variant-rgb: 244, 244, 245;
+  --arcane-on-surface-variant-rgb: 9, 9, 11;
   --arcane-card-rgb: 255, 255, 255;
-  --arcane-border-rgb: 229, 229, 229;
-  --arcane-input-rgb: 229, 229, 229;
+  --arcane-border-rgb: 228, 228, 231;
+  --arcane-input-rgb: 228, 228, 231;
 
   /* Typography */
   --arcane-font-sans: var(--font-sans);
@@ -210,24 +210,24 @@ class ShadcnStylesheet extends ArcaneStylesheet {
   /* Extended Colors */
   --arcane-tertiary: var(--accent);
   --arcane-on-tertiary: var(--accent-foreground);
-  --arcane-tertiary-rgb: 245, 245, 245;
-  --arcane-primary-container: rgba(23, 23, 23, 0.1);
+  --arcane-tertiary-rgb: 244, 244, 245;
+  --arcane-primary-container: rgba(9, 9, 11, 0.1);
   --arcane-on-primary-container: var(--primary);
-  --arcane-secondary-container: rgba(245, 245, 245, 0.1);
+  --arcane-secondary-container: rgba(244, 244, 245, 0.1);
   --arcane-on-secondary-container: var(--secondary-foreground);
-  --arcane-tertiary-container: rgba(245, 245, 245, 0.1);
+  --arcane-tertiary-container: rgba(244, 244, 245, 0.1);
   --arcane-on-tertiary-container: var(--accent-foreground);
   --arcane-background-secondary: #fafafa;
-  --arcane-background-tertiary: #f5f5f5;
-  --arcane-text-subtle: rgba(115, 115, 115, 0.85);
-  --arcane-text-faint: rgba(115, 115, 115, 0.65);
-  --arcane-inverse-surface: #0a0a0a;
-  --arcane-on-inverse-surface: #fafafa;
+  --arcane-background-tertiary: #f4f4f5;
+  --arcane-text-subtle: rgba(113, 113, 122, 0.85);
+  --arcane-text-faint: rgba(113, 113, 122, 0.65);
+  --arcane-inverse-surface: #09090b;
+  --arcane-on-inverse-surface: #f9fafb;
   --arcane-surface-tint: var(--accent);
   --arcane-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
-  --arcane-accent-glow: rgba(245, 245, 245, 0.1);
-  --arcane-secondary-glow: rgba(245, 245, 245, 0.1);
-  --arcane-grid-color: rgba(245, 245, 245, 0.03);
+  --arcane-accent-glow: rgba(244, 244, 245, 0.1);
+  --arcane-secondary-glow: rgba(244, 244, 245, 0.1);
+  --arcane-grid-color: rgba(244, 244, 245, 0.03);
 
   /* Style Aliases (for ArcaneRadius/ArcaneEffects fallbacks) */
   --arcane-style-radius-xs: var(--arcane-radius-xs);
@@ -246,10 +246,10 @@ class ShadcnStylesheet extends ArcaneStylesheet {
   --arcane-style-transition-slow: var(--arcane-transition-slow);
 }
 
-/* Dark Mode */
+/* Dark Mode - OLED-optimized variant */
 .dark {
-  /* Core ShadCN Variables */
-  --background: #0a0a0a;
+  /* Core ShadCN Variables - Pure black for OLED */
+  --background: #000000;
   --foreground: #fafafa;
 
   --card: #0a0a0a;
@@ -259,15 +259,15 @@ class ShadcnStylesheet extends ArcaneStylesheet {
   --popover-foreground: #fafafa;
 
   --primary: #fafafa;
-  --primary-foreground: #171717;
+  --primary-foreground: #0a0a0a;
 
-  --secondary: #262626;
+  --secondary: #151515;
   --secondary-foreground: #fafafa;
 
-  --muted: #262626;
+  --muted: #151515;
   --muted-foreground: #a3a3a3;
 
-  --accent: #262626;
+  --accent: #151515;
   --accent-foreground: #fafafa;
 
   --destructive: #7f1d1d;
@@ -282,8 +282,8 @@ class ShadcnStylesheet extends ArcaneStylesheet {
   --info: #1e40af;
   --info-foreground: #ffffff;
 
-  --border: #262626;
-  --input: #262626;
+  --border: #252525;
+  --input: #151515;
   --ring: #d4d4d4;
 
   /* ==========================================================================
@@ -296,7 +296,7 @@ class ShadcnStylesheet extends ArcaneStylesheet {
   --arcane-on-background: var(--foreground);
   --arcane-card: var(--card);
   --arcane-card-foreground: var(--card-foreground);
-  --arcane-card-hover: #171717;
+  --arcane-card-hover: #1a1a1a;
   --arcane-card-alt: var(--secondary);
   --arcane-popover: var(--popover);
   --arcane-popover-foreground: var(--popover-foreground);
@@ -310,8 +310,8 @@ class ShadcnStylesheet extends ArcaneStylesheet {
   --arcane-on-secondary: var(--secondary-foreground);
   --arcane-accent: var(--accent);
   --arcane-accent-foreground: var(--accent-foreground);
-  --arcane-accent-hover: #333333;
-  --arcane-accent-container: rgba(38, 38, 38, 0.1);
+  --arcane-accent-hover: #1f1f1f;
+  --arcane-accent-container: rgba(21, 21, 21, 0.1);
 
   /* Surface (Material-style aliases) */
   --arcane-surface: var(--card);
@@ -357,15 +357,15 @@ class ShadcnStylesheet extends ArcaneStylesheet {
   --arcane-tooltip: var(--popover);
   --arcane-tooltip-foreground: var(--popover-foreground);
   --arcane-code-background: var(--secondary);
-  --arcane-navbar: rgba(10, 10, 10, 0.8);
+  --arcane-navbar: rgba(0, 0, 0, 0.8);
 
   /* RGB Channels for rgba() compositing */
-  --arcane-background-rgb: 10, 10, 10;
+  --arcane-background-rgb: 0, 0, 0;
   --arcane-foreground-rgb: 250, 250, 250;
   --arcane-on-background-rgb: 250, 250, 250;
   --arcane-primary-rgb: 250, 250, 250;
-  --arcane-secondary-rgb: 38, 38, 38;
-  --arcane-accent-rgb: 38, 38, 38;
+  --arcane-secondary-rgb: 21, 21, 21;
+  --arcane-accent-rgb: 21, 21, 21;
   --arcane-muted-rgb: 163, 163, 163;
   --arcane-destructive-rgb: 127, 29, 29;
   --arcane-success-rgb: 22, 101, 52;
@@ -373,33 +373,33 @@ class ShadcnStylesheet extends ArcaneStylesheet {
   --arcane-info-rgb: 30, 64, 175;
   --arcane-surface-rgb: 10, 10, 10;
   --arcane-on-surface-rgb: 250, 250, 250;
-  --arcane-surface-variant-rgb: 38, 38, 38;
+  --arcane-surface-variant-rgb: 21, 21, 21;
   --arcane-on-surface-variant-rgb: 250, 250, 250;
   --arcane-card-rgb: 10, 10, 10;
-  --arcane-border-rgb: 38, 38, 38;
-  --arcane-input-rgb: 38, 38, 38;
+  --arcane-border-rgb: 37, 37, 37;
+  --arcane-input-rgb: 21, 21, 21;
 
   /* Extended Colors */
   --arcane-tertiary: var(--accent);
   --arcane-on-tertiary: var(--accent-foreground);
-  --arcane-tertiary-rgb: 38, 38, 38;
+  --arcane-tertiary-rgb: 21, 21, 21;
   --arcane-primary-container: rgba(250, 250, 250, 0.1);
   --arcane-on-primary-container: var(--primary);
-  --arcane-secondary-container: rgba(38, 38, 38, 0.1);
+  --arcane-secondary-container: rgba(21, 21, 21, 0.1);
   --arcane-on-secondary-container: var(--secondary-foreground);
-  --arcane-tertiary-container: rgba(38, 38, 38, 0.1);
+  --arcane-tertiary-container: rgba(21, 21, 21, 0.1);
   --arcane-on-tertiary-container: var(--accent-foreground);
-  --arcane-background-secondary: #141414;
-  --arcane-background-tertiary: #1a1a1a;
+  --arcane-background-secondary: #0a0a0a;
+  --arcane-background-tertiary: #151515;
   --arcane-text-subtle: rgba(163, 163, 163, 0.85);
   --arcane-text-faint: rgba(163, 163, 163, 0.65);
   --arcane-inverse-surface: #fafafa;
   --arcane-on-inverse-surface: #0a0a0a;
   --arcane-surface-tint: var(--accent);
   --arcane-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
-  --arcane-accent-glow: rgba(38, 38, 38, 0.1);
-  --arcane-secondary-glow: rgba(38, 38, 38, 0.1);
-  --arcane-grid-color: rgba(38, 38, 38, 0.03);
+  --arcane-accent-glow: rgba(21, 21, 21, 0.1);
+  --arcane-secondary-glow: rgba(21, 21, 21, 0.1);
+  --arcane-grid-color: rgba(21, 21, 21, 0.03);
 }
 
 /* Base Styles */
@@ -416,6 +416,34 @@ html, body {
   color: var(--foreground);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Global Styled Scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 9999px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--muted-foreground);
+}
+
+*::-webkit-scrollbar-corner {
+  background: transparent;
 }
 
 /* Spinner Animation */

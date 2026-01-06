@@ -1,6 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
+import '../../../component/view/icon.dart';
 import '../../../core/props/auth_branding_panel_props.dart';
 
 /// ShadCN Auth Branding Panel renderer.
@@ -94,8 +95,8 @@ class ShadcnAuthBrandingPanel extends StatelessComponent {
       }),
       [
         // Checkmark icon
-        const dom.div(
-          styles: dom.Styles(raw: {
+        dom.div(
+          styles: const dom.Styles(raw: {
             'width': '20px',
             'height': '20px',
             'border-radius': '9999px',
@@ -105,14 +106,9 @@ class ShadcnAuthBrandingPanel extends StatelessComponent {
             'justify-content': 'center',
             'flex-shrink': '0',
             'margin-top': '2px',
+            'color': 'var(--accent)',
           }),
-          [
-            dom.RawText('''
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent)">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>
-            '''),
-          ],
+          [ArcaneIcon.check(size: IconSize.xs)],
         ),
         // Feature text
         dom.div(

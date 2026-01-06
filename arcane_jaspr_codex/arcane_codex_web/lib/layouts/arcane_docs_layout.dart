@@ -1,5 +1,4 @@
 import 'package:arcane_jaspr/arcane_jaspr.dart' hide TableOfContents;
-import 'package:arcane_jaspr/stylesheets/shadcn/shadcn_stylesheet.dart';
 import 'package:jaspr_content/jaspr_content.dart';
 
 import '../components/docs_sidebar.dart';
@@ -9,17 +8,7 @@ import '../demos/demo_registry.dart';
 import '../utils/constants.dart';
 import '../utils/docs_scripts.dart';
 
-// =============================================================================
-// STYLESHEET CONFIGURATION
-// =============================================================================
-// Two stylesheet systems are used:
-// 1. ArcaneStyleSheet (old) - Generates CSS variables for theming
-// 2. ArcaneStylesheet (new) - Provides component renderers
-//
-// The old system handles CSS generation, the new system handles rendering.
-// =============================================================================
-const ArcaneStyleSheet _docsStyleSheet = ShadcnStyleSheet();
-const ArcaneStylesheet _rendererStylesheet = ShadcnStylesheet();
+const ArcaneStylesheet _stylesheet = ShadcnStylesheet();
 
 /// Custom documentation layout using Arcane UI components
 class ArcaneDocsLayout extends PageLayoutBase {
@@ -37,38 +26,26 @@ class ArcaneDocsLayout extends PageLayoutBase {
         rel: 'icon', type: 'image/x-icon', href: '$assetPrefix/favicon.ico');
     yield meta(name: 'viewport', content: 'width=device-width, initial-scale=1');
 
-    // Generate CSS for ALL variants of the configured stylesheet
-    // This is stylesheet-agnostic - works with any ArcaneStyleSheet implementation
-    yield Component.element(
-      tag: 'style',
-      attributes: {'id': 'arcane-theme-vars'},
-      children: [RawText(_docsStyleSheet.generateCompleteCss())],
-    );
-
-    // Load custom fonts if the stylesheet provides them
-    if (_docsStyleSheet.fontFaceCss != null) {
+    // Inject stylesheet base CSS (contains all CSS variables and base styles)
+    if (_stylesheet.baseCss != null) {
       yield Component.element(
         tag: 'style',
-        attributes: {'id': 'arcane-font-face'},
-        children: [RawText(_docsStyleSheet.fontFaceCss!)],
+        attributes: {'id': 'arcane-theme-vars'},
+        children: [RawText(_stylesheet.baseCss!)],
       );
     }
 
-    // Load Google Fonts if the stylesheet uses them
-    if (_docsStyleSheet.googleFontUrl != null) {
-      yield link(
-        rel: 'preconnect',
-        href: 'https://fonts.googleapis.com',
-      );
+    // Load external CSS (Google Fonts, etc.)
+    if (_stylesheet.externalCssUrls.isNotEmpty) {
+      yield link(rel: 'preconnect', href: 'https://fonts.googleapis.com');
       yield link(
         rel: 'preconnect',
         href: 'https://fonts.gstatic.com',
         attributes: const {'crossorigin': ''},
       );
-      yield link(
-        rel: 'stylesheet',
-        href: _docsStyleSheet.googleFontUrl!,
-      );
+      for (final url in _stylesheet.externalCssUrls) {
+        yield link(rel: 'stylesheet', href: url);
+      }
     }
 
     // Load stylesheet AFTER theme variables so our overrides take precedence
@@ -90,14 +67,10 @@ class ArcaneDocsLayout extends PageLayoutBase {
       },
     );
 
-    // Theme initialization script - stylesheet-agnostic
-    // Stores the default variant ID for the configured stylesheet
-    final defaultVariantId = _docsStyleSheet.currentVariantId;
+    // Theme initialization script
     yield script(content: '''
       (function() {
-        // Store values for later use by docs_scripts.dart
         window.arcaneThemeMode = localStorage.getItem('arcane-theme-mode') || 'dark';
-        window.arcaneThemeVariant = localStorage.getItem('arcane-theme-variant') || '$defaultVariantId';
       })();
     ''');
   }
@@ -140,14 +113,9 @@ class ThemedDocsPage extends StatefulComponent {
 
 class _ThemedDocsPageState extends State<ThemedDocsPage> {
   bool _isDark = true;
-  String _variantId = _docsStyleSheet.currentVariantId;
 
   void _toggleTheme() {
     setState(() => _isDark = !_isDark);
-  }
-
-  void _setVariant(String variantId) {
-    setState(() => _variantId = variantId);
   }
 
   @override
@@ -157,15 +125,12 @@ class _ThemedDocsPageState extends State<ThemedDocsPage> {
       onThemeToggle: _toggleTheme,
     );
 
-    // Get the stylesheet instance for the selected variant
-    final ArcaneStyleSheet currentSheet = _docsStyleSheet.withVariant(_variantId);
-
-    // Build class string using stylesheet's variant system
-    final rootClasses = '${currentSheet.cssClassForVariant(_variantId)} ${_isDark ? 'arcane-dark' : 'arcane-light'}';
+    // Dark mode uses .dark class (defined in ShadcnStylesheet.baseCss)
+    final rootClasses = _isDark ? 'dark' : '';
 
     // Wrap with ArcaneThemeProvider to enable context.renderers access
     return ArcaneThemeProvider(
-      stylesheet: _rendererStylesheet,
+      stylesheet: _stylesheet,
       brightness: _isDark ? Brightness.dark : Brightness.light,
       child: ArcaneDiv(
         id: 'arcane-root',
@@ -211,9 +176,6 @@ class _ThemedDocsPageState extends State<ThemedDocsPage> {
         DocsHeader(
           isDark: _isDark,
           onThemeToggle: _toggleTheme,
-          variants: _docsStyleSheet.variants,
-          currentVariantId: _variantId,
-          onVariantChanged: _setVariant,
         ),
         _buildContentArea(demoRegistry),
       ],

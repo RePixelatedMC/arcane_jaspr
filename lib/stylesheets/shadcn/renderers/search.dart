@@ -1,6 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
+import '../../../component/view/icon.dart';
 import '../../../core/props/search_props.dart';
 
 /// ShadCN Search Input renderer.
@@ -158,15 +159,20 @@ class _ShadcnSearchState extends State<ShadcnSearch> {
             events: {
               'click': (event) => _handleClear(),
             },
-            [const Component.text('x')],
+            [ArcaneIcon.x(size: IconSize.xs)],
           ),
       ],
     );
   }
 
   Component _buildSearchIcon() {
-    // Simple search icon using raw HTML
-    return const RawText('''<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--muted-foreground); flex-shrink: 0;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>''');
+    return span(
+      styles: const Styles(raw: {
+        'color': 'var(--muted-foreground)',
+        'flex-shrink': '0',
+      }),
+      [ArcaneIcon.search(size: IconSize.md)],
+    );
   }
 
   Component _buildSpinner() {

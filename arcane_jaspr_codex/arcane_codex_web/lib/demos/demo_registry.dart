@@ -229,9 +229,7 @@ class DemoRegistry {
   };
 
   /// Contextual demos that need theme state
-  static const Map<String, ContextualDemoBuilder> _contextualDemos = {
-    'theme-toggle': InputDemos.themeToggle,
-  };
+  static const Map<String, ContextualDemoBuilder> _contextualDemos = {};
 
   /// Default placeholder for missing demos
   static List<Component> _defaultDemo() => [
