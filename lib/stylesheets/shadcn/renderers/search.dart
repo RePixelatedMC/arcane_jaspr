@@ -158,7 +158,7 @@ class _ShadcnSearchState extends State<ShadcnSearch> {
             events: {
               'click': (event) => _handleClear(),
             },
-            [text('x')],
+            [const Component.text('x')],
           ),
       ],
     );

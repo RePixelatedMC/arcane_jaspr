@@ -131,7 +131,8 @@ class ArcaneScripts {
 ///
 /// // Or use ArcaneApp which includes it automatically
 /// ArcaneApp(
-///   theme: ArcaneTheme.green,
+///   stylesheet: ShadcnStylesheet(),
+///   brightness: Brightness.dark,
 ///   child: MyApp(),
 /// )
 /// ```

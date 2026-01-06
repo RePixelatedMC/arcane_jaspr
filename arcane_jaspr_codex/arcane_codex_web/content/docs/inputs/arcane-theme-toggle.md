@@ -209,7 +209,7 @@ ArcaneFooter(
 
 ```dart
 class ThemeProvider extends StatefulComponent {
-  bool _isDark = false;
+  bool _isDark = true;
 
   @override
   void initState() {
@@ -219,7 +219,7 @@ class ThemeProvider extends StatefulComponent {
 
   void _loadTheme() async {
     final saved = await storage.get('theme');
-    setState(() => _isDark = saved == 'dark');
+    setState(() => _isDark = saved != 'light');
   }
 
   void _toggleTheme(bool isDark) async {
@@ -230,9 +230,8 @@ class ThemeProvider extends StatefulComponent {
   @override
   Iterable<Component> build(BuildContext context) sync* {
     yield ArcaneApp(
-      theme: ArcaneTheme.supabase(
-        themeMode: _isDark ? ThemeMode.dark : ThemeMode.light,
-      ),
+      stylesheet: ShadcnStylesheet(),
+      brightness: _isDark ? Brightness.dark : Brightness.light,
       child: YourApp(
         themeToggle: ArcaneThemeToggle(
           isDark: _isDark,

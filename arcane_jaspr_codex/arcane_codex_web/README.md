@@ -243,10 +243,8 @@ Configured in `lib/layouts/arcane_docs_layout.dart`:
 
 ```dart
 ArcaneApp(
-  theme: ArcaneTheme.supabase(
-    accent: AccentTheme.emerald,
-    themeMode: ThemeMode.dark,
-  ),
+  stylesheet: ShadcnStylesheet(),
+  brightness: Brightness.dark,
   child: ...,
 )
 ```

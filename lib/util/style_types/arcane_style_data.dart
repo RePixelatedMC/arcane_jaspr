@@ -1055,6 +1055,8 @@ class ArcaneStyleData {
     MainAxisAlignment? mainAxisAlignment,
     CrossAxisAlignment? crossAxisAlignment,
     CrossAxisAlignment? alignSelf,
+    AlignItems? alignItems,
+    JustifyContent? justifyContent,
     Position? position,
     Visibility? visibility,
     ZIndex? zIndex,

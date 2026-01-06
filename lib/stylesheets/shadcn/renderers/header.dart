@@ -95,7 +95,12 @@ class ShadcnHeader extends StatelessComponent {
                     events: props.onSearch != null
                         ? {
                             'input': (e) {
-                              // TODO: Extract value and call onSearch
+                              final target = e.target;
+                              if (target != null) {
+                                final value =
+                                    (target as dynamic).value as String? ?? '';
+                                props.onSearch!(value);
+                              }
                             },
                           }
                         : null,

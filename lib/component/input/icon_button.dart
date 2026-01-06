@@ -4,7 +4,6 @@ import 'package:jaspr/dom.dart' as dom;
 
 import '../../core/props/icon_button_props.dart';
 import '../../core/theme_provider.dart';
-import 'button.dart';
 
 export '../../core/props/icon_button_props.dart'
     show IconButtonSize, IconButtonVariant;
@@ -38,12 +37,8 @@ class ArcaneIconButton extends StatelessComponent {
   /// Click handler
   final void Function()? onPressed;
 
-  /// Style preset (preferred)
-  final IconButtonStyle? style;
-
-  /// Button variant (legacy - use style instead)
-  @Deprecated('Use style parameter with IconButtonStyle presets instead')
-  final ButtonVariant? variant;
+  /// Style preset
+  final IconButtonStyle style;
 
   /// Button size
   final IconButtonSize size;
@@ -60,8 +55,7 @@ class ArcaneIconButton extends StatelessComponent {
   const ArcaneIconButton({
     required this.icon,
     this.onPressed,
-    this.style,
-    @Deprecated('Use style parameter instead') this.variant,
+    this.style = IconButtonStyle.ghost,
     this.size = IconButtonSize.medium,
     this.disabled = false,
     this.loading = false,
@@ -78,8 +72,7 @@ class ArcaneIconButton extends StatelessComponent {
     this.loading = false,
     this.tooltip,
     super.key,
-  })  : style = IconButtonStyle.primary,
-        variant = null;
+  }) : style = IconButtonStyle.primary;
 
   /// Ghost icon button (default minimal style)
   const ArcaneIconButton.ghost({
@@ -90,8 +83,7 @@ class ArcaneIconButton extends StatelessComponent {
     this.loading = false,
     this.tooltip,
     super.key,
-  })  : style = IconButtonStyle.ghost,
-        variant = null;
+  }) : style = IconButtonStyle.ghost;
 
   /// Outline icon button
   const ArcaneIconButton.outline({
@@ -102,8 +94,7 @@ class ArcaneIconButton extends StatelessComponent {
     this.loading = false,
     this.tooltip,
     super.key,
-  })  : style = IconButtonStyle.outline,
-        variant = null;
+  }) : style = IconButtonStyle.outline;
 
   /// Destructive icon button
   const ArcaneIconButton.destructive({
@@ -114,23 +105,7 @@ class ArcaneIconButton extends StatelessComponent {
     this.loading = false,
     this.tooltip,
     super.key,
-  })  : style = IconButtonStyle.destructive,
-        variant = null;
-
-  /// Convert legacy variant to IconButtonVariant for props
-  IconButtonVariant _variantToVariant(ButtonVariant v) {
-    return switch (v) {
-      ButtonVariant.primary => IconButtonVariant.primary,
-      ButtonVariant.secondary => IconButtonVariant.secondary,
-      ButtonVariant.outline => IconButtonVariant.outline,
-      ButtonVariant.ghost => IconButtonVariant.ghost,
-      ButtonVariant.destructive => IconButtonVariant.destructive,
-      ButtonVariant.success => IconButtonVariant.success,
-      ButtonVariant.warning => IconButtonVariant.warning,
-      ButtonVariant.info => IconButtonVariant.primary, // Map info to primary
-      ButtonVariant.link => IconButtonVariant.ghost,
-    };
-  }
+  }) : style = IconButtonStyle.destructive;
 
   /// Convert IconButtonStyle to IconButtonVariant for props
   IconButtonVariant _styleToVariant(IconButtonStyle s) {
@@ -147,16 +122,10 @@ class ArcaneIconButton extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    // Resolve variant from style or legacy variant
-    final IconButtonVariant effectiveVariant = style != null
-        ? _styleToVariant(style!)
-        : (variant != null ? _variantToVariant(variant!) : IconButtonVariant.ghost);
-
-    // Delegate to the current stylesheet's icon button renderer
     return context.renderers.iconButton(IconButtonProps(
       icon: icon,
       onPressed: onPressed,
-      variant: effectiveVariant,
+      variant: _styleToVariant(style),
       size: size,
       disabled: disabled,
       loading: loading,

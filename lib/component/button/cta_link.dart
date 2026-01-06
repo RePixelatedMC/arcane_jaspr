@@ -156,8 +156,8 @@ class ArcaneCtaLink extends StatelessComponent {
         ...?raw,
       }),
       [
-        text(label),
-        if (showArrow) text(' \u2192'),
+        Component.text(label),
+        if (showArrow) const Component.text(' \u2192'),
       ],
     );
   }

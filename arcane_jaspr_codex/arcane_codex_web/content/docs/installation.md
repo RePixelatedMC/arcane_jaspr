@@ -89,7 +89,8 @@ class App extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     return ArcaneApp(
-      theme: ArcaneTheme.green,  // Choose your theme
+      stylesheet: ShadcnStylesheet(),
+      brightness: Brightness.dark,
       child: MyHomePage(),
     );
   }
