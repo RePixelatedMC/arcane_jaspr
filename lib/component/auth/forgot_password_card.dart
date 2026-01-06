@@ -84,8 +84,8 @@ class _ArcaneForgotPasswordCardState extends State<ArcaneForgotPasswordCard> {
         // Header
         if (component.header != null) ...<Component>[
           component.header!,
-          div(
-            styles: const Styles(raw: {'height': '1.5rem'}),
+          const div(
+            styles: Styles(raw: {'height': '1.5rem'}),
             [],
           ),
         ],

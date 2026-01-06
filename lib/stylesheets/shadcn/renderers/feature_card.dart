@@ -55,9 +55,9 @@ class ShadcnFeatureCard extends StatelessComponent {
             [
               Component.text(props.title),
               if (props.showArrow && isClickable)
-                dom.span(
+                const dom.span(
                   classes: 'arcane-feature-card-arrow',
-                  styles: const dom.Styles(raw: {
+                  styles: dom.Styles(raw: {
                     'transition': 'all 150ms ease',
                   }),
                   [Component.text('\u2192')],

@@ -235,12 +235,12 @@ class ShadcnSlider extends StatelessComponent {
 
   Component _buildStepMarkers(String trackHeight) {
     if (props.step == null || props.step! <= 0) {
-      return dom.div([], styles: const dom.Styles(raw: {}));
+      return const dom.div([], styles: dom.Styles(raw: {}));
     }
 
     final int steps = ((props.max - props.min) / props.step!).floor();
     if (steps > 20) {
-      return dom.div([], styles: const dom.Styles(raw: {})); // Too many steps
+      return const dom.div([], styles: dom.Styles(raw: {})); // Too many steps
     }
 
     return dom.div(
@@ -256,8 +256,8 @@ class ShadcnSlider extends StatelessComponent {
       }),
       [
         for (var i = 0; i <= steps; i++)
-          dom.div(
-            styles: const dom.Styles(raw: {
+          const dom.div(
+            styles: dom.Styles(raw: {
               'width': '2px',
               'height': '2px',
               'background': 'var(--muted-foreground)',

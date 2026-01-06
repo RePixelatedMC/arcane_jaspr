@@ -117,8 +117,8 @@ class ShadcnScrollArea extends StatelessComponent {
       );
     }
 
-    return dom.span(
-      styles: const dom.Styles(raw: {'display': 'none'}),
+    return const dom.span(
+      styles: dom.Styles(raw: {'display': 'none'}),
       [],
     );
   }

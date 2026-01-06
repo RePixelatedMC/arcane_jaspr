@@ -103,7 +103,7 @@ class ShadcnDialog extends StatelessComponent {
                       [Component.text(props.title!)],
                     )
                   else
-                    dom.div([]),
+                    const dom.div([]),
                   if (props.showCloseButton && props.onClose != null)
                     // ShadCN close button styling
                     dom.button(
@@ -138,7 +138,7 @@ class ShadcnDialog extends StatelessComponent {
                       events: {
                         'click': (event) => props.onClose!(),
                       },
-                      [Component.text('\u00D7')],
+                      [const Component.text('\u00D7')],
                     ),
                 ],
               ),
@@ -222,7 +222,7 @@ class ShadcnSheet extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     if (!props.isOpen) {
-      return dom.div([]);
+      return const dom.div([]);
     }
 
     final sizeVal = _sizeValue;
@@ -336,16 +336,16 @@ class ShadcnSheet extends StatelessComponent {
           [
             // Drag handle (for bottom/top sheets)
             if (props.showDragHandle && _isVertical)
-              dom.div(
+              const dom.div(
                 classes: 'arcane-sheet-drag-handle',
-                styles: const dom.Styles(raw: {
+                styles: dom.Styles(raw: {
                   'display': 'flex',
                   'justify-content': 'center',
                   'padding': '8px 0',
                 }),
                 [
                   dom.div(
-                    styles: const dom.Styles(raw: {
+                    styles: dom.Styles(raw: {
                       'width': '36px',
                       'height': '4px',
                       'background': 'var(--muted-foreground)',
@@ -404,7 +404,7 @@ class ShadcnSheet extends StatelessComponent {
                       ],
                     )
                   else
-                    dom.div([]),
+                    const dom.div([]),
                   if (props.showCloseButton && props.onClose != null)
                     dom.button(
                       classes: 'arcane-sheet-close',
@@ -426,7 +426,7 @@ class ShadcnSheet extends StatelessComponent {
                         'flex-shrink': '0',
                       }),
                       events: {'click': (_) => props.onClose?.call()},
-                      [Component.text('\u00D7')],
+                      [const Component.text('\u00D7')],
                     ),
                 ],
               ),

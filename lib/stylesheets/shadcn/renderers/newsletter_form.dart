@@ -54,7 +54,7 @@ class _ShadcnNewsletterFormState extends State<ShadcnNewsletterForm> {
           'font-size': '0.875rem',
         }),
         [
-          dom.span([const Component.text('\u2713')]),
+          const dom.span([Component.text('\u2713')]),
           dom.span([Component.text(component.props.successMessage)]),
         ],
       );
@@ -267,9 +267,9 @@ class _ShadcnWaitlistFormState extends State<ShadcnWaitlistForm> {
           'border-radius': 'var(--radius)',
         }),
         [
-          dom.div(
-            [const Component.text('\u2713')],
-            styles: const dom.Styles(raw: {
+          const dom.div(
+            [Component.text('\u2713')],
+            styles: dom.Styles(raw: {
               'font-size': '2rem',
               'margin-bottom': '1rem',
               'color': 'var(--success)',

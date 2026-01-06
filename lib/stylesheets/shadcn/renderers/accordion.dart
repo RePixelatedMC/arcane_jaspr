@@ -97,7 +97,7 @@ class ShadcnAccordion extends StatelessComponent {
                 'transition': 'transform 200ms ease',
                 'flex-shrink': '0',
               }),
-              [Component.text('\u25BC')], // Down arrow
+              [const Component.text('\u25BC')], // Down arrow
             ),
           ],
         ),

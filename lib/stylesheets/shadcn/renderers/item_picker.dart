@@ -130,8 +130,8 @@ class _ShadcnItemPickerState<T> extends State<ShadcnItemPicker<T>> {
                 }),
                 [
                   if (filteredItems.isEmpty)
-                    dom.div(
-                      styles: const dom.Styles(raw: {
+                    const dom.div(
+                      styles: dom.Styles(raw: {
                         'padding': '1.5rem',
                         'text-align': 'center',
                         'color': 'var(--muted-foreground)',
@@ -216,8 +216,8 @@ class _ShadcnItemPickerState<T> extends State<ShadcnItemPicker<T>> {
             }),
             [
               if (selected)
-                dom.span(
-                  styles: const dom.Styles(raw: {
+                const dom.span(
+                  styles: dom.Styles(raw: {
                     'color': 'var(--primary-foreground)',
                     'font-size': '0.625rem',
                     'font-weight': '700',
@@ -234,8 +234,8 @@ class _ShadcnItemPickerState<T> extends State<ShadcnItemPicker<T>> {
           [component.props.itemBuilder(item)],
         ),
         if (!component.props.multiSelect && selected)
-          dom.span(
-            styles: const dom.Styles(raw: {
+          const dom.span(
+            styles: dom.Styles(raw: {
               'color': 'var(--primary)',
               'font-size': '1rem',
             }),

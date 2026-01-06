@@ -34,14 +34,14 @@ class ShadcnPricingCard extends StatelessComponent {
       [
         // Popular badge
         if (tier.isPopular)
-          dom.div(
-            styles: const dom.Styles(raw: {
+          const dom.div(
+            styles: dom.Styles(raw: {
               'position': 'absolute',
               'top': '-12px',
               'left': '50%',
               'transform': 'translateX(-50%)',
             }),
-            [ShadcnBadge(const BadgeProps(label: 'Most Popular', variant: BadgeVariant.primary))],
+            [ShadcnBadge(BadgeProps(label: 'Most Popular', variant: BadgeVariant.primary))],
           ),
 
         // Tier name
@@ -92,8 +92,8 @@ class ShadcnPricingCard extends StatelessComponent {
                 [Component.text('/${tier.period}')],
               ),
             ] else
-              dom.span(
-                styles: const dom.Styles(raw: {
+              const dom.span(
+                styles: dom.Styles(raw: {
                   'font-size': '1.5rem',
                   'font-weight': '600',
                   'color': 'var(--foreground)',
@@ -165,8 +165,8 @@ class ShadcnPricingCard extends StatelessComponent {
                 }),
                 [
                   // Checkmark
-                  dom.span(
-                    styles: const dom.Styles(raw: {
+                  const dom.span(
+                    styles: dom.Styles(raw: {
                       'color': 'hsl(142 76% 36%)',
                       'flex-shrink': '0',
                       'font-size': '1rem',

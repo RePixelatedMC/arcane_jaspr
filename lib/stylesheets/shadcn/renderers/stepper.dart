@@ -220,7 +220,7 @@ class ShadcnStepper extends StatelessComponent {
           : null,
       [
         if (status == StepStatus.complete)
-          dom.span([Component.text('\u2713')])
+          const dom.span([Component.text('\u2713')])
         else
           dom.span([Component.text('${index + 1}')]),
       ],

@@ -98,8 +98,8 @@ class ShadcnFooter extends StatelessComponent {
               dom.div(
                 classes: 'arcane-footer-newsletter',
                 [
-                  dom.div(
-                    styles: const dom.Styles(raw: {
+                  const dom.div(
+                    styles: dom.Styles(raw: {
                       'font-size': '0.875rem',
                       'font-weight': '600',
                       'color': 'var(--foreground)',

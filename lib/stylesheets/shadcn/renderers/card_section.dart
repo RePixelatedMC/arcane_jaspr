@@ -104,8 +104,8 @@ class ShadcnListCard extends StatelessComponent {
         for (var i = 0; i < props.children.length; i++) ...[
           props.children[i],
           if (props.divided && i < props.children.length - 1)
-            dom.div(
-              styles: const dom.Styles(raw: {
+            const dom.div(
+              styles: dom.Styles(raw: {
                 'height': '1px',
                 'background-color': 'var(--border)',
                 'margin': '0 1.5rem',

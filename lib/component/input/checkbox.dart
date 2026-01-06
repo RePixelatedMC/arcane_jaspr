@@ -201,7 +201,7 @@ class ArcaneRadio extends StatelessComponent {
       events: disabled || _onSelected == null
           ? null
           : {
-              'click': (event) => _onSelected!(),
+              'click': (event) => _onSelected(),
             },
       [
         // Radio circle - ShadCN styling

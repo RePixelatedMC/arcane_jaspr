@@ -281,8 +281,8 @@ class ArcaneActionSheet extends StatelessComponent {
 
           // Cancel button
           if (showCancel) ...[
-            dom.div(
-              styles: const dom.Styles(raw: {
+            const dom.div(
+              styles: dom.Styles(raw: {
                 'height': '8px',
               }),
               [],

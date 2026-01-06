@@ -175,7 +175,7 @@ class _ArcaneMegaMenuState extends State<ArcaneMegaMenu> {
                 'transform': _isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
                 'transition': 'transform 150ms ease',
               }),
-              [Component.text('\u25BC')],
+              [const Component.text('\u25BC')],
             ),
           ],
         ),

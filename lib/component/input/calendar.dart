@@ -135,10 +135,6 @@ class _ArcaneCalendarState extends State<ArcaneCalendar> {
     return false;
   }
 
-  bool _isSameDay(DateTime a, DateTime b) {
-    return a.year == b.year && a.month == b.month && a.day == b.day;
-  }
-
   void _selectDate(DateTime date) {
     if (_isDisabled(date)) return;
 

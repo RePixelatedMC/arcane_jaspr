@@ -148,7 +148,7 @@ class ShadcnTextInput extends StatelessComponent {
           Component.element(
             tag: 'label',
             attributes: props.id != null ? {'for': props.id!} : null,
-            styles: dom.Styles(raw: {
+            styles: const dom.Styles(raw: {
               // ShadCN: text-sm font-medium leading-none
               'font-size': '0.875rem',
               'font-weight': '500',
@@ -158,8 +158,8 @@ class ShadcnTextInput extends StatelessComponent {
             children: [
               Component.text(props.label!),
               if (props.required)
-                dom.span(
-                  styles: const dom.Styles(raw: {
+                const dom.span(
+                  styles: dom.Styles(raw: {
                     'color': 'var(--destructive)',
                     'margin-left': '0.25rem',
                   }),

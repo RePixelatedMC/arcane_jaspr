@@ -81,8 +81,8 @@ class ShadcnTimePicker extends StatelessComponent {
           },
           [
             // Clock icon
-            dom.span(
-              styles: const dom.Styles(raw: {
+            const dom.span(
+              styles: dom.Styles(raw: {
                 'width': '16px',
                 'height': '16px',
                 'color': 'var(--muted-foreground)',
@@ -121,7 +121,7 @@ class ShadcnTimePicker extends StatelessComponent {
                   },
                 },
                 [
-                  dom.RawText('''<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 14px; height: 14px;">
+                  const dom.RawText('''<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 14px; height: 14px;">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                   </svg>'''),
                 ],
@@ -185,8 +185,8 @@ class ShadcnTimePicker extends StatelessComponent {
                         'gap': '0.25rem',
                       }),
                       [
-                        dom.span(
-                          styles: const dom.Styles(raw: {
+                        const dom.span(
+                          styles: dom.Styles(raw: {
                             'font-size': '0.75rem',
                             'font-weight': '500',
                             'color': 'var(--muted-foreground)',
@@ -213,7 +213,7 @@ class ShadcnTimePicker extends StatelessComponent {
                               if (props.isPM) props.onTogglePeriod?.call();
                             },
                           },
-                          [Component.text('AM')],
+                          [const Component.text('AM')],
                         ),
                         dom.button(
                           classes: 'arcane-time-picker-option ${props.isPM ? 'selected' : ''}',
@@ -233,7 +233,7 @@ class ShadcnTimePicker extends StatelessComponent {
                               if (!props.isPM) props.onTogglePeriod?.call();
                             },
                           },
-                          [Component.text('PM')],
+                          [const Component.text('PM')],
                         ),
                       ],
                     ),
@@ -265,7 +265,7 @@ class ShadcnTimePicker extends StatelessComponent {
                     events: {
                       'click': (_) => props.onCancel?.call(),
                     },
-                    [Component.text('Cancel')],
+                    [const Component.text('Cancel')],
                   ),
                   dom.button(
                     type: dom.ButtonType.button,
@@ -281,7 +281,7 @@ class ShadcnTimePicker extends StatelessComponent {
                     events: {
                       'click': (_) => props.onConfirm?.call(),
                     },
-                    [Component.text('Confirm')],
+                    [const Component.text('Confirm')],
                   ),
                 ],
               ),

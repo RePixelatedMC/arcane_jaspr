@@ -138,8 +138,8 @@ class _ArcaneSignupCardState extends State<ArcaneSignupCard> {
         // Header
         if (component.header != null) ...<Component>[
           component.header!,
-          div(
-            styles: const Styles(raw: {'height': '1.5rem'}),
+          const div(
+            styles: Styles(raw: {'height': '1.5rem'}),
             [],
           ),
         ],
@@ -214,8 +214,8 @@ class _ArcaneSignupCardState extends State<ArcaneSignupCard> {
 
         // Divider
         if (_hasSocialMethods && _hasEmailMethod)
-          ArcaneDiv(
-            styles: const ArcaneStyleData(
+          const ArcaneDiv(
+            styles: ArcaneStyleData(
               display: Display.flex,
               alignItems: AlignItems.center,
               gap: Gap.md,
@@ -223,7 +223,7 @@ class _ArcaneSignupCardState extends State<ArcaneSignupCard> {
             ),
             children: <Component>[
               div(
-                styles: const Styles(raw: {
+                styles: Styles(raw: {
                   'flex': '1',
                   'height': '1px',
                   'background-color': 'var(--border)',
@@ -231,7 +231,7 @@ class _ArcaneSignupCardState extends State<ArcaneSignupCard> {
                 [],
               ),
               ArcaneDiv(
-                styles: const ArcaneStyleData(
+                styles: ArcaneStyleData(
                   fontSize: FontSize.xs,
                   textColor: TextColor.mutedForeground,
                   textTransform: TextTransform.uppercase,
@@ -240,7 +240,7 @@ class _ArcaneSignupCardState extends State<ArcaneSignupCard> {
                 children: [Component.text('or continue with email')],
               ),
               div(
-                styles: const Styles(raw: {
+                styles: Styles(raw: {
                   'flex': '1',
                   'height': '1px',
                   'background-color': 'var(--border)',

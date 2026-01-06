@@ -314,8 +314,8 @@ class ArcaneTextArea extends StatelessComponent {
               children: [
                 Component.text(label!),
                 if (required)
-                  dom.span(
-                    styles: const dom.Styles(raw: {
+                  const dom.span(
+                    styles: dom.Styles(raw: {
                       'color': 'var(--destructive)',
                       'margin-left': '0.25rem',
                     }),
@@ -510,8 +510,8 @@ class ArcaneSelect extends StatelessComponent {
               children: [
                 Component.text(label!),
                 if (required)
-                  dom.span(
-                    styles: const dom.Styles(raw: {
+                  const dom.span(
+                    styles: dom.Styles(raw: {
                       'color': 'var(--destructive)',
                       'margin-left': '0.25rem',
                     }),

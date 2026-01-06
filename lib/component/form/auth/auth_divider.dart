@@ -24,8 +24,8 @@ class AuthDivider extends StatelessComponent {
       ),
       children: [
         // Left line
-        div(
-          styles: const Styles(raw: {
+        const div(
+          styles: Styles(raw: {
             'flex': '1',
             'height': '1px',
             'background-color': 'var(--border)',
@@ -43,8 +43,8 @@ class AuthDivider extends StatelessComponent {
           children: [Component.text(text)],
         ),
         // Right line
-        div(
-          styles: const Styles(raw: {
+        const div(
+          styles: Styles(raw: {
             'flex': '1',
             'height': '1px',
             'background-color': 'var(--border)',

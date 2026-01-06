@@ -175,8 +175,8 @@ class ShadcnButton extends StatelessComponent {
 
   /// Build loading spinner matching ShadCN style
   Component _buildSpinner() {
-    return dom.span(
-      styles: const dom.Styles(raw: {
+    return const dom.span(
+      styles: dom.Styles(raw: {
         'display': 'inline-block',
         'width': '1rem',
         'height': '1rem',

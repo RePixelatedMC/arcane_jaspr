@@ -49,8 +49,8 @@ class ShadcnRadioGroup<T> extends StatelessComponent {
             children: [
               Component.text(props.label!),
               if (props.required)
-                dom.span(
-                  styles: const dom.Styles(raw: {
+                const dom.span(
+                  styles: dom.Styles(raw: {
                     'color': 'var(--destructive)',
                   }),
                   [Component.text(' *')],
@@ -184,8 +184,8 @@ class ShadcnRadioGroup<T> extends StatelessComponent {
           [
             // Inner dot when selected - ShadCN: h-2.5 w-2.5 (10px), bg-primary
             if (isSelected)
-              dom.div(
-                styles: const dom.Styles(raw: {
+              const dom.div(
+                styles: dom.Styles(raw: {
                   // ShadCN: h-2.5 w-2.5 (10px)
                   'width': '10px',
                   'height': '10px',

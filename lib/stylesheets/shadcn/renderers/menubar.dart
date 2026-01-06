@@ -104,9 +104,9 @@ class ShadcnMenubar extends StatelessComponent {
   Component _buildMenuItem(MenubarItemProps item) {
     if (item.isSeparator) {
       // ShadCN MenubarSeparator
-      return dom.div(
+      return const dom.div(
         classes: 'arcane-menubar-separator',
-        styles: const dom.Styles(raw: {
+        styles: dom.Styles(raw: {
           'height': '1px',
           'margin': '4px -4px',
           'background-color': 'var(--muted)',

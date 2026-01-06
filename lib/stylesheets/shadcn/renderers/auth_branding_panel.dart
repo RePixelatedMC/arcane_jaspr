@@ -94,8 +94,8 @@ class ShadcnAuthBrandingPanel extends StatelessComponent {
       }),
       [
         // Checkmark icon
-        dom.div(
-          styles: const dom.Styles(raw: {
+        const dom.div(
+          styles: dom.Styles(raw: {
             'width': '20px',
             'height': '20px',
             'border-radius': '9999px',

@@ -45,9 +45,9 @@ class ShadcnContextMenu extends StatelessComponent {
   Component _buildMenuItem(ContextMenuItemProps item) {
     if (item.isSeparator) {
       // ShadCN ContextMenuSeparator
-      return dom.div(
+      return const dom.div(
         classes: 'arcane-context-menu-separator',
-        styles: const dom.Styles(raw: {
+        styles: dom.Styles(raw: {
           'height': '1px',
           'margin': '4px -4px',
           'background-color': 'var(--muted)',

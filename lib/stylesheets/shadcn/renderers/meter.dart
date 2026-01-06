@@ -187,7 +187,7 @@ class ShadcnMeter extends StatelessComponent {
               }),
               children: [
                 // Background circle
-                Component.element(
+                const Component.element(
                   tag: 'circle',
                   attributes: {
                     'cx': '${circleSize / 2}',
@@ -197,7 +197,7 @@ class ShadcnMeter extends StatelessComponent {
                     'stroke': 'var(--muted)',
                     'stroke-width': '$strokeWidth',
                   },
-                  children: const [],
+                  children: [],
                 ),
                 // Progress circle
                 Component.element(

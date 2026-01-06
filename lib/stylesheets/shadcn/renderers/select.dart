@@ -163,8 +163,8 @@ class ShadcnSelect<T> extends StatelessComponent {
 
             // Loading spinner
             if (props.loading)
-              dom.span(
-                styles: const dom.Styles(raw: {
+              const dom.span(
+                styles: dom.Styles(raw: {
                   'display': 'inline-block',
                   'width': '16px',
                   'height': '16px',

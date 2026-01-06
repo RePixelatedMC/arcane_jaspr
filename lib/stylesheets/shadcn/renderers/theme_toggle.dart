@@ -73,7 +73,7 @@ class ShadcnThemeToggle extends StatelessComponent {
                 'opacity': props.isDark ? '0.3' : '1',
                 'transition': 'var(--arcane-transition-fast, all 150ms ease)',
               }),
-              [Component.text('\u2600\uFE0F')], // sun emoji
+              [const Component.text('\u2600\uFE0F')], // sun emoji
             ),
             // Moon icon (right)
             dom.span(
@@ -82,7 +82,7 @@ class ShadcnThemeToggle extends StatelessComponent {
                 'opacity': props.isDark ? '1' : '0.3',
                 'transition': 'var(--arcane-transition-fast, all 150ms ease)',
               }),
-              [Component.text('\uD83C\uDF19')], // moon emoji
+              [const Component.text('\uD83C\uDF19')], // moon emoji
             ),
           ],
         ),
@@ -146,7 +146,7 @@ class ShadcnThemeToggleSimple extends StatelessComponent {
             'opacity': props.isDark ? '0.4' : '1',
             'transition': 'var(--arcane-transition-fast, all 150ms ease)',
           }),
-          [Component.text('\u2600\uFE0F')], // sun emoji
+          [const Component.text('\u2600\uFE0F')], // sun emoji
         ),
 
         // Toggle track
@@ -186,7 +186,7 @@ class ShadcnThemeToggleSimple extends StatelessComponent {
             'opacity': props.isDark ? '1' : '0.4',
             'transition': 'var(--arcane-transition-fast, all 150ms ease)',
           }),
-          [Component.text('\uD83C\uDF19')], // moon emoji
+          [const Component.text('\uD83C\uDF19')], // moon emoji
         ),
       ],
     );

@@ -61,7 +61,7 @@ class ShadcnFieldWrapper extends StatelessComponent {
                           'color': 'var(--destructive)',
                           'margin-left': '0.25rem',
                         }),
-                        [const Component.text('*')],
+                        [Component.text('*')],
                       ),
                   ],
                 ),

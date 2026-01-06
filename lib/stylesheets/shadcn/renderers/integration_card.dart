@@ -124,8 +124,8 @@ class ShadcnIntegrationCard extends StatelessComponent {
 
         // Learn more link
         if (isClickable)
-          dom.div(
-            styles: const dom.Styles(raw: {
+          const dom.div(
+            styles: dom.Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
               'gap': '0.25rem',

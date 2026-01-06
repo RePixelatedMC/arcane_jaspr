@@ -5,45 +5,64 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.7.1]
+## [x.x.x] - Unreleased
 
 ### Added
 
-#### Renderer-Based Component Architecture (TIER 8 - Layout Components)
-Migrated remaining layout components to the renderer architecture:
+#### Architecture Migration Complete
+The renderer-based architecture is now complete with **204 renderer methods** in the interface and **123 component files** using the renderer pattern. All visual components now delegate to `context.renderers.xxx()` for stylesheet-specific rendering.
 
-- **ScrollRail**: `ScrollRailProps`, `ScrollRailLayoutProps` - Sticky scrollable sidebar rail with scroll persistence
-- **Resizable**: `ResizableProps`, `ResizablePanelData` - Resizable panel groups with draggable dividers
-- **RadioCards**: `RadioCardsProps`, `RadioCardItemData` - Selectable card groups
-- **SelectableChipGroup**: `SelectableChipGroupProps`, `ArcaneChipProps` - Selection chip containers
-- **Flow**: Updated `ArcaneFlow`, `ArcaneRow`, `ArcaneColumn`, `ArcaneSpacer`, `ArcaneCenter`, `ArcaneExpanded`, `ArcanePadding`, `ArcaneSizedBox` to delegate to renderers
+**One line changes your entire app's design:**
+```dart
+ArcaneApp(
+  styleSheet: ShadcnStyleSheet(),  // or CodexStyleSheet()
+  child: MyApp(),
+)
+```
 
-#### SlotCounterProps Factory Methods
-Added convenience factory constructors to `SlotCounterProps`:
-- `SlotCounterProps.latency()` - Pre-configured latency/ping display
-- `SlotCounterProps.percentage()` - Pre-configured percentage display
-- `SlotCounterProps.currency()` - Pre-configured currency display
+#### Convenience Factory Methods for SlotCounterProps
+Added factory constructors to `SlotCounterProps` for common use cases:
+- `SlotCounterProps.latency()` - Pre-configured for latency/ping displays with `ms` suffix
+- `SlotCounterProps.percentage()` - Pre-configured for percentage displays with `%` suffix
+- `SlotCounterProps.currency()` - Pre-configured for currency displays with `$` prefix
 
 ### Changed
 
-- **ArcaneScrollRail**: Now delegates to `context.renderers.scrollRail()`
-- **ArcaneScrollRailLayout**: Now delegates to `context.renderers.scrollRailLayout()`
-- **ArcaneResizable**: Now delegates to `context.renderers.resizable()`, factory constructors `sidebarLayout` and `splitView` now return proper `ArcaneResizable` instances
-- **ArcaneRadioCards**: Now delegates to `context.renderers.radioCards()`
-- **ArcaneChipGroup**: Renamed internal props to `SelectableChipGroupProps` to avoid conflict with `ChipGroupProps`
-- **ArcaneChip**: Now delegates to `context.renderers.arcaneChip()`
-- **ArcaneFlow/Row/Column/etc**: Now delegate to respective renderer methods
+#### Layout Components Migrated to Renderer Architecture
+All layout components now delegate to the renderer system:
+
+| Component | Renderer Method | Props Class |
+|-----------|-----------------|-------------|
+| `ArcaneScrollRail` | `context.renderers.scrollRail()` | `ScrollRailProps` |
+| `ArcaneScrollRailLayout` | `context.renderers.scrollRailLayout()` | `ScrollRailLayoutProps` |
+| `ArcaneResizable` | `context.renderers.resizable()` | `ResizableProps` |
+| `ArcaneRadioCards` | `context.renderers.radioCards()` | `RadioCardsProps` |
+| `ArcaneChip` | `context.renderers.arcaneChip()` | `ArcaneChipProps` |
+| `ArcaneFlow` | `context.renderers.flow()` | `FlowProps` |
+| `ArcaneRow` | `context.renderers.flow()` | `FlowProps` |
+| `ArcaneColumn` | `context.renderers.flow()` | `FlowProps` |
+
+#### Naming Clarifications
+- `ChipGroupProps` renamed to `SelectableChipGroupProps` to avoid conflict with existing `ChipGroupProps`
+- `ArcaneResizable` factory constructors (`sidebarLayout`, `splitView`) now return proper `ArcaneResizable` instances
 
 ### Fixed
 
-- Fixed `FlexiCardItem` export - codex demos now use correct class name
-- Fixed `ArcaneCodeBlock` naming - replaces legacy `ArcanePre`
-- Fixed `CalloutVariant` usage - replaces legacy `CalloutStyle`
-- Fixed `SlotCounterColor` usage - codex demos now use correct enum type
+#### Codex Demo API Corrections
+- `ArcaneFlexiCardItem` corrected to `FlexiCardItem` (class was renamed)
+- `ArcanePre` corrected to `ArcaneCodeBlock` (legacy name removed)
+- `CalloutStyle` corrected to `CalloutVariant` (enum renamed)
+- `SlotCounterColor` usage in demos now uses correct enum type
+- `ArcaneSlotCounterRow.counters` now correctly uses `List<SlotCounterProps>` instead of component list
 
 ### Removed
 
-#### Old Token System Infrastructure
+#### Dead Code Cleanup
+- Removed unused `Arcane` class from `lib/util/arcane.dart` (had stale references to old theme system)
+- Removed empty `lib/stylesheets/codex/` directory (was just a placeholder)
+- Removed hidden name warnings in `arcane_jaspr.dart` for non-existent exports
+
+#### Old Token System (Fully Removed)
 The legacy token system has been completely removed. Components now use CSS variables directly.
 
 **Deleted Files:**
@@ -65,60 +84,76 @@ All enum-based style types now use direct CSS values instead of token references
 - `lib/util/style_types/spacing.dart` - Direct pixel values for spacing
 - `lib/util/style_types/typography.dart` - Direct rem values for font sizes
 
-**Barrel Export Cleanup:**
-- Removed token exports from `lib/arcane_jaspr.dart`
+---
+
+## [2.7.1] - Renderer Architecture Expansion
 
 ### Added
 
+#### Renderer-Based Component Architecture (TIER 6-8)
+
+**TIER 6 - ShadCN Primitives:**
+- `CalendarProps` with `ShadcnCalendar` renderer for date selection
+- `DatePickerProps` with `ShadcnDatePicker` renderer for date input with dropdown
+- `LoaderProps`, `LoadingOverlayProps` with `ShadcnLoader` renderer for loading states
+- `OtpInputProps` with `ShadcnOtpInput` renderer for one-time password input
+- `SelectProps` with `ShadcnSelect` renderer for dropdown selection
+- `ContextMenuProps` with `ShadcnContextMenu` renderer for right-click menus
+- `HovercardProps` with `ShadcnHovercard` renderer for hover-triggered cards
+- `ToggleGroupProps` with `ShadcnToggleGroup` renderer for segmented controls
+- `MenubarProps` with `ShadcnMenubar` renderer for application menu bars
+
+**TIER 7 - Input Components:**
+- `NumberInputProps` with `ShadcnNumberInput` renderer - increment/decrement controls
+- `ColorInputProps` with `ShadcnColorInput` renderer - swatch preview and hex input
+- `SearchProps` with `ShadcnSearch` renderer - icon, loading state, clear button
+- `FABProps` with `ShadcnFAB` renderer - floating action button with variants
+- `CycleButtonProps` with `ShadcnCycleButton` renderer - cycling through options
+- `ToggleButtonProps` with `ShadcnToggleButton` renderer - on/off toggle states
+
+**TIER 8 - Layout Components:**
+- `ScrollRailProps`, `ScrollRailLayoutProps` - sticky scrollable sidebar rail with scroll persistence
+- `ResizableProps`, `ResizablePanelData` - resizable panel groups with draggable dividers
+- `RadioCardsProps`, `RadioCardItemData` - selectable card groups
+- `SelectableChipGroupProps`, `ArcaneChipProps` - selection chip containers
+- `FlowProps` - unified props for `ArcaneFlow`, `ArcaneRow`, `ArcaneColumn`, `ArcaneSpacer`, `ArcaneCenter`, `ArcaneExpanded`, `ArcanePadding`, `ArcaneSizedBox`
+
 #### Additional Component Renderers
-Extended the renderer architecture to cover more UI components:
-- **Chip**: `ChipProps`, `ChipGroupProps`, `ShadcnChip` renderer for tags and labels with removable option
-- **Kbd**: `KbdProps`, `ShadcnKbd` renderer for keyboard shortcut display
-- **ThemeToggle**: `ThemeToggleProps`, `ThemeToggleSimpleProps`, `ShadcnThemeToggle` and `ShadcnThemeToggleSimple` renderers
-
-#### Renderer-Based Component Architecture (TIER 7)
-Migrated additional input components to the renderer architecture:
-- **NumberInput**: `NumberInputProps`, `ShadcnNumberInput` renderer with increment/decrement controls
-- **ColorInput**: `ColorInputProps`, `ShadcnColorInput` renderer with swatch preview and hex input
-- **Search**: `SearchProps`, `ShadcnSearch` renderer with icon, loading state, and clear button
-- **FAB**: `FABProps`, `ShadcnFAB` renderer with size, position, and variant support
-- **CycleButton**: `CycleButtonProps`, `ShadcnCycleButton` renderer for cycling through options
-- **ToggleButton**: `ToggleButtonProps`, `ShadcnToggleButton` renderer for on/off states
-
-### Changed
-- **ArcaneTextInput**: Removed old `InputStyle` and `InputSizeStyle` parameters, now uses `TextInputSize` enum
-- **ArcaneTextArea**: Removed `style` parameter, now uses CSS variables directly
-- **ArcaneSelect**: Replaced `InputSizeStyle` with `TextInputSize`, uses CSS variables directly
-- **ArcaneCycleButton**: Changed from `ButtonStyle` to `CycleButtonVariant`, removed `ArcaneCycleOption` (now `CycleOption`)
-- **ArcaneFAB**: Changed from `FABStyle` to `FABVariant`
-
-### Removed
-- Removed `style_presets.dart` dependency from all component wrappers
-- Removed `ArcaneCycleOption` class (replaced by `CycleOption` from props)
-
-#### Renderer-Based Component Architecture (TIER 6)
-Migrated additional ShadCN primitives to the renderer architecture:
-- **Calendar**: `CalendarProps`, `ShadcnCalendar` renderer
-- **DatePicker**: `DatePickerProps`, `ShadcnDatePicker` renderer
-- **Loader**: `LoaderProps`, `LoadingOverlayProps`, `ShadcnLoader` renderer
-- **OtpInput**: `OtpInputProps`, `ShadcnOtpInput` renderer
-- **Select**: `SelectProps`, `ShadcnSelect` renderer
-- **ContextMenu**: `ContextMenuProps`, `ShadcnContextMenu` renderer
-- **HoverCard**: `HovercardProps`, `ShadcnHovercard` renderer
-- **ToggleGroup**: `ToggleGroupProps`, `ShadcnToggleGroup` renderer
-- **Menubar**: `MenubarProps`, `ShadcnMenubar` renderer
+- `ChipProps`, `ChipGroupProps` with `ShadcnChip` renderer - tags and labels with removable option
+- `KbdProps` with `ShadcnKbd` renderer - keyboard shortcut display
+- `ThemeToggleProps`, `ThemeToggleSimpleProps` with theme toggle renderers
 
 #### CSS Variable Namespace Unification
 `ShadcnStylesheet` now includes comprehensive `--arcane-xxx` CSS variable aliases ensuring that components using `ArcaneColors` tokens work consistently with the new renderer-based stylesheet system:
-- Core color aliases (background, foreground, card, surface, primary, secondary, accent)
-- RGB channel variables for rgba() compositing
-- Semantic status colors (success, warning, info, destructive)
-- Typography variables (font-sans, font-heading, font-mono)
-- Radius tokens (xs through 2xl, plus component-specific)
-- Shadow tokens (xs through xl)
-- Transition tokens (fast, normal, slow)
-- Component structure tokens (interactive-radius, container-radius, input-radius)
-- Style fallback aliases (--arcane-style-xxx variants)
+
+**Core Color Aliases:**
+- `--arcane-background`, `--arcane-foreground`, `--arcane-card`, `--arcane-surface`
+- `--arcane-primary`, `--arcane-secondary`, `--arcane-accent`
+- `--arcane-muted`, `--arcane-destructive`
+
+**RGB Channel Variables:**
+- `--arcane-background-rgb`, `--arcane-foreground-rgb`, `--arcane-primary-rgb`, etc.
+- Enables `rgba()` compositing with CSS variables
+
+**Semantic Status Colors:**
+- `--arcane-success`, `--arcane-warning`, `--arcane-info` with `-foreground` variants
+- Container variants: `--arcane-success-container`, etc.
+
+**Typography Variables:**
+- `--arcane-font-sans`, `--arcane-font-heading`, `--arcane-font-mono`
+- Letter spacing: `--arcane-letter-spacing`
+
+**Radius Tokens:**
+- `--arcane-radius-xs` through `--arcane-radius-2xl`, `--arcane-radius-full`
+- Component-specific: `--arcane-interactive-radius`, `--arcane-container-radius`, `--arcane-input-radius`
+
+**Shadow Tokens:**
+- `--arcane-shadow-xs` through `--arcane-shadow-xl`
+- Component-specific shadow variables
+
+**Transition Tokens:**
+- `--arcane-transition-fast`, `--arcane-transition`, `--arcane-transition-slow`
+- Easing: `--arcane-style-easing`, `--arcane-style-easing-bounce`
 
 This ensures theming consistency whether components use the new ShadCN renderer variables (`var(--foreground)`) or legacy ArcaneColors tokens (`var(--arcane-foreground)`).
 
@@ -126,32 +161,39 @@ This ensures theming consistency whether components use the new ShadCN renderer 
 Stylesheets now control ALL component structural properties, enabling radically different design languages:
 
 **Semantic Token Groups:**
-- `InteractiveTokens` - Buttons, toggles, clickable elements (shape, hover effects, gradients)
-- `ContainerTokens` - Cards, dialogs, sheets (shape, shadows, backdrop blur)
-- `InputTokens` - Text inputs, selects, form fields (shape, borders, focus styles)
-- `IndicatorTokens` - Checkboxes, radios, toggle switches (shapes, colors, animations)
 
-**New Component Shape System:**
+| Group | Purpose | Examples |
+|-------|---------|----------|
+| `InteractiveTokens` | Buttons, toggles, clickable elements | shape, hover effects, gradients |
+| `ContainerTokens` | Cards, dialogs, sheets | shape, shadows, backdrop blur |
+| `InputTokens` | Text inputs, selects, form fields | shape, borders, focus styles |
+| `IndicatorTokens` | Checkboxes, radios, toggle switches | shapes, colors, animations |
+
+**Component Shape System:**
 - `ComponentShape` enum: `sharp`, `rounded`, `softRounded`, `pill`, `circle`, `custom`
 - Each component type can have a different shape per stylesheet
 - Radio buttons can be circles, rounded-squares, or sharp-squares
 - Toggle thumbs can be circles or rounded-squares
 
-**New CSS Variables:**
+**New CSS Variables for Component Structure:**
 ```css
 /* Interactive elements (buttons) */
 --arcane-interactive-radius
 --arcane-interactive-border-width
 --arcane-interactive-hover-shadow
+--arcane-interactive-focus-ring-width
+--arcane-interactive-focus-ring-offset
 
 /* Containers (cards, dialogs) */
 --arcane-container-radius
 --arcane-container-shadow
 --arcane-container-border-width
+--arcane-container-backdrop-blur
 
 /* Input fields */
 --arcane-input-radius
 --arcane-input-border-width
+--arcane-input-focus-shadow
 
 /* Indicators (checkbox, radio, toggle) */
 --arcane-indicator-checkbox-radius
@@ -160,47 +202,53 @@ Stylesheets now control ALL component structural properties, enabling radically 
 --arcane-indicator-toggle-thumb-radius
 --arcane-toggle-thumb-on / --arcane-toggle-thumb-off
 --arcane-toggle-track-on / --arcane-toggle-track-off
---arcane-indicator-checked-bg
---arcane-indicator-unchecked-border
---arcane-indicator-check-color
 ```
 
 **Stylesheet Differences:**
-- **Codex**: Sharp corners, rounded-square toggle thumbs, light thumb when ON
-- **ShadCN**: Soft rounded corners, circular toggle thumbs, background-colored thumb
 
-**New ArcaneRadius Token References:**
-```dart
-ArcaneRadius.interactive  // For buttons
-ArcaneRadius.container    // For cards/dialogs
-ArcaneRadius.input        // For text inputs
-ArcaneRadius.indicator    // For checkboxes
-ArcaneRadius.radio        // For radio buttons
-ArcaneRadius.toggleTrack  // For toggle track
-ArcaneRadius.toggleThumb  // For toggle thumb
-```
+| Property | Codex | ShadCN |
+|----------|-------|--------|
+| Corner style | Sharp corners | Soft rounded corners |
+| Toggle thumb | Rounded-square | Circular |
+| Thumb ON color | Light (foreground) | Background-colored |
+| Glass effects | Enabled | Disabled |
+| Shadows | Rich, dramatic | Minimal, subtle |
 
 #### Stylesheet Folder Reorganization
-Stylesheets are now organized into separate folders:
-- `lib/util/appearance/stylesheets/codex/codex_style.dart`
-- `lib/util/appearance/stylesheets/shadcn/shadcn_style.dart`
-- `lib/util/appearance/stylesheets/shadcn/shadcn_presets.dart`
+Stylesheets are now organized into separate folders for better maintainability:
+```
+lib/util/appearance/stylesheets/
+  codex/
+    codex_style.dart      # Gaming aesthetic with custom fonts
+  shadcn/
+    shadcn_style.dart     # Minimal shadcn/ui style
+    shadcn_presets.dart   # Color presets (Neutral, Stone, Zinc, Gray, Slate)
+  stylesheets.dart        # Barrel export
+```
 
 ### Changed
 
 #### Components Updated to Use Stylesheet-Reactive Tokens
-Components now use CSS variables that respond to stylesheet changes:
 
-- **Toggle Switch**: Track and thumb shapes/colors now come from stylesheet
-- **Radio Group**: Radio circle shape now comes from `--arcane-indicator-radio-radius`
-- **Checkbox**: Checkbox shape now comes from `--arcane-indicator-checkbox-radius`
-- **Buttons**: Border-radius now uses `--arcane-interactive-radius`
-- **Icon Buttons**: Border-radius now uses `--arcane-interactive-radius`
-- **Cards**: Border-radius now uses `--arcane-container-radius`
-- **Dialogs/Sheets**: Border-radius now uses `--arcane-container-radius`
-- **Text Inputs**: Border-radius now uses `--arcane-input-radius`
+| Component | Token Used | CSS Variable |
+|-----------|------------|--------------|
+| Toggle Switch | Track/thumb shapes and colors | `--arcane-indicator-toggle-*` |
+| Radio Group | Radio circle shape | `--arcane-indicator-radio-radius` |
+| Checkbox | Checkbox shape | `--arcane-indicator-checkbox-radius` |
+| Buttons | Border-radius | `--arcane-interactive-radius` |
+| Icon Buttons | Border-radius | `--arcane-interactive-radius` |
+| Cards | Border-radius | `--arcane-container-radius` |
+| Dialogs/Sheets | Border-radius | `--arcane-container-radius` |
+| Text Inputs | Border-radius | `--arcane-input-radius` |
 
-### Changed (BREAKING)
+#### Input Component API Updates
+- `ArcaneTextInput`: Removed old `InputStyle` and `InputSizeStyle` parameters, now uses `TextInputSize` enum
+- `ArcaneTextArea`: Removed `style` parameter, now uses CSS variables directly
+- `ArcaneSelect`: Replaced `InputSizeStyle` with `TextInputSize`, uses CSS variables directly
+- `ArcaneCycleButton`: Changed from `ButtonStyle` to `CycleButtonVariant`, removed `ArcaneCycleOption` (now `CycleOption`)
+- `ArcaneFAB`: Changed from `FABStyle` to `FABVariant`
+
+### Breaking Changes
 
 #### Unified Stylesheet System
 **BREAKING**: Complete redesign of the theming system. `ArcaneStyleSheet` is now a COMPLETE design system containing ALL colors, typography, layout, and component defaults.
@@ -227,15 +275,22 @@ ArcaneApp(
 - Only two theme presets: `ArcaneTheme.codex` (default) and `ArcaneTheme.shadcn`
 
 **Stylesheet Features:**
-- `CodexStyleSheet` - Gaming aesthetic with custom fonts (Akzidenz-GroteskPro, ITCAvantGardeStd), emerald accent, glass effects, rich shadows
-- `ShadcnStyleSheet` - Minimal design matching [tweakcn.com](https://tweakcn.com/editor/theme) exactly, Inter font via Google Fonts, uses **oklch** color space directly from ShadCN spec, no glass effects
+
+| Feature | CodexStyleSheet | ShadcnStyleSheet |
+|---------|-----------------|------------------|
+| Design style | Gaming aesthetic | Minimal, modern |
+| Fonts | Custom (Akzidenz-GroteskPro, ITCAvantGardeStd) | Inter via Google Fonts |
+| Accent color | Emerald | Neutral (configurable via presets) |
+| Glass effects | Enabled | Disabled |
+| Shadows | Rich, dramatic (0.15-0.25 opacity) | Minimal (border-focused) |
+| Corner style | Sharp (technical look) | Rounded (friendly look) |
 
 **Color System:**
 Each stylesheet defines:
-- Core colors: background, foreground, card, popover, primary, secondary, muted, accent, destructive, border, input, ring
-- Semantic colors: success, warning, info (with foreground variants)
-- Chart colors: 5 colors per mode for data visualization
-- Sidebar colors: separate palette for sidebar UI
+- **Core colors**: background, foreground, card, popover, primary, secondary, muted, accent, destructive, border, input, ring
+- **Semantic colors**: success, warning, info (with foreground variants)
+- **Chart colors**: 5 colors per mode for data visualization
+- **Sidebar colors**: separate palette for sidebar UI
 
 **Typography System:**
 - `fontSans` - Body text font stack
@@ -243,11 +298,6 @@ Each stylesheet defines:
 - `fontMono` - Monospace/code font stack
 - `googleFontUrl` - Google Fonts URL (ShadcnStyleSheet uses Inter)
 - `fontFaceCss` - Custom @font-face CSS (CodexStyleSheet uses custom fonts)
-
-**ArcaneApp Font Loading:**
-`ArcaneApp` now automatically injects font loading based on the stylesheet:
-- Google Fonts: preconnect links and stylesheet injection
-- Custom fonts: @font-face CSS style block injection
 
 **Creating Custom Stylesheets:**
 ```dart
@@ -268,270 +318,9 @@ class MyStyleSheet extends ArcaneStyleSheet {
 }
 ```
 
-### Added
+---
 
-#### ArcaneUSAMap Component
-New interactive SVG map of the United States with state highlighting and location pins:
-- Interactive state hover and click with `onStateTap` and `onStateHover` callbacks
-- Location pins with tooltips via `ArcaneUSAMapLocation` data model
-- State highlighting with `activeStates` set
-- Style presets: `standard`, `subtle`, `prominent`
-- Full customization via `ArcaneUSAMapStyle`
-
-```dart
-ArcaneUSAMap(
-  locations: [
-    ArcaneUSAMapLocation(
-      id: 'nyc',
-      name: 'New York City',
-      latitude: 40.7128,
-      longitude: -74.0060,
-      code: 'NYC',
-      state: 'NY',
-    ),
-  ],
-  activeStates: {'CA', 'TX', 'NY'},
-  onStateTap: (stateCode) => print('Tapped $stateCode'),
-  onLocationTap: (location) => print('Tapped ${location.name}'),
-)
-```
-
-#### ShadCN Color Presets
-Added `ShadcnColorPreset` system for selecting different gray scale palettes. ShadCN supports five gray scale options matching the official ui.shadcn.com theming:
-- `ShadcnColorPreset.neutral` - Pure grayscale with no color tint (default)
-- `ShadcnColorPreset.stone` - Warm gray with yellow/brown undertones
-- `ShadcnColorPreset.zinc` - Cool gray with purple undertones
-- `ShadcnColorPreset.gray` - Balanced gray with slight blue undertones
-- `ShadcnColorPreset.slate` - Blue-tinted gray
-
-All colors use oklch color space directly from the Tailwind CSS v4 palette.
-
-```dart
-// Default (Neutral)
-ArcaneApp(
-  theme: ArcaneTheme(styleSheet: ShadcnStyleSheet()),
-  child: MyApp(),
-)
-
-// Zinc preset (cool gray with purple tint)
-ArcaneApp(
-  theme: ArcaneTheme(
-    styleSheet: ShadcnStyleSheet(colorPreset: ShadcnColorPreset.zinc),
-  ),
-  child: MyApp(),
-)
-
-// Slate preset (blue-tinted gray)
-ArcaneApp(
-  theme: ArcaneTheme(
-    styleSheet: ShadcnStyleSheet(colorPreset: ShadcnColorPreset.slate),
-  ),
-  child: MyApp(),
-)
-```
-
-Each preset defines complete light and dark mode color values for all 19 ShadCN theme tokens.
-
-#### Documentation
-- Added documentation page for `ArcaneArrowLink` component
-- Added documentation page for `ArcaneFeatureShowcase` component
-- Added documentation page for `ArcaneWorldMap` component
-- Added documentation page for `ArcaneUSAMap` component
-- Added interactive demos for all new components in the codex
-
-#### Documentation Site Improvements (Arcane Codex)
-- **Preset Selector**: Added working ShadCN color preset selector to docs header. Uses native `<select>` element for static site compatibility. Allows switching between Neutral, Stone, Zinc, Gray, and Slate presets with localStorage persistence
-- **Theme Toggle**: Redesigned theme toggle button with proper icon swapping. Uses `ArcaneIcon.sun/moon` with JavaScript fallback for static sites
-- **ShadCN-style Header**: Redesigned header with compact search trigger (command palette style with `Cmd+K` badge), native preset selector with custom chevron, and cleaner button styling
-- **ShadCN-style Sidebar**: Cleaner navigation using page background (not muted), muted backgrounds for active items (removed left border indicator), simplified section headers
-- **Code Blocks**: Redesigned markdown code blocks with darker background (oklch), subtle copy button that appears on hover, improved light/dark mode support
-- **Breadcrumbs**: Added automatic breadcrumb navigation to content pages using `ArcaneBreadcrumbs` component
-
-#### ArcaneFlexiCards Locked Dimensions
-Added optional height/width pre/post lock parameters to `ArcaneFlexiCards` for precise control over card dimensions during hover transitions:
-- `heightPreLock` - Locked height for collapsed (non-hovered) cards
-- `heightPostLock` - Locked height for expanded (hovered) cards
-- `widthPreLock` - Locked width for collapsed (non-hovered) cards
-- `widthPostLock` - Locked width for expanded (hovered) cards
-
-```dart
-ArcaneFlexiCards(
-  items: items,
-  heightPreLock: '200px',   // Height when collapsed
-  heightPostLock: '280px',  // Height when expanded
-)
-```
-
-#### Documentation
-- Added documentation page for `ArcaneFlexiCards` component
-- Added documentation page for `ArcaneSlotCounter` component
-- Added interactive demos for both components in the codex
-
-#### Convenience Features for Improved Developer Experience
-
-**ArcaneStyleData Presets**
-New static presets for common style patterns:
-- Layout aliases: `centered`, `gridCenter`
-- Spacing presets: `padded`, `paddedSm/Lg/Xs/Xl`, `spaced`, `spacedSm/Lg/Xs/Xl`
-- Size shortcuts: `fullWidth`, `fullHeight`
-- Overflow: `scrollable`, `scrollableY`, `scrollableX`, `clipContent`
-- Flex item: `grow`, `noGrow`
-- Combined layouts: `columnSpaced`, `columnTight`, `columnLoose`, `rowTight`, `rowGapped`, `rowLoose`
-- Text: `truncate`, `textCenter`, `textRight`, `textLeft`
-- Positioning: `stack`, `stackChild`, `fixed`, `sticky`
-- Interactive: `clickable`, `nonInteractive`, `unselectable`
-
-**ArcaneHeading `text:` Parameter**
-Convenience string parameter for headings:
-```dart
-// Before
-ArcaneHeading.h1(child: Text('Title'))
-
-// After (both work)
-ArcaneHeading.h1(text: 'Title')
-ArcaneHeading.h1(child: Text('Title'))
-```
-
-**ArcaneDialog/ArcaneSheet `children:` Parameter**
-Multi-child convenience for dialogs:
-```dart
-// Before
-ArcaneDialog(
-  child: ArcaneColumn(children: [item1, item2, item3]),
-)
-
-// After (both work)
-ArcaneDialog(children: [item1, item2, item3])
-ArcaneDialog(child: singleChild)
-```
-
-**ArcaneCard `children:` and `onClick` Parameters**
-- Added `children:` parameter for multiple children without wrapping in Column
-- Added `onClick` as alias for `onTap` for consistency with web conventions
-
-**Parameter Aliases for Input Components**
-- `ArcaneTextInput`: Added `onInput` alias for `onChange`
-- `ArcaneTextArea`: Added `onInput` alias for `onChange`
-- `ArcaneSelect`: Added `onInput` and `onSelect` aliases for `onChange`
-- `ArcaneCheckbox`: Added `onToggle` alias for `onChanged`
-- `ArcaneRadio`: Added `onTap` alias for `onSelected`
-- `ArcaneToggleSwitch`: Added `onToggle` alias for `onChanged`
-
-**Complete Lucide Icons Integration with ArcaneIcon Wrapper**
-Full programmatic wrapping of all 1,666 Lucide icons with clean API:
-- Added `jaspr_lucide` (^0.21.0) dependency for complete icon library
-- **`ArcaneIcon`** wrapper class provides semantic, discoverable icon methods for ALL icons
-- **`IconSize`** enum for consistent sizing: `xs` (12px), `sm` (16px), `md` (20px), `lg` (24px), `xl` (32px), `xl2` (48px)
-- **`AIcon`** and **`AIconSize`** aliases in `aliases.dart`
-- Generator tool at `tool/generate_icons.dart` for regeneration when jaspr_lucide updates
-
-Usage:
-```dart
-ArcaneIcon.home()                    // Semantic alias for house()
-ArcaneIcon.search(size: IconSize.lg) // Large size (24px)
-ArcaneIcon.settings()                // Settings gear
-ArcaneIcon.user()                    // User profile
-ArcaneIcon.edit()                    // Semantic alias for pencil()
-ArcaneIcon.close()                   // Semantic alias for x()
-ArcaneIcon.delete()                  // Semantic alias for trash2()
-// ... all 1,666 Lucide icons available!
-```
-
-Semantic aliases for intuitive naming:
-```dart
-ArcaneIcon.home()         // -> house()
-ArcaneIcon.edit()         // -> pencil()
-ArcaneIcon.close()        // -> x()
-ArcaneIcon.delete()       // -> trash2()
-ArcaneIcon.success()      // -> circleCheck()
-ArcaneIcon.error()        // -> circleX()
-ArcaneIcon.warning()      // -> triangleAlert()
-ArcaneIcon.loading()      // -> loaderCircle()
-ArcaneIcon.grid()         // -> grid3x3()
-ArcaneIcon.moreHorizontal() // -> ellipsis()
-// ... 70+ semantic aliases
-```
-
-Icons with Dart naming conflicts use suffix:
-```dart
-ArcaneIcon.keyIcon()      // Key shape (key is reserved)
-ArcaneIcon.mapIcon()      // Map (map is reserved)
-ArcaneIcon.factoryIcon()  // Factory building
-ArcaneIcon.targetIcon()   // Crosshair target
-ArcaneIcon.contrastIcon() // Contrast circle
-```
-
-### Changed
-
-**Component File Refactoring**
-Split large component files for better maintainability:
-- `toast.dart` (872→590 lines): Extracted `toast_types.dart` and `toast_manager.dart`
-- `selector.dart`: Extracted `selector_types.dart` (enums, option classes)
-- `slider.dart`: Extracted `slider_types.dart` (SliderSize enum)
-- `sheet.dart`: Extracted `sheet_types.dart` (SheetPosition, SheetSize enums)
-- `mutable_text.dart`: Extracted `mutable_text_types.dart` (trigger/input/style enums)
-
-All types are re-exported from their parent files, so imports remain unchanged.
-
-### Changed
-
-**Stylesheet System Refactoring**
-Major refactoring to make the theming system truly stylesheet-agnostic. Previously, the docs layout had ShadCN-specific code scattered throughout. Now, changing the design system requires modifying exactly ONE line:
-
-```dart
-// In arcane_docs_layout.dart - change this ONE constant:
-const ArcaneStyleSheet _docsStyleSheet = ShadcnStyleSheet(); // or CodexStyleSheet()
-```
-
-**New APIs:**
-- `StyleSheetVariant` class - Generic variant representation with `id`, `displayName`, and optional `icon`
-- `ArcaneStyleSheet.variants` - Returns available variants for a stylesheet
-- `ArcaneStyleSheet.currentVariantId` - The currently selected variant ID
-- `ArcaneStyleSheet.withVariant(String)` - Creates stylesheet instance with different variant
-- `ArcaneStyleSheet.cssClassForVariant(String)` - Generates CSS class name for variant
-- `ArcaneStyleSheet.generateAllVariantsCss(Brightness)` - Generates CSS variables for all variants
-- `ArcaneStyleSheet.generateCompleteCss()` - Generates complete CSS string for all variants (light and dark modes)
-
-**ShadcnStyleSheet variant support:**
-- Implements `variants` returning all 5 color presets (Neutral, Stone, Zinc, Gray, Slate)
-- Implements `withVariant` to switch between presets
-
-**CodexStyleSheet:**
-- Uses default variant implementation (single variant "codex")
-- Automatically shows no variant selector in UI (only shown when variants.length > 1)
-
-**Docs Layout Changes:**
-- Removed all ShadCN-specific imports and references
-- Uses generic `ArcaneStyleSheet` interface throughout
-- CSS generation uses `stylesheet.generateCompleteCss()` instead of iterating ShadCN presets
-- Automatic Google Font or custom @font-face loading based on stylesheet
-- Variant selector automatically adapts to available variants
-
-**JavaScript Changes (docs_scripts.dart):**
-- Renamed `getCurrentPreset()` to `getCurrentVariant()`
-- Renamed `setPreset()` to `setVariant()`
-- Uses `arcane-theme-variant` localStorage key
-- Variant selector ID changed from `preset-select` to `variant-select`
-
-### Fixed
-
-**Color Contrast Improvements**
-- Fixed `IconButtonStyle.ghost` using `ArcaneColors.muted` (invisible) - now uses `ArcaneColors.mutedForeground`
-- Fixed `ArcaneStyles.bodyText`, `.mutedText`, `.tinyText` using invisible muted color
-- These fixes improve visibility of `ArcaneIconButton`, `ArcaneCloseButton`, and text using common style presets
-
-**Map Component Demo Fixes**
-- Fixed map pin positioning in demos by correcting location IDs to match pre-calculated SVG coordinates:
-  - World map: `tok` -> `tyo`, `sgp` -> `sin`, `sf` -> `sfo`
-  - USA map: `sf` -> `sfo`
-- Removed unintended `isActive: true` flags that caused pins to appear green
-
-### Documentation
-- Updated ArcaneCard documentation with `children:` and `onClick` parameters
-- Updated ArcaneTextInput, ArcaneCheckbox, ArcaneToggleSwitch documentation with alias info
-- Updated icon documentation for jaspr_lucide usage
-
-## [2.7.0]
+## [2.7.0] - Major Feature Release
 
 ### Added
 
@@ -715,9 +504,9 @@ ArcaneChatScreen(
 )
 ```
 
-#### JavaScript Fallback Scripts
+#### JavaScript Fallback Scripts for Static Sites
 
-New JavaScript fallback scripts for static site support:
+New JavaScript fallback scripts for static site support (works without Jaspr hydration):
 - `TimePickerScripts` - Time picker column selection
 - `FormattedInputScripts` - Auto-advance and navigation between segments
 - `SheetScripts` - Sheet open/close and backdrop dismiss
@@ -740,25 +529,21 @@ New theme option for sleek, uniform dark designs without section contrast:
 ArcaneApp(
   theme: ArcaneTheme.oledGreen.copyWith(
     themeMode: ThemeMode.dark,
-    uniformBackgrounds: true, // Uniform backgrounds
+    uniformBackgrounds: true,
   ),
   child: ...
 )
 ```
 
-#### New Token: `ArcaneColors.accentGradient`
+#### New Tokens and Components
 
-Standard gradient token for accent-colored gradients:
-
+**ArcaneColors.accentGradient** - Standard gradient token:
 ```dart
 ArcaneColors.accentGradient
 // Returns: 'linear-gradient(135deg, var(--arcane-accent) 0%, var(--arcane-secondary) 100%)'
 ```
 
-#### ArcaneCtaLink Component
-
-Call-to-action link buttons with multiple variants for different visual hierarchies:
-
+**ArcaneCtaLink** - Call-to-action link buttons:
 - `ArcaneCtaLink.primary()` - Solid accent background
 - `ArcaneCtaLink.secondary()` - Outline/border style
 - `ArcaneCtaLink.ghost()` - Text-only style
@@ -775,10 +560,7 @@ ArcaneCtaLink.primary(
 )
 ```
 
-#### ArcaneSectionHeader Component
-
-Reusable section headers with label, heading, and description:
-
+**ArcaneSectionHeader** - Reusable section headers:
 - Uppercase accent label
 - Large heading text
 - Muted description
@@ -793,10 +575,7 @@ ArcaneSectionHeader(
 )
 ```
 
-#### ArcaneStatusBadge Component
-
-Status indicator badges with pulse animation for system status displays:
-
+**ArcaneStatusBadge** - Status indicator badges with pulse animation:
 - `ArcaneStatusBadge.success()` - Green, operational
 - `ArcaneStatusBadge.warning()` - Yellow, degraded
 - `ArcaneStatusBadge.error()` - Red, down
@@ -809,13 +588,9 @@ Status indicator badges with pulse animation for system status displays:
 ArcaneStatusBadge.success('All Systems Operational')
 ```
 
-#### ArcaneFadeEdge Component
-
-Gradient fade overlays for carousels and scrolling content edges:
-
+**ArcaneFadeEdge** - Gradient fade overlays for carousels:
 - Directions: `.left()`, `.right()`, `.top()`, `.bottom()`
 - Customizable color, width/height, and z-index
-- Perfect for marquee/carousel edges
 
 ```dart
 Stack([
@@ -825,10 +600,7 @@ Stack([
 ])
 ```
 
-#### ArcaneMarquee Component
-
-Infinite scrolling marquee/carousel with optional fade edges:
-
+**ArcaneMarquee** - Infinite scrolling marquee/carousel:
 - Automatic content duplication for seamless looping
 - Configurable speed via `duration`
 - Optional fade edges
@@ -846,10 +618,7 @@ ArcaneMarquee(
 )
 ```
 
-#### ArcaneFooterColumn Components
-
-Footer columns with title and link lists, plus brand column variant:
-
+**ArcaneFooterColumn** - Footer columns with title and link lists:
 - `ArcaneFooterColumn` - Column with title and `FooterLink` items
 - `ArcaneFooterBrandColumn` - Brand section with logo, description, and optional bottom content
 
@@ -869,10 +638,7 @@ ArcaneFooterBrandColumn(
 )
 ```
 
-#### ArcaneStatDisplay Component
-
-Metric/stat display with large value and label for trust indicators:
-
+**ArcaneStatDisplay** - Metric/stat display for trust indicators:
 - `ArcaneStatDisplay.accent()` - Accent-colored value
 - `ArcaneStatDisplay.brand()` - Brand-colored value
 - `ArcaneStatRow` - Container for multiple stats
@@ -888,10 +654,7 @@ ArcaneStatRow(
 )
 ```
 
-#### ArcaneAuthorCard Component
-
-Author attribution card with avatar, name, and role:
-
+**ArcaneAuthorCard** - Author attribution card:
 - Size variants: `sm`, `md`, `lg`
 - Supports avatar URL or initials fallback
 - Customizable colors
@@ -905,10 +668,7 @@ ArcaneAuthorCard(
 )
 ```
 
-#### ArcaneCodeWindow Component
-
-Code display with macOS-style window chrome (traffic light buttons):
-
+**ArcaneCodeWindow** - Code display with macOS-style window chrome:
 - `ArcaneCodeWindow` - Full window with header and code
 - `ArcaneCodeWindow.terminal()` - Terminal style with green text
 - Styles: `dark`, `light`, `terminal`
@@ -924,10 +684,7 @@ void main() {
 )
 ```
 
-#### ArcaneCheckList Components
-
-Lists with checkmark icons for features, benefits, and requirements:
-
+**ArcaneCheckList** - Lists with checkmark icons:
 - `ArcaneCheckItem` - Single item with icon and text
 - `ArcaneCheckList` - List of check items
 - `ArcaneCheckList.brand()` - Brand/accent colored icons
@@ -949,6 +706,141 @@ ArcaneFeatureRow(
   included: true,
 )
 ```
+
+#### Map Components
+
+**ArcaneUSAMap** - Interactive SVG map of the United States:
+- Interactive state hover and click with `onStateTap` and `onStateHover` callbacks
+- Location pins with tooltips via `ArcaneUSAMapLocation` data model
+- State highlighting with `activeStates` set
+- Style presets: `standard`, `subtle`, `prominent`
+- Full customization via `ArcaneUSAMapStyle`
+
+```dart
+ArcaneUSAMap(
+  locations: [
+    ArcaneUSAMapLocation(
+      id: 'nyc',
+      name: 'New York City',
+      latitude: 40.7128,
+      longitude: -74.0060,
+      code: 'NYC',
+      state: 'NY',
+    ),
+  ],
+  activeStates: {'CA', 'TX', 'NY'},
+  onStateTap: (stateCode) => print('Tapped $stateCode'),
+  onLocationTap: (location) => print('Tapped ${location.name}'),
+)
+```
+
+#### ShadCN Color Presets
+
+Added `ShadcnColorPreset` system for selecting different gray scale palettes. ShadCN supports five gray scale options matching the official ui.shadcn.com theming:
+
+| Preset | Description |
+|--------|-------------|
+| `neutral` | Pure grayscale with no color tint (default) |
+| `stone` | Warm gray with yellow/brown undertones |
+| `zinc` | Cool gray with purple undertones |
+| `gray` | Balanced gray with slight blue undertones |
+| `slate` | Blue-tinted gray |
+
+All colors use oklch color space directly from the Tailwind CSS v4 palette.
+
+```dart
+// Default (Neutral)
+ArcaneApp(
+  theme: ArcaneTheme(styleSheet: ShadcnStyleSheet()),
+  child: MyApp(),
+)
+
+// Zinc preset (cool gray with purple tint)
+ArcaneApp(
+  theme: ArcaneTheme(
+    styleSheet: ShadcnStyleSheet(colorPreset: ShadcnColorPreset.zinc),
+  ),
+  child: MyApp(),
+)
+```
+
+#### Complete Lucide Icons Integration
+
+Full programmatic wrapping of all 1,666 Lucide icons with clean API:
+
+- Added `jaspr_lucide` (^0.21.0) dependency for complete icon library
+- `ArcaneIcon` wrapper class provides semantic, discoverable icon methods for ALL icons
+- `IconSize` enum for consistent sizing: `xs` (12px), `sm` (16px), `md` (20px), `lg` (24px), `xl` (32px), `xl2` (48px)
+- `AIcon` and `AIconSize` aliases in `aliases.dart`
+- Generator tool at `tool/generate_icons.dart` for regeneration when jaspr_lucide updates
+
+**Usage:**
+```dart
+ArcaneIcon.home()                    // Semantic alias for house()
+ArcaneIcon.search(size: IconSize.lg) // Large size (24px)
+ArcaneIcon.settings()                // Settings gear
+ArcaneIcon.user()                    // User profile
+ArcaneIcon.edit()                    // Semantic alias for pencil()
+ArcaneIcon.close()                   // Semantic alias for x()
+ArcaneIcon.delete()                  // Semantic alias for trash2()
+// ... all 1,666 Lucide icons available!
+```
+
+**Semantic aliases for intuitive naming:**
+```dart
+ArcaneIcon.home()         // -> house()
+ArcaneIcon.edit()         // -> pencil()
+ArcaneIcon.close()        // -> x()
+ArcaneIcon.delete()       // -> trash2()
+ArcaneIcon.success()      // -> circleCheck()
+ArcaneIcon.error()        // -> circleX()
+ArcaneIcon.warning()      // -> triangleAlert()
+ArcaneIcon.loading()      // -> loaderCircle()
+ArcaneIcon.grid()         // -> grid3x3()
+ArcaneIcon.moreHorizontal() // -> ellipsis()
+// ... 70+ semantic aliases
+```
+
+**Icons with Dart naming conflicts use suffix:**
+```dart
+ArcaneIcon.keyIcon()      // Key shape (key is reserved)
+ArcaneIcon.mapIcon()      // Map (map is reserved)
+ArcaneIcon.factoryIcon()  // Factory building
+ArcaneIcon.targetIcon()   // Crosshair target
+ArcaneIcon.contrastIcon() // Contrast circle
+```
+
+### Changed
+
+#### Automatic Fallback Scripts for Static Sites
+
+`ArcaneApp` now automatically injects JavaScript fallback scripts when Jaspr client hydration is unavailable (e.g., on static sites built with `jaspr build`).
+
+- **Zero configuration**: Just use `ArcaneApp` and interactivity works on static sites
+- **Hydration-aware**: Scripts detect if Jaspr hydration is active and skip themselves
+- **Comprehensive coverage**: All interactive components (sliders, checkboxes, toggles, inputs, accordions, tabs, etc.)
+- **Opt-out available**: Set `includeFallbackScripts: false` if not needed
+
+```dart
+// Works automatically on static sites
+ArcaneApp(
+  theme: ArcaneTheme.green,
+  child: MyContent(),
+)
+
+// Opt out if using full Jaspr hydration
+ArcaneApp(
+  includeFallbackScripts: false,
+  child: MyContent(),
+)
+```
+
+**Modular Script Organization:**
+- `SliderScripts` - Range sliders
+- `InputScripts` - Checkboxes, toggles, color pickers, file uploads, tag inputs, number inputs
+- `ButtonScripts` - Buttons, toggle buttons, cycle buttons, theme toggles
+- `NavigationScripts` - Tabs, accordions, dropdowns, selectors, tree views, pagination, chips
+- `DialogScripts` - Dialogs, toasts, popovers, tooltips, drawers, mobile menus
 
 #### ArcaneTimeline Redesign
 
@@ -1002,847 +894,51 @@ ArcaneSteps(
 )
 ```
 
-### Changed
+#### Component File Refactoring
 
-- **ArcaneStepper** deprecated in favor of `ArcaneSteps`
-- **ArcaneVerticalStepper** deprecated in favor of `ArcaneSteps.vertical()`
+Split large component files for better maintainability:
 
-#### Automatic Fallback Scripts for Static Sites
+| File | Before | After | Extracted |
+|------|--------|-------|-----------|
+| `toast.dart` | 872 lines | 590 lines | `toast_types.dart`, `toast_manager.dart` |
+| `selector.dart` | - | - | `selector_types.dart` (enums, option classes) |
+| `slider.dart` | - | - | `slider_types.dart` (SliderSize enum) |
+| `sheet.dart` | - | - | `sheet_types.dart` (SheetPosition, SheetSize enums) |
+| `mutable_text.dart` | - | - | `mutable_text_types.dart` (trigger/input/style enums) |
 
-`ArcaneApp` now automatically injects JavaScript fallback scripts when Jaspr client hydration is unavailable (e.g., on static sites built with `jaspr build`).
+All types are re-exported from their parent files, so imports remain unchanged.
 
-- **Zero configuration**: Just use `ArcaneApp` and interactivity works on static sites
-- **Hydration-aware**: Scripts detect if Jaspr hydration is active and skip themselves
-- **Comprehensive coverage**: All interactive components (sliders, checkboxes, toggles, inputs, accordions, tabs, etc.)
-- **Opt-out available**: Set `includeFallbackScripts: false` if not needed
+### Deprecated
 
-```dart
-// Works automatically on static sites
-ArcaneApp(
-  theme: ArcaneTheme.green,
-  child: MyContent(),
-)
-
-// Opt out if using full Jaspr hydration
-ArcaneApp(
-  includeFallbackScripts: false,
-  child: MyContent(),
-)
-```
-
-New exports:
-- `ArcaneScripts` - Contains all fallback JavaScript
-- `ArcaneScriptsComponent` - Component to manually inject scripts
-
-**Modular Script Organization**
-
-Scripts are now organized into separate files for maintainability:
-- `SliderScripts` - Range sliders
-- `InputScripts` - Checkboxes, toggles, color pickers, file uploads, tag inputs, number inputs
-- `ButtonScripts` - Buttons, toggle buttons, cycle buttons, theme toggles
-- `NavigationScripts` - Tabs, accordions, dropdowns, selectors, tree views, pagination, chips
-- `DialogScripts` - Dialogs, toasts, popovers, tooltips, drawers, mobile menus
-
-**Complete Component Coverage**
-
-JavaScript handlers added for all interactive components:
-- Sliders and range sliders
-- Color inputs with preset swatches
-- Checkboxes and radio buttons
-- Toggle switches and toggle buttons
-- Cycle buttons (rotating options)
-- Number inputs (+/- buttons)
-- Tag inputs (add/remove tags)
-- File uploads (dropzone and button styles)
-- Theme toggles (fancy and simple)
-- Tabs and accordions
-- Dropdown selectors
-- Tree views with expand/collapse
-- Pagination controls
-- Dismissible chips
-- Back-to-top buttons
-- Dialogs and modals
-- Toasts and notifications
-- Popovers and hovercards
-- Tooltips
-- Drawers and mobile menus
-
-**Codex Documentation Site**
-- Fixed interactive component demos on static site
-- Custom layouts like `ArcaneDocsLayout` now properly inject `ArcaneScriptsComponent` for fallback interactivity
-
-#### Redesigned ArcaneSlider
-
-Modern shadcn-inspired slider with cleaner aesthetics:
-- Thinner, more elegant track (4-8px based on size)
-- Refined thumb with border accent instead of heavy shadow
-- Size variants: `SliderSize.sm`, `SliderSize.md`, `SliderSize.lg`
-- Optional step markers (`showSteps: true`)
-- Disabled state support
-- Decimal place control for value display (`valueDecimals`)
-- Better hit area for easier interaction
-
-```dart
-ArcaneSlider(
-  value: 50,
-  size: SliderSize.md,
-  step: 10,
-  showSteps: true,
-  onChanged: (v) => setState(() => value = v),
-)
-```
-
-#### Enhanced ArcaneSearch
-
-- `showIcon` parameter to optionally hide the search icon
-- Uses `ArcaneIcon.search` (SVG) instead of emoji
-
-#### Enhanced ArcaneSelector
-
-Comprehensive upgrade with many new customization options:
-
-**Size Variants**
-- `SelectorSize.sm`, `SelectorSize.md`, `SelectorSize.lg` for different contexts
-
-**Multi-Select Support**
-- `multiSelect: true` to allow multiple selections
-- `values` and `onMultiChanged` for multi-select state management
-- `maxSelections` to limit number of selections
-- `showCheckboxes` to display checkboxes in options
-- `showSelectedCount` to display count badge when multiple selected
-- `closeOnSelect` to control dropdown behavior after selection
-
-**Loading State**
-- `loading: true` shows spinner and loading text
-- `loadingText` to customize loading message
-
-**Form Integration**
-- `required` to show required indicator asterisk
-- `helperText` for additional guidance below selector
-- `error` for validation error messages
-
-**Dropdown Customization**
-- `maxDropdownHeight` to control dropdown size
-- `dropdownDirection` (up/down) for positioning
-- `prefix` to add icon/component before value
-- `searchPlaceholder` to customize search input text
-- `emptyMessage` for custom "no results" text
-
-**Enhanced Options**
-- `ArcaneSelectorOption.subtitle` for secondary text
-- `ArcaneSelectorOption.description` for right-side text
-- `ArcaneSelectorOption.searchKeywords` for additional search terms
-- `ArcaneSelectorOption.group` for option grouping
-- `filterFn` for custom search filtering logic
-
-```dart
-// Multi-select with all features
-ArcaneSelector<String>(
-  label: 'Skills',
-  required: true,
-  multiSelect: true,
-  searchable: true,
-  values: selectedSkills,
-  maxSelections: 5,
-  helperText: 'Select up to 5 skills',
-  options: skills.map((s) => ArcaneSelectorOption(
-    value: s.id,
-    label: s.name,
-    subtitle: s.category,
-  )).toList(),
-  onMultiChanged: (v) => setState(() => selectedSkills = v),
-)
-```
-
-#### Enhanced ArcaneCycleButton
-
-- Options now embedded as data attributes for static site support
-- Properly cycles through all options on click
-- Added `.arcane-cycle-button-label` and `.arcane-cycle-button-indicator` classes for reliable JS targeting
-
-#### Completely Rewritten Components for Static Site Support
-
-The following components have been completely rewritten with proper class-based selectors and data attributes for reliable JavaScript interactivity on static sites:
-
-**ArcaneColorInput** (Rewritten)
-- Simplified, focused design with clear class structure
-- Classes: `.arcane-color-input`, `.arcane-color-input-swatch`, `.arcane-color-input-native`, `.arcane-color-input-hex`, `.arcane-color-input-preset`
-- Data attributes: `data-value`, `data-disabled`, `data-color` (on presets)
-- Size variants via `ColorInputSize` enum (sm, md, lg)
-- `showHexInput` parameter to optionally hide hex text input
-- Proper synchronization between native picker, hex input, and preset swatches
-
-```dart
-ArcaneColorInput(
-  value: '#10b981',
-  size: ColorInputSize.md,
-  label: 'Primary Color',
-  onChanged: (color) => print(color),
-)
-```
-
-**ArcaneThemeToggle** (Rewritten)
-- Now uses `<button>` element for proper accessibility
-- Classes: `.arcane-theme-toggle`, `.arcane-theme-toggle-thumb`, `.arcane-theme-toggle-sun`, `.arcane-theme-toggle-moon`
-- Data attribute: `data-theme` ("dark" or "light")
-- Size variants via `ThemeToggleSize` enum (sm, md, lg)
-- Proper ARIA attributes (`role="switch"`, `aria-checked`, `aria-label`)
-- Clean toggle animation with smooth transitions
-
-```dart
-ArcaneThemeToggle(
-  isDark: true,
-  size: ThemeToggleSize.md,
-  onChanged: (isDark) => print(isDark),
-)
-```
-
-**ArcaneThemeToggleSimple** (Rewritten)
-- Inline toggle with sun/moon labels
-- Classes: `.arcane-theme-toggle-simple`, `.arcane-theme-toggle-simple-track`, `.arcane-theme-toggle-simple-thumb`
-- Same accessibility improvements as main toggle
-
-**ArcaneNumberInput** (Rewritten)
-- Clean stepper design with +/- buttons
-- Classes: `.arcane-number-input`, `.arcane-number-input-decrement`, `.arcane-number-input-increment`, `.arcane-number-input-display`, `.arcane-number-input-value`
-- Data attributes: `data-value`, `data-min`, `data-max`, `data-step`, `data-decimals`
-- Size variants via `NumberInputSize` enum (sm, md, lg)
-- `decimals` parameter for decimal place display
-- Proper button state management (disabled when at min/max)
-
-```dart
-ArcaneNumberInput(
-  value: 5,
-  min: 0,
-  max: 100,
-  step: 1,
-  size: NumberInputSize.md,
-  prefix: '\$',
-  onChanged: (value) => print(value),
-)
-```
-
-#### Slider Start/End Indicators
-
-Both `ArcaneSlider` and `ArcaneRangeSlider` now have visual indicators at the track boundaries:
-- Start indicator (0%): Accent-colored vertical bar, more prominent
-- End indicator (100%): Muted/accent-colored vertical bar
-- 3px wide bars extending slightly beyond track height for visibility
-- Makes slider boundaries immediately obvious to users
-
-#### ArcaneTextArea Resize Enhancement
-
-- Demo page now uses `resize: TextAreaResize.both` for bidirectional resizing
-- Added `minWidth` and `minHeight` constraints in demo
-
-#### JavaScript Handler Improvements
-
-Completely rewritten JavaScript handlers in `input_scripts.dart` and `button_scripts.dart`:
-
-**Color Input Handler**
-- Targets `.arcane-color-input` container
-- Synchronizes native picker, hex input, and preset swatches
-- Updates `data-value` attribute for state tracking
-- Proper preset border highlighting
-
-**Number Input Handler**
-- Targets `.arcane-number-input` container
-- Reads min/max/step/decimals from data attributes
-- Updates display and button states on value change
-- Proper clamping to min/max bounds
-
-**Theme Toggle Handler**
-- Targets `.arcane-theme-toggle` and `.arcane-theme-toggle-simple`
-- Updates `data-theme` attribute
-- Animates thumb position and icon opacity
-- Updates background colors based on theme
-
-**Cycle Button Handler**
-- Targets `.arcane-cycle-button`
-- Reads options from `data-options` (pipe-delimited)
-- Updates `.arcane-cycle-button-label` text
-- Spins `.arcane-cycle-button-indicator` on click
-
-#### Enhanced ArcaneStyleData with New CSS Abstractions
-
-This release significantly reduces the need for `raw:` CSS by adding type-safe enums for common CSS patterns.
-
-**Flex Shorthand (`FlexPreset`)**
-- `FlexPreset.none` - No flex (0 0 auto)
-- `FlexPreset.initial` - Initial flex (0 1 auto)
-- `FlexPreset.auto` - Auto flex (1 1 auto)
-- `FlexPreset.expand` - Expand to fill (1 1 0%)
-- `FlexPreset.fixed` - Fixed size, no shrink (0 0 auto)
-- `FlexPreset.growOnly` - Grow but don't shrink (1 0 auto)
-- `FlexPreset.shrinkOnly` - Shrink but don't grow (0 1 auto)
-- `FlexPreset.equal` - Equal distribution (1 1 0)
-
-**Grid Template Columns (`GridColumns`)**
-- `GridColumns.one` through `GridColumns.six` - Fixed column counts
-- `GridColumns.autoFitSm/Md/Lg` - Auto-fit with min widths (200px/280px/320px)
-- `GridColumns.autoFillSm/Md/Lg` - Auto-fill with min widths
-- `GridColumns.sidebar` - Sidebar layout (280px 1fr)
-- `GridColumns.mainSidebar` - Main with sidebar (1fr 300px)
-- `GridColumns.holyGrail` - Classic three-column (200px 1fr 200px)
-
-**Grid Template Rows (`GridRows`)**
-- `GridRows.one` through `GridRows.three` - Fixed row counts
-- `GridRows.auto` - Auto rows
-- `GridRows.headerContentFooter` - App layout (auto 1fr auto)
-- `GridRows.minContent` / `GridRows.maxContent`
-
-**Grid Utilities**
-- `GridAutoFlow` enum - row, column, dense, rowDense, columnDense
-- `PlaceItems` enum - start, end, center, stretch, baseline
-- `PlaceContent` enum - start, end, center, stretch, spaceBetween, spaceAround, spaceEvenly
-
-**Border Width Properties**
-- `borderWidth` - All sides
-- `borderLeftWidth`, `borderRightWidth`, `borderTopWidth`, `borderBottomWidth` - Individual sides
-- Uses existing `BorderWidth` enum (none, hairline, thin, medium, thick, heavy)
-
-#### New Layout Component
-
-**ArcaneScrollRail** - Sticky scrollable sidebar that maintains position independently of page scroll
-- `ArcaneScrollRail` - Base component with scroll persistence
-- `ArcaneScrollRailLayout` - Complete two-column layout with scroll rail
-- Features:
-  - Sticky positioning relative to viewport
-  - Independent scrolling from main content
-  - Scroll position persistence via sessionStorage
-  - Customizable width, offsets, borders
-  - Custom scrollbar styling
-
-```dart
-ArcaneScrollRail(
-  width: '280px',
-  topOffset: '64px', // Below fixed header
-  scrollPersistenceId: 'sidebar',
-  children: [
-    // Navigation items...
-  ],
-)
-```
-
-#### New shadcn-Inspired Components
-
-**ArcaneAspectRatio** - Container that maintains a specific aspect ratio
-- Uses CSS `aspect-ratio` property with fallback
-- Common presets: `.square()`, `.video()`, `.portrait()`, `.photo()`, `.golden()`, `.ultrawide()`
-
-```dart
-ArcaneAspectRatio.video(
-  child: ArcaneImage(src: 'thumbnail.jpg'),
-)
-```
-
-**ArcaneOtpInput** - One-time password input with separate digit fields
-- Auto-advance focus on digit entry
-- Backspace navigates to previous field
-- Paste support (fills all fields)
-- Size variants: `OtpInputSize.sm`, `md`, `lg`
-- Separator support for grouped digits
-
-```dart
-ArcaneOtpInput(
-  length: 6,
-  onComplete: (code) => verifyCode(code),
-)
-```
-
-**ArcaneCalendar** - Full calendar component for date selection
-- Month navigation with previous/next buttons
-- Today button for quick navigation
-- Range selection mode (`CalendarMode.range`)
-- Minimum/maximum date constraints
-- Custom disabled dates
-- Week number display option
-
-```dart
-ArcaneCalendar(
-  selected: selectedDate,
-  onSelect: (date) => setState(() => selectedDate = date),
-  minDate: DateTime.now(),
-)
-```
-
-**ArcaneDatePicker** - Date picker input with calendar dropdown
-- Combines input field with calendar popup
-- Date range picker variant (`.range()`)
-- Clearable selection
-- Custom date formatting
-- Size variants: `DatePickerSize.sm`, `md`, `lg`
-
-```dart
-ArcaneDatePicker(
-  value: birthDate,
-  onChanged: (date) => setState(() => birthDate = date),
-  label: 'Birth Date',
-)
-```
-
-**ArcaneCombobox** - Autocomplete dropdown with search filtering
-- Type-ahead search with custom filter function
-- Keyboard navigation (arrow keys, enter, escape)
-- Option descriptions and icons
-- Empty state and loading support
-- Size variants
-
-```dart
-ArcaneCombobox<String>(
-  options: fruits.map((f) => ComboboxOption(value: f, label: f)).toList(),
-  value: selectedFruit,
-  onChanged: (fruit) => setState(() => selectedFruit = fruit),
-  placeholder: 'Select a fruit...',
-)
-```
-
-**ArcaneContextMenu** - Right-click context menu
-- Appears at cursor position
-- Submenus with nested items
-- Separators and disabled items
-- Destructive item styling
-- Keyboard shortcut hints
-
-```dart
-ArcaneContextMenu(
-  trigger: MyComponent(),
-  items: [
-    ContextMenuItem(label: 'Edit', shortcut: '⌘E', onSelect: edit),
-    ContextMenuItem.separator(),
-    ContextMenuItem(label: 'Delete', destructive: true, onSelect: delete),
-  ],
-)
-```
-
-**ArcaneMenubar** - Horizontal application menu bar
-- Desktop app-style menu structure
-- Hover to switch between open menus
-- Submenus and nested items
-- Keyboard shortcuts display
-
-```dart
-ArcaneMenubar(
-  items: [
-    MenubarItem(label: 'File', menu: [
-      MenuItem(label: 'New', shortcut: '⌘N', onSelect: newFile),
-      MenuItem(label: 'Open', shortcut: '⌘O', onSelect: openFile),
-    ]),
-    MenubarItem(label: 'Edit', menu: [...]),
-  ],
-)
-```
-
-**ArcaneResizable** - Resizable panel groups with drag handles
-- Horizontal and vertical directions
-- Min/max size constraints
-- Collapsible panels
-- Keyboard support (arrow keys)
-- Visual grip indicator
-
-```dart
-ArcaneResizable(
-  direction: ResizeDirection.horizontal,
-  panels: [
-    ResizablePanel(defaultSize: 25, minSize: 15, child: Sidebar()),
-    ResizablePanel(child: MainContent()),
-  ],
-)
-```
-
-**ArcaneCommand** - Command palette (cmdk-style)
-- Search filtering with keyboard navigation
-- Command groups with headings
-- Keyboard shortcut hints
-- Empty state message
-- Overlay with click-outside-to-close
-
-```dart
-ArcaneCommand(
-  isOpen: showCommand,
-  onClose: () => setState(() => showCommand = false),
-  groups: [
-    CommandGroup(heading: 'Actions', items: [
-      CommandItem(label: 'New Document', shortcut: '⌘N', onSelect: newDoc),
-    ]),
-  ],
-)
-```
-
-**JavaScript Fallback Scripts for New Components**
-
-All new interactive components include static site support via `ArcaneScripts`:
-- OTP inputs with auto-advance and paste handling
-- Combobox search filtering and keyboard navigation
-- Context menus with right-click positioning
-- Menubars with hover-switch behavior
-- Resizable panels with drag handling
-- Command palette keyboard navigation
-- Calendar day selection
-- Date picker dropdown toggle
-
-### Changed
-
-#### Improved CSS Abstraction
-
-Before (raw CSS):
-```dart
-ArcaneDiv(
-  styles: ArcaneStyleData(
-    flexGrow: 1,
-    raw: {
-      'flex': '1',
-      'grid-template-columns': 'repeat(3, 1fr)',
-      'border-left-width': '3px',
-      'min-width': '0',
-    },
-  ),
-)
-```
-
-After (type-safe):
-```dart
-ArcaneDiv(
-  styles: ArcaneStyleData(
-    flex: FlexPreset.expand,
-    gridColumns: GridColumns.three,
-    borderLeftWidth: BorderWidth.thick,
-    minWidth: '0',
-  ),
-)
-```
-
-### Changed
-
-#### Redesigned ArcaneTooltip Component
-
-Complete rewrite of the tooltip system with CSS-based hover and proper JS fallbacks:
-
-**New Design**
-- Pure CSS hover-based display (no JavaScript required for hydrated apps)
-- Arrow pointer that points to the trigger element
-- Smooth fade and transform animations
-- Support for all four positions (top, bottom, left, right)
-- `ATooltip` short alias added
-
-**JS Fallback Improvements**
-- Binds to `.arcane-tooltip-trigger` elements
-- Creates tooltip with arrow dynamically
-- Proper opacity/visibility transitions
-- Position-aware transform animations
-- Also handles native `[title]` attributes
-
-```dart
-ArcaneTooltip(
-  content: 'Helpful information',
-  position: TooltipPosition.top,
-  child: ArcaneButton.secondary(label: 'Hover me'),
-)
-```
-
-#### Redesigned ArcaneToast Component
-
-Complete rewrite of the toast notification system with simplified API and all variants working:
-
-**Simplified API**
-
-Standalone toasts now use direct properties instead of `ToastData`:
-
-```dart
-// Old API
-ArcaneToast(
-  data: ToastData(id: 'x', message: 'Hello', variant: ToastVariant.success),
-  onClose: () {},
-)
-
-// New API
-ArcaneToast(
-  message: 'Hello',
-  variant: ToastVariant.success,
-  onClose: () {},
-)
-```
-
-**Type Aliases**
-- `AToast` - Short alias for `ArcaneToast`
-
-Container setup with configurable position:
-
-```dart
-// Add once at app root
-ArcaneToast.container(
-  position: ToastPosition.topRight,  // 6 positions available
-  maxVisible: 3,
-  offset: 20,
-)
-```
-
-**All Variants Working**
-- `ToastVariant.info` - Blue accent with info icon
-- `ToastVariant.success` - Green accent with checkmark icon
-- `ToastVariant.warning` - Yellow/orange accent with warning triangle
-- `ToastVariant.error` - Red accent with X icon
-- `ToastVariant.loading` - Accent color with animated spinner
-
-**Configurable Positioning**
-- `ToastPosition.topLeft`, `topCenter`, `topRight`
-- `ToastPosition.bottomLeft`, `bottomCenter`, `bottomRight`
-- Position can be set on container or per-toast via global API
-
-**Enhanced JS Fallbacks**
-- Complete static site support for all toast variants
-- Variant-specific SVG icons and colors in JS-created toasts
-- Proper progress bar animation with hover pause/resume
-- Dynamic toaster container creation with correct positioning
-- MutationObserver for dynamically added toasts
-- Action button support with callbacks in JS-created toasts
-- Description text support in JS-created toasts
-
-**Visual Improvements**
-- Variant-specific backgrounds using design tokens (e.g., `successAlpha05`)
-- Variant-specific borders (e.g., `errorAlpha30`)
-- Proper SVG icons using `ArcaneIcon`
-- Backdrop blur for depth effect
-- Progress bar with variant-specific colors
-- Smooth enter/exit animations with cubic-bezier curves
-
-**Technical Improvements**
-- Dart-native `Timer` instead of JS interop for reliability
-- Proper timer cleanup in `dispose()`
-- Improved accessibility with `aria-live` (assertive for errors)
-- Added `aria-atomic` and proper ARIA roles
+- **ArcaneStepper** - Use `ArcaneSteps` instead
+- **ArcaneVerticalStepper** - Use `ArcaneSteps.vertical()` instead
 
 ### Fixed
 
-#### ArcaneSlider and ArcaneRangeSlider
+#### Color Contrast Improvements
+- Fixed `IconButtonStyle.ghost` using `ArcaneColors.muted` (invisible) - now uses `ArcaneColors.mutedForeground`
+- Fixed `ArcaneStyles.bodyText`, `.mutedText`, `.tinyText` using invisible muted color
+- These fixes improve visibility of `ArcaneIconButton`, `ArcaneCloseButton`, and text using common style presets
 
-- **Interactivity**: Fixed sliders being purely visual with no user interaction
-  - Root cause: Components rendered custom visual elements but had no event handlers or native input elements
-  - Fix: Added hidden native `<input type="range">` elements that overlay the visual slider and capture user input
-  - Both `ArcaneSlider` and `ArcaneRangeSlider` now respond to drag/click interactions
+#### Map Component Demo Fixes
+- Fixed map pin positioning in demos by correcting location IDs to match pre-calculated SVG coordinates:
+  - World map: `tok` -> `tyo`, `sgp` -> `sin`, `sf` -> `sfo`
+  - USA map: `sf` -> `sfo`
+- Removed unintended `isActive: true` flags that caused pins to appear green
 
-#### ArcaneColorInput
-
-- **Click handling**: Fixed color picker not opening when clicking the color swatch
-  - Root cause: Overlapping positioned elements blocked pointer events to the hidden color input
-  - Fix: Wrapped swatch in `<label>` element and added `pointer-events: none` to visual layers, ensuring clicks reach the native color picker
-
-#### ArcaneHovercard and ArcanePopover
-
-- **Hover functionality**: Fixed hover events not triggering properly on `ArcaneHovercard` and `ArcanePopover` (hover mode)
-  - Root cause: Events were on separate inner divs for trigger and content, causing premature close when mouse moved between them
-  - Fix: Events now placed on outer wrapper so mouse movement between trigger and content doesn't trigger close
-- Removed unused `@css` styles fields that were generating analyzer warnings
-
-#### Documentation Site (Codex)
-
-- **Font loading**: Added Google Fonts (Inter, Fira Code) via CSS imports - fonts now load correctly on GitHub Pages
-- **Base href**: Fixed asset paths for GitHub Pages subdirectory hosting at `/arcane_jaspr/`
-- **Theme consistency**: Fonts now consistent between local development and production deployment
-- **Interactive demos**: Added comprehensive JavaScript handlers for all interactive components on static site
-  - **Input components**: Range sliders, color inputs with preset swatches, number input increment/decrement, tag input add/remove, select dropdowns, toggle button groups, radio buttons, cycle buttons
-  - **View components**: Expanders/accordions expand/collapse, inline tabs selection, toast notifications, tree view node expand/collapse, popovers and hovercards on hover/click
-  - **Navigation components**: Drawer open/close with backdrop, sidebar nav item selection, bottom nav selection
-
-#### Enhanced Toast System (Sonner-style)
-
-Complete rewrite of the toast system with modern patterns:
-
-**New Components:**
-- `ArcaneToast.container()` - Root toast container (place once at app root)
-- `ToastManager` - Global singleton for managing toast state
-- `ToastData` - Toast data model with all configuration options
-- `ToastAction` - Action button configuration
-
-**Global Toast API:**
-```dart
-// Simple usage via global `toast` getter
-toast.success('Changes saved!');
-toast.error('Something went wrong');
-toast.warning('Please check your input');
-toast.info('New update available');
-toast.loading('Processing...');
-
-// With options
-toast.success('Profile updated', title: 'Success', description: 'Your changes have been saved.');
-
-// Promise-based toast (loading → success/error)
-toast.promise(
-  saveData(),
-  loading: 'Saving...',
-  success: (data) => 'Saved ${data.name}!',
-  error: (e) => 'Failed: ${e.message}',
-);
-
-// With action button
-toast.error('Failed to save', action: ToastAction(
-  label: 'Retry',
-  onPressed: () => retry(),
-));
-
-// Dismiss programmatically
-final id = toast.success('Saved');
-toast.dismiss(id);
-toast.dismissAll();
-```
-
-**Features:**
-- Auto-dismiss with configurable duration (default 4s)
-- Progress bar indicator for auto-dismiss
-- Pause on hover
-- Toast stacking with collapse/expand
-- Queue management (max visible: 3)
-- 6 position options (top/bottom × left/center/right)
-- Loading variant with spinner animation
-- Promise-based toasts for async operations
-- Action buttons in toasts
-- Exit animations
-
-#### New Input Components
-
-**ArcaneMutableText** - Inline editable text component
-- Click/double-click/hover to edit triggers
-- Single-line and multiline modes
-- Validation support with error messages
-- Character counter
-- Multiple display styles: inline, subtle, underline, dashed, input
-- Save on blur or explicit action
-- Keyboard navigation (Enter to save, Escape to cancel)
-
-```dart
-ArcaneMutableText(
-  value: 'Click to edit',
-  onSave: (newValue) => updateTitle(newValue),
-  displayStyle: MutableTextStyle.subtle,
-  placeholder: 'Enter title...',
-  required: true,
-)
-```
-
-**ArcaneRadioGroup** - Radio button group with variants
-- Standard radio buttons
-- Card-style selection
-- Button group (segmented control)
-- Chip/pill style
-- Horizontal, vertical, and grid layouts
-- Full accessibility (ARIA, keyboard nav)
-- Group-level validation
-
-```dart
-ArcaneRadioGroup<String>(
-  value: selected,
-  variant: RadioGroupVariant.cards,
-  layout: RadioGroupLayout.grid,
-  gridColumns: 3,
-  options: [
-    RadioOption(value: 'a', label: 'Option A', description: 'Description'),
-    RadioOption(value: 'b', label: 'Option B', icon: ArcaneIcon.star()),
-  ],
-  onChanged: (value) => setState(() => selected = value),
-)
-```
-
-#### New View Components
-
-**ArcaneSeparator** - Visual divider/separator
-- Horizontal and vertical orientations
-- Multiple styles: solid, dashed, dotted, gradient, double
-- Thickness presets: thin, normal, medium, thick
-- Optional label or icon in center
-- Decorative or semantic (with ARIA roles)
-
-```dart
-ArcaneSeparator()
-ArcaneSeparator.vertical()
-ArcaneSeparator.withLabel(label: 'OR')
-ArcaneSeparator(style: SeparatorStyle.dashed, thickness: SeparatorThickness.medium)
-```
-
-**ArcaneDisclosure** - Native HTML disclosure widget (details/summary)
-- Works on static sites without JavaScript (browser-native expand/collapse)
-- Multiple visual variants: default, minimal, bordered, filled
-- Optional chevron indicator
-- Perfect for FAQs, collapsible sections, and navigation menus
-- Unlike `ArcaneExpander`, doesn't require Jaspr hydration
-
-```dart
-// Basic usage
-ArcaneDisclosure(
-  summary: ArcaneText('Click to expand'),
-  child: ArcaneText('Hidden content'),
-)
-
-// Variants
-ArcaneDisclosure.minimal(...)  // No background/borders
-ArcaneDisclosure.bordered(...) // Bordered container
-ArcaneDisclosure.filled(...)   // Filled background
-
-// Disclosure group
-ArcaneDisclosureGroup(
-  items: [
-    ArcaneDisclosureItem(summary: ..., content: ...),
-    ArcaneDisclosureItem(summary: ..., content: ...),
-  ],
-)
-```
-
-#### New Layout Components
-
-**ArcaneScrollArea** - Styled scrollable container
-- Custom scrollbar styling (thin, minimal, custom)
-- Vertical, horizontal, or both scroll directions
-- Scrollbar visibility control (always, hover, auto, hidden)
-- Optional scroll shadows at edges
-- Touch scrolling support
-
-```dart
-ArcaneScrollArea(
-  height: '400px',
-  scrollbarStyle: ScrollbarStyle.thin,
-  showScrollShadows: true,
-  child: LongContent(),
-)
-```
-
-**ArcaneVirtualScroll** - Virtualized list for large datasets
-- Only renders visible items for performance
-- Fixed item height for calculation
-- Configurable overscan (items to render outside viewport)
-- Smooth scrolling
-
-```dart
-ArcaneVirtualScroll<User>(
-  items: users,
-  itemHeight: 48,
-  height: '500px',
-  itemBuilder: (context, user, index) => UserRow(user: user),
-)
-```
-
-### Documentation
-
-- Updated docs_sidebar to use `borderLeftWidth: BorderWidth.thick` instead of raw CSS
-- Updated layout components to use `flex: FlexPreset.expand` instead of `raw: {'flex': '1'}`
-- Added ArcaneScrollRail to component exports
+---
 
 ## [2.4.1]
 
 ### Added
 
-#### New View Components
 - `ArcaneHovercard` - Hover-triggered floating card with rich interactive content, configurable delays, and multiple positions
 
 ### Enhanced
 
-#### ArcanePopover
-- Added `openDelay` parameter for delayed opening in hover mode
-- Added `closeDelay` parameter for delayed closing in hover mode
-- Both components now have feature parity with timer-based delay logic
+- `ArcanePopover`: Added `openDelay` and `closeDelay` parameters for delayed opening/closing in hover mode
 
-### Documentation
-- Added ArcaneHovercard documentation page
-- Updated ArcanePopover documentation with delay properties
-- Added demos for both components
+---
 
 ## [2.4.0]
 
@@ -1864,11 +960,11 @@ ArcaneVirtualScroll<User>(
 
 #### New Navigation Components
 - `ArcaneBreadcrumbs` - Navigation breadcrumb trail with chevron, slash, arrow, and dot separators
-- `ArcanePagination` - Page navigation controls with outline, filled, ghost, and simple styles (uses `onPageChange` callback)
+- `ArcanePagination` - Page navigation controls with outline, filled, ghost, and simple styles
 
 #### New Layout Components
 - `ArcaneDrawer` - Slide-in side panel from any screen edge (left, right, top, bottom) with multiple sizes
-- `ArcaneTabBar` - Simple inline tab bar for view switching (uses `ArcaneTabBarItem`, index-based selection)
+- `ArcaneTabBar` - Simple inline tab bar for view switching
 
 #### SVG Abstractions
 - `ArcaneSvg` - SVG wrapper component with size presets (xs, sm, md, lg, xl, xxl)
@@ -1881,21 +977,16 @@ ArcaneVirtualScroll<User>(
 - `ArcaneSvgGroup` - SVG group element with transform support
 
 #### Enhanced ArcaneIcon
-- Added 30+ new icon factory constructors: `plus`, `minus`, `trash`, `edit`, `download`, `upload`, `user`, `mail`, `heart`, `star`, `lock`, `bell`, `calendar`, `folder`, `file`, `image`, `code`, `terminal`, `link`, `globe`, `info`, `warning`, `error`, `success`, `refresh`, `filter`, `moreHorizontal`, `moreVertical`, `eye`, `eyeOff`, `send`, `loader`
+Added 30+ new icon factory constructors: `plus`, `minus`, `trash`, `edit`, `download`, `upload`, `user`, `mail`, `heart`, `star`, `lock`, `bell`, `calendar`, `folder`, `file`, `image`, `code`, `terminal`, `link`, `globe`, `info`, `warning`, `error`, `success`, `refresh`, `filter`, `moreHorizontal`, `moreVertical`, `eye`, `eyeOff`, `send`, `loader`
 
-### Documentation
-- Added comprehensive documentation for all new components in codex
-- Added demos for all new components
-- Updated navigation sidebar with new component entries
-- Fixed documentation for `ArcanePagination` to use correct `onPageChange` callback name
-- Updated inline tabs documentation to reflect `ArcaneTabBar` API
+---
 
 ## [2.2.0]
 
 ### Added
 
 #### Renamed HTML Components (with backwards-compatible aliases)
-- `ArcaneCodeBlock` - Renamed from `ArcanePre` for clarity, with `CodeBlockStyle` enum (raw, code, minimal, inline, terminal)
+- `ArcaneCodeBlock` - Renamed from `ArcanePre` for clarity, with `CodeBlockStyle` enum
 - `ArcaneQuote` - Renamed from `ArcaneBlockquote`
 - `ArcaneBulletList` - Renamed from `ArcaneUnorderedList`
 - `ArcaneNumberedList` - Renamed from `ArcaneOrderedList`
@@ -1905,22 +996,12 @@ ArcaneVirtualScroll<User>(
 - `PaddingPreset.badge` - Compact padding for badge/tag elements (2px 8px)
 - `PaddingPreset.inlineCode` - Padding for inline code snippets (2px 6px)
 - `PaddingPreset.chip` - Padding for chip/pill elements (4px 12px)
-- `Background.glassTint` - Subtle glass tint effect (rgba 5%)
-- `Background.glassHeader` - Glass header effect (rgba 3%)
-- `Background.glassOverlay` - Glass overlay effect (rgba 8%)
+- `Background.glassTint`, `.glassHeader`, `.glassOverlay` - Glass effects
 - `Background.destructive` - Alias for error background
 - `MaxHeight` enum - Preset max-heights (none, sm, md, lg, codeBlock, xl, modal, screen)
 - `MinWidth` enum - Preset min-widths (none, touchTarget, sm, md, lg)
 
-### Changed
-- Updated codex documentation site to use enum-based styling instead of raw CSS
-- Factory constructors like `ArcaneButton.ghost()` now recommended as `ArcaneButton(style: ButtonStyle.ghost)`
-- All legacy HTML component names preserved as typedefs for backwards compatibility
-
-### Documentation
-- Added new enum values to spacing documentation (badge, inlineCode, chip)
-- Added Glass Effects section to colors documentation
-- Added MaxHeight and MinWidth sections to display documentation
+---
 
 ## [2.1.0]
 
@@ -1929,7 +1010,7 @@ ArcaneVirtualScroll<User>(
 #### Authentication System
 - `ArcaneAuthProvider` - Context provider for Firebase authentication
 - `AuthGuard` - Route protection for authenticated users
-- `GuestGuard` - Route protection for unauthenticated users (login/signup pages)
+- `GuestGuard` - Route protection for unauthenticated users
 - `JasprAuthService` - Firebase Auth service via JS interop
 
 #### Auth UI Components
@@ -1938,57 +1019,24 @@ ArcaneVirtualScroll<User>(
 - `ArcaneForgotPasswordCard` - Password reset request form
 
 #### Social Sign-in Buttons
-- `GithubSignInButton` - GitHub OAuth button
-- `GoogleSignInButton` - Google OAuth button
-- `AppleSignInButton` - Apple Sign-In button
+- `GithubSignInButton`, `GoogleSignInButton`, `AppleSignInButton`
 
 #### Auth Layouts
-- `AuthSplitLayout` - Two-column layout for auth pages (branding + form)
-- `AuthBrandingPanel` - Branding content panel with tagline, features, testimonials
+- `AuthSplitLayout` - Two-column layout for auth pages
+- `AuthBrandingPanel` - Branding content panel
 
 #### Auth Form Primitives
-- `AuthInput` - Styled input for auth forms
-- `AuthButton` - Submit button for auth forms
-- `AuthDivider` - "or continue with" divider
-- `AuthSocialRow` - Row of social sign-in buttons
-- `AuthFormCard` - Card container for auth forms
+- `AuthInput`, `AuthButton`, `AuthDivider`, `AuthSocialRow`, `AuthFormCard`
 
 #### Auth Utilities
 - `PasswordPolicy` - Password validation with presets (weak, medium, strong)
-- `AuthState` - Authentication state container
-- `AuthUser` - Authenticated user model
-- `AuthMethod` - Enum for auth methods (email, github, google, apple, anonymous)
-- `AuthStatus` - Enum for auth status (unknown, loading, authenticated, unauthenticated, error)
+- `AuthState`, `AuthUser`, `AuthMethod`, `AuthStatus`
 
 #### Context Extensions
-- `context.authState` - Access current auth state
-- `context.currentUser` - Access current user
-- `context.isAuthenticated` - Check authentication status
-- `context.signInWithGitHub()` - Trigger GitHub OAuth
-- `context.signInWithGoogle()` - Trigger Google OAuth
-- `context.signInWithApple()` - Trigger Apple Sign-In
-- `context.signOut()` - Sign out current user
+- `context.authState`, `context.currentUser`, `context.isAuthenticated`
+- `context.signInWithGitHub()`, `context.signInWithGoogle()`, `context.signInWithApple()`, `context.signOut()`
 
-### Changed
-- Added `web: ^1.1.1` dependency for Firebase JS interop
-- Added `http: ^1.6.0` dependency for auth API calls
-- Updated documentation with authentication section
-- Added auth demos to codex documentation site
-
-### Documentation
-- Rewrote root README with comprehensive component and auth documentation
-- Created codex root README
-- Expanded codex web README with detailed project structure
-- Added authentication section to docs sidebar
-- Added auth component demos
-
-### Tests
-- Added `auth_test.dart` with 45+ tests covering:
-  - PasswordPolicy (weak, medium, strong presets and custom)
-  - AuthMethod enum
-  - AuthStatus enum
-  - AuthUser class
-  - AuthState class
+---
 
 ## [2.0.0]
 
@@ -1996,206 +1044,66 @@ ArcaneVirtualScroll<User>(
 
 All components now use the `Arcane*` prefix consistently. This is a breaking change that removes backwards compatibility.
 
-**Migration Guide:**
+**Migration:** Components have been renamed from their short names to the full `Arcane*` prefix.
 
-Components have been renamed from their short names to the full `Arcane*` prefix. Examples:
-- `Button` → `ArcaneButton`
-- `Card` → `ArcaneCard`
-- `Div` → `ArcaneDiv`
-- `Heading` → `ArcaneHeading`
-- `Section` → `ArcaneSection`
-- `Box` → `ArcaneBox`
-- `Row` → `ArcaneRow`
-- `Column` → `ArcaneColumn`
-- `Checkbox` → `ArcaneCheckbox`
-- `Slider` → `ArcaneSlider`
-- `Search` → `ArcaneSearch`
-- `Toast` → `ArcaneToast`
-- `Bar` → `ArcaneBar`
-- `Glass` → `ArcaneGlass`
-- `Screen` → `ArcaneScreen`
+Examples:
+- `Button` -> `ArcaneButton`
+- `Card` -> `ArcaneCard`
+- `Div` -> `ArcaneDiv`
+- `Checkbox` -> `ArcaneCheckbox`
 - ... and all other components
 
 ### Added
 
 - `aliases.dart` - Shorthand `A*` typedefs for all components (e.g., `AButton = ArcaneButton`)
-  - Import with `import 'package:arcane_jaspr/aliases.dart';`
-  - Provides shorter names while keeping `Arcane*` as the primary API
 
-### Changed
-
-- Renamed all components to use consistent `Arcane*` prefix
-- HTML element wrappers now use `Arcane*` prefix:
-  - `Div` → `ArcaneDiv`
-  - `Nav` → `ArcaneNav`
-  - `Aside` → `ArcaneAside`
-  - `Heading` → `ArcaneHeading`
-  - `Paragraph` → `ArcaneParagraph`
-  - `Main` → `ArcaneMain`
-  - `HtmlSection` → `ArcaneHtmlSection`
-  - `HtmlFooter` → `ArcaneHtmlFooter`
-  - `Blockquote` → `ArcaneBlockquote`
-  - `Pre` → `ArcanePre`
-- Layout components renamed:
-  - `Box` → `ArcaneBox`
-  - `Row` → `ArcaneRow`
-  - `Column` → `ArcaneColumn`
-  - `Section` → `ArcaneSection`
-  - `Gutter` → `ArcaneGutter`
-  - `Flow` → `ArcaneFlow`
-  - `ButtonPanel` → `ArcaneButtonPanel`
-  - `CenterBody` → `ArcaneCenterBody`
-- Input components renamed:
-  - `Checkbox` → `ArcaneCheckbox`
-  - `Radio` → `ArcaneRadio`
-  - `Slider` → `ArcaneSlider`
-  - `RangeSlider` → `ArcaneRangeSlider`
-  - `ToggleSwitch` → `ArcaneToggleSwitch`
-  - `Search` → `ArcaneSearch`
-  - `Selector` → `ArcaneSelector`
-  - `CycleButton` → `ArcaneCycleButton`
-  - `FAB` → `ArcaneFAB`
-  - `ThemeToggle` → `ArcaneThemeToggle`
-- View components renamed:
-  - `Bar` → `ArcaneBar`
-  - `Glass` → `ArcaneGlass`
-  - `Expander` → `ArcaneExpander`
-  - `Accordion` → `ArcaneAccordion`
-  - `Tooltip` → `ArcaneTooltip`
-  - `Toast` → `ArcaneToast`
-  - `StaticTable` → `ArcaneStaticTable`
-  - `Timeline` → `ArcaneTimeline`
-  - `Stepper` → `ArcaneStepper`
-- Navigation components renamed:
-  - `Sidebar` → `ArcaneSidebar`
-  - `SidebarItem` → `ArcaneSidebarItem`
-  - `BottomNavigationBar` → `ArcaneBottomNavigationBar`
-  - `BottomNavItem` → `ArcaneBottomNavItem`
-- Screen components renamed:
-  - `Screen` → `ArcaneScreen`
-  - `FillScreen` → `ArcaneFillScreen`
-- Dialog/Feedback components renamed:
-  - `ConfirmDialog` → `ArcaneConfirmDialog`
-  - `AlertDialog` → `ArcaneAlertDialog`
-- Collection components renamed:
-  - `Collection` → `ArcaneCollection`
-  - `ListView` → `ArcaneListView`
-  - `GridView` → `ArcaneGridView`
-  - `MasonryGrid` → `ArcaneMasonryGrid`
-  - `CardCarousel` → `ArcaneCardCarousel`
+---
 
 ## [1.0.0]
 
 ### Added
 
+Initial release with complete component library:
+
 #### Core
 - `ArcaneApp` - Main application wrapper with theme support
 - `ArcaneTheme` - Theming system with Supabase-style dark-first design
-- `ContrastedColorScheme` - Comprehensive color scheme with accent themes (violet, green, orange)
+- `ContrastedColorScheme` - Comprehensive color scheme with accent themes
 
 #### Input Components
-- `ArcaneButton` - Primary button with multiple variants and sizes
-- `ArcaneIconButton` - Icon-only button with hover states
-- `Checkbox` - Styled checkbox input
-- `CycleButton` - Button that cycles through options
-- `FAB` - Floating action button
-- `Search` - Search input with icon
-- `Selector` - Dropdown selector component
-- `Slider` - Range slider input
-- `TextInput` - Text input field with validation support
-- `ThemeToggle` - Dark/light mode toggle
-- `ToggleSwitch` - On/off toggle switch
+- `ArcaneButton`, `ArcaneIconButton`, `Checkbox`, `CycleButton`, `FAB`, `Search`, `Selector`, `Slider`, `TextInput`, `ThemeToggle`, `ToggleSwitch`
 
 #### View Components
-- `AnimatedCounter` - Animated number counter
-- `Avatar` - User avatar with fallback initials
-- `Badge` - Status badges with variants
-- `Bar` - Horizontal bar component
-- `ArcaneCard` - Card container with hover effects
-- `CardSection` - Section within a card
-- `CenterBody` - Centered content wrapper
-- `Chip` - Tag/chip component
-- `CodeSnippet` - Syntax-highlighted code block
-- `DataTable` - Interactive data table
-- `Divider` - Horizontal/vertical divider
-- `Expander` - Expandable/collapsible content
-- `FeatureCard` - Feature showcase card
-- `GameTile` - Game server tile with status indicators
-- `Glass` - Glassmorphism container
-- `GradientText` - Text with gradient color
-- `IntegrationCard` - Integration showcase card
-- `PricingCard` - Pricing tier card
-- `ProgressBar` - Progress indicator bar
-- `RatingStars` - Star rating display
-- `Skeleton` - Loading skeleton placeholder
-- `SocialIcons` - Social media icon links
-- `StatCard` - Statistics display card
-- `StaticTable` - Simple static table
-- `StatusIndicator` - Online/offline status dot
-- `Stepper` - Multi-step progress indicator
-- `TestimonialCard` - Customer testimonial card
-- `Tile` - Clickable tile component
-- `Timeline` - Vertical timeline display
+- `AnimatedCounter`, `Avatar`, `Badge`, `Bar`, `ArcaneCard`, `Chip`, `CodeSnippet`, `DataTable`, `Divider`, `Expander`, `FeatureCard`, `GameTile`, `Glass`, `GradientText`, `IntegrationCard`, `PricingCard`, `ProgressBar`, `RatingStars`, `Skeleton`, `SocialIcons`, `StatCard`, `StaticTable`, `StatusIndicator`, `Stepper`, `TestimonialCard`, `Tile`, `Timeline`
 
 #### Layout Components
-- `ButtonPanel` - Row/column of buttons
-- `Carpet` - Full-width background section
-- `CTABanner` - Call-to-action banner
-- `Flow` - Flexbox flow layout
-- `Footer` - Page footer with links
-- `Gutter` - Spacing/margin utility
-- `HeroSection` - Hero banner section
-- `LogoCarousel` - Scrolling logo carousel
-- `RadioCards` - Radio button card selector
-- `Section` - Page section wrapper
-- `ArcaneTabs` - Tabbed content container
+- `ButtonPanel`, `Carpet`, `CTABanner`, `Flow`, `Footer`, `Gutter`, `HeroSection`, `LogoCarousel`, `RadioCards`, `Section`, `ArcaneTabs`
 
 #### Navigation Components
-- `BottomNavigationBar` - Mobile bottom nav
-- `DropdownMenu` - Dropdown menu with items
-- `Header` - Page header/navbar
-- `MobileMenu` - Responsive mobile menu
-- `Sidebar` - Side navigation panel
+- `BottomNavigationBar`, `DropdownMenu`, `Header`, `MobileMenu`, `Sidebar`
 
 #### Screen Components
-- `Screen` - Base screen wrapper
-- `FillScreen` - Full-height screen
-- `NavigationScreen` - Screen with navigation
+- `Screen`, `FillScreen`, `NavigationScreen`
 
 #### Dialog Components
-- `ArcaneDialog` - Modal dialog
-- `ConfirmDialog` - Confirmation dialog
-- `TextInputDialog` - Text input modal
-- `Toast` - Toast notification
+- `ArcaneDialog`, `ConfirmDialog`, `TextInputDialog`, `Toast`
 
 #### Feedback Components
-- `AlertBanner` - Alert/notification banner
-- `Loader` - Loading spinner
-- `Tooltip` - Hover tooltip
+- `AlertBanner`, `Loader`, `Tooltip`
 
 #### Form Components
-- `Field` - Form field with label
-- `FieldWrapper` - Field container with validation
-- `FormProvider` - Form state management
-- `NewsletterForm` - Email signup form
+- `Field`, `FieldWrapper`, `FormProvider`, `NewsletterForm`
 
 #### Interactive Components
-- `Accordion` - Collapsible accordion panels
-- `BackToTop` - Scroll to top button
+- `Accordion`, `BackToTop`
 
 #### Typography
-- `Headline` - Styled heading component
+- `Headline`
 
 #### Collection Components
-- `CardCarousel` - Horizontally scrolling cards
-- `Collection` - Grid/list collection view
+- `CardCarousel`, `Collection`
 
 #### Design Tokens
 - `ArcaneTokens` - Spacing, radius, shadows, transitions
 - `CommonStyles` - Reusable style maps
 - `StylePresets` - Pre-built component styles
-- Button, Card, Badge, Chip, Input, FAB, IconButton, Alert, Progress, Control styles
-
-#### Utilities
-- `ArcaneStyles` - Style helper utilities
-- Color utilities and extensions

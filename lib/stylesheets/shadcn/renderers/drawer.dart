@@ -85,8 +85,8 @@ class ShadcnDrawer extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     if (!props.isOpen && !props.showBackdrop) {
-      return dom.span(
-        styles: const dom.Styles(raw: {'display': 'none'}),
+      return const dom.span(
+        styles: dom.Styles(raw: {'display': 'none'}),
         [],
       );
     }
@@ -160,7 +160,7 @@ class ShadcnDrawer extends StatelessComponent {
                 [
                   if (props.header != null) props.header!,
                   if (props.header == null)
-                    dom.span(styles: const dom.Styles(raw: {}), []),
+                    const dom.span(styles: dom.Styles(raw: {}), []),
                   if (props.showCloseButton)
                     dom.button(
                       classes: 'arcane-drawer-close',
@@ -188,7 +188,7 @@ class ShadcnDrawer extends StatelessComponent {
                         'transition': 'opacity 150ms ease',
                       }),
                       events: {'click': (_) => props.onClose?.call()},
-                      [Component.text('\u00D7')],
+                      [const Component.text('\u00D7')],
                     ),
                 ],
               ),

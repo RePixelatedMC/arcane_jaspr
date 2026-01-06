@@ -57,7 +57,7 @@ class ShadcnTracker extends StatelessComponent {
               'color': 'var(--muted-foreground)',
             }),
             [
-              dom.span([Component.text('Less')]),
+              const dom.span([Component.text('Less')]),
               for (final level in TrackerLevel.values)
                 dom.div(
                   styles: dom.Styles(raw: {
@@ -68,7 +68,7 @@ class ShadcnTracker extends StatelessComponent {
                   }),
                   [],
                 ),
-              dom.span([Component.text('More')]),
+              const dom.span([Component.text('More')]),
             ],
           ),
       ],

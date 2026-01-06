@@ -135,8 +135,8 @@ class ShadcnBar extends StatelessComponent {
         },
       },
       [
-        dom.span(
-          styles: const dom.Styles(raw: {
+        const dom.span(
+          styles: dom.Styles(raw: {
             'font-size': '1.25rem',
           }),
           [Component.text('\u2190')], // Left arrow
@@ -195,7 +195,7 @@ class ShadcnDialogBar extends StatelessComponent {
             events: {
               'click': (event) => props.onClose!(),
             },
-            [Component.text('\u00D7')], // Multiplication sign (x)
+            [const Component.text('\u00D7')], // Multiplication sign (x)
           ),
       ],
     );

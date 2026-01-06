@@ -18,7 +18,7 @@ class ShadcnSwitcher extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     if (props.children.isEmpty) {
-      return dom.div(classes: 'arcane-switcher', []);
+      return const dom.div(classes: 'arcane-switcher', []);
     }
 
     final safeIndex = props.index.clamp(0, props.children.length - 1);
@@ -75,7 +75,7 @@ class ShadcnIndexedStack extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     if (props.children.isEmpty) {
-      return dom.div(classes: 'arcane-indexed-stack', []);
+      return const dom.div(classes: 'arcane-indexed-stack', []);
     }
 
     final safeIndex = props.index.clamp(0, props.children.length - 1);

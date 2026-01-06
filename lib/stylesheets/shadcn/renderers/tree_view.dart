@@ -130,7 +130,7 @@ class _ShadcnTreeViewState extends State<ShadcnTreeView> {
                   'transform': isExpanded ? 'rotate(90deg)' : 'rotate(0deg)',
                   'transition': 'transform 0.2s ease',
                 }),
-                [Component.text('\u25B6')],
+                [const Component.text('\u25B6')],
               )
             else if (showLines)
               const dom.span(

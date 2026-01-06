@@ -81,27 +81,27 @@ class ArcaneSkeletonCard extends StatelessComponent {
       [
         // Header with avatar
         if (showAvatar)
-          dom.div(
-            styles: const dom.Styles(raw: {
+          const dom.div(
+            styles: dom.Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
               'gap': '16px',
               'margin-bottom': '24px',
             }),
             [
-              const ArcaneSkeleton(
+              ArcaneSkeleton(
                 shape: SkeletonShape.circle,
                 width: '48px',
                 height: '48px',
               ),
               dom.div(
-                styles: const dom.Styles(raw: {
+                styles: dom.Styles(raw: {
                   'flex': '1',
                   'display': 'flex',
                   'flex-direction': 'column',
                   'gap': '8px',
                 }),
-                const [
+                [
                   ArcaneSkeleton(width: '40%', height: '16px'),
                   ArcaneSkeleton(width: '60%', height: '14px'),
                 ],

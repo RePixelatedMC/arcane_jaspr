@@ -79,9 +79,9 @@ class ShadcnLoadingState extends StatelessComponent {
       }),
       [
         // Spinner
-        dom.div(
+        const dom.div(
           classes: 'arcane-loading-spinner',
-          styles: const dom.Styles(raw: {
+          styles: dom.Styles(raw: {
             'width': '40px',
             'height': '40px',
             'border': '3px solid var(--border)',
@@ -127,8 +127,8 @@ class ShadcnErrorState extends StatelessComponent {
       }),
       [
         // Error icon
-        dom.div(
-          styles: const dom.Styles(raw: {
+        const dom.div(
+          styles: dom.Styles(raw: {
             'color': 'var(--destructive)',
             'font-size': '2.5rem',
           }),

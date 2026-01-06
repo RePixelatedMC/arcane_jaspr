@@ -117,8 +117,8 @@ class _ShadcnEmailDialogState extends State<ShadcnEmailDialog> {
                       'align-items': 'center',
                     }),
                     [
-                      dom.span(
-                        styles: const dom.Styles(raw: {
+                      const dom.span(
+                        styles: dom.Styles(raw: {
                           'position': 'absolute',
                           'left': '0.75rem',
                           'color': 'var(--muted-foreground)',
@@ -180,8 +180,8 @@ class _ShadcnEmailDialogState extends State<ShadcnEmailDialog> {
                       [Component.text(_error!)],
                     ),
                   if (component.props.requireWorkEmail)
-                    dom.span(
-                      styles: const dom.Styles(raw: {
+                    const dom.span(
+                      styles: dom.Styles(raw: {
                         'color': 'var(--muted-foreground)',
                         'font-size': '0.75rem',
                       }),

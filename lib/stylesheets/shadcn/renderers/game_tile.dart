@@ -112,8 +112,8 @@ class ShadcnGameTile extends StatelessComponent {
 
         // Popular indicator
         if (props.popular && props.badge == null)
-          dom.div(
-            styles: const dom.Styles(raw: {
+          const dom.div(
+            styles: dom.Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
               'gap': '0.25rem',
@@ -223,8 +223,8 @@ class ShadcnGameCard extends StatelessComponent {
           }),
           [
             // Overlay
-            dom.div(
-              styles: const dom.Styles(raw: {
+            const dom.div(
+              styles: dom.Styles(raw: {
                 'position': 'absolute',
                 'inset': '0',
                 'background': 'linear-gradient(to top, var(--card) 0%, transparent 100%)',

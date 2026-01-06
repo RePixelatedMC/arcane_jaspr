@@ -116,7 +116,7 @@ class ShadcnLoadingOverlay extends StatelessComponent {
         'z-index': '9999',
       }),
       [
-        props.loader ?? ShadcnLoader(const LoaderProps.spinner(size: '48px')),
+        props.loader ?? const ShadcnLoader(LoaderProps.spinner(size: '48px')),
         if (props.message != null)
           dom.span(
             styles: const dom.Styles(raw: {

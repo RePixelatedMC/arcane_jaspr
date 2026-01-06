@@ -39,8 +39,8 @@ Component _buildBrandingPanel(Component brandingContent) {
     classes: 'auth-branding-panel',
     [
       // Background gradient glow
-      dom.div(
-        styles: const dom.Styles(raw: {
+      const dom.div(
+        styles: dom.Styles(raw: {
           'position': 'absolute',
           'inset': '0',
           'pointer-events': 'none',
@@ -48,7 +48,7 @@ Component _buildBrandingPanel(Component brandingContent) {
         [
           // Top-left green glow
           dom.div(
-            styles: const dom.Styles(raw: {
+            styles: dom.Styles(raw: {
               'position': 'absolute',
               'top': '-20%',
               'left': '-10%',
@@ -61,7 +61,7 @@ Component _buildBrandingPanel(Component brandingContent) {
           ),
           // Bottom-right cyan glow
           dom.div(
-            styles: const dom.Styles(raw: {
+            styles: dom.Styles(raw: {
               'position': 'absolute',
               'bottom': '-20%',
               'right': '-10%',
@@ -74,7 +74,7 @@ Component _buildBrandingPanel(Component brandingContent) {
           ),
           // Subtle grid pattern
           dom.div(
-            styles: const dom.Styles(raw: {
+            styles: dom.Styles(raw: {
               'position': 'absolute',
               'inset': '0',
               'background-image':

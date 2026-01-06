@@ -100,9 +100,9 @@ class ShadcnDropdownMenu extends StatelessComponent {
               for (final item in props.items)
                 if (item.divider)
                   // ShadCN DropdownMenuSeparator: -mx-1 my-1 h-px bg-muted
-                  dom.div(
+                  const dom.div(
                     classes: 'arcane-dropdown-divider',
-                    styles: const dom.Styles(raw: {
+                    styles: dom.Styles(raw: {
                       'height': '1px',
                       'margin': '4px -4px',
                       'background-color': 'var(--muted)',

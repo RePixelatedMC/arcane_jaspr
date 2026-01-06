@@ -190,8 +190,8 @@ class ArcaneCloseButton extends StatelessComponent {
   }
 
   Component _buildCloseIcon() {
-    return dom.span(
-      styles: const dom.Styles(raw: {
+    return const dom.span(
+      styles: dom.Styles(raw: {
         'font-size': '1.25em',
         'line-height': '1',
       }),

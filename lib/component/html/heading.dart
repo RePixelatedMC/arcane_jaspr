@@ -323,9 +323,9 @@ class ArcaneHeading extends StatelessComponent {
     // Resolve content: children > child > text
     final List<Component> content;
     if (_children != null) {
-      content = _children!;
+      content = _children;
     } else if (_child != null) {
-      content = [_child!];
+      content = [_child];
     } else {
       content = [Component.text(text!)];
     }

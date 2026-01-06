@@ -15,8 +15,8 @@ class ShadcnCommand extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     if (!props.isOpen) {
-      return dom.div(
-        styles: const dom.Styles(raw: {'display': 'none'}),
+      return const dom.div(
+        styles: dom.Styles(raw: {'display': 'none'}),
         [],
       );
     }
@@ -85,8 +85,8 @@ class ShadcnCommand extends StatelessComponent {
               }),
               [
                 // ShadCN: Search icon
-                dom.span(
-                  styles: const dom.Styles(raw: {
+                const dom.span(
+                  styles: dom.Styles(raw: {
                     'color': 'var(--muted-foreground)',
                     'font-size': '1.125rem',
                   }),

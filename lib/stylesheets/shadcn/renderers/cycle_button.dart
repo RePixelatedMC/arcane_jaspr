@@ -134,9 +134,9 @@ class _ShadcnCycleButtonState<T> extends State<ShadcnCycleButton<T>> {
             [Component.text(currentOption.label!)],
           ),
         // Cycle indicator
-        span(
+        const span(
           classes: 'arcane-cycle-button-indicator',
-          styles: const Styles(raw: {
+          styles: Styles(raw: {
             'font-size': '0.75em',
             'opacity': '0.7',
             'display': 'inline-block',

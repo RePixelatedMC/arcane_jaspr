@@ -195,7 +195,7 @@ class ShadcnTagInput extends StatelessComponent {
             events: {
               'click': (_) => props.onRemoveTag?.call(index),
             },
-            [Component.text('\u00D7')],
+            [const Component.text('\u00D7')],
           ),
       ],
     );

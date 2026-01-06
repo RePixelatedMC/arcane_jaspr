@@ -64,7 +64,7 @@ class ShadcnRatingStars extends StatelessComponent {
         if (opacity < 1.0) 'opacity': opacity.toString(),
         'transition': 'color 150ms ease',
       }),
-      [Component.text('\u2605')], // Filled star character
+      [const Component.text('\u2605')], // Filled star character
     );
   }
 }

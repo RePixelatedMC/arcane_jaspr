@@ -40,7 +40,7 @@ class ShadcnTestimonialCard extends StatelessComponent {
                         ? 'hsl(38 92% 50%)'
                         : 'var(--muted-foreground)',
                   }),
-                  [Component.text('\u2605')],
+                  [const Component.text('\u2605')],
                 ),
             ],
           ),
@@ -58,8 +58,8 @@ class ShadcnTestimonialCard extends StatelessComponent {
           }),
           [
             if (props.showQuotes)
-              dom.span(
-                styles: const dom.Styles(raw: {
+              const dom.span(
+                styles: dom.Styles(raw: {
                   'position': 'absolute',
                   'top': '-8px',
                   'left': '-4px',
@@ -199,7 +199,7 @@ class ShadcnRatingStarsSimple extends StatelessComponent {
                     'click': (e) => props.onRatingChanged?.call(i + 1),
                   }
                 : null,
-            [Component.text('\u2605')],
+            [const Component.text('\u2605')],
           ),
       ],
     );

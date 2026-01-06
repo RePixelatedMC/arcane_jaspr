@@ -237,7 +237,7 @@ class ArcaneStructuredCard extends StatelessComponent {
       }),
       events: _onTap != null
           ? {
-              'click': (event) => _onTap!(),
+              'click': (event) => _onTap(),
             }
           : null,
       [
@@ -312,7 +312,7 @@ class ArcaneImageCard extends StatelessComponent {
       }),
       events: _onTap != null
           ? {
-              'click': (event) => _onTap!(),
+              'click': (event) => _onTap(),
             }
           : null,
       [

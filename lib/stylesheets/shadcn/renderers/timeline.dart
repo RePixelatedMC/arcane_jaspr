@@ -276,9 +276,9 @@ class ShadcnTimeline extends StatelessComponent {
         if (item.icon != null)
           item.icon!
         else if (item.status == TimelineStatus.complete)
-          dom.span([Component.text('\u2713')])
+          const dom.span([Component.text('\u2713')])
         else if (item.status == TimelineStatus.error)
-          dom.span([Component.text('\u2715')])
+          const dom.span([Component.text('\u2715')])
         else if (item.status == TimelineStatus.current)
           dom.div(
             styles: dom.Styles(raw: {
@@ -290,8 +290,8 @@ class ShadcnTimeline extends StatelessComponent {
             [],
           )
         else
-          dom.div(
-            styles: const dom.Styles(raw: {
+          const dom.div(
+            styles: dom.Styles(raw: {
               'width': '8px',
               'height': '8px',
               'border-radius': '9999px',

@@ -84,10 +84,10 @@ class _ShadcnTimeDialogState extends State<ShadcnTimeDialog> {
                 }),
                 [
                   Component.text(_hour.toString().padLeft(2, '0')),
-                  Component.text(':'),
+                  const Component.text(':'),
                   Component.text(_minute.toString().padLeft(2, '0')),
                   if (component.props.showSeconds) ...[
-                    Component.text(':'),
+                    const Component.text(':'),
                     Component.text(_second.toString().padLeft(2, '0')),
                   ],
                   if (!component.props.use24Hour)
@@ -142,8 +142,8 @@ class _ShadcnTimeDialogState extends State<ShadcnTimeDialog> {
                         'gap': '0.25rem',
                       }),
                       [
-                        dom.span(
-                          styles: const dom.Styles(raw: {
+                        const dom.span(
+                          styles: dom.Styles(raw: {
                             'font-size': '0.75rem',
                             'font-weight': '500',
                             'color': 'var(--muted-foreground)',
@@ -170,7 +170,7 @@ class _ShadcnTimeDialogState extends State<ShadcnTimeDialog> {
                               if (_isPM) setState(() => _isPM = false);
                             },
                           },
-                          [Component.text('AM')],
+                          [const Component.text('AM')],
                         ),
                         dom.button(
                           classes: 'arcane-time-dialog-option ${_isPM ? 'selected' : ''}',
@@ -189,7 +189,7 @@ class _ShadcnTimeDialogState extends State<ShadcnTimeDialog> {
                               if (!_isPM) setState(() => _isPM = true);
                             },
                           },
-                          [Component.text('PM')],
+                          [const Component.text('PM')],
                         ),
                       ],
                     ),

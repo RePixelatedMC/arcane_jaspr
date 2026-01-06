@@ -175,13 +175,13 @@ class _ArcaneWorldMapState extends State<ArcaneWorldMap> {
   }
 
   Component _buildDefs() {
-    return Component.element(
+    return const Component.element(
       tag: 'defs',
       children: [
         // Glow filter for pins
         Component.element(
           tag: 'filter',
-          attributes: const {
+          attributes: {
             'id': 'arcane-pin-glow',
             'x': '-50%',
             'y': '-50%',
@@ -191,24 +191,24 @@ class _ArcaneWorldMapState extends State<ArcaneWorldMap> {
           children: [
             Component.element(
               tag: 'feGaussianBlur',
-              attributes: const {
+              attributes: {
                 'stdDeviation': '3',
                 'result': 'coloredBlur',
               },
-              children: const [],
+              children: [],
             ),
             Component.element(
               tag: 'feMerge',
               children: [
                 Component.element(
                   tag: 'feMergeNode',
-                  attributes: const {'in': 'coloredBlur'},
-                  children: const [],
+                  attributes: {'in': 'coloredBlur'},
+                  children: [],
                 ),
                 Component.element(
                   tag: 'feMergeNode',
-                  attributes: const {'in': 'SourceGraphic'},
-                  children: const [],
+                  attributes: {'in': 'SourceGraphic'},
+                  children: [],
                 ),
               ],
             ),
