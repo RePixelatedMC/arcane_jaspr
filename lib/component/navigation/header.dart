@@ -2,7 +2,6 @@ import 'package:jaspr/jaspr.dart';
 
 import '../../core/theme_provider.dart';
 
-// Re-export for backwards compatibility
 export '../../core/props/header_props.dart' show NavItemProps, NavLinkProps;
 
 /// A navigation link item

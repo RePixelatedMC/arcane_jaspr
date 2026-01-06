@@ -1,7 +1,11 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight, StyleRule;
 
+import '../../core/props/section_props.dart';
+import '../../core/theme_provider.dart';
 import '../../util/arcane.dart';
+
+// Re-export props for usage
+export '../../core/props/section_props.dart';
 
 /// A section component for grouping related content with an optional header.
 class ArcaneSection extends StatelessComponent {
@@ -39,71 +43,15 @@ class ArcaneSection extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final EdgeInsets effectivePadding = padding ?? const EdgeInsets.all(16);
-
-    final Component? headerWidget = headerComponent ??
-        (header != null
-            ? div(
-                classes: 'arcane-section-header',
-                styles: Styles(raw: {
-                  'font-size': '0.875rem',
-                  'font-weight': '600',
-                  'color': 'var(--muted-foreground)',
-                  'text-transform': 'uppercase',
-                  'letter-spacing': '0.05em',
-                  'margin-bottom': '${gap}px',
-                }),
-                [text(header!)],
-              )
-            : null);
-
-    final Component? dividerWidget = showDivider && headerWidget != null
-        ? div(
-            classes: 'arcane-section-divider',
-            styles: Styles(raw: {
-              'height': '1px',
-              'background-color': 'var(--border)',
-              'margin-bottom': '${gap}px',
-            }),
-            [],
-          )
-        : null;
-
-    final Component content = div(
-        classes: 'arcane-section-content',
-        styles: Styles(raw: {
-          'display': 'flex',
-          'flex-direction': 'column',
-          'gap': '${gap}px',
-        }),
-        children);
-
-    final List<Component> sectionChildren = <Component>[
-      if (headerWidget != null) headerWidget,
-      if (dividerWidget != null) dividerWidget,
-      content,
-    ];
-
-    if (card) {
-      return div(
-        classes: 'arcane-section arcane-section-card',
-        styles: Styles(raw: {
-          'padding': effectivePadding.padding,
-          'background-color': 'var(--card)',
-          'border-radius': '0.5rem',
-          'border': '1px solid var(--border)',
-        }),
-        sectionChildren,
-      );
-    } else {
-      return div(
-        classes: 'arcane-section',
-        styles: Styles(raw: {
-          'padding': effectivePadding.padding,
-        }),
-        sectionChildren,
-      );
-    }
+    return context.renderers.section(SectionProps(
+      header: header,
+      headerComponent: headerComponent,
+      children: children,
+      showDivider: showDivider,
+      padding: (padding ?? const EdgeInsets.all(16)).padding,
+      gap: '${gap}px',
+      card: card,
+    ));
   }
 }
 

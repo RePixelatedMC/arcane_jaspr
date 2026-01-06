@@ -33,7 +33,7 @@ export 'tag_input_scripts.dart';
 export 'time_picker_scripts.dart';
 export 'toggle_switch_scripts.dart';
 
-/// Combined input scripts for backward compatibility.
+/// Combined input scripts.
 class InputScripts {
   InputScripts._();
 

@@ -1,21 +1,9 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart'
-    hide
-        Color,
-        Colors,
-        ColorScheme,
-        Gap,
-        Padding,
-        TextAlign,
-        TextOverflow,
-        Border,
-        BorderRadius,
-        BoxShadow,
-        FontWeight;
 
-import '../input/button.dart';
+import '../../core/theme_provider.dart';
 import '../input/time_picker.dart';
-import 'dialog.dart';
+
+export '../../core/props/time_dialog_props.dart';
 
 /// A time picker dialog.
 ///
@@ -27,7 +15,7 @@ import 'dialog.dart';
 ///   onCancel: () => closeDialog(),
 /// )
 /// ```
-class ArcaneTimeDialog extends StatefulComponent {
+class ArcaneTimeDialog extends StatelessComponent {
   /// Dialog title
   final String title;
 
@@ -73,302 +61,18 @@ class ArcaneTimeDialog extends StatefulComponent {
   });
 
   @override
-  State<ArcaneTimeDialog> createState() => _TimeDialogState();
-
-  @css
-  static final List<StyleRule> styles = [
-    css('.arcane-time-dialog-column::-webkit-scrollbar').styles(raw: {
-      'width': '4px',
-    }),
-    css('.arcane-time-dialog-column::-webkit-scrollbar-thumb').styles(raw: {
-      'background': 'var(--border)',
-      'border-radius': '9999px',
-    }),
-    css('.arcane-time-dialog-option:hover').styles(raw: {
-      'background': 'var(--muted)',
-    }),
-    css('.arcane-time-dialog-option.selected').styles(raw: {
-      'background': 'var(--accent)',
-      'color': 'var(--accent-foreground)',
-    }),
-  ];
-}
-
-class _TimeDialogState extends State<ArcaneTimeDialog> {
-  late int _hour;
-  late int _minute;
-  late int _second;
-  late bool _isPM;
-
-  @override
-  void initState() {
-    super.initState();
-    final initial = component.initialTime ?? TimeOfDay.now();
-    _hour = component.use24Hour ? initial.hour : initial.hourOfPeriod;
-    _minute = initial.minute;
-    _second = 0;
-    _isPM = initial.isPM;
-  }
-
-  void _handleConfirm() {
-    int hour24 = _hour;
-    if (!component.use24Hour) {
-      if (_isPM && _hour != 12) {
-        hour24 = _hour + 12;
-      } else if (!_isPM && _hour == 12) {
-        hour24 = 0;
-      }
-    }
-    component.onConfirm?.call(TimeOfDay(hour: hour24, minute: _minute));
-  }
-
-  @override
   Component build(BuildContext context) {
-    return ArcaneDialog(
-      title: component.title,
-      onClose: component.onCancel,
-      maxWidth: 400,
-      child: div(
-        classes: 'arcane-time-dialog-content',
-        styles: const Styles(raw: {
-          'display': 'flex',
-          'flex-direction': 'column',
-          'gap': '1.5rem',
-        }),
-        [
-          if (component.message != null)
-            div(
-              styles: const Styles(raw: {
-                'color': 'var(--muted-foreground)',
-                'font-size': '0.875rem',
-                'line-height': '1.625',
-              }),
-              [text(component.message!)],
-            ),
-
-          // Time display
-          div(
-            styles: const Styles(raw: {
-              'display': 'flex',
-              'justify-content': 'center',
-              'align-items': 'center',
-              'gap': '0.5rem',
-              'font-size': '1.875rem',
-              'font-weight': '700',
-              'font-variant-numeric': 'tabular-nums',
-              'color': 'var(--foreground)',
-            }),
-            [
-              text(_hour.toString().padLeft(2, '0')),
-              text(':'),
-              text(_minute.toString().padLeft(2, '0')),
-              if (component.showSeconds) ...[
-                text(':'),
-                text(_second.toString().padLeft(2, '0')),
-              ],
-              if (!component.use24Hour)
-                span(
-                  styles: const Styles(raw: {
-                    'font-size': '1.125rem',
-                    'margin-left': '0.5rem',
-                    'color': 'var(--muted-foreground)',
-                  }),
-                  [text(_isPM ? 'PM' : 'AM')],
-                ),
-            ],
-          ),
-
-          // Time selection columns
-          div(
-            styles: const Styles(raw: {
-              'display': 'flex',
-              'justify-content': 'center',
-              'gap': '1rem',
-            }),
-            [
-              // Hours column
-              _buildTimeColumn(
-                label: 'Hour',
-                values: component.use24Hour
-                    ? List.generate(24, (i) => i)
-                    : List.generate(12, (i) => i == 0 ? 12 : i),
-                selectedValue: _hour,
-                onSelect: (h) => setState(() => _hour = h),
-              ),
-
-              // Minutes column
-              _buildTimeColumn(
-                label: 'Minute',
-                values: List.generate(
-                  60 ~/ component.minuteInterval,
-                  (i) => i * component.minuteInterval,
-                ),
-                selectedValue: _minute,
-                onSelect: (m) => setState(() => _minute = m),
-                padZero: true,
-              ),
-
-              // Seconds column (if enabled)
-              if (component.showSeconds)
-                _buildTimeColumn(
-                  label: 'Second',
-                  values: List.generate(60, (i) => i),
-                  selectedValue: _second,
-                  onSelect: (s) => setState(() => _second = s),
-                  padZero: true,
-                ),
-
-              // AM/PM selector (12-hour mode only)
-              if (!component.use24Hour)
-                div(
-                  styles: const Styles(raw: {
-                    'display': 'flex',
-                    'flex-direction': 'column',
-                    'gap': '0.25rem',
-                  }),
-                  [
-                    span(
-                      styles: const Styles(raw: {
-                        'font-size': '0.75rem',
-                        'font-weight': '500',
-                        'color': 'var(--muted-foreground)',
-                        'text-transform': 'uppercase',
-                        'text-align': 'center',
-                        'margin-bottom': '0.25rem',
-                      }),
-                      [text('Period')],
-                    ),
-                    button(
-                      classes:
-                          'arcane-time-dialog-option ${!_isPM ? 'selected' : ''}',
-                      styles: Styles(raw: {
-                        'padding': '0.5rem 1rem',
-                        'border': 'none',
-                        'border-radius': '0.375rem',
-                        'background': !_isPM
-                            ? 'var(--accent)'
-                            : 'transparent',
-                        'color': !_isPM
-                            ? 'var(--accent-foreground)'
-                            : 'var(--foreground)',
-                        'cursor': 'pointer',
-                        'font-size': '0.875rem',
-                        'transition': 'all 150ms ease',
-                      }),
-                      events: {
-                        'click': (_) {
-                          if (_isPM) setState(() => _isPM = false);
-                        },
-                      },
-                      [text('AM')],
-                    ),
-                    button(
-                      classes:
-                          'arcane-time-dialog-option ${_isPM ? 'selected' : ''}',
-                      styles: Styles(raw: {
-                        'padding': '0.5rem 1rem',
-                        'border': 'none',
-                        'border-radius': '0.375rem',
-                        'background':
-                            _isPM ? 'var(--accent)' : 'transparent',
-                        'color': _isPM
-                            ? 'var(--accent-foreground)'
-                            : 'var(--foreground)',
-                        'cursor': 'pointer',
-                        'font-size': '0.875rem',
-                        'transition': 'all 150ms ease',
-                      }),
-                      events: {
-                        'click': (_) {
-                          if (!_isPM) setState(() => _isPM = true);
-                        },
-                      },
-                      [text('PM')],
-                    ),
-                  ],
-                ),
-            ],
-          ),
-        ],
-      ),
-      actions: [
-        ArcaneButton.outline(
-          label: component.cancelText,
-          onPressed: component.onCancel,
-        ),
-        ArcaneButton.primary(
-          label: component.confirmText,
-          onPressed: _handleConfirm,
-        ),
-      ],
-    );
-  }
-
-  Component _buildTimeColumn({
-    required String label,
-    required List<int> values,
-    required int selectedValue,
-    required void Function(int) onSelect,
-    bool padZero = false,
-  }) {
-    return div(
-      styles: const Styles(raw: {
-        'display': 'flex',
-        'flex-direction': 'column',
-        'gap': '0.25rem',
-      }),
-      [
-        span(
-          styles: const Styles(raw: {
-            'font-size': '0.75rem',
-            'font-weight': '500',
-            'color': 'var(--muted-foreground)',
-            'text-transform': 'uppercase',
-            'text-align': 'center',
-            'margin-bottom': '0.25rem',
-          }),
-          [text(label)],
-        ),
-        div(
-          classes: 'arcane-time-dialog-column',
-          styles: const Styles(raw: {
-            'max-height': '160px',
-            'overflow-y': 'auto',
-            'display': 'flex',
-            'flex-direction': 'column',
-            'gap': '2px',
-          }),
-          [
-            for (final value in values)
-              button(
-                classes:
-                    'arcane-time-dialog-option ${value == selectedValue ? 'selected' : ''}',
-                styles: Styles(raw: {
-                  'padding': '0.25rem 1rem',
-                  'border': 'none',
-                  'border-radius': '0.375rem',
-                  'background': value == selectedValue
-                      ? 'var(--accent)'
-                      : 'transparent',
-                  'color': value == selectedValue
-                      ? 'var(--accent-foreground)'
-                      : 'var(--foreground)',
-                  'cursor': 'pointer',
-                  'font-size': '0.875rem',
-                  'text-align': 'center',
-                  'min-width': '48px',
-                  'transition': 'all 150ms ease',
-                }),
-                events: {
-                  'click': (_) => onSelect(value),
-                },
-                [
-                  text(padZero ? value.toString().padLeft(2, '0') : '$value')
-                ],
-              ),
-          ],
-        ),
-      ],
-    );
+    return context.renderers.timeDialog(TimeDialogProps(
+      title: title,
+      message: message,
+      initialTime: initialTime,
+      confirmText: confirmText,
+      cancelText: cancelText,
+      onConfirm: onConfirm,
+      onCancel: onCancel,
+      use24Hour: use24Hour,
+      minuteInterval: minuteInterval,
+      showSeconds: showSeconds,
+    ));
   }
 }

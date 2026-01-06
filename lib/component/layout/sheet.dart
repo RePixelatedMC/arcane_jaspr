@@ -7,7 +7,6 @@ import 'sheet_types.dart';
 
 export 'sheet_types.dart';
 
-// Re-export props for backwards compatibility
 export '../../core/props/dialog_props.dart' show SheetSizeVariant, SheetProps;
 
 /// A modal sheet that slides in from screen edges matching shadcn/ui.

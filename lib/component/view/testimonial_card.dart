@@ -1,5 +1,10 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
+
+import '../../core/props/testimonial_card_props.dart';
+import '../../core/theme_provider.dart';
+
+// Re-export props for usage
+export '../../core/props/testimonial_card_props.dart';
 
 /// A testimonial/quote card component (Supabase-style)
 class ArcaneTestimonialCard extends StatelessComponent {
@@ -37,160 +42,15 @@ class ArcaneTestimonialCard extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return div(
-      classes: 'arcane-testimonial-card',
-      styles: const Styles(raw: {
-        'display': 'flex',
-        'flex-direction': 'column',
-        'padding': '2rem',
-        'background-color': 'var(--card)',
-        'border': '1px solid var(--border)',
-        'border-radius': '0.75rem',
-      }),
-      [
-        // Rating stars
-        if (rating != null)
-          div(
-            classes: 'arcane-testimonial-rating',
-            styles: const Styles(raw: {
-              'display': 'flex',
-              'gap': '2px',
-              'margin-bottom': '1.5rem',
-            }),
-            [
-              for (var i = 0; i < 5; i++)
-                span(
-                  styles: Styles(raw: {
-                    'font-size': '1rem',
-                    'color': i < rating!
-                        ? 'hsl(38 92% 50%)'
-                        : 'var(--muted-foreground)',
-                  }),
-                  [text('★')],
-                ),
-            ],
-          ),
-
-        // Quote
-        div(
-          classes: 'arcane-testimonial-quote',
-          styles: const Styles(raw: {
-            'position': 'relative',
-            'font-size': '1rem',
-            'line-height': '1.7',
-            'color': 'var(--foreground)',
-            'margin-bottom': '1.5rem',
-            'flex': '1',
-          }),
-          [
-            if (showQuotes)
-              span(
-                styles: const Styles(raw: {
-                  'position': 'absolute',
-                  'top': '-8px',
-                  'left': '-4px',
-                  'font-size': '2.5rem',
-                  'color': 'var(--accent)',
-                  'opacity': '0.3',
-                  'font-family': 'Georgia, serif',
-                  'line-height': '1',
-                }),
-                [text('"')],
-              ),
-            p(
-              styles: Styles(raw: {
-                'margin': '0',
-                if (showQuotes) 'padding-left': '1.5rem',
-              }),
-              [text(quote)],
-            ),
-          ],
-        ),
-
-        // Author
-        div(
-          classes: 'arcane-testimonial-author',
-          styles: const Styles(raw: {
-            'display': 'flex',
-            'align-items': 'center',
-            'gap': '1rem',
-          }),
-          [
-            // Avatar
-            if (avatarUrl != null)
-              div(
-                classes: 'arcane-testimonial-avatar',
-                styles: const Styles(raw: {
-                  'width': '44px',
-                  'height': '44px',
-                  'border-radius': '9999px',
-                  'overflow': 'hidden',
-                  'flex-shrink': '0',
-                }),
-                [
-                  img(
-                    src: avatarUrl!,
-                    alt: authorName,
-                    styles: const Styles(raw: {
-                      'width': '100%',
-                      'height': '100%',
-                      'object-fit': 'cover',
-                    }),
-                  ),
-                ],
-              )
-            else
-              div(
-                classes: 'arcane-testimonial-avatar-placeholder',
-                styles: const Styles(raw: {
-                  'width': '44px',
-                  'height': '44px',
-                  'border-radius': '9999px',
-                  'background-color': 'hsl(var(--accent) / 0.1)',
-                  'color': 'var(--accent)',
-                  'display': 'flex',
-                  'align-items': 'center',
-                  'justify-content': 'center',
-                  'font-weight': '600',
-                  'font-size': '1rem',
-                  'flex-shrink': '0',
-                }),
-                [text(authorName[0].toUpperCase())],
-              ),
-
-            // Author info
-            div(
-              classes: 'arcane-testimonial-author-info',
-              [
-                div(
-                  styles: const Styles(raw: {
-                    'font-weight': '600',
-                    'font-size': '1rem',
-                    'color': 'var(--foreground)',
-                  }),
-                  [text(authorName)],
-                ),
-                if (authorTitle != null || authorCompany != null)
-                  div(
-                    styles: const Styles(raw: {
-                      'font-size': '0.875rem',
-                      'color': 'var(--muted-foreground)',
-                      'margin-top': '2px',
-                    }),
-                    [
-                      text([
-                        if (authorTitle != null) authorTitle,
-                        if (authorTitle != null && authorCompany != null) ' at ',
-                        if (authorCompany != null) authorCompany,
-                      ].join()),
-                    ],
-                  ),
-              ],
-            ),
-          ],
-        ),
-      ],
-    );
+    return context.renderers.testimonialCard(TestimonialCardProps(
+      quote: quote,
+      authorName: authorName,
+      authorTitle: authorTitle,
+      authorCompany: authorCompany,
+      avatarUrl: avatarUrl,
+      rating: rating,
+      showQuotes: showQuotes,
+    ));
   }
 }
 
@@ -222,32 +82,12 @@ class ArcaneRatingStarsSimple extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return div(
-      classes: 'arcane-rating-stars',
-      styles: const Styles(raw: {
-        'display': 'inline-flex',
-        'gap': '2px',
-      }),
-      [
-        for (var i = 0; i < maxStars; i++)
-          span(
-            classes: 'arcane-star ${i < rating ? 'filled' : 'empty'}',
-            styles: Styles(raw: {
-              'font-size': '${size}px',
-              'color': i < rating
-                  ? 'hsl(38 92% 50%)'
-                  : 'var(--muted-foreground)',
-              if (interactive) 'cursor': 'pointer',
-              'transition': 'all 150ms ease',
-            }),
-            events: interactive
-                ? {
-                    'click': (e) => onRatingChanged?.call(i + 1),
-                  }
-                : null,
-            [text('★')],
-          ),
-      ],
-    );
+    return context.renderers.ratingStarsSimple(RatingStarsSimpleProps(
+      rating: rating,
+      maxStars: maxStars,
+      size: size,
+      interactive: interactive,
+      onRatingChanged: onRatingChanged,
+    ));
   }
 }

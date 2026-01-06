@@ -4,7 +4,6 @@ import '../../core/theme_provider.dart';
 import 'selector_types.dart';
 
 export 'selector_types.dart';
-// Re-export props enums for backwards compatibility
 export '../../core/props/select_props.dart'
     show SelectSize, SelectDropdownDirection, SelectOptionProps, SelectProps;
 

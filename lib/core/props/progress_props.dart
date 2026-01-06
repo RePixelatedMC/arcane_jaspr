@@ -82,3 +82,51 @@ class ProgressProps {
     );
   }
 }
+
+/// Properties for circular progress components.
+class CircularProgressProps {
+  /// Progress value (0.0 to 1.0)
+  final double value;
+
+  /// Size of the circle
+  final String? size;
+
+  /// Width of the stroke
+  final String? strokeWidth;
+
+  /// Fill color
+  final String? fillColor;
+
+  /// Track color
+  final String? trackColor;
+
+  /// Optional label
+  final String? label;
+
+  /// Whether to show percentage
+  final bool showPercentage;
+
+  const CircularProgressProps({
+    required this.value,
+    this.size,
+    this.strokeWidth,
+    this.fillColor,
+    this.trackColor,
+    this.label,
+    this.showPercentage = true,
+  });
+}
+
+/// Properties for loading spinner components.
+class LoadingSpinnerProps {
+  /// Size of the spinner
+  final String? size;
+
+  /// Color of the spinner
+  final String? color;
+
+  const LoadingSpinnerProps({
+    this.size,
+    this.color,
+  });
+}

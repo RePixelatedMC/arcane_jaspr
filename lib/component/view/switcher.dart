@@ -1,35 +1,11 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart'
-    hide
-        Color,
-        Colors,
-        ColorScheme,
-        Gap,
-        Padding,
-        TextAlign,
-        TextOverflow,
-        Border,
-        BorderRadius,
-        BoxShadow,
-        FontWeight;
+import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-/// Direction for switcher animation
-enum SwitcherDirection {
-  /// Slide up
-  up,
+import '../../core/props/switcher_props.dart';
+import '../../core/theme_provider.dart';
 
-  /// Slide down
-  down,
-
-  /// Slide left
-  left,
-
-  /// Slide right
-  right,
-
-  /// Fade in/out (no slide)
-  fade,
-}
+// Re-export props for usage
+export '../../core/props/switcher_props.dart';
 
 /// Animated content switcher that transitions between children.
 ///
@@ -98,58 +74,14 @@ class ArcaneSwitcher extends StatelessComponent {
     super.key,
   }) : direction = SwitcherDirection.fade;
 
-  String get _transformAxis => switch (direction) {
-        SwitcherDirection.up || SwitcherDirection.down => 'Y',
-        SwitcherDirection.left || SwitcherDirection.right => 'X',
-        SwitcherDirection.fade => '',
-      };
-
   @override
   Component build(BuildContext context) {
-    if (children.isEmpty) return const div([], styles: Styles(raw: {}));
-
-    final safeIndex = index.clamp(0, children.length - 1);
-
-    return div(
-      classes: 'arcane-switcher',
-      attributes: {
-        'data-switcher': 'true',
-        'data-index': '$safeIndex',
-        'data-direction': direction.name,
-      },
-      styles: const Styles(raw: {
-        'position': 'relative',
-        'overflow': 'hidden',
-        'width': '100%',
-      }),
-      [
-        // Render all children but only show current
-        for (var i = 0; i < children.length; i++)
-          div(
-            classes: 'arcane-switcher-item ${i == safeIndex ? 'active' : ''}',
-            styles: Styles(raw: {
-              'width': '100%',
-              if (i != safeIndex) ...{
-                'position': 'absolute',
-                'top': '0',
-                'left': '0',
-                'opacity': '0',
-                'pointer-events': 'none',
-                if (direction != SwitcherDirection.fade)
-                  'transform': i < safeIndex
-                      ? 'translate$_transformAxis(-100%)'
-                      : 'translate$_transformAxis(100%)',
-              } else ...{
-                'opacity': '1',
-                'transform': 'none',
-              },
-              'transition':
-                  'opacity ${duration}ms ease, transform ${duration}ms ease',
-            }),
-            [children[i]],
-          ),
-      ],
-    );
+    return context.renderers.switcher(SwitcherProps(
+      index: index,
+      children: children,
+      direction: direction,
+      duration: duration,
+    ));
   }
 }
 
@@ -198,15 +130,15 @@ class ArcaneKeyedSwitcher<T> extends StatelessComponent {
     final currentIndex = keys.indexOf(currentKey);
 
     if (currentIndex == -1) {
-      return fallback ?? const div([], styles: Styles(raw: {}));
+      return fallback ?? const div([]);
     }
 
-    return ArcaneSwitcher(
+    return context.renderers.switcher(SwitcherProps(
       index: currentIndex,
       direction: direction,
       duration: duration,
       children: children.values.toList(),
-    );
+    ));
   }
 }
 
@@ -243,29 +175,9 @@ class ArcaneIndexedStack extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    if (children.isEmpty) return const div([], styles: Styles(raw: {}));
-
-    final safeIndex = index.clamp(0, children.length - 1);
-
-    return div(
-      classes: 'arcane-indexed-stack',
-      styles: const Styles(raw: {
-        'position': 'relative',
-        'width': '100%',
-      }),
-      [
-        for (var i = 0; i < children.length; i++)
-          div(
-            classes: 'arcane-indexed-stack-item',
-            styles: Styles(raw: {
-              'width': '100%',
-              if (i != safeIndex) ...{
-                'display': 'none',
-              },
-            }),
-            [children[i]],
-          ),
-      ],
-    );
+    return context.renderers.indexedStack(IndexedStackProps(
+      index: index,
+      children: children,
+    ));
   }
 }

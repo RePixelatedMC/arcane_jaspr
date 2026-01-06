@@ -2,7 +2,6 @@ import 'package:jaspr/jaspr.dart';
 
 import '../../core/theme_provider.dart';
 
-// Re-export for backwards compatibility
 export '../../core/props/theme_toggle_props.dart' show ThemeToggleSize;
 
 /// A toggle switch for dark/light theme selection.

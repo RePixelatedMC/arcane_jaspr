@@ -4,7 +4,6 @@ import 'package:jaspr_lucide/jaspr_lucide.dart' hide Factory, Target, Key, List,
 
 import '../../core/theme_provider.dart';
 
-// Re-export for backwards compatibility
 export '../../core/props/tooltip_props.dart' show TooltipPosition;
 
 /// A tooltip component that shows on hover.

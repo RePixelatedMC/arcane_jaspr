@@ -1,23 +1,10 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-/// A link item for footer columns
-class FooterLink {
-  /// Display label
-  final String label;
+import '../../core/props/footer_props.dart';
 
-  /// Link href
-  final String href;
-
-  /// Optional icon before the label
-  final String? icon;
-
-  const FooterLink({
-    required this.label,
-    required this.href,
-    this.icon,
-  });
-}
+// Re-export FooterLink for convenience
+export '../../core/props/footer_props.dart' show FooterLink;
 
 /// A footer column with title and list of links.
 ///
@@ -86,7 +73,7 @@ class ArcaneFooterColumn extends StatelessComponent {
         ),
         // Links
         ...links.map((link) => a(
-              href: link.href,
+              href: link.href ?? '#',
               styles: Styles(raw: {
                 'display': 'block',
                 'font-size': '0.875rem',

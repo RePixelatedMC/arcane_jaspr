@@ -1,5 +1,8 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
+
+import '../../core/theme_provider.dart';
+
+export '../../core/props/field_wrapper_props.dart';
 
 /// A wrapper widget for form fields providing consistent styling and layout.
 ///
@@ -49,103 +52,17 @@ class ArcaneFieldWrapper extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final bool hasError = error != null && error!.isNotEmpty;
-
-    return div(
-      classes: 'arcane-field-wrapper',
-      styles: const Styles(raw: {
-        'display': 'flex',
-        'flex-direction': 'column',
-        'gap': '0.25rem',
-        'width': '100%',
-      }),
-      [
-        // Label row
-        if (labelText != null || icon != null || required)
-          div(
-            classes: 'arcane-field-label-row',
-            styles: const Styles(raw: {
-              'display': 'flex',
-              'align-items': 'center',
-              'gap': '0.5rem',
-            }),
-            [
-              if (leading != null) leading!,
-              if (icon != null)
-                span(
-                  styles: Styles(raw: {
-                    'color': hasError
-                        ? 'var(--destructive)'
-                        : 'var(--muted-foreground)',
-                    'font-size': '1rem',
-                  }),
-                  [Component.text(icon!)],
-                ),
-              if (labelText != null)
-                label(
-                  classes: 'arcane-field-label',
-                  styles: Styles(raw: {
-                    'font-size': '0.875rem',
-                    'font-weight': '500',
-                    'color': hasError
-                        ? 'var(--destructive)'
-                        : 'var(--foreground)',
-                  }),
-                  [
-                    Component.text(labelText!),
-                    if (required)
-                      const span(
-                        styles: Styles(raw: {
-                          'color': 'var(--destructive)',
-                          'margin-left': '0.25rem',
-                        }),
-                        [Component.text('*')],
-                      ),
-                  ],
-                ),
-              if (trailing != null) trailing!,
-            ],
-          ),
-
-        // Description
-        if (description != null)
-          div(
-            classes: 'arcane-field-description',
-            styles: const Styles(raw: {
-              'font-size': '0.75rem',
-              'color': 'var(--muted-foreground)',
-              'line-height': '1.625',
-            }),
-            [Component.text(description!)],
-          ),
-
-        // Field content
-        div(
-          classes: 'arcane-field-content',
-          styles: const Styles(raw: {
-            'width': '100%',
-          }),
-          [field],
-        ),
-
-        // Error message
-        if (hasError && showValidation)
-          div(
-            classes: 'arcane-field-error',
-            styles: const Styles(raw: {
-              'display': 'flex',
-              'align-items': 'center',
-              'gap': '0.25rem',
-              'font-size': '0.75rem',
-              'color': 'var(--destructive)',
-            }),
-            [
-              const span([Component.text('!')]),
-              Component.text(error!),
-            ],
-          ),
-      ],
-    );
+    return context.renderers.fieldWrapper(FieldWrapperProps(
+      field: field,
+      labelText: labelText,
+      description: description,
+      icon: icon,
+      error: error,
+      required: required,
+      showValidation: showValidation,
+      leading: leading,
+      trailing: trailing,
+    ));
   }
 }
 
@@ -173,50 +90,17 @@ class ArcaneFormSection extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return div(
-      classes: 'arcane-form-section',
-      styles: Styles(raw: {
-        'display': 'flex',
-        'flex-direction': 'column',
-        'gap': '${spacing}px',
-      }),
-      [
-        if (title != null || description != null)
-          div(
-            classes: 'arcane-form-section-header',
-            styles: const Styles(raw: {
-              'margin-bottom': '0.5rem',
-            }),
-            [
-              if (title != null)
-                div(
-                  styles: Styles(raw: {
-                    'font-size': '1rem',
-                    'font-weight': '600',
-                    'color': 'var(--foreground)',
-                    'margin-bottom': description != null ? '0.25rem' : '0',
-                  }),
-                  [Component.text(title!)],
-                ),
-              if (description != null)
-                div(
-                  styles: const Styles(raw: {
-                    'font-size': '0.875rem',
-                    'color': 'var(--muted-foreground)',
-                    'line-height': '1.625',
-                  }),
-                  [Component.text(description!)],
-                ),
-            ],
-          ),
-        ...children,
-      ],
-    );
+    return context.renderers.formSection(FormSectionProps(
+      title: title,
+      description: description,
+      children: children,
+      spacing: spacing,
+    ));
   }
 }
 
 /// A complete form component with built-in state management.
-class ArcaneForm extends StatefulComponent {
+class ArcaneForm extends StatelessComponent {
   /// Form fields.
   final List<Component> children;
 
@@ -250,91 +134,16 @@ class ArcaneForm extends StatefulComponent {
   });
 
   @override
-  State<ArcaneForm> createState() => _ArcaneFormState();
-
-  @css
-  static final List<StyleRule> styles = [
-    css('.arcane-form button[type="button"]:hover').styles(
-      raw: {
-        'background-color': 'var(--muted)',
-      },
-    ),
-    css('.arcane-form button[type="submit"]:hover').styles(
-      raw: {
-        'filter': 'brightness(1.1)',
-      },
-    ),
-  ];
-}
-
-class _ArcaneFormState extends State<ArcaneForm> {
-  @override
   Component build(BuildContext context) {
-    return form(
-      classes: 'arcane-form',
-      styles: Styles(raw: {
-        'display': 'flex',
-        'flex-direction': 'column',
-        'gap': '${component.spacing}px',
-      }),
-      events: {
-        'submit': (event) {
-          event.preventDefault();
-          component.onSubmit?.call();
-        },
-      },
-      [
-        ...component.children,
-        if (component.showActions)
-          div(
-            classes: 'arcane-form-actions',
-            styles: const Styles(raw: {
-              'display': 'flex',
-              'justify-content': 'flex-end',
-              'gap': '0.5rem',
-              'margin-top': '1.5rem',
-              'padding-top': '1.5rem',
-              'border-top': '1px solid var(--border)',
-            }),
-            [
-              if (component.onCancel != null)
-                button(
-                  attributes: {'type': 'button'},
-                  styles: const Styles(raw: {
-                    'padding': '10px 20px',
-                    'border': '1px solid var(--border)',
-                    'border-radius': '0.375rem',
-                    'background-color': 'transparent',
-                    'color': 'var(--foreground)',
-                    'font-size': '0.875rem',
-                    'font-weight': '500',
-                    'cursor': 'pointer',
-                    'transition': 'all 150ms ease',
-                  }),
-                  events: {
-                    'click': (_) => component.onCancel?.call(),
-                  },
-                  [Component.text(component.cancelText!)],
-                ),
-              button(
-                attributes: {'type': 'submit'},
-                styles: const Styles(raw: {
-                  'padding': '10px 20px',
-                  'border': 'none',
-                  'border-radius': '0.375rem',
-                  'background-color': 'var(--accent)',
-                  'color': 'var(--accent-foreground)',
-                  'font-size': '0.875rem',
-                  'font-weight': '500',
-                  'cursor': 'pointer',
-                  'transition': 'all 150ms ease',
-                }),
-                [Component.text(component.submitText!)],
-              ),
-            ],
-          ),
-      ],
-    );
+    return context.renderers.form(FormProps(
+      children: children,
+      submitText: submitText,
+      cancelText: cancelText,
+      onSubmit: onSubmit,
+      onCancel: onCancel,
+      showActions: showActions,
+      spacing: spacing,
+    ));
   }
 }
 
@@ -354,14 +163,9 @@ class ArcaneInputGroup extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return div(
-      classes: 'arcane-input-group',
-      styles: Styles(raw: {
-        'display': 'flex',
-        'align-items': 'flex-start',
-        'gap': '${gap}px',
-      }),
-      children,
-    );
+    return context.renderers.inputGroup(InputGroupProps(
+      children: children,
+      gap: gap,
+    ));
   }
 }

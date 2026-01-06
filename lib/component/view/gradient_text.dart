@@ -1,5 +1,10 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
+
+import '../../core/props/gradient_text_props.dart';
+import '../../core/theme_provider.dart';
+
+// Re-export props for usage
+export '../../core/props/gradient_text_props.dart';
 
 /// Text with gradient color
 ///
@@ -77,29 +82,15 @@ class ArcaneGradientText extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    // Use full gradient if provided, otherwise build from start/end
-    final String backgroundGradient;
-    if (gradient != null) {
-      backgroundGradient = gradient!;
-    } else {
-      final String start = gradientStart ?? 'hsl(142 76% 36%)';
-      final String end = gradientEnd ?? 'hsl(199 89% 48%)';
-      final String angle = gradientAngle ?? '135deg';
-      backgroundGradient = 'linear-gradient($angle, $start 0%, $end 100%)';
-    }
-
-    return span(
-      classes: 'arcane-gradient-text',
-      styles: Styles(raw: {
-        'font-size': fontSize,
-        'font-weight': fontWeight,
-        'background': backgroundGradient,
-        '-webkit-background-clip': 'text',
-        'background-clip': 'text',
-        'color': 'transparent',
-      }),
-      [Component.text(content)],
-    );
+    return context.renderers.gradientText(GradientTextProps(
+      content: content,
+      gradient: gradient,
+      gradientStart: gradientStart,
+      gradientEnd: gradientEnd,
+      gradientAngle: gradientAngle,
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+    ));
   }
 }
 
@@ -123,31 +114,12 @@ class ArcaneAnimatedGradientText extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return span(
-      classes: 'arcane-animated-gradient-text',
-      styles: Styles(raw: {
-        'font-size': fontSize,
-        'font-weight': fontWeight,
-        'background':
-            'linear-gradient(135deg, hsl(142 76% 36%) 0%, hsl(199 89% 48%) 25%, var(--accent) 50%, var(--destructive) 75%, hsl(142 76% 36%) 100%)',
-        'background-size': '200% 200%',
-        '-webkit-background-clip': 'text',
-        'background-clip': 'text',
-        'color': 'transparent',
-        'animation': 'arcane-gradient-shift 5s ease infinite',
-      }),
-      [Component.text(content)],
-    );
+    return context.renderers.animatedGradientText(AnimatedGradientTextProps(
+      content: content,
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+    ));
   }
-
-  @css
-  static final List<StyleRule> styles = [
-    css('@keyframes arcane-gradient-shift').styles(raw: {
-      '0%': 'background-position: 0% 50%',
-      '50%': 'background-position: 100% 50%',
-      '100%': 'background-position: 0% 50%',
-    }),
-  ];
 }
 
 /// Glow text effect
@@ -178,18 +150,13 @@ class ArcaneGlowText extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final String color = glowColor ?? 'var(--accent)';
-
-    return span(
-      classes: 'arcane-glow-text',
-      styles: Styles(raw: {
-        'font-size': fontSize,
-        'font-weight': fontWeight,
-        'color': color,
-        'text-shadow': '0 0 ${10 * intensity}px $color, 0 0 ${20 * intensity}px $color, 0 0 ${40 * intensity}px ${color}60',
-      }),
-      [Component.text(content)],
-    );
+    return context.renderers.glowText(GlowTextProps(
+      content: content,
+      glowColor: glowColor,
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+      intensity: intensity,
+    ));
   }
 }
 
@@ -225,18 +192,13 @@ class ArcaneOutlineText extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final String stroke = strokeColor ?? 'var(--accent)';
-    final String fill = fillColor ?? 'transparent';
-
-    return span(
-      classes: 'arcane-outline-text',
-      styles: Styles(raw: {
-        'font-size': fontSize,
-        'font-weight': fontWeight,
-        '-webkit-text-stroke': '${strokeWidth}px $stroke',
-        'color': fill,
-      }),
-      [Component.text(content)],
-    );
+    return context.renderers.outlineText(OutlineTextProps(
+      content: content,
+      strokeColor: strokeColor,
+      fillColor: fillColor,
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+      strokeWidth: strokeWidth,
+    ));
   }
 }

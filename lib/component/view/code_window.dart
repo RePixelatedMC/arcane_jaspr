@@ -1,17 +1,10 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-/// Style variants for the code window
-enum CodeWindowStyle {
-  /// Dark background (default)
-  dark,
+import '../../core/props/code_window_props.dart';
+import '../../core/theme_provider.dart';
 
-  /// Light background
-  light,
-
-  /// Terminal/console style with green text
-  terminal,
-}
+// Re-export enums for usage
+export '../../core/props/code_window_props.dart' show CodeWindowStyle;
 
 /// A code display window with macOS-style window chrome.
 ///
@@ -74,111 +67,15 @@ class ArcaneCodeWindow extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final effectiveHeaderBg = headerBackground ?? _getHeaderBackground();
-    final effectiveBodyBg = bodyBackground ?? _getBodyBackground();
-    final effectiveCodeColor = codeColor ?? _getCodeColor();
-
-    return div(
-      styles: Styles(raw: {
-        'background': effectiveBodyBg,
-        'border': '1px solid var(--border)',
-        'border-radius': '0.5rem',
-        'overflow': 'hidden',
-      }),
-      [
-        // Window header
-        div(
-          styles: Styles(raw: {
-            'display': 'flex',
-            'align-items': 'center',
-            'gap': '0.5rem',
-            'padding': '0.5rem 1rem',
-            'background': effectiveHeaderBg,
-            'border-bottom': '1px solid var(--border)',
-          }),
-          [
-            // Traffic light buttons
-            if (showButtons) ...[
-              _buildDot('#FF5F57'), // Red
-              _buildDot('#FFBD2E'), // Yellow
-              _buildDot('#28C840'), // Green
-            ],
-            // Title (centered or after buttons)
-            if (title != null)
-              div(
-                styles: Styles(raw: {
-                  'flex': '1',
-                  'text-align': showButtons ? 'center' : 'left',
-                  'font-size': '0.75rem',
-                  'color': 'var(--muted-foreground)',
-                  'font-family': 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
-                }),
-                [text(title!)],
-              ),
-          ],
-        ),
-        // Code content
-        pre(
-          styles: Styles(raw: {
-            'margin': '0',
-            'padding': '1rem',
-            'font-family': 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
-            'font-size': '0.875rem',
-            'line-height': '1.6',
-            'color': effectiveCodeColor,
-            'overflow-x': 'auto',
-          }),
-          [
-            Component.element(tag: 'code', children: [Component.text(code)]),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Component _buildDot(String color) {
-    return div(
-      styles: Styles(raw: {
-        'width': '12px',
-        'height': '12px',
-        'border-radius': '50%',
-        'background': color,
-      }),
-      [],
-    );
-  }
-
-  String _getHeaderBackground() {
-    switch (style) {
-      case CodeWindowStyle.dark:
-        return 'var(--muted)';
-      case CodeWindowStyle.light:
-        return '#f5f5f5';
-      case CodeWindowStyle.terminal:
-        return '#1a1a1a';
-    }
-  }
-
-  String _getBodyBackground() {
-    switch (style) {
-      case CodeWindowStyle.dark:
-        return 'var(--card)';
-      case CodeWindowStyle.light:
-        return '#ffffff';
-      case CodeWindowStyle.terminal:
-        return '#0d0d0d';
-    }
-  }
-
-  String _getCodeColor() {
-    switch (style) {
-      case CodeWindowStyle.dark:
-        return 'var(--foreground)';
-      case CodeWindowStyle.light:
-        return '#1a1a1a';
-      case CodeWindowStyle.terminal:
-        return '#00ff00';
-    }
+    return context.renderers.codeWindow(CodeWindowProps(
+      code: code,
+      title: title,
+      style: style,
+      showButtons: showButtons,
+      codeColor: codeColor,
+      headerBackground: headerBackground,
+      bodyBackground: bodyBackground,
+    ));
   }
 }
 
@@ -211,39 +108,10 @@ class ArcaneCodePreview extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return div(
-      styles: const Styles(raw: {
-        'background': 'var(--muted)',
-        'border': '1px solid var(--border)',
-        'border-radius': '0.375rem',
-        'overflow': 'hidden',
-      }),
-      [
-        if (language != null)
-          div(
-            styles: const Styles(raw: {
-              'padding': '0.25rem 0.5rem',
-              'background': 'var(--card)',
-              'border-bottom': '1px solid var(--border)',
-              'font-size': '0.75rem',
-              'color': 'var(--muted-foreground)',
-              'text-transform': 'uppercase',
-            }),
-            [text(language!)],
-          ),
-        pre(
-          styles: Styles(raw: {
-            'margin': '0',
-            'padding': '0.5rem',
-            if (mono) 'font-family': 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
-            'font-size': '0.875rem',
-            'line-height': '1.5',
-            'color': 'var(--foreground)',
-            'overflow-x': 'auto',
-          }),
-          [Component.element(tag: 'code', children: [Component.text(code)])],
-        ),
-      ],
-    );
+    return context.renderers.codePreview(CodePreviewProps(
+      code: code,
+      language: language,
+      mono: mono,
+    ));
   }
 }

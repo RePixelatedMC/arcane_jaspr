@@ -3,7 +3,6 @@ import 'package:jaspr/jaspr.dart';
 import '../../core/props/button_props.dart';
 import '../../core/theme_provider.dart';
 
-// Re-export for backwards compatibility
 export '../../core/props/button_props.dart' show ButtonVariant, ButtonSize;
 
 /// A styled button component.

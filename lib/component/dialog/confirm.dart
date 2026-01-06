@@ -1,8 +1,8 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight, StyleRule;
 
-import '../input/button.dart';
-import 'dialog.dart';
+import '../../core/theme_provider.dart';
+
+export '../../core/props/confirm_dialog_props.dart';
 
 /// A confirmation dialog component.
 class ArcaneConfirmDialog extends StatelessComponent {
@@ -44,54 +44,16 @@ class ArcaneConfirmDialog extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return ArcaneDialog(
+    return context.renderers.confirmDialog(ConfirmDialogProps(
       title: title,
-      onClose: onCancel,
-      maxWidth: 400,
-      child: div(
-        classes: 'arcane-confirm-dialog-content',
-        styles: const Styles(raw: {
-          'display': 'flex',
-          'flex-direction': 'column',
-          'align-items': 'center',
-          'text-align': 'center',
-          'gap': '1rem',
-        }),
-        [
-          if (icon != null)
-            div(
-              styles: Styles(raw: {
-                'font-size': '3rem',
-                'color': destructive ? 'var(--destructive)' : 'var(--accent)',
-              }),
-              [icon!],
-            ),
-          div(
-            styles: const Styles(raw: {
-              'color': 'var(--foreground)',
-              'font-size': '0.875rem',
-              'line-height': '1.625',
-            }),
-            [text(message)],
-          ),
-        ],
-      ),
-      actions: [
-        ArcaneButton.outline(
-          label: cancelText,
-          onPressed: onCancel,
-        ),
-        destructive
-            ? ArcaneButton.destructive(
-                label: confirmText,
-                onPressed: onConfirm,
-              )
-            : ArcaneButton.primary(
-                label: confirmText,
-                onPressed: onConfirm,
-              ),
-      ],
-    );
+      message: message,
+      confirmText: confirmText,
+      cancelText: cancelText,
+      onConfirm: onConfirm,
+      onCancel: onCancel,
+      destructive: destructive,
+      icon: icon,
+    ));
   }
 }
 
@@ -114,43 +76,12 @@ class ArcaneAlertDialog extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return ArcaneDialog(
+    return context.renderers.alertDialog(AlertDialogProps(
       title: title,
-      onClose: onDismiss,
-      maxWidth: 400,
-      child: div(
-        styles: const Styles(raw: {
-          'display': 'flex',
-          'flex-direction': 'column',
-          'align-items': 'center',
-          'text-align': 'center',
-          'gap': '1rem',
-        }),
-        [
-          if (icon != null)
-            div(
-              styles: const Styles(raw: {
-                'font-size': '3rem',
-                'color': 'var(--accent)',
-              }),
-              [icon!],
-            ),
-          div(
-            styles: const Styles(raw: {
-              'color': 'var(--foreground)',
-              'font-size': '0.875rem',
-              'line-height': '1.625',
-            }),
-            [text(message)],
-          ),
-        ],
-      ),
-      actions: [
-        ArcaneButton.primary(
-          label: buttonText,
-          onPressed: onDismiss,
-        ),
-      ],
-    );
+      message: message,
+      buttonText: buttonText,
+      onDismiss: onDismiss,
+      icon: icon,
+    ));
   }
 }

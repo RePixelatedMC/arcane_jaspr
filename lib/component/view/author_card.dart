@@ -1,17 +1,10 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-/// Size variants for author card
-enum AuthorCardSize {
-  /// Small: 32px avatar
-  sm,
+import '../../core/props/author_card_props.dart';
+import '../../core/theme_provider.dart';
 
-  /// Medium: 40px avatar (default)
-  md,
-
-  /// Large: 48px avatar
-  lg,
-}
+// Re-export props for usage
+export '../../core/props/author_card_props.dart';
 
 /// An author attribution card with avatar, name, and role.
 ///
@@ -87,126 +80,15 @@ class ArcaneAuthorCard extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final avatarSize = _getAvatarSize();
-    final nameFontSize = _getNameFontSize();
-    final roleFontSize = _getRoleFontSize();
-    final effectiveNameColor = nameColor ?? 'var(--foreground)';
-    final effectiveRoleColor = roleColor ?? 'var(--muted-foreground)';
-    final effectiveInitials = initials ?? (name.isNotEmpty ? name[0].toUpperCase() : '?');
-    final effectiveAvatarBg = avatarBackground ?? 'var(--accent)';
-
-    return div(
-      styles: const Styles(raw: {
-        'display': 'flex',
-        'align-items': 'center',
-        'gap': '1rem',
-      }),
-      [
-        // Avatar
-        div(
-          styles: Styles(raw: {
-            'width': avatarSize,
-            'height': avatarSize,
-            'border-radius': '50%',
-            'overflow': 'hidden',
-            'flex-shrink': '0',
-            if (avatarUrl == null) 'background': effectiveAvatarBg,
-            if (avatarUrl == null) 'display': 'flex',
-            if (avatarUrl == null) 'align-items': 'center',
-            if (avatarUrl == null) 'justify-content': 'center',
-          }),
-          [
-            if (avatarUrl != null)
-              img(
-                src: avatarUrl!,
-                alt: name,
-                styles: const Styles(raw: {
-                  'width': '100%',
-                  'height': '100%',
-                  'object-fit': 'cover',
-                }),
-              )
-            else
-              span(
-                styles: Styles(raw: {
-                  'font-size': _getInitialsFontSize(),
-                  'font-weight': '600',
-                  'color': 'var(--accent-foreground)',
-                }),
-                [text(effectiveInitials)],
-              ),
-          ],
-        ),
-        // Name and role
-        div(
-          styles: const Styles(raw: {
-            'display': 'flex',
-            'flex-direction': 'column',
-          }),
-          [
-            div(
-              styles: Styles(raw: {
-                'font-size': nameFontSize,
-                'font-weight': '600',
-                'color': effectiveNameColor,
-              }),
-              [text(name)],
-            ),
-            if (role != null)
-              div(
-                styles: Styles(raw: {
-                  'font-size': roleFontSize,
-                  'color': effectiveRoleColor,
-                }),
-                [text(role!)],
-              ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  String _getAvatarSize() {
-    switch (size) {
-      case AuthorCardSize.sm:
-        return '32px';
-      case AuthorCardSize.md:
-        return '40px';
-      case AuthorCardSize.lg:
-        return '48px';
-    }
-  }
-
-  String _getNameFontSize() {
-    switch (size) {
-      case AuthorCardSize.sm:
-        return '0.75rem';
-      case AuthorCardSize.md:
-        return '0.875rem';
-      case AuthorCardSize.lg:
-        return '1rem';
-    }
-  }
-
-  String _getRoleFontSize() {
-    switch (size) {
-      case AuthorCardSize.sm:
-        return '0.75rem';
-      case AuthorCardSize.md:
-        return '0.75rem';
-      case AuthorCardSize.lg:
-        return '0.875rem';
-    }
-  }
-
-  String _getInitialsFontSize() {
-    switch (size) {
-      case AuthorCardSize.sm:
-        return '0.75rem';
-      case AuthorCardSize.md:
-        return '0.875rem';
-      case AuthorCardSize.lg:
-        return '1rem';
-    }
+    return context.renderers.authorCard(AuthorCardProps(
+      avatarUrl: avatarUrl,
+      name: name,
+      role: role,
+      size: size,
+      initials: initials,
+      avatarBackground: avatarBackground,
+      nameColor: nameColor,
+      roleColor: roleColor,
+    ));
   }
 }

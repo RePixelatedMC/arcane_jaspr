@@ -1,7 +1,11 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-/// Tree node data
+import '../../core/theme_provider.dart';
+
+// Re-export props for usage
+export '../../core/props/tree_view_props.dart';
+
+/// Tree node data (convenience class for the component wrapper)
 class TreeNode {
   /// Unique identifier
   final String id;
@@ -31,30 +35,16 @@ class TreeNode {
   });
 
   bool get hasChildren => children.isNotEmpty;
-}
 
-/// Tree view style variants
-enum TreeViewStyle {
-  /// Default tree style with lines
-  lines,
-
-  /// Clean style without lines
-  clean,
-
-  /// Compact style
-  compact,
-}
-
-/// Tree view selection mode
-enum TreeSelectionMode {
-  /// No selection
-  none,
-
-  /// Single node selection
-  single,
-
-  /// Multiple node selection
-  multiple,
+  /// Convert to TreeNodeData for the renderer
+  TreeNodeData toData() => TreeNodeData(
+        id: id,
+        label: label,
+        icon: icon,
+        children: children.map((c) => c.toData()).toList(),
+        disabled: disabled,
+        data: data,
+      );
 }
 
 /// Hierarchical tree view component
@@ -67,16 +57,16 @@ enum TreeSelectionMode {
 ///     TreeNode(
 ///       id: 'src',
 ///       label: 'src',
-///       icon: Text('📁'),
+///       icon: Text('folder'),
 ///       children: [
-///         TreeNode(id: 'main', label: 'main.dart', icon: Text('📄')),
+///         TreeNode(id: 'main', label: 'main.dart', icon: Text('file')),
 ///       ],
 ///     ),
 ///   ],
-///   onNodeSelect: (node) => print('Selected: ${node.label}'),
+///   onNodeSelect: (node) => print('Selected: \${node.label}'),
 /// )
 /// ```
-class ArcaneTreeView extends StatefulComponent {
+class ArcaneTreeView extends StatelessComponent {
   /// Tree nodes
   final List<TreeNode> nodes;
 
@@ -114,176 +104,36 @@ class ArcaneTreeView extends StatefulComponent {
   });
 
   @override
-  State<ArcaneTreeView> createState() => _ArcaneTreeViewState();
-}
-
-class _ArcaneTreeViewState extends State<ArcaneTreeView> {
-  late Set<String> _expandedNodes;
-  late Set<String> _selectedNodes;
-
-  @override
-  void initState() {
-    super.initState();
-    _expandedNodes = {...component.initiallyExpanded};
-    _selectedNodes = {...component.selectedNodes};
-
-    if (component.expandAll) {
-      _expandAllNodes(component.nodes);
-    }
-  }
-
-  void _expandAllNodes(List<TreeNode> nodes) {
-    for (final node in nodes) {
-      if (node.hasChildren) {
-        _expandedNodes.add(node.id);
-        _expandAllNodes(node.children);
-      }
-    }
-  }
-
-  void _toggleExpand(TreeNode node) {
-    setState(() {
-      if (_expandedNodes.contains(node.id)) {
-        _expandedNodes.remove(node.id);
-      } else {
-        _expandedNodes.add(node.id);
-      }
-    });
-    component.onNodeToggle?.call(node, _expandedNodes.contains(node.id));
-  }
-
-  void _selectNode(TreeNode node) {
-    if (node.disabled) return;
-
-    setState(() {
-      if (component.selectionMode == TreeSelectionMode.single) {
-        _selectedNodes = {node.id};
-      } else if (component.selectionMode == TreeSelectionMode.multiple) {
-        if (_selectedNodes.contains(node.id)) {
-          _selectedNodes.remove(node.id);
-        } else {
-          _selectedNodes.add(node.id);
-        }
-      }
-    });
-    component.onNodeSelect?.call(node);
-  }
-
-  @override
   Component build(BuildContext context) {
-    return div(
-      attributes: {'role': 'tree'},
-      styles: const Styles(raw: {
-        'font-size': '0.875rem',
-      }),
-      [
-        for (final node in component.nodes)
-          _buildNode(node, 0),
-      ],
-    );
-  }
+    // Build a lookup map for TreeNode by id for callback mapping
+    final nodeMap = <String, TreeNode>{};
+    void buildMap(List<TreeNode> nodeList) {
+      for (final n in nodeList) {
+        nodeMap[n.id] = n;
+        if (n.hasChildren) buildMap(n.children);
+      }
+    }
+    buildMap(nodes);
 
-  Component _buildNode(TreeNode node, int level) {
-    final isExpanded = _expandedNodes.contains(node.id);
-    final isSelected = _selectedNodes.contains(node.id);
-    final indent = 20 * level;
-
-    final showLines = component.style == TreeViewStyle.lines;
-    final isCompact = component.style == TreeViewStyle.compact;
-
-    return div(
-      styles: const Styles(raw: {}),
-      [
-        // Node row
-        div(
-          attributes: {
-            'role': 'treeitem',
-            if (node.hasChildren) 'aria-expanded': isExpanded ? 'true' : 'false',
-            'aria-selected': isSelected ? 'true' : 'false',
-          },
-          styles: Styles(raw: {
-            'display': 'flex',
-            'align-items': 'center',
-            'padding': isCompact ? '4px 8px' : '6px 12px',
-            'padding-left': '${indent + 12}px',
-            'cursor': node.disabled ? 'not-allowed' : 'pointer',
-            'opacity': node.disabled ? '0.5' : '1',
-            'background': isSelected ? 'var(--muted)' : 'transparent',
-            'border-radius': '0.25rem',
-            'transition': 'all 150ms ease',
-            'user-select': 'none',
-          }),
-          events: {
-            'click': (_) {
-              if (node.hasChildren) {
-                _toggleExpand(node);
-              }
-              _selectNode(node);
-            },
-          },
-          [
-            // Expand/collapse icon
-            if (node.hasChildren)
-              span(
-                styles: Styles(raw: {
-                  'display': 'inline-flex',
-                  'align-items': 'center',
-                  'justify-content': 'center',
-                  'width': '16px',
-                  'height': '16px',
-                  'margin-right': '0.25rem',
-                  'font-size': '10px',
-                  'color': 'var(--muted-foreground)',
-                  'transform': isExpanded ? 'rotate(90deg)' : 'rotate(0deg)',
-                  'transition': 'transform 0.2s ease',
-                }),
-                [text('▶')],
-              )
-            else if (showLines)
-              const span(
-                styles: Styles(raw: {
-                  'width': '16px',
-                  'margin-right': '0.25rem',
-                }),
-                [],
-              ),
-
-            // Node icon
-            if (node.icon != null)
-              span(
-                styles: const Styles(raw: {
-                  'margin-right': '0.25rem',
-                  'display': 'inline-flex',
-                  'align-items': 'center',
-                }),
-                [node.icon!],
-              ),
-
-            // Node label
-            span(
-              styles: Styles(raw: {
-                'color': isSelected ? 'var(--accent)' : 'var(--foreground)',
-                'font-weight': isSelected ? '500' : '400',
-              }),
-              [text(node.label)],
-            ),
-          ],
-        ),
-
-        // Children
-        if (node.hasChildren && isExpanded)
-          div(
-            attributes: {'role': 'group'},
-            styles: Styles(raw: {
-              if (showLines) 'border-left': '1px solid var(--border)',
-              if (showLines) 'margin-left': '${indent + 20}px',
-            }),
-            [
-              for (final child in node.children)
-                _buildNode(child, showLines ? 0 : level + 1),
-            ],
-          ),
-      ],
-    );
+    return context.renderers.treeView(TreeViewProps(
+      nodes: nodes.map((n) => n.toData()).toList(),
+      onNodeSelect: onNodeSelect != null
+          ? (nodeData) {
+              final original = nodeMap[nodeData.id];
+              if (original != null) onNodeSelect!(original);
+            }
+          : null,
+      onNodeToggle: onNodeToggle != null
+          ? (nodeData, expanded) {
+              final original = nodeMap[nodeData.id];
+              if (original != null) onNodeToggle!(original, expanded);
+            }
+          : null,
+      style: style,
+      selectionMode: selectionMode,
+      initiallyExpanded: initiallyExpanded,
+      selectedNodes: selectedNodes,
+      expandAll: expandAll,
+    ));
   }
 }

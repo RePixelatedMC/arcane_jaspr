@@ -213,8 +213,3 @@ class _ArcaneCodeBlockTerminal extends ArcaneCodeBlock {
   }) : super(style: CodeBlockStyle.terminal);
 }
 
-// Legacy aliases for backwards compatibility
-// ignore: unused_element
-typedef ArcanePre = ArcaneCodeBlock;
-// ignore: unused_element
-typedef PreStyle = CodeBlockStyle;

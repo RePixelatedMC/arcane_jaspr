@@ -80,5 +80,3 @@ class ArcaneQuote extends StatelessComponent {
   }
 }
 
-// Legacy alias for backwards compatibility
-typedef ArcaneBlockquote = ArcaneQuote;

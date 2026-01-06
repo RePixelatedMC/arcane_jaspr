@@ -3,7 +3,6 @@ import 'package:jaspr/jaspr.dart';
 import '../../core/theme_provider.dart';
 import 'calendar.dart';
 
-// Re-export props for backwards compatibility
 export '../../core/props/date_picker_props.dart'
     show DatePickerSizeVariant, DatePickerProps;
 

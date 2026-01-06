@@ -1,7 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
-// Re-export for backwards compatibility
 export '../../core/props/checkbox_props.dart' show CheckboxSize, CheckboxVariant;
 
 import '../../core/props/checkbox_props.dart';

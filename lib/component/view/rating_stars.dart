@@ -1,5 +1,10 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
+
+import '../../core/props/rating_stars_props.dart';
+import '../../core/theme_provider.dart';
+
+// Re-export props for usage
+export '../../core/props/rating_stars_props.dart';
 
 /// Star rating display component
 class ArcaneRatingStars extends StatelessComponent {
@@ -33,51 +38,13 @@ class ArcaneRatingStars extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final String effectiveFilledColor = filledColor ?? 'hsl(38 92% 50%)';
-    final String effectiveEmptyColor = emptyColor ?? 'var(--muted)';
-
-    return div(
-      classes: 'arcane-rating-stars',
-      styles: const Styles(raw: {
-        'display': 'flex',
-        'align-items': 'center',
-        'gap': '0.25rem',
-      }),
-      [
-        for (var i = 0; i < totalStars; i++) _buildStar(i, effectiveFilledColor, effectiveEmptyColor),
-        if (showValue)
-          span(
-            styles: const Styles(raw: {
-              'margin-left': '0.5rem',
-              'color': 'var(--foreground)',
-              'font-weight': '600',
-              'font-size': '0.875rem',
-            }),
-            [text(rating.toStringAsFixed(1))],
-          ),
-      ],
-    );
-  }
-
-  Component _buildStar(int index, String filledColor, String emptyColor) {
-    final double fill = rating - index;
-    String color;
-    if (fill >= 1) {
-      color = filledColor;
-    } else if (fill > 0) {
-      // Partial fill - use gradient
-      color = filledColor;
-    } else {
-      color = emptyColor;
-    }
-
-    return span(
-      styles: Styles(raw: {
-        'font-size': size,
-        'color': color,
-        'line-height': '1',
-      }),
-      [text('★')],
-    );
+    return context.renderers.ratingStars(RatingStarsProps(
+      rating: rating,
+      totalStars: totalStars,
+      size: size,
+      filledColor: filledColor,
+      emptyColor: emptyColor,
+      showValue: showValue,
+    ));
   }
 }

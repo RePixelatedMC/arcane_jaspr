@@ -210,7 +210,7 @@ export 'component/layout/scroll_area.dart';
 export 'component/layout/aspect_ratio.dart';
 export 'component/layout/resizable.dart';
 export 'component/layout/section_header.dart';
-export 'component/layout/footer_column.dart';
+export 'component/layout/footer_column.dart' hide FooterLink;
 export 'component/layout/feature_showcase.dart';
 
 // ============================================================================
@@ -281,7 +281,6 @@ export 'component/view/callout.dart';
 export 'component/view/kbd.dart';
 export 'component/view/meter.dart';
 export 'component/view/alert.dart';
-export 'component/view/tabs.dart' hide ArcaneTabs;
 export 'component/view/tree_view.dart';
 export 'component/view/popover.dart';
 export 'component/view/hovercard.dart';
@@ -351,7 +350,7 @@ export 'component/form/newsletter_form.dart';
 // ============================================================================
 // Feedback components
 // ============================================================================
-export 'component/feedback/alert_banner.dart' hide ArcaneProgressBar, ArcaneLoader, AlertVariant;
+export 'component/feedback/alert_banner.dart' hide ArcaneProgressBar, ArcaneLoader;
 export 'component/feedback/tooltip.dart';
 export 'component/feedback/loader.dart';
 export 'component/feedback/status_badge.dart' hide StatusType;

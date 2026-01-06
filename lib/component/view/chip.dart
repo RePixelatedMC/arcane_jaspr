@@ -3,7 +3,6 @@ import 'package:jaspr/dom.dart' as dom;
 
 import '../../core/theme_provider.dart';
 
-// Re-export for backwards compatibility
 export '../../core/props/chip_props.dart' show ChipSize, ChipVariant;
 
 /// Chip/tag component for labels and filters

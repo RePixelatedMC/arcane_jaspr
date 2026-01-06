@@ -1,7 +1,11 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight, StyleRule;
+import 'package:jaspr/dom.dart' as dom;
 
+import '../../core/theme_provider.dart';
 import '../../util/arcane.dart';
+
+// Re-export props for usage
+export '../../core/props/static_table_props.dart';
 
 /// A static table component for displaying simple tabular data.
 class ArcaneStaticTable extends StatelessComponent {
@@ -39,83 +43,15 @@ class ArcaneStaticTable extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return div(
-      classes: 'arcane-static-table-container',
-      styles: const Styles(raw: {
-        'overflow-x': 'auto',
-        'border': '1px solid var(--border)',
-        'border-radius': '0.5rem',
-      }),
-      [
-        table(
-          classes: 'arcane-static-table',
-          styles: const Styles(raw: {
-            'width': '100%',
-            'border-collapse': 'collapse',
-            'font-size': '0.875rem',
-          }),
-          [
-            // Header
-            if (showHeader)
-              thead(
-                styles: Styles(raw: {
-                  'background-color': 'var(--muted)',
-                  if (stickyHeader) 'position': 'sticky',
-                  if (stickyHeader) 'top': '0',
-                  if (stickyHeader) 'z-index': '1',
-                }),
-                [
-                  tr([
-                    for (var i = 0; i < headers.length; i++)
-                      th(
-                        styles: Styles(raw: {
-                          'padding': '1rem 1.5rem',
-                          'text-align': (alignments != null && i < alignments!.length)
-                              ? alignments![i].css
-                              : 'left',
-                          'font-weight': '600',
-                          'color': 'var(--foreground)',
-                          'white-space': 'nowrap',
-                        }),
-                        [text(headers[i])],
-                      ),
-                  ]),
-                ],
-              ),
-
-            // Body
-            tbody([
-              for (var rowIndex = 0; rowIndex < rows.length; rowIndex++)
-                tr(
-                  styles: Styles(raw: {
-                    'background-color': striped && rowIndex.isOdd
-                        ? 'var(--muted)'
-                        : 'var(--card)',
-                    if (showDividers && rowIndex < rows.length - 1)
-                      'border-bottom': '1px solid var(--border)',
-                  }),
-                  [
-                    for (var colIndex = 0;
-                        colIndex < rows[rowIndex].length;
-                        colIndex++)
-                      td(
-                        styles: Styles(raw: {
-                          'padding': '1rem 1.5rem',
-                          'text-align': (alignments != null &&
-                                  colIndex < alignments!.length)
-                              ? alignments![colIndex].css
-                              : 'left',
-                          'color': 'var(--foreground)',
-                        }),
-                        [rows[rowIndex][colIndex]],
-                      ),
-                  ],
-                ),
-            ]),
-          ],
-        ),
-      ],
-    );
+    return context.renderers.staticTable(StaticTableProps(
+      headers: headers,
+      rows: rows,
+      showDividers: showDividers,
+      striped: striped,
+      stickyHeader: stickyHeader,
+      alignments: alignments,
+      showHeader: showHeader,
+    ));
   }
 }
 
@@ -134,56 +70,11 @@ class ArcaneKeyValueTable extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return div(
-      classes: 'arcane-kv-table',
-      styles: const Styles(raw: {
-        'border': '1px solid var(--border)',
-        'border-radius': '0.5rem',
-        'overflow': 'hidden',
-      }),
-      [
-        for (var i = 0; i < rows.length; i++)
-          div(
-            classes: 'arcane-kv-table-row',
-            styles: Styles(raw: {
-              'display': 'flex',
-              if (showDividers && i < rows.length - 1)
-                'border-bottom': '1px solid var(--border)',
-            }),
-            [
-              // Key
-              div(
-                classes: 'arcane-kv-table-key',
-                styles: Styles(raw: {
-                  'padding': '1rem 1.5rem',
-                  'background-color': 'var(--muted)',
-                  'font-weight': '500',
-                  'color': 'var(--foreground)',
-                  'font-size': '0.875rem',
-                  if (keyWidth != null) 'width': '${keyWidth}px',
-                  if (keyWidth != null) 'flex-shrink': '0',
-                  if (keyWidth == null) 'flex': '0 0 30%',
-                  'border-right': '1px solid var(--border)',
-                }),
-                [text(rows[i].key)],
-              ),
-
-              // Value
-              div(
-                classes: 'arcane-kv-table-value',
-                styles: const Styles(raw: {
-                  'flex': '1',
-                  'padding': '1rem 1.5rem',
-                  'background-color': 'var(--card)',
-                  'color': 'var(--foreground)',
-                  'font-size': '0.875rem',
-                }),
-                [rows[i].value],
-              ),
-            ],
-          ),
-      ],
-    );
+    return context.renderers.keyValueTable(KeyValueTableProps(
+      rows: rows.map((r) => KeyValueRowData(key: r.key, value: r.value)).toList(),
+      keyWidth: keyWidth,
+      showDividers: showDividers,
+    ));
   }
 }
 
@@ -196,5 +87,5 @@ class ArcaneKeyValueRow {
 
   /// Create from a string value
   factory ArcaneKeyValueRow.text(String key, String value) =>
-      ArcaneKeyValueRow(key: key, value: span([text(value)]));
+      ArcaneKeyValueRow(key: key, value: dom.span([Component.text(value)]));
 }

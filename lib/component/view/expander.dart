@@ -1,10 +1,24 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
+import 'package:jaspr/dom.dart'
+    hide
+        Color,
+        Colors,
+        ColorScheme,
+        Gap,
+        Padding,
+        TextAlign,
+        TextOverflow,
+        Border,
+        BorderRadius,
+        BoxShadow,
+        FontWeight;
 
+import '../../core/props/expander_props.dart';
+import '../../core/theme_provider.dart';
 import '../../util/arcane.dart';
 
 /// An expandable/collapsible component.
-class ArcaneExpander extends StatefulComponent {
+class ArcaneExpander extends StatelessComponent {
   /// Header content (always visible)
   final Component header;
 
@@ -42,103 +56,17 @@ class ArcaneExpander extends StatefulComponent {
   });
 
   @override
-  State<ArcaneExpander> createState() => _ExpanderState();
-
-  @css
-  static final List<StyleRule> styles = [
-    css('.arcane-expander-header:hover').styles(raw: {
-      'background-color': 'var(--muted)',
-    }),
-  ];
-}
-
-class _ExpanderState extends State<ArcaneExpander> {
-  late bool _isExpanded;
-
-  @override
-  void initState() {
-    super.initState();
-    _isExpanded = component.initiallyExpanded;
-  }
-
-  void _toggleExpansion() {
-    setState(() {
-      _isExpanded = !_isExpanded;
-    });
-    component.onExpansionChanged?.call(_isExpanded);
-  }
-
-  @override
   Component build(BuildContext context) {
-    final EdgeInsets contentPadding =
-        component.contentPadding ?? const EdgeInsets.all(16);
-
-    return div(
-      classes: 'arcane-expander ${_isExpanded ? 'expanded' : ''}',
-      styles: const Styles(raw: {
-        'border': '1px solid var(--border)',
-        'border-radius': '0.5rem',
-        'overflow': 'hidden',
-      }),
-      [
-        // Header (clickable)
-        button(
-          classes: 'arcane-expander-header',
-          attributes: {
-            'type': 'button',
-            'aria-expanded': '$_isExpanded',
-          },
-          styles: const Styles(raw: {
-            'display': 'flex',
-            'align-items': 'center',
-            'gap': '1rem',
-            'width': '100%',
-            'padding': '1rem 1.5rem',
-            'background-color': 'var(--card)',
-            'border': 'none',
-            'cursor': 'pointer',
-            'transition': 'all 150ms ease',
-            'text-align': 'left',
-          }),
-          events: {
-            'click': (event) => _toggleExpansion(),
-          },
-          [
-            if (component.leading != null) component.leading!,
-            div(
-              styles: const Styles(raw: {
-                'flex': '1',
-                'min-width': '0',
-              }),
-              [component.header],
-            ),
-            if (component.showIcon)
-              span(
-                classes: 'arcane-expander-icon',
-                styles: Styles(raw: {
-                  'color': 'var(--muted-foreground)',
-                  'transition': 'all 150ms ease',
-                  'transform': _isExpanded ? 'rotate(180deg)' : 'rotate(0)',
-                }),
-                [text('▼')],
-              ),
-          ],
-        ),
-
-        // Content
-        if (_isExpanded || component.maintainState)
-          div(
-            classes: 'arcane-expander-content',
-            styles: Styles(raw: {
-              'padding': contentPadding.padding,
-              'background-color': 'var(--card)',
-              'border-top': '1px solid var(--border)',
-              if (!_isExpanded) 'display': 'none',
-            }),
-            [component.child],
-          ),
-      ],
-    );
+    return context.renderers.expander(ExpanderProps(
+      header: header,
+      child: child,
+      initiallyExpanded: initiallyExpanded,
+      onExpansionChanged: onExpansionChanged,
+      leading: leading,
+      showIcon: showIcon,
+      contentPadding: contentPadding,
+      maintainState: maintainState,
+    ));
   }
 }
 
@@ -167,9 +95,8 @@ class _AccordionState extends State<ArcaneAccordion> {
   @override
   void initState() {
     super.initState();
-    _expandedIndices = component.initialOpenIndex != null
-        ? {component.initialOpenIndex!}
-        : {};
+    _expandedIndices =
+        component.initialOpenIndex != null ? {component.initialOpenIndex!} : {};
   }
 
   void _toggleItem(int index) {
@@ -206,14 +133,15 @@ class _AccordionState extends State<ArcaneAccordion> {
     );
   }
 
-  Component _buildItem(BuildContext context, int index, ArcaneAccordionItem item) {
+  Component _buildItem(
+      BuildContext context, int index, ArcaneAccordionItem item) {
     final bool isExpanded = _expandedIndices.contains(index);
 
     return div(
       classes: 'arcane-accordion-item ${isExpanded ? 'expanded' : ''}',
       styles: const Styles(raw: {
         'border': '1px solid var(--border)',
-        'border-radius': '0.5rem',
+        'border-radius': 'var(--radius)',
         'overflow': 'hidden',
       }),
       [
@@ -251,10 +179,10 @@ class _AccordionState extends State<ArcaneAccordion> {
             span(
               styles: Styles(raw: {
                 'color': 'var(--muted-foreground)',
-                'transition': 'all 150ms ease',
+                'transition': 'transform 150ms ease',
                 'transform': isExpanded ? 'rotate(180deg)' : 'rotate(0)',
               }),
-              [text('▼')],
+              [text('\u25BC')],
             ),
           ],
         ),

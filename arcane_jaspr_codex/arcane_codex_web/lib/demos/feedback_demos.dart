@@ -70,11 +70,11 @@ class FeedbackDemos {
   static List<Component> alertBanner() => [
         ArcaneAlertBanner(
           message: 'This is an alert message',
-          variant: AlertVariant.info,
+          variant: AlertBannerVariant.info,
         ),
         ArcaneAlertBanner(
           message: 'Success message',
-          variant: AlertVariant.success,
+          variant: AlertBannerVariant.success,
         ),
       ];
 

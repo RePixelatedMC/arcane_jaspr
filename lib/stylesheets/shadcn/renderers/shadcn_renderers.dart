@@ -48,8 +48,68 @@ import 'breadcrumbs.dart';
 import 'fab.dart';
 import 'cycle_button.dart';
 import 'chip.dart';
+import 'confirm_dialog.dart';
+import 'email_dialog.dart';
+import 'text_dialog.dart';
+import 'item_picker.dart';
+import 'time_dialog.dart';
+import 'alert_banner.dart';
+import 'status_badge.dart' as status_badge_renderer;
 import 'kbd.dart';
 import 'theme_toggle.dart';
+import 'divider.dart';
+import 'callout.dart';
+import 'disclosure.dart';
+import 'expander.dart';
+import 'code_snippet.dart';
+import 'code_window.dart';
+import 'static_table.dart';
+import 'timeline.dart';
+import 'stepper.dart';
+import 'tree_view.dart';
+import 'rating_stars.dart';
+import 'status_indicator.dart';
+import 'check_list.dart';
+import 'gradient_text.dart';
+import 'glass.dart';
+import 'bar.dart';
+import 'marquee.dart';
+import 'animated_counter.dart';
+import 'tracker.dart';
+import 'file_upload.dart';
+import 'time_picker.dart';
+import 'switcher.dart';
+import 'stat_display.dart';
+import 'tile.dart';
+import 'arrow_link.dart';
+import 'stat_card.dart';
+import 'surface_card.dart';
+import 'fade_edge.dart';
+import 'center_body.dart';
+import 'card_section.dart';
+import 'section.dart';
+import 'author_card.dart';
+import 'feature_card.dart';
+import 'testimonial_card.dart';
+import 'social_icons.dart';
+import 'integration_card.dart';
+import 'pricing_card.dart';
+import 'auth_branding_panel.dart';
+import 'flexi_cards.dart';
+import 'game_tile.dart';
+import 'settings_section.dart';
+import 'slot_counter.dart';
+import 'field_wrapper.dart';
+import 'form.dart';
+import 'newsletter_form.dart';
+import 'bottom_navigation.dart';
+import 'mobile_menu.dart';
+import 'dot_indicator.dart';
+import 'auth_layout.dart';
+import 'hero_section.dart';
+import 'footer.dart';
+import 'dashboard_layout.dart';
+import 'feature_showcase.dart';
 
 /// ShadCN component renderers.
 ///
@@ -101,6 +161,12 @@ class ShadcnRenderers extends ComponentRenderers {
   Component toggleButton(ToggleButtonProps props) => ShadcnToggleButton(props);
 
   @override
+  Component fileUpload(FileUploadProps props) => ShadcnFileUpload(props);
+
+  @override
+  Component timePicker(TimePickerProps props) => ShadcnTimePicker(props);
+
+  @override
   Component alert(AlertProps props) => ShadcnAlert(props);
 
   @override
@@ -114,6 +180,18 @@ class ShadcnRenderers extends ComponentRenderers {
 
   @override
   Component progress(ProgressProps props) => ShadcnProgress(props);
+
+  @override
+  Component circularProgress(CircularProgressProps props) => ShadcnCircularProgress(props);
+
+  @override
+  Component loadingSpinner(LoadingSpinnerProps props) => ShadcnLoadingSpinner(props);
+
+  @override
+  Component alertBanner(AlertBannerProps props) => ShadcnAlertBanner(props);
+
+  @override
+  Component statusBadge2(StatusBadgeProps props) => status_badge_renderer.ShadcnStatusBadge(props);
 
   @override
   Component separator(SeparatorProps props) => ShadcnSeparator(props);
@@ -149,6 +227,126 @@ class ShadcnRenderers extends ComponentRenderers {
   Component themeToggleSimple(ThemeToggleSimpleProps props) => ShadcnThemeToggleSimple(props);
 
   @override
+  Component divider(DividerProps props) => ShadcnDivider(props);
+
+  @override
+  Component callout(CalloutProps props) => ShadcnCallout(props);
+
+  @override
+  Component disclosure(DisclosureProps props) => ShadcnDisclosure(props);
+
+  @override
+  Component disclosureGroup(DisclosureGroupProps props) => ShadcnDisclosureGroup(props);
+
+  @override
+  Component expander(ExpanderProps props) => ShadcnExpander(props);
+
+  @override
+  Component codeSnippet(CodeSnippetProps props) => ShadcnCodeSnippet(props);
+
+  @override
+  Component inlineCode(InlineCodeProps props) => ShadcnInlineCode(props);
+
+  @override
+  Component terminal(TerminalProps props) => ShadcnTerminal(props);
+
+  @override
+  Component codeWindow(CodeWindowProps props) => ShadcnCodeWindow(props);
+
+  @override
+  Component codePreview(CodePreviewProps props) => ShadcnCodePreview(props);
+
+  @override
+  Component staticTable(StaticTableProps props) => ShadcnStaticTable(props);
+
+  @override
+  Component keyValueTable(KeyValueTableProps props) => ShadcnKeyValueTable(props);
+
+  @override
+  Component timeline(TimelineProps props) => ShadcnTimeline(props);
+
+  @override
+  Component stepper(StepperProps props) => ShadcnStepper(props);
+
+  @override
+  Component treeView(TreeViewProps props) => ShadcnTreeView(props);
+
+  @override
+  Component ratingStars(RatingStarsProps props) => ShadcnRatingStars(props);
+
+  @override
+  Component statusIndicator(StatusIndicatorProps props) => ShadcnStatusIndicator(props);
+
+  @override
+  Component statusBadge(SimpleStatusBadgeProps props) => ShadcnStatusBadge(props);
+
+  @override
+  Component checkItem(CheckItemProps props) => ShadcnCheckItem(props);
+
+  @override
+  Component checkList(CheckListProps props) => ShadcnCheckList(props);
+
+  @override
+  Component featureRow(FeatureRowProps props) => ShadcnFeatureRow(props);
+
+  @override
+  Component gradientText(GradientTextProps props) => ShadcnGradientText(props);
+
+  @override
+  Component animatedGradientText(AnimatedGradientTextProps props) => ShadcnAnimatedGradientText(props);
+
+  @override
+  Component glowText(GlowTextProps props) => ShadcnGlowText(props);
+
+  @override
+  Component outlineText(OutlineTextProps props) => ShadcnOutlineText(props);
+
+  @override
+  Component glass(GlassProps props) => ShadcnGlass(props);
+
+  @override
+  Component glassCard(GlassCardProps props) => ShadcnGlassCard(props);
+
+  @override
+  Component gradientGlass(GradientGlassProps props) => ShadcnGradientGlass(props);
+
+  @override
+  Component bar(BarProps props) => ShadcnBar(props);
+
+  @override
+  Component dialogBar(DialogBarProps props) => ShadcnDialogBar(props);
+
+  @override
+  Component marquee(MarqueeProps props) => ShadcnMarquee(props);
+
+  @override
+  Component animatedCounter(AnimatedCounterProps props) => ShadcnAnimatedCounter(props);
+
+  @override
+  Component counterRow(CounterRowProps props) => ShadcnCounterRow(props);
+
+  @override
+  Component metricDisplay(MetricDisplayProps props) => ShadcnMetricDisplay(props);
+
+  @override
+  Component tracker(TrackerProps props) => ShadcnTracker(props);
+
+  @override
+  Component uptimeTracker(UptimeTrackerProps props) => ShadcnUptimeTracker(props);
+
+  @override
+  Component switcher(SwitcherProps props) => ShadcnSwitcher(props);
+
+  @override
+  Component indexedStack(IndexedStackProps props) => ShadcnIndexedStack(props);
+
+  @override
+  Component statDisplay(StatDisplayProps props) => ShadcnStatDisplay(props);
+
+  @override
+  Component statRow(StatRowProps props) => ShadcnStatRow(props);
+
+  @override
   Component tabs(TabsProps props) => ShadcnTabs(props);
 
   @override
@@ -174,6 +372,55 @@ class ShadcnRenderers extends ComponentRenderers {
 
   @override
   Component drawer(DrawerProps props) => ShadcnDrawer(props);
+
+  // ==========================================================================
+  // LAYOUT COMPONENTS
+  // ==========================================================================
+
+  @override
+  Component authLayout(AuthLayoutProps props) => ShadcnAuthLayout(props);
+
+  @override
+  Component authBackLink(AuthBackLinkProps props) => ShadcnAuthBackLink(props);
+
+  @override
+  Component heroSection(HeroSectionProps props) => ShadcnHeroSection(props);
+
+  @override
+  Component ctaGroup(CtaGroupProps props) => ShadcnCtaGroup(props);
+
+  @override
+  Component footer(FooterProps props) => ShadcnFooter(props);
+
+  @override
+  Component footerSocialIcon(FooterSocialIconProps props) => ShadcnFooterSocialIcon(props);
+
+  @override
+  Component dashboardLayout(DashboardLayoutProps props) => ShadcnDashboardLayout(props);
+
+  @override
+  Component dashboardTopBar(DashboardTopBarProps props) => ShadcnDashboardTopBar(props);
+
+  @override
+  Component featureShowcase(FeatureShowcaseProps props) => ShadcnFeatureShowcase(props);
+
+  @override
+  Component confirmDialog(ConfirmDialogProps props) => ShadcnConfirmDialog(props);
+
+  @override
+  Component alertDialog(AlertDialogProps props) => ShadcnAlertDialog(props);
+
+  @override
+  Component emailDialog(EmailDialogProps props) => ShadcnEmailDialog(props);
+
+  @override
+  Component textInputDialog(TextInputDialogProps props) => ShadcnTextInputDialog(props);
+
+  @override
+  Component itemPicker<T>(ItemPickerProps<T> props) => ShadcnItemPicker<T>(props);
+
+  @override
+  Component timeDialog(TimeDialogProps props) => ShadcnTimeDialog(props);
 
   @override
   Component toast(ToastProps props) => ShadcnToast(props);
@@ -237,4 +484,163 @@ class ShadcnRenderers extends ComponentRenderers {
 
   @override
   Component otpInput(OtpInputProps props) => ShadcnOtpInput(props);
+
+  @override
+  Component tile(TileProps props) => ShadcnTile(props);
+
+  @override
+  Component navTile(NavTileProps props) => ShadcnNavTile(props);
+
+  @override
+  Component arrowLink(ArrowLinkProps props) => ShadcnArrowLink(props);
+
+  @override
+  Component statCard(StatCardProps props) => ShadcnStatCard(props);
+
+  @override
+  Component statCardRow(StatCardRowProps props) => ShadcnStatCardRow(props);
+
+  @override
+  Component surfaceCard(SurfaceCardProps props) => ShadcnSurfaceCard(props);
+
+  @override
+  Component thumbHashCard(ThumbHashCardProps props) => ShadcnThumbHashCard(props);
+
+  @override
+  Component fadeEdge(FadeEdgeProps props) => ShadcnFadeEdge(props);
+
+  @override
+  Component centerBody(CenterBodyProps props) => ShadcnCenterBody(props);
+
+  @override
+  Component pageBody(PageBodyProps props) => ShadcnPageBody(props);
+
+  @override
+  Component loadingState(LoadingStateProps props) => ShadcnLoadingState(props);
+
+  @override
+  Component errorState(ErrorStateProps props) => ShadcnErrorState(props);
+
+  @override
+  Component cardSection(CardSectionProps props) => ShadcnCardSection(props);
+
+  @override
+  Component listCard(ListCardProps props) => ShadcnListCard(props);
+
+  @override
+  Component section(SectionProps props) => ShadcnSection(props);
+
+  @override
+  Component authorCard(AuthorCardProps props) => ShadcnAuthorCard(props);
+
+  @override
+  Component featureCard(FeatureCardProps props) => ShadcnFeatureCard(props);
+
+  @override
+  Component iconCard(IconCardProps props) => ShadcnIconCard(props);
+
+  @override
+  Component testimonialCard(TestimonialCardProps props) => ShadcnTestimonialCard(props);
+
+  @override
+  Component ratingStarsSimple(RatingStarsSimpleProps props) => ShadcnRatingStarsSimple(props);
+
+  @override
+  Component socialIcon(SocialIconProps props) => ShadcnSocialIcon(props);
+
+  @override
+  Component socialIconGroup(SocialIconGroupProps props) => ShadcnSocialIconGroup(props);
+
+  @override
+  Component socialLinks(SocialLinksProps props) => ShadcnSocialLinks(props);
+
+  @override
+  Component integrationCard(IntegrationCardProps props) => ShadcnIntegrationCard(props);
+
+  @override
+  Component integrationGrid(IntegrationGridProps props) => ShadcnIntegrationGrid(props);
+
+  @override
+  Component pricingCard(PricingCardProps props) => ShadcnPricingCard(props);
+
+  @override
+  Component pricingGrid(PricingGridProps props) => ShadcnPricingGrid(props);
+
+  @override
+  Component authBrandingPanel(AuthBrandingPanelProps props) => ShadcnAuthBrandingPanel(props);
+
+  @override
+  Component flexiCards(FlexiCardsProps props) => ShadcnFlexiCards(props);
+
+  @override
+  Component flexiCardsSimple(FlexiCardsSimpleProps props) => ShadcnFlexiCardsSimple(props);
+
+  @override
+  Component gameTile(GameTileProps props) => ShadcnGameTile(props);
+
+  @override
+  Component gameSelector(GameSelectorProps props) => ShadcnGameSelector(props);
+
+  @override
+  Component gameCard(GameCardProps props) => ShadcnGameCard(props);
+
+  @override
+  Component settingsSection(SettingsSectionProps props) => ShadcnSettingsSection(props);
+
+  @override
+  Component settingsInfoRow(SettingsInfoRowProps props) => ShadcnSettingsInfoRow(props);
+
+  @override
+  Component settingsToggleRow(SettingsToggleRowProps props) => ShadcnSettingsToggleRow(props);
+
+  @override
+  Component settingsSubheader(SettingsSubheaderProps props) => ShadcnSettingsSubheader(props);
+
+  @override
+  Component settingsNote(SettingsNoteProps props) => ShadcnSettingsNote(props);
+
+  @override
+  Component slotCounter(SlotCounterProps props) => ShadcnSlotCounter(props);
+
+  @override
+  Component slotCounterRow(SlotCounterRowProps props) => ShadcnSlotCounterRow(props);
+
+  @override
+  Component slotCounterCard(SlotCounterCardProps props) => ShadcnSlotCounterCard(props);
+
+  @override
+  Component fieldWrapper(FieldWrapperProps props) => ShadcnFieldWrapper(props);
+
+  @override
+  Component formSection(FormSectionProps props) => ShadcnFormSection(props);
+
+  @override
+  Component form(FormProps props) => ShadcnForm(props);
+
+  @override
+  Component inputGroup(InputGroupProps props) => ShadcnInputGroup(props);
+
+  @override
+  Component newsletterForm(NewsletterFormProps props) => ShadcnNewsletterForm(props);
+
+  @override
+  Component waitlistForm(WaitlistFormProps props) => ShadcnWaitlistForm(props);
+
+  @override
+  Component bottomNavigationBar(BottomNavigationBarProps props) => ShadcnBottomNavigationBar(props);
+
+  @override
+  Component bottomBar(BottomBarProps props) => ShadcnBottomBar(props);
+
+  @override
+  Component mobileMenu(MobileMenuProps props) => ShadcnMobileMenu(props);
+
+  @override
+  Component hamburgerButton(HamburgerButtonProps props) => ShadcnHamburgerButton(props);
+
+  @override
+  Component dotIndicator(DotIndicatorProps props) => ShadcnDotIndicator(props);
+
+  @override
+  Component stepIndicator(StepIndicatorProps props) => ShadcnStepIndicator(props);
 }

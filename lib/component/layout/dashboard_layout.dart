@@ -13,41 +13,15 @@ import 'package:jaspr/dom.dart'
         BoxShadow,
         FontWeight;
 
-/// A navigation item for the dashboard sidebar
-class ArcaneDashboardNavItem {
-  /// The display label
-  final String label;
+import '../../core/theme_provider.dart';
 
-  /// The route/href for navigation
-  final String href;
+export '../../core/props/dashboard_layout_props.dart';
 
-  /// Optional icon component
-  final Component? icon;
+/// A navigation item for the dashboard sidebar (re-export from props)
+typedef ArcaneDashboardNavItem = DashboardNavItem;
 
-  /// Optional badge text (e.g., notification count)
-  final String? badge;
-
-  const ArcaneDashboardNavItem({
-    required this.label,
-    required this.href,
-    this.icon,
-    this.badge,
-  });
-}
-
-/// A group of navigation items with an optional label
-class ArcaneDashboardNavGroup {
-  /// Optional group label (uppercase header)
-  final String? label;
-
-  /// The items in this group
-  final List<ArcaneDashboardNavItem> items;
-
-  const ArcaneDashboardNavGroup({
-    this.label,
-    required this.items,
-  });
-}
+/// A group of navigation items with an optional label (re-export from props)
+typedef ArcaneDashboardNavGroup = DashboardNavGroup;
 
 /// A reusable dashboard layout with sidebar navigation.
 ///
@@ -61,7 +35,7 @@ class ArcaneDashboardLayout extends StatelessComponent {
   final String currentRoute;
 
   /// Navigation groups to display in the sidebar
-  final List<ArcaneDashboardNavGroup> navigation;
+  final List<DashboardNavGroup> navigation;
 
   /// Header component for the sidebar (typically a logo)
   final Component? sidebarHeader;
@@ -96,190 +70,18 @@ class ArcaneDashboardLayout extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return div(
-      classes: 'arcane-dashboard-layout',
-      styles: Styles(raw: {
-        'min-height': '100vh',
-        'display': 'flex',
-        'background': backgroundColor,
-        'color': 'var(--foreground)',
-        'font-family': 'ui-sans-serif, system-ui, sans-serif',
-      }),
-      [
-        // Sidebar
-        _buildSidebar(),
-        // Main content area
-        div(
-          classes: 'arcane-dashboard-main',
-          styles: const Styles(raw: {
-            'flex': '1',
-            'min-height': '100vh',
-            'overflow-y': 'auto',
-            'display': 'flex',
-            'flex-direction': 'column',
-          }),
-          [
-            // Optional top bar
-            if (topBar != null) topBar!,
-            // Content
-            div(
-              classes: 'arcane-dashboard-content',
-              styles: const Styles(raw: {
-                'flex': '1',
-              }),
-              [child],
-            ),
-          ],
-        ),
-      ],
-    );
+    return context.renderers.dashboardLayout(DashboardLayoutProps(
+      child: child,
+      currentRoute: currentRoute,
+      navigation: navigation,
+      sidebarHeader: sidebarHeader,
+      sidebarFooter: sidebarFooter,
+      topBar: topBar,
+      sidebarWidth: sidebarWidth,
+      backgroundColor: backgroundColor,
+      sidebarBackgroundColor: sidebarBackgroundColor,
+    ));
   }
-
-  Component _buildSidebar() {
-    return aside(
-      classes: 'arcane-dashboard-sidebar',
-      styles: Styles(raw: {
-        'width': sidebarWidth,
-        'background': sidebarBackgroundColor,
-        'border-right': '1px solid var(--border)',
-        'display': 'flex',
-        'flex-direction': 'column',
-        'min-height': '100vh',
-        'flex-shrink': '0',
-      }),
-      [
-        // Header (logo area)
-        if (sidebarHeader != null)
-          div(
-            classes: 'arcane-dashboard-sidebar-header',
-            styles: const Styles(raw: {
-              'padding': '1.5rem',
-              'border-bottom': '1px solid var(--border)',
-              'flex-shrink': '0',
-            }),
-            [sidebarHeader!],
-          ),
-        // Navigation
-        nav(
-          classes: 'arcane-dashboard-sidebar-nav',
-          styles: const Styles(raw: {
-            'flex': '1',
-            'padding': '1rem',
-            'overflow-y': 'auto',
-          }),
-          navigation.map(_buildNavGroup).toList(),
-        ),
-        // Footer
-        if (sidebarFooter != null)
-          div(
-            classes: 'arcane-dashboard-sidebar-footer',
-            styles: const Styles(raw: {
-              'padding': '1rem',
-              'border-top': '1px solid var(--border)',
-              'flex-shrink': '0',
-            }),
-            [sidebarFooter!],
-          ),
-      ],
-    );
-  }
-
-  Component _buildNavGroup(ArcaneDashboardNavGroup group) {
-    return div(
-      classes: 'arcane-dashboard-nav-group',
-      styles: const Styles(raw: {
-        'margin-bottom': '1.5rem',
-      }),
-      [
-        // Group label
-        if (group.label != null)
-          div(
-            classes: 'arcane-dashboard-nav-group-label',
-            styles: const Styles(raw: {
-              'font-size': '0.75rem',
-              'font-weight': '600',
-              'color': 'var(--muted-foreground)',
-              'text-transform': 'uppercase',
-              'letter-spacing': '0.05em',
-              'padding': '0 1rem',
-              'margin-bottom': '0.5rem',
-            }),
-            [Component.text(group.label!)],
-          ),
-        // Items
-        ...group.items.map(_buildNavItem),
-      ],
-    );
-  }
-
-  Component _buildNavItem(ArcaneDashboardNavItem item) {
-    final bool isActive = currentRoute == item.href;
-    return a(
-      href: item.href,
-      classes: 'arcane-dashboard-nav-item ${isActive ? 'active' : ''}',
-      styles: Styles(raw: {
-        'display': 'flex',
-        'align-items': 'center',
-        'gap': '0.5rem',
-        'padding': '0.5rem 1rem',
-        'color': isActive ? 'var(--accent)' : 'var(--muted-foreground)',
-        'text-decoration': 'none',
-        'font-size': '0.875rem',
-        'font-weight': isActive ? '600' : '500',
-        'border-radius': '0.375rem',
-        'background': isActive ? 'hsl(var(--accent) / 0.1)' : 'transparent',
-        'border': isActive
-            ? '1px solid var(--accent)'
-            : '1px solid transparent',
-        'transition': 'all 150ms ease',
-        'margin-bottom': '0.25rem',
-      }),
-      [
-        // Icon
-        if (item.icon != null)
-          div(
-            styles: const Styles(raw: {
-              'width': '20px',
-              'height': '20px',
-              'display': 'flex',
-              'align-items': 'center',
-              'justify-content': 'center',
-              'flex-shrink': '0',
-            }),
-            [item.icon!],
-          ),
-        // Label
-        span(
-          styles: const Styles(raw: {
-            'flex': '1',
-          }),
-          [Component.text(item.label)],
-        ),
-        // Badge
-        if (item.badge != null)
-          span(
-            classes: 'arcane-dashboard-nav-badge',
-            styles: const Styles(raw: {
-              'background': 'var(--accent)',
-              'color': 'var(--accent-foreground)',
-              'font-size': '0.75rem',
-              'padding': '2px 6px',
-              'border-radius': '9999px',
-              'font-weight': '500',
-            }),
-            [Component.text(item.badge!)],
-          ),
-      ],
-    );
-  }
-
-  @css
-  static final List<StyleRule> styles = [
-    css('.arcane-dashboard-nav-item:hover:not(.active)').styles(raw: {
-      'background-color': 'var(--muted)',
-      'color': 'var(--foreground)',
-    }),
-  ];
 }
 
 /// A simple top bar component for dashboard layouts.
@@ -304,35 +106,11 @@ class ArcaneDashboardTopBar extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return div(
-      classes: 'arcane-dashboard-topbar',
-      styles: Styles(raw: {
-        'display': 'flex',
-        'justify-content': 'space-between',
-        'align-items': 'center',
-        'padding': '1rem 2rem',
-        'background': backgroundColor,
-        'border-bottom': '1px solid var(--border)',
-        'flex-shrink': '0',
-      }),
-      [
-        // Leading (breadcrumbs/title)
-        div(
-          classes: 'arcane-dashboard-topbar-leading',
-          [if (leading != null) leading!],
-        ),
-        // Trailing (user menu)
-        div(
-          classes: 'arcane-dashboard-topbar-trailing',
-          styles: const Styles(raw: {
-            'display': 'flex',
-            'align-items': 'center',
-            'gap': '1rem',
-          }),
-          [if (trailing != null) trailing!],
-        ),
-      ],
-    );
+    return context.renderers.dashboardTopBar(DashboardTopBarProps(
+      leading: leading,
+      trailing: trailing,
+      backgroundColor: backgroundColor,
+    ));
   }
 }
 

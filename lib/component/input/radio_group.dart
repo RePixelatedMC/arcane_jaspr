@@ -1,6 +1,5 @@
 import 'package:jaspr/jaspr.dart';
 
-// Re-export for backwards compatibility
 export '../../core/props/radio_group_props.dart'
     show RadioGroupLayout, RadioGroupVariant, RadioOptionProps;
 

@@ -49,8 +49,95 @@ import 'props/cycle_button_props.dart';
 import 'props/chip_props.dart';
 import 'props/kbd_props.dart';
 import 'props/theme_toggle_props.dart';
+import 'props/divider_props.dart';
+import 'props/callout_props.dart';
+import 'props/disclosure_props.dart';
+import 'props/expander_props.dart';
+import 'props/code_snippet_props.dart';
+import 'props/code_window_props.dart';
+import 'props/static_table_props.dart';
+import 'props/timeline_props.dart';
+import 'props/stepper_props.dart';
+import 'props/tree_view_props.dart';
+import 'props/rating_stars_props.dart';
+import 'props/status_indicator_props.dart';
+import 'props/check_list_props.dart';
+import 'props/gradient_text_props.dart';
+import 'props/glass_props.dart';
+import 'props/bar_props.dart';
+import 'props/marquee_props.dart';
+import 'props/animated_counter_props.dart';
+import 'props/tracker_props.dart';
+import 'props/file_upload_props.dart';
+import 'props/time_picker_props.dart';
+import 'props/switcher_props.dart';
+import 'props/stat_display_props.dart';
+import 'props/tile_props.dart';
+import 'props/arrow_link_props.dart';
+import 'props/stat_card_props.dart';
+import 'props/surface_card_props.dart';
+import 'props/fade_edge_props.dart';
+import 'props/center_body_props.dart';
+import 'props/card_section_props.dart';
+import 'props/section_props.dart';
+import 'props/author_card_props.dart';
+import 'props/feature_card_props.dart';
+import 'props/testimonial_card_props.dart';
+import 'props/social_icons_props.dart';
+import 'props/integration_card_props.dart';
+import 'props/pricing_card_props.dart';
+import 'props/auth_branding_panel_props.dart';
+import 'props/flexi_cards_props.dart';
+import 'props/game_tile_props.dart';
+import 'props/settings_section_props.dart';
+import 'props/slot_counter_props.dart';
+import 'props/confirm_dialog_props.dart';
+import 'props/email_dialog_props.dart';
+import 'props/text_dialog_props.dart';
+import 'props/item_picker_props.dart';
+import 'props/time_dialog_props.dart';
+import 'props/alert_banner_props.dart';
+import 'props/status_badge_props.dart';
+import 'props/field_wrapper_props.dart';
+import 'props/newsletter_form_props.dart';
+import 'props/bottom_navigation_props.dart';
+import 'props/mobile_menu_props.dart';
+import 'props/dot_indicator_props.dart';
+import 'props/auth_layout_props.dart';
+import 'props/hero_section_props.dart';
+import 'props/footer_props.dart';
+import 'props/dashboard_layout_props.dart';
+import 'props/feature_showcase_props.dart';
 
 export 'props/alert_props.dart';
+export 'props/auth_branding_panel_props.dart';
+export 'props/flexi_cards_props.dart';
+export 'props/game_tile_props.dart';
+export 'props/settings_section_props.dart';
+export 'props/slot_counter_props.dart';
+export 'props/confirm_dialog_props.dart';
+export 'props/email_dialog_props.dart';
+export 'props/text_dialog_props.dart';
+export 'props/item_picker_props.dart';
+export 'props/time_dialog_props.dart';
+export 'props/alert_banner_props.dart';
+export 'props/status_badge_props.dart';
+export 'props/field_wrapper_props.dart';
+export 'props/newsletter_form_props.dart';
+export 'props/bottom_navigation_props.dart';
+export 'props/mobile_menu_props.dart';
+export 'props/dot_indicator_props.dart';
+export 'props/auth_layout_props.dart';
+export 'props/hero_section_props.dart';
+export 'props/footer_props.dart';
+export 'props/dashboard_layout_props.dart';
+export 'props/feature_showcase_props.dart';
+export 'props/author_card_props.dart';
+export 'props/feature_card_props.dart';
+export 'props/testimonial_card_props.dart';
+export 'props/social_icons_props.dart';
+export 'props/integration_card_props.dart';
+export 'props/pricing_card_props.dart';
 export 'props/avatar_props.dart';
 export 'props/badge_props.dart';
 export 'props/button_props.dart';
@@ -99,6 +186,37 @@ export 'props/cycle_button_props.dart';
 export 'props/chip_props.dart';
 export 'props/kbd_props.dart';
 export 'props/theme_toggle_props.dart';
+export 'props/divider_props.dart';
+export 'props/callout_props.dart';
+export 'props/disclosure_props.dart';
+export 'props/expander_props.dart';
+export 'props/code_snippet_props.dart';
+export 'props/code_window_props.dart';
+export 'props/static_table_props.dart';
+export 'props/timeline_props.dart';
+export 'props/stepper_props.dart';
+export 'props/tree_view_props.dart';
+export 'props/rating_stars_props.dart';
+export 'props/status_indicator_props.dart';
+export 'props/check_list_props.dart';
+export 'props/gradient_text_props.dart';
+export 'props/glass_props.dart';
+export 'props/bar_props.dart';
+export 'props/marquee_props.dart';
+export 'props/animated_counter_props.dart';
+export 'props/tracker_props.dart';
+export 'props/file_upload_props.dart';
+export 'props/time_picker_props.dart';
+export 'props/switcher_props.dart';
+export 'props/stat_display_props.dart';
+export 'props/tile_props.dart';
+export 'props/arrow_link_props.dart';
+export 'props/stat_card_props.dart';
+export 'props/surface_card_props.dart';
+export 'props/fade_edge_props.dart';
+export 'props/center_body_props.dart';
+export 'props/card_section_props.dart';
+export 'props/section_props.dart';
 
 /// Interface that all stylesheets must implement.
 ///
@@ -157,6 +275,12 @@ abstract class ComponentRenderers {
   /// Render a toggle button component
   Component toggleButton(ToggleButtonProps props);
 
+  /// Render a file upload component
+  Component fileUpload(FileUploadProps props);
+
+  /// Render a time picker component
+  Component timePicker(TimePickerProps props);
+
   // ==========================================================================
   // VIEW COMPONENTS
   // ==========================================================================
@@ -175,6 +299,18 @@ abstract class ComponentRenderers {
 
   /// Render a progress bar component
   Component progress(ProgressProps props);
+
+  /// Render a circular progress component
+  Component circularProgress(CircularProgressProps props);
+
+  /// Render a loading spinner component
+  Component loadingSpinner(LoadingSpinnerProps props);
+
+  /// Render an alert banner component
+  Component alertBanner(AlertBannerProps props);
+
+  /// Render a status badge component
+  Component statusBadge2(StatusBadgeProps props);
 
   /// Render a separator component
   Component separator(SeparatorProps props);
@@ -208,6 +344,126 @@ abstract class ComponentRenderers {
 
   /// Render a simple theme toggle component
   Component themeToggleSimple(ThemeToggleSimpleProps props);
+
+  /// Render a divider component
+  Component divider(DividerProps props);
+
+  /// Render a callout component
+  Component callout(CalloutProps props);
+
+  /// Render a disclosure component
+  Component disclosure(DisclosureProps props);
+
+  /// Render a disclosure group component
+  Component disclosureGroup(DisclosureGroupProps props);
+
+  /// Render an expander component
+  Component expander(ExpanderProps props);
+
+  /// Render a code snippet component
+  Component codeSnippet(CodeSnippetProps props);
+
+  /// Render an inline code component
+  Component inlineCode(InlineCodeProps props);
+
+  /// Render a terminal component
+  Component terminal(TerminalProps props);
+
+  /// Render a code window component
+  Component codeWindow(CodeWindowProps props);
+
+  /// Render a code preview component
+  Component codePreview(CodePreviewProps props);
+
+  /// Render a static table component
+  Component staticTable(StaticTableProps props);
+
+  /// Render a key-value table component
+  Component keyValueTable(KeyValueTableProps props);
+
+  /// Render a timeline component
+  Component timeline(TimelineProps props);
+
+  /// Render a stepper/steps component
+  Component stepper(StepperProps props);
+
+  /// Render a tree view component
+  Component treeView(TreeViewProps props);
+
+  /// Render a rating stars component
+  Component ratingStars(RatingStarsProps props);
+
+  /// Render a status indicator component
+  Component statusIndicator(StatusIndicatorProps props);
+
+  /// Render a simple status badge component
+  Component statusBadge(SimpleStatusBadgeProps props);
+
+  /// Render a check item component
+  Component checkItem(CheckItemProps props);
+
+  /// Render a check list component
+  Component checkList(CheckListProps props);
+
+  /// Render a feature row component
+  Component featureRow(FeatureRowProps props);
+
+  /// Render a gradient text component
+  Component gradientText(GradientTextProps props);
+
+  /// Render an animated gradient text component
+  Component animatedGradientText(AnimatedGradientTextProps props);
+
+  /// Render a glow text component
+  Component glowText(GlowTextProps props);
+
+  /// Render an outline text component
+  Component outlineText(OutlineTextProps props);
+
+  /// Render a glass container component
+  Component glass(GlassProps props);
+
+  /// Render a glass card component
+  Component glassCard(GlassCardProps props);
+
+  /// Render a gradient glass component
+  Component gradientGlass(GradientGlassProps props);
+
+  /// Render a bar/app bar component
+  Component bar(BarProps props);
+
+  /// Render a dialog bar component
+  Component dialogBar(DialogBarProps props);
+
+  /// Render a marquee component
+  Component marquee(MarqueeProps props);
+
+  /// Render an animated counter component
+  Component animatedCounter(AnimatedCounterProps props);
+
+  /// Render a counter row component
+  Component counterRow(CounterRowProps props);
+
+  /// Render a metric display component
+  Component metricDisplay(MetricDisplayProps props);
+
+  /// Render a tracker component
+  Component tracker(TrackerProps props);
+
+  /// Render an uptime tracker component
+  Component uptimeTracker(UptimeTrackerProps props);
+
+  /// Render a switcher component
+  Component switcher(SwitcherProps props);
+
+  /// Render an indexed stack component
+  Component indexedStack(IndexedStackProps props);
+
+  /// Render a stat display component
+  Component statDisplay(StatDisplayProps props);
+
+  /// Render a stat row component
+  Component statRow(StatRowProps props);
 
   // ==========================================================================
   // LAYOUT COMPONENTS
@@ -276,6 +532,55 @@ abstract class ComponentRenderers {
 
   /// Render a drawer component
   Component drawer(DrawerProps props);
+
+  // ==========================================================================
+  // LAYOUT COMPONENTS
+  // ==========================================================================
+
+  /// Render an auth layout component
+  Component authLayout(AuthLayoutProps props);
+
+  /// Render an auth back link component
+  Component authBackLink(AuthBackLinkProps props);
+
+  /// Render a hero section component
+  Component heroSection(HeroSectionProps props);
+
+  /// Render a CTA group component
+  Component ctaGroup(CtaGroupProps props);
+
+  /// Render a footer component
+  Component footer(FooterProps props);
+
+  /// Render a footer social icon component
+  Component footerSocialIcon(FooterSocialIconProps props);
+
+  /// Render a dashboard layout component
+  Component dashboardLayout(DashboardLayoutProps props);
+
+  /// Render a dashboard top bar component
+  Component dashboardTopBar(DashboardTopBarProps props);
+
+  /// Render a feature showcase component
+  Component featureShowcase(FeatureShowcaseProps props);
+
+  /// Render a confirm dialog component
+  Component confirmDialog(ConfirmDialogProps props);
+
+  /// Render an alert dialog component
+  Component alertDialog(AlertDialogProps props);
+
+  /// Render an email dialog component
+  Component emailDialog(EmailDialogProps props);
+
+  /// Render a text input dialog component
+  Component textInputDialog(TextInputDialogProps props);
+
+  /// Render an item picker dialog component
+  Component itemPicker<T>(ItemPickerProps<T> props);
+
+  /// Render a time dialog component
+  Component timeDialog(TimeDialogProps props);
 
   // ==========================================================================
   // TOAST COMPONENTS
@@ -366,4 +671,247 @@ abstract class ComponentRenderers {
 
   /// Render an OTP input component
   Component otpInput(OtpInputProps props);
+
+  // ==========================================================================
+  // TILE COMPONENTS
+  // ==========================================================================
+
+  /// Render a tile component
+  Component tile(TileProps props);
+
+  /// Render a navigation tile component
+  Component navTile(NavTileProps props);
+
+  // ==========================================================================
+  // ARROW LINK COMPONENTS
+  // ==========================================================================
+
+  /// Render an arrow link component
+  Component arrowLink(ArrowLinkProps props);
+
+  // ==========================================================================
+  // STAT CARD COMPONENTS
+  // ==========================================================================
+
+  /// Render a stat card component
+  Component statCard(StatCardProps props);
+
+  /// Render a stat card row component
+  Component statCardRow(StatCardRowProps props);
+
+  // ==========================================================================
+  // SURFACE CARD COMPONENTS
+  // ==========================================================================
+
+  /// Render a surface card component
+  Component surfaceCard(SurfaceCardProps props);
+
+  /// Render a thumbhash card component
+  Component thumbHashCard(ThumbHashCardProps props);
+
+  // ==========================================================================
+  // FADE EDGE COMPONENTS
+  // ==========================================================================
+
+  /// Render a fade edge component
+  Component fadeEdge(FadeEdgeProps props);
+
+  // ==========================================================================
+  // CENTER BODY COMPONENTS
+  // ==========================================================================
+
+  /// Render a center body component
+  Component centerBody(CenterBodyProps props);
+
+  /// Render a page body component
+  Component pageBody(PageBodyProps props);
+
+  /// Render a loading state component
+  Component loadingState(LoadingStateProps props);
+
+  /// Render an error state component
+  Component errorState(ErrorStateProps props);
+
+  // ==========================================================================
+  // CARD SECTION COMPONENTS
+  // ==========================================================================
+
+  /// Render a card section component
+  Component cardSection(CardSectionProps props);
+
+  /// Render a list card component
+  Component listCard(ListCardProps props);
+
+  // ==========================================================================
+  // SECTION COMPONENTS
+  // ==========================================================================
+
+  /// Render a section component
+  Component section(SectionProps props);
+
+  // ==========================================================================
+  // AUTHOR CARD COMPONENTS
+  // ==========================================================================
+
+  /// Render an author card component
+  Component authorCard(AuthorCardProps props);
+
+  // ==========================================================================
+  // FEATURE CARD COMPONENTS
+  // ==========================================================================
+
+  /// Render a feature card component
+  Component featureCard(FeatureCardProps props);
+
+  /// Render an icon card component
+  Component iconCard(IconCardProps props);
+
+  // ==========================================================================
+  // TESTIMONIAL CARD COMPONENTS
+  // ==========================================================================
+
+  /// Render a testimonial card component
+  Component testimonialCard(TestimonialCardProps props);
+
+  /// Render a simple rating stars component
+  Component ratingStarsSimple(RatingStarsSimpleProps props);
+
+  // ==========================================================================
+  // SOCIAL ICONS COMPONENTS
+  // ==========================================================================
+
+  /// Render a social icon component
+  Component socialIcon(SocialIconProps props);
+
+  /// Render a social icon group component
+  Component socialIconGroup(SocialIconGroupProps props);
+
+  /// Render a social links component
+  Component socialLinks(SocialLinksProps props);
+
+  // ==========================================================================
+  // INTEGRATION CARD COMPONENTS
+  // ==========================================================================
+
+  /// Render an integration card component
+  Component integrationCard(IntegrationCardProps props);
+
+  /// Render an integration grid component
+  Component integrationGrid(IntegrationGridProps props);
+
+  // ==========================================================================
+  // PRICING CARD COMPONENTS
+  // ==========================================================================
+
+  /// Render a pricing card component
+  Component pricingCard(PricingCardProps props);
+
+  /// Render a pricing grid component
+  Component pricingGrid(PricingGridProps props);
+
+  // ==========================================================================
+  // AUTH BRANDING PANEL COMPONENTS
+  // ==========================================================================
+
+  /// Render an auth branding panel component
+  Component authBrandingPanel(AuthBrandingPanelProps props);
+
+  // ==========================================================================
+  // FLEXI CARDS COMPONENTS
+  // ==========================================================================
+
+  /// Render a flexi cards component
+  Component flexiCards(FlexiCardsProps props);
+
+  /// Render a simple flexi cards component
+  Component flexiCardsSimple(FlexiCardsSimpleProps props);
+
+  // ==========================================================================
+  // GAME TILE COMPONENTS
+  // ==========================================================================
+
+  /// Render a game tile component
+  Component gameTile(GameTileProps props);
+
+  /// Render a game selector grid component
+  Component gameSelector(GameSelectorProps props);
+
+  /// Render a game card component
+  Component gameCard(GameCardProps props);
+
+  // ==========================================================================
+  // SETTINGS SECTION COMPONENTS
+  // ==========================================================================
+
+  /// Render a settings section component
+  Component settingsSection(SettingsSectionProps props);
+
+  /// Render a settings info row component
+  Component settingsInfoRow(SettingsInfoRowProps props);
+
+  /// Render a settings toggle row component
+  Component settingsToggleRow(SettingsToggleRowProps props);
+
+  /// Render a settings subheader component
+  Component settingsSubheader(SettingsSubheaderProps props);
+
+  /// Render a settings note component
+  Component settingsNote(SettingsNoteProps props);
+
+  // ==========================================================================
+  // SLOT COUNTER COMPONENTS
+  // ==========================================================================
+
+  /// Render a slot counter component
+  Component slotCounter(SlotCounterProps props);
+
+  /// Render a slot counter row component
+  Component slotCounterRow(SlotCounterRowProps props);
+
+  /// Render a slot counter card component
+  Component slotCounterCard(SlotCounterCardProps props);
+
+  // ==========================================================================
+  // FORM COMPONENTS
+  // ==========================================================================
+
+  /// Render a field wrapper component
+  Component fieldWrapper(FieldWrapperProps props);
+
+  /// Render a form section component
+  Component formSection(FormSectionProps props);
+
+  /// Render a form component
+  Component form(FormProps props);
+
+  /// Render an input group component
+  Component inputGroup(InputGroupProps props);
+
+  /// Render a newsletter form component
+  Component newsletterForm(NewsletterFormProps props);
+
+  /// Render a waitlist form component
+  Component waitlistForm(WaitlistFormProps props);
+
+  // ==========================================================================
+  // NAVIGATION COMPONENTS (Additional)
+  // ==========================================================================
+
+  /// Render a bottom navigation bar component
+  Component bottomNavigationBar(BottomNavigationBarProps props);
+
+  /// Render a bottom bar component
+  Component bottomBar(BottomBarProps props);
+
+  /// Render a mobile menu component
+  Component mobileMenu(MobileMenuProps props);
+
+  /// Render a hamburger button component
+  Component hamburgerButton(HamburgerButtonProps props);
+
+  /// Render a dot indicator component
+  Component dotIndicator(DotIndicatorProps props);
+
+  /// Render a step indicator component
+  Component stepIndicator(StepIndicatorProps props);
 }

@@ -2,7 +2,6 @@ import 'package:jaspr/jaspr.dart';
 
 import '../../core/theme_provider.dart';
 
-// Re-export for backwards compatibility
 export '../../core/props/kbd_props.dart' show KbdStyle, KbdSize;
 
 /// Keyboard shortcut display component

@@ -199,7 +199,7 @@ class DocsHeader extends StatelessComponent {
         for (final variant in variants)
           ArcaneSelectOption(value: variant.id, label: variant.displayName),
       ],
-      size: InputSizeStyle.sm,
+      size: TextInputSize.sm,
     );
   }
 

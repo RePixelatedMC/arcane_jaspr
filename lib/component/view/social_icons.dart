@@ -1,19 +1,10 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-/// Social media platforms
-enum SocialPlatform {
-  twitter,
-  github,
-  discord,
-  youtube,
-  linkedin,
-  instagram,
-  facebook,
-  twitch,
-  reddit,
-  tiktok,
-}
+import '../../core/props/social_icons_props.dart';
+import '../../core/theme_provider.dart';
+
+// Re-export props for usage
+export '../../core/props/social_icons_props.dart';
 
 /// Social media icon link
 class ArcaneSocialIcon extends StatelessComponent {
@@ -61,69 +52,22 @@ class ArcaneSocialIcon extends StatelessComponent {
   const ArcaneSocialIcon.linkedin({this.url, this.size = '24px', this.color, this.showBackground = true, super.key})
       : platform = SocialPlatform.linkedin;
 
-  String get _icon {
-    return switch (platform) {
-      SocialPlatform.twitter => '𝕏',
-      SocialPlatform.github => '⌘',
-      SocialPlatform.discord => '💬',
-      SocialPlatform.youtube => '▶',
-      SocialPlatform.linkedin => 'in',
-      SocialPlatform.instagram => '📷',
-      SocialPlatform.facebook => 'f',
-      SocialPlatform.twitch => '📺',
-      SocialPlatform.reddit => 'r/',
-      SocialPlatform.tiktok => '♪',
-    };
-  }
-
   @override
   Component build(BuildContext context) {
-    final String iconColor = color ?? 'var(--muted)';
-
-    final Component content = div(
-      classes: 'arcane-social-icon',
-      styles: Styles(raw: {
-        'width': size,
-        'height': size,
-        'display': 'flex',
-        'align-items': 'center',
-        'justify-content': 'center',
-        'border-radius': '0.375rem',
-        if (showBackground) 'background': 'var(--muted)',
-        'color': iconColor,
-        'font-size': 'calc($size * 0.5)',
-        'font-weight': '600',
-        'transition': 'all 150ms ease',
-        'cursor': 'pointer',
-      }),
-      [text(_icon)],
-    );
-
-    if (url != null) {
-      return a(
-        href: url!,
-        attributes: {'target': '_blank', 'rel': 'noopener noreferrer'},
-        styles: const Styles(raw: {'text-decoration': 'none'}),
-        [content],
-      );
-    } else {
-      return content;
-    }
+    return context.renderers.socialIcon(SocialIconProps(
+      platform: platform,
+      url: url,
+      size: size,
+      color: color,
+      showBackground: showBackground,
+    ));
   }
-
-  @css
-  static final List<StyleRule> styles = [
-    css('.arcane-social-icon:hover').styles(raw: {
-      'color': 'var(--foreground)',
-      'background': 'var(--accent)',
-    }),
-  ];
 }
 
 /// Group of social icons
 class ArcaneSocialIconGroup extends StatelessComponent {
-  /// Icons to display
-  final List<ArcaneSocialIcon> icons;
+  /// Icons to display (as props)
+  final List<SocialIconProps> icons;
 
   /// Gap between icons
   final String gap;
@@ -136,22 +80,17 @@ class ArcaneSocialIconGroup extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return div(
-      classes: 'arcane-social-icon-group',
-      styles: Styles(raw: {
-        'display': 'flex',
-        'align-items': 'center',
-        'gap': gap,
-      }),
-      icons,
-    );
+    return context.renderers.socialIconGroup(SocialIconGroupProps(
+      icons: icons,
+      gap: gap,
+    ));
   }
 }
 
 /// Social links component with labels
 class ArcaneSocialLinks extends StatelessComponent {
   /// Social link items
-  final List<ArcaneSocialLinkItem> links;
+  final List<SocialLinkItem> links;
 
   /// Orientation (horizontal or vertical)
   final bool vertical;
@@ -168,66 +107,11 @@ class ArcaneSocialLinks extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return div(
-      classes: 'arcane-social-links',
-      styles: Styles(raw: {
-        'display': 'flex',
-        'flex-direction': vertical ? 'column' : 'row',
-        'align-items': vertical ? 'flex-start' : 'center',
-        'gap': gap,
-        'flex-wrap': 'wrap',
-      }),
-      [
-        for (final link in links)
-          a(
-            href: link.url,
-            attributes: {'target': '_blank', 'rel': 'noopener noreferrer'},
-            classes: 'arcane-social-link',
-            styles: const Styles(raw: {
-              'display': 'flex',
-              'align-items': 'center',
-              'gap': '0.5rem',
-              'text-decoration': 'none',
-              'color': 'var(--muted-foreground)',
-              'font-size': '0.875rem',
-              'transition': 'all 150ms ease',
-            }),
-            [
-              ArcaneSocialIcon(
-                platform: link.platform,
-                size: '20px',
-                showBackground: false,
-              ),
-              if (link.label != null)
-                span([text(link.label!)]),
-            ],
-          ),
-      ],
-    );
+    return context.renderers.socialLinks(SocialLinksProps(
+      links: links,
+      gap: gap,
+      vertical: vertical,
+    ));
   }
-
-  @css
-  static final List<StyleRule> styles = [
-    css('.arcane-social-link:hover').styles(raw: {
-      'color': 'var(--foreground)',
-    }),
-  ];
 }
 
-/// A social link item
-class ArcaneSocialLinkItem {
-  /// Platform
-  final SocialPlatform platform;
-
-  /// URL
-  final String url;
-
-  /// Optional label
-  final String? label;
-
-  const ArcaneSocialLinkItem({
-    required this.platform,
-    required this.url,
-    this.label,
-  });
-}

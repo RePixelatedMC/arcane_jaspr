@@ -3,7 +3,6 @@ import 'package:jaspr/dom.dart' as dom;
 
 import '../../core/theme_provider.dart';
 
-// Re-export for backwards compatibility
 export '../../core/props/dropdown_menu_props.dart' show DropdownAlignment;
 
 /// A dropdown menu item

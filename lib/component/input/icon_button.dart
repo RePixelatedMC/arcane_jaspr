@@ -6,7 +6,6 @@ import '../../core/props/icon_button_props.dart';
 import '../../core/theme_provider.dart';
 import 'button.dart';
 
-// Re-export for backwards compatibility
 export '../../core/props/icon_button_props.dart'
     show IconButtonSize, IconButtonVariant;
 

@@ -1,35 +1,8 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-/// Status indicator types
-enum StatusType {
-  /// Green - operational, success, active
-  success,
+import '../../core/theme_provider.dart';
 
-  /// Yellow - warning, degraded, pending
-  warning,
-
-  /// Red - error, down, failed
-  error,
-
-  /// Blue - info, maintenance, neutral
-  info,
-
-  /// Gray - offline, unknown, disabled
-  offline,
-}
-
-/// Status badge size
-enum StatusBadgeSize {
-  /// Small: compact, minimal text
-  sm,
-
-  /// Medium: default size
-  md,
-
-  /// Large: prominent display
-  lg,
-}
+export '../../core/props/status_badge_props.dart';
 
 /// A status indicator badge with pulse animation.
 ///
@@ -143,114 +116,15 @@ class ArcaneStatusBadge extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final color = _getStatusColor();
-    final indicatorSize = _getIndicatorSize();
-    final padding = _getPadding();
-    final fontSize = _getFontSize();
-
-    final effectiveBackground =
-        background ?? 'rgba(${_getStatusRgb()}, 0.1)';
-    final effectiveBorder =
-        borderColor ?? 'rgba(${_getStatusRgb()}, 0.25)';
-
-    return div(
-      styles: Styles(raw: {
-        'display': 'inline-flex',
-        'align-items': 'center',
-        'gap': '0.5rem',
-        'padding': padding,
-        'background': effectiveBackground,
-        'border': '1px solid $effectiveBorder',
-        'border-radius': '0.25rem',
-      }),
-      [
-        // Pulse indicator
-        span(
-          styles: Styles(raw: {
-            'width': indicatorSize,
-            'height': indicatorSize,
-            'border-radius': '50%',
-            'background': indicatorColor ?? color,
-            if (showGlow) 'box-shadow': '0 0 8px ${indicatorColor ?? color}',
-            if (showPulse) 'animation': 'arcane-pulse 2s ease-in-out infinite',
-          }),
-          [],
-        ),
-        // Label
-        span(
-          styles: Styles(raw: {
-            'font-size': fontSize,
-            'font-weight': size == StatusBadgeSize.sm ? '400' : '500',
-            'color': size == StatusBadgeSize.sm
-                ? (indicatorColor ?? color)
-                : 'var(--foreground)',
-          }),
-          [text(label)],
-        ),
-      ],
-    );
-  }
-
-  String _getStatusColor() {
-    switch (status) {
-      case StatusType.success:
-        return 'hsl(142 76% 36%)';
-      case StatusType.warning:
-        return 'hsl(38 92% 50%)';
-      case StatusType.error:
-        return 'var(--destructive)';
-      case StatusType.info:
-        return 'hsl(199 89% 48%)';
-      case StatusType.offline:
-        return 'var(--muted)';
-    }
-  }
-
-  String _getStatusRgb() {
-    switch (status) {
-      case StatusType.success:
-        return '34, 197, 94';
-      case StatusType.warning:
-        return '245, 158, 11';
-      case StatusType.error:
-        return '239, 68, 68';
-      case StatusType.info:
-        return '14, 165, 233';
-      case StatusType.offline:
-        return '115, 115, 115';
-    }
-  }
-
-  String _getIndicatorSize() {
-    switch (size) {
-      case StatusBadgeSize.sm:
-        return '6px';
-      case StatusBadgeSize.md:
-        return '8px';
-      case StatusBadgeSize.lg:
-        return '10px';
-    }
-  }
-
-  String _getPadding() {
-    switch (size) {
-      case StatusBadgeSize.sm:
-        return '0.25rem 0.5rem';
-      case StatusBadgeSize.md:
-        return '0.25rem 1rem';
-      case StatusBadgeSize.lg:
-        return '0.5rem 1.5rem';
-    }
-  }
-
-  String _getFontSize() {
-    switch (size) {
-      case StatusBadgeSize.sm:
-        return '0.75rem';
-      case StatusBadgeSize.md:
-        return '0.875rem';
-      case StatusBadgeSize.lg:
-        return '1rem';
-    }
+    return context.renderers.statusBadge2(StatusBadgeProps(
+      status: status,
+      label: label,
+      size: size,
+      showGlow: showGlow,
+      showPulse: showPulse,
+      indicatorColor: indicatorColor,
+      background: background,
+      borderColor: borderColor,
+    ));
   }
 }

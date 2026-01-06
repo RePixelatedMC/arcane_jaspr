@@ -1,29 +1,10 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-/// Callout style variants
-enum CalloutStyle {
-  /// Informational callout
-  info,
+import '../../core/props/callout_props.dart';
+import '../../core/theme_provider.dart';
 
-  /// Success/positive callout
-  success,
-
-  /// Warning callout
-  warning,
-
-  /// Error/danger callout
-  error,
-
-  /// Neutral/default callout
-  neutral,
-
-  /// Tip/hint callout
-  tip,
-
-  /// Note callout
-  note,
-}
+// Re-export enums for usage
+export '../../core/props/callout_props.dart' show CalloutVariant;
 
 /// Inline callout/notice component
 ///
@@ -33,7 +14,7 @@ enum CalloutStyle {
 /// ArcaneCallout(
 ///   title: 'Pro Tip',
 ///   content: 'You can use keyboard shortcuts to speed up your workflow.',
-///   style: CalloutStyle.tip,
+///   variant: CalloutVariant.tip,
 /// )
 /// ```
 class ArcaneCallout extends StatelessComponent {
@@ -47,7 +28,7 @@ class ArcaneCallout extends StatelessComponent {
   final Component? child;
 
   /// Style variant
-  final CalloutStyle style;
+  final CalloutVariant variant;
 
   /// Optional icon override
   final Component? icon;
@@ -65,7 +46,7 @@ class ArcaneCallout extends StatelessComponent {
     this.title,
     this.content,
     this.child,
-    this.style = CalloutStyle.info,
+    this.variant = CalloutVariant.info,
     this.icon,
     this.showIcon = true,
     this.dismissible = false,
@@ -83,7 +64,7 @@ class ArcaneCallout extends StatelessComponent {
     this.dismissible = false,
     this.onDismiss,
     super.key,
-  }) : style = CalloutStyle.info;
+  }) : variant = CalloutVariant.info;
 
   /// Success callout constructor
   const ArcaneCallout.success({
@@ -95,7 +76,7 @@ class ArcaneCallout extends StatelessComponent {
     this.dismissible = false,
     this.onDismiss,
     super.key,
-  }) : style = CalloutStyle.success;
+  }) : variant = CalloutVariant.success;
 
   /// Warning callout constructor
   const ArcaneCallout.warning({
@@ -107,7 +88,7 @@ class ArcaneCallout extends StatelessComponent {
     this.dismissible = false,
     this.onDismiss,
     super.key,
-  }) : style = CalloutStyle.warning;
+  }) : variant = CalloutVariant.warning;
 
   /// Error callout constructor
   const ArcaneCallout.error({
@@ -119,7 +100,7 @@ class ArcaneCallout extends StatelessComponent {
     this.dismissible = false,
     this.onDismiss,
     super.key,
-  }) : style = CalloutStyle.error;
+  }) : variant = CalloutVariant.error;
 
   /// Tip callout constructor
   const ArcaneCallout.tip({
@@ -131,139 +112,43 @@ class ArcaneCallout extends StatelessComponent {
     this.dismissible = false,
     this.onDismiss,
     super.key,
-  }) : style = CalloutStyle.tip;
+  }) : variant = CalloutVariant.tip;
 
-  String get _defaultIcon => switch (style) {
-        CalloutStyle.info => 'i',
-        CalloutStyle.success => '✓',
-        CalloutStyle.warning => '⚠',
-        CalloutStyle.error => '✕',
-        CalloutStyle.neutral => '•',
-        CalloutStyle.tip => '💡',
-        CalloutStyle.note => '📝',
-      };
+  /// Note callout constructor
+  const ArcaneCallout.note({
+    this.title,
+    this.content,
+    this.child,
+    this.icon,
+    this.showIcon = true,
+    this.dismissible = false,
+    this.onDismiss,
+    super.key,
+  }) : variant = CalloutVariant.note;
 
-  (String background, String border, String iconColor) get _styleColors =>
-      switch (style) {
-        CalloutStyle.info => (
-            'hsl(199 89% 48% / 0.1)',
-            'hsl(199 89% 48%)',
-            'hsl(199 89% 48%)'
-          ),
-        CalloutStyle.success => (
-            'hsl(142 76% 36% / 0.1)',
-            'hsl(142 76% 36%)',
-            'hsl(142 76% 36%)'
-          ),
-        CalloutStyle.warning => (
-            'hsl(38 92% 50% / 0.1)',
-            'hsl(38 92% 50%)',
-            'hsl(38 92% 50%)'
-          ),
-        CalloutStyle.error => (
-            'hsl(var(--destructive) / 0.1)',
-            'var(--destructive)',
-            'var(--destructive)'
-          ),
-        CalloutStyle.neutral => (
-            'var(--muted)',
-            'var(--border)',
-            'var(--muted-foreground)'
-          ),
-        CalloutStyle.tip => (
-            'hsl(var(--accent) / 0.1)',
-            'var(--accent)',
-            'var(--accent)'
-          ),
-        CalloutStyle.note => (
-            'hsl(var(--primary) / 0.1)',
-            'var(--primary)',
-            'var(--primary)'
-          ),
-      };
+  /// Neutral callout constructor
+  const ArcaneCallout.neutral({
+    this.title,
+    this.content,
+    this.child,
+    this.icon,
+    this.showIcon = true,
+    this.dismissible = false,
+    this.onDismiss,
+    super.key,
+  }) : variant = CalloutVariant.neutral;
 
   @override
   Component build(BuildContext context) {
-    final (background, borderColor, iconColor) = _styleColors;
-
-    return div(
-      styles: Styles(raw: {
-        'display': 'flex',
-        'gap': '1rem',
-        'padding': '1rem',
-        'background': background,
-        'border-left': '4px solid $borderColor',
-        'border-radius': '0.375rem',
-      }),
-      [
-        // Icon
-        if (showIcon)
-          div(
-            styles: Styles(raw: {
-              'flex-shrink': '0',
-              'width': '20px',
-              'height': '20px',
-              'display': 'flex',
-              'align-items': 'center',
-              'justify-content': 'center',
-              'color': iconColor,
-              'font-size': '1rem',
-            }),
-            [icon ?? text(_defaultIcon)],
-          ),
-
-        // Content
-        div(
-          styles: const Styles(raw: {
-            'flex': '1',
-            'min-width': '0',
-          }),
-          [
-            if (title != null)
-              div(
-                styles: const Styles(raw: {
-                  'font-weight': '600',
-                  'color': 'var(--foreground)',
-                  'margin-bottom': '0.25rem',
-                }),
-                [text(title!)],
-              ),
-            if (content != null)
-              div(
-                styles: const Styles(raw: {
-                  'font-size': '0.875rem',
-                  'color': 'var(--foreground)',
-                  'line-height': '1.7',
-                }),
-                [text(content!)],
-              ),
-            if (child != null) child!,
-          ],
-        ),
-
-        // Dismiss button
-        if (dismissible)
-          button(
-            type: ButtonType.button,
-            styles: const Styles(raw: {
-              'flex-shrink': '0',
-              'width': '24px',
-              'height': '24px',
-              'display': 'flex',
-              'align-items': 'center',
-              'justify-content': 'center',
-              'padding': '0',
-              'border': 'none',
-              'background': 'transparent',
-              'color': 'var(--muted-foreground)',
-              'cursor': 'pointer',
-              'border-radius': '0.125rem',
-              'transition': 'all 150ms ease',
-            }),
-            events: {'click': (_) => onDismiss?.call()},
-            [text('×')],
-          ),
-      ],
-    );
+    return context.renderers.callout(CalloutProps(
+      title: title,
+      content: content,
+      child: child,
+      variant: variant,
+      icon: icon,
+      showIcon: showIcon,
+      dismissible: dismissible,
+      onDismiss: onDismiss,
+    ));
   }
 }

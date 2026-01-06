@@ -1,0 +1,213 @@
+import 'package:jaspr/jaspr.dart';
+import 'package:jaspr/dom.dart' as dom;
+
+import '../../../core/props/badge_props.dart';
+import '../../../core/props/pricing_card_props.dart';
+import 'badge.dart';
+
+/// ShadCN Pricing Card renderer.
+class ShadcnPricingCard extends StatelessComponent {
+  final PricingCardProps props;
+
+  const ShadcnPricingCard(this.props, {super.key});
+
+  @override
+  Component build(BuildContext context) {
+    final tier = props.tier;
+
+    return dom.div(
+      classes: 'arcane-pricing-card ${tier.isHighlighted ? 'highlighted' : ''} ${tier.isPopular ? 'popular' : ''}',
+      styles: dom.Styles(raw: {
+        'display': 'flex',
+        'flex-direction': 'column',
+        'padding': '2rem',
+        'background-color': tier.isHighlighted
+            ? 'hsl(var(--accent) / 0.05)'
+            : 'var(--card)',
+        'border': tier.isHighlighted
+            ? '2px solid var(--accent)'
+            : '1px solid var(--border)',
+        'border-radius': '0.75rem',
+        'position': 'relative',
+        'transition': 'all 200ms ease',
+      }),
+      [
+        // Popular badge
+        if (tier.isPopular)
+          dom.div(
+            styles: const dom.Styles(raw: {
+              'position': 'absolute',
+              'top': '-12px',
+              'left': '50%',
+              'transform': 'translateX(-50%)',
+            }),
+            [ShadcnBadge(const BadgeProps(label: 'Most Popular', variant: BadgeVariant.primary))],
+          ),
+
+        // Tier name
+        dom.div(
+          classes: 'arcane-pricing-name',
+          styles: const dom.Styles(raw: {
+            'font-size': '1.25rem',
+            'font-weight': '600',
+            'color': 'var(--foreground)',
+            'margin-bottom': '0.5rem',
+          }),
+          [Component.text(tier.name)],
+        ),
+
+        // Price
+        dom.div(
+          classes: 'arcane-pricing-price',
+          styles: const dom.Styles(raw: {
+            'display': 'flex',
+            'align-items': 'baseline',
+            'gap': '0.25rem',
+            'margin-bottom': '0.5rem',
+          }),
+          [
+            if (tier.price != null) ...[
+              dom.span(
+                styles: const dom.Styles(raw: {
+                  'font-size': '0.875rem',
+                  'color': 'var(--muted-foreground)',
+                }),
+                [Component.text(tier.currency)],
+              ),
+              dom.span(
+                styles: const dom.Styles(raw: {
+                  'font-size': '2.5rem',
+                  'font-weight': '700',
+                  'color': 'var(--foreground)',
+                  'line-height': '1',
+                  'letter-spacing': '-0.02em',
+                }),
+                [Component.text(tier.price!.toStringAsFixed(tier.price! % 1 == 0 ? 0 : 2))],
+              ),
+              dom.span(
+                styles: const dom.Styles(raw: {
+                  'font-size': '0.875rem',
+                  'color': 'var(--muted-foreground)',
+                }),
+                [Component.text('/${tier.period}')],
+              ),
+            ] else
+              dom.span(
+                styles: const dom.Styles(raw: {
+                  'font-size': '1.5rem',
+                  'font-weight': '600',
+                  'color': 'var(--foreground)',
+                }),
+                [Component.text('Custom')],
+              ),
+          ],
+        ),
+
+        // Description
+        dom.p(
+          classes: 'arcane-pricing-description',
+          styles: const dom.Styles(raw: {
+            'font-size': '1rem',
+            'color': 'var(--muted-foreground)',
+            'margin': '0 0 2rem 0',
+            'line-height': '1.5',
+          }),
+          [Component.text(tier.description)],
+        ),
+
+        // CTA Button
+        dom.button(
+          classes: 'arcane-pricing-cta',
+          type: dom.ButtonType.button,
+          styles: dom.Styles(raw: {
+            'width': '100%',
+            'padding': '1rem 1.5rem',
+            'font-size': '1rem',
+            'font-weight': '500',
+            'border-radius': '0.375rem',
+            'border': tier.isHighlighted
+                ? 'none'
+                : '1px solid var(--border)',
+            'background-color': tier.isHighlighted
+                ? 'var(--accent)'
+                : 'transparent',
+            'color': tier.isHighlighted
+                ? 'var(--accent-foreground)'
+                : 'var(--foreground)',
+            'cursor': 'pointer',
+            'transition': 'all 150ms ease',
+            'margin-bottom': '2rem',
+          }),
+          events: {
+            'click': (e) => props.onCtaPressed?.call(),
+          },
+          [Component.text(tier.ctaText)],
+        ),
+
+        // Features list
+        dom.div(
+          classes: 'arcane-pricing-features',
+          styles: const dom.Styles(raw: {
+            'display': 'flex',
+            'flex-direction': 'column',
+            'gap': '1rem',
+          }),
+          [
+            for (final feature in tier.features)
+              dom.div(
+                classes: 'arcane-pricing-feature',
+                styles: const dom.Styles(raw: {
+                  'display': 'flex',
+                  'align-items': 'flex-start',
+                  'gap': '1rem',
+                  'font-size': '0.875rem',
+                  'color': 'var(--foreground)',
+                }),
+                [
+                  // Checkmark
+                  dom.span(
+                    styles: const dom.Styles(raw: {
+                      'color': 'hsl(142 76% 36%)',
+                      'flex-shrink': '0',
+                      'font-size': '1rem',
+                    }),
+                    [Component.text('\u2713')],
+                  ),
+                  dom.span([Component.text(feature)]),
+                ],
+              ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+/// ShadCN Pricing Grid renderer.
+class ShadcnPricingGrid extends StatelessComponent {
+  final PricingGridProps props;
+
+  const ShadcnPricingGrid(this.props, {super.key});
+
+  @override
+  Component build(BuildContext context) {
+    final int cols = props.columns ?? props.tiers.length.clamp(1, 4);
+
+    return dom.div(
+      classes: 'arcane-pricing-grid',
+      styles: dom.Styles(raw: {
+        'display': 'grid',
+        'grid-template-columns': 'repeat($cols, minmax(280px, 1fr))',
+        'gap': '2rem',
+        'align-items': 'start',
+      }),
+      [
+        for (final tier in props.tiers)
+          ShadcnPricingCard(PricingCardProps(
+            tier: tier,
+            onCtaPressed: () => props.onTierSelected?.call(tier),
+          )),
+      ],
+    );
+  }
+}

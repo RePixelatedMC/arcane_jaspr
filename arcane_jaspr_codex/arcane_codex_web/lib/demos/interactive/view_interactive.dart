@@ -269,14 +269,12 @@ class _ToastDemoState extends State<ToastDemo> {
               label: 'Info',
               onPressed: () => _showVariantToast(ToastVariant.info),
             ),
-            ArcaneButton(
+            ArcaneButton.secondary(
               label: 'Success',
-              style: ButtonStyle.success,
               onPressed: () => _showVariantToast(ToastVariant.success),
             ),
-            ArcaneButton(
+            ArcaneButton.outline(
               label: 'Warning',
-              style: ButtonStyle.warning,
               onPressed: () => _showVariantToast(ToastVariant.warning),
             ),
             ArcaneButton.destructive(
@@ -673,24 +671,24 @@ class SeparatorDemo extends StatelessComponent {
               gapSize: Gap.sm,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                ArcaneText('Dashed', size: FontSize.sm, color: TextColor.muted),
-                ArcaneExpanded(child: ArcaneSeparator(style: SeparatorStyle.dashed)),
+                ArcaneText('Default', size: FontSize.sm, color: TextColor.muted),
+                const ArcaneExpanded(child: ArcaneSeparator()),
               ],
             ),
             ArcaneRow(
               gapSize: Gap.sm,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                ArcaneText('Dotted', size: FontSize.sm, color: TextColor.muted),
-                ArcaneExpanded(child: ArcaneSeparator(style: SeparatorStyle.dotted)),
+                ArcaneText('With Label', size: FontSize.sm, color: TextColor.muted),
+                const ArcaneExpanded(child: ArcaneSeparator(label: 'OR')),
               ],
             ),
             ArcaneRow(
               gapSize: Gap.sm,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                ArcaneText('Gradient', size: FontSize.sm, color: TextColor.muted),
-                ArcaneExpanded(child: ArcaneSeparator(style: SeparatorStyle.gradient)),
+                ArcaneText('Custom Color', size: FontSize.sm, color: TextColor.muted),
+                const ArcaneExpanded(child: ArcaneSeparator(color: 'var(--primary)')),
               ],
             ),
           ],
@@ -744,23 +742,23 @@ class _TimelineDemoState extends State<TimelineDemo> {
           children: [
             ArcaneButton(
               label: 'Vertical',
-              style: _layout == TimelineLayout.vertical
-                  ? ButtonStyle.primary
-                  : ButtonStyle.secondary,
+              variant: _layout == TimelineLayout.vertical
+                  ? ButtonVariant.primary
+                  : ButtonVariant.secondary,
               onPressed: () => setState(() => _layout = TimelineLayout.vertical),
             ),
             ArcaneButton(
               label: 'Horizontal',
-              style: _layout == TimelineLayout.horizontal
-                  ? ButtonStyle.primary
-                  : ButtonStyle.secondary,
+              variant: _layout == TimelineLayout.horizontal
+                  ? ButtonVariant.primary
+                  : ButtonVariant.secondary,
               onPressed: () => setState(() => _layout = TimelineLayout.horizontal),
             ),
             ArcaneButton(
               label: 'Alternating',
-              style: _layout == TimelineLayout.alternating
-                  ? ButtonStyle.primary
-                  : ButtonStyle.secondary,
+              variant: _layout == TimelineLayout.alternating
+                  ? ButtonVariant.primary
+                  : ButtonVariant.secondary,
               onPressed: () => setState(() => _layout = TimelineLayout.alternating),
             ),
           ],
@@ -834,16 +832,16 @@ class _StepsDemoState extends State<StepsDemo> {
           children: [
             ArcaneButton(
               label: 'Horizontal',
-              style: _layout == StepsLayout.horizontal
-                  ? ButtonStyle.primary
-                  : ButtonStyle.secondary,
+              variant: _layout == StepsLayout.horizontal
+                  ? ButtonVariant.primary
+                  : ButtonVariant.secondary,
               onPressed: () => setState(() => _layout = StepsLayout.horizontal),
             ),
             ArcaneButton(
               label: 'Vertical',
-              style: _layout == StepsLayout.vertical
-                  ? ButtonStyle.primary
-                  : ButtonStyle.secondary,
+              variant: _layout == StepsLayout.vertical
+                  ? ButtonVariant.primary
+                  : ButtonVariant.secondary,
               onPressed: () => setState(() => _layout = StepsLayout.vertical),
             ),
           ],

@@ -1,7 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
-// Re-export for backwards compatibility
 export '../../core/props/slider_props.dart' show SliderSize, SliderVariant;
 
 import '../../core/props/slider_props.dart';

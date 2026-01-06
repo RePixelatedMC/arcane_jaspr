@@ -9,9 +9,9 @@ class BasicViewDemos {
 
   static List<Component> badge() => [
         ArcaneBadge('Default'),
-        ArcaneBadge('Success', style: BadgeStyle.success),
-        ArcaneBadge('Warning', style: BadgeStyle.warning),
-        ArcaneBadge('Destructive', style: BadgeStyle.destructive),
+        ArcaneBadge('Success', variant: BadgeVariant.success),
+        ArcaneBadge('Warning', variant: BadgeVariant.warning),
+        ArcaneBadge('Error', variant: BadgeVariant.error),
       ];
 
   static List<Component> chip() => [

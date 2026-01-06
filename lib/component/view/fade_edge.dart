@@ -1,20 +1,10 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-/// Direction of the fade effect
-enum FadeDirection {
-  /// Fades from left edge to transparent
-  left,
+import '../../core/props/fade_edge_props.dart';
+import '../../core/theme_provider.dart';
 
-  /// Fades from right edge to transparent
-  right,
-
-  /// Fades from top edge to transparent
-  top,
-
-  /// Fades from bottom edge to transparent
-  bottom,
-}
+// Re-export props for usage
+export '../../core/props/fade_edge_props.dart';
 
 /// An overlay that creates a fade-to-transparent effect at an edge.
 ///
@@ -94,54 +84,12 @@ class ArcaneFadeEdge extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final effectiveColor = color ?? 'var(--background)';
-    final isHorizontal =
-        direction == FadeDirection.left || direction == FadeDirection.right;
-
-    final effectiveWidth = isHorizontal ? (width ?? '150px') : '100%';
-    final effectiveHeight = !isHorizontal ? (height ?? '100px') : '100%';
-    final effectiveZIndex = zIndex ?? '10';
-
-    final gradient = _getGradient(effectiveColor);
-    final positioning = _getPositioning();
-
-    return div(
-      styles: Styles(raw: {
-        'position': 'absolute',
-        'width': effectiveWidth,
-        'height': effectiveHeight,
-        'z-index': effectiveZIndex,
-        'pointer-events': 'none',
-        'background': gradient,
-        ...positioning,
-      }),
-      [],
-    );
-  }
-
-  String _getGradient(String color) {
-    switch (direction) {
-      case FadeDirection.left:
-        return 'linear-gradient(to right, $color, transparent)';
-      case FadeDirection.right:
-        return 'linear-gradient(to left, $color, transparent)';
-      case FadeDirection.top:
-        return 'linear-gradient(to bottom, $color, transparent)';
-      case FadeDirection.bottom:
-        return 'linear-gradient(to top, $color, transparent)';
-    }
-  }
-
-  Map<String, String> _getPositioning() {
-    switch (direction) {
-      case FadeDirection.left:
-        return {'left': '0', 'top': '0', 'bottom': '0'};
-      case FadeDirection.right:
-        return {'right': '0', 'top': '0', 'bottom': '0'};
-      case FadeDirection.top:
-        return {'top': '0', 'left': '0', 'right': '0'};
-      case FadeDirection.bottom:
-        return {'bottom': '0', 'left': '0', 'right': '0'};
-    }
+    return context.renderers.fadeEdge(FadeEdgeProps(
+      direction: direction,
+      color: color,
+      width: width,
+      height: height,
+      zIndex: zIndex,
+    ));
   }
 }

@@ -1,40 +1,11 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart'
-    hide
-        Color,
-        Colors,
-        ColorScheme,
-        Gap,
-        Padding,
-        TextAlign,
-        TextOverflow,
-        Border,
-        BorderRadius,
-        BoxShadow,
-        FontWeight;
 
-/// Steps layout options
-enum StepsLayout {
-  /// Vertical layout with numbers on the left
-  vertical,
+import '../../core/theme_provider.dart';
 
-  /// Horizontal layout with numbers on top
-  horizontal,
-}
+// Re-export props for usage
+export '../../core/props/stepper_props.dart';
 
-/// Step status
-enum StepStatus {
-  /// Completed step
-  complete,
-
-  /// Current/active step
-  current,
-
-  /// Pending/upcoming step
-  pending,
-}
-
-/// Step item data
+/// Step item data (convenience class for the component wrapper)
 class ArcaneStepItem {
   /// Step title
   final String title;
@@ -54,13 +25,14 @@ class ArcaneStepItem {
     this.status = StepStatus.pending,
     this.content,
   });
-}
 
-/// Steps size options
-enum StepsSize {
-  sm,
-  md,
-  lg,
+  /// Convert to StepItemData for the renderer
+  StepItemData toData() => StepItemData(
+        title: title,
+        description: description,
+        status: status,
+        content: content,
+      );
 }
 
 /// A numbered steps component for showing progress through a process.
@@ -137,294 +109,16 @@ class ArcaneSteps extends StatelessComponent {
     super.key,
   }) : layout = StepsLayout.horizontal;
 
-  String get _indicatorSize => switch (size) {
-        StepsSize.sm => '28px',
-        StepsSize.md => '36px',
-        StepsSize.lg => '44px',
-      };
-
-  String get _connectorSize => switch (size) {
-        StepsSize.sm => '2px',
-        StepsSize.md => '2px',
-        StepsSize.lg => '3px',
-      };
-
-  String get _numberSize => switch (size) {
-        StepsSize.sm => '0.875rem',
-        StepsSize.md => '1rem',
-        StepsSize.lg => '1.125rem',
-      };
-
-  StepStatus _getEffectiveStatus(int index) {
-    if (currentStep != null) {
-      if (index < currentStep!) return StepStatus.complete;
-      if (index == currentStep!) return StepStatus.current;
-      return StepStatus.pending;
-    }
-    return items[index].status;
-  }
-
   @override
   Component build(BuildContext context) {
-    return switch (layout) {
-      StepsLayout.vertical => _buildVertical(),
-      StepsLayout.horizontal => _buildHorizontal(),
-    };
-  }
-
-  Component _buildVertical() {
-    return div(
-      classes: 'arcane-steps arcane-steps-vertical',
-      styles: const Styles(raw: {
-        'display': 'flex',
-        'flex-direction': 'column',
-      }),
-      [
-        for (var i = 0; i < items.length; i++)
-          _buildVerticalStep(items[i], i, _getEffectiveStatus(i)),
-      ],
-    );
-  }
-
-  Component _buildVerticalStep(ArcaneStepItem step, int index, StepStatus status) {
-    final isLast = index == items.length - 1;
-    final colors = _getStatusColors(status);
-    final isClickable = onStepTap != null && status == StepStatus.complete;
-
-    return div(
-      classes: 'arcane-steps-item',
-      styles: Styles(raw: {
-        'display': 'flex',
-        'gap': '1.5rem',
-        'position': 'relative',
-        'padding-bottom': isLast ? '0' : '2rem',
-      }),
-      [
-        // Number indicator and connector column
-        div(
-          styles: const Styles(raw: {
-            'display': 'flex',
-            'flex-direction': 'column',
-            'align-items': 'center',
-            'position': 'relative',
-          }),
-          [
-            // Number indicator
-            _buildIndicator(index, status, colors, isClickable),
-            // Connector line
-            if (showConnectors && !isLast)
-              div(
-                classes: 'arcane-steps-connector',
-                styles: Styles(raw: {
-                  'width': _connectorSize,
-                  'flex': '1',
-                  'min-height': '1.5rem',
-                  'background': status == StepStatus.complete
-                      ? colors['line']!
-                      : 'var(--border)',
-                  'position': 'absolute',
-                  'top': _indicatorSize,
-                  'bottom': '0',
-                }),
-                [],
-              ),
-          ],
-        ),
-        // Content column
-        div(
-          styles: const Styles(raw: {
-            'flex': '1',
-            'padding-top': '6px',
-          }),
-          [
-            _buildContent(step, status, colors),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Component _buildHorizontal() {
-    return div(
-      classes: 'arcane-steps arcane-steps-horizontal',
-      styles: const Styles(raw: {
-        'display': 'flex',
-        'align-items': 'flex-start',
-        'width': '100%',
-      }),
-      [
-        for (var i = 0; i < items.length; i++)
-          _buildHorizontalStep(items[i], i, _getEffectiveStatus(i)),
-      ],
-    );
-  }
-
-  Component _buildHorizontalStep(ArcaneStepItem step, int index, StepStatus status) {
-    final isLast = index == items.length - 1;
-    final colors = _getStatusColors(status);
-    final isClickable = onStepTap != null && status == StepStatus.complete;
-
-    return div(
-      classes: 'arcane-steps-item',
-      styles: Styles(raw: {
-        'display': 'flex',
-        'flex-direction': 'column',
-        'align-items': 'center',
-        'flex': isLast ? '0 0 auto' : '1',
-        'min-width': '100px',
-      }),
-      [
-        // Indicator row with connectors
-        div(
-          styles: const Styles(raw: {
-            'display': 'flex',
-            'align-items': 'center',
-            'width': '100%',
-          }),
-          [
-            _buildIndicator(index, status, colors, isClickable),
-            // Connector line
-            if (showConnectors && !isLast)
-              div(
-                classes: 'arcane-steps-connector',
-                styles: Styles(raw: {
-                  'flex': '1',
-                  'height': _connectorSize,
-                  'background': status == StepStatus.complete
-                      ? colors['line']!
-                      : 'var(--border)',
-                  'margin': '0 0.5rem',
-                }),
-                [],
-              ),
-          ],
-        ),
-        // Content below
-        div(
-          styles: const Styles(raw: {
-            'margin-top': '1rem',
-            'text-align': 'center',
-            'padding-right': '0.5rem',
-          }),
-          [
-            _buildContent(step, status, colors, centered: true),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Component _buildIndicator(int index, StepStatus status, Map<String, String> colors, bool isClickable) {
-    final isFilled = status == StepStatus.complete || status == StepStatus.current;
-
-    return button(
-      classes: 'arcane-steps-indicator arcane-steps-indicator-${status.name}',
-      attributes: {
-        'type': 'button',
-        if (isClickable) 'data-step-index': '$index',
-        if (!isClickable) 'disabled': 'true',
-      },
-      styles: Styles(raw: {
-        'width': _indicatorSize,
-        'height': _indicatorSize,
-        'border-radius': '9999px',
-        'background': isFilled ? colors['bg']! : 'var(--background)',
-        'border': '2px solid ${colors['border']!}',
-        'display': 'flex',
-        'align-items': 'center',
-        'justify-content': 'center',
-        'font-size': _numberSize,
-        'font-weight': '600',
-        'color': isFilled ? colors['text']! : colors['border']!,
-        'flex-shrink': '0',
-        'z-index': '1',
-        'cursor': isClickable ? 'pointer' : 'default',
-        'transition': 'all 150ms ease',
-        'padding': '0',
-      }),
-      events: isClickable
-          ? {
-              'click': (e) => onStepTap?.call(index),
-            }
-          : null,
-      [
-        if (status == StepStatus.complete)
-          span([text('✓')])
-        else
-          span([text('${index + 1}')]),
-      ],
-    );
-  }
-
-  Component _buildContent(
-    ArcaneStepItem step,
-    StepStatus status,
-    Map<String, String> colors, {
-    bool centered = false,
-  }) {
-    return div(
-      classes: 'arcane-steps-content',
-      styles: Styles(raw: {
-        'text-align': centered ? 'center' : 'left',
-      }),
-      [
-        // Title
-        div(
-          styles: Styles(raw: {
-            'font-size': '1rem',
-            'font-weight': '600',
-            'color': status == StepStatus.pending
-                ? 'var(--muted)'
-                : 'var(--foreground)',
-            'margin-bottom': step.description != null || step.content != null
-                ? '0.25rem'
-                : '0',
-          }),
-          [text(step.title)],
-        ),
-        // Description
-        if (step.description != null)
-          div(
-            styles: const Styles(raw: {
-              'font-size': '0.875rem',
-              'color': 'var(--muted-foreground)',
-              'line-height': '1.5',
-            }),
-            [text(step.description!)],
-          ),
-        // Custom content
-        if (step.content != null)
-          div(
-            styles: const Styles(raw: {
-              'margin-top': '0.5rem',
-            }),
-            [step.content!],
-          ),
-      ],
-    );
-  }
-
-  Map<String, String> _getStatusColors(StepStatus status) {
-    return switch (status) {
-      StepStatus.complete => {
-          'bg': 'hsl(142 76% 36%)',
-          'border': 'hsl(142 76% 36%)',
-          'text': 'var(--background)',
-          'line': 'hsl(142 76% 36%)',
-        },
-      StepStatus.current => {
-          'bg': 'var(--accent)',
-          'border': 'var(--accent)',
-          'text': 'var(--background)',
-          'line': 'var(--accent)',
-        },
-      StepStatus.pending => {
-          'bg': 'transparent',
-          'border': 'var(--border)',
-          'text': 'var(--muted-foreground)',
-          'line': 'var(--border)',
-        },
-    };
+    return context.renderers.stepper(StepperProps(
+      items: items.map((item) => item.toData()).toList(),
+      layout: layout,
+      size: size,
+      showConnectors: showConnectors,
+      currentStep: currentStep,
+      onStepTap: onStepTap,
+    ));
   }
 }
 

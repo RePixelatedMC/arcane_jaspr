@@ -1,54 +1,10 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart'
-    hide
-        Color,
-        Colors,
-        ColorScheme,
-        Gap,
-        Padding,
-        TextAlign,
-        TextOverflow,
-        Border,
-        BorderRadius,
-        BoxShadow,
-        FontWeight;
 
-/// Severity level for tracker cells
-enum TrackerLevel {
-  /// All fine / healthy
-  fine,
+import '../../core/props/tracker_props.dart';
+import '../../core/theme_provider.dart';
 
-  /// Warning state
-  warning,
-
-  /// Critical / error state
-  critical,
-
-  /// Unknown / no data
-  unknown,
-}
-
-/// Data for a single tracker cell
-class TrackerData {
-  /// Tooltip text to show on hover
-  final String? tooltip;
-
-  /// Severity level
-  final TrackerLevel level;
-
-  /// Optional value for the cell
-  final double? value;
-
-  /// Optional label
-  final String? label;
-
-  const TrackerData({
-    this.tooltip,
-    required this.level,
-    this.value,
-    this.label,
-  });
-}
+// Re-export props for usage
+export '../../core/props/tracker_props.dart';
 
 /// A dense status grid for time-series or health indicators.
 ///
@@ -123,104 +79,19 @@ class ArcaneTracker extends StatelessComponent {
     super.key,
   }) : columns = 31;
 
-  String _getColor(TrackerLevel level) {
-    if (levelColors != null && levelColors!.containsKey(level)) {
-      return levelColors![level]!;
-    }
-    return switch (level) {
-      TrackerLevel.fine => 'hsl(142 76% 36%)',
-      TrackerLevel.warning => 'hsl(38 92% 50%)',
-      TrackerLevel.critical => 'var(--destructive)',
-      TrackerLevel.unknown => 'var(--muted)',
-    };
-  }
-
   @override
   Component build(BuildContext context) {
-    return div(
-      classes: 'arcane-tracker',
-      styles: const Styles(raw: {
-        'display': 'flex',
-        'flex-direction': 'column',
-        'gap': '1rem',
-      }),
-      [
-        // Grid
-        div(
-          classes: 'arcane-tracker-grid',
-          styles: Styles(raw: {
-            'display': 'grid',
-            'grid-template-columns': 'repeat($columns, ${cellSize}px)',
-            'gap': '${gap}px',
-          }),
-          [
-            for (var i = 0; i < data.length; i++)
-              _buildCell(i, data[i]),
-          ],
-        ),
-
-        // Legend
-        if (showLegend)
-          div(
-            classes: 'arcane-tracker-legend',
-            styles: const Styles(raw: {
-              'display': 'flex',
-              'align-items': 'center',
-              'gap': '1rem',
-              'font-size': '0.75rem',
-              'color': 'var(--muted-foreground)',
-            }),
-            [
-              span([text('Less')]),
-              for (final level in TrackerLevel.values)
-                div(
-                  styles: Styles(raw: {
-                    'width': '${cellSize}px',
-                    'height': '${cellSize}px',
-                    'border-radius': '0.25rem',
-                    'background': _getColor(level),
-                  }),
-                  [],
-                ),
-              span([text('More')]),
-            ],
-          ),
-      ],
-    );
+    return context.renderers.tracker(TrackerProps(
+      data: data,
+      columns: columns,
+      cellSize: cellSize,
+      gap: gap,
+      showTooltips: showTooltips,
+      showLegend: showLegend,
+      levelColors: levelColors,
+      onCellTap: onCellTap,
+    ));
   }
-
-  Component _buildCell(int index, TrackerData cellData) {
-    final hasTooltip = showTooltips && cellData.tooltip != null;
-
-    return div(
-      classes: 'arcane-tracker-cell',
-      attributes: {
-        if (hasTooltip) 'title': cellData.tooltip!,
-        'data-level': cellData.level.name,
-        'data-index': '$index',
-      },
-      styles: Styles(raw: {
-        'width': '${cellSize}px',
-        'height': '${cellSize}px',
-        'border-radius': '0.25rem',
-        'background': _getColor(cellData.level),
-        'cursor': onCellTap != null ? 'pointer' : 'default',
-        'transition': 'all 150ms ease',
-      }),
-      events: onCellTap != null
-          ? {'click': (_) => onCellTap!(index, cellData)}
-          : null,
-      [],
-    );
-  }
-
-  @css
-  static final List<StyleRule> styles = [
-    css('.arcane-tracker-cell:hover').styles(raw: {
-      'transform': 'scale(1.2)',
-      'z-index': '1',
-    }),
-  ];
 }
 
 /// Uptime tracker showing percentage bars
@@ -262,114 +133,15 @@ class ArcaneUptimeTracker extends StatelessComponent {
     super.key,
   });
 
-  String _getBarColor(double uptime) {
-    if (uptime >= 99.9) return 'hsl(142 76% 36%)';
-    if (uptime >= 99.0) return 'hsl(142 76% 50%)';
-    if (uptime >= 95.0) return 'hsl(38 92% 50%)';
-    return 'var(--destructive)';
-  }
-
   @override
   Component build(BuildContext context) {
-    return div(
-      classes: 'arcane-uptime-tracker',
-      styles: const Styles(raw: {
-        'display': 'flex',
-        'flex-direction': 'column',
-        'gap': '0.5rem',
-      }),
-      [
-        // Bars
-        div(
-          classes: 'arcane-uptime-bars',
-          styles: Styles(raw: {
-            'display': 'flex',
-            'align-items': 'flex-end',
-            'gap': '${gap}px',
-            'height': '${barHeight}px',
-          }),
-          [
-            for (final day in days)
-              div(
-                classes: 'arcane-uptime-bar',
-                attributes: {
-                  if (showPercentage)
-                    'title': '${day.date.month}/${day.date.day}: ${day.uptime.toStringAsFixed(2)}%',
-                },
-                styles: Styles(raw: {
-                  'width': '${barWidth}px',
-                  'height': '${(day.uptime / 100 * barHeight).round()}px',
-                  'min-height': '2px',
-                  'background': _getBarColor(day.uptime),
-                  'border-radius': '${barWidth / 2}px ${barWidth / 2}px 0 0',
-                  'transition': 'all 150ms ease',
-                }),
-                [],
-              ),
-          ],
-        ),
-
-        // Percentage summary
-        if (days.isNotEmpty)
-          div(
-            styles: const Styles(raw: {
-              'display': 'flex',
-              'justify-content': 'space-between',
-              'align-items': 'center',
-            }),
-            [
-              span(
-                styles: const Styles(raw: {
-                  'font-size': '0.75rem',
-                  'color': 'var(--muted-foreground)',
-                }),
-                [text('${days.length} days')],
-              ),
-              span(
-                styles: const Styles(raw: {
-                  'font-size': '0.875rem',
-                  'font-weight': '500',
-                  'color': 'hsl(142 76% 36%)',
-                }),
-                [
-                  text(
-                    '${_calculateAverageUptime().toStringAsFixed(2)}% uptime',
-                  )
-                ],
-              ),
-            ],
-          ),
-      ],
-    );
+    return context.renderers.uptimeTracker(UptimeTrackerProps(
+      days: days,
+      barHeight: barHeight,
+      barWidth: barWidth,
+      gap: gap,
+      showDates: showDates,
+      showPercentage: showPercentage,
+    ));
   }
-
-  double _calculateAverageUptime() {
-    if (days.isEmpty) return 0;
-    return days.map((d) => d.uptime).reduce((a, b) => a + b) / days.length;
-  }
-
-  @css
-  static final List<StyleRule> styles = [
-    css('.arcane-uptime-bar:hover').styles(raw: {
-      'opacity': '0.8',
-    }),
-  ];
-}
-
-/// Data for a single day in uptime tracker
-class UptimeDay {
-  /// The date
-  final DateTime date;
-
-  /// Uptime percentage (0-100)
-  final double uptime;
-
-  /// Optional incidents for this day
-  final int incidents;
-
-  const UptimeDay({
-    required this.date,
-    required this.uptime,
-    this.incidents = 0,
-  });
 }

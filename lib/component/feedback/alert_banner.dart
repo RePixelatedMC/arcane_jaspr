@@ -1,14 +1,9 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-/// Alert/banner variants for ArcaneAlertBanner
-enum AlertBannerVariant {
-  info,
-  success,
-  warning,
-  error,
-  neutral,
-}
+import '../../core/theme_provider.dart';
+
+export '../../core/props/alert_banner_props.dart';
 
 /// An alert/banner component (Supabase-style)
 class ArcaneAlertBanner extends StatelessComponent {
@@ -39,7 +34,7 @@ class ArcaneAlertBanner extends StatelessComponent {
   const ArcaneAlertBanner({
     required this.message,
     this.title,
-    this.variant = AlertVariant.info,
+    this.variant = AlertBannerVariant.info,
     this.icon,
     this.action,
     this.dismissible = false,
@@ -58,7 +53,7 @@ class ArcaneAlertBanner extends StatelessComponent {
     this.onDismiss,
     this.filled = false,
     super.key,
-  }) : variant = AlertVariant.info;
+  }) : variant = AlertBannerVariant.info;
 
   /// Success alert
   const ArcaneAlertBanner.success({
@@ -70,7 +65,7 @@ class ArcaneAlertBanner extends StatelessComponent {
     this.onDismiss,
     this.filled = false,
     super.key,
-  }) : variant = AlertVariant.success;
+  }) : variant = AlertBannerVariant.success;
 
   /// Warning alert
   const ArcaneAlertBanner.warning({
@@ -82,7 +77,7 @@ class ArcaneAlertBanner extends StatelessComponent {
     this.onDismiss,
     this.filled = false,
     super.key,
-  }) : variant = AlertVariant.warning;
+  }) : variant = AlertBannerVariant.warning;
 
   /// Error alert
   const ArcaneAlertBanner.error({
@@ -94,162 +89,20 @@ class ArcaneAlertBanner extends StatelessComponent {
     this.onDismiss,
     this.filled = false,
     super.key,
-  }) : variant = AlertVariant.error;
+  }) : variant = AlertBannerVariant.error;
 
   @override
   Component build(BuildContext context) {
-    final (String bgColor, String borderColor, String textColor, String iconColor) = switch (variant) {
-      AlertVariant.info => filled
-          ? (
-              'hsl(199 89% 48%)',
-              'hsl(199 89% 48%)',
-              'white',
-              'white',
-            )
-          : (
-              'transparent',
-              'hsl(199 89% 48%)',
-              'var(--foreground)',
-              'hsl(199 89% 48%)',
-            ),
-      AlertVariant.success => filled
-          ? (
-              'hsl(142 76% 36%)',
-              'hsl(142 76% 36%)',
-              'white',
-              'white',
-            )
-          : (
-              'transparent',
-              'hsl(142 76% 36%)',
-              'var(--foreground)',
-              'hsl(142 76% 36%)',
-            ),
-      AlertVariant.warning => filled
-          ? (
-              'hsl(38 92% 50%)',
-              'hsl(38 92% 50%)',
-              'black',
-              'black',
-            )
-          : (
-              'transparent',
-              'hsl(38 92% 50%)',
-              'var(--foreground)',
-              'hsl(38 92% 50%)',
-            ),
-      AlertVariant.error => filled
-          ? (
-              'var(--destructive)',
-              'var(--destructive)',
-              'white',
-              'white',
-            )
-          : (
-              'transparent',
-              'var(--destructive)',
-              'var(--foreground)',
-              'var(--destructive)',
-            ),
-      AlertVariant.neutral => (
-          'var(--muted)',
-          'var(--border)',
-          'var(--foreground)',
-          'var(--muted-foreground)',
-        ),
-    };
-
-    final String defaultIcon = switch (variant) {
-      AlertVariant.info => 'ℹ',
-      AlertVariant.success => '✓',
-      AlertVariant.warning => '⚠',
-      AlertVariant.error => '✕',
-      AlertVariant.neutral => '•',
-    };
-
-    return div(
-      classes: 'arcane-alert arcane-alert-${variant.name} ${filled ? 'filled' : ''}',
-      styles: Styles(raw: {
-        'display': 'flex',
-        'align-items': 'flex-start',
-        'gap': '1rem',
-        'padding': '1.5rem',
-        'background-color': bgColor,
-        'border': '1px solid $borderColor',
-        'border-radius': '0.375rem',
-        'color': textColor,
-      }),
-      [
-        // Icon
-        span(
-          classes: 'arcane-alert-icon',
-          styles: Styles(raw: {
-            'flex-shrink': '0',
-            'font-size': '1.125rem',
-            'color': iconColor,
-          }),
-          [icon ?? text(defaultIcon)],
-        ),
-
-        // Content
-        div(
-          classes: 'arcane-alert-content',
-          styles: const Styles(raw: {
-            'flex': '1',
-            'min-width': '0',
-          }),
-          [
-            if (title != null)
-              div(
-                classes: 'arcane-alert-title',
-                styles: const Styles(raw: {
-                  'font-weight': '600',
-                  'font-size': '1rem',
-                  'margin-bottom': '0.25rem',
-                }),
-                [text(title!)],
-              ),
-            div(
-              classes: 'arcane-alert-message',
-              styles: const Styles(raw: {
-                'font-size': '0.875rem',
-                'line-height': '1.625',
-              }),
-              [text(message)],
-            ),
-          ],
-        ),
-
-        // Action
-        if (action != null) action!,
-
-        // Dismiss button
-        if (dismissible)
-          button(
-            classes: 'arcane-alert-dismiss',
-            attributes: {
-              'type': 'button',
-              'aria-label': 'Dismiss',
-            },
-            styles: const Styles(raw: {
-              'flex-shrink': '0',
-              'padding': '0.25rem',
-              'background': 'none',
-              'border': 'none',
-              'color': 'inherit',
-              'opacity': '0.7',
-              'cursor': 'pointer',
-              'font-size': '1rem',
-              'line-height': '1',
-              'transition': 'all 150ms ease',
-            }),
-            events: {
-              'click': (e) => onDismiss?.call(),
-            },
-            [text('×')],
-          ),
-      ],
-    );
+    return context.renderers.alertBanner(AlertBannerProps(
+      message: message,
+      title: title,
+      variant: variant,
+      icon: icon,
+      action: action,
+      dismissible: dismissible,
+      onDismiss: onDismiss,
+      filled: filled,
+    ));
   }
 }
 
@@ -325,7 +178,7 @@ class ArcaneProgressBar extends StatelessComponent {
               'min-width': '40px',
               'text-align': 'right',
             }),
-            [text('${value.round()}%')],
+            [Component.text('${value.round()}%')],
           ),
       ],
     );
@@ -387,7 +240,7 @@ class ArcaneLoader extends StatelessComponent {
               'font-size': '0.875rem',
               'color': 'var(--muted-foreground)',
             }),
-            [text(label!)],
+            [Component.text(label!)],
           ),
       ],
     );

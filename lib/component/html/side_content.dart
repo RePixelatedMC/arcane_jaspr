@@ -70,5 +70,3 @@ class ArcaneSideContent extends StatelessComponent {
   }
 }
 
-// Legacy alias for backwards compatibility
-typedef ArcaneAside = ArcaneSideContent;

@@ -37,7 +37,7 @@ export 'timeline_scripts.dart';
 export 'tracker_scripts.dart';
 export 'tree_view_scripts.dart';
 
-/// Combined navigation scripts for backward compatibility.
+/// Combined navigation scripts.
 class NavigationScripts {
   NavigationScripts._();
 

@@ -27,7 +27,7 @@ export 'time_dialog_scripts.dart';
 export 'toast_scripts.dart';
 export 'tooltip_scripts.dart';
 
-/// Combined dialog scripts for backward compatibility.
+/// Combined dialog scripts.
 class DialogScripts {
   DialogScripts._();
 

@@ -1,4 +1,5 @@
 import 'package:arcane_jaspr/arcane_jaspr.dart' hide TableOfContents;
+import 'package:arcane_jaspr/stylesheets/shadcn/shadcn_stylesheet.dart';
 import 'package:jaspr_content/jaspr_content.dart';
 
 import '../components/docs_sidebar.dart';
@@ -11,16 +12,14 @@ import '../utils/docs_scripts.dart';
 // =============================================================================
 // STYLESHEET CONFIGURATION
 // =============================================================================
-// Change this ONE constant to swap the entire design system.
-// All CSS generation, variant selection, and theming adapts automatically.
+// Two stylesheet systems are used:
+// 1. ArcaneStyleSheet (old) - Generates CSS variables for theming
+// 2. ArcaneStylesheet (new) - Provides component renderers
 //
-// Available options:
-//   const ShadcnStyleSheet()  - ShadCN design (minimal, modern, with color presets)
-//   const CodexStyleSheet()   - Codex design (gaming aesthetic, glass effects)
-//
-// Or create your own by extending ArcaneStyleSheet.
+// The old system handles CSS generation, the new system handles rendering.
 // =============================================================================
 const ArcaneStyleSheet _docsStyleSheet = ShadcnStyleSheet();
+const ArcaneStylesheet _rendererStylesheet = ShadcnStylesheet();
 
 /// Custom documentation layout using Arcane UI components
 class ArcaneDocsLayout extends PageLayoutBase {
@@ -161,16 +160,13 @@ class _ThemedDocsPageState extends State<ThemedDocsPage> {
     // Get the stylesheet instance for the selected variant
     final ArcaneStyleSheet currentSheet = _docsStyleSheet.withVariant(_variantId);
 
-    final theme = ArcaneTheme(
-      styleSheet: currentSheet,
-      themeMode: _isDark ? ThemeMode.dark : ThemeMode.light,
-    );
-
     // Build class string using stylesheet's variant system
     final rootClasses = '${currentSheet.cssClassForVariant(_variantId)} ${_isDark ? 'arcane-dark' : 'arcane-light'}';
 
+    // Wrap with ArcaneThemeProvider to enable context.renderers access
     return ArcaneThemeProvider(
-      theme: theme,
+      stylesheet: _rendererStylesheet,
+      brightness: _isDark ? Brightness.dark : Brightness.light,
       child: ArcaneDiv(
         id: 'arcane-root',
         classes: rootClasses,

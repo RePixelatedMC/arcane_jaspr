@@ -1,34 +1,10 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart'
-    hide
-        Color,
-        Colors,
-        ColorScheme,
-        Gap,
-        Padding,
-        TextAlign,
-        TextOverflow,
-        Border,
-        BorderRadius,
-        BoxShadow,
-        FontWeight;
 
-import 'icon.dart';
+import '../../core/props/arrow_link_props.dart';
+import '../../core/theme_provider.dart';
 
-/// Size options for arrow links
-enum ArrowLinkSize {
-  /// Extra small - 12px
-  xs,
-
-  /// Small - 14px
-  sm,
-
-  /// Medium - 16px (default)
-  md,
-
-  /// Large - 18px
-  lg,
-}
+// Re-export props for usage
+export '../../core/props/arrow_link_props.dart';
 
 /// A simple inline text link with an arrow icon.
 ///
@@ -103,75 +79,14 @@ class ArcaneArrowLink extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final String fontSize = switch (size) {
-      ArrowLinkSize.xs => '0.75rem',
-      ArrowLinkSize.sm => '0.875rem',
-      ArrowLinkSize.md => '1rem',
-      ArrowLinkSize.lg => '1.125rem',
-    };
-
-    final IconSize iconSize = switch (size) {
-      ArrowLinkSize.xs => IconSize.xs,
-      ArrowLinkSize.sm => IconSize.sm,
-      ArrowLinkSize.md => IconSize.sm,
-      ArrowLinkSize.lg => IconSize.md,
-    };
-
-    final String color = accent ? 'var(--accent)' : 'var(--muted-foreground)';
-
-    final List<Component> content = [
-      if (showArrow && arrowBefore) ArcaneIcon.arrowLeft(size: iconSize),
-      Component.text(label),
-      if (showArrow && !arrowBefore) ArcaneIcon.arrowRight(size: iconSize),
-    ];
-
-    final Map<String, String> styles = {
-      'display': 'inline-flex',
-      'align-items': 'center',
-      'gap': '0.5rem',
-      'font-size': fontSize,
-      'color': color,
-      'text-decoration': 'none',
-      'cursor': 'pointer',
-      'transition': 'all 150ms ease',
-    };
-
-    if (href != null) {
-      return a(
-        classes: 'arcane-arrow-link',
-        href: href!,
-        styles: Styles(raw: styles),
-        content,
-      );
-    }
-
-    if (onTap != null) {
-      return button(
-        classes: 'arcane-arrow-link',
-        attributes: {'type': 'button'},
-        styles: Styles(raw: {
-          ...styles,
-          'background': 'none',
-          'border': 'none',
-          'padding': '0',
-        }),
-        events: {'click': (_) => onTap!()},
-        content,
-      );
-    }
-
-    // Fallback to span if no interaction
-    return span(
-      classes: 'arcane-arrow-link',
-      styles: Styles(raw: styles),
-      content,
-    );
+    return context.renderers.arrowLink(ArrowLinkProps(
+      label: label,
+      href: href,
+      size: size,
+      showArrow: showArrow,
+      arrowBefore: arrowBefore,
+      accent: accent,
+      onTap: onTap,
+    ));
   }
-
-  @css
-  static final List<StyleRule> styles = [
-    css('.arcane-arrow-link:hover').styles(raw: {
-      'opacity': '0.8',
-    }),
-  ];
 }

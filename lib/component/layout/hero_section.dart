@@ -1,7 +1,8 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import '../typography/headline.dart';
+import '../../core/theme_provider.dart';
+
+export '../../core/props/hero_section_props.dart';
 
 /// A hero section component (Supabase-style)
 class ArcaneHeroSection extends StatelessComponent {
@@ -47,76 +48,17 @@ class ArcaneHeroSection extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return section(
-      classes: 'arcane-hero-section',
-      styles: Styles(raw: {
-        'display': 'flex',
-        'flex-direction': 'column',
-        'align-items': centered ? 'center' : 'flex-start',
-        'text-align': centered ? 'center' : 'left',
-        'padding': '${verticalPadding}px 1.5rem',
-      }),
-      [
-        // Content wrapper
-        div(
-          classes: 'arcane-hero-content',
-          styles: Styles(raw: {
-            'max-width': '${maxWidth}px',
-            'display': 'flex',
-            'flex-direction': 'column',
-            'align-items': centered ? 'center' : 'flex-start',
-            'gap': '1.5rem',
-          }),
-          [
-            // Badge
-            if (badge != null) badge!,
-
-            // Headline
-            ArcaneHeadline.h1(
-              headline,
-              align: centered ? 'center' : 'left',
-            ),
-
-            // Subheadline
-            if (subheadline != null)
-              ArcaneSubheadline(
-                subheadline!,
-                size: 'lg',
-                align: centered ? 'center' : 'left',
-              ),
-
-            // CTA buttons
-            if (primaryCta != null || secondaryCta != null)
-              div(
-                classes: 'arcane-hero-ctas',
-                styles: Styles(raw: {
-                  'display': 'flex',
-                  'flex-wrap': 'wrap',
-                  'gap': '0.5rem',
-                  'margin-top': '0.5rem',
-                  if (centered) 'justify-content': 'center',
-                }),
-                [
-                  if (primaryCta != null) primaryCta!,
-                  if (secondaryCta != null) secondaryCta!,
-                ],
-              ),
-          ],
-        ),
-
-        // Media
-        if (media != null)
-          div(
-            classes: 'arcane-hero-media',
-            styles: const Styles(raw: {
-              'margin-top': '3rem',
-              'width': '100%',
-              'max-width': '1200px',
-            }),
-            [media!],
-          ),
-      ],
-    );
+    return context.renderers.heroSection(HeroSectionProps(
+      headline: headline,
+      subheadline: subheadline,
+      primaryCta: primaryCta,
+      secondaryCta: secondaryCta,
+      badge: badge,
+      media: media,
+      centered: centered,
+      verticalPadding: verticalPadding,
+      maxWidth: maxWidth,
+    ));
   }
 }
 
@@ -144,18 +86,11 @@ class ArcaneCtaGroup extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return div(
-      classes: 'arcane-cta-group',
-      styles: Styles(raw: {
-        'display': 'flex',
-        'flex-wrap': 'wrap',
-        'gap': '${gap}px',
-        if (centered) 'justify-content': 'center',
-      }),
-      [
-        primaryCta,
-        if (secondaryCta != null) secondaryCta!,
-      ],
-    );
+    return context.renderers.ctaGroup(CtaGroupProps(
+      primaryCta: primaryCta,
+      secondaryCta: secondaryCta,
+      centered: centered,
+      gap: gap,
+    ));
   }
 }

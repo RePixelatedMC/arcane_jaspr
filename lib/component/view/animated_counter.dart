@@ -1,5 +1,10 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
+
+import '../../core/props/animated_counter_props.dart';
+import '../../core/theme_provider.dart';
+
+// Re-export props for usage
+export '../../core/props/animated_counter_props.dart';
 
 /// Animated counter display for statistics
 class ArcaneAnimatedCounter extends StatelessComponent {
@@ -41,51 +46,16 @@ class ArcaneAnimatedCounter extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final bool hasGradient = gradientStart != null && gradientEnd != null;
-
-    return div(
-      classes: 'arcane-animated-counter',
-      styles: const Styles(raw: {
-        'text-align': 'center',
-      }),
-      [
-        div(
-          styles: Styles(raw: {
-            'font-size': fontSize,
-            'font-weight': '700',
-            'color': hasGradient ? 'transparent' : (color ?? 'var(--foreground)'),
-            'background': hasGradient
-                ? 'linear-gradient(135deg, $gradientStart 0%, $gradientEnd 100%)'
-                : 'none',
-            '-webkit-background-clip': hasGradient ? 'text' : 'none',
-            'background-clip': hasGradient ? 'text' : 'none',
-            'line-height': '1.1',
-          }),
-          [
-            if (prefix != null)
-              span(
-                styles: Styles(raw: {'font-size': 'calc($fontSize * 0.6)'}),
-                [text(prefix!)],
-              ),
-            text(value),
-            if (suffix != null)
-              span(
-                styles: Styles(raw: {'font-size': 'calc($fontSize * 0.6)'}),
-                [text(suffix!)],
-              ),
-          ],
-        ),
-        if (label != null)
-          div(
-            styles: const Styles(raw: {
-              'font-size': '1rem',
-              'color': 'var(--muted-foreground)',
-              'margin-top': '0.5rem',
-            }),
-            [text(label!)],
-          ),
-      ],
-    );
+    return context.renderers.animatedCounter(AnimatedCounterProps(
+      value: value,
+      prefix: prefix,
+      suffix: suffix,
+      label: label,
+      fontSize: fontSize,
+      color: color,
+      gradientStart: gradientStart,
+      gradientEnd: gradientEnd,
+    ));
   }
 }
 
@@ -105,17 +75,10 @@ class ArcaneCounterRow extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return div(
-      classes: 'arcane-counter-row',
-      styles: Styles(raw: {
-        'display': 'flex',
-        'justify-content': 'center',
-        'align-items': 'flex-start',
-        'gap': gap,
-        'flex-wrap': 'wrap',
-      }),
-      counters,
-    );
+    return context.renderers.counterRow(CounterRowProps(
+      counters: counters,
+      gap: gap,
+    ));
   }
 }
 
@@ -147,59 +110,12 @@ class ArcaneMetricDisplay extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return div(
-      classes: 'arcane-metric-display',
-      styles: const Styles(raw: {
-        'display': 'flex',
-        'flex-direction': 'column',
-        'align-items': 'center',
-        'text-align': 'center',
-        'gap': '0.5rem',
-      }),
-      [
-        if (icon != null)
-          div(
-            styles: const Styles(raw: {
-              'font-size': '1.5rem',
-              'color': 'var(--accent)',
-              'margin-bottom': '0.25rem',
-            }),
-            [text(icon!)],
-          ),
-        div(
-          styles: const Styles(raw: {
-            'display': 'flex',
-            'align-items': 'baseline',
-            'gap': '0.5rem',
-          }),
-          [
-            span(
-              styles: const Styles(raw: {
-                'font-size': '1.875rem',
-                'font-weight': '700',
-                'color': 'var(--foreground)',
-              }),
-              [text(value)],
-            ),
-            if (trend != null)
-              span(
-                styles: Styles(raw: {
-                  'font-size': '0.875rem',
-                  'font-weight': '500',
-                  'color': trendPositive ? 'hsl(142 76% 36%)' : 'var(--destructive)',
-                }),
-                [text('${trendPositive ? '↑' : '↓'}$trend')],
-              ),
-          ],
-        ),
-        div(
-          styles: const Styles(raw: {
-            'font-size': '0.875rem',
-            'color': 'var(--muted-foreground)',
-          }),
-          [text(label)],
-        ),
-      ],
-    );
+    return context.renderers.metricDisplay(MetricDisplayProps(
+      value: value,
+      label: label,
+      icon: icon,
+      trend: trend,
+      trendPositive: trendPositive,
+    ));
   }
 }

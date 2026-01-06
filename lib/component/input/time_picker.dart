@@ -1,70 +1,10 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart'
-    hide
-        Color,
-        Colors,
-        ColorScheme,
-        Gap,
-        Padding,
-        TextAlign,
-        TextOverflow,
-        Border,
-        BorderRadius,
-        BoxShadow,
-        FontWeight;
 
-/// Represents a time of day with hour and minute.
-class TimeOfDay {
-  final int hour;
-  final int minute;
+import '../../core/props/time_picker_props.dart';
+import '../../core/theme_provider.dart';
 
-  const TimeOfDay({required this.hour, required this.minute});
-
-  /// Creates a TimeOfDay from the current time.
-  factory TimeOfDay.now() {
-    final now = DateTime.now();
-    return TimeOfDay(hour: now.hour, minute: now.minute);
-  }
-
-  /// Creates a TimeOfDay from a DateTime.
-  factory TimeOfDay.fromDateTime(DateTime dateTime) {
-    return TimeOfDay(hour: dateTime.hour, minute: dateTime.minute);
-  }
-
-  /// Returns the hour in 12-hour format (1-12).
-  int get hourOfPeriod => hour == 0 ? 12 : (hour > 12 ? hour - 12 : hour);
-
-  /// Returns whether this time is AM or PM.
-  bool get isPM => hour >= 12;
-
-  /// Returns a formatted string.
-  String format({bool use24Hour = false}) {
-    if (use24Hour) {
-      return '${hour.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')}';
-    }
-    final period = isPM ? 'PM' : 'AM';
-    return '${hourOfPeriod.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')} $period';
-  }
-
-  /// Creates a copy with the given fields replaced.
-  TimeOfDay copyWith({int? hour, int? minute}) {
-    return TimeOfDay(
-      hour: hour ?? this.hour,
-      minute: minute ?? this.minute,
-    );
-  }
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is TimeOfDay && hour == other.hour && minute == other.minute;
-
-  @override
-  int get hashCode => hour.hashCode ^ minute.hashCode;
-
-  @override
-  String toString() => format();
-}
+// Re-export props for usage
+export '../../core/props/time_picker_props.dart';
 
 /// A time picker input with dropdown selection.
 ///
@@ -127,28 +67,6 @@ class ArcaneTimePicker extends StatefulComponent {
 
   @override
   State<ArcaneTimePicker> createState() => _ArcaneTimePickerState();
-
-  @css
-  static final List<StyleRule> styles = [
-    css('.arcane-time-picker-trigger:hover:not(.disabled)').styles(raw: {
-      'border-color': 'var(--accent)',
-    }),
-    css('.arcane-time-picker-trigger:focus').styles(raw: {
-      'border-color': 'var(--accent)',
-      'box-shadow': '0 0 0 2px hsl(var(--accent) / 0.2)',
-      'outline': 'none',
-    }),
-    css('.arcane-time-picker-clear:hover').styles(raw: {
-      'color': 'var(--destructive)',
-    }),
-    css('.arcane-time-picker-option:hover').styles(raw: {
-      'background-color': 'var(--muted)',
-    }),
-    css('.arcane-time-picker-option.selected').styles(raw: {
-      'background-color': 'var(--accent)',
-      'color': 'var(--accent-foreground)',
-    }),
-  ];
 }
 
 class _ArcaneTimePickerState extends State<ArcaneTimePicker> {
@@ -227,370 +145,33 @@ class _ArcaneTimePickerState extends State<ArcaneTimePicker> {
     setState(() => _isOpen = false);
   }
 
+  void _cancel() {
+    setState(() => _isOpen = false);
+  }
+
   @override
   Component build(BuildContext context) {
-    final hasError = component.error != null;
-    final hasValue = component.value != null;
-    final sizeStyles = component.size.styles;
-
-    return div(
-      classes:
-          'arcane-time-picker ${_isOpen ? 'open' : ''} ${component.disabled ? 'disabled' : ''} ${hasError ? 'error' : ''}',
-      attributes: {
-        'data-time-picker': 'true',
-      },
-      styles: const Styles(raw: {
-        'position': 'relative',
-        'display': 'flex',
-        'flex-direction': 'column',
-        'gap': '0.25rem',
-      }),
-      [
-        // Label
-        if (component.label != null)
-          span(
-            styles: const Styles(raw: {
-              'font-size': '0.875rem',
-              'font-weight': '500',
-              'color': 'var(--foreground)',
-            }),
-            [Component.text(component.label!)],
-          ),
-
-        // Trigger button
-        button(
-          classes:
-              'arcane-time-picker-trigger ${component.disabled ? 'disabled' : ''}',
-          attributes: {
-            'type': 'button',
-            'aria-haspopup': 'dialog',
-            'aria-expanded': '$_isOpen',
-            if (component.disabled) 'disabled': 'true',
-          },
-          styles: Styles(raw: {
-            'display': 'flex',
-            'align-items': 'center',
-            'gap': '0.5rem',
-            'width': '100%',
-            'height': sizeStyles['height']!,
-            'padding': '0 1rem',
-            'background-color': 'var(--card)',
-            'border':
-                '1px solid ${hasError ? 'var(--destructive)' : 'var(--border)'}',
-            'border-radius': '0.375rem',
-            'font-size': sizeStyles['fontSize']!,
-            'color': hasValue ? 'var(--foreground)' : 'var(--muted-foreground)',
-            'cursor': component.disabled ? 'not-allowed' : 'pointer',
-            'transition': 'all 150ms ease',
-            'text-align': 'left',
-            if (component.disabled) 'opacity': '0.5',
-          }),
-          events: {
-            'click': (e) => _toggleOpen(),
-          },
-          [
-            const span(
-              styles: Styles(raw: {
-                'color': 'var(--muted-foreground)',
-              }),
-              [Component.text('🕐')],
-            ),
-            span(
-              styles: const Styles(raw: {
-                'flex': '1',
-                'overflow': 'hidden',
-                'text-overflow': 'ellipsis',
-                'white-space': 'nowrap',
-              }),
-              [Component.text(_displayText)],
-            ),
-            if (hasValue && component.clearable)
-              span(
-                classes: 'arcane-time-picker-clear',
-                attributes: {
-                  'role': 'button',
-                  'aria-label': 'Clear time',
-                },
-                styles: const Styles(raw: {
-                  'color': 'var(--muted-foreground)',
-                  'cursor': 'pointer',
-                  'transition': 'all 150ms ease',
-                }),
-                events: {
-                  'click': (e) {
-                    e.stopPropagation();
-                    _clear();
-                  },
-                },
-                [const Component.text('✕')],
-              ),
-          ],
-        ),
-
-        // Time picker dropdown
-        if (_isOpen)
-          div(
-            classes: 'arcane-time-picker-dropdown',
-            styles: const Styles(raw: {
-              'position': 'absolute',
-              'top': '100%',
-              'left': '0',
-              'margin-top': '0.25rem',
-              'z-index': '100',
-              'background-color': 'var(--card)',
-              'border': '1px solid var(--border)',
-              'border-radius': '0.5rem',
-              'box-shadow': '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
-              'padding': '1rem',
-              'min-width': '280px',
-            }),
-            [
-              // Time selection columns
-              div(
-                styles: const Styles(raw: {
-                  'display': 'flex',
-                  'gap': '1rem',
-                }),
-                [
-                  // Hours column
-                  _buildTimeColumn(
-                    label: 'Hour',
-                    values: component.use24Hour
-                        ? List.generate(24, (i) => i)
-                        : List.generate(12, (i) => i == 0 ? 12 : i),
-                    selectedValue: _selectedHour,
-                    onSelect: _selectHour,
-                  ),
-
-                  // Minutes column
-                  _buildTimeColumn(
-                    label: 'Minute',
-                    values: List.generate(
-                      60 ~/ component.minuteInterval,
-                      (i) => i * component.minuteInterval,
-                    ),
-                    selectedValue: _selectedMinute,
-                    onSelect: _selectMinute,
-                    padZero: true,
-                  ),
-
-                  // AM/PM selector (12-hour mode only)
-                  if (!component.use24Hour)
-                    div(
-                      styles: const Styles(raw: {
-                        'display': 'flex',
-                        'flex-direction': 'column',
-                        'gap': '0.25rem',
-                      }),
-                      [
-                        const span(
-                          styles: Styles(raw: {
-                            'font-size': '0.75rem',
-                            'font-weight': '500',
-                            'color': 'var(--muted-foreground)',
-                            'text-transform': 'uppercase',
-                            'margin-bottom': '0.25rem',
-                          }),
-                          [Component.text('Period')],
-                        ),
-                        button(
-                          classes:
-                              'arcane-time-picker-option ${!_isPM ? 'selected' : ''}',
-                          styles: Styles(raw: {
-                            'padding': '0.5rem 1rem',
-                            'border': 'none',
-                            'border-radius': '0.375rem',
-                            'background-color':
-                                !_isPM ? 'var(--accent)' : 'transparent',
-                            'color': !_isPM
-                                ? 'var(--accent-foreground)'
-                                : 'var(--foreground)',
-                            'cursor': 'pointer',
-                            'font-size': '0.875rem',
-                            'transition': 'all 150ms ease',
-                          }),
-                          events: {
-                            'click': (e) {
-                              if (_isPM) _togglePeriod();
-                            },
-                          },
-                          [const Component.text('AM')],
-                        ),
-                        button(
-                          classes:
-                              'arcane-time-picker-option ${_isPM ? 'selected' : ''}',
-                          styles: Styles(raw: {
-                            'padding': '0.5rem 1rem',
-                            'border': 'none',
-                            'border-radius': '0.375rem',
-                            'background-color':
-                                _isPM ? 'var(--accent)' : 'transparent',
-                            'color': _isPM
-                                ? 'var(--accent-foreground)'
-                                : 'var(--foreground)',
-                            'cursor': 'pointer',
-                            'font-size': '0.875rem',
-                            'transition': 'all 150ms ease',
-                          }),
-                          events: {
-                            'click': (e) {
-                              if (!_isPM) _togglePeriod();
-                            },
-                          },
-                          [const Component.text('PM')],
-                        ),
-                      ],
-                    ),
-                ],
-              ),
-
-              // Action buttons
-              div(
-                styles: const Styles(raw: {
-                  'display': 'flex',
-                  'justify-content': 'flex-end',
-                  'gap': '0.5rem',
-                  'margin-top': '1rem',
-                  'padding-top': '1rem',
-                  'border-top': '1px solid var(--border)',
-                }),
-                [
-                  button(
-                    styles: const Styles(raw: {
-                      'padding': '0.5rem 1rem',
-                      'border': '1px solid var(--border)',
-                      'border-radius': '0.375rem',
-                      'background-color': 'transparent',
-                      'color': 'var(--foreground)',
-                      'cursor': 'pointer',
-                      'font-size': '0.875rem',
-                    }),
-                    events: {
-                      'click': (e) => setState(() => _isOpen = false),
-                    },
-                    [const Component.text('Cancel')],
-                  ),
-                  button(
-                    styles: const Styles(raw: {
-                      'padding': '0.5rem 1rem',
-                      'border': 'none',
-                      'border-radius': '0.375rem',
-                      'background-color': 'var(--accent)',
-                      'color': 'var(--accent-foreground)',
-                      'cursor': 'pointer',
-                      'font-size': '0.875rem',
-                    }),
-                    events: {
-                      'click': (e) => _confirm(),
-                    },
-                    [const Component.text('Confirm')],
-                  ),
-                ],
-              ),
-            ],
-          ),
-
-        // Error message
-        if (hasError)
-          span(
-            styles: const Styles(raw: {
-              'font-size': '0.875rem',
-              'color': 'var(--destructive)',
-            }),
-            [Component.text(component.error!)],
-          ),
-      ],
-    );
+    return context.renderers.timePicker(TimePickerProps(
+      value: component.value,
+      displayText: _displayText,
+      label: component.label,
+      disabled: component.disabled,
+      error: component.error,
+      clearable: component.clearable,
+      size: component.size,
+      isOpen: _isOpen,
+      use24Hour: component.use24Hour,
+      selectedHour: _selectedHour,
+      selectedMinute: _selectedMinute,
+      isPM: _isPM,
+      minuteInterval: component.minuteInterval,
+      onToggle: _toggleOpen,
+      onClear: _clear,
+      onSelectHour: _selectHour,
+      onSelectMinute: _selectMinute,
+      onTogglePeriod: _togglePeriod,
+      onConfirm: _confirm,
+      onCancel: _cancel,
+    ));
   }
-
-  Component _buildTimeColumn({
-    required String label,
-    required List<int> values,
-    required int selectedValue,
-    required void Function(int) onSelect,
-    bool padZero = false,
-  }) {
-    return div(
-      styles: const Styles(raw: {
-        'display': 'flex',
-        'flex-direction': 'column',
-        'gap': '0.25rem',
-      }),
-      [
-        span(
-          styles: const Styles(raw: {
-            'font-size': '0.75rem',
-            'font-weight': '500',
-            'color': 'var(--muted-foreground)',
-            'text-transform': 'uppercase',
-            'margin-bottom': '0.25rem',
-          }),
-          [Component.text(label)],
-        ),
-        div(
-          styles: const Styles(raw: {
-            'max-height': '200px',
-            'overflow-y': 'auto',
-            'display': 'flex',
-            'flex-direction': 'column',
-            'gap': '2px',
-          }),
-          [
-            for (final value in values)
-              button(
-                classes:
-                    'arcane-time-picker-option ${value == selectedValue ? 'selected' : ''}',
-                styles: Styles(raw: {
-                  'padding': '0.25rem 1rem',
-                  'border': 'none',
-                  'border-radius': '0.375rem',
-                  'background-color': value == selectedValue
-                      ? 'var(--accent)'
-                      : 'transparent',
-                  'color': value == selectedValue
-                      ? 'var(--accent-foreground)'
-                      : 'var(--foreground)',
-                  'cursor': 'pointer',
-                  'font-size': '0.875rem',
-                  'text-align': 'center',
-                  'min-width': '48px',
-                  'transition': 'all 150ms ease',
-                }),
-                events: {
-                  'click': (e) => onSelect(value),
-                },
-                [
-                  Component.text(
-                      padZero ? value.toString().padLeft(2, '0') : '$value')
-                ],
-              ),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
-/// Size variants for time picker
-enum TimePickerSize {
-  sm,
-  md,
-  lg,
-}
-
-extension TimePickerSizeExtension on TimePickerSize {
-  Map<String, String> get styles => switch (this) {
-        TimePickerSize.sm => {
-            'height': '32px',
-            'fontSize': '0.875rem',
-          },
-        TimePickerSize.md => {
-            'height': '40px',
-            'fontSize': '0.875rem',
-          },
-        TimePickerSize.lg => {
-            'height': '48px',
-            'fontSize': '1rem',
-          },
-      };
 }

@@ -3,7 +3,6 @@ import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, T
 
 import '../../core/theme_provider.dart';
 
-// Re-export props for backwards compatibility
 export '../../core/props/loader_props.dart'
     show LoaderVariant, LoaderProps, LoadingOverlayProps;
 

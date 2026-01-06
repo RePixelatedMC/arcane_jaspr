@@ -74,3 +74,113 @@ class ShadcnProgress extends StatelessComponent {
     );
   }
 }
+
+/// ShadCN Circular Progress renderer.
+class ShadcnCircularProgress extends StatelessComponent {
+  final CircularProgressProps props;
+
+  const ShadcnCircularProgress(this.props, {super.key});
+
+  @override
+  Component build(BuildContext context) {
+    final percent = (props.value.clamp(0.0, 1.0) * 100).round();
+    final actualSize = props.size ?? '80px';
+    final actualStroke = props.strokeWidth ?? '8px';
+    final fillColor = props.fillColor ?? 'var(--primary)';
+    final trackColor = props.trackColor ?? 'var(--muted)';
+
+    return dom.div(
+      classes: 'arcane-circular-progress',
+      attributes: {
+        'role': 'progressbar',
+        'aria-valuemin': '0',
+        'aria-valuemax': '100',
+        'aria-valuenow': '$percent',
+      },
+      styles: dom.Styles(raw: {
+        'position': 'relative',
+        'width': actualSize,
+        'height': actualSize,
+        'display': 'flex',
+        'align-items': 'center',
+        'justify-content': 'center',
+      }),
+      [
+        // Background circle using conic gradient
+        dom.div(
+          styles: dom.Styles(raw: {
+            'position': 'absolute',
+            'width': '100%',
+            'height': '100%',
+            'border-radius': '9999px',
+            'background':
+                'conic-gradient($fillColor 0deg ${props.value * 360}deg, $trackColor ${props.value * 360}deg 360deg)',
+            'mask':
+                'radial-gradient(farthest-side, transparent calc(100% - $actualStroke), #fff calc(100% - $actualStroke))',
+            '-webkit-mask':
+                'radial-gradient(farthest-side, transparent calc(100% - $actualStroke), #fff calc(100% - $actualStroke))',
+          }),
+          [],
+        ),
+        // Center content
+        dom.div(
+          styles: const dom.Styles(raw: {
+            'display': 'flex',
+            'flex-direction': 'column',
+            'align-items': 'center',
+            'justify-content': 'center',
+          }),
+          [
+            if (props.showPercentage)
+              dom.span(
+                styles: const dom.Styles(raw: {
+                  'font-size': '1.25rem',
+                  'font-weight': '700',
+                  'color': 'var(--foreground)',
+                }),
+                [Component.text('$percent%')],
+              ),
+            if (props.label != null)
+              dom.span(
+                styles: const dom.Styles(raw: {
+                  'font-size': '0.875rem',
+                  'color': 'var(--muted-foreground)',
+                }),
+                [Component.text(props.label!)],
+              ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+/// ShadCN Loading Spinner renderer.
+class ShadcnLoadingSpinner extends StatelessComponent {
+  final LoadingSpinnerProps props;
+
+  const ShadcnLoadingSpinner(this.props, {super.key});
+
+  @override
+  Component build(BuildContext context) {
+    final actualSize = props.size ?? '24px';
+    final spinnerColor = props.color ?? 'var(--primary)';
+
+    return dom.div(
+      classes: 'arcane-loading-spinner',
+      attributes: {
+        'role': 'status',
+        'aria-label': 'Loading',
+      },
+      styles: dom.Styles(raw: {
+        'width': actualSize,
+        'height': actualSize,
+        'border': '3px solid var(--border)',
+        'border-top-color': spinnerColor,
+        'border-radius': '9999px',
+        'animation': 'arcane-spin 0.75s linear infinite',
+      }),
+      [],
+    );
+  }
+}

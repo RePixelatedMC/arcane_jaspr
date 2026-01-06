@@ -1,17 +1,8 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart'
-    hide
-        Color,
-        Colors,
-        ColorScheme,
-        Gap,
-        Padding,
-        TextAlign,
-        TextOverflow,
-        Border,
-        BorderRadius,
-        BoxShadow,
-        FontWeight;
+
+import '../../core/theme_provider.dart';
+
+export '../../core/props/auth_layout_props.dart';
 
 /// A layout for authentication screens with centered content and optional background effects.
 ///
@@ -78,113 +69,18 @@ class ArcaneAuthLayout extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return div(
-      classes: 'arcane-auth-layout',
-      styles: Styles(raw: {
-        'min-height': '100vh',
-        'display': 'flex',
-        'align-items': 'center',
-        'justify-content': 'center',
-        'background': backgroundColor,
-        'padding': '1.5rem',
-        'position': 'relative',
-        'overflow': 'hidden',
-      }),
-      [
-        // Background effects
-        if (showGrid || showGlows) _buildBackgroundEffects(),
-        // Content container
-        div(
-          classes: 'arcane-auth-content',
-          styles: Styles(raw: {
-            'width': '100%',
-            'max-width': maxWidth,
-            'position': 'relative',
-            'z-index': '1',
-          }),
-          [
-            // Header (logo)
-            if (header != null)
-              div(
-                classes: 'arcane-auth-header',
-                styles: const Styles(raw: {
-                  'display': 'flex',
-                  'justify-content': 'center',
-                  'margin-bottom': '2rem',
-                }),
-                [header!],
-              ),
-            // Main content (auth card)
-            child,
-            // Footer (back link)
-            if (footer != null)
-              div(
-                classes: 'arcane-auth-footer',
-                styles: const Styles(raw: {
-                  'text-align': 'center',
-                  'margin-top': '2rem',
-                }),
-                [footer!],
-              ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Component _buildBackgroundEffects() {
-    return div(
-      classes: 'arcane-auth-background',
-      styles: const Styles(raw: {
-        'position': 'absolute',
-        'inset': '0',
-        'pointer-events': 'none',
-        'overflow': 'hidden',
-      }),
-      [
-        // Grid pattern
-        if (showGrid)
-          div(
-            classes: 'arcane-auth-grid',
-            styles: Styles(raw: {
-              'position': 'absolute',
-              'inset': '0',
-              'background-image':
-                  'linear-gradient($gridColor 1px, transparent 1px), linear-gradient(90deg, $gridColor 1px, transparent 1px)',
-              'background-size': '50px 50px',
-            }),
-            [],
-          ),
-        // Top left glow
-        if (showGlows)
-          div(
-            classes: 'arcane-auth-glow-primary',
-            styles: Styles(raw: {
-              'position': 'absolute',
-              'top': '-200px',
-              'left': '-200px',
-              'width': '500px',
-              'height': '500px',
-              'background': 'radial-gradient(circle, $primaryGlowColor 0%, transparent 70%)',
-            }),
-            [],
-          ),
-        // Bottom right glow
-        if (showGlows)
-          div(
-            classes: 'arcane-auth-glow-secondary',
-            styles: Styles(raw: {
-              'position': 'absolute',
-              'bottom': '-200px',
-              'right': '-200px',
-              'width': '500px',
-              'height': '500px',
-              'background': 'radial-gradient(circle, $secondaryGlowColor 0%, transparent 70%)',
-            }),
-            [],
-          ),
-      ],
-    );
+    return context.renderers.authLayout(AuthLayoutProps(
+      child: child,
+      header: header,
+      footer: footer,
+      showGrid: showGrid,
+      showGlows: showGlows,
+      primaryGlowColor: primaryGlowColor,
+      secondaryGlowColor: secondaryGlowColor,
+      gridColor: gridColor,
+      maxWidth: maxWidth,
+      backgroundColor: backgroundColor,
+    ));
   }
 }
 
@@ -204,26 +100,9 @@ class ArcaneAuthBackLink extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return a(
+    return context.renderers.authBackLink(AuthBackLinkProps(
       href: href,
-      classes: 'arcane-auth-back-link',
-      styles: const Styles(raw: {
-        'font-size': '0.875rem',
-        'color': 'var(--muted-foreground)',
-        'text-decoration': 'none',
-        'display': 'inline-flex',
-        'align-items': 'center',
-        'gap': '0.25rem',
-        'transition': 'all 150ms ease',
-      }),
-      [Component.text('\u2190 $text')],
-    );
+      text: text,
+    ));
   }
-
-  @css
-  static final List<StyleRule> styles = [
-    css('.arcane-auth-back-link:hover').styles(raw: {
-      'color': 'var(--accent)',
-    }),
-  ];
 }

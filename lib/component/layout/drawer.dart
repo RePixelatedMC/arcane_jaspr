@@ -2,7 +2,6 @@ import 'package:jaspr/jaspr.dart';
 
 import '../../core/theme_provider.dart';
 
-// Re-export for backwards compatibility
 export '../../core/props/drawer_props.dart' show DrawerPosition, DrawerSize;
 
 /// Slide-in drawer/sheet panel

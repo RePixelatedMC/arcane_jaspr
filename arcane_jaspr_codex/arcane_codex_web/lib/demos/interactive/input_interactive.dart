@@ -309,9 +309,9 @@ class _CycleButtonDemoState extends State<CycleButtonDemo> {
       children: [
         ArcaneCycleButton<String>(
           options: [
-            ArcaneCycleOption(value: 'a', label: 'Option A'),
-            ArcaneCycleOption(value: 'b', label: 'Option B'),
-            ArcaneCycleOption(value: 'c', label: 'Option C'),
+            CycleOption(value: 'a', label: 'Option A'),
+            CycleOption(value: 'b', label: 'Option B'),
+            CycleOption(value: 'c', label: 'Option C'),
           ],
           value: _value,
           onChanged: (v) => setState(() => _value = v),

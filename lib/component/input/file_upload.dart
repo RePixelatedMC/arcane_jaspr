@@ -1,43 +1,10 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-/// File upload style variants
-enum FileUploadStyle {
-  /// Default dropzone style
-  dropzone,
+import '../../core/props/file_upload_props.dart';
+import '../../core/theme_provider.dart';
 
-  /// Compact button style
-  button,
-
-  /// Inline style
-  inline,
-}
-
-/// File upload size variants
-enum FileUploadSize {
-  sm,
-  md,
-  lg,
-}
-
-/// Uploaded file info
-class UploadedFile {
-  final String name;
-  final int size;
-  final String type;
-
-  const UploadedFile({
-    required this.name,
-    required this.size,
-    required this.type,
-  });
-
-  String get formattedSize {
-    if (size < 1024) return '$size B';
-    if (size < 1024 * 1024) return '${(size / 1024).toStringAsFixed(1)} KB';
-    return '${(size / (1024 * 1024)).toStringAsFixed(1)} MB';
-  }
-}
+// Re-export props for usage
+export '../../core/props/file_upload_props.dart';
 
 /// File upload/dropzone component
 ///
@@ -153,13 +120,6 @@ class _ArcaneFileUploadState extends State<ArcaneFileUpload> {
     return 'Drag a file here or click to browse';
   }
 
-  (String padding, String fontSize, String iconSize) get _sizeStyles =>
-      switch (component.size) {
-        FileUploadSize.sm => ('1rem', '0.875rem', '24px'),
-        FileUploadSize.md => ('1.5rem', '1rem', '32px'),
-        FileUploadSize.lg => ('2rem', '1.125rem', '48px'),
-      };
-
   void _handleFiles(dynamic files) {
     final List<UploadedFile> uploadedFiles = [];
 
@@ -185,281 +145,51 @@ class _ArcaneFileUploadState extends State<ArcaneFileUpload> {
     }
   }
 
-  @override
-  Component build(BuildContext context) {
-    final (padding, fontSize, iconSize) = _sizeStyles;
-
-    return div(
-      styles: const Styles(raw: {
-        'display': 'flex',
-        'flex-direction': 'column',
-        'gap': '0.5rem',
-      }),
-      [
-        // Label
-        if (component.label != null)
-          label(
-            styles: const Styles(raw: {
-              'font-size': '0.875rem',
-              'font-weight': '500',
-              'color': 'var(--foreground)',
-            }),
-            [text(component.label!)],
-          ),
-
-        // Dropzone or button
-        if (component.style == FileUploadStyle.dropzone)
-          _buildDropzone(padding, fontSize, iconSize)
-        else if (component.style == FileUploadStyle.button)
-          _buildButton(fontSize)
-        else
-          _buildInline(fontSize),
-
-        // Selected files list
-        if (_selectedFiles.isNotEmpty)
-          div(
-            styles: const Styles(raw: {
-              'display': 'flex',
-              'flex-direction': 'column',
-              'gap': '0.25rem',
-            }),
-            [
-              for (final file in _selectedFiles)
-                div(
-                  styles: const Styles(raw: {
-                    'display': 'flex',
-                    'align-items': 'center',
-                    'justify-content': 'space-between',
-                    'padding': '0.5rem',
-                    'background': 'var(--muted)',
-                    'border-radius': '0.125rem',
-                    'font-size': '0.875rem',
-                  }),
-                  [
-                    span(
-                      styles: const Styles(raw: {
-                        'color': 'var(--foreground)',
-                        'overflow': 'hidden',
-                        'text-overflow': 'ellipsis',
-                        'white-space': 'nowrap',
-                      }),
-                      [text(file.name)],
-                    ),
-                    span(
-                      styles: const Styles(raw: {
-                        'color': 'var(--muted-foreground)',
-                        'flex-shrink': '0',
-                        'margin-left': '0.5rem',
-                      }),
-                      [text(file.formattedSize)],
-                    ),
-                  ],
-                ),
-            ],
-          ),
-
-        // Helper text
-        if (component.helperText != null)
-          span(
-            styles: const Styles(raw: {
-              'font-size': '0.75rem',
-              'color': 'var(--muted-foreground)',
-            }),
-            [text(component.helperText!)],
-          ),
-      ],
-    );
-  }
-
-  Component _buildDropzone(String padding, String fontSize, String iconSize) {
-    return div(
-      styles: Styles(raw: {
-        'display': 'flex',
-        'flex-direction': 'column',
-        'align-items': 'center',
-        'justify-content': 'center',
-        'gap': '1rem',
-        'padding': padding,
-        'border': _isDragOver
-            ? '2px dashed var(--accent)'
-            : '2px dashed var(--border)',
-        'border-radius': '0.5rem',
-        'background': _isDragOver
-            ? 'hsl(var(--accent) / 0.05)'
-            : 'transparent',
-        'cursor': component.disabled ? 'not-allowed' : 'pointer',
-        'opacity': component.disabled ? '0.5' : '1',
-        'transition': 'all 150ms ease',
-        'text-align': 'center',
-      }),
-      events: {
-        'click': (_) {
-          if (!component.disabled) {
-            _triggerFileInput();
-          }
-        },
-        'dragover': (e) {
-          e.preventDefault();
-          if (!component.disabled) {
-            setState(() => _isDragOver = true);
-          }
-        },
-        'dragleave': (_) {
-          setState(() => _isDragOver = false);
-        },
-        'drop': (e) {
-          e.preventDefault();
-          setState(() => _isDragOver = false);
-          if (!component.disabled) {
-            final files = (e as dynamic).dataTransfer?.files;
-            if (files != null) {
-              _handleFiles(files);
-            }
-          }
-        },
-      },
-      [
-        // Upload icon
-        div(
-          styles: Styles(raw: {
-            'font-size': iconSize,
-            'color': _isDragOver ? 'var(--accent)' : 'var(--muted-foreground)',
-          }),
-          [text('📁')],
-        ),
-
-        // Text
-        div(
-          styles: Styles(raw: {
-            'font-size': fontSize,
-            'color': 'var(--foreground)',
-          }),
-          [text(_dropzoneText)],
-        ),
-
-        // Browse button
-        span(
-          styles: const Styles(raw: {
-            'color': 'var(--accent)',
-            'font-weight': '500',
-            'text-decoration': 'underline',
-          }),
-          [text(component.browseText)],
-        ),
-
-        // Hidden file input
-        _buildHiddenInput(),
-      ],
-    );
-  }
-
-  Component _buildButton(String fontSize) {
-    return div(
-      styles: const Styles(raw: {
-        'display': 'inline-flex',
-        'align-items': 'center',
-        'gap': '0.5rem',
-      }),
-      [
-        button(
-          type: ButtonType.button,
-          attributes: component.disabled ? {'disabled': 'true'} : null,
-          styles: Styles(raw: {
-            'display': 'inline-flex',
-            'align-items': 'center',
-            'gap': '0.25rem',
-            'padding': '10px 20px',
-            'font-size': fontSize,
-            'font-weight': '500',
-            'background': 'var(--muted)',
-            'border': '1px solid var(--border)',
-            'border-radius': '0.375rem',
-            'color': 'var(--foreground)',
-            'cursor': component.disabled ? 'not-allowed' : 'pointer',
-            'opacity': component.disabled ? '0.5' : '1',
-            'transition': 'all 150ms ease',
-          }),
-          events: {
-            'click': (_) {
-              if (!component.disabled) {
-                _triggerFileInput();
-              }
-            },
-          },
-          [
-            text('📎'),
-            text(component.browseText),
-          ],
-        ),
-        _buildHiddenInput(),
-      ],
-    );
-  }
-
-  Component _buildInline(String fontSize) {
-    return div(
-      styles: const Styles(raw: {
-        'display': 'inline-flex',
-        'align-items': 'center',
-        'gap': '0.25rem',
-      }),
-      [
-        a(
-          href: '#',
-          styles: Styles(raw: {
-            'font-size': fontSize,
-            'color': 'var(--accent)',
-            'text-decoration': 'underline',
-            'cursor': component.disabled ? 'not-allowed' : 'pointer',
-            'opacity': component.disabled ? '0.5' : '1',
-          }),
-          events: {
-            'click': (e) {
-              e.preventDefault();
-              if (!component.disabled) {
-                _triggerFileInput();
-              }
-            },
-          },
-          [text(component.browseText)],
-        ),
-        _buildHiddenInput(),
-      ],
-    );
-  }
-
-  Component _buildHiddenInput() {
-    return input(
-      id: 'file-input',
-      type: InputType.file,
-      attributes: {
-        if (_acceptString.isNotEmpty) 'accept': _acceptString,
-        if (component.multiple) 'multiple': 'true',
-      },
-      styles: const Styles(raw: {
-        'position': 'absolute',
-        'width': '1px',
-        'height': '1px',
-        'padding': '0',
-        'margin': '-1px',
-        'overflow': 'hidden',
-        'clip': 'rect(0, 0, 0, 0)',
-        'white-space': 'nowrap',
-        'border': '0',
-      }),
-      events: {
-        'change': (e) {
-          final files = (e.target as dynamic)?.files;
-          if (files != null) {
-            _handleFiles(files);
-          }
-        },
-      },
-    );
-  }
-
   void _triggerFileInput() {
     // Trigger click on hidden file input via JavaScript
     // This would need JS interop in practice
+  }
+
+  @override
+  Component build(BuildContext context) {
+    return context.renderers.fileUpload(FileUploadProps(
+      style: component.style,
+      size: component.size,
+      isDragOver: _isDragOver,
+      selectedFiles: _selectedFiles,
+      disabled: component.disabled,
+      label: component.label,
+      dropzoneText: _dropzoneText,
+      browseText: component.browseText,
+      helperText: component.helperText,
+      acceptString: _acceptString,
+      multiple: component.multiple,
+      onClick: component.disabled ? null : _triggerFileInput,
+      onDragOver: (e) {
+        e.preventDefault();
+        if (!component.disabled) {
+          setState(() => _isDragOver = true);
+        }
+      },
+      onDragLeave: (_) {
+        setState(() => _isDragOver = false);
+      },
+      onDrop: (e) {
+        e.preventDefault();
+        setState(() => _isDragOver = false);
+        if (!component.disabled) {
+          final files = (e as dynamic).dataTransfer?.files;
+          if (files != null) {
+            _handleFiles(files);
+          }
+        }
+      },
+      onInputChange: (e) {
+        final files = (e.target as dynamic)?.files;
+        if (files != null) {
+          _handleFiles(files);
+        }
+      },
+    ));
   }
 }

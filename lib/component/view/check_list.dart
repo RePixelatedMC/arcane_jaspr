@@ -1,23 +1,10 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-/// Style for the check icon
-enum CheckStyle {
-  /// Checkmark (✓)
-  check,
+import '../../core/props/check_list_props.dart';
+import '../../core/theme_provider.dart';
 
-  /// Bullet point (•)
-  bullet,
-
-  /// Arrow (→)
-  arrow,
-
-  /// Plus (+)
-  plus,
-
-  /// Star (★)
-  star,
-}
+// Re-export props for usage
+export '../../core/props/check_list_props.dart';
 
 /// A single check item with icon and text.
 ///
@@ -81,50 +68,14 @@ class ArcaneCheckItem extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final effectiveIconColor = iconColor ?? 'var(--accent)';
-    final effectiveTextColor = textColor ?? 'var(--foreground)';
-    final effectiveFontSize = fontSize ?? '1rem';
-    final effectiveGap = gap ?? '0.5rem';
-
-    return div(
-      styles: Styles(raw: {
-        'display': 'flex',
-        'align-items': 'flex-start',
-        'gap': effectiveGap,
-      }),
-      [
-        span(
-          styles: Styles(raw: {
-            'color': effectiveIconColor,
-            'font-weight': '600',
-            'flex-shrink': '0',
-          }),
-          [Component.text(_getIconChar())],
-        ),
-        span(
-          styles: Styles(raw: {
-            'color': effectiveTextColor,
-            'font-size': effectiveFontSize,
-          }),
-          [Component.text(text)],
-        ),
-      ],
-    );
-  }
-
-  String _getIconChar() {
-    switch (icon) {
-      case CheckStyle.check:
-        return '\u2713';
-      case CheckStyle.bullet:
-        return '\u2022';
-      case CheckStyle.arrow:
-        return '\u2192';
-      case CheckStyle.plus:
-        return '+';
-      case CheckStyle.star:
-        return '\u2605';
-    }
+    return context.renderers.checkItem(CheckItemProps(
+      text: text,
+      icon: icon,
+      iconColor: iconColor,
+      textColor: textColor,
+      fontSize: fontSize,
+      gap: gap,
+    ));
   }
 }
 
@@ -209,28 +160,16 @@ class ArcaneCheckList extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final effectiveListGap = listGap ?? '1rem';
-    final effectiveAlignItems = alignItems ?? 'flex-start';
-
-    return div(
-      styles: Styles(raw: {
-        'display': 'flex',
-        'flex-direction': 'column',
-        'gap': effectiveListGap,
-        'align-items': effectiveAlignItems,
-      }),
-      [
-        for (final item in items)
-          ArcaneCheckItem(
-            text: item,
-            icon: icon,
-            iconColor: iconColor,
-            textColor: textColor,
-            fontSize: fontSize,
-            gap: itemGap,
-          ),
-      ],
-    );
+    return context.renderers.checkList(CheckListProps(
+      items: items,
+      icon: icon,
+      iconColor: iconColor,
+      textColor: textColor,
+      fontSize: fontSize,
+      itemGap: itemGap,
+      listGap: listGap,
+      alignItems: alignItems,
+    ));
   }
 }
 
@@ -265,31 +204,11 @@ class ArcaneFeatureRow extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final effectiveIncludedColor = includedColor ?? 'hsl(142 76% 36%)';
-    final effectiveExcludedColor = excludedColor ?? 'var(--muted)';
-
-    return div(
-      styles: const Styles(raw: {
-        'display': 'flex',
-        'align-items': 'center',
-        'gap': '0.5rem',
-      }),
-      [
-        span(
-          styles: Styles(raw: {
-            'font-size': '0.875rem',
-            'color': included ? effectiveIncludedColor : effectiveExcludedColor,
-          }),
-          [text(included ? '\u2713' : '\u2717')],
-        ),
-        span(
-          styles: Styles(raw: {
-            'font-size': '0.875rem',
-            'color': included ? 'var(--foreground)' : 'var(--muted-foreground)',
-          }),
-          [text(feature)],
-        ),
-      ],
-    );
+    return context.renderers.featureRow(FeatureRowProps(
+      feature: feature,
+      included: included,
+      includedColor: includedColor,
+      excludedColor: excludedColor,
+    ));
   }
 }

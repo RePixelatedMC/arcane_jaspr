@@ -1,17 +1,11 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart'
-    hide
-        Color,
-        Colors,
-        ColorScheme,
-        Gap,
-        Padding,
-        TextAlign,
-        TextOverflow,
-        Border,
-        BorderRadius,
-        BoxShadow,
-        FontWeight;
+
+import '../../core/props/disclosure_props.dart';
+import '../../core/theme_provider.dart';
+
+// Re-export enums for usage
+export '../../core/props/disclosure_props.dart'
+    show DisclosureVariant, DisclosureItemProps;
 
 /// A disclosure widget that uses native HTML details/summary elements.
 ///
@@ -86,152 +80,15 @@ class ArcaneDisclosure extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final (
-      String containerBg,
-      String containerBorder,
-      String summaryBg,
-      String contentBorder,
-    ) = switch (variant) {
-      DisclosureVariant.default_ => (
-          'transparent',
-          'none',
-          'var(--muted)',
-          '1px solid var(--border)',
-        ),
-      DisclosureVariant.minimal => (
-          'transparent',
-          'none',
-          'transparent',
-          'none',
-        ),
-      DisclosureVariant.bordered => (
-          'transparent',
-          '1px solid var(--border)',
-          'transparent',
-          '1px solid var(--border)',
-        ),
-      DisclosureVariant.filled => (
-          'var(--card)',
-          '1px solid var(--border)',
-          'var(--muted)',
-          '1px solid var(--border)',
-        ),
-    };
-
-    final allClasses = [
-      'arcane-disclosure',
-      'arcane-disclosure-${variant.name}',
-      if (classes != null) classes,
-    ].join(' ');
-
-    return Component.element(
-      tag: 'details',
-      classes: allClasses,
-      attributes: {
-        if (open) 'open': '',
-      },
-      styles: Styles(raw: {
-        'background-color': containerBg,
-        'border': containerBorder,
-        'border-radius': '0.5rem',
-        'overflow': 'hidden',
-      }),
-      children: [
-        // Summary (clickable header)
-        Component.element(
-          tag: 'summary',
-          classes: 'arcane-disclosure-summary',
-          styles: Styles(raw: {
-            'display': 'flex',
-            'align-items': 'center',
-            'justify-content': 'space-between',
-            'gap': '1rem',
-            'padding': '0.5rem 1rem',
-            'background-color': summaryBg,
-            'cursor': 'pointer',
-            'transition': 'all 150ms ease',
-            'list-style': 'none',
-            '-webkit-user-select': 'none',
-            'user-select': 'none',
-          }),
-          children: [
-            Component.element(
-              tag: 'span',
-              classes: 'arcane-disclosure-summary-content',
-              styles: const Styles(raw: {
-                'flex': '1',
-                'min-width': '0',
-              }),
-              children: [summary],
-            ),
-            if (showChevron)
-              const Component.element(
-                tag: 'span',
-                classes: 'arcane-disclosure-chevron',
-                styles: Styles(raw: {
-                  'color': 'var(--muted-foreground)',
-                  'font-size': '0.875rem',
-                  'transition': 'all 150ms ease',
-                }),
-                children: [Component.text('▼')],
-              ),
-          ],
-        ),
-        // Content
-        Component.element(
-          tag: 'div',
-          classes: 'arcane-disclosure-content',
-          styles: Styles(raw: {
-            'padding': '1rem',
-            'border-top': contentBorder,
-          }),
-          children: [child],
-        ),
-      ],
-    );
+    return context.renderers.disclosure(DisclosureProps(
+      summary: summary,
+      child: child,
+      open: open,
+      variant: variant,
+      showChevron: showChevron,
+      classes: classes,
+    ));
   }
-
-  @css
-  static final List<StyleRule> styles = [
-    // Hide default browser marker
-    css('.arcane-disclosure summary::-webkit-details-marker').styles(raw: {
-      'display': 'none',
-    }),
-    css('.arcane-disclosure summary::marker').styles(raw: {
-      'display': 'none',
-    }),
-    // Rotate chevron when open
-    css('.arcane-disclosure[open] .arcane-disclosure-chevron').styles(raw: {
-      'transform': 'rotate(180deg)',
-    }),
-    // Hover effect on summary
-    css('.arcane-disclosure summary:hover').styles(raw: {
-      'background-color': 'var(--muted)',
-    }),
-    // Focus styles for accessibility
-    css('.arcane-disclosure summary:focus').styles(raw: {
-      'outline': '2px solid var(--accent)',
-      'outline-offset': '-2px',
-    }),
-    css('.arcane-disclosure summary:focus:not(:focus-visible)').styles(raw: {
-      'outline': 'none',
-    }),
-  ];
-}
-
-/// Visual variants for [ArcaneDisclosure]
-enum DisclosureVariant {
-  /// Default style with subtle summary background
-  default_,
-
-  /// Minimal style with no backgrounds or borders
-  minimal,
-
-  /// Bordered container
-  bordered,
-
-  /// Filled background with border
-  filled,
 }
 
 /// A group of disclosure widgets where optionally only one can be open at a time.
@@ -265,25 +122,18 @@ class ArcaneDisclosureGroup extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return Component.element(
-      tag: 'div',
-      classes: 'arcane-disclosure-group',
-      styles: Styles(raw: {
-        'display': 'flex',
-        'flex-direction': 'column',
-        'gap': gap,
-      }),
-      children: [
-        for (var i = 0; i < items.length; i++)
-          ArcaneDisclosure(
-            summary: items[i].summary,
-            child: items[i].content,
-            open: i == initialOpenIndex,
-            variant: variant,
-            showChevron: items[i].showChevron,
-          ),
-      ],
-    );
+    return context.renderers.disclosureGroup(DisclosureGroupProps(
+      items: items
+          .map((item) => DisclosureItemProps(
+                summary: item.summary,
+                content: item.content,
+                showChevron: item.showChevron,
+              ))
+          .toList(),
+      gap: gap,
+      variant: variant,
+      initialOpenIndex: initialOpenIndex,
+    ));
   }
 }
 

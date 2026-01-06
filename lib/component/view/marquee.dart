@@ -1,16 +1,10 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-import 'fade_edge.dart';
+import '../../core/props/marquee_props.dart';
+import '../../core/theme_provider.dart';
 
-/// Scroll direction for the marquee
-enum MarqueeDirection {
-  /// Scroll from right to left (default)
-  left,
-
-  /// Scroll from left to right
-  right,
-}
+// Re-export props for usage
+export '../../core/props/marquee_props.dart';
 
 /// An infinite scrolling marquee/carousel component.
 ///
@@ -69,81 +63,17 @@ class ArcaneMarquee extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final effectiveGap = gap ?? '1.5rem';
-    final marqueeId = id ?? 'arcane-marquee-${hashCode}';
-    final animationName = 'arcane-marquee-scroll-$marqueeId';
-
-    return div(
-      styles: const Styles(raw: {
-        'position': 'relative',
-        'overflow': 'hidden',
-        'width': '100%',
-      }),
-      [
-        // Fade edges
-        if (showFadeEdges) ...[
-          ArcaneFadeEdge.left(
-            color: fadeColor,
-            width: fadeWidth,
-          ),
-          ArcaneFadeEdge.right(
-            color: fadeColor,
-            width: fadeWidth,
-          ),
-        ],
-        // Scrolling track
-        div(
-          classes: 'arcane-marquee-track $marqueeId',
-          styles: Styles(raw: {
-            'display': 'flex',
-            'width': 'max-content',
-            'animation': '$animationName $duration linear infinite',
-            if (pauseOnHover) '--pause-on-hover': 'paused',
-          }),
-          [
-            // First set of items
-            div(
-              styles: Styles(raw: {
-                'display': 'flex',
-                'gap': effectiveGap,
-                'padding': '0 0.5rem',
-              }),
-              children,
-            ),
-            // Duplicate for seamless loop
-            div(
-              styles: Styles(raw: {
-                'display': 'flex',
-                'gap': effectiveGap,
-                'padding': '0 0.5rem',
-              }),
-              children,
-            ),
-          ],
-        ),
-        // Inject animation keyframes
-        Component.element(
-          tag: 'style',
-          children: [
-            text('''
-@keyframes $animationName {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-${pauseOnHover ? '''
-.$marqueeId:hover {
-  animation-play-state: var(--pause-on-hover, running);
-}
-''' : ''}
-'''),
-          ],
-        ),
-      ],
-    );
+    return context.renderers.marquee(MarqueeProps(
+      children: children,
+      duration: duration,
+      direction: direction,
+      gap: gap,
+      showFadeEdges: showFadeEdges,
+      fadeWidth: fadeWidth,
+      fadeColor: fadeColor,
+      pauseOnHover: pauseOnHover,
+      id: id,
+    ));
   }
 }
 
@@ -187,80 +117,16 @@ class ArcaneMarqueeReverse extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final effectiveGap = gap ?? '1.5rem';
-    final marqueeId = id ?? 'arcane-marquee-reverse-${hashCode}';
-    final animationName = 'arcane-marquee-scroll-reverse-$marqueeId';
-
-    return div(
-      styles: const Styles(raw: {
-        'position': 'relative',
-        'overflow': 'hidden',
-        'width': '100%',
-      }),
-      [
-        // Fade edges
-        if (showFadeEdges) ...[
-          ArcaneFadeEdge.left(
-            color: fadeColor,
-            width: fadeWidth,
-          ),
-          ArcaneFadeEdge.right(
-            color: fadeColor,
-            width: fadeWidth,
-          ),
-        ],
-        // Scrolling track
-        div(
-          classes: 'arcane-marquee-track $marqueeId',
-          styles: Styles(raw: {
-            'display': 'flex',
-            'width': 'max-content',
-            'animation': '$animationName $duration linear infinite',
-            if (pauseOnHover) '--pause-on-hover': 'paused',
-          }),
-          [
-            // First set of items
-            div(
-              styles: Styles(raw: {
-                'display': 'flex',
-                'gap': effectiveGap,
-                'padding': '0 0.5rem',
-              }),
-              children,
-            ),
-            // Duplicate for seamless loop
-            div(
-              styles: Styles(raw: {
-                'display': 'flex',
-                'gap': effectiveGap,
-                'padding': '0 0.5rem',
-              }),
-              children,
-            ),
-          ],
-        ),
-        // Inject animation keyframes (reverse direction)
-        Component.element(
-          tag: 'style',
-          children: [
-            text('''
-@keyframes $animationName {
-  from {
-    transform: translateX(-50%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-${pauseOnHover ? '''
-.$marqueeId:hover {
-  animation-play-state: var(--pause-on-hover, running);
-}
-''' : ''}
-'''),
-          ],
-        ),
-      ],
-    );
+    return context.renderers.marquee(MarqueeProps(
+      children: children,
+      duration: duration,
+      direction: MarqueeDirection.right,
+      gap: gap,
+      showFadeEdges: showFadeEdges,
+      fadeWidth: fadeWidth,
+      fadeColor: fadeColor,
+      pauseOnHover: pauseOnHover,
+      id: id,
+    ));
   }
 }

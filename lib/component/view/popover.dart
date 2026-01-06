@@ -4,7 +4,6 @@ import 'package:jaspr/jaspr.dart';
 
 import '../../core/theme_provider.dart';
 
-// Re-export for backwards compatibility
 export '../../core/props/popover_props.dart' show PopoverPosition, PopoverTrigger;
 
 /// Popover component

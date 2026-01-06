@@ -17,7 +17,7 @@ export 'theme_toggle_scripts.dart';
 export 'toggle_button_group_scripts.dart';
 export 'toggle_button_scripts.dart';
 
-/// Combined button scripts for backward compatibility.
+/// Combined button scripts.
 class ButtonScripts {
   ButtonScripts._();
 

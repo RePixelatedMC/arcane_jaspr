@@ -5,7 +5,6 @@ import 'package:jaspr/jaspr.dart';
 import '../../core/theme_provider.dart';
 import 'toast_manager.dart';
 
-// Re-export for backwards compatibility
 export '../../core/props/toast_props.dart' show ToastVariant, ToastPosition, ToastAction;
 export 'toast_manager.dart';
 

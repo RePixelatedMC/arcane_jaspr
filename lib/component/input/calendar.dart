@@ -2,7 +2,6 @@ import 'package:jaspr/jaspr.dart';
 
 import '../../core/theme_provider.dart';
 
-// Re-export props for backwards compatibility
 export '../../core/props/calendar_props.dart'
     show CalendarModeVariant, DateRangeValue, CalendarProps;
 

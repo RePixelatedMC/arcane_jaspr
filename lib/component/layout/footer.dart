@@ -1,31 +1,14 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-/// A footer link group
-class ArcaneFooterLinkGroup {
-  final String title;
-  final List<ArcaneFooterLink> links;
+import '../../core/theme_provider.dart';
 
-  const ArcaneFooterLinkGroup({
-    required this.title,
-    required this.links,
-  });
-}
+export '../../core/props/footer_props.dart';
 
-/// A footer link
-class ArcaneFooterLink {
-  final String label;
-  final String? href;
-  final void Function()? onTap;
-  final bool external;
+/// A footer link group (re-export from props for convenience)
+typedef ArcaneFooterLinkGroup = FooterLinkGroup;
 
-  const ArcaneFooterLink({
-    required this.label,
-    this.href,
-    this.onTap,
-    this.external = false,
-  });
-}
+/// A footer link (re-export from props for convenience)
+typedef ArcaneFooterLink = FooterLink;
 
 /// A website footer component (Supabase-style)
 class ArcaneFooter extends StatelessComponent {
@@ -36,7 +19,7 @@ class ArcaneFooter extends StatelessComponent {
   final String? description;
 
   /// Link groups (columns)
-  final List<ArcaneFooterLinkGroup> linkGroups;
+  final List<FooterLinkGroup> linkGroups;
 
   /// Social media icons/links
   final List<Component>? socialLinks;
@@ -45,7 +28,7 @@ class ArcaneFooter extends StatelessComponent {
   final String? copyright;
 
   /// Bottom links (privacy, terms, etc.)
-  final List<ArcaneFooterLink>? bottomLinks;
+  final List<FooterLink>? bottomLinks;
 
   /// Whether to show a newsletter form
   final bool showNewsletter;
@@ -75,233 +58,19 @@ class ArcaneFooter extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return Component.element(
-      tag: 'footer',
-      classes: 'arcane-footer',
-      styles: const Styles(raw: {
-        'background-color': 'var(--card)',
-        'border-top': '1px solid var(--border)',
-        'padding': '64px 1.5rem 1.5rem',
-      }),
-      children: [
-        // Main footer content
-        div(
-          classes: 'arcane-footer-main',
-          styles: const Styles(raw: {
-            'max-width': '1200px',
-            'margin': '0 auto',
-            'display': 'grid',
-            'grid-template-columns': 'repeat(auto-fit, minmax(160px, 1fr))',
-            'gap': '3rem',
-          }),
-          [
-            // Brand column
-            if (logo != null || description != null)
-              div(
-                classes: 'arcane-footer-brand',
-                styles: const Styles(raw: {
-                  'grid-column': 'span 2',
-                }),
-                [
-                  if (logo != null) logo!,
-                  if (description != null)
-                    p(
-                      styles: const Styles(raw: {
-                        'margin': '1rem 0 0 0',
-                        'font-size': '0.875rem',
-                        'color': 'var(--muted-foreground)',
-                        'max-width': '280px',
-                        'line-height': '1.6',
-                      }),
-                      [text(description!)],
-                    ),
-                  if (socialLinks != null)
-                    div(
-                      classes: 'arcane-footer-social',
-                      styles: const Styles(raw: {
-                        'display': 'flex',
-                        'gap': '1rem',
-                        'margin-top': '1.5rem',
-                      }),
-                      socialLinks!,
-                    ),
-                ],
-              ),
-
-            // Link groups
-            for (final group in linkGroups)
-              div(
-                classes: 'arcane-footer-group',
-                [
-                  div(
-                    classes: 'arcane-footer-group-title',
-                    styles: const Styles(raw: {
-                      'font-size': '0.875rem',
-                      'font-weight': '600',
-                      'color': 'var(--foreground)',
-                      'margin-bottom': '1rem',
-                    }),
-                    [text(group.title)],
-                  ),
-                  div(
-                    classes: 'arcane-footer-group-links',
-                    styles: const Styles(raw: {
-                      'display': 'flex',
-                      'flex-direction': 'column',
-                      'gap': '0.5rem',
-                    }),
-                    [
-                      for (final link in group.links)
-                        _buildLink(link),
-                    ],
-                  ),
-                ],
-              ),
-
-            // Newsletter
-            if (showNewsletter)
-              div(
-                classes: 'arcane-footer-newsletter',
-                [
-                  div(
-                    styles: const Styles(raw: {
-                      'font-size': '0.875rem',
-                      'font-weight': '600',
-                      'color': 'var(--foreground)',
-                      'margin-bottom': '1rem',
-                    }),
-                    [text('Subscribe to our newsletter')],
-                  ),
-                  div(
-                    styles: const Styles(raw: {
-                      'display': 'flex',
-                      'gap': '0.5rem',
-                    }),
-                    [
-                      input(
-                        type: InputType.email,
-                        attributes: {
-                          'placeholder': newsletterPlaceholder,
-                        },
-                        styles: const Styles(raw: {
-                          'flex': '1',
-                          'padding': '10px 14px',
-                          'font-size': '0.875rem',
-                          'background-color': 'var(--muted)',
-                          'border': '1px solid var(--border)',
-                          'border-radius': '0.375rem',
-                          'color': 'var(--foreground)',
-                          'outline': 'none',
-                        }),
-                      ),
-                      button(
-                        attributes: {'type': 'submit'},
-                        styles: const Styles(raw: {
-                          'padding': '10px 1rem',
-                          'font-size': '0.875rem',
-                          'font-weight': '500',
-                          'background-color': 'var(--accent)',
-                          'color': 'var(--accent-foreground)',
-                          'border': 'none',
-                          'border-radius': '0.375rem',
-                          'cursor': 'pointer',
-                          'transition': 'all 150ms ease',
-                        }),
-                        [text(newsletterButtonText)],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-          ],
-        ),
-
-        // Bottom bar
-        div(
-          classes: 'arcane-footer-bottom',
-          styles: const Styles(raw: {
-            'max-width': '1200px',
-            'margin': '3rem auto 0',
-            'padding-top': '1.5rem',
-            'border-top': '1px solid var(--border)',
-            'display': 'flex',
-            'justify-content': 'space-between',
-            'align-items': 'center',
-            'flex-wrap': 'wrap',
-            'gap': '1rem',
-          }),
-          [
-            // Copyright
-            if (copyright != null)
-              span(
-                [text(copyright!)],
-                styles: const Styles(raw: {
-                  'font-size': '0.75rem',
-                  'color': 'var(--muted-foreground)',
-                }),
-              ),
-
-            // Bottom links
-            if (bottomLinks != null)
-              div(
-                styles: const Styles(raw: {
-                  'display': 'flex',
-                  'gap': '1.5rem',
-                }),
-                [
-                  for (final link in bottomLinks!) _buildLink(link),
-                ],
-              ),
-          ],
-        ),
-      ],
-    );
+    return context.renderers.footer(FooterProps(
+      logo: logo,
+      description: description,
+      linkGroups: linkGroups,
+      socialLinks: socialLinks,
+      copyright: copyright,
+      bottomLinks: bottomLinks,
+      showNewsletter: showNewsletter,
+      newsletterPlaceholder: newsletterPlaceholder,
+      newsletterButtonText: newsletterButtonText,
+      onNewsletterSubmit: onNewsletterSubmit,
+    ));
   }
-
-  Component _buildLink(ArcaneFooterLink link) {
-    const Styles linkStyles = Styles(raw: {
-      'font-size': '0.875rem',
-      'color': 'var(--muted-foreground)',
-      'text-decoration': 'none',
-      'transition': 'all 150ms ease',
-    });
-
-    if (link.href != null) {
-      return a(
-        href: link.href!,
-        classes: 'arcane-footer-link',
-        styles: linkStyles,
-        attributes: link.external
-            ? {'target': '_blank', 'rel': 'noopener noreferrer'}
-            : null,
-        [text(link.label)],
-      );
-    }
-
-    return button(
-      classes: 'arcane-footer-link',
-      attributes: {'type': 'button'},
-      styles: const Styles(raw: {
-        'font-size': '0.875rem',
-        'color': 'var(--muted-foreground)',
-        'text-decoration': 'none',
-        'transition': 'all 150ms ease',
-        'background': 'none',
-        'border': 'none',
-        'padding': '0',
-        'cursor': 'pointer',
-      }),
-      events: {'click': (e) => link.onTap?.call()},
-      [text(link.label)],
-    );
-  }
-
-  @css
-  static final List<StyleRule> styles = [
-    css('.arcane-footer-link:hover').styles(raw: {
-      'color': 'var(--foreground)',
-    }),
-  ];
 }
 
 /// Social icon link component
@@ -328,51 +97,11 @@ class ArcaneSocialIcon extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    const Styles iconStyles = Styles(raw: {
-      'display': 'flex',
-      'align-items': 'center',
-      'justify-content': 'center',
-      'width': '36px',
-      'height': '36px',
-      'border-radius': '0.375rem',
-      'color': 'var(--muted-foreground)',
-      'background': 'none',
-      'border': 'none',
-      'cursor': 'pointer',
-      'transition': 'all 150ms ease',
-    });
-
-    if (href != null) {
-      return a(
-        href: href!,
-        classes: 'arcane-social-icon',
-        styles: iconStyles,
-        attributes: {
-          'aria-label': label,
-          'target': '_blank',
-          'rel': 'noopener noreferrer',
-        },
-        [icon],
-      );
-    }
-
-    return button(
-      classes: 'arcane-social-icon',
-      attributes: {
-        'type': 'button',
-        'aria-label': label,
-      },
-      styles: iconStyles,
-      events: {'click': (e) => onTap?.call()},
-      [icon],
-    );
+    return context.renderers.footerSocialIcon(FooterSocialIconProps(
+      icon: icon,
+      label: label,
+      href: href,
+      onTap: onTap,
+    ));
   }
-
-  @css
-  static final List<StyleRule> styles = [
-    css('.arcane-social-icon:hover').styles(raw: {
-      'color': 'var(--foreground)',
-      'background-color': 'var(--muted)',
-    }),
-  ];
 }

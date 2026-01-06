@@ -168,6 +168,3 @@ class _Placeholder extends StatelessComponent {
   Component build(BuildContext context) => const Component.text('');
 }
 
-// Legacy aliases for backwards compatibility
-typedef ArcaneUnorderedList = ArcaneBulletList;
-typedef ArcaneOrderedList = ArcaneNumberedList;

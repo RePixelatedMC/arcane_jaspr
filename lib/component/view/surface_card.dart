@@ -1,38 +1,10 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart'
-    hide
-        Color,
-        Colors,
-        ColorScheme,
-        Gap,
-        Padding,
-        TextAlign,
-        TextOverflow,
-        Border,
-        BorderRadius,
-        BoxShadow,
-        FontWeight;
 
-/// Surface effect types for cards
-enum SurfaceEffect {
-  /// No effect (plain surface)
-  none,
+import '../../core/props/surface_card_props.dart';
+import '../../core/theme_provider.dart';
 
-  /// Subtle blur effect
-  blur,
-
-  /// Frosted glass effect
-  frosted,
-
-  /// Gradient overlay
-  gradient,
-
-  /// Glassmorphism effect
-  glass,
-
-  /// Ice/crystal effect
-  ice,
-}
+// Re-export props for usage
+export '../../core/props/surface_card_props.dart';
 
 /// A card with surface effects (blur, frosted glass, etc.)
 ///
@@ -151,67 +123,29 @@ class ArcaneSurfaceCard extends StatelessComponent {
         backgroundOpacity = 1.0,
         backgroundColor = null;
 
-  String get _backgroundStyle {
-    final effectiveBgColor = backgroundColor ?? 'var(--card)';
-
-    return switch (effect) {
-      SurfaceEffect.none => effectiveBgColor,
-      SurfaceEffect.blur =>
-        'hsl(from $effectiveBgColor h s l / $backgroundOpacity)',
-      SurfaceEffect.frosted =>
-        'hsl(from $effectiveBgColor h s l / $backgroundOpacity)',
-      SurfaceEffect.glass =>
-        'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)',
-      SurfaceEffect.ice =>
-        'linear-gradient(135deg, rgba(200,220,255,${backgroundOpacity * 0.3}) 0%, rgba(180,200,255,${backgroundOpacity * 0.2}) 100%)',
-      SurfaceEffect.gradient => gradientColors != null && gradientColors!.length >= 2
-          ? 'linear-gradient(${gradientAngle}deg, ${gradientColors!.join(', ')})'
-          : 'linear-gradient(${gradientAngle}deg, var(--accent), var(--accent))',
-    };
-  }
-
-  String? get _backdropFilter {
-    if (effect == SurfaceEffect.none || effect == SurfaceEffect.gradient) {
-      return null;
-    }
-
-    final blur = switch (effect) {
-      SurfaceEffect.blur => blurAmount,
-      SurfaceEffect.frosted => blurAmount * 1.2,
-      SurfaceEffect.glass => blurAmount * 1.5,
-      SurfaceEffect.ice => blurAmount * 0.8,
-      _ => 0.0,
-    };
-
-    return 'blur(${blur}px)';
-  }
-
-  String get _shadowStyle => switch (shadow) {
-        ShadowIntensity.none => 'none',
-        ShadowIntensity.sm => '0 1px 2px 0 rgb(0 0 0 / 0.05)',
-        ShadowIntensity.md => '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
-        ShadowIntensity.lg => '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
-        ShadowIntensity.xl => '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
-      };
+  SurfaceShadow get _surfaceShadow => switch (shadow) {
+    ShadowIntensity.none => SurfaceShadow.none,
+    ShadowIntensity.sm => SurfaceShadow.sm,
+    ShadowIntensity.md => SurfaceShadow.md,
+    ShadowIntensity.lg => SurfaceShadow.lg,
+    ShadowIntensity.xl => SurfaceShadow.xl,
+  };
 
   @override
   Component build(BuildContext context) {
-    final backdropFilter = _backdropFilter;
-
-    return div(
-      classes: 'arcane-surface-card arcane-surface-${effect.name}',
-      styles: Styles(raw: {
-        'background': _backgroundStyle,
-        'border-radius': borderRadius ?? '0.5rem',
-        'padding': padding ?? '1.5rem',
-        if (showBorder) 'border': '1px solid var(--border)',
-        'box-shadow': _shadowStyle,
-        if (backdropFilter != null) 'backdrop-filter': backdropFilter,
-        if (backdropFilter != null) '-webkit-backdrop-filter': backdropFilter,
-        'transition': 'all 150ms ease',
-      }),
-      [child],
-    );
+    return context.renderers.surfaceCard(SurfaceCardProps(
+      child: child,
+      effect: effect,
+      blurAmount: blurAmount,
+      backgroundOpacity: backgroundOpacity,
+      backgroundColor: backgroundColor,
+      gradientColors: gradientColors,
+      gradientAngle: gradientAngle,
+      borderRadius: borderRadius,
+      showBorder: showBorder,
+      padding: padding,
+      shadow: _surfaceShadow,
+    ));
   }
 }
 
@@ -264,44 +198,12 @@ class ArcaneThumbHashCard extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    // In a real implementation, you'd decode the thumbhash to a data URL
-    // For now, we use a gradient placeholder
-    return div(
-      classes: 'arcane-thumbhash-card',
-      attributes: {
-        'data-thumbhash': hash,
-      },
-      styles: Styles(raw: {
-        'position': 'relative',
-        'border-radius': borderRadius ?? '0.5rem',
-        'overflow': 'hidden',
-        // Placeholder gradient (would be replaced by decoded thumbhash)
-        'background':
-            'linear-gradient(135deg, var(--muted) 0%, var(--card) 100%)',
-      }),
-      [
-        // Overlay for text readability
-        if (overlayOpacity > 0)
-          div(
-            styles: Styles(raw: {
-              'position': 'absolute',
-              'inset': '0',
-              'background': 'rgba(0,0,0,$overlayOpacity)',
-              'pointer-events': 'none',
-            }),
-            [],
-          ),
-
-        // Content
-        div(
-          styles: Styles(raw: {
-            'position': 'relative',
-            'z-index': '1',
-            'padding': padding ?? '1.5rem',
-          }),
-          [child],
-        ),
-      ],
-    );
+    return context.renderers.thumbHashCard(ThumbHashCardProps(
+      hash: hash,
+      child: child,
+      borderRadius: borderRadius,
+      padding: padding,
+      overlayOpacity: overlayOpacity,
+    ));
   }
 }

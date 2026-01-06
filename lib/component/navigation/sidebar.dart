@@ -2,7 +2,6 @@ import 'package:jaspr/jaspr.dart';
 
 import '../../core/theme_provider.dart';
 
-// Re-export for backwards compatibility
 export '../../core/props/sidebar_props.dart'
     show SidebarItemProps, SidebarGroupProps;
 

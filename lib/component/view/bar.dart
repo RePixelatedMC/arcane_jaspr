@@ -1,14 +1,11 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
+import '../../core/props/bar_props.dart';
+import '../../core/theme_provider.dart';
 import '../../util/arcane.dart';
 
-/// Back button display mode
-enum BarBackButtonMode {
-  always,
-  never,
-  auto,
-}
+// Re-export props for usage
+export '../../core/props/bar_props.dart';
 
 /// An app bar / header component.
 class ArcaneBar extends StatelessComponent {
@@ -66,149 +63,21 @@ class ArcaneBar extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final double effectiveHeight = height ?? 56.0;
-    final EdgeInsets effectivePadding =
-        padding ?? const EdgeInsets.symmetric(horizontal: 16);
-
-    // Build title section
-    final Component? titleWidget = title ??
-        (titleText != null
-            ? span(
-                classes: 'arcane-bar-title',
-                styles: const Styles(raw: {
-                  'font-size': '1.125rem',
-                  'font-weight': '600',
-                  'color': 'var(--foreground)',
-                  'white-space': 'nowrap',
-                  'overflow': 'hidden',
-                  'text-overflow': 'ellipsis',
-                }),
-                [text(titleText!)],
-              )
-            : null);
-
-    final Component? subtitleWidget = subtitle ??
-        (subtitleText != null
-            ? span(
-                classes: 'arcane-bar-subtitle',
-                styles: const Styles(raw: {
-                  'font-size': '0.75rem',
-                  'color': 'var(--muted-foreground)',
-                  'white-space': 'nowrap',
-                  'overflow': 'hidden',
-                  'text-overflow': 'ellipsis',
-                }),
-                [text(subtitleText!)],
-              )
-            : null);
-
-    // Show back button?
-    final bool showBack = backButton == BarBackButtonMode.always ||
-        (backButton == BarBackButtonMode.auto && onBack != null);
-
-    return header(
-      classes: 'arcane-bar ${transparent ? 'transparent' : ''}',
-      styles: Styles(raw: {
-        'display': 'flex',
-        'align-items': 'center',
-        'gap': '1rem',
-        'height': '${effectiveHeight}px',
-        'padding': effectivePadding.padding,
-        'background-color':
-            transparent ? 'transparent' : 'var(--card)',
-        if (!transparent)
-          'border-bottom': '1px solid var(--border)',
-        'flex-shrink': '0',
-      }),
-      [
-        // Leading section
-        if (showBack || (leading != null && leading!.isNotEmpty))
-          div(
-            classes: 'arcane-bar-leading',
-            styles: const Styles(raw: {
-              'display': 'flex',
-              'align-items': 'center',
-              'gap': '0.5rem',
-            }),
-            [
-              if (showBack) _buildBackButton(context),
-              ...?leading,
-            ],
-          ),
-
-        // Title section
-        div(
-          classes: 'arcane-bar-content',
-          styles: Styles(raw: {
-            'flex': '1',
-            'display': 'flex',
-            'flex-direction': 'column',
-            'justify-content': 'center',
-            'min-width': '0',
-            if (centerTitle) 'align-items': 'center',
-          }),
-          [
-            if (titleWidget != null) titleWidget,
-            if (subtitleWidget != null) subtitleWidget,
-          ],
-        ),
-
-        // Trailing section
-        if (trailing != null && trailing!.isNotEmpty)
-          div(
-            classes: 'arcane-bar-trailing',
-            styles: const Styles(raw: {
-              'display': 'flex',
-              'align-items': 'center',
-              'gap': '0.5rem',
-            }),
-            trailing!,
-          ),
-      ],
-    );
+    return context.renderers.bar(BarProps(
+      titleText: titleText,
+      title: title,
+      subtitleText: subtitleText,
+      subtitle: subtitle,
+      leading: leading,
+      trailing: trailing,
+      backButton: backButton,
+      onBack: onBack,
+      transparent: transparent,
+      centerTitle: centerTitle,
+      height: height,
+      padding: padding?.padding,
+    ));
   }
-
-  Component _buildBackButton(BuildContext context) {
-    return button(
-      classes: 'arcane-bar-back',
-      attributes: {'type': 'button', 'aria-label': 'Go back'},
-      styles: const Styles(raw: {
-        'display': 'flex',
-        'align-items': 'center',
-        'justify-content': 'center',
-        'width': '36px',
-        'height': '36px',
-        'border-radius': '9999px',
-        'background': 'transparent',
-        'border': 'none',
-        'color': 'var(--foreground)',
-        'cursor': 'pointer',
-        'transition': 'all 150ms ease',
-      }),
-      events: {
-        'click': (event) {
-          if (onBack != null) {
-            onBack!();
-          }
-        },
-      },
-      [
-        span(
-          styles: const Styles(raw: {
-            'font-size': '1.25rem',
-          }),
-          [text('←')],
-        ),
-      ],
-    );
-  }
-
-  @css
-  static final List<StyleRule> styles = [
-    css('.arcane-bar-back:hover').styles(raw: {
-      'background-color': 'var(--muted)',
-    }),
-  ];
 }
 
 /// A simple top bar for dialogs
@@ -224,50 +93,9 @@ class ArcaneDialogBar extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return div(
-      classes: 'arcane-dialog-bar',
-      styles: const Styles(raw: {
-        'display': 'flex',
-        'align-items': 'center',
-        'justify-content': 'space-between',
-        'padding': '1.5rem',
-        'border-bottom': '1px solid var(--border)',
-      }),
-      [
-        if (title != null)
-          span(
-            styles: const Styles(raw: {
-              'font-size': '1.125rem',
-              'font-weight': '600',
-              'color': 'var(--foreground)',
-            }),
-            [text(title!)],
-          )
-        else
-          const div([]),
-        if (onClose != null)
-          button(
-            attributes: {'type': 'button', 'aria-label': 'Close'},
-            styles: const Styles(raw: {
-              'display': 'flex',
-              'align-items': 'center',
-              'justify-content': 'center',
-              'width': '32px',
-              'height': '32px',
-              'border-radius': '9999px',
-              'background': 'transparent',
-              'border': 'none',
-              'color': 'var(--muted-foreground)',
-              'cursor': 'pointer',
-              'transition': 'all 150ms ease',
-              'font-size': '1.25rem',
-            }),
-            events: {
-              'click': (event) => onClose!(),
-            },
-            [text('×')],
-          ),
-      ],
-    );
+    return context.renderers.dialogBar(DialogBarProps(
+      title: title,
+      onClose: onClose,
+    ));
   }
 }

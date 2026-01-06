@@ -1,14 +1,10 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-/// Layout direction for stat display
-enum StatDisplayLayout {
-  /// Value on top, label below (default)
-  vertical,
+import '../../core/props/stat_display_props.dart';
+import '../../core/theme_provider.dart';
 
-  /// Value and label side by side
-  horizontal,
-}
+// Re-export props for usage
+export '../../core/props/stat_display_props.dart';
 
 /// A metric/stat display with large value and label.
 ///
@@ -72,7 +68,7 @@ class ArcaneStatDisplay extends StatelessComponent {
     this.labelFontSize,
     this.textAlign,
     super.key,
-  }) : valueColor = 'var(--accent)';
+  }) : valueColor = 'var(--primary)';
 
   /// Create with brand-colored value
   const ArcaneStatDisplay.brand({
@@ -84,70 +80,20 @@ class ArcaneStatDisplay extends StatelessComponent {
     this.labelFontSize,
     this.textAlign,
     super.key,
-  }) : valueColor = 'var(--accent)';
+  }) : valueColor = 'var(--primary)';
 
   @override
   Component build(BuildContext context) {
-    final effectiveValueColor = valueColor ?? 'var(--accent)';
-    final effectiveLabelColor = labelColor ?? 'var(--muted)';
-    final effectiveValueSize = valueFontSize ?? '1.5rem';
-    final effectiveLabelSize = labelFontSize ?? '0.875rem';
-    final effectiveAlign = textAlign ?? 'center';
-
-    if (layout == StatDisplayLayout.horizontal) {
-      return div(
-        styles: Styles(raw: {
-          'display': 'flex',
-          'align-items': 'baseline',
-          'gap': '0.5rem',
-          'text-align': effectiveAlign,
-        }),
-        [
-          span(
-            styles: Styles(raw: {
-              'font-size': effectiveValueSize,
-              'font-weight': '700',
-              'color': effectiveValueColor,
-            }),
-            [text(value)],
-          ),
-          span(
-            styles: Styles(raw: {
-              'font-size': effectiveLabelSize,
-              'color': effectiveLabelColor,
-            }),
-            [text(label)],
-          ),
-        ],
-      );
-    }
-
-    return div(
-      styles: Styles(raw: {
-        'display': 'flex',
-        'flex-direction': 'column',
-        'align-items': effectiveAlign == 'center' ? 'center' : 'flex-start',
-        'text-align': effectiveAlign,
-      }),
-      [
-        div(
-          styles: Styles(raw: {
-            'font-size': effectiveValueSize,
-            'font-weight': '700',
-            'color': effectiveValueColor,
-            'margin-bottom': '0.25rem',
-          }),
-          [text(value)],
-        ),
-        div(
-          styles: Styles(raw: {
-            'font-size': effectiveLabelSize,
-            'color': effectiveLabelColor,
-          }),
-          [text(label)],
-        ),
-      ],
-    );
+    return context.renderers.statDisplay(StatDisplayProps(
+      value: value,
+      label: label,
+      layout: layout,
+      valueColor: valueColor,
+      labelColor: labelColor,
+      valueFontSize: valueFontSize,
+      labelFontSize: labelFontSize,
+      textAlign: textAlign,
+    ));
   }
 }
 
@@ -185,15 +131,11 @@ class ArcaneStatRow extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return div(
-      styles: Styles(raw: {
-        'display': 'flex',
-        'gap': gap ?? '3rem',
-        'justify-content': justifyContent ?? 'center',
-        'align-items': 'flex-start',
-        if (wrap) 'flex-wrap': 'wrap',
-      }),
-      stats,
-    );
+    return context.renderers.statRow(StatRowProps(
+      stats: stats,
+      gap: gap,
+      wrap: wrap,
+      justifyContent: justifyContent,
+    ));
   }
 }
