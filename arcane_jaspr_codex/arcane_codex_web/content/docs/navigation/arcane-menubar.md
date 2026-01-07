@@ -149,5 +149,5 @@ ArcaneMenubar(
 
 ## Related Components
 
-- [ArcaneDropdownMenu](/arcane_jaspr/docs/navigation/arcane-dropdown-menu) - Click-triggered dropdown
+- [ArcaneSelect](/arcane_jaspr/docs/inputs/arcane-select) - Select dropdown
 - [ArcaneContextMenu](/arcane_jaspr/docs/navigation/arcane-context-menu) - Right-click menu

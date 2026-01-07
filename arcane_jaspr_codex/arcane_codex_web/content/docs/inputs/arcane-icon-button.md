@@ -27,26 +27,41 @@ ArcaneIconButton(
 | `icon` | `Component` | required | Icon to display |
 | `onPressed` | `VoidCallback?` | `null` | Click handler |
 | `size` | `IconButtonSize` | `medium` | Button size |
-| `variant` | `IconButtonVariant` | `ghost` | Visual variant |
-| `isDisabled` | `bool` | `false` | Disable interaction |
+| `style` | `IconButtonStyle` | `ghost` | Visual style |
+| `disabled` | `bool` | `false` | Disable interaction |
 | `tooltip` | `String?` | `null` | Tooltip text |
-| `styles` | `ArcaneStyleData?` | `null` | Custom styling |
 
-## Factory Constructors
+## Style Constructors
 
-### Close Button
-
-Pre-configured close button with X icon:
+Quick access to common styles:
 
 ```dart
-ArcaneIconButton.close(
-  onPressed: () => closeDialog(),
+// Primary style
+ArcaneIconButton.primary(
+  icon: ArcaneIcon.plus(),
+  onPressed: () {},
+)
+
+// Ghost style (default minimal)
+ArcaneIconButton.ghost(
+  icon: ArcaneIcon.settings(),
+  onPressed: () {},
+)
+
+// Outline style
+ArcaneIconButton.outline(
+  icon: ArcaneIcon.search(),
+  onPressed: () {},
+)
+
+// Destructive style
+ArcaneIconButton.destructive(
+  icon: ArcaneIcon.trash(),
+  onPressed: () {},
 )
 ```
 
-This is a convenience factory for the common pattern of close/dismiss buttons.
-
-## Variants
+## Styles
 
 ### Ghost (Default)
 
@@ -55,19 +70,19 @@ Minimal, transparent background:
 ```dart
 ArcaneIconButton(
   icon: ArcaneIcon.search(),
-  variant: IconButtonVariant.ghost,
+  style: IconButtonStyle.ghost,
   onPressed: () {},
 )
 ```
 
-### Filled
+### Primary
 
-Solid background:
+Solid primary background:
 
 ```dart
 ArcaneIconButton(
   icon: ArcaneIcon.plus(),
-  variant: IconButtonVariant.filled,
+  style: IconButtonStyle.primary,
   onPressed: () {},
 )
 ```
@@ -79,7 +94,19 @@ Bordered with transparent background:
 ```dart
 ArcaneIconButton(
   icon: ArcaneIcon.settings(),
-  variant: IconButtonVariant.outline,
+  style: IconButtonStyle.outline,
+  onPressed: () {},
+)
+```
+
+### Destructive
+
+For delete/remove actions:
+
+```dart
+ArcaneIconButton(
+  icon: ArcaneIcon.trash(),
+  style: IconButtonStyle.destructive,
   onPressed: () {},
 )
 ```
@@ -124,14 +151,8 @@ ArcaneIconButton(
 ### Toolbar
 
 ```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
-    display: Display.flex,
-    gap: Gap.xs,
-    padding: PaddingPreset.sm,
-    background: Background.surface,
-    borderRadius: Radius.md,
-  ),
+ArcaneRow(
+  gapSize: Gap.xs,
   children: [
     ArcaneIconButton(
       icon: ArcaneIcon.bold(),
@@ -148,94 +169,37 @@ ArcaneDiv(
       tooltip: 'Underline',
       onPressed: () => toggleUnderline(),
     ),
-    ArcaneDivider(direction: DividerDirection.vertical),
-    ArcaneIconButton(
-      icon: ArcaneIcon.link(),
-      tooltip: 'Insert link',
-      onPressed: () => insertLink(),
-    ),
   ],
+)
+```
+
+### Close Button
+
+For dialogs and modals, use a ghost icon button with the close icon:
+
+```dart
+ArcaneIconButton(
+  icon: ArcaneIcon.x(),
+  tooltip: 'Close',
+  onPressed: () => closeDialog(),
 )
 ```
 
 ### Card Actions
 
 ```dart
-ArcaneCard(
+ArcaneRow(
+  gapSize: Gap.sm,
   children: [
-    // Card content...
-    ArcaneDiv(
-      styles: const ArcaneStyleData(
-        display: Display.flex,
-        justifyContent: JustifyContent.flexEnd,
-        gap: Gap.sm,
-      ),
-      children: [
-        ArcaneIconButton(
-          icon: ArcaneIcon.edit(),
-          tooltip: 'Edit',
-          onPressed: () => editItem(),
-        ),
-        ArcaneIconButton(
-          icon: ArcaneIcon.trash(),
-          tooltip: 'Delete',
-          onPressed: () => deleteItem(),
-        ),
-      ],
-    ),
-  ],
-)
-```
-
-### Dialog with Close Button
-
-```dart
-ArcaneDialog(
-  isOpen: showDialog,
-  onClose: () => close(),
-  children: [
-    ArcaneDiv(
-      styles: const ArcaneStyleData(
-        display: Display.flex,
-        justifyContent: JustifyContent.spaceBetween,
-        alignItems: AlignItems.center,
-      ),
-      children: [
-        ArcaneHeadline('Dialog Title'),
-        ArcaneIconButton.close(onPressed: () => close()),
-      ],
-    ),
-    // Dialog content...
-  ],
-)
-```
-
-### Table Row Actions
-
-```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
-    display: Display.flex,
-    gap: Gap.xs,
-  ),
-  children: [
-    ArcaneIconButton(
-      icon: ArcaneIcon.eye(),
-      size: IconButtonSize.small,
-      tooltip: 'View',
-      onPressed: () => viewItem(id),
-    ),
     ArcaneIconButton(
       icon: ArcaneIcon.edit(),
-      size: IconButtonSize.small,
       tooltip: 'Edit',
-      onPressed: () => editItem(id),
+      onPressed: () => editItem(),
     ),
-    ArcaneIconButton(
-      icon: ArcaneIcon.moreVertical(),
-      size: IconButtonSize.small,
-      tooltip: 'More',
-      onPressed: () => showMenu(id),
+    ArcaneIconButton.destructive(
+      icon: ArcaneIcon.trash(),
+      tooltip: 'Delete',
+      onPressed: () => deleteItem(),
     ),
   ],
 )

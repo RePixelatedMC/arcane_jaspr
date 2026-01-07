@@ -299,57 +299,6 @@ class _DrawerDemoState extends State<DrawerDemo> {
   }
 }
 
-/// Interactive dropdown menu demo
-class DropdownMenuDemo extends StatefulComponent {
-  const DropdownMenuDemo({super.key});
-
-  @override
-  State<DropdownMenuDemo> createState() => _DropdownMenuDemoState();
-}
-
-class _DropdownMenuDemoState extends State<DropdownMenuDemo> {
-  String _selectedItem = 'None';
-
-  @override
-  Component build(BuildContext context) {
-    return ArcaneColumn(
-      gapSize: Gap.md,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ArcaneDropdownMenu(
-          trigger: ArcaneButton.secondary(
-            label: 'Open Menu',
-            trailing: ArcaneIcon.chevronDown(size: IconSize.sm),
-            onPressed: () {},
-          ),
-          items: [
-            ArcaneMenuItem(
-              label: 'Edit',
-              icon: ArcaneIcon.edit(),
-              onSelect: () => setState(() => _selectedItem = 'Edit'),
-            ),
-            ArcaneMenuItem(
-              label: 'Duplicate',
-              icon: ArcaneIcon.copy(),
-              onSelect: () => setState(() => _selectedItem = 'Duplicate'),
-            ),
-            ArcaneMenuItem(
-              label: 'Delete',
-              icon: ArcaneIcon.trash(),
-              onSelect: () => setState(() => _selectedItem = 'Delete'),
-            ),
-          ],
-        ),
-        ArcaneText(
-          'Selected: $_selectedItem',
-          size: FontSize.sm,
-          color: TextColor.muted,
-        ),
-      ],
-    );
-  }
-}
-
 /// Interactive mobile menu demo
 class MobileMenuDemo extends StatefulComponent {
   const MobileMenuDemo({super.key});

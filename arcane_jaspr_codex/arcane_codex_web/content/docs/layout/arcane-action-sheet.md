@@ -119,4 +119,4 @@ ArcaneActionSheet(
 
 - [ArcaneSheet](/arcane_jaspr/docs/layout/arcane-sheet) - Generic sheet component
 - [ArcaneDialog](/arcane_jaspr/docs/feedback/arcane-dialog) - Modal dialog
-- [ArcaneDropdownMenu](/arcane_jaspr/docs/navigation/arcane-dropdown-menu) - Desktop dropdown
+- [ArcaneSelect](/arcane_jaspr/docs/inputs/arcane-select) - Desktop select

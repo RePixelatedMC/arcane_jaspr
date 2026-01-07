@@ -17,10 +17,6 @@ class InputDemos {
         ArcaneIconButton(icon: ArcaneIcon.settings(), onPressed: () {}),
       ];
 
-  static List<Component> closeButton() => [
-        ArcaneIconButton.close(onPressed: () {}),
-      ];
-
   static List<Component> fab() => [
         ArcaneFAB(icon: ArcaneIcon.plus(size: IconSize.lg), onPressed: () {}),
       ];

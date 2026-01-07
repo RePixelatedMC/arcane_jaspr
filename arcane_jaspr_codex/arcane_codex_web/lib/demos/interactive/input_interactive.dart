@@ -179,7 +179,7 @@ class _RangeSliderDemoState extends State<RangeSliderDemo> {
   }
 }
 
-/// Interactive radio demo
+/// Interactive radio demo with all RadioGroup variants
 class RadioDemo extends StatefulComponent {
   const RadioDemo({super.key});
 
@@ -188,45 +188,103 @@ class RadioDemo extends StatefulComponent {
 }
 
 class _RadioDemoState extends State<RadioDemo> {
-  String _selected = 'a';
+  String? _standardValue = 'option1';
+  String? _cardValue = 'small';
+  String? _buttonValue = 'monthly';
+  String? _chipValue = 'all';
 
   @override
   Component build(BuildContext context) {
     return ArcaneColumn(
-      gapSize: Gap.md,
+      gapSize: Gap.xl,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ArcaneRow(
-          gapSize: Gap.md,
+        // Standard variant
+        ArcaneColumn(
+          gapSize: Gap.sm,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ArcaneRadio(
-              selected: _selected == 'a',
-              label: 'Option A',
-              onSelected: () => setState(() => _selected = 'a'),
-            ),
-            ArcaneRadio(
-              selected: _selected == 'b',
-              label: 'Option B',
-              onSelected: () => setState(() => _selected = 'b'),
-            ),
-            ArcaneRadio(
-              selected: _selected == 'c',
-              label: 'Option C',
-              onSelected: () => setState(() => _selected = 'c'),
+            ArcaneText('Standard Variant', weight: FontWeight.w600),
+            ArcaneRadioGroup<String>(
+              value: _standardValue,
+              options: const [
+                RadioOption(value: 'option1', label: 'Option 1', description: 'First option with description'),
+                RadioOption(value: 'option2', label: 'Option 2', description: 'Second option with description'),
+                RadioOption(value: 'option3', label: 'Option 3', disabled: true),
+              ],
+              onChanged: (v) => setState(() => _standardValue = v),
+              label: 'Choose an option',
             ),
           ],
         ),
-        ArcaneText(
-          'Selected: Option ${_selected.toUpperCase()}',
-          size: FontSize.sm,
-          color: TextColor.muted,
+
+        // Cards variant
+        ArcaneColumn(
+          gapSize: Gap.sm,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ArcaneText('Cards Variant', weight: FontWeight.w600),
+            ArcaneRadioGroup<String>(
+              value: _cardValue,
+              variant: RadioGroupVariant.cards,
+              layout: RadioGroupLayout.grid,
+              gridColumns: 3,
+              options: const [
+                RadioOption(value: 'small', label: 'Small', description: '8GB RAM'),
+                RadioOption(value: 'medium', label: 'Medium', description: '16GB RAM'),
+                RadioOption(value: 'large', label: 'Large', description: '32GB RAM'),
+              ],
+              onChanged: (v) => setState(() => _cardValue = v),
+            ),
+          ],
+        ),
+
+        // Buttons variant (segmented control)
+        ArcaneColumn(
+          gapSize: Gap.sm,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ArcaneText('Buttons Variant (Segmented Control)', weight: FontWeight.w600),
+            ArcaneRadioGroup<String>(
+              value: _buttonValue,
+              variant: RadioGroupVariant.buttons,
+              layout: RadioGroupLayout.horizontal,
+              options: const [
+                RadioOption(value: 'monthly', label: 'Monthly'),
+                RadioOption(value: 'yearly', label: 'Yearly'),
+                RadioOption(value: 'lifetime', label: 'Lifetime'),
+              ],
+              onChanged: (v) => setState(() => _buttonValue = v),
+            ),
+          ],
+        ),
+
+        // Chips variant
+        ArcaneColumn(
+          gapSize: Gap.sm,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ArcaneText('Chips Variant', weight: FontWeight.w600),
+            ArcaneRadioGroup<String>(
+              value: _chipValue,
+              variant: RadioGroupVariant.chips,
+              layout: RadioGroupLayout.horizontal,
+              options: const [
+                RadioOption(value: 'all', label: 'All'),
+                RadioOption(value: 'active', label: 'Active'),
+                RadioOption(value: 'completed', label: 'Completed'),
+                RadioOption(value: 'archived', label: 'Archived'),
+              ],
+              onChanged: (v) => setState(() => _chipValue = v),
+            ),
+          ],
         ),
       ],
     );
   }
 }
 
-/// Interactive toggle button demo
+/// Interactive toggle button demo (includes both ToggleButton and ToggleButtonGroup)
 class ToggleButtonDemo extends StatefulComponent {
   const ToggleButtonDemo({super.key});
 
@@ -237,53 +295,55 @@ class ToggleButtonDemo extends StatefulComponent {
 class _ToggleButtonDemoState extends State<ToggleButtonDemo> {
   bool _value1 = false;
   bool _value2 = true;
-
-  @override
-  Component build(BuildContext context) {
-    return ArcaneRow(
-      gapSize: Gap.md,
-      children: [
-        ArcaneToggleButton(
-          value: _value1,
-          label: 'Toggle',
-          onChanged: (v) => setState(() => _value1 = v),
-        ),
-        ArcaneToggleButton(
-          value: _value2,
-          label: 'Selected',
-          onChanged: (v) => setState(() => _value2 = v),
-        ),
-      ],
-    );
-  }
-}
-
-/// Interactive toggle button group demo
-class ToggleButtonGroupDemo extends StatefulComponent {
-  const ToggleButtonGroupDemo({super.key});
-
-  @override
-  State<ToggleButtonGroupDemo> createState() => _ToggleButtonGroupDemoState();
-}
-
-class _ToggleButtonGroupDemoState extends State<ToggleButtonGroupDemo> {
   int _selectedIndex = 0;
 
   @override
   Component build(BuildContext context) {
     return ArcaneColumn(
-      gapSize: Gap.md,
+      gapSize: Gap.xl,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ArcaneToggleButtonGroup(
-          options: const ['One', 'Two', 'Three'],
-          selectedIndex: _selectedIndex,
-          onChanged: (index) => setState(() => _selectedIndex = index),
+        // Individual toggle buttons
+        ArcaneColumn(
+          gapSize: Gap.sm,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ArcaneText('Individual Toggle Buttons', weight: FontWeight.w600),
+            ArcaneRow(
+              gapSize: Gap.md,
+              children: [
+                ArcaneToggleButton(
+                  value: _value1,
+                  label: 'Toggle',
+                  onChanged: (v) => setState(() => _value1 = v),
+                ),
+                ArcaneToggleButton(
+                  value: _value2,
+                  label: 'Selected',
+                  onChanged: (v) => setState(() => _value2 = v),
+                ),
+              ],
+            ),
+          ],
         ),
-        ArcaneText(
-          'Selected: ${['One', 'Two', 'Three'][_selectedIndex]}',
-          size: FontSize.sm,
-          color: TextColor.muted,
+
+        // Toggle button group
+        ArcaneColumn(
+          gapSize: Gap.sm,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ArcaneText('Toggle Button Group', weight: FontWeight.w600),
+            ArcaneToggleButtonGroup(
+              options: const ['One', 'Two', 'Three'],
+              selectedIndex: _selectedIndex,
+              onChanged: (index) => setState(() => _selectedIndex = index),
+            ),
+            ArcaneText(
+              'Selected: ${['One', 'Two', 'Three'][_selectedIndex]}',
+              size: FontSize.sm,
+              color: TextColor.muted,
+            ),
+          ],
         ),
       ],
     );
@@ -647,111 +707,6 @@ class _MutableTextDemoState extends State<MutableTextDemo> {
             ArcaneMutableText(value: 'Subtle', displayStyle: MutableTextStyle.subtle, onSave: (_) {}),
             ArcaneMutableText(value: 'Underline', displayStyle: MutableTextStyle.underline, onSave: (_) {}),
             ArcaneMutableText(value: 'Dashed', displayStyle: MutableTextStyle.dashed, onSave: (_) {}),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
-/// Interactive radio group demo with all variants
-class RadioGroupDemo extends StatefulComponent {
-  const RadioGroupDemo({super.key});
-
-  @override
-  State<RadioGroupDemo> createState() => _RadioGroupDemoState();
-}
-
-class _RadioGroupDemoState extends State<RadioGroupDemo> {
-  String? _standardValue = 'option1';
-  String? _cardValue = 'small';
-  String? _buttonValue = 'monthly';
-  String? _chipValue = 'all';
-
-  @override
-  Component build(BuildContext context) {
-    return ArcaneColumn(
-      gapSize: Gap.xl,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Standard variant
-        ArcaneColumn(
-          gapSize: Gap.sm,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ArcaneText('Standard Variant', weight: FontWeight.w600),
-            ArcaneRadioGroup<String>(
-              value: _standardValue,
-              options: const [
-                RadioOption(value: 'option1', label: 'Option 1', description: 'First option with description'),
-                RadioOption(value: 'option2', label: 'Option 2', description: 'Second option with description'),
-                RadioOption(value: 'option3', label: 'Option 3', disabled: true),
-              ],
-              onChanged: (v) => setState(() => _standardValue = v),
-              label: 'Choose an option',
-            ),
-          ],
-        ),
-
-        // Cards variant
-        ArcaneColumn(
-          gapSize: Gap.sm,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ArcaneText('Cards Variant', weight: FontWeight.w600),
-            ArcaneRadioGroup<String>(
-              value: _cardValue,
-              variant: RadioGroupVariant.cards,
-              layout: RadioGroupLayout.grid,
-              gridColumns: 3,
-              options: const [
-                RadioOption(value: 'small', label: 'Small', description: '8GB RAM'),
-                RadioOption(value: 'medium', label: 'Medium', description: '16GB RAM'),
-                RadioOption(value: 'large', label: 'Large', description: '32GB RAM'),
-              ],
-              onChanged: (v) => setState(() => _cardValue = v),
-            ),
-          ],
-        ),
-
-        // Buttons variant (segmented control)
-        ArcaneColumn(
-          gapSize: Gap.sm,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ArcaneText('Buttons Variant (Segmented Control)', weight: FontWeight.w600),
-            ArcaneRadioGroup<String>(
-              value: _buttonValue,
-              variant: RadioGroupVariant.buttons,
-              layout: RadioGroupLayout.horizontal,
-              options: const [
-                RadioOption(value: 'monthly', label: 'Monthly'),
-                RadioOption(value: 'yearly', label: 'Yearly'),
-                RadioOption(value: 'lifetime', label: 'Lifetime'),
-              ],
-              onChanged: (v) => setState(() => _buttonValue = v),
-            ),
-          ],
-        ),
-
-        // Chips variant
-        ArcaneColumn(
-          gapSize: Gap.sm,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ArcaneText('Chips Variant', weight: FontWeight.w600),
-            ArcaneRadioGroup<String>(
-              value: _chipValue,
-              variant: RadioGroupVariant.chips,
-              layout: RadioGroupLayout.horizontal,
-              options: const [
-                RadioOption(value: 'all', label: 'All'),
-                RadioOption(value: 'active', label: 'Active'),
-                RadioOption(value: 'completed', label: 'Completed'),
-                RadioOption(value: 'archived', label: 'Archived'),
-              ],
-              onChanged: (v) => setState(() => _chipValue = v),
-            ),
           ],
         ),
       ],

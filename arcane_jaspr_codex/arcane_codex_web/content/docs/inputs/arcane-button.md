@@ -313,6 +313,5 @@ ArcaneIconButton(
 ## Related Components
 
 - [ArcaneIconButton](/arcane_jaspr/docs/inputs/arcane-icon-button) - Icon-only buttons
-- [ArcaneCloseButton](/arcane_jaspr/docs/inputs/arcane-close-button) - Close/dismiss button
 - [ArcaneFAB](/arcane_jaspr/docs/inputs/arcane-fab) - Floating action button
 - [ArcaneToggleButton](/arcane_jaspr/docs/inputs/arcane-toggle-button) - Toggle button

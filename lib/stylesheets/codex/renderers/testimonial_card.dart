@@ -1,0 +1,162 @@
+import 'package:jaspr/jaspr.dart';
+import 'package:jaspr/dom.dart' as dom;
+
+import '../../../core/props/testimonial_card_props.dart';
+
+/// Codex TestimonialCard renderer.
+class CodexTestimonialCard extends StatelessComponent {
+  final TestimonialCardProps props;
+
+  const CodexTestimonialCard(this.props, {super.key});
+
+  @override
+  Component build(BuildContext context) {
+    return dom.div(
+      classes: 'codex-testimonial-card',
+      styles: const dom.Styles(raw: {
+        'display': 'flex',
+        'flex-direction': 'column',
+        'gap': '1.25rem',
+        'padding': '1.5rem',
+        'background-color': 'var(--card)',
+        'border': '1px solid var(--border)',
+        'border-radius': 'var(--radius)',
+      }),
+      [
+        // Rating
+        if (props.rating != null)
+          dom.div(
+            classes: 'codex-testimonial-rating',
+            styles: const dom.Styles(raw: {
+              'display': 'flex',
+              'gap': '0.25rem',
+            }),
+            [
+              for (int i = 0; i < 5; i++)
+                dom.span(
+                  styles: dom.Styles(raw: {
+                    'color': i < props.rating!
+                        ? 'var(--codex-accent)'
+                        : 'var(--muted-foreground)',
+                    'font-size': '1rem',
+                  }),
+                  [Component.text(i < props.rating! ? '*' : 'o')],
+                ),
+            ],
+          ),
+
+        // Quote
+        dom.blockquote(
+          classes: 'codex-testimonial-quote',
+          styles: const dom.Styles(raw: {
+            'font-size': '0.9375rem',
+            'line-height': '1.6',
+            'color': 'var(--foreground)',
+            'margin': '0',
+          }),
+          [
+            if (props.showQuotes)
+              dom.span(
+                styles: const dom.Styles(raw: {
+                  'color': 'var(--codex-accent)',
+                  'font-size': '1.5rem',
+                  'line-height': '0',
+                  'vertical-align': 'bottom',
+                  'margin-right': '0.25rem',
+                }),
+                [const Component.text('"')],
+              ),
+            Component.text(props.quote),
+            if (props.showQuotes)
+              dom.span(
+                styles: const dom.Styles(raw: {
+                  'color': 'var(--codex-accent)',
+                  'font-size': '1.5rem',
+                  'line-height': '0',
+                  'vertical-align': 'bottom',
+                  'margin-left': '0.25rem',
+                }),
+                [const Component.text('"')],
+              ),
+          ],
+        ),
+
+        // Author
+        dom.div(
+          classes: 'codex-testimonial-author',
+          styles: const dom.Styles(raw: {
+            'display': 'flex',
+            'align-items': 'center',
+            'gap': '0.75rem',
+          }),
+          [
+            // Avatar
+            if (props.avatarUrl != null)
+              dom.img(
+                src: props.avatarUrl!,
+                classes: 'codex-testimonial-avatar',
+                styles: const dom.Styles(raw: {
+                  'width': '40px',
+                  'height': '40px',
+                  'border-radius': '50%',
+                  'object-fit': 'cover',
+                }),
+              )
+            else
+              dom.div(
+                classes: 'codex-testimonial-avatar-placeholder',
+                styles: const dom.Styles(raw: {
+                  'width': '40px',
+                  'height': '40px',
+                  'border-radius': '50%',
+                  'background-color': 'var(--codex-accent)',
+                  'display': 'flex',
+                  'align-items': 'center',
+                  'justify-content': 'center',
+                  'color': '#ffffff',
+                  'font-weight': '600',
+                  'font-size': '1rem',
+                }),
+                [Component.text(props.authorName.substring(0, 1).toUpperCase())],
+              ),
+
+            // Info
+            dom.div(
+              styles: const dom.Styles(raw: {
+                'display': 'flex',
+                'flex-direction': 'column',
+                'gap': '0.125rem',
+              }),
+              [
+                dom.span(
+                  styles: const dom.Styles(raw: {
+                    'font-size': '0.875rem',
+                    'font-weight': '500',
+                    'color': 'var(--foreground)',
+                  }),
+                  [Component.text(props.authorName)],
+                ),
+                if (props.authorTitle != null || props.authorCompany != null)
+                  dom.span(
+                    styles: const dom.Styles(raw: {
+                      'font-size': '0.8125rem',
+                      'color': 'var(--muted-foreground)',
+                    }),
+                    [
+                      Component.text([
+                        if (props.authorTitle != null) props.authorTitle!,
+                        if (props.authorTitle != null &&
+                            props.authorCompany != null)
+                          ' at ',
+                        if (props.authorCompany != null) props.authorCompany!,
+                      ].join('')),
+                    ],
+                  ),
+              ],
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}

@@ -213,5 +213,5 @@ ArcanePopover(
 ## Related Components
 
 - [ArcaneHovercard](/arcane_jaspr/docs/view/arcane-hovercard) - Hover-only card with delays
-- [ArcaneDropdownMenu](/arcane_jaspr/docs/navigation/arcane-dropdown-menu) - Dropdown menu
+- [ArcaneSelect](/arcane_jaspr/docs/inputs/arcane-select) - Select dropdown
 - [ArcaneTooltip](/arcane_jaspr/docs/view/arcane-tooltip) - Simple tooltip

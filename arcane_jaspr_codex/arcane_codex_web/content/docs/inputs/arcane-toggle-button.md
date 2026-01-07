@@ -1,204 +1,114 @@
 ---
-title: ArcaneToggleButton
-description: Button that toggles between on and off states
+title: ToggleButton
+description: Toggle buttons for on/off states and grouped selections
 layout: docs
 component: toggle-button
 ---
 
-# ArcaneToggleButton
+# ToggleButton
 
-A button that toggles between active and inactive states, useful for toolbar buttons and feature toggles.
+Toggle buttons for binary on/off states and exclusive group selections.
 
-## Basic Usage
+## ArcaneToggleButton
+
+A button that toggles between active and inactive states:
 
 ```dart
 ArcaneToggleButton(
-  isSelected: isActive,
+  value: isActive,
   label: 'Bold',
-  onChanged: (selected) {
-    setState(() => isActive = selected);
-  },
+  onChanged: (selected) => setState(() => isActive = selected),
 )
 ```
 
-## Properties
+### Properties
 
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
-| `isSelected` | `bool` | `false` | Current toggle state |
+| `value` | `bool` | `false` | Current toggle state |
 | `onChanged` | `ValueChanged<bool>?` | `null` | State change handler |
 | `label` | `String?` | `null` | Button label |
 | `icon` | `Component?` | `null` | Button icon |
-| `size` | `ToggleButtonSize` | `medium` | Button size |
-| `isDisabled` | `bool` | `false` | Disable interaction |
-| `styles` | `ArcaneStyleData?` | `null` | Custom styling |
+| `disabled` | `bool` | `false` | Disable interaction |
 
-## With Icon
+### With Icon
 
 ```dart
 ArcaneToggleButton(
-  isSelected: isBold,
-  icon: span([text('B')]),
+  value: isBold,
+  icon: ArcaneIcon.bold(),
   onChanged: (v) => setState(() => isBold = v),
 )
 ```
 
-## With Label
-
-```dart
-ArcaneToggleButton(
-  isSelected: showPreview,
-  label: 'Preview',
-  onChanged: (v) => setState(() => showPreview = v),
-)
-```
-
-## With Icon and Label
-
-```dart
-ArcaneToggleButton(
-  isSelected: isBookmarked,
-  icon: span([text('⭐')]),
-  label: 'Bookmark',
-  onChanged: (v) => setState(() => isBookmarked = v),
-)
-```
-
-## Sizes
-
-```dart
-// Small
-ArcaneToggleButton(
-  isSelected: isActive,
-  label: 'Small',
-  size: ToggleButtonSize.small,
-  onChanged: (v) => setState(() => isActive = v),
-)
-
-// Medium (default)
-ArcaneToggleButton(
-  isSelected: isActive,
-  label: 'Medium',
-  size: ToggleButtonSize.medium,
-  onChanged: (v) => setState(() => isActive = v),
-)
-
-// Large
-ArcaneToggleButton(
-  isSelected: isActive,
-  label: 'Large',
-  size: ToggleButtonSize.large,
-  onChanged: (v) => setState(() => isActive = v),
-)
-```
-
-## Examples
-
 ### Text Formatting Toolbar
 
 ```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
-    display: Display.flex,
-    gap: Gap.xs,
-    padding: PaddingPreset.sm,
-    background: Background.surface,
-    borderRadius: Radius.md,
-  ),
+ArcaneRow(
+  gapSize: Gap.xs,
   children: [
     ArcaneToggleButton(
-      isSelected: isBold,
-      icon: span([text('B')]),
-      size: ToggleButtonSize.small,
+      value: isBold,
+      icon: ArcaneIcon.bold(),
       onChanged: (v) => setState(() => isBold = v),
     ),
     ArcaneToggleButton(
-      isSelected: isItalic,
-      icon: span([text('I')]),
-      size: ToggleButtonSize.small,
+      value: isItalic,
+      icon: ArcaneIcon.italic(),
       onChanged: (v) => setState(() => isItalic = v),
     ),
     ArcaneToggleButton(
-      isSelected: isUnderline,
-      icon: span([text('U')]),
-      size: ToggleButtonSize.small,
+      value: isUnderline,
+      icon: ArcaneIcon.underline(),
       onChanged: (v) => setState(() => isUnderline = v),
-    ),
-    ArcaneToggleButton(
-      isSelected: isStrikethrough,
-      icon: span([text('S')]),
-      size: ToggleButtonSize.small,
-      onChanged: (v) => setState(() => isStrikethrough = v),
     ),
   ],
 )
 ```
+
+## ArcaneToggleButtonGroup
+
+A group of mutually exclusive toggle buttons (only one can be selected):
+
+```dart
+ArcaneToggleButtonGroup(
+  options: const ['One', 'Two', 'Three'],
+  selectedIndex: selectedIndex,
+  onChanged: (index) => setState(() => selectedIndex = index),
+)
+```
+
+### Group Properties
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `options` | `List<String>` | required | Option labels |
+| `selectedIndex` | `int` | `0` | Currently selected index |
+| `onChanged` | `ValueChanged<int>?` | `null` | Selection handler |
+| `disabled` | `bool` | `false` | Disable all options |
 
 ### View Mode Toggle
 
 ```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
-    display: Display.flex,
-    gap: Gap.sm,
-  ),
-  children: [
-    ArcaneToggleButton(
-      isSelected: viewMode == 'grid',
-      icon: span([text('⊞')]),
-      label: 'Grid',
-      onChanged: (v) {
-        if (v) setState(() => viewMode = 'grid');
-      },
-    ),
-    ArcaneToggleButton(
-      isSelected: viewMode == 'list',
-      icon: span([text('☰')]),
-      label: 'List',
-      onChanged: (v) {
-        if (v) setState(() => viewMode = 'list');
-      },
-    ),
-  ],
+ArcaneToggleButtonGroup(
+  options: const ['Grid', 'List', 'Table'],
+  selectedIndex: viewModeIndex,
+  onChanged: (index) => setState(() => viewModeIndex = index),
 )
 ```
 
-### Feature Toggle
+### Billing Period Selection
 
 ```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
-    display: Display.flex,
-    justifyContent: JustifyContent.spaceBetween,
-    alignItems: AlignItems.center,
-    padding: PaddingPreset.md,
-    background: Background.surface,
-    borderRadius: Radius.lg,
-  ),
-  children: [
-    ArcaneDiv(
-      children: [
-        ArcaneText('Auto-save'),
-        ArcaneDiv(
-          styles: const ArcaneStyleData(
-            fontSize: FontSize.sm,
-            textColor: TextColor.muted,
-          ),
-          children: [ArcaneText('Automatically save changes')],
-        ),
-      ],
-    ),
-    ArcaneToggleButton(
-      isSelected: autoSave,
-      icon: span([text(autoSave ? '✓' : '✗')]),
-      onChanged: (v) => setState(() => autoSave = v),
-    ),
-  ],
+ArcaneToggleButtonGroup(
+  options: const ['Monthly', 'Yearly'],
+  selectedIndex: billingIndex,
+  onChanged: (index) => setState(() => billingIndex = index),
 )
 ```
 
 ## Related Components
 
-- [ArcaneToggleButtonGroup](/arcane_jaspr/docs/inputs/arcane-toggle-button-group) - Group of toggle buttons
 - [ArcaneToggleSwitch](/arcane_jaspr/docs/inputs/arcane-toggle-switch) - Switch-style toggle
 - [ArcaneCheckbox](/arcane_jaspr/docs/inputs/arcane-checkbox) - Checkbox toggle
+- [ArcaneRadio](/arcane_jaspr/docs/inputs/arcane-radio) - Radio selection

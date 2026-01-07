@@ -182,5 +182,5 @@ ArcaneButtonGroup(
 ## Related Components
 
 - [ArcaneButtonPanel](/arcane_jaspr/docs/layout/arcane-button-panel) - Button container with layout
-- [ArcaneToggleButtonGroup](/arcane_jaspr/docs/inputs/arcane-toggle-button-group) - Selectable button group
+- [ArcaneToggleButton](/arcane_jaspr/docs/inputs/arcane-toggle-button) - Toggle buttons and groups
 - [ArcaneRow](/arcane_jaspr/docs/layout/arcane-row) - Horizontal layout

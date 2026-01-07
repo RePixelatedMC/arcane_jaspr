@@ -1,6 +1,4 @@
 import 'package:arcane_jaspr/aliases.dart';
-import 'package:jaspr/dom.dart' as dom;
-
 
 export '../../core/props/icon_button_props.dart'
     show IconButtonSize, IconButtonVariant;
@@ -104,18 +102,6 @@ class ArcaneIconButton extends StatelessComponent {
     super.key,
   }) : style = IconButtonStyle.destructive;
 
-  /// Close button (X icon) - ghost style by default
-  ///
-  /// ```dart
-  /// ArcaneIconButton.close(onPressed: () => closeDialog())
-  /// ```
-  const factory ArcaneIconButton.close({
-    void Function()? onPressed,
-    IconButtonSize size,
-    IconButtonStyle style,
-    Key? key,
-  }) = _ArcaneCloseButton;
-
   /// Convert IconButtonStyle to IconButtonVariant for props
   IconButtonVariant _styleToVariant(IconButtonStyle s) {
     return switch (s) {
@@ -140,35 +126,5 @@ class ArcaneIconButton extends StatelessComponent {
       loading: loading,
       tooltip: tooltip,
     ));
-  }
-}
-
-/// Internal implementation for ArcaneIconButton.close()
-class _ArcaneCloseButton extends ArcaneIconButton {
-  const _ArcaneCloseButton({
-    super.onPressed,
-    super.size,
-    IconButtonStyle style = IconButtonStyle.ghost,
-    super.key,
-  }) : super(
-          icon: const _CloseIcon(),
-          style: style,
-          tooltip: 'Close',
-        );
-}
-
-/// Close icon (X character)
-class _CloseIcon extends StatelessComponent {
-  const _CloseIcon();
-
-  @override
-  Component build(BuildContext context) {
-    return const dom.span(
-      styles: dom.Styles(raw: {
-        'font-size': '1.25em',
-        'line-height': '1',
-      }),
-      [Component.text('\u00D7')],
-    );
   }
 }

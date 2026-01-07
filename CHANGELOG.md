@@ -26,9 +26,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - New factory constructors: `.text()`, `.email()`, `.password()`, `.multiline()`, `.number()`
 - Added `InputDialogType` enum
 
+### Removed
+
 **Icon Button Close Factory**
-- Added `ArcaneIconButton.close()` factory constructor
-- Removed standalone `ArcaneCloseButton` class
+- Removed `ArcaneIconButton.close()` factory constructor (redundant - use `ArcaneIconButton(icon: ArcaneIcon.x())` instead)
+
+**Dropdown Menu Component**
+- Removed `ArcaneDropdownMenu` from navigation (consolidated with Select functionality)
 
 **Search Components Consolidated**
 - Merged `ArcaneSearchBar` into `ArcaneSearch`

@@ -8,6 +8,7 @@ import '../../util/interactivity/arcane_scripts.dart';
 export '../../core/theme_provider.dart';
 export '../../stylesheets/stylesheet.dart';
 export '../../stylesheets/shadcn/shadcn_stylesheet.dart';
+export '../../stylesheets/codex/codex_stylesheet.dart';
 
 /// Root application component for Arcane Jaspr apps.
 ///
