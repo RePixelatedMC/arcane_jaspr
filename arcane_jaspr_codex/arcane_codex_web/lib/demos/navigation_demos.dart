@@ -101,8 +101,8 @@ class NavigationDemos {
             onPressed: () {},
           ),
           items: [
-            ArcaneDropdownItem(label: 'Option 1', onTap: () {}),
-            ArcaneDropdownItem(label: 'Option 2', onTap: () {}),
+            ArcaneMenuItem(label: 'Option 1', onSelect: () {}),
+            ArcaneMenuItem(label: 'Option 2', onSelect: () {}),
           ],
         ),
       ];

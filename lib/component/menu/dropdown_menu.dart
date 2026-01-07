@@ -4,37 +4,7 @@ import 'package:jaspr/dom.dart' as dom;
 import '../../core/theme_provider.dart';
 
 export '../../core/props/dropdown_menu_props.dart' show DropdownAlignment;
-
-/// A dropdown menu item
-class ArcaneDropdownItem {
-  final String label;
-  final String? href;
-  final void Function()? onTap;
-  final Component? icon;
-  final String? description;
-  final bool disabled;
-  final bool divider;
-
-  const ArcaneDropdownItem({
-    required this.label,
-    this.href,
-    this.onTap,
-    this.icon,
-    this.description,
-    this.disabled = false,
-    this.divider = false,
-  });
-
-  /// Create a divider item
-  const ArcaneDropdownItem.divider()
-      : label = '',
-        href = null,
-        onTap = null,
-        icon = null,
-        description = null,
-        disabled = false,
-        divider = true;
-}
+export '../../core/props/menu_item_props.dart';
 
 /// A dropdown menu component matching shadcn/ui.
 /// ShadCN Reference: https://ui.shadcn.com/docs/components/dropdown-menu
@@ -43,7 +13,7 @@ class ArcaneDropdownMenu extends StatefulComponent {
   final Component trigger;
 
   /// Menu items
-  final List<ArcaneDropdownItem> items;
+  final List<ArcaneMenuItem> items;
 
   /// Alignment
   final DropdownAlignment alignment;
@@ -76,23 +46,9 @@ class _ArcaneDropdownMenuState extends State<ArcaneDropdownMenu> {
 
   @override
   Component build(BuildContext context) {
-    // Convert ArcaneDropdownItem to DropdownItemProps
-    final List<DropdownItemProps> itemProps = component.items
-        .map((item) => DropdownItemProps(
-              label: item.label,
-              href: item.href,
-              onTap: item.onTap,
-              icon: item.icon,
-              description: item.description,
-              disabled: item.disabled,
-              divider: item.divider,
-            ))
-        .toList();
-
-    // Delegate rendering to the current stylesheet's dropdown menu renderer
     return context.renderers.dropdownMenu(DropdownMenuProps(
       trigger: component.trigger,
-      items: itemProps,
+      items: component.items,
       isOpen: _isOpen,
       onToggle: _toggle,
       onClose: _close,
@@ -127,7 +83,7 @@ class ArcaneMegaMenu extends StatefulComponent {
 /// A section in a mega menu
 class ArcaneMegaMenuSection {
   final String? title;
-  final List<ArcaneDropdownItem> items;
+  final List<ArcaneMenuItem> items;
 
   const ArcaneMegaMenuSection({
     this.title,
@@ -195,7 +151,8 @@ class _ArcaneMegaMenuState extends State<ArcaneMegaMenu> {
               'background-color': 'var(--popover)',
               'border': '1px solid var(--border)',
               'border-radius': '0.375rem',
-              'box-shadow': '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
+              'box-shadow':
+                  '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
               'display': 'flex',
               'gap': '2rem',
               'animation': 'arcane-dropdown-fade 0.15s ease-out',
@@ -227,8 +184,7 @@ class _ArcaneMegaMenuState extends State<ArcaneMegaMenu> {
                         'gap': '0.25rem',
                       }),
                       [
-                        for (final item in section.items)
-                          _buildMegaItem(item),
+                        for (final item in section.items) _buildMegaItem(item),
                       ],
                     ),
                   ],
@@ -248,7 +204,7 @@ class _ArcaneMegaMenuState extends State<ArcaneMegaMenu> {
     );
   }
 
-  Component _buildMegaItem(ArcaneDropdownItem item) {
+  Component _buildMegaItem(ArcaneMenuItem item) {
     final Component itemContent = dom.div(
       styles: const dom.Styles(raw: {
         'display': 'flex',
@@ -316,7 +272,7 @@ class _ArcaneMegaMenuState extends State<ArcaneMegaMenu> {
         'transition': 'background-color 150ms ease',
       }),
       events: {
-        if (item.onTap != null) 'click': (e) => item.onTap!(),
+        if (item.onSelect != null) 'click': (e) => item.onSelect!(),
       },
       [itemContent],
     );

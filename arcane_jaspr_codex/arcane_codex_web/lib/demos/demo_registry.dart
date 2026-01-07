@@ -136,7 +136,7 @@ class DemoRegistry {
     'dialog': FeedbackDemos.dialog,
     'alert-banner': FeedbackDemos.alertBanner,
     'status-badge': FeedbackDemos.statusBadge,
-    'email-dialog': FeedbackDemos.emailDialog,
+    'input-dialog': FeedbackDemos.inputDialog,
     'time-dialog': FeedbackDemos.timeDialog,
     'item-picker': FeedbackDemos.itemPicker,
 
@@ -154,9 +154,6 @@ class DemoRegistry {
     'signup-card': AuthDemos.signupCard,
     'forgot-password-card': AuthDemos.forgotPasswordCard,
     'social-buttons': AuthDemos.socialButtons,
-    'github-button': AuthDemos.githubButton,
-    'google-button': AuthDemos.googleButton,
-    'apple-button': AuthDemos.appleButton,
     'auth-split-layout': AuthDemos.authSplitLayout,
     'auth-branding-panel': AuthDemos.authBrandingPanel,
     'password-policy': AuthDemos.passwordPolicy,
@@ -195,7 +192,6 @@ class DemoRegistry {
     'mutable-text': const MutableTextDemo(),
     'radio-group': const RadioGroupDemo(),
     'otp-input': const OtpInputDemo(),
-    'combobox': const ComboboxDemo(),
     'calendar': const CalendarDemo(),
     'date-picker': const DatePickerDemo(),
 

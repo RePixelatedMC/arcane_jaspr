@@ -42,7 +42,7 @@ class ShadcnContextMenu extends StatelessComponent {
     );
   }
 
-  Component _buildMenuItem(ContextMenuItemProps item) {
+  Component _buildMenuItem(ArcaneMenuItem item) {
     if (item.isSeparator) {
       // ShadCN ContextMenuSeparator
       return const dom.div(

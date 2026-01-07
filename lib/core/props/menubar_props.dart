@@ -1,71 +1,14 @@
-import 'package:jaspr/jaspr.dart';
+import 'menu_item_props.dart';
 
-/// Props for a menubar item
-class MenubarItemProps {
-  /// Display label
-  final String label;
+export 'menu_item_props.dart';
 
-  /// Optional icon
-  final Component? icon;
-
-  /// Click handler
-  final void Function()? onSelect;
-
-  /// Whether disabled
-  final bool disabled;
-
-  /// Keyboard shortcut hint
-  final String? shortcut;
-
-  /// Whether this is a separator
-  final bool isSeparator;
-
-  /// Whether this is a checkbox item
-  final bool isCheckbox;
-
-  /// Checkbox checked state
-  final bool checked;
-
-  /// Radio group name (for radio items)
-  final String? radioGroup;
-
-  /// Radio value
-  final String? radioValue;
-
-  const MenubarItemProps({
-    required this.label,
-    this.icon,
-    this.onSelect,
-    this.disabled = false,
-    this.shortcut,
-    this.isSeparator = false,
-    this.isCheckbox = false,
-    this.checked = false,
-    this.radioGroup,
-    this.radioValue,
-  });
-
-  /// Creates a separator
-  const MenubarItemProps.separator()
-      : label = '',
-        icon = null,
-        onSelect = null,
-        disabled = false,
-        shortcut = null,
-        isSeparator = true,
-        isCheckbox = false,
-        checked = false,
-        radioGroup = null,
-        radioValue = null;
-}
-
-/// Props for a menubar menu (top-level)
+/// Props for a menubar menu (top-level dropdown)
 class MenubarMenuProps {
   /// Trigger label
   final String label;
 
   /// Menu items
-  final List<MenubarItemProps> items;
+  final List<ArcaneMenuItem> items;
 
   const MenubarMenuProps({
     required this.label,

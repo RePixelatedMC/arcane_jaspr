@@ -57,7 +57,7 @@ class AuthSocialRow extends StatelessComponent {
     switch (method) {
       case AuthMethod.github:
         return _wrapButton(
-          GithubSignInButton(
+          SocialSignInButton.github(
             label: '',
             onPressed: isDisabled ? null : () => onTap?.call(method),
             loading: loading,
@@ -67,7 +67,7 @@ class AuthSocialRow extends StatelessComponent {
 
       case AuthMethod.google:
         return _wrapButton(
-          GoogleSignInButton(
+          SocialSignInButton.google(
             label: '',
             onPressed: isDisabled ? null : () => onTap?.call(method),
             loading: loading,
@@ -77,7 +77,7 @@ class AuthSocialRow extends StatelessComponent {
 
       case AuthMethod.apple:
         return _wrapButton(
-          AppleSignInButton(
+          SocialSignInButton.apple(
             label: '',
             onPressed: isDisabled ? null : () => onTap?.call(method),
             loading: loading,

@@ -2,7 +2,7 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
 import '../../../core/renderers.dart';
-import '../../../component/view/flexi_cards.dart';
+import '../../../component/card/flexi_cards.dart';
 
 /// ShadCN Feature Showcase renderer.
 class ShadcnFeatureShowcase extends StatelessComponent {

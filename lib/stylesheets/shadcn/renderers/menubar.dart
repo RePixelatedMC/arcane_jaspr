@@ -101,7 +101,7 @@ class ShadcnMenubar extends StatelessComponent {
     );
   }
 
-  Component _buildMenuItem(MenubarItemProps item) {
+  Component _buildMenuItem(ArcaneMenuItem item) {
     if (item.isSeparator) {
       // ShadCN MenubarSeparator
       return const dom.div(

@@ -11,8 +11,6 @@ import 'package:arcane_jaspr/component/collection/card_carousel.dart'
     as _card_carousel;
 import 'package:arcane_jaspr/component/collection/infinite_carousel.dart'
     as _infinite_carousel;
-import 'package:arcane_jaspr/component/feedback/alert_banner.dart'
-    as _alert_banner;
 import 'package:arcane_jaspr/component/feedback/loader.dart' as _loader;
 import 'package:arcane_jaspr/component/form/field.dart' as _field;
 import 'package:arcane_jaspr/component/input/formatted_input.dart'
@@ -64,8 +62,6 @@ ServerOptions get defaultServerOptions => ServerOptions(
     ..._card_carousel.ArcaneHeroCarousel.styles,
     ..._card_carousel.ArcaneNavigableCarousel.styles,
     ..._infinite_carousel.ArcaneInfiniteCarousel.styles,
-    ..._alert_banner.ArcaneLoader.styles,
-    ..._alert_banner.ArcaneProgressBar.styles,
     ..._loader.ArcaneDotsLoader.styles,
     ..._loader.ArcaneLoader.styles,
     ..._loader.ArcanePulseLoader.styles,

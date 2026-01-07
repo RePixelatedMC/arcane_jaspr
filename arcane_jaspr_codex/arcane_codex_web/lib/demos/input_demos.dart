@@ -18,7 +18,7 @@ class InputDemos {
       ];
 
   static List<Component> closeButton() => [
-        ArcaneCloseButton(onPressed: () {}),
+        ArcaneIconButton.close(onPressed: () {}),
       ];
 
   static List<Component> fab() => [

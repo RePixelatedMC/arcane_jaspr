@@ -15,9 +15,9 @@ A dropdown menu component that displays a list of actions when triggered.
 ArcaneDropdownMenu(
   trigger: ArcaneButton.secondary(label: 'Options'),
   items: [
-    ArcaneDropdownItem(label: 'Edit', onPressed: edit),
-    ArcaneDropdownItem(label: 'Duplicate', onPressed: duplicate),
-    ArcaneDropdownItem(label: 'Delete', onPressed: delete),
+    ArcaneMenuItem(label: 'Edit', onSelect: edit),
+    ArcaneMenuItem(label: 'Duplicate', onSelect: duplicate),
+    ArcaneMenuItem(label: 'Delete', onSelect: delete),
   ],
 )
 ```
@@ -27,50 +27,82 @@ ArcaneDropdownMenu(
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
 | `trigger` | `Component` | required | Trigger element |
-| `items` | `List<Component>` | required | Menu items |
+| `items` | `List<ArcaneMenuItem>` | required | Menu items |
 | `align` | `DropdownAlign` | `start` | Menu alignment |
 | `position` | `DropdownPosition` | `bottom` | Menu position |
 | `width` | `String?` | `null` | Custom width |
 | `styles` | `ArcaneStyleData?` | `null` | Additional styling |
 
-## ArcaneDropdownItem Properties
+## ArcaneMenuItem
+
+The unified menu item class used across all menu components:
+
+```dart
+ArcaneMenuItem(
+  label: 'Edit',
+  icon: ArcaneIcon.edit(),
+  shortcut: '⌘E',
+  onSelect: () => handleEdit(),
+  disabled: false,
+  destructive: false,
+)
+
+// Separator
+ArcaneMenuItem.separator()
+
+// With submenu
+ArcaneMenuItem.submenu(
+  label: 'Share',
+  icon: ArcaneIcon.share(),
+  items: [
+    ArcaneMenuItem(label: 'Email', onSelect: shareEmail),
+    ArcaneMenuItem(label: 'Link', onSelect: shareLink),
+  ],
+)
+```
+
+### ArcaneMenuItem Properties
 
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
 | `label` | `String` | required | Item text |
 | `icon` | `Component?` | `null` | Leading icon |
-| `onPressed` | `VoidCallback?` | `null` | Click handler |
+| `onSelect` | `VoidCallback?` | `null` | Click handler |
 | `href` | `String?` | `null` | Navigation URL |
-| `isDestructive` | `bool` | `false` | Destructive style |
-| `isDisabled` | `bool` | `false` | Disabled state |
+| `description` | `String?` | `null` | Item description |
+| `shortcut` | `String?` | `null` | Keyboard shortcut hint |
+| `disabled` | `bool` | `false` | Disabled state |
+| `destructive` | `bool` | `false` | Destructive style |
+| `submenu` | `List<ArcaneMenuItem>?` | `null` | Nested items |
+| `isSeparator` | `bool` | `false` | Is separator item |
 
 ## With Icons
 
 ```dart
 ArcaneDropdownMenu(
-  trigger: ArcaneIconButton(icon: span([text('⋮')])),
+  trigger: ArcaneIconButton(icon: ArcaneIcon.moreVertical()),
   items: [
-    ArcaneDropdownItem(
-      icon: span([text('✏️')]),
+    ArcaneMenuItem(
+      icon: ArcaneIcon.edit(),
       label: 'Edit',
-      onPressed: edit,
+      onSelect: edit,
     ),
-    ArcaneDropdownItem(
-      icon: span([text('📋')]),
+    ArcaneMenuItem(
+      icon: ArcaneIcon.copy(),
       label: 'Copy',
-      onPressed: copy,
+      onSelect: copy,
     ),
-    ArcaneDropdownItem(
-      icon: span([text('🔗')]),
+    ArcaneMenuItem(
+      icon: ArcaneIcon.share(),
       label: 'Share',
-      onPressed: share,
+      onSelect: share,
     ),
-    ArcaneDivider(),
-    ArcaneDropdownItem(
-      icon: span([text('🗑️')]),
+    ArcaneMenuItem.separator(),
+    ArcaneMenuItem(
+      icon: ArcaneIcon.trash(),
       label: 'Delete',
-      onPressed: delete,
-      isDestructive: true,
+      onSelect: delete,
+      destructive: true,
     ),
   ],
 )
@@ -117,45 +149,6 @@ ArcaneDropdownMenu(
   trigger: Trigger(),
   items: items,
 )
-
-// Left
-ArcaneDropdownMenu(
-  position: DropdownPosition.left,
-  trigger: Trigger(),
-  items: items,
-)
-
-// Right
-ArcaneDropdownMenu(
-  position: DropdownPosition.right,
-  trigger: Trigger(),
-  items: items,
-)
-```
-
-## With Sections
-
-```dart
-ArcaneDropdownMenu(
-  trigger: ArcaneButton.secondary(label: 'Actions'),
-  items: [
-    ArcaneDropdownSection(
-      title: 'Edit',
-      children: [
-        ArcaneDropdownItem(label: 'Undo', onPressed: undo),
-        ArcaneDropdownItem(label: 'Redo', onPressed: redo),
-      ],
-    ),
-    ArcaneDivider(),
-    ArcaneDropdownSection(
-      title: 'View',
-      children: [
-        ArcaneDropdownItem(label: 'Zoom In', onPressed: zoomIn),
-        ArcaneDropdownItem(label: 'Zoom Out', onPressed: zoomOut),
-      ],
-    ),
-  ],
-)
 ```
 
 ## Examples
@@ -165,34 +158,34 @@ ArcaneDropdownMenu(
 ```dart
 ArcaneDropdownMenu(
   trigger: ArcaneRow(
-    gap: Gap.sm,
+    gapSize: Gap.sm,
     children: [
       ArcaneAvatar(imageUrl: user.avatar, size: AvatarSize.sm),
       ArcaneText(user.name),
-      span([text('▼')]),
+      ArcaneIcon.chevronDown(size: IconSize.sm),
     ],
   ),
   items: [
-    ArcaneDropdownItem(
-      icon: span([text('👤')]),
+    ArcaneMenuItem(
+      icon: ArcaneIcon.user(),
       label: 'Profile',
       href: '/profile',
     ),
-    ArcaneDropdownItem(
-      icon: span([text('⚙️')]),
+    ArcaneMenuItem(
+      icon: ArcaneIcon.settings(),
       label: 'Settings',
       href: '/settings',
     ),
-    ArcaneDropdownItem(
-      icon: span([text('❓')]),
+    ArcaneMenuItem(
+      icon: ArcaneIcon.helpCircle(),
       label: 'Help',
       href: '/help',
     ),
-    ArcaneDivider(),
-    ArcaneDropdownItem(
-      icon: span([text('🚪')]),
+    ArcaneMenuItem.separator(),
+    ArcaneMenuItem(
+      icon: ArcaneIcon.logOut(),
       label: 'Sign Out',
-      onPressed: signOut,
+      onSelect: signOut,
     ),
   ],
 )
@@ -201,37 +194,27 @@ ArcaneDropdownMenu(
 ### Table Row Actions
 
 ```dart
-ArcaneDataTable(
-  columns: [...],
-  rows: [
-    for (var item in items)
-      DataRow(cells: [
-        ArcaneText(item.name),
-        ArcaneText(item.status),
-        ArcaneDropdownMenu(
-          trigger: ArcaneIconButton(icon: span([text('⋮')])),
-          align: DropdownAlign.end,
-          items: [
-            ArcaneDropdownItem(
-              icon: span([text('👁️')]),
-              label: 'View',
-              onPressed: () => view(item),
-            ),
-            ArcaneDropdownItem(
-              icon: span([text('✏️')]),
-              label: 'Edit',
-              onPressed: () => edit(item),
-            ),
-            ArcaneDivider(),
-            ArcaneDropdownItem(
-              icon: span([text('🗑️')]),
-              label: 'Delete',
-              onPressed: () => delete(item),
-              isDestructive: true,
-            ),
-          ],
-        ),
-      ]),
+ArcaneDropdownMenu(
+  trigger: ArcaneIconButton(icon: ArcaneIcon.moreVertical()),
+  align: DropdownAlign.end,
+  items: [
+    ArcaneMenuItem(
+      icon: ArcaneIcon.eye(),
+      label: 'View',
+      onSelect: () => view(item),
+    ),
+    ArcaneMenuItem(
+      icon: ArcaneIcon.edit(),
+      label: 'Edit',
+      onSelect: () => edit(item),
+    ),
+    ArcaneMenuItem.separator(),
+    ArcaneMenuItem(
+      icon: ArcaneIcon.trash(),
+      label: 'Delete',
+      onSelect: () => delete(item),
+      destructive: true,
+    ),
   ],
 )
 ```
@@ -241,70 +224,35 @@ ArcaneDataTable(
 ```dart
 ArcaneDropdownMenu(
   trigger: ArcaneButton.secondary(
-    leadingIcon: span([text('📁')]),
+    leading: ArcaneIcon.folder(),
     label: 'File',
   ),
   width: '200px',
   items: [
-    ArcaneDropdownItem(
-      icon: span([text('📄')]),
+    ArcaneMenuItem(
+      icon: ArcaneIcon.filePlus(),
       label: 'New File',
-      onPressed: newFile,
+      shortcut: '⌘N',
+      onSelect: newFile,
     ),
-    ArcaneDropdownItem(
-      icon: span([text('📂')]),
+    ArcaneMenuItem(
+      icon: ArcaneIcon.folderOpen(),
       label: 'Open...',
-      onPressed: openFile,
+      shortcut: '⌘O',
+      onSelect: openFile,
     ),
-    ArcaneDivider(),
-    ArcaneDropdownItem(
-      icon: span([text('💾')]),
+    ArcaneMenuItem.separator(),
+    ArcaneMenuItem(
+      icon: ArcaneIcon.save(),
       label: 'Save',
-      onPressed: save,
+      shortcut: '⌘S',
+      onSelect: save,
     ),
-    ArcaneDropdownItem(
-      icon: span([text('📥')]),
+    ArcaneMenuItem(
+      icon: ArcaneIcon.download(),
       label: 'Save As...',
-      onPressed: saveAs,
-    ),
-    ArcaneDivider(),
-    ArcaneDropdownItem(
-      icon: span([text('🖨️')]),
-      label: 'Print',
-      onPressed: print,
-    ),
-  ],
-)
-```
-
-### Sort Options
-
-```dart
-ArcaneDropdownMenu(
-  trigger: ArcaneButton.ghost(
-    leadingIcon: span([text('↕️')]),
-    label: 'Sort by: $currentSort',
-  ),
-  items: [
-    ArcaneDropdownItem(
-      label: 'Name',
-      icon: currentSort == 'name' ? span([text('✓')]) : null,
-      onPressed: () => sortBy('name'),
-    ),
-    ArcaneDropdownItem(
-      label: 'Date',
-      icon: currentSort == 'date' ? span([text('✓')]) : null,
-      onPressed: () => sortBy('date'),
-    ),
-    ArcaneDropdownItem(
-      label: 'Size',
-      icon: currentSort == 'size' ? span([text('✓')]) : null,
-      onPressed: () => sortBy('size'),
-    ),
-    ArcaneDropdownItem(
-      label: 'Type',
-      icon: currentSort == 'type' ? span([text('✓')]) : null,
-      onPressed: () => sortBy('type'),
+      shortcut: '⇧⌘S',
+      onSelect: saveAs,
     ),
   ],
 )
@@ -314,4 +262,5 @@ ArcaneDropdownMenu(
 
 - [ArcaneButton](/arcane_jaspr/docs/inputs/arcane-button) - Button trigger
 - [ArcaneSelect](/arcane_jaspr/docs/inputs/arcane-select) - Form select input
-- [ArcaneMegaMenu](/arcane_jaspr/docs/navigation/arcane-mega-menu) - Large navigation menu
+- [ArcaneContextMenu](/arcane_jaspr/docs/navigation/arcane-context-menu) - Right-click menu
+- [ArcaneMenubar](/arcane_jaspr/docs/navigation/arcane-menubar) - Application menu bar

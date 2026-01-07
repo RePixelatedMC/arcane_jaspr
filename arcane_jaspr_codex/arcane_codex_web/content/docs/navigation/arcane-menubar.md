@@ -13,21 +13,21 @@ Horizontal menu bar like in desktop applications.
 
 ```dart
 ArcaneMenubar(
-  items: [
-    MenubarItem(
+  menus: [
+    ArcaneMenubarMenu(
       label: 'File',
-      menu: [
-        MenuItem(label: 'New', shortcut: '⌘N', onSelect: () => newFile()),
-        MenuItem(label: 'Open', shortcut: '⌘O', onSelect: () => open()),
-        MenuItem.separator(),
-        MenuItem(label: 'Save', shortcut: '⌘S', onSelect: () => save()),
+      items: [
+        ArcaneMenuItem(label: 'New', shortcut: '⌘N', onSelect: () => newFile()),
+        ArcaneMenuItem(label: 'Open', shortcut: '⌘O', onSelect: () => open()),
+        ArcaneMenuItem.separator(),
+        ArcaneMenuItem(label: 'Save', shortcut: '⌘S', onSelect: () => save()),
       ],
     ),
-    MenubarItem(
+    ArcaneMenubarMenu(
       label: 'Edit',
-      menu: [
-        MenuItem(label: 'Undo', shortcut: '⌘Z', onSelect: () => undo()),
-        MenuItem(label: 'Redo', shortcut: '⇧⌘Z', onSelect: () => redo()),
+      items: [
+        ArcaneMenuItem(label: 'Undo', shortcut: '⌘Z', onSelect: () => undo()),
+        ArcaneMenuItem(label: 'Redo', shortcut: '⇧⌘Z', onSelect: () => redo()),
       ],
     ),
   ],
@@ -38,24 +38,30 @@ ArcaneMenubar(
 
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
-| `items` | `List<MenubarItem>` | required | Top-level menu items |
+| `menus` | `List<ArcaneMenubarMenu>` | required | Top-level menus |
 
-## MenubarItem
+## ArcaneMenubarMenu
+
+Defines a top-level menu with its dropdown items:
 
 ```dart
-MenubarItem(
+ArcaneMenubarMenu(
   label: 'File',
-  icon: ArcaneIcon.file,
-  menu: [...],
+  items: [
+    ArcaneMenuItem(label: 'New', onSelect: newFile),
+    ArcaneMenuItem(label: 'Open', onSelect: open),
+  ],
 )
 ```
 
-## MenuItem
+## ArcaneMenuItem
+
+Uses the unified `ArcaneMenuItem` class:
 
 ```dart
-MenuItem(
+ArcaneMenuItem(
   label: 'New',
-  icon: ArcaneIcon.plus,
+  icon: ArcaneIcon.plus(),
   shortcut: '⌘N',
   onSelect: () => createNew(),
   disabled: false,
@@ -63,68 +69,68 @@ MenuItem(
   submenu: [...],
 )
 
-MenuItem.separator()
+ArcaneMenuItem.separator()
 ```
 
 ## Complete Example
 
 ```dart
 ArcaneMenubar(
-  items: [
-    MenubarItem(
+  menus: [
+    ArcaneMenubarMenu(
       label: 'File',
-      menu: [
-        MenuItem(label: 'New File', shortcut: '⌘N', onSelect: newFile),
-        MenuItem(label: 'New Window', shortcut: '⇧⌘N', onSelect: newWindow),
-        MenuItem.separator(),
-        MenuItem(label: 'Open...', shortcut: '⌘O', onSelect: open),
-        MenuItem(
+      items: [
+        ArcaneMenuItem(label: 'New File', shortcut: '⌘N', onSelect: newFile),
+        ArcaneMenuItem(label: 'New Window', shortcut: '⇧⌘N', onSelect: newWindow),
+        ArcaneMenuItem.separator(),
+        ArcaneMenuItem(label: 'Open...', shortcut: '⌘O', onSelect: open),
+        ArcaneMenuItem.submenu(
           label: 'Open Recent',
-          submenu: [
-            MenuItem(label: 'document.txt', onSelect: () => openRecent(0)),
-            MenuItem(label: 'notes.md', onSelect: () => openRecent(1)),
-            MenuItem.separator(),
-            MenuItem(label: 'Clear Recent', onSelect: clearRecent),
+          items: [
+            ArcaneMenuItem(label: 'document.txt', onSelect: () => openRecent(0)),
+            ArcaneMenuItem(label: 'notes.md', onSelect: () => openRecent(1)),
+            ArcaneMenuItem.separator(),
+            ArcaneMenuItem(label: 'Clear Recent', onSelect: clearRecent),
           ],
         ),
-        MenuItem.separator(),
-        MenuItem(label: 'Save', shortcut: '⌘S', onSelect: save),
-        MenuItem(label: 'Save As...', shortcut: '⇧⌘S', onSelect: saveAs),
-        MenuItem.separator(),
-        MenuItem(label: 'Close', shortcut: '⌘W', onSelect: close),
+        ArcaneMenuItem.separator(),
+        ArcaneMenuItem(label: 'Save', shortcut: '⌘S', onSelect: save),
+        ArcaneMenuItem(label: 'Save As...', shortcut: '⇧⌘S', onSelect: saveAs),
+        ArcaneMenuItem.separator(),
+        ArcaneMenuItem(label: 'Close', shortcut: '⌘W', onSelect: close),
       ],
     ),
-    MenubarItem(
+    ArcaneMenubarMenu(
       label: 'Edit',
-      menu: [
-        MenuItem(label: 'Undo', shortcut: '⌘Z', onSelect: undo),
-        MenuItem(label: 'Redo', shortcut: '⇧⌘Z', onSelect: redo),
-        MenuItem.separator(),
-        MenuItem(label: 'Cut', shortcut: '⌘X', onSelect: cut),
-        MenuItem(label: 'Copy', shortcut: '⌘C', onSelect: copy),
-        MenuItem(label: 'Paste', shortcut: '⌘V', onSelect: paste),
-        MenuItem.separator(),
-        MenuItem(label: 'Find...', shortcut: '⌘F', onSelect: find),
-        MenuItem(label: 'Replace...', shortcut: '⌥⌘F', onSelect: replace),
+      items: [
+        ArcaneMenuItem(label: 'Undo', shortcut: '⌘Z', onSelect: undo),
+        ArcaneMenuItem(label: 'Redo', shortcut: '⇧⌘Z', onSelect: redo),
+        ArcaneMenuItem.separator(),
+        ArcaneMenuItem(label: 'Cut', shortcut: '⌘X', onSelect: cut),
+        ArcaneMenuItem(label: 'Copy', shortcut: '⌘C', onSelect: copy),
+        ArcaneMenuItem(label: 'Paste', shortcut: '⌘V', onSelect: paste),
+        ArcaneMenuItem.separator(),
+        ArcaneMenuItem(label: 'Find...', shortcut: '⌘F', onSelect: find),
+        ArcaneMenuItem(label: 'Replace...', shortcut: '⌥⌘F', onSelect: replace),
       ],
     ),
-    MenubarItem(
+    ArcaneMenubarMenu(
       label: 'View',
-      menu: [
-        MenuItem(label: 'Zoom In', shortcut: '⌘+', onSelect: zoomIn),
-        MenuItem(label: 'Zoom Out', shortcut: '⌘-', onSelect: zoomOut),
-        MenuItem(label: 'Reset Zoom', shortcut: '⌘0', onSelect: resetZoom),
-        MenuItem.separator(),
-        MenuItem(label: 'Full Screen', shortcut: '⌃⌘F', onSelect: fullScreen),
+      items: [
+        ArcaneMenuItem(label: 'Zoom In', shortcut: '⌘+', onSelect: zoomIn),
+        ArcaneMenuItem(label: 'Zoom Out', shortcut: '⌘-', onSelect: zoomOut),
+        ArcaneMenuItem(label: 'Reset Zoom', shortcut: '⌘0', onSelect: resetZoom),
+        ArcaneMenuItem.separator(),
+        ArcaneMenuItem(label: 'Full Screen', shortcut: '⌃⌘F', onSelect: fullScreen),
       ],
     ),
-    MenubarItem(
+    ArcaneMenubarMenu(
       label: 'Help',
-      menu: [
-        MenuItem(label: 'Documentation', onSelect: openDocs),
-        MenuItem(label: 'Keyboard Shortcuts', shortcut: '⌘/', onSelect: showShortcuts),
-        MenuItem.separator(),
-        MenuItem(label: 'About', onSelect: showAbout),
+      items: [
+        ArcaneMenuItem(label: 'Documentation', onSelect: openDocs),
+        ArcaneMenuItem(label: 'Keyboard Shortcuts', shortcut: '⌘/', onSelect: showShortcuts),
+        ArcaneMenuItem.separator(),
+        ArcaneMenuItem(label: 'About', onSelect: showAbout),
       ],
     ),
   ],
@@ -140,3 +146,8 @@ ArcaneMenubar(
 - Keyboard shortcuts display
 - Separators for grouping
 - Disabled and destructive items
+
+## Related Components
+
+- [ArcaneDropdownMenu](/arcane_jaspr/docs/navigation/arcane-dropdown-menu) - Click-triggered dropdown
+- [ArcaneContextMenu](/arcane_jaspr/docs/navigation/arcane-context-menu) - Right-click menu

@@ -91,7 +91,7 @@ Deploy the `build/jaspr/` directory to any static hosting service (Firebase, Ver
 The documentation covers all arcane_jaspr components:
 
 ### Input Components
-Button, IconButton, TextInput, TextArea, Search, Checkbox, Radio, ToggleSwitch, Slider, RangeSlider, NumberInput, ColorInput, TagInput, FileUpload, TimePicker, FormattedInput, Selector, CycleButton, ToggleButton, OtpInput, Combobox, Calendar, DatePicker
+Button, IconButton, TextInput, TextArea, Search, Checkbox, Radio, ToggleSwitch, Slider, RangeSlider, NumberInput, ColorInput, TagInput, FileUpload, TimePicker, FormattedInput, Selector, CycleButton, ToggleButton, OtpInput, Calendar, DatePicker
 
 ### Layout Components
 Div, Row, Column, Card, Section, Container, Gutter, Tabs, Sheet, ActionSheet, ScrollRail, ScrollArea, AspectRatio, Resizable, Drawer
@@ -103,7 +103,7 @@ Avatar, AvatarBadge, Badge, Chip, Divider, ProgressBar, Loader, Skeleton, Toolti
 Bar, Sidebar, BottomNav, Breadcrumbs, Pagination, DropdownMenu, ContextMenu, Menubar, MobileMenu
 
 ### Feedback & Dialog Components
-Dialog, Toast, AlertBanner, Sheet, EmailDialog, TimeDialog, ItemPicker, Command
+Dialog, Toast, AlertBanner, Sheet, InputDialog, TimeDialog, ItemPicker, Command
 
 ### Screen Components
 Screen, FillScreen, NavigationScreen, ChatScreen

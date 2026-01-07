@@ -253,7 +253,7 @@ ArcaneApp(
 
 ### Input Components
 - **Basic**: Button, IconButton, TextInput, TextArea, Search
-- **Selection**: Checkbox, Radio, ToggleSwitch, Selector, Combobox
+- **Selection**: Checkbox, Radio, ToggleSwitch, Selector, DropdownMenu
 - **Specialized**: Slider, RangeSlider, NumberInput, ColorInput, TagInput, FileUpload
 - **Time & Date**: TimePicker, FormattedInput, Calendar, DatePicker
 - **Toggle**: CycleButton, ToggleButton, ThemeToggle, OtpInput
@@ -278,7 +278,7 @@ ArcaneApp(
 Bar, Sidebar, BottomNav, Breadcrumbs, Pagination, DropdownMenu, ContextMenu, Menubar, MobileMenu
 
 ### Feedback & Dialog Components
-Dialog, Toast, AlertBanner, EmailDialog, TimeDialog, ItemPicker, Command
+Dialog, Toast, AlertBanner, InputDialog, TimeDialog, ItemPicker, Command
 
 ### Screen Components
 Screen, FillScreen, NavigationScreen, ChatScreen

@@ -15,10 +15,10 @@ Context menu that appears on right-click.
 ArcaneContextMenu(
   trigger: ArcaneCard(child: content),
   items: [
-    ContextMenuItem(label: 'Edit', onSelect: () => edit()),
-    ContextMenuItem(label: 'Copy', onSelect: () => copy()),
-    ContextMenuItem.separator(),
-    ContextMenuItem(label: 'Delete', destructive: true, onSelect: () => delete()),
+    ArcaneMenuItem(label: 'Edit', onSelect: () => edit()),
+    ArcaneMenuItem(label: 'Copy', onSelect: () => copy()),
+    ArcaneMenuItem.separator(),
+    ArcaneMenuItem(label: 'Delete', destructive: true, onSelect: () => delete()),
   ],
 )
 ```
@@ -28,20 +28,24 @@ ArcaneContextMenu(
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
 | `trigger` | `Component` | required | Element to right-click |
-| `items` | `List<ContextMenuItem>` | required | Menu items |
+| `items` | `List<ArcaneMenuItem>` | required | Menu items |
 
-## ContextMenuItem
+## ArcaneMenuItem
+
+Uses the unified `ArcaneMenuItem` class:
 
 ```dart
-ContextMenuItem(
+ArcaneMenuItem(
   label: 'Edit',
-  icon: ArcaneIcon.edit,
+  icon: ArcaneIcon.edit(),
   shortcut: '⌘E',
   onSelect: () => handleEdit(),
   disabled: false,
   destructive: false,
   submenu: [...],
 )
+
+ArcaneMenuItem.separator()
 ```
 
 ## With Icons and Shortcuts
@@ -50,22 +54,22 @@ ContextMenuItem(
 ArcaneContextMenu(
   trigger: FileItem(),
   items: [
-    ContextMenuItem(
+    ArcaneMenuItem(
       label: 'Open',
-      icon: ArcaneIcon.folderOpen,
+      icon: ArcaneIcon.folderOpen(),
       shortcut: '⌘O',
       onSelect: () => openFile(),
     ),
-    ContextMenuItem(
+    ArcaneMenuItem(
       label: 'Rename',
-      icon: ArcaneIcon.edit,
+      icon: ArcaneIcon.edit(),
       shortcut: 'F2',
       onSelect: () => renameFile(),
     ),
-    ContextMenuItem.separator(),
-    ContextMenuItem(
+    ArcaneMenuItem.separator(),
+    ArcaneMenuItem(
       label: 'Delete',
-      icon: ArcaneIcon.trash,
+      icon: ArcaneIcon.trash(),
       shortcut: '⌫',
       destructive: true,
       onSelect: () => deleteFile(),
@@ -80,21 +84,21 @@ ArcaneContextMenu(
 ArcaneContextMenu(
   trigger: element,
   items: [
-    ContextMenuItem(
+    ArcaneMenuItem.submenu(
       label: 'Share',
-      icon: ArcaneIcon.share,
-      submenu: [
-        ContextMenuItem(label: 'Email', onSelect: shareEmail),
-        ContextMenuItem(label: 'Link', onSelect: shareLink),
-        ContextMenuItem(label: 'Twitter', onSelect: shareTwitter),
+      icon: ArcaneIcon.share(),
+      items: [
+        ArcaneMenuItem(label: 'Email', onSelect: shareEmail),
+        ArcaneMenuItem(label: 'Link', onSelect: shareLink),
+        ArcaneMenuItem(label: 'Twitter', onSelect: shareTwitter),
       ],
     ),
-    ContextMenuItem(
+    ArcaneMenuItem.submenu(
       label: 'Export',
-      submenu: [
-        ContextMenuItem(label: 'PDF', onSelect: exportPdf),
-        ContextMenuItem(label: 'PNG', onSelect: exportPng),
-        ContextMenuItem(label: 'SVG', onSelect: exportSvg),
+      items: [
+        ArcaneMenuItem(label: 'PDF', onSelect: exportPdf),
+        ArcaneMenuItem(label: 'PNG', onSelect: exportPng),
+        ArcaneMenuItem(label: 'SVG', onSelect: exportSvg),
       ],
     ),
   ],
@@ -107,9 +111,9 @@ ArcaneContextMenu(
 ArcaneContextMenu(
   trigger: element,
   items: [
-    ContextMenuItem(label: 'Cut', shortcut: '⌘X', onSelect: cut),
-    ContextMenuItem(label: 'Copy', shortcut: '⌘C', onSelect: copy),
-    ContextMenuItem(
+    ArcaneMenuItem(label: 'Cut', shortcut: '⌘X', onSelect: cut),
+    ArcaneMenuItem(label: 'Copy', shortcut: '⌘C', onSelect: copy),
+    ArcaneMenuItem(
       label: 'Paste',
       shortcut: '⌘V',
       disabled: !hasClipboardContent,
@@ -129,3 +133,8 @@ ArcaneContextMenu(
 - Keyboard shortcut hints
 - Click outside to close
 - Escape key to close
+
+## Related Components
+
+- [ArcaneDropdownMenu](/arcane_jaspr/docs/navigation/arcane-dropdown-menu) - Click-triggered dropdown
+- [ArcaneMenubar](/arcane_jaspr/docs/navigation/arcane-menubar) - Application menu bar

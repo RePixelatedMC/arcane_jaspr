@@ -1,6 +1,23 @@
+/// Input dialog types
+enum InputDialogType {
+  /// Standard text input
+  text,
 
-/// Properties for text input dialog components.
-class TextInputDialogProps {
+  /// Email input with validation
+  email,
+
+  /// Password input (obscured)
+  password,
+
+  /// Multiline text input
+  multiline,
+
+  /// Number input
+  number,
+}
+
+/// Properties for input dialog components.
+class InputDialogProps {
   /// Dialog title
   final String title;
 
@@ -28,8 +45,8 @@ class TextInputDialogProps {
   /// Input validation
   final String? Function(String value)? validator;
 
-  /// Whether to obscure the text (password input)
-  final bool obscureText;
+  /// Input type
+  final InputDialogType type;
 
   /// Maximum length
   final int? maxLength;
@@ -37,7 +54,19 @@ class TextInputDialogProps {
   /// Number of lines for multiline input
   final int maxLines;
 
-  const TextInputDialogProps({
+  /// Whether to require work/business email domains (email type only)
+  final bool requireWorkEmail;
+
+  /// Blocked domains for email (email type only)
+  final List<String>? blockedDomains;
+
+  /// Minimum value (number type only)
+  final num? minValue;
+
+  /// Maximum value (number type only)
+  final num? maxValue;
+
+  const InputDialogProps({
     required this.title,
     this.message,
     this.placeholder = '',
@@ -47,8 +76,12 @@ class TextInputDialogProps {
     this.onConfirm,
     this.onCancel,
     this.validator,
-    this.obscureText = false,
+    this.type = InputDialogType.text,
     this.maxLength,
     this.maxLines = 1,
+    this.requireWorkEmail = false,
+    this.blockedDomains,
+    this.minValue,
+    this.maxValue,
   });
 }

@@ -76,14 +76,14 @@ class AuthDemos {
           padding: PaddingPreset.lg,
         ),
         children: [
-          const GithubSignInButton(
+          const SocialSignInButton.github(
             onPressed: null,
           ),
-          const GithubSignInButton(
+          const SocialSignInButton.github(
             fullWidth: true,
             onPressed: null,
           ),
-          const GithubSignInButton(
+          const SocialSignInButton.github(
             label: 'Sign up with GitHub',
             onPressed: null,
           ),
@@ -103,14 +103,14 @@ class AuthDemos {
           padding: PaddingPreset.lg,
         ),
         children: [
-          const GoogleSignInButton(
+          const SocialSignInButton.google(
             onPressed: null,
           ),
-          const GoogleSignInButton(
+          const SocialSignInButton.google(
             fullWidth: true,
             onPressed: null,
           ),
-          const GoogleSignInButton(
+          const SocialSignInButton.google(
             label: 'Sign up with Google',
             onPressed: null,
           ),
@@ -130,14 +130,14 @@ class AuthDemos {
           padding: PaddingPreset.lg,
         ),
         children: [
-          const AppleSignInButton(
+          const SocialSignInButton.apple(
             onPressed: null,
           ),
-          const AppleSignInButton(
+          const SocialSignInButton.apple(
             fullWidth: true,
             onPressed: null,
           ),
-          const AppleSignInButton(
+          const SocialSignInButton.apple(
             label: 'Sign up with Apple',
             onPressed: null,
           ),
@@ -330,31 +330,17 @@ class AuthDemos {
         ),
         children: [
           // Primary providers
-          ArcaneText('Primary Providers', weight: FontWeight.w600, size: FontSize.sm),
-          const GithubSignInButton(fullWidth: true, onPressed: null),
-          const GoogleSignInButton(fullWidth: true, onPressed: null),
-          const AppleSignInButton(fullWidth: true, onPressed: null),
-          const MicrosoftSignInButton(fullWidth: true, onPressed: null),
-
-          ArcaneDiv(
-            styles: const ArcaneStyleData(margin: MarginPreset.topMd),
-            children: [
-              ArcaneText('Social Providers', weight: FontWeight.w600, size: FontSize.sm),
-            ],
-          ),
-          const FacebookSignInButton(fullWidth: true, onPressed: null),
-          const TwitterSignInButton(fullWidth: true, onPressed: null),
-          const LinkedInSignInButton(fullWidth: true, onPressed: null),
-
-          ArcaneDiv(
-            styles: const ArcaneStyleData(margin: MarginPreset.topMd),
-            children: [
-              ArcaneText('Developer Providers', weight: FontWeight.w600, size: FontSize.sm),
-            ],
-          ),
-          const GitLabSignInButton(fullWidth: true, onPressed: null),
-          const DiscordSignInButton(fullWidth: true, onPressed: null),
-          const SlackSignInButton(fullWidth: true, onPressed: null),
+          ArcaneText('Providers', weight: FontWeight.w600, size: FontSize.sm),
+          const SocialSignInButton.github(fullWidth: true, onPressed: null),
+          const SocialSignInButton.google(fullWidth: true, onPressed: null),
+          const SocialSignInButton.apple(fullWidth: true, onPressed: null),
+          const SocialSignInButton.microsoft(fullWidth: true, onPressed: null),
+          const SocialSignInButton.facebook(fullWidth: true, onPressed: null),
+          const SocialSignInButton.twitter(fullWidth: true, onPressed: null),
+          const SocialSignInButton.linkedin(fullWidth: true, onPressed: null),
+          const SocialSignInButton.gitlab(fullWidth: true, onPressed: null),
+          const SocialSignInButton.discord(fullWidth: true, onPressed: null),
+          const SocialSignInButton.slack(fullWidth: true, onPressed: null),
         ],
       ),
     ];

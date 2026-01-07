@@ -244,26 +244,15 @@ export 'component/input/formatted_input.dart';
 // ============================================================================
 export 'component/view/bar.dart';
 export 'component/view/glass.dart';
-export 'component/view/card.dart';
-export 'component/view/card_section.dart';
 export 'component/view/tile.dart';
-export 'component/view/expander.dart' hide ArcaneAccordionItem, ArcaneAccordion;
 export 'component/view/center_body.dart';
-export 'component/view/data_table.dart';
-export 'component/view/static_table.dart';
 export 'component/view/badge.dart';
-export 'component/view/feature_card.dart';
-export 'component/view/pricing_card.dart';
-export 'component/view/testimonial_card.dart';
-export 'component/view/integration_card.dart';
 export 'component/view/game_tile.dart';
 export 'component/view/divider.dart' hide ArcaneDivider;
 export 'component/view/code_snippet.dart';
 export 'component/view/avatar.dart';
 export 'component/view/progress_bar.dart';
 export 'component/view/rating_stars.dart';
-export 'component/view/stat_card.dart';
-export 'component/view/timeline.dart';
 export 'component/view/stepper.dart';
 export 'component/view/skeleton.dart';
 export 'component/view/chip.dart' hide ArcaneChip, ArcaneChipGroup;
@@ -278,22 +267,16 @@ export 'component/view/callout.dart';
 export 'component/view/kbd.dart';
 export 'component/view/meter.dart';
 export 'component/view/alert.dart';
-export 'component/view/tree_view.dart';
 export 'component/view/popover.dart';
 export 'component/view/hovercard.dart';
 export 'component/view/separator.dart';
-export 'component/view/disclosure.dart';
 export 'component/view/fade_edge.dart';
 export 'component/view/marquee.dart';
 export 'component/view/stat_display.dart';
-export 'component/view/author_card.dart';
 export 'component/view/code_window.dart';
 export 'component/view/check_list.dart';
 export 'component/view/switcher.dart';
-export 'component/view/surface_card.dart' hide ShadowIntensity;
-export 'component/view/tracker.dart';
 export 'component/view/icon.dart';
-export 'component/view/flexi_cards.dart';
 export 'component/view/arrow_link.dart';
 export 'component/view/world_map/world_map.dart';
 export 'component/view/world_map/world_map_data.dart';
@@ -303,17 +286,44 @@ export 'component/view/usa_map/usa_map_data.dart';
 export 'component/view/usa_map/usa_map_paths.dart';
 
 // ============================================================================
+// Card components
+// ============================================================================
+export 'component/card/card.dart';
+export 'component/card/card_section.dart';
+export 'component/card/author_card.dart';
+export 'component/card/feature_card.dart';
+export 'component/card/integration_card.dart';
+export 'component/card/pricing_card.dart';
+export 'component/card/stat_card.dart';
+export 'component/card/surface_card.dart' hide ShadowIntensity;
+export 'component/card/testimonial_card.dart';
+export 'component/card/flexi_cards.dart';
+
+// ============================================================================
+// Data components
+// ============================================================================
+export 'component/data/data_table.dart';
+export 'component/data/static_table.dart';
+export 'component/data/tree_view.dart';
+export 'component/data/timeline.dart';
+export 'component/data/tracker.dart';
+
+// ============================================================================
+// Menu components
+// ============================================================================
+export 'component/menu/dropdown_menu.dart';
+export 'component/menu/context_menu.dart';
+export 'component/menu/menubar.dart';
+
+// ============================================================================
 // Navigation components
 // ============================================================================
 export 'component/navigation/sidebar.dart';
 export 'component/navigation/bottom_navigation_bar.dart';
 export 'component/navigation/header.dart';
-export 'component/navigation/dropdown_menu.dart';
 export 'component/navigation/mobile_menu.dart';
 export 'component/navigation/breadcrumbs.dart';
 export 'component/navigation/pagination.dart';
-export 'component/navigation/context_menu.dart';
-export 'component/navigation/menubar.dart';
 export 'component/navigation/dot_indicator.dart';
 
 // ============================================================================
@@ -329,10 +339,9 @@ export 'component/screen/chat_screen.dart';
 // ============================================================================
 export 'component/dialog/dialog.dart';
 export 'component/dialog/confirm.dart';
-export 'component/dialog/text.dart';
+export 'component/dialog/input.dart';
 export 'component/dialog/toast.dart';
 export 'component/dialog/command.dart';
-export 'component/dialog/email.dart';
 export 'component/dialog/time.dart';
 export 'component/dialog/item_picker.dart';
 
@@ -347,7 +356,7 @@ export 'component/form/newsletter_form.dart';
 // ============================================================================
 // Feedback components
 // ============================================================================
-export 'component/feedback/alert_banner.dart' hide ArcaneProgressBar, ArcaneLoader;
+export 'component/feedback/alert_banner.dart';
 export 'component/feedback/tooltip.dart';
 export 'component/feedback/loader.dart';
 export 'component/feedback/status_badge.dart' hide StatusType;
@@ -357,6 +366,8 @@ export 'component/feedback/status_badge.dart' hide StatusType;
 // ============================================================================
 export 'component/interactive/accordion.dart';
 export 'component/interactive/back_to_top.dart';
+export 'component/interactive/disclosure.dart';
+export 'component/interactive/expander.dart';
 
 // ============================================================================
 // Collection components
@@ -413,16 +424,6 @@ export 'component/auth/forgot_password_card.dart';
 // Authentication - Social Sign-In Buttons
 // ============================================================================
 export 'component/button/social_button.dart';
-export 'component/button/github_button.dart';
-export 'component/button/google_button.dart';
-export 'component/button/apple_button.dart';
-export 'component/button/microsoft_button.dart';
-export 'component/button/discord_button.dart';
-export 'component/button/twitter_button.dart';
-export 'component/button/facebook_button.dart';
-export 'component/button/linkedin_button.dart';
-export 'component/button/slack_button.dart';
-export 'component/button/gitlab_button.dart';
 export 'component/button/cta_link.dart';
 
 // ============================================================================

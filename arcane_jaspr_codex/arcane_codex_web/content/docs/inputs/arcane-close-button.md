@@ -1,18 +1,20 @@
 ---
-title: ArcaneCloseButton
+title: Close Button
 description: Close/dismiss button for dialogs and panels
 layout: docs
 component: close-button
 ---
 
-# ArcaneCloseButton
+# Close Button
 
 A pre-styled close button with an X icon, commonly used to dismiss dialogs, modals, alerts, and panels.
+
+> **Note:** The `ArcaneCloseButton` class has been consolidated into `ArcaneIconButton.close()`. Use the factory constructor for all close button needs.
 
 ## Basic Usage
 
 ```dart
-ArcaneCloseButton(
+ArcaneIconButton.close(
   onPressed: () {
     closeDialog();
   },
@@ -24,30 +26,6 @@ ArcaneCloseButton(
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
 | `onPressed` | `VoidCallback?` | `null` | Click handler |
-| `size` | `CloseButtonSize` | `medium` | Button size |
-| `styles` | `ArcaneStyleData?` | `null` | Custom styling |
-
-## Sizes
-
-```dart
-// Small
-ArcaneCloseButton(
-  size: CloseButtonSize.small,
-  onPressed: () {},
-)
-
-// Medium (default)
-ArcaneCloseButton(
-  size: CloseButtonSize.medium,
-  onPressed: () {},
-)
-
-// Large
-ArcaneCloseButton(
-  size: CloseButtonSize.large,
-  onPressed: () {},
-)
-```
 
 ## Examples
 
@@ -64,7 +42,7 @@ ArcaneDiv(
   ),
   children: [
     ArcaneHeadline(text: 'Dialog Title'),
-    ArcaneCloseButton(
+    ArcaneIconButton.close(
       onPressed: () => Navigator.pop(context),
     ),
   ],
@@ -84,13 +62,12 @@ ArcaneDiv(
     borderRadius: Radius.md,
   ),
   children: [
-    ArcaneText('⚠'),
+    ArcaneIcon.alertTriangle(),
     ArcaneDiv(
       styles: const ArcaneStyleData(flexGrow: 1),
       children: [ArcaneText('This is a warning message')],
     ),
-    ArcaneCloseButton(
-      size: CloseButtonSize.small,
+    ArcaneIconButton.close(
       onPressed: () => dismissAlert(),
     ),
   ],
@@ -124,7 +101,7 @@ ArcaneDiv(
             raw: {'top': '12px', 'right': '12px'},
           ),
           children: [
-            ArcaneCloseButton(onPressed: closeModal),
+            ArcaneIconButton.close(onPressed: closeModal),
           ],
         ),
         // Modal content...
@@ -154,8 +131,7 @@ ArcaneDiv(
         ArcaneText('File uploaded successfully'),
       ],
     ),
-    ArcaneCloseButton(
-      size: CloseButtonSize.small,
+    ArcaneIconButton.close(
       onPressed: dismissToast,
     ),
   ],
@@ -164,6 +140,6 @@ ArcaneDiv(
 
 ## Related Components
 
-- [ArcaneIconButton](/arcane_jaspr/docs/inputs/arcane-icon-button) - Generic icon button
+- [ArcaneIconButton](/arcane_jaspr/docs/inputs/arcane-icon-button) - Generic icon button with `.close()` factory
 - [ArcaneDialog](/arcane_jaspr/docs/feedback/arcane-dialog) - Dialog component
 - [ArcaneToast](/arcane_jaspr/docs/feedback/arcane-toast) - Toast notifications

@@ -78,7 +78,7 @@ class FeedbackDemos {
         ),
       ];
 
-  static List<Component> emailDialog() => [
+  static List<Component> inputDialog() => [
         ArcaneDiv(
           styles: const ArcaneStyleData(
             padding: PaddingPreset.md,
@@ -90,10 +90,11 @@ class FeedbackDemos {
               gapSize: Gap.sm,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ArcaneText('Email Dialog', weight: FontWeight.bold),
-                ArcaneText('Collect email addresses with validation', color: TextColor.muted),
+                ArcaneText('Input Dialog', weight: FontWeight.bold),
+                ArcaneText('Collect user input with type-specific validation', color: TextColor.muted),
+                ArcaneText('Supports: .text(), .email(), .password(), .multiline(), .number()', size: FontSize.sm, color: TextColor.muted),
                 ArcaneButton.secondary(
-                  label: 'Open Email Dialog',
+                  label: 'Open Input Dialog',
                   onPressed: () {},
                 ),
               ],

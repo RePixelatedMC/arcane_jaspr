@@ -191,19 +191,19 @@ class _ArcaneSignupCardState extends State<ArcaneSignupCard> {
             ),
             children: <Component>[
               if (_hasGithubMethod)
-                GithubSignInButton(
+                SocialSignInButton.github(
                   label: 'Sign up with GitHub',
                   fullWidth: true,
                   disabled: _loading,
                 ),
               if (_hasGoogleMethod)
-                GoogleSignInButton(
+                SocialSignInButton.google(
                   label: 'Sign up with Google',
                   fullWidth: true,
                   disabled: _loading,
                 ),
               if (_hasAppleMethod)
-                AppleSignInButton(
+                SocialSignInButton.apple(
                   label: 'Sign up with Apple',
                   fullWidth: true,
                   disabled: _loading,

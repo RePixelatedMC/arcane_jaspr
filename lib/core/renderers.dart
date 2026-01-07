@@ -91,8 +91,7 @@ import 'props/game_tile_props.dart';
 import 'props/settings_section_props.dart';
 import 'props/slot_counter_props.dart';
 import 'props/confirm_dialog_props.dart';
-import 'props/email_dialog_props.dart';
-import 'props/text_dialog_props.dart';
+import 'props/input_dialog_props.dart';
 import 'props/item_picker_props.dart';
 import 'props/time_dialog_props.dart';
 import 'props/alert_banner_props.dart';
@@ -128,8 +127,7 @@ export 'props/game_tile_props.dart';
 export 'props/settings_section_props.dart';
 export 'props/slot_counter_props.dart';
 export 'props/confirm_dialog_props.dart';
-export 'props/email_dialog_props.dart';
-export 'props/text_dialog_props.dart';
+export 'props/input_dialog_props.dart';
 export 'props/item_picker_props.dart';
 export 'props/time_dialog_props.dart';
 export 'props/alert_banner_props.dart';
@@ -660,11 +658,8 @@ abstract class ComponentRenderers {
   /// Render an alert dialog component
   Component alertDialog(AlertDialogProps props);
 
-  /// Render an email dialog component
-  Component emailDialog(EmailDialogProps props);
-
-  /// Render a text input dialog component
-  Component textInputDialog(TextInputDialogProps props);
+  /// Render an input dialog component (text, email, password, multiline, number)
+  Component inputDialog(InputDialogProps props);
 
   /// Render an item picker dialog component
   Component itemPicker<T>(ItemPickerProps<T> props);

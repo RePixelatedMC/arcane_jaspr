@@ -1,4 +1,7 @@
 import 'package:jaspr/jaspr.dart';
+import 'menu_item_props.dart';
+
+export 'menu_item_props.dart';
 
 /// Dropdown menu alignment.
 enum DropdownAlignment {
@@ -7,57 +10,13 @@ enum DropdownAlignment {
   center,
 }
 
-/// A dropdown menu item.
-class DropdownItemProps {
-  /// Display label
-  final String label;
-
-  /// Optional link href
-  final String? href;
-
-  /// Click handler
-  final void Function()? onTap;
-
-  /// Optional icon
-  final Component? icon;
-
-  /// Optional description text
-  final String? description;
-
-  /// Whether the item is disabled
-  final bool disabled;
-
-  /// Whether this is a divider (separator)
-  final bool divider;
-
-  const DropdownItemProps({
-    required this.label,
-    this.href,
-    this.onTap,
-    this.icon,
-    this.description,
-    this.disabled = false,
-    this.divider = false,
-  });
-
-  /// Create a divider item
-  const DropdownItemProps.divider()
-      : label = '',
-        href = null,
-        onTap = null,
-        icon = null,
-        description = null,
-        disabled = false,
-        divider = true;
-}
-
 /// Properties for dropdown menu components.
 class DropdownMenuProps {
   /// The trigger element that opens the dropdown
   final Component trigger;
 
   /// The menu items
-  final List<DropdownItemProps> items;
+  final List<ArcaneMenuItem> items;
 
   /// Whether the dropdown is currently open
   final bool isOpen;
@@ -87,7 +46,7 @@ class DropdownMenuProps {
   /// Create a copy with modified properties
   DropdownMenuProps copyWith({
     Component? trigger,
-    List<DropdownItemProps>? items,
+    List<ArcaneMenuItem>? items,
     bool? isOpen,
     void Function()? onToggle,
     void Function()? onClose,

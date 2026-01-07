@@ -49,8 +49,7 @@ import 'fab.dart';
 import 'cycle_button.dart';
 import 'chip.dart';
 import 'confirm_dialog.dart';
-import 'email_dialog.dart';
-import 'text_dialog.dart';
+import 'input_dialog.dart';
 import 'item_picker.dart';
 import 'time_dialog.dart';
 import 'alert_banner.dart';
@@ -489,10 +488,7 @@ class ShadcnRenderers extends ComponentRenderers {
   Component alertDialog(AlertDialogProps props) => ShadcnAlertDialog(props);
 
   @override
-  Component emailDialog(EmailDialogProps props) => ShadcnEmailDialog(props);
-
-  @override
-  Component textInputDialog(TextInputDialogProps props) => ShadcnTextInputDialog(props);
+  Component inputDialog(InputDialogProps props) => ShadcnInputDialog(props);
 
   @override
   Component itemPicker<T>(ItemPickerProps<T> props) => ShadcnItemPicker<T>(props);

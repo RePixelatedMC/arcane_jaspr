@@ -157,17 +157,17 @@ class _ArcaneLoginCardState extends State<ArcaneLoginCard> {
             ),
             children: <Component>[
               if (_hasGithubMethod)
-                GithubSignInButton(
+                SocialSignInButton.github(
                   fullWidth: true,
                   disabled: _loading,
                 ),
               if (_hasGoogleMethod)
-                GoogleSignInButton(
+                SocialSignInButton.google(
                   fullWidth: true,
                   disabled: _loading,
                 ),
               if (_hasAppleMethod)
-                AppleSignInButton(
+                SocialSignInButton.apple(
                   fullWidth: true,
                   disabled: _loading,
                 ),

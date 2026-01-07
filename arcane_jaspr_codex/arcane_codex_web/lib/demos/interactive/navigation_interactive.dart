@@ -323,20 +323,20 @@ class _DropdownMenuDemoState extends State<DropdownMenuDemo> {
             onPressed: () {},
           ),
           items: [
-            ArcaneDropdownItem(
+            ArcaneMenuItem(
               label: 'Edit',
               icon: ArcaneIcon.edit(),
-              onTap: () => setState(() => _selectedItem = 'Edit'),
+              onSelect: () => setState(() => _selectedItem = 'Edit'),
             ),
-            ArcaneDropdownItem(
+            ArcaneMenuItem(
               label: 'Duplicate',
               icon: ArcaneIcon.copy(),
-              onTap: () => setState(() => _selectedItem = 'Duplicate'),
+              onSelect: () => setState(() => _selectedItem = 'Duplicate'),
             ),
-            ArcaneDropdownItem(
+            ArcaneMenuItem(
               label: 'Delete',
               icon: ArcaneIcon.trash(),
-              onTap: () => setState(() => _selectedItem = 'Delete'),
+              onSelect: () => setState(() => _selectedItem = 'Delete'),
             ),
           ],
         ),
@@ -561,23 +561,23 @@ class _ContextMenuDemoState extends State<ContextMenuDemo> {
             ],
           ),
           items: [
-            ContextMenuItem(
+            ArcaneMenuItem(
               label: 'Edit',
               shortcut: '⌘E',
               onSelect: () => setState(() => _lastAction = 'Edit clicked'),
             ),
-            ContextMenuItem(
+            ArcaneMenuItem(
               label: 'Copy',
               shortcut: '⌘C',
               onSelect: () => setState(() => _lastAction = 'Copy clicked'),
             ),
-            ContextMenuItem(
+            ArcaneMenuItem(
               label: 'Paste',
               shortcut: '⌘V',
               onSelect: () => setState(() => _lastAction = 'Paste clicked'),
             ),
-            ContextMenuItem.separator(),
-            ContextMenuItem(
+            ArcaneMenuItem.separator(),
+            ArcaneMenuItem(
               label: 'Delete',
               destructive: true,
               shortcut: '⌫',
@@ -621,68 +621,68 @@ class _MenubarDemoState extends State<MenubarDemo> {
           ),
           children: [
             ArcaneMenubar(
-              items: [
-                MenubarItem(
+              menus: [
+                ArcaneMenubarMenu(
                   label: 'File',
-                  menu: [
-                    MenuItem(
+                  items: [
+                    ArcaneMenuItem(
                       label: 'New',
                       shortcut: '⌘N',
                       onSelect: () => setState(() => _lastAction = 'New'),
                     ),
-                    MenuItem(
+                    ArcaneMenuItem(
                       label: 'Open',
                       shortcut: '⌘O',
                       onSelect: () => setState(() => _lastAction = 'Open'),
                     ),
-                    MenuItem.separator(),
-                    MenuItem(
+                    ArcaneMenuItem.separator(),
+                    ArcaneMenuItem(
                       label: 'Save',
                       shortcut: '⌘S',
                       onSelect: () => setState(() => _lastAction = 'Save'),
                     ),
                   ],
                 ),
-                MenubarItem(
+                ArcaneMenubarMenu(
                   label: 'Edit',
-                  menu: [
-                    MenuItem(
+                  items: [
+                    ArcaneMenuItem(
                       label: 'Undo',
                       shortcut: '⌘Z',
                       onSelect: () => setState(() => _lastAction = 'Undo'),
                     ),
-                    MenuItem(
+                    ArcaneMenuItem(
                       label: 'Redo',
                       shortcut: '⇧⌘Z',
                       onSelect: () => setState(() => _lastAction = 'Redo'),
                     ),
-                    MenuItem.separator(),
-                    MenuItem(
+                    ArcaneMenuItem.separator(),
+                    ArcaneMenuItem(
                       label: 'Cut',
                       shortcut: '⌘X',
                       onSelect: () => setState(() => _lastAction = 'Cut'),
                     ),
-                    MenuItem(
+                    ArcaneMenuItem(
                       label: 'Copy',
                       shortcut: '⌘C',
                       onSelect: () => setState(() => _lastAction = 'Copy'),
                     ),
-                    MenuItem(
+                    ArcaneMenuItem(
                       label: 'Paste',
                       shortcut: '⌘V',
                       onSelect: () => setState(() => _lastAction = 'Paste'),
                     ),
                   ],
                 ),
-                MenubarItem(
+                ArcaneMenubarMenu(
                   label: 'View',
-                  menu: [
-                    MenuItem(
+                  items: [
+                    ArcaneMenuItem(
                       label: 'Zoom In',
                       shortcut: '⌘+',
                       onSelect: () => setState(() => _lastAction = 'Zoom In'),
                     ),
-                    MenuItem(
+                    ArcaneMenuItem(
                       label: 'Zoom Out',
                       shortcut: '⌘-',
                       onSelect: () => setState(() => _lastAction = 'Zoom Out'),

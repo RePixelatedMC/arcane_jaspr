@@ -98,7 +98,7 @@ class ShadcnDropdownMenu extends StatelessComponent {
             }),
             [
               for (final item in props.items)
-                if (item.divider)
+                if (item.isSeparator)
                   // ShadCN DropdownMenuSeparator: -mx-1 my-1 h-px bg-muted
                   const dom.div(
                     classes: 'arcane-dropdown-divider',
@@ -117,7 +117,7 @@ class ShadcnDropdownMenu extends StatelessComponent {
     );
   }
 
-  Component _buildItem(DropdownItemProps item) {
+  Component _buildItem(ArcaneMenuItem item) {
     // ShadCN DropdownMenuItem styles
     final dom.Styles itemStyles = dom.Styles(raw: {
       'position': 'relative',
@@ -202,10 +202,10 @@ class ShadcnDropdownMenu extends StatelessComponent {
       },
       styles: itemStyles,
       events: {
-        if (!item.disabled && item.onTap != null)
+        if (!item.disabled && item.onSelect != null)
           'click': (e) {
             if (props.onClose != null) props.onClose!();
-            item.onTap!();
+            item.onSelect!();
           },
       },
       content,

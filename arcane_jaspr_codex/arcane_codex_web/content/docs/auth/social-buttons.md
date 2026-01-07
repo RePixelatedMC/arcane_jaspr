@@ -9,68 +9,52 @@ component: social-buttons
 
 Pre-styled, branded buttons for OAuth authentication with popular providers. All buttons follow consistent sizing, loading states, and accessibility patterns.
 
+## Basic Usage
+
+Use factory constructors on `SocialSignInButton` for each provider:
+
+```dart
+// GitHub
+const SocialSignInButton.github(
+  onPressed: signInWithGitHub,
+)
+
+// Google
+const SocialSignInButton.google(
+  onPressed: signInWithGoogle,
+)
+
+// Apple
+const SocialSignInButton.apple(
+  onPressed: signInWithApple,
+)
+```
+
 ## Available Providers
 
 ### Primary Providers
 
 ```dart
-// GitHub
-GithubSignInButton(
-  onPressed: () => signInWithGitHub(),
-)
-
-// Google
-GoogleSignInButton(
-  onPressed: () => signInWithGoogle(),
-)
-
-// Apple
-AppleSignInButton(
-  onPressed: () => signInWithApple(),
-)
-
-// Microsoft
-MicrosoftSignInButton(
-  onPressed: () => signInWithMicrosoft(),
-)
+const SocialSignInButton.github(onPressed: handleGitHub)
+const SocialSignInButton.google(onPressed: handleGoogle)
+const SocialSignInButton.apple(onPressed: handleApple)
+const SocialSignInButton.microsoft(onPressed: handleMicrosoft)
 ```
 
 ### Social Providers
 
 ```dart
-// Facebook
-FacebookSignInButton(
-  onPressed: () => signInWithFacebook(),
-)
-
-// Twitter/X
-TwitterSignInButton(
-  onPressed: () => signInWithTwitter(),
-)
-
-// LinkedIn
-LinkedInSignInButton(
-  onPressed: () => signInWithLinkedIn(),
-)
+const SocialSignInButton.facebook(onPressed: handleFacebook)
+const SocialSignInButton.twitter(onPressed: handleTwitter)
+const SocialSignInButton.linkedin(onPressed: handleLinkedIn)
 ```
 
 ### Developer Providers
 
 ```dart
-// GitLab
-GitLabSignInButton(
-  onPressed: () => signInWithGitLab(),
-)
-
-// Discord
-DiscordSignInButton(
-  onPressed: () => signInWithDiscord(),
-)
-
-// Slack
-SlackSignInButton(
-  onPressed: () => signInWithSlack(),
-)
+const SocialSignInButton.gitlab(onPressed: handleGitLab)
+const SocialSignInButton.discord(onPressed: handleDiscord)
+const SocialSignInButton.slack(onPressed: handleSlack)
 ```
 
 ## Common Properties
@@ -80,33 +64,8 @@ All social sign-in buttons share these properties:
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
 | `onPressed` | `void Function()?` | `null` | Click handler |
-| `label` | `String` | Provider-specific | Button text |
-| `size` | `ButtonSize` | `medium` | Button size |
+| `label` | `String?` | Provider-specific | Button text |
 | `fullWidth` | `bool` | `false` | Expand to container width |
-| `disabled` | `bool` | `false` | Disable the button |
-| `loading` | `bool` | `false` | Show loading spinner |
-
-## Sizes
-
-```dart
-// Small
-GithubSignInButton(
-  size: ButtonSize.small,
-  onPressed: handleGitHub,
-)
-
-// Medium (default)
-GithubSignInButton(
-  size: ButtonSize.medium,
-  onPressed: handleGitHub,
-)
-
-// Large
-GithubSignInButton(
-  size: ButtonSize.large,
-  onPressed: handleGitHub,
-)
-```
 
 ## Full Width
 
@@ -114,31 +73,22 @@ GithubSignInButton(
 ArcaneColumn(
   gapSize: Gap.sm,
   children: [
-    GithubSignInButton(fullWidth: true, onPressed: handleGitHub),
-    GoogleSignInButton(fullWidth: true, onPressed: handleGoogle),
-    AppleSignInButton(fullWidth: true, onPressed: handleApple),
+    const SocialSignInButton.github(fullWidth: true, onPressed: null),
+    const SocialSignInButton.google(fullWidth: true, onPressed: null),
+    const SocialSignInButton.apple(fullWidth: true, onPressed: null),
   ],
-)
-```
-
-## Loading State
-
-```dart
-GithubSignInButton(
-  loading: isLoading,
-  onPressed: isLoading ? null : handleGitHub,
 )
 ```
 
 ## Custom Labels
 
 ```dart
-GithubSignInButton(
+const SocialSignInButton.github(
   label: 'Sign up with GitHub',
   onPressed: handleSignUp,
 )
 
-GoogleSignInButton(
+const SocialSignInButton.google(
   label: 'Link Google Account',
   onPressed: handleLink,
 )
@@ -174,8 +124,8 @@ ArcaneCard(
       ),
 
       // Social providers
-      GithubSignInButton(fullWidth: true, onPressed: handleGitHub),
-      GoogleSignInButton(fullWidth: true, onPressed: handleGoogle),
+      const SocialSignInButton.github(fullWidth: true, onPressed: null),
+      const SocialSignInButton.google(fullWidth: true, onPressed: null),
     ],
   ),
 )
@@ -187,73 +137,42 @@ ArcaneCard(
 ArcaneFlow(
   gap: 8,
   children: [
-    GithubSignInButton(onPressed: handleGitHub),
-    GoogleSignInButton(onPressed: handleGoogle),
-    AppleSignInButton(onPressed: handleApple),
-    MicrosoftSignInButton(onPressed: handleMicrosoft),
-    DiscordSignInButton(onPressed: handleDiscord),
-    TwitterSignInButton(onPressed: handleTwitter),
+    const SocialSignInButton.github(onPressed: null),
+    const SocialSignInButton.google(onPressed: null),
+    const SocialSignInButton.apple(onPressed: null),
+    const SocialSignInButton.microsoft(onPressed: null),
+    const SocialSignInButton.discord(onPressed: null),
+    const SocialSignInButton.twitter(onPressed: null),
   ],
 )
 ```
 
-### Account Linking
+### All Providers Demo
 
 ```dart
-ArcaneSection(
-  header: 'Connected Accounts',
+ArcaneColumn(
+  gapSize: Gap.md,
   children: [
-    _buildAccountRow(
-      button: GithubSignInButton(
-        label: isGitHubLinked ? 'Unlink' : 'Link GitHub',
-        onPressed: handleGitHubToggle,
-      ),
-      connected: isGitHubLinked,
-    ),
-    _buildAccountRow(
-      button: GoogleSignInButton(
-        label: isGoogleLinked ? 'Unlink' : 'Link Google',
-        onPressed: handleGoogleToggle,
-      ),
-      connected: isGoogleLinked,
-    ),
+    // Primary providers
+    ArcaneText('Primary Providers', weight: FontWeight.w600),
+    const SocialSignInButton.github(fullWidth: true, onPressed: null),
+    const SocialSignInButton.google(fullWidth: true, onPressed: null),
+    const SocialSignInButton.apple(fullWidth: true, onPressed: null),
+    const SocialSignInButton.microsoft(fullWidth: true, onPressed: null),
+
+    // Social providers
+    ArcaneText('Social Providers', weight: FontWeight.w600),
+    const SocialSignInButton.facebook(fullWidth: true, onPressed: null),
+    const SocialSignInButton.twitter(fullWidth: true, onPressed: null),
+    const SocialSignInButton.linkedin(fullWidth: true, onPressed: null),
+
+    // Developer providers
+    ArcaneText('Developer Providers', weight: FontWeight.w600),
+    const SocialSignInButton.gitlab(fullWidth: true, onPressed: null),
+    const SocialSignInButton.discord(fullWidth: true, onPressed: null),
+    const SocialSignInButton.slack(fullWidth: true, onPressed: null),
   ],
 )
-```
-
-## Creating Custom Social Buttons
-
-Use `SocialSignInButton` as a base for custom providers:
-
-```dart
-class CustomProviderButton extends StatelessComponent {
-  final void Function()? onPressed;
-  final bool fullWidth;
-
-  const CustomProviderButton({
-    this.onPressed,
-    this.fullWidth = false,
-    super.key,
-  });
-
-  @override
-  Component build(BuildContext context) {
-    return SocialSignInButton(
-      label: 'Continue with Custom',
-      icon: _buildIcon(),
-      onPressed: onPressed,
-      fullWidth: fullWidth,
-      backgroundColor: '#custom-color',
-      foregroundColor: '#ffffff',
-      borderColor: '#custom-color',
-      hoverBackgroundColor: '#darker-color',
-    );
-  }
-
-  Component _buildIcon() {
-    // Return SVG or icon component
-  }
-}
 ```
 
 ## Related Components
