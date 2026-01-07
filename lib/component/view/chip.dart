@@ -5,14 +5,7 @@ import '../../core/theme_provider.dart';
 
 export '../../core/props/chip_props.dart' show ChipSize, ChipVariant;
 
-/// Chip/tag component for labels and filters
-///
-/// ```dart
-/// ArcaneChip(
-///   label: 'Active',
-///   variant: ChipVariant.success,
-/// )
-/// ```
+/// Chip/tag component for labels and filters.
 class ArcaneChip extends StatelessComponent {
   final String label;
   final Component? icon;
@@ -33,7 +26,6 @@ class ArcaneChip extends StatelessComponent {
     super.key,
   });
 
-  /// Primary chip
   const ArcaneChip.primary({
     required this.label,
     this.icon,
@@ -44,7 +36,6 @@ class ArcaneChip extends StatelessComponent {
     super.key,
   }) : variant = ChipVariant.primary;
 
-  /// Success chip
   const ArcaneChip.success({
     required this.label,
     this.icon,
@@ -55,7 +46,6 @@ class ArcaneChip extends StatelessComponent {
     super.key,
   }) : variant = ChipVariant.success;
 
-  /// Warning chip
   const ArcaneChip.warning({
     required this.label,
     this.icon,
@@ -66,7 +56,6 @@ class ArcaneChip extends StatelessComponent {
     super.key,
   }) : variant = ChipVariant.warning;
 
-  /// Error chip
   const ArcaneChip.error({
     required this.label,
     this.icon,
@@ -77,7 +66,6 @@ class ArcaneChip extends StatelessComponent {
     super.key,
   }) : variant = ChipVariant.error;
 
-  /// Outline chip
   const ArcaneChip.outline({
     required this.label,
     this.icon,
@@ -102,15 +90,12 @@ class ArcaneChip extends StatelessComponent {
   }
 }
 
-/// Chip group for multiple chips
-///
-/// Accepts either [ArcaneChip] widgets or [ChipProps] for rendering.
+/// Chip group for multiple chips.
 class ArcaneChipGroup extends StatelessComponent {
   final List<Component>? _chips;
   final List<ChipProps>? _chipProps;
   final String? gap;
 
-  /// Create a chip group from ArcaneChip widgets
   const ArcaneChipGroup({
     required List<Component> chips,
     this.gap,
@@ -118,7 +103,6 @@ class ArcaneChipGroup extends StatelessComponent {
   })  : _chips = chips,
         _chipProps = null;
 
-  /// Create a chip group from ChipProps
   const ArcaneChipGroup.fromProps({
     required List<ChipProps> chips,
     this.gap,
@@ -135,7 +119,6 @@ class ArcaneChipGroup extends StatelessComponent {
       ));
     }
 
-    // Render chip widgets directly in a flex container
     return dom.div(
       classes: 'arcane-chip-group',
       styles: dom.Styles(raw: {

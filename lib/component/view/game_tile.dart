@@ -2,33 +2,17 @@ import 'package:jaspr/jaspr.dart';
 
 import '../../core/theme_provider.dart';
 
-// Re-export props for usage
 export '../../core/props/game_tile_props.dart';
 
-/// A game tile component for game server selection
+/// A game tile component for game server selection.
 class ArcaneGameTile extends StatelessComponent {
-  /// Game name
   final String name;
-
-  /// Game icon/logo URL
   final String? iconUrl;
-
-  /// Custom icon component
   final Component? icon;
-
-  /// Whether this game is selected
   final bool selected;
-
-  /// Click handler
   final void Function()? onTap;
-
-  /// Whether the game is popular/featured
   final bool popular;
-
-  /// Badge text (e.g., "New", "Beta")
   final String? badge;
-
-  /// Description or player count
   final String? subtitle;
 
   const ArcaneGameTile({
@@ -58,21 +42,12 @@ class ArcaneGameTile extends StatelessComponent {
   }
 }
 
-/// A grid of game tiles
+/// A grid of game tiles.
 class ArcaneGameSelector extends StatelessComponent {
-  /// Game tile props
   final List<GameTileProps> games;
-
-  /// Number of columns
   final int columns;
-
-  /// Gap between tiles
   final double gap;
-
-  /// Title
   final String? title;
-
-  /// Description
   final String? description;
 
   const ArcaneGameSelector({
@@ -96,33 +71,16 @@ class ArcaneGameSelector extends StatelessComponent {
   }
 }
 
-/// A game card with more details
+/// A game card with more details.
 class ArcaneGameCard extends StatelessComponent {
-  /// Game name
   final String name;
-
-  /// Game description
   final String? description;
-
-  /// Icon URL
   final String? iconUrl;
-
-  /// Custom icon
   final Component? icon;
-
-  /// Background image URL
   final String? backgroundUrl;
-
-  /// Player count or status
   final String? status;
-
-  /// Features list
   final List<String>? features;
-
-  /// Click handler
   final void Function()? onTap;
-
-  /// CTA button text
   final String? ctaText;
 
   const ArcaneGameCard({

@@ -6,75 +6,28 @@ export '../../core/props/text_input_props.dart'
 
 import '../../core/theme_provider.dart';
 
-/// A styled text input component
-///
-/// ```dart
-/// ArcaneTextInput(
-///   placeholder: 'Enter text...',
-///   onInput: (value) => print(value),
-/// )
-/// ```
+/// A styled text input component.
 class ArcaneTextInput extends StatelessComponent {
-  /// Input placeholder
   final String? placeholder;
-
-  /// Input type
   final dom.InputType type;
-
-  /// Size variant
   final TextInputSize size;
-
-  /// Whether input is disabled
   final bool disabled;
-
-  /// Whether input is required
   final bool required;
-
-  /// Whether input is read-only
   final bool readOnly;
-
-  /// Input value
   final String? value;
-
-  /// Input name (for forms)
   final String? name;
-
-  /// Input ID
   final String? id;
-
-  /// Prefix icon/text
   final Component? prefix;
-
-  /// Suffix icon/text
   final Component? suffix;
-
-  /// Error message
   final String? error;
-
-  /// Helper text
   final String? helperText;
-
-  /// Label text
   final String? label;
-
-  /// Change callback
   final void Function(String)? _onChange;
-
-  /// Focus callback
   final void Function()? onFocus;
-
-  /// Blur callback
   final void Function()? onBlur;
-
-  /// Submit callback
   final void Function(String)? onSubmit;
-
-  /// Full width
   final bool fullWidth;
 
-  /// Creates a text input.
-  ///
-  /// Use [onChange] or [onInput] for value change handling.
   const ArcaneTextInput({
     this.placeholder,
     this.type = dom.InputType.text,
@@ -99,7 +52,6 @@ class ArcaneTextInput extends StatelessComponent {
     super.key,
   }) : _onChange = onChange ?? onInput;
 
-  /// Map InputType to TextInputType
   TextInputType _mapInputType(dom.InputType t) {
     return switch (t) {
       dom.InputType.text => TextInputType.text,
@@ -139,80 +91,35 @@ class ArcaneTextInput extends StatelessComponent {
   }
 }
 
-/// Resize direction for textarea
+/// Resize direction for textarea.
 enum TextAreaResize {
-  /// No resizing allowed
   none,
-
-  /// Vertical resizing only (default)
   vertical,
-
-  /// Horizontal resizing only
   horizontal,
-
-  /// Both directions
   both,
 }
 
-/// A textarea component
+/// A textarea component.
 class ArcaneTextArea extends StatelessComponent {
-  /// Placeholder text
   final String? placeholder;
-
-  /// Number of rows
   final int rows;
-
-  /// Number of columns (affects initial width)
   final int? cols;
-
-  /// Whether disabled
   final bool disabled;
-
-  /// Whether required
   final bool required;
-
-  /// Resize direction (default: vertical)
   final TextAreaResize resize;
-
-  /// Minimum width constraint (e.g., '200px', '50%')
   final String? minWidth;
-
-  /// Maximum width constraint (e.g., '600px', '100%')
   final String? maxWidth;
-
-  /// Minimum height constraint (e.g., '100px')
   final String? minHeight;
-
-  /// Maximum height constraint (e.g., '400px')
   final String? maxHeight;
-
-  /// Value
   final String? value;
-
-  /// Name
   final String? name;
-
-  /// ID
   final String? id;
-
-  /// Label
   final String? label;
-
-  /// Error
   final String? error;
-
-  /// Helper text
   final String? helperText;
-
-  /// Change callback
   final void Function(String)? _onChange;
-
-  /// Full width
   final bool fullWidth;
 
-  /// Creates a textarea.
-  ///
-  /// Use [onChange] or [onInput] for value change handling.
   const ArcaneTextArea({
     this.placeholder,
     this.rows = 4,
@@ -240,7 +147,6 @@ class ArcaneTextArea extends StatelessComponent {
   Component build(BuildContext context) {
     final hasError = error != null;
 
-    // Map resize enum to CSS value
     final resizeValue = switch (resize) {
       TextAreaResize.none => 'none',
       TextAreaResize.vertical => 'vertical',
@@ -266,7 +172,6 @@ class ArcaneTextArea extends StatelessComponent {
         'font-size': '1rem',
         'font-family': 'inherit',
         'line-height': '1.625',
-        // Base styles using CSS variables
         'background-color': 'var(--background)',
         'border': hasError ? '1px solid var(--destructive)' : '1px solid var(--input)',
         'border-radius': '0.375rem',
@@ -349,47 +254,21 @@ class ArcaneTextArea extends StatelessComponent {
   }
 }
 
-/// A select/dropdown input component
+/// A select/dropdown input component.
 class ArcaneSelect extends StatelessComponent {
-  /// Options list
   final List<ArcaneSelectOption> options;
-
-  /// Selected value
   final String? value;
-
-  /// Placeholder text
   final String? placeholder;
-
-  /// Size variant
   final TextInputSize size;
-
-  /// Whether disabled
   final bool disabled;
-
-  /// Whether required
   final bool required;
-
-  /// Name
   final String? name;
-
-  /// ID
   final String? id;
-
-  /// Label
   final String? label;
-
-  /// Error
   final String? error;
-
-  /// Change callback
   final void Function(String)? _onChange;
-
-  /// Full width
   final bool fullWidth;
 
-  /// Creates a select input.
-  ///
-  /// Use [onChange], [onInput], or [onSelect] for value change handling.
   const ArcaneSelect({
     required this.options,
     this.value,
@@ -412,7 +291,6 @@ class ArcaneSelect extends StatelessComponent {
   Component build(BuildContext context) {
     final hasError = error != null;
 
-    // Size styles
     final Map<String, String> sizeStyles = switch (size) {
       TextInputSize.sm => {
           'height': '36px',
@@ -444,7 +322,6 @@ class ArcaneSelect extends StatelessComponent {
         ...sizeStyles,
         'padding-right': '36px',
         'font-family': 'inherit',
-        // Base styles using CSS variables
         'background-color': 'var(--background)',
         'border': hasError ? '1px solid var(--destructive)' : '1px solid var(--input)',
         'border-radius': '0.375rem',
@@ -536,7 +413,7 @@ class ArcaneSelect extends StatelessComponent {
   }
 }
 
-/// Select option model
+/// Select option model.
 class ArcaneSelectOption {
   final String label;
   final String value;

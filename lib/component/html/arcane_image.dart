@@ -27,52 +27,17 @@ import 'package:jaspr/dom.dart'
 
 import '../../util/style_types/arcane_style_data.dart';
 
-/// An image component that wraps the HTML `<img>` element.
-///
-/// Provides a Flutter-like API with direct `ArcaneStyleData` support,
-/// eliminating the need to call `.toStyles()`.
-///
-/// Example:
-/// ```dart
-/// ArcaneImage(
-///   src: '/images/hero.png',
-///   alt: 'Hero image',
-///   styles: ArcaneStyleData(
-///     width: Size.full,
-///     borderRadius: Radius.lg,
-///     objectFit: ObjectFit.cover,
-///   ),
-/// )
-/// ```
+/// Styled image wrapper.
 class ArcaneImage extends StatelessComponent {
-  /// The source URL of the image
   final String src;
-
-  /// Alternative text for accessibility
   final String alt;
-
-  /// Optional styling using ArcaneStyleData
   final ArcaneStyleData? styles;
-
-  /// Optional CSS classes
   final String? classes;
-
-  /// Optional ID attribute
   final String? id;
-
-  /// Width attribute (HTML attribute, not CSS)
   final String? width;
-
-  /// Height attribute (HTML attribute, not CSS)
   final String? height;
-
-  /// Loading behavior (lazy, eager)
   final String? loading;
-
-  /// Decoding hint (async, sync, auto)
   final String? decoding;
-
-  /// Event handlers
   final Map<String, void Function(dynamic)>? events;
 
   const ArcaneImage({
@@ -89,7 +54,6 @@ class ArcaneImage extends StatelessComponent {
     super.key,
   });
 
-  /// Create a lazy-loaded image
   const ArcaneImage.lazy({
     required this.src,
     required this.alt,

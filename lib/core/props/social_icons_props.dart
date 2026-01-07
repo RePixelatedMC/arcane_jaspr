@@ -1,5 +1,3 @@
-
-/// Social media platforms
 enum SocialPlatform {
   twitter,
   github,
@@ -13,21 +11,12 @@ enum SocialPlatform {
   tiktok,
 }
 
-/// Props for social icon component.
+/// Social icon component properties.
 class SocialIconProps {
-  /// Platform to display
   final SocialPlatform platform;
-
-  /// Link URL (optional)
   final String? url;
-
-  /// Icon size
   final String size;
-
-  /// Custom color
   final String? color;
-
-  /// Whether to show background
   final bool showBackground;
 
   const SocialIconProps({
@@ -39,12 +28,9 @@ class SocialIconProps {
   });
 }
 
-/// Props for social icon group component.
+/// Social icon group component properties.
 class SocialIconGroupProps {
-  /// Icons to display
   final List<SocialIconProps> icons;
-
-  /// Gap between icons
   final String gap;
 
   const SocialIconGroupProps({
@@ -53,15 +39,10 @@ class SocialIconGroupProps {
   });
 }
 
-/// A social link item
+/// Social link item data.
 class SocialLinkItem {
-  /// Platform
   final SocialPlatform platform;
-
-  /// URL
   final String url;
-
-  /// Optional label
   final String? label;
 
   const SocialLinkItem({
@@ -71,15 +52,10 @@ class SocialLinkItem {
   });
 }
 
-/// Props for social links component.
+/// Social links component properties.
 class SocialLinksProps {
-  /// Social link items
   final List<SocialLinkItem> links;
-
-  /// Orientation (horizontal or vertical)
   final bool vertical;
-
-  /// Gap between items
   final String gap;
 
   const SocialLinksProps({

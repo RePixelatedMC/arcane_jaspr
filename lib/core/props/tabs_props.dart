@@ -1,20 +1,11 @@
 import 'package:jaspr/jaspr.dart';
 
-/// Tab item data for tabs components.
+/// Tab item data.
 class TabItemProps {
-  /// Display label for the tab
   final String label;
-
-  /// Content to show when tab is selected
   final Component content;
-
-  /// Optional icon
   final Component? icon;
-
-  /// Optional badge text
   final String? badge;
-
-  /// Whether this tab is disabled
   final bool disabled;
 
   const TabItemProps({
@@ -26,12 +17,9 @@ class TabItemProps {
   });
 }
 
-/// Tab bar item data (for tab bar without content).
+/// Tab bar item data.
 class TabBarItemProps {
-  /// Display label for the tab
   final String label;
-
-  /// Optional icon
   final Component? icon;
 
   const TabBarItemProps({
@@ -40,18 +28,11 @@ class TabBarItemProps {
   });
 }
 
-/// Properties for tabs components.
+/// Tabs component properties.
 class TabsProps {
-  /// The tab items
   final List<TabItemProps> tabs;
-
-  /// Currently selected tab index
   final int selectedIndex;
-
-  /// Callback when tab changes
   final void Function(int index)? onChanged;
-
-  /// Whether tabs fill available width
   final bool fill;
 
   const TabsProps({
@@ -61,7 +42,6 @@ class TabsProps {
     this.fill = false,
   });
 
-  /// Create a copy with modified properties
   TabsProps copyWith({
     List<TabItemProps>? tabs,
     int? selectedIndex,
@@ -77,18 +57,11 @@ class TabsProps {
   }
 }
 
-/// Properties for tab bar components (tabs without content).
+/// Tab bar component properties.
 class TabBarProps {
-  /// The tab items
   final List<TabBarItemProps> tabs;
-
-  /// Currently selected tab index
   final int selectedIndex;
-
-  /// Callback when tab changes
   final void Function(int index) onChanged;
-
-  /// Whether tabs fill available width
   final bool fill;
 
   const TabBarProps({
@@ -98,7 +71,6 @@ class TabBarProps {
     this.fill = false,
   });
 
-  /// Create a copy with modified properties
   TabBarProps copyWith({
     List<TabBarItemProps>? tabs,
     int? selectedIndex,

@@ -27,7 +27,7 @@ import 'package:jaspr/dom.dart'
 
 import '../../util/style_types/arcane_style_data.dart';
 
-/// A main component that wraps the HTML `<main>` element.
+/// Styled main element wrapper.
 class ArcaneMain extends StatelessComponent {
   final List<Component> children;
   final ArcaneStyleData? styles;
@@ -53,7 +53,7 @@ class ArcaneMain extends StatelessComponent {
   }
 }
 
-/// A header component that wraps the HTML `<header>` element.
+/// Styled header element wrapper.
 class ArcaneHeader extends StatelessComponent {
   final List<Component> children;
   final ArcaneStyleData? styles;
@@ -79,7 +79,7 @@ class ArcaneHeader extends StatelessComponent {
   }
 }
 
-/// A footer component that wraps the HTML `<footer>` element.
+/// Styled footer element wrapper.
 class ArcaneFooter extends StatelessComponent {
   final List<Component> children;
   final ArcaneStyleData? styles;

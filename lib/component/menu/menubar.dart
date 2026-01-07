@@ -4,33 +4,8 @@ import '../../core/theme_provider.dart';
 
 export '../../core/props/menubar_props.dart';
 
-/// A horizontal menu bar like in desktop applications matching shadcn/ui.
-/// ShadCN Reference: https://ui.shadcn.com/docs/components/menubar
-///
-/// ```dart
-/// ArcaneMenubar(
-///   menus: [
-///     ArcaneMenubarMenu(
-///       label: 'File',
-///       items: [
-///         ArcaneMenuItem(label: 'New', onSelect: () => newFile()),
-///         ArcaneMenuItem(label: 'Open', shortcut: 'Cmd+O', onSelect: () => open()),
-///         ArcaneMenuItem.separator(),
-///         ArcaneMenuItem(label: 'Save', shortcut: 'Cmd+S', onSelect: () => save()),
-///       ],
-///     ),
-///     ArcaneMenubarMenu(
-///       label: 'Edit',
-///       items: [
-///         ArcaneMenuItem(label: 'Undo', shortcut: 'Cmd+Z', onSelect: () => undo()),
-///         ArcaneMenuItem(label: 'Redo', shortcut: 'Shift+Cmd+Z', onSelect: () => redo()),
-///       ],
-///     ),
-///   ],
-/// )
-/// ```
+/// Horizontal menu bar component.
 class ArcaneMenubar extends StatefulComponent {
-  /// Menu definitions
   final List<ArcaneMenubarMenu> menus;
 
   const ArcaneMenubar({
@@ -66,12 +41,9 @@ class _ArcaneMenubarState extends State<ArcaneMenubar> {
   }
 }
 
-/// A top-level menu in the menubar
+/// Top-level menu in the menubar.
 class ArcaneMenubarMenu {
-  /// Display label for this menu
   final String label;
-
-  /// Menu items in this dropdown
   final List<ArcaneMenuItem> items;
 
   const ArcaneMenubarMenu({

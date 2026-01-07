@@ -1,6 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 
-/// Mobile navigation item
+/// Mobile navigation item data.
 class MobileNavItem {
   final String label;
   final String? href;
@@ -17,21 +17,12 @@ class MobileNavItem {
   });
 }
 
-/// Properties for mobile menu components.
+/// Mobile menu component properties.
 class MobileMenuProps {
-  /// Navigation items
   final List<MobileNavItem> items;
-
-  /// Optional logo
   final Component? logo;
-
-  /// Optional CTA button
   final Component? cta;
-
-  /// Close callback
   final void Function()? onClose;
-
-  /// Whether the menu is open
   final bool isOpen;
 
   const MobileMenuProps({
@@ -43,15 +34,10 @@ class MobileMenuProps {
   });
 }
 
-/// Properties for hamburger button components.
+/// Hamburger button component properties.
 class HamburgerButtonProps {
-  /// Whether the menu is open
   final bool isOpen;
-
-  /// Click handler
   final void Function()? onTap;
-
-  /// Size
   final double size;
 
   const HamburgerButtonProps({

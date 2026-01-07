@@ -1,6 +1,5 @@
 import 'package:jaspr/jaspr.dart';
 
-/// Tooltip position relative to the trigger element.
 enum TooltipPosition {
   top,
   bottom,
@@ -8,21 +7,12 @@ enum TooltipPosition {
   right,
 }
 
-/// Properties for tooltip components.
+/// Tooltip component properties.
 class TooltipProps {
-  /// The child element that triggers the tooltip on hover
   final Component child;
-
-  /// Plain text content for the tooltip (used if customContent is null)
   final String? content;
-
-  /// Custom component content for the tooltip
   final Component? customContent;
-
-  /// Tooltip position relative to the trigger
   final TooltipPosition position;
-
-  /// Maximum width of the tooltip in pixels
   final double maxWidth;
 
   const TooltipProps({
@@ -33,7 +23,6 @@ class TooltipProps {
     this.maxWidth = 250,
   });
 
-  /// Create a copy with modified properties
   TooltipProps copyWith({
     Component? child,
     String? content,

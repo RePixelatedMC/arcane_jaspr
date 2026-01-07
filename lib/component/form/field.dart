@@ -3,21 +3,12 @@ import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, T
 
 import 'provider.dart';
 
-/// Metadata class holding descriptive information for an [ArcaneField].
+/// Metadata for an ArcaneField.
 class ArcaneFieldMetadata {
-  /// Unique identifier for the field.
   final String? key;
-
-  /// Human-readable name for the field.
   final String? name;
-
-  /// Descriptive text explaining the field's purpose.
   final String? description;
-
-  /// Icon identifier for the field.
   final String? icon;
-
-  /// Placeholder text for the field.
   final String? placeholder;
 
   const ArcaneFieldMetadata({
@@ -28,25 +19,18 @@ class ArcaneFieldMetadata {
     this.placeholder,
   });
 
-  /// Computes an effective key for the field.
   String get effectiveKey =>
       key ??
       name?.toLowerCase().replaceAll(' ', '_').replaceAll("/", ".") ??
       "no_key";
 }
 
-/// A generic form field component in the Arcane UI component system.
+/// Generic form field component with provider-based state management.
 class ArcaneField<T> extends StatefulComponent {
-  /// Metadata associated with this field.
   final ArcaneFieldMetadata meta;
-
-  /// Provider responsible for managing the field's data state.
   final ArcaneFieldProvider<T> provider;
-
-  /// Custom builder function for the input widget.
   final Component Function(BuildContext context, T value, void Function(T) onChanged) builder;
 
-  /// Returns the runtime type of the field's data [T].
   Type get dataRuntimeType => T;
 
   const ArcaneField({
@@ -105,7 +89,6 @@ class _ArcaneFieldState<T> extends State<ArcaneField<T>> {
 class ArcaneInput {
   const ArcaneInput._();
 
-  /// Creates a text input field.
   static ArcaneField<String> textField({
     String? name,
     String? description,
@@ -138,7 +121,6 @@ class ArcaneInput {
         ),
       );
 
-  /// Creates a text area input field.
   static ArcaneField<String> textArea({
     String? name,
     String? description,
@@ -162,7 +144,6 @@ class ArcaneInput {
         setter: setter,
       );
 
-  /// Creates a checkbox input field.
   static ArcaneField<bool> checkbox({
     String? name,
     String? description,
@@ -189,7 +170,6 @@ class ArcaneInput {
         ),
       );
 
-  /// Creates a select/dropdown field.
   static ArcaneField<T> select<T>({
     String? name,
     String? description,
@@ -220,7 +200,6 @@ class ArcaneInput {
       );
 }
 
-/// Internal string field builder component.
 class _StringFieldBuilder extends StatelessComponent {
   final String value;
   final void Function(String) onChanged;
@@ -300,7 +279,6 @@ class _StringFieldBuilder extends StatelessComponent {
   }
 }
 
-/// Internal bool field builder component.
 class _BoolFieldBuilder extends StatelessComponent {
   final bool value;
   final void Function(bool) onChanged;
@@ -355,7 +333,6 @@ class _BoolFieldBuilder extends StatelessComponent {
   }
 }
 
-/// Internal select field builder component.
 class _SelectFieldBuilder<T> extends StatelessComponent {
   final T value;
   final List<T> options;
@@ -407,7 +384,6 @@ class _SelectFieldBuilder<T> extends StatelessComponent {
   }
 }
 
-/// Static styles for ArcaneField components (public for @css annotation)
 class ArcaneFieldStyles {
   ArcaneFieldStyles._();
 

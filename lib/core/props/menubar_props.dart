@@ -2,12 +2,9 @@ import 'menu_item_props.dart';
 
 export 'menu_item_props.dart';
 
-/// Props for a menubar menu (top-level dropdown)
+/// Menubar menu data.
 class MenubarMenuProps {
-  /// Trigger label
   final String label;
-
-  /// Menu items
   final List<ArcaneMenuItem> items;
 
   const MenubarMenuProps({
@@ -16,15 +13,10 @@ class MenubarMenuProps {
   });
 }
 
-/// Props for the menubar component
+/// Menubar component properties.
 class MenubarProps {
-  /// Menus in the bar
   final List<MenubarMenuProps> menus;
-
-  /// Currently open menu index
   final int? openMenuIndex;
-
-  /// Menu open handler
   final void Function(int? index)? onMenuChange;
 
   const MenubarProps({

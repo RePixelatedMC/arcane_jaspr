@@ -1,101 +1,7 @@
-/// # Arcane Jaspr
-///
-/// A comprehensive UI component library for building beautiful web applications
-/// with [Jaspr](https://pub.dev/packages/jaspr). Inspired by Supabase's design
-/// system with full theme customization support.
-///
-/// ## Quick Start
-///
-/// ```dart
-/// import 'package:arcane_jaspr/arcane_jaspr.dart';
-///
-/// class MyApp extends StatelessComponent {
-///   @override
-///   Component build(BuildContext context) {
-///     return ArcaneApp(
-///       stylesheet: ShadcnStylesheet(),
-///       brightness: Brightness.dark,
-///       child: ArcaneColumn(
-///         gapSize: Gap.md,
-///         children: [
-///           ArcaneButton.primary(
-///             label: 'Click Me',
-///             onPressed: () => print('Clicked!'),
-///           ),
-///         ],
-///       ),
-///     );
-///   }
-/// }
-/// ```
-///
-/// ## Key Concepts
-///
-/// ### Styling with ArcaneStyleData
-///
-/// All components support type-safe styling through [ArcaneStyleData]:
-///
-/// ```dart
-/// ArcaneDiv(
-///   styles: const ArcaneStyleData(
-///     display: Display.flex,
-///     flexDirection: FlexDirection.column,
-///     gap: Gap.md,
-///     padding: PaddingPreset.lg,
-///     background: Background.surface,
-///     borderRadius: Radius.lg,
-///   ),
-///   children: [...],
-/// )
-/// ```
-///
-/// ### Theming
-///
-/// Use stylesheets for consistent component rendering:
-///
-/// ```dart
-/// ArcaneApp(
-///   stylesheet: ShadcnStylesheet(),  // Modern, accessible design
-///   brightness: Brightness.dark,     // or Brightness.light
-///   child: myApp,
-/// )
-/// ```
-///
-/// ### Component Categories
-///
-/// - **Layout**: [ArcaneDiv], [ArcaneRow], [ArcaneColumn], [ArcaneCard], [ArcaneTabs]
-/// - **Input**: [ArcaneButton], [ArcaneTextInput], [ArcaneCheckbox], [ArcaneSlider]
-/// - **View**: [ArcaneBadge], [ArcaneChip], [ArcaneAvatar], [ArcaneDataTable]
-/// - **Navigation**: [ArcaneSidebar], [ArcaneHeader], [ArcaneBreadcrumbs]
-/// - **Feedback**: [ArcaneDialog], [ArcaneToast], [ArcaneLoader], [ArcaneSkeleton]
-/// - **Auth**: [ArcaneLoginCard], [ArcaneSignupCard], social sign-in buttons
-///
-/// ## Authentication
-///
-/// Built-in Firebase authentication support:
-///
-/// ```dart
-/// ArcaneAuthProvider(
-///   serverApiUrl: 'https://api.example.com',
-///   child: AuthGuard(
-///     child: ProtectedContent(),
-///   ),
-/// )
-/// ```
-///
-/// ## See Also
-///
-/// - [ArcaneStyleData] - Core styling class
-/// - [ArcaneTheme] - Theme configuration
-/// - [ButtonStyle] - Button style presets
-/// - Documentation site: https://arcanearts.github.io/arcane_jaspr/
 library arcane_jaspr;
 
-// Re-export Jaspr core for convenience
 export 'package:jaspr/jaspr.dart';
 
-// Re-export Lucide icons for convenience
-// Hide names that conflict with Dart/jaspr core types
 export 'package:jaspr_lucide/jaspr_lucide.dart'
     hide
         Factory,
@@ -111,8 +17,6 @@ export 'package:jaspr_lucide/jaspr_lucide.dart'
         SpellCheck,
         TextWrap;
 
-// Re-export Jaspr DOM for HTML elements (div, span, button, text, etc.)
-// Hide types that conflict with our custom implementations
 export 'package:jaspr/dom.dart'
     hide
         Color,
@@ -133,7 +37,6 @@ export 'package:jaspr/dom.dart'
         Position,
         Overflow,
         Cursor,
-        // Additional hides for style_types enums
         FlexDirection,
         TextDecoration,
         Transition,
@@ -149,47 +52,33 @@ export 'package:jaspr/dom.dart'
         Spacing,
         TextTransform;
 
-// ============================================================================
-// Core System (NEW)
-// ============================================================================
+// Core System
 export 'core/theme_provider.dart';
 export 'core/renderers.dart' hide SheetPosition;
 export 'core/props/button_props.dart';
 
-// ============================================================================
-// Stylesheets (NEW)
-// ============================================================================
+// Stylesheets
 export 'stylesheets/stylesheet.dart';
 export 'stylesheets/shadcn/shadcn_stylesheet.dart';
 export 'stylesheets/codex/codex_stylesheet.dart';
 
-// ============================================================================
 // Core Utilities
-// ============================================================================
 export 'util/appearance/colors.dart';
 export 'util/arcane.dart';
 export 'util/design_tokens.dart';
 export 'util/interactivity/arcane_scripts.dart';
 
-// ============================================================================
-// Enum-Based Style Types (Flutter-like declarative styling)
-// ============================================================================
+// Style Types
 export 'util/style_types/index.dart' hide BorderStyle, AlignSelf, UserSelect;
 
-// ============================================================================
-// Support components
-// ============================================================================
+// Support
 export 'component/support/app.dart';
 
-// ============================================================================
-// Typography components
-// ============================================================================
+// Typography
 export 'component/typography/headline.dart';
 export 'component/typography/text.dart';
 
-// ============================================================================
-// Layout components
-// ============================================================================
+// Layout
 export 'component/layout/section.dart';
 export 'component/layout/gutter.dart';
 export 'component/layout/flow.dart';
@@ -213,9 +102,7 @@ export 'component/layout/section_header.dart';
 export 'component/layout/footer_column.dart' hide FooterLink;
 export 'component/layout/feature_showcase.dart';
 
-// ============================================================================
-// Input components
-// ============================================================================
+// Input
 export 'component/input/button.dart';
 export 'component/input/icon_button.dart';
 export 'component/input/cycle_button.dart';
@@ -241,9 +128,7 @@ export 'component/input/time_picker.dart';
 export 'component/input/datetime_picker.dart';
 export 'component/input/formatted_input.dart';
 
-// ============================================================================
-// View components
-// ============================================================================
+// View
 export 'component/view/bar.dart';
 export 'component/view/glass.dart';
 export 'component/view/tile.dart';
@@ -287,9 +172,7 @@ export 'component/view/usa_map/usa_map.dart';
 export 'component/view/usa_map/usa_map_data.dart';
 export 'component/view/usa_map/usa_map_paths.dart';
 
-// ============================================================================
-// Card components
-// ============================================================================
+// Card
 export 'component/card/card.dart';
 export 'component/card/card_section.dart';
 export 'component/card/author_card.dart';
@@ -301,25 +184,19 @@ export 'component/card/surface_card.dart' hide ShadowIntensity;
 export 'component/card/testimonial_card.dart';
 export 'component/card/flexi_cards.dart';
 
-// ============================================================================
-// Data components
-// ============================================================================
+// Data
 export 'component/data/data_table.dart';
 export 'component/data/static_table.dart';
 export 'component/data/tree_view.dart';
 export 'component/data/timeline.dart';
 export 'component/data/tracker.dart';
 
-// ============================================================================
-// Menu components
-// ============================================================================
+// Menu
 export 'component/menu/dropdown_menu.dart';
 export 'component/menu/context_menu.dart';
 export 'component/menu/menubar.dart';
 
-// ============================================================================
-// Navigation components
-// ============================================================================
+// Navigation
 export 'component/navigation/sidebar.dart';
 export 'component/navigation/bottom_navigation_bar.dart';
 export 'component/navigation/header.dart';
@@ -328,17 +205,13 @@ export 'component/navigation/breadcrumbs.dart';
 export 'component/navigation/pagination.dart';
 export 'component/navigation/dot_indicator.dart';
 
-// ============================================================================
-// Screen components
-// ============================================================================
+// Screen
 export 'component/screen/screen.dart';
 export 'component/screen/fill_screen.dart';
 export 'component/screen/navigation_screen.dart';
 export 'component/screen/chat_screen.dart';
 
-// ============================================================================
-// Dialog components
-// ============================================================================
+// Dialog
 export 'component/dialog/dialog.dart';
 export 'component/dialog/confirm.dart';
 export 'component/dialog/input.dart';
@@ -347,102 +220,78 @@ export 'component/dialog/command.dart';
 export 'component/dialog/time.dart';
 export 'component/dialog/item_picker.dart';
 
-// ============================================================================
-// Form components
-// ============================================================================
+// Form
 export 'component/form/field.dart';
 export 'component/form/field_wrapper.dart';
 export 'component/form/provider.dart';
 export 'component/form/newsletter_form.dart';
 
-// ============================================================================
-// Feedback components
-// ============================================================================
+// Feedback
 export 'component/feedback/alert_banner.dart';
 export 'component/feedback/tooltip.dart';
 export 'component/feedback/loader.dart';
 export 'component/feedback/status_badge.dart' hide StatusType;
 
-// ============================================================================
-// Interactive components
-// ============================================================================
+// Interactive
 export 'component/interactive/accordion.dart';
 export 'component/interactive/back_to_top.dart';
 export 'component/interactive/disclosure.dart';
 export 'component/interactive/expander.dart';
 
-// ============================================================================
-// Collection components
-// ============================================================================
+// Collection
 export 'component/collection/collection.dart' hide Axis;
 export 'component/collection/card_carousel.dart';
 export 'component/collection/infinite_carousel.dart';
 
-// ============================================================================
-// HTML wrapper components (Flutter-like API for HTML elements)
-// ============================================================================
+// HTML Wrappers
 export 'component/html/arcane_button.dart';
 export 'component/html/arcane_image.dart';
 export 'component/html/arcane_input.dart';
 export 'component/html/arcane_label.dart';
 export 'component/html/arcane_link.dart';
 export 'component/html/arcane_text.dart' hide ArcaneText;
-export 'component/html/code_block.dart'; // ArcaneCodeBlock (and legacy ArcanePre, PreStyle)
+export 'component/html/code_block.dart';
 export 'component/html/div.dart';
 export 'component/html/footer.dart' show ArcaneHtmlFooter;
 export 'component/html/header.dart' hide ArcaneHeader;
 export 'component/html/heading.dart';
-export 'component/html/lists.dart'; // ArcaneBulletList, ArcaneNumberedList (and legacy ArcaneUnorderedList, ArcaneOrderedList)
+export 'component/html/lists.dart';
 export 'component/html/main_element.dart';
 export 'component/html/nav.dart';
 export 'component/html/paragraph.dart';
-export 'component/html/quote.dart'; // ArcaneQuote (and legacy ArcaneBlockquote)
+export 'component/html/quote.dart';
 export 'component/html/section.dart';
-export 'component/html/side_content.dart'; // ArcaneSideContent (and legacy ArcaneAside)
+export 'component/html/side_content.dart';
 export 'component/html/table.dart';
-export 'component/html/arcane_span.dart'; // ArcaneSpan (inline styling)
-export 'component/html/svg.dart'; // ArcaneSvg and SVG primitives
+export 'component/html/arcane_span.dart';
+export 'component/html/svg.dart';
 
-// ============================================================================
-// Authentication - Service & State
-// ============================================================================
+// Auth Service
 export 'service/auth_state.dart';
 export 'service/auth_service_export.dart';
 
-// ============================================================================
-// Authentication - Provider & Guards
-// ============================================================================
+// Auth Provider
 export 'provider/auth_provider_export.dart';
 export 'provider/auth_guard_export.dart';
 
-// ============================================================================
-// Authentication - Components
-// ============================================================================
+// Auth Components
 export 'component/auth/login_card.dart';
 export 'component/auth/signup_card.dart';
 export 'component/auth/forgot_password_card.dart';
 
-// ============================================================================
-// Authentication - Social Sign-In Buttons
-// ============================================================================
+// Auth Buttons
 export 'component/button/social_button.dart';
 
-// ============================================================================
-// Authentication - Form Components
-// ============================================================================
+// Auth Form
 export 'component/form/auth/auth_input.dart';
 export 'component/form/auth/auth_button.dart';
 export 'component/form/auth/auth_divider.dart';
 export 'component/form/auth/auth_social_row.dart';
 export 'component/form/auth/auth_form_card.dart';
 
-// ============================================================================
-// Authentication - Layout & View
-// ============================================================================
+// Auth Layout
 export 'component/layout/auth_split_layout.dart';
 export 'component/view/auth_branding_panel.dart';
 
-// ============================================================================
-// Authentication - Utilities
-// ============================================================================
+// Auth Utilities
 export 'util/auth/password_policy.dart';

@@ -1,20 +1,10 @@
 import 'package:arcane_jaspr/arcane_jaspr.dart';
 
 /// Container card for authentication form content.
-///
-/// Provides consistent styling with title, optional subtitle,
-/// and content area for form fields.
 class AuthFormCard extends StatelessComponent {
-  /// Title displayed at the top
   final String title;
-
-  /// Optional subtitle below the title
   final String? subtitle;
-
-  /// Form content
   final Component child;
-
-  /// Optional footer content (links, etc)
   final Component? footer;
 
   const AuthFormCard({
@@ -32,7 +22,6 @@ class AuthFormCard extends StatelessComponent {
         width: Size.full,
       ),
       children: [
-        // Header
         ArcaneDiv(
           styles: const ArcaneStyleData(
             margin: MarginPreset.bottomXl,
@@ -60,9 +49,7 @@ class AuthFormCard extends StatelessComponent {
               ),
           ],
         ),
-        // Form content
         child,
-        // Footer
         if (footer != null)
           ArcaneDiv(
             styles: const ArcaneStyleData(

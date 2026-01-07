@@ -1,57 +1,26 @@
-/// Avatar size variants.
 enum AvatarSize {
-  /// Extra small (24px)
   xs,
-
-  /// Small (32px)
   sm,
-
-  /// Medium (40px) - ShadCN default
   md,
-
-  /// Large (56px)
   lg,
-
-  /// Extra large (80px)
   xl,
 }
 
-/// Avatar shape variants.
 enum AvatarShape {
-  /// Circular avatar (default)
   circle,
-
-  /// Rounded square avatar
   rounded,
-
-  /// Square avatar
   square,
 }
 
-/// Properties for avatar components.
+/// Avatar component properties.
 class AvatarProps {
-  /// Image URL for the avatar
   final String? imageUrl;
-
-  /// Fallback initials when no image
   final String? initials;
-
-  /// Avatar size
   final AvatarSize size;
-
-  /// Avatar shape
   final AvatarShape shape;
-
-  /// Optional border color
   final String? borderColor;
-
-  /// Whether to show status indicator
   final bool showStatus;
-
-  /// Status indicator color
   final String? statusColor;
-
-  /// Click handler
   final void Function()? onTap;
 
   const AvatarProps({
@@ -65,7 +34,6 @@ class AvatarProps {
     this.onTap,
   });
 
-  /// Create a copy with modified properties
   AvatarProps copyWith({
     String? imageUrl,
     String? initials,

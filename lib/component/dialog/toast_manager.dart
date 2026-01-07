@@ -2,7 +2,7 @@ import 'package:jaspr/jaspr.dart';
 
 import '../../core/props/toast_props.dart';
 
-/// Toast data for the queue
+/// Toast data for the queue.
 class ToastData {
   final String id;
   final String message;
@@ -53,7 +53,7 @@ class ToastData {
   }
 }
 
-/// Global toast manager singleton
+/// Global toast manager singleton.
 class ToastManager {
   static ToastManager? _instance;
   static ToastManager get instance => _instance ??= ToastManager._();
@@ -104,7 +104,6 @@ class ToastManager {
     }
   }
 
-  // Convenience methods
   String info(
     String message, {
     String? title,
@@ -245,5 +244,5 @@ class ToastManager {
   }
 }
 
-/// Global toast accessor
+/// Global toast accessor.
 ToastManager get toast => ToastManager.instance;

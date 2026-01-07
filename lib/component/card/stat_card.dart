@@ -2,30 +2,16 @@ import 'package:jaspr/jaspr.dart';
 
 import '../../core/theme_provider.dart';
 
-// Re-export props for usage
 export '../../core/props/stat_card_props.dart';
 
-/// Stat card for displaying metrics with optional trend indicator
+/// Stat card for displaying metrics with optional trend indicator.
 class ArcaneStatCard extends StatelessComponent {
-  /// Label text
   final String label;
-
-  /// Value to display
   final String value;
-
-  /// Optional icon
   final String? icon;
-
-  /// Trend value (e.g., "+12.5%")
   final String? trend;
-
-  /// Whether the trend is positive
   final bool trendPositive;
-
-  /// Additional description
   final String? description;
-
-  /// Custom icon background
   final String? iconBackground;
 
   const ArcaneStatCard({
@@ -53,15 +39,10 @@ class ArcaneStatCard extends StatelessComponent {
   }
 }
 
-/// A row of stat cards
+/// Row layout for multiple stat cards.
 class ArcaneStatCardRow extends StatelessComponent {
-  /// Stat cards to display
   final List<ArcaneStatCard> cards;
-
-  /// Number of columns
   final int columns;
-
-  /// Gap between cards
   final double gap;
 
   const ArcaneStatCardRow({

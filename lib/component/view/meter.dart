@@ -5,65 +5,24 @@ import '../../core/theme_provider.dart';
 export '../../core/props/meter_props.dart'
     show MeterStyleVariant, MeterColorVariant, MeterSizeVariant, MeterProps;
 
-/// Meter style variants (local alias)
 typedef MeterStyle = MeterStyleVariant;
-
-/// Meter color variants (local alias)
 typedef MeterColor = MeterColorVariant;
-
-/// Meter size variants (local alias)
 typedef MeterSize = MeterSizeVariant;
 
-/// Progress meter/gauge component
-///
-/// Displays a visual representation of a value within a range.
-///
-/// ```dart
-/// ArcaneMeter(
-///   value: 75,
-///   max: 100,
-///   label: 'Storage Used',
-///   showValue: true,
-/// )
-/// ```
+/// Progress meter/gauge component displaying a value within a range.
 class ArcaneMeter extends StatelessComponent {
-  /// Current value
   final double value;
-
-  /// Minimum value
   final double min;
-
-  /// Maximum value
   final double max;
-
-  /// Optimal minimum (for adaptive coloring)
   final double? low;
-
-  /// Optimal maximum (for adaptive coloring)
   final double? high;
-
-  /// Optimal value (for adaptive coloring)
   final double? optimum;
-
-  /// Label text
   final String? label;
-
-  /// Whether to show the value
   final bool showValue;
-
-  /// Value format (e.g., "%", "GB", etc.)
   final String? valueSuffix;
-
-  /// Style variant
   final MeterStyle style;
-
-  /// Color variant
   final MeterColor color;
-
-  /// Size variant
   final MeterSize size;
-
-  /// Number of segments (for segmented style)
   final int segments;
 
   const ArcaneMeter({
@@ -83,7 +42,6 @@ class ArcaneMeter extends StatelessComponent {
     super.key,
   });
 
-  /// Storage/disk usage meter
   const ArcaneMeter.storage({
     required this.value,
     this.max = 100,
@@ -100,7 +58,6 @@ class ArcaneMeter extends StatelessComponent {
         color = MeterColor.adaptive,
         segments = 10;
 
-  /// Battery level meter
   const ArcaneMeter.battery({
     required this.value,
     this.label,

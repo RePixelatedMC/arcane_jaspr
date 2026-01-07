@@ -27,44 +27,15 @@ import 'package:jaspr/dom.dart'
 
 import '../../util/style_types/arcane_style_data.dart';
 
-/// A link component that wraps the HTML `<a>` element.
-///
-/// Provides a Flutter-like API with direct `ArcaneStyleData` support,
-/// eliminating the need to call `.toStyles()`.
-///
-/// Example:
-/// ```dart
-/// ArcaneLink(
-///   href: '/about',
-///   styles: ArcaneStyleData(
-///     textColor: TextColor.accent,
-///   ),
-///   child: ArcaneText('About Us'),
-/// )
-/// ```
+/// Styled anchor link wrapper.
 class ArcaneLink extends StatelessComponent {
-  /// The URL the link points to
   final String href;
-
-  /// The content of the link
   final Component child;
-
-  /// Optional styling using ArcaneStyleData
   final ArcaneStyleData? styles;
-
-  /// Optional CSS classes
   final String? classes;
-
-  /// Optional ID attribute
   final String? id;
-
-  /// Target attribute (_blank, _self, etc.)
   final String? target;
-
-  /// Rel attribute (noopener, noreferrer, etc.)
   final String? rel;
-
-  /// Event handlers
   final Map<String, void Function(dynamic)>? events;
 
   const ArcaneLink({
@@ -79,7 +50,6 @@ class ArcaneLink extends StatelessComponent {
     super.key,
   });
 
-  /// Create a link with multiple children
   const factory ArcaneLink.children({
     required String href,
     required List<Component> children,
@@ -92,7 +62,6 @@ class ArcaneLink extends StatelessComponent {
     Key? key,
   }) = _ArcaneLinkChildren;
 
-  /// Create an external link (opens in new tab with security attributes)
   const factory ArcaneLink.external({
     required String href,
     required Component child,
@@ -165,7 +134,6 @@ class _ArcaneLinkExternal extends ArcaneLink {
   }) : super(target: '_blank', rel: 'noopener noreferrer');
 }
 
-/// Placeholder component for factory constructor
 class _Placeholder extends StatelessComponent {
   const _Placeholder();
   @override

@@ -1,47 +1,24 @@
 import 'package:jaspr/jaspr.dart';
 
-/// Radio group layout direction.
 enum RadioGroupLayout {
-  /// Vertical stack
   vertical,
-
-  /// Horizontal row
   horizontal,
-
-  /// Grid layout
   grid,
 }
 
-/// Radio group visual variant.
 enum RadioGroupVariant {
-  /// Standard radio buttons
   standard,
-
-  /// Card-style selection (bordered cards)
   cards,
-
-  /// Button group style (segmented control)
   buttons,
-
-  /// Chip/pill style
   chips,
 }
 
-/// Radio option model for generic type T.
+/// Radio option data.
 class RadioOptionProps<T> {
-  /// Unique value for this option
   final T value;
-
-  /// Display label
   final String label;
-
-  /// Optional description text
   final String? description;
-
-  /// Whether this option is disabled
   final bool disabled;
-
-  /// Optional icon component
   final Component? icon;
 
   const RadioOptionProps({
@@ -53,45 +30,20 @@ class RadioOptionProps<T> {
   });
 }
 
-/// Properties for radio group components.
+/// Radio group component properties.
 class RadioGroupProps<T> {
-  /// Currently selected value
   final T? value;
-
-  /// List of radio options
   final List<RadioOptionProps<T>> options;
-
-  /// Called when selection changes
   final void Function(T value)? onChanged;
-
-  /// Group name (for HTML form association)
   final String? name;
-
-  /// Layout direction
   final RadioGroupLayout layout;
-
-  /// Visual variant
   final RadioGroupVariant variant;
-
-  /// Whether the entire group is disabled
   final bool disabled;
-
-  /// Label text above the group
   final String? label;
-
-  /// Helper text below the group
   final String? helperText;
-
-  /// Error message
   final String? error;
-
-  /// Whether selection is required
   final bool required;
-
-  /// Gap between items
   final String gap;
-
-  /// Number of columns for grid layout
   final int gridColumns;
 
   const RadioGroupProps({
@@ -110,7 +62,6 @@ class RadioGroupProps<T> {
     this.gridColumns = 2,
   });
 
-  /// Create a copy with modified properties
   RadioGroupProps<T> copyWith({
     T? value,
     List<RadioOptionProps<T>>? options,

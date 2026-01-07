@@ -15,25 +15,12 @@ import 'package:jaspr/dom.dart'
 
 /// A part of a formatted input (editable segment or static text).
 class InputPart {
-  /// Whether this part is editable
   final bool editable;
-
-  /// Maximum length for editable parts
   final int? length;
-
-  /// Width in pixels (for editable parts)
   final double? width;
-
-  /// Placeholder text
   final String? placeholder;
-
-  /// Static text (for non-editable parts)
   final String? staticText;
-
-  /// Current value
   final String? value;
-
-  /// Input type hint
   final String inputType;
 
   const InputPart._({
@@ -46,7 +33,6 @@ class InputPart {
     this.inputType = 'text',
   });
 
-  /// Creates an editable input part
   const InputPart.editable({
     int? length,
     double? width,
@@ -60,14 +46,12 @@ class InputPart {
           inputType: inputType,
         );
 
-  /// Creates a static text part
   const InputPart.static(String text)
       : this._(
           editable: false,
           staticText: text,
         );
 
-  /// Returns a copy with a new value
   InputPart withValue(String value) => InputPart._(
         editable: editable,
         length: length,
@@ -79,52 +63,25 @@ class InputPart {
       );
 }
 
-/// Value container for formatted input
+/// Value container for formatted input.
 class FormattedValue {
-  /// List of input parts
   final List<InputPart> parts;
 
   const FormattedValue(this.parts);
 
-  /// Gets values from all editable parts
   List<String?> get values =>
       parts.where((part) => part.editable).map((part) => part.value).toList();
 
-  /// Gets the combined string value
   String get combinedValue => parts.map((part) => part.value ?? part.staticText ?? '').join();
 }
 
 /// A formatted/patterned input for structured data like dates, phone numbers, etc.
-///
-/// ```dart
-/// ArcaneFormattedInput(
-///   onChanged: (value) => print(value.combinedValue),
-///   initialValue: FormattedValue([
-///     InputPart.editable(length: 2, width: 40, placeholder: 'MM').withValue('01'),
-///     InputPart.static('/'),
-///     InputPart.editable(length: 2, width: 40, placeholder: 'DD').withValue('15'),
-///     InputPart.static('/'),
-///     InputPart.editable(length: 4, width: 60, placeholder: 'YYYY').withValue('2024'),
-///   ]),
-/// )
-/// ```
 class ArcaneFormattedInput extends StatefulComponent {
-  /// Current value
   final FormattedValue initialValue;
-
-  /// Called when any part changes
   final void Function(FormattedValue value)? onChanged;
-
-  /// Label text
   final String? label;
-
-  /// Error message
   final String? error;
-
-  /// Whether the input is disabled
   final bool disabled;
-
-  /// Size variant
   final FormattedInputSize size;
 
   const ArcaneFormattedInput({
@@ -137,7 +94,6 @@ class ArcaneFormattedInput extends StatefulComponent {
     super.key,
   });
 
-  /// Date input (MM/DD/YYYY)
   factory ArcaneFormattedInput.date({
     String? initialMonth,
     String? initialDay,
@@ -165,7 +121,6 @@ class ArcaneFormattedInput extends StatefulComponent {
     );
   }
 
-  /// Time input (HH:MM)
   factory ArcaneFormattedInput.time({
     String? initialHour,
     String? initialMinute,
@@ -189,7 +144,6 @@ class ArcaneFormattedInput extends StatefulComponent {
     );
   }
 
-  /// Phone number input
   factory ArcaneFormattedInput.phone({
     String? initialAreaCode,
     String? initialPrefix,
@@ -218,7 +172,6 @@ class ArcaneFormattedInput extends StatefulComponent {
     );
   }
 
-  /// Credit card input
   factory ArcaneFormattedInput.creditCard({
     void Function(FormattedValue value)? onChanged,
     String? label,
@@ -270,7 +223,7 @@ class _FormattedInputState extends State<ArcaneFormattedInput> {
   void _updatePart(int index, String value) {
     final part = _parts[index];
     if (part.length != null && value.length > part.length!) {
-      return; // Exceed max length
+      return;
     }
 
     setState(() {
@@ -297,7 +250,6 @@ class _FormattedInputState extends State<ArcaneFormattedInput> {
         'gap': '0.25rem',
       }),
       [
-        // Label
         if (component.label != null)
           span(
             styles: const Styles(raw: {
@@ -308,7 +260,6 @@ class _FormattedInputState extends State<ArcaneFormattedInput> {
             [Component.text(component.label!)],
           ),
 
-        // Input parts container
         div(
           classes: 'arcane-formatted-input-container',
           styles: Styles(raw: {
@@ -331,7 +282,6 @@ class _FormattedInputState extends State<ArcaneFormattedInput> {
           ],
         ),
 
-        // Error message
         if (hasError)
           span(
             styles: const Styles(raw: {
@@ -394,7 +344,7 @@ class _FormattedInputState extends State<ArcaneFormattedInput> {
   }
 }
 
-/// Size variants for formatted input
+/// Size variants for formatted input.
 enum FormattedInputSize {
   sm,
   md,

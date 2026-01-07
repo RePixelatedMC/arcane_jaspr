@@ -1,48 +1,24 @@
 import 'package:jaspr/jaspr.dart';
 
-/// Back button display mode
 enum BarBackButtonMode {
   always,
   never,
   auto,
 }
 
-/// Properties for bar/app bar components.
+/// Bar/app bar component properties.
 class BarProps {
-  /// Title text
   final String? titleText;
-
-  /// Title component (overrides titleText)
   final Component? title;
-
-  /// Subtitle text
   final String? subtitleText;
-
-  /// Subtitle component (overrides subtitleText)
   final Component? subtitle;
-
-  /// Leading components
   final List<Component>? leading;
-
-  /// Trailing components
   final List<Component>? trailing;
-
-  /// Back button mode
   final BarBackButtonMode backButton;
-
-  /// Custom back button handler
   final void Function()? onBack;
-
-  /// Whether the bar is transparent
   final bool transparent;
-
-  /// Whether to center the title
   final bool centerTitle;
-
-  /// Custom height (in pixels)
   final double? height;
-
-  /// Custom padding (as CSS string)
   final String? padding;
 
   const BarProps({
@@ -61,7 +37,7 @@ class BarProps {
   });
 }
 
-/// Properties for dialog bar components.
+/// Dialog bar component properties.
 class DialogBarProps {
   final String? title;
   final void Function()? onClose;

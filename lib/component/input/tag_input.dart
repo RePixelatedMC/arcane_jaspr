@@ -5,52 +5,20 @@ import '../../core/theme_provider.dart';
 export '../../core/props/tag_input_props.dart'
     show TagInputStyleVariant, TagInputProps;
 
-/// Tag input style variants (local alias)
 typedef TagInputStyle = TagInputStyleVariant;
 
-/// Tag/chip input component
-///
-/// Allows users to add and remove tags by typing.
-///
-/// ```dart
-/// ArcaneTagInput(
-///   tags: ['Flutter', 'Dart', 'Jaspr'],
-///   onTagsChanged: (tags) => print(tags),
-///   placeholder: 'Add a tag...',
-/// )
-/// ```
+/// Tag/chip input component for adding and removing tags.
 class ArcaneTagInput extends StatefulComponent {
-  /// Current list of tags
   final List<String> tags;
-
-  /// Callback when tags change
   final void Function(List<String>)? onTagsChanged;
-
-  /// Placeholder text
   final String placeholder;
-
-  /// Style variant
   final TagInputStyle style;
-
-  /// Maximum number of tags allowed (null = unlimited)
   final int? maxTags;
-
-  /// Whether duplicate tags are allowed
   final bool allowDuplicates;
-
-  /// Whether the input is disabled
   final bool disabled;
-
-  /// Label text
   final String? label;
-
-  /// Helper text
   final String? helperText;
-
-  /// Error message
   final String? errorText;
-
-  /// Custom tag builder
   final Component Function(String tag, VoidCallback onRemove)? tagBuilder;
 
   const ArcaneTagInput({

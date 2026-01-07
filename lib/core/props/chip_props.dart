@@ -1,13 +1,11 @@
 import 'package:jaspr/jaspr.dart';
 
-/// Chip size variants
 enum ChipSize {
   small,
   medium,
   large,
 }
 
-/// Chip style variants
 enum ChipVariant {
   standard,
   primary,
@@ -18,27 +16,14 @@ enum ChipVariant {
   outline,
 }
 
-/// Props for chip components
+/// Chip component properties.
 class ChipProps {
-  /// The label text
   final String label;
-
-  /// Optional leading icon
   final Component? icon;
-
-  /// Visual style variant
   final ChipVariant variant;
-
-  /// Size variant
   final ChipSize size;
-
-  /// Whether the chip can be removed
   final bool removable;
-
-  /// Callback when remove button is clicked
   final void Function()? onRemove;
-
-  /// Callback when chip is clicked
   final void Function()? onTap;
 
   const ChipProps({
@@ -52,12 +37,9 @@ class ChipProps {
   });
 }
 
-/// Props for chip group component
+/// Chip group component properties.
 class ChipGroupProps {
-  /// The chips to display
   final List<ChipProps> chips;
-
-  /// Gap between chips
   final String? gap;
 
   const ChipGroupProps({

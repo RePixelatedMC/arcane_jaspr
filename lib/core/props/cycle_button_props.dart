@@ -1,53 +1,26 @@
 import 'package:jaspr/jaspr.dart';
 
-/// Cycle button size variants.
 enum CycleButtonSize {
-  /// Small button
   small,
-
-  /// Medium button (default)
   medium,
-
-  /// Large button
   large,
-
-  /// Icon-only button
   icon,
-
-  /// Small icon button
   iconSmall,
-
-  /// Large icon button
   iconLarge,
 }
 
-/// Cycle button style variants.
 enum CycleButtonVariant {
-  /// Default/outline style
   outline,
-
-  /// Primary/filled style
   primary,
-
-  /// Secondary style
   secondary,
-
-  /// Ghost/transparent style
   ghost,
-
-  /// Destructive style
   destructive,
 }
 
-/// An option for cycle button.
+/// Cycle option data.
 class CycleOption<T> {
-  /// The value this option represents
   final T value;
-
-  /// Optional display label
   final String? label;
-
-  /// Optional icon
   final Component? icon;
 
   const CycleOption({
@@ -57,30 +30,15 @@ class CycleOption<T> {
   });
 }
 
-/// Properties for cycle button components.
+/// Cycle button component properties.
 class CycleButtonProps<T> {
-  /// The available options
   final List<CycleOption<T>> options;
-
-  /// The current value
   final T value;
-
-  /// Callback when value changes
   final void Function(T value)? onChanged;
-
-  /// Style variant
   final CycleButtonVariant variant;
-
-  /// Button size
   final CycleButtonSize size;
-
-  /// Whether the button is disabled
   final bool disabled;
-
-  /// Optional element ID
   final String? id;
-
-  /// Additional HTML attributes
   final Map<String, String>? attributes;
 
   const CycleButtonProps({
@@ -94,7 +52,6 @@ class CycleButtonProps<T> {
     this.attributes,
   });
 
-  /// Create a copy with modified properties
   CycleButtonProps<T> copyWith({
     List<CycleOption<T>>? options,
     T? value,
@@ -118,30 +75,15 @@ class CycleButtonProps<T> {
   }
 }
 
-/// Properties for toggle button components.
+/// Toggle button component properties.
 class ToggleButtonProps {
-  /// Whether the button is pressed/active
   final bool value;
-
-  /// Callback when value changes
   final void Function(bool value)? onChanged;
-
-  /// Optional label text
   final String? label;
-
-  /// Optional icon
   final Component? icon;
-
-  /// Button size
   final CycleButtonSize size;
-
-  /// Whether the button is disabled
   final bool disabled;
-
-  /// Optional element ID
   final String? id;
-
-  /// Additional HTML attributes
   final Map<String, String>? attributes;
 
   const ToggleButtonProps({
@@ -155,7 +97,6 @@ class ToggleButtonProps {
     this.attributes,
   });
 
-  /// Create a copy with modified properties
   ToggleButtonProps copyWith({
     bool? value,
     void Function(bool value)? onChanged,

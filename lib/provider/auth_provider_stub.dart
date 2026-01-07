@@ -1,6 +1,3 @@
-/// Stub implementation of ArcaneAuthProvider for non-web platforms (VM/server)
-/// This allows the arcane_jaspr library to be imported during static site generation.
-
 import 'dart:async';
 
 import 'package:jaspr/jaspr.dart';
@@ -8,7 +5,6 @@ import 'package:jaspr/jaspr.dart';
 import '../service/auth_service_stub.dart';
 import '../service/auth_state.dart';
 
-/// InheritedComponent for auth state propagation - stub version
 class _AuthInheritedProvider extends InheritedComponent {
   final AuthState state;
 
@@ -29,23 +25,12 @@ class _AuthInheritedProvider extends InheritedComponent {
   }
 }
 
-/// Authentication provider component - stub version
-///
-/// On server builds, this simply passes through the child without auth functionality.
+/// Stub auth provider for non-web platforms.
 class ArcaneAuthProvider extends StatefulComponent {
-  /// The child component to wrap
   final Component child;
-
-  /// Callback when auth state changes
   final void Function(AuthState)? onAuthStateChanged;
-
-  /// Route to redirect to after successful login
   final String? redirectOnLogin;
-
-  /// Route to redirect to after logout
   final String? redirectOnLogout;
-
-  /// Server API URL for user sync
   final String? serverApiUrl;
 
   const ArcaneAuthProvider({
@@ -73,57 +58,42 @@ class _ArcaneAuthProviderState extends State<ArcaneAuthProvider> {
   }
 }
 
-/// Extension for accessing auth state from any component
+/// Extension for accessing auth state from any component.
 extension AuthContextExtension on BuildContext {
-  /// Get the current auth state
   AuthState get authState {
     final _AuthInheritedProvider? provider = _AuthInheritedProvider.of(this);
     return provider?.state ?? const AuthState();
   }
 
-  /// Get the current authenticated user
   AuthUser? get currentUser => authState.user;
 
-  /// Whether the user is authenticated
   bool get isAuthenticated => authState.isAuthenticated;
 
-  /// Whether auth is loading
   bool get isAuthLoading => authState.isLoading;
 
-  /// Get the current user's UID
   String? get uid => currentUser?.uid;
 
-  /// Get the current user's ID token for API calls
   String? get idToken => currentUser?.idToken;
 
-  /// Sign in with GitHub
   Future<void> signInWithGitHub() => JasprAuthService.instance.signInWithGitHub();
 
-  /// Sign in with Google
   Future<void> signInWithGoogle() => JasprAuthService.instance.signInWithGoogle();
 
-  /// Sign in with Apple
   Future<void> signInWithApple() => JasprAuthService.instance.signInWithApple();
 
-  /// Sign in with email and password
   Future<void> signInWithEmail(String email, String password) =>
       JasprAuthService.instance.signInWithEmail(email, password);
 
-  /// Register with email and password
   Future<void> registerWithEmail(
           String email, String password, String displayName) =>
       JasprAuthService.instance.registerWithEmail(email, password, displayName);
 
-  /// Send password reset email
   Future<void> sendPasswordResetEmail(String email) =>
       JasprAuthService.instance.sendPasswordResetEmail(email);
 
-  /// Sign out
   Future<void> signOut() => JasprAuthService.instance.signOut();
 
-  /// Refresh the ID token
   Future<String?> refreshAuthToken() => JasprAuthService.instance.refreshToken();
 
-  /// Delete account and all associated data
   Future<bool> deleteAccount() => JasprAuthService.instance.deleteAccount();
 }

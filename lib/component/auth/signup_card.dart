@@ -1,39 +1,14 @@
 import 'package:arcane_jaspr/arcane_jaspr.dart';
 
-/// Signup card component
-///
-/// Provides a complete registration UI with email/password form and social sign-in buttons.
-///
-/// ```dart
-/// ArcaneSignupCard(
-///   methods: [AuthMethod.email, AuthMethod.github, AuthMethod.google],
-///   loginRoute: '/login',
-///   header: Logo(),
-/// )
-/// ```
+/// Registration card with email/password form, social sign-in, and terms acceptance.
 class ArcaneSignupCard extends StatefulComponent {
-  /// Authentication methods to display
   final List<AuthMethod> methods;
-
-  /// Header component (logo, title, etc.)
   final Component? header;
-
-  /// Route for login link
   final String? loginRoute;
-
-  /// Password validation policy
   final PasswordPolicy passwordPolicy;
-
-  /// Terms of service URL
   final String? termsUrl;
-
-  /// Privacy policy URL
   final String? privacyUrl;
-
-  /// Callback when registration succeeds
   final void Function()? onSuccess;
-
-  /// Max width of the card
   final String maxWidth;
 
   const ArcaneSignupCard({
@@ -75,7 +50,6 @@ class _ArcaneSignupCardState extends State<ArcaneSignupCard> {
       component.termsUrl != null || component.privacyUrl != null;
 
   Future<void> _handleSubmit() async {
-    // Validation
     if (_displayName.isEmpty) {
       setState(() => _error = 'Please enter your name.');
       return;
@@ -89,7 +63,6 @@ class _ArcaneSignupCardState extends State<ArcaneSignupCard> {
       return;
     }
 
-    // Password policy validation
     final String? passwordError = component.passwordPolicy.validate(_password);
     if (passwordError != null) {
       setState(() => _error = passwordError);
@@ -135,7 +108,6 @@ class _ArcaneSignupCardState extends State<ArcaneSignupCard> {
         shadow: Shadow.lg,
       ),
       children: <Component>[
-        // Header
         if (component.header != null) ...<Component>[
           component.header!,
           const div(
@@ -144,7 +116,6 @@ class _ArcaneSignupCardState extends State<ArcaneSignupCard> {
           ),
         ],
 
-        // Title
         const ArcaneDiv(
           styles: ArcaneStyleData(
             margin: MarginPreset.bottomXs,
@@ -166,7 +137,6 @@ class _ArcaneSignupCardState extends State<ArcaneSignupCard> {
           children: [Component.text('Get started with your free account')],
         ),
 
-        // Error message
         if (_error != null)
           ArcaneDiv(
             styles: const ArcaneStyleData(
@@ -181,7 +151,6 @@ class _ArcaneSignupCardState extends State<ArcaneSignupCard> {
             children: <Component>[Component.text(_error!)],
           ),
 
-        // Social sign-in buttons
         if (_hasSocialMethods) ...<Component>[
           ArcaneDiv(
             styles: const ArcaneStyleData(
@@ -212,7 +181,6 @@ class _ArcaneSignupCardState extends State<ArcaneSignupCard> {
           ),
         ],
 
-        // Divider
         if (_hasSocialMethods && _hasEmailMethod)
           const ArcaneDiv(
             styles: ArcaneStyleData(
@@ -250,7 +218,6 @@ class _ArcaneSignupCardState extends State<ArcaneSignupCard> {
             ],
           ),
 
-        // Email/password form
         if (_hasEmailMethod)
           form(
             events: {
@@ -260,7 +227,6 @@ class _ArcaneSignupCardState extends State<ArcaneSignupCard> {
               },
             },
             <Component>[
-              // Display name field
               _buildField(
                 labelText: 'Name',
                 type: 'text',
@@ -270,7 +236,6 @@ class _ArcaneSignupCardState extends State<ArcaneSignupCard> {
                     setState(() => _displayName = value),
               ),
 
-              // Email field
               _buildField(
                 labelText: 'Email',
                 type: 'email',
@@ -279,7 +244,6 @@ class _ArcaneSignupCardState extends State<ArcaneSignupCard> {
                 onChanged: (String value) => setState(() => _email = value),
               ),
 
-              // Password field
               _buildField(
                 labelText: 'Password',
                 type: 'password',
@@ -289,7 +253,6 @@ class _ArcaneSignupCardState extends State<ArcaneSignupCard> {
                 onChanged: (String value) => setState(() => _password = value),
               ),
 
-              // Confirm password field
               _buildField(
                 labelText: 'Confirm Password',
                 type: 'password',
@@ -299,7 +262,6 @@ class _ArcaneSignupCardState extends State<ArcaneSignupCard> {
                     setState(() => _confirmPassword = value),
               ),
 
-              // Terms checkbox
               if (_hasTerms)
                 ArcaneDiv(
                   styles: const ArcaneStyleData(
@@ -367,7 +329,6 @@ class _ArcaneSignupCardState extends State<ArcaneSignupCard> {
                   ],
                 ),
 
-              // Submit button
               ArcaneButton(
                 label: _loading ? 'Creating account...' : 'Create account',
                 fullWidth: true,
@@ -378,7 +339,6 @@ class _ArcaneSignupCardState extends State<ArcaneSignupCard> {
             ],
           ),
 
-        // Login link
         if (component.loginRoute != null)
           ArcaneDiv(
             styles: const ArcaneStyleData(

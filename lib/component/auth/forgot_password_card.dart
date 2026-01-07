@@ -1,26 +1,10 @@
 import 'package:arcane_jaspr/arcane_jaspr.dart';
 
-/// Forgot password card component
-///
-/// Provides a password reset UI with email input.
-///
-/// ```dart
-/// ArcaneForgotPasswordCard(
-///   loginRoute: '/login',
-///   header: Logo(),
-/// )
-/// ```
+/// Password reset card with email input and reset link functionality.
 class ArcaneForgotPasswordCard extends StatefulComponent {
-  /// Header component (logo, title, etc.)
   final Component? header;
-
-  /// Route for login link
   final String? loginRoute;
-
-  /// Callback when email is sent successfully
   final void Function()? onSuccess;
-
-  /// Max width of the card
   final String maxWidth;
 
   const ArcaneForgotPasswordCard({
@@ -81,7 +65,6 @@ class _ArcaneForgotPasswordCardState extends State<ArcaneForgotPasswordCard> {
         shadow: Shadow.lg,
       ),
       children: <Component>[
-        // Header
         if (component.header != null) ...<Component>[
           component.header!,
           const div(
@@ -90,7 +73,6 @@ class _ArcaneForgotPasswordCardState extends State<ArcaneForgotPasswordCard> {
           ),
         ],
 
-        // Title
         ArcaneDiv(
           styles: const ArcaneStyleData(
             margin: MarginPreset.bottomXs,
@@ -118,7 +100,6 @@ class _ArcaneForgotPasswordCardState extends State<ArcaneForgotPasswordCard> {
           ],
         ),
 
-        // Success message
         if (_sent)
           const ArcaneDiv(
             styles: ArcaneStyleData(
@@ -136,7 +117,6 @@ class _ArcaneForgotPasswordCardState extends State<ArcaneForgotPasswordCard> {
             ],
           ),
 
-        // Error message
         if (_error != null)
           ArcaneDiv(
             styles: const ArcaneStyleData(
@@ -151,7 +131,6 @@ class _ArcaneForgotPasswordCardState extends State<ArcaneForgotPasswordCard> {
             children: <Component>[Component.text(_error!)],
           ),
 
-        // Form (hidden if sent)
         if (!_sent)
           form(
             events: {
@@ -161,7 +140,6 @@ class _ArcaneForgotPasswordCardState extends State<ArcaneForgotPasswordCard> {
               },
             },
             <Component>[
-              // Email field
               ArcaneDiv(
                 styles: const ArcaneStyleData(margin: MarginPreset.bottomLg),
                 children: <Component>[
@@ -207,7 +185,6 @@ class _ArcaneForgotPasswordCardState extends State<ArcaneForgotPasswordCard> {
                 ],
               ),
 
-              // Submit button
               ArcaneButton(
                 label: _loading ? 'Sending...' : 'Send reset link',
                 fullWidth: true,
@@ -218,7 +195,6 @@ class _ArcaneForgotPasswordCardState extends State<ArcaneForgotPasswordCard> {
             ],
           ),
 
-        // Try again button (shown after sent)
         if (_sent)
           ArcaneButton.secondary(
             label: 'Try another email',
@@ -226,7 +202,6 @@ class _ArcaneForgotPasswordCardState extends State<ArcaneForgotPasswordCard> {
             onPressed: () => setState(() => _sent = false),
           ),
 
-        // Back to login link
         if (component.loginRoute != null)
           ArcaneDiv(
             styles: const ArcaneStyleData(

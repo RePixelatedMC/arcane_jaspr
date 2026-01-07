@@ -3,34 +3,20 @@ import 'menu_item_props.dart';
 
 export 'menu_item_props.dart';
 
-/// Dropdown menu alignment.
 enum DropdownAlignment {
   left,
   right,
   center,
 }
 
-/// Properties for dropdown menu components.
+/// Dropdown menu component properties.
 class DropdownMenuProps {
-  /// The trigger element that opens the dropdown
   final Component trigger;
-
-  /// The menu items
   final List<ArcaneMenuItem> items;
-
-  /// Whether the dropdown is currently open
   final bool isOpen;
-
-  /// Callback to toggle open state
   final void Function()? onToggle;
-
-  /// Callback to close the dropdown
   final void Function()? onClose;
-
-  /// Alignment of the dropdown relative to trigger
   final DropdownAlignment alignment;
-
-  /// Optional fixed width in pixels
   final double? width;
 
   const DropdownMenuProps({
@@ -43,7 +29,6 @@ class DropdownMenuProps {
     this.width,
   });
 
-  /// Create a copy with modified properties
   DropdownMenuProps copyWith({
     Component? trigger,
     List<ArcaneMenuItem>? items,

@@ -1,35 +1,10 @@
-/// Password validation policy
-///
-/// Configure password requirements for registration.
-///
-/// ```dart
-/// const PasswordPolicy policy = PasswordPolicy(
-///   minLength: 8,
-///   requireUppercase: true,
-///   requireLowercase: true,
-///   requireNumber: true,
-///   requireSpecialChar: true,
-/// );
-///
-/// String? error = policy.validate(password);
-/// ```
+/// Password validation policy with configurable requirements.
 class PasswordPolicy {
-  /// Minimum password length
   final int minLength;
-
-  /// Maximum password length
   final int maxLength;
-
-  /// Require at least one uppercase letter
   final bool requireUppercase;
-
-  /// Require at least one lowercase letter
   final bool requireLowercase;
-
-  /// Require at least one number
   final bool requireNumber;
-
-  /// Require at least one special character
   final bool requireSpecialChar;
 
   const PasswordPolicy({
@@ -41,7 +16,6 @@ class PasswordPolicy {
     this.requireSpecialChar = false,
   });
 
-  /// Strong password policy preset
   static const PasswordPolicy strong = PasswordPolicy(
     minLength: 8,
     requireUppercase: true,
@@ -50,21 +24,16 @@ class PasswordPolicy {
     requireSpecialChar: true,
   );
 
-  /// Medium password policy preset
   static const PasswordPolicy medium = PasswordPolicy(
     minLength: 8,
     requireUppercase: true,
     requireNumber: true,
   );
 
-  /// Weak password policy preset (just length)
   static const PasswordPolicy weak = PasswordPolicy(
     minLength: 6,
   );
 
-  /// Validate a password against this policy
-  ///
-  /// Returns null if valid, or an error message if invalid.
   String? validate(String password) {
     if (password.length < minLength) {
       return 'Password must be at least $minLength characters long.';
@@ -91,13 +60,11 @@ class PasswordPolicy {
       return 'Password must contain at least one special character.';
     }
 
-    return null; // Valid
+    return null;
   }
 
-  /// Check if a password is valid
   bool isValid(String password) => validate(password) == null;
 
-  /// Get a human-readable description of the policy
   String get description {
     final List<String> requirements = <String>[];
 

@@ -1,51 +1,24 @@
-/// Checkbox size variants.
 enum CheckboxSize {
-  /// Small checkbox (14px)
   small,
-
-  /// Medium/Default checkbox (16px)
   medium,
-
-  /// Large checkbox (20px)
   large,
 }
 
-/// Checkbox color variant.
 enum CheckboxVariant {
-  /// Primary color
   primary,
-
-  /// Success/green color
   success,
-
-  /// Warning/amber color
   warning,
-
-  /// Error/destructive color
   error,
 }
 
-/// Properties for checkbox components.
+/// Checkbox component properties.
 class CheckboxProps {
-  /// Whether the checkbox is checked
   final bool checked;
-
-  /// Label text
   final String? label;
-
-  /// Description text below label
   final String? description;
-
-  /// Size variant
   final CheckboxSize size;
-
-  /// Color variant
   final CheckboxVariant variant;
-
-  /// Whether the checkbox is disabled
   final bool disabled;
-
-  /// Called when the checkbox state changes
   final void Function(bool)? onChanged;
 
   const CheckboxProps({
@@ -58,7 +31,6 @@ class CheckboxProps {
     this.onChanged,
   });
 
-  /// Create a copy with modified properties
   CheckboxProps copyWith({
     bool? checked,
     String? label,

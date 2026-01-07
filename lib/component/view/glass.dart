@@ -3,29 +3,15 @@ import 'package:jaspr/jaspr.dart';
 import '../../core/theme_provider.dart';
 import '../../util/arcane.dart';
 
-// Re-export props for usage
 export '../../core/props/glass_props.dart';
 
 /// A glassmorphism container component.
-///
-/// Creates a frosted glass effect using CSS backdrop-filter.
 class ArcaneGlass extends StatelessComponent {
-  /// The child component
   final Component child;
-
-  /// Blur amount
   final double blur;
-
-  /// Opacity of the glass surface
   final double opacity;
-
-  /// Custom padding
   final EdgeInsets? padding;
-
-  /// Border radius
   final double? radius;
-
-  /// Whether to show a border
   final bool border;
 
   const ArcaneGlass({
@@ -51,7 +37,7 @@ class ArcaneGlass extends StatelessComponent {
   }
 }
 
-/// A glass card with standard card styling
+/// A glass card with standard card styling.
 class ArcaneGlassCard extends StatelessComponent {
   final Component child;
   final double blur;
@@ -86,7 +72,7 @@ class ArcaneGlassCard extends StatelessComponent {
   }
 }
 
-/// A gradient glass effect
+/// A gradient glass effect.
 class ArcaneGradientGlass extends StatelessComponent {
   final Component child;
   final double blur;

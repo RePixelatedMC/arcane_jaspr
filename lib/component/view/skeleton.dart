@@ -3,13 +3,7 @@ import 'package:jaspr/dom.dart' as dom;
 
 import '../../core/theme_provider.dart';
 
-/// Skeleton loading placeholder component
-/// ShadCN Reference: https://ui.shadcn.com/docs/components/skeleton
-///
-/// ```dart
-/// ArcaneSkeleton(width: '100%', height: '20px')
-/// ArcaneSkeleton.circle(height: '48px')
-/// ```
+/// Skeleton loading placeholder component.
 class ArcaneSkeleton extends StatelessComponent {
   final SkeletonShape shape;
   final String? width;
@@ -26,7 +20,6 @@ class ArcaneSkeleton extends StatelessComponent {
     super.key,
   });
 
-  /// Circle skeleton
   const ArcaneSkeleton.circle({
     this.height,
     this.animate = true,
@@ -35,7 +28,6 @@ class ArcaneSkeleton extends StatelessComponent {
         width = null,
         borderRadius = null;
 
-  /// Text line skeleton
   const ArcaneSkeleton.line({
     this.width,
     this.animate = true,
@@ -56,7 +48,7 @@ class ArcaneSkeleton extends StatelessComponent {
   }
 }
 
-/// Skeleton card placeholder
+/// Skeleton card placeholder.
 class ArcaneSkeletonCard extends StatelessComponent {
   final bool showAvatar;
   final int lines;
@@ -78,7 +70,6 @@ class ArcaneSkeletonCard extends StatelessComponent {
         'padding': '24px',
       }),
       [
-        // Header with avatar
         if (showAvatar)
           const dom.div(
             styles: dom.Styles(raw: {
@@ -107,7 +98,6 @@ class ArcaneSkeletonCard extends StatelessComponent {
               ),
             ],
           ),
-        // Content lines
         for (var i = 0; i < lines; i++)
           dom.div(
             styles: dom.Styles(raw: {
@@ -125,7 +115,7 @@ class ArcaneSkeletonCard extends StatelessComponent {
   }
 }
 
-/// Skeleton text block with multiple lines
+/// Skeleton text block with multiple lines.
 class ArcaneSkeletonText extends StatelessComponent {
   final int lines;
   final String? lineHeight;

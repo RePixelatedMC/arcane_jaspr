@@ -1,56 +1,23 @@
-/// Number input size variants.
 enum NumberInputSize {
-  /// Small size
   sm,
-
-  /// Medium/default size
   md,
-
-  /// Large size
   lg,
 }
 
-/// Properties for number input components.
-///
-/// This is the shared props class used by all stylesheet renderers.
+/// Number input component properties.
 class NumberInputProps {
-  /// Current value
   final num value;
-
-  /// Minimum value
   final num min;
-
-  /// Maximum value
   final num max;
-
-  /// Step increment
   final num step;
-
-  /// Callback when value changes
   final void Function(num)? onChanged;
-
-  /// Size variant
   final NumberInputSize size;
-
-  /// Whether the input is disabled
   final bool disabled;
-
-  /// Label text
   final String? label;
-
-  /// Prefix text (e.g., "$")
   final String? prefix;
-
-  /// Suffix text (e.g., "kg")
   final String? suffix;
-
-  /// Number of decimal places to display
   final int decimals;
-
-  /// Optional element ID
   final String? id;
-
-  /// Additional HTML attributes
   final Map<String, String>? attributes;
 
   const NumberInputProps({
@@ -69,7 +36,6 @@ class NumberInputProps {
     this.attributes,
   });
 
-  /// Create a copy with modified properties
   NumberInputProps copyWith({
     num? value,
     num? min,

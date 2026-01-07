@@ -1,6 +1,5 @@
 import 'package:jaspr/jaspr.dart';
 
-/// Text alignment for table columns.
 enum DataTableTextAlign {
   left,
   center,
@@ -13,7 +12,7 @@ enum DataTableTextAlign {
       };
 }
 
-/// A column definition for data tables.
+/// Data column definition.
 class DataColumnProps<T> {
   final String header;
   final Component Function(T item) builder;
@@ -30,39 +29,18 @@ class DataColumnProps<T> {
   });
 }
 
-/// Properties for data table components.
+/// Data table component properties.
 class DataTableProps<T> {
-  /// The data items to display
   final List<T> items;
-
-  /// Column definitions
   final List<DataColumnProps<T>> columns;
-
-  /// Callback when a row is clicked
   final void Function(T item)? onRowTap;
-
-  /// Whether rows are selectable
   final bool selectable;
-
-  /// Currently selected items
   final Set<T> selectedItems;
-
-  /// Whether to show row dividers
   final bool showDividers;
-
-  /// Whether to show the header
   final bool showHeader;
-
-  /// Fixed header
   final bool stickyHeader;
-
-  /// Empty state message
   final String emptyMessage;
-
-  /// Callback when selection changes
   final void Function(T item)? onToggleSelection;
-
-  /// Callback when select all is toggled
   final void Function()? onToggleSelectAll;
 
   const DataTableProps({

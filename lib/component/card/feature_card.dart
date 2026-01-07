@@ -2,31 +2,16 @@ import 'package:jaspr/jaspr.dart';
 
 import '../../core/theme_provider.dart';
 
-// Re-export props for usage
 export '../../core/props/feature_card_props.dart';
 
-/// A feature card component (Supabase-style)
-/// Used for showcasing product features with icon, title, and description
+/// Feature card for showcasing product features with icon, title, and description.
 class ArcaneFeatureCard extends StatelessComponent {
-  /// The feature title
   final String title;
-
-  /// The feature description
   final String description;
-
-  /// Optional icon component
   final Component? icon;
-
-  /// Optional link URL
   final String? href;
-
-  /// Click handler (alternative to href)
   final void Function()? onTap;
-
-  /// Whether to show an arrow indicator
   final bool showArrow;
-
-  /// Card orientation (vertical or horizontal)
   final bool horizontal;
 
   const ArcaneFeatureCard({
@@ -54,21 +39,12 @@ class ArcaneFeatureCard extends StatelessComponent {
   }
 }
 
-/// A simple icon card for feature grids
+/// Simple icon card for feature grids.
 class ArcaneIconCard extends StatelessComponent {
-  /// The card title
   final String title;
-
-  /// Optional subtitle
   final String? subtitle;
-
-  /// Icon component
   final Component icon;
-
-  /// Click handler
   final void Function()? onTap;
-
-  /// Optional link
   final String? href;
 
   const ArcaneIconCard({

@@ -27,34 +27,12 @@ import 'package:jaspr/dom.dart'
 
 import '../../util/style_types/arcane_style_data.dart';
 
-/// An inline styling component that wraps the HTML `<span>` element.
-///
-/// Use this to apply styles to portions of text within a larger block.
-///
-/// Example:
-/// ```dart
-/// ArcaneSpan(
-///   styles: ArcaneStyleData(
-///     textColor: TextColor.accent,
-///     fontWeight: FontWeight.bold,
-///   ),
-///   child: ArcaneText('Highlighted text'),
-/// )
-/// ```
+/// Styled inline span wrapper.
 class ArcaneSpan extends StatelessComponent {
-  /// The content of the span
   final Component child;
-
-  /// Optional styling using ArcaneStyleData
   final ArcaneStyleData? styles;
-
-  /// Optional CSS classes
   final String? classes;
-
-  /// Optional ID attribute
   final String? id;
-
-  /// Event handlers
   final Map<String, void Function(dynamic)>? events;
 
   const ArcaneSpan({
@@ -66,7 +44,6 @@ class ArcaneSpan extends StatelessComponent {
     super.key,
   });
 
-  /// Create a span with multiple children
   const factory ArcaneSpan.children({
     required List<Component> children,
     ArcaneStyleData? styles,
@@ -113,7 +90,6 @@ class _ArcaneSpanChildren extends ArcaneSpan {
   }
 }
 
-/// Placeholder component for factory constructor
 class _Placeholder extends StatelessComponent {
   const _Placeholder();
   @override

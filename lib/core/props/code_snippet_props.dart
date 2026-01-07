@@ -1,22 +1,10 @@
-
-/// Properties for code snippet components.
+/// Code snippet component properties.
 class CodeSnippetProps {
-  /// The code to display
   final String code;
-
-  /// Programming language (for syntax highlighting hints)
   final String? language;
-
-  /// Whether to show line numbers
   final bool showLineNumbers;
-
-  /// Whether to show copy button
   final bool showCopyButton;
-
-  /// Maximum height (scrollable if exceeded)
   final double? maxHeight;
-
-  /// Title/filename
   final String? title;
 
   const CodeSnippetProps({
@@ -29,26 +17,18 @@ class CodeSnippetProps {
   });
 }
 
-/// Properties for inline code components.
+/// Inline code component properties.
 class InlineCodeProps {
-  /// Code text
   final String code;
 
   const InlineCodeProps({required this.code});
 }
 
-/// Properties for terminal components.
+/// Terminal component properties.
 class TerminalProps {
-  /// Commands to display
   final List<String> commands;
-
-  /// Prompt symbol
   final String prompt;
-
-  /// Title
   final String? title;
-
-  /// Whether to show copy button
   final bool showCopyButton;
 
   const TerminalProps({

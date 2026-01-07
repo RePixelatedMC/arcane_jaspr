@@ -5,36 +5,16 @@ import '../../core/theme_provider.dart';
 export '../../core/props/sidebar_props.dart'
     show SidebarItemProps, SidebarGroupProps, SidebarSubMenuProps;
 
-/// A sidebar navigation component matching shadcn/ui.
-/// ShadCN Reference: https://ui.shadcn.com/docs/components/sidebar
-///
-/// A composable sidebar navigation component for application layouts.
+/// Sidebar navigation component.
 class ArcaneSidebar extends StatefulComponent {
-  /// The sidebar content
   final List<Component> children;
-
-  /// Header component
   final Component? header;
-
-  /// Footer component
   final Component? footer;
-
-  /// Whether the sidebar is collapsed
   final bool collapsed;
-
-  /// Callback when collapse state changes
   final void Function(bool collapsed)? onCollapseChanged;
-
-  /// Width of the sidebar
   final double width;
-
-  /// Width when collapsed
   final double collapsedWidth;
-
-  /// Whether to show the collapse toggle
   final bool showCollapseToggle;
-
-  /// Whether the sidebar is on the right side
   final bool rightSide;
 
   const ArcaneSidebar({
@@ -95,7 +75,7 @@ class _ArcaneSidebarState extends State<ArcaneSidebar> {
   }
 }
 
-/// A sidebar item group with optional label matching shadcn/ui.
+/// Sidebar item group with optional label.
 class ArcaneSidebarGroup extends StatelessComponent {
   final String? label;
   final List<Component> children;
@@ -118,7 +98,7 @@ class ArcaneSidebarGroup extends StatelessComponent {
   }
 }
 
-/// A sidebar navigation item matching shadcn/ui.
+/// Sidebar navigation item.
 class ArcaneSidebarItem extends StatelessComponent {
   final String label;
   final Component? icon;
@@ -160,9 +140,6 @@ class ArcaneSidebarItem extends StatelessComponent {
 }
 
 /// Content that only displays when sidebar is expanded.
-///
-/// Use this to show full labels, descriptions, or complex content
-/// that should be hidden when the sidebar collapses.
 class ArcaneSidebarExpanded extends StatelessComponent {
   final List<Component> children;
 
@@ -178,9 +155,6 @@ class ArcaneSidebarExpanded extends StatelessComponent {
 }
 
 /// Content that only displays when sidebar is collapsed.
-///
-/// Use this to show icons, tooltips, or minimal content
-/// that should only appear when the sidebar is collapsed.
 class ArcaneSidebarCollapsed extends StatelessComponent {
   final List<Component> children;
 
@@ -195,7 +169,7 @@ class ArcaneSidebarCollapsed extends StatelessComponent {
   }
 }
 
-/// A visual separator between sidebar groups or items.
+/// Visual separator between sidebar groups or items.
 class ArcaneSidebarSeparator extends StatelessComponent {
   const ArcaneSidebarSeparator({super.key});
 
@@ -205,10 +179,7 @@ class ArcaneSidebarSeparator extends StatelessComponent {
   }
 }
 
-/// A collapsible submenu within a sidebar item.
-///
-/// Use this for nested navigation structures where a parent item
-/// can expand to reveal child items.
+/// Collapsible submenu within a sidebar item.
 class ArcaneSidebarSubMenu extends StatefulComponent {
   final String label;
   final Component? icon;

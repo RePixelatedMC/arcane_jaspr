@@ -10,89 +10,37 @@ export '../../core/props/toggle_group_props.dart'
         ToggleGroupItemProps,
         ToggleGroupProps;
 
-/// Toggle group variants matching shadcn/ui
-/// Reference: https://ui.shadcn.com/docs/components/toggle-group
+/// Toggle group variants.
 enum ToggleGroupVariant {
-  /// Default - transparent bg, accent when selected
   defaultVariant,
-
-  /// Outline - with border
   outline,
 }
 
-/// Toggle group size
+/// Toggle group size.
 enum ToggleGroupSize {
-  /// Small - h-9 (36px)
   sm,
-
-  /// Default - h-10 (40px)
   md,
-
-  /// Large - h-11 (44px)
   lg,
 }
 
-/// Toggle group type
+/// Toggle group selection type.
 enum ToggleGroupType {
-  /// Only one item can be selected at a time
   single,
-
-  /// Multiple items can be selected
   multiple,
 }
 
-/// A toggle group component matching shadcn/ui
-/// Reference: https://ui.shadcn.com/docs/components/toggle-group
-///
-/// Example:
-/// ```dart
-/// // Single selection
-/// ArcaneToggleGroup(
-///   items: [
-///     ToggleGroupItem(value: 'left', child: Icon(Icons.alignLeft)),
-///     ToggleGroupItem(value: 'center', child: Icon(Icons.alignCenter)),
-///     ToggleGroupItem(value: 'right', child: Icon(Icons.alignRight)),
-///   ],
-///   value: 'center',
-///   onChanged: (value) => print(value),
-/// )
-///
-/// // Multiple selection
-/// ArcaneToggleGroup.multiple(
-///   items: [...],
-///   values: {'bold', 'italic'},
-///   onChanged: (values) => print(values),
-/// )
-/// ```
+/// A toggle group component for selecting one or multiple options.
 class ArcaneToggleGroup extends StatelessComponent {
-  /// The toggle items
   final List<ToggleGroupItem> items;
-
-  /// Current value (for single selection)
   final String? value;
-
-  /// Current values (for multiple selection)
   final Set<String>? values;
-
-  /// Callback when value changes (single)
   final void Function(String?)? onChanged;
-
-  /// Callback when values change (multiple)
   final void Function(Set<String>)? onMultiChanged;
-
-  /// Selection type
   final ToggleGroupType type;
-
-  /// Visual variant
   final ToggleGroupVariant variant;
-
-  /// Size
   final ToggleGroupSize size;
-
-  /// Whether the group is disabled
   final bool disabled;
 
-  /// Creates a single-selection toggle group
   const ArcaneToggleGroup({
     required this.items,
     this.value,
@@ -105,7 +53,6 @@ class ArcaneToggleGroup extends StatelessComponent {
         values = null,
         onMultiChanged = null;
 
-  /// Creates a multiple-selection toggle group
   const ArcaneToggleGroup.multiple({
     required this.items,
     this.values,
@@ -157,15 +104,10 @@ class ArcaneToggleGroup extends StatelessComponent {
   }
 }
 
-/// A toggle group item
+/// A toggle group item.
 class ToggleGroupItem {
-  /// The value identifier
   final String value;
-
-  /// The child component to display
   final Component child;
-
-  /// Whether this item is disabled
   final bool disabled;
 
   const ToggleGroupItem({
@@ -174,7 +116,6 @@ class ToggleGroupItem {
     this.disabled = false,
   });
 
-  /// Convenience constructor for text items
   factory ToggleGroupItem.text(
     String value, {
     String? label,

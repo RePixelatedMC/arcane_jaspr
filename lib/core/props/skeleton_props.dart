@@ -1,30 +1,15 @@
-/// Skeleton shape variants.
 enum SkeletonShape {
-  /// Rectangular skeleton
   rectangle,
-
-  /// Circular skeleton
   circle,
-
-  /// Text line skeleton
   text,
 }
 
-/// Properties for skeleton components.
+/// Skeleton component properties.
 class SkeletonProps {
-  /// Width of the skeleton
   final String? width;
-
-  /// Height of the skeleton
   final String? height;
-
-  /// Border radius
   final String? borderRadius;
-
-  /// Shape variant
   final SkeletonShape shape;
-
-  /// Whether to animate the skeleton
   final bool animate;
 
   const SkeletonProps({
@@ -35,7 +20,6 @@ class SkeletonProps {
     this.animate = true,
   });
 
-  /// Create a copy with modified properties
   SkeletonProps copyWith({
     String? width,
     String? height,

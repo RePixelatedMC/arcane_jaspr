@@ -1,11 +1,7 @@
 import 'package:arcane_jaspr/arcane_jaspr.dart';
 
 /// Divider with centered text for authentication forms.
-///
-/// Typically used to separate OAuth buttons from email/password form
-/// with text like "or continue with email".
 class AuthDivider extends StatelessComponent {
-  /// Text to display in the center of the divider
   final String text;
 
   const AuthDivider({
@@ -23,7 +19,6 @@ class AuthDivider extends StatelessComponent {
         margin: MarginPreset.verticalLg,
       ),
       children: [
-        // Left line
         const div(
           styles: Styles(raw: {
             'flex': '1',
@@ -32,7 +27,6 @@ class AuthDivider extends StatelessComponent {
           }),
           [],
         ),
-        // Text
         ArcaneDiv(
           styles: const ArcaneStyleData(
             fontSize: FontSize.xs,
@@ -42,7 +36,6 @@ class AuthDivider extends StatelessComponent {
           ),
           children: [Component.text(text)],
         ),
-        // Right line
         const div(
           styles: Styles(raw: {
             'flex': '1',

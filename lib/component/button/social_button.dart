@@ -14,7 +14,6 @@ enum SocialProvider {
   gitlab,
 }
 
-/// Brand configuration for a social provider.
 class _SocialProviderConfig {
   final String defaultLabel;
   final String backgroundColor;
@@ -34,60 +33,20 @@ class _SocialProviderConfig {
 }
 
 /// Social sign-in button with branded styling for OAuth providers.
-///
-/// Provides consistent styling for OAuth provider buttons with factory
-/// constructors for each supported provider.
-///
-/// ```dart
-/// // Using factory constructor
-/// SocialSignInButton.google(
-///   onPressed: () => context.signInWithGoogle(),
-/// )
-///
-/// // Using provider enum
-/// SocialSignInButton(
-///   provider: SocialProvider.github,
-///   onPressed: () => signIn(),
-/// )
-/// ```
 class SocialSignInButton extends StatelessComponent {
-  /// The OAuth provider for branded styling
   final SocialProvider? provider;
-
-  /// Button label text
   final String? label;
-
-  /// Icon component (SVG or emoji) - overrides provider icon if set
   final Component? icon;
-
-  /// Click handler
   final void Function()? onPressed;
-
-  /// Button size
   final ButtonSize size;
-
-  /// Whether the button is disabled
   final bool disabled;
-
-  /// Whether the button is loading
   final bool loading;
-
-  /// Whether to expand to full width
   final bool fullWidth;
-
-  /// Background color (optional, overrides provider default)
   final String? backgroundColor;
-
-  /// Text/icon color (optional, overrides provider default)
   final String? foregroundColor;
-
-  /// Border color (optional, overrides provider default)
   final String? borderColor;
-
-  /// Hover background color (optional, overrides provider default)
   final String? hoverBackgroundColor;
 
-  /// Creates a social sign-in button with a specific provider.
   const SocialSignInButton({
     this.provider,
     this.label,
@@ -104,7 +63,6 @@ class SocialSignInButton extends StatelessComponent {
     super.key,
   });
 
-  /// Google sign-in button with branded styling.
   const factory SocialSignInButton.google({
     void Function()? onPressed,
     String? label,
@@ -115,7 +73,6 @@ class SocialSignInButton extends StatelessComponent {
     Key? key,
   }) = _GoogleSignInButton;
 
-  /// GitHub sign-in button with branded styling.
   const factory SocialSignInButton.github({
     void Function()? onPressed,
     String? label,
@@ -126,7 +83,6 @@ class SocialSignInButton extends StatelessComponent {
     Key? key,
   }) = _GithubSignInButton;
 
-  /// Apple sign-in button with branded styling.
   const factory SocialSignInButton.apple({
     void Function()? onPressed,
     String? label,
@@ -137,7 +93,6 @@ class SocialSignInButton extends StatelessComponent {
     Key? key,
   }) = _AppleSignInButton;
 
-  /// Microsoft sign-in button with branded styling.
   const factory SocialSignInButton.microsoft({
     void Function()? onPressed,
     String? label,
@@ -148,7 +103,6 @@ class SocialSignInButton extends StatelessComponent {
     Key? key,
   }) = _MicrosoftSignInButton;
 
-  /// Discord sign-in button with branded styling.
   const factory SocialSignInButton.discord({
     void Function()? onPressed,
     String? label,
@@ -159,7 +113,6 @@ class SocialSignInButton extends StatelessComponent {
     Key? key,
   }) = _DiscordSignInButton;
 
-  /// Twitter/X sign-in button with branded styling.
   const factory SocialSignInButton.twitter({
     void Function()? onPressed,
     String? label,
@@ -170,7 +123,6 @@ class SocialSignInButton extends StatelessComponent {
     Key? key,
   }) = _TwitterSignInButton;
 
-  /// Facebook sign-in button with branded styling.
   const factory SocialSignInButton.facebook({
     void Function()? onPressed,
     String? label,
@@ -181,7 +133,6 @@ class SocialSignInButton extends StatelessComponent {
     Key? key,
   }) = _FacebookSignInButton;
 
-  /// LinkedIn sign-in button with branded styling.
   const factory SocialSignInButton.linkedin({
     void Function()? onPressed,
     String? label,
@@ -192,7 +143,6 @@ class SocialSignInButton extends StatelessComponent {
     Key? key,
   }) = _LinkedInSignInButton;
 
-  /// Slack sign-in button with branded styling.
   const factory SocialSignInButton.slack({
     void Function()? onPressed,
     String? label,
@@ -203,7 +153,6 @@ class SocialSignInButton extends StatelessComponent {
     Key? key,
   }) = _SlackSignInButton;
 
-  /// GitLab sign-in button with branded styling.
   const factory SocialSignInButton.gitlab({
     void Function()? onPressed,
     String? label,
@@ -214,7 +163,6 @@ class SocialSignInButton extends StatelessComponent {
     Key? key,
   }) = _GitLabSignInButton;
 
-  /// Get configuration for a provider
   static _SocialProviderConfig _getConfig(SocialProvider provider) {
     return switch (provider) {
       SocialProvider.google => _SocialProviderConfig(
@@ -304,11 +252,9 @@ class SocialSignInButton extends StatelessComponent {
   Component build(BuildContext context) {
     final bool isDisabled = disabled || loading;
 
-    // Get provider config if provider is specified
     final _SocialProviderConfig? config =
         provider != null ? _getConfig(provider!) : null;
 
-    // Resolve colors (explicit values override provider defaults)
     final String effectiveBg =
         backgroundColor ?? config?.backgroundColor ?? 'transparent';
     final String effectiveFg =
@@ -318,12 +264,10 @@ class SocialSignInButton extends StatelessComponent {
     final String effectiveHoverBg =
         hoverBackgroundColor ?? config?.hoverBackgroundColor ?? 'var(--muted)';
 
-    // Resolve label and icon
     final String effectiveLabel =
         label ?? config?.defaultLabel ?? 'Sign in';
     final Component? effectiveIcon = icon ?? config?.buildIcon();
 
-    // Size-based styles
     final Map<String, String> sizeStyles = switch (size) {
       ButtonSize.small => <String, String>{
           'padding': '8px 12px',
@@ -419,10 +363,6 @@ class SocialSignInButton extends StatelessComponent {
       <Component>[],
     );
   }
-
-  // ============================================================================
-  // Provider Icons
-  // ============================================================================
 
   static Component _buildGoogleIcon() {
     return const Component.element(
@@ -716,10 +656,6 @@ class SocialSignInButton extends StatelessComponent {
     );
   }
 }
-
-// ============================================================================
-// Factory Constructor Implementations
-// ============================================================================
 
 class _GoogleSignInButton extends SocialSignInButton {
   const _GoogleSignInButton({

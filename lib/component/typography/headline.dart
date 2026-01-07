@@ -1,7 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-/// Headline levels
 enum HeadlineLevel {
   h1,
   h2,
@@ -11,24 +10,13 @@ enum HeadlineLevel {
   h6,
 }
 
-/// A styled headline component (Supabase-style typography)
+/// Styled headline component.
 class ArcaneHeadline extends StatelessComponent {
-  /// The headline text
   final String content;
-
-  /// The headline level (h1-h6)
   final HeadlineLevel level;
-
-  /// Optional custom color
   final String? color;
-
-  /// Text alignment
   final String align;
-
-  /// Additional CSS classes
   final String? className;
-
-  /// Whether to use gradient text (accent gradient)
   final bool gradient;
 
   const ArcaneHeadline(
@@ -41,7 +29,6 @@ class ArcaneHeadline extends StatelessComponent {
     super.key,
   });
 
-  /// H1 headline
   const ArcaneHeadline.h1(
     this.content, {
     this.color,
@@ -51,7 +38,6 @@ class ArcaneHeadline extends StatelessComponent {
     super.key,
   }) : level = HeadlineLevel.h1;
 
-  /// H2 headline
   const ArcaneHeadline.h2(
     this.content, {
     this.color,
@@ -61,7 +47,6 @@ class ArcaneHeadline extends StatelessComponent {
     super.key,
   }) : level = HeadlineLevel.h2;
 
-  /// H3 headline
   const ArcaneHeadline.h3(
     this.content, {
     this.color,
@@ -71,7 +56,6 @@ class ArcaneHeadline extends StatelessComponent {
     super.key,
   }) : level = HeadlineLevel.h3;
 
-  /// H4 headline
   const ArcaneHeadline.h4(
     this.content, {
     this.color,
@@ -83,7 +67,6 @@ class ArcaneHeadline extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    // Get size and weight based on level (Supabase-style typography)
     final (fontSize, fontWeight, lineHeight, letterSpacing) = switch (level) {
       HeadlineLevel.h1 => ('3.5rem', '700', '1.1', '-0.02em'),
       HeadlineLevel.h2 => ('2.5rem', '700', '1.2', '-0.02em'),
@@ -104,7 +87,6 @@ class ArcaneHeadline extends StatelessComponent {
       'padding': '0',
     };
 
-    // Add gradient effect if enabled
     if (gradient) {
       baseStyles.addAll({
         'background': 'linear-gradient(to right, var(--arcane-accent), var(--arcane-accent-hover))',
@@ -129,18 +111,11 @@ class ArcaneHeadline extends StatelessComponent {
   }
 }
 
-/// Subheadline / lead paragraph text
+/// Subheadline/lead paragraph text.
 class ArcaneSubheadline extends StatelessComponent {
-  /// The text content
   final String content;
-
-  /// Text size (sm, md, lg)
   final String size;
-
-  /// Text alignment
   final String align;
-
-  /// Whether to use muted color
   final bool muted;
 
   const ArcaneSubheadline(
@@ -169,25 +144,18 @@ class ArcaneSubheadline extends StatelessComponent {
         'color': muted ? 'var(--arcane-muted)' : 'var(--arcane-on-background)',
         'text-align': align,
         'margin': '0',
-        'max-width': '65ch', // Optimal reading width
+        'max-width': '65ch',
       }),
       [Component.text(content)],
     );
   }
 }
 
-/// Body text component
+/// Body text component.
 class ArcaneBodyText extends StatelessComponent {
-  /// The text content
   final String content;
-
-  /// Text size (sm, base, lg)
   final String size;
-
-  /// Whether to use muted color
   final bool muted;
-
-  /// Text alignment
   final String align;
 
   const ArcaneBodyText(

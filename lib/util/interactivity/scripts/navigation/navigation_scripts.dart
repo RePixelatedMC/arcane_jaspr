@@ -1,6 +1,3 @@
-/// Navigation component interactivity scripts barrel file.
-///
-/// Aggregates all navigation-related scripts for use in static sites.
 library;
 
 import 'accordion_scripts.dart';

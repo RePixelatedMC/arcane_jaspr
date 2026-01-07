@@ -17,33 +17,17 @@ import '../../core/theme_provider.dart';
 
 export '../../core/props/logo_carousel_props.dart';
 
-/// Re-export for backwards compatibility
 typedef ArcaneLogoItem = LogoItem;
 
-/// An infinite scrolling logo carousel (Supabase-style)
+/// An infinite scrolling logo carousel.
 class ArcaneLogoCarousel extends StatelessComponent {
-  /// Logo items
   final List<LogoItem> logos;
-
-  /// Animation duration in seconds
   final int duration;
-
-  /// Logo height
   final double logoHeight;
-
-  /// Gap between logos
   final double gap;
-
-  /// Whether to pause on hover
   final bool pauseOnHover;
-
-  /// Whether to reverse direction
   final bool reverse;
-
-  /// Grayscale logos
   final bool grayscale;
-
-  /// Optional title above the carousel
   final String? title;
 
   const ArcaneLogoCarousel({
@@ -97,24 +81,13 @@ class ArcaneLogoCarousel extends StatelessComponent {
   ];
 }
 
-/// A static logo grid
+/// A static logo grid layout.
 class ArcaneLogoGrid extends StatelessComponent {
-  /// Logo items
   final List<LogoItem> logos;
-
-  /// Logo height
   final double logoHeight;
-
-  /// Gap between logos
   final double gap;
-
-  /// Grayscale logos
   final bool grayscale;
-
-  /// Optional title
   final String? title;
-
-  /// Number of columns
   final int columns;
 
   const ArcaneLogoGrid({

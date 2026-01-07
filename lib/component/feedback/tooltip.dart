@@ -6,26 +6,11 @@ import '../../core/theme_provider.dart';
 
 export '../../core/props/tooltip_props.dart' show TooltipPosition;
 
-/// A tooltip component that shows on hover.
-/// ShadCN Reference: https://ui.shadcn.com/docs/components/tooltip
-///
-/// ```dart
-/// ArcaneTooltip(
-///   content: 'Helpful information',
-///   child: ArcaneButton(label: 'Hover me'),
-/// )
-/// ```
+/// Tooltip component that shows on hover.
 class ArcaneTooltip extends StatelessComponent {
-  /// Child widget to wrap
   final Component child;
-
-  /// Tooltip content text
   final String content;
-
-  /// Tooltip position relative to child
   final TooltipPosition position;
-
-  /// Maximum width of tooltip
   final double maxWidth;
 
   const ArcaneTooltip({
@@ -38,7 +23,6 @@ class ArcaneTooltip extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    // Delegate rendering to the current stylesheet's tooltip renderer
     return context.renderers.tooltip(TooltipProps(
       child: child,
       content: content,
@@ -48,21 +32,13 @@ class ArcaneTooltip extends StatelessComponent {
   }
 }
 
-/// Short alias for ArcaneTooltip
 typedef ATooltip = ArcaneTooltip;
 
-/// A tooltip with custom content (not just text)
+/// Tooltip with custom component content.
 class ArcaneTooltipCustom extends StatelessComponent {
-  /// Child widget to wrap
   final Component child;
-
-  /// Custom tooltip content
   final Component tooltipContent;
-
-  /// Tooltip position
   final TooltipPosition position;
-
-  /// Maximum width
   final double? maxWidth;
 
   const ArcaneTooltipCustom({
@@ -75,7 +51,6 @@ class ArcaneTooltipCustom extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    // Delegate rendering to the current stylesheet's tooltip renderer
     return context.renderers.tooltip(TooltipProps(
       child: child,
       customContent: tooltipContent,
@@ -85,15 +60,10 @@ class ArcaneTooltipCustom extends StatelessComponent {
   }
 }
 
-/// An info icon with tooltip
+/// Info icon with tooltip.
 class ArcaneInfoTooltip extends StatelessComponent {
-  /// Tooltip content
   final String content;
-
-  /// Icon size
   final double size;
-
-  /// Tooltip position
   final TooltipPosition position;
 
   const ArcaneInfoTooltip({

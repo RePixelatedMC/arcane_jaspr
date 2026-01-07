@@ -1,65 +1,30 @@
 import 'package:jaspr/jaspr.dart';
 
-/// Alert severity/type variants.
 enum AlertSeverity {
-  /// Informational
   info,
-
-  /// Success/positive
   success,
-
-  /// Warning
   warning,
-
-  /// Error/danger
   error,
 }
 
-/// Alert visual style variants.
 enum AlertVariant {
-  /// Subtle/soft background
   subtle,
-
-  /// Solid/filled background
   solid,
-
-  /// Outline/bordered style
   outline,
-
-  /// Left accent border
   accent,
 }
 
-/// Properties for alert components.
+/// Alert component properties.
 class AlertProps {
-  /// Alert severity/type
   final AlertSeverity severity;
-
-  /// Optional title
   final String? title;
-
-  /// Alert message
   final String? message;
-
-  /// Child component (alternative to message)
   final Component? child;
-
-  /// Visual style variant
   final AlertVariant variant;
-
-  /// Custom icon (overrides default)
   final Component? icon;
-
-  /// Whether to show icon
   final bool showIcon;
-
-  /// Whether the alert is dismissible
   final bool dismissible;
-
-  /// Callback when dismissed
   final void Function()? onDismiss;
-
-  /// Action button
   final Component? action;
 
   const AlertProps({
@@ -75,7 +40,6 @@ class AlertProps {
     this.action,
   });
 
-  /// Create a copy with modified properties
   AlertProps copyWith({
     AlertSeverity? severity,
     String? title,

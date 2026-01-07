@@ -1,23 +1,16 @@
-/// File upload style variants
 enum FileUploadStyle {
-  /// Default dropzone style
   dropzone,
-
-  /// Compact button style
   button,
-
-  /// Inline style
   inline,
 }
 
-/// File upload size variants
 enum FileUploadSize {
   sm,
   md,
   lg,
 }
 
-/// Uploaded file info
+/// Uploaded file data.
 class UploadedFile {
   final String name;
   final int size;
@@ -36,54 +29,23 @@ class UploadedFile {
   }
 }
 
-/// Properties for file upload components.
+/// File upload component properties.
 class FileUploadProps {
-  /// Style variant
   final FileUploadStyle style;
-
-  /// Size variant
   final FileUploadSize size;
-
-  /// Whether the dropzone is in drag-over state
   final bool isDragOver;
-
-  /// List of selected files
   final List<UploadedFile> selectedFiles;
-
-  /// Whether the input is disabled
   final bool disabled;
-
-  /// Label text
   final String? label;
-
-  /// Dropzone text
   final String dropzoneText;
-
-  /// Browse button text
   final String browseText;
-
-  /// Helper text
   final String? helperText;
-
-  /// Accept string for file input
   final String acceptString;
-
-  /// Whether multiple files can be selected
   final bool multiple;
-
-  /// Callback for click event
   final void Function()? onClick;
-
-  /// Callback for drag over event
   final void Function(dynamic event)? onDragOver;
-
-  /// Callback for drag leave event
   final void Function(dynamic event)? onDragLeave;
-
-  /// Callback for drop event
   final void Function(dynamic event)? onDrop;
-
-  /// Callback for file input change event
   final void Function(dynamic event)? onInputChange;
 
   const FileUploadProps({

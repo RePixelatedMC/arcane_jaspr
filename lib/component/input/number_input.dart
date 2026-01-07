@@ -5,55 +5,19 @@ import '../../core/theme_provider.dart';
 export '../../core/props/number_input_props.dart' show NumberInputSize;
 
 /// Numeric input with increment/decrement controls.
-///
-/// Clean stepper with +/- buttons and proper data attributes for static site support.
-///
-/// ```dart
-/// ArcaneNumberInput(
-///   value: 5,
-///   min: 0,
-///   max: 100,
-///   onChanged: (value) => print(value),
-/// )
-/// ```
 class ArcaneNumberInput extends StatelessComponent {
-  /// Current value
   final num value;
-
-  /// Minimum value
   final num min;
-
-  /// Maximum value
   final num max;
-
-  /// Step increment
   final num step;
-
-  /// Callback when value changes
   final void Function(num)? onChanged;
-
-  /// Size variant
   final NumberInputSize size;
-
-  /// Whether the input is disabled
   final bool disabled;
-
-  /// Label text
   final String? label;
-
-  /// Prefix text (e.g., "$")
   final String? prefix;
-
-  /// Suffix text (e.g., "kg")
   final String? suffix;
-
-  /// Number of decimal places to display
   final int decimals;
-
-  /// Optional element ID
   final String? id;
-
-  /// Additional HTML attributes
   final Map<String, String>? attributes;
 
   const ArcaneNumberInput({

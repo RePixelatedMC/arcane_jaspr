@@ -1,29 +1,14 @@
 import 'package:jaspr/jaspr.dart';
 
-/// Props for the GameTile component.
+/// Game tile component properties.
 class GameTileProps {
-  /// Game name
   final String name;
-
-  /// Game icon/logo URL
   final String? iconUrl;
-
-  /// Custom icon component
   final Component? icon;
-
-  /// Whether this game is selected
   final bool selected;
-
-  /// Click handler
   final void Function()? onTap;
-
-  /// Whether the game is popular/featured
   final bool popular;
-
-  /// Badge text (e.g., "New", "Beta")
   final String? badge;
-
-  /// Description or player count
   final String? subtitle;
 
   const GameTileProps({
@@ -38,21 +23,12 @@ class GameTileProps {
   });
 }
 
-/// Props for the GameSelector component.
+/// Game selector component properties.
 class GameSelectorProps {
-  /// Game tiles props
   final List<GameTileProps> games;
-
-  /// Number of columns
   final int columns;
-
-  /// Gap between tiles
   final double gap;
-
-  /// Title
   final String? title;
-
-  /// Description
   final String? description;
 
   const GameSelectorProps({
@@ -64,33 +40,16 @@ class GameSelectorProps {
   });
 }
 
-/// Props for the GameCard component.
+/// Game card component properties.
 class GameCardProps {
-  /// Game name
   final String name;
-
-  /// Game description
   final String? description;
-
-  /// Icon URL
   final String? iconUrl;
-
-  /// Custom icon
   final Component? icon;
-
-  /// Background image URL
   final String? backgroundUrl;
-
-  /// Player count or status
   final String? status;
-
-  /// Features list
   final List<String>? features;
-
-  /// Click handler
   final void Function()? onTap;
-
-  /// CTA button text
   final String? ctaText;
 
   const GameCardProps({

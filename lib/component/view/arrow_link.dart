@@ -2,45 +2,16 @@ import 'package:jaspr/jaspr.dart';
 
 import '../../core/theme_provider.dart';
 
-// Re-export props for usage
 export '../../core/props/arrow_link_props.dart';
 
 /// A simple inline text link with an arrow icon.
-///
-/// Perfect for card footers, "Learn more" links, and inline CTAs.
-///
-/// ```dart
-/// ArcaneArrowLink(
-///   label: 'Learn more',
-///   href: '/about',
-/// )
-///
-/// // Or as a button with onTap
-/// ArcaneArrowLink(
-///   label: 'View details',
-///   onTap: () => showDetails(),
-/// )
-/// ```
 class ArcaneArrowLink extends StatelessComponent {
-  /// The link text
   final String label;
-
-  /// Optional href for navigation
   final String? href;
-
-  /// Optional click handler (alternative to href)
   final void Function()? onTap;
-
-  /// Size of the link text
   final ArrowLinkSize size;
-
-  /// Whether to show the arrow (default: true)
   final bool showArrow;
-
-  /// Arrow position - before or after text
   final bool arrowBefore;
-
-  /// Use accent color (true) or muted color (false)
   final bool accent;
 
   const ArcaneArrowLink({
@@ -54,7 +25,6 @@ class ArcaneArrowLink extends StatelessComponent {
     super.key,
   });
 
-  /// Accent-colored link (default)
   const ArcaneArrowLink.accent({
     required this.label,
     this.href,
@@ -65,7 +35,6 @@ class ArcaneArrowLink extends StatelessComponent {
     super.key,
   }) : accent = true;
 
-  /// Muted/subtle link
   const ArcaneArrowLink.muted({
     required this.label,
     this.href,

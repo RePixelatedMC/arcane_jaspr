@@ -4,8 +4,6 @@ export '../../core/props/icon_button_props.dart'
     show IconButtonSize, IconButtonVariant;
 
 /// Style presets for icon buttons.
-///
-/// Maps to IconButtonVariant internally.
 enum IconButtonStyle {
   primary,
   secondary,
@@ -17,34 +15,13 @@ enum IconButtonStyle {
 }
 
 /// An icon-only button component.
-///
-/// Use style presets for cleaner code:
-/// ```dart
-/// ArcaneIconButton(
-///   icon: Icon(Icons.close),
-///   style: IconButtonStyle.ghost,
-/// )
-/// ```
 class ArcaneIconButton extends StatelessComponent {
-  /// The icon to display
   final Component icon;
-
-  /// Click handler
   final void Function()? onPressed;
-
-  /// Style preset
   final IconButtonStyle style;
-
-  /// Button size
   final IconButtonSize size;
-
-  /// Whether the button is disabled
   final bool disabled;
-
-  /// Whether the button is loading
   final bool loading;
-
-  /// Optional tooltip text
   final String? tooltip;
 
   const ArcaneIconButton({
@@ -58,7 +35,6 @@ class ArcaneIconButton extends StatelessComponent {
     super.key,
   });
 
-  /// Primary icon button
   const ArcaneIconButton.primary({
     required this.icon,
     this.onPressed,
@@ -69,7 +45,6 @@ class ArcaneIconButton extends StatelessComponent {
     super.key,
   }) : style = IconButtonStyle.primary;
 
-  /// Ghost icon button (default minimal style)
   const ArcaneIconButton.ghost({
     required this.icon,
     this.onPressed,
@@ -80,7 +55,6 @@ class ArcaneIconButton extends StatelessComponent {
     super.key,
   }) : style = IconButtonStyle.ghost;
 
-  /// Outline icon button
   const ArcaneIconButton.outline({
     required this.icon,
     this.onPressed,
@@ -91,7 +65,6 @@ class ArcaneIconButton extends StatelessComponent {
     super.key,
   }) : style = IconButtonStyle.outline;
 
-  /// Destructive icon button
   const ArcaneIconButton.destructive({
     required this.icon,
     this.onPressed,
@@ -102,7 +75,6 @@ class ArcaneIconButton extends StatelessComponent {
     super.key,
   }) : style = IconButtonStyle.destructive;
 
-  /// Convert IconButtonStyle to IconButtonVariant for props
   IconButtonVariant _styleToVariant(IconButtonStyle s) {
     return switch (s) {
       IconButtonStyle.primary => IconButtonVariant.primary,

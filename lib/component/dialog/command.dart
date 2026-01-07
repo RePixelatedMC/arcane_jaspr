@@ -5,56 +5,14 @@ import '../../core/theme_provider.dart';
 export '../../core/props/command_props.dart'
     show CommandItemProps, CommandGroupProps;
 
-/// A command palette for quick actions and navigation.
-///
-/// Similar to VS Code's Command Palette or Spotlight.
-///
-/// Example:
-/// ```dart
-/// ArcaneCommand(
-///   isOpen: showCommand,
-///   onClose: () => setState(() => showCommand = false),
-///   groups: [
-///     CommandGroup(
-///       heading: 'Actions',
-///       items: [
-///         CommandItem(
-///           icon: span([Component.text('\u{1F4DD}')]),
-///           label: 'New Document',
-///           shortcut: '\u{2318}N',
-///           onSelect: () => createDoc(),
-///         ),
-///         CommandItem(
-///           icon: span([Component.text('\u{1F50D}')]),
-///           label: 'Search',
-///           shortcut: '\u{2318}K',
-///           onSelect: () => openSearch(),
-///         ),
-///       ],
-///     ),
-///   ],
-/// )
-/// ```
+/// Command palette for quick actions and navigation.
 class ArcaneCommand extends StatefulComponent {
-  /// Whether the command palette is open
   final bool isOpen;
-
-  /// Called when palette should close
   final void Function()? onClose;
-
-  /// Command groups to display
   final List<CommandGroup> groups;
-
-  /// Placeholder for the search input
   final String placeholder;
-
-  /// Empty state message
   final String emptyMessage;
-
-  /// Called when search value changes
   final void Function(String)? onSearch;
-
-  /// Custom filter function
   final bool Function(CommandItem, String)? filterFn;
 
   const ArcaneCommand({
@@ -106,7 +64,6 @@ class _ArcaneCommandState extends State<ArcaneCommand> {
 
   @override
   Component build(BuildContext context) {
-    // Convert CommandGroup to CommandGroupProps
     final groupProps = component.groups
         .map((g) => CommandGroupProps(
               heading: g.heading,
@@ -123,7 +80,6 @@ class _ArcaneCommandState extends State<ArcaneCommand> {
             ))
         .toList();
 
-    // Convert filtered items to props
     final filteredItemProps = _filteredItems
         .map((i) => CommandItemProps(
               label: i.label,
@@ -135,7 +91,6 @@ class _ArcaneCommandState extends State<ArcaneCommand> {
             ))
         .toList();
 
-    // Delegate rendering to the current stylesheet's command renderer
     return context.renderers.command(CommandProps(
       isOpen: component.isOpen,
       onClose: component.onClose,
@@ -150,12 +105,9 @@ class _ArcaneCommandState extends State<ArcaneCommand> {
   }
 }
 
-/// A group of related commands
+/// A group of related commands.
 class CommandGroup {
-  /// Group heading
   final String? heading;
-
-  /// Items in this group
   final List<CommandItem> items;
 
   const CommandGroup({
@@ -164,24 +116,13 @@ class CommandGroup {
   });
 }
 
-/// A single command item
+/// A single command item.
 class CommandItem {
-  /// Display label
   final String label;
-
-  /// Optional icon
   final Component? icon;
-
-  /// Keyboard shortcut hint
   final String? shortcut;
-
-  /// Called when item is selected
   final void Function()? onSelect;
-
-  /// Whether this item is disabled
   final bool disabled;
-
-  /// Additional search keywords
   final List<String>? keywords;
 
   const CommandItem({

@@ -26,15 +26,11 @@ import '../../util/style_types/index.dart';
 
 export '../../core/props/gutter_props.dart';
 
-/// Re-export for backwards compatibility
 typedef ArcaneGutterSize = GutterSize;
 
 /// A spacing component that provides consistent gaps between elements.
 class ArcaneGutter extends StatelessComponent {
-  /// The size of the gutter
   final GutterSize size;
-
-  /// Whether to render as a horizontal gutter
   final bool horizontal;
 
   const ArcaneGutter({
@@ -63,7 +59,7 @@ class ArcaneGutter extends StatelessComponent {
   }
 }
 
-/// A flexible gap component
+/// A flexible gap component.
 class ArcaneGap extends StatelessComponent {
   final double size;
   final bool horizontal;
@@ -93,85 +89,21 @@ class ArcaneGap extends StatelessComponent {
 }
 
 /// A container component with enum-based styling.
-///
-/// ArcaneBox is the primary building block for creating styled containers.
-/// It supports all ArcaneStyleData properties through a clean, Flutter-like API.
-///
-/// Example:
-/// ```dart
-/// // Simple box with padding and background
-/// ArcaneBox(
-///   padding: PaddingPreset.md,
-///   background: Background.card,
-///   borderRadius: Radius.lg,
-///   child: ArcaneText('Hello'),
-/// )
-///
-/// // Card-like box
-/// ArcaneBox(
-///   padding: PaddingPreset.lg,
-///   background: Background.card,
-///   border: BorderPreset.subtle,
-///   borderRadius: Radius.xl,
-///   shadow: Shadow.md,
-///   child: content,
-/// )
-///
-/// // Full custom styling
-/// ArcaneBox(
-///   style: ArcaneStyleData(
-///     display: Display.flex,
-///     padding: PaddingPreset.mdLg,
-///     background: Background.surface,
-///   ),
-///   child: content,
-/// )
-/// ```
 class ArcaneBox extends StatelessComponent {
-  /// The child component
   final Component? child;
-
-  /// Multiple children (alternative to child)
   final List<Component>? children;
-
-  /// Padding preset
   final PaddingPreset? padding;
-
-  /// Margin preset
   final MarginPreset? margin;
-
-  /// Background color
   final Background? background;
-
-  /// Border preset
   final BorderPreset? border;
-
-  /// Border radius
   final Radius? borderRadius;
-
-  /// Box shadow
   final Shadow? shadow;
-
-  /// Width
   final Size? width;
-
-  /// Height
   final Size? height;
-
-  /// Custom width (pixels, percentages, etc.)
   final String? widthCustom;
-
-  /// Custom height (pixels, percentages, etc.)
   final String? heightCustom;
-
-  /// Max width preset
   final MaxWidth? maxWidth;
-
-  /// Overflow behavior
   final Overflow? overflow;
-
-  /// Full ArcaneStyleData for complete customization
-  /// (takes precedence over individual properties)
   final ArcaneStyleData? style;
 
   const ArcaneBox({
@@ -194,7 +126,6 @@ class ArcaneBox extends StatelessComponent {
   }) : assert(child != null || children != null,
             'Either child or children must be provided');
 
-  /// Create an ArcaneBox with card styling
   const ArcaneBox.card({
     this.child,
     this.children,
@@ -213,7 +144,6 @@ class ArcaneBox extends StatelessComponent {
         border = BorderPreset.subtle,
         borderRadius = Radius.lg;
 
-  /// Create an ArcaneBox with glass styling
   const ArcaneBox.glass({
     this.child,
     this.children,
@@ -234,7 +164,6 @@ class ArcaneBox extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    // Build base style from individual properties
     final baseStyle = ArcaneStyleData(
       padding: padding,
       margin: margin,
@@ -250,7 +179,6 @@ class ArcaneBox extends StatelessComponent {
       overflow: overflow,
     );
 
-    // Merge with custom style (custom takes precedence)
     final finalStyle = baseStyle.merge(style);
 
     return div(
@@ -262,27 +190,8 @@ class ArcaneBox extends StatelessComponent {
 }
 
 /// An ArcaneStack component for positioning children on top of each other.
-///
-/// Children can use absolute positioning to overlay each other.
-///
-/// Example:
-/// ```dart
-/// ArcaneStack(
-///   children: [
-///     Image(...),
-///     ArcanePositioned(
-///       bottom: '16px',
-///       right: '16px',
-///       child: ArcaneBadge(...),
-///     ),
-///   ],
-/// )
-/// ```
 class ArcaneStack extends StatelessComponent {
-  /// The child components
   final List<Component> children;
-
-  /// Full ArcaneStyleData for customization
   final ArcaneStyleData? style;
 
   const ArcaneStack({
@@ -307,25 +216,12 @@ class ArcaneStack extends StatelessComponent {
 
 /// A positioned child for use within an ArcaneStack.
 class ArcanePositioned extends StatelessComponent {
-  /// The child component
   final Component child;
-
-  /// Top offset
   final String? top;
-
-  /// Right offset
   final String? right;
-
-  /// Bottom offset
   final String? bottom;
-
-  /// Left offset
   final String? left;
-
-  /// Inset (shorthand for all)
   final String? inset;
-
-  /// Additional style
   final ArcaneStyleData? style;
 
   const ArcanePositioned({
@@ -339,7 +235,6 @@ class ArcanePositioned extends StatelessComponent {
     super.key,
   });
 
-  /// Fill the entire parent
   const ArcanePositioned.fill({
     required this.child,
     this.style,

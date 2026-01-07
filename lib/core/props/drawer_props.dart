@@ -1,74 +1,33 @@
 import 'package:jaspr/jaspr.dart';
 
-/// Drawer position relative to the viewport.
 enum DrawerPosition {
-  /// Slide in from left
   left,
-
-  /// Slide in from right
   right,
-
-  /// Slide in from top
   top,
-
-  /// Slide in from bottom
   bottom,
 }
 
-/// Drawer size variants.
 enum DrawerSize {
-  /// Small drawer (280px / 30vh)
   sm,
-
-  /// Medium drawer (360px / 50vh)
   md,
-
-  /// Large drawer (480px / 70vh)
   lg,
-
-  /// Extra large drawer (640px / 90vh)
   xl,
-
-  /// Full width/height
   full,
 }
 
-/// Properties for drawer components.
+/// Drawer component properties.
 class DrawerProps {
-  /// Whether the drawer is open
   final bool isOpen;
-
-  /// Callback when drawer should close
   final void Function()? onClose;
-
-  /// Drawer position
   final DrawerPosition position;
-
-  /// Drawer size
   final DrawerSize size;
-
-  /// Drawer content
   final Component child;
-
-  /// Optional header content
   final Component? header;
-
-  /// Optional footer content
   final Component? footer;
-
-  /// Whether to show backdrop overlay
   final bool showBackdrop;
-
-  /// Whether clicking backdrop closes drawer
   final bool closeOnBackdropClick;
-
-  /// Whether to show close button
   final bool showCloseButton;
-
-  /// Custom width (overrides size for left/right)
   final String? width;
-
-  /// Custom height (overrides size for top/bottom)
   final String? height;
 
   const DrawerProps({
@@ -86,7 +45,6 @@ class DrawerProps {
     this.height,
   });
 
-  /// Create a copy with modified properties
   DrawerProps copyWith({
     bool? isOpen,
     void Function()? onClose,

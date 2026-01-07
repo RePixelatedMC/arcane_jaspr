@@ -1,35 +1,18 @@
 import 'package:jaspr/jaspr.dart';
 
-/// Direction for switcher animation
 enum SwitcherDirection {
-  /// Slide up
   up,
-
-  /// Slide down
   down,
-
-  /// Slide left
   left,
-
-  /// Slide right
   right,
-
-  /// Fade in/out (no slide)
   fade,
 }
 
-/// Properties for switcher components.
+/// Switcher component properties.
 class SwitcherProps {
-  /// Currently visible child index
   final int index;
-
-  /// Animation direction when transitioning
   final SwitcherDirection direction;
-
-  /// Children to switch between
   final List<Component> children;
-
-  /// Animation duration in milliseconds
   final int duration;
 
   const SwitcherProps({
@@ -40,12 +23,9 @@ class SwitcherProps {
   });
 }
 
-/// Properties for indexed stack components.
+/// Indexed stack component properties.
 class IndexedStackProps {
-  /// Currently visible child index
   final int index;
-
-  /// All children (all kept in DOM, only one visible)
   final List<Component> children;
 
   const IndexedStackProps({

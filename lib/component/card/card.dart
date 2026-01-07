@@ -4,45 +4,15 @@ import 'package:jaspr/dom.dart' as dom;
 import '../../core/theme_provider.dart';
 import '../../util/arcane.dart';
 
-/// A card component with consistent styling.
-///
-/// ```dart
-/// ArcaneCard(
-///   variant: CardVariant.elevated,
-///   child: Text('Content'),
-/// )
-///
-/// ArcaneCard(
-///   children: [
-///     ArcaneHeading.h3(text: 'Title'),
-///     Text('Content'),
-///   ],
-///   onClick: () => print('clicked'),
-/// )
-/// ```
+/// Card component with consistent styling and multiple variants.
 class ArcaneCard extends StatelessComponent {
-  /// The child component (single)
   final Component? _child;
-
-  /// The children components
   final List<Component>? _children;
-
-  /// Visual style variant
   final CardVariant variant;
-
-  /// Custom padding
   final String? padding;
-
-  /// Border radius
   final String? borderRadius;
-
-  /// Click handler
   final void Function()? _onTap;
-
-  /// Custom background color
   final String? backgroundColor;
-
-  /// Whether to fill width
   final bool fillWidth;
 
   const ArcaneCard({
@@ -62,7 +32,6 @@ class ArcaneCard extends StatelessComponent {
         assert(child != null || children != null,
             'Either child or children must be provided');
 
-  /// Elevated card with shadow
   const ArcaneCard.elevated({
     Component? child,
     List<Component>? children,
@@ -80,7 +49,6 @@ class ArcaneCard extends StatelessComponent {
         assert(child != null || children != null,
             'Either child or children must be provided');
 
-  /// Flat card without shadow
   const ArcaneCard.flat({
     Component? child,
     List<Component>? children,
@@ -98,7 +66,6 @@ class ArcaneCard extends StatelessComponent {
         assert(child != null || children != null,
             'Either child or children must be provided');
 
-  /// Outlined card (border only)
   const ArcaneCard.outlined({
     Component? child,
     List<Component>? children,
@@ -116,7 +83,6 @@ class ArcaneCard extends StatelessComponent {
         assert(child != null || children != null,
             'Either child or children must be provided');
 
-  /// Ghost card (no border, no background)
   const ArcaneCard.ghost({
     Component? child,
     List<Component>? children,
@@ -134,7 +100,6 @@ class ArcaneCard extends StatelessComponent {
         assert(child != null || children != null,
             'Either child or children must be provided');
 
-  /// Glass/frosted card
   const ArcaneCard.glass({
     Component? child,
     List<Component>? children,
@@ -152,7 +117,6 @@ class ArcaneCard extends StatelessComponent {
         assert(child != null || children != null,
             'Either child or children must be provided');
 
-  /// Interactive card (shows hover effect)
   const ArcaneCard.interactive({
     Component? child,
     List<Component>? children,
@@ -185,7 +149,7 @@ class ArcaneCard extends StatelessComponent {
   }
 }
 
-/// A card with header, body, and footer sections
+/// Card with header, body, and footer sections.
 class ArcaneStructuredCard extends StatelessComponent {
   final Component? header;
   final Component body;
@@ -196,9 +160,6 @@ class ArcaneStructuredCard extends StatelessComponent {
   final int elevation;
   final void Function()? _onTap;
 
-  /// Creates a structured card.
-  ///
-  /// Use [onTap] or [onClick] for click handling.
   const ArcaneStructuredCard({
     this.header,
     required this.body,
@@ -214,7 +175,6 @@ class ArcaneStructuredCard extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    // Generate shadow based on elevation
     final boxShadow = switch (elevation) {
       0 => 'none',
       1 => '0 1px 2px 0 rgb(0 0 0 / 0.05)',
@@ -271,7 +231,7 @@ class ArcaneStructuredCard extends StatelessComponent {
   }
 }
 
-/// An image card with overlay text
+/// Image card with overlay text.
 class ArcaneImageCard extends StatelessComponent {
   final String imageUrl;
   final String? title;
@@ -282,9 +242,6 @@ class ArcaneImageCard extends StatelessComponent {
   final void Function()? _onTap;
   final BoxFit fit;
 
-  /// Creates an image card.
-  ///
-  /// Use [onTap] or [onClick] for click handling.
   const ArcaneImageCard({
     required this.imageUrl,
     this.title,
@@ -315,7 +272,6 @@ class ArcaneImageCard extends StatelessComponent {
             }
           : null,
       [
-        // Image
         dom.img(
           src: imageUrl,
           alt: title ?? '',
@@ -326,7 +282,6 @@ class ArcaneImageCard extends StatelessComponent {
           }),
         ),
 
-        // Overlay gradient
         if (title != null || subtitle != null || overlay != null)
           dom.div(
             classes: 'arcane-image-card-overlay',

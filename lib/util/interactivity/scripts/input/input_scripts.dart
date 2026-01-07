@@ -1,6 +1,3 @@
-/// Input component interactivity scripts barrel file.
-///
-/// Aggregates all input-related scripts for use in static sites.
 library;
 
 import 'checkbox_scripts.dart';

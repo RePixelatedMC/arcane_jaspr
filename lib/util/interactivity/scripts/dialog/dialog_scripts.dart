@@ -1,6 +1,3 @@
-/// Dialog and overlay interactivity scripts barrel file.
-///
-/// Aggregates all dialog-related scripts for use in static sites.
 library;
 
 import 'chat_scripts.dart';

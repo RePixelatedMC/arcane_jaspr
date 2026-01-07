@@ -1,14 +1,9 @@
 import 'package:jaspr/jaspr.dart';
 
-/// Accordion item data for accordion components.
+/// Accordion item data.
 class AccordionItemProps {
-  /// The title/header text for the accordion item
   final String title;
-
-  /// Plain text content (used if customContent is null)
   final String content;
-
-  /// Custom component content (takes precedence over content)
   final Component? customContent;
 
   const AccordionItemProps({
@@ -18,21 +13,12 @@ class AccordionItemProps {
   });
 }
 
-/// Properties for accordion components.
+/// Accordion component properties.
 class AccordionProps {
-  /// The accordion items
   final List<AccordionItemProps> items;
-
-  /// Set of indices of currently open items
   final Set<int> openItems;
-
-  /// Callback when an item is toggled
   final void Function(int index)? onToggle;
-
-  /// Whether multiple items can be open at once
   final bool allowMultiple;
-
-  /// Whether to show an outer border
   final bool bordered;
 
   const AccordionProps({
@@ -43,7 +29,6 @@ class AccordionProps {
     this.bordered = false,
   });
 
-  /// Create a copy with modified properties
   AccordionProps copyWith({
     List<AccordionItemProps>? items,
     Set<int>? openItems,

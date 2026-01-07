@@ -1,7 +1,6 @@
-/// Color utilities for Arcane Jaspr
-/// Provides a simple color representation for CSS output
 library;
 
+/// ARGB color representation with CSS output.
 class Color {
   final int value;
 
@@ -37,10 +36,8 @@ class Color {
     return Color.fromARGB(a, red, green, blue);
   }
 
-  /// Convert to CSS rgba() string
   String get css => 'rgba($red, $green, $blue, ${opacity.toStringAsFixed(2)})';
 
-  /// Convert to CSS hex string
   String get hex {
     final String r = red.toRadixString(16).padLeft(2, '0');
     final String g = green.toRadixString(16).padLeft(2, '0');
@@ -52,28 +49,24 @@ class Color {
     return '#$r$g$b$a';
   }
 
-  /// Lighten the color by a percentage (0-100)
   Color lighten([int amount = 10]) {
     final hsl = _toHsl();
     final lightness = (hsl[2] + amount / 100).clamp(0.0, 1.0);
     return _fromHsl(hsl[0], hsl[1], lightness);
   }
 
-  /// Darken the color by a percentage (0-100)
   Color darken([int amount = 10]) {
     final hsl = _toHsl();
     final lightness = (hsl[2] - amount / 100).clamp(0.0, 1.0);
     return _fromHsl(hsl[0], hsl[1], lightness);
   }
 
-  /// Spin the hue by degrees
   Color spin(double degrees) {
     final hsl = _toHsl();
     final hue = (hsl[0] + degrees) % 360;
     return _fromHsl(hue < 0 ? hue + 360 : hue, hsl[1], hsl[2]);
   }
 
-  /// Compute luminance (0.0 to 1.0)
   double computeLuminance() {
     final r = _linearize(red / 255);
     final g = _linearize(green / 255);
@@ -159,8 +152,6 @@ extension _DoublePow on double {
   }
 
   double _realPow(double exp) {
-    // Simple implementation using dart:math would require import
-    // For now, approximate for sRGB linearization
     double result = 1;
     double term = 1;
     final double lnBase = _ln(this);
@@ -184,13 +175,12 @@ extension _DoublePow on double {
   }
 }
 
-/// Common colors
+/// Common color constants.
 abstract class Colors {
   static const Color transparent = Color(0x00000000);
   static const Color black = Color(0xFF000000);
   static const Color white = Color(0xFFFFFFFF);
 
-  // Grays
   static const Color gray50 = Color(0xFFF9FAFB);
   static const Color gray100 = Color(0xFFF3F4F6);
   static const Color gray200 = Color(0xFFE5E7EB);
@@ -203,7 +193,6 @@ abstract class Colors {
   static const Color gray900 = Color(0xFF111827);
   static const Color gray950 = Color(0xFF030712);
 
-  // Slate
   static const Color slate50 = Color(0xFFF8FAFC);
   static const Color slate100 = Color(0xFFF1F5F9);
   static const Color slate200 = Color(0xFFE2E8F0);
@@ -216,7 +205,6 @@ abstract class Colors {
   static const Color slate900 = Color(0xFF0F172A);
   static const Color slate950 = Color(0xFF020617);
 
-  // Zinc (Supabase-style dark theme base)
   static const Color zinc50 = Color(0xFFFAFAFA);
   static const Color zinc100 = Color(0xFFF4F4F5);
   static const Color zinc200 = Color(0xFFE4E4E7);
@@ -229,7 +217,6 @@ abstract class Colors {
   static const Color zinc900 = Color(0xFF18181B);
   static const Color zinc950 = Color(0xFF09090B);
 
-  // Primary colors
   static const Color red = Color(0xFFEF4444);
   static const Color orange = Color(0xFFF97316);
   static const Color amber = Color(0xFFF59E0B);
@@ -248,7 +235,6 @@ abstract class Colors {
   static const Color pink = Color(0xFFEC4899);
   static const Color rose = Color(0xFFF43F5E);
 
-  // Extended emerald palette (Supabase accent)
   static const Color emerald50 = Color(0xFFECFDF5);
   static const Color emerald100 = Color(0xFFD1FAE5);
   static const Color emerald200 = Color(0xFFA7F3D0);
@@ -261,7 +247,6 @@ abstract class Colors {
   static const Color emerald900 = Color(0xFF064E3B);
   static const Color emerald950 = Color(0xFF022C22);
 
-  // Extended cyan palette
   static const Color cyan50 = Color(0xFFECFEFF);
   static const Color cyan100 = Color(0xFFCFFAFE);
   static const Color cyan200 = Color(0xFFA5F3FC);
@@ -274,7 +259,6 @@ abstract class Colors {
   static const Color cyan900 = Color(0xFF164E63);
   static const Color cyan950 = Color(0xFF083344);
 
-  // Extended violet palette
   static const Color violet50 = Color(0xFFF5F3FF);
   static const Color violet100 = Color(0xFFEDE9FE);
   static const Color violet200 = Color(0xFFDDD6FE);
@@ -287,7 +271,6 @@ abstract class Colors {
   static const Color violet900 = Color(0xFF4C1D95);
   static const Color violet950 = Color(0xFF2E1065);
 
-  // Extended amber palette
   static const Color amber50 = Color(0xFFFFFBEB);
   static const Color amber100 = Color(0xFFFEF3C7);
   static const Color amber200 = Color(0xFFFDE68A);
@@ -300,7 +283,6 @@ abstract class Colors {
   static const Color amber900 = Color(0xFF78350F);
   static const Color amber950 = Color(0xFF451A03);
 
-  // Extended red palette (for errors/destructive)
   static const Color red50 = Color(0xFFFEF2F2);
   static const Color red100 = Color(0xFFFEE2E2);
   static const Color red200 = Color(0xFFFECACA);

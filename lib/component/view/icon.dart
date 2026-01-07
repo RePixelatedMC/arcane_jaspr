@@ -6,25 +6,18 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' show Unit;
 import 'package:jaspr_lucide/jaspr_lucide.dart' as lucide;
 
-/// Icon size presets for consistent sizing across the app
+/// Icon size presets for consistent sizing.
 enum IconSize {
-  /// 12px - Tiny indicators, badges
   xs,
-  /// 16px - Inline, compact UI, small buttons
   sm,
-  /// 20px - Default size for most UI elements
   md,
-  /// 24px - Prominent icons, large buttons
   lg,
-  /// 32px - Hero sections, feature highlights
   xl,
-  /// 48px - Large displays, marketing sections
   xl2,
 }
 
-/// Extension to convert IconSize to pixel values
+/// Extension to convert IconSize to pixel values.
 extension IconSizeExtension on IconSize {
-  /// Get the pixel value for this size
   double get pixels => switch (this) {
         IconSize.xs => 12,
         IconSize.sm => 16,
@@ -34,24 +27,10 @@ extension IconSizeExtension on IconSize {
         IconSize.xl2 => 48,
       };
 
-  /// Get as Unit for jaspr_lucide icons
   Unit get unit => Unit.pixels(pixels);
 }
 
-/// Wrapper class providing a clean, discoverable API for all 1666 Lucide icons.
-///
-/// Instead of using confusing raw icon constructors like `House()` or `Search()`,
-/// use this class for clarity and discoverability:
-///
-/// ```dart
-/// ArcaneIcon.home()
-/// ArcaneIcon.search(size: IconSize.lg)
-/// ArcaneIcon.settings()
-/// ```
-///
-/// All methods accept an optional [size] parameter (default: IconSize.md = 20px).
-///
-/// For the complete icon catalog, visit: https://lucide.dev/icons
+/// Wrapper class providing access to all 1666 Lucide icons.
 class ArcaneIcon {
   ArcaneIcon._();
 

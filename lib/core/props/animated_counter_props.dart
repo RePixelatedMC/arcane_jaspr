@@ -1,29 +1,14 @@
 import 'package:jaspr/jaspr.dart';
 
-/// Properties for animated counter components.
+/// Animated counter component properties.
 class AnimatedCounterProps {
-  /// The value to display
   final String value;
-
-  /// Prefix (e.g., "$")
   final String? prefix;
-
-  /// Suffix (e.g., "+", "%")
   final String? suffix;
-
-  /// Label text
   final String? label;
-
-  /// Font size
   final String fontSize;
-
-  /// Custom color
   final String? color;
-
-  /// Gradient start color (use with gradientEnd)
   final String? gradientStart;
-
-  /// Gradient end color (use with gradientStart)
   final String? gradientEnd;
 
   const AnimatedCounterProps({
@@ -38,12 +23,9 @@ class AnimatedCounterProps {
   });
 }
 
-/// Properties for counter row components.
+/// Counter row component properties.
 class CounterRowProps {
-  /// Counter components to display
   final List<Component> counters;
-
-  /// Gap between counters
   final String gap;
 
   const CounterRowProps({
@@ -52,21 +34,12 @@ class CounterRowProps {
   });
 }
 
-/// Properties for metric display components.
+/// Metric display component properties.
 class MetricDisplayProps {
-  /// Metric value
   final String value;
-
-  /// Metric label
   final String label;
-
-  /// Optional icon
   final String? icon;
-
-  /// Optional trend indicator
   final String? trend;
-
-  /// Whether trend is positive
   final bool trendPositive;
 
   const MetricDisplayProps({

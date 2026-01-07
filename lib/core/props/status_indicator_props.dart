@@ -1,4 +1,3 @@
-/// Status types
 enum StatusType {
   online,
   offline,
@@ -10,7 +9,7 @@ enum StatusType {
   info,
 }
 
-/// Properties for status indicator components.
+/// Status indicator component properties.
 class StatusIndicatorProps {
   final StatusType status;
   final String? label;
@@ -25,7 +24,7 @@ class StatusIndicatorProps {
   });
 }
 
-/// Properties for simple status badge components (text + dot indicator).
+/// Simple status badge component properties.
 class SimpleStatusBadgeProps {
   final StatusType status;
   final String label;

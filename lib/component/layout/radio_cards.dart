@@ -2,30 +2,17 @@ import 'package:jaspr/jaspr.dart';
 
 import '../../core/theme_provider.dart';
 
-// Re-export from props for convenience
 export '../../core/props/radio_cards_props.dart' show RadioCardItemData, SelectableChipGroupProps, ArcaneChipProps;
 
-/// Type alias for backwards compatibility
 typedef ArcaneRadioCardItem<T> = RadioCardItemData<T>;
 
 /// A group of selectable cards where only one can be selected at a time.
 class ArcaneRadioCards<T> extends StatelessComponent {
-  /// The items to display
   final List<RadioCardItemData<T>> items;
-
-  /// The currently selected value
   final T? value;
-
-  /// Callback when selection changes
   final void Function(T value)? onChanged;
-
-  /// Gap between cards
   final double gap;
-
-  /// Whether to wrap cards
   final bool wrap;
-
-  /// Card width (null for auto)
   final double? cardWidth;
 
   const ArcaneRadioCards({
@@ -51,7 +38,7 @@ class ArcaneRadioCards<T> extends StatelessComponent {
   }
 }
 
-/// A group of selectable chips where multiple can be selected
+/// A group of selectable chips where multiple can be selected.
 class ArcaneChipGroup extends StatelessComponent {
   final List<Component> children;
   final double gap;
@@ -74,7 +61,7 @@ class ArcaneChipGroup extends StatelessComponent {
   }
 }
 
-/// A single chip component
+/// A single chip component.
 class ArcaneChip extends StatelessComponent {
   final String label;
   final Component? avatar;

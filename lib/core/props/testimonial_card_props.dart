@@ -1,24 +1,11 @@
-/// Props for testimonial card component.
+/// Testimonial card component properties.
 class TestimonialCardProps {
-  /// The testimonial quote text
   final String quote;
-
-  /// Author name
   final String authorName;
-
-  /// Author title/role
   final String? authorTitle;
-
-  /// Author company
   final String? authorCompany;
-
-  /// Author avatar URL
   final String? avatarUrl;
-
-  /// Star rating (0-5, null to hide)
   final int? rating;
-
-  /// Whether to show quotation marks
   final bool showQuotes;
 
   const TestimonialCardProps({
@@ -32,21 +19,12 @@ class TestimonialCardProps {
   });
 }
 
-/// Props for simple rating stars component.
+/// Simple rating stars component properties.
 class RatingStarsSimpleProps {
-  /// Rating value (0-5)
   final double rating;
-
-  /// Maximum stars
   final int maxStars;
-
-  /// Star size
   final double size;
-
-  /// Whether the rating is interactive
   final bool interactive;
-
-  /// Callback when rating changes (for interactive mode)
   final void Function(int)? onRatingChanged;
 
   const RatingStarsSimpleProps({

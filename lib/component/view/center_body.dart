@@ -4,21 +4,13 @@ import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, T
 import '../../core/theme_provider.dart';
 import '../../util/arcane.dart';
 
-// Re-export props for usage
 export '../../core/props/center_body_props.dart';
 
 /// A component that centers its content both horizontally and vertically.
 class ArcaneCenterBody extends StatelessComponent {
-  /// The child component
   final Component child;
-
-  /// Maximum width of the content
   final double? maxWidth;
-
-  /// Custom padding
   final EdgeInsets? padding;
-
-  /// Whether to fill the entire viewport height
   final bool fillHeight;
 
   const ArcaneCenterBody({
@@ -40,7 +32,7 @@ class ArcaneCenterBody extends StatelessComponent {
   }
 }
 
-/// A page-level centered content container
+/// A page-level centered content container.
 class ArcanePageBody extends StatelessComponent {
   final List<Component> children;
   final double maxWidth;
@@ -63,7 +55,7 @@ class ArcanePageBody extends StatelessComponent {
   }
 }
 
-/// An empty state component for when there's no content
+/// An empty state component for when there's no content.
 class ArcaneEmptyState extends StatelessComponent {
   final String? title;
   final String? message;
@@ -132,7 +124,7 @@ class ArcaneEmptyState extends StatelessComponent {
   }
 }
 
-/// A loading state component
+/// A loading state component.
 class ArcaneLoadingState extends StatelessComponent {
   final String? message;
 
@@ -149,7 +141,7 @@ class ArcaneLoadingState extends StatelessComponent {
   }
 }
 
-/// An error state component
+/// An error state component.
 class ArcaneErrorState extends StatelessComponent {
   final String? title;
   final String? message;

@@ -1,29 +1,14 @@
 import 'package:jaspr/jaspr.dart';
 
-/// Props for confirm dialog renderer.
+/// Confirm dialog component properties.
 class ConfirmDialogProps {
-  /// Dialog title
   final String title;
-
-  /// Dialog message
   final String message;
-
-  /// Confirm button text
   final String confirmText;
-
-  /// Cancel button text
   final String cancelText;
-
-  /// Confirm callback
   final void Function()? onConfirm;
-
-  /// Cancel callback
   final void Function()? onCancel;
-
-  /// Whether this is a destructive action
   final bool destructive;
-
-  /// Custom icon
   final Component? icon;
 
   const ConfirmDialogProps({
@@ -38,21 +23,12 @@ class ConfirmDialogProps {
   });
 }
 
-/// Props for alert dialog renderer.
+/// Alert dialog component properties.
 class AlertDialogProps {
-  /// Dialog title
   final String title;
-
-  /// Dialog message
   final String message;
-
-  /// Button text
   final String buttonText;
-
-  /// Dismiss callback
   final void Function()? onDismiss;
-
-  /// Custom icon
   final Component? icon;
 
   const AlertDialogProps({

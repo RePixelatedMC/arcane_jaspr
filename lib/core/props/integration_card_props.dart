@@ -1,29 +1,14 @@
 import 'package:jaspr/jaspr.dart';
 
-/// Props for integration card component.
+/// Integration card component properties.
 class IntegrationCardProps {
-  /// Integration name
   final String name;
-
-  /// Description
   final String? description;
-
-  /// Logo image URL
   final String? logoUrl;
-
-  /// Custom logo component
   final Component? logo;
-
-  /// Link URL
   final String? href;
-
-  /// Click handler
   final void Function()? onTap;
-
-  /// Category/tag
   final String? category;
-
-  /// Whether it's featured
   final bool featured;
 
   const IntegrationCardProps({
@@ -38,21 +23,12 @@ class IntegrationCardProps {
   });
 }
 
-/// Props for integration grid component.
+/// Integration grid component properties.
 class IntegrationGridProps {
-  /// Integration card props list
   final List<IntegrationCardProps> integrations;
-
-  /// Number of columns
   final int columns;
-
-  /// Gap between cards
   final double gap;
-
-  /// Optional title
   final String? title;
-
-  /// Optional description
   final String? description;
 
   const IntegrationGridProps({

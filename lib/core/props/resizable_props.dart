@@ -1,26 +1,16 @@
 import 'package:jaspr/jaspr.dart';
 
-/// Direction for resizable panels
 enum ResizeDirection {
   horizontal,
   vertical,
 }
 
-/// A panel within a resizable group
+/// Resizable panel data.
 class ResizablePanelData {
-  /// The panel content
   final Component child;
-
-  /// Default size as percentage
   final double? defaultSize;
-
-  /// Minimum size as percentage
   final double? minSize;
-
-  /// Maximum size as percentage
   final double? maxSize;
-
-  /// Whether this panel can be collapsed
   final bool collapsible;
 
   const ResizablePanelData({
@@ -32,18 +22,11 @@ class ResizablePanelData {
   });
 }
 
-/// Properties for resizable panel group components.
+/// Resizable panel group component properties.
 class ResizableProps {
-  /// The panels to display
   final List<ResizablePanelData> panels;
-
-  /// Direction of the resize
   final ResizeDirection direction;
-
-  /// Handle size in pixels
   final double handleSize;
-
-  /// Whether to show the handle grip dots
   final bool showGrip;
 
   const ResizableProps({

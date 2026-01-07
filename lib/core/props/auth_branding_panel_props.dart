@@ -1,24 +1,11 @@
-/// Props for the AuthBrandingPanel component.
+/// Auth branding panel component properties.
 class AuthBrandingPanelProps {
-  /// URL to the logo image
   final String? logoUrl;
-
-  /// Main tagline text
   final String tagline;
-
-  /// Optional description text below tagline
   final String? description;
-
-  /// List of feature highlights with checkmarks
   final List<String>? features;
-
-  /// Optional testimonial quote
   final String? testimonialQuote;
-
-  /// Optional testimonial author
   final String? testimonialAuthor;
-
-  /// Optional testimonial author title/company
   final String? testimonialTitle;
 
   const AuthBrandingPanelProps({

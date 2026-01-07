@@ -1,53 +1,19 @@
+import 'package:web/web.dart' as web;
+
 import '../../../arcane_jaspr.dart' hide Key, Factory, Target, Import, Contrast, SpellCheck, TextWrap;
 
 /// An interactive, themeable SVG world map component.
-///
-/// Displays location markers with hover tooltips and click callbacks.
-/// Fully themeable via CSS variables.
-///
-/// ```dart
-/// ArcaneWorldMap(
-///   locations: [
-///     ArcaneMapLocation(
-///       id: 'nyc',
-///       name: 'New York',
-///       latitude: 40.7128,
-///       longitude: -74.0060,
-///       code: 'NYC',
-///       region: 'North America',
-///     ),
-///   ],
-///   onLocationTap: (location) => print('Tapped ${location.name}'),
-///   tooltipBuilder: (location) => MyCustomTooltip(location),
-/// )
-/// ```
 class ArcaneWorldMap extends StatefulComponent {
-  /// List of locations to display as pins.
   final List<ArcaneMapLocation> locations;
-
-  /// Callback when a location pin is clicked.
   final MapLocationCallback? onLocationTap;
-
-  /// Callback when a location pin is hovered.
   final MapLocationCallback? onLocationHover;
-
-  /// Custom tooltip builder (overrides default tooltip).
   final Component Function(ArcaneMapLocation location)? tooltipBuilder;
-
-  /// Map style configuration.
   final ArcaneWorldMapStyle style;
-
-  /// Whether to show tooltips on hover.
   final bool showTooltips;
-
-  /// Custom height (width auto-calculates from aspect ratio).
   final String? height;
-
-  /// Optional CSS class name.
   final String? className;
-
-  /// Aspect ratio (width:height), default matches the SVG viewBox.
   final double aspectRatio;
+  final bool debugMode;
 
   const ArcaneWorldMap({
     required this.locations,
@@ -58,7 +24,8 @@ class ArcaneWorldMap extends StatefulComponent {
     this.showTooltips = true,
     this.height,
     this.className,
-    this.aspectRatio = 2.33, // 2000/857 from the SVG viewBox
+    this.aspectRatio = 2.33,
+    this.debugMode = false,
     super.key,
   });
 
@@ -67,7 +34,6 @@ class ArcaneWorldMap extends StatefulComponent {
 
   @css
   static final List<StyleRule> styles = [
-    // Pin hover effects - use filter only, no transform to avoid SVG origin issues
     css('.arcane-map-pin').styles(raw: {
       'cursor': 'pointer',
       'transition': 'filter 150ms ease, opacity 150ms ease',
@@ -75,8 +41,6 @@ class ArcaneWorldMap extends StatefulComponent {
     css('.arcane-map-pin:hover').styles(raw: {
       'filter': 'drop-shadow(0 0 8px var(--arcane-primary)) brightness(1.2)',
     }),
-
-    // Tooltip container
     css('.arcane-map-tooltip').styles(raw: {
       'position': 'absolute',
       'z-index': '1070',
@@ -85,8 +49,6 @@ class ArcaneWorldMap extends StatefulComponent {
       'visibility': 'hidden',
       'transition': 'opacity 150ms ease, visibility 150ms ease',
     }),
-
-    // Show tooltip when visible
     css('.arcane-map-tooltip.visible').styles(raw: {
       'opacity': '1',
       'visibility': 'visible',
@@ -96,6 +58,8 @@ class ArcaneWorldMap extends StatefulComponent {
 
 class _ArcaneWorldMapState extends State<ArcaneWorldMap> {
   ArcaneMapLocation? _hoveredLocation;
+  double? _debugSvgX;
+  double? _debugSvgY;
 
   void _handlePinEnter(ArcaneMapLocation location) {
     setState(() => _hoveredLocation = location);
@@ -110,17 +74,51 @@ class _ArcaneWorldMapState extends State<ArcaneWorldMap> {
     component.onLocationTap?.call(location);
   }
 
+  void _handleDebugMouseMove(web.MouseEvent mouseEvent) {
+    if (!component.debugMode) return;
+
+    final target = mouseEvent.currentTarget as web.Element;
+    final rect = target.getBoundingClientRect();
+    final svgWidth = rect.width;
+    final svgHeight = rect.height;
+
+    final relX = (mouseEvent.clientX - rect.left) / svgWidth;
+    final relY = (mouseEvent.clientY - rect.top) / svgHeight;
+
+    final svgX = relX * ArcaneMapProjection.mapWidth;
+    final svgY = relY * ArcaneMapProjection.mapHeight;
+
+    setState(() {
+      _debugSvgX = svgX;
+      _debugSvgY = svgY;
+    });
+  }
+
+  void _handleDebugMouseLeave() {
+    if (!component.debugMode) return;
+    setState(() {
+      _debugSvgX = null;
+      _debugSvgY = null;
+    });
+  }
+
+  void _handleDebugClick() {
+    if (!component.debugMode || _debugSvgX == null || _debugSvgY == null) return;
+
+    final (lat, lng) = ArcaneMapProjection.svgToLatLng(_debugSvgX!, _debugSvgY!);
+    final coordText = '${lat.toStringAsFixed(4)}, ${lng.toStringAsFixed(4)}';
+
+    web.window.navigator.clipboard.writeText(coordText);
+  }
+
   @override
   Component build(BuildContext context) {
     final style = component.style;
 
-    // Default colors using theme tokens
     final landFill = style.landFill ?? 'var(--muted)';
     final landStroke = style.landStroke ?? 'var(--border)';
     final oceanFill = style.oceanFill ?? 'var(--background)';
 
-    // Use a wrapper with inline style for aspect-ratio since ArcaneStyleData
-    // doesn't have built-in aspectRatio support yet
     return Component.element(
       tag: 'div',
       classes: 'arcane-world-map ${component.className ?? ""}',
@@ -130,9 +128,17 @@ class _ArcaneWorldMapState extends State<ArcaneWorldMap> {
         if (component.height != null) 'height': component.height!,
         'aspect-ratio': '${component.aspectRatio}',
         'overflow': 'visible',
+        if (component.debugMode) 'cursor': 'crosshair',
       }),
+      events: component.debugMode
+          ? {
+              'mousemove': (event) =>
+                  _handleDebugMouseMove(event as web.MouseEvent),
+              'mouseleave': (_) => _handleDebugMouseLeave(),
+              'click': (_) => _handleDebugClick(),
+            }
+          : null,
       children: [
-        // SVG Map
         ArcaneSvg(
           viewBox: ArcaneMapProjection.viewBox,
           attributes: {
@@ -140,10 +146,7 @@ class _ArcaneWorldMapState extends State<ArcaneWorldMap> {
             'style': 'width: 100%; height: 100%; display: block;',
           },
           children: [
-            // Defs for gradients and filters
             _buildDefs(),
-
-            // Background (ocean)
             ArcaneSvgRect(
               x: '0',
               y: '0',
@@ -151,8 +154,6 @@ class _ArcaneWorldMapState extends State<ArcaneWorldMap> {
               height: '${ArcaneMapProjection.mapHeight}',
               fill: oceanFill,
             ),
-
-            // Country/continent paths
             ...ArcaneWorldMapPaths.allPaths.map(
               (svgPath) => ArcaneSvgPath(
                 d: svgPath,
@@ -161,15 +162,89 @@ class _ArcaneWorldMapState extends State<ArcaneWorldMap> {
                 strokeWidth: style.strokeWidth,
               ),
             ),
-
-            // Location pins
             ...component.locations.map((location) => _buildPin(location)),
           ],
         ),
-
-        // Floating tooltip
         if (_hoveredLocation != null && component.showTooltips)
           _buildTooltip(_hoveredLocation!),
+        if (component.debugMode && _debugSvgX != null && _debugSvgY != null)
+          _buildDebugTooltip(),
+      ],
+    );
+  }
+
+  Component _buildDebugTooltip() {
+    final (lat, lng) = ArcaneMapProjection.svgToLatLng(_debugSvgX!, _debugSvgY!);
+
+    final leftPercent = (_debugSvgX! / ArcaneMapProjection.mapWidth) * 100;
+    final topPercent = (_debugSvgY! / ArcaneMapProjection.mapHeight) * 100;
+
+    return ArcaneDiv(
+      classes: 'arcane-map-debug-tooltip',
+      styles: ArcaneStyleData(
+        position: Position.absolute,
+        left: '$leftPercent%',
+        top: 'calc($topPercent% + 15px)',
+        transformCustom: 'translateX(-50%)',
+        zIndex: ZIndex.tooltip,
+        pointerEvents: PointerEvents.none,
+      ),
+      children: [
+        ArcaneDiv(
+          styles: const ArcaneStyleData(
+            background: Background.surface,
+            border: BorderPreset.subtle,
+            borderRadius: Radius.md,
+            shadow: Shadow.md,
+            padding: PaddingPreset.sm,
+          ),
+          children: [
+            ArcaneDiv(
+              styles: const ArcaneStyleData(
+                fontSize: FontSize.xs,
+                fontFamily: FontFamily.mono,
+                textColor: TextColor.primary,
+                whiteSpace: WhiteSpace.nowrap,
+              ),
+              children: [
+                Component.text('Lat: ${lat.toStringAsFixed(4)}'),
+              ],
+            ),
+            ArcaneDiv(
+              styles: const ArcaneStyleData(
+                fontSize: FontSize.xs,
+                fontFamily: FontFamily.mono,
+                textColor: TextColor.primary,
+                whiteSpace: WhiteSpace.nowrap,
+              ),
+              children: [
+                Component.text('Lng: ${lng.toStringAsFixed(4)}'),
+              ],
+            ),
+            ArcaneDiv(
+              styles: const ArcaneStyleData(
+                fontSize: FontSize.xs,
+                fontFamily: FontFamily.mono,
+                textColor: TextColor.mutedForeground,
+                whiteSpace: WhiteSpace.nowrap,
+                margin: MarginPreset.topXs,
+              ),
+              children: [
+                Component.text('SVG: ${_debugSvgX!.toInt()}, ${_debugSvgY!.toInt()}'),
+              ],
+            ),
+            ArcaneDiv(
+              styles: const ArcaneStyleData(
+                fontSize: FontSize.xs,
+                textColor: TextColor.brand,
+                margin: MarginPreset.topXs,
+              ),
+              children: [
+                Component.text('Click to copy'),
+              ],
+            ),
+          ],
+        ),
       ],
     );
   }
@@ -178,7 +253,6 @@ class _ArcaneWorldMapState extends State<ArcaneWorldMap> {
     return const Component.element(
       tag: 'defs',
       children: [
-        // Glow filter for pins
         Component.element(
           tag: 'filter',
           attributes: {
@@ -219,16 +293,12 @@ class _ArcaneWorldMapState extends State<ArcaneWorldMap> {
   }
 
   Component _buildPin(ArcaneMapLocation location) {
-    // Use pre-calculated SVG coordinates if available, otherwise convert lat/lng
     final (double x, double y) = ArcaneMapProjection.citySvgCoords[location.id] ??
         ArcaneMapProjection.latLngToSvg(location.latitude, location.longitude);
 
     final style = component.style;
     final isHovered = _hoveredLocation?.id == location.id;
 
-    // Determine pin color based on state
-    // Using primary instead of accent for ShadCN compatibility
-    // (accent is a background color in ShadCN, primary is always prominent)
     final String pinColor;
     if (location.isActive) {
       pinColor = style.pinActiveColor ?? 'var(--success)';
@@ -255,23 +325,18 @@ class _ArcaneWorldMapState extends State<ArcaneWorldMap> {
         'click': (_) => _handlePinTap(location),
       },
       children: [
-        // Outer glow (using primary RGB for ShadCN compatibility)
         ArcaneSvgCircle(
           cx: '0',
           cy: '0',
           r: '${pinSize + 4}',
           fill: 'rgba(var(--arcane-primary-rgb), $glowAlpha)',
         ),
-
-        // Main pin
         ArcaneSvgCircle(
           cx: '0',
           cy: '0',
           r: '$pinSize',
           fill: pinColor,
         ),
-
-        // Inner highlight
         ArcaneSvgCircle(
           cx: '0',
           cy: '0',
@@ -283,15 +348,12 @@ class _ArcaneWorldMapState extends State<ArcaneWorldMap> {
   }
 
   Component _buildTooltip(ArcaneMapLocation location) {
-    // Use pre-calculated SVG coordinates if available, otherwise convert lat/lng
     final (double x, double y) = ArcaneMapProjection.citySvgCoords[location.id] ??
         ArcaneMapProjection.latLngToSvg(location.latitude, location.longitude);
 
-    // Convert SVG coordinates to percentage for positioning
     final leftPercent = (x / ArcaneMapProjection.mapWidth) * 100;
     final topPercent = (y / ArcaneMapProjection.mapHeight) * 100;
 
-    // Custom tooltip or default
     final tooltipContent = component.tooltipBuilder?.call(location) ??
         _buildDefaultTooltip(location);
 
@@ -320,7 +382,6 @@ class _ArcaneWorldMapState extends State<ArcaneWorldMap> {
         maxWidthCustom: '240px',
       ),
       children: [
-        // Location name
         ArcaneDiv(
           styles: const ArcaneStyleData(
             fontSize: FontSize.md,
@@ -330,8 +391,6 @@ class _ArcaneWorldMapState extends State<ArcaneWorldMap> {
           ),
           children: [Component.text(location.name)],
         ),
-
-        // Region
         if (location.region != null)
           ArcaneDiv(
             styles: const ArcaneStyleData(
@@ -341,8 +400,6 @@ class _ArcaneWorldMapState extends State<ArcaneWorldMap> {
             ),
             children: [Component.text(location.region!)],
           ),
-
-        // Code badge
         if (location.code != null)
           ArcaneSpan(
             styles: const ArcaneStyleData(
@@ -356,8 +413,6 @@ class _ArcaneWorldMapState extends State<ArcaneWorldMap> {
             ),
             child: Component.text(location.code!),
           ),
-
-        // Description
         if (location.description != null)
           ArcaneDiv(
             styles: const ArcaneStyleData(

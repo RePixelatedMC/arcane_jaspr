@@ -1,13 +1,8 @@
-/// SVG path data and projection utilities for ArcaneUSAMap.
 library usa_map_paths;
 
-/// Map projection utilities and constants for the USA map.
-///
-/// Uses the SimpleMaps us.svg dimensions (1000x589).
 class ArcaneUSAMapProjection {
   ArcaneUSAMapProjection._();
 
-  /// Standard viewBox for the USA map (matches assets/map/us.svg).
   static const String viewBox = '0 0 1000 589';
 
   /// Map width in SVG units.
@@ -72,6 +67,21 @@ class ArcaneUSAMapProjection {
     final y = ((50 - lat) / 25) * 450 + 50;
 
     return (x.clamp(0, mapWidth), y.clamp(0, mapHeight));
+  }
+
+  /// Convert SVG x/y coordinates back to latitude/longitude.
+  ///
+  /// Note: This is the inverse of the latLngToSvg approximation.
+  static (double lat, double lng) svgToLatLng(double x, double y) {
+    // Inverse of: x = ((lng + 125) / 58) * 900 + 50
+    // Solve for lng: lng = ((x - 50) / 900) * 58 - 125
+    final lng = ((x - 50) / 900) * 58 - 125;
+
+    // Inverse of: y = ((50 - lat) / 25) * 450 + 50
+    // Solve for lat: lat = 50 - ((y - 50) / 450) * 25
+    final lat = 50 - ((y - 50) / 450) * 25;
+
+    return (lat, lng);
   }
 
   /// State name lookup by code.

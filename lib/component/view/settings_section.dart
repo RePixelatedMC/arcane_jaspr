@@ -2,23 +2,13 @@ import 'package:jaspr/jaspr.dart';
 
 import '../../core/theme_provider.dart';
 
-// Re-export props for usage
 export '../../core/props/settings_section_props.dart';
 
 /// A settings section card with a title and content.
-///
-/// Use this for grouping related settings in a dashboard.
 class ArcaneSettingsSection extends StatelessComponent {
-  /// The section title
   final String title;
-
-  /// Optional description below the title
   final String? description;
-
-  /// The section content
   final List<Component> children;
-
-  /// Whether this is a danger zone section (destructive actions)
   final bool danger;
 
   const ArcaneSettingsSection({
@@ -29,7 +19,6 @@ class ArcaneSettingsSection extends StatelessComponent {
     this.danger = false,
   });
 
-  /// Creates a danger zone section (red border, destructive styling)
   const ArcaneSettingsSection.danger({
     super.key,
     required this.title,
@@ -48,15 +37,10 @@ class ArcaneSettingsSection extends StatelessComponent {
   }
 }
 
-/// A row displaying a label and value (for profile info, etc.)
+/// A row displaying a label and value.
 class ArcaneSettingsInfoRow extends StatelessComponent {
-  /// The label/name
   final String label;
-
-  /// The value to display
   final String value;
-
-  /// Whether to use monospace font for the value
   final bool monospace;
 
   const ArcaneSettingsInfoRow({
@@ -76,21 +60,12 @@ class ArcaneSettingsInfoRow extends StatelessComponent {
   }
 }
 
-/// A toggle switch row for settings (title, description, toggle)
+/// A toggle switch row for settings.
 class ArcaneSettingsToggleRow extends StatelessComponent {
-  /// The toggle title
   final String title;
-
-  /// Optional description
   final String? description;
-
-  /// Whether the toggle is enabled
   final bool enabled;
-
-  /// Callback when toggle changes
   final void Function(bool)? onChanged;
-
-  /// Whether the toggle is disabled
   final bool disabled;
 
   const ArcaneSettingsToggleRow({
@@ -114,12 +89,9 @@ class ArcaneSettingsToggleRow extends StatelessComponent {
   }
 }
 
-/// A subsection header within a settings section
+/// A subsection header within a settings section.
 class ArcaneSettingsSubheader extends StatelessComponent {
-  /// The subsection title
   final String title;
-
-  /// Optional description
   final String? description;
 
   const ArcaneSettingsSubheader({
@@ -137,12 +109,9 @@ class ArcaneSettingsSubheader extends StatelessComponent {
   }
 }
 
-/// A note/info box within a settings section
+/// A note/info box within a settings section.
 class ArcaneSettingsNote extends StatelessComponent {
-  /// The note text
   final String text;
-
-  /// The note variant
   final SettingsNoteVariant variant;
 
   const ArcaneSettingsNote({

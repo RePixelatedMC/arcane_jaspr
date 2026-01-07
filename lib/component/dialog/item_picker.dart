@@ -17,60 +17,22 @@ import '../../core/theme_provider.dart';
 
 export '../../core/props/item_picker_props.dart';
 
-/// A general-purpose item picker dialog.
-///
-/// ```dart
-/// ArcaneItemPicker<String>(
-///   title: 'Select Country',
-///   items: ['USA', 'Canada', 'Mexico', 'UK', 'Germany'],
-///   onSelect: (country) => handleSelection(country),
-///   itemBuilder: (item) => Component.text(item),
-/// )
-/// ```
+/// General-purpose item picker dialog with search and multi-select support.
 class ArcaneItemPicker<T> extends StatelessComponent {
-  /// Dialog title
   final String title;
-
-  /// Items to pick from
   final List<T> items;
-
-  /// Builder for each item
   final Component Function(T item) itemBuilder;
-
-  /// Currently selected item
   final T? selectedItem;
-
-  /// Called when an item is selected
   final void Function(T item)? onSelect;
-
-  /// Called when dialog is cancelled
   final void Function()? onCancel;
-
-  /// Optional search/filter function
   final bool Function(T item, String query)? searchFilter;
-
-  /// Whether to show search box
   final bool showSearch;
-
-  /// Search placeholder
   final String searchPlaceholder;
-
-  /// Confirm button text (null for immediate selection)
   final String? confirmText;
-
-  /// Cancel button text
   final String cancelText;
-
-  /// Whether multiple items can be selected
   final bool multiSelect;
-
-  /// For multi-select: currently selected items
   final List<T>? selectedItems;
-
-  /// For multi-select: callback with all selected items
   final void Function(List<T> items)? onMultiSelect;
-
-  /// Maximum height for the list
   final int maxHeight;
 
   const ArcaneItemPicker({
@@ -114,18 +76,11 @@ class ArcaneItemPicker<T> extends StatelessComponent {
   }
 }
 
-/// Item option for the picker
+/// Item option with optional subtitle and leading widget for the picker.
 class ItemPickerOption<T> extends StatelessComponent {
-  /// The item value
   final T value;
-
-  /// Display content
   final Component child;
-
-  /// Optional subtitle/description
   final String? subtitle;
-
-  /// Optional leading widget
   final Component? leading;
 
   const ItemPickerOption({

@@ -1,4 +1,3 @@
-/// Barrel export for all interactivity scripts.
 library;
 
 export 'slider_scripts.dart';

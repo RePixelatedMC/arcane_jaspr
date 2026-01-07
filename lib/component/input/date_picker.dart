@@ -6,7 +6,7 @@ import 'calendar.dart';
 export '../../core/props/date_picker_props.dart'
     show DatePickerSizeVariant, DatePickerProps;
 
-/// Size variants for date picker
+/// Size variants for date picker.
 enum DatePickerSize {
   sm,
   md,
@@ -14,60 +14,21 @@ enum DatePickerSize {
 }
 
 /// A date picker input with calendar dropdown.
-///
-/// Example:
-/// ```dart
-/// ArcaneDatePicker(
-///   value: selectedDate,
-///   onChanged: (date) => setState(() => selectedDate = date),
-///   label: 'Birth Date',
-///   placeholder: 'Select date...',
-/// )
-/// ```
 class ArcaneDatePicker extends StatefulComponent {
-  /// Currently selected date
   final DateTime? value;
-
-  /// Called when date changes
   final void Function(DateTime?)? onChanged;
-
-  /// Label above the input
   final String? label;
-
-  /// Placeholder text
   final String? placeholder;
-
-  /// Date format function
   final String Function(DateTime)? formatDate;
-
-  /// Minimum selectable date
   final DateTime? minDate;
-
-  /// Maximum selectable date
   final DateTime? maxDate;
-
-  /// Custom function to disable specific dates
   final bool Function(DateTime)? disabledDates;
-
-  /// Whether the picker is disabled
   final bool disabled;
-
-  /// Error message
   final String? error;
-
-  /// Whether to allow clearing the date
   final bool clearable;
-
-  /// Size variant
   final DatePickerSize size;
-
-  /// Selection mode
   final CalendarMode mode;
-
-  /// Selected date range (for range mode)
   final DateRange? rangeValue;
-
-  /// Called when range is selected
   final void Function(DateRange?)? onRangeChanged;
 
   const ArcaneDatePicker({
@@ -89,7 +50,6 @@ class ArcaneDatePicker extends StatefulComponent {
     super.key,
   });
 
-  /// Creates a date range picker
   const ArcaneDatePicker.range({
     this.rangeValue,
     this.onRangeChanged,

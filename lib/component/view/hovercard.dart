@@ -7,75 +7,28 @@ import '../../core/theme_provider.dart';
 export '../../core/props/hovercard_props.dart'
     show HovercardPositionVariant, HovercardProps;
 
-/// Hovercard position relative to the trigger element
+/// Hovercard position relative to the trigger element.
 enum HovercardPosition {
-  /// Above the trigger, centered
   top,
-
-  /// Below the trigger, centered
   bottom,
-
-  /// To the left of the trigger
   left,
-
-  /// To the right of the trigger
   right,
-
-  /// Above and aligned to the start (left in LTR)
   topStart,
-
-  /// Above and aligned to the end (right in LTR)
   topEnd,
-
-  /// Below and aligned to the start
   bottomStart,
-
-  /// Below and aligned to the end
   bottomEnd,
 }
 
 /// A floating card that appears on hover with rich, interactive content.
-/// ShadCN Reference: https://ui.shadcn.com/docs/components/hover-card
-///
-/// Unlike tooltips, hovercards can contain interactive elements like buttons
-/// and links. The card stays open while the user hovers over either the
-/// trigger or the card itself.
-///
-/// ```dart
-/// ArcaneHovercard(
-///   trigger: ArcaneAvatar(name: 'John Doe'),
-///   content: UserProfileCard(user: user),
-///   position: HovercardPosition.bottom,
-///   openDelay: 200,
-///   closeDelay: 300,
-/// )
-/// ```
 class ArcaneHovercard extends StatefulComponent {
-  /// The element that triggers the hovercard on hover
   final Component trigger;
-
-  /// The content displayed inside the hovercard
   final Component content;
-
-  /// Position of the hovercard relative to the trigger
   final HovercardPosition position;
-
-  /// Whether to show an arrow pointing to the trigger
   final bool showArrow;
-
-  /// Delay in milliseconds before showing the hovercard
   final int openDelay;
-
-  /// Delay in milliseconds before hiding the hovercard
   final int closeDelay;
-
-  /// Distance in pixels between the trigger and the hovercard
   final int offset;
-
-  /// External control of the open state (optional)
   final bool? isOpen;
-
-  /// Callback when the open state changes
   final void Function(bool isOpen)? onOpenChange;
 
   const ArcaneHovercard({

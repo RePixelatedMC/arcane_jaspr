@@ -17,42 +17,19 @@ import '../../core/theme_provider.dart';
 
 export '../../core/props/dashboard_layout_props.dart';
 
-/// A navigation item for the dashboard sidebar (re-export from props)
 typedef ArcaneDashboardNavItem = DashboardNavItem;
-
-/// A group of navigation items with an optional label (re-export from props)
 typedef ArcaneDashboardNavGroup = DashboardNavGroup;
 
 /// A reusable dashboard layout with sidebar navigation.
-///
-/// Use this for client dashboards, admin panels, or any authenticated area.
-/// The sidebar includes navigation groups, a header slot, and a footer slot.
 class ArcaneDashboardLayout extends StatelessComponent {
-  /// The main content to display
   final Component child;
-
-  /// The current route path for active state highlighting
   final String currentRoute;
-
-  /// Navigation groups to display in the sidebar
   final List<DashboardNavGroup> navigation;
-
-  /// Header component for the sidebar (typically a logo)
   final Component? sidebarHeader;
-
-  /// Footer component for the sidebar (typically settings/logout)
   final Component? sidebarFooter;
-
-  /// Top bar component (typically user info/notifications)
   final Component? topBar;
-
-  /// Sidebar width
   final String sidebarWidth;
-
-  /// Background color for the main area
   final String backgroundColor;
-
-  /// Background color for the sidebar
   final String sidebarBackgroundColor;
 
   const ArcaneDashboardLayout({
@@ -85,16 +62,9 @@ class ArcaneDashboardLayout extends StatelessComponent {
 }
 
 /// A simple top bar component for dashboard layouts.
-///
-/// Displays breadcrumbs/title on the left and user actions on the right.
 class ArcaneDashboardTopBar extends StatelessComponent {
-  /// Left side content (e.g., breadcrumbs, page title)
   final Component? leading;
-
-  /// Right side content (e.g., notifications, user menu)
   final Component? trailing;
-
-  /// Background color
   final String backgroundColor;
 
   const ArcaneDashboardTopBar({
@@ -116,16 +86,9 @@ class ArcaneDashboardTopBar extends StatelessComponent {
 
 /// A user menu component for the dashboard top bar.
 class ArcaneDashboardUserMenu extends StatelessComponent {
-  /// User's display name
   final String? userName;
-
-  /// User's subtitle (e.g., plan name, role)
   final String? userSubtitle;
-
-  /// User's avatar URL
   final String? avatarUrl;
-
-  /// Callback when user menu is clicked
   final void Function()? onTap;
 
   const ArcaneDashboardUserMenu({
@@ -156,7 +119,6 @@ class ArcaneDashboardUserMenu extends StatelessComponent {
         if (onTap != null) 'click': (e) => onTap!(),
       },
       [
-        // Avatar
         div(
           styles: const Styles(raw: {
             'width': '36px',
@@ -179,7 +141,6 @@ class ArcaneDashboardUserMenu extends StatelessComponent {
               ),
           ],
         ),
-        // Name and subtitle
         if (userName != null || userSubtitle != null)
           div(
             styles: const Styles(raw: {

@@ -1,68 +1,29 @@
 import 'package:jaspr/jaspr.dart';
 
-/// Tag input style variants
 enum TagInputStyleVariant {
-  /// Default style with border
   outline,
-
-  /// Filled background style
   filled,
-
-  /// Ghost/minimal style
   ghost,
 }
 
-/// Properties for tag input components.
+/// Tag input component properties.
 class TagInputProps {
-  /// Current list of tags
   final List<String> tags;
-
-  /// Callback when tags change
   final void Function(List<String>)? onTagsChanged;
-
-  /// Placeholder text
   final String placeholder;
-
-  /// Style variant
   final TagInputStyleVariant style;
-
-  /// Maximum number of tags allowed (null = unlimited)
   final int? maxTags;
-
-  /// Whether duplicate tags are allowed
   final bool allowDuplicates;
-
-  /// Whether the input is disabled
   final bool disabled;
-
-  /// Label text
   final String? label;
-
-  /// Helper text
   final String? helperText;
-
-  /// Error message
   final String? errorText;
-
-  /// Current input value (for controlled input)
   final String inputValue;
-
-  /// Whether the input is currently focused
   final bool isFocused;
-
-  /// Callback when input value changes
   final void Function(String)? onInputChange;
-
-  /// Callback when a key is pressed
   final void Function(String)? onKeyDown;
-
-  /// Callback to remove a tag by index
   final void Function(int)? onRemoveTag;
-
-  /// Callback when focus changes
   final void Function(bool)? onFocusChange;
-
-  /// Custom tag builder
   final Component Function(String tag, VoidCallback onRemove)? tagBuilder;
 
   const TagInputProps({
@@ -85,7 +46,6 @@ class TagInputProps {
     this.tagBuilder,
   });
 
-  /// Create a copy with modified properties
   TagInputProps copyWith({
     List<String>? tags,
     void Function(List<String>)? onTagsChanged,

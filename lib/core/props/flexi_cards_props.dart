@@ -1,26 +1,13 @@
 import 'package:jaspr/jaspr.dart';
 
-/// Data class for a flexi card item.
+/// Flexi card item data.
 class FlexiCardItem {
-  /// Icon component displayed at the top of the card
   final Component icon;
-
-  /// Short text - always visible, used as the title
   final String shortText;
-
-  /// Long text - expanded description shown when card is focused
   final String longText;
-
-  /// Optional header/top bar component
   final Component? header;
-
-  /// Optional footer component
   final Component? footer;
-
-  /// Optional click handler
   final void Function()? onTap;
-
-  /// Optional link href
   final String? href;
 
   const FlexiCardItem({
@@ -34,45 +21,20 @@ class FlexiCardItem {
   });
 }
 
-/// Props for the FlexiCards component.
+/// FlexiCards component properties.
 class FlexiCardsProps {
-  /// The list of card items to display
   final List<FlexiCardItem> items;
-
-  /// The flex-grow value for non-hovered cards (default: 1)
   final double collapsedFlex;
-
-  /// The flex-grow value for the hovered card (default: 2)
   final double expandedFlex;
-
-  /// Whether to also scale height on hover
   final bool scaleHeight;
-
-  /// Height scale factor when scaleHeight is true (e.g., 1.1 = 10% taller)
   final double heightScaleFactor;
-
-  /// Gap between cards
   final String gap;
-
-  /// Minimum width of each card
   final String minCardWidth;
-
-  /// Transition duration in milliseconds
   final int transitionDuration;
-
-  /// Whether to show the long text only on hover (true) or always (false)
   final bool expandLongTextOnHover;
-
-  /// Locked height for collapsed (non-hovered) cards.
   final String? heightPreLock;
-
-  /// Locked height for expanded (hovered) cards.
   final String? heightPostLock;
-
-  /// Locked width for collapsed (non-hovered) cards.
   final String? widthPreLock;
-
-  /// Locked width for expanded (hovered) cards.
   final String? widthPostLock;
 
   const FlexiCardsProps({
@@ -92,12 +54,9 @@ class FlexiCardsProps {
   });
 }
 
-/// Props for the simple FlexiCards component.
+/// FlexiCards simple component properties.
 class FlexiCardsSimpleProps {
-  /// The list of card items to display
   final List<FlexiCardItem> items;
-
-  /// Gap between cards
   final String gap;
 
   const FlexiCardsSimpleProps({

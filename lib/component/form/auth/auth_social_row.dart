@@ -1,20 +1,10 @@
 import 'package:arcane_jaspr/arcane_jaspr.dart';
 
 /// Row of social OAuth provider buttons.
-///
-/// Displays icon-only buttons in a horizontal row for
-/// social authentication providers (GitHub, Google, Apple).
 class AuthSocialRow extends StatelessComponent {
-  /// List of auth methods to display
   final List<AuthMethod> methods;
-
-  /// Callback when a provider button is clicked
   final void Function(AuthMethod)? onTap;
-
-  /// Whether the buttons are loading
   final bool loading;
-
-  /// Whether the buttons are disabled
   final bool disabled;
 
   const AuthSocialRow({
@@ -27,7 +17,6 @@ class AuthSocialRow extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    // Filter to only social methods
     final socialMethods = methods
         .where((m) =>
             m == AuthMethod.github ||

@@ -27,19 +27,7 @@ import 'package:jaspr/dom.dart'
 
 import '../../util/style_types/arcane_style_data.dart';
 
-/// A bullet list component for displaying unordered items.
-///
-/// This wraps the HTML `<ul>` element.
-///
-/// Example:
-/// ```dart
-/// ArcaneBulletList(
-///   children: [
-///     ArcaneListItem(child: ArcaneText('First item')),
-///     ArcaneListItem(child: ArcaneText('Second item')),
-///   ],
-/// )
-/// ```
+/// Styled unordered list wrapper.
 class ArcaneBulletList extends StatelessComponent {
   final List<Component> children;
   final ArcaneStyleData? styles;
@@ -65,19 +53,7 @@ class ArcaneBulletList extends StatelessComponent {
   }
 }
 
-/// A numbered list component for displaying ordered items.
-///
-/// This wraps the HTML `<ol>` element.
-///
-/// Example:
-/// ```dart
-/// ArcaneNumberedList(
-///   children: [
-///     ArcaneListItem(child: ArcaneText('Step 1')),
-///     ArcaneListItem(child: ArcaneText('Step 2')),
-///   ],
-/// )
-/// ```
+/// Styled ordered list wrapper.
 class ArcaneNumberedList extends StatelessComponent {
   final List<Component> children;
   final ArcaneStyleData? styles;
@@ -103,9 +79,7 @@ class ArcaneNumberedList extends StatelessComponent {
   }
 }
 
-/// A list item component for use inside ArcaneBulletList or ArcaneNumberedList.
-///
-/// This wraps the HTML `<li>` element.
+/// Styled list item wrapper.
 class ArcaneListItem extends StatelessComponent {
   final Component child;
   final ArcaneStyleData? styles;
@@ -167,4 +141,3 @@ class _Placeholder extends StatelessComponent {
   @override
   Component build(BuildContext context) => const Component.text('');
 }
-

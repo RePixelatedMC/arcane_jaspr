@@ -8,492 +8,131 @@ import 'typography.dart';
 import 'effects.dart';
 
 /// Immutable style configuration with type-safe enum properties.
-///
-/// [ArcaneStyleData] is the core styling class in Arcane Jaspr, providing
-/// a Flutter-like declarative API for CSS styling. It converts enum-based
-/// properties to CSS, ensuring type safety and IDE autocomplete support.
-///
-/// ## Basic Usage
-///
-/// ```dart
-/// ArcaneDiv(
-///   styles: const ArcaneStyleData(
-///     display: Display.flex,
-///     flexDirection: FlexDirection.column,
-///     gap: Gap.md,
-///     padding: PaddingPreset.lg,
-///     background: Background.surface,
-///     borderRadius: Radius.lg,
-///   ),
-///   children: [...],
-/// )
-/// ```
-///
-/// ## Property Categories
-///
-/// ### Layout
-/// - [display], [flexDirection], [flexWrap] - Flex container setup
-/// - [mainAxisAlignment], [crossAxisAlignment] - Alignment
-/// - [position], [zIndex] - Positioning
-/// - [overflow], [overflowX], [overflowY] - Overflow handling
-///
-/// ### Sizing
-/// - [width], [height] - Using [Size] enum
-/// - [widthCustom], [heightCustom] - Custom string values
-/// - [maxWidth], [minWidth], [maxHeight], [minHeight] - Constraints
-/// - [flex], [flexGrow], [flexShrink], [flexBasis] - Flex item sizing
-///
-/// ### Grid
-/// - [gridColumns], [gridRows] - Grid template definitions
-/// - [placeItems], [placeContent] - Grid alignment
-/// - [gridAutoFlow] - Auto-placement direction
-///
-/// ### Spacing
-/// - [padding] - Using [PaddingPreset] enum
-/// - [margin] - Using [MarginPreset] enum
-/// - [gap], [rowGap], [columnGap] - Flex/grid gaps
-///
-/// ### Colors
-/// - [background] - Using [Background] enum (theme-aware)
-/// - [textColor] - Using [TextColor] enum (theme-aware)
-///
-/// ### Borders
-/// - [border], [borderTop], [borderBottom], etc. - Using [BorderPreset]
-/// - [borderRadius] - Using [Radius] enum
-/// - [borderWidth], [borderLeftWidth], etc. - Using [BorderWidth]
-///
-/// ### Typography
-/// - [fontSize] - Using [FontSize] enum
-/// - [fontWeight] - Using [FontWeight] enum
-/// - [lineHeight], [letterSpacing] - Text spacing
-/// - [textAlign], [textDecoration], [textTransform]
-///
-/// ### Effects
-/// - [shadow] - Using [Shadow] enum
-/// - [transition] - Using [Transition] enum
-/// - [opacity], [cursor], [transform]
-///
-/// ## Merging Styles
-///
-/// ```dart
-/// final baseStyle = ArcaneStyleData(padding: PaddingPreset.md);
-/// final combinedStyle = baseStyle.merge(ArcaneStyleData(
-///   background: Background.surface,
-/// ));
-/// ```
-///
-/// ## Custom CSS (Escape Hatch)
-///
-/// For properties not covered by enums, use [raw]:
-///
-/// ```dart
-/// ArcaneStyleData(
-///   display: Display.flex,
-///   raw: {'backdrop-filter': 'blur(10px)'},
-/// )
-/// ```
-///
-/// ## Static Presets
-///
-/// Common patterns available as static constants:
-///
-/// ```dart
-/// ArcaneStyleData.row          // Flex row with center alignment
-/// ArcaneStyleData.rowSpaced    // Flex row with space-between
-/// ArcaneStyleData.column       // Flex column
-/// ArcaneStyleData.flexCenter   // Centered on both axes
-/// ArcaneStyleData.fullSize     // 100% width and height
-/// ArcaneStyleData.absoluteFill // Position absolute with inset: 0
-/// ```
-///
-/// ## See Also
-///
-/// - [PaddingPreset] - Padding values
-/// - [MarginPreset] - Margin values
-/// - [Gap] - Flex/grid gap values
-/// - [Background] - Theme-aware background colors
-/// - [TextColor] - Theme-aware text colors
 class ArcaneStyleData {
-  // -------------------------------------------------------------------------
-  // Layout
-  // -------------------------------------------------------------------------
-
-  /// CSS display property
   final Display? display;
-
-  /// Flex direction
   final FlexDirection? flexDirection;
-
-  /// Flex wrap behavior
   final FlexWrap? flexWrap;
-
-  /// Main axis alignment (justify-content)
   final MainAxisAlignment? mainAxisAlignment;
-
-  /// Cross axis alignment (align-items)
   final CrossAxisAlignment? crossAxisAlignment;
-
-  /// Align self
   final CrossAxisAlignment? alignSelf;
-
-  /// Align items (cross-axis alignment)
   final AlignItems? alignItems;
-
-  /// Justify content (main-axis alignment)
   final JustifyContent? justifyContent;
-
-  /// CSS position property
   final Position? position;
-
-  /// Visibility
   final Visibility? visibility;
-
-  /// Z-index
   final ZIndex? zIndex;
-
-  /// Overflow behavior (both axes)
   final Overflow? overflow;
-
-  /// Overflow X axis
   final OverflowAxis? overflowX;
-
-  /// Overflow Y axis
   final OverflowAxis? overflowY;
-
-  /// Custom overflow
   final String? overflowCustom;
-
-  /// Custom display
   final String? displayCustom;
 
-  // -------------------------------------------------------------------------
-  // Sizing
-  // -------------------------------------------------------------------------
-
-  /// Width using Size enum
   final Size? width;
-
-  /// Height using Size enum
   final Size? height;
-
-  /// Custom width (px, %, etc.)
   final String? widthCustom;
-
-  /// Custom height (px, %, etc.)
   final String? heightCustom;
-
-  /// Max-width preset
   final MaxWidth? maxWidth;
-
-  /// Custom max-width
   final String? maxWidthCustom;
-
-  /// Min-width
   final String? minWidth;
-
-  /// Max-height
   final String? maxHeight;
-
-  /// Min-height
   final String? minHeight;
-
-  /// Flex grow
   final int? flexGrow;
-
-  /// Flex shrink
   final int? flexShrink;
-
-  /// Flex basis
   final String? flexBasis;
-
-  /// Flex shorthand (combines grow, shrink, basis)
   final FlexPreset? flex;
-
-  /// Custom flex value
   final String? flexCustom;
 
-  // -------------------------------------------------------------------------
-  // Grid
-  // -------------------------------------------------------------------------
-
-  /// Grid template columns
   final GridColumns? gridColumns;
-
-  /// Custom grid template columns
   final String? gridColumnsCustom;
-
-  /// Grid template rows
   final GridRows? gridRows;
-
-  /// Custom grid template rows
   final String? gridRowsCustom;
-
-  /// Grid auto-flow
   final GridAutoFlow? gridAutoFlow;
-
-  /// Place items (align-items + justify-items)
   final PlaceItems? placeItems;
-
-  /// Place content (align-content + justify-content)
   final PlaceContent? placeContent;
 
-  // -------------------------------------------------------------------------
-  // Spacing
-  // -------------------------------------------------------------------------
-
-  /// Padding preset
   final PaddingPreset? padding;
-
-  /// Custom padding via EdgeInsets
   final EdgeInsets? paddingCustom;
-
-  /// Margin preset
   final MarginPreset? margin;
-
-  /// Custom margin via EdgeInsets
   final EdgeInsets? marginCustom;
-
-  /// Custom margin as raw string (e.g., '0 auto 20px auto')
   final String? marginStringCustom;
-
-  /// Custom padding as raw string (e.g., '10px 20px')
   final String? paddingStringCustom;
-
-  /// Gap for flex/grid layouts
   final Gap? gap;
-
-  /// Custom gap value
   final String? gapCustom;
-
-  /// Row gap for grid
   final Gap? rowGap;
-
-  /// Column gap for grid
   final Gap? columnGap;
 
-  // -------------------------------------------------------------------------
-  // Position offsets
-  // -------------------------------------------------------------------------
-
-  /// Top offset
   final String? top;
-
-  /// Right offset
   final String? right;
-
-  /// Bottom offset
   final String? bottom;
-
-  /// Left offset
   final String? left;
-
-  /// Inset (shorthand for all offsets)
   final String? inset;
 
-  // -------------------------------------------------------------------------
-  // Colors
-  // -------------------------------------------------------------------------
-
-  /// Background color
   final Background? background;
-
-  /// Custom background color
   final String? backgroundCustom;
-
-  /// Text/foreground color
   final TextColor? textColor;
-
-  /// Custom text color
   final String? textColorCustom;
 
-  // -------------------------------------------------------------------------
-  // Borders
-  // -------------------------------------------------------------------------
-
-  /// Border preset (complete border)
   final BorderPreset? border;
-
-  /// Custom border
   final String? borderCustom;
-
-  /// Border top preset
   final BorderPreset? borderTop;
-
-  /// Border bottom preset
   final BorderPreset? borderBottom;
-
-  /// Border left preset
   final BorderPreset? borderLeft;
-
-  /// Border right preset
   final BorderPreset? borderRight;
-
-  /// Border radius preset
   final Radius? borderRadius;
-
-  /// Custom border radius
   final String? borderRadiusCustom;
-
-  /// Border radius via BorderRadius class
   final BorderRadius? borderRadiusClass;
-
-  /// Outline preset
   final OutlinePreset? outline;
-
-  /// Custom outline
   final String? outlineCustom;
-
-  /// Outline offset
   final String? outlineOffset;
-
-  /// Border width (all sides)
   final BorderWidth? borderWidth;
-
-  /// Border left width
   final BorderWidth? borderLeftWidth;
-
-  /// Border right width
   final BorderWidth? borderRightWidth;
-
-  /// Border top width
   final BorderWidth? borderTopWidth;
-
-  /// Border bottom width
   final BorderWidth? borderBottomWidth;
 
-  // -------------------------------------------------------------------------
-  // Typography
-  // -------------------------------------------------------------------------
-
-  /// Font size preset
   final FontSize? fontSize;
-
-  /// Custom font size
   final String? fontSizeCustom;
-
-  /// Font weight (from arcane.dart)
   final FontWeight? fontWeight;
-
-  /// Custom font weight
   final String? fontWeightCustom;
-
-  /// Line height preset
   final LineHeight? lineHeight;
-
-  /// Letter spacing preset
   final LetterSpacing? letterSpacing;
-
-  /// Custom letter spacing
   final String? letterSpacingCustom;
-
-  /// Text alignment (from arcane.dart)
   final TextAlign? textAlign;
-
-  /// Custom text alignment
   final String? textAlignCustom;
-
-  /// Text decoration
   final TextDecoration? textDecoration;
-
-  /// Text transform
   final TextTransform? textTransform;
-
-  /// Custom text transform
   final String? textTransformCustom;
-
-  /// White space handling
   final WhiteSpace? whiteSpace;
-
-  /// Word break
   final WordBreak? wordBreak;
-
-  /// Text overflow (from arcane.dart)
   final TextOverflow? textOverflow;
-
-  /// Font family
   final FontFamily? fontFamily;
-
-  /// Font style (italic, etc.)
   final FontStyle? fontStyle;
 
-  // -------------------------------------------------------------------------
-  // Effects
-  // -------------------------------------------------------------------------
-
-  /// Box shadow preset
   final Shadow? shadow;
-
-  /// Custom box shadow
   final String? shadowCustom;
-
-  /// Transition preset
   final Transition? transition;
-
-  /// Custom transition
   final String? transitionCustom;
-
-  /// Opacity preset
   final Opacity? opacity;
-
-  /// Custom opacity (0-1)
   final double? opacityCustom;
-
-  /// Cursor preset
   final Cursor? cursor;
-
-  /// Custom cursor
   final String? cursorCustom;
-
-  /// Pointer events
   final PointerEvents? pointerEvents;
-
-  /// User select
   final UserSelect? userSelect;
-
-  /// Transform preset
   final Transform? transform;
-
-  /// Custom transform
   final String? transformCustom;
-
-  /// Backdrop filter
   final BackdropFilter? backdropFilter;
-
-  /// Custom filter (e.g., 'grayscale(100%)', 'blur(5px)')
   final String? filterCustom;
-
-  /// Animation easing
   final Easing? easing;
 
-  // -------------------------------------------------------------------------
-  // Object (for images)
-  // -------------------------------------------------------------------------
-
-  /// Object fit
   final ObjectFit? objectFit;
-
-  /// Custom object fit
   final String? objectFitCustom;
-
-  /// Object position
   final ObjectPosition? objectPosition;
 
-  // -------------------------------------------------------------------------
-  // Table
-  // -------------------------------------------------------------------------
-
-  /// Border collapse for tables
   final String? borderCollapse;
 
-  // -------------------------------------------------------------------------
-  // Raw escape hatch
-  // -------------------------------------------------------------------------
-
-  /// Raw CSS properties (for anything not covered by enums)
+  /// Raw CSS properties escape hatch
   final Map<String, String>? raw;
 
   const ArcaneStyleData({
-    // Layout
     this.display,
     this.flexDirection,
     this.flexWrap,
@@ -510,7 +149,6 @@ class ArcaneStyleData {
     this.overflowY,
     this.overflowCustom,
     this.displayCustom,
-    // Sizing
     this.width,
     this.height,
     this.widthCustom,
@@ -525,7 +163,6 @@ class ArcaneStyleData {
     this.flexBasis,
     this.flex,
     this.flexCustom,
-    // Grid
     this.gridColumns,
     this.gridColumnsCustom,
     this.gridRows,
@@ -533,7 +170,6 @@ class ArcaneStyleData {
     this.gridAutoFlow,
     this.placeItems,
     this.placeContent,
-    // Spacing
     this.padding,
     this.paddingCustom,
     this.margin,
@@ -544,18 +180,15 @@ class ArcaneStyleData {
     this.gapCustom,
     this.rowGap,
     this.columnGap,
-    // Position offsets
     this.top,
     this.right,
     this.bottom,
     this.left,
     this.inset,
-    // Colors
     this.background,
     this.backgroundCustom,
     this.textColor,
     this.textColorCustom,
-    // Borders
     this.border,
     this.borderCustom,
     this.borderTop,
@@ -573,7 +206,6 @@ class ArcaneStyleData {
     this.borderRightWidth,
     this.borderTopWidth,
     this.borderBottomWidth,
-    // Typography
     this.fontSize,
     this.fontSizeCustom,
     this.fontWeight,
@@ -591,7 +223,6 @@ class ArcaneStyleData {
     this.textOverflow,
     this.fontFamily,
     this.fontStyle,
-    // Effects
     this.shadow,
     this.shadowCustom,
     this.transition,
@@ -607,13 +238,10 @@ class ArcaneStyleData {
     this.backdropFilter,
     this.filterCustom,
     this.easing,
-    // Object
     this.objectFit,
     this.objectFitCustom,
     this.objectPosition,
-    // Table
     this.borderCollapse,
-    // Raw
     this.raw,
   });
 
@@ -621,7 +249,6 @@ class ArcaneStyleData {
   Styles toStyles() {
     final Map<String, String> css = {};
 
-    // Layout
     if (display != null) css['display'] = display!.css;
     if (flexDirection != null) css['flex-direction'] = flexDirection!.css;
     if (flexWrap != null) css['flex-wrap'] = flexWrap!.css;
@@ -641,7 +268,6 @@ class ArcaneStyleData {
     if (overflowCustom != null) css['overflow'] = overflowCustom!;
     if (displayCustom != null) css['display'] = displayCustom!;
 
-    // Sizing
     if (width != null) css['width'] = width!.widthCss;
     if (widthCustom != null) css['width'] = widthCustom!;
     if (height != null) css['height'] = height!.css;
@@ -657,7 +283,6 @@ class ArcaneStyleData {
     if (flex != null) css['flex'] = flex!.css;
     if (flexCustom != null) css['flex'] = flexCustom!;
 
-    // Grid
     if (gridColumns != null) css['grid-template-columns'] = gridColumns!.css;
     if (gridColumnsCustom != null) {
       css['grid-template-columns'] = gridColumnsCustom!;
@@ -668,7 +293,6 @@ class ArcaneStyleData {
     if (placeItems != null) css['place-items'] = placeItems!.css;
     if (placeContent != null) css['place-content'] = placeContent!.css;
 
-    // Spacing
     if (padding != null) css['padding'] = padding!.css;
     if (paddingCustom != null) css['padding'] = paddingCustom!.padding;
     if (paddingStringCustom != null) css['padding'] = paddingStringCustom!;
@@ -680,20 +304,17 @@ class ArcaneStyleData {
     if (rowGap != null) css['row-gap'] = rowGap!.css;
     if (columnGap != null) css['column-gap'] = columnGap!.css;
 
-    // Position offsets
     if (top != null) css['top'] = top!;
     if (right != null) css['right'] = right!;
     if (bottom != null) css['bottom'] = bottom!;
     if (left != null) css['left'] = left!;
     if (inset != null) css['inset'] = inset!;
 
-    // Colors
     if (background != null) css['background-color'] = background!.css;
     if (backgroundCustom != null) css['background'] = backgroundCustom!;
     if (textColor != null) css['color'] = textColor!.css;
     if (textColorCustom != null) css['color'] = textColorCustom!;
 
-    // Borders
     if (border != null) css['border'] = border!.css;
     if (borderCustom != null) css['border'] = borderCustom!;
     if (borderTop != null) css['border-top'] = borderTop!.css;
@@ -716,7 +337,6 @@ class ArcaneStyleData {
       css['border-bottom-width'] = borderBottomWidth!.css;
     }
 
-    // Typography
     if (fontSize != null) css['font-size'] = fontSize!.css;
     if (fontSizeCustom != null) css['font-size'] = fontSizeCustom!;
     if (fontWeight != null) css['font-weight'] = fontWeight!.css;
@@ -735,7 +355,6 @@ class ArcaneStyleData {
     if (fontFamily != null) css['font-family'] = fontFamily!.css;
     if (fontStyle != null) css['font-style'] = fontStyle!.css;
 
-    // Effects
     if (shadow != null) css['box-shadow'] = shadow!.css;
     if (shadowCustom != null) css['box-shadow'] = shadowCustom!;
     if (transition != null) css['transition'] = transition!.css;
@@ -754,15 +373,12 @@ class ArcaneStyleData {
     }
     if (filterCustom != null) css['filter'] = filterCustom!;
 
-    // Object
     if (objectFit != null) css['object-fit'] = objectFit!.css;
     if (objectFitCustom != null) css['object-fit'] = objectFitCustom!;
     if (objectPosition != null) css['object-position'] = objectPosition!.css;
 
-    // Table
     if (borderCollapse != null) css['border-collapse'] = borderCollapse!;
 
-    // Raw overrides (applied last to allow full customization)
     if (raw != null) css.addAll(raw!);
 
     return Styles(raw: css);
@@ -772,7 +388,6 @@ class ArcaneStyleData {
   Map<String, String> toMap() {
     final Map<String, String> css = {};
 
-    // Layout
     if (display != null) css['display'] = display!.css;
     if (flexDirection != null) css['flex-direction'] = flexDirection!.css;
     if (flexWrap != null) css['flex-wrap'] = flexWrap!.css;
@@ -792,7 +407,6 @@ class ArcaneStyleData {
     if (overflowCustom != null) css['overflow'] = overflowCustom!;
     if (displayCustom != null) css['display'] = displayCustom!;
 
-    // Sizing
     if (width != null) css['width'] = width!.widthCss;
     if (widthCustom != null) css['width'] = widthCustom!;
     if (height != null) css['height'] = height!.css;
@@ -808,7 +422,6 @@ class ArcaneStyleData {
     if (flex != null) css['flex'] = flex!.css;
     if (flexCustom != null) css['flex'] = flexCustom!;
 
-    // Grid
     if (gridColumns != null) css['grid-template-columns'] = gridColumns!.css;
     if (gridColumnsCustom != null) {
       css['grid-template-columns'] = gridColumnsCustom!;
@@ -819,7 +432,6 @@ class ArcaneStyleData {
     if (placeItems != null) css['place-items'] = placeItems!.css;
     if (placeContent != null) css['place-content'] = placeContent!.css;
 
-    // Spacing
     if (padding != null) css['padding'] = padding!.css;
     if (paddingCustom != null) css['padding'] = paddingCustom!.padding;
     if (paddingStringCustom != null) css['padding'] = paddingStringCustom!;
@@ -831,20 +443,17 @@ class ArcaneStyleData {
     if (rowGap != null) css['row-gap'] = rowGap!.css;
     if (columnGap != null) css['column-gap'] = columnGap!.css;
 
-    // Position offsets
     if (top != null) css['top'] = top!;
     if (right != null) css['right'] = right!;
     if (bottom != null) css['bottom'] = bottom!;
     if (left != null) css['left'] = left!;
     if (inset != null) css['inset'] = inset!;
 
-    // Colors
     if (background != null) css['background-color'] = background!.css;
     if (backgroundCustom != null) css['background'] = backgroundCustom!;
     if (textColor != null) css['color'] = textColor!.css;
     if (textColorCustom != null) css['color'] = textColorCustom!;
 
-    // Borders
     if (border != null) css['border'] = border!.css;
     if (borderCustom != null) css['border'] = borderCustom!;
     if (borderTop != null) css['border-top'] = borderTop!.css;
@@ -867,7 +476,6 @@ class ArcaneStyleData {
       css['border-bottom-width'] = borderBottomWidth!.css;
     }
 
-    // Typography
     if (fontSize != null) css['font-size'] = fontSize!.css;
     if (fontSizeCustom != null) css['font-size'] = fontSizeCustom!;
     if (fontWeight != null) css['font-weight'] = fontWeight!.css;
@@ -886,7 +494,6 @@ class ArcaneStyleData {
     if (fontFamily != null) css['font-family'] = fontFamily!.css;
     if (fontStyle != null) css['font-style'] = fontStyle!.css;
 
-    // Effects
     if (shadow != null) css['box-shadow'] = shadow!.css;
     if (shadowCustom != null) css['box-shadow'] = shadowCustom!;
     if (transition != null) css['transition'] = transition!.css;
@@ -905,15 +512,12 @@ class ArcaneStyleData {
     }
     if (filterCustom != null) css['filter'] = filterCustom!;
 
-    // Object
     if (objectFit != null) css['object-fit'] = objectFit!.css;
     if (objectFitCustom != null) css['object-fit'] = objectFitCustom!;
     if (objectPosition != null) css['object-position'] = objectPosition!.css;
 
-    // Table
     if (borderCollapse != null) css['border-collapse'] = borderCollapse!;
 
-    // Raw overrides (applied last to allow full customization)
     if (raw != null) css.addAll(raw!);
 
     return css;
@@ -923,7 +527,6 @@ class ArcaneStyleData {
   ArcaneStyleData merge(ArcaneStyleData? other) {
     if (other == null) return this;
     return ArcaneStyleData(
-      // Layout
       display: other.display ?? display,
       flexDirection: other.flexDirection ?? flexDirection,
       flexWrap: other.flexWrap ?? flexWrap,
@@ -938,7 +541,6 @@ class ArcaneStyleData {
       overflowY: other.overflowY ?? overflowY,
       overflowCustom: other.overflowCustom ?? overflowCustom,
       displayCustom: other.displayCustom ?? displayCustom,
-      // Sizing
       width: other.width ?? width,
       height: other.height ?? height,
       widthCustom: other.widthCustom ?? widthCustom,
@@ -953,7 +555,6 @@ class ArcaneStyleData {
       flexBasis: other.flexBasis ?? flexBasis,
       flex: other.flex ?? flex,
       flexCustom: other.flexCustom ?? flexCustom,
-      // Grid
       gridColumns: other.gridColumns ?? gridColumns,
       gridColumnsCustom: other.gridColumnsCustom ?? gridColumnsCustom,
       gridRows: other.gridRows ?? gridRows,
@@ -961,7 +562,6 @@ class ArcaneStyleData {
       gridAutoFlow: other.gridAutoFlow ?? gridAutoFlow,
       placeItems: other.placeItems ?? placeItems,
       placeContent: other.placeContent ?? placeContent,
-      // Spacing
       padding: other.padding ?? padding,
       paddingCustom: other.paddingCustom ?? paddingCustom,
       margin: other.margin ?? margin,
@@ -972,18 +572,15 @@ class ArcaneStyleData {
       gapCustom: other.gapCustom ?? gapCustom,
       rowGap: other.rowGap ?? rowGap,
       columnGap: other.columnGap ?? columnGap,
-      // Position
       top: other.top ?? top,
       right: other.right ?? right,
       bottom: other.bottom ?? bottom,
       left: other.left ?? left,
       inset: other.inset ?? inset,
-      // Colors
       background: other.background ?? background,
       backgroundCustom: other.backgroundCustom ?? backgroundCustom,
       textColor: other.textColor ?? textColor,
       textColorCustom: other.textColorCustom ?? textColorCustom,
-      // Borders
       border: other.border ?? border,
       borderCustom: other.borderCustom ?? borderCustom,
       borderTop: other.borderTop ?? borderTop,
@@ -1001,7 +598,6 @@ class ArcaneStyleData {
       borderRightWidth: other.borderRightWidth ?? borderRightWidth,
       borderTopWidth: other.borderTopWidth ?? borderTopWidth,
       borderBottomWidth: other.borderBottomWidth ?? borderBottomWidth,
-      // Typography
       fontSize: other.fontSize ?? fontSize,
       fontSizeCustom: other.fontSizeCustom ?? fontSizeCustom,
       fontWeight: other.fontWeight ?? fontWeight,
@@ -1019,7 +615,6 @@ class ArcaneStyleData {
       textOverflow: other.textOverflow ?? textOverflow,
       fontFamily: other.fontFamily ?? fontFamily,
       fontStyle: other.fontStyle ?? fontStyle,
-      // Effects
       shadow: other.shadow ?? shadow,
       shadowCustom: other.shadowCustom ?? shadowCustom,
       transition: other.transition ?? transition,
@@ -1035,20 +630,16 @@ class ArcaneStyleData {
       backdropFilter: other.backdropFilter ?? backdropFilter,
       filterCustom: other.filterCustom ?? filterCustom,
       easing: other.easing ?? easing,
-      // Object
       objectFit: other.objectFit ?? objectFit,
       objectFitCustom: other.objectFitCustom ?? objectFitCustom,
       objectPosition: other.objectPosition ?? objectPosition,
-      // Table
       borderCollapse: other.borderCollapse ?? borderCollapse,
-      // Raw - merge maps
       raw: {...?raw, ...?other.raw},
     );
   }
 
   /// Create a copy with some properties changed
   ArcaneStyleData copyWith({
-    // Layout
     Display? display,
     FlexDirection? flexDirection,
     FlexWrap? flexWrap,
@@ -1065,7 +656,6 @@ class ArcaneStyleData {
     OverflowAxis? overflowY,
     String? overflowCustom,
     String? displayCustom,
-    // Sizing
     Size? width,
     Size? height,
     String? widthCustom,
@@ -1080,7 +670,6 @@ class ArcaneStyleData {
     String? flexBasis,
     FlexPreset? flex,
     String? flexCustom,
-    // Grid
     GridColumns? gridColumns,
     String? gridColumnsCustom,
     GridRows? gridRows,
@@ -1088,7 +677,6 @@ class ArcaneStyleData {
     GridAutoFlow? gridAutoFlow,
     PlaceItems? placeItems,
     PlaceContent? placeContent,
-    // Spacing
     PaddingPreset? padding,
     EdgeInsets? paddingCustom,
     MarginPreset? margin,
@@ -1099,18 +687,15 @@ class ArcaneStyleData {
     String? gapCustom,
     Gap? rowGap,
     Gap? columnGap,
-    // Position
     String? top,
     String? right,
     String? bottom,
     String? left,
     String? inset,
-    // Colors
     Background? background,
     String? backgroundCustom,
     TextColor? textColor,
     String? textColorCustom,
-    // Borders
     BorderPreset? border,
     String? borderCustom,
     BorderPreset? borderTop,
@@ -1128,7 +713,6 @@ class ArcaneStyleData {
     BorderWidth? borderRightWidth,
     BorderWidth? borderTopWidth,
     BorderWidth? borderBottomWidth,
-    // Typography
     FontSize? fontSize,
     String? fontSizeCustom,
     FontWeight? fontWeight,
@@ -1146,7 +730,6 @@ class ArcaneStyleData {
     TextOverflow? textOverflow,
     FontFamily? fontFamily,
     FontStyle? fontStyle,
-    // Effects
     Shadow? shadow,
     String? shadowCustom,
     Transition? transition,
@@ -1162,13 +745,10 @@ class ArcaneStyleData {
     BackdropFilter? backdropFilter,
     String? filterCustom,
     Easing? easing,
-    // Object
     ObjectFit? objectFit,
     String? objectFitCustom,
     ObjectPosition? objectPosition,
-    // Table
     String? borderCollapse,
-    // Raw
     Map<String, String>? raw,
   }) {
     return ArcaneStyleData(
@@ -1285,14 +865,12 @@ class ArcaneStyleData {
     );
   }
 
-  /// Common preset: Flex row
   static const row = ArcaneStyleData(
     display: Display.flex,
     flexDirection: FlexDirection.row,
     crossAxisAlignment: CrossAxisAlignment.center,
   );
 
-  /// Common preset: Flex row with space-between
   static const rowSpaced = ArcaneStyleData(
     display: Display.flex,
     flexDirection: FlexDirection.row,
@@ -1300,178 +878,126 @@ class ArcaneStyleData {
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
   );
 
-  /// Common preset: Flex column
   static const column = ArcaneStyleData(
     display: Display.flex,
     flexDirection: FlexDirection.column,
   );
 
-  /// Common preset: Flex center (both axes)
   static const flexCenter = ArcaneStyleData(
     display: Display.flex,
     mainAxisAlignment: MainAxisAlignment.center,
     crossAxisAlignment: CrossAxisAlignment.center,
   );
 
-  /// Common preset: Full width and height
   static const fullSize = ArcaneStyleData(
     width: Size.full,
     height: Size.full,
   );
 
-  /// Common preset: Absolute fill (inset 0)
   static const absoluteFill = ArcaneStyleData(
     position: Position.absolute,
     inset: '0',
   );
 
-  // ---------------------------------------------------------------------------
-  // Aliases & Additional Presets
-  // ---------------------------------------------------------------------------
-
-  /// Alias for [flexCenter] - centered on both axes
   static const centered = flexCenter;
 
-  /// Grid container with centered items
   static const gridCenter = ArcaneStyleData(
     display: Display.grid,
     placeItems: PlaceItems.center,
   );
 
-  // ---------------------------------------------------------------------------
-  // Spacing Presets
-  // ---------------------------------------------------------------------------
-
-  /// Standard padding (medium)
   static const padded = ArcaneStyleData(
     padding: PaddingPreset.md,
   );
 
-  /// Large padding
   static const paddedLg = ArcaneStyleData(
     padding: PaddingPreset.lg,
   );
 
-  /// Small padding
   static const paddedSm = ArcaneStyleData(
     padding: PaddingPreset.sm,
   );
 
-  /// Extra small padding
   static const paddedXs = ArcaneStyleData(
     padding: PaddingPreset.xs,
   );
 
-  /// Extra large padding
   static const paddedXl = ArcaneStyleData(
     padding: PaddingPreset.xl,
   );
 
-  /// Standard gap between flex/grid children
   static const spaced = ArcaneStyleData(
     gap: Gap.md,
   );
 
-  /// Large gap between flex/grid children
   static const spacedLg = ArcaneStyleData(
     gap: Gap.lg,
   );
 
-  /// Small gap between flex/grid children
   static const spacedSm = ArcaneStyleData(
     gap: Gap.sm,
   );
 
-  /// Extra small gap
   static const spacedXs = ArcaneStyleData(
     gap: Gap.xs,
   );
 
-  /// Extra large gap
   static const spacedXl = ArcaneStyleData(
     gap: Gap.xl,
   );
 
-  // ---------------------------------------------------------------------------
-  // Size Shortcuts
-  // ---------------------------------------------------------------------------
-
-  /// Full width only
   static const fullWidth = ArcaneStyleData(
     width: Size.full,
   );
 
-  /// Full height only
   static const fullHeight = ArcaneStyleData(
     height: Size.full,
   );
 
-  // ---------------------------------------------------------------------------
-  // Overflow Presets
-  // ---------------------------------------------------------------------------
-
-  /// Scrollable container (overflow auto)
   static const scrollable = ArcaneStyleData(
     overflow: Overflow.auto,
   );
 
-  /// Scrollable Y only
   static const scrollableY = ArcaneStyleData(
     overflowY: OverflowAxis.auto,
     overflowX: OverflowAxis.hidden,
   );
 
-  /// Scrollable X only
   static const scrollableX = ArcaneStyleData(
     overflowX: OverflowAxis.auto,
     overflowY: OverflowAxis.hidden,
   );
 
-  /// Hidden overflow (clip content)
   static const clipContent = ArcaneStyleData(
     overflow: Overflow.hidden,
   );
 
-  // ---------------------------------------------------------------------------
-  // Flex Item Presets
-  // ---------------------------------------------------------------------------
-
-  /// Flex item that grows to fill space
   static const grow = ArcaneStyleData(
     flex: FlexPreset.expand,
   );
 
-  /// Flex item that doesn't grow or shrink
   static const noGrow = ArcaneStyleData(
     flex: FlexPreset.none,
   );
 
-  // ---------------------------------------------------------------------------
-  // Combined Layout Presets
-  // ---------------------------------------------------------------------------
-
-  /// Column with medium gap
   static const columnSpaced = ArcaneStyleData(
     display: Display.flex,
     flexDirection: FlexDirection.column,
     gap: Gap.md,
   );
 
-  /// Column with small gap
   static const columnTight = ArcaneStyleData(
     display: Display.flex,
     flexDirection: FlexDirection.column,
     gap: Gap.sm,
   );
 
-  /// Column with large gap
   static const columnLoose = ArcaneStyleData(
     display: Display.flex,
     flexDirection: FlexDirection.column,
     gap: Gap.lg,
   );
 
-  /// Row with small gap and center alignment
   static const rowTight = ArcaneStyleData(
     display: Display.flex,
     flexDirection: FlexDirection.row,
@@ -1479,7 +1005,6 @@ class ArcaneStyleData {
     gap: Gap.sm,
   );
 
-  /// Row with medium gap
   static const rowGapped = ArcaneStyleData(
     display: Display.flex,
     flexDirection: FlexDirection.row,
@@ -1487,7 +1012,6 @@ class ArcaneStyleData {
     gap: Gap.md,
   );
 
-  /// Row with large gap
   static const rowLoose = ArcaneStyleData(
     display: Display.flex,
     flexDirection: FlexDirection.row,
@@ -1495,71 +1019,48 @@ class ArcaneStyleData {
     gap: Gap.lg,
   );
 
-  // ---------------------------------------------------------------------------
-  // Text Presets
-  // ---------------------------------------------------------------------------
-
-  /// Truncate text with ellipsis
   static const truncate = ArcaneStyleData(
     textOverflow: TextOverflow.ellipsis,
     whiteSpace: WhiteSpace.nowrap,
     overflow: Overflow.hidden,
   );
 
-  /// Center-aligned text
   static const textCenter = ArcaneStyleData(
     textAlign: TextAlign.center,
   );
 
-  /// Right-aligned text
   static const textRight = ArcaneStyleData(
     textAlign: TextAlign.right,
   );
 
-  /// Left-aligned text
   static const textLeft = ArcaneStyleData(
     textAlign: TextAlign.left,
   );
 
-  // ---------------------------------------------------------------------------
-  // Positioning Presets
-  // ---------------------------------------------------------------------------
-
-  /// Relative positioned container (for stacking children)
   static const stack = ArcaneStyleData(
     position: Position.relative,
   );
 
-  /// Absolute positioned child in a stack
   static const stackChild = ArcaneStyleData(
     position: Position.absolute,
   );
 
-  /// Fixed positioning
   static const fixed = ArcaneStyleData(
     position: Position.fixed,
   );
 
-  /// Sticky positioning
   static const sticky = ArcaneStyleData(
     position: Position.sticky,
   );
 
-  // ---------------------------------------------------------------------------
-  // Interactive Presets
-  // ---------------------------------------------------------------------------
-
-  /// Clickable element
   static const clickable = ArcaneStyleData(
     cursor: Cursor.pointer,
   );
 
-  /// Non-interactive element
   static const nonInteractive = ArcaneStyleData(
     pointerEvents: PointerEvents.none,
   );
 
-  /// Unselectable text
   static const unselectable = ArcaneStyleData(
     userSelect: UserSelect.none,
   );

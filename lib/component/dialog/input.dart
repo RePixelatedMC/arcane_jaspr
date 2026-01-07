@@ -4,73 +4,23 @@ import '../../core/theme_provider.dart';
 
 export '../../core/props/input_dialog_props.dart';
 
-/// A unified input dialog component supporting text, email, password, multiline, and number inputs.
-///
-/// ```dart
-/// ArcaneInputDialog.text(
-///   title: 'Enter Name',
-///   message: 'Please enter your name.',
-///   onConfirm: (value) => handleName(value),
-///   onCancel: () => closeDialog(),
-/// )
-/// ```
-///
-/// ```dart
-/// ArcaneInputDialog.email(
-///   title: 'Enter Email',
-///   message: 'Please enter your email address.',
-///   requireWorkEmail: true,
-///   onConfirm: (email) => handleEmail(email),
-///   onCancel: () => closeDialog(),
-/// )
-/// ```
+/// Input dialog supporting text, email, password, multiline, and number inputs.
 class ArcaneInputDialog extends StatelessComponent {
-  /// Dialog title
   final String title;
-
-  /// Optional message/description
   final String? message;
-
-  /// Input placeholder
   final String placeholder;
-
-  /// Initial value
   final String? initialValue;
-
-  /// Confirm button text
   final String confirmText;
-
-  /// Cancel button text
   final String cancelText;
-
-  /// Confirm callback with the entered value
   final void Function(String value)? onConfirm;
-
-  /// Cancel callback
   final void Function()? onCancel;
-
-  /// Input validation
   final String? Function(String value)? validator;
-
-  /// Input type
   final InputDialogType type;
-
-  /// Maximum length
   final int? maxLength;
-
-  /// Number of lines for multiline input
   final int maxLines;
-
-  /// Whether to require work/business email domains (email type only)
   final bool requireWorkEmail;
-
-  /// Blocked domains for email (email type only)
   final List<String>? blockedDomains;
-
-  /// Minimum value (number type only)
   final num? minValue;
-
-  /// Maximum value (number type only)
   final num? maxValue;
 
   const ArcaneInputDialog({
@@ -93,7 +43,6 @@ class ArcaneInputDialog extends StatelessComponent {
     super.key,
   });
 
-  /// Creates a text input dialog
   const ArcaneInputDialog.text({
     required this.title,
     this.message,
@@ -113,7 +62,6 @@ class ArcaneInputDialog extends StatelessComponent {
         minValue = null,
         maxValue = null;
 
-  /// Creates an email input dialog with validation
   const ArcaneInputDialog.email({
     required this.title,
     this.message,
@@ -133,7 +81,6 @@ class ArcaneInputDialog extends StatelessComponent {
         minValue = null,
         maxValue = null;
 
-  /// Creates a password input dialog
   const ArcaneInputDialog.password({
     required this.title,
     this.message,
@@ -153,7 +100,6 @@ class ArcaneInputDialog extends StatelessComponent {
         minValue = null,
         maxValue = null;
 
-  /// Creates a multiline text input dialog
   const ArcaneInputDialog.multiline({
     required this.title,
     this.message,
@@ -173,7 +119,6 @@ class ArcaneInputDialog extends StatelessComponent {
         minValue = null,
         maxValue = null;
 
-  /// Creates a number input dialog
   const ArcaneInputDialog.number({
     required this.title,
     this.message,

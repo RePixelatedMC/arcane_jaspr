@@ -1,6 +1,5 @@
 import 'package:jaspr/jaspr.dart';
 
-/// Position for hovercard
 enum HovercardPositionVariant {
   top,
   bottom,
@@ -12,30 +11,15 @@ enum HovercardPositionVariant {
   bottomEnd,
 }
 
-/// Props for the hovercard component
+/// Hovercard component properties.
 class HovercardProps {
-  /// The trigger element
   final Component trigger;
-
-  /// The content to display
   final Component content;
-
-  /// Position relative to trigger
   final HovercardPositionVariant position;
-
-  /// Whether to show arrow
   final bool showArrow;
-
-  /// Offset in pixels
   final int offset;
-
-  /// Whether currently open
   final bool isOpen;
-
-  /// Mouse enter handler
   final void Function()? onMouseEnter;
-
-  /// Mouse leave handler
   final void Function()? onMouseLeave;
 
   const HovercardProps({

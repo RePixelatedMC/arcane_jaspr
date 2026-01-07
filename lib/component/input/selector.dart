@@ -9,85 +9,32 @@ export '../../core/props/select_props.dart'
 
 /// A dropdown selector component with extensive customization options.
 class ArcaneSelector<T> extends StatefulComponent {
-  /// The available options
   final List<ArcaneSelectorOption<T>> options;
-
-  /// The currently selected value (for single select)
   final T? value;
-
-  /// The currently selected values (for multi-select)
   final List<T>? values;
-
-  /// Callback when selection changes (single select)
   final void Function(T value)? onChanged;
-
-  /// Callback when selection changes (multi-select)
   final void Function(List<T> values)? onMultiChanged;
-
-  /// Placeholder text when no selection
   final String placeholder;
-
-  /// Whether the selector is disabled
   final bool disabled;
-
-  /// Whether to allow clearing the selection
   final bool clearable;
-
-  /// Whether the dropdown is searchable
   final bool searchable;
-
-  /// Whether multiple selections are allowed
   final bool multiSelect;
-
-  /// Label for the field
   final String? label;
-
-  /// Helper text below the selector
   final String? helperText;
-
-  /// Error message
   final String? error;
-
-  /// Size variant
   final SelectorSize size;
-
-  /// Whether the field is required (shows asterisk)
   final bool required;
-
-  /// Maximum height of the dropdown
   final String? maxDropdownHeight;
-
-  /// Loading state - shows spinner instead of options
   final bool loading;
-
-  /// Custom loading text
   final String loadingText;
-
-  /// Custom empty state message
   final String emptyMessage;
-
-  /// Custom search placeholder
   final String searchPlaceholder;
-
-  /// Direction for dropdown to open
   final DropdownDirection dropdownDirection;
-
-  /// Whether to close dropdown after selection (multi-select)
   final bool closeOnSelect;
-
-  /// Show selected count badge for multi-select
   final bool showSelectedCount;
-
-  /// Prefix component (icon/text before value)
   final Component? prefix;
-
-  /// Custom filter function for search
   final bool Function(ArcaneSelectorOption<T> option, String query)? filterFn;
-
-  /// Max number of selections (multi-select, null = unlimited)
   final int? maxSelections;
-
-  /// Show checkboxes for multi-select options
   final bool showCheckboxes;
 
   const ArcaneSelector({
@@ -144,7 +91,6 @@ class _ArcaneSelectorState<T> extends State<ArcaneSelector<T>> {
       if (currentValues.contains(option.value)) {
         currentValues.remove(option.value);
       } else {
-        // Check max selections
         if (component.maxSelections != null &&
             currentValues.length >= component.maxSelections!) {
           return;
@@ -200,7 +146,6 @@ class _ArcaneSelectorState<T> extends State<ArcaneSelector<T>> {
 
     if (component.filterFn != null) {
       return allOptions.where((opt) {
-        // Convert back to ArcaneSelectorOption for custom filter
         final arcaneOpt = ArcaneSelectorOption<T>(
           value: opt.value,
           label: opt.label,
@@ -239,7 +184,7 @@ class _ArcaneSelectorState<T> extends State<ArcaneSelector<T>> {
       switch (component.dropdownDirection) {
         DropdownDirection.up => SelectDropdownDirection.up,
         DropdownDirection.down => SelectDropdownDirection.down,
-        DropdownDirection.auto => SelectDropdownDirection.down, // Default to down for auto
+        DropdownDirection.auto => SelectDropdownDirection.down,
       };
 
   @override
@@ -275,7 +220,7 @@ class _ArcaneSelectorState<T> extends State<ArcaneSelector<T>> {
       onToggle: _toggleOpen,
       onSelect: (value) => _selectOption(SelectOptionProps<T>(
         value: value,
-        label: '', // Label not needed for selection
+        label: '',
       )),
       onClear: _clear,
       onSearchChange: _onSearchChange,

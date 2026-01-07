@@ -27,9 +27,7 @@ import 'package:jaspr/dom.dart'
 
 import '../../util/style_types/arcane_style_data.dart';
 
-/// A label component that wraps the HTML `<label>` element.
-///
-/// Provides a Flutter-like API with direct `ArcaneStyleData` support.
+/// Styled label element wrapper.
 class ArcaneLabel extends StatelessComponent {
   final Component child;
   final ArcaneStyleData? styles;

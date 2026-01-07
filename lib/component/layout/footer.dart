@@ -4,42 +4,20 @@ import '../../core/theme_provider.dart';
 
 export '../../core/props/footer_props.dart';
 
-/// A footer link group (re-export from props for convenience)
 typedef ArcaneFooterLinkGroup = FooterLinkGroup;
-
-/// A footer link (re-export from props for convenience)
 typedef ArcaneFooterLink = FooterLink;
 
-/// A website footer component (Supabase-style)
+/// A website footer component.
 class ArcaneFooter extends StatelessComponent {
-  /// Logo component
   final Component? logo;
-
-  /// Description/tagline
   final String? description;
-
-  /// Link groups (columns)
   final List<FooterLinkGroup> linkGroups;
-
-  /// Social media icons/links
   final List<Component>? socialLinks;
-
-  /// Copyright text
   final String? copyright;
-
-  /// Bottom links (privacy, terms, etc.)
   final List<FooterLink>? bottomLinks;
-
-  /// Whether to show a newsletter form
   final bool showNewsletter;
-
-  /// Newsletter placeholder
   final String newsletterPlaceholder;
-
-  /// Newsletter submit text
   final String newsletterButtonText;
-
-  /// Newsletter callback
   final void Function(String)? onNewsletterSubmit;
 
   const ArcaneFooter({
@@ -73,18 +51,11 @@ class ArcaneFooter extends StatelessComponent {
   }
 }
 
-/// Social icon link component
+/// Social icon link component.
 class ArcaneSocialIcon extends StatelessComponent {
-  /// Icon component or text
   final Component icon;
-
-  /// Link URL
   final String? href;
-
-  /// Click handler
   final void Function()? onTap;
-
-  /// Aria label for accessibility
   final String label;
 
   const ArcaneSocialIcon({

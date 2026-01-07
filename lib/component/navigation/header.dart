@@ -4,7 +4,7 @@ import '../../core/theme_provider.dart';
 
 export '../../core/props/header_props.dart' show NavItemProps, NavLinkProps;
 
-/// A navigation link item
+/// Navigation link item.
 class ArcaneNavItem {
   final String label;
   final String? href;
@@ -21,33 +21,16 @@ class ArcaneNavItem {
   });
 }
 
-/// A website header/navbar component
+/// Website header/navbar component.
 class ArcaneHeader extends StatelessComponent {
-  /// Logo component (usually an image or text)
   final Component logo;
-
-  /// Navigation items
   final List<ArcaneNavItem> navItems;
-
-  /// Right-side actions (buttons, etc.)
   final List<Component>? actions;
-
-  /// Whether to show a search bar
   final bool showSearch;
-
-  /// Search placeholder text
   final String searchPlaceholder;
-
-  /// Search callback
   final void Function(String)? onSearch;
-
-  /// Whether the header is fixed/sticky
   final bool sticky;
-
-  /// Whether to use transparent background
   final bool transparent;
-
-  /// Whether to add border bottom
   final bool bordered;
 
   const ArcaneHeader({
@@ -65,7 +48,6 @@ class ArcaneHeader extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    // Convert ArcaneNavItem to NavItemProps
     List<NavItemProps> convertNavItems(List<ArcaneNavItem> items) {
       return items.map((item) => NavItemProps(
         label: item.label,
@@ -90,7 +72,7 @@ class ArcaneHeader extends StatelessComponent {
   }
 }
 
-/// A simple nav link component
+/// Simple nav link component.
 class ArcaneNavLink extends StatelessComponent {
   final String label;
   final String? href;

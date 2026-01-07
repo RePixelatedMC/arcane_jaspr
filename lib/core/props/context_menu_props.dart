@@ -3,12 +3,9 @@ import 'menu_item_props.dart';
 
 export 'menu_item_props.dart';
 
-/// Props for the context menu component
+/// Context menu component properties.
 class ContextMenuProps {
-  /// The trigger element
   final Component trigger;
-
-  /// Menu items
   final List<ArcaneMenuItem> items;
 
   const ContextMenuProps({

@@ -4,7 +4,7 @@ import '../../core/theme_provider.dart';
 
 export '../../core/props/bottom_navigation_props.dart';
 
-/// A bottom navigation item
+/// Bottom navigation item.
 class ArcaneBottomNavItem {
   final String label;
   final Component icon;
@@ -19,24 +19,13 @@ class ArcaneBottomNavItem {
   });
 }
 
-/// A bottom navigation bar component.
+/// Bottom navigation bar component.
 class ArcaneBottomNavigationBar extends StatelessComponent {
-  /// The navigation items
   final List<ArcaneBottomNavItem> items;
-
-  /// The currently selected index
   final int selectedIndex;
-
-  /// Callback when selection changes
   final void Function(int index)? onChanged;
-
-  /// Whether to show labels
   final bool showLabels;
-
-  /// Whether to show labels only when selected
   final bool showSelectedLabels;
-
-  /// Height of the navigation bar
   final double height;
 
   const ArcaneBottomNavigationBar({
@@ -69,7 +58,7 @@ class ArcaneBottomNavigationBar extends StatelessComponent {
   }
 }
 
-/// A fixed position bottom bar container
+/// Fixed position bottom bar container.
 class ArcaneBottomBar extends StatelessComponent {
   final Component child;
   final bool safeArea;

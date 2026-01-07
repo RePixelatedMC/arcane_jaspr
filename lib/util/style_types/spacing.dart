@@ -1,30 +1,4 @@
-/// Single-value spacing scale for uniform padding/margin values.
-///
-/// Based on a 4px base unit, provides consistent spacing throughout the UI.
-///
-/// ## Spacing Scale
-///
-/// | Value     | Size  | Use Case                    |
-/// |-----------|-------|------------------------------|
-/// | `none`    | 0px   | No spacing                   |
-/// | `xs`      | 4px   | Tight spacing, icons         |
-/// | `sm`      | 8px   | Compact elements             |
-/// | `md`      | 16px  | Standard spacing             |
-/// | `lg`      | 24px  | Generous spacing             |
-/// | `xl`      | 32px  | Section spacing              |
-/// | `xxl`     | 48px  | Large sections               |
-/// | `xxxl`    | 64px  | Major sections               |
-/// | `huge`    | 96px  | Hero sections                |
-/// | `massive` | 128px | Full-page hero               |
-///
-/// ## Example
-///
-/// ```dart
-/// ArcaneStyleData(
-///   padding: PaddingPreset.md,  // 16px all sides
-///   gap: Gap.sm,                // 8px between items
-/// )
-/// ```
+/// Single-value spacing scale based on 4px unit
 enum Spacing {
   none,
   xs,
@@ -64,156 +38,43 @@ enum Spacing {
       };
 }
 
-/// Compound padding presets for common UI patterns.
-///
-/// These presets combine vertical and horizontal padding values for
-/// common use cases like buttons, cards, and sections.
-///
-/// ## Naming Convention
-///
-/// - **Single values** (`xs`, `sm`, `md`, `lg`, `xl`): Equal padding all sides
-/// - **Compound values** (`smMd`, `mdLg`): `{vertical}{horizontal}` format
-/// - **Directional** (`horizontalSm`, `verticalMd`, `topLg`): One direction only
-/// - **Semantic** (`button*`, `card`, `section`): Use-case specific
-///
-/// ## Common Presets
-///
-/// ```dart
-/// // Buttons
-/// PaddingPreset.buttonSm  // 6px 12px  - Small button
-/// PaddingPreset.buttonMd  // 10px 16px - Medium button
-/// PaddingPreset.buttonLg  // 12px 24px - Large button
-///
-/// // Cards and sections
-/// PaddingPreset.card      // 16px 32px
-/// PaddingPreset.section   // 24px 48px
-///
-/// // Chips and badges
-/// PaddingPreset.badge     // 2px 8px
-/// PaddingPreset.chip      // 4px 12px
-/// ```
-///
-/// ## Example
-///
-/// ```dart
-/// ArcaneDiv(
-///   styles: const ArcaneStyleData(
-///     padding: PaddingPreset.md,      // 16px all sides
-///     // or
-///     padding: PaddingPreset.smMd,    // 8px vertical, 16px horizontal
-///     // or
-///     padding: PaddingPreset.buttonMd, // Standard button padding
-///   ),
-///   children: [...],
-/// )
-/// ```
+/// Compound padding presets
 enum PaddingPreset {
-  /// No padding
   none,
-
-  /// 4px all sides
   xs,
-
-  /// 8px all sides
   sm,
-
-  /// 16px all sides
   md,
-
-  /// 24px all sides
   lg,
-
-  /// 32px all sides
   xl,
-
-  /// 48px all sides
   xxl,
-
-  /// 64px all sides
   xxxl,
-
-  /// 4px vertical, 16px horizontal
   xsMd,
-
-  /// 8px vertical, 16px horizontal
   smMd,
-
-  /// 16px vertical, 24px horizontal
   mdLg,
-
-  /// 24px vertical, 32px horizontal
   lgXl,
-
-  /// 4px vertical, 8px horizontal (small buttons)
   xsSm,
-
-  /// 6px vertical, 12px horizontal (button small)
   buttonSm,
-
-  /// 10px vertical, 16px horizontal (button medium)
   buttonMd,
-
-  /// 12px vertical, 24px horizontal (button large)
   buttonLg,
-
-  /// 16px vertical, 32px horizontal (card)
   card,
-
-  /// 24px vertical, 48px horizontal (section)
   section,
-
-  /// 80px vertical, 24px horizontal (page section)
   sectionY,
-
-  /// 120px vertical, 24px horizontal (hero section)
   heroY,
-
-  /// 96px vertical only (carousel sections, no horizontal padding)
   hugeY,
-
-  /// 8px horizontal only
   horizontalSm,
-
-  /// 16px horizontal only
   horizontalMd,
-
-  /// 24px horizontal only
   horizontalLg,
-
-  /// 16px vertical only
   verticalMd,
-
-  /// 24px vertical only
   verticalLg,
-
-  /// 8px top padding only
   topSm,
-
-  /// 16px top padding only
   topMd,
-
-  /// 24px top padding only
   topLg,
-
-  /// 8px vertical, 24px horizontal (small-large)
   smLg,
-
-  /// 12px vertical, 32px horizontal (medium-xl)
   mdXl,
-
-  /// 32px horizontal only
   horizontalXl,
-
-  /// 16px bottom only
   bottomMd,
-
-  /// 2px vertical, 8px horizontal (badge/tag)
   badge,
-
-  /// 2px vertical, 6px horizontal (inline code)
   inlineCode,
-
-  /// 4px vertical, 12px horizontal (chip)
   chip;
 
   String get css => switch (this) {
@@ -256,123 +117,46 @@ enum PaddingPreset {
       };
 }
 
-/// Compound margin presets for common patterns
+/// Compound margin presets
 enum MarginPreset {
-  /// No margin
   none,
-
-  /// 4px all sides
   xs,
-
-  /// 8px all sides
   sm,
-
-  /// 16px all sides
   md,
-
-  /// 24px all sides
   lg,
-
-  /// 32px all sides
   xl,
-
-  /// Auto horizontal (centering)
   autoX,
-
-  /// Auto vertical
   autoY,
-
-  /// Auto all (center both axes)
   auto,
-
-  /// 8px top only
   topSm,
-
-  /// 16px top only
   topMd,
-
-  /// 24px top only
   topLg,
-
-  /// 4px bottom only
   bottomXs,
-
-  /// 8px bottom only
   bottomSm,
-
-  /// 16px bottom only
   bottomMd,
-
-  /// 24px bottom only
   bottomLg,
-
-  /// 32px bottom only
   bottomXl,
-
-  /// 48px bottom only
   bottomXxl,
-
-  /// 64px bottom only
   bottomXxxl,
-
-  /// 4px top only
   topXs,
-
-  /// 32px top only
   topXl,
-
-  /// 48px top only
   topXxl,
-
-  /// 8px vertical
   verticalSm,
-
-  /// 16px vertical
   verticalMd,
-
-  /// 24px vertical
   verticalLg,
-
-  /// 32px vertical
   verticalXl,
-
-  /// 8px horizontal
   horizontalSm,
-
-  /// 16px horizontal
   horizontalMd,
-
-  /// 24px horizontal
   horizontalLg,
-
-  /// 8px right only
   rightSm,
-
-  /// 16px right only
   rightMd,
-
-  /// 24px right only
   rightLg,
-
-  /// 8px left only
   leftSm,
-
-  /// 16px left only
   leftMd,
-
-  /// 24px left only
   leftLg,
-
-  /// Centered horizontally with 16px bottom margin
   centerBottomMd,
-
-  /// Centered horizontally with 24px bottom margin
   centerBottomLg,
-
-  /// Centered horizontally with 32px bottom margin
   centerBottomXl,
-
-  /// Centered horizontally with 48px bottom margin
   centerBottomXxl;
 
   String get css => switch (this) {
@@ -418,41 +202,7 @@ enum MarginPreset {
       };
 }
 
-/// Gap presets for flex and grid layouts.
-///
-/// Controls spacing between child elements in flex containers and grid cells.
-///
-/// ## Gap Scale
-///
-/// | Value  | Size | Typical Use                    |
-/// |--------|------|--------------------------------|
-/// | `none` | 0px  | No gap between items           |
-/// | `xs`   | 4px  | Very tight spacing             |
-/// | `sm`   | 8px  | Compact layouts, icon groups   |
-/// | `md`   | 16px | Standard spacing               |
-/// | `lg`   | 24px | Card grids, form sections      |
-/// | `xl`   | 32px | Major sections                 |
-/// | `xxl`  | 48px | Page sections                  |
-/// | `xxxl` | 64px | Hero content                   |
-///
-/// ## Example
-///
-/// ```dart
-/// // Flex container with gap
-/// ArcaneRow(
-///   gapSize: Gap.md,
-///   children: [Button1(), Button2()],
-/// )
-///
-/// // Grid with custom gaps
-/// ArcaneStyleData(
-///   display: Display.grid,
-///   gridColumns: GridColumns.three,
-///   gap: Gap.lg,        // Both row and column gap
-///   rowGap: Gap.xl,     // Override row gap only
-///   columnGap: Gap.md,  // Override column gap only
-/// )
-/// ```
+/// Gap presets for flex and grid layouts
 enum Gap {
   none,
   xs,

@@ -1,24 +1,11 @@
-/// Properties for gradient text components.
+/// Gradient text component properties.
 class GradientTextProps {
-  /// Text content
   final String content;
-
-  /// Full gradient CSS value (takes precedence over start/end)
   final String? gradient;
-
-  /// Gradient start color
   final String? gradientStart;
-
-  /// Gradient end color
   final String? gradientEnd;
-
-  /// Gradient angle
   final String? gradientAngle;
-
-  /// Font size
   final String fontSize;
-
-  /// Font weight
   final String fontWeight;
 
   const GradientTextProps({
@@ -32,15 +19,10 @@ class GradientTextProps {
   });
 }
 
-/// Properties for animated gradient text components.
+/// Animated gradient text component properties.
 class AnimatedGradientTextProps {
-  /// Text content
   final String content;
-
-  /// Font size
   final String fontSize;
-
-  /// Font weight
   final String fontWeight;
 
   const AnimatedGradientTextProps({
@@ -50,21 +32,12 @@ class AnimatedGradientTextProps {
   });
 }
 
-/// Properties for glow text components.
+/// Glow text component properties.
 class GlowTextProps {
-  /// Text content
   final String content;
-
-  /// Glow color
   final String? glowColor;
-
-  /// Font size
   final String fontSize;
-
-  /// Font weight
   final String fontWeight;
-
-  /// Glow intensity
   final double intensity;
 
   const GlowTextProps({
@@ -76,24 +49,13 @@ class GlowTextProps {
   });
 }
 
-/// Properties for outline text components.
+/// Outline text component properties.
 class OutlineTextProps {
-  /// Text content
   final String content;
-
-  /// Stroke color
   final String? strokeColor;
-
-  /// Fill color (null for transparent)
   final String? fillColor;
-
-  /// Font size
   final String fontSize;
-
-  /// Font weight
   final String fontWeight;
-
-  /// Stroke width
   final double strokeWidth;
 
   const OutlineTextProps({

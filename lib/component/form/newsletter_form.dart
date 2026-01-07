@@ -4,24 +4,13 @@ import '../../core/theme_provider.dart';
 
 export '../../core/props/newsletter_form_props.dart';
 
-/// A newsletter signup form (Supabase-style)
+/// Newsletter signup form component.
 class ArcaneNewsletterForm extends StatelessComponent {
-  /// Placeholder text
   final String placeholder;
-
-  /// Submit button text
   final String buttonText;
-
-  /// Success message
   final String successMessage;
-
-  /// Submit callback
   final void Function(String email)? onSubmit;
-
-  /// Whether to show inline (horizontal) layout
   final bool inline;
-
-  /// Whether the form is compact
   final bool compact;
 
   const ArcaneNewsletterForm({
@@ -47,24 +36,13 @@ class ArcaneNewsletterForm extends StatelessComponent {
   }
 }
 
-/// A waitlist form with additional fields
+/// Waitlist form with optional name collection.
 class ArcaneWaitlistForm extends StatelessComponent {
-  /// Form title
   final String? title;
-
-  /// Form description
   final String? description;
-
-  /// Submit button text
   final String buttonText;
-
-  /// Success message
   final String successMessage;
-
-  /// Submit callback
   final void Function(String email, String? name)? onSubmit;
-
-  /// Whether to collect name
   final bool collectName;
 
   const ArcaneWaitlistForm({

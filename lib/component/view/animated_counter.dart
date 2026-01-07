@@ -2,33 +2,17 @@ import 'package:jaspr/jaspr.dart';
 
 import '../../core/theme_provider.dart';
 
-// Re-export props for usage
 export '../../core/props/animated_counter_props.dart';
 
-/// Animated counter display for statistics
+/// Animated counter display for statistics.
 class ArcaneAnimatedCounter extends StatelessComponent {
-  /// The value to display
   final String value;
-
-  /// Prefix (e.g., "$")
   final String? prefix;
-
-  /// Suffix (e.g., "+", "%")
   final String? suffix;
-
-  /// Label text
   final String? label;
-
-  /// Font size
   final String fontSize;
-
-  /// Custom color
   final String? color;
-
-  /// Gradient start color (use with gradientEnd)
   final String? gradientStart;
-
-  /// Gradient end color (use with gradientStart)
   final String? gradientEnd;
 
   const ArcaneAnimatedCounter({
@@ -58,12 +42,9 @@ class ArcaneAnimatedCounter extends StatelessComponent {
   }
 }
 
-/// Counter row for displaying multiple stats
+/// Counter row for displaying multiple stats.
 class ArcaneCounterRow extends StatelessComponent {
-  /// Counters to display
   final List<ArcaneAnimatedCounter> counters;
-
-  /// Gap between counters
   final String gap;
 
   const ArcaneCounterRow({
@@ -81,21 +62,12 @@ class ArcaneCounterRow extends StatelessComponent {
   }
 }
 
-/// A metric display with label
+/// A metric display with label.
 class ArcaneMetricDisplay extends StatelessComponent {
-  /// Metric value
   final String value;
-
-  /// Metric label
   final String label;
-
-  /// Optional icon
   final String? icon;
-
-  /// Optional trend indicator
   final String? trend;
-
-  /// Whether trend is positive
   final bool trendPositive;
 
   const ArcaneMetricDisplay({

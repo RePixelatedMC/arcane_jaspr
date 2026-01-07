@@ -2,48 +2,16 @@ import 'package:jaspr/jaspr.dart';
 
 import '../../core/theme_provider.dart';
 
-// Re-export props for usage
 export '../../core/props/gradient_text_props.dart';
 
-/// Text with gradient color
-///
-/// ```dart
-/// // Using gradient string
-/// ArcaneGradientText(
-///   content: 'Hello World',
-///   gradient: 'linear-gradient(135deg, #059669, #0891B2)',
-/// )
-///
-/// // Using start/end colors
-/// ArcaneGradientText(
-///   content: 'Hello World',
-///   gradientStart: '#059669',
-///   gradientEnd: '#0891B2',
-/// )
-///
-/// // Using brand gradient (accent colors)
-/// ArcaneGradientText.brand(content: 'Hello World')
-/// ```
+/// Text with gradient color.
 class ArcaneGradientText extends StatelessComponent {
-  /// Text content
   final String content;
-
-  /// Full gradient CSS value (takes precedence over start/end)
   final String? gradient;
-
-  /// Gradient start color
   final String? gradientStart;
-
-  /// Gradient end color
   final String? gradientEnd;
-
-  /// Gradient angle
   final String? gradientAngle;
-
-  /// Font size (defaults to 'inherit' for inline use)
   final String fontSize;
-
-  /// Font weight (defaults to 'inherit' for inline use)
   final String fontWeight;
 
   const ArcaneGradientText({
@@ -57,7 +25,6 @@ class ArcaneGradientText extends StatelessComponent {
     super.key,
   });
 
-  /// Creates gradient text using the brand/accent gradient
   const ArcaneGradientText.brand({
     required this.content,
     this.fontSize = 'inherit',
@@ -68,7 +35,6 @@ class ArcaneGradientText extends StatelessComponent {
         gradientEnd = null,
         gradientAngle = null;
 
-  /// Creates gradient text using accent to info colors
   const ArcaneGradientText.accent({
     required this.content,
     this.fontSize = 'inherit',
@@ -93,15 +59,10 @@ class ArcaneGradientText extends StatelessComponent {
   }
 }
 
-/// Animated gradient text with color shift
+/// Animated gradient text with color shift.
 class ArcaneAnimatedGradientText extends StatelessComponent {
-  /// Text content
   final String content;
-
-  /// Font size
   final String fontSize;
-
-  /// Font weight
   final String fontWeight;
 
   const ArcaneAnimatedGradientText({
@@ -121,21 +82,12 @@ class ArcaneAnimatedGradientText extends StatelessComponent {
   }
 }
 
-/// Glow text effect
+/// Glow text effect.
 class ArcaneGlowText extends StatelessComponent {
-  /// Text content
   final String content;
-
-  /// Glow color
   final String? glowColor;
-
-  /// Font size
   final String fontSize;
-
-  /// Font weight
   final String fontWeight;
-
-  /// Glow intensity
   final double intensity;
 
   const ArcaneGlowText({
@@ -159,24 +111,13 @@ class ArcaneGlowText extends StatelessComponent {
   }
 }
 
-/// Outline text effect
+/// Outline text effect.
 class ArcaneOutlineText extends StatelessComponent {
-  /// Text content
   final String content;
-
-  /// Stroke color
   final String? strokeColor;
-
-  /// Fill color (null for transparent)
   final String? fillColor;
-
-  /// Font size
   final String fontSize;
-
-  /// Font weight
   final String fontWeight;
-
-  /// Stroke width
   final double strokeWidth;
 
   const ArcaneOutlineText({

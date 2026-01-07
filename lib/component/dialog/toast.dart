@@ -8,61 +8,18 @@ import 'toast_manager.dart';
 export '../../core/props/toast_props.dart' show ToastVariant, ToastPosition, ToastAction;
 export 'toast_manager.dart';
 
-/// A toast notification component matching shadcn/ui Sonner.
-/// ShadCN Reference: https://ui.shadcn.com/docs/components/toast
-///
-/// Can be used standalone or with the global [toast] API.
-///
-/// ## Standalone Usage
-/// ```dart
-/// ArcaneToast(
-///   message: 'Changes saved!',
-///   variant: ToastVariant.success,
-///   position: ToastPosition.bottomRight,
-/// )
-/// ```
-///
-/// ## Global API Usage
-/// ```dart
-/// // Add ArcaneToast.container() once at app root
-/// toast.success('Saved!');
-/// toast.error('Failed!');
-/// toast.warning('Check input');
-/// toast.info('New update');
-/// toast.loading('Processing...');
-/// ```
+/// Toast notification component with auto-dismiss and global API support.
 class ArcaneToast extends StatefulComponent {
-  /// Toast message (required)
   final String message;
-
-  /// Optional title displayed above message
   final String? title;
-
-  /// Optional description displayed below message
   final String? description;
-
-  /// Toast variant (info, success, warning, error, loading)
   final ToastVariant variant;
-
-  /// Screen position
   final ToastPosition position;
-
-  /// Auto-dismiss duration in milliseconds (0 = no auto-dismiss)
   final int duration;
-
-  /// Whether the toast can be dismissed by clicking close
   final bool dismissible;
-
-  /// Optional action button
   final ToastAction? action;
-
-  /// Custom icon (overrides default variant icon)
   final Component? icon;
-
-  /// Callback when toast is closed
   final void Function()? onClose;
-
-  /// Unique ID for this toast (used by toast manager)
   final String? id;
 
   const ArcaneToast({
@@ -80,8 +37,6 @@ class ArcaneToast extends StatefulComponent {
     super.key,
   });
 
-  /// Creates a toast container for the global toast API.
-  /// Place this once at your app root.
   static Component container({
     ToastPosition position = ToastPosition.bottomRight,
     int maxVisible = 3,
@@ -172,7 +127,6 @@ class _ArcaneToastState extends State<ArcaneToast> {
 
   @override
   Component build(BuildContext context) {
-    // Delegate rendering to the current stylesheet's toast renderer
     return context.renderers.toast(ToastProps(
       message: component.message,
       title: component.title,
@@ -193,11 +147,7 @@ class _ArcaneToastState extends State<ArcaneToast> {
   }
 }
 
-// =============================================================================
-// Toast Container (renders active toasts)
-// =============================================================================
-
-/// Toast container component - renders all active toasts
+/// Toast container component that renders all active toasts.
 class _ToastContainer extends StatefulComponent {
   final ToastPosition position;
   final int maxVisible;
@@ -238,7 +188,6 @@ class _ToastContainerState extends State<_ToastContainer> {
   Component build(BuildContext context) {
     final toasts = ToastManager.instance.toasts.take(component.maxVisible);
 
-    // Build ToastProps from ToastData
     final toastPropsList = toasts.map((data) => ToastProps(
       message: data.message,
       title: data.title,
@@ -252,8 +201,6 @@ class _ToastContainerState extends State<_ToastContainer> {
       id: data.id,
     )).toList();
 
-    // We still render individual ArcaneToast components for state management
-    // The container just positions them
     return context.renderers.toastContainer(ToastContainerProps(
       position: component.position,
       maxVisible: component.maxVisible,
@@ -264,5 +211,4 @@ class _ToastContainerState extends State<_ToastContainer> {
   }
 }
 
-/// Short alias for ArcaneToast
 typedef AToast = ArcaneToast;

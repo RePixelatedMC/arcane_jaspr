@@ -4,45 +4,17 @@ import '../../core/theme_provider.dart';
 
 export '../../core/props/time_dialog_props.dart';
 
-/// A time picker dialog.
-///
-/// ```dart
-/// ArcaneTimeDialog(
-///   title: 'Select Time',
-///   initialTime: TimeOfDay(hour: 14, minute: 30),
-///   onConfirm: (time) => handleTime(time),
-///   onCancel: () => closeDialog(),
-/// )
-/// ```
+/// Time picker dialog with hour/minute selection.
 class ArcaneTimeDialog extends StatelessComponent {
-  /// Dialog title
   final String title;
-
-  /// Optional message/description
   final String? message;
-
-  /// Initial time
   final TimeOfDay? initialTime;
-
-  /// Confirm button text
   final String confirmText;
-
-  /// Cancel button text
   final String cancelText;
-
-  /// Confirm callback with the selected time
   final void Function(TimeOfDay time)? onConfirm;
-
-  /// Cancel callback
   final void Function()? onCancel;
-
-  /// Whether to use 24-hour format
   final bool use24Hour;
-
-  /// Minute interval
   final int minuteInterval;
-
-  /// Whether to show seconds selector
   final bool showSeconds;
 
   const ArcaneTimeDialog({

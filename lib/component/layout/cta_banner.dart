@@ -6,25 +6,12 @@ export '../../core/props/cta_banner_props.dart';
 
 /// Call-to-action banner with gradient background.
 class ArcaneCtaBanner extends StatelessComponent {
-  /// Banner title
   final String title;
-
-  /// Optional subtitle
   final String? subtitle;
-
-  /// Primary action button
   final Component? primaryAction;
-
-  /// Secondary action button
   final Component? secondaryAction;
-
-  /// Gradient start color
   final String? gradientStart;
-
-  /// Gradient end color
   final String? gradientEnd;
-
-  /// Background image URL
   final String? backgroundImage;
 
   const ArcaneCtaBanner({

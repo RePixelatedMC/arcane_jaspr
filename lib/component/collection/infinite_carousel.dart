@@ -13,42 +13,14 @@ import 'package:jaspr/dom.dart'
         BoxShadow,
         FontWeight;
 
-/// An infinite scrolling carousel that auto-scrolls horizontally.
-///
-/// Duplicates content for seamless looping and pauses on hover.
-/// Define the CSS animation in your styles.css:
-/// ```css
-/// @keyframes scroll-carousel {
-///   0% { transform: translateX(0); }
-///   100% { transform: translateX(-50%); }
-/// }
-/// .arcane-infinite-carousel-track {
-///   animation: scroll-carousel 60s linear infinite;
-/// }
-/// .arcane-infinite-carousel-track:hover {
-///   animation-play-state: paused;
-/// }
-/// ```
+/// Infinite scrolling carousel that auto-scrolls horizontally.
 class ArcaneInfiniteCarousel extends StatelessComponent {
-  /// The items to display (will be duplicated for seamless loop)
   final List<Component> children;
-
-  /// Gap between items
   final String gap;
-
-  /// Animation duration in seconds
   final int animationDuration;
-
-  /// Whether to show fade gradients on edges
   final bool showFadeEdges;
-
-  /// Fade edge width
   final String fadeWidth;
-
-  /// Background color for fade gradient
   final String backgroundColor;
-
-  /// CSS class for the track (for custom animation)
   final String? trackClass;
 
   const ArcaneInfiniteCarousel({
@@ -61,7 +33,6 @@ class ArcaneInfiniteCarousel extends StatelessComponent {
     this.backgroundColor = 'var(--card)',
   }) : trackClass = null;
 
-  /// Creates a carousel with a custom track class for CSS animation
   const ArcaneInfiniteCarousel.withClass({
     super.key,
     required this.children,
@@ -82,7 +53,6 @@ class ArcaneInfiniteCarousel extends StatelessComponent {
         'overflow': 'hidden',
       }),
       [
-        // Left fade gradient
         if (showFadeEdges)
           div(
             classes: 'arcane-infinite-carousel-fade-left',
@@ -98,7 +68,6 @@ class ArcaneInfiniteCarousel extends StatelessComponent {
             }),
             [],
           ),
-        // Right fade gradient
         if (showFadeEdges)
           div(
             classes: 'arcane-infinite-carousel-fade-right',
@@ -114,7 +83,6 @@ class ArcaneInfiniteCarousel extends StatelessComponent {
             }),
             [],
           ),
-        // Scrolling track
         div(
           classes: trackClass ?? 'arcane-infinite-carousel-track',
           styles: Styles(raw: {
@@ -124,7 +92,6 @@ class ArcaneInfiniteCarousel extends StatelessComponent {
               'animation': 'scroll-carousel ${animationDuration}s linear infinite',
           }),
           [
-            // First set of items
             div(
               styles: Styles(raw: {
                 'display': 'flex',
@@ -133,7 +100,6 @@ class ArcaneInfiniteCarousel extends StatelessComponent {
               }),
               children,
             ),
-            // Duplicate for seamless infinite loop
             div(
               styles: Styles(raw: {
                 'display': 'flex',
@@ -156,26 +122,13 @@ class ArcaneInfiniteCarousel extends StatelessComponent {
   ];
 }
 
-/// A marketing section with an infinite carousel.
-///
-/// Combines a section header with label/title/subtitle and a carousel.
+/// Marketing section with an infinite carousel.
 class ArcaneCarouselSection extends StatelessComponent {
-  /// Section label (small uppercase text above title)
   final String? label;
-
-  /// Section title
   final String title;
-
-  /// Section subtitle
   final String? subtitle;
-
-  /// The carousel content
   final Component carousel;
-
-  /// Background color
   final String backgroundColor;
-
-  /// Section padding
   final String padding;
 
   const ArcaneCarouselSection({
@@ -198,7 +151,6 @@ class ArcaneCarouselSection extends StatelessComponent {
         'overflow': 'hidden',
       }),
       [
-        // Section header
         div(
           styles: const Styles(raw: {
             'max-width': '72rem',
@@ -208,7 +160,6 @@ class ArcaneCarouselSection extends StatelessComponent {
             'text-align': 'center',
           }),
           [
-            // Label
             if (label != null)
               span(
                 styles: const Styles(raw: {
@@ -222,7 +173,6 @@ class ArcaneCarouselSection extends StatelessComponent {
                 }),
                 [Component.text(label!)],
               ),
-            // Title
             h2(
               styles: const Styles(raw: {
                 'font-size': '2.25rem',
@@ -232,7 +182,6 @@ class ArcaneCarouselSection extends StatelessComponent {
               }),
               [Component.text(title)],
             ),
-            // Subtitle
             if (subtitle != null)
               p(
                 styles: const Styles(raw: {
@@ -245,7 +194,6 @@ class ArcaneCarouselSection extends StatelessComponent {
               ),
           ],
         ),
-        // Carousel
         carousel,
       ],
     );

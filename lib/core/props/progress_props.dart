@@ -1,54 +1,25 @@
-/// Progress bar size variants.
 enum ProgressSize {
-  /// Small (2px height)
   small,
-
-  /// Medium (4px height) - default
   medium,
-
-  /// Large (8px height)
   large,
 }
 
-/// Progress bar variant.
 enum ProgressVariant {
-  /// Default/primary color
   primary,
-
-  /// Success color (green)
   success,
-
-  /// Warning color (amber)
   warning,
-
-  /// Error/destructive color (red)
   error,
-
-  /// Info color (blue)
   info,
 }
 
-/// Properties for progress bar components.
+/// Progress bar component properties.
 class ProgressProps {
-  /// Current progress value (0.0 to 1.0)
   final double value;
-
-  /// Size variant
   final ProgressSize size;
-
-  /// Color variant
   final ProgressVariant variant;
-
-  /// Whether to show indeterminate animation
   final bool indeterminate;
-
-  /// Whether to show the value as text
   final bool showValue;
-
-  /// Custom track color
   final String? trackColor;
-
-  /// Custom indicator color
   final String? indicatorColor;
 
   const ProgressProps({
@@ -61,7 +32,6 @@ class ProgressProps {
     this.indicatorColor,
   });
 
-  /// Create a copy with modified properties
   ProgressProps copyWith({
     double? value,
     ProgressSize? size,
@@ -83,27 +53,14 @@ class ProgressProps {
   }
 }
 
-/// Properties for circular progress components.
+/// Circular progress component properties.
 class CircularProgressProps {
-  /// Progress value (0.0 to 1.0)
   final double value;
-
-  /// Size of the circle
   final String? size;
-
-  /// Width of the stroke
   final String? strokeWidth;
-
-  /// Fill color
   final String? fillColor;
-
-  /// Track color
   final String? trackColor;
-
-  /// Optional label
   final String? label;
-
-  /// Whether to show percentage
   final bool showPercentage;
 
   const CircularProgressProps({
@@ -117,12 +74,9 @@ class CircularProgressProps {
   });
 }
 
-/// Properties for loading spinner components.
+/// Loading spinner component properties.
 class LoadingSpinnerProps {
-  /// Size of the spinner
   final String? size;
-
-  /// Color of the spinner
   final String? color;
 
   const LoadingSpinnerProps({

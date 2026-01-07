@@ -2,24 +2,14 @@ import 'package:jaspr/jaspr.dart';
 
 import '../../core/theme_provider.dart';
 
-// Re-export props for usage
 export '../../core/props/social_icons_props.dart';
 
-/// Social media icon link
+/// Social media icon link.
 class ArcaneSocialIcon extends StatelessComponent {
-  /// Platform to display
   final SocialPlatform platform;
-
-  /// Link URL (optional)
   final String? url;
-
-  /// Icon size
   final String size;
-
-  /// Custom color
   final String? color;
-
-  /// Whether to show background
   final bool showBackground;
 
   const ArcaneSocialIcon({
@@ -31,23 +21,18 @@ class ArcaneSocialIcon extends StatelessComponent {
     super.key,
   });
 
-  /// Named constructor for Twitter/X
   const ArcaneSocialIcon.twitter({this.url, this.size = '24px', this.color, this.showBackground = true, super.key})
       : platform = SocialPlatform.twitter;
 
-  /// Named constructor for GitHub
   const ArcaneSocialIcon.github({this.url, this.size = '24px', this.color, this.showBackground = true, super.key})
       : platform = SocialPlatform.github;
 
-  /// Named constructor for Discord
   const ArcaneSocialIcon.discord({this.url, this.size = '24px', this.color, this.showBackground = true, super.key})
       : platform = SocialPlatform.discord;
 
-  /// Named constructor for YouTube
   const ArcaneSocialIcon.youtube({this.url, this.size = '24px', this.color, this.showBackground = true, super.key})
       : platform = SocialPlatform.youtube;
 
-  /// Named constructor for LinkedIn
   const ArcaneSocialIcon.linkedin({this.url, this.size = '24px', this.color, this.showBackground = true, super.key})
       : platform = SocialPlatform.linkedin;
 
@@ -63,12 +48,9 @@ class ArcaneSocialIcon extends StatelessComponent {
   }
 }
 
-/// Group of social icons
+/// Group of social icons.
 class ArcaneSocialIconGroup extends StatelessComponent {
-  /// Icons to display (as props)
   final List<SocialIconProps> icons;
-
-  /// Gap between icons
   final String gap;
 
   const ArcaneSocialIconGroup({
@@ -86,15 +68,10 @@ class ArcaneSocialIconGroup extends StatelessComponent {
   }
 }
 
-/// Social links component with labels
+/// Social links component with labels.
 class ArcaneSocialLinks extends StatelessComponent {
-  /// Social link items
   final List<SocialLinkItem> links;
-
-  /// Orientation (horizontal or vertical)
   final bool vertical;
-
-  /// Gap between items
   final String gap;
 
   const ArcaneSocialLinks({
@@ -113,4 +90,3 @@ class ArcaneSocialLinks extends StatelessComponent {
     ));
   }
 }
-

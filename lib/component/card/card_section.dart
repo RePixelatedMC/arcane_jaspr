@@ -3,30 +3,16 @@ import 'package:jaspr/jaspr.dart';
 import '../../core/theme_provider.dart';
 import '../../util/arcane.dart';
 
-// Re-export props for usage
 export '../../core/props/card_section_props.dart';
 
-/// A card with section-style content organization.
+/// Card with section-style content organization.
 class ArcaneCardSection extends StatelessComponent {
-  /// Section header
   final String? header;
-
-  /// Header component (overrides header string)
   final Component? headerComponent;
-
-  /// The child components
   final List<Component> children;
-
-  /// Custom padding
   final EdgeInsets? padding;
-
-  /// Border radius
   final double? radius;
-
-  /// Gap between children
   final double gap;
-
-  /// Trailing actions for the header
   final List<Component>? trailing;
 
   const ArcaneCardSection({
@@ -54,7 +40,7 @@ class ArcaneCardSection extends StatelessComponent {
   }
 }
 
-/// A list card that contains list items
+/// List card containing list items with optional dividers.
 class ArcaneListCard extends StatelessComponent {
   final String? header;
   final List<Component> children;

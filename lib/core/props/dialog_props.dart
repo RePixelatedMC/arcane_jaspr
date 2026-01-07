@@ -1,26 +1,13 @@
 import 'package:jaspr/jaspr.dart';
 
-/// Properties for dialog components.
+/// Dialog component properties.
 class DialogProps {
-  /// Dialog title
   final String? title;
-
-  /// Dialog content components
   final List<Component> content;
-
-  /// Footer action buttons
   final List<Component>? actions;
-
-  /// Whether to show the close button
   final bool showCloseButton;
-
-  /// Close handler callback
   final void Function()? onClose;
-
-  /// Maximum width in pixels
   final double maxWidth;
-
-  /// Whether clicking the backdrop closes the dialog
   final bool barrierDismissible;
 
   const DialogProps({
@@ -33,7 +20,6 @@ class DialogProps {
     this.barrierDismissible = true,
   });
 
-  /// Create a copy with modified properties
   DialogProps copyWith({
     String? title,
     List<Component>? content,
@@ -55,76 +41,37 @@ class DialogProps {
   }
 }
 
-/// Sheet position relative to the viewport.
 enum SheetPosition {
-  /// Slides in from left
   left,
-  /// Slides in from right
   right,
-  /// Slides down from top
   top,
-  /// Slides up from bottom
   bottom,
 }
 
-/// Sheet size variants
 enum SheetSizeVariant {
-  /// Compact - fits content
   auto,
-  /// Small (30% viewport for vertical, 280px for horizontal)
   sm,
-  /// Medium (50% viewport for vertical, 400px for horizontal)
   md,
-  /// Large (70% viewport for vertical, 540px for horizontal)
   lg,
-  /// Nearly full (90% viewport for vertical, 720px for horizontal)
   xl,
-  /// Full viewport
   full,
 }
 
-/// Properties for sheet/drawer components.
+/// Sheet/drawer component properties.
 class SheetProps {
-  /// Whether the sheet is open
   final bool isOpen;
-
-  /// Sheet content component
   final Component child;
-
-  /// Position of the sheet
   final SheetPosition position;
-
-  /// Size of the sheet
   final SheetSizeVariant size;
-
-  /// Close handler callback
   final void Function()? onClose;
-
-  /// Whether to show the close button
   final bool showCloseButton;
-
-  /// Sheet title
   final String? title;
-
-  /// Description below title
   final String? description;
-
-  /// Custom header widget (overrides title/description)
   final Component? header;
-
-  /// Footer content
   final Component? footer;
-
-  /// Whether to show backdrop overlay
   final bool showBackdrop;
-
-  /// Whether clicking backdrop closes sheet
   final bool closeOnBackdropClick;
-
-  /// Whether to show drag handle (for bottom/top sheets)
   final bool showDragHandle;
-
-  /// Custom max width
   final String? maxWidth;
 
   const SheetProps({
@@ -144,7 +91,6 @@ class SheetProps {
     this.maxWidth,
   });
 
-  /// Create a copy with modified properties
   SheetProps copyWith({
     bool? isOpen,
     Component? child,

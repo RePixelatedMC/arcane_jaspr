@@ -1,41 +1,18 @@
 import 'package:arcane_jaspr/arcane_jaspr.dart';
 
-/// Input type for auth fields
 enum AuthInputType { text, email, password }
 
 /// Styled input field for authentication forms.
-///
-/// Features dark gaming theme styling with subtle borders,
-/// focus glow effect, and optional password visibility toggle.
 class AuthInput extends StatelessComponent {
-  /// Label displayed above the input
   final String labelText;
-
-  /// Placeholder text inside the input
   final String? placeholder;
-
-  /// Hint text displayed below the input
   final String? hint;
-
-  /// Error message (shows red border when set)
   final String? error;
-
-  /// Type of input (text, email, password)
   final AuthInputType type;
-
-  /// Current value of the input
   final String? value;
-
-  /// Callback when input value changes
   final void Function(String)? onInput;
-
-  /// Whether the input is disabled
   final bool disabled;
-
-  /// Auto-focus this input on mount
   final bool autofocus;
-
-  /// Input name attribute for forms
   final String? name;
 
   const AuthInput({
@@ -62,7 +39,6 @@ class AuthInput extends StatelessComponent {
         margin: MarginPreset.bottomMd,
       ),
       children: [
-        // Label
         label(
           [Component.text(labelText)],
           htmlFor: inputId,
@@ -74,7 +50,6 @@ class AuthInput extends StatelessComponent {
             'margin-bottom': '0.25rem',
           }),
         ),
-        // Input container
         ArcaneDiv(
           styles: const ArcaneStyleData(
             position: Position.relative,
@@ -93,7 +68,6 @@ class AuthInput extends StatelessComponent {
               events: {
                 'input': (event) {
                   if (onInput != null) {
-                    // Event handling for input value
                   }
                 },
               },
@@ -115,7 +89,6 @@ class AuthInput extends StatelessComponent {
             ),
           ],
         ),
-        // Hint or error text
         if (hint != null || hasError)
           ArcaneDiv(
             styles: ArcaneStyleData(

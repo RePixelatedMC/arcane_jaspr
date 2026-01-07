@@ -27,10 +27,7 @@ import 'package:jaspr/dom.dart'
 
 import '../../util/style_types/arcane_style_data.dart';
 
-/// A section component that wraps the HTML `<section>` element.
-///
-/// Provides a Flutter-like API with direct `ArcaneStyleData` support.
-/// Named HtmlSection to avoid conflict with the layout Section component.
+/// Styled section element wrapper.
 class ArcaneHtmlSection extends StatelessComponent {
   final List<Component> children;
   final ArcaneStyleData? styles;

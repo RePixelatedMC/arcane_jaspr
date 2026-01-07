@@ -1,37 +1,21 @@
-/// Keyboard key display style
 enum KbdStyle {
-  /// Default raised key style
   raised,
-
-  /// Flat minimal style
   flat,
-
-  /// Outline style
   outline,
 }
 
-/// Keyboard key display size
 enum KbdSize {
   sm,
   md,
   lg,
 }
 
-/// Props for keyboard shortcut display component
+/// Keyboard shortcut display component properties.
 class KbdProps {
-  /// The key text to display (single key)
   final String? keyText;
-
-  /// List of keys for a combination
   final List<String>? keys;
-
-  /// Separator between keys (for combo display)
   final String separator;
-
-  /// Style variant
   final KbdStyle style;
-
-  /// Size variant
   final KbdSize size;
 
   const KbdProps({
@@ -43,7 +27,6 @@ class KbdProps {
   }) : assert(keyText != null || keys != null,
             'Either keyText or keys must be provided');
 
-  /// Create a single key
   const KbdProps.key(
     String key, {
     this.style = KbdStyle.raised,
@@ -52,7 +35,6 @@ class KbdProps {
         keys = null,
         separator = '+';
 
-  /// Create a key combination
   const KbdProps.combo(
     List<String> this.keys, {
     this.separator = '+',

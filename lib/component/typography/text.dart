@@ -4,84 +4,25 @@ import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, T
 import '../../util/arcane.dart';
 import '../../util/style_types/index.dart';
 
-/// A text component with enum-based styling.
-///
-/// Provides a Flutter-like API for styling text with sensible defaults
-/// and named constructors for common text styles.
-///
-/// Example:
-/// ```dart
-/// // Basic text
-/// ArcaneText('Hello World')
-///
-/// // Styled text
-/// ArcaneText(
-///   'Welcome',
-///   size: FontSize.xl,
-///   weight: FontWeight.bold,
-///   color: TextColor.primary,
-/// )
-///
-/// // Using named constructors
-/// ArcaneText.heading('Section Title')
-/// ArcaneText.subheading('Subtitle')
-/// ArcaneText.body('Body content goes here...')
-/// ArcaneText.caption('Small helper text')
-/// ArcaneText.code('const x = 42;')
-/// ```
+/// Text component with enum-based styling.
 class ArcaneText extends StatelessComponent {
-  /// The text content
   final String text;
-
-  /// Font size preset
   final FontSize? size;
-
-  /// Font weight
   final FontWeight? weight;
-
-  /// Text color
   final TextColor? color;
-
-  /// Custom text color (CSS value)
   final String? colorCustom;
-
-  /// Text alignment
   final TextAlign? align;
-
-  /// Line height
   final LineHeight? lineHeight;
-
-  /// Letter spacing
   final LetterSpacing? letterSpacing;
-
-  /// Text decoration (underline, etc.)
   final TextDecoration? decoration;
-
-  /// Text transform (uppercase, etc.)
   final TextTransform? transform;
-
-  /// Font family
   final FontFamily? family;
-
-  /// Font style (italic, etc.)
   final FontStyle? fontStyle;
-
-  /// Text overflow handling
   final TextOverflow? overflow;
-
-  /// White space handling
   final WhiteSpace? whiteSpace;
-
-  /// Maximum number of lines (enables truncation)
   final int? maxLines;
-
-  /// Whether text is selectable
   final bool selectable;
-
-  /// Full ArcaneStyleData for complete customization
   final ArcaneStyleData? style;
-
-  /// HTML element to use (span by default)
   final String element;
 
   const ArcaneText(
@@ -106,7 +47,6 @@ class ArcaneText extends StatelessComponent {
     super.key,
   });
 
-  /// Page title (mega size, bold)
   const ArcaneText.pageTitle(
     this.text, {
     this.color = TextColor.primary,
@@ -128,7 +68,6 @@ class ArcaneText extends StatelessComponent {
         selectable = true,
         element = 'h1';
 
-  /// Section title (hero size, bold)
   const ArcaneText.sectionTitle(
     this.text, {
     this.color = TextColor.primary,
@@ -150,7 +89,6 @@ class ArcaneText extends StatelessComponent {
         selectable = true,
         element = 'h2';
 
-  /// Heading (xl3, bold)
   const ArcaneText.heading(
     this.text, {
     this.color = TextColor.primary,
@@ -172,7 +110,6 @@ class ArcaneText extends StatelessComponent {
         selectable = true,
         element = 'h2';
 
-  /// Heading 2 (xl2, semibold)
   const ArcaneText.heading2(
     this.text, {
     this.color = TextColor.primary,
@@ -194,7 +131,6 @@ class ArcaneText extends StatelessComponent {
         selectable = true,
         element = 'h3';
 
-  /// Heading 3 (xl, semibold)
   const ArcaneText.heading3(
     this.text, {
     this.color = TextColor.primary,
@@ -216,7 +152,6 @@ class ArcaneText extends StatelessComponent {
         selectable = true,
         element = 'h4';
 
-  /// Subheading (lg, medium weight)
   const ArcaneText.subheading(
     this.text, {
     this.color = TextColor.secondary,
@@ -238,7 +173,6 @@ class ArcaneText extends StatelessComponent {
         selectable = true,
         element = 'p';
 
-  /// Body text (base size, relaxed line height)
   const ArcaneText.body(
     this.text, {
     this.color = TextColor.muted,
@@ -260,7 +194,6 @@ class ArcaneText extends StatelessComponent {
         selectable = true,
         element = 'p';
 
-  /// Body large (lg size, relaxed)
   const ArcaneText.bodyLarge(
     this.text, {
     this.color = TextColor.muted,
@@ -282,7 +215,6 @@ class ArcaneText extends StatelessComponent {
         selectable = true,
         element = 'p';
 
-  /// Body small (sm size)
   const ArcaneText.bodySmall(
     this.text, {
     this.color = TextColor.muted,
@@ -304,7 +236,6 @@ class ArcaneText extends StatelessComponent {
         selectable = true,
         element = 'p';
 
-  /// Label text (sm, medium weight)
   const ArcaneText.label(
     this.text, {
     this.color = TextColor.primary,
@@ -326,7 +257,6 @@ class ArcaneText extends StatelessComponent {
         selectable = true,
         element = 'span';
 
-  /// Caption/helper text (xs, subtle)
   const ArcaneText.caption(
     this.text, {
     this.color = TextColor.subtle,
@@ -348,7 +278,6 @@ class ArcaneText extends StatelessComponent {
         selectable = true,
         element = 'span';
 
-  /// Code/monospace text
   const ArcaneText.code(
     this.text, {
     this.color = TextColor.accent,
@@ -370,7 +299,6 @@ class ArcaneText extends StatelessComponent {
         selectable = true,
         element = 'code';
 
-  /// Link text (accent color, pointer cursor)
   const ArcaneText.link(
     this.text, {
     this.color = TextColor.accent,
@@ -392,7 +320,6 @@ class ArcaneText extends StatelessComponent {
         selectable = true,
         element = 'span';
 
-  /// Truncated text (single line with ellipsis)
   const ArcaneText.truncated(
     this.text, {
     this.size,
@@ -416,7 +343,6 @@ class ArcaneText extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    // Build text-specific styles
     final Map<String, String> textStyles = {};
 
     if (size != null) textStyles['font-size'] = size!.css;
@@ -438,7 +364,6 @@ class ArcaneText extends StatelessComponent {
       textStyles['-webkit-user-select'] = 'none';
     }
 
-    // Handle max lines (line clamp)
     if (maxLines != null && maxLines! > 0) {
       textStyles['display'] = '-webkit-box';
       textStyles['-webkit-line-clamp'] = '$maxLines';
@@ -446,12 +371,10 @@ class ArcaneText extends StatelessComponent {
       textStyles['overflow'] = 'hidden';
     }
 
-    // Merge with custom style if provided
     if (style != null) {
       textStyles.addAll(style!.toMap());
     }
 
-    // Choose element based on type
     return _buildElement(textStyles);
   }
 
@@ -489,23 +412,9 @@ class ArcaneText extends StatelessComponent {
   }
 }
 
-/// A rich text component that supports mixed styling.
-///
-/// Example:
-/// ```dart
-/// ArcaneRichText(
-///   children: [
-///     ArcaneTextSpan('Hello '),
-///     ArcaneTextSpan('World', weight: FontWeight.bold, color: TextColor.accent),
-///     ArcaneTextSpan('!'),
-///   ],
-/// )
-/// ```
+/// Rich text component supporting mixed styling.
 class ArcaneRichText extends StatelessComponent {
-  /// The text spans
   final List<Component> children;
-
-  /// Base text style applied to all spans
   final ArcaneStyleData? style;
 
   const ArcaneRichText({
@@ -524,7 +433,7 @@ class ArcaneRichText extends StatelessComponent {
   }
 }
 
-/// A text span for use within ArcaneRichText.
+/// Text span for use within ArcaneRichText.
 class ArcaneTextSpan extends StatelessComponent {
   final String text;
   final FontSize? size;

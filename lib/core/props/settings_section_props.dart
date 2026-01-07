@@ -1,17 +1,10 @@
 import 'package:jaspr/jaspr.dart';
 
-/// Props for the SettingsSection component.
+/// Settings section component properties.
 class SettingsSectionProps {
-  /// The section title
   final String title;
-
-  /// Optional description below the title
   final String? description;
-
-  /// The section content
   final List<Component> children;
-
-  /// Whether this is a danger zone section (destructive actions)
   final bool danger;
 
   const SettingsSectionProps({
@@ -22,15 +15,10 @@ class SettingsSectionProps {
   });
 }
 
-/// Props for the SettingsInfoRow component.
+/// Settings info row component properties.
 class SettingsInfoRowProps {
-  /// The label/name
   final String label;
-
-  /// The value to display
   final String value;
-
-  /// Whether to use monospace font for the value
   final bool monospace;
 
   const SettingsInfoRowProps({
@@ -40,21 +28,12 @@ class SettingsInfoRowProps {
   });
 }
 
-/// Props for the SettingsToggleRow component.
+/// Settings toggle row component properties.
 class SettingsToggleRowProps {
-  /// The toggle title
   final String title;
-
-  /// Optional description
   final String? description;
-
-  /// Whether the toggle is enabled
   final bool enabled;
-
-  /// Callback when toggle changes
   final void Function(bool)? onChanged;
-
-  /// Whether the toggle is disabled
   final bool disabled;
 
   const SettingsToggleRowProps({
@@ -66,12 +45,9 @@ class SettingsToggleRowProps {
   });
 }
 
-/// Props for the SettingsSubheader component.
+/// Settings subheader component properties.
 class SettingsSubheaderProps {
-  /// The subsection title
   final String title;
-
-  /// Optional description
   final String? description;
 
   const SettingsSubheaderProps({
@@ -80,15 +56,11 @@ class SettingsSubheaderProps {
   });
 }
 
-/// Variant for settings notes.
 enum SettingsNoteVariant { info, warning, success }
 
-/// Props for the SettingsNote component.
+/// Settings note component properties.
 class SettingsNoteProps {
-  /// The note text
   final String text;
-
-  /// The note variant
   final SettingsNoteVariant variant;
 
   const SettingsNoteProps({

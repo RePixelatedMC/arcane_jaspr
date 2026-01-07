@@ -5,16 +5,13 @@ import '../../core/theme_provider.dart';
 export '../../core/props/calendar_props.dart'
     show CalendarModeVariant, DateRangeValue, CalendarProps;
 
-/// Calendar selection mode
+/// Calendar selection mode.
 enum CalendarMode {
-  /// Select a single date
   single,
-
-  /// Select a date range
   range,
 }
 
-/// A date range
+/// A date range.
 class DateRange {
   final DateTime start;
   final DateTime end;
@@ -26,52 +23,19 @@ class DateRange {
 }
 
 /// A calendar component for date selection.
-///
-/// Example:
-/// ```dart
-/// ArcaneCalendar(
-///   selected: selectedDate,
-///   onSelect: (date) => setState(() => selectedDate = date),
-/// )
-/// ```
 class ArcaneCalendar extends StatefulComponent {
-  /// Currently selected date
   final DateTime? selected;
-
-  /// Called when a date is selected
   final void Function(DateTime)? onSelect;
-
-  /// The month to display (defaults to current month)
   final DateTime? month;
-
-  /// Called when month changes
   final void Function(DateTime)? onMonthChange;
-
-  /// Minimum selectable date
   final DateTime? minDate;
-
-  /// Maximum selectable date
   final DateTime? maxDate;
-
-  /// Custom function to disable specific dates
   final bool Function(DateTime)? disabledDates;
-
-  /// Whether to show week numbers
   final bool showWeekNumbers;
-
-  /// Whether to highlight today
   final bool showToday;
-
-  /// First day of week (0 = Sunday, 1 = Monday)
   final int firstDayOfWeek;
-
-  /// Selection mode
   final CalendarMode mode;
-
-  /// Selected date range (for range mode)
   final DateRange? selectedRange;
-
-  /// Called when range is selected
   final void Function(DateRange)? onRangeSelect;
 
   const ArcaneCalendar({

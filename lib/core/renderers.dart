@@ -241,19 +241,8 @@ export 'props/card_section_props.dart';
 export 'props/section_props.dart';
 
 /// Interface that all stylesheets must implement.
-///
-/// Each method renders a component according to the stylesheet's design language.
-/// Stylesheets MUST implement ALL methods - there are no optional components.
-///
-/// When a design system doesn't have a native concept for a component,
-/// the stylesheet must create an appropriate implementation that fits
-/// the design language.
 abstract class ComponentRenderers {
   const ComponentRenderers();
-
-  // ==========================================================================
-  // INPUT COMPONENTS
-  // ==========================================================================
 
   /// Render a button component
   Component button(ButtonProps props);
@@ -302,10 +291,6 @@ abstract class ComponentRenderers {
 
   /// Render a time picker component
   Component timePicker(TimePickerProps props);
-
-  // ==========================================================================
-  // VIEW COMPONENTS
-  // ==========================================================================
 
   /// Render an alert component
   Component alert(AlertProps props);
@@ -481,36 +466,20 @@ abstract class ComponentRenderers {
   /// Render a stat row component
   Component statRow(StatRowProps props);
 
-  // ==========================================================================
-  // LAYOUT COMPONENTS
-  // ==========================================================================
-
   /// Render a tabs component (tab bar + content panel)
   Component tabs(TabsProps props);
 
   /// Render a tab bar component (tabs only, no content)
   Component tabBar(TabBarProps props);
 
-  // ==========================================================================
-  // INTERACTIVE COMPONENTS
-  // ==========================================================================
-
   /// Render an accordion component
   Component accordion(AccordionProps props);
-
-  // ==========================================================================
-  // FEEDBACK COMPONENTS
-  // ==========================================================================
 
   /// Render a tooltip component
   Component tooltip(TooltipProps props);
 
   /// Render a popover component
   Component popover(PopoverProps props);
-
-  // ==========================================================================
-  // NAVIGATION COMPONENTS
-  // ==========================================================================
 
   /// Render a dropdown menu component
   Component dropdownMenu(DropdownMenuProps props);
@@ -548,10 +517,6 @@ abstract class ComponentRenderers {
   /// Render a pagination component
   Component pagination(PaginationProps props);
 
-  // ==========================================================================
-  // DIALOG COMPONENTS
-  // ==========================================================================
-
   /// Render a dialog component
   Component dialog(DialogProps props);
 
@@ -560,10 +525,6 @@ abstract class ComponentRenderers {
 
   /// Render a drawer component
   Component drawer(DrawerProps props);
-
-  // ==========================================================================
-  // LAYOUT COMPONENTS
-  // ==========================================================================
 
   /// Render an auth layout component
   Component authLayout(AuthLayoutProps props);
@@ -679,82 +640,38 @@ abstract class ComponentRenderers {
   /// Render a time dialog component
   Component timeDialog(TimeDialogProps props);
 
-  // ==========================================================================
-  // TOAST COMPONENTS
-  // ==========================================================================
-
   /// Render a toast notification component
   Component toast(ToastProps props);
 
   /// Render a toast container component
   Component toastContainer(ToastContainerProps props);
 
-  // ==========================================================================
-  // COMMAND COMPONENTS
-  // ==========================================================================
-
   /// Render a command palette component
   Component command(CommandProps props);
-
-  // ==========================================================================
-  // DATA TABLE COMPONENTS
-  // ==========================================================================
 
   /// Render a data table component
   Component dataTable<T>(DataTableProps<T> props);
 
-  // ==========================================================================
-  // SELECT COMPONENTS
-  // ==========================================================================
-
   /// Render a select/selector component
   Component select<T>(SelectProps<T> props);
-
-  // ==========================================================================
-  // CONTEXT MENU COMPONENTS
-  // ==========================================================================
 
   /// Render a context menu component
   Component contextMenu(ContextMenuProps props);
 
-  // ==========================================================================
-  // HOVERCARD COMPONENTS
-  // ==========================================================================
-
   /// Render a hovercard component
   Component hovercard(HovercardProps props);
-
-  // ==========================================================================
-  // TOGGLE GROUP COMPONENTS
-  // ==========================================================================
 
   /// Render a toggle group component
   Component toggleGroup(ToggleGroupProps props);
 
-  // ==========================================================================
-  // MENUBAR COMPONENTS
-  // ==========================================================================
-
   /// Render a menubar component
   Component menubar(MenubarProps props);
-
-  // ==========================================================================
-  // CALENDAR COMPONENTS
-  // ==========================================================================
 
   /// Render a calendar component
   Component calendar(CalendarProps props);
 
-  // ==========================================================================
-  // DATE PICKER COMPONENTS
-  // ==========================================================================
-
   /// Render a date picker component
   Component datePicker(DatePickerProps props);
-
-  // ==========================================================================
-  // LOADER COMPONENTS
-  // ==========================================================================
 
   /// Render a loader component
   Component loader(LoaderProps props);
@@ -762,16 +679,8 @@ abstract class ComponentRenderers {
   /// Render a loading overlay component
   Component loadingOverlay(LoadingOverlayProps props);
 
-  // ==========================================================================
-  // OTP INPUT COMPONENTS
-  // ==========================================================================
-
   /// Render an OTP input component
   Component otpInput(OtpInputProps props);
-
-  // ==========================================================================
-  // TILE COMPONENTS
-  // ==========================================================================
 
   /// Render a tile component
   Component tile(TileProps props);
@@ -779,16 +688,8 @@ abstract class ComponentRenderers {
   /// Render a navigation tile component
   Component navTile(NavTileProps props);
 
-  // ==========================================================================
-  // ARROW LINK COMPONENTS
-  // ==========================================================================
-
   /// Render an arrow link component
   Component arrowLink(ArrowLinkProps props);
-
-  // ==========================================================================
-  // STAT CARD COMPONENTS
-  // ==========================================================================
 
   /// Render a stat card component
   Component statCard(StatCardProps props);
@@ -796,26 +697,14 @@ abstract class ComponentRenderers {
   /// Render a stat card row component
   Component statCardRow(StatCardRowProps props);
 
-  // ==========================================================================
-  // SURFACE CARD COMPONENTS
-  // ==========================================================================
-
   /// Render a surface card component
   Component surfaceCard(SurfaceCardProps props);
 
   /// Render a thumbhash card component
   Component thumbHashCard(ThumbHashCardProps props);
 
-  // ==========================================================================
-  // FADE EDGE COMPONENTS
-  // ==========================================================================
-
   /// Render a fade edge component
   Component fadeEdge(FadeEdgeProps props);
-
-  // ==========================================================================
-  // CENTER BODY COMPONENTS
-  // ==========================================================================
 
   /// Render a center body component
   Component centerBody(CenterBodyProps props);
@@ -829,33 +718,17 @@ abstract class ComponentRenderers {
   /// Render an error state component
   Component errorState(ErrorStateProps props);
 
-  // ==========================================================================
-  // CARD SECTION COMPONENTS
-  // ==========================================================================
-
   /// Render a card section component
   Component cardSection(CardSectionProps props);
 
   /// Render a list card component
   Component listCard(ListCardProps props);
 
-  // ==========================================================================
-  // SECTION COMPONENTS
-  // ==========================================================================
-
   /// Render a section component
   Component section(SectionProps props);
 
-  // ==========================================================================
-  // AUTHOR CARD COMPONENTS
-  // ==========================================================================
-
   /// Render an author card component
   Component authorCard(AuthorCardProps props);
-
-  // ==========================================================================
-  // FEATURE CARD COMPONENTS
-  // ==========================================================================
 
   /// Render a feature card component
   Component featureCard(FeatureCardProps props);
@@ -863,19 +736,11 @@ abstract class ComponentRenderers {
   /// Render an icon card component
   Component iconCard(IconCardProps props);
 
-  // ==========================================================================
-  // TESTIMONIAL CARD COMPONENTS
-  // ==========================================================================
-
   /// Render a testimonial card component
   Component testimonialCard(TestimonialCardProps props);
 
   /// Render a simple rating stars component
   Component ratingStarsSimple(RatingStarsSimpleProps props);
-
-  // ==========================================================================
-  // SOCIAL ICONS COMPONENTS
-  // ==========================================================================
 
   /// Render a social icon component
   Component socialIcon(SocialIconProps props);
@@ -886,19 +751,11 @@ abstract class ComponentRenderers {
   /// Render a social links component
   Component socialLinks(SocialLinksProps props);
 
-  // ==========================================================================
-  // INTEGRATION CARD COMPONENTS
-  // ==========================================================================
-
   /// Render an integration card component
   Component integrationCard(IntegrationCardProps props);
 
   /// Render an integration grid component
   Component integrationGrid(IntegrationGridProps props);
-
-  // ==========================================================================
-  // PRICING CARD COMPONENTS
-  // ==========================================================================
 
   /// Render a pricing card component
   Component pricingCard(PricingCardProps props);
@@ -906,26 +763,14 @@ abstract class ComponentRenderers {
   /// Render a pricing grid component
   Component pricingGrid(PricingGridProps props);
 
-  // ==========================================================================
-  // AUTH BRANDING PANEL COMPONENTS
-  // ==========================================================================
-
   /// Render an auth branding panel component
   Component authBrandingPanel(AuthBrandingPanelProps props);
-
-  // ==========================================================================
-  // FLEXI CARDS COMPONENTS
-  // ==========================================================================
 
   /// Render a flexi cards component
   Component flexiCards(FlexiCardsProps props);
 
   /// Render a simple flexi cards component
   Component flexiCardsSimple(FlexiCardsSimpleProps props);
-
-  // ==========================================================================
-  // GAME TILE COMPONENTS
-  // ==========================================================================
 
   /// Render a game tile component
   Component gameTile(GameTileProps props);
@@ -935,10 +780,6 @@ abstract class ComponentRenderers {
 
   /// Render a game card component
   Component gameCard(GameCardProps props);
-
-  // ==========================================================================
-  // SETTINGS SECTION COMPONENTS
-  // ==========================================================================
 
   /// Render a settings section component
   Component settingsSection(SettingsSectionProps props);
@@ -955,10 +796,6 @@ abstract class ComponentRenderers {
   /// Render a settings note component
   Component settingsNote(SettingsNoteProps props);
 
-  // ==========================================================================
-  // SLOT COUNTER COMPONENTS
-  // ==========================================================================
-
   /// Render a slot counter component
   Component slotCounter(SlotCounterProps props);
 
@@ -967,10 +804,6 @@ abstract class ComponentRenderers {
 
   /// Render a slot counter card component
   Component slotCounterCard(SlotCounterCardProps props);
-
-  // ==========================================================================
-  // FORM COMPONENTS
-  // ==========================================================================
 
   /// Render a field wrapper component
   Component fieldWrapper(FieldWrapperProps props);
@@ -990,10 +823,6 @@ abstract class ComponentRenderers {
   /// Render a waitlist form component
   Component waitlistForm(WaitlistFormProps props);
 
-  // ==========================================================================
-  // NAVIGATION COMPONENTS (Additional)
-  // ==========================================================================
-
   /// Render a bottom navigation bar component
   Component bottomNavigationBar(BottomNavigationBarProps props);
 
@@ -1012,26 +841,14 @@ abstract class ComponentRenderers {
   /// Render a step indicator component
   Component stepIndicator(StepIndicatorProps props);
 
-  // ==========================================================================
-  // SCROLL RAIL COMPONENTS
-  // ==========================================================================
-
   /// Render a scroll rail component
   Component scrollRail(ScrollRailProps props);
 
   /// Render a scroll rail layout component
   Component scrollRailLayout(ScrollRailLayoutProps props);
 
-  // ==========================================================================
-  // RESIZABLE COMPONENTS
-  // ==========================================================================
-
   /// Render a resizable panel group component
   Component resizable(ResizableProps props);
-
-  // ==========================================================================
-  // RADIO CARDS COMPONENTS
-  // ==========================================================================
 
   /// Render a radio cards component
   Component radioCards<T>(RadioCardsProps<T> props);

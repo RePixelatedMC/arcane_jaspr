@@ -1,4 +1,3 @@
-/// Gutter size options
 enum GutterSize {
   xsmall(4),
   small(8),
@@ -10,12 +9,9 @@ enum GutterSize {
   const GutterSize(this.pixels);
 }
 
-/// Properties for gutter/spacing components.
+/// Gutter/spacing component properties.
 class GutterProps {
-  /// The size of the gutter
   final GutterSize size;
-
-  /// Whether to render as a horizontal gutter
   final bool horizontal;
 
   const GutterProps({
@@ -24,12 +20,9 @@ class GutterProps {
   });
 }
 
-/// Properties for flexible gap components.
+/// Gap component properties.
 class GapProps {
-  /// Size in pixels
   final double size;
-
-  /// Whether horizontal
   final bool horizontal;
 
   const GapProps(this.size, {this.horizontal = false});

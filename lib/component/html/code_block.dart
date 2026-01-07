@@ -28,72 +28,15 @@ import 'package:jaspr/dom.dart'
 
 import '../../util/style_types/index.dart';
 
-/// Style presets for ArcaneCodeBlock
-enum CodeBlockStyle {
-  /// Raw/unstyled - just the pre element
-  raw,
+enum CodeBlockStyle { raw, code, minimal, inline, terminal }
 
-  /// Code block with background, padding, border radius
-  code,
-
-  /// Minimal code - monospace font, no background
-  minimal,
-
-  /// Inline-like - compact, no margins
-  inline,
-
-  /// Terminal style - dark background, green text
-  terminal,
-}
-
-/// A code block component for displaying preformatted text, code, or terminal output.
-///
-/// This wraps the HTML `<pre>` element with sensible defaults and style presets.
-/// Use [style] for quick presets or [styles] for full customization.
-///
-/// Example with preset:
-/// ```dart
-/// ArcaneCodeBlock(
-///   style: CodeBlockStyle.code,
-///   children: [ArcaneText('const x = 42;')],
-/// )
-/// ```
-///
-/// Example with factory constructor:
-/// ```dart
-/// ArcaneCodeBlock.code(
-///   children: [ArcaneText('const x = 42;')],
-/// )
-/// ```
-///
-/// Example with custom styling:
-/// ```dart
-/// ArcaneCodeBlock(
-///   styles: ArcaneStyleData(
-///     background: Background.code,
-///     padding: PaddingPreset.md,
-///     fontFamily: FontFamily.mono,
-///   ),
-///   children: [ArcaneText('const x = 42;')],
-/// )
-/// ```
+/// Styled preformatted text wrapper with style presets.
 class ArcaneCodeBlock extends StatelessComponent {
-  /// The children of the code block
   final List<Component> children;
-
-  /// Quick style preset (applied before [styles])
   final CodeBlockStyle style;
-
-  /// Optional styling using ArcaneStyleData (merged with preset)
   final ArcaneStyleData? styles;
-
-  /// Optional CSS classes
   final String? classes;
-
-  /// Optional ID attribute
   final String? id;
-
-  /// Additional HTML attributes
   final Map<String, String>? attributes;
 
   const ArcaneCodeBlock({
@@ -106,7 +49,6 @@ class ArcaneCodeBlock extends StatelessComponent {
     super.key,
   });
 
-  /// Create a styled code block with background, padding, and border
   const factory ArcaneCodeBlock.code({
     required List<Component> children,
     ArcaneStyleData? styles,
@@ -115,7 +57,6 @@ class ArcaneCodeBlock extends StatelessComponent {
     Key? key,
   }) = _ArcaneCodeBlockCode;
 
-  /// Create a terminal styled code block with dark background and green text
   const factory ArcaneCodeBlock.terminal({
     required List<Component> children,
     ArcaneStyleData? styles,
@@ -212,4 +153,3 @@ class _ArcaneCodeBlockTerminal extends ArcaneCodeBlock {
     super.key,
   }) : super(style: CodeBlockStyle.terminal);
 }
-

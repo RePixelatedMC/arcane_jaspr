@@ -1,23 +1,12 @@
 import 'package:jaspr/jaspr.dart';
 
-/// A single command item.
+/// Command item data.
 class CommandItemProps {
-  /// Display label
   final String label;
-
-  /// Optional icon
   final Component? icon;
-
-  /// Keyboard shortcut hint
   final String? shortcut;
-
-  /// Called when item is selected
   final void Function()? onSelect;
-
-  /// Whether this item is disabled
   final bool disabled;
-
-  /// Additional search keywords
   final List<String>? keywords;
 
   const CommandItemProps({
@@ -30,12 +19,9 @@ class CommandItemProps {
   });
 }
 
-/// A group of related commands.
+/// Command group data.
 class CommandGroupProps {
-  /// Group heading
   final String? heading;
-
-  /// Items in this group
   final List<CommandItemProps> items;
 
   const CommandGroupProps({
@@ -44,33 +30,16 @@ class CommandGroupProps {
   });
 }
 
-/// Properties for command palette components.
+/// Command palette component properties.
 class CommandProps {
-  /// Whether the command palette is open
   final bool isOpen;
-
-  /// Called when palette should close
   final void Function()? onClose;
-
-  /// Command groups to display
   final List<CommandGroupProps> groups;
-
-  /// Placeholder for the search input
   final String placeholder;
-
-  /// Empty state message
   final String emptyMessage;
-
-  /// Current search query
   final String searchQuery;
-
-  /// Filtered items based on search
   final List<CommandItemProps> filteredItems;
-
-  /// Called when search value changes
   final void Function(String)? onSearch;
-
-  /// Called when an item is selected
   final void Function(CommandItemProps)? onSelectItem;
 
   const CommandProps({
@@ -85,7 +54,6 @@ class CommandProps {
     this.onSelectItem,
   });
 
-  /// Create a copy with modified properties
   CommandProps copyWith({
     bool? isOpen,
     void Function()? onClose,

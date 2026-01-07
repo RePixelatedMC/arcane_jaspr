@@ -2,14 +2,7 @@ import 'package:jaspr/jaspr.dart';
 
 import '../../core/theme_provider.dart';
 
-/// Progress bar component with various styles
-///
-/// ```dart
-/// ArcaneProgressBar(
-///   value: 0.75,
-///   variant: ProgressVariant.success,
-/// )
-/// ```
+/// Progress bar component with various styles.
 class ArcaneProgressBar extends StatelessComponent {
   final double value;
   final ProgressSize size;
@@ -30,7 +23,6 @@ class ArcaneProgressBar extends StatelessComponent {
     super.key,
   });
 
-  /// Standard progress bar
   const ArcaneProgressBar.standard({
     required this.value,
     this.size = ProgressSize.medium,
@@ -41,7 +33,6 @@ class ArcaneProgressBar extends StatelessComponent {
         trackColor = null,
         indicatorColor = null;
 
-  /// Success progress bar
   const ArcaneProgressBar.success({
     required this.value,
     this.size = ProgressSize.medium,
@@ -52,7 +43,6 @@ class ArcaneProgressBar extends StatelessComponent {
         trackColor = null,
         indicatorColor = null;
 
-  /// Warning progress bar
   const ArcaneProgressBar.warning({
     required this.value,
     this.size = ProgressSize.medium,
@@ -63,7 +53,6 @@ class ArcaneProgressBar extends StatelessComponent {
         trackColor = null,
         indicatorColor = null;
 
-  /// Error progress bar
   const ArcaneProgressBar.error({
     required this.value,
     this.size = ProgressSize.medium,
@@ -88,7 +77,7 @@ class ArcaneProgressBar extends StatelessComponent {
   }
 }
 
-/// Circular progress indicator
+/// Circular progress indicator.
 class ArcaneCircularProgress extends StatelessComponent {
   final double value;
   final String? size;
@@ -123,7 +112,7 @@ class ArcaneCircularProgress extends StatelessComponent {
   }
 }
 
-/// Indeterminate loading spinner
+/// Indeterminate loading spinner.
 class ArcaneLoadingSpinner extends StatelessComponent {
   final String? size;
   final String? color;

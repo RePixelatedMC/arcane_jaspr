@@ -18,83 +18,29 @@ import 'mutable_text_types.dart';
 export 'mutable_text_types.dart';
 
 /// A text component that can be clicked to edit inline.
-/// Similar to shadcn's inline editable patterns.
-///
-/// Usage:
-/// ```dart
-/// ArcaneMutableText(
-///   value: 'Click to edit',
-///   onSave: (newValue) => print('Saved: $newValue'),
-/// )
-/// ```
 class ArcaneMutableText extends StatefulComponent {
-  /// Current text value
   final String value;
-
-  /// Placeholder when value is empty
   final String? placeholder;
-
-  /// Called when value is saved (Enter key or blur)
   final void Function(String value)? onSave;
-
-  /// Called when editing is cancelled (Escape key)
   final void Function()? onCancel;
-
-  /// Called on every keystroke while editing
   final void Function(String value)? onChange;
-
-  /// How to trigger edit mode
   final MutableTextTrigger trigger;
-
-  /// Input type when editing
   final MutableTextInputType inputType;
-
-  /// Display style when not editing
   final MutableTextStyle displayStyle;
-
-  /// Whether editing is disabled
   final bool disabled;
-
-  /// Whether the field is required (shows * indicator)
   final bool required;
-
-  /// Validation function - return error message or null if valid
   final String? Function(String value)? validator;
-
-  /// Maximum length (0 = no limit)
   final int maxLength;
-
-  /// Minimum length for validation
   final int minLength;
-
-  /// Number of rows for multiline (default: 3)
   final int multilineRows;
-
-  /// Whether to save on blur (default: true)
   final bool saveOnBlur;
-
-  /// Whether to show character count
   final bool showCharCount;
-
-  /// Custom text style (font size, weight, etc.)
   final Map<String, String>? textStyles;
-
-  /// Label text shown above
   final String? label;
-
-  /// Helper text shown below
   final String? helperText;
-
-  /// Whether to start in edit mode
   final bool startEditing;
-
-  /// Prefix content (shown before text)
   final Component? prefix;
-
-  /// Suffix content (shown after text)
   final Component? suffix;
-
-  /// Whether to select all text when entering edit mode
   final bool selectAllOnEdit;
 
   const ArcaneMutableText({
@@ -160,7 +106,6 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
   }
 
   void _save() {
-    // Validate
     if (component.required && _editValue.isEmpty) {
       setState(() => _error = 'This field is required');
       return;
@@ -210,7 +155,6 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
     final isEmpty = component.value.isEmpty;
     final showPlaceholder = isEmpty && component.placeholder != null;
 
-    // Base text styles
     final Map<String, String> baseTextStyles = {
       'font-size': '1rem',
       'color': 'var(--foreground)',
@@ -227,7 +171,6 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
         'width': '100%',
       }),
       [
-        // Label
         if (component.label != null)
           Component.element(
             tag: 'label',
@@ -248,16 +191,12 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
             ],
           ),
 
-        // Main content
         if (_isEditing) ...[
-          // Edit mode
           _buildEditMode(baseTextStyles, hasError),
         ] else ...[
-          // Display mode
           _buildDisplayMode(baseTextStyles, showPlaceholder),
         ],
 
-        // Helper text or error
         if (_error != null)
           span(
             [Component.text(_error!)],
@@ -296,7 +235,6 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
             'gap': '0.25rem',
           }),
           [
-            // Prefix
             if (component.prefix != null)
               span(
                 [component.prefix!],
@@ -306,7 +244,6 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
                 }),
               ),
 
-            // Input/Textarea
             if (isMultiline)
               Component.element(
                 tag: 'textarea',
@@ -383,7 +320,6 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
                 },
               ),
 
-            // Suffix
             if (component.suffix != null)
               span(
                 [component.suffix!],
@@ -393,7 +329,6 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
                 }),
               ),
 
-            // Action buttons (for multiline or when saveOnBlur is false)
             if (isMultiline || !component.saveOnBlur) ...[
               button(
                 attributes: {'type': 'button', 'aria-label': 'Save'},
@@ -411,7 +346,7 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
                   'font-size': '14px',
                 }),
                 events: {'click': (e) => _save()},
-                [const Component.text('✓')],
+                [const Component.text('OK')],
               ),
               button(
                 attributes: {'type': 'button', 'aria-label': 'Cancel'},
@@ -429,13 +364,12 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
                   'font-size': '14px',
                 }),
                 events: {'click': (e) => _cancel()},
-                [const Component.text('✕')],
+                [const Component.text('X')],
               ),
             ],
           ],
         ),
 
-        // Character count
         if (component.showCharCount && component.maxLength > 0)
           span(
             [Component.text('${_editValue.length}/${component.maxLength}')],
@@ -453,7 +387,6 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
 
   Component _buildDisplayMode(
       Map<String, String> baseTextStyles, bool showPlaceholder) {
-    // Style based on displayStyle
     final Map<String, String> styleVariant = switch (component.displayStyle) {
       MutableTextStyle.inline => {},
       MutableTextStyle.subtle => {
@@ -477,7 +410,6 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
         },
     };
 
-    // Hover styles for subtle mode
     final Map<String, String> hoverStyles = switch (component.displayStyle) {
       MutableTextStyle.subtle when _isHovered && !component.disabled => {
           'background': 'var(--muted)',
@@ -534,10 +466,8 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
           },
       },
       [
-        // Prefix
         if (component.prefix != null) component.prefix!,
 
-        // Text content
         span(
           [
             Component.text(showPlaceholder ? component.placeholder! : component.value),
@@ -548,15 +478,13 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
           }),
         ),
 
-        // Suffix
         if (component.suffix != null) component.suffix!,
 
-        // Edit icon on hover (for hover trigger)
         if (_isHovered &&
             !component.disabled &&
             component.trigger == MutableTextTrigger.hover)
           const span(
-            [Component.text('✎')],
+            [Component.text('[edit]')],
             styles: Styles(raw: {
               'color': 'var(--muted-foreground)',
               'font-size': '14px',
@@ -570,7 +498,7 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
   InputType _getInputType() {
     return switch (component.inputType) {
       MutableTextInputType.text => InputType.text,
-      MutableTextInputType.multiline => InputType.text, // Not used for multiline
+      MutableTextInputType.multiline => InputType.text,
       MutableTextInputType.number => InputType.number,
       MutableTextInputType.email => InputType.email,
       MutableTextInputType.url => InputType.url,
@@ -578,9 +506,8 @@ class _ArcaneMutableTextState extends State<ArcaneMutableText> {
   }
 }
 
-/// Convenience constructors for common mutable text patterns
+/// Convenience constructors for common mutable text patterns.
 extension ArcaneMutableTextFactories on ArcaneMutableText {
-  /// Creates a heading-style mutable text
   static ArcaneMutableText heading({
     required String value,
     void Function(String)? onSave,
@@ -598,7 +525,6 @@ extension ArcaneMutableTextFactories on ArcaneMutableText {
     );
   }
 
-  /// Creates a paragraph-style mutable text
   static ArcaneMutableText paragraph({
     required String value,
     void Function(String)? onSave,
@@ -613,7 +539,6 @@ extension ArcaneMutableTextFactories on ArcaneMutableText {
     );
   }
 
-  /// Creates a label-style mutable text (smaller, muted)
   static ArcaneMutableText label({
     required String value,
     void Function(String)? onSave,

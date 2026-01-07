@@ -1,26 +1,13 @@
 import 'package:jaspr/jaspr.dart';
 
-/// Props for stat card components.
+/// Stat card component properties.
 class StatCardProps {
-  /// Label text
   final String label;
-
-  /// Value to display
   final String value;
-
-  /// Optional icon
   final String? icon;
-
-  /// Trend value (e.g., "+12.5%")
   final String? trend;
-
-  /// Whether the trend is positive
   final bool trendPositive;
-
-  /// Additional description
   final String? description;
-
-  /// Custom icon background
   final String? iconBackground;
 
   const StatCardProps({
@@ -34,15 +21,10 @@ class StatCardProps {
   });
 }
 
-/// Props for stat card row components.
+/// Stat card row component properties.
 class StatCardRowProps {
-  /// Stat cards to display
   final List<Component> cards;
-
-  /// Number of columns
   final int columns;
-
-  /// Gap between cards
   final String? gap;
 
   const StatCardRowProps({

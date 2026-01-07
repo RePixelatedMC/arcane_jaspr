@@ -1,17 +1,10 @@
 import 'package:jaspr/jaspr.dart';
 
-/// Props for center body components.
+/// Center body component properties.
 class CenterBodyProps {
-  /// The child component
   final Component child;
-
-  /// Maximum width of the content
   final double? maxWidth;
-
-  /// Custom padding
   final String? padding;
-
-  /// Whether to fill the entire viewport height
   final bool fillHeight;
 
   const CenterBodyProps({
@@ -22,15 +15,10 @@ class CenterBodyProps {
   });
 }
 
-/// Props for page body components.
+/// Page body component properties.
 class PageBodyProps {
-  /// The child components
   final List<Component> children;
-
-  /// Maximum width
   final double maxWidth;
-
-  /// Custom padding
   final String? padding;
 
   const PageBodyProps({
@@ -40,9 +28,8 @@ class PageBodyProps {
   });
 }
 
-/// Props for loading state components.
+/// Loading state component properties.
 class LoadingStateProps {
-  /// Loading message
   final String? message;
 
   const LoadingStateProps({
@@ -50,15 +37,10 @@ class LoadingStateProps {
   });
 }
 
-/// Props for error state components.
+/// Error state component properties.
 class ErrorStateProps {
-  /// Error title
   final String? title;
-
-  /// Error message
   final String? message;
-
-  /// Action button
   final Component? action;
 
   const ErrorStateProps({

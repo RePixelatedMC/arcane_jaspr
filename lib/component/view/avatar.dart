@@ -3,27 +3,9 @@ import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, T
 
 import '../../core/theme_provider.dart';
 
-// Re-export for convenience
 export '../../core/props/avatar_props.dart' show AvatarSize, AvatarShape;
 
 /// Avatar component for displaying user images or initials.
-///
-/// The actual rendering is delegated to the current stylesheet's renderer.
-///
-/// ## Basic Usage
-///
-/// ```dart
-/// ArcaneAvatar(initials: 'JD')
-/// ArcaneAvatar(imageUrl: 'https://example.com/avatar.jpg')
-/// ```
-///
-/// ## Shapes
-///
-/// ```dart
-/// ArcaneAvatar.circle(initials: 'AB')
-/// ArcaneAvatar.rounded(initials: 'CD')
-/// ArcaneAvatar.square(initials: 'EF')
-/// ```
 class ArcaneAvatar extends StatelessComponent {
   final String? imageUrl;
   final String? initials;
@@ -46,7 +28,6 @@ class ArcaneAvatar extends StatelessComponent {
     super.key,
   });
 
-  /// Circle avatar (default)
   const ArcaneAvatar.circle({
     this.imageUrl,
     this.initials,
@@ -58,7 +39,6 @@ class ArcaneAvatar extends StatelessComponent {
     super.key,
   }) : shape = AvatarShape.circle;
 
-  /// Rounded square avatar
   const ArcaneAvatar.rounded({
     this.imageUrl,
     this.initials,
@@ -70,7 +50,6 @@ class ArcaneAvatar extends StatelessComponent {
     super.key,
   }) : shape = AvatarShape.rounded;
 
-  /// Square avatar
   const ArcaneAvatar.square({
     this.imageUrl,
     this.initials,
@@ -84,7 +63,6 @@ class ArcaneAvatar extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    // Delegate to the current stylesheet's avatar renderer
     return context.renderers.avatar(AvatarProps(
       imageUrl: imageUrl,
       initials: initials,
@@ -98,7 +76,7 @@ class ArcaneAvatar extends StatelessComponent {
   }
 }
 
-/// Direction for avatar group stacking
+/// Direction for avatar group stacking.
 enum AvatarGroupDirection {
   toLeft,
   toRight,
@@ -107,8 +85,6 @@ enum AvatarGroupDirection {
 }
 
 /// Avatar group for stacking multiple avatars with overlap.
-///
-/// This component is NOT yet migrated to the new renderer system.
 class ArcaneAvatarGroup extends StatelessComponent {
   final List<ArcaneAvatar> avatars;
   final int maxVisible;
@@ -222,7 +198,7 @@ class ArcaneAvatarGroup extends StatelessComponent {
   }
 }
 
-/// Position for avatar badge
+/// Position for avatar badge.
 enum AvatarBadgePosition {
   topLeft,
   topRight,
@@ -230,9 +206,7 @@ enum AvatarBadgePosition {
   bottomRight,
 }
 
-/// Badge displayed on an avatar (e.g., online status, notification count)
-///
-/// This component is NOT yet migrated to the new renderer system.
+/// Badge displayed on an avatar.
 class ArcaneAvatarBadge extends StatelessComponent {
   final int size;
   final String color;

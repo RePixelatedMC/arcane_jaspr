@@ -1,32 +1,12 @@
 import 'package:arcane_jaspr/arcane_jaspr.dart';
 import 'package:web/web.dart' as web;
 
-/// Route protection component
-///
-/// Wraps protected routes to ensure only authenticated users can access them.
-/// Redirects unauthenticated users to a specified route.
-///
-/// ```dart
-/// AuthGuard(
-///   redirectTo: '/login',
-///   child: DashboardScreen(),
-/// )
-/// ```
+/// Route protection for authenticated users.
 class AuthGuard extends StatelessComponent {
-  /// The protected content
   final Component child;
-
-  /// Custom loading indicator (shown while auth state is loading)
   final Component? loadingIndicator;
-
-  /// Route to redirect to if not authenticated
   final String redirectTo;
-
-  /// Whether this route requires admin privileges
   final bool requireAdmin;
-
-  /// Callback to check if user has admin privileges
-  /// If not provided, always returns false for requireAdmin
   final bool Function(AuthUser user)? isAdmin;
 
   const AuthGuard({
@@ -42,31 +22,25 @@ class AuthGuard extends StatelessComponent {
   Component build(BuildContext context) {
     final AuthState state = context.authState;
 
-    // Show loading indicator while auth state is unknown or loading
     if (state.isUnknown || state.isLoading) {
       return loadingIndicator ?? _buildDefaultLoader();
     }
 
-    // Redirect if not authenticated
     if (!state.isAuthenticated) {
-      // Schedule redirect for after build
       _scheduleRedirect();
       return loadingIndicator ?? _buildDefaultLoader();
     }
 
-    // Check admin privileges if required
     if (requireAdmin) {
       final AuthUser user = state.user!;
       final bool hasAdminAccess = isAdmin?.call(user) ?? false;
 
       if (!hasAdminAccess) {
-        // Not an admin, redirect
         _scheduleRedirect();
         return loadingIndicator ?? _buildDefaultLoader();
       }
     }
 
-    // User is authenticated (and admin if required), show content
     return child;
   }
 
@@ -103,24 +77,10 @@ class AuthGuard extends StatelessComponent {
   }
 }
 
-/// Inverse of AuthGuard - only shows content when NOT authenticated
-///
-/// Useful for login/signup pages that should redirect authenticated users away.
-///
-/// ```dart
-/// GuestGuard(
-///   redirectTo: '/dashboard',
-///   child: LoginScreen(),
-/// )
-/// ```
+/// Route protection for guests (unauthenticated users).
 class GuestGuard extends StatelessComponent {
-  /// The content to show for guests
   final Component child;
-
-  /// Custom loading indicator
   final Component? loadingIndicator;
-
-  /// Route to redirect authenticated users to
   final String redirectTo;
 
   const GuestGuard({
@@ -134,12 +94,10 @@ class GuestGuard extends StatelessComponent {
   Component build(BuildContext context) {
     final AuthState state = context.authState;
 
-    // Show loading while unknown
     if (state.isUnknown || state.isLoading) {
       return loadingIndicator ?? _buildDefaultLoader();
     }
 
-    // Redirect if authenticated
     if (state.isAuthenticated) {
       Future<void>.microtask(() {
         web.window.location.href = redirectTo;
@@ -147,7 +105,6 @@ class GuestGuard extends StatelessComponent {
       return loadingIndicator ?? _buildDefaultLoader();
     }
 
-    // Not authenticated, show guest content
     return child;
   }
 

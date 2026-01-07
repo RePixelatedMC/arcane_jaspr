@@ -27,9 +27,7 @@ import 'package:jaspr/dom.dart'
 
 import '../../util/style_types/arcane_style_data.dart';
 
-/// A raw input component that wraps the HTML `<input>` element.
-///
-/// This is a low-level wrapper for direct HTML input elements.
+/// Raw input element wrapper.
 class ArcaneRawInput extends StatelessComponent {
   final ArcaneStyleData? styles;
   final String? classes;

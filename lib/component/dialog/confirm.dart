@@ -4,30 +4,15 @@ import '../../core/theme_provider.dart';
 
 export '../../core/props/confirm_dialog_props.dart';
 
-/// A confirmation dialog component.
+/// Confirmation dialog with confirm/cancel actions.
 class ArcaneConfirmDialog extends StatelessComponent {
-  /// Dialog title
   final String title;
-
-  /// Dialog message
   final String message;
-
-  /// Confirm button text
   final String confirmText;
-
-  /// Cancel button text
   final String cancelText;
-
-  /// Confirm callback
   final void Function()? onConfirm;
-
-  /// Cancel callback
   final void Function()? onCancel;
-
-  /// Whether this is a destructive action
   final bool destructive;
-
-  /// Custom icon
   final Component? icon;
 
   const ArcaneConfirmDialog({
@@ -57,7 +42,7 @@ class ArcaneConfirmDialog extends StatelessComponent {
   }
 }
 
-/// A simple alert dialog
+/// Simple alert dialog with single dismiss action.
 class ArcaneAlertDialog extends StatelessComponent {
   final String title;
   final String message;

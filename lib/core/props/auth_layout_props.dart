@@ -1,35 +1,16 @@
 import 'package:jaspr/jaspr.dart';
 
-/// Properties for auth layout components.
+/// Auth layout component properties.
 class AuthLayoutProps {
-  /// The main content (typically an auth card/form)
   final Component child;
-
-  /// Optional header content (typically a logo) displayed above the main content
   final Component? header;
-
-  /// Optional footer content (typically a "back to home" link)
   final Component? footer;
-
-  /// Whether to show the grid pattern background
   final bool showGrid;
-
-  /// Whether to show the glow effects
   final bool showGlows;
-
-  /// Primary glow color (top-left)
   final String primaryGlowColor;
-
-  /// Secondary glow color (bottom-right)
   final String secondaryGlowColor;
-
-  /// Grid line color
   final String gridColor;
-
-  /// Maximum width of the content area
   final String maxWidth;
-
-  /// Background color
   final String backgroundColor;
 
   const AuthLayoutProps({
@@ -46,12 +27,9 @@ class AuthLayoutProps {
   });
 }
 
-/// Properties for auth back link components.
+/// Auth back link component properties.
 class AuthBackLinkProps {
-  /// The href to navigate to
   final String href;
-
-  /// The link text (defaults to "Back to home")
   final String text;
 
   const AuthBackLinkProps({

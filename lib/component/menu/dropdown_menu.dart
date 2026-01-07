@@ -6,19 +6,11 @@ import '../../core/theme_provider.dart';
 export '../../core/props/dropdown_menu_props.dart' show DropdownAlignment;
 export '../../core/props/menu_item_props.dart';
 
-/// A dropdown menu component matching shadcn/ui.
-/// ShadCN Reference: https://ui.shadcn.com/docs/components/dropdown-menu
+/// Dropdown menu component.
 class ArcaneDropdownMenu extends StatefulComponent {
-  /// Trigger element
   final Component trigger;
-
-  /// Menu items
   final List<ArcaneMenuItem> items;
-
-  /// Alignment
   final DropdownAlignment alignment;
-
-  /// Width
   final double? width;
 
   const ArcaneDropdownMenu({
@@ -58,15 +50,10 @@ class _ArcaneDropdownMenuState extends State<ArcaneDropdownMenu> {
   }
 }
 
-/// A navigation dropdown with mega-menu style
+/// Navigation dropdown with mega-menu style.
 class ArcaneMegaMenu extends StatefulComponent {
-  /// Trigger label
   final String label;
-
-  /// Menu sections
   final List<ArcaneMegaMenuSection> sections;
-
-  /// Footer content
   final Component? footer;
 
   const ArcaneMegaMenu({
@@ -80,7 +67,7 @@ class ArcaneMegaMenu extends StatefulComponent {
   State<ArcaneMegaMenu> createState() => _ArcaneMegaMenuState();
 }
 
-/// A section in a mega menu
+/// Section in a mega menu.
 class ArcaneMegaMenuSection {
   final String? title;
   final List<ArcaneMenuItem> items;
@@ -106,7 +93,6 @@ class _ArcaneMegaMenuState extends State<ArcaneMegaMenu> {
         'mouseleave': (e) => setState(() => _isOpen = false),
       },
       [
-        // Trigger
         dom.button(
           classes: 'arcane-mega-menu-trigger',
           attributes: {'type': 'button'},
@@ -135,8 +121,6 @@ class _ArcaneMegaMenuState extends State<ArcaneMegaMenu> {
             ),
           ],
         ),
-
-        // Menu panel
         if (_isOpen)
           dom.div(
             classes: 'arcane-mega-menu-panel',

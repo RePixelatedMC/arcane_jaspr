@@ -1,6 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 
-/// An item for radio cards
+/// Radio card item data.
 class RadioCardItemData<T> {
   final T value;
   final String? title;
@@ -19,24 +19,13 @@ class RadioCardItemData<T> {
   });
 }
 
-/// Properties for radio cards components.
+/// Radio cards component properties.
 class RadioCardsProps<T> {
-  /// The items to display
   final List<RadioCardItemData<T>> items;
-
-  /// The currently selected value
   final T? value;
-
-  /// Callback when selection changes
   final void Function(T value)? onChanged;
-
-  /// Gap between cards
   final double gap;
-
-  /// Whether to wrap cards
   final bool wrap;
-
-  /// Card width (null for auto)
   final double? cardWidth;
 
   const RadioCardsProps({
@@ -49,7 +38,7 @@ class RadioCardsProps<T> {
   });
 }
 
-/// Properties for selectable chip group components (distinct from ChipGroupProps).
+/// Selectable chip group component properties.
 class SelectableChipGroupProps {
   final List<Component> children;
   final double gap;
@@ -62,7 +51,7 @@ class SelectableChipGroupProps {
   });
 }
 
-/// Properties for selectable chip components.
+/// Selectable chip component properties.
 class ArcaneChipProps {
   final String label;
   final Component? avatar;

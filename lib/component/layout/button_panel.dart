@@ -6,22 +6,11 @@ import '../../util/arcane.dart';
 export '../../core/props/button_panel_props.dart';
 
 /// A panel component for action buttons, typically used in dialogs or footers.
-///
-/// Provides consistent spacing and alignment for button groups.
 class ArcaneButtonPanel extends StatelessComponent {
-  /// The button components
   final List<Component> children;
-
-  /// Main axis alignment
   final MainAxisAlignment mainAxisAlignment;
-
-  /// Gap between buttons
   final double gap;
-
-  /// Whether to stack vertically on small screens
   final bool responsive;
-
-  /// Padding around the panel
   final EdgeInsets? padding;
 
   const ArcaneButtonPanel({
@@ -45,7 +34,7 @@ class ArcaneButtonPanel extends StatelessComponent {
   }
 }
 
-/// A toolbar component for a horizontal bar of actions
+/// A toolbar component for a horizontal bar of actions.
 class ArcaneToolbar extends StatelessComponent {
   final List<Component> children;
   final MainAxisAlignment mainAxisAlignment;
@@ -74,7 +63,7 @@ class ArcaneToolbar extends StatelessComponent {
   }
 }
 
-/// A group of related buttons or controls
+/// A group of related buttons or controls.
 class ArcaneButtonGroup extends StatelessComponent {
   final List<Component> children;
   final bool vertical;

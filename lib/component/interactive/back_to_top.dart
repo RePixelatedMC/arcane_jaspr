@@ -1,21 +1,12 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-/// A back to top button (Supabase-style)
+/// Back to top button.
 class ArcaneBackToTop extends StatelessComponent {
-  /// Whether the button is visible
   final bool visible;
-
-  /// Click handler
   final void Function()? onTap;
-
-  /// Position from right
   final double right;
-
-  /// Position from bottom
   final double bottom;
-
-  /// Button size
   final double size;
 
   const ArcaneBackToTop({
@@ -90,18 +81,11 @@ class ArcaneBackToTop extends StatelessComponent {
   ];
 }
 
-/// A scroll progress indicator
+/// Scroll progress indicator.
 class ArcaneScrollProgress extends StatelessComponent {
-  /// Progress value (0-100)
   final double progress;
-
-  /// Whether to show at top or bottom
   final bool top;
-
-  /// Bar height
   final double height;
-
-  /// Color
   final String? color;
 
   const ArcaneScrollProgress({
@@ -141,27 +125,14 @@ class ArcaneScrollProgress extends StatelessComponent {
   }
 }
 
-/// A floating action button
+/// Floating action button.
 class ArcaneFloatingActionButton extends StatelessComponent {
-  /// Button icon/content
   final Component child;
-
-  /// Click handler
   final void Function()? onTap;
-
-  /// Position from right
   final double right;
-
-  /// Position from bottom
   final double bottom;
-
-  /// Button size
   final double size;
-
-  /// Whether extended with label
   final String? label;
-
-  /// Whether to use accent color
   final bool accent;
 
   const ArcaneFloatingActionButton({

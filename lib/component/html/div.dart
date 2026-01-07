@@ -27,40 +27,12 @@ import 'package:jaspr/dom.dart'
 
 import '../../util/style_types/arcane_style_data.dart';
 
-/// A div component that wraps the HTML `<div>` element.
-///
-/// Provides a Flutter-like API with direct `ArcaneStyleData` support,
-/// eliminating the need to call `.toStyles()`.
-///
-/// Example:
-/// ```dart
-/// ArcaneDiv(
-///   styles: ArcaneStyleData(
-///     display: Display.flex,
-///     flexDirection: FlexDirection.column,
-///     gap: Gap.md,
-///     padding: PaddingPreset.lg,
-///   ),
-///   children: [
-///     ArcaneParagraph(child: ArcaneText('First paragraph')),
-///     ArcaneParagraph(child: ArcaneText('Second paragraph')),
-///   ],
-/// )
-/// ```
+/// Styled div wrapper.
 class ArcaneDiv extends StatelessComponent {
-  /// The children of the div
   final List<Component> children;
-
-  /// Optional styling using ArcaneStyleData
   final ArcaneStyleData? styles;
-
-  /// Optional CSS classes
   final String? classes;
-
-  /// Optional ID attribute
   final String? id;
-
-  /// Event handlers
   final Map<String, void Function(dynamic)>? events;
 
   const ArcaneDiv({
@@ -72,7 +44,6 @@ class ArcaneDiv extends StatelessComponent {
     super.key,
   });
 
-  /// Create a div with a single child
   const factory ArcaneDiv.child({
     required Component child,
     ArcaneStyleData? styles,

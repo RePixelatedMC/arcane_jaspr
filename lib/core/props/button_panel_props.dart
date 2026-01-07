@@ -2,21 +2,12 @@ import 'package:jaspr/jaspr.dart';
 
 import '../../util/arcane.dart';
 
-/// Properties for button panel components.
+/// Button panel component properties.
 class ButtonPanelProps {
-  /// The button components
   final List<Component> children;
-
-  /// Main axis alignment
   final MainAxisAlignment mainAxisAlignment;
-
-  /// Gap between buttons
   final double gap;
-
-  /// Whether to stack vertically on small screens
   final bool responsive;
-
-  /// Padding around the panel
   final EdgeInsets? padding;
 
   const ButtonPanelProps({
@@ -28,21 +19,12 @@ class ButtonPanelProps {
   });
 }
 
-/// Properties for toolbar components.
+/// Toolbar component properties.
 class ToolbarProps {
-  /// The child components
   final List<Component> children;
-
-  /// Main axis alignment
   final MainAxisAlignment mainAxisAlignment;
-
-  /// Cross axis alignment
   final CrossAxisAlignment crossAxisAlignment;
-
-  /// Gap between items
   final double gap;
-
-  /// Padding around the toolbar
   final EdgeInsets? padding;
 
   const ToolbarProps({
@@ -54,15 +36,10 @@ class ToolbarProps {
   });
 }
 
-/// Properties for button group components.
+/// Button group component properties.
 class ButtonGroupProps {
-  /// The child components
   final List<Component> children;
-
-  /// Whether vertical layout
   final bool vertical;
-
-  /// Gap between buttons
   final double gap;
 
   const ButtonGroupProps({

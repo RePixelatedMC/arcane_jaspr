@@ -3,30 +3,16 @@ import 'package:jaspr/jaspr.dart';
 import '../../core/theme_provider.dart';
 import '../../util/arcane.dart';
 
-// Re-export props for usage
 export '../../core/props/section_props.dart';
 
 /// A section component for grouping related content with an optional header.
 class ArcaneSection extends StatelessComponent {
-  /// Optional section header text
   final String? header;
-
-  /// Optional header component (overrides header text)
   final Component? headerComponent;
-
-  /// The child components
   final List<Component> children;
-
-  /// Whether to show a divider after the header
   final bool showDivider;
-
-  /// Custom padding
   final EdgeInsets? padding;
-
-  /// Gap between children
   final double gap;
-
-  /// Whether this is a card-style section
   final bool card;
 
   const ArcaneSection({
@@ -54,7 +40,7 @@ class ArcaneSection extends StatelessComponent {
   }
 }
 
-/// A sliver-style section for use in scrollable lists
+/// A sliver-style section for use in scrollable lists.
 class ArcaneSliverSection extends StatelessComponent {
   final String? header;
   final Component? headerComponent;

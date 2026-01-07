@@ -4,24 +4,11 @@ import '../../core/theme_provider.dart';
 
 export '../../core/props/divider_props.dart' show DividerVariant, DividerOrientation;
 
-/// A horizontal divider component
-///
-/// ```dart
-/// ArcaneDivider(
-///   variant: DividerVariant.subtle,
-/// )
-/// ```
+/// A horizontal divider component.
 class ArcaneDivider extends StatelessComponent {
-  /// Vertical margin
   final double? margin;
-
-  /// Style variant
   final DividerVariant variant;
-
-  /// Optional label in the middle
   final String? label;
-
-  /// Whether to use a dashed style
   final bool dashed;
 
   const ArcaneDivider({
@@ -32,7 +19,6 @@ class ArcaneDivider extends StatelessComponent {
     super.key,
   });
 
-  /// Standard divider
   const ArcaneDivider.standard({
     this.margin,
     this.label,
@@ -40,7 +26,6 @@ class ArcaneDivider extends StatelessComponent {
     super.key,
   }) : variant = DividerVariant.standard;
 
-  /// Subtle divider
   const ArcaneDivider.subtle({
     this.margin,
     this.label,
@@ -48,7 +33,6 @@ class ArcaneDivider extends StatelessComponent {
     super.key,
   }) : variant = DividerVariant.subtle;
 
-  /// Bold divider
   const ArcaneDivider.bold({
     this.margin,
     this.label,
@@ -68,15 +52,10 @@ class ArcaneDivider extends StatelessComponent {
   }
 }
 
-/// A vertical divider component
+/// A vertical divider component.
 class ArcaneVerticalDivider extends StatelessComponent {
-  /// Horizontal margin
   final double? margin;
-
-  /// Style variant
   final DividerVariant variant;
-
-  /// Height (null for full height)
   final double? height;
 
   const ArcaneVerticalDivider({

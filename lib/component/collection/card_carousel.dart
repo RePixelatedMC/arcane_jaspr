@@ -1,9 +1,8 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-/// Theme configuration for [CardCarousel] widgets.
+/// Theme configuration for CardCarousel widgets.
 class ArcaneCardCarouselTheme {
-  /// The intensity level for the edge gradient fade effect (1-12).
   final int sharpness;
 
   const ArcaneCardCarouselTheme({this.sharpness = 9});
@@ -12,27 +11,13 @@ class ArcaneCardCarouselTheme {
       ArcaneCardCarouselTheme(sharpness: sharpness ?? this.sharpness);
 }
 
-/// A horizontally scrollable widget container with edge fading.
-///
-/// [CardCarousel] displays a sequence of widgets in a compact horizontal layout
-/// with smooth scrolling and edge gradient overlays to indicate additional content.
+/// Horizontally scrollable widget container with edge fading.
 class ArcaneCardCarousel extends StatelessComponent {
-  /// The collection of widgets to render within the carousel.
   final List<Component> children;
-
-  /// Optional override for the edge gradient fade intensity (1-12).
   final int? sharpness;
-
-  /// Optional color for the edge fade overlay gradient.
   final String? featherColor;
-
-  /// Gap between carousel items.
   final double gap;
-
-  /// Padding around the carousel content.
   final String? padding;
-
-  /// Height constraint for the carousel.
   final String? height;
 
   const ArcaneCardCarousel({
@@ -50,7 +35,6 @@ class ArcaneCardCarousel extends StatelessComponent {
     final int effectiveSharpness = (sharpness ?? 9).clamp(1, 12);
     final String effectiveFeatherColor = featherColor ?? 'var(--background)';
 
-    // Generate gradient stops based on sharpness
     final List<String> transparentStops = List.generate(effectiveSharpness, (_) => 'transparent');
     final String leftGradient = [effectiveFeatherColor, ...transparentStops].join(', ');
     final String rightGradient = [...transparentStops, effectiveFeatherColor].join(', ');
@@ -63,7 +47,6 @@ class ArcaneCardCarousel extends StatelessComponent {
         if (height != null) 'height': height!,
       }),
       [
-        // Scrollable content
         div(
           classes: 'arcane-card-carousel-content',
           styles: Styles(raw: {
@@ -79,7 +62,6 @@ class ArcaneCardCarousel extends StatelessComponent {
           children,
         ),
 
-        // Left fade overlay
         div(
           classes: 'arcane-card-carousel-fade-left',
           styles: Styles(raw: {
@@ -96,7 +78,6 @@ class ArcaneCardCarousel extends StatelessComponent {
           [],
         ),
 
-        // Right fade overlay
         div(
           classes: 'arcane-card-carousel-fade-right',
           styles: Styles(raw: {
@@ -118,31 +99,19 @@ class ArcaneCardCarousel extends StatelessComponent {
 
   @css
   static final List<StyleRule> styles = [
-    // Hide scrollbar
     css('.arcane-card-carousel-content::-webkit-scrollbar').styles(raw: {
       'display': 'none',
     }),
   ];
 }
 
-/// A carousel with navigation arrows.
+/// Carousel with navigation arrows.
 class ArcaneNavigableCarousel extends StatefulComponent {
-  /// The collection of widgets to render.
   final List<Component> children;
-
-  /// Gap between items.
   final double gap;
-
-  /// Whether to show navigation arrows.
   final bool showArrows;
-
-  /// Whether to show dot indicators.
   final bool showIndicators;
-
-  /// Items visible at once (for snapping).
   final int visibleItems;
-
-  /// Height constraint.
   final String? height;
 
   const ArcaneNavigableCarousel({
@@ -213,7 +182,6 @@ class _NavigableCarouselState extends State<ArcaneNavigableCarousel> {
         if (component.height != null) 'height': component.height!,
       }),
       [
-        // Carousel viewport
         div(
           classes: 'arcane-carousel-viewport',
           styles: const Styles(raw: {
@@ -221,7 +189,6 @@ class _NavigableCarouselState extends State<ArcaneNavigableCarousel> {
             'width': '100%',
           }),
           [
-            // Carousel track
             div(
               classes: 'arcane-carousel-track',
               styles: Styles(raw: {
@@ -244,9 +211,7 @@ class _NavigableCarouselState extends State<ArcaneNavigableCarousel> {
           ],
         ),
 
-        // Navigation arrows
         if (component.showArrows) ...[
-          // Previous button
           button(
             classes: 'arcane-carousel-prev',
             attributes: {
@@ -280,7 +245,6 @@ class _NavigableCarouselState extends State<ArcaneNavigableCarousel> {
             [const Component.text('<')],
           ),
 
-          // Next button
           button(
             classes: 'arcane-carousel-next',
             attributes: {
@@ -315,7 +279,6 @@ class _NavigableCarouselState extends State<ArcaneNavigableCarousel> {
           ),
         ],
 
-        // Dot indicators
         if (component.showIndicators && _maxIndex > 0)
           div(
             classes: 'arcane-carousel-indicators',
@@ -356,21 +319,12 @@ class _NavigableCarouselState extends State<ArcaneNavigableCarousel> {
   }
 }
 
-/// A hero carousel with full-width slides.
+/// Hero carousel with full-width slides.
 class ArcaneHeroCarousel extends StatefulComponent {
-  /// Slides to display.
   final List<Component> children;
-
-  /// Auto-play interval in milliseconds (0 to disable).
   final int autoPlayInterval;
-
-  /// Whether to show navigation arrows.
   final bool showArrows;
-
-  /// Whether to show dot indicators.
   final bool showIndicators;
-
-  /// Height of the carousel.
   final String height;
 
   const ArcaneHeroCarousel({
@@ -429,7 +383,6 @@ class _HeroCarouselState extends State<ArcaneHeroCarousel> {
         'overflow': 'hidden',
       }),
       [
-        // Slides
         for (int i = 0; i < component.children.length; i++)
           div(
             classes: 'arcane-hero-slide',
@@ -443,7 +396,6 @@ class _HeroCarouselState extends State<ArcaneHeroCarousel> {
             [component.children[i]],
           ),
 
-        // Navigation arrows
         if (component.showArrows && component.children.length > 1) ...[
           button(
             attributes: {'type': 'button', 'aria-label': 'Previous'},
@@ -489,7 +441,6 @@ class _HeroCarouselState extends State<ArcaneHeroCarousel> {
           ),
         ],
 
-        // Dot indicators
         if (component.showIndicators && component.children.length > 1)
           div(
             styles: const Styles(raw: {

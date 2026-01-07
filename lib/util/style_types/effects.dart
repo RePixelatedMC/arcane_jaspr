@@ -1,89 +1,20 @@
-/// Box shadow presets for depth and emphasis.
-///
-/// Shadows create visual hierarchy by simulating elevation.
-/// The Arcane design system includes both standard shadows
-/// and colored glows for gaming/neon aesthetics.
-///
-/// ## Standard Shadows
-///
-/// | Value  | Description                   | Use Case            |
-/// |--------|-------------------------------|---------------------|
-/// | `none` | No shadow                     | Flat elements       |
-/// | `xs`   | Minimal shadow                | Subtle elevation    |
-/// | `sm`   | Small shadow                  | Buttons, inputs     |
-/// | `md`   | Medium shadow (default)       | Cards, dialogs      |
-/// | `lg`   | Large shadow                  | Modals, popovers    |
-/// | `xl`   | Extra large shadow            | Floating elements   |
-/// | `card` | Card-specific shadow          | Card components     |
-///
-/// ## Glow Effects
-///
-/// | Value         | Color   | Use Case                |
-/// |---------------|---------|-------------------------|
-/// | `glowAccent`  | Theme   | Highlighted buttons     |
-/// | `glowSuccess` | Green   | Success states          |
-/// | `glowError`   | Red     | Error states            |
-/// | `glowCyan`    | Cyan    | Gaming/neon style       |
-/// | `glowPurple`  | Purple  | Gaming/neon style       |
-/// | `glowPink`    | Pink    | Gaming/neon style       |
-///
-/// ## Example
-///
-/// ```dart
-/// ArcaneDiv(
-///   styles: const ArcaneStyleData(
-///     boxShadow: Shadow.lg,          // Standard elevation
-///     // boxShadow: Shadow.glowCyan, // Neon glow
-///   ),
-/// )
-/// ```
+/// Box shadow presets
 enum Shadow {
-  /// No shadow
   none,
-
-  /// Extra small shadow
   xs,
-
-  /// Small shadow
   sm,
-
-  /// Medium shadow (default)
   md,
-
-  /// Large shadow
   lg,
-
-  /// Extra large shadow
   xl,
-
-  /// Card shadow
   card,
-
-  /// Accent glow
   glowAccent,
-
-  /// Success glow
   glowSuccess,
-
-  /// Error glow
   glowError,
-
-  /// Primary/green glow (gaming)
   glowPrimary,
-
-  /// Green glow
   glowGreen,
-
-  /// Cyan glow
   glowCyan,
-
-  /// Purple glow
   glowPurple,
-
-  /// Orange glow
   glowOrange,
-
-  /// Pink glow
   glowPink;
 
   String get css => switch (this) {
@@ -106,74 +37,19 @@ enum Shadow {
       };
 }
 
-/// Transition presets for smooth state changes.
-///
-/// Transitions animate property changes between states, improving
-/// perceived performance and user experience.
-///
-/// ## Timing Presets
-///
-/// | Value    | Duration | Use Case                      |
-/// |----------|----------|-------------------------------|
-/// | `none`   | -        | Instant changes               |
-/// | `fast`   | 150ms    | Micro-interactions            |
-/// | `normal` | 200ms    | Standard transitions          |
-/// | `slow`   | 300ms    | Emphasis, modals              |
-/// | `bounce` | 300ms    | Playful interactions          |
-///
-/// ## Property-Specific
-///
-/// | Value       | Properties             |
-/// |-------------|------------------------|
-/// | `colors`    | Color changes only     |
-/// | `transform` | Transform changes only |
-/// | `opacity`   | Fade in/out            |
-/// | `shadow`    | Shadow changes         |
-///
-/// ## Example
-///
-/// ```dart
-/// ArcaneButton(
-///   styles: const ArcaneStyleData(
-///     transition: Transition.fast,  // Quick hover response
-///   ),
-/// )
-/// ```
+/// Transition presets
 enum Transition {
-  /// No transition
   none,
-
-  /// Fast (150ms)
   fast,
-
-  /// Normal (200ms)
   normal,
-
-  /// Slow (300ms)
   slow,
-
-  /// Bounce effect
   bounce,
-
-  /// All properties fast
   allFast,
-
-  /// All properties normal
   allNormal,
-
-  /// All properties slow
   allSlow,
-
-  /// Colors only
   colors,
-
-  /// Transform only
   transform,
-
-  /// Opacity only
   opacity,
-
-  /// Shadow only
   shadow;
 
   String get css => switch (this) {
@@ -195,34 +71,15 @@ enum Transition {
 
 /// Opacity presets
 enum Opacity {
-  /// Fully transparent (0)
   transparent,
-
-  /// Very faint (0.1)
   faint,
-
-  /// Light (0.25)
   light,
-
-  /// Half (0.5)
   half,
-
-  /// Muted (0.75)
   muted,
-
-  /// Nearly opaque (0.9)
   high,
-
-  /// Fully opaque (1)
   full,
-
-  /// Disabled state (0.5)
   disabled,
-
-  /// Hover overlay (0.04)
   hoverOverlay,
-
-  /// Press overlay (0.08)
   pressOverlay;
 
   String get css => switch (this) {
@@ -288,7 +145,7 @@ enum Cursor {
       };
 }
 
-/// Pointer events
+/// Pointer events presets
 enum PointerEvents {
   auto,
   none,
@@ -301,7 +158,7 @@ enum PointerEvents {
       };
 }
 
-/// User select
+/// User select presets
 enum UserSelect {
   auto,
   none,
@@ -318,80 +175,19 @@ enum UserSelect {
       };
 }
 
-/// Transform presets for visual manipulations.
-///
-/// Transforms modify element appearance without affecting layout.
-/// Common for hover effects, centering, and animations.
-///
-/// ## Hover Effects
-///
-/// | Value             | Effect          | Use Case             |
-/// |-------------------|-----------------|----------------------|
-/// | `hoverLift`       | translateY(-4px)| Cards, buttons       |
-/// | `hoverScale`      | scale(1.02)     | Interactive elements |
-/// | `hoverScaleSubtle`| scale(1.01)     | Subtle feedback      |
-///
-/// ## Positioning
-///
-/// | Value     | Transform              | Use Case            |
-/// |-----------|------------------------|---------------------|
-/// | `center`  | translate(-50%, -50%)  | Absolute centering  |
-/// | `centerX` | translateX(-50%)       | Horizontal center   |
-/// | `centerY` | translateY(-50%)       | Vertical center     |
-///
-/// ## Rotation
-///
-/// | Value       | Degrees | Use Case              |
-/// |-------------|---------|----------------------|
-/// | `rotate90`  | 90°     | Rotated icons        |
-/// | `rotate180` | 180°    | Flipped elements     |
-/// | `flipX`     | scaleX(-1)| Mirror horizontal  |
-/// | `flipY`     | scaleY(-1)| Mirror vertical    |
-///
-/// ## Example
-///
-/// ```dart
-/// ArcaneCard(
-///   styles: const ArcaneStyleData(
-///     hoverTransform: Transform.hoverLift,  // Lift on hover
-///   ),
-/// )
-/// ```
+/// Transform presets
 enum Transform {
-  /// No transform
   none,
-
-  /// Lift on hover (-4px Y)
   hoverLift,
-
-  /// Scale on hover (1.02)
   hoverScale,
-
-  /// Subtle scale (1.01)
   hoverScaleSubtle,
-
-  /// Center (translate -50%, -50%)
   center,
-
-  /// Center X only
   centerX,
-
-  /// Center Y only
   centerY,
-
-  /// Rotate 90 degrees
   rotate90,
-
-  /// Rotate 180 degrees
   rotate180,
-
-  /// Rotate 270 degrees
   rotate270,
-
-  /// Flip horizontal
   flipX,
-
-  /// Flip vertical
   flipY;
 
   String get css => switch (this) {

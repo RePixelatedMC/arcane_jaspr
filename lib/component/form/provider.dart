@@ -2,37 +2,20 @@ import 'dart:async';
 
 import 'package:jaspr/jaspr.dart';
 
-/// The abstract base class for form field providers in the Arcane form system.
-///
-/// This class defines the interface for getting and setting form values,
-/// enabling dynamic validation and custom storage backends. Subclasses like
-/// [ArcaneFieldMapProvider] and [ArcaneFieldDirectProvider] implement the
-/// abstract [onGetValue] and [onSetValue] for specific persistence needs.
+/// Abstract base class for form field providers.
 abstract class ArcaneFieldProvider<T> {
   ArcaneFieldProvider({required this.defaultValue});
 
-  /// The default value used as a fallback when value retrieval fails.
   final T defaultValue;
-
-  /// Stream controller for value changes.
   final StreamController<T> _controller = StreamController<T>.broadcast();
-
-  /// Current cached value.
   T? _currentValue;
 
-  /// Stream of value changes.
   Stream<T> get stream => _controller.stream;
-
-  /// Current value or default.
   T get currentValue => _currentValue ?? defaultValue;
 
-  /// Abstract method to retrieve the value associated with a key.
   Future<T> onGetValue(String k);
-
-  /// Abstract method to set the value for a key.
   Future<void> onSetValue(String k, T value);
 
-  /// Retrieves the value for the given key, falling back to [defaultValue] on error.
   Future<T> getValue(String k) async {
     try {
       final value = await onGetValue(k);
@@ -46,7 +29,6 @@ abstract class ArcaneFieldProvider<T> {
     }
   }
 
-  /// Sets the value for the given key and emits the new value.
   Future<void> setValue(String k, T value) async {
     await onSetValue(k, value);
     _currentValue = value;
@@ -55,17 +37,13 @@ abstract class ArcaneFieldProvider<T> {
     }
   }
 
-  /// Dispose resources.
   void dispose() {
     _controller.close();
   }
 }
 
-/// A concrete implementation of [ArcaneFieldProvider] using a nested Map for storage.
-///
-/// Supports hierarchical data access via dot notation (e.g., 'user.name.first').
+/// Field provider using nested Map storage with dot notation access.
 class ArcaneFieldMapProvider<T> extends ArcaneFieldProvider<T> {
-  /// The nested storage map holding form field values.
   final Map<String, dynamic> storage;
 
   ArcaneFieldMapProvider({required super.defaultValue, required this.storage});
@@ -111,14 +89,9 @@ class ArcaneFieldMapProvider<T> extends ArcaneFieldProvider<T> {
   }
 }
 
-/// A flexible provider that delegates to custom getter/setter functions.
-///
-/// Allows integration with external data sources, databases, or APIs.
+/// Field provider delegating to custom getter/setter functions.
 class ArcaneFieldDirectProvider<T> extends ArcaneFieldProvider<T> {
-  /// The function to retrieve a value by key.
   final Future<T> Function(String) getter;
-
-  /// The function to set a value by key.
   final Future<void> Function(String, T) setter;
 
   ArcaneFieldDirectProvider({
@@ -153,18 +126,11 @@ class ArcaneFormContext {
   });
 }
 
-/// A form provider component that manages form state.
+/// Form provider component that manages form state.
 class ArcaneFormProvider extends StatefulComponent {
-  /// Initial form values.
   final Map<String, dynamic> initialValues;
-
-  /// Form submission handler.
   final void Function(Map<String, dynamic> values)? onSubmit;
-
-  /// Form validation handler.
   final Map<String, String?> Function(Map<String, dynamic> values)? validator;
-
-  /// Child builder with form context.
   final Component Function(ArcaneFormContext context) builder;
 
   const ArcaneFormProvider({
@@ -192,7 +158,6 @@ class _ArcaneFormProviderState extends State<ArcaneFormProvider> {
   void _setValue(String key, dynamic value) {
     setState(() {
       _values[key] = value;
-      // Clear error when value changes
       _errors[key] = null;
     });
   }
@@ -206,7 +171,6 @@ class _ArcaneFormProviderState extends State<ArcaneFormProvider> {
   bool get _isValid => !_errors.values.any((e) => e != null);
 
   void _submit() {
-    // Run validation if provided
     if (component.validator != null) {
       final validationErrors = component.validator!(_values);
       setState(() {
@@ -236,7 +200,7 @@ class _ArcaneFormProviderState extends State<ArcaneFormProvider> {
   }
 }
 
-/// An inherited component to provide form context to descendants.
+/// Inherited component to provide form context to descendants.
 class ArcaneFormScope extends InheritedComponent {
   final ArcaneFormContext formContext;
 

@@ -1,32 +1,15 @@
 import 'package:jaspr/jaspr.dart';
 
-/// Properties for hero section components.
+/// Hero section component properties.
 class HeroSectionProps {
-  /// Main headline text
   final String headline;
-
-  /// Subheadline/description text
   final String? subheadline;
-
-  /// Primary CTA component
   final Component? primaryCta;
-
-  /// Secondary CTA component
   final Component? secondaryCta;
-
-  /// Optional badge/pill above headline
   final Component? badge;
-
-  /// Optional media (video, image, etc.)
   final Component? media;
-
-  /// Whether to center content
   final bool centered;
-
-  /// Vertical padding
   final double verticalPadding;
-
-  /// Maximum content width
   final double maxWidth;
 
   const HeroSectionProps({
@@ -42,18 +25,11 @@ class HeroSectionProps {
   });
 }
 
-/// Properties for CTA group components.
+/// CTA group component properties.
 class CtaGroupProps {
-  /// Primary CTA component
   final Component primaryCta;
-
-  /// Secondary CTA component
   final Component? secondaryCta;
-
-  /// Whether to center the CTAs
   final bool centered;
-
-  /// Gap between buttons
   final double gap;
 
   const CtaGroupProps({

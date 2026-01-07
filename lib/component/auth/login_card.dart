@@ -1,37 +1,13 @@
 import 'package:arcane_jaspr/arcane_jaspr.dart';
 
-/// Login card component
-///
-/// Provides a complete login UI with email/password form and social sign-in buttons.
-///
-/// ```dart
-/// ArcaneLoginCard(
-///   methods: [AuthMethod.email, AuthMethod.github, AuthMethod.google],
-///   signupRoute: '/signup',
-///   forgotPasswordRoute: '/forgot-password',
-///   header: Logo(),
-/// )
-/// ```
+/// Login card with email/password form and social sign-in options.
 class ArcaneLoginCard extends StatefulComponent {
-  /// Authentication methods to display
   final List<AuthMethod> methods;
-
-  /// Header component (logo, title, etc.)
   final Component? header;
-
-  /// Route for signup link
   final String? signupRoute;
-
-  /// Route for forgot password link
   final String? forgotPasswordRoute;
-
-  /// Password validation policy
   final PasswordPolicy? passwordPolicy;
-
-  /// Callback when login succeeds
   final void Function()? onSuccess;
-
-  /// Max width of the card
   final String maxWidth;
 
   const ArcaneLoginCard({
@@ -101,7 +77,6 @@ class _ArcaneLoginCardState extends State<ArcaneLoginCard> {
         shadow: Shadow.lg,
       ),
       children: <Component>[
-        // Header
         if (component.header != null) ...<Component>[
           component.header!,
           const div(
@@ -110,7 +85,6 @@ class _ArcaneLoginCardState extends State<ArcaneLoginCard> {
           ),
         ],
 
-        // Title
         const ArcaneDiv(
           styles: ArcaneStyleData(
             margin: MarginPreset.bottomXs,
@@ -132,7 +106,6 @@ class _ArcaneLoginCardState extends State<ArcaneLoginCard> {
           children: [Component.text('Sign in to your account')],
         ),
 
-        // Error message
         if (_error != null)
           ArcaneDiv(
             styles: const ArcaneStyleData(
@@ -147,7 +120,6 @@ class _ArcaneLoginCardState extends State<ArcaneLoginCard> {
             children: <Component>[Component.text(_error!)],
           ),
 
-        // Social sign-in buttons
         if (_hasSocialMethods) ...<Component>[
           ArcaneDiv(
             styles: const ArcaneStyleData(
@@ -175,7 +147,6 @@ class _ArcaneLoginCardState extends State<ArcaneLoginCard> {
           ),
         ],
 
-        // Divider
         if (_hasSocialMethods && _hasEmailMethod)
           const ArcaneDiv(
             styles: ArcaneStyleData(
@@ -213,7 +184,6 @@ class _ArcaneLoginCardState extends State<ArcaneLoginCard> {
             ],
           ),
 
-        // Email/password form
         if (_hasEmailMethod)
           form(
             events: {
@@ -223,7 +193,6 @@ class _ArcaneLoginCardState extends State<ArcaneLoginCard> {
               },
             },
             <Component>[
-              // Email field
               ArcaneDiv(
                 styles: const ArcaneStyleData(margin: MarginPreset.bottomMd),
                 children: <Component>[
@@ -268,7 +237,6 @@ class _ArcaneLoginCardState extends State<ArcaneLoginCard> {
                 ],
               ),
 
-              // Password field
               ArcaneDiv(
                 styles: const ArcaneStyleData(margin: MarginPreset.bottomMd),
                 children: <Component>[
@@ -331,7 +299,6 @@ class _ArcaneLoginCardState extends State<ArcaneLoginCard> {
                 ],
               ),
 
-              // Submit button
               ArcaneButton(
                 label: _loading ? 'Signing in...' : 'Sign in',
                 fullWidth: true,
@@ -342,7 +309,6 @@ class _ArcaneLoginCardState extends State<ArcaneLoginCard> {
             ],
           ),
 
-        // Signup link
         if (component.signupRoute != null)
           ArcaneDiv(
             styles: const ArcaneStyleData(

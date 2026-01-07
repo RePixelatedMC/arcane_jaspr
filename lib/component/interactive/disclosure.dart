@@ -2,39 +2,16 @@ import 'package:jaspr/jaspr.dart';
 
 import '../../core/theme_provider.dart';
 
-// Re-export enums for usage
 export '../../core/props/disclosure_props.dart'
     show DisclosureVariant, DisclosureItemProps;
 
-/// A disclosure widget that uses native HTML details/summary elements.
-///
-/// Unlike [ArcaneExpander], this component works on static sites without
-/// JavaScript because browsers handle the expand/collapse behavior natively.
-///
-/// Example:
-/// ```dart
-/// ArcaneDisclosure(
-///   summary: ArcaneText('Click to expand'),
-///   child: ArcaneText('Hidden content here'),
-/// )
-/// ```
+/// Disclosure widget using native HTML details/summary elements.
 class ArcaneDisclosure extends StatelessComponent {
-  /// The always-visible summary/header content
   final Component summary;
-
-  /// The collapsible content
   final Component child;
-
-  /// Whether initially open
   final bool open;
-
-  /// Visual variant
   final DisclosureVariant variant;
-
-  /// Whether to show the chevron indicator
   final bool showChevron;
-
-  /// Custom CSS class for the container
   final String? classes;
 
   const ArcaneDisclosure({
@@ -47,7 +24,6 @@ class ArcaneDisclosure extends StatelessComponent {
     super.key,
   });
 
-  /// Creates a minimal disclosure with no borders or background
   const ArcaneDisclosure.minimal({
     required this.summary,
     required this.child,
@@ -57,7 +33,6 @@ class ArcaneDisclosure extends StatelessComponent {
     super.key,
   }) : variant = DisclosureVariant.minimal;
 
-  /// Creates a bordered disclosure
   const ArcaneDisclosure.bordered({
     required this.summary,
     required this.child,
@@ -67,7 +42,6 @@ class ArcaneDisclosure extends StatelessComponent {
     super.key,
   }) : variant = DisclosureVariant.bordered;
 
-  /// Creates a filled disclosure with background
   const ArcaneDisclosure.filled({
     required this.summary,
     required this.child,
@@ -90,25 +64,11 @@ class ArcaneDisclosure extends StatelessComponent {
   }
 }
 
-/// A group of disclosure widgets where optionally only one can be open at a time.
-///
-/// Note: The "only one open" behavior requires JavaScript. If running on a
-/// static site without JS hydration, all disclosures will be independently
-/// controllable (like a regular accordion).
-///
-/// For guaranteed static-site compatibility with exclusive behavior, consider
-/// using separate [ArcaneDisclosure] widgets with `open` set appropriately.
+/// Group of disclosure widgets.
 class ArcaneDisclosureGroup extends StatelessComponent {
-  /// The disclosure items
   final List<ArcaneDisclosureItem> items;
-
-  /// Gap between items
   final String gap;
-
-  /// Visual variant for all items
   final DisclosureVariant variant;
-
-  /// Index of initially open item (null for all closed)
   final int? initialOpenIndex;
 
   const ArcaneDisclosureGroup({
@@ -136,15 +96,10 @@ class ArcaneDisclosureGroup extends StatelessComponent {
   }
 }
 
-/// An item in an [ArcaneDisclosureGroup]
+/// Item in an ArcaneDisclosureGroup.
 class ArcaneDisclosureItem {
-  /// The summary/header component
   final Component summary;
-
-  /// The collapsible content
   final Component content;
-
-  /// Whether to show the chevron
   final bool showChevron;
 
   const ArcaneDisclosureItem({

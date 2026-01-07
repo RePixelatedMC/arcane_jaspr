@@ -4,30 +4,16 @@ import 'package:jaspr/dom.dart' as dom;
 import '../../core/theme_provider.dart';
 import '../../util/arcane.dart';
 
-// Re-export props for usage
 export '../../core/props/static_table_props.dart';
 
-/// A static table component for displaying simple tabular data.
+/// Static table component for displaying simple tabular data.
 class ArcaneStaticTable extends StatelessComponent {
-  /// Table headers
   final List<String> headers;
-
-  /// Table rows (each row is a list of cell contents)
   final List<List<Component>> rows;
-
-  /// Whether to show row dividers
   final bool showDividers;
-
-  /// Whether to stripe alternate rows
   final bool striped;
-
-  /// Whether the header is sticky
   final bool stickyHeader;
-
-  /// Column alignments
   final List<TextAlign>? alignments;
-
-  /// Whether to show the header
   final bool showHeader;
 
   const ArcaneStaticTable({
@@ -55,7 +41,7 @@ class ArcaneStaticTable extends StatelessComponent {
   }
 }
 
-/// A simple key-value table (two columns)
+/// Simple key-value table with two columns.
 class ArcaneKeyValueTable extends StatelessComponent {
   final List<ArcaneKeyValueRow> rows;
   final double? keyWidth;
@@ -78,14 +64,13 @@ class ArcaneKeyValueTable extends StatelessComponent {
   }
 }
 
-/// A row for KeyValueTable
+/// Row data for KeyValueTable.
 class ArcaneKeyValueRow {
   final String key;
   final Component value;
 
   const ArcaneKeyValueRow({required this.key, required this.value});
 
-  /// Create from a string value
   factory ArcaneKeyValueRow.text(String key, String value) =>
       ArcaneKeyValueRow(key: key, value: dom.span([Component.text(value)]));
 }

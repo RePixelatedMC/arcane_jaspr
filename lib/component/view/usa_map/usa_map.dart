@@ -1,65 +1,23 @@
+import 'package:web/web.dart' as web;
+
 import '../../../arcane_jaspr.dart' hide Key, Factory, Target, Import, Contrast, SpellCheck, TextWrap;
 
 /// An interactive, themeable SVG USA map component.
-///
-/// Displays location markers with hover tooltips and click callbacks.
-/// Supports state highlighting and selection.
-///
-/// ```dart
-/// ArcaneUSAMap(
-///   locations: [
-///     ArcaneUSAMapLocation(
-///       id: 'nyc',
-///       name: 'New York City',
-///       latitude: 40.7128,
-///       longitude: -74.0060,
-///       code: 'NYC',
-///       state: 'NY',
-///     ),
-///   ],
-///   onLocationTap: (location) => print('Tapped ${location.name}'),
-///   onStateTap: (stateCode) => print('Tapped $stateCode'),
-/// )
-/// ```
 class ArcaneUSAMap extends StatefulComponent {
-  /// List of locations to display as pins.
   final List<ArcaneUSAMapLocation> locations;
-
-  /// Callback when a location pin is clicked.
   final USAMapLocationCallback? onLocationTap;
-
-  /// Callback when a location pin is hovered.
   final USAMapLocationCallback? onLocationHover;
-
-  /// Callback when a state is clicked.
   final USAMapStateCallback? onStateTap;
-
-  /// Callback when a state is hovered.
   final USAMapStateCallback? onStateHover;
-
-  /// Custom tooltip builder (overrides default tooltip).
   final Component Function(ArcaneUSAMapLocation location)? tooltipBuilder;
-
-  /// Map style configuration.
   final ArcaneUSAMapStyle style;
-
-  /// Whether to show tooltips on hover.
   final bool showTooltips;
-
-  /// Custom height (width auto-calculates from aspect ratio).
   final String? height;
-
-  /// Optional CSS class name.
   final String? className;
-
-  /// Aspect ratio (width:height), default matches the SVG viewBox.
   final double aspectRatio;
-
-  /// Set of highlighted/active state codes.
   final Set<String> activeStates;
-
-  /// Whether to show state borders.
   final bool showStateBorders;
+  final bool debugMode;
 
   const ArcaneUSAMap({
     this.locations = const [],
@@ -72,9 +30,10 @@ class ArcaneUSAMap extends StatefulComponent {
     this.showTooltips = true,
     this.height,
     this.className,
-    this.aspectRatio = 1.70, // 1000/589 from the SVG viewBox
+    this.aspectRatio = 1.70,
     this.activeStates = const {},
     this.showStateBorders = true,
+    this.debugMode = false,
     super.key,
   });
 
@@ -83,7 +42,6 @@ class ArcaneUSAMap extends StatefulComponent {
 
   @css
   static final List<StyleRule> styles = [
-    // State hover effects
     css('.arcane-usa-map-state').styles(raw: {
       'cursor': 'pointer',
       'transition': 'fill 150ms ease, filter 150ms ease',
@@ -91,8 +49,6 @@ class ArcaneUSAMap extends StatefulComponent {
     css('.arcane-usa-map-state:hover').styles(raw: {
       'filter': 'brightness(1.2)',
     }),
-
-    // Pin hover effects - use filter only, no transform to avoid SVG origin issues
     css('.arcane-usa-map-pin').styles(raw: {
       'cursor': 'pointer',
       'transition': 'filter 150ms ease, opacity 150ms ease',
@@ -100,8 +56,6 @@ class ArcaneUSAMap extends StatefulComponent {
     css('.arcane-usa-map-pin:hover').styles(raw: {
       'filter': 'drop-shadow(0 0 8px var(--arcane-primary)) brightness(1.2)',
     }),
-
-    // Tooltip container
     css('.arcane-usa-map-tooltip').styles(raw: {
       'position': 'absolute',
       'z-index': '1070',
@@ -110,8 +64,6 @@ class ArcaneUSAMap extends StatefulComponent {
       'visibility': 'hidden',
       'transition': 'opacity 150ms ease, visibility 150ms ease',
     }),
-
-    // Show tooltip when visible
     css('.arcane-usa-map-tooltip.visible').styles(raw: {
       'opacity': '1',
       'visibility': 'visible',
@@ -122,6 +74,8 @@ class ArcaneUSAMap extends StatefulComponent {
 class _ArcaneUSAMapState extends State<ArcaneUSAMap> {
   ArcaneUSAMapLocation? _hoveredLocation;
   String? _hoveredState;
+  double? _debugSvgX;
+  double? _debugSvgY;
 
   void _handlePinEnter(ArcaneUSAMapLocation location) {
     setState(() => _hoveredLocation = location);
@@ -149,11 +103,47 @@ class _ArcaneUSAMapState extends State<ArcaneUSAMap> {
     component.onStateTap?.call(stateCode);
   }
 
+  void _handleDebugMouseMove(web.MouseEvent mouseEvent) {
+    if (!component.debugMode) return;
+
+    final target = mouseEvent.currentTarget as web.Element;
+    final rect = target.getBoundingClientRect();
+    final svgWidth = rect.width;
+    final svgHeight = rect.height;
+
+    final relX = (mouseEvent.clientX - rect.left) / svgWidth;
+    final relY = (mouseEvent.clientY - rect.top) / svgHeight;
+
+    final svgX = relX * ArcaneUSAMapProjection.mapWidth;
+    final svgY = relY * ArcaneUSAMapProjection.mapHeight;
+
+    setState(() {
+      _debugSvgX = svgX;
+      _debugSvgY = svgY;
+    });
+  }
+
+  void _handleDebugMouseLeave() {
+    if (!component.debugMode) return;
+    setState(() {
+      _debugSvgX = null;
+      _debugSvgY = null;
+    });
+  }
+
+  void _handleDebugClick() {
+    if (!component.debugMode || _debugSvgX == null || _debugSvgY == null) return;
+
+    final (lat, lng) = ArcaneUSAMapProjection.svgToLatLng(_debugSvgX!, _debugSvgY!);
+    final coordText = '${lat.toStringAsFixed(4)}, ${lng.toStringAsFixed(4)}';
+
+    web.window.navigator.clipboard.writeText(coordText);
+  }
+
   @override
   Component build(BuildContext context) {
     final style = component.style;
 
-    // Default colors using theme tokens
     final stateFill = style.stateFill ?? 'var(--muted)';
     final stateStroke = style.stateStroke ?? 'var(--border)';
     final backgroundFill = style.backgroundFill ?? 'var(--background)';
@@ -167,9 +157,17 @@ class _ArcaneUSAMapState extends State<ArcaneUSAMap> {
         if (component.height != null) 'height': component.height!,
         'aspect-ratio': '${component.aspectRatio}',
         'overflow': 'visible',
+        if (component.debugMode) 'cursor': 'crosshair',
       }),
+      events: component.debugMode
+          ? {
+              'mousemove': (event) =>
+                  _handleDebugMouseMove(event as web.MouseEvent),
+              'mouseleave': (_) => _handleDebugMouseLeave(),
+              'click': (_) => _handleDebugClick(),
+            }
+          : null,
       children: [
-        // SVG Map
         ArcaneSvg(
           viewBox: ArcaneUSAMapProjection.viewBox,
           attributes: {
@@ -177,7 +175,6 @@ class _ArcaneUSAMapState extends State<ArcaneUSAMap> {
             'style': 'width: 100%; height: 100%; display: block;',
           },
           children: [
-            // Background
             ArcaneSvgRect(
               x: '0',
               y: '0',
@@ -185,15 +182,12 @@ class _ArcaneUSAMapState extends State<ArcaneUSAMap> {
               height: '${ArcaneUSAMapProjection.mapHeight}',
               fill: backgroundFill,
             ),
-
-            // State paths
             ...ArcaneUSAMapPaths.states.entries.map((entry) {
               final stateCode = entry.key;
               final (_, path) = entry.value;
               final isHovered = _hoveredState == stateCode;
               final isActive = component.activeStates.contains(stateCode);
 
-              // Using primary instead of accent for ShadCN compatibility
               String fill;
               if (isActive) {
                 fill = style.stateActiveFill ?? 'var(--primary)';
@@ -221,29 +215,100 @@ class _ArcaneUSAMapState extends State<ArcaneUSAMap> {
                 children: const [],
               );
             }),
-
-            // Location pins
             ...component.locations.map((location) => _buildPin(location)),
           ],
         ),
-
-        // Floating tooltip
         if (_hoveredLocation != null && component.showTooltips)
           _buildTooltip(_hoveredLocation!),
+        if (component.debugMode && _debugSvgX != null && _debugSvgY != null)
+          _buildDebugTooltip(),
+      ],
+    );
+  }
+
+  Component _buildDebugTooltip() {
+    final (lat, lng) = ArcaneUSAMapProjection.svgToLatLng(_debugSvgX!, _debugSvgY!);
+
+    final leftPercent = (_debugSvgX! / ArcaneUSAMapProjection.mapWidth) * 100;
+    final topPercent = (_debugSvgY! / ArcaneUSAMapProjection.mapHeight) * 100;
+
+    return ArcaneDiv(
+      classes: 'arcane-usa-map-debug-tooltip',
+      styles: ArcaneStyleData(
+        position: Position.absolute,
+        left: '$leftPercent%',
+        top: 'calc($topPercent% + 15px)',
+        transformCustom: 'translateX(-50%)',
+        zIndex: ZIndex.tooltip,
+        pointerEvents: PointerEvents.none,
+      ),
+      children: [
+        ArcaneDiv(
+          styles: const ArcaneStyleData(
+            background: Background.surface,
+            border: BorderPreset.subtle,
+            borderRadius: Radius.md,
+            shadow: Shadow.md,
+            padding: PaddingPreset.sm,
+          ),
+          children: [
+            ArcaneDiv(
+              styles: const ArcaneStyleData(
+                fontSize: FontSize.xs,
+                fontFamily: FontFamily.mono,
+                textColor: TextColor.primary,
+                whiteSpace: WhiteSpace.nowrap,
+              ),
+              children: [
+                Component.text('Lat: ${lat.toStringAsFixed(4)}'),
+              ],
+            ),
+            ArcaneDiv(
+              styles: const ArcaneStyleData(
+                fontSize: FontSize.xs,
+                fontFamily: FontFamily.mono,
+                textColor: TextColor.primary,
+                whiteSpace: WhiteSpace.nowrap,
+              ),
+              children: [
+                Component.text('Lng: ${lng.toStringAsFixed(4)}'),
+              ],
+            ),
+            ArcaneDiv(
+              styles: const ArcaneStyleData(
+                fontSize: FontSize.xs,
+                fontFamily: FontFamily.mono,
+                textColor: TextColor.mutedForeground,
+                whiteSpace: WhiteSpace.nowrap,
+                margin: MarginPreset.topXs,
+              ),
+              children: [
+                Component.text('SVG: ${_debugSvgX!.toInt()}, ${_debugSvgY!.toInt()}'),
+              ],
+            ),
+            ArcaneDiv(
+              styles: const ArcaneStyleData(
+                fontSize: FontSize.xs,
+                textColor: TextColor.brand,
+                margin: MarginPreset.topXs,
+              ),
+              children: [
+                Component.text('Click to copy'),
+              ],
+            ),
+          ],
+        ),
       ],
     );
   }
 
   Component _buildPin(ArcaneUSAMapLocation location) {
-    // Use pre-calculated SVG coordinates if available, otherwise convert lat/lng
     final (double x, double y) = ArcaneUSAMapProjection.citySvgCoords[location.id] ??
         ArcaneUSAMapProjection.latLngToSvg(location.latitude, location.longitude);
 
     final style = component.style;
     final isHovered = _hoveredLocation?.id == location.id;
 
-    // Determine pin color based on state
-    // Using primary instead of accent for ShadCN compatibility
     final String pinColor;
     if (location.isActive) {
       pinColor = style.pinActiveColor ?? 'var(--success)';
@@ -270,23 +335,18 @@ class _ArcaneUSAMapState extends State<ArcaneUSAMap> {
         'click': (_) => _handlePinTap(location),
       },
       children: [
-        // Outer glow (using primary RGB for ShadCN compatibility)
         ArcaneSvgCircle(
           cx: '0',
           cy: '0',
           r: '${pinSize + 4}',
           fill: 'rgba(var(--arcane-primary-rgb), $glowAlpha)',
         ),
-
-        // Main pin
         ArcaneSvgCircle(
           cx: '0',
           cy: '0',
           r: '$pinSize',
           fill: pinColor,
         ),
-
-        // Inner highlight
         ArcaneSvgCircle(
           cx: '0',
           cy: '0',
@@ -298,15 +358,12 @@ class _ArcaneUSAMapState extends State<ArcaneUSAMap> {
   }
 
   Component _buildTooltip(ArcaneUSAMapLocation location) {
-    // Use pre-calculated SVG coordinates if available, otherwise convert lat/lng
     final (double x, double y) = ArcaneUSAMapProjection.citySvgCoords[location.id] ??
         ArcaneUSAMapProjection.latLngToSvg(location.latitude, location.longitude);
 
-    // Convert SVG coordinates to percentage for positioning
     final leftPercent = (x / ArcaneUSAMapProjection.mapWidth) * 100;
     final topPercent = (y / ArcaneUSAMapProjection.mapHeight) * 100;
 
-    // Custom tooltip or default
     final tooltipContent = component.tooltipBuilder?.call(location) ??
         _buildDefaultTooltip(location);
 
@@ -335,7 +392,6 @@ class _ArcaneUSAMapState extends State<ArcaneUSAMap> {
         maxWidthCustom: '220px',
       ),
       children: [
-        // Location name
         ArcaneDiv(
           styles: const ArcaneStyleData(
             fontSize: FontSize.md,
@@ -345,8 +401,6 @@ class _ArcaneUSAMapState extends State<ArcaneUSAMap> {
           ),
           children: [Component.text(location.name)],
         ),
-
-        // State
         if (location.state != null)
           ArcaneDiv(
             styles: const ArcaneStyleData(
@@ -360,8 +414,6 @@ class _ArcaneUSAMapState extends State<ArcaneUSAMap> {
               ),
             ],
           ),
-
-        // Code badge
         if (location.code != null)
           ArcaneSpan(
             styles: const ArcaneStyleData(
@@ -375,8 +427,6 @@ class _ArcaneUSAMapState extends State<ArcaneUSAMap> {
             ),
             child: Component.text(location.code!),
           ),
-
-        // Description
         if (location.description != null)
           ArcaneDiv(
             styles: const ArcaneStyleData(

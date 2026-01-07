@@ -1,26 +1,10 @@
-// Shorthand A* aliases for all Arcane* components.
-//
-// Import this file to use shorter component names:
-// ```dart
-// import 'package:arcane_jaspr/aliases.dart';
-///
-/// // Now you can use:
-/// AButton(...)     // instead of ArcaneButton(...)
-/// ACard(...)       // instead of ArcaneCard(...)
-/// AText(...)       // instead of ArcaneText(...)
-/// ```
+/// Shorthand A* aliases for all Arcane* components.
+library;
 
-// Re-export everything from the main library
 export 'arcane_jaspr.dart';
 
-// Import for typedefs
 import 'arcane_jaspr.dart';
 
-// ============================================================================
-// Component Aliases (A* → Arcane*)
-// ============================================================================
-
-// Interactive
 typedef AAccordion = ArcaneAccordion;
 typedef AAccordionItem = ArcaneAccordionItem;
 typedef AFaqAccordion = ArcaneFaqAccordion;
@@ -28,10 +12,8 @@ typedef ABackToTop = ArcaneBackToTop;
 typedef AScrollProgress = ArcaneScrollProgress;
 typedef AFloatingActionButton = ArcaneFloatingActionButton;
 
-// Support
 typedef AApp = ArcaneApp;
 
-// HTML Elements - New sensible names
 typedef ACodeBlock = ArcaneCodeBlock;
 typedef ACodeBlockStyle = CodeBlockStyle;
 typedef AQuote = ArcaneQuote;
@@ -40,7 +22,6 @@ typedef ANumberedList = ArcaneNumberedList;
 typedef ASideContent = ArcaneSideContent;
 typedef ASpan = ArcaneSpan;
 
-// HTML Elements - Standard
 typedef ADiv = ArcaneDiv;
 typedef AHeading = ArcaneHeading;
 typedef AHtmlFooter = ArcaneHtmlFooter;
@@ -62,15 +43,13 @@ typedef ATableHead = ArcaneTableHead;
 typedef ATableHeader = ArcaneTableHeader;
 typedef ATableRow = ArcaneTableRow;
 
-// HTML Elements - Legacy aliases (for those who know HTML)
-typedef AAside = ArcaneSideContent; // aka ArcaneAside
-typedef ABlockquote = ArcaneQuote; // aka ArcaneBlockquote
-typedef APre = ArcaneCodeBlock; // aka ArcanePre
-typedef APreStyle = CodeBlockStyle; // aka PreStyle
-typedef AOrderedList = ArcaneNumberedList; // aka ArcaneOrderedList
-typedef AUnorderedList = ArcaneBulletList; // aka ArcaneUnorderedList
+typedef AAside = ArcaneSideContent;
+typedef ABlockquote = ArcaneQuote;
+typedef APre = ArcaneCodeBlock;
+typedef APreStyle = CodeBlockStyle;
+typedef AOrderedList = ArcaneNumberedList;
+typedef AUnorderedList = ArcaneBulletList;
 
-// Layout
 typedef AAuthBackLink = ArcaneAuthBackLink;
 typedef AAuthLayout = ArcaneAuthLayout;
 typedef ABorder = ArcaneBorder;
@@ -121,7 +100,6 @@ typedef ATabs = ArcaneTabs;
 typedef AToolbar = ArcaneToolbar;
 typedef AVerticalDivider = ArcaneVerticalDivider;
 
-// Navigation
 typedef ABottomBar = ArcaneBottomBar;
 typedef ABottomNavigationBar = ArcaneBottomNavigationBar;
 typedef ABottomNavItem = ArcaneBottomNavItem;
@@ -142,7 +120,6 @@ typedef ASidebarExpanded = ArcaneSidebarExpanded;
 typedef ASidebarCollapsed = ArcaneSidebarCollapsed;
 typedef ASidebarSeparator = ArcaneSidebarSeparator;
 
-// Screen
 typedef AFillScreen = ArcaneFillScreen;
 typedef AFullScreen = ArcaneFullScreen;
 typedef ANavigationDestination = ArcaneNavigationDestination;
@@ -150,7 +127,6 @@ typedef ANavigationScreen = ArcaneNavigationScreen;
 typedef AScreen = ArcaneScreen;
 typedef AWindow = ArcaneWindow;
 
-// Input
 typedef AButton = ArcaneButton;
 typedef ACheckbox = ArcaneCheckbox;
 typedef ACycleButton = ArcaneCycleButton;
@@ -172,7 +148,6 @@ typedef AToggleButton = ArcaneToggleButton;
 typedef AToggleButtonGroup = ArcaneToggleButtonGroup;
 typedef AToggleSwitch = ArcaneToggleSwitch;
 
-// View
 typedef AAvatar = ArcaneAvatar;
 typedef ABadge = ArcaneBadge;
 typedef ABar = ArcaneBar;
@@ -238,22 +213,18 @@ typedef ACheckItem = ArcaneCheckItem;
 typedef ACheckStyle = CheckStyle;
 typedef AFeatureRow = ArcaneFeatureRow;
 
-// Typography
 typedef ABodyText = ArcaneBodyText;
 typedef AHeadline = ArcaneHeadline;
 typedef ARichText = ArcaneRichText;
 typedef ASubheadline = ArcaneSubheadline;
 typedef AText = ArcaneText;
 
-// Dialog
 typedef ADialog = ArcaneDialog;
 
-// Feedback
 typedef ALoader = ArcaneLoader;
 typedef AStatusBadge = ArcaneStatusBadge;
 typedef AStatusBadgeSize = StatusBadgeSize;
 
-// Form
 typedef AField = ArcaneField;
 typedef AFieldDirectProvider = ArcaneFieldDirectProvider;
 typedef AFieldMapProvider = ArcaneFieldMapProvider;
@@ -266,14 +237,11 @@ typedef AFormContext = ArcaneFormContext;
 typedef AFormProvider = ArcaneFormProvider;
 typedef AFormScope = ArcaneFormScope;
 
-// Collection
 typedef AInfiniteCarousel = ArcaneInfiniteCarousel;
 
-// DateTime Picker
 typedef ADateTimePicker = ArcaneDateTimePicker;
 typedef ADateTimePickerMode = DateTimePickerMode;
 typedef ADateTimePickerSize = DateTimePickerSize;
 
-// Icons
 typedef AIcon = ArcaneIcon;
 typedef AIconSize = IconSize;

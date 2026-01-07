@@ -2,27 +2,15 @@ import 'package:jaspr/jaspr.dart';
 
 import '../../core/theme_provider.dart';
 
-// Re-export props for usage
 export '../../core/props/tree_view_props.dart';
 
-/// Tree node data (convenience class for the component wrapper)
+/// Tree node data.
 class TreeNode {
-  /// Unique identifier
   final String id;
-
-  /// Display label
   final String label;
-
-  /// Optional icon
   final Component? icon;
-
-  /// Child nodes
   final List<TreeNode> children;
-
-  /// Whether node is disabled
   final bool disabled;
-
-  /// Custom data attached to the node
   final dynamic data;
 
   const TreeNode({
@@ -36,7 +24,6 @@ class TreeNode {
 
   bool get hasChildren => children.isNotEmpty;
 
-  /// Convert to TreeNodeData for the renderer
   TreeNodeData toData() => TreeNodeData(
         id: id,
         label: label,
@@ -47,48 +34,15 @@ class TreeNode {
       );
 }
 
-/// Hierarchical tree view component
-///
-/// Displays hierarchical data in a collapsible tree structure.
-///
-/// ```dart
-/// ArcaneTreeView(
-///   nodes: [
-///     TreeNode(
-///       id: 'src',
-///       label: 'src',
-///       icon: Text('folder'),
-///       children: [
-///         TreeNode(id: 'main', label: 'main.dart', icon: Text('file')),
-///       ],
-///     ),
-///   ],
-///   onNodeSelect: (node) => print('Selected: \${node.label}'),
-/// )
-/// ```
+/// Hierarchical tree view component for displaying nested data.
 class ArcaneTreeView extends StatelessComponent {
-  /// Tree nodes
   final List<TreeNode> nodes;
-
-  /// Callback when a node is selected
   final void Function(TreeNode node)? onNodeSelect;
-
-  /// Callback when a node is expanded/collapsed
   final void Function(TreeNode node, bool expanded)? onNodeToggle;
-
-  /// Style variant
   final TreeViewStyle style;
-
-  /// Selection mode
   final TreeSelectionMode selectionMode;
-
-  /// Initially expanded node IDs
   final Set<String> initiallyExpanded;
-
-  /// Selected node IDs
   final Set<String> selectedNodes;
-
-  /// Whether all nodes are initially expanded
   final bool expandAll;
 
   const ArcaneTreeView({
@@ -105,7 +59,6 @@ class ArcaneTreeView extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    // Build a lookup map for TreeNode by id for callback mapping
     final nodeMap = <String, TreeNode>{};
     void buildMap(List<TreeNode> nodeList) {
       for (final n in nodeList) {

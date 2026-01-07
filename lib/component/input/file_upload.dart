@@ -2,55 +2,21 @@ import 'package:jaspr/jaspr.dart';
 
 import '../../core/theme_provider.dart';
 
-// Re-export props for usage
 export '../../core/props/file_upload_props.dart';
 
-/// File upload/dropzone component
-///
-/// Allows users to upload files via drag-and-drop or click to browse.
-///
-/// ```dart
-/// ArcaneFileUpload(
-///   accept: ['image/*', '.pdf'],
-///   maxSize: 5 * 1024 * 1024, // 5MB
-///   onFilesSelected: (files) => print(files),
-/// )
-/// ```
+/// File upload/dropzone component.
 class ArcaneFileUpload extends StatefulComponent {
-  /// Accepted file types (MIME types or extensions)
   final List<String> accept;
-
-  /// Maximum file size in bytes
   final int? maxSize;
-
-  /// Whether multiple files can be selected
   final bool multiple;
-
-  /// Callback when files are selected
   final void Function(List<UploadedFile>)? onFilesSelected;
-
-  /// Callback for file errors
   final void Function(String error)? onError;
-
-  /// Style variant
   final FileUploadStyle style;
-
-  /// Size variant
   final FileUploadSize size;
-
-  /// Whether the input is disabled
   final bool disabled;
-
-  /// Custom dropzone text
   final String? dropzoneText;
-
-  /// Custom browse button text
   final String browseText;
-
-  /// Helper text
   final String? helperText;
-
-  /// Label text
   final String? label;
 
   const ArcaneFileUpload({
@@ -69,7 +35,6 @@ class ArcaneFileUpload extends StatefulComponent {
     super.key,
   });
 
-  /// Image upload preset
   const ArcaneFileUpload.images({
     this.maxSize,
     this.multiple = true,
@@ -85,7 +50,6 @@ class ArcaneFileUpload extends StatefulComponent {
   })  : accept = const ['image/*'],
         style = FileUploadStyle.dropzone;
 
-  /// Document upload preset
   const ArcaneFileUpload.documents({
     this.maxSize,
     this.multiple = true,
@@ -122,14 +86,12 @@ class _ArcaneFileUploadState extends State<ArcaneFileUpload> {
   void _handleFiles(dynamic files) {
     final List<UploadedFile> uploadedFiles = [];
 
-    // Handle FileList from input/drop
     for (var i = 0; i < (files.length as int); i++) {
       final file = files[i];
       final name = file.name as String;
       final size = file.size as int;
       final type = file.type as String;
 
-      // Check size limit
       if (component.maxSize != null && size > component.maxSize!) {
         component.onError?.call('File "$name" exceeds maximum size');
         continue;
@@ -145,8 +107,6 @@ class _ArcaneFileUploadState extends State<ArcaneFileUpload> {
   }
 
   void _triggerFileInput() {
-    // Trigger click on hidden file input via JavaScript
-    // This would need JS interop in practice
   }
 
   @override

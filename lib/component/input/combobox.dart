@@ -6,60 +6,19 @@ export '../../core/props/select_props.dart'
     show SelectSize, SelectProps, SelectOptionProps;
 
 /// An autocomplete combobox with search filtering.
-///
-/// Combines a text input with a dropdown of filterable options.
-///
-/// Example:
-/// ```dart
-/// ArcaneCombobox<String>(
-///   options: [
-///     ComboboxOption(value: 'apple', label: 'Apple'),
-///     ComboboxOption(value: 'banana', label: 'Banana'),
-///     ComboboxOption(value: 'cherry', label: 'Cherry'),
-///   ],
-///   value: selectedFruit,
-///   onChanged: (fruit) => setState(() => selectedFruit = fruit),
-///   placeholder: 'Select a fruit...',
-/// )
-/// ```
 class ArcaneCombobox<T> extends StatefulComponent {
-  /// Available options
   final List<ComboboxOption<T>> options;
-
-  /// Currently selected value
   final T? value;
-
-  /// Called when selection changes
   final void Function(T?)? onChanged;
-
-  /// Placeholder text when no selection
   final String? placeholder;
-
-  /// Search input placeholder
   final String? searchPlaceholder;
-
-  /// Whether to show the search input
   final bool searchable;
-
-  /// Custom display function for selected value
   final String Function(T)? displayValue;
-
-  /// Custom filter function
   final bool Function(ComboboxOption<T>, String)? filterFn;
-
-  /// Empty state message
   final String emptyMessage;
-
-  /// Whether the combobox is disabled
   final bool disabled;
-
-  /// Error message
   final String? error;
-
-  /// Label above the combobox
   final String? label;
-
-  /// Size variant
   final ComboboxSize size;
 
   const ArcaneCombobox({
@@ -133,7 +92,6 @@ class _ArcaneComboboxState<T> extends State<ArcaneCombobox<T>> {
 
   @override
   Component build(BuildContext context) {
-    // Convert ComboboxOption to SelectOptionProps
     final selectOptions = component.options.map((opt) => SelectOptionProps<T>(
       value: opt.value,
       label: opt.label,
@@ -173,24 +131,13 @@ class _ArcaneComboboxState<T> extends State<ArcaneCombobox<T>> {
   }
 }
 
-/// A combobox option
+/// A combobox option.
 class ComboboxOption<T> {
-  /// The option's value
   final T value;
-
-  /// Display label
   final String label;
-
-  /// Optional description
   final String? description;
-
-  /// Optional icon
   final Component? icon;
-
-  /// Whether this option is disabled
   final bool disabled;
-
-  /// Additional keywords for searching
   final List<String>? keywords;
 
   const ComboboxOption({
@@ -203,10 +150,9 @@ class ComboboxOption<T> {
   });
 }
 
-/// Size variants for combobox
+/// Size variants for combobox.
 enum ComboboxSize {
   sm,
   md,
   lg,
 }
-

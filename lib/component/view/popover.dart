@@ -6,52 +6,19 @@ import '../../core/theme_provider.dart';
 
 export '../../core/props/popover_props.dart' show PopoverPosition, PopoverTrigger;
 
-/// Popover component
-///
 /// A floating content panel that appears relative to a trigger element.
-///
-/// ```dart
-/// ArcanePopover(
-///   trigger: ArcaneButton(label: 'Open Menu'),
-///   content: MenuContent(),
-///   position: PopoverPosition.bottomStart,
-/// )
-/// ```
 class ArcanePopover extends StatefulComponent {
-  /// Trigger element
   final Component trigger;
-
-  /// Popover content
   final Component content;
-
-  /// Position relative to trigger
   final PopoverPosition position;
-
-  /// Trigger behavior
   final PopoverTrigger triggerType;
-
-  /// Whether popover is open (for manual control)
   final bool? isOpen;
-
-  /// Callback when popover opens/closes
   final void Function(bool isOpen)? onOpenChange;
-
-  /// Whether to show arrow
   final bool showArrow;
-
-  /// Close on outside click
   final bool closeOnOutsideClick;
-
-  /// Close on escape key
   final bool closeOnEscape;
-
-  /// Custom offset from trigger in pixels
   final int offset;
-
-  /// Delay in milliseconds before opening (for hover trigger)
   final int openDelay;
-
-  /// Delay in milliseconds before closing (for hover trigger)
   final int closeDelay;
 
   const ArcanePopover({
@@ -145,7 +112,6 @@ class _ArcanePopoverState extends State<ArcanePopover> {
 
   @override
   Component build(BuildContext context) {
-    // Delegate rendering to the current stylesheet's popover renderer
     return context.renderers.popover(PopoverProps(
       trigger: component.trigger,
       content: component.content,

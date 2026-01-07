@@ -7,22 +7,11 @@ import '../../util/appearance/colors.dart';
 export '../../core/props/carpet_props.dart';
 
 /// A background container component that provides a subtle surface layer.
-///
-/// Useful for creating visual hierarchy in layouts.
 class ArcaneCarpet extends StatelessComponent {
-  /// The child component
   final Component child;
-
-  /// Custom padding
   final EdgeInsets? padding;
-
-  /// Border radius
   final double? radius;
-
-  /// Background color override
   final Color? color;
-
-  /// Whether to add a border
   final bool border;
 
   const ArcaneCarpet({
@@ -46,7 +35,7 @@ class ArcaneCarpet extends StatelessComponent {
   }
 }
 
-/// A surface component with customizable elevation and appearance
+/// A surface component with customizable elevation and appearance.
 class ArcaneSurface extends StatelessComponent {
   final Component child;
   final EdgeInsets? padding;
@@ -78,7 +67,7 @@ class ArcaneSurface extends StatelessComponent {
   }
 }
 
-/// A divider component
+/// A divider component.
 class ArcaneDivider extends StatelessComponent {
   final double? thickness;
   final double? indent;

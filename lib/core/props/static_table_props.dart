@@ -2,27 +2,14 @@ import 'package:jaspr/jaspr.dart';
 
 import '../../util/arcane.dart';
 
-/// Properties for static table components.
+/// Static table component properties.
 class StaticTableProps {
-  /// Table headers
   final List<String> headers;
-
-  /// Table rows (each row is a list of cell contents)
   final List<List<Component>> rows;
-
-  /// Whether to show row dividers
   final bool showDividers;
-
-  /// Whether to stripe alternate rows
   final bool striped;
-
-  /// Whether the header is sticky
   final bool stickyHeader;
-
-  /// Column alignments
   final List<TextAlign>? alignments;
-
-  /// Whether to show the header
   final bool showHeader;
 
   const StaticTableProps({
@@ -36,7 +23,7 @@ class StaticTableProps {
   });
 }
 
-/// Properties for key-value table components.
+/// Key-value table component properties.
 class KeyValueTableProps {
   final List<KeyValueRowData> rows;
   final double? keyWidth;
@@ -49,7 +36,7 @@ class KeyValueTableProps {
   });
 }
 
-/// A row for KeyValueTable
+/// Key-value row data.
 class KeyValueRowData {
   final String key;
   final Component value;

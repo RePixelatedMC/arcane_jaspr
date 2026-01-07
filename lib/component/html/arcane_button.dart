@@ -27,10 +27,7 @@ import 'package:jaspr/dom.dart'
 
 import '../../util/style_types/arcane_style_data.dart';
 
-/// A raw button component that wraps the HTML `<button>` element.
-///
-/// This is a low-level wrapper for direct HTML button elements.
-/// For styled buttons, use the Button component from arcane_jaspr.
+/// Raw button element wrapper.
 class ArcaneRawButton extends StatelessComponent {
   final Component child;
   final ArcaneStyleData? styles;

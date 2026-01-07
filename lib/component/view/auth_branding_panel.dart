@@ -2,33 +2,16 @@ import 'package:jaspr/jaspr.dart';
 
 import '../../core/theme_provider.dart';
 
-// Re-export props for usage
 export '../../core/props/auth_branding_panel_props.dart';
 
 /// Branding panel content for split-screen auth layouts.
-///
-/// Displays logo, tagline, feature list, and optional testimonial
-/// with a dark gaming-themed design.
 class AuthBrandingPanel extends StatelessComponent {
-  /// URL to the logo image
   final String? logoUrl;
-
-  /// Main tagline text
   final String tagline;
-
-  /// Optional description text below tagline
   final String? description;
-
-  /// List of feature highlights with checkmarks
   final List<String>? features;
-
-  /// Optional testimonial quote
   final String? testimonialQuote;
-
-  /// Optional testimonial author
   final String? testimonialAuthor;
-
-  /// Optional testimonial author title/company
   final String? testimonialTitle;
 
   const AuthBrandingPanel({

@@ -5,36 +5,17 @@ import '../../core/theme_provider.dart';
 export '../../core/props/data_table_props.dart'
     show DataTableTextAlign, DataColumnProps;
 
-/// A data table component for displaying tabular data.
+/// Data table component for displaying tabular data.
 class ArcaneDataTable<T> extends StatefulComponent {
-  /// The data items to display
   final List<T> items;
-
-  /// Column definitions
   final List<ArcaneDataColumn<T>> columns;
-
-  /// Callback when a row is clicked
   final void Function(T item)? onRowTap;
-
-  /// Whether rows are selectable
   final bool selectable;
-
-  /// Currently selected items
   final Set<T>? selectedItems;
-
-  /// Callback when selection changes
   final void Function(Set<T> selected)? onSelectionChanged;
-
-  /// Whether to show row dividers
   final bool showDividers;
-
-  /// Whether to show the header
   final bool showHeader;
-
-  /// Fixed header
   final bool stickyHeader;
-
-  /// Empty state message
   final String emptyMessage;
 
   const ArcaneDataTable({
@@ -96,7 +77,6 @@ class _DataTableState<T> extends State<ArcaneDataTable<T>> {
 
   @override
   Component build(BuildContext context) {
-    // Convert ArcaneDataColumn to DataColumnProps
     final columnProps = component.columns
         .map((c) => DataColumnProps<T>(
               header: c.header,
@@ -107,7 +87,6 @@ class _DataTableState<T> extends State<ArcaneDataTable<T>> {
             ))
         .toList();
 
-    // Delegate rendering to the current stylesheet's data table renderer
     return context.renderers.dataTable<T>(DataTableProps<T>(
       items: component.items,
       columns: columnProps,
@@ -124,7 +103,7 @@ class _DataTableState<T> extends State<ArcaneDataTable<T>> {
   }
 }
 
-/// A column definition for ArcaneDataTable
+/// Column definition for ArcaneDataTable.
 class ArcaneDataColumn<T> {
   final String header;
   final Component Function(T item) builder;

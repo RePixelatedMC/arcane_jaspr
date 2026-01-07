@@ -1,6 +1,3 @@
-/// Button interactivity scripts barrel file.
-///
-/// Aggregates all button-related scripts for use in static sites.
 library;
 
 import 'button_feedback_scripts.dart';

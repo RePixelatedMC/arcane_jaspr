@@ -4,7 +4,7 @@ import '../../core/theme_provider.dart';
 
 export '../../core/props/mobile_menu_props.dart';
 
-/// Mobile navigation item
+/// Mobile navigation item.
 class ArcaneMobileNavItem {
   final String label;
   final String? href;
@@ -21,21 +21,12 @@ class ArcaneMobileNavItem {
   });
 }
 
-/// A mobile hamburger menu (Supabase-style)
+/// Mobile hamburger menu.
 class ArcaneMobileMenu extends StatelessComponent {
-  /// Navigation items
   final List<ArcaneMobileNavItem> items;
-
-  /// Optional logo
   final Component? logo;
-
-  /// Optional CTA button
   final Component? cta;
-
-  /// Close callback
   final void Function()? onClose;
-
-  /// Whether the menu is open
   final bool isOpen;
 
   const ArcaneMobileMenu({
@@ -73,15 +64,10 @@ class ArcaneMobileMenu extends StatelessComponent {
   }
 }
 
-/// Hamburger menu button
+/// Hamburger menu button.
 class ArcaneHamburgerButton extends StatelessComponent {
-  /// Whether the menu is open
   final bool isOpen;
-
-  /// Click handler
   final void Function()? onTap;
-
-  /// Size
   final double size;
 
   const ArcaneHamburgerButton({

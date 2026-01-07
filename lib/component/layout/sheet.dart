@@ -9,63 +9,21 @@ export 'sheet_types.dart';
 
 export '../../core/props/dialog_props.dart' show SheetSizeVariant, SheetProps;
 
-/// A modal sheet that slides in from screen edges matching shadcn/ui.
-/// ShadCN Reference: https://ui.shadcn.com/docs/components/sheet
-///
-/// Sheets are used for forms, filters, action menus, and other
-/// content that requires user attention without navigating away.
-/// ShadCN SheetOverlay: fixed inset-0 z-50 bg-black/80
-/// ShadCN SheetContent: fixed z-50 gap-4 bg-background p-6 shadow-lg transition ease-in-out
-///
-/// ```dart
-/// ArcaneSheet(
-///   isOpen: showSheet,
-///   onClose: () => setState(() => showSheet = false),
-///   position: SheetPosition.bottom,
-///   child: SheetContent(),
-/// )
-/// ```
+/// A modal sheet that slides in from screen edges.
 class ArcaneSheet extends StatelessComponent {
-  /// Whether the sheet is open
   final bool isOpen;
-
-  /// Callback when sheet should close
   final VoidCallback? onClose;
-
-  /// Sheet position (which edge it slides from)
   final SheetPosition position;
-
-  /// Sheet size
   final SheetSize size;
-
-  /// Sheet content
   final Component child;
-
-  /// Optional title
   final String? title;
-
-  /// Optional description below title
   final String? description;
-
-  /// Optional header widget (overrides title/description)
   final Component? header;
-
-  /// Optional footer content
   final Component? footer;
-
-  /// Whether to show backdrop overlay
   final bool showBackdrop;
-
-  /// Whether clicking backdrop closes sheet
   final bool closeOnBackdropClick;
-
-  /// Whether to show close button
   final bool showCloseButton;
-
-  /// Whether to show drag handle (for bottom/top sheets)
   final bool showDragHandle;
-
-  /// Custom max width (for bottom sheets that shouldn't span full width)
   final String? maxWidth;
 
   const ArcaneSheet({
@@ -86,7 +44,6 @@ class ArcaneSheet extends StatelessComponent {
     super.key,
   });
 
-  /// Bottom sheet constructor
   const ArcaneSheet.bottom({
     required this.isOpen,
     required this.child,
@@ -104,7 +61,6 @@ class ArcaneSheet extends StatelessComponent {
     super.key,
   }) : position = SheetPosition.bottom;
 
-  /// Top sheet constructor
   const ArcaneSheet.top({
     required this.isOpen,
     required this.child,
@@ -122,7 +78,6 @@ class ArcaneSheet extends StatelessComponent {
     super.key,
   }) : position = SheetPosition.top;
 
-  /// Side sheet (end/right) constructor
   const ArcaneSheet.end({
     required this.isOpen,
     required this.child,
@@ -178,46 +133,13 @@ class ArcaneSheet extends StatelessComponent {
 }
 
 /// Action sheet with a list of actions (mobile-style).
-///
-/// ```dart
-/// ArcaneActionSheet(
-///   isOpen: showActions,
-///   onClose: () => setState(() => showActions = false),
-///   actions: [
-///     ActionSheetItem(
-///       label: 'Share',
-///       icon: '📤',
-///       onTap: () => handleShare(),
-///     ),
-///     ActionSheetItem(
-///       label: 'Delete',
-///       icon: '🗑️',
-///       destructive: true,
-///       onTap: () => handleDelete(),
-///     ),
-///   ],
-/// )
-/// ```
 class ArcaneActionSheet extends StatelessComponent {
-  /// Whether the action sheet is open
   final bool isOpen;
-
-  /// Callback when sheet should close
   final VoidCallback? onClose;
-
-  /// Title text
   final String? title;
-
-  /// Description text
   final String? message;
-
-  /// List of actions
   final List<ActionSheetItem> actions;
-
-  /// Whether to show cancel button
   final bool showCancel;
-
-  /// Custom cancel label
   final String cancelLabel;
 
   const ArcaneActionSheet({
@@ -245,7 +167,6 @@ class ArcaneActionSheet extends StatelessComponent {
           'gap': '4px',
         }),
         [
-          // Title and message
           if (title != null || message != null)
             dom.div(
               styles: const dom.Styles(raw: {
@@ -275,11 +196,7 @@ class ArcaneActionSheet extends StatelessComponent {
                   ),
               ],
             ),
-
-          // Actions
           for (final action in actions) _buildActionItem(action),
-
-          // Cancel button
           if (showCancel) ...[
             const dom.div(
               styles: dom.Styles(raw: {
@@ -356,27 +273,14 @@ class ArcaneActionSheet extends StatelessComponent {
   }
 }
 
-/// An action item for [ArcaneActionSheet].
+/// An action item for ArcaneActionSheet.
 class ActionSheetItem {
-  /// Label text
   final String label;
-
-  /// Optional icon (emoji or icon code)
   final String? icon;
-
-  /// Whether this is a destructive action
   final bool destructive;
-
-  /// Whether the action is disabled
   final bool disabled;
-
-  /// Callback when tapped
   final VoidCallback? onTap;
-
-  /// Whether to close sheet on tap
   final bool closeOnTap;
-
-  /// Optional trailing widget
   final Component? trailing;
 
   const ActionSheetItem({

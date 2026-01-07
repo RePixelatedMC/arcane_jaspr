@@ -1,32 +1,15 @@
 import 'package:arcane_jaspr/arcane_jaspr.dart';
 
-/// Button variant for auth forms
 enum AuthButtonVariant { primary, secondary, ghost }
 
-/// Styled button for authentication forms.
-///
-/// Supports primary (green gradient), secondary (outlined),
-/// and ghost (text only) variants with loading state.
+/// Styled button for authentication forms with loading state.
 class AuthButton extends StatelessComponent {
-  /// Button label text
   final String label;
-
-  /// Callback when button is clicked
   final void Function()? onPressed;
-
-  /// Button style variant
   final AuthButtonVariant variant;
-
-  /// Show loading spinner
   final bool loading;
-
-  /// Make button full width
   final bool fullWidth;
-
-  /// Whether the button is disabled
   final bool disabled;
-
-  /// Button type (submit, button, reset)
   final String type;
 
   const AuthButton({

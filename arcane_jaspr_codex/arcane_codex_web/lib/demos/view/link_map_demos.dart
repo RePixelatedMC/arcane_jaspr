@@ -112,6 +112,23 @@ class LinkMapDemos {
           gapSize: Gap.lg,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            ArcaneText('Debug Mode (hover to see coordinates, click to copy)',
+                weight: FontWeight.w600),
+            ArcaneDiv(
+              styles: const ArcaneStyleData(
+                widthCustom: '100%',
+                minHeight: '450px',
+                borderRadius: Radius.lg,
+                overflow: Overflow.hidden,
+              ),
+              children: [
+                ArcaneWorldMap(
+                  height: '400px',
+                  debugMode: true,
+                  locations: const [],
+                ),
+              ],
+            ),
             ArcaneText('Interactive World Map', weight: FontWeight.w600),
             ArcaneDiv(
               styles: const ArcaneStyleData(
@@ -218,6 +235,22 @@ class LinkMapDemos {
           gapSize: Gap.lg,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            ArcaneText('Debug Mode (hover to see coordinates, click to copy)',
+                weight: FontWeight.w600),
+            ArcaneDiv(
+              styles: const ArcaneStyleData(
+                widthCustom: '100%',
+                minHeight: '400px',
+                borderRadius: Radius.lg,
+                overflow: Overflow.hidden,
+              ),
+              children: [
+                ArcaneUSAMap(
+                  height: '350px',
+                  debugMode: true,
+                ),
+              ],
+            ),
             ArcaneText('Interactive USA Map', weight: FontWeight.w600),
             ArcaneDiv(
               styles: const ArcaneStyleData(

@@ -5,42 +5,16 @@ import '../../core/theme_provider.dart';
 export '../../core/props/fab_props.dart' show FABVariant, FABSize, FABPosition;
 
 /// A floating action button component.
-///
-/// ```dart
-/// ArcaneFAB(
-///   icon: Icon(Icons.add),
-///   variant: FABVariant.primary,
-/// )
-/// ```
 class ArcaneFAB extends StatelessComponent {
-  /// The icon to display
   final Component icon;
-
-  /// Optional label for extended FAB
   final String? label;
-
-  /// Click handler
   final void Function()? onPressed;
-
-  /// Style variant
   final FABVariant variant;
-
-  /// FAB size
   final FABSize size;
-
-  /// Whether the FAB is disabled
   final bool disabled;
-
-  /// Position of the FAB
   final FABPosition position;
-
-  /// Tooltip text
   final String? tooltip;
-
-  /// Optional element ID
   final String? id;
-
-  /// Additional HTML attributes
   final Map<String, String>? attributes;
 
   const ArcaneFAB({
@@ -57,7 +31,6 @@ class ArcaneFAB extends StatelessComponent {
     super.key,
   });
 
-  /// Primary FAB
   const ArcaneFAB.primary({
     required this.icon,
     this.label,
@@ -71,7 +44,6 @@ class ArcaneFAB extends StatelessComponent {
     super.key,
   }) : variant = FABVariant.primary;
 
-  /// Surface FAB
   const ArcaneFAB.surface({
     required this.icon,
     this.label,
@@ -85,7 +57,6 @@ class ArcaneFAB extends StatelessComponent {
     super.key,
   }) : variant = FABVariant.surface;
 
-  /// Secondary FAB
   const ArcaneFAB.secondary({
     required this.icon,
     this.label,
@@ -99,7 +70,6 @@ class ArcaneFAB extends StatelessComponent {
     super.key,
   }) : variant = FABVariant.secondary;
 
-  /// Success FAB
   const ArcaneFAB.success({
     required this.icon,
     this.label,
@@ -113,7 +83,6 @@ class ArcaneFAB extends StatelessComponent {
     super.key,
   }) : variant = FABVariant.success;
 
-  /// Destructive FAB
   const ArcaneFAB.destructive({
     required this.icon,
     this.label,

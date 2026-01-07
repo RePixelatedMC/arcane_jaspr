@@ -75,6 +75,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+**Map Debug Mode**
+- Added `debugMode` parameter to `ArcaneWorldMap` and `ArcaneUSAMap`
+- When enabled, hovering anywhere on the map shows lat/lng and SVG coordinates in a tooltip
+- Clicking copies the coordinates to clipboard for easy location calibration
+- Added `svgToLatLng()` reverse conversion method to `ArcaneUSAMapProjection`
+
 **Sidebar Enhancement**
 - `ArcaneSidebarSubMenu` - Collapsible nested submenu items
 - `ArcaneSidebarExpanded` - Content visible only when sidebar is expanded

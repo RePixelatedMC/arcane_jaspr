@@ -1,21 +1,10 @@
-/// Properties for newsletter form components.
+/// Newsletter form component properties.
 class NewsletterFormProps {
-  /// Placeholder text
   final String placeholder;
-
-  /// Submit button text
   final String buttonText;
-
-  /// Success message
   final String successMessage;
-
-  /// Submit callback
   final void Function(String email)? onSubmit;
-
-  /// Whether to show inline (horizontal) layout
   final bool inline;
-
-  /// Whether the form is compact
   final bool compact;
 
   const NewsletterFormProps({
@@ -28,24 +17,13 @@ class NewsletterFormProps {
   });
 }
 
-/// Properties for waitlist form components.
+/// Waitlist form component properties.
 class WaitlistFormProps {
-  /// Form title
   final String? title;
-
-  /// Form description
   final String? description;
-
-  /// Submit button text
   final String buttonText;
-
-  /// Success message
   final String successMessage;
-
-  /// Submit callback
   final void Function(String email, String? name)? onSubmit;
-
-  /// Whether to collect name
   final bool collectName;
 
   const WaitlistFormProps({

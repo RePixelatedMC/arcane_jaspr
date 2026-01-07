@@ -1,6 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 
-/// A footer link group
+/// Footer link group data.
 class FooterLinkGroup {
   final String title;
   final List<FooterLink> links;
@@ -11,14 +11,12 @@ class FooterLinkGroup {
   });
 }
 
-/// A footer link
+/// Footer link data.
 class FooterLink {
   final String label;
   final String? href;
   final void Function()? onTap;
   final bool external;
-
-  /// Optional icon before the label
   final String? icon;
 
   const FooterLink({
@@ -30,36 +28,17 @@ class FooterLink {
   });
 }
 
-/// Properties for footer components.
+/// Footer component properties.
 class FooterProps {
-  /// Logo component
   final Component? logo;
-
-  /// Description/tagline
   final String? description;
-
-  /// Link groups (columns)
   final List<FooterLinkGroup> linkGroups;
-
-  /// Social media icons/links
   final List<Component>? socialLinks;
-
-  /// Copyright text
   final String? copyright;
-
-  /// Bottom links (privacy, terms, etc.)
   final List<FooterLink>? bottomLinks;
-
-  /// Whether to show a newsletter form
   final bool showNewsletter;
-
-  /// Newsletter placeholder
   final String newsletterPlaceholder;
-
-  /// Newsletter submit text
   final String newsletterButtonText;
-
-  /// Newsletter callback
   final void Function(String)? onNewsletterSubmit;
 
   const FooterProps({
@@ -76,18 +55,11 @@ class FooterProps {
   });
 }
 
-/// Properties for footer social icon components.
+/// Footer social icon component properties.
 class FooterSocialIconProps {
-  /// Icon component or text
   final Component icon;
-
-  /// Link URL
   final String? href;
-
-  /// Click handler
   final void Function()? onTap;
-
-  /// Aria label for accessibility
   final String label;
 
   const FooterSocialIconProps({

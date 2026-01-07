@@ -1,14 +1,9 @@
-
-/// Calendar selection mode
 enum CalendarModeVariant {
-  /// Select a single date
   single,
-
-  /// Select a date range
   range,
 }
 
-/// A date range
+/// Date range value.
 class DateRangeValue {
   final DateTime start;
   final DateTime end;
@@ -19,42 +14,19 @@ class DateRangeValue {
   });
 }
 
-/// Props for the calendar component
+/// Calendar component properties.
 class CalendarProps {
-  /// Currently selected date
   final DateTime? selected;
-
-  /// The month being displayed
   final DateTime displayMonth;
-
-  /// Minimum selectable date
   final DateTime? minDate;
-
-  /// Maximum selectable date
   final DateTime? maxDate;
-
-  /// Whether to show week numbers
   final bool showWeekNumbers;
-
-  /// Whether to show today button
   final bool showToday;
-
-  /// First day of week (0 = Sunday, 1 = Monday)
   final int firstDayOfWeek;
-
-  /// Selection mode
   final CalendarModeVariant mode;
-
-  /// Selected date range (for range mode)
   final DateRangeValue? selectedRange;
-
-  /// Range start being selected (partial selection)
   final DateTime? rangeStart;
-
-  /// Disabled date checker
   final bool Function(DateTime)? isDisabled;
-
-  /// Handlers
   final void Function()? onPreviousMonth;
   final void Function()? onNextMonth;
   final void Function()? onGoToToday;

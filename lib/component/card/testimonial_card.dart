@@ -2,30 +2,16 @@ import 'package:jaspr/jaspr.dart';
 
 import '../../core/theme_provider.dart';
 
-// Re-export props for usage
 export '../../core/props/testimonial_card_props.dart';
 
-/// A testimonial/quote card component (Supabase-style)
+/// Testimonial/quote card with author attribution and optional rating.
 class ArcaneTestimonialCard extends StatelessComponent {
-  /// The testimonial quote text
   final String quote;
-
-  /// Author name
   final String authorName;
-
-  /// Author title/role
   final String? authorTitle;
-
-  /// Author company
   final String? authorCompany;
-
-  /// Author avatar URL
   final String? avatarUrl;
-
-  /// Star rating (0-5, null to hide)
   final int? rating;
-
-  /// Whether to show quotation marks
   final bool showQuotes;
 
   const ArcaneTestimonialCard({
@@ -53,21 +39,12 @@ class ArcaneTestimonialCard extends StatelessComponent {
   }
 }
 
-/// Rating stars component
+/// Rating stars display component.
 class ArcaneRatingStarsSimple extends StatelessComponent {
-  /// Rating value (0-5)
   final double rating;
-
-  /// Maximum stars
   final int maxStars;
-
-  /// Star size
   final double size;
-
-  /// Whether the rating is interactive
   final bool interactive;
-
-  /// Callback when rating changes (for interactive mode)
   final void Function(int)? onRatingChanged;
 
   const ArcaneRatingStarsSimple({

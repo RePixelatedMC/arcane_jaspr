@@ -27,37 +27,12 @@ import 'package:jaspr/dom.dart'
 
 import '../../util/style_types/arcane_style_data.dart';
 
-/// A footer component that wraps the HTML `<footer>` element.
-///
-/// Provides a Flutter-like API with direct `ArcaneStyleData` support,
-/// eliminating the need to call `.toStyles()`.
-///
-/// Example:
-/// ```dart
-/// ArcaneHtmlFooter(
-///   styles: ArcaneStyleData(
-///     padding: PaddingPreset.xl,
-///     background: Background.card,
-///   ),
-///   children: [
-///     ArcaneParagraph(child: ArcaneText('Copyright 2024')),
-///   ],
-/// )
-/// ```
+/// Styled footer element wrapper.
 class ArcaneHtmlFooter extends StatelessComponent {
-  /// The children of the footer
   final List<Component> children;
-
-  /// Optional styling using ArcaneStyleData
   final ArcaneStyleData? styles;
-
-  /// Optional CSS classes
   final String? classes;
-
-  /// Optional ID attribute
   final String? id;
-
-  /// Additional HTML attributes
   final Map<String, String>? attributes;
 
   const ArcaneHtmlFooter({

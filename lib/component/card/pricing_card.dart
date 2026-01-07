@@ -2,15 +2,11 @@ import 'package:jaspr/jaspr.dart';
 
 import '../../core/theme_provider.dart';
 
-// Re-export props for usage
 export '../../core/props/pricing_card_props.dart';
 
-/// A pricing card component (Supabase-style)
+/// Pricing card displaying tier information with features and CTA.
 class ArcanePricingCard extends StatelessComponent {
-  /// The pricing tier data
   final PricingTier tier;
-
-  /// Click handler for CTA
   final void Function()? onCtaPressed;
 
   const ArcanePricingCard({
@@ -28,15 +24,10 @@ class ArcanePricingCard extends StatelessComponent {
   }
 }
 
-/// A pricing grid for displaying multiple tiers
+/// Grid layout for displaying multiple pricing tiers.
 class ArcanePricingGrid extends StatelessComponent {
-  /// The pricing tiers to display
   final List<PricingTier> tiers;
-
-  /// Callback when a tier's CTA is pressed
   final void Function(PricingTier tier)? onTierSelected;
-
-  /// Number of columns (auto-calculated if null)
   final int? columns;
 
   const ArcanePricingGrid({

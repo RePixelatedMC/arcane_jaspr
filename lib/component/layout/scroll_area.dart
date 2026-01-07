@@ -10,68 +10,25 @@ export '../../core/props/scroll_area_props.dart'
         ScrollAreaProps,
         VirtualScrollProps;
 
-/// Scroll direction (local alias)
 typedef ScrollDirection = ScrollDirectionVariant;
-
-/// Scrollbar visibility (local alias)
 typedef ScrollbarVisibility = ScrollbarVisibilityVariant;
-
-/// Scrollbar style (local alias)
 typedef ScrollbarStyle = ScrollbarStyleVariant;
 
-/// A scrollable area with custom styled scrollbars matching shadcn/ui.
-/// ShadCN Reference: https://ui.shadcn.com/docs/components/scroll-area
-///
-/// ShadCN: relative overflow-hidden
-/// ShadCN ScrollBar: flex touch-none select-none transition-colors h-full w-2.5 / w-full h-2.5
-///
-/// ```dart
-/// ArcaneScrollArea(
-///   height: '400px',
-///   child: LongContent(),
-/// )
-/// ```
+/// A scrollable area with custom styled scrollbars.
 class ArcaneScrollArea extends StatelessComponent {
-  /// Content to scroll
   final Component child;
-
-  /// Fixed height (required for vertical scroll)
   final String? height;
-
-  /// Fixed width (required for horizontal scroll)
   final String? width;
-
-  /// Maximum height
   final String? maxHeight;
-
-  /// Maximum width
   final String? maxWidth;
-
-  /// Scroll direction
   final ScrollDirection direction;
-
-  /// Scrollbar visibility
   final ScrollbarVisibility scrollbar;
-
-  /// Scrollbar style
   final ScrollbarStyle scrollbarStyle;
-
-  /// Scrollbar track color
   final String? trackColor;
-
-  /// Scrollbar thumb color
   final String? thumbColor;
-
-  /// Scrollbar size (width for vertical, height for horizontal)
   final String scrollbarSize;
-
-  /// Whether to show scroll shadows (gradient fade at edges)
   final bool showScrollShadows;
-
-  /// Padding inside scroll area
   final String? padding;
-
-  /// Additional CSS classes
   final String? className;
 
   const ArcaneScrollArea({
@@ -92,7 +49,6 @@ class ArcaneScrollArea extends StatelessComponent {
     super.key,
   });
 
-  /// Creates a vertical scroll area with fixed height
   const ArcaneScrollArea.vertical({
     required this.child,
     required String this.height,
@@ -110,7 +66,6 @@ class ArcaneScrollArea extends StatelessComponent {
         direction = ScrollDirection.vertical,
         scrollbarSize = '8px';
 
-  /// Creates a horizontal scroll area with fixed width
   const ArcaneScrollArea.horizontal({
     required this.child,
     required String this.width,
@@ -171,21 +126,11 @@ class ArcaneScrollArea extends StatelessComponent {
 }
 
 /// A virtualized scroll list for large datasets.
-/// Only renders visible items for performance.
 class ArcaneVirtualScroll<T> extends StatefulComponent {
-  /// List of items
   final List<T> items;
-
-  /// Item builder
   final Component Function(BuildContext context, T item, int index) itemBuilder;
-
-  /// Fixed item height (required for virtualization)
   final double itemHeight;
-
-  /// Container height
   final String height;
-
-  /// Overscan count (items to render outside viewport)
   final int overscan;
 
   const ArcaneVirtualScroll({

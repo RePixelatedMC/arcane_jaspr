@@ -27,7 +27,7 @@ import 'package:jaspr/dom.dart'
 
 import '../../util/style_types/arcane_style_data.dart';
 
-/// A nav component that wraps the HTML `<nav>` element.
+/// Styled nav element wrapper.
 class ArcaneNav extends StatelessComponent {
   final List<Component> children;
   final ArcaneStyleData? styles;

@@ -1,6 +1,6 @@
 import 'appearance/colors.dart';
 
-/// Edge insets for padding/margin
+/// Flutter-like edge insets for padding and margin.
 class EdgeInsets {
   final double left;
   final double top;
@@ -28,10 +28,8 @@ class EdgeInsets {
 
   static const EdgeInsets zero = EdgeInsets.all(0);
 
-  /// Convert to CSS padding string
   String get padding => '${top}px ${right}px ${bottom}px ${left}px';
 
-  /// Convert to CSS margin string
   String get margin => '${top}px ${right}px ${bottom}px ${left}px';
 
   EdgeInsets copyWith({
@@ -67,7 +65,7 @@ class EdgeInsets {
   }
 }
 
-/// Box constraints
+/// Flutter-like box constraints.
 class BoxConstraints {
   final double? minWidth;
   final double? maxWidth;
@@ -94,7 +92,7 @@ class BoxConstraints {
         maxHeight = height ?? double.infinity;
 }
 
-/// Alignment
+/// Alignment positions for layout.
 enum Alignment {
   topLeft,
   topCenter,
@@ -141,7 +139,7 @@ enum Alignment {
   }
 }
 
-/// Main axis alignment
+/// Main axis alignment for flex layouts.
 enum MainAxisAlignment {
   start,
   end,
@@ -168,7 +166,7 @@ enum MainAxisAlignment {
   }
 }
 
-/// Cross axis alignment
+/// Cross axis alignment for flex layouts.
 enum CrossAxisAlignment {
   start,
   end,
@@ -192,7 +190,7 @@ enum CrossAxisAlignment {
   }
 }
 
-/// Main axis size
+/// Main axis size behavior.
 enum MainAxisSize {
   min,
   max;
@@ -200,10 +198,10 @@ enum MainAxisSize {
   String get css => this == MainAxisSize.max ? '1' : '0';
 }
 
-/// Axis
+/// Axis direction.
 enum Axis { horizontal, vertical }
 
-/// Wrap behavior
+/// Wrap alignment for flex wrap layouts.
 enum WrapAlignment {
   start,
   end,
@@ -230,7 +228,7 @@ enum WrapAlignment {
   }
 }
 
-/// Text alignment
+/// Text alignment options.
 enum TextAlign {
   left,
   right,
@@ -257,7 +255,7 @@ enum TextAlign {
   }
 }
 
-/// Font weight
+/// Font weight values.
 enum FontWeight {
   w100,
   w200,
@@ -298,7 +296,7 @@ enum FontWeight {
   static const FontWeight bold = FontWeight.w700;
 }
 
-/// Text overflow
+/// Text overflow behavior.
 enum TextOverflow {
   clip,
   ellipsis,
@@ -316,7 +314,7 @@ enum TextOverflow {
   }
 }
 
-/// Box fit
+/// Image fit modes.
 enum BoxFit {
   contain,
   cover,
@@ -346,7 +344,7 @@ enum BoxFit {
   }
 }
 
-/// Border radius
+/// Border radius for rounded corners.
 class BorderRadius {
   final double topLeft;
   final double topRight;
@@ -378,7 +376,7 @@ class BorderRadius {
       '${topLeft}px ${topRight}px ${bottomRight}px ${bottomLeft}px';
 }
 
-/// Box shadow
+/// Box shadow for elevation effects.
 class BoxShadow {
   final Color color;
   final double blurRadius;
@@ -398,7 +396,7 @@ class BoxShadow {
       '${offsetX}px ${offsetY}px ${blurRadius}px ${spreadRadius}px ${color.css}';
 }
 
-/// Duration extension for convenience
+/// Duration extension for convenience.
 extension DurationExtension on int {
   Duration get ms => Duration(milliseconds: this);
   Duration get seconds => Duration(seconds: this);

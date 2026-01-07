@@ -27,7 +27,7 @@ import 'package:jaspr/dom.dart'
 
 import '../../util/style_types/arcane_style_data.dart';
 
-/// A table component that wraps the HTML `<table>` element.
+/// Styled table wrapper.
 class ArcaneTable extends StatelessComponent {
   final List<Component> children;
   final ArcaneStyleData? styles;
@@ -53,7 +53,7 @@ class ArcaneTable extends StatelessComponent {
   }
 }
 
-/// A table head component that wraps the HTML `<thead>` element.
+/// Styled thead wrapper.
 class ArcaneTableHead extends StatelessComponent {
   final List<Component> children;
   final ArcaneStyleData? styles;
@@ -79,7 +79,7 @@ class ArcaneTableHead extends StatelessComponent {
   }
 }
 
-/// A table body component that wraps the HTML `<tbody>` element.
+/// Styled tbody wrapper.
 class ArcaneTableBody extends StatelessComponent {
   final List<Component> children;
   final ArcaneStyleData? styles;
@@ -105,7 +105,7 @@ class ArcaneTableBody extends StatelessComponent {
   }
 }
 
-/// A table row component that wraps the HTML `<tr>` element.
+/// Styled table row wrapper.
 class ArcaneTableRow extends StatelessComponent {
   final List<Component> children;
   final ArcaneStyleData? styles;
@@ -131,7 +131,7 @@ class ArcaneTableRow extends StatelessComponent {
   }
 }
 
-/// A table header cell component that wraps the HTML `<th>` element.
+/// Styled table header cell wrapper.
 class ArcaneTableHeader extends StatelessComponent {
   final Component child;
   final ArcaneStyleData? styles;
@@ -188,7 +188,7 @@ class _ArcaneTableHeaderChildren extends ArcaneTableHeader {
   }
 }
 
-/// A table data cell component that wraps the HTML `<td>` element.
+/// Styled table data cell wrapper.
 class ArcaneTableCell extends StatelessComponent {
   final Component child;
   final ArcaneStyleData? styles;

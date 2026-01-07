@@ -27,24 +27,7 @@ import 'package:jaspr/dom.dart'
 
 import '../../util/style_types/arcane_style_data.dart';
 
-/// A side content component for tangential or supplementary content.
-///
-/// This wraps the HTML `<aside>` element. Use it for sidebars,
-/// pull quotes, or content that is separate from the main flow.
-///
-/// Example:
-/// ```dart
-/// ArcaneSideContent(
-///   styles: ArcaneStyleData(
-///     width: WidthPreset.sidebar,
-///     padding: PaddingPreset.md,
-///   ),
-///   children: [
-///     ArcaneText('Related Links'),
-///     ArcaneBulletList(children: [...]),
-///   ],
-/// )
-/// ```
+/// Styled aside element wrapper for supplementary content.
 class ArcaneSideContent extends StatelessComponent {
   final List<Component> children;
   final ArcaneStyleData? styles;
@@ -69,4 +52,3 @@ class ArcaneSideContent extends StatelessComponent {
     );
   }
 }
-

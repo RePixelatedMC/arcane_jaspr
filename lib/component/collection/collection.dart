@@ -1,35 +1,16 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
-
-/// A versatile collection widget for managing and displaying groups of items.
-///
-/// The [Collection] widget serves as a flexible container for rendering lists
-/// of components, supporting both static children and dynamic builder patterns.
-/// It is designed for use in scrollable views or as part of larger compositions.
+/// Flexible container for rendering lists of components.
 class ArcaneCollection extends StatelessComponent {
-  /// The list of static child components to render.
   final List<Component> children;
-
-  /// An optional builder function for dynamically generating children.
   final Component Function(BuildContext context, int index)? builder;
-
-  /// The total number of children when using a builder.
   final int? childCount;
-
-  /// Layout direction (vertical or horizontal).
   final Axis direction;
-
-  /// Gap between items.
   final double gap;
-
-  /// Whether to wrap items in a scrollable container.
   final bool scrollable;
-
-  /// Padding around the collection.
   final String? padding;
 
-  /// Default constructor for creating a [Collection] with static children.
   const ArcaneCollection({
     super.key,
     this.children = const [],
@@ -40,7 +21,6 @@ class ArcaneCollection extends StatelessComponent {
   })  : builder = null,
         childCount = null;
 
-  /// Creates a [Collection] using a builder for dynamic child generation.
   const ArcaneCollection.builder({
     super.key,
     required this.builder,
@@ -81,30 +61,18 @@ class ArcaneCollection extends StatelessComponent {
   }
 }
 
-/// Axis direction for layouts.
 enum Axis {
   horizontal,
   vertical,
 }
 
-/// A list view component for displaying scrollable lists.
+/// Scrollable list view component.
 class ArcaneListView extends StatelessComponent {
-  /// Children to display in the list.
   final List<Component> children;
-
-  /// Builder for dynamic list generation.
   final Component Function(BuildContext context, int index)? builder;
-
-  /// Number of items when using builder.
   final int? itemCount;
-
-  /// Gap between items.
   final double gap;
-
-  /// Padding around the list.
   final String? padding;
-
-  /// Whether the list scrolls horizontally.
   final bool horizontal;
 
   const ArcaneListView({
@@ -146,27 +114,14 @@ class ArcaneListView extends StatelessComponent {
   }
 }
 
-/// A grid layout component for displaying items in a grid.
+/// Grid layout component.
 class ArcaneGridView extends StatelessComponent {
-  /// Children to display in the grid.
   final List<Component> children;
-
-  /// Builder for dynamic grid generation.
   final Component Function(BuildContext context, int index)? builder;
-
-  /// Number of items when using builder.
   final int? itemCount;
-
-  /// Number of columns in the grid.
   final int crossAxisCount;
-
-  /// Gap between grid items.
   final double gap;
-
-  /// Padding around the grid.
   final String? padding;
-
-  /// Minimum item width for auto-fit columns.
   final double? minItemWidth;
 
   const ArcaneGridView({
@@ -212,18 +167,11 @@ class ArcaneGridView extends StatelessComponent {
   }
 }
 
-/// A masonry-style layout component.
+/// Masonry-style layout component.
 class ArcaneMasonryGrid extends StatelessComponent {
-  /// Children to display.
   final List<Component> children;
-
-  /// Number of columns.
   final int columns;
-
-  /// Gap between items.
   final double gap;
-
-  /// Padding around the grid.
   final String? padding;
 
   const ArcaneMasonryGrid({
@@ -257,12 +205,9 @@ class ArcaneMasonryGrid extends StatelessComponent {
   }
 }
 
-/// A simple repeater component for generating repeated elements.
+/// Simple repeater component for generating repeated elements.
 class ArcaneRepeater extends StatelessComponent {
-  /// Number of times to repeat.
   final int count;
-
-  /// Builder for each item.
   final Component Function(BuildContext context, int index) builder;
 
   const ArcaneRepeater({

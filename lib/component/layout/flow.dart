@@ -8,28 +8,13 @@ import '../../util/style_types/index.dart';
 
 /// A flexible flow layout component that wraps children.
 class ArcaneFlow extends StatelessComponent {
-  /// The child components
   final List<Component> children;
-
-  /// Main axis alignment
   final MainAxisAlignment mainAxisAlignment;
-
-  /// Cross axis alignment
   final CrossAxisAlignment crossAxisAlignment;
-
-  /// Wrap alignment
   final WrapAlignment wrapAlignment;
-
-  /// Gap between children
   final double gap;
-
-  /// Row gap (overrides gap for rows)
   final double? rowGap;
-
-  /// Column gap (overrides gap for columns)
   final double? columnGap;
-
-  /// Whether to reverse the direction
   final bool reverse;
 
   const ArcaneFlow({
@@ -59,39 +44,14 @@ class ArcaneFlow extends StatelessComponent {
   }
 }
 
-/// A row layout component (horizontal flex)
-///
-/// Supports both legacy numeric gap and new enum-based Gap:
-/// ```dart
-/// // Legacy (still works)
-/// ArcaneRow(gap: 16, children: [...])
-///
-/// // New enum-based (preferred)
-/// ArcaneRow(gapSize: Gap.md, children: [...])
-///
-/// // With full style customization
-/// ArcaneRow(
-///   gapSize: Gap.md,
-///   style: ArcaneStyleData(
-///     padding: PaddingPreset.md,
-///     background: Background.card,
-///   ),
-///   children: [...],
-/// )
-/// ```
+/// A row layout component (horizontal flex).
 class ArcaneRow extends StatelessComponent {
   final List<Component> children;
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
   final MainAxisSize mainAxisSize;
-
-  /// Legacy numeric gap (use gapSize for enum-based)
   final double gap;
-
-  /// Enum-based gap (takes precedence over gap)
   final Gap? gapSize;
-
-  /// Additional style customization
   final ArcaneStyleData? style;
 
   const ArcaneRow({
@@ -107,7 +67,6 @@ class ArcaneRow extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    // For simple cases without style, use renderer
     if (style == null && gapSize == null) {
       return context.renderers.row(RowProps(
         children: children,
@@ -118,7 +77,6 @@ class ArcaneRow extends StatelessComponent {
       ));
     }
 
-    // Build base styles for complex cases
     final Map<String, String> baseStyles = {
       'display': 'flex',
       'flex-direction': 'row',
@@ -127,14 +85,12 @@ class ArcaneRow extends StatelessComponent {
       if (mainAxisSize == MainAxisSize.max) 'width': '100%',
     };
 
-    // Apply gap (enum takes precedence)
     if (gapSize != null) {
       baseStyles['gap'] = gapSize!.css;
     } else if (gap > 0) {
       baseStyles['gap'] = '${gap}px';
     }
 
-    // Merge with custom style if provided
     if (style != null) {
       baseStyles.addAll(style!.toMap());
     }
@@ -147,39 +103,14 @@ class ArcaneRow extends StatelessComponent {
   }
 }
 
-/// A column layout component (vertical flex)
-///
-/// Supports both legacy numeric gap and new enum-based Gap:
-/// ```dart
-/// // Legacy (still works)
-/// ArcaneColumn(gap: 16, children: [...])
-///
-/// // New enum-based (preferred)
-/// ArcaneColumn(gapSize: Gap.md, children: [...])
-///
-/// // With full style customization
-/// ArcaneColumn(
-///   gapSize: Gap.md,
-///   style: ArcaneStyleData(
-///     padding: PaddingPreset.md,
-///     background: Background.card,
-///   ),
-///   children: [...],
-/// )
-/// ```
+/// A column layout component (vertical flex).
 class ArcaneColumn extends StatelessComponent {
   final List<Component> children;
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
   final MainAxisSize mainAxisSize;
-
-  /// Legacy numeric gap (use gapSize for enum-based)
   final double gap;
-
-  /// Enum-based gap (takes precedence over gap)
   final Gap? gapSize;
-
-  /// Additional style customization
   final ArcaneStyleData? style;
 
   const ArcaneColumn({
@@ -195,7 +126,6 @@ class ArcaneColumn extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    // For simple cases without style, use renderer
     if (style == null && gapSize == null) {
       return context.renderers.column(ColumnProps(
         children: children,
@@ -206,7 +136,6 @@ class ArcaneColumn extends StatelessComponent {
       ));
     }
 
-    // Build base styles for complex cases
     final Map<String, String> baseStyles = {
       'display': 'flex',
       'flex-direction': 'column',
@@ -215,14 +144,12 @@ class ArcaneColumn extends StatelessComponent {
       if (mainAxisSize == MainAxisSize.max) 'height': '100%',
     };
 
-    // Apply gap (enum takes precedence)
     if (gapSize != null) {
       baseStyles['gap'] = gapSize!.css;
     } else if (gap > 0) {
       baseStyles['gap'] = '${gap}px';
     }
 
-    // Merge with custom style if provided
     if (style != null) {
       baseStyles.addAll(style!.toMap());
     }
@@ -235,7 +162,7 @@ class ArcaneColumn extends StatelessComponent {
   }
 }
 
-/// A flexible spacer component
+/// A flexible spacer component.
 class ArcaneSpacer extends StatelessComponent {
   final int flex;
 
@@ -247,7 +174,7 @@ class ArcaneSpacer extends StatelessComponent {
   }
 }
 
-/// A center alignment component
+/// A center alignment component.
 class ArcaneCenter extends StatelessComponent {
   final Component child;
 
@@ -259,7 +186,7 @@ class ArcaneCenter extends StatelessComponent {
   }
 }
 
-/// An expanded component that fills available space
+/// An expanded component that fills available space.
 class ArcaneExpanded extends StatelessComponent {
   final Component child;
   final int flex;
@@ -272,7 +199,7 @@ class ArcaneExpanded extends StatelessComponent {
   }
 }
 
-/// A padding wrapper component
+/// A padding wrapper component.
 class ArcanePadding extends StatelessComponent {
   final EdgeInsets padding;
   final Component child;
@@ -292,7 +219,7 @@ class ArcanePadding extends StatelessComponent {
   }
 }
 
-/// A sized box component
+/// A sized box component.
 class ArcaneSizedBox extends StatelessComponent {
   final double? width;
   final double? height;
@@ -320,7 +247,7 @@ class ArcaneSizedBox extends StatelessComponent {
   }
 }
 
-/// A container component with styling options
+/// A container component with styling options.
 class ArcaneContainer extends StatelessComponent {
   final Component? child;
   final EdgeInsets? padding;
@@ -382,7 +309,7 @@ class ArcaneContainer extends StatelessComponent {
   }
 }
 
-/// Box decoration for ArcaneContainer
+/// Box decoration for ArcaneContainer.
 class ArcaneBoxDecoration {
   final Color? color;
   final BorderRadius? borderRadius;
@@ -397,7 +324,7 @@ class ArcaneBoxDecoration {
   });
 }
 
-/// Border for ArcaneBoxDecoration
+/// Border for ArcaneBoxDecoration.
 class ArcaneBorder {
   final Color color;
   final double width;

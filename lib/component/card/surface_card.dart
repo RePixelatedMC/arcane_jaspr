@@ -2,49 +2,20 @@ import 'package:jaspr/jaspr.dart';
 
 import '../../core/theme_provider.dart';
 
-// Re-export props for usage
 export '../../core/props/surface_card_props.dart';
 
-/// A card with surface effects (blur, frosted glass, etc.)
-///
-/// ```dart
-/// ArcaneSurfaceCard(
-///   effect: SurfaceEffect.frosted,
-///   child: CardContent(),
-/// )
-/// ```
+/// Card with surface effects like blur, frosted glass, or gradients.
 class ArcaneSurfaceCard extends StatelessComponent {
-  /// Card content
   final Component child;
-
-  /// Surface effect to apply
   final SurfaceEffect effect;
-
-  /// Blur amount (for blur-based effects)
   final double blurAmount;
-
-  /// Background opacity (0.0 - 1.0)
   final double backgroundOpacity;
-
-  /// Custom background color
   final String? backgroundColor;
-
-  /// Custom gradient colors (for gradient effect)
   final List<String>? gradientColors;
-
-  /// Gradient direction in degrees
   final int gradientAngle;
-
-  /// Border radius
   final String? borderRadius;
-
-  /// Whether to show border
   final bool showBorder;
-
-  /// Padding
   final String? padding;
-
-  /// Shadow intensity
   final ShadowIntensity shadow;
 
   const ArcaneSurfaceCard({
@@ -62,7 +33,6 @@ class ArcaneSurfaceCard extends StatelessComponent {
     super.key,
   });
 
-  /// Blur effect card
   const ArcaneSurfaceCard.blur({
     required this.child,
     this.blurAmount = 10.0,
@@ -77,7 +47,6 @@ class ArcaneSurfaceCard extends StatelessComponent {
         gradientColors = null,
         gradientAngle = 135;
 
-  /// Frosted glass card
   const ArcaneSurfaceCard.frosted({
     required this.child,
     this.blurAmount = 12.0,
@@ -92,7 +61,6 @@ class ArcaneSurfaceCard extends StatelessComponent {
         gradientColors = null,
         gradientAngle = 135;
 
-  /// Glass morphism card
   const ArcaneSurfaceCard.glass({
     required this.child,
     this.blurAmount = 16.0,
@@ -107,7 +75,6 @@ class ArcaneSurfaceCard extends StatelessComponent {
         gradientColors = null,
         gradientAngle = 135;
 
-  /// Gradient background card
   const ArcaneSurfaceCard.gradient({
     required this.child,
     this.gradientColors,
@@ -148,7 +115,6 @@ class ArcaneSurfaceCard extends StatelessComponent {
   }
 }
 
-/// Shadow intensity levels
 enum ShadowIntensity {
   none,
   sm,
@@ -157,33 +123,12 @@ enum ShadowIntensity {
   xl,
 }
 
-/// A card with a thumbhash or blurhash placeholder background.
-///
-/// Useful for image cards while loading or as decorative backgrounds.
-///
-/// Note: Actual thumbhash decoding requires JS interop or a decoder.
-/// This component provides the structure for it.
-///
-/// ```dart
-/// ArcaneThumbHashCard(
-///   hash: 'H3IFHI4ri5RQpWdCen0rUPLtCQ',
-///   child: CardContent(),
-/// )
-/// ```
+/// Card with thumbhash or blurhash placeholder background.
 class ArcaneThumbHashCard extends StatelessComponent {
-  /// ThumbHash or BlurHash string
   final String hash;
-
-  /// Card content
   final Component child;
-
-  /// Border radius
   final String? borderRadius;
-
-  /// Padding
   final String? padding;
-
-  /// Overlay opacity (to darken for text readability)
   final double overlayOpacity;
 
   const ArcaneThumbHashCard({

@@ -6,7 +6,7 @@ import '../../core/theme_provider.dart';
 export '../../core/props/loader_props.dart'
     show LoaderVariant, LoaderProps, LoadingOverlayProps;
 
-/// Spinner loader component
+/// Spinner loader component.
 class ArcaneLoader extends StatelessComponent {
   final String size;
   final String? color;
@@ -36,7 +36,7 @@ class ArcaneLoader extends StatelessComponent {
   ];
 }
 
-/// Dots loader animation
+/// Dots loader animation.
 class ArcaneDotsLoader extends StatelessComponent {
   final String? color;
   final String dotSize;
@@ -64,7 +64,7 @@ class ArcaneDotsLoader extends StatelessComponent {
   ];
 }
 
-/// Pulse loader animation
+/// Pulse loader animation.
 class ArcanePulseLoader extends StatelessComponent {
   final String size;
   final String? color;
@@ -92,7 +92,7 @@ class ArcanePulseLoader extends StatelessComponent {
   ];
 }
 
-/// Loading overlay for full-screen loading states
+/// Full-screen loading overlay.
 class ArcaneLoadingOverlay extends StatelessComponent {
   final Component? loader;
   final String? message;
@@ -112,7 +112,7 @@ class ArcaneLoadingOverlay extends StatelessComponent {
   }
 }
 
-/// Style injection for loader animations
+/// Style injection for loader animations.
 class ArcaneLoaderStyles extends StatelessComponent {
   const ArcaneLoaderStyles({super.key});
 

@@ -27,33 +27,11 @@ import 'package:jaspr/dom.dart'
 
 import '../../util/style_types/arcane_style_data.dart';
 
-/// A paragraph component that wraps the HTML `<p>` element.
-///
-/// Provides a Flutter-like API with direct `ArcaneStyleData` support,
-/// eliminating the need to call `.toStyles()`.
-///
-/// Example:
-/// ```dart
-/// ArcaneParagraph(
-///   styles: ArcaneStyleData(
-///     fontSize: FontSize.lg,
-///     textColor: TextColor.mutedForeground,
-///     lineHeight: LineHeight.relaxed,
-///   ),
-///   child: ArcaneText('This is a paragraph of text.'),
-/// )
-/// ```
+/// Styled paragraph wrapper.
 class ArcaneParagraph extends StatelessComponent {
-  /// The content of the paragraph
   final Component child;
-
-  /// Optional styling using ArcaneStyleData
   final ArcaneStyleData? styles;
-
-  /// Optional CSS classes
   final String? classes;
-
-  /// Optional ID attribute
   final String? id;
 
   const ArcaneParagraph({
@@ -64,7 +42,6 @@ class ArcaneParagraph extends StatelessComponent {
     super.key,
   });
 
-  /// Create a paragraph with multiple children
   const factory ArcaneParagraph.children({
     required List<Component> children,
     ArcaneStyleData? styles,
@@ -107,7 +84,6 @@ class _ArcaneParagraphChildren extends ArcaneParagraph {
   }
 }
 
-/// Placeholder component for factory constructor
 class _Placeholder extends StatelessComponent {
   const _Placeholder();
   @override

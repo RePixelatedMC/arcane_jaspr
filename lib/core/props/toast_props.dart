@@ -1,24 +1,13 @@
 import 'package:jaspr/jaspr.dart';
 
-/// Toast notification variant.
 enum ToastVariant {
-  /// Default informational toast
   info,
-
-  /// Success toast with green accent
   success,
-
-  /// Warning toast with yellow/orange accent
   warning,
-
-  /// Error toast with red accent
   error,
-
-  /// Loading toast with spinner
   loading,
 }
 
-/// Toast position on screen.
 enum ToastPosition {
   topLeft,
   topCenter,
@@ -28,7 +17,7 @@ enum ToastPosition {
   bottomRight,
 }
 
-/// Toast action button configuration.
+/// Toast action button data.
 class ToastAction {
   final String label;
   final void Function() onPressed;
@@ -41,51 +30,22 @@ class ToastAction {
   });
 }
 
-/// Properties for toast components.
+/// Toast component properties.
 class ToastProps {
-  /// Toast message (required)
   final String message;
-
-  /// Optional title displayed above message
   final String? title;
-
-  /// Optional description displayed below message
   final String? description;
-
-  /// Toast variant (info, success, warning, error, loading)
   final ToastVariant variant;
-
-  /// Screen position
   final ToastPosition position;
-
-  /// Auto-dismiss duration in milliseconds (0 = no auto-dismiss)
   final int duration;
-
-  /// Whether the toast can be dismissed by clicking close
   final bool dismissible;
-
-  /// Optional action button
   final ToastAction? action;
-
-  /// Custom icon (overrides default variant icon)
   final Component? icon;
-
-  /// Unique ID for this toast (used by toast manager)
   final String? id;
-
-  /// Whether the toast is in exit animation state
   final bool isExiting;
-
-  /// Whether the toast is currently hovered
   final bool isHovered;
-
-  /// Callback when mouse enters toast
   final void Function()? onMouseEnter;
-
-  /// Callback when mouse leaves toast
   final void Function()? onMouseLeave;
-
-  /// Callback when dismiss button is clicked
   final void Function()? onDismiss;
 
   const ToastProps({
@@ -106,7 +66,6 @@ class ToastProps {
     this.onDismiss,
   });
 
-  /// Create a copy with modified properties
   ToastProps copyWith({
     String? message,
     String? title,
@@ -144,21 +103,12 @@ class ToastProps {
   }
 }
 
-/// Properties for toast container components.
+/// Toast container component properties.
 class ToastContainerProps {
-  /// Position for toasts
   final ToastPosition position;
-
-  /// Maximum number of visible toasts
   final int maxVisible;
-
-  /// Gap between toasts in pixels
   final double gap;
-
-  /// Offset from edge in pixels
   final double offset;
-
-  /// Active toasts to render
   final List<ToastProps> toasts;
 
   const ToastContainerProps({

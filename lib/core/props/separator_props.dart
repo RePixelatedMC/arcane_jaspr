@@ -1,29 +1,16 @@
 import 'package:jaspr/jaspr.dart';
 
-/// Separator orientation.
 enum SeparatorOrientation {
-  /// Horizontal line (full width)
   horizontal,
-
-  /// Vertical line (full height)
   vertical,
 }
 
-/// Properties for separator components.
+/// Separator component properties.
 class SeparatorProps {
-  /// Orientation of the separator
   final SeparatorOrientation orientation;
-
-  /// Optional label text in the middle
   final String? label;
-
-  /// Optional icon in the middle
   final Component? icon;
-
-  /// Custom color (overrides default)
   final String? color;
-
-  /// Whether to use decorative role (no semantic meaning)
   final bool decorative;
 
   const SeparatorProps({
@@ -34,7 +21,6 @@ class SeparatorProps {
     this.decorative = true,
   });
 
-  /// Create a copy with modified properties
   SeparatorProps copyWith({
     SeparatorOrientation? orientation,
     String? label,

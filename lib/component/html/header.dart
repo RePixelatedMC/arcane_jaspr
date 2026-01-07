@@ -27,38 +27,12 @@ import 'package:jaspr/dom.dart'
 
 import '../../util/style_types/arcane_style_data.dart';
 
-/// A header component that wraps the HTML `<header>` element.
-///
-/// Provides a Flutter-like API with direct `ArcaneStyleData` support,
-/// eliminating the need to call `.toStyles()`.
-///
-/// Example:
-/// ```dart
-/// ArcaneHeader(
-///   styles: ArcaneStyleData(
-///     padding: PaddingPreset.md,
-///     background: Background.surface,
-///   ),
-///   children: [
-///     Logo(),
-///     ArcaneNav(children: [...]),
-///   ],
-/// )
-/// ```
+/// Styled header element wrapper.
 class ArcaneHeader extends StatelessComponent {
-  /// The children of the header
   final List<Component> children;
-
-  /// Optional styling using ArcaneStyleData
   final ArcaneStyleData? styles;
-
-  /// Optional CSS classes
   final String? classes;
-
-  /// Optional ID attribute
   final String? id;
-
-  /// Additional HTML attributes
   final Map<String, String>? attributes;
 
   const ArcaneHeader({

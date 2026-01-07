@@ -4,37 +4,16 @@ import '../../core/theme_provider.dart';
 
 export '../../core/props/field_wrapper_props.dart';
 
-/// A wrapper widget for form fields providing consistent styling and layout.
-///
-/// This component displays form field values with metadata such as labels,
-/// descriptions, icons, and validation feedback. It integrates with the
-/// Arcane form system for a polished user experience.
+/// Wrapper for form fields providing consistent styling and layout.
 class ArcaneFieldWrapper extends StatelessComponent {
-  /// The form field to wrap.
   final Component field;
-
-  /// Label text for the field.
   final String? labelText;
-
-  /// Description text for the field.
   final String? description;
-
-  /// Icon identifier.
   final String? icon;
-
-  /// Error message to display.
   final String? error;
-
-  /// Whether the field is required.
   final bool required;
-
-  /// Whether to show validation feedback.
   final bool showValidation;
-
-  /// Custom leading widget.
   final Component? leading;
-
-  /// Custom trailing widget.
   final Component? trailing;
 
   const ArcaneFieldWrapper({
@@ -66,18 +45,11 @@ class ArcaneFieldWrapper extends StatelessComponent {
   }
 }
 
-/// A form section that groups multiple fields together.
+/// Form section that groups multiple fields together.
 class ArcaneFormSection extends StatelessComponent {
-  /// Section title.
   final String? title;
-
-  /// Section description.
   final String? description;
-
-  /// Fields in this section.
   final List<Component> children;
-
-  /// Spacing between fields.
   final double spacing;
 
   const ArcaneFormSection({
@@ -99,27 +71,14 @@ class ArcaneFormSection extends StatelessComponent {
   }
 }
 
-/// A complete form component with built-in state management.
+/// Complete form component with built-in state management.
 class ArcaneForm extends StatelessComponent {
-  /// Form fields.
   final List<Component> children;
-
-  /// Submit button text.
   final String? submitText;
-
-  /// Cancel button text.
   final String? cancelText;
-
-  /// Submit handler.
   final void Function()? onSubmit;
-
-  /// Cancel handler.
   final void Function()? onCancel;
-
-  /// Whether to show action buttons.
   final bool showActions;
-
-  /// Spacing between fields.
   final double spacing;
 
   const ArcaneForm({
@@ -147,12 +106,9 @@ class ArcaneForm extends StatelessComponent {
   }
 }
 
-/// An input group that combines multiple inputs in a row.
+/// Input group that combines multiple inputs in a row.
 class ArcaneInputGroup extends StatelessComponent {
-  /// Children inputs.
   final List<Component> children;
-
-  /// Gap between inputs.
   final double gap;
 
   const ArcaneInputGroup({

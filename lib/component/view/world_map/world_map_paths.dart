@@ -1,13 +1,8 @@
-/// SVG path data and projection utilities for ArcaneWorldMap.
 library world_map_paths;
 
-/// Map projection utilities and constants.
-///
-/// Uses the SimpleMaps world.svg dimensions (2000x857).
 class ArcaneMapProjection {
   ArcaneMapProjection._();
 
-  /// Standard viewBox for the world map (matches assets/map/world.svg).
   static const String viewBox = '0 0 2000 857';
 
   /// Map width in SVG units.

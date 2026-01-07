@@ -2,30 +2,16 @@ import 'package:jaspr/jaspr.dart';
 
 import '../../core/theme_provider.dart';
 
-// Re-export props for usage
 export '../../core/props/timeline_props.dart';
 
-/// Timeline item data (alias for convenience)
+/// Timeline item data.
 class ArcaneTimelineItem {
-  /// Item title
   final String title;
-
-  /// Optional subtitle (e.g., date, time)
   final String? subtitle;
-
-  /// Optional description
   final String? description;
-
-  /// Optional date/time string
   final String? date;
-
-  /// Custom icon (if not provided, uses status-based default)
   final Component? icon;
-
-  /// Item status
   final TimelineStatus status;
-
-  /// Optional custom content (replaces description)
   final Component? content;
 
   const ArcaneTimelineItem({
@@ -38,7 +24,6 @@ class ArcaneTimelineItem {
     this.content,
   });
 
-  /// Convert to TimelineItemData for the renderer
   TimelineItemData toData() => TimelineItemData(
         title: title,
         subtitle: subtitle,
@@ -50,37 +35,11 @@ class ArcaneTimelineItem {
       );
 }
 
-/// A timeline component for displaying chronological events or process steps.
-///
-/// Supports vertical, horizontal, and alternating layouts.
-///
-/// ```dart
-/// ArcaneTimeline(
-///   items: [
-///     ArcaneTimelineItem(
-///       title: 'Step 1',
-///       description: 'First step',
-///       status: TimelineStatus.complete,
-///     ),
-///     ArcaneTimelineItem(
-///       title: 'Step 2',
-///       description: 'Current step',
-///       status: TimelineStatus.current,
-///     ),
-///   ],
-/// )
-/// ```
+/// Timeline component for displaying chronological events or process steps.
 class ArcaneTimeline extends StatelessComponent {
-  /// Timeline items
   final List<ArcaneTimelineItem> items;
-
-  /// Layout type
   final TimelineLayout layout;
-
-  /// Size
   final TimelineSize size;
-
-  /// Whether to show connector lines
   final bool showConnectors;
 
   const ArcaneTimeline({
@@ -91,7 +50,6 @@ class ArcaneTimeline extends StatelessComponent {
     super.key,
   });
 
-  /// Vertical layout timeline
   const ArcaneTimeline.vertical({
     required this.items,
     this.size = TimelineSize.md,
@@ -99,7 +57,6 @@ class ArcaneTimeline extends StatelessComponent {
     super.key,
   }) : layout = TimelineLayout.vertical;
 
-  /// Horizontal layout timeline
   const ArcaneTimeline.horizontal({
     required this.items,
     this.size = TimelineSize.md,
@@ -107,7 +64,6 @@ class ArcaneTimeline extends StatelessComponent {
     super.key,
   }) : layout = TimelineLayout.horizontal;
 
-  /// Alternating layout timeline
   const ArcaneTimeline.alternating({
     required this.items,
     this.size = TimelineSize.md,
@@ -126,5 +82,4 @@ class ArcaneTimeline extends StatelessComponent {
   }
 }
 
-/// Alias for ArcaneTimeline
 typedef ATimeline = ArcaneTimeline;

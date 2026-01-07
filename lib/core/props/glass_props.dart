@@ -1,23 +1,12 @@
 import 'package:jaspr/jaspr.dart';
 
-/// Properties for glass container components.
+/// Glass container component properties.
 class GlassProps {
-  /// The child component
   final Component child;
-
-  /// Blur amount
   final double blur;
-
-  /// Opacity of the glass surface
   final double opacity;
-
-  /// Custom padding (as CSS string)
   final String? padding;
-
-  /// Border radius (as CSS string)
   final String? radius;
-
-  /// Whether to show a border
   final bool border;
 
   const GlassProps({
@@ -30,7 +19,7 @@ class GlassProps {
   });
 }
 
-/// Properties for glass card components.
+/// Glass card component properties.
 class GlassCardProps {
   final Component child;
   final double blur;
@@ -51,7 +40,7 @@ class GlassCardProps {
   });
 }
 
-/// Properties for gradient glass components.
+/// Gradient glass component properties.
 class GradientGlassProps {
   final Component child;
   final double blur;

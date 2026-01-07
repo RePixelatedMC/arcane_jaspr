@@ -1,39 +1,18 @@
-/// Dot indicator size variants
 enum DotIndicatorSize {
-  /// Small dots (6px)
   sm,
-
-  /// Medium dots (8px) - default
   md,
-
-  /// Large dots (10px)
   lg,
 }
 
-/// Properties for dot indicator components.
+/// Dot indicator component properties.
 class DotIndicatorProps {
-  /// Currently active index
   final int index;
-
-  /// Total number of dots
   final int length;
-
-  /// Callback when a dot is tapped
   final void Function(int)? onChanged;
-
-  /// Size variant
   final DotIndicatorSize size;
-
-  /// Active dot color
   final String? activeColor;
-
-  /// Inactive dot color
   final String? inactiveColor;
-
-  /// Spacing between dots
   final String? spacing;
-
-  /// Whether dots are interactive (clickable)
   final bool interactive;
 
   const DotIndicatorProps({
@@ -48,28 +27,18 @@ class DotIndicatorProps {
   });
 }
 
-/// Size variants for step indicator
 enum StepIndicatorSize {
   sm,
   md,
   lg,
 }
 
-/// Properties for step indicator components.
+/// Step indicator component properties.
 class StepIndicatorProps {
-  /// Current step (0-indexed)
   final int currentStep;
-
-  /// List of step labels
   final List<String> steps;
-
-  /// Callback when a step is tapped
   final void Function(int)? onStepTap;
-
-  /// Whether completed steps are clickable
   final bool allowStepNavigation;
-
-  /// Size variant
   final StepIndicatorSize size;
 
   const StepIndicatorProps({

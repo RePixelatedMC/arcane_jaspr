@@ -1,98 +1,39 @@
 import 'package:jaspr/jaspr.dart';
 
-/// Button style variants.
-///
-/// These are semantic variants that each stylesheet interprets
-/// according to its design language.
 enum ButtonVariant {
-  /// Primary call-to-action button
   primary,
-
-  /// Secondary/muted button
   secondary,
-
-  /// Outline/bordered button
   outline,
-
-  /// Ghost/transparent button
   ghost,
-
-  /// Destructive/danger button
   destructive,
-
-  /// Link-styled button
   link,
-
-  /// Success/positive action button
   success,
-
-  /// Warning/caution button
   warning,
-
-  /// Informational button
   info,
 }
 
-/// Button size variants.
 enum ButtonSize {
-  /// Small button
   small,
-
-  /// Medium/default button
   medium,
-
-  /// Large button
   large,
-
-  /// Icon-only button (square)
   icon,
-
-  /// Small icon button
   iconSmall,
-
-  /// Large icon button
   iconLarge,
 }
 
-/// Properties for button components.
-///
-/// This is the shared props class used by all stylesheet renderers.
-/// The actual rendering is determined by the active stylesheet.
+/// Button component properties.
 class ButtonProps {
-  /// Button label text
   final String? label;
-
-  /// Child component (alternative to label)
   final Component? child;
-
-  /// Leading icon
   final Component? icon;
-
-  /// Trailing icon
   final Component? trailing;
-
-  /// Click handler
   final void Function()? onPressed;
-
-  /// Button style variant
   final ButtonVariant variant;
-
-  /// Button size
   final ButtonSize size;
-
-  /// Whether the button is disabled
   final bool disabled;
-
-  /// Whether the button is in loading state
   final bool loading;
-
-  /// Whether to expand to full width
   final bool fullWidth;
-
-  /// Optional element ID
   final String? id;
-
-  /// Additional HTML attributes
   final Map<String, String>? attributes;
 
   const ButtonProps({
@@ -110,7 +51,6 @@ class ButtonProps {
     this.attributes,
   });
 
-  /// Create a copy with modified properties
   ButtonProps copyWith({
     String? label,
     Component? child,

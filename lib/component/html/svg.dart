@@ -1,25 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 
-/// SVG size presets
-enum SvgSize {
-  /// Extra small (12px)
-  xs,
-
-  /// Small (16px)
-  sm,
-
-  /// Medium (20px)
-  md,
-
-  /// Large (24px)
-  lg,
-
-  /// Extra large (32px)
-  xl,
-
-  /// Double extra large (48px)
-  xxl,
-}
+enum SvgSize { xs, sm, md, lg, xl, xxl }
 
 extension SvgSizeExtension on SvgSize {
   String get css => switch (this) {
@@ -32,46 +13,17 @@ extension SvgSizeExtension on SvgSize {
       };
 }
 
-/// SVG wrapper component for creating inline SVG elements
-///
-/// Provides a clean abstraction over raw SVG elements.
-///
-/// ```dart
-/// ArcaneSvg(
-///   viewBox: '0 0 24 24',
-///   size: SvgSize.lg,
-///   children: [
-///     ArcaneSvgPath(d: 'M12 2L...'),
-///   ],
-/// )
-/// ```
+/// SVG container wrapper.
 class ArcaneSvg extends StatelessComponent {
-  /// SVG viewBox attribute
   final String viewBox;
-
-  /// Width and height (if size not specified)
   final String? width;
   final String? height;
-
-  /// Size preset
   final SvgSize? size;
-
-  /// Fill color (default: currentColor)
   final String fill;
-
-  /// Stroke color
   final String? stroke;
-
-  /// Stroke width
   final String? strokeWidth;
-
-  /// Additional attributes
   final Map<String, String>? attributes;
-
-  /// SVG child elements (paths, circles, etc.)
   final List<Component> children;
-
-  /// CSS class
   final String? className;
 
   const ArcaneSvg({
@@ -110,37 +62,15 @@ class ArcaneSvg extends StatelessComponent {
   }
 }
 
-/// SVG path element
-///
-/// ```dart
-/// ArcaneSvgPath(
-///   d: 'M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z',
-///   fill: 'currentColor',
-/// )
-/// ```
+/// SVG path element wrapper.
 class ArcaneSvgPath extends StatelessComponent {
-  /// Path data
   final String d;
-
-  /// Fill color
   final String? fill;
-
-  /// Stroke color
   final String? stroke;
-
-  /// Stroke width
   final String? strokeWidth;
-
-  /// Fill rule
   final String? fillRule;
-
-  /// Clip rule
   final String? clipRule;
-
-  /// Stroke line cap
   final String? strokeLinecap;
-
-  /// Stroke line join
   final String? strokeLinejoin;
 
   const ArcaneSvgPath({
@@ -174,7 +104,7 @@ class ArcaneSvgPath extends StatelessComponent {
   }
 }
 
-/// SVG circle element
+/// SVG circle element wrapper.
 class ArcaneSvgCircle extends StatelessComponent {
   final String cx;
   final String cy;
@@ -210,7 +140,7 @@ class ArcaneSvgCircle extends StatelessComponent {
   }
 }
 
-/// SVG rect element
+/// SVG rect element wrapper.
 class ArcaneSvgRect extends StatelessComponent {
   final String x;
   final String y;
@@ -255,7 +185,7 @@ class ArcaneSvgRect extends StatelessComponent {
   }
 }
 
-/// SVG line element
+/// SVG line element wrapper.
 class ArcaneSvgLine extends StatelessComponent {
   final String x1;
   final String y1;
@@ -294,7 +224,7 @@ class ArcaneSvgLine extends StatelessComponent {
   }
 }
 
-/// SVG polyline element
+/// SVG polyline element wrapper.
 class ArcaneSvgPolyline extends StatelessComponent {
   final String points;
   final String? fill;
@@ -330,7 +260,7 @@ class ArcaneSvgPolyline extends StatelessComponent {
   }
 }
 
-/// SVG polygon element
+/// SVG polygon element wrapper.
 class ArcaneSvgPolygon extends StatelessComponent {
   final String points;
   final String? fill;
@@ -360,7 +290,7 @@ class ArcaneSvgPolygon extends StatelessComponent {
   }
 }
 
-/// SVG group element
+/// SVG group element wrapper.
 class ArcaneSvgGroup extends StatelessComponent {
   final List<Component> children;
   final String? fill;

@@ -2,7 +2,7 @@ import 'package:jaspr/jaspr.dart';
 
 import '../../core/theme_provider.dart';
 
-/// An accordion item data model
+/// Accordion item data model.
 class ArcaneAccordionItem {
   final String title;
   final String content;
@@ -17,22 +17,16 @@ class ArcaneAccordionItem {
   });
 }
 
-/// An accordion/collapsible component matching shadcn/ui
-/// Reference: https://ui.shadcn.com/docs/components/accordion
+/// Collapsible accordion component.
 class ArcaneAccordion extends StatefulComponent {
-  /// Accordion items
   final List<ArcaneAccordionItem> items;
-
-  /// Whether multiple items can be open at once
   final bool allowMultiple;
-
-  /// Whether to show outer border (shadcn default has no outer border)
   final bool bordered;
 
   const ArcaneAccordion({
     required this.items,
     this.allowMultiple = false,
-    this.bordered = false, // ShadCN default: no outer border
+    this.bordered = false,
     super.key,
   });
 
@@ -69,7 +63,6 @@ class _ArcaneAccordionState extends State<ArcaneAccordion> {
 
   @override
   Component build(BuildContext context) {
-    // Convert ArcaneAccordionItem to AccordionItemProps
     final List<AccordionItemProps> itemProps = component.items
         .map((item) => AccordionItemProps(
               title: item.title,
@@ -78,7 +71,6 @@ class _ArcaneAccordionState extends State<ArcaneAccordion> {
             ))
         .toList();
 
-    // Delegate rendering to the current stylesheet's accordion renderer
     return context.renderers.accordion(AccordionProps(
       items: itemProps,
       openItems: _openItems,
@@ -89,9 +81,8 @@ class _ArcaneAccordionState extends State<ArcaneAccordion> {
   }
 }
 
-/// A simple FAQ accordion
+/// FAQ accordion with question/answer pairs.
 class ArcaneFaqAccordion extends StatelessComponent {
-  /// FAQ items as question/answer pairs
   final List<({String question, String answer})> faqs;
 
   const ArcaneFaqAccordion({

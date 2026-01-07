@@ -1,17 +1,10 @@
 import 'package:jaspr/jaspr.dart';
 
-/// A navigation item for the dashboard sidebar
+/// Dashboard navigation item data.
 class DashboardNavItem {
-  /// The display label
   final String label;
-
-  /// The route/href for navigation
   final String href;
-
-  /// Optional icon component
   final Component? icon;
-
-  /// Optional badge text (e.g., notification count)
   final String? badge;
 
   const DashboardNavItem({
@@ -22,12 +15,9 @@ class DashboardNavItem {
   });
 }
 
-/// A group of navigation items with an optional label
+/// Dashboard navigation group data.
 class DashboardNavGroup {
-  /// Optional group label (uppercase header)
   final String? label;
-
-  /// The items in this group
   final List<DashboardNavItem> items;
 
   const DashboardNavGroup({
@@ -36,33 +26,16 @@ class DashboardNavGroup {
   });
 }
 
-/// Properties for dashboard layout components.
+/// Dashboard layout component properties.
 class DashboardLayoutProps {
-  /// The main content to display
   final Component child;
-
-  /// The current route path for active state highlighting
   final String currentRoute;
-
-  /// Navigation groups to display in the sidebar
   final List<DashboardNavGroup> navigation;
-
-  /// Header component for the sidebar (typically a logo)
   final Component? sidebarHeader;
-
-  /// Footer component for the sidebar (typically settings/logout)
   final Component? sidebarFooter;
-
-  /// Top bar component (typically user info/notifications)
   final Component? topBar;
-
-  /// Sidebar width
   final String sidebarWidth;
-
-  /// Background color for the main area
   final String backgroundColor;
-
-  /// Background color for the sidebar
   final String sidebarBackgroundColor;
 
   const DashboardLayoutProps({
@@ -78,15 +51,10 @@ class DashboardLayoutProps {
   });
 }
 
-/// Properties for dashboard top bar components.
+/// Dashboard top bar component properties.
 class DashboardTopBarProps {
-  /// Left side content (e.g., breadcrumbs, page title)
   final Component? leading;
-
-  /// Right side content (e.g., notifications, user menu)
   final Component? trailing;
-
-  /// Background color
   final String backgroundColor;
 
   const DashboardTopBarProps({

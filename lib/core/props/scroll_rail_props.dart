@@ -1,12 +1,10 @@
 import 'package:jaspr/jaspr.dart';
 
-/// Scroll rail position
 enum ScrollRailPosition {
   left,
   right,
 }
 
-/// Scroll rail sizing
 enum ScrollRailSize {
   narrow,
   sm,
@@ -15,39 +13,18 @@ enum ScrollRailSize {
   xl,
 }
 
-/// Properties for scroll rail components.
+/// Scroll rail component properties.
 class ScrollRailProps {
-  /// Children to render inside the rail
   final List<Component> children;
-
-  /// Position of the rail (left or right)
   final ScrollRailPosition position;
-
-  /// Size preset for the rail width
   final ScrollRailSize size;
-
-  /// Custom width (overrides size)
   final String? width;
-
-  /// Top offset (e.g., to account for fixed header)
   final String topOffset;
-
-  /// Bottom offset
   final String bottomOffset;
-
-  /// Whether to show border on the rail edge
   final bool showBorder;
-
-  /// Background color
   final String? background;
-
-  /// Padding
   final String padding;
-
-  /// Whether to show a custom scrollbar
   final bool customScrollbar;
-
-  /// ID for scroll persistence
   final String? scrollPersistenceId;
 
   const ScrollRailProps({
@@ -65,33 +42,16 @@ class ScrollRailProps {
   });
 }
 
-/// Properties for scroll rail layout components.
+/// Scroll rail layout component properties.
 class ScrollRailLayoutProps {
-  /// The rail/sidebar content
   final Component rail;
-
-  /// The main content
   final Component child;
-
-  /// Position of the rail
   final ScrollRailPosition railPosition;
-
-  /// Size of the rail
   final ScrollRailSize railSize;
-
-  /// Custom rail width
   final String? railWidth;
-
-  /// Height of fixed header
   final String headerHeight;
-
-  /// Whether to show border
   final bool showBorder;
-
-  /// Rail background color
   final String? railBackground;
-
-  /// Main content background color
   final String? contentBackground;
 
   const ScrollRailLayoutProps({

@@ -4,16 +4,9 @@ import '../../core/theme_provider.dart';
 
 /// A tab component for switching between views.
 class ArcaneTabs extends StatefulComponent {
-  /// The tab items
   final List<ArcaneTabItem> tabs;
-
-  /// The initial selected index
   final int initialIndex;
-
-  /// Callback when tab changes
   final void Function(int index)? onChanged;
-
-  /// Whether to fill available width
   final bool fill;
 
   const ArcaneTabs({
@@ -48,7 +41,6 @@ class _ArcaneTabsState extends State<ArcaneTabs> {
 
   @override
   Component build(BuildContext context) {
-    // Convert ArcaneTabItem to TabItemProps
     final List<TabItemProps> tabProps = component.tabs
         .map((tab) => TabItemProps(
               label: tab.label,
@@ -59,7 +51,6 @@ class _ArcaneTabsState extends State<ArcaneTabs> {
             ))
         .toList();
 
-    // Delegate rendering to the current stylesheet's tabs renderer
     return context.renderers.tabs(TabsProps(
       tabs: tabProps,
       selectedIndex: _selectedIndex,
@@ -69,7 +60,7 @@ class _ArcaneTabsState extends State<ArcaneTabs> {
   }
 }
 
-/// A tab item for ArcaneTabs
+/// A tab item for ArcaneTabs.
 class ArcaneTabItem {
   final String label;
   final Component content;
@@ -86,8 +77,7 @@ class ArcaneTabItem {
   });
 }
 
-/// A simple tab bar without content (for custom tab handling)
-/// ShadCN Reference: https://ui.shadcn.com/docs/components/tabs
+/// A simple tab bar without content for custom tab handling.
 class ArcaneTabBar extends StatelessComponent {
   final List<ArcaneTabBarItem> tabs;
   final int selectedIndex;
@@ -104,7 +94,6 @@ class ArcaneTabBar extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    // Convert ArcaneTabBarItem to TabBarItemProps
     final List<TabBarItemProps> tabProps = tabs
         .map((tab) => TabBarItemProps(
               label: tab.label,
@@ -112,7 +101,6 @@ class ArcaneTabBar extends StatelessComponent {
             ))
         .toList();
 
-    // Delegate rendering to the current stylesheet's tabBar renderer
     return context.renderers.tabBar(TabBarProps(
       tabs: tabProps,
       selectedIndex: selectedIndex,
@@ -122,7 +110,7 @@ class ArcaneTabBar extends StatelessComponent {
   }
 }
 
-/// A tab bar item
+/// A tab bar item.
 class ArcaneTabBarItem {
   final String label;
   final Component? icon;

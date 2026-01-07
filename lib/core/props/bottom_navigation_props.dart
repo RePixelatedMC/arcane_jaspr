@@ -1,6 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 
-/// A bottom navigation item
+/// Bottom navigation item data.
 class BottomNavItem {
   final String label;
   final Component icon;
@@ -15,24 +15,13 @@ class BottomNavItem {
   });
 }
 
-/// Properties for bottom navigation bar components.
+/// Bottom navigation bar component properties.
 class BottomNavigationBarProps {
-  /// The navigation items
   final List<BottomNavItem> items;
-
-  /// The currently selected index
   final int selectedIndex;
-
-  /// Callback when selection changes
   final void Function(int index)? onChanged;
-
-  /// Whether to show labels
   final bool showLabels;
-
-  /// Whether to show labels only when selected
   final bool showSelectedLabels;
-
-  /// Height of the navigation bar
   final double height;
 
   const BottomNavigationBarProps({
@@ -45,7 +34,7 @@ class BottomNavigationBarProps {
   });
 }
 
-/// Properties for bottom bar container components.
+/// Bottom bar container component properties.
 class BottomBarProps {
   final Component child;
   final bool safeArea;
