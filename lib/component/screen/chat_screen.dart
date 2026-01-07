@@ -15,93 +15,45 @@ import 'package:jaspr/dom.dart'
 
 import '../view/avatar.dart';
 
-/// Chat style variant
 enum ChatStyle {
-  /// Message bubbles (WhatsApp-style)
   bubbles,
-
-  /// List tiles (Slack-style)
   tiles,
 }
 
-/// Abstract message interface
+/// Abstract message interface.
 abstract class AbstractChatMessage {
-  /// Unique message ID
   String get id;
-
-  /// Message content widget
   Component get messageWidget;
-
-  /// Timestamp
   DateTime get timestamp;
-
-  /// Sender ID
   String get senderId;
 }
 
-/// Abstract user interface
+/// Abstract user interface.
 abstract class AbstractChatUser {
-  /// Unique user ID
   String get id;
-
-  /// Display name
   String get name;
-
-  /// Avatar widget
   Component get avatar;
 }
 
-/// Chat provider interface
+/// Chat provider interface.
 abstract class ChatProvider<M extends AbstractChatMessage, U extends AbstractChatUser> {
-  /// Stream of messages
   Stream<List<M>> streamLastMessages();
-
-  /// Get user by ID
   Future<U> getUser(String id);
-
-  /// Send a message
   Future<void> sendMessage(String text);
 }
 
-/// Chat screen component
-///
-/// ```dart
-/// ArcaneChatScreen(
-///   style: ChatStyle.bubbles,
-///   provider: myChatProvider,
-///   currentUserId: 'user123',
-/// )
-/// ```
+/// Chat screen component.
 class ArcaneChatScreen<M extends AbstractChatMessage, U extends AbstractChatUser>
     extends StatefulComponent {
-  /// Chat style variant
   final ChatStyle style;
-
-  /// Chat data provider
   final ChatProvider<M, U> provider;
-
-  /// Current user's ID (to determine message alignment)
   final String currentUserId;
-
-  /// Optional header widget
   final Component? header;
-
-  /// Whether to show the input field
   final bool showInput;
-
-  /// Input placeholder
   final String inputPlaceholder;
-
-  /// Whether to show timestamps
   final bool showTimestamps;
-
-  /// Whether to show avatars
   final bool showAvatars;
-
-  /// Custom send button
   final Component? sendButton;
-
-  /// Whether to use gutter (edge padding)
   final bool gutter;
 
   const ArcaneChatScreen({
@@ -146,14 +98,12 @@ class _ChatScreenState<M extends AbstractChatMessage, U extends AbstractChatUser
   }
 
   Future<void> _loadMessages() async {
-    // In a real implementation, this would use StreamBuilder
-    // For now, we'll just get the first batch
     await for (final messages in component.provider.streamLastMessages()) {
       setState(() {
         _messages = messages;
         _loading = false;
       });
-      break; // Just get initial messages
+      break;
     }
   }
 
@@ -161,7 +111,7 @@ class _ChatScreenState<M extends AbstractChatMessage, U extends AbstractChatUser
     if (_inputValue.trim().isEmpty) return;
     await component.provider.sendMessage(_inputValue);
     setState(() => _inputValue = '');
-    _loadMessages(); // Refresh messages
+    _loadMessages();
   }
 
   String _formatTimestamp(DateTime timestamp) {
@@ -181,10 +131,7 @@ class _ChatScreenState<M extends AbstractChatMessage, U extends AbstractChatUser
         'background': 'var(--background)',
       }),
       [
-        // Header
         if (component.header != null) component.header!,
-
-        // Messages area
         div(
           classes: 'arcane-chat-messages',
           styles: Styles(raw: {
@@ -221,8 +168,6 @@ class _ChatScreenState<M extends AbstractChatMessage, U extends AbstractChatUser
                 _buildMessage(message),
           ],
         ),
-
-        // Input area
         if (component.showInput)
           div(
             classes: 'arcane-chat-input-area',
@@ -239,7 +184,6 @@ class _ChatScreenState<M extends AbstractChatMessage, U extends AbstractChatUser
                   'align-items': 'flex-end',
                 }),
                 [
-                  // Text input
                   textarea(
                     classes: 'arcane-chat-input',
                     attributes: {
@@ -277,8 +221,6 @@ class _ChatScreenState<M extends AbstractChatMessage, U extends AbstractChatUser
                     },
                     [Component.text(_inputValue)],
                   ),
-
-                  // Send button
                   component.sendButton ??
                       button(
                         type: ButtonType.button,
@@ -328,14 +270,11 @@ class _ChatScreenState<M extends AbstractChatMessage, U extends AbstractChatUser
         'gap': '0.5rem',
       }),
       [
-        // Avatar (for received messages)
         if (component.showAvatars && !isCurrentUser)
           const ArcaneAvatar(
-            initials: '?', // Would use actual user initials
+            initials: '?',
             size: AvatarSize.sm,
           ),
-
-        // Bubble
         div(
           styles: Styles(raw: {
             'max-width': '70%',
@@ -378,21 +317,17 @@ class _ChatScreenState<M extends AbstractChatMessage, U extends AbstractChatUser
         'border-radius': '0.375rem',
       }),
       [
-        // Avatar
         if (component.showAvatars)
           const ArcaneAvatar(
-            initials: '?', // Would use actual user initials
+            initials: '?',
             size: AvatarSize.sm,
           ),
-
-        // Content
         div(
           styles: const Styles(raw: {
             'flex': '1',
             'min-width': '0',
           }),
           [
-            // Header (name + timestamp)
             div(
               styles: const Styles(raw: {
                 'display': 'flex',
@@ -419,8 +354,6 @@ class _ChatScreenState<M extends AbstractChatMessage, U extends AbstractChatUser
                   ),
               ],
             ),
-
-            // Message content
             message.messageWidget,
           ],
         ),
@@ -429,7 +362,7 @@ class _ChatScreenState<M extends AbstractChatMessage, U extends AbstractChatUser
   }
 }
 
-/// Simple chat message implementation
+/// Simple chat message implementation.
 class SimpleChatMessage implements AbstractChatMessage {
   @override
   final String id;
@@ -453,7 +386,7 @@ class SimpleChatMessage implements AbstractChatMessage {
   Component get messageWidget => Component.text(content);
 }
 
-/// Simple chat user implementation
+/// Simple chat user implementation.
 class SimpleChatUser implements AbstractChatUser {
   @override
   final String id;

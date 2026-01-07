@@ -4,33 +4,16 @@ import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, T
 import '../navigation/bottom_navigation_bar.dart';
 import '../navigation/sidebar.dart';
 
-/// A screen with built-in navigation (sidebar or bottom nav).
+/// Screen with built-in navigation (sidebar or bottom nav).
 class ArcaneNavigationScreen extends StatefulComponent {
-  /// Navigation destinations
   final List<ArcaneNavigationDestination> destinations;
-
-  /// Initial selected index
   final int initialIndex;
-
-  /// Callback when navigation changes
   final void Function(int index)? onNavigationChanged;
-
-  /// Navigation mode (auto, sidebar, bottom, rail)
   final NavigationMode mode;
-
-  /// Breakpoint for switching between modes in auto mode
   final double breakpoint;
-
-  /// Header for sidebar mode
   final Component? sidebarHeader;
-
-  /// Footer for sidebar mode
   final Component? sidebarFooter;
-
-  /// Whether sidebar is collapsible
   final bool sidebarCollapsible;
-
-  /// Initial sidebar collapsed state
   final bool sidebarCollapsed;
 
   const ArcaneNavigationScreen({
@@ -82,8 +65,6 @@ class _ArcaneNavigationScreenState extends State<ArcaneNavigationScreen> {
         ? component.destinations[_selectedIndex]
         : component.destinations.first;
 
-    // For Jaspr/web, we'll use CSS media queries or JavaScript for responsive behavior
-    // For now, we'll determine mode based on component settings
     final bool useBottomNav = component.mode == NavigationMode.bottom;
     final bool useSidebar = component.mode == NavigationMode.sidebar ||
         component.mode == NavigationMode.auto;
@@ -97,7 +78,6 @@ class _ArcaneNavigationScreenState extends State<ArcaneNavigationScreen> {
         'background-color': 'var(--background)',
       }),
       [
-        // Main content area with sidebar
         div(
           classes: 'arcane-navigation-screen-body',
           styles: const Styles(raw: {
@@ -106,7 +86,6 @@ class _ArcaneNavigationScreenState extends State<ArcaneNavigationScreen> {
             'min-height': '0',
           }),
           [
-            // Sidebar navigation
             if (useSidebar)
               ArcaneSidebar(
                 header: component.sidebarHeader,
@@ -126,8 +105,6 @@ class _ArcaneNavigationScreenState extends State<ArcaneNavigationScreen> {
                     ),
                 ],
               ),
-
-            // Content
             div(
               classes: 'arcane-navigation-screen-content',
               styles: const Styles(raw: {
@@ -139,8 +116,6 @@ class _ArcaneNavigationScreenState extends State<ArcaneNavigationScreen> {
             ),
           ],
         ),
-
-        // Bottom navigation (for mobile/bottom mode)
         if (useBottomNav)
           ArcaneBottomNavigationBar(
             items: [
@@ -158,22 +133,14 @@ class _ArcaneNavigationScreenState extends State<ArcaneNavigationScreen> {
   }
 }
 
-/// Navigation mode
 enum NavigationMode {
-  /// Automatically switch between sidebar and bottom nav based on screen size
   auto,
-
-  /// Always use sidebar
   sidebar,
-
-  /// Always use bottom navigation
   bottom,
-
-  /// Use rail (compact sidebar)
   rail,
 }
 
-/// A navigation destination
+/// Navigation destination.
 class ArcaneNavigationDestination {
   final String label;
   final Component icon;
@@ -188,21 +155,12 @@ class ArcaneNavigationDestination {
   });
 }
 
-/// A responsive scaffold that adapts to screen size
+/// Responsive scaffold that adapts to screen size.
 class ArcaneResponsiveScaffold extends StatelessComponent {
-  /// Content for small screens (mobile)
   final Component mobile;
-
-  /// Content for medium screens (tablet) - defaults to mobile
   final Component? tablet;
-
-  /// Content for large screens (desktop) - defaults to tablet or mobile
   final Component? desktop;
-
-  /// Breakpoint for tablet (min-width)
   final double tabletBreakpoint;
-
-  /// Breakpoint for desktop (min-width)
   final double desktopBreakpoint;
 
   const ArcaneResponsiveScaffold({
@@ -216,12 +174,9 @@ class ArcaneResponsiveScaffold extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    // In Jaspr, we can use CSS media queries for true responsiveness
-    // For now, we'll render all versions and hide with CSS
     return div(
       classes: 'arcane-responsive-scaffold',
       [
-        // Mobile version
         div(
           classes: 'arcane-responsive-mobile',
           styles: const Styles(raw: {
@@ -234,8 +189,5 @@ class ArcaneResponsiveScaffold extends StatelessComponent {
   }
 
   @css
-  static final List<StyleRule> styles = [
-    // Media query styles would go here in a real implementation
-    // Jaspr supports @css for defining component styles
-  ];
+  static final List<StyleRule> styles = [];
 }

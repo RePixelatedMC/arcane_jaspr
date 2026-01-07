@@ -6,49 +6,20 @@ import '../view/bar.dart';
 
 /// Base screen component that provides consistent layout structure.
 class ArcaneScreen extends StatelessComponent {
-  /// Main content
   final Component child;
-
-  /// Header bar
   final Component? header;
-
-  /// Title text (creates a Bar if no header provided)
   final String? title;
-
-  /// Subtitle text
   final String? subtitle;
-
-  /// Trailing actions
   final List<Component>? actions;
-
-  /// Footer component
   final Component? footer;
-
-  /// Sidebar component
   final Component? sidebar;
-
-  /// Whether sidebar is on the right
   final bool sidebarRight;
-
-  /// Floating action button
   final Component? fab;
-
-  /// Background component
   final Component? background;
-
-  /// Foreground overlay component
   final Component? foreground;
-
-  /// Loading progress (0.0 to 1.0)
   final double? loadingProgress;
-
-  /// Whether loading is indeterminate
   final bool loadingIndeterminate;
-
-  /// Custom padding
   final EdgeInsets? padding;
-
-  /// Back button handler
   final void Function()? onBack;
 
   const ArcaneScreen({
@@ -72,7 +43,6 @@ class ArcaneScreen extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    // Build header if title provided
     final Component? effectiveHeader = header ??
         (title != null
             ? ArcaneBar(
@@ -95,7 +65,6 @@ class ArcaneScreen extends StatelessComponent {
         'background-color': 'var(--background)',
       }),
       [
-        // Background layer
         if (background != null)
           div(
             classes: 'arcane-screen-background',
@@ -107,8 +76,6 @@ class ArcaneScreen extends StatelessComponent {
             }),
             [background!],
           ),
-
-        // Main content wrapper
         div(
           classes: 'arcane-screen-content',
           styles: const Styles(raw: {
@@ -120,14 +87,9 @@ class ArcaneScreen extends StatelessComponent {
             'min-height': '0',
           }),
           [
-            // Loading progress bar
             if (loadingProgress != null || loadingIndeterminate)
               _buildLoadingBar(),
-
-            // Header
             if (effectiveHeader != null) effectiveHeader,
-
-            // Body with optional sidebar
             div(
               classes: 'arcane-screen-body',
               styles: const Styles(raw: {
@@ -151,8 +113,6 @@ class ArcaneScreen extends StatelessComponent {
                 if (sidebar != null && sidebarRight) sidebar!,
               ],
             ),
-
-            // Footer
             if (footer != null)
               div(
                 classes: 'arcane-screen-footer',
@@ -163,8 +123,6 @@ class ArcaneScreen extends StatelessComponent {
               ),
           ],
         ),
-
-        // Foreground layer
         if (foreground != null)
           div(
             classes: 'arcane-screen-foreground',
@@ -176,8 +134,6 @@ class ArcaneScreen extends StatelessComponent {
             }),
             [foreground!],
           ),
-
-        // FAB
         if (fab != null) fab!,
       ],
     );
