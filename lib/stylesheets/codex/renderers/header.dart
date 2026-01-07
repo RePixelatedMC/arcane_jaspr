@@ -22,38 +22,42 @@ class CodexHeader extends StatelessComponent {
         'display': 'flex',
         'align-items': 'center',
         'justify-content': 'space-between',
+        'position': props.sticky ? 'sticky' : 'relative',
         // Codex: larger height
         'height': '72px',
         'padding': '0 2rem', // Codex: more horizontal padding
-        'background-color': props.transparent ? 'transparent' : 'var(--card)',
+        // Frosted glass effect with semi-transparent background
+        'background-color': props.transparent
+            ? 'transparent'
+            : 'rgba(var(--arcane-card-rgb, 10, 10, 10), 0.75)',
         if (props.bordered) 'border-bottom': '1px solid var(--border)',
-        if (props.sticky) ...{
-          'position': 'sticky',
-          'top': '0',
-          'z-index': '50',
-          // Codex: subtle glass effect when sticky
-          'backdrop-filter': 'blur(8px)',
-          '-webkit-backdrop-filter': 'blur(8px)',
-        },
+        'top': '0',
+        'z-index': '50',
+        // Frosted glass blur
+        'backdrop-filter': 'blur(12px)',
+        '-webkit-backdrop-filter': 'blur(12px)',
         'transition': 'all var(--transition)',
       }),
       [
-        // Left section: logo
+        // Left section: logo (fixed width to allow center nav to be truly centered)
         dom.div(
           classes: 'codex-header-logo',
           styles: const dom.Styles(raw: {
             'flex-shrink': '0',
+            'min-width': '200px', // Fixed width to balance with actions
           }),
           [props.logo],
         ),
 
-        // Center section: navigation
+        // Center section: navigation (flex-grow to center)
         dom.nav(
           classes: 'codex-header-nav',
           styles: const dom.Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
+            'justify-content': 'center',
             'gap': '0.5rem', // Codex: more gap
+            'flex-grow': '1', // Allow nav to grow and center
           }),
           [
             for (final item in props.navItems)
@@ -61,13 +65,16 @@ class CodexHeader extends StatelessComponent {
           ],
         ),
 
-        // Right section: search and actions
+        // Right section: search and actions (fixed width to match logo)
         dom.div(
           classes: 'codex-header-actions',
           styles: const dom.Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
+            'justify-content': 'flex-end',
             'gap': '0.75rem', // Codex: more gap
+            'flex-shrink': '0',
+            'min-width': '200px', // Match logo width for balance
           }),
           [
             if (props.showSearch)

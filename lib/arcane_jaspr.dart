@@ -168,6 +168,7 @@ export 'stylesheets/codex/codex_stylesheet.dart';
 // ============================================================================
 export 'util/appearance/colors.dart';
 export 'util/arcane.dart';
+export 'util/design_tokens.dart';
 export 'util/interactivity/arcane_scripts.dart';
 
 // ============================================================================

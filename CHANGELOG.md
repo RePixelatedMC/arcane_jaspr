@@ -5,11 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [x.x.x] - Unreleased
+## [2.8.0] - Unreleased
 
 ### Changed
 
-#### Component Consolidation and Folder Reorganization
+#### Component Consolidation and Folder Reorganization, and more! Check out the docs for new usage
 
 **Social Sign-In Buttons Consolidated (11 -> 1)**
 - Merged 10 individual social button files into single `SocialSignInButton` component
