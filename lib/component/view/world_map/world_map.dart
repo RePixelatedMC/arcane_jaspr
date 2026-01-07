@@ -1,6 +1,5 @@
-import 'package:web/web.dart' as web;
-
 import '../../../arcane_jaspr.dart' hide Key, Factory, Target, Import, Contrast, SpellCheck, TextWrap;
+import 'world_map_debug.dart';
 
 /// An interactive, themeable SVG world map component.
 class ArcaneWorldMap extends StatefulComponent {
@@ -74,24 +73,21 @@ class _ArcaneWorldMapState extends State<ArcaneWorldMap> {
     component.onLocationTap?.call(location);
   }
 
-  void _handleDebugMouseMove(web.MouseEvent mouseEvent) {
+  void _handleDebugMouseMove(Object event) {
     if (!component.debugMode) return;
 
-    final target = mouseEvent.currentTarget as web.Element;
-    final rect = target.getBoundingClientRect();
-    final svgWidth = rect.width;
-    final svgHeight = rect.height;
+    final coords = MapDebugHelper.getMouseSvgCoords(
+      event,
+      ArcaneMapProjection.mapWidth,
+      ArcaneMapProjection.mapHeight,
+    );
 
-    final relX = (mouseEvent.clientX - rect.left) / svgWidth;
-    final relY = (mouseEvent.clientY - rect.top) / svgHeight;
-
-    final svgX = relX * ArcaneMapProjection.mapWidth;
-    final svgY = relY * ArcaneMapProjection.mapHeight;
-
-    setState(() {
-      _debugSvgX = svgX;
-      _debugSvgY = svgY;
-    });
+    if (coords != null) {
+      setState(() {
+        _debugSvgX = coords.$1;
+        _debugSvgY = coords.$2;
+      });
+    }
   }
 
   void _handleDebugMouseLeave() {
@@ -108,7 +104,7 @@ class _ArcaneWorldMapState extends State<ArcaneWorldMap> {
     final (lat, lng) = ArcaneMapProjection.svgToLatLng(_debugSvgX!, _debugSvgY!);
     final coordText = '${lat.toStringAsFixed(4)}, ${lng.toStringAsFixed(4)}';
 
-    web.window.navigator.clipboard.writeText(coordText);
+    MapDebugHelper.copyToClipboard(coordText);
   }
 
   @override
@@ -132,8 +128,7 @@ class _ArcaneWorldMapState extends State<ArcaneWorldMap> {
       }),
       events: component.debugMode
           ? {
-              'mousemove': (event) =>
-                  _handleDebugMouseMove(event as web.MouseEvent),
+              'mousemove': _handleDebugMouseMove,
               'mouseleave': (_) => _handleDebugMouseLeave(),
               'click': (_) => _handleDebugClick(),
             }

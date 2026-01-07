@@ -1,6 +1,5 @@
-import 'package:web/web.dart' as web;
-
 import '../../../arcane_jaspr.dart' hide Key, Factory, Target, Import, Contrast, SpellCheck, TextWrap;
+import 'usa_map_debug.dart';
 
 /// An interactive, themeable SVG USA map component.
 class ArcaneUSAMap extends StatefulComponent {
@@ -103,24 +102,21 @@ class _ArcaneUSAMapState extends State<ArcaneUSAMap> {
     component.onStateTap?.call(stateCode);
   }
 
-  void _handleDebugMouseMove(web.MouseEvent mouseEvent) {
+  void _handleDebugMouseMove(Object event) {
     if (!component.debugMode) return;
 
-    final target = mouseEvent.currentTarget as web.Element;
-    final rect = target.getBoundingClientRect();
-    final svgWidth = rect.width;
-    final svgHeight = rect.height;
+    final coords = USAMapDebugHelper.getMouseSvgCoords(
+      event,
+      ArcaneUSAMapProjection.mapWidth,
+      ArcaneUSAMapProjection.mapHeight,
+    );
 
-    final relX = (mouseEvent.clientX - rect.left) / svgWidth;
-    final relY = (mouseEvent.clientY - rect.top) / svgHeight;
-
-    final svgX = relX * ArcaneUSAMapProjection.mapWidth;
-    final svgY = relY * ArcaneUSAMapProjection.mapHeight;
-
-    setState(() {
-      _debugSvgX = svgX;
-      _debugSvgY = svgY;
-    });
+    if (coords != null) {
+      setState(() {
+        _debugSvgX = coords.$1;
+        _debugSvgY = coords.$2;
+      });
+    }
   }
 
   void _handleDebugMouseLeave() {
@@ -137,7 +133,7 @@ class _ArcaneUSAMapState extends State<ArcaneUSAMap> {
     final (lat, lng) = ArcaneUSAMapProjection.svgToLatLng(_debugSvgX!, _debugSvgY!);
     final coordText = '${lat.toStringAsFixed(4)}, ${lng.toStringAsFixed(4)}';
 
-    web.window.navigator.clipboard.writeText(coordText);
+    USAMapDebugHelper.copyToClipboard(coordText);
   }
 
   @override
@@ -161,8 +157,7 @@ class _ArcaneUSAMapState extends State<ArcaneUSAMap> {
       }),
       events: component.debugMode
           ? {
-              'mousemove': (event) =>
-                  _handleDebugMouseMove(event as web.MouseEvent),
+              'mousemove': _handleDebugMouseMove,
               'mouseleave': (_) => _handleDebugMouseLeave(),
               'click': (_) => _handleDebugClick(),
             }
