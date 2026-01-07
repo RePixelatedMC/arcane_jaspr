@@ -518,6 +518,21 @@ class ShadcnRenderers extends ComponentRenderers {
   Component sidebarGroup(SidebarGroupProps props) => ShadcnSidebarGroup(props);
 
   @override
+  Component sidebarSubMenu(SidebarSubMenuProps props) =>
+      ShadcnSidebarSubMenu(props);
+
+  @override
+  Component sidebarExpanded(List<Component> children) =>
+      ShadcnSidebarExpanded(children);
+
+  @override
+  Component sidebarCollapsed(List<Component> children) =>
+      ShadcnSidebarCollapsed(children);
+
+  @override
+  Component sidebarSeparator() => const ShadcnSidebarSeparator();
+
+  @override
   Component header(HeaderProps props) => ShadcnHeader(props);
 
   @override

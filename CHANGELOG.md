@@ -30,6 +30,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added `ArcaneIconButton.close()` factory constructor
 - Removed standalone `ArcaneCloseButton` class
 
+**Search Components Consolidated**
+- Merged `ArcaneSearchBar` into `ArcaneSearch`
+- Added `ArcaneSearch.withResults()` factory for dropdown results
+- Added `SearchResult` class (replacing `ArcaneSearchResult`)
+- Extended `SearchProps` with results, resultsId, showDropdown, dropdownMaxHeight, width
+
+**Slider Components Consolidated**
+- Merged `ArcaneRangeSlider` into `ArcaneSlider`
+- Added `ArcaneSlider.range()` factory for range selection with two handles
+- Extended `SliderProps` with isRange, rangeMin, rangeMax, onRangeChanged
+- `ArcaneRangeSlider` is now a deprecated typedef pointing to `ArcaneSlider.range()`
+
+**DateTime Picker Components Consolidated**
+- Merged `ArcaneDatePicker` and `ArcaneTimePicker` into `ArcaneDateTimePicker`
+- New factory constructors: `.date()` for date-only, `.time()` for time-only
+- Default constructor provides combined date and time picker
+- Added `DateTimePickerMode` enum (date, time, dateTime)
+- Added `DateTimePickerSize` enum (sm, md, lg)
+
 **Folder Reorganization**
 - New `component/menu/` folder: `dropdown_menu.dart`, `context_menu.dart`, `menubar.dart`
 - New `component/card/` folder: `card.dart`, `feature_card.dart`, `pricing_card.dart`, `testimonial_card.dart`, `integration_card.dart`, `stat_card.dart`, `author_card.dart`, `surface_card.dart`, `flexi_cards.dart`, `card_section.dart`
@@ -44,8 +63,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `ArcaneCloseButton` (use `ArcaneIconButton.close()`)
 - Duplicate `ArcaneAccordion` from `expander.dart` (keep version in `interactive/accordion.dart`)
 - Duplicate `ArcaneProgressBar` and `ArcaneLoader` from `alert_banner.dart`
+- `ArcaneCtaLink` (use `ArcaneButton` with `href` parameter or `ArcaneLink` for links)
+- `ArcaneSearchBar` (consolidated into `ArcaneSearch` - use `ArcaneSearch.withResults()` for dropdown results)
+- `ArcaneRangeSlider` (consolidated into `ArcaneSlider` - use `ArcaneSlider.range()` for range mode)
+- `ArcaneDatePicker` (consolidated into `ArcaneDateTimePicker` - use `.date()` factory)
+- `ArcaneTimePicker` (consolidated into `ArcaneDateTimePicker` - use `.time()` factory)
 
 ### Added
+
+**Sidebar Enhancement**
+- `ArcaneSidebarSubMenu` - Collapsible nested submenu items
+- `ArcaneSidebarExpanded` - Content visible only when sidebar is expanded
+- `ArcaneSidebarCollapsed` - Content visible only when sidebar is collapsed
+- `ArcaneSidebarSeparator` - Visual separator between groups
+- Added `href` and `tooltip` properties to `ArcaneSidebarItem`
 
 #### Architecture Migration Complete
 The renderer-based architecture is now complete with **204 renderer methods** in the interface and **123 component files** using the renderer pattern. All visual components now delegate to `context.renderers.xxx()` for stylesheet-specific rendering.

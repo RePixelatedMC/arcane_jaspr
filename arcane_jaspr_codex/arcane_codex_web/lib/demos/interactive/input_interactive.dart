@@ -869,40 +869,101 @@ class _CalendarDemoState extends State<CalendarDemo> {
   }
 }
 
-/// Interactive date picker demo
-class DatePickerDemo extends StatefulComponent {
-  const DatePickerDemo({super.key});
+/// Interactive datetime picker demo showing all modes
+class DateTimePickerDemo extends StatefulComponent {
+  const DateTimePickerDemo({super.key});
 
   @override
-  State<DatePickerDemo> createState() => _DatePickerDemoState();
+  State<DateTimePickerDemo> createState() => _DateTimePickerDemoState();
 }
 
-class _DatePickerDemoState extends State<DatePickerDemo> {
+class _DateTimePickerDemoState extends State<DateTimePickerDemo> {
   DateTime? _selectedDate;
+  TimeOfDay? _selectedTime;
+  DateTime? _selectedDateTime;
 
   @override
   Component build(BuildContext context) {
     return ArcaneColumn(
-      gapSize: Gap.lg,
+      gapSize: Gap.xl,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ArcaneDiv(
-          styles: const ArcaneStyleData(widthCustom: '280px'),
+        // Date only mode
+        ArcaneColumn(
+          gapSize: Gap.sm,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ArcaneDatePicker(
-              label: 'Select Date',
-              value: _selectedDate,
-              onChanged: (date) => setState(() => _selectedDate = date),
-              placeholder: 'Pick a date...',
+            ArcaneText('Date Only', weight: FontWeight.w600),
+            ArcaneDiv(
+              styles: const ArcaneStyleData(widthCustom: '280px'),
+              children: [
+                ArcaneDateTimePicker.date(
+                  label: 'Select Date',
+                  value: _selectedDate,
+                  onDateChanged: (date) => setState(() => _selectedDate = date),
+                  placeholder: 'Pick a date...',
+                ),
+              ],
             ),
+            if (_selectedDate != null)
+              ArcaneText(
+                'Selected: ${_selectedDate!.month}/${_selectedDate!.day}/${_selectedDate!.year}',
+                size: FontSize.sm,
+                color: TextColor.accent,
+              ),
           ],
         ),
-        if (_selectedDate != null)
-          ArcaneText(
-            'Selected: ${_selectedDate!.month}/${_selectedDate!.day}/${_selectedDate!.year}',
-            size: FontSize.sm,
-            color: TextColor.accent,
-          ),
+
+        // Time only mode
+        ArcaneColumn(
+          gapSize: Gap.sm,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ArcaneText('Time Only', weight: FontWeight.w600),
+            ArcaneDiv(
+              styles: const ArcaneStyleData(widthCustom: '200px'),
+              children: [
+                ArcaneDateTimePicker.time(
+                  label: 'Select Time',
+                  timeValue: _selectedTime,
+                  onTimeChanged: (time) => setState(() => _selectedTime = time),
+                  placeholder: 'Pick a time...',
+                ),
+              ],
+            ),
+            if (_selectedTime != null)
+              ArcaneText(
+                'Selected: ${_selectedTime!.hour}:${_selectedTime!.minute.toString().padLeft(2, '0')}',
+                size: FontSize.sm,
+                color: TextColor.accent,
+              ),
+          ],
+        ),
+
+        // DateTime mode (both)
+        ArcaneColumn(
+          gapSize: Gap.sm,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ArcaneText('Date and Time', weight: FontWeight.w600),
+            ArcaneDiv(
+              styles: const ArcaneStyleData(widthCustom: '450px'),
+              children: [
+                ArcaneDateTimePicker(
+                  label: 'Select Date & Time',
+                  value: _selectedDateTime,
+                  onChanged: (dt) => setState(() => _selectedDateTime = dt),
+                ),
+              ],
+            ),
+            if (_selectedDateTime != null)
+              ArcaneText(
+                'Selected: ${_selectedDateTime!.month}/${_selectedDateTime!.day}/${_selectedDateTime!.year} at ${_selectedDateTime!.hour}:${_selectedDateTime!.minute.toString().padLeft(2, '0')}',
+                size: FontSize.sm,
+                color: TextColor.accent,
+              ),
+          ],
+        ),
       ],
     );
   }

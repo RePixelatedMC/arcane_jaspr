@@ -11,6 +11,9 @@ class SidebarItemProps {
   /// Click handler
   final void Function()? onTap;
 
+  /// Optional href for navigation items
+  final String? href;
+
   /// Whether this item is selected/active
   final bool selected;
 
@@ -23,14 +26,19 @@ class SidebarItemProps {
   /// Whether the sidebar is collapsed (affects display)
   final bool collapsed;
 
+  /// Tooltip text (shown on hover when collapsed)
+  final String? tooltip;
+
   const SidebarItemProps({
     required this.label,
     this.icon,
     this.onTap,
+    this.href,
     this.selected = false,
     this.disabled = false,
     this.badge,
     this.collapsed = false,
+    this.tooltip,
   });
 }
 
@@ -49,6 +57,40 @@ class SidebarGroupProps {
     this.label,
     required this.children,
     this.collapsed = false,
+  });
+}
+
+/// Props for a sidebar submenu (collapsible nested items)
+class SidebarSubMenuProps {
+  /// Label for the submenu trigger
+  final String label;
+
+  /// Optional icon component
+  final Component? icon;
+
+  /// Child items in the submenu
+  final List<Component> children;
+
+  /// Whether the submenu is currently open
+  final bool isOpen;
+
+  /// Toggle handler for open/close
+  final void Function()? onToggle;
+
+  /// Whether the sidebar is collapsed
+  final bool collapsed;
+
+  /// Optional badge text
+  final String? badge;
+
+  const SidebarSubMenuProps({
+    required this.label,
+    required this.children,
+    this.icon,
+    this.isOpen = false,
+    this.onToggle,
+    this.collapsed = false,
+    this.badge,
   });
 }
 

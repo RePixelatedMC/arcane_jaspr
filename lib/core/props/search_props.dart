@@ -1,5 +1,27 @@
 import 'package:jaspr/jaspr.dart';
 
+/// A search result item for search dropdown.
+class SearchResult {
+  /// Display title
+  final String title;
+
+  /// Optional subtitle/category
+  final String? subtitle;
+
+  /// URL to navigate to when clicked
+  final String? href;
+
+  /// Callback when clicked (alternative to href)
+  final VoidCallback? onTap;
+
+  const SearchResult({
+    required this.title,
+    this.subtitle,
+    this.href,
+    this.onTap,
+  });
+}
+
 /// Search input size variants.
 enum SearchSize {
   /// Small size
@@ -70,6 +92,23 @@ class SearchProps {
   /// Additional HTML attributes
   final Map<String, String>? attributes;
 
+  // Results dropdown properties (from ArcaneSearchBar)
+
+  /// Search results to display in dropdown
+  final List<SearchResult>? results;
+
+  /// Optional ID for the results container (for JS hooks)
+  final String? resultsId;
+
+  /// Whether to show the dropdown results container
+  final bool showDropdown;
+
+  /// Maximum height of dropdown
+  final String? dropdownMaxHeight;
+
+  /// Custom width
+  final String? width;
+
   const SearchProps({
     this.placeholder = 'Search...',
     this.value,
@@ -85,6 +124,11 @@ class SearchProps {
     this.style = SearchStyle.standard,
     this.id,
     this.attributes,
+    this.results,
+    this.resultsId,
+    this.showDropdown = false,
+    this.dropdownMaxHeight,
+    this.width,
   });
 
   /// Create a copy with modified properties
@@ -103,6 +147,11 @@ class SearchProps {
     SearchStyle? style,
     String? id,
     Map<String, String>? attributes,
+    List<SearchResult>? results,
+    String? resultsId,
+    bool? showDropdown,
+    String? dropdownMaxHeight,
+    String? width,
   }) {
     return SearchProps(
       placeholder: placeholder ?? this.placeholder,
@@ -119,6 +168,11 @@ class SearchProps {
       style: style ?? this.style,
       id: id ?? this.id,
       attributes: attributes ?? this.attributes,
+      results: results ?? this.results,
+      resultsId: resultsId ?? this.resultsId,
+      showDropdown: showDropdown ?? this.showDropdown,
+      dropdownMaxHeight: dropdownMaxHeight ?? this.dropdownMaxHeight,
+      width: width ?? this.width,
     );
   }
 }

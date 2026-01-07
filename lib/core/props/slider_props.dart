@@ -26,14 +26,16 @@ enum SliderVariant {
 }
 
 /// Properties for slider components.
+///
+/// Supports both single value and range modes.
 class SliderProps {
-  /// Current value
+  /// Current value (for single mode)
   final double value;
 
-  /// Minimum value
+  /// Minimum allowed value
   final double min;
 
-  /// Maximum value
+  /// Maximum allowed value
   final double max;
 
   /// Step increment (null for continuous)
@@ -66,11 +68,25 @@ class SliderProps {
   /// Whether the slider is disabled
   final bool disabled;
 
-  /// Callback when value changes
+  /// Callback when value changes (single mode)
   final void Function(double)? onChanged;
 
+  // Range mode properties
+
+  /// Whether this is a range slider with two handles
+  final bool isRange;
+
+  /// Current minimum value (range mode only)
+  final double? rangeMin;
+
+  /// Current maximum value (range mode only)
+  final double? rangeMax;
+
+  /// Callback when range values change (range mode only)
+  final void Function(double min, double max)? onRangeChanged;
+
   const SliderProps({
-    required this.value,
+    this.value = 0,
     this.min = 0,
     this.max = 100,
     this.step,
@@ -84,7 +100,34 @@ class SliderProps {
     this.showSteps = false,
     this.disabled = false,
     this.onChanged,
+    this.isRange = false,
+    this.rangeMin,
+    this.rangeMax,
+    this.onRangeChanged,
   });
+
+  /// Creates props for a range slider
+  const SliderProps.range({
+    required double minValue,
+    required double maxValue,
+    this.min = 0,
+    this.max = 100,
+    this.step,
+    this.label,
+    this.showValue = true,
+    this.valuePrefix,
+    this.valueSuffix,
+    this.valueDecimals = 0,
+    this.variant = SliderVariant.primary,
+    this.size = SliderSize.md,
+    this.showSteps = false,
+    this.disabled = false,
+    this.onRangeChanged,
+  })  : value = 0,
+        onChanged = null,
+        isRange = true,
+        rangeMin = minValue,
+        rangeMax = maxValue;
 
   /// Create a copy with modified properties
   SliderProps copyWith({
@@ -102,6 +145,10 @@ class SliderProps {
     bool? showSteps,
     bool? disabled,
     void Function(double)? onChanged,
+    bool? isRange,
+    double? rangeMin,
+    double? rangeMax,
+    void Function(double min, double max)? onRangeChanged,
   }) {
     return SliderProps(
       value: value ?? this.value,
@@ -118,6 +165,10 @@ class SliderProps {
       showSteps: showSteps ?? this.showSteps,
       disabled: disabled ?? this.disabled,
       onChanged: onChanged ?? this.onChanged,
+      isRange: isRange ?? this.isRange,
+      rangeMin: rangeMin ?? this.rangeMin,
+      rangeMax: rangeMax ?? this.rangeMax,
+      onRangeChanged: onRangeChanged ?? this.onRangeChanged,
     );
   }
 }

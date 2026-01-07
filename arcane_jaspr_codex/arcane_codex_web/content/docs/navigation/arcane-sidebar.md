@@ -317,8 +317,85 @@ ArcaneSidebar(
 )
 ```
 
+## Submenus
+
+Use `ArcaneSidebarSubMenu` for collapsible nested navigation:
+
+```dart
+ArcaneSidebar(
+  children: [
+    ArcaneSidebarItem(
+      icon: LucideIcons.home,
+      label: 'Dashboard',
+      href: '/dashboard',
+    ),
+    ArcaneSidebarSubMenu(
+      icon: LucideIcons.folderOpen,
+      label: 'Projects',
+      children: [
+        ArcaneSidebarItem(label: 'Active', href: '/projects/active'),
+        ArcaneSidebarItem(label: 'Archived', href: '/projects/archived'),
+        ArcaneSidebarItem(label: 'Templates', href: '/projects/templates'),
+      ],
+    ),
+    ArcaneSidebarSubMenu(
+      icon: LucideIcons.settings,
+      label: 'Settings',
+      defaultOpen: true,
+      children: [
+        ArcaneSidebarItem(label: 'General', href: '/settings/general'),
+        ArcaneSidebarItem(label: 'Security', href: '/settings/security'),
+        ArcaneSidebarItem(label: 'Notifications', href: '/settings/notifications'),
+      ],
+    ),
+  ],
+)
+```
+
+## Expanded/Collapsed Content
+
+Show different content based on sidebar state:
+
+```dart
+ArcaneSidebar(
+  collapsed: isCollapsed,
+  header: ArcaneDiv(
+    children: [
+      ArcaneSidebarExpanded(
+        children: [
+          ArcaneText('My Application', weight: FontWeight.w600),
+        ],
+      ),
+      ArcaneSidebarCollapsed(
+        children: [
+          ArcaneAvatar(fallback: 'MA', size: AvatarSize.sm),
+        ],
+      ),
+    ],
+  ),
+  children: [...],
+)
+```
+
+## Separators
+
+Add visual separation between groups:
+
+```dart
+ArcaneSidebar(
+  children: [
+    ArcaneSidebarItem(label: 'Dashboard', icon: LucideIcons.home),
+    ArcaneSidebarItem(label: 'Projects', icon: LucideIcons.folder),
+    ArcaneSidebarSeparator(),
+    ArcaneSidebarItem(label: 'Settings', icon: LucideIcons.settings),
+    ArcaneSidebarItem(label: 'Help', icon: LucideIcons.helpCircle),
+  ],
+)
+```
+
 ## Related Components
 
 - [ArcaneSidebarItem](/arcane_jaspr/docs/navigation/arcane-sidebar-item) - Sidebar navigation item
 - [ArcaneSidebarGroup](/arcane_jaspr/docs/navigation/arcane-sidebar-group) - Sidebar section group
+- [ArcaneSidebarSubMenu](/arcane_jaspr/docs/navigation/arcane-sidebar-submenu) - Collapsible submenu
 - [ArcaneHeader](/arcane_jaspr/docs/navigation/arcane-header) - Application header

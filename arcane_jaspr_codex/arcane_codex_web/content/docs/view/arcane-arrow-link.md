@@ -133,5 +133,4 @@ ArcaneRow(
 
 - [ArcaneFlexiCards](/arcane_jaspr/docs/view/arcane-flexi-cards) - Interactive card layout
 - [ArcaneFeatureShowcase](/arcane_jaspr/docs/layout/arcane-feature-showcase) - Feature sections
-- [ArcaneCtaLink](/arcane_jaspr/docs/buttons/arcane-cta-link) - Button-styled CTA links
 - [ArcaneButton](/arcane_jaspr/docs/inputs/arcane-button) - Full button component

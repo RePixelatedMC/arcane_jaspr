@@ -524,6 +524,18 @@ abstract class ComponentRenderers {
   /// Render a sidebar group component
   Component sidebarGroup(SidebarGroupProps props);
 
+  /// Render a sidebar submenu (collapsible nested items)
+  Component sidebarSubMenu(SidebarSubMenuProps props);
+
+  /// Render content only when sidebar is expanded
+  Component sidebarExpanded(List<Component> children);
+
+  /// Render content only when sidebar is collapsed
+  Component sidebarCollapsed(List<Component> children);
+
+  /// Render a sidebar separator
+  Component sidebarSeparator();
+
   /// Render a header/navbar component
   Component header(HeaderProps props);
 

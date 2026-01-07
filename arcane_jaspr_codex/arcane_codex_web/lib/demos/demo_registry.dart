@@ -44,9 +44,6 @@ class DemoRegistry {
     'text-input': InputDemos.textInput,
     'text-area': InputDemos.textArea,
     'file-upload': InputDemos.fileUpload,
-    'search-bar': InputDemos.searchBar,
-    'cta-link': InputDemos.ctaLink,
-    'time-picker': InputDemos.timePicker,
     'formatted-input': InputDemos.formattedInput,
 
     // Layout components
@@ -181,7 +178,6 @@ class DemoRegistry {
     'radio': const RadioDemo(),
     'toggle-switch': const ToggleSwitchDemo(),
     'slider': const SliderDemo(),
-    'range-slider': const RangeSliderDemo(),
     'toggle-button': const ToggleButtonDemo(),
     'toggle-button-group': const ToggleButtonGroupDemo(),
     'cycle-button': const CycleButtonDemo(),
@@ -193,7 +189,7 @@ class DemoRegistry {
     'radio-group': const RadioGroupDemo(),
     'otp-input': const OtpInputDemo(),
     'calendar': const CalendarDemo(),
-    'date-picker': const DatePickerDemo(),
+    'datetime-picker': const DateTimePickerDemo(),
 
     // View interactive
     'progress-bar': const ProgressBarDemo(),

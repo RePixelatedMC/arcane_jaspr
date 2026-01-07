@@ -81,7 +81,7 @@ class DocsHeader extends StatelessComponent {
   }
 
   Component _buildSearch() {
-    return ArcaneSearchBar(
+    return ArcaneSearch.withResults(
       id: 'docs-search',
       resultsId: 'search-results',
       placeholder: 'Search documentation...',

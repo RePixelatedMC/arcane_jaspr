@@ -233,6 +233,39 @@ ArcaneDiv(
 )
 ```
 
+## With Results Dropdown
+
+Use the `.withResults()` factory for a search with built-in results dropdown:
+
+```dart
+ArcaneSearch.withResults(
+  placeholder: 'Search...',
+  results: [
+    SearchResult(
+      title: 'Getting Started',
+      subtitle: 'Introduction to the framework',
+      href: '/docs/getting-started',
+    ),
+    SearchResult(
+      title: 'Components',
+      subtitle: 'UI component reference',
+      onTap: () => navigateTo('/docs/components'),
+    ),
+  ],
+  showDropdown: query.isNotEmpty,
+  onChanged: (v) => setState(() => query = v),
+)
+```
+
+### SearchResult Properties
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `title` | `String` | Primary text |
+| `subtitle` | `String?` | Secondary text |
+| `href` | `String?` | Link URL |
+| `onTap` | `VoidCallback?` | Tap handler |
+
 ## Related Components
 
 - [ArcaneTextInput](/arcane_jaspr/docs/inputs/arcane-text-input) - General text input

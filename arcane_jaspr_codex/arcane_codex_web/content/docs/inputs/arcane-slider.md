@@ -210,7 +210,67 @@ ArcaneDiv(
 )
 ```
 
+## Range Mode
+
+Use the `.range()` factory for dual-handle range selection:
+
+```dart
+ArcaneSlider.range(
+  minValue: minPrice,
+  maxValue: maxPrice,
+  min: 0,
+  max: 1000,
+  onRangeChanged: (min, max) {
+    setState(() {
+      minPrice = min;
+      maxPrice = max;
+    });
+  },
+)
+```
+
+### Range Mode Properties
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `minValue` | `double` | required | Current minimum value |
+| `maxValue` | `double` | required | Current maximum value |
+| `min` | `double` | `0` | Minimum bound |
+| `max` | `double` | `100` | Maximum bound |
+| `onRangeChanged` | `Function(double, double)?` | `null` | Range change handler |
+| `step` | `double?` | `null` | Step increment |
+| `label` | `String?` | `null` | Label text |
+| `showValue` | `bool` | `false` | Display current values |
+
+### Price Range Example
+
+```dart
+ArcaneColumn(
+  gapSize: Gap.sm,
+  children: [
+    ArcaneRow(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        ArcaneText('Price Range'),
+        ArcaneText('\$${minPrice.toInt()} - \$${maxPrice.toInt()}'),
+      ],
+    ),
+    ArcaneSlider.range(
+      minValue: minPrice,
+      maxValue: maxPrice,
+      min: 0,
+      max: 500,
+      step: 10,
+      onRangeChanged: (min, max) => setState(() {
+        minPrice = min;
+        maxPrice = max;
+      }),
+    ),
+  ],
+)
+```
+
 ## Related Components
 
-- [ArcaneRangeSlider](/arcane_jaspr/docs/inputs/arcane-range-slider) - Dual-handle range slider
 - [ArcaneTextInput](/arcane_jaspr/docs/inputs/arcane-text-input) - Text input for precise values
+- [ArcaneNumberInput](/arcane_jaspr/docs/inputs/arcane-number-input) - Number input with increment/decrement

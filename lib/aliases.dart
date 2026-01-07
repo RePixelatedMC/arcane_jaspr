@@ -137,6 +137,10 @@ typedef ANavLink = ArcaneNavLink;
 typedef ASidebar = ArcaneSidebar;
 typedef ASidebarGroup = ArcaneSidebarGroup;
 typedef ASidebarItem = ArcaneSidebarItem;
+typedef ASidebarSubMenu = ArcaneSidebarSubMenu;
+typedef ASidebarExpanded = ArcaneSidebarExpanded;
+typedef ASidebarCollapsed = ArcaneSidebarCollapsed;
+typedef ASidebarSeparator = ArcaneSidebarSeparator;
 
 // Screen
 typedef AFillScreen = ArcaneFillScreen;
@@ -148,9 +152,6 @@ typedef AWindow = ArcaneWindow;
 
 // Input
 typedef AButton = ArcaneButton;
-typedef ACtaLink = ArcaneCtaLink;
-typedef ACtaLinkVariant = CtaLinkVariant;
-typedef ACtaLinkSize = CtaLinkSize;
 typedef ACheckbox = ArcaneCheckbox;
 typedef ACycleButton = ArcaneCycleButton;
 typedef ACycleOption = CycleOption;
@@ -159,8 +160,7 @@ typedef AIconButton = ArcaneIconButton;
 typedef ARadio = ArcaneRadio;
 typedef ARangeSlider = ArcaneRangeSlider;
 typedef ASearch = ArcaneSearch;
-typedef ASearchBar = ArcaneSearchBar;
-typedef ASearchResult = ArcaneSearchResult;
+typedef ASearchResult = SearchResult;
 typedef ASelect = ArcaneSelect;
 typedef ASelectOption = ArcaneSelectOption;
 typedef ASelector = ArcaneSelector;
@@ -268,6 +268,11 @@ typedef AFormScope = ArcaneFormScope;
 
 // Collection
 typedef AInfiniteCarousel = ArcaneInfiniteCarousel;
+
+// DateTime Picker
+typedef ADateTimePicker = ArcaneDateTimePicker;
+typedef ADateTimePickerMode = DateTimePickerMode;
+typedef ADateTimePickerSize = DateTimePickerSize;
 
 // Icons
 typedef AIcon = ArcaneIcon;

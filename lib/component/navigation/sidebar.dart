@@ -3,7 +3,7 @@ import 'package:jaspr/jaspr.dart';
 import '../../core/theme_provider.dart';
 
 export '../../core/props/sidebar_props.dart'
-    show SidebarItemProps, SidebarGroupProps;
+    show SidebarItemProps, SidebarGroupProps, SidebarSubMenuProps;
 
 /// A sidebar navigation component matching shadcn/ui.
 /// ShadCN Reference: https://ui.shadcn.com/docs/components/sidebar
@@ -123,19 +123,23 @@ class ArcaneSidebarItem extends StatelessComponent {
   final String label;
   final Component? icon;
   final void Function()? onTap;
+  final String? href;
   final bool selected;
   final bool disabled;
   final String? badge;
   final bool collapsed;
+  final String? tooltip;
 
   const ArcaneSidebarItem({
     required this.label,
     this.icon,
     this.onTap,
+    this.href,
     this.selected = false,
     this.disabled = false,
     this.badge,
     this.collapsed = false,
+    this.tooltip,
     super.key,
   });
 
@@ -145,10 +149,111 @@ class ArcaneSidebarItem extends StatelessComponent {
       label: label,
       icon: icon,
       onTap: onTap,
+      href: href,
       selected: selected,
       disabled: disabled,
       badge: badge,
       collapsed: collapsed,
+      tooltip: tooltip,
+    ));
+  }
+}
+
+/// Content that only displays when sidebar is expanded.
+///
+/// Use this to show full labels, descriptions, or complex content
+/// that should be hidden when the sidebar collapses.
+class ArcaneSidebarExpanded extends StatelessComponent {
+  final List<Component> children;
+
+  const ArcaneSidebarExpanded({
+    required this.children,
+    super.key,
+  });
+
+  @override
+  Component build(BuildContext context) {
+    return context.renderers.sidebarExpanded(children);
+  }
+}
+
+/// Content that only displays when sidebar is collapsed.
+///
+/// Use this to show icons, tooltips, or minimal content
+/// that should only appear when the sidebar is collapsed.
+class ArcaneSidebarCollapsed extends StatelessComponent {
+  final List<Component> children;
+
+  const ArcaneSidebarCollapsed({
+    required this.children,
+    super.key,
+  });
+
+  @override
+  Component build(BuildContext context) {
+    return context.renderers.sidebarCollapsed(children);
+  }
+}
+
+/// A visual separator between sidebar groups or items.
+class ArcaneSidebarSeparator extends StatelessComponent {
+  const ArcaneSidebarSeparator({super.key});
+
+  @override
+  Component build(BuildContext context) {
+    return context.renderers.sidebarSeparator();
+  }
+}
+
+/// A collapsible submenu within a sidebar item.
+///
+/// Use this for nested navigation structures where a parent item
+/// can expand to reveal child items.
+class ArcaneSidebarSubMenu extends StatefulComponent {
+  final String label;
+  final Component? icon;
+  final List<Component> children;
+  final bool defaultOpen;
+  final bool collapsed;
+  final String? badge;
+
+  const ArcaneSidebarSubMenu({
+    required this.label,
+    required this.children,
+    this.icon,
+    this.defaultOpen = false,
+    this.collapsed = false,
+    this.badge,
+    super.key,
+  });
+
+  @override
+  State<ArcaneSidebarSubMenu> createState() => _ArcaneSidebarSubMenuState();
+}
+
+class _ArcaneSidebarSubMenuState extends State<ArcaneSidebarSubMenu> {
+  late bool _isOpen;
+
+  @override
+  void initState() {
+    super.initState();
+    _isOpen = component.defaultOpen;
+  }
+
+  void _toggle() {
+    setState(() => _isOpen = !_isOpen);
+  }
+
+  @override
+  Component build(BuildContext context) {
+    return context.renderers.sidebarSubMenu(SidebarSubMenuProps(
+      label: component.label,
+      icon: component.icon,
+      children: component.children,
+      isOpen: _isOpen,
+      onToggle: _toggle,
+      collapsed: component.collapsed,
+      badge: component.badge,
     ));
   }
 }

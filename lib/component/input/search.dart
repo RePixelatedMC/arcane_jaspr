@@ -2,9 +2,29 @@ import 'package:jaspr/jaspr.dart';
 
 import '../../core/theme_provider.dart';
 
-export '../../core/props/search_props.dart' show SearchSize, SearchStyle;
+export '../../core/props/search_props.dart' show SearchSize, SearchStyle, SearchResult;
 
-/// A search input component with optional icon and clear button.
+/// A search input component with optional icon, clear button, and results dropdown.
+///
+/// This component consolidates basic search input and search bar with results functionality.
+///
+/// Basic search input:
+/// ```dart
+/// ArcaneSearch(
+///   placeholder: 'Search...',
+///   onChanged: (value) => print(value),
+/// )
+/// ```
+///
+/// Search with results dropdown:
+/// ```dart
+/// ArcaneSearch(
+///   placeholder: 'Search docs...',
+///   showDropdown: true,
+///   results: searchResults,
+///   onChanged: (value) => performSearch(value),
+/// )
+/// ```
 class ArcaneSearch extends StatelessComponent {
   /// Placeholder text
   final String placeholder;
@@ -48,6 +68,21 @@ class ArcaneSearch extends StatelessComponent {
   /// Additional HTML attributes
   final Map<String, String>? attributes;
 
+  /// Search results to display in dropdown
+  final List<SearchResult>? results;
+
+  /// Optional ID for the results container (for JS hooks)
+  final String? resultsId;
+
+  /// Whether to show the dropdown results container
+  final bool showDropdown;
+
+  /// Maximum height of dropdown
+  final String? dropdownMaxHeight;
+
+  /// Custom width
+  final String? width;
+
   const ArcaneSearch({
     this.placeholder = 'Search...',
     this.value,
@@ -63,8 +98,36 @@ class ArcaneSearch extends StatelessComponent {
     this.style = SearchStyle.standard,
     this.id,
     this.attributes,
+    this.results,
+    this.resultsId,
+    this.showDropdown = false,
+    this.dropdownMaxHeight,
+    this.width,
     super.key,
   });
+
+  /// Creates a search with dropdown results functionality.
+  const ArcaneSearch.withResults({
+    this.placeholder = 'Search...',
+    this.value,
+    this.onChanged,
+    this.onSubmitted,
+    this.showClear = true,
+    this.showIcon = true,
+    this.loading = false,
+    this.icon,
+    this.autofocus = false,
+    this.disabled = false,
+    this.size = SearchSize.md,
+    this.style = SearchStyle.standard,
+    this.id,
+    this.attributes,
+    this.results,
+    this.resultsId,
+    this.dropdownMaxHeight = '300px',
+    this.width = '240px',
+    super.key,
+  }) : showDropdown = true;
 
   @override
   Component build(BuildContext context) {
@@ -83,6 +146,11 @@ class ArcaneSearch extends StatelessComponent {
       style: style,
       id: id,
       attributes: attributes,
+      results: results,
+      resultsId: resultsId,
+      showDropdown: showDropdown,
+      dropdownMaxHeight: dropdownMaxHeight,
+      width: width,
     ));
   }
 }
