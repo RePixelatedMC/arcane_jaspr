@@ -1,5 +1,4 @@
 import '../../../arcane_jaspr.dart' hide Key, Factory, Target, Import, Contrast, SpellCheck, TextWrap;
-import 'world_map_debug.dart';
 
 /// An interactive, themeable SVG world map component.
 class ArcaneWorldMap extends StatefulComponent {
@@ -57,8 +56,6 @@ class ArcaneWorldMap extends StatefulComponent {
 
 class _ArcaneWorldMapState extends State<ArcaneWorldMap> {
   ArcaneMapLocation? _hoveredLocation;
-  double? _debugSvgX;
-  double? _debugSvgY;
 
   void _handlePinEnter(ArcaneMapLocation location) {
     setState(() => _hoveredLocation = location);
@@ -73,40 +70,6 @@ class _ArcaneWorldMapState extends State<ArcaneWorldMap> {
     component.onLocationTap?.call(location);
   }
 
-  void _handleDebugMouseMove(Object event) {
-    if (!component.debugMode) return;
-
-    final coords = MapDebugHelper.getMouseSvgCoords(
-      event,
-      ArcaneMapProjection.mapWidth,
-      ArcaneMapProjection.mapHeight,
-    );
-
-    if (coords != null) {
-      setState(() {
-        _debugSvgX = coords.$1;
-        _debugSvgY = coords.$2;
-      });
-    }
-  }
-
-  void _handleDebugMouseLeave() {
-    if (!component.debugMode) return;
-    setState(() {
-      _debugSvgX = null;
-      _debugSvgY = null;
-    });
-  }
-
-  void _handleDebugClick() {
-    if (!component.debugMode || _debugSvgX == null || _debugSvgY == null) return;
-
-    final (lat, lng) = ArcaneMapProjection.svgToLatLng(_debugSvgX!, _debugSvgY!);
-    final coordText = '${lat.toStringAsFixed(4)}, ${lng.toStringAsFixed(4)}';
-
-    MapDebugHelper.copyToClipboard(coordText);
-  }
-
   @override
   Component build(BuildContext context) {
     final style = component.style;
@@ -118,21 +81,16 @@ class _ArcaneWorldMapState extends State<ArcaneWorldMap> {
     return Component.element(
       tag: 'div',
       classes: 'arcane-world-map ${component.className ?? ""}',
+      attributes: {
+        if (component.debugMode) 'data-debug-mode': 'true',
+      },
       styles: Styles(raw: {
         'position': 'relative',
         'width': '100%',
         if (component.height != null) 'height': component.height!,
         'aspect-ratio': '${component.aspectRatio}',
         'overflow': 'visible',
-        if (component.debugMode) 'cursor': 'crosshair',
       }),
-      events: component.debugMode
-          ? {
-              'mousemove': _handleDebugMouseMove,
-              'mouseleave': (_) => _handleDebugMouseLeave(),
-              'click': (_) => _handleDebugClick(),
-            }
-          : null,
       children: [
         ArcaneSvg(
           viewBox: ArcaneMapProjection.viewBox,
@@ -162,84 +120,7 @@ class _ArcaneWorldMapState extends State<ArcaneWorldMap> {
         ),
         if (_hoveredLocation != null && component.showTooltips)
           _buildTooltip(_hoveredLocation!),
-        if (component.debugMode && _debugSvgX != null && _debugSvgY != null)
-          _buildDebugTooltip(),
-      ],
-    );
-  }
-
-  Component _buildDebugTooltip() {
-    final (lat, lng) = ArcaneMapProjection.svgToLatLng(_debugSvgX!, _debugSvgY!);
-
-    final leftPercent = (_debugSvgX! / ArcaneMapProjection.mapWidth) * 100;
-    final topPercent = (_debugSvgY! / ArcaneMapProjection.mapHeight) * 100;
-
-    return ArcaneDiv(
-      classes: 'arcane-map-debug-tooltip',
-      styles: ArcaneStyleData(
-        position: Position.absolute,
-        left: '$leftPercent%',
-        top: 'calc($topPercent% + 15px)',
-        transformCustom: 'translateX(-50%)',
-        zIndex: ZIndex.tooltip,
-        pointerEvents: PointerEvents.none,
-      ),
-      children: [
-        ArcaneDiv(
-          styles: const ArcaneStyleData(
-            background: Background.surface,
-            border: BorderPreset.subtle,
-            borderRadius: Radius.md,
-            shadow: Shadow.md,
-            padding: PaddingPreset.sm,
-          ),
-          children: [
-            ArcaneDiv(
-              styles: const ArcaneStyleData(
-                fontSize: FontSize.xs,
-                fontFamily: FontFamily.mono,
-                textColor: TextColor.primary,
-                whiteSpace: WhiteSpace.nowrap,
-              ),
-              children: [
-                Component.text('Lat: ${lat.toStringAsFixed(4)}'),
-              ],
-            ),
-            ArcaneDiv(
-              styles: const ArcaneStyleData(
-                fontSize: FontSize.xs,
-                fontFamily: FontFamily.mono,
-                textColor: TextColor.primary,
-                whiteSpace: WhiteSpace.nowrap,
-              ),
-              children: [
-                Component.text('Lng: ${lng.toStringAsFixed(4)}'),
-              ],
-            ),
-            ArcaneDiv(
-              styles: const ArcaneStyleData(
-                fontSize: FontSize.xs,
-                fontFamily: FontFamily.mono,
-                textColor: TextColor.mutedForeground,
-                whiteSpace: WhiteSpace.nowrap,
-                margin: MarginPreset.topXs,
-              ),
-              children: [
-                Component.text('SVG: ${_debugSvgX!.toInt()}, ${_debugSvgY!.toInt()}'),
-              ],
-            ),
-            ArcaneDiv(
-              styles: const ArcaneStyleData(
-                fontSize: FontSize.xs,
-                textColor: TextColor.brand,
-                margin: MarginPreset.topXs,
-              ),
-              children: [
-                Component.text('Click to copy'),
-              ],
-            ),
-          ],
-        ),
+        // Debug tooltip is rendered by JavaScript fallback script
       ],
     );
   }

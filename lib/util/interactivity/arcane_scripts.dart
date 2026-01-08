@@ -6,6 +6,7 @@ import 'scripts/input/input_scripts.dart';
 import 'scripts/button/button_scripts.dart';
 import 'scripts/navigation/navigation_scripts.dart';
 import 'scripts/dialog/dialog_scripts.dart';
+import 'scripts/view/view_scripts.dart';
 
 /// Fallback JavaScript for Arcane components on static sites.
 class ArcaneScripts {
@@ -82,6 +83,9 @@ class ArcaneScripts {
     bindTimeDialogs();
     bindItemPickers();
     bindChatScreens();
+
+    // Views
+    bindMapDebugMode();
   }
 
   ${SliderScripts.code}
@@ -89,6 +93,7 @@ class ArcaneScripts {
   ${ButtonScripts.code}
   ${NavigationScripts.code}
   ${DialogScripts.code}
+  ${ViewScripts.code}
 })();
 ''';
 }
