@@ -203,8 +203,7 @@ class DocsSidebar extends StatelessComponent {
               _buildNavItem(label: 'SlotCounter', href: '/docs/view/arcane-slot-counter'),
               _buildNavItem(label: 'ArrowLink', href: '/docs/view/arcane-arrow-link'),
               _buildNavItem(label: 'FeatureShowcase', href: '/docs/view/arcane-feature-showcase'),
-              _buildNavItem(label: 'WorldMap', href: '/docs/view/arcane-world-map'),
-              _buildNavItem(label: 'USAMap', href: '/docs/view/arcane-usa-map'),
+              _buildNavItem(label: 'Maps', href: '/docs/view/arcane-world-map'),
             ], defaultOpen: _sectionContainsPath('view')),
 
             // Navigation Components section

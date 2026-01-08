@@ -5,6 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [x.x.x] - Unreleased
+
+### Added
+
+**ArcaneButton CTA Enhancements**
+- Added `ButtonVariant.accent` for gradient background buttons (green-to-cyan in Codex, primary-to-secondary in ShadCN)
+- Added `href` property to render button as anchor tag (`<a>`) for navigation CTAs
+- Added `showArrow` property to display arrow indicator after label
+- Added `ArcaneButton.accent()` named constructor
+- Updated both Codex and ShadCN renderers
+
+**CodexStylesheet Accent Variables**
+- Added `--codex-accent-gradient` CSS variable for gradient backgrounds
+- Added `--codex-accent-glow-medium` CSS variable for button glows
+- Added `--codex-accent-border` CSS variable for accent-colored borders
+- Variables defined for all accent presets (green, red, blue, purple)
+
+**ArcaneCatImage Component**
+- Added `ArcaneCatImage` component for placeholder/testing images using cataas.com API
+- Supports `seed` parameter for consistent random cats
+- Named constructors: `.gif()` for animated cats, `.says()` for text overlay, `.lazy()` for lazy loading
+- Optional `apiWidth` and `apiHeight` parameters for custom dimensions
+
 ## [2.8.0] - Unreleased
 
 ### Changed

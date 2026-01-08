@@ -245,6 +245,7 @@ export 'component/collection/infinite_carousel.dart';
 
 // HTML Wrappers
 export 'component/html/arcane_button.dart';
+export 'component/html/arcane_cat_image.dart';
 export 'component/html/arcane_image.dart';
 export 'component/html/arcane_input.dart';
 export 'component/html/arcane_label.dart';

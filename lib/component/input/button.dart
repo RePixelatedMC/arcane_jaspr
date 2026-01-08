@@ -5,6 +5,9 @@ import '../../core/theme_provider.dart';
 export '../../core/props/button_props.dart' show ButtonVariant, ButtonSize;
 
 /// A styled button component.
+///
+/// Can render as either a `<button>` or `<a>` element depending on whether
+/// [href] is provided. Use [href] for CTA buttons that navigate to other pages.
 class ArcaneButton extends StatelessComponent {
   final String? label;
   final Component? child;
@@ -19,6 +22,14 @@ class ArcaneButton extends StatelessComponent {
   final Map<String, String>? attributes;
   final String? id;
 
+  /// If provided, renders the button as an anchor tag (`<a>`) instead of `<button>`.
+  /// Useful for CTA buttons that navigate to other pages.
+  final String? href;
+
+  /// Whether to show an arrow indicator after the label.
+  /// Useful for CTA buttons to indicate navigation.
+  final bool showArrow;
+
   const ArcaneButton({
     this.label,
     this.child,
@@ -32,6 +43,8 @@ class ArcaneButton extends StatelessComponent {
     this.fullWidth = false,
     this.attributes,
     this.id,
+    this.href,
+    this.showArrow = false,
     super.key,
   });
 
@@ -47,6 +60,8 @@ class ArcaneButton extends StatelessComponent {
     this.fullWidth = false,
     this.attributes,
     this.id,
+    this.href,
+    this.showArrow = false,
     super.key,
   }) : variant = ButtonVariant.primary;
 
@@ -62,6 +77,8 @@ class ArcaneButton extends StatelessComponent {
     this.fullWidth = false,
     this.attributes,
     this.id,
+    this.href,
+    this.showArrow = false,
     super.key,
   }) : variant = ButtonVariant.secondary;
 
@@ -77,6 +94,8 @@ class ArcaneButton extends StatelessComponent {
     this.fullWidth = false,
     this.attributes,
     this.id,
+    this.href,
+    this.showArrow = false,
     super.key,
   }) : variant = ButtonVariant.outline;
 
@@ -92,6 +111,8 @@ class ArcaneButton extends StatelessComponent {
     this.fullWidth = false,
     this.attributes,
     this.id,
+    this.href,
+    this.showArrow = false,
     super.key,
   }) : variant = ButtonVariant.ghost;
 
@@ -107,6 +128,8 @@ class ArcaneButton extends StatelessComponent {
     this.fullWidth = false,
     this.attributes,
     this.id,
+    this.href,
+    this.showArrow = false,
     super.key,
   }) : variant = ButtonVariant.destructive;
 
@@ -122,6 +145,8 @@ class ArcaneButton extends StatelessComponent {
     this.fullWidth = false,
     this.attributes,
     this.id,
+    this.href,
+    this.showArrow = false,
     super.key,
   }) : variant = ButtonVariant.warning;
 
@@ -137,6 +162,8 @@ class ArcaneButton extends StatelessComponent {
     this.fullWidth = false,
     this.attributes,
     this.id,
+    this.href,
+    this.showArrow = false,
     super.key,
   }) : variant = ButtonVariant.success;
 
@@ -152,6 +179,8 @@ class ArcaneButton extends StatelessComponent {
     this.fullWidth = false,
     this.attributes,
     this.id,
+    this.href,
+    this.showArrow = false,
     super.key,
   }) : variant = ButtonVariant.link;
 
@@ -167,8 +196,29 @@ class ArcaneButton extends StatelessComponent {
     this.fullWidth = false,
     this.attributes,
     this.id,
+    this.href,
+    this.showArrow = false,
     super.key,
   }) : variant = ButtonVariant.info;
+
+  /// Accent variant with gradient background.
+  /// Useful for prominent CTA buttons.
+  const ArcaneButton.accent({
+    this.label,
+    this.child,
+    this.icon,
+    this.trailing,
+    this.onPressed,
+    this.size = ButtonSize.medium,
+    this.disabled = false,
+    this.loading = false,
+    this.fullWidth = false,
+    this.attributes,
+    this.id,
+    this.href,
+    this.showArrow = false,
+    super.key,
+  }) : variant = ButtonVariant.accent;
 
   @override
   Component build(BuildContext context) {
@@ -185,6 +235,8 @@ class ArcaneButton extends StatelessComponent {
       fullWidth: fullWidth,
       id: id,
       attributes: attributes,
+      href: href,
+      showArrow: showArrow,
     ));
   }
 }

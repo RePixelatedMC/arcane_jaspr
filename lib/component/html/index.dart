@@ -1,6 +1,7 @@
 library;
 
 export 'arcane_button.dart';
+export 'arcane_cat_image.dart';
 export 'arcane_image.dart';
 export 'arcane_input.dart';
 export 'arcane_label.dart';

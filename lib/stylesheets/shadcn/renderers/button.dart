@@ -91,6 +91,11 @@ class ShadcnButton extends StatelessComponent {
         'color': 'var(--info-foreground, #ffffff)',
         'border': 'none',
       },
+      ButtonVariant.accent => {
+        'background': 'linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%)',
+        'color': 'var(--primary-foreground)',
+        'border': 'none',
+      },
     };
 
     // Size-specific styles
@@ -151,6 +156,43 @@ class ShadcnButton extends StatelessComponent {
 
     if (props.trailing != null && !props.loading) {
       children.add(props.trailing!);
+    }
+
+    // Add arrow indicator if showArrow is true
+    if (props.showArrow && !props.loading) {
+      children.add(dom.span(
+        styles: const dom.Styles(raw: {
+          'margin-left': '0.25rem',
+          'transition': 'transform 150ms ease',
+        }),
+        [Component.text('\u2192')],
+      ));
+    }
+
+    // Render as anchor if href is provided, otherwise as button
+    if (props.href != null) {
+      return dom.a(
+        id: props.id,
+        classes: 'arcane-button',
+        href: props.href!,
+        attributes: {
+          if (isDisabled) 'aria-disabled': 'true',
+          ...?props.attributes,
+        },
+        styles: dom.Styles(raw: {
+          ...allStyles,
+          'text-decoration': 'none',
+        }),
+        events: {
+          if (props.onPressed != null)
+            'click': (event) {
+              if (!isDisabled) {
+                props.onPressed!();
+              }
+            },
+        },
+        children,
+      );
     }
 
     return dom.button(

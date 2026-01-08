@@ -10,6 +10,7 @@ enum ButtonVariant {
   success,
   warning,
   info,
+  accent,
 }
 
 enum ButtonSize {
@@ -36,6 +37,14 @@ class ButtonProps {
   final String? id;
   final Map<String, String>? attributes;
 
+  /// If provided, renders the button as an anchor tag (`<a>`) instead of `<button>`.
+  /// Useful for CTA buttons that navigate to other pages.
+  final String? href;
+
+  /// Whether to show an arrow indicator after the label.
+  /// Useful for CTA buttons to indicate navigation.
+  final bool showArrow;
+
   const ButtonProps({
     this.label,
     this.child,
@@ -49,6 +58,8 @@ class ButtonProps {
     this.fullWidth = false,
     this.id,
     this.attributes,
+    this.href,
+    this.showArrow = false,
   });
 
   ButtonProps copyWith({
@@ -64,6 +75,8 @@ class ButtonProps {
     bool? fullWidth,
     String? id,
     Map<String, String>? attributes,
+    String? href,
+    bool? showArrow,
   }) {
     return ButtonProps(
       label: label ?? this.label,
@@ -78,6 +91,8 @@ class ButtonProps {
       fullWidth: fullWidth ?? this.fullWidth,
       id: id ?? this.id,
       attributes: attributes ?? this.attributes,
+      href: href ?? this.href,
+      showArrow: showArrow ?? this.showArrow,
     );
   }
 }

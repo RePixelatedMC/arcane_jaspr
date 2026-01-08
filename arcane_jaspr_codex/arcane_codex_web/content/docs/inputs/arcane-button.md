@@ -33,6 +33,8 @@ ArcaneButton(
 | `isLoading` | `bool` | `false` | Show loading spinner |
 | `isDisabled` | `bool` | `false` | Disable the button |
 | `fullWidth` | `bool` | `false` | Expand to full width |
+| `href` | `String?` | `null` | If provided, renders as `<a>` tag for navigation |
+| `showArrow` | `bool` | `false` | Show arrow indicator after label |
 | `styles` | `ArcaneStyleData?` | `null` | Custom styling |
 
 ## Variants
@@ -104,6 +106,65 @@ ArcaneButton.link(
   onPressed: () {},
 )
 ```
+
+### Accent Button
+
+Gradient background button for prominent CTAs. Uses the theme's accent gradient colors.
+
+```dart
+ArcaneButton.accent(
+  label: 'Get Started',
+  onPressed: () {},
+)
+```
+
+## CTA (Call-to-Action) Usage
+
+For CTA buttons that navigate to other pages, use the `href` and `showArrow` properties:
+
+### Navigation Button
+
+```dart
+ArcaneButton.primary(
+  label: 'View Plans',
+  href: '/pricing',
+  showArrow: true,
+)
+```
+
+### CTA Examples
+
+```dart
+// Primary CTA with navigation
+ArcaneButton.primary(
+  label: 'Get Started',
+  href: '/signup',
+  showArrow: true,
+  size: ButtonSize.large,
+)
+
+// Secondary CTA (outline style)
+ArcaneButton.outline(
+  label: 'Learn More',
+  href: '/features',
+  showArrow: true,
+)
+
+// Accent gradient CTA
+ArcaneButton.accent(
+  label: 'Start Free Trial',
+  href: '/trial',
+  showArrow: true,
+)
+
+// Ghost CTA (text only)
+ArcaneButton.ghost(
+  label: 'Contact Sales',
+  href: '/contact',
+)
+```
+
+When `href` is provided, the button renders as an `<a>` tag instead of `<button>`, ensuring proper navigation semantics.
 
 ## Sizes
 
