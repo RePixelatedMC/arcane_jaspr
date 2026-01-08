@@ -126,10 +126,10 @@ class LinkMapDemos {
                 overflow: Overflow.hidden,
               ),
               children: [
-                ArcaneWorldMap(
+                ArcaneMap(
+                  type: MapType.world,
                   height: '400px',
                   debugMode: true,
-                  locations: const [],
                 ),
               ],
             ),
@@ -148,7 +148,8 @@ class LinkMapDemos {
                 overflow: Overflow.hidden,
               ),
               children: [
-                ArcaneUSAMap(
+                ArcaneMap(
+                  type: MapType.usa,
                   height: '350px',
                   debugMode: true,
                 ),
@@ -177,7 +178,8 @@ class LinkMapDemos {
                 overflow: Overflow.hidden,
               ),
               children: [
-                ArcaneUSAMap(
+                ArcaneMap(
+                  type: MapType.usa,
                   height: '350px',
                   debugMode: true,
                 ),

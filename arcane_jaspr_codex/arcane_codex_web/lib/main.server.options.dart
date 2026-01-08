@@ -27,9 +27,6 @@ import 'package:arcane_jaspr/component/screen/chat_screen.dart' as _chat_screen;
 import 'package:arcane_jaspr/component/screen/navigation_screen.dart'
     as _navigation_screen;
 import 'package:arcane_jaspr/component/screen/screen.dart' as _screen;
-import 'package:arcane_jaspr/component/view/usa_map/usa_map.dart' as _usa_map;
-import 'package:arcane_jaspr/component/view/world_map/world_map.dart'
-    as _world_map;
 import 'package:arcane_jaspr/component/view/avatar.dart' as _avatar;
 
 /// Default [ServerOptions] for use with your Jaspr project.
@@ -76,8 +73,6 @@ ServerOptions get defaultServerOptions => ServerOptions(
     ..._chat_screen.ArcaneChatScreen.styles,
     ..._navigation_screen.ArcaneResponsiveScaffold.styles,
     ..._screen.ArcaneScreen.styles,
-    ..._usa_map.ArcaneUSAMap.styles,
-    ..._world_map.ArcaneWorldMap.styles,
     ..._avatar.ArcaneAvatarBadge.styles,
   ],
 );

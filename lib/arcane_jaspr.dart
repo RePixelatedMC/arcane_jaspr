@@ -165,12 +165,9 @@ export 'component/view/check_list.dart';
 export 'component/view/switcher.dart';
 export 'component/view/icon.dart';
 export 'component/view/arrow_link.dart';
-export 'component/view/world_map/world_map.dart';
-export 'component/view/world_map/world_map_data.dart';
-export 'component/view/world_map/world_map_paths.dart';
-export 'component/view/usa_map/usa_map.dart';
-export 'component/view/usa_map/usa_map_data.dart';
-export 'component/view/usa_map/usa_map_paths.dart';
+export 'component/view/map/arcane_map.dart';
+export 'component/view/map/paths/world_paths.dart';
+export 'component/view/map/paths/usa_paths.dart';
 
 // Card
 export 'component/card/card.dart';

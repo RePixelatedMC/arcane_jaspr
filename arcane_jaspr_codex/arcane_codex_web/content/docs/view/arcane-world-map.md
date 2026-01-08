@@ -1,41 +1,22 @@
 ---
-title: ArcaneWorldMap & ArcaneUSAMap
-description: Interactive, themeable SVG map components
+title: ArcaneMap
+description: Unified interactive SVG map component
 layout: docs
 component: world-map
 ---
 
-# ArcaneWorldMap & ArcaneUSAMap
+# ArcaneMap
 
-Interactive SVG map components for displaying location markers with hover tooltips and click callbacks. Both maps are fully themeable via CSS variables and support debug mode for coordinate discovery.
+A unified interactive SVG map component supporting both world and USA maps. Display location markers with hover tooltips, region highlighting, and click callbacks. Fully styled with explicit colors and supports debug mode for coordinate discovery.
 
-## Debug Mode
-
-Both maps support a `debugMode` property that displays coordinates on hover and copies them to clipboard on click. This is useful for determining precise lat/lng values for location pins.
+## Basic Usage
 
 ```dart
-ArcaneWorldMap(
-  debugMode: true,
-  locations: const [],
-)
-
-ArcaneUSAMap(
-  debugMode: true,
-)
-```
-
----
-
-## ArcaneWorldMap
-
-An interactive SVG world map for global location visualization.
-
-### Usage
-
-```dart
-ArcaneWorldMap(
+// World map
+ArcaneMap(
+  type: MapType.world,
   locations: [
-    ArcaneMapLocation(
+    MapLocation(
       id: 'nyc',
       name: 'New York',
       latitude: 40.7128,
@@ -43,42 +24,64 @@ ArcaneWorldMap(
       code: 'NYC',
       region: 'North America',
     ),
-    ArcaneMapLocation(
-      id: 'lon',
-      name: 'London',
-      latitude: 51.5074,
-      longitude: -0.1278,
-      code: 'LON',
-      region: 'Europe',
-    ),
   ],
-  onLocationTap: (location) => print('Tapped ${location.name}'),
+)
+
+// USA map
+ArcaneMap(
+  type: MapType.usa,
+  locations: [...],
+  activeRegions: {'CA', 'NY', 'TX'},
 )
 ```
 
-### Properties
+## Debug Mode
+
+Displays coordinates on hover and copies them to clipboard on click. Useful for determining precise lat/lng values for location pins.
+
+```dart
+ArcaneMap(
+  type: MapType.world,
+  debugMode: true,
+)
+
+ArcaneMap(
+  type: MapType.usa,
+  debugMode: true,
+)
+```
+
+---
+
+## Properties
 
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
-| `locations` | `List<ArcaneMapLocation>` | required | Locations to display as pins |
+| `type` | `MapType` | `world` | Map type (`MapType.world` or `MapType.usa`) |
+| `locations` | `List<MapLocation>` | `[]` | Locations to display as pins |
 | `onLocationTap` | `MapLocationCallback?` | null | Callback when pin is clicked |
 | `onLocationHover` | `MapLocationCallback?` | null | Callback when pin is hovered |
-| `tooltipBuilder` | `Component Function(ArcaneMapLocation)?` | null | Custom tooltip builder |
-| `style` | `ArcaneWorldMapStyle` | `ArcaneWorldMapStyle()` | Style configuration |
+| `onRegionTap` | `MapRegionCallback?` | null | Callback when region (state/country) is clicked |
+| `onRegionHover` | `MapRegionCallback?` | null | Callback when region is hovered |
+| `tooltipBuilder` | `Component Function(MapLocation)?` | null | Custom tooltip builder |
+| `style` | `MapStyle` | `MapStyle()` | Style configuration |
 | `showTooltips` | `bool` | `true` | Show tooltips on hover |
+| `activeRegions` | `Set<String>` | `{}` | Set of highlighted region codes |
 | `debugMode` | `bool` | `false` | Show coordinates on hover |
 | `height` | `String?` | null | Custom height |
-| `aspectRatio` | `double` | `2.33` | Aspect ratio (width:height) |
 
-### ArcaneMapLocation
+---
+
+## MapLocation
 
 ```dart
-ArcaneMapLocation(
+MapLocation(
   id: String,           // Unique identifier
   name: String,         // Display name
   latitude: double,     // Latitude (-90 to 90)
   longitude: double,    // Longitude (-180 to 180)
-  region: String?,      // Optional region/country
+  region: String?,      // Optional region name
+  regionCode: String?,  // Optional region code (US, NY, CA)
   code: String?,        // Optional short code (NYC, LHR)
   description: String?, // Optional tooltip description
   metadata: Map?,       // Custom metadata
@@ -86,122 +89,114 @@ ArcaneMapLocation(
 )
 ```
 
+---
+
+## MapStyle
+
+Explicit hex colors for reliable styling across all themes.
+
+```dart
+MapStyle(
+  backgroundColor: '#111827',
+  regionFill: '#374151',
+  regionStroke: '#4b5563',
+  strokeWidth: '0.5',
+  regionHoverFill: '#4b5563',
+  regionActiveFill: '#3b82f6',
+  pinColor: '#3b82f6',
+  pinHoverColor: '#60a5fa',
+  pinActiveColor: '#22c55e',
+  pinSize: 6,
+  pinGlowIntensity: 0.3,
+  pinGlowColor: '#3b82f6',
+  tooltipBackground: '#1e1e2e',
+  tooltipBorder: '#4b5563',
+  tooltipTextColor: '#f8fafc',
+  tooltipSecondaryColor: '#9ca3af',
+)
+```
+
 ### Style Presets
 
 ```dart
-ArcaneWorldMap(
-  style: ArcaneWorldMapStyle.standard,  // Default
-  locations: [...],
+// Dark theme (default)
+ArcaneMap(
+  style: MapStyle.dark,
+  type: MapType.world,
 )
 
-ArcaneWorldMap(
-  style: ArcaneWorldMapStyle.subtle,    // Thinner lines, smaller pins
-  locations: [...],
+// Light theme
+ArcaneMap(
+  style: MapStyle.light,
+  type: MapType.world,
 )
 
-ArcaneWorldMap(
-  style: ArcaneWorldMapStyle.prominent, // Thicker lines, larger pins
-  locations: [...],
+// Subtle (thinner lines, smaller pins)
+ArcaneMap(
+  style: MapStyle.subtle,
+  type: MapType.world,
+)
+
+// Prominent (thicker lines, larger pins)
+ArcaneMap(
+  style: MapStyle.prominent,
+  type: MapType.world,
 )
 ```
 
 ---
 
-## ArcaneUSAMap
+## Region Highlighting
 
-An interactive SVG map of the United States with state highlighting and location pins.
-
-### Usage
+Highlight specific regions (states for USA, countries for world):
 
 ```dart
-ArcaneUSAMap(
-  locations: [
-    ArcaneUSAMapLocation(
-      id: 'nyc',
-      name: 'New York City',
-      latitude: 40.7128,
-      longitude: -74.0060,
-      code: 'NYC',
-      state: 'NY',
-    ),
-    ArcaneUSAMapLocation(
-      id: 'lax',
-      name: 'Los Angeles',
-      latitude: 34.0522,
-      longitude: -118.2437,
-      code: 'LAX',
-      state: 'CA',
-    ),
-  ],
-  activeStates: {'CA', 'NY', 'TX'},
-  onLocationTap: (location) => print('Tapped ${location.name}'),
-  onStateTap: (stateCode) => print('Tapped $stateCode'),
+// USA states
+ArcaneMap(
+  type: MapType.usa,
+  activeRegions: {'CA', 'TX', 'NY', 'FL'},
+)
+
+// World countries (ISO 2-letter codes)
+ArcaneMap(
+  type: MapType.world,
+  activeRegions: {'US', 'GB', 'DE', 'JP'},
 )
 ```
 
-### Properties
+---
 
-| Property | Type | Default | Description |
-|----------|------|---------|-------------|
-| `locations` | `List<ArcaneUSAMapLocation>` | `[]` | Locations to display as pins |
-| `onLocationTap` | `USAMapLocationCallback?` | null | Callback when pin is clicked |
-| `onLocationHover` | `USAMapLocationCallback?` | null | Callback when pin is hovered |
-| `onStateTap` | `USAMapStateCallback?` | null | Callback when state is clicked |
-| `onStateHover` | `USAMapStateCallback?` | null | Callback when state is hovered |
-| `tooltipBuilder` | `Component Function(ArcaneUSAMapLocation)?` | null | Custom tooltip builder |
-| `style` | `ArcaneUSAMapStyle` | `ArcaneUSAMapStyle()` | Style configuration |
-| `showTooltips` | `bool` | `true` | Show tooltips on hover |
-| `activeStates` | `Set<String>` | `{}` | Set of highlighted state codes |
-| `showStateBorders` | `bool` | `true` | Show state border lines |
-| `debugMode` | `bool` | `false` | Show coordinates on hover |
-| `height` | `String?` | null | Custom height |
-| `aspectRatio` | `double` | `1.70` | Aspect ratio (width:height) |
-
-### ArcaneUSAMapLocation
+## Region Callbacks
 
 ```dart
-ArcaneUSAMapLocation(
-  id: String,           // Unique identifier
-  name: String,         // Display name
-  latitude: double,     // Latitude coordinate
-  longitude: double,    // Longitude coordinate
-  state: String?,       // State code (NY, CA, TX)
-  code: String?,        // Optional short code (NYC, LAX)
-  description: String?, // Optional tooltip description
-  metadata: Map?,       // Custom metadata
-  isActive: bool,       // Highlighted state
+ArcaneMap(
+  type: MapType.usa,
+  onRegionTap: (region) {
+    print('Tapped ${region.name} (${region.code})');
+  },
+  onRegionHover: (region) {
+    print('Hovering ${region.name}');
+  },
 )
 ```
 
-### State Highlighting
+---
 
-```dart
-ArcaneUSAMap(
-  activeStates: {'CA', 'TX', 'NY', 'FL'},
-  locations: [...],
-)
-```
-
-### Style Presets
-
-```dart
-ArcaneUSAMap(
-  style: ArcaneUSAMapStyle.standard,  // Default
-  locations: [...],
-)
-
-ArcaneUSAMap(
-  style: ArcaneUSAMapStyle.subtle,    // Thinner lines, smaller pins
-  locations: [...],
-)
-
-ArcaneUSAMap(
-  style: ArcaneUSAMapStyle.prominent, // Thicker lines, larger pins
-  locations: [...],
-)
-```
-
-### Available State Codes
+## Available State Codes (USA)
 
 All 50 US states plus DC:
 `AL`, `AK`, `AZ`, `AR`, `CA`, `CO`, `CT`, `DE`, `DC`, `FL`, `GA`, `HI`, `ID`, `IL`, `IN`, `IA`, `KS`, `KY`, `LA`, `ME`, `MD`, `MA`, `MI`, `MN`, `MS`, `MO`, `MT`, `NE`, `NV`, `NH`, `NJ`, `NM`, `NY`, `NC`, `ND`, `OH`, `OK`, `OR`, `PA`, `RI`, `SC`, `SD`, `TN`, `TX`, `UT`, `VT`, `VA`, `WA`, `WV`, `WI`, `WY`
+
+---
+
+## Map Dimensions
+
+### World Map
+- SVG Size: 2000 x 857
+- Aspect Ratio: 2.33
+- Projection: Equirectangular (83N to 60S)
+
+### USA Map
+- SVG Size: 1000 x 589
+- Aspect Ratio: 1.70
+- Projection: Linear interpolation

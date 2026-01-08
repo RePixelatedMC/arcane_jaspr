@@ -1,7 +1,7 @@
 /// Map debug mode interactivity scripts.
 ///
 /// Handles coordinate display on hover and clipboard copy on click
-/// for ArcaneWorldMap and ArcaneUSAMap components in debug mode.
+/// for ArcaneMap components in debug mode.
 class MapScripts {
   MapScripts._();
 
@@ -12,67 +12,18 @@ class MapScripts {
     document.querySelectorAll('.arcane-world-map[data-debug-mode="true"]').forEach(function(map) {
       if (map.dataset.arcaneMapDebugBound) return;
       map.dataset.arcaneMapDebugBound = 'true';
-      bindMapDebug(map, 2000, 857, 83, -60, 360, 143);
+      bindMapDebug(map, 2000, 857, 83, -60, 360, 143, 'world');
     });
 
     // USA Map debug mode
     document.querySelectorAll('.arcane-usa-map[data-debug-mode="true"]').forEach(function(map) {
       if (map.dataset.arcaneMapDebugBound) return;
       map.dataset.arcaneMapDebugBound = 'true';
-      bindUSAMapDebug(map, 1000, 589);
+      bindMapDebug(map, 1000, 589, 50, 25, 58, 25, 'usa');
     });
   }
 
-  function bindMapDebug(map, mapWidth, mapHeight, latMax, latMin, lngRange, latRange) {
-    var tooltip = createMapDebugTooltip();
-    map.appendChild(tooltip);
-    map.style.cursor = 'crosshair';
-
-    var currentSvgX = 0;
-    var currentSvgY = 0;
-
-    map.addEventListener('mousemove', function(e) {
-      var rect = map.getBoundingClientRect();
-      var relX = (e.clientX - rect.left) / rect.width;
-      var relY = (e.clientY - rect.top) / rect.height;
-
-      currentSvgX = relX * mapWidth;
-      currentSvgY = relY * mapHeight;
-
-      // Convert SVG coords to lat/lng (world map projection)
-      var lng = (currentSvgX / mapWidth) * lngRange - 180;
-      var lat = latMax - (currentSvgY / mapHeight) * latRange;
-
-      updateMapDebugTooltip(tooltip, lat, lng, currentSvgX, currentSvgY, relX * 100, relY * 100);
-    });
-
-    map.addEventListener('mouseleave', function() {
-      tooltip.style.opacity = '0';
-      tooltip.style.visibility = 'hidden';
-    });
-
-    map.addEventListener('click', function(e) {
-      // Recalculate in case mouse moved
-      var rect = map.getBoundingClientRect();
-      var relX = (e.clientX - rect.left) / rect.width;
-      var relY = (e.clientY - rect.top) / rect.height;
-
-      var svgX = relX * mapWidth;
-      var svgY = relY * mapHeight;
-
-      var lng = (svgX / mapWidth) * lngRange - 180;
-      var lat = latMax - (svgY / mapHeight) * latRange;
-
-      var coordText = lat.toFixed(4) + ', ' + lng.toFixed(4);
-      navigator.clipboard.writeText(coordText).then(function() {
-        showCopiedFeedback(tooltip);
-      }).catch(function(err) {
-        console.warn('[Arcane] Clipboard write failed:', err);
-      });
-    });
-  }
-
-  function bindUSAMapDebug(map, mapWidth, mapHeight) {
+  function bindMapDebug(map, mapWidth, mapHeight, latMax, latMin, lngRange, latRange, mapType) {
     var tooltip = createMapDebugTooltip();
     map.appendChild(tooltip);
     map.style.cursor = 'crosshair';
@@ -85,9 +36,16 @@ class MapScripts {
       var svgX = relX * mapWidth;
       var svgY = relY * mapHeight;
 
-      // USA map projection inverse
-      var lng = ((svgX - 50) / 900) * 58 - 125;
-      var lat = 50 - ((svgY - 50) / 450) * 25;
+      var lat, lng;
+      if (mapType === 'usa') {
+        // USA map projection inverse
+        lng = ((svgX - 50) / 900) * 58 - 125;
+        lat = 50 - ((svgY - 50) / 450) * 25;
+      } else {
+        // World map projection (equirectangular)
+        lng = (svgX / mapWidth) * lngRange - 180;
+        lat = latMax - (svgY / mapHeight) * latRange;
+      }
 
       updateMapDebugTooltip(tooltip, lat, lng, svgX, svgY, relX * 100, relY * 100);
     });
@@ -105,8 +63,14 @@ class MapScripts {
       var svgX = relX * mapWidth;
       var svgY = relY * mapHeight;
 
-      var lng = ((svgX - 50) / 900) * 58 - 125;
-      var lat = 50 - ((svgY - 50) / 450) * 25;
+      var lat, lng;
+      if (mapType === 'usa') {
+        lng = ((svgX - 50) / 900) * 58 - 125;
+        lat = 50 - ((svgY - 50) / 450) * 25;
+      } else {
+        lng = (svgX / mapWidth) * lngRange - 180;
+        lat = latMax - (svgY / mapHeight) * latRange;
+      }
 
       var coordText = lat.toFixed(4) + ', ' + lng.toFixed(4);
       navigator.clipboard.writeText(coordText).then(function() {

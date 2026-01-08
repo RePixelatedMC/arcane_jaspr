@@ -15,25 +15,25 @@ import 'renderers/codex_renderers.dart';
 ///
 /// The light mode uses soft whites and grays with vibrant accents for a fresh, energetic look.
 class CodexStylesheet extends ArcaneStylesheet {
-/// The accent theme to use. Defaults to green.
-final CodexAccent accent;
+  /// The accent theme to use. Defaults to green.
+  final CodexAccent accent;
 
-const CodexStylesheet({this.accent = CodexAccent.green});
+  const CodexStylesheet({this.accent = CodexAccent.green});
 
-@override
-String get id => 'codex';
+  @override
+  String get id => 'codex';
 
-@override
-String get name => 'Codex';
+  @override
+  String get name => 'Codex';
 
-@override
-ComponentRenderers get renderers => const CodexRenderers();
+  @override
+  ComponentRenderers get renderers => const CodexRenderers();
 
-@override
-List<String> get externalCssUrls => const [];
+  @override
+  List<String> get externalCssUrls => const [];
 
-@override
-String get baseCss => '''
+  @override
+  String get baseCss => '''
 /* Codex Theme - Neon Gaming Aesthetic */
 
 /* Font Face Declarations */
@@ -232,9 +232,9 @@ String get baseCss => '''
   --codex-accent-rgb: 16, 185, 129;
   --codex-accent-secondary: #059669; /* Darker green */
   --codex-accent-secondary-rgb: 5, 150, 105;
-  --codex-accent-gradient: linear-gradient(135deg, #10b981 0%, #0891b2 100%);
-  --codex-accent-glow-medium: 0 0 20px rgba(16, 185, 129, 0.3);
-  --codex-accent-border: rgba(16, 185, 129, 0.25);
+  --codex-accent-gradient: linear-gradient(135deg, var(--codex-accent) 0%, var(--codex-accent-secondary) 100%);
+  --codex-accent-glow-medium: 0 0 20px rgba(var(--codex-accent-rgb), 0.3);
+  --codex-accent-border: rgba(var(--codex-accent-rgb), 0.25);
 }
 
 .codex-red {
@@ -242,9 +242,9 @@ String get baseCss => '''
   --codex-accent-rgb: 239, 68, 68;
   --codex-accent-secondary: #dc2626; /* Darker red */
   --codex-accent-secondary-rgb: 220, 38, 38;
-  --codex-accent-gradient: linear-gradient(135deg, #ef4444 0%, #f97316 100%);
-  --codex-accent-glow-medium: 0 0 20px rgba(239, 68, 68, 0.3);
-  --codex-accent-border: rgba(239, 68, 68, 0.25);
+  --codex-accent-gradient: linear-gradient(135deg, var(--codex-accent) 0%, var(--codex-accent-secondary) 100%);
+  --codex-accent-glow-medium: 0 0 20px rgba(var(--codex-accent-rgb), 0.3);
+  --codex-accent-border: rgba(var(--codex-accent-rgb), 0.25);
 }
 
 .codex-blue {
@@ -252,9 +252,9 @@ String get baseCss => '''
   --codex-accent-rgb: 59, 130, 246;
   --codex-accent-secondary: #2563eb; /* Darker blue */
   --codex-accent-secondary-rgb: 37, 99, 235;
-  --codex-accent-gradient: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
-  --codex-accent-glow-medium: 0 0 20px rgba(59, 130, 246, 0.3);
-  --codex-accent-border: rgba(59, 130, 246, 0.25);
+  --codex-accent-gradient: linear-gradient(135deg, var(--codex-accent) 0%, var(--codex-accent-secondary) 100%);
+  --codex-accent-glow-medium: 0 0 20px rgba(var(--codex-accent-rgb), 0.3);
+  --codex-accent-border: rgba(var(--codex-accent-rgb), 0.25);
 }
 
 .codex-purple {
@@ -262,9 +262,9 @@ String get baseCss => '''
   --codex-accent-rgb: 139, 92, 246;
   --codex-accent-secondary: #7c3aed; /* Darker purple */
   --codex-accent-secondary-rgb: 124, 58, 237;
-  --codex-accent-gradient: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
-  --codex-accent-glow-medium: 0 0 20px rgba(139, 92, 246, 0.3);
-  --codex-accent-border: rgba(139, 92, 246, 0.25);
+  --codex-accent-gradient: linear-gradient(135deg, var(--codex-accent) 0%, var(--codex-accent-secondary) 100%);
+  --codex-accent-glow-medium: 0 0 20px rgba(var(--codex-accent-rgb), 0.3);
+  --codex-accent-border: rgba(var(--codex-accent-rgb), 0.25);
 }
 
 /* CSS Variables - Light Mode (default) */
@@ -725,13 +725,13 @@ label {
 
 /// Available accent themes for Codex.
 enum CodexAccent {
-green,
-red,
-blue,
-purple,
+  green,
+  red,
+  blue,
+  purple,
 }
 
 /// Extension to get CSS class name for accent.
 extension CodexAccentExtension on CodexAccent {
-String get cssClass => 'codex-$name';
+  String get cssClass => 'codex-\$name';
 }
