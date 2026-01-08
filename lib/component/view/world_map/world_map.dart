@@ -74,9 +74,10 @@ class _ArcaneWorldMapState extends State<ArcaneWorldMap> {
   Component build(BuildContext context) {
     final style = component.style;
 
-    final landFill = style.landFill ?? 'var(--muted)';
-    final landStroke = style.landStroke ?? 'var(--border)';
-    final oceanFill = style.oceanFill ?? 'var(--background)';
+    // Use explicit fallback colors for visibility
+    final landFill = style.landFill ?? 'var(--muted, #374151)';
+    final landStroke = style.landStroke ?? 'var(--border, #4b5563)';
+    final oceanFill = style.oceanFill ?? 'var(--background, #111827)';
 
     return Component.element(
       tag: 'div',

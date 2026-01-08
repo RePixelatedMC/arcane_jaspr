@@ -103,9 +103,10 @@ class _ArcaneUSAMapState extends State<ArcaneUSAMap> {
   Component build(BuildContext context) {
     final style = component.style;
 
-    final stateFill = style.stateFill ?? 'var(--muted)';
-    final stateStroke = style.stateStroke ?? 'var(--border)';
-    final backgroundFill = style.backgroundFill ?? 'var(--background)';
+    // Use explicit fallback colors for visibility
+    final stateFill = style.stateFill ?? 'var(--muted, #374151)';
+    final stateStroke = style.stateStroke ?? 'var(--border, #4b5563)';
+    final backgroundFill = style.backgroundFill ?? 'var(--background, #111827)';
 
     return Component.element(
       tag: 'div',

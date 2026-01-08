@@ -123,12 +123,12 @@ class MapScripts {
     tooltip.style.cssText = 'position: absolute; z-index: 9999; pointer-events: none; opacity: 0; visibility: hidden; transition: opacity 150ms ease;';
 
     var inner = document.createElement('div');
-    inner.style.cssText = 'background: var(--surface, #1e1e2e); border: 1px solid var(--border, #333); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); padding: 8px 12px;';
+    inner.style.cssText = 'background: #1e1e2e; border: 1px solid #4b5563; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); padding: 10px 14px;';
 
-    inner.innerHTML = '<div class="debug-lat" style="font-size: 12px; font-family: monospace; color: var(--foreground, #f8fafc); white-space: nowrap;">Lat: 0.0000</div>' +
-      '<div class="debug-lng" style="font-size: 12px; font-family: monospace; color: var(--foreground, #f8fafc); white-space: nowrap;">Lng: 0.0000</div>' +
-      '<div class="debug-svg" style="font-size: 12px; font-family: monospace; color: var(--muted-foreground, #888); white-space: nowrap; margin-top: 4px;">SVG: 0, 0</div>' +
-      '<div class="debug-hint" style="font-size: 12px; color: var(--primary, #3b82f6); margin-top: 4px;">Click to copy</div>';
+    inner.innerHTML = '<div class="debug-lat" style="font-size: 13px; font-family: ui-monospace, monospace; color: #f8fafc; white-space: nowrap; font-weight: 500;">Lat: 0.0000</div>' +
+      '<div class="debug-lng" style="font-size: 13px; font-family: ui-monospace, monospace; color: #f8fafc; white-space: nowrap; font-weight: 500;">Lng: 0.0000</div>' +
+      '<div class="debug-svg" style="font-size: 11px; font-family: ui-monospace, monospace; color: #9ca3af; white-space: nowrap; margin-top: 6px;">SVG: 0, 0</div>' +
+      '<div class="debug-hint" style="font-size: 11px; color: #60a5fa; margin-top: 6px; font-weight: 500;">Click to copy</div>';
 
     tooltip.appendChild(inner);
     return tooltip;
@@ -155,10 +155,10 @@ class MapScripts {
     if (hint) {
       var original = hint.textContent;
       hint.textContent = 'Copied!';
-      hint.style.color = 'var(--success, #22c55e)';
+      hint.style.color = '#22c55e';
       setTimeout(function() {
         hint.textContent = original;
-        hint.style.color = 'var(--primary, #3b82f6)';
+        hint.style.color = '#60a5fa';
       }, 1500);
     }
   }
