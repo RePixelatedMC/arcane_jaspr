@@ -41,14 +41,14 @@ class CodexBottomNavigationBar extends StatelessComponent {
         'flex-direction': 'column',
         'align-items': 'center',
         'justify-content': 'center',
-        'gap': 'var(--arcane-space-1)',
+        'gap': 'var(--space-1)',
         'flex': '1',
         'padding': '0.5rem',
         'background': 'none',
         'border': 'none',
         'cursor': 'pointer',
         'color': isSelected
-            ? 'var(--codex-accent)'
+            ? 'var(--primary)'
             : 'var(--muted-foreground)',
         'transition': 'color var(--arcane-transition)',
       }),
@@ -77,7 +77,7 @@ class CodexBottomNavigationBar extends StatelessComponent {
                   'height': '16px',
                   'padding': '0 4px',
                   'font-size': '0.625rem',
-                  'font-weight': 'var(--arcane-font-weight-semibold)',
+                  'font-weight': 'var(--font-weight-semibold)',
                   'color': '#ffffff',
                   'background-color': 'var(--destructive)',
                   'border-radius': 'var(--arcane-radius-full)',

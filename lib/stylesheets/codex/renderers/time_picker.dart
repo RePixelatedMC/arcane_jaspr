@@ -37,15 +37,15 @@ class CodexTimePicker extends StatelessComponent {
         'position': 'relative',
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': 'var(--arcane-space-2)',
+        'gap': 'var(--space-2)',
       }),
       [
         // Label
         if (props.label != null)
           dom.span(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-sm)',
-              'font-weight': 'var(--arcane-font-weight-medium)',
+              'font-size': 'var(--font-size-sm)',
+              'font-weight': 'var(--font-weight-medium)',
               'color': 'var(--foreground)',
             }),
             [Component.text(props.label!)],
@@ -133,7 +133,7 @@ class CodexTimePicker extends StatelessComponent {
               'background': 'var(--card)',
               'border': '1px solid var(--border)',
               'border-radius': 'var(--radius)',
-              'box-shadow': '0 0 30px rgba(var(--codex-accent-rgb), 0.1)',
+              'box-shadow': '0 0 30px rgba(var(--primary-rgb), 0.1)',
               'padding': '1.25rem',
               'min-width': '300px',
             }),
@@ -173,13 +173,13 @@ class CodexTimePicker extends StatelessComponent {
                       styles: const dom.Styles(raw: {
                         'display': 'flex',
                         'flex-direction': 'column',
-                        'gap': 'var(--arcane-space-2)',
+                        'gap': 'var(--space-2)',
                       }),
                       [
                         const dom.span(
                           styles: dom.Styles(raw: {
-                            'font-size': 'var(--arcane-font-size-xs)',
-                            'font-weight': 'var(--arcane-font-weight-medium)',
+                            'font-size': 'var(--font-size-xs)',
+                            'font-weight': 'var(--font-weight-medium)',
                             'color': 'var(--muted-foreground)',
                             'text-transform': 'uppercase',
                             'margin-bottom': '0.5rem',
@@ -193,10 +193,10 @@ class CodexTimePicker extends StatelessComponent {
                             'padding': '0.625rem 1.25rem',
                             'border': 'none',
                             'border-radius': 'var(--radius)',
-                            'background': !props.isPM ? 'var(--codex-accent)' : 'transparent',
+                            'background': !props.isPM ? 'var(--primary)' : 'transparent',
                             'color': !props.isPM ? '#ffffff' : 'var(--foreground)',
                             'cursor': 'pointer',
-                            'font-size': 'var(--arcane-font-size-sm)',
+                            'font-size': 'var(--font-size-sm)',
                             'transition': 'all var(--arcane-transition)',
                           }),
                           events: {
@@ -213,10 +213,10 @@ class CodexTimePicker extends StatelessComponent {
                             'padding': '0.625rem 1.25rem',
                             'border': 'none',
                             'border-radius': 'var(--radius)',
-                            'background': props.isPM ? 'var(--codex-accent)' : 'transparent',
+                            'background': props.isPM ? 'var(--primary)' : 'transparent',
                             'color': props.isPM ? '#ffffff' : 'var(--foreground)',
                             'cursor': 'pointer',
-                            'font-size': 'var(--arcane-font-size-sm)',
+                            'font-size': 'var(--font-size-sm)',
                             'transition': 'all var(--arcane-transition)',
                           }),
                           events: {
@@ -251,7 +251,7 @@ class CodexTimePicker extends StatelessComponent {
                       'background': 'transparent',
                       'color': 'var(--foreground)',
                       'cursor': 'pointer',
-                      'font-size': 'var(--arcane-font-size-sm)',
+                      'font-size': 'var(--font-size-sm)',
                     }),
                     events: {
                       'click': (_) => props.onCancel?.call(),
@@ -264,10 +264,10 @@ class CodexTimePicker extends StatelessComponent {
                       'padding': '0.625rem 1.25rem',
                       'border': 'none',
                       'border-radius': 'var(--radius)',
-                      'background': 'var(--codex-accent)',
+                      'background': 'var(--primary)',
                       'color': '#ffffff',
                       'cursor': 'pointer',
-                      'font-size': 'var(--arcane-font-size-sm)',
+                      'font-size': 'var(--font-size-sm)',
                     }),
                     events: {
                       'click': (_) => props.onConfirm?.call(),
@@ -283,7 +283,7 @@ class CodexTimePicker extends StatelessComponent {
         if (props.error != null)
           dom.span(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-sm)',
+              'font-size': 'var(--font-size-sm)',
               'color': 'var(--destructive)',
             }),
             [Component.text(props.error!)],
@@ -303,13 +303,13 @@ class CodexTimePicker extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': 'var(--arcane-space-2)',
+        'gap': 'var(--space-2)',
       }),
       [
         dom.span(
           styles: const dom.Styles(raw: {
-            'font-size': 'var(--arcane-font-size-xs)',
-            'font-weight': 'var(--arcane-font-weight-medium)',
+            'font-size': 'var(--font-size-xs)',
+            'font-weight': 'var(--font-weight-medium)',
             'color': 'var(--muted-foreground)',
             'text-transform': 'uppercase',
             'margin-bottom': '0.5rem',
@@ -333,10 +333,10 @@ class CodexTimePicker extends StatelessComponent {
                   'padding': '0.375rem 1.25rem',
                   'border': 'none',
                   'border-radius': 'var(--radius)',
-                  'background': value == selectedValue ? 'var(--codex-accent)' : 'transparent',
+                  'background': value == selectedValue ? 'var(--primary)' : 'transparent',
                   'color': value == selectedValue ? '#ffffff' : 'var(--foreground)',
                   'cursor': 'pointer',
-                  'font-size': 'var(--arcane-font-size-sm)',
+                  'font-size': 'var(--font-size-sm)',
                   'text-align': 'center',
                   'min-width': '52px',
                   'transition': 'all var(--arcane-transition)',

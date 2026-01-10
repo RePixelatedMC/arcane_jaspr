@@ -113,8 +113,8 @@ class CodexAuthBackLink extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'inline-flex',
         'align-items': 'center',
-        'gap': 'var(--arcane-space-2)',
-        'font-size': 'var(--arcane-font-size-sm)',
+        'gap': 'var(--space-2)',
+        'font-size': 'var(--font-size-sm)',
         'color': 'var(--muted-foreground)',
         'text-decoration': 'none',
         'transition': 'color var(--arcane-transition)',
@@ -123,7 +123,7 @@ class CodexAuthBackLink extends StatelessComponent {
         // Arrow icon
         const dom.span(
           styles: dom.Styles(raw: {
-            'font-size': 'var(--arcane-font-size-base)',
+            'font-size': 'var(--font-size-base)',
           }),
           [Component.text('<-')],
         ),

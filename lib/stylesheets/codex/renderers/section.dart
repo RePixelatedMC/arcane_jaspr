@@ -41,8 +41,8 @@ class CodexSection extends StatelessComponent {
               else
                 dom.h2(
                   styles: const dom.Styles(raw: {
-                    'font-size': 'var(--arcane-font-size-lg)',
-                    'font-weight': 'var(--arcane-font-weight-semibold)',
+                    'font-size': 'var(--font-size-lg)',
+                    'font-weight': 'var(--font-weight-semibold)',
                     'color': 'var(--foreground)',
                     'margin': '0',
                   }),

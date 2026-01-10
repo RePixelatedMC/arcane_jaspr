@@ -53,7 +53,7 @@ class _CodexExpanderState extends State<CodexExpander> {
           styles: const dom.Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
-            'gap': 'var(--arcane-space-4)',
+            'gap': 'var(--space-4)',
             'width': '100%',
             'padding': '1.25rem 1.75rem',
             'background-color': 'var(--card)',

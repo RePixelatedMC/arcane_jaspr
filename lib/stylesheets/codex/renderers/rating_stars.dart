@@ -25,7 +25,7 @@ class CodexRatingStarsSimple extends StatelessComponent {
             styles: dom.Styles(raw: {
               'font-size': '${props.size}px',
               'color': i < props.rating
-                  ? 'var(--codex-accent)'
+                  ? 'var(--primary)'
                   : 'var(--muted-foreground)',
               if (props.interactive) 'cursor': 'pointer',
             }),

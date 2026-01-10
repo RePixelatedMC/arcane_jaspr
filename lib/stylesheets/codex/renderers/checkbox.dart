@@ -33,9 +33,9 @@ class CodexCheckbox extends StatelessComponent {
     // Codex uses accent color for primary variant
     final (String checkedBg, String borderColor, String glowColor) = switch (props.variant) {
       CheckboxVariant.primary => (
-          'var(--codex-accent)',
-          'var(--codex-accent)',
-          'var(--codex-accent-glow-subtle)',
+          'var(--primary)',
+          'var(--primary)',
+          '0 0 15px rgba(var(--primary-rgb), 0.2)',
         ),
       CheckboxVariant.success => (
           'var(--success)',
@@ -104,7 +104,7 @@ class CodexCheckbox extends StatelessComponent {
                 styles: dom.Styles(raw: {
                   'color': checkColor,
                   'font-size': checkSize,
-                  'font-weight': 'var(--arcane-font-weight-bold)',
+                  'font-weight': 'var(--font-weight-bold)',
                   'line-height': '1',
                 }),
                 [const Component.text('\u2713')],
@@ -121,8 +121,8 @@ class CodexCheckbox extends StatelessComponent {
               if (props.label != null)
                 dom.span(
                   styles: const dom.Styles(raw: {
-                    'font-size': 'var(--arcane-font-size-sm)',
-                    'font-weight': 'var(--arcane-font-weight-medium)',
+                    'font-size': 'var(--font-size-sm)',
+                    'font-weight': 'var(--font-weight-medium)',
                     'color': 'var(--foreground)',
                     'display': 'block',
                     'line-height': '1.25',
@@ -132,7 +132,7 @@ class CodexCheckbox extends StatelessComponent {
               if (props.description != null)
                 dom.span(
                   styles: const dom.Styles(raw: {
-                    'font-size': 'var(--arcane-font-size-sm)',
+                    'font-size': 'var(--font-size-sm)',
                     'color': 'var(--muted-foreground)',
                     'display': 'block',
                     'margin-top': '0.375rem', // Codex: slightly more gap

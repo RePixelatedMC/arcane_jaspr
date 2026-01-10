@@ -43,8 +43,8 @@ class CodexCodeSnippet extends StatelessComponent {
               // Title/language
               dom.span(
                 styles: const dom.Styles(raw: {
-                  'font-size': 'var(--arcane-font-size-xs)',
-                  'font-weight': 'var(--arcane-font-weight-medium)',
+                  'font-size': 'var(--font-size-xs)',
+                  'font-weight': 'var(--font-weight-medium)',
                   'color': 'var(--muted-foreground)',
                   'text-transform': 'uppercase',
                   'letter-spacing': '0.05em',
@@ -68,7 +68,7 @@ class CodexCodeSnippet extends StatelessComponent {
                     'background-color': 'var(--secondary)',
                     'border': '1px solid var(--border)',
                     'border-radius': 'var(--radius-sm)',
-                    'font-size': 'var(--arcane-font-size-xs)',
+                    'font-size': 'var(--font-size-xs)',
                     'color': 'var(--muted-foreground)',
                     'cursor': 'pointer',
                     'transition': 'all var(--transition)',
@@ -167,7 +167,7 @@ class CodexInlineCode extends StatelessComponent {
         'font-size': '0.875em',
         'background-color': 'var(--secondary)',
         'border-radius': 'var(--radius-xs)',
-        'color': 'var(--codex-accent)',
+        'color': 'var(--primary)',
       }),
       [Component.text(props.code)],
     );
@@ -197,7 +197,7 @@ class CodexTerminal extends StatelessComponent {
           styles: const dom.Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
-            'gap': 'var(--arcane-space-2)',
+            'gap': 'var(--space-2)',
             'padding': '0.75rem 1rem',
             'background-color': '#0a0a0a',
             'border-bottom': '1px solid var(--border)',
@@ -207,7 +207,7 @@ class CodexTerminal extends StatelessComponent {
             dom.div(
               styles: const dom.Styles(raw: {
                 'display': 'flex',
-                'gap': 'var(--arcane-space-2)',
+                'gap': 'var(--space-2)',
               }),
               [
                 _buildDot('#ff5f56'), // Red
@@ -222,7 +222,7 @@ class CodexTerminal extends StatelessComponent {
                 styles: const dom.Styles(raw: {
                   'margin-left': 'auto',
                   'margin-right': 'auto',
-                  'font-size': 'var(--arcane-font-size-xs)',
+                  'font-size': 'var(--font-size-xs)',
                   'color': 'var(--muted-foreground)',
                 }),
                 [Component.text(props.title!)],
@@ -238,7 +238,7 @@ class CodexTerminal extends StatelessComponent {
                   'padding': '0.25rem 0.5rem',
                   'background': 'transparent',
                   'border': 'none',
-                  'font-size': 'var(--arcane-font-size-xs)',
+                  'font-size': 'var(--font-size-xs)',
                   'color': 'var(--muted-foreground)',
                   'cursor': 'pointer',
                 }),
@@ -268,7 +268,7 @@ class CodexTerminal extends StatelessComponent {
                   // Prompt
                   dom.span(
                     styles: const dom.Styles(raw: {
-                      'color': 'var(--codex-accent)',
+                      'color': 'var(--primary)',
                       'user-select': 'none',
                     }),
                     [Component.text(props.prompt)],

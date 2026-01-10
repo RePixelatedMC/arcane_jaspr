@@ -44,8 +44,8 @@ class ShadcnAuthBrandingPanel extends StatelessComponent {
         // Tagline
         dom.div(
           styles: const dom.Styles(raw: {
-            'font-size': 'var(--arcane-font-size-3xl)',
-            'font-weight': 'var(--arcane-font-weight-bold)',
+            'font-size': 'var(--font-size-3xl)',
+            'font-weight': 'var(--font-weight-bold)',
             'color': 'var(--foreground)',
             'margin-bottom': '0.75rem',
             'line-height': '1.25',
@@ -58,7 +58,7 @@ class ShadcnAuthBrandingPanel extends StatelessComponent {
         if (props.description != null)
           dom.div(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-base)',
+              'font-size': 'var(--font-size-base)',
               'color': 'var(--muted-foreground)',
               'margin-bottom': '2rem',
               'line-height': '1.625',
@@ -72,7 +72,7 @@ class ShadcnAuthBrandingPanel extends StatelessComponent {
             styles: const dom.Styles(raw: {
               'display': 'flex',
               'flex-direction': 'column',
-              'gap': 'var(--arcane-space-3)',
+              'gap': 'var(--space-3)',
               'margin-bottom': '3rem',
             }),
             [
@@ -113,7 +113,7 @@ class ShadcnAuthBrandingPanel extends StatelessComponent {
         // Feature text
         dom.div(
           styles: const dom.Styles(raw: {
-            'font-size': 'var(--arcane-font-size-sm)',
+            'font-size': 'var(--font-size-sm)',
             'color': 'var(--foreground)',
             'line-height': '1.5',
           }),
@@ -136,7 +136,7 @@ class ShadcnAuthBrandingPanel extends StatelessComponent {
         // Quote
         dom.div(
           styles: const dom.Styles(raw: {
-            'font-size': 'var(--arcane-font-size-sm)',
+            'font-size': 'var(--font-size-sm)',
             'color': 'var(--foreground)',
             'margin-bottom': '1rem',
             'line-height': '1.625',
@@ -163,8 +163,8 @@ class ShadcnAuthBrandingPanel extends StatelessComponent {
                   'display': 'flex',
                   'align-items': 'center',
                   'justify-content': 'center',
-                  'font-size': 'var(--arcane-font-size-sm)',
-                  'font-weight': 'var(--arcane-font-weight-semibold)',
+                  'font-size': 'var(--font-size-sm)',
+                  'font-weight': 'var(--font-weight-semibold)',
                   'color': 'var(--accent-foreground)',
                 }),
                 [Component.text(props.testimonialAuthor![0].toUpperCase())],
@@ -173,8 +173,8 @@ class ShadcnAuthBrandingPanel extends StatelessComponent {
                 [
                   dom.div(
                     styles: const dom.Styles(raw: {
-                      'font-size': 'var(--arcane-font-size-sm)',
-                      'font-weight': 'var(--arcane-font-weight-semibold)',
+                      'font-size': 'var(--font-size-sm)',
+                      'font-weight': 'var(--font-weight-semibold)',
                       'color': 'var(--foreground)',
                     }),
                     [Component.text(props.testimonialAuthor!)],
@@ -182,7 +182,7 @@ class ShadcnAuthBrandingPanel extends StatelessComponent {
                   if (props.testimonialTitle != null)
                     dom.div(
                       styles: const dom.Styles(raw: {
-                        'font-size': 'var(--arcane-font-size-xs)',
+                        'font-size': 'var(--font-size-xs)',
                         'color': 'var(--muted-foreground)',
                       }),
                       [Component.text(props.testimonialTitle!)],

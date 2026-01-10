@@ -55,14 +55,14 @@ class CodexMenubar extends StatelessComponent {
             'align-items': 'center',
             'border-radius': 'var(--radius-sm)',
             'padding': '8px 14px',
-            'font-size': 'var(--arcane-font-size-sm)',
-            'font-weight': 'var(--arcane-font-weight-medium)',
+            'font-size': 'var(--font-size-sm)',
+            'font-weight': 'var(--font-weight-medium)',
             'outline': 'none',
             'border': 'none',
             'background-color':
-                isOpen ? 'rgba(var(--codex-accent-rgb), 0.15)' : 'transparent',
+                isOpen ? 'rgba(var(--primary-rgb), 0.15)' : 'transparent',
             'color': isOpen
-                ? 'var(--codex-accent)'
+                ? 'var(--primary)'
                 : 'var(--foreground)',
             'transition': 'background-color var(--arcane-transition), color var(--arcane-transition)',
           }),
@@ -89,7 +89,7 @@ class CodexMenubar extends StatelessComponent {
               'background-color': 'var(--card)',
               'border': '1px solid var(--border)',
               'border-radius': 'var(--radius)',
-              'box-shadow': '0 0 30px rgba(var(--codex-accent-rgb), 0.1)',
+              'box-shadow': '0 0 30px rgba(var(--primary-rgb), 0.1)',
               'color': 'var(--foreground)',
             }),
             [for (final item in menu.items) _buildMenuItem(item)],
@@ -129,7 +129,7 @@ class CodexMenubar extends StatelessComponent {
         'border-radius': 'var(--radius-sm)',
         'padding': '8px 10px',
         'padding-left': item.isCheckbox ? '36px' : '10px',
-        'font-size': 'var(--arcane-font-size-sm)',
+        'font-size': 'var(--font-size-sm)',
         'outline': 'none',
         'transition': 'background-color var(--arcane-transition), color var(--arcane-transition)',
         if (item.disabled) 'pointer-events': 'none',
@@ -145,8 +145,8 @@ class CodexMenubar extends StatelessComponent {
             styles: dom.Styles(raw: {
               'position': 'absolute',
               'left': '10px',
-              'color': 'var(--codex-accent)',
-              'font-size': 'var(--arcane-font-size-xs)',
+              'color': 'var(--primary)',
+              'font-size': 'var(--font-size-xs)',
             }),
             [Component.text('\u{2713}')],
           ),
@@ -162,7 +162,7 @@ class CodexMenubar extends StatelessComponent {
           dom.span(
             styles: const dom.Styles(raw: {
               'margin-left': 'auto',
-              'font-size': 'var(--arcane-font-size-xs)',
+              'font-size': 'var(--font-size-xs)',
               'letter-spacing': '0.1em',
               'color': 'var(--muted-foreground)',
             }),

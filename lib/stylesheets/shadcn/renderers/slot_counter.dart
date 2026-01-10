@@ -156,7 +156,7 @@ class _ShadcnSlotCounterState extends State<ShadcnSlotCounter> {
         'display': 'inline-flex',
         'flex-direction': 'column',
         'align-items': 'center',
-        'gap': 'var(--arcane-space-1)',
+        'gap': 'var(--space-1)',
       }),
       [
         // Value row
@@ -164,7 +164,7 @@ class _ShadcnSlotCounterState extends State<ShadcnSlotCounter> {
           styles: dom.Styles(raw: {
             'display': 'inline-flex',
             'align-items': 'baseline',
-            'gap': 'var(--arcane-space-1)',
+            'gap': 'var(--space-1)',
             if (component.props.monospace) 'font-family': 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
           }),
           [

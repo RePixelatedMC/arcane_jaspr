@@ -65,8 +65,8 @@ class ShadcnAccordion extends StatelessComponent {
             'border': 'none',
             'text-align': 'left',
             // ShadCN: font-medium
-            'font-size': 'var(--arcane-font-size-sm)',
-            'font-weight': 'var(--arcane-font-weight-medium)',
+            'font-size': 'var(--font-size-sm)',
+            'font-weight': 'var(--font-weight-medium)',
             'color': 'var(--foreground)',
             'cursor': 'pointer',
             // ShadCN: transition-all
@@ -117,7 +117,7 @@ class ShadcnAccordion extends StatelessComponent {
                 // ShadCN: pb-4 pt-0
                 'padding-bottom': '16px',
                 // ShadCN: text-sm
-                'font-size': 'var(--arcane-font-size-sm)',
+                'font-size': 'var(--font-size-sm)',
                 'line-height': '1.625',
                 'color': 'var(--muted-foreground)',
               }),

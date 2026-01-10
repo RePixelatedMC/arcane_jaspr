@@ -100,7 +100,7 @@ class ShadcnAlert extends StatelessComponent {
               'align-items': 'center',
               'justify-content': 'center',
               'color': isSolid ? 'var(--primary-foreground)' : primary,
-              'font-size': 'var(--arcane-font-size-base)',
+              'font-size': 'var(--font-size-base)',
               'margin-top': '1px',
             }),
             [props.icon ?? Component.text(_defaultIcon)],
@@ -119,7 +119,7 @@ class ShadcnAlert extends StatelessComponent {
               dom.div(
                 classes: 'arcane-alert-title',
                 styles: dom.Styles(raw: {
-                  'font-weight': 'var(--arcane-font-weight-medium)',
+                  'font-weight': 'var(--font-weight-medium)',
                   'line-height': '1',
                   'letter-spacing': '-0.025em',
                   'color': isSolid ? 'var(--primary-foreground)' : 'var(--foreground)',
@@ -132,7 +132,7 @@ class ShadcnAlert extends StatelessComponent {
               dom.div(
                 classes: 'arcane-alert-description',
                 styles: dom.Styles(raw: {
-                  'font-size': 'var(--arcane-font-size-sm)',
+                  'font-size': 'var(--font-size-sm)',
                   'line-height': '1.625',
                   'color': isSolid ? 'var(--primary-foreground)' : 'var(--muted-foreground)',
                 }),
@@ -172,7 +172,7 @@ class ShadcnAlert extends StatelessComponent {
               'border-radius': 'var(--arcane-radius-xs)', // rounded-sm
               'opacity': '0.7',
               'transition': 'opacity var(--arcane-transition)',
-              'font-size': 'var(--arcane-font-size-base)',
+              'font-size': 'var(--font-size-base)',
             }),
             events: {'click': (_) => props.onDismiss?.call()},
             [const Component.text('\u00D7')], // ×

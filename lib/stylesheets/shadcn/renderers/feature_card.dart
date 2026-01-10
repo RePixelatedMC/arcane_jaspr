@@ -46,9 +46,9 @@ class ShadcnFeatureCard extends StatelessComponent {
             styles: const dom.Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
-              'gap': 'var(--arcane-space-2)',
-              'font-size': 'var(--arcane-font-size-lg)',
-              'font-weight': 'var(--arcane-font-weight-semibold)',
+              'gap': 'var(--space-2)',
+              'font-size': 'var(--font-size-lg)',
+              'font-weight': 'var(--font-weight-semibold)',
               'color': 'var(--foreground)',
               'margin-bottom': '0.5rem',
             }),
@@ -69,7 +69,7 @@ class ShadcnFeatureCard extends StatelessComponent {
           dom.p(
             classes: 'arcane-feature-card-description',
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-base)',
+              'font-size': 'var(--font-size-base)',
               'line-height': '1.7',
               'color': 'var(--muted-foreground)',
               'margin': '0',
@@ -156,8 +156,8 @@ class ShadcnIconCard extends StatelessComponent {
       dom.span(
         classes: 'arcane-icon-card-title',
         styles: const dom.Styles(raw: {
-          'font-size': 'var(--arcane-font-size-base)',
-          'font-weight': 'var(--arcane-font-weight-medium)',
+          'font-size': 'var(--font-size-base)',
+          'font-weight': 'var(--font-weight-medium)',
           'color': 'var(--foreground)',
         }),
         [Component.text(props.title)],
@@ -166,7 +166,7 @@ class ShadcnIconCard extends StatelessComponent {
         dom.span(
           classes: 'arcane-icon-card-subtitle',
           styles: const dom.Styles(raw: {
-            'font-size': 'var(--arcane-font-size-sm)',
+            'font-size': 'var(--font-size-sm)',
             'color': 'var(--muted-foreground)',
             'margin-top': '0.25rem',
           }),

@@ -94,7 +94,7 @@ class ShadcnCalendar extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': 'var(--arcane-space-2)',
+        'gap': 'var(--space-2)',
         'padding': '12px',
         'background-color': 'var(--card)',
         'border': '1px solid var(--border)',
@@ -108,7 +108,7 @@ class ShadcnCalendar extends StatelessComponent {
             'display': 'flex',
             'align-items': 'center',
             'justify-content': 'space-between',
-            'gap': 'var(--arcane-space-2)',
+            'gap': 'var(--space-2)',
           }),
           [
             dom.button(
@@ -137,8 +137,8 @@ class ShadcnCalendar extends StatelessComponent {
             ),
             dom.span(
               styles: const dom.Styles(raw: {
-                'font-weight': 'var(--arcane-font-weight-semibold)',
-                'font-size': 'var(--arcane-font-size-sm)',
+                'font-weight': 'var(--font-weight-semibold)',
+                'font-size': 'var(--font-size-sm)',
                 'color': 'var(--foreground)',
               }),
               [Component.text('${_months[displayMonth.month - 1]} ${displayMonth.year}')],
@@ -192,8 +192,8 @@ class ShadcnCalendar extends StatelessComponent {
                   'align-items': 'center',
                   'justify-content': 'center',
                   'height': '32px',
-                  'font-size': 'var(--arcane-font-size-xs)',
-                  'font-weight': 'var(--arcane-font-weight-medium)',
+                  'font-size': 'var(--font-size-xs)',
+                  'font-weight': 'var(--font-weight-medium)',
                   'color': 'var(--muted-foreground)',
                 }),
                 [Component.text(day)],
@@ -220,7 +220,7 @@ class ShadcnCalendar extends StatelessComponent {
                     'justify-content': 'center',
                     'width': '32px',
                     'height': '32px',
-                    'font-size': 'var(--arcane-font-size-xs)',
+                    'font-size': 'var(--font-size-xs)',
                     'color': 'var(--muted-foreground)',
                   }),
                   [Component.text('${_getWeekNumber(days[i])}')],
@@ -288,7 +288,7 @@ class ShadcnCalendar extends StatelessComponent {
             : isInRange
                 ? 'var(--accent)'
                 : 'transparent',
-        'font-size': 'var(--arcane-font-size-sm)',
+        'font-size': 'var(--font-size-sm)',
         'color': isSelected
             ? 'var(--primary-foreground)'
             : isOutside

@@ -35,17 +35,17 @@ class _ShadcnCycleButtonState<T> extends State<ShadcnCycleButton<T>> {
       CycleButtonSize.small => {
           'height': '2rem',
           'padding': '0 0.75rem',
-          'font-size': 'var(--arcane-font-size-sm)',
+          'font-size': 'var(--font-size-sm)',
         },
       CycleButtonSize.medium => {
           'height': '2.5rem',
           'padding': '0 1rem',
-          'font-size': 'var(--arcane-font-size-sm)',
+          'font-size': 'var(--font-size-sm)',
         },
       CycleButtonSize.large => {
           'height': '2.75rem',
           'padding': '0 2rem',
-          'font-size': 'var(--arcane-font-size-base)',
+          'font-size': 'var(--font-size-base)',
         },
       CycleButtonSize.icon => {
           'height': '2.5rem',
@@ -113,9 +113,9 @@ class _ShadcnCycleButtonState<T> extends State<ShadcnCycleButton<T>> {
         'display': 'inline-flex',
         'align-items': 'center',
         'justify-content': 'center',
-        'gap': 'var(--arcane-space-2)',
+        'gap': 'var(--space-2)',
         ...sizeStyles,
-        'font-weight': 'var(--arcane-font-weight-medium)',
+        'font-weight': 'var(--font-weight-medium)',
         'border-radius': 'var(--arcane-radius-sm)',
         ...variantStyles,
         'cursor': props.disabled ? 'not-allowed' : 'pointer',
@@ -161,17 +161,17 @@ class ShadcnToggleButton extends StatelessComponent {
       CycleButtonSize.small => {
           'height': '2rem',
           'padding': '0 0.75rem',
-          'font-size': 'var(--arcane-font-size-sm)',
+          'font-size': 'var(--font-size-sm)',
         },
       CycleButtonSize.medium => {
           'height': '2.5rem',
           'padding': '0 1rem',
-          'font-size': 'var(--arcane-font-size-sm)',
+          'font-size': 'var(--font-size-sm)',
         },
       CycleButtonSize.large => {
           'height': '2.75rem',
           'padding': '0 2rem',
-          'font-size': 'var(--arcane-font-size-base)',
+          'font-size': 'var(--font-size-base)',
         },
       CycleButtonSize.icon => {
           'height': '2.5rem',
@@ -203,9 +203,9 @@ class ShadcnToggleButton extends StatelessComponent {
         'display': 'inline-flex',
         'align-items': 'center',
         'justify-content': 'center',
-        'gap': 'var(--arcane-space-2)',
+        'gap': 'var(--space-2)',
         ...sizeStyles,
-        'font-weight': 'var(--arcane-font-weight-medium)',
+        'font-weight': 'var(--font-weight-medium)',
         'border-radius': 'var(--arcane-radius-sm)',
         // Active: primary background, inactive: muted background with border
         'background-color': props.value ? 'var(--primary)' : 'var(--muted)',

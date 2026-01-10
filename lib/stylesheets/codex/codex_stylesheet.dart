@@ -54,9 +54,9 @@ class CodexStylesheet extends ArcaneStylesheet {
         // Same accent in dark mode
         primary: accent.color,
         background: 0xFF000000, // OLED black
-        // Dark gray secondary/accent
-        secondary: 0xFF111827,
-        accent: 0xFF111827,
+        // Neutral dark gray secondary/accent (no blue tint)
+        secondary: 0xFF1a1a1a,
+        accent: 0xFF1a1a1a,
         // Darker semantic colors for dark mode
         destructive: 0xFF7f1d1d,
         success: 0xFF166534,

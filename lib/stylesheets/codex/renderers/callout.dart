@@ -20,27 +20,27 @@ class CodexCallout extends StatelessComponent {
     final (String borderColor, String bgColor, String textColor, String iconChar) =
         switch (props.variant) {
       CalloutVariant.info => (
-          'var(--codex-info)',
+          'var(--info)',
           'rgba(30, 64, 175, 0.1)',
-          'var(--codex-info)',
+          'var(--info)',
           'i',
         ),
       CalloutVariant.success => (
-          'var(--codex-success)',
+          'var(--success)',
           'rgba(22, 101, 52, 0.1)',
-          'var(--codex-success)',
+          'var(--success)',
           '!',
         ),
       CalloutVariant.warning => (
-          'var(--codex-warning)',
+          'var(--warning)',
           'rgba(146, 64, 14, 0.1)',
-          'var(--codex-warning)',
+          'var(--warning)',
           '!',
         ),
       CalloutVariant.error => (
-          'var(--codex-destructive)',
+          'var(--destructive)',
           'rgba(153, 27, 27, 0.1)',
-          'var(--codex-destructive)',
+          'var(--destructive)',
           'x',
         ),
       CalloutVariant.neutral => (
@@ -50,14 +50,14 @@ class CodexCallout extends StatelessComponent {
           '*',
         ),
       CalloutVariant.tip => (
-          'var(--codex-accent)',
-          'rgba(var(--codex-accent-rgb), 0.1)',
-          'var(--codex-accent)',
+          'var(--primary)',
+          'rgba(var(--primary-rgb), 0.1)',
+          'var(--primary)',
           '*',
         ),
       CalloutVariant.note => (
-          'var(--codex-accent)',
-          'rgba(var(--codex-accent-rgb), 0.08)',
+          'var(--primary)',
+          'rgba(var(--primary-rgb), 0.08)',
           'var(--foreground)',
           'i',
         ),
@@ -67,7 +67,7 @@ class CodexCallout extends StatelessComponent {
       classes: 'codex-callout codex-callout-${props.variant.name}',
       styles: dom.Styles(raw: {
         'display': 'flex',
-        'gap': 'var(--arcane-space-4)', // Codex: larger gap
+        'gap': 'var(--space-4)', // Codex: larger gap
         'padding': '1.25rem', // Codex: larger padding
         'background-color': bgColor,
         'border-left': '3px solid $borderColor',
@@ -85,7 +85,7 @@ class CodexCallout extends StatelessComponent {
               'width': '24px',
               'height': '24px',
               'color': textColor,
-              'font-weight': 'var(--arcane-font-weight-semibold)',
+              'font-weight': 'var(--font-weight-semibold)',
               'flex-shrink': '0',
             }),
             [props.icon ?? Component.text(iconChar)],
@@ -107,7 +107,7 @@ class CodexCallout extends StatelessComponent {
                 classes: 'codex-callout-title',
                 styles: dom.Styles(raw: {
                   'font-size': '0.9375rem',
-                  'font-weight': 'var(--arcane-font-weight-semibold)',
+                  'font-weight': 'var(--font-weight-semibold)',
                   'color': textColor,
                 }),
                 [Component.text(props.title!)],
@@ -118,7 +118,7 @@ class CodexCallout extends StatelessComponent {
               dom.div(
                 classes: 'codex-callout-text',
                 styles: const dom.Styles(raw: {
-                  'font-size': 'var(--arcane-font-size-sm)',
+                  'font-size': 'var(--font-size-sm)',
                   'color': 'var(--muted-foreground)',
                   'line-height': '1.6',
                 }),

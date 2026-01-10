@@ -40,7 +40,7 @@ class ShadcnSocialIcon extends StatelessComponent {
         if (props.showBackground) 'background': 'var(--muted)',
         'color': iconColor,
         'font-size': 'calc(${props.size} * 0.5)',
-        'font-weight': 'var(--arcane-font-weight-semibold)',
+        'font-weight': 'var(--font-weight-semibold)',
         'transition': 'all var(--arcane-transition)',
         'cursor': 'pointer',
       }),
@@ -124,10 +124,10 @@ class ShadcnSocialLinks extends StatelessComponent {
             styles: const dom.Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
-              'gap': 'var(--arcane-space-2)',
+              'gap': 'var(--space-2)',
               'text-decoration': 'none',
               'color': 'var(--muted-foreground)',
-              'font-size': 'var(--arcane-font-size-sm)',
+              'font-size': 'var(--font-size-sm)',
               'transition': 'all var(--arcane-transition)',
             }),
             [

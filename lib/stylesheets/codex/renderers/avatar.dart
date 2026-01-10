@@ -95,7 +95,7 @@ class CodexAvatar extends StatelessComponent {
               dom.span(
                 styles: dom.Styles(raw: {
                   'font-size': fontSize,
-                  'font-weight': 'var(--arcane-font-weight-semibold)',
+                  'font-weight': 'var(--font-weight-semibold)',
                   'color': 'var(--muted-foreground)',
                   'text-transform': 'uppercase',
                   'user-select': 'none',

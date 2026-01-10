@@ -52,7 +52,7 @@ class ShadcnMeter extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': 'var(--arcane-space-1)',
+        'gap': 'var(--space-1)',
         'width': '100%',
       }),
       [
@@ -71,7 +71,7 @@ class ShadcnMeter extends StatelessComponent {
                 dom.span(
                   styles: const dom.Styles(raw: {
                     'color': 'var(--foreground)',
-                    'font-weight': 'var(--arcane-font-weight-medium)',
+                    'font-weight': 'var(--font-weight-medium)',
                   }),
                   [Component.text(props.label!)],
                 ),
@@ -79,7 +79,7 @@ class ShadcnMeter extends StatelessComponent {
                 dom.span(
                   styles: dom.Styles(raw: {
                     'color': _barColor,
-                    'font-weight': 'var(--arcane-font-weight-semibold)',
+                    'font-weight': 'var(--font-weight-semibold)',
                   }),
                   [Component.text('${props.value.toStringAsFixed(0)}${props.valueSuffix ?? ''}')],
                 ),
@@ -164,7 +164,7 @@ class ShadcnMeter extends StatelessComponent {
         'display': 'flex',
         'flex-direction': 'column',
         'align-items': 'center',
-        'gap': 'var(--arcane-space-2)',
+        'gap': 'var(--space-2)',
       }),
       [
         dom.div(
@@ -229,7 +229,7 @@ class ShadcnMeter extends StatelessComponent {
                   'left': '50%',
                   'transform': 'translate(-50%, -50%)',
                   'font-size': fontSize,
-                  'font-weight': 'var(--arcane-font-weight-semibold)',
+                  'font-weight': 'var(--font-weight-semibold)',
                   'color': 'var(--foreground)',
                 }),
                 [Component.text('${props.value.toStringAsFixed(0)}${props.valueSuffix ?? ''}')],

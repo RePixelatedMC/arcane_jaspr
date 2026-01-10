@@ -16,8 +16,8 @@ class CodexGradientText extends StatelessComponent {
     if (props.gradient != null) {
       backgroundGradient = props.gradient!;
     } else {
-      final start = props.gradientStart ?? 'var(--codex-accent)';
-      final end = props.gradientEnd ?? 'var(--codex-accent-secondary)';
+      final start = props.gradientStart ?? 'var(--primary)';
+      final end = props.gradientEnd ?? 'var(--accent)';
       final angle = props.gradientAngle ?? '135deg';
       backgroundGradient = 'linear-gradient($angle, $start 0%, $end 100%)';
     }
@@ -51,7 +51,7 @@ class CodexAnimatedGradientText extends StatelessComponent {
         'font-size': props.fontSize,
         'font-weight': props.fontWeight,
         'background':
-            'linear-gradient(135deg, var(--codex-accent) 0%, var(--codex-accent-secondary) 25%, var(--muted-foreground) 50%, var(--codex-accent-secondary) 75%, var(--codex-accent) 100%)',
+            'linear-gradient(135deg, var(--primary) 0%, var(--accent) 25%, var(--muted-foreground) 50%, var(--accent) 75%, var(--primary) 100%)',
         'background-size': '200% 200%',
         '-webkit-background-clip': 'text',
         'background-clip': 'text',
@@ -71,7 +71,7 @@ class CodexGlowText extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final color = props.glowColor ?? 'var(--codex-accent)';
+    final color = props.glowColor ?? 'var(--primary)';
     final intensity = props.intensity;
 
     return dom.span(
@@ -96,7 +96,7 @@ class CodexOutlineText extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final stroke = props.strokeColor ?? 'var(--codex-accent)';
+    final stroke = props.strokeColor ?? 'var(--primary)';
     final fill = props.fillColor ?? 'transparent';
 
     return dom.span(

@@ -48,8 +48,8 @@ class CodexRadioGroup<T> extends StatelessComponent {
           dom.div(
             classes: 'codex-radio-group-label',
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-sm)',
-              'font-weight': 'var(--arcane-font-weight-medium)',
+              'font-size': 'var(--font-size-sm)',
+              'font-weight': 'var(--font-weight-medium)',
               'color': 'var(--foreground)',
               'margin-bottom': '0.75rem', // Codex: more margin
             }),
@@ -81,7 +81,7 @@ class CodexRadioGroup<T> extends StatelessComponent {
           dom.div(
             classes: 'codex-radio-group-error',
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-xs)',
+              'font-size': 'var(--font-size-xs)',
               'color': 'var(--destructive)',
               'margin-top': '0.5rem',
             }),
@@ -91,7 +91,7 @@ class CodexRadioGroup<T> extends StatelessComponent {
           dom.div(
             classes: 'codex-radio-group-helper',
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-xs)',
+              'font-size': 'var(--font-size-xs)',
               'color': 'var(--muted-foreground)',
               'margin-top': '0.5rem',
             }),
@@ -135,7 +135,7 @@ class CodexRadioGroup<T> extends StatelessComponent {
             'height': '20px',
             'border-radius': 'var(--arcane-radius-full)',
             'border': isSelected
-                ? '2px solid var(--codex-accent)'
+                ? '2px solid var(--primary)'
                 : '2px solid var(--border)',
             'background-color': 'transparent',
             'display': 'flex',
@@ -144,7 +144,7 @@ class CodexRadioGroup<T> extends StatelessComponent {
             'flex-shrink': '0',
             'transition': 'all var(--transition)',
             // Codex: subtle glow when selected
-            if (isSelected) 'box-shadow': 'var(--codex-accent-glow-subtle)',
+            if (isSelected) 'box-shadow': '0 0 15px rgba(var(--primary-rgb), 0.2)',
           }),
           [
             if (isSelected)
@@ -153,7 +153,7 @@ class CodexRadioGroup<T> extends StatelessComponent {
                   'width': '10px',
                   'height': '10px',
                   'border-radius': 'var(--arcane-radius-full)',
-                  'background-color': 'var(--codex-accent)',
+                  'background-color': 'var(--primary)',
                 }),
                 [],
               ),
@@ -168,14 +168,14 @@ class CodexRadioGroup<T> extends StatelessComponent {
               styles: const dom.Styles(raw: {
                 'display': 'flex',
                 'align-items': 'center',
-                'gap': 'var(--arcane-space-2)',
+                'gap': 'var(--space-2)',
               }),
               [
                 if (option.icon != null) option.icon!,
                 dom.span(
                   styles: const dom.Styles(raw: {
-                    'font-size': 'var(--arcane-font-size-sm)',
-                    'font-weight': 'var(--arcane-font-weight-medium)',
+                    'font-size': 'var(--font-size-sm)',
+                    'font-weight': 'var(--font-weight-medium)',
                     'color': 'var(--foreground)',
                   }),
                   [Component.text(option.label)],
@@ -185,7 +185,7 @@ class CodexRadioGroup<T> extends StatelessComponent {
             if (option.description != null)
               dom.span(
                 styles: const dom.Styles(raw: {
-                  'font-size': 'var(--arcane-font-size-xs)',
+                  'font-size': 'var(--font-size-xs)',
                   'color': 'var(--muted-foreground)',
                   'margin-top': '0.25rem',
                   'display': 'block',
@@ -207,16 +207,16 @@ class CodexRadioGroup<T> extends StatelessComponent {
         'gap': '0.75rem',
         'padding': '1rem 1.25rem', // Codex: more padding
         'background-color': isSelected
-            ? 'rgba(var(--codex-accent-rgb), 0.1)'
+            ? 'rgba(var(--primary-rgb), 0.1)'
             : 'var(--card)',
         'border': isSelected
-            ? '1px solid var(--codex-accent)'
+            ? '1px solid var(--primary)'
             : '1px solid var(--border)',
         'border-radius': 'var(--radius)',
         'cursor': isDisabled ? 'not-allowed' : 'pointer',
         'transition': 'all var(--transition)',
         // Codex: subtle glow when selected
-        if (isSelected) 'box-shadow': 'var(--codex-accent-glow-subtle)',
+        if (isSelected) 'box-shadow': '0 0 15px rgba(var(--primary-rgb), 0.2)',
       }),
       events: isDisabled
           ? null
@@ -225,7 +225,7 @@ class CodexRadioGroup<T> extends StatelessComponent {
         if (option.icon != null)
           dom.div(
             styles: dom.Styles(raw: {
-              'color': isSelected ? 'var(--codex-accent)' : 'var(--muted-foreground)',
+              'color': isSelected ? 'var(--primary)' : 'var(--muted-foreground)',
             }),
             [option.icon!],
           ),
@@ -234,16 +234,16 @@ class CodexRadioGroup<T> extends StatelessComponent {
           [
             dom.div(
               styles: dom.Styles(raw: {
-                'font-size': 'var(--arcane-font-size-sm)',
-                'font-weight': 'var(--arcane-font-weight-medium)',
-                'color': isSelected ? 'var(--codex-accent)' : 'var(--foreground)',
+                'font-size': 'var(--font-size-sm)',
+                'font-weight': 'var(--font-weight-medium)',
+                'color': isSelected ? 'var(--primary)' : 'var(--foreground)',
               }),
               [Component.text(option.label)],
             ),
             if (option.description != null)
               dom.div(
                 styles: const dom.Styles(raw: {
-                  'font-size': 'var(--arcane-font-size-xs)',
+                  'font-size': 'var(--font-size-xs)',
                   'color': 'var(--muted-foreground)',
                   'margin-top': '0.25rem',
                 }),
@@ -266,18 +266,18 @@ class CodexRadioGroup<T> extends StatelessComponent {
         'display': 'inline-flex',
         'align-items': 'center',
         'justify-content': 'center',
-        'gap': 'var(--arcane-space-2)',
+        'gap': 'var(--space-2)',
         'padding': '0.625rem 1rem', // Codex: more padding
-        'background-color': isSelected ? 'var(--codex-accent)' : 'transparent',
+        'background-color': isSelected ? 'var(--primary)' : 'transparent',
         'color': isSelected ? '#ffffff' : 'var(--foreground)',
         'border': isSelected ? 'none' : '1px solid var(--border)',
         'border-radius': 'var(--radius-md)',
-        'font-size': 'var(--arcane-font-size-sm)',
-        'font-weight': 'var(--arcane-font-weight-medium)',
+        'font-size': 'var(--font-size-sm)',
+        'font-weight': 'var(--font-weight-medium)',
         'cursor': isDisabled ? 'not-allowed' : 'pointer',
         'transition': 'all var(--transition)',
         // Codex: glow when selected
-        if (isSelected) 'box-shadow': 'var(--codex-accent-glow-medium)',
+        if (isSelected) 'box-shadow': '0 0 20px rgba(var(--primary-rgb), 0.3)',
       }),
       events: isDisabled
           ? null
@@ -302,16 +302,16 @@ class CodexRadioGroup<T> extends StatelessComponent {
         'gap': '0.375rem',
         'padding': '0.375rem 0.875rem',
         'background-color': isSelected
-            ? 'var(--codex-accent)'
+            ? 'var(--primary)'
             : 'var(--secondary)',
         'color': isSelected ? '#ffffff' : 'var(--foreground)',
         'border': 'none',
         'border-radius': 'var(--arcane-radius-full)',
-        'font-size': 'var(--arcane-font-size-xs)',
-        'font-weight': 'var(--arcane-font-weight-medium)',
+        'font-size': 'var(--font-size-xs)',
+        'font-weight': 'var(--font-weight-medium)',
         'cursor': isDisabled ? 'not-allowed' : 'pointer',
         'transition': 'all var(--transition)',
-        if (isSelected) 'box-shadow': 'var(--codex-accent-glow-subtle)',
+        if (isSelected) 'box-shadow': '0 0 15px rgba(var(--primary-rgb), 0.2)',
       }),
       events: isDisabled
           ? null

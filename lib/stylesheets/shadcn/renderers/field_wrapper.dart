@@ -18,7 +18,7 @@ class ShadcnFieldWrapper extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': 'var(--arcane-space-1)',
+        'gap': 'var(--space-1)',
         'width': '100%',
       }),
       [
@@ -29,7 +29,7 @@ class ShadcnFieldWrapper extends StatelessComponent {
             styles: const dom.Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
-              'gap': 'var(--arcane-space-2)',
+              'gap': 'var(--space-2)',
             }),
             [
               if (props.leading != null) props.leading!,
@@ -39,7 +39,7 @@ class ShadcnFieldWrapper extends StatelessComponent {
                     'color': hasError
                         ? 'var(--destructive)'
                         : 'var(--muted-foreground)',
-                    'font-size': 'var(--arcane-font-size-base)',
+                    'font-size': 'var(--font-size-base)',
                   }),
                   [Component.text(props.icon!)],
                 ),
@@ -47,8 +47,8 @@ class ShadcnFieldWrapper extends StatelessComponent {
                 dom.label(
                   classes: 'arcane-field-label',
                   styles: dom.Styles(raw: {
-                    'font-size': 'var(--arcane-font-size-sm)',
-                    'font-weight': 'var(--arcane-font-weight-medium)',
+                    'font-size': 'var(--font-size-sm)',
+                    'font-weight': 'var(--font-weight-medium)',
                     'color': hasError
                         ? 'var(--destructive)'
                         : 'var(--foreground)',
@@ -74,7 +74,7 @@ class ShadcnFieldWrapper extends StatelessComponent {
           dom.div(
             classes: 'arcane-field-description',
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-xs)',
+              'font-size': 'var(--font-size-xs)',
               'color': 'var(--muted-foreground)',
               'line-height': '1.625',
             }),
@@ -97,8 +97,8 @@ class ShadcnFieldWrapper extends StatelessComponent {
             styles: const dom.Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
-              'gap': 'var(--arcane-space-1)',
-              'font-size': 'var(--arcane-font-size-xs)',
+              'gap': 'var(--space-1)',
+              'font-size': 'var(--font-size-xs)',
               'color': 'var(--destructive)',
             }),
             [
@@ -137,8 +137,8 @@ class ShadcnFormSection extends StatelessComponent {
               if (props.title != null)
                 dom.div(
                   styles: dom.Styles(raw: {
-                    'font-size': 'var(--arcane-font-size-base)',
-                    'font-weight': 'var(--arcane-font-weight-semibold)',
+                    'font-size': 'var(--font-size-base)',
+                    'font-weight': 'var(--font-weight-semibold)',
                     'color': 'var(--foreground)',
                     'margin-bottom': props.description != null ? '0.25rem' : '0',
                   }),
@@ -147,7 +147,7 @@ class ShadcnFormSection extends StatelessComponent {
               if (props.description != null)
                 dom.div(
                   styles: const dom.Styles(raw: {
-                    'font-size': 'var(--arcane-font-size-sm)',
+                    'font-size': 'var(--font-size-sm)',
                     'color': 'var(--muted-foreground)',
                     'line-height': '1.625',
                   }),

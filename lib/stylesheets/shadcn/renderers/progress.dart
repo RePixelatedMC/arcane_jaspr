@@ -134,8 +134,8 @@ class ShadcnCircularProgress extends StatelessComponent {
             if (props.showPercentage)
               dom.span(
                 styles: const dom.Styles(raw: {
-                  'font-size': 'var(--arcane-font-size-xl)',
-                  'font-weight': 'var(--arcane-font-weight-bold)',
+                  'font-size': 'var(--font-size-xl)',
+                  'font-weight': 'var(--font-weight-bold)',
                   'color': 'var(--foreground)',
                 }),
                 [Component.text('$percent%')],
@@ -143,7 +143,7 @@ class ShadcnCircularProgress extends StatelessComponent {
             if (props.label != null)
               dom.span(
                 styles: const dom.Styles(raw: {
-                  'font-size': 'var(--arcane-font-size-sm)',
+                  'font-size': 'var(--font-size-sm)',
                   'color': 'var(--muted-foreground)',
                 }),
                 [Component.text(props.label!)],

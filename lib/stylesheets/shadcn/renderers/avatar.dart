@@ -77,7 +77,7 @@ class ShadcnAvatar extends StatelessComponent {
             'border-radius': borderRadius,
             'background-color': 'var(--muted)',
             'color': 'var(--muted-foreground)',
-            'font-weight': 'var(--arcane-font-weight-medium)',
+            'font-weight': 'var(--font-weight-medium)',
             'font-size': fontSize,
             'text-transform': 'uppercase',
           }),

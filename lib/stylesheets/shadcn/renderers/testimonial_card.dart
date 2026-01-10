@@ -35,7 +35,7 @@ class ShadcnTestimonialCard extends StatelessComponent {
               for (var i = 0; i < 5; i++)
                 dom.span(
                   styles: dom.Styles(raw: {
-                    'font-size': 'var(--arcane-font-size-base)',
+                    'font-size': 'var(--font-size-base)',
                     'color': i < props.rating!
                         ? 'var(--warning)'
                         : 'var(--muted-foreground)',
@@ -50,7 +50,7 @@ class ShadcnTestimonialCard extends StatelessComponent {
           classes: 'arcane-testimonial-quote',
           styles: const dom.Styles(raw: {
             'position': 'relative',
-            'font-size': 'var(--arcane-font-size-base)',
+            'font-size': 'var(--font-size-base)',
             'line-height': '1.7',
             'color': 'var(--foreground)',
             'margin-bottom': '1.5rem',
@@ -87,7 +87,7 @@ class ShadcnTestimonialCard extends StatelessComponent {
           styles: const dom.Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
-            'gap': 'var(--arcane-space-4)',
+            'gap': 'var(--space-4)',
           }),
           [
             // Avatar
@@ -125,8 +125,8 @@ class ShadcnTestimonialCard extends StatelessComponent {
                   'display': 'flex',
                   'align-items': 'center',
                   'justify-content': 'center',
-                  'font-weight': 'var(--arcane-font-weight-semibold)',
-                  'font-size': 'var(--arcane-font-size-base)',
+                  'font-weight': 'var(--font-weight-semibold)',
+                  'font-size': 'var(--font-size-base)',
                   'flex-shrink': '0',
                 }),
                 [Component.text(props.authorName[0].toUpperCase())],
@@ -138,8 +138,8 @@ class ShadcnTestimonialCard extends StatelessComponent {
               [
                 dom.div(
                   styles: const dom.Styles(raw: {
-                    'font-weight': 'var(--arcane-font-weight-semibold)',
-                    'font-size': 'var(--arcane-font-size-base)',
+                    'font-weight': 'var(--font-weight-semibold)',
+                    'font-size': 'var(--font-size-base)',
                     'color': 'var(--foreground)',
                   }),
                   [Component.text(props.authorName)],
@@ -147,7 +147,7 @@ class ShadcnTestimonialCard extends StatelessComponent {
                 if (props.authorTitle != null || props.authorCompany != null)
                   dom.div(
                     styles: const dom.Styles(raw: {
-                      'font-size': 'var(--arcane-font-size-sm)',
+                      'font-size': 'var(--font-size-sm)',
                       'color': 'var(--muted-foreground)',
                       'margin-top': '2px',
                     }),

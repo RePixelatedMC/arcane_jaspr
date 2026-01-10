@@ -84,7 +84,7 @@ class _ShadcnItemPickerState<T> extends State<ShadcnItemPicker<T>> {
             styles: const dom.Styles(raw: {
               'display': 'flex',
               'flex-direction': 'column',
-              'gap': 'var(--arcane-space-4)',
+              'gap': 'var(--space-4)',
             }),
             [
               if (component.props.showSearch)
@@ -105,7 +105,7 @@ class _ShadcnItemPickerState<T> extends State<ShadcnItemPicker<T>> {
                         'border-radius': 'var(--radius)',
                         'background': 'transparent',
                         'color': 'var(--foreground)',
-                        'font-size': 'var(--arcane-font-size-sm)',
+                        'font-size': 'var(--font-size-sm)',
                         'outline': 'none',
                       }),
                       events: {
@@ -126,7 +126,7 @@ class _ShadcnItemPickerState<T> extends State<ShadcnItemPicker<T>> {
                   'overflow-y': 'auto',
                   'display': 'flex',
                   'flex-direction': 'column',
-                  'gap': 'var(--arcane-space-1)',
+                  'gap': 'var(--space-1)',
                 }),
                 [
                   if (filteredItems.isEmpty)
@@ -135,7 +135,7 @@ class _ShadcnItemPickerState<T> extends State<ShadcnItemPicker<T>> {
                         'padding': '1.5rem',
                         'text-align': 'center',
                         'color': 'var(--muted-foreground)',
-                        'font-size': 'var(--arcane-font-size-sm)',
+                        'font-size': 'var(--font-size-sm)',
                       }),
                       [Component.text('No items found')],
                     )
@@ -149,7 +149,7 @@ class _ShadcnItemPickerState<T> extends State<ShadcnItemPicker<T>> {
                     'padding': '0.5rem 1rem',
                     'background': 'var(--muted)',
                     'border-radius': 'var(--radius)',
-                    'font-size': 'var(--arcane-font-size-sm)',
+                    'font-size': 'var(--font-size-sm)',
                     'color': 'var(--muted-foreground)',
                   }),
                   [Component.text('${_multiSelection.length} item(s) selected')],
@@ -187,7 +187,7 @@ class _ShadcnItemPickerState<T> extends State<ShadcnItemPicker<T>> {
         'width': '100%',
         'display': 'flex',
         'align-items': 'center',
-        'gap': 'var(--arcane-space-2)',
+        'gap': 'var(--space-2)',
         'padding': '0.5rem 0.75rem',
         'border': '1px solid ${selected ? 'var(--ring)' : 'var(--border)'}',
         'border-radius': 'var(--radius)',
@@ -220,7 +220,7 @@ class _ShadcnItemPickerState<T> extends State<ShadcnItemPicker<T>> {
                   styles: dom.Styles(raw: {
                     'color': 'var(--primary-foreground)',
                     'font-size': '0.625rem',
-                    'font-weight': 'var(--arcane-font-weight-bold)',
+                    'font-weight': 'var(--font-weight-bold)',
                   }),
                   [Component.text('\u2713')],
                 ),
@@ -237,7 +237,7 @@ class _ShadcnItemPickerState<T> extends State<ShadcnItemPicker<T>> {
           const dom.span(
             styles: dom.Styles(raw: {
               'color': 'var(--primary)',
-              'font-size': 'var(--arcane-font-size-base)',
+              'font-size': 'var(--font-size-base)',
             }),
             [Component.text('\u2713')],
           ),

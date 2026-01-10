@@ -31,7 +31,7 @@ class CodexContextMenu extends StatelessComponent {
             'background-color': 'var(--card)',
             'border': '1px solid var(--border)',
             'border-radius': 'var(--radius)',
-            'box-shadow': '0 0 30px rgba(var(--codex-accent-rgb), 0.1)',
+            'box-shadow': '0 0 30px rgba(var(--primary-rgb), 0.1)',
             'color': 'var(--foreground)',
           }),
           [for (final item in props.items) _buildMenuItem(item)],
@@ -71,7 +71,7 @@ class CodexContextMenu extends StatelessComponent {
           'border-radius': 'var(--radius)',
           'cursor': item.disabled ? 'not-allowed' : 'default',
           'transition': 'color var(--arcane-transition), background-color var(--arcane-transition)',
-          'font-size': 'var(--arcane-font-size-sm)',
+          'font-size': 'var(--font-size-sm)',
           'user-select': 'none',
           'outline': 'none',
           if (item.disabled) 'pointer-events': 'none',
@@ -91,7 +91,7 @@ class CodexContextMenu extends StatelessComponent {
           const dom.span(
             styles: dom.Styles(raw: {
               'color': 'var(--muted-foreground)',
-              'font-size': 'var(--arcane-font-size-xs)',
+              'font-size': 'var(--font-size-xs)',
             }),
             [Component.text('\u{203A}')],
           ),
@@ -107,7 +107,7 @@ class CodexContextMenu extends StatelessComponent {
               'background-color': 'var(--card)',
               'border': '1px solid var(--border)',
               'border-radius': 'var(--radius)',
-              'box-shadow': '0 0 30px rgba(var(--codex-accent-rgb), 0.1)',
+              'box-shadow': '0 0 30px rgba(var(--primary-rgb), 0.1)',
             }),
             [for (final subitem in item.submenu!) _buildMenuItem(subitem)],
           ),
@@ -132,7 +132,7 @@ class CodexContextMenu extends StatelessComponent {
         'border-radius': 'var(--radius)',
         'cursor': item.disabled ? 'not-allowed' : 'default',
         'transition': 'color var(--arcane-transition), background-color var(--arcane-transition)',
-        'font-size': 'var(--arcane-font-size-sm)',
+        'font-size': 'var(--font-size-sm)',
         'user-select': 'none',
         'outline': 'none',
         if (item.disabled) 'pointer-events': 'none',
@@ -156,7 +156,7 @@ class CodexContextMenu extends StatelessComponent {
           dom.span(
             styles: const dom.Styles(raw: {
               'margin-left': 'auto',
-              'font-size': 'var(--arcane-font-size-xs)',
+              'font-size': 'var(--font-size-xs)',
               'letter-spacing': '0.1em',
               'color': 'var(--muted-foreground)',
             }),

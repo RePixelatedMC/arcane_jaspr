@@ -30,15 +30,15 @@ class ShadcnOtpInput extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': 'var(--arcane-space-2)',
+        'gap': 'var(--space-2)',
       }),
       [
         // Label
         if (props.label != null)
           dom.span(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-sm)',
-              'font-weight': 'var(--arcane-font-weight-medium)',
+              'font-size': 'var(--font-size-sm)',
+              'font-weight': 'var(--font-weight-medium)',
               'color': 'var(--foreground)',
             }),
             [Component.text(props.label!)],
@@ -50,7 +50,7 @@ class ShadcnOtpInput extends StatelessComponent {
           styles: const dom.Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
-            'gap': 'var(--arcane-space-2)',
+            'gap': 'var(--space-2)',
           }),
           [
             for (var i = 0; i < props.length; i++) ...[
@@ -87,7 +87,7 @@ class ShadcnOtpInput extends StatelessComponent {
                   'height': size,
                   'font-size': fontSize,
                   'text-align': 'center',
-                  'font-weight': 'var(--arcane-font-weight-semibold)',
+                  'font-weight': 'var(--font-weight-semibold)',
                   'color': 'var(--foreground)',
                   'background-color': 'var(--background)',
                   'border': '2px solid ${hasError ? 'var(--destructive)' : 'var(--input)'}',
@@ -114,7 +114,7 @@ class ShadcnOtpInput extends StatelessComponent {
         if (hasError)
           dom.span(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-sm)',
+              'font-size': 'var(--font-size-sm)',
               'color': 'var(--destructive)',
             }),
             [Component.text(props.error!)],

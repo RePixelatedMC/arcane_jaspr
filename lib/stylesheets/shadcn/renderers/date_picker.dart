@@ -32,15 +32,15 @@ class ShadcnDatePicker extends StatelessComponent {
         'position': 'relative',
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': 'var(--arcane-space-1)',
+        'gap': 'var(--space-1)',
       }),
       [
         // Label
         if (props.label != null)
           dom.span(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-sm)',
-              'font-weight': 'var(--arcane-font-weight-medium)',
+              'font-size': 'var(--font-size-sm)',
+              'font-weight': 'var(--font-weight-medium)',
               'color': 'var(--foreground)',
             }),
             [Component.text(props.label!)],
@@ -58,7 +58,7 @@ class ShadcnDatePicker extends StatelessComponent {
           styles: dom.Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
-            'gap': 'var(--arcane-space-2)',
+            'gap': 'var(--space-2)',
             'width': '100%',
             'height': height,
             'padding': '0 12px',
@@ -135,7 +135,7 @@ class ShadcnDatePicker extends StatelessComponent {
         if (hasError)
           dom.span(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-sm)',
+              'font-size': 'var(--font-size-sm)',
               'color': 'var(--destructive)',
             }),
             [Component.text(props.error!)],

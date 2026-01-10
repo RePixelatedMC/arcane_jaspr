@@ -136,8 +136,8 @@ class CodexCalendar extends StatelessComponent {
             ),
             dom.span(
               styles: const dom.Styles(raw: {
-                'font-weight': 'var(--arcane-font-weight-semibold)',
-                'font-size': 'var(--arcane-font-size-sm)',
+                'font-weight': 'var(--font-weight-semibold)',
+                'font-size': 'var(--font-size-sm)',
                 'color': 'var(--foreground)',
               }),
               [Component.text('${_months[displayMonth.month - 1]} ${displayMonth.year}')],
@@ -191,8 +191,8 @@ class CodexCalendar extends StatelessComponent {
                   'align-items': 'center',
                   'justify-content': 'center',
                   'height': '36px',
-                  'font-size': 'var(--arcane-font-size-xs)',
-                  'font-weight': 'var(--arcane-font-weight-medium)',
+                  'font-size': 'var(--font-size-xs)',
+                  'font-weight': 'var(--font-weight-medium)',
                   'color': 'var(--muted-foreground)',
                 }),
                 [Component.text(day)],
@@ -219,7 +219,7 @@ class CodexCalendar extends StatelessComponent {
                     'justify-content': 'center',
                     'width': '36px',
                     'height': '36px',
-                    'font-size': 'var(--arcane-font-size-xs)',
+                    'font-size': 'var(--font-size-xs)',
                     'color': 'var(--muted-foreground)',
                   }),
                   [Component.text('${_getWeekNumber(days[i])}')],
@@ -279,15 +279,15 @@ class CodexCalendar extends StatelessComponent {
         'width': '36px',
         'height': '36px',
         'border': isToday && !isSelected
-            ? '1px solid var(--codex-accent)'
+            ? '1px solid var(--primary)'
             : 'none',
         'border-radius': 'var(--radius)',
         'background': isSelected
-            ? 'var(--codex-accent)'
+            ? 'var(--primary)'
             : isInRange
-                ? 'rgba(var(--codex-accent-rgb), 0.2)'
+                ? 'rgba(var(--primary-rgb), 0.2)'
                 : 'transparent',
-        'font-size': 'var(--arcane-font-size-sm)',
+        'font-size': 'var(--font-size-sm)',
         'color': isSelected
             ? '#ffffff'
             : isOutside

@@ -123,11 +123,11 @@ class ShadcnDropdownMenu extends StatelessComponent {
       'position': 'relative',
       'display': 'flex',
       'align-items': 'center',
-      'gap': 'var(--arcane-space-2)',
+      'gap': 'var(--space-2)',
       // ShadCN: px-2 py-1.5
       'padding': '6px 8px',
       // ShadCN: text-sm
-      'font-size': 'var(--arcane-font-size-sm)',
+      'font-size': 'var(--font-size-sm)',
       'color': item.disabled ? 'var(--muted-foreground)' : 'var(--popover-foreground)',
       'text-decoration': 'none',
       // ShadCN: rounded-sm (4px)
@@ -171,7 +171,7 @@ class ShadcnDropdownMenu extends StatelessComponent {
           if (item.description != null)
             dom.span(
               styles: const dom.Styles(raw: {
-                'font-size': 'var(--arcane-font-size-xs)',
+                'font-size': 'var(--font-size-xs)',
                 'color': 'var(--muted-foreground)',
               }),
               [Component.text(item.description!)],

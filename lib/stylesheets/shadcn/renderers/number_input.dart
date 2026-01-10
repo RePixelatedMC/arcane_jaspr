@@ -41,7 +41,7 @@ class ShadcnNumberInput extends StatelessComponent {
       styles: const Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': 'var(--arcane-space-2)',
+        'gap': 'var(--space-2)',
       }),
       [
         // Label
@@ -49,8 +49,8 @@ class ShadcnNumberInput extends StatelessComponent {
           span(
             classes: 'arcane-number-input-label',
             styles: const Styles(raw: {
-              'font-size': 'var(--arcane-font-size-sm)',
-              'font-weight': 'var(--arcane-font-weight-medium)',
+              'font-size': 'var(--font-size-sm)',
+              'font-weight': 'var(--font-weight-medium)',
               'color': 'var(--foreground)',
             }),
             [Component.text(props.label!)],
@@ -92,7 +92,7 @@ class ShadcnNumberInput extends StatelessComponent {
                     ? 'var(--foreground)'
                     : 'var(--muted-foreground)',
                 'font-size': fontSize,
-                'font-weight': 'var(--arcane-font-weight-bold)',
+                'font-weight': 'var(--font-weight-bold)',
                 'cursor':
                     (canDecrement && !props.disabled) ? 'pointer' : 'not-allowed',
                 'transition': 'all var(--arcane-transition)',
@@ -118,12 +118,12 @@ class ShadcnNumberInput extends StatelessComponent {
                 'display': 'flex',
                 'align-items': 'center',
                 'justify-content': 'center',
-                'gap': 'var(--arcane-space-1)',
+                'gap': 'var(--space-1)',
                 'min-width': '60px',
                 'padding': '0 0.5rem',
                 'background': 'var(--input)',
                 'font-size': fontSize,
-                'font-weight': 'var(--arcane-font-weight-medium)',
+                'font-weight': 'var(--font-weight-medium)',
                 'font-variant-numeric': 'tabular-nums',
                 'color': 'var(--foreground)',
               }),
@@ -172,7 +172,7 @@ class ShadcnNumberInput extends StatelessComponent {
                     ? 'var(--foreground)'
                     : 'var(--muted-foreground)',
                 'font-size': fontSize,
-                'font-weight': 'var(--arcane-font-weight-bold)',
+                'font-weight': 'var(--font-weight-bold)',
                 'cursor':
                     (canIncrement && !props.disabled) ? 'pointer' : 'not-allowed',
                 'transition': 'all var(--arcane-transition)',

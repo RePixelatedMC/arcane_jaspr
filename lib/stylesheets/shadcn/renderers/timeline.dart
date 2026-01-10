@@ -59,7 +59,7 @@ class ShadcnTimeline extends StatelessComponent {
       classes: 'arcane-timeline-item',
       styles: dom.Styles(raw: {
         'display': 'flex',
-        'gap': 'var(--arcane-space-6)',
+        'gap': 'var(--space-6)',
         'position': 'relative',
         'padding-bottom': isLast ? '0' : '2rem',
       }),
@@ -194,7 +194,7 @@ class ShadcnTimeline extends StatelessComponent {
       styles: dom.Styles(raw: {
         'display': 'grid',
         'grid-template-columns': '1fr auto 1fr',
-        'gap': 'var(--arcane-space-6)',
+        'gap': 'var(--space-6)',
         'position': 'relative',
         'padding-bottom': isLast ? '0' : '2rem',
       }),
@@ -266,7 +266,7 @@ class ShadcnTimeline extends StatelessComponent {
         'align-items': 'center',
         'justify-content': 'center',
         'font-size': _iconSize,
-        'font-weight': 'var(--arcane-font-weight-semibold)',
+        'font-weight': 'var(--font-weight-semibold)',
         'color': isFilled ? colors['text']! : colors['border']!,
         'flex-shrink': '0',
         'z-index': '1',
@@ -321,14 +321,14 @@ class ShadcnTimeline extends StatelessComponent {
             'display': 'flex',
             'flex-wrap': 'wrap',
             'align-items': 'center',
-            'gap': 'var(--arcane-space-2)',
+            'gap': 'var(--space-2)',
             'margin-bottom': '0.25rem',
           }),
           [
             dom.span(
               styles: dom.Styles(raw: {
-                'font-size': 'var(--arcane-font-size-base)',
-                'font-weight': 'var(--arcane-font-weight-semibold)',
+                'font-size': 'var(--font-size-base)',
+                'font-weight': 'var(--font-weight-semibold)',
                 'color': item.status == TimelineStatus.pending
                     ? 'var(--muted-foreground)'
                     : 'var(--foreground)',
@@ -338,7 +338,7 @@ class ShadcnTimeline extends StatelessComponent {
             if (item.date != null)
               dom.span(
                 styles: const dom.Styles(raw: {
-                  'font-size': 'var(--arcane-font-size-xs)',
+                  'font-size': 'var(--font-size-xs)',
                   'color': 'var(--muted-foreground)',
                 }),
                 [Component.text(item.date!)],
@@ -348,7 +348,7 @@ class ShadcnTimeline extends StatelessComponent {
         if (item.subtitle != null)
           dom.div(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-sm)',
+              'font-size': 'var(--font-size-sm)',
               'color': 'var(--muted-foreground)',
               'margin-bottom': '0.25rem',
             }),
@@ -362,7 +362,7 @@ class ShadcnTimeline extends StatelessComponent {
         else if (item.description != null)
           dom.div(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-sm)',
+              'font-size': 'var(--font-size-sm)',
               'color': 'var(--muted-foreground)',
               'line-height': '1.7',
             }),

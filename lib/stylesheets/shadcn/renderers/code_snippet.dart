@@ -54,8 +54,8 @@ class _ShadcnCodeSnippetState extends State<ShadcnCodeSnippet> {
               if (component.props.title != null)
                 dom.span(
                   styles: const dom.Styles(raw: {
-                    'font-size': 'var(--arcane-font-size-sm)',
-                    'font-weight': 'var(--arcane-font-weight-medium)',
+                    'font-size': 'var(--font-size-sm)',
+                    'font-weight': 'var(--font-weight-medium)',
                     'color': 'var(--muted-foreground)',
                   }),
                   [Component.text(component.props.title!)],
@@ -63,8 +63,8 @@ class _ShadcnCodeSnippetState extends State<ShadcnCodeSnippet> {
               else if (component.props.language != null)
                 dom.span(
                   styles: const dom.Styles(raw: {
-                    'font-size': 'var(--arcane-font-size-xs)',
-                    'font-weight': 'var(--arcane-font-weight-medium)',
+                    'font-size': 'var(--font-size-xs)',
+                    'font-weight': 'var(--font-weight-medium)',
                     'color': 'var(--muted-foreground)',
                     'text-transform': 'uppercase',
                     'padding': '0.25rem 0.5rem',
@@ -173,7 +173,7 @@ class _ShadcnCodeSnippetState extends State<ShadcnCodeSnippet> {
                 styles: dom.Styles(raw: {
                   'font-family':
                       'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
-                  'font-size': 'var(--arcane-font-size-sm)',
+                  'font-size': 'var(--font-size-sm)',
                   'line-height': '1.7',
                   'color': 'var(--muted-foreground)',
                   'text-align': 'right',
@@ -197,7 +197,7 @@ class _ShadcnCodeSnippetState extends State<ShadcnCodeSnippet> {
       styles: const dom.Styles(raw: {
         'font-family':
             'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
-        'font-size': 'var(--arcane-font-size-sm)',
+        'font-size': 'var(--font-size-sm)',
         'line-height': '1.7',
         'color': 'var(--foreground)',
         'white-space': 'pre',
@@ -275,7 +275,7 @@ class _ShadcnTerminalState extends State<ShadcnTerminal> {
           styles: const dom.Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
-            'gap': 'var(--arcane-space-4)',
+            'gap': 'var(--space-4)',
             'padding': '0.5rem 1rem',
             'background-color': 'var(--muted)',
             'border-bottom': '1px solid var(--border)',
@@ -284,7 +284,7 @@ class _ShadcnTerminalState extends State<ShadcnTerminal> {
             dom.div(
               styles: const dom.Styles(raw: {
                 'display': 'flex',
-                'gap': 'var(--arcane-space-2)',
+                'gap': 'var(--space-2)',
               }),
               [
                 _windowDot('var(--destructive)'),
@@ -295,7 +295,7 @@ class _ShadcnTerminalState extends State<ShadcnTerminal> {
             if (component.props.title != null)
               dom.span(
                 styles: const dom.Styles(raw: {
-                  'font-size': 'var(--arcane-font-size-sm)',
+                  'font-size': 'var(--font-size-sm)',
                   'color': 'var(--muted-foreground)',
                   'flex': '1',
                 }),
@@ -363,7 +363,7 @@ class _ShadcnTerminalState extends State<ShadcnTerminal> {
                   'color': 'var(--success)',
                   'font-family':
                       'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
-                  'font-size': 'var(--arcane-font-size-sm)',
+                  'font-size': 'var(--font-size-sm)',
                 }),
                 [Component.text('${component.props.prompt} ')],
               ),
@@ -372,7 +372,7 @@ class _ShadcnTerminalState extends State<ShadcnTerminal> {
                   'color': 'var(--foreground)',
                   'font-family':
                       'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
-                  'font-size': 'var(--arcane-font-size-sm)',
+                  'font-size': 'var(--font-size-sm)',
                 }),
                 [Component.text(cmd)],
               ),

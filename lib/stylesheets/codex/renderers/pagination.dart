@@ -111,32 +111,32 @@ class CodexPagination extends StatelessComponent {
     final Map<String, String> styleVariant = switch (props.style) {
       PaginationStyleVariant.outline => {
           'background-color': isActive
-              ? 'var(--codex-accent)'
+              ? 'var(--primary)'
               : 'transparent',
           'color': isActive ? '#ffffff' : 'var(--foreground)',
           'border': isActive
-              ? '1px solid var(--codex-accent)'
+              ? '1px solid var(--primary)'
               : '1px solid var(--border)',
-          if (isActive) 'box-shadow': 'var(--codex-accent-glow-subtle)',
+          if (isActive) 'box-shadow': '0 0 15px rgba(var(--primary-rgb), 0.2)',
         },
       PaginationStyleVariant.filled => {
           'background-color': isActive
-              ? 'var(--codex-accent)'
+              ? 'var(--primary)'
               : 'var(--secondary)',
           'color': isActive ? '#ffffff' : 'var(--foreground)',
           'border': 'none',
-          if (isActive) 'box-shadow': 'var(--codex-accent-glow-subtle)',
+          if (isActive) 'box-shadow': '0 0 15px rgba(var(--primary-rgb), 0.2)',
         },
       PaginationStyleVariant.ghost => {
           'background-color': isActive
-              ? 'rgba(var(--codex-accent-rgb), 0.15)'
+              ? 'rgba(var(--primary-rgb), 0.15)'
               : 'transparent',
-          'color': isActive ? 'var(--codex-accent)' : 'var(--foreground)',
+          'color': isActive ? 'var(--primary)' : 'var(--foreground)',
           'border': 'none',
         },
       PaginationStyleVariant.simple => {
           'background-color': 'transparent',
-          'color': isActive ? 'var(--codex-accent)' : 'var(--muted-foreground)',
+          'color': isActive ? 'var(--primary)' : 'var(--muted-foreground)',
           'border': 'none',
           'font-weight': isActive ? '600' : '400',
         },
@@ -157,7 +157,7 @@ class CodexPagination extends StatelessComponent {
         'height': buttonSize,
         'padding': '0 0.75rem',
         'font-size': fontSize,
-        'font-weight': 'var(--arcane-font-weight-medium)',
+        'font-weight': 'var(--font-weight-medium)',
         'border-radius': 'var(--radius-md)',
         'cursor': disabled ? 'not-allowed' : 'pointer',
         'transition': 'all var(--transition)',

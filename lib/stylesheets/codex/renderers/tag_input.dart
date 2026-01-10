@@ -20,7 +20,7 @@ class CodexTagInput extends StatelessComponent {
           'border': hasError
               ? '1px solid var(--destructive)'
               : props.isFocused
-                  ? '1px solid var(--codex-accent)'
+                  ? '1px solid var(--primary)'
                   : '1px solid var(--border)',
         },
       TagInputStyleVariant.filled => {
@@ -28,7 +28,7 @@ class CodexTagInput extends StatelessComponent {
           'border': hasError
               ? '1px solid var(--destructive)'
               : props.isFocused
-                  ? '1px solid var(--codex-accent)'
+                  ? '1px solid var(--primary)'
                   : '1px solid transparent',
         },
       TagInputStyleVariant.ghost => {
@@ -36,7 +36,7 @@ class CodexTagInput extends StatelessComponent {
           'border': hasError
               ? '1px solid var(--destructive)'
               : props.isFocused
-                  ? '1px solid var(--codex-accent)'
+                  ? '1px solid var(--primary)'
                   : '1px solid transparent',
         },
     };
@@ -54,8 +54,8 @@ class CodexTagInput extends StatelessComponent {
           Component.element(
             tag: 'label',
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-sm)',
-              'font-weight': 'var(--arcane-font-weight-medium)',
+              'font-size': 'var(--font-size-sm)',
+              'font-weight': 'var(--font-weight-medium)',
               'line-height': '1',
               'color': 'var(--foreground)',
             }),
@@ -69,14 +69,14 @@ class CodexTagInput extends StatelessComponent {
             'display': 'flex',
             'flex-wrap': 'wrap',
             'align-items': 'center',
-            'gap': 'var(--arcane-space-2)',
+            'gap': 'var(--space-2)',
             'padding': '0.625rem',
             'border-radius': 'var(--radius)',
             'min-height': '48px',
             'transition': 'border-color var(--arcane-transition), box-shadow var(--arcane-transition)',
             'cursor': props.disabled ? 'not-allowed' : 'text',
             'opacity': props.disabled ? '0.5' : '1',
-            if (props.isFocused) 'box-shadow': '0 0 0 2px rgba(var(--codex-accent-rgb), 0.2)',
+            if (props.isFocused) 'box-shadow': '0 0 0 2px rgba(var(--primary-rgb), 0.2)',
             ...containerStyles,
           }),
           [
@@ -105,7 +105,7 @@ class CodexTagInput extends StatelessComponent {
                   'border': 'none',
                   'background': 'transparent',
                   'outline': 'none',
-                  'font-size': 'var(--arcane-font-size-sm)',
+                  'font-size': 'var(--font-size-sm)',
                   'color': 'var(--foreground)',
                   'padding': '4px',
                 }),
@@ -140,7 +140,7 @@ class CodexTagInput extends StatelessComponent {
           dom.span(
             classes: hasError ? 'codex-tag-input-error' : 'codex-tag-input-helper',
             styles: dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-xs)',
+              'font-size': 'var(--font-size-xs)',
               'color': hasError ? 'var(--destructive)' : 'var(--muted-foreground)',
             }),
             [Component.text(hasError ? props.errorText! : props.helperText!)],
@@ -157,11 +157,11 @@ class CodexTagInput extends StatelessComponent {
         'align-items': 'center',
         'gap': '0.375rem',
         'padding': '0.25rem 0.625rem',
-        'background-color': 'rgba(var(--codex-accent-rgb), 0.15)',
-        'color': 'var(--codex-accent)',
+        'background-color': 'rgba(var(--primary-rgb), 0.15)',
+        'color': 'var(--primary)',
         'border-radius': 'var(--arcane-radius-full)',
-        'font-size': 'var(--arcane-font-size-xs)',
-        'font-weight': 'var(--arcane-font-weight-medium)',
+        'font-size': 'var(--font-size-xs)',
+        'font-weight': 'var(--font-weight-medium)',
         'line-height': '1.25',
       }),
       [
@@ -181,7 +181,7 @@ class CodexTagInput extends StatelessComponent {
               'border': 'none',
               'background': 'transparent',
               'border-radius': 'var(--arcane-radius-full)',
-              'color': 'var(--codex-accent)',
+              'color': 'var(--primary)',
               'cursor': 'pointer',
               'font-size': '12px',
               'line-height': '1',

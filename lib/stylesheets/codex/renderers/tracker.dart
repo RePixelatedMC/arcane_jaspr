@@ -14,7 +14,7 @@ class CodexTracker extends StatelessComponent {
       return props.levelColors![level]!;
     }
     return switch (level) {
-      TrackerLevel.fine => 'var(--codex-accent)',
+      TrackerLevel.fine => 'var(--primary)',
       TrackerLevel.warning => 'var(--warning)',
       TrackerLevel.critical => 'var(--destructive)',
       TrackerLevel.unknown => 'var(--muted)',
@@ -53,7 +53,7 @@ class CodexTracker extends StatelessComponent {
               'display': 'flex',
               'align-items': 'center',
               'gap': '1.25rem',
-              'font-size': 'var(--arcane-font-size-xs)',
+              'font-size': 'var(--font-size-xs)',
               'color': 'var(--muted-foreground)',
             }),
             [
@@ -108,8 +108,8 @@ class CodexUptimeTracker extends StatelessComponent {
   const CodexUptimeTracker(this.props, {super.key});
 
   String _getBarColor(double uptime) {
-    if (uptime >= 99.9) return 'var(--codex-accent)';
-    if (uptime >= 99.0) return 'var(--codex-accent-secondary)';
+    if (uptime >= 99.9) return 'var(--primary)';
+    if (uptime >= 99.0) return 'var(--accent)';
     if (uptime >= 95.0) return 'var(--warning)';
     return 'var(--destructive)';
   }
@@ -170,16 +170,16 @@ class CodexUptimeTracker extends StatelessComponent {
             [
               dom.span(
                 styles: const dom.Styles(raw: {
-                  'font-size': 'var(--arcane-font-size-xs)',
+                  'font-size': 'var(--font-size-xs)',
                   'color': 'var(--muted-foreground)',
                 }),
                 [Component.text('${props.days.length} days')],
               ),
               dom.span(
                 styles: const dom.Styles(raw: {
-                  'font-size': 'var(--arcane-font-size-sm)',
-                  'font-weight': 'var(--arcane-font-weight-medium)',
-                  'color': 'var(--codex-accent)',
+                  'font-size': 'var(--font-size-sm)',
+                  'font-weight': 'var(--font-weight-medium)',
+                  'color': 'var(--primary)',
                 }),
                 [
                   Component.text(

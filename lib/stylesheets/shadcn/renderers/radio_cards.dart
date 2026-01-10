@@ -75,7 +75,7 @@ class _ShadcnRadioCardsState<T> extends State<ShadcnRadioCards<T>> {
           dom.div(
             classes: 'arcane-radio-card-title',
             styles: dom.Styles(raw: {
-              'font-weight': 'var(--arcane-font-weight-semibold)',
+              'font-weight': 'var(--font-weight-semibold)',
               'color': isSelected ? 'var(--accent)' : 'var(--foreground)',
               'margin-bottom': item.subtitle != null ? '0.25rem' : '0',
             }),
@@ -85,7 +85,7 @@ class _ShadcnRadioCardsState<T> extends State<ShadcnRadioCards<T>> {
           dom.div(
             classes: 'arcane-radio-card-subtitle',
             styles: dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-sm)',
+              'font-size': 'var(--font-size-sm)',
               'color': isSelected ? 'var(--accent)' : 'var(--muted-foreground)',
             }),
             [Component.text(item.subtitle!)],
@@ -119,7 +119,7 @@ Component renderArcaneChip(ArcaneChipProps props) {
       'gap': '6px',
       'padding': '6px 12px',
       'border-radius': 'var(--arcane-radius-full)',
-      'font-size': 'var(--arcane-font-size-sm)',
+      'font-size': 'var(--font-size-sm)',
       'border': props.selected
           ? '1px solid var(--accent)'
           : '1px solid var(--border)',

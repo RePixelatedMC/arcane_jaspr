@@ -27,7 +27,7 @@ class CodexKbd extends StatelessComponent {
       'padding': padding,
       'font-size': fontSize,
       'font-family': 'var(--font-mono, ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace)',
-      'font-weight': 'var(--arcane-font-weight-medium)',
+      'font-weight': 'var(--font-weight-medium)',
       'line-height': '1',
       'white-space': 'nowrap',
       'user-select': 'none',
@@ -79,7 +79,7 @@ class CodexKbd extends StatelessComponent {
               dom.span(
                 styles: const dom.Styles(raw: {
                   'color': 'var(--muted-foreground)',
-                  'font-size': 'var(--arcane-font-size-xs)',
+                  'font-size': 'var(--font-size-xs)',
                 }),
                 [Component.text(props.separator)],
               ),

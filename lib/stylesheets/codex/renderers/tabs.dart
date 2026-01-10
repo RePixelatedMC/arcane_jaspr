@@ -45,7 +45,7 @@ class CodexTabs extends StatelessComponent {
       classes: 'codex-tabs-list',
       styles: dom.Styles(raw: {
         'display': 'flex',
-        'gap': 'var(--arcane-space-1)', // Codex: small gap between tabs
+        'gap': 'var(--space-1)', // Codex: small gap between tabs
         'border-bottom': '1px solid var(--border)',
         'padding-bottom': '1px', // Space for active indicator
         if (props.fill) 'width': '100%',
@@ -73,13 +73,13 @@ class CodexTabs extends StatelessComponent {
         'display': 'inline-flex',
         'align-items': 'center',
         'justify-content': 'center',
-        'gap': 'var(--arcane-space-2)',
+        'gap': 'var(--space-2)',
         // Codex: larger padding
         'padding': '0.75rem 1.25rem',
-        'font-size': 'var(--arcane-font-size-sm)',
+        'font-size': 'var(--font-size-sm)',
         'font-weight': isSelected ? '600' : '500',
         'color': isSelected
-            ? 'var(--codex-accent)'
+            ? 'var(--primary)'
             : isDisabled
                 ? 'var(--muted-foreground)'
                 : 'var(--foreground)',
@@ -87,7 +87,7 @@ class CodexTabs extends StatelessComponent {
         'border': 'none',
         // Codex: accent bottom border when selected with glow
         'border-bottom': isSelected
-            ? '2px solid var(--codex-accent)'
+            ? '2px solid var(--primary)'
             : '2px solid transparent',
         'margin-bottom': '-1px',
         'cursor': isDisabled ? 'not-allowed' : 'pointer',
@@ -95,7 +95,7 @@ class CodexTabs extends StatelessComponent {
         'transition': 'all var(--transition)',
         if (props.fill) 'flex': '1',
         // Codex: subtle glow on active tab
-        if (isSelected) 'text-shadow': '0 0 10px rgba(var(--codex-accent-rgb), 0.5)',
+        if (isSelected) 'text-shadow': '0 0 10px rgba(var(--primary-rgb), 0.5)',
       }),
       events: isDisabled || props.onChanged == null
           ? null
@@ -107,10 +107,10 @@ class CodexTabs extends StatelessComponent {
           dom.span(
             classes: 'codex-tab-badge',
             styles: const dom.Styles(raw: {
-              'background-color': 'var(--codex-accent)',
+              'background-color': 'var(--primary)',
               'color': '#ffffff',
               'font-size': '0.625rem',
-              'font-weight': 'var(--arcane-font-weight-semibold)',
+              'font-weight': 'var(--font-weight-semibold)',
               'padding': '0.125rem 0.375rem',
               'border-radius': 'var(--arcane-radius-full)',
               'margin-left': '0.25rem',
@@ -134,7 +134,7 @@ class CodexTabBar extends StatelessComponent {
       classes: 'codex-tab-bar',
       styles: dom.Styles(raw: {
         'display': 'flex',
-        'gap': 'var(--arcane-space-1)',
+        'gap': 'var(--space-1)',
         // Codex: contained tab bar with background
         'background-color': 'var(--muted)',
         'padding': '0.25rem',
@@ -162,10 +162,10 @@ class CodexTabBar extends StatelessComponent {
         'display': 'inline-flex',
         'align-items': 'center',
         'justify-content': 'center',
-        'gap': 'var(--arcane-space-2)',
+        'gap': 'var(--space-2)',
         // Codex: larger padding
         'padding': '0.625rem 1rem',
-        'font-size': 'var(--arcane-font-size-sm)',
+        'font-size': 'var(--font-size-sm)',
         'font-weight': isSelected ? '600' : '500',
         'color': isSelected ? 'var(--foreground)' : 'var(--muted-foreground)',
         'background-color': isSelected ? 'var(--card)' : 'transparent',

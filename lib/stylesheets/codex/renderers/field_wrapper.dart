@@ -18,7 +18,7 @@ class CodexFieldWrapper extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': 'var(--arcane-space-2)',
+        'gap': 'var(--space-2)',
       }),
       [
         // Label row
@@ -28,14 +28,14 @@ class CodexFieldWrapper extends StatelessComponent {
             styles: const dom.Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
-              'gap': 'var(--arcane-space-2)',
+              'gap': 'var(--space-2)',
             }),
             [
               if (props.leading != null) props.leading!,
               dom.label(
                 styles: const dom.Styles(raw: {
-                  'font-size': 'var(--arcane-font-size-sm)',
-                  'font-weight': 'var(--arcane-font-weight-medium)',
+                  'font-size': 'var(--font-size-sm)',
+                  'font-weight': 'var(--font-weight-medium)',
                   'color': 'var(--foreground)',
                 }),
                 [
@@ -115,8 +115,8 @@ class CodexFormSection extends StatelessComponent {
               if (props.title != null)
                 dom.legend(
                   styles: const dom.Styles(raw: {
-                    'font-size': 'var(--arcane-font-size-base)',
-                    'font-weight': 'var(--arcane-font-weight-semibold)',
+                    'font-size': 'var(--font-size-base)',
+                    'font-weight': 'var(--font-weight-semibold)',
                     'color': 'var(--foreground)',
                     'padding': '0',
                   }),
@@ -125,7 +125,7 @@ class CodexFormSection extends StatelessComponent {
               if (props.description != null)
                 dom.p(
                   styles: const dom.Styles(raw: {
-                    'font-size': 'var(--arcane-font-size-sm)',
+                    'font-size': 'var(--font-size-sm)',
                     'color': 'var(--muted-foreground)',
                     'margin': '0.25rem 0 0 0',
                   }),

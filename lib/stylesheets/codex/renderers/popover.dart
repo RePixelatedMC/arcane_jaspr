@@ -95,10 +95,10 @@ class CodexPopover extends StatelessComponent {
               'background-color': 'rgba(10, 10, 10, 0.95)',
               'backdrop-filter': 'blur(12px)',
               '-webkit-backdrop-filter': 'blur(12px)',
-              'border': '1px solid var(--codex-accent-border)',
+              'border': '1px solid var(--primary)',
               'border-radius': 'var(--radius)', // Codex: larger radius
               // Codex: subtle glow
-              'box-shadow': '0 0 20px rgba(var(--codex-accent-rgb), 0.15), 0 10px 40px rgba(0, 0, 0, 0.3)',
+              'box-shadow': '0 0 20px rgba(var(--primary-rgb), 0.15), 0 10px 40px rgba(0, 0, 0, 0.3)',
             }),
             [props.content],
           ),

@@ -31,10 +31,10 @@ class CodexChip extends StatelessComponent {
           'border': '1px solid var(--border)',
         },
       ChipVariant.primary => {
-          'background-color': 'var(--codex-accent)',
+          'background-color': 'var(--primary)',
           'color': '#ffffff',
           'border': '1px solid transparent',
-          'box-shadow': 'var(--codex-accent-glow-subtle)',
+          'box-shadow': '0 0 15px rgba(var(--primary-rgb), 0.2)',
         },
       ChipVariant.secondary => {
           'background-color': 'var(--secondary)',
@@ -60,8 +60,8 @@ class CodexChip extends StatelessComponent {
         },
       ChipVariant.outline => {
           'background-color': 'transparent',
-          'color': 'var(--codex-accent)',
-          'border': '1px solid var(--codex-accent-border)',
+          'color': 'var(--primary)',
+          'border': '1px solid var(--primary)',
         },
     };
 
@@ -76,7 +76,7 @@ class CodexChip extends StatelessComponent {
         'padding': padding,
         'border-radius': 'var(--arcane-radius-full)',
         'font-size': fontSize,
-        'font-weight': 'var(--arcane-font-weight-medium)',
+        'font-weight': 'var(--font-weight-medium)',
         'line-height': '1',
         'white-space': 'nowrap',
         'transition': 'all var(--transition)',

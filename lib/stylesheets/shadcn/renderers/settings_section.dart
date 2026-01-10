@@ -29,7 +29,7 @@ class ShadcnSettingsSection extends StatelessComponent {
           styles: dom.Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
-            'gap': 'var(--arcane-space-2)',
+            'gap': 'var(--space-2)',
             'margin-bottom': '1.5rem',
             'padding-bottom': '1rem',
             'border-bottom': '1px solid ${props.danger ? 'color-mix(in srgb, var(--destructive) 20%, transparent)' : 'var(--border)'}',
@@ -37,8 +37,8 @@ class ShadcnSettingsSection extends StatelessComponent {
           [
             dom.h2(
               styles: dom.Styles(raw: {
-                'font-size': 'var(--arcane-font-size-lg)',
-                'font-weight': 'var(--arcane-font-weight-semibold)',
+                'font-size': 'var(--font-size-lg)',
+                'font-weight': 'var(--font-weight-semibold)',
                 'color': props.danger ? 'var(--destructive)' : 'var(--foreground)',
                 'margin': '0',
               }),
@@ -50,7 +50,7 @@ class ShadcnSettingsSection extends StatelessComponent {
         if (props.description != null)
           dom.p(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-sm)',
+              'font-size': 'var(--font-size-sm)',
               'color': 'var(--muted-foreground)',
               'margin': '0 0 1rem 0',
             }),
@@ -83,14 +83,14 @@ class ShadcnSettingsInfoRow extends StatelessComponent {
       [
         dom.span(
           styles: const dom.Styles(raw: {
-            'font-size': 'var(--arcane-font-size-sm)',
+            'font-size': 'var(--font-size-sm)',
             'color': 'var(--muted-foreground)',
           }),
           [Component.text(props.label)],
         ),
         dom.span(
           styles: dom.Styles(raw: {
-            'font-size': 'var(--arcane-font-size-sm)',
+            'font-size': 'var(--font-size-sm)',
             'color': 'var(--foreground)',
             if (props.monospace) 'font-family': 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
           }),
@@ -128,8 +128,8 @@ class ShadcnSettingsToggleRow extends StatelessComponent {
           [
             dom.div(
               styles: const dom.Styles(raw: {
-                'font-size': 'var(--arcane-font-size-sm)',
-                'font-weight': 'var(--arcane-font-weight-medium)',
+                'font-size': 'var(--font-size-sm)',
+                'font-weight': 'var(--font-weight-medium)',
                 'color': 'var(--foreground)',
               }),
               [Component.text(props.title)],
@@ -137,7 +137,7 @@ class ShadcnSettingsToggleRow extends StatelessComponent {
             if (props.description != null)
               dom.div(
                 styles: const dom.Styles(raw: {
-                  'font-size': 'var(--arcane-font-size-xs)',
+                  'font-size': 'var(--font-size-xs)',
                   'color': 'var(--muted-foreground)',
                   'margin-top': '2px',
                 }),
@@ -207,8 +207,8 @@ class ShadcnSettingsSubheader extends StatelessComponent {
       [
         dom.div(
           styles: dom.Styles(raw: {
-            'font-size': 'var(--arcane-font-size-sm)',
-            'font-weight': 'var(--arcane-font-weight-medium)',
+            'font-size': 'var(--font-size-sm)',
+            'font-weight': 'var(--font-weight-medium)',
             'color': 'var(--foreground)',
             'margin-bottom': props.description != null ? '0.25rem' : '0',
           }),
@@ -217,7 +217,7 @@ class ShadcnSettingsSubheader extends StatelessComponent {
         if (props.description != null)
           dom.p(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-xs)',
+              'font-size': 'var(--font-size-xs)',
               'color': 'var(--muted-foreground)',
               'margin': '0',
             }),
@@ -248,7 +248,7 @@ class ShadcnSettingsNote extends StatelessComponent {
       [
         dom.p(
           styles: const dom.Styles(raw: {
-            'font-size': 'var(--arcane-font-size-sm)',
+            'font-size': 'var(--font-size-sm)',
             'color': 'var(--muted-foreground)',
             'margin': '0',
           }),

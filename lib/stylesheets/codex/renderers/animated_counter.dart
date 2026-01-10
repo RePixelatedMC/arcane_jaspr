@@ -22,7 +22,7 @@ class CodexAnimatedCounter extends StatelessComponent {
         dom.div(
           styles: dom.Styles(raw: {
             'font-size': props.fontSize,
-            'font-weight': 'var(--arcane-font-weight-bold)',
+            'font-weight': 'var(--font-weight-bold)',
             'color': hasGradient ? 'transparent' : (props.color ?? 'var(--foreground)'),
             if (hasGradient)
               'background': 'linear-gradient(135deg, ${props.gradientStart} 0%, ${props.gradientEnd} 100%)',
@@ -47,7 +47,7 @@ class CodexAnimatedCounter extends StatelessComponent {
         if (props.label != null)
           dom.div(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-sm)',
+              'font-size': 'var(--font-size-sm)',
               'color': 'var(--muted-foreground)',
               'margin-top': '0.75rem',
             }),
@@ -95,14 +95,14 @@ class CodexMetricDisplay extends StatelessComponent {
         'flex-direction': 'column',
         'align-items': 'center',
         'text-align': 'center',
-        'gap': 'var(--arcane-space-2)',
+        'gap': 'var(--space-2)',
       }),
       [
         if (props.icon != null)
           dom.div(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-2xl)',
-              'color': 'var(--codex-accent)',
+              'font-size': 'var(--font-size-2xl)',
+              'color': 'var(--primary)',
               'margin-bottom': '0.25rem',
             }),
             [Component.text(props.icon!)],
@@ -111,13 +111,13 @@ class CodexMetricDisplay extends StatelessComponent {
           styles: const dom.Styles(raw: {
             'display': 'flex',
             'align-items': 'baseline',
-            'gap': 'var(--arcane-space-2)',
+            'gap': 'var(--space-2)',
           }),
           [
             dom.span(
               styles: const dom.Styles(raw: {
-                'font-size': 'var(--arcane-font-size-3xl)',
-                'font-weight': 'var(--arcane-font-weight-bold)',
+                'font-size': 'var(--font-size-3xl)',
+                'font-weight': 'var(--font-weight-bold)',
                 'color': 'var(--foreground)',
               }),
               [Component.text(props.value)],
@@ -125,8 +125,8 @@ class CodexMetricDisplay extends StatelessComponent {
             if (props.trend != null)
               dom.span(
                 styles: dom.Styles(raw: {
-                  'font-size': 'var(--arcane-font-size-sm)',
-                  'font-weight': 'var(--arcane-font-weight-medium)',
+                  'font-size': 'var(--font-size-sm)',
+                  'font-weight': 'var(--font-weight-medium)',
                   'color': props.trendPositive ? 'var(--success)' : 'var(--destructive)',
                 }),
                 [Component.text('${props.trendPositive ? '\u2191' : '\u2193'}${props.trend}')],
@@ -135,7 +135,7 @@ class CodexMetricDisplay extends StatelessComponent {
         ),
         dom.div(
           styles: const dom.Styles(raw: {
-            'font-size': 'var(--arcane-font-size-sm)',
+            'font-size': 'var(--font-size-sm)',
             'color': 'var(--muted-foreground)',
           }),
           [Component.text(props.label)],

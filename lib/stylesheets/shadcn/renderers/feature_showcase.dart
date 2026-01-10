@@ -38,8 +38,8 @@ class ShadcnFeatureShowcase extends StatelessComponent {
                 dom.h2(
                   classes: 'arcane-feature-showcase-title',
                   styles: const dom.Styles(raw: {
-                    'font-size': 'var(--arcane-font-size-2xl)',
-                    'font-weight': 'var(--arcane-font-weight-bold)',
+                    'font-size': 'var(--font-size-2xl)',
+                    'font-weight': 'var(--font-weight-bold)',
                     'color': 'var(--foreground)',
                     'margin': '0 0 1rem 0',
                   }),
@@ -51,7 +51,7 @@ class ShadcnFeatureShowcase extends StatelessComponent {
                   dom.p(
                     classes: 'arcane-feature-showcase-subtitle',
                     styles: dom.Styles(raw: {
-                      'font-size': 'var(--arcane-font-size-lg)',
+                      'font-size': 'var(--font-size-lg)',
                       'color': 'var(--muted-foreground)',
                       'margin': '0',
                       'max-width': '600px',

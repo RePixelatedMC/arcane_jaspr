@@ -126,8 +126,8 @@ class ShadcnToggleSwitch extends StatelessComponent {
       styles: dom.Styles(raw: {
         // ShadCN: text-sm font-medium leading-none
         // peer-disabled:cursor-not-allowed peer-disabled:opacity-70
-        'font-size': 'var(--arcane-font-size-sm)', // 14px
-        'font-weight': 'var(--arcane-font-weight-medium)',
+        'font-size': 'var(--font-size-sm)', // 14px
+        'font-weight': 'var(--font-weight-medium)',
         'color': props.disabled
             ? 'var(--muted-foreground)'
             : 'var(--foreground)',
@@ -142,7 +142,7 @@ class ShadcnToggleSwitch extends StatelessComponent {
       styles: dom.Styles(raw: {
         'display': 'inline-flex',
         'align-items': 'center',
-        'gap': 'var(--arcane-space-2)', // gap-2
+        'gap': 'var(--space-2)', // gap-2
         'cursor': props.disabled ? 'not-allowed' : 'pointer',
       }),
       events: {

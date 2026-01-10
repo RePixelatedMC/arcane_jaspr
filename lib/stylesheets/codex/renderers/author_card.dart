@@ -47,7 +47,7 @@ class CodexAuthorCard extends StatelessComponent {
             'overflow': 'hidden',
             'flex-shrink': '0',
             'background-color':
-                props.avatarBackground ?? 'var(--codex-accent)',
+                props.avatarBackground ?? 'var(--primary)',
             'display': 'flex',
             'align-items': 'center',
             'justify-content': 'center',
@@ -66,7 +66,7 @@ class CodexAuthorCard extends StatelessComponent {
               dom.span(
                 styles: dom.Styles(raw: {
                   'font-size': '${avatarSize * 0.4}px',
-                  'font-weight': 'var(--arcane-font-weight-semibold)',
+                  'font-weight': 'var(--font-weight-semibold)',
                   'color': '#ffffff',
                 }),
                 [
@@ -91,7 +91,7 @@ class CodexAuthorCard extends StatelessComponent {
               classes: 'codex-author-name',
               styles: dom.Styles(raw: {
                 'font-size': nameFontSize,
-                'font-weight': 'var(--arcane-font-weight-medium)',
+                'font-weight': 'var(--font-weight-medium)',
                 'color': props.nameColor ?? 'var(--foreground)',
               }),
               [Component.text(props.name)],

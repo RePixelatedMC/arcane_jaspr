@@ -42,8 +42,8 @@ class CodexCardSection extends StatelessComponent {
               else
                 dom.h3(
                   styles: const dom.Styles(raw: {
-                    'font-size': 'var(--arcane-font-size-base)',
-                    'font-weight': 'var(--arcane-font-weight-semibold)',
+                    'font-size': 'var(--font-size-base)',
+                    'font-weight': 'var(--font-weight-semibold)',
                     'color': 'var(--foreground)',
                     'margin': '0',
                   }),
@@ -55,7 +55,7 @@ class CodexCardSection extends StatelessComponent {
                   styles: const dom.Styles(raw: {
                     'display': 'flex',
                     'align-items': 'center',
-                    'gap': 'var(--arcane-space-2)',
+                    'gap': 'var(--space-2)',
                   }),
                   props.trailing!,
                 ),
@@ -110,7 +110,7 @@ class CodexListCard extends StatelessComponent {
               dom.h3(
                 styles: const dom.Styles(raw: {
                   'font-size': '0.9375rem',
-                  'font-weight': 'var(--arcane-font-weight-semibold)',
+                  'font-weight': 'var(--font-weight-semibold)',
                   'color': 'var(--foreground)',
                   'margin': '0',
                 }),

@@ -54,9 +54,9 @@ class CodexFAB extends StatelessComponent {
     // Get variant styles
     final Map<String, String> variantStyles = switch (props.variant) {
       FABVariant.primary => {
-          'background-color': 'var(--codex-accent)',
+          'background-color': 'var(--primary)',
           'color': '#ffffff',
-          'box-shadow': '0 0 30px rgba(var(--codex-accent-rgb), 0.35)',
+          'box-shadow': '0 0 30px rgba(var(--primary-rgb), 0.35)',
         },
       FABVariant.secondary => {
           'background-color': 'var(--secondary)',
@@ -126,8 +126,8 @@ class CodexFAB extends StatelessComponent {
         if (props.label != null)
           span(
             styles: const Styles(raw: {
-              'font-weight': 'var(--arcane-font-weight-medium)',
-              'font-size': 'var(--arcane-font-size-base)',
+              'font-weight': 'var(--font-weight-medium)',
+              'font-size': 'var(--font-size-base)',
               'white-space': 'nowrap',
             }),
             [Component.text(props.label!)],

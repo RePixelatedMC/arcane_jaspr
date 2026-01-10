@@ -49,7 +49,7 @@ class CodexEmptyState extends StatelessComponent {
               'justify-content': 'center',
               'width': iconSize,
               'height': iconSize,
-              'color': 'var(--codex-accent)',
+              'color': 'var(--primary)',
               'flex-shrink': '0',
             }),
             [
@@ -70,7 +70,7 @@ class CodexEmptyState extends StatelessComponent {
           styles: const dom.Styles(raw: {
             'display': 'flex',
             'flex-direction': 'column',
-            'gap': 'var(--arcane-space-2)',
+            'gap': 'var(--space-2)',
           }),
           [
             // Title
@@ -78,7 +78,7 @@ class CodexEmptyState extends StatelessComponent {
               classes: 'codex-empty-state-title',
               styles: dom.Styles(raw: {
                 'font-size': titleSize,
-                'font-weight': 'var(--arcane-font-weight-semibold)',
+                'font-weight': 'var(--font-weight-semibold)',
                 'color': 'var(--foreground)',
                 'margin': '0',
               }),

@@ -51,7 +51,7 @@ class CodexSeparator extends StatelessComponent {
         'display': 'flex',
         'align-items': 'center',
         'width': '100%',
-        'gap': 'var(--arcane-space-4)', // Codex: more gap
+        'gap': 'var(--space-4)', // Codex: more gap
       }),
       [
         // Left line
@@ -76,8 +76,8 @@ class CodexSeparator extends StatelessComponent {
         else if (props.label != null)
           dom.span(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-xs)',
-              'font-weight': 'var(--arcane-font-weight-medium)',
+              'font-size': 'var(--font-size-xs)',
+              'font-weight': 'var(--font-weight-medium)',
               'text-transform': 'uppercase',
               'letter-spacing': '0.05em',
               'color': 'var(--muted-foreground)',

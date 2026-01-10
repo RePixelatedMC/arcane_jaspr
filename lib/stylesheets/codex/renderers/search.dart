@@ -141,7 +141,7 @@ class CodexSearch extends StatelessComponent {
                       'width': '16px',
                       'height': '16px',
                       'border': '2px solid var(--muted)',
-                      'border-top-color': 'var(--codex-accent)',
+                      'border-top-color': 'var(--primary)',
                       'border-radius': 'var(--arcane-radius-full)',
                       'animation': 'arcane-spin 0.75s linear infinite',
                     }),
@@ -223,8 +223,8 @@ class CodexSearch extends StatelessComponent {
         [
           dom.div(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-sm)',
-              'font-weight': 'var(--arcane-font-weight-medium)',
+              'font-size': 'var(--font-size-sm)',
+              'font-weight': 'var(--font-weight-medium)',
               'color': 'var(--foreground)',
             }),
             [Component.text(result.title)],
@@ -232,7 +232,7 @@ class CodexSearch extends StatelessComponent {
           if (result.subtitle != null)
             dom.div(
               styles: const dom.Styles(raw: {
-                'font-size': 'var(--arcane-font-size-xs)',
+                'font-size': 'var(--font-size-xs)',
                 'color': 'var(--muted-foreground)',
                 'margin-top': '0.125rem',
               }),
@@ -259,8 +259,8 @@ class CodexSearch extends StatelessComponent {
       [
         dom.div(
           styles: const dom.Styles(raw: {
-            'font-size': 'var(--arcane-font-size-sm)',
-            'font-weight': 'var(--arcane-font-weight-medium)',
+            'font-size': 'var(--font-size-sm)',
+            'font-weight': 'var(--font-weight-medium)',
             'color': 'var(--foreground)',
           }),
           [Component.text(result.title)],
@@ -268,7 +268,7 @@ class CodexSearch extends StatelessComponent {
         if (result.subtitle != null)
           dom.div(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-xs)',
+              'font-size': 'var(--font-size-xs)',
               'color': 'var(--muted-foreground)',
               'margin-top': '0.125rem',
             }),

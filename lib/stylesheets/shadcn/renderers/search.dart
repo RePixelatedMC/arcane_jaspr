@@ -87,7 +87,7 @@ class _ShadcnSearchState extends State<ShadcnSearch> {
       styles: Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
-        'gap': 'var(--arcane-space-2)',
+        'gap': 'var(--space-2)',
         'height': height,
         'padding': padding,
         'border-radius': props.style == SearchStyle.ghost ? '0' : '0.375rem',

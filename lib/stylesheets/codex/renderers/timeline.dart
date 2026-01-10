@@ -67,7 +67,7 @@ class CodexTimeline extends StatelessComponent {
           'codex-timeline-item ${item.status.name} ${isRight ? 'right' : 'left'}',
       styles: dom.Styles(raw: {
         'display': 'flex',
-        'gap': 'var(--arcane-space-4)', // Codex: larger gap
+        'gap': 'var(--space-4)', // Codex: larger gap
         if (isRight) 'flex-direction': 'row-reverse',
       }),
       [
@@ -125,7 +125,7 @@ class CodexTimeline extends StatelessComponent {
               dom.div(
                 classes: 'codex-timeline-date',
                 styles: const dom.Styles(raw: {
-                  'font-size': 'var(--arcane-font-size-xs)',
+                  'font-size': 'var(--font-size-xs)',
                   'color': 'var(--muted-foreground)',
                   'margin-bottom': '0.25rem',
                 }),
@@ -137,9 +137,9 @@ class CodexTimeline extends StatelessComponent {
               classes: 'codex-timeline-title',
               styles: dom.Styles(raw: {
                 'font-size': fontSize,
-                'font-weight': 'var(--arcane-font-weight-semibold)',
+                'font-weight': 'var(--font-weight-semibold)',
                 'color': item.status == TimelineStatus.current
-                    ? 'var(--codex-accent)'
+                    ? 'var(--primary)'
                     : 'var(--foreground)',
               }),
               [Component.text(item.title)],
@@ -170,7 +170,7 @@ class CodexTimeline extends StatelessComponent {
               dom.div(
                 classes: 'codex-timeline-description',
                 styles: const dom.Styles(raw: {
-                  'font-size': 'var(--arcane-font-size-sm)',
+                  'font-size': 'var(--font-size-sm)',
                   'color': 'var(--muted-foreground)',
                   'line-height': '1.6',
                   'margin-top': '0.5rem',
@@ -286,9 +286,9 @@ class CodexTimeline extends StatelessComponent {
               classes: 'codex-timeline-title',
               styles: dom.Styles(raw: {
                 'font-size': fontSize,
-                'font-weight': 'var(--arcane-font-weight-semibold)',
+                'font-weight': 'var(--font-weight-semibold)',
                 'color': item.status == TimelineStatus.current
-                    ? 'var(--codex-accent)'
+                    ? 'var(--primary)'
                     : 'var(--foreground)',
               }),
               [Component.text(item.title)],
@@ -296,7 +296,7 @@ class CodexTimeline extends StatelessComponent {
             if (item.date != null)
               dom.div(
                 styles: const dom.Styles(raw: {
-                  'font-size': 'var(--arcane-font-size-xs)',
+                  'font-size': 'var(--font-size-xs)',
                   'color': 'var(--muted-foreground)',
                   'margin-top': '0.25rem',
                 }),
@@ -312,16 +312,16 @@ class CodexTimeline extends StatelessComponent {
     return switch (status) {
       TimelineStatus.default_ => ('var(--muted)', 'none'),
       TimelineStatus.complete => (
-          'var(--codex-success)',
+          'var(--success)',
           '0 0 8px rgba(22, 101, 52, 0.4)'
         ),
       TimelineStatus.current => (
-          'var(--codex-accent)',
-          'var(--codex-accent-glow-subtle)'
+          'var(--primary)',
+          '0 0 15px rgba(var(--primary-rgb), 0.2)'
         ),
       TimelineStatus.pending => ('var(--border)', 'none'),
       TimelineStatus.error => (
-          'var(--codex-destructive)',
+          'var(--destructive)',
           '0 0 8px rgba(153, 27, 27, 0.4)'
         ),
     };

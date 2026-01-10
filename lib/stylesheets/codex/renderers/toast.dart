@@ -44,10 +44,10 @@ class CodexToast extends StatelessComponent {
           '0 0 20px rgba(var(--destructive-rgb), 0.25)',
         ),
       ToastVariant.loading => (
-          'rgba(var(--codex-accent-rgb), 0.1)',
-          'var(--codex-accent)',
-          'var(--codex-accent)',
-          'var(--codex-accent-glow-subtle)',
+          'rgba(var(--primary-rgb), 0.1)',
+          'var(--primary)',
+          'var(--primary)',
+          '0 0 15px rgba(var(--primary-rgb), 0.2)',
         ),
     };
 
@@ -102,8 +102,8 @@ class CodexToast extends StatelessComponent {
               dom.div(
                 classes: 'codex-toast-title',
                 styles: const dom.Styles(raw: {
-                  'font-size': 'var(--arcane-font-size-sm)',
-                  'font-weight': 'var(--arcane-font-weight-semibold)',
+                  'font-size': 'var(--font-size-sm)',
+                  'font-weight': 'var(--font-weight-semibold)',
                   'color': 'var(--foreground)',
                   'margin-bottom': '0.25rem',
                 }),
@@ -112,7 +112,7 @@ class CodexToast extends StatelessComponent {
             dom.div(
               classes: 'codex-toast-message',
               styles: const dom.Styles(raw: {
-                'font-size': 'var(--arcane-font-size-sm)',
+                'font-size': 'var(--font-size-sm)',
                 'color': 'var(--foreground)',
               }),
               [Component.text(props.message)],
@@ -121,7 +121,7 @@ class CodexToast extends StatelessComponent {
               dom.div(
                 classes: 'codex-toast-description',
                 styles: const dom.Styles(raw: {
-                  'font-size': 'var(--arcane-font-size-xs)',
+                  'font-size': 'var(--font-size-xs)',
                   'color': 'var(--muted-foreground)',
                   'margin-top': '0.375rem',
                 }),
@@ -133,11 +133,11 @@ class CodexToast extends StatelessComponent {
                 styles: dom.Styles(raw: {
                   'margin-top': '0.5rem',
                   'padding': '0.375rem 0.75rem',
-                  'font-size': 'var(--arcane-font-size-xs)',
-                  'font-weight': 'var(--arcane-font-weight-medium)',
+                  'font-size': 'var(--font-size-xs)',
+                  'font-weight': 'var(--font-weight-medium)',
                   'background': props.action!.destructive
                       ? 'var(--destructive)'
-                      : 'var(--codex-accent)',
+                      : 'var(--primary)',
                   'color': '#ffffff',
                   'border': 'none',
                   'border-radius': 'var(--radius-sm)',
@@ -187,7 +187,7 @@ class CodexToast extends StatelessComponent {
           'width': '18px',
           'height': '18px',
           'border': '2px solid var(--muted)',
-          'border-top-color': 'var(--codex-accent)',
+          'border-top-color': 'var(--primary)',
           'border-radius': 'var(--arcane-radius-full)',
           'animation': 'arcane-spin 0.75s linear infinite',
         }),
@@ -210,8 +210,8 @@ class CodexToast extends StatelessComponent {
         'justify-content': 'center',
         'width': '20px',
         'height': '20px',
-        'font-size': 'var(--arcane-font-size-sm)',
-        'font-weight': 'var(--arcane-font-weight-bold)',
+        'font-size': 'var(--font-size-sm)',
+        'font-weight': 'var(--font-weight-bold)',
       }),
       [Component.text(icon)],
     );

@@ -59,7 +59,7 @@ class ShadcnChip extends StatelessComponent {
         'border-radius': 'var(--arcane-radius-full, 9999px)',
         ..._variantStyles,
         'font-size': fontSize,
-        'font-weight': 'var(--arcane-font-weight-medium)',
+        'font-weight': 'var(--font-weight-medium)',
         'white-space': 'nowrap',
         'line-height': '1',
         if (props.onTap != null) 'cursor': 'pointer',

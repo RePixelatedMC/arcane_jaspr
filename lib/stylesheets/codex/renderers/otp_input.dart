@@ -36,8 +36,8 @@ class CodexOtpInput extends StatelessComponent {
         if (props.label != null)
           dom.span(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-sm)',
-              'font-weight': 'var(--arcane-font-weight-medium)',
+              'font-size': 'var(--font-size-sm)',
+              'font-weight': 'var(--font-weight-medium)',
               'color': 'var(--foreground)',
             }),
             [Component.text(props.label!)],
@@ -58,7 +58,7 @@ class CodexOtpInput extends StatelessComponent {
                 dom.span(
                   styles: const dom.Styles(raw: {
                     'color': 'var(--muted-foreground)',
-                    'font-size': 'var(--arcane-font-size-lg)',
+                    'font-size': 'var(--font-size-lg)',
                     'margin': '0 6px',
                   }),
                   [Component.text(props.separator!)],
@@ -86,7 +86,7 @@ class CodexOtpInput extends StatelessComponent {
                   'height': size,
                   'font-size': fontSize,
                   'text-align': 'center',
-                  'font-weight': 'var(--arcane-font-weight-semibold)',
+                  'font-weight': 'var(--font-weight-semibold)',
                   'color': 'var(--foreground)',
                   'background-color': 'var(--input)',
                   'border': '2px solid ${hasError ? 'var(--destructive)' : 'var(--border)'}',
@@ -113,7 +113,7 @@ class CodexOtpInput extends StatelessComponent {
         if (hasError)
           dom.span(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-sm)',
+              'font-size': 'var(--font-size-sm)',
               'color': 'var(--destructive)',
             }),
             [Component.text(props.error!)],

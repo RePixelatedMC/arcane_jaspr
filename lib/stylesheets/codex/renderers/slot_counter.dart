@@ -134,7 +134,7 @@ class _CodexSlotCounterState extends State<CodexSlotCounter> {
       case SlotCounterColor.primary:
         return 'var(--foreground)';
       case SlotCounterColor.accent:
-        return 'var(--codex-accent)';
+        return 'var(--primary)';
       case SlotCounterColor.muted:
         return 'var(--muted-foreground)';
       case SlotCounterColor.success:
@@ -156,7 +156,7 @@ class _CodexSlotCounterState extends State<CodexSlotCounter> {
         'display': 'inline-flex',
         'flex-direction': 'column',
         'align-items': 'center',
-        'gap': 'var(--arcane-space-2)',
+        'gap': 'var(--space-2)',
       }),
       [
         // Value row
@@ -164,7 +164,7 @@ class _CodexSlotCounterState extends State<CodexSlotCounter> {
           styles: dom.Styles(raw: {
             'display': 'inline-flex',
             'align-items': 'baseline',
-            'gap': 'var(--arcane-space-2)',
+            'gap': 'var(--space-2)',
             if (component.props.monospace) 'font-family': 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
           }),
           [

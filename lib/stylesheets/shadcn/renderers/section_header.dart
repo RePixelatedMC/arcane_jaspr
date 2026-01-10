@@ -20,8 +20,8 @@ Component renderSectionHeader(SectionHeaderProps props) {
         dom.span(
           styles: dom.Styles(raw: {
             'display': 'inline-block',
-            'font-size': 'var(--arcane-font-size-sm)',
-            'font-weight': 'var(--arcane-font-weight-medium)',
+            'font-size': 'var(--font-size-sm)',
+            'font-weight': 'var(--font-weight-medium)',
             'color': props.labelColor ?? 'var(--accent)',
             'text-transform': 'uppercase',
             'letter-spacing': '0.05em',
@@ -33,8 +33,8 @@ Component renderSectionHeader(SectionHeaderProps props) {
       dom.h2(
         styles: dom.Styles(raw: {
           'font-family': 'ui-sans-serif, system-ui, sans-serif',
-          'font-size': 'var(--arcane-font-size-4xl)',
-          'font-weight': 'var(--arcane-font-weight-bold)',
+          'font-size': 'var(--font-size-4xl)',
+          'font-weight': 'var(--font-weight-bold)',
           'color': props.headingColor ?? 'var(--foreground)',
           'margin': '0 0 1rem 0',
           'line-height': '1.2',
@@ -45,7 +45,7 @@ Component renderSectionHeader(SectionHeaderProps props) {
       if (props.description != null)
         dom.p(
           styles: dom.Styles(raw: {
-            'font-size': 'var(--arcane-font-size-lg)',
+            'font-size': 'var(--font-size-lg)',
             'color': props.descriptionColor ?? 'var(--muted-foreground)',
             'max-width': effectiveDescriptionMaxWidth,
             'margin':

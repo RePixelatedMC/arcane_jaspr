@@ -44,8 +44,8 @@ Component renderCtaBanner(CtaBannerProps props) {
           // Title
           dom.h2(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-3xl)',
-              'font-weight': 'var(--arcane-font-weight-bold)',
+              'font-size': 'var(--font-size-3xl)',
+              'font-weight': 'var(--font-weight-bold)',
               'color': 'var(--foreground)',
               'margin': '0 0 1rem 0',
             }),
@@ -55,7 +55,7 @@ Component renderCtaBanner(CtaBannerProps props) {
           if (props.subtitle != null)
             dom.p(
               styles: const dom.Styles(raw: {
-                'font-size': 'var(--arcane-font-size-lg)',
+                'font-size': 'var(--font-size-lg)',
                 'color': 'color-mix(in srgb, var(--foreground) 70%, transparent)',
                 'margin': '0 0 2rem 0',
                 'line-height': '1.6',
@@ -68,7 +68,7 @@ Component renderCtaBanner(CtaBannerProps props) {
               styles: const dom.Styles(raw: {
                 'display': 'flex',
                 'justify-content': 'center',
-                'gap': 'var(--arcane-space-4)',
+                'gap': 'var(--space-4)',
                 'flex-wrap': 'wrap',
               }),
               [

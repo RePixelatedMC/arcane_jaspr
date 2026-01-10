@@ -44,7 +44,7 @@ class CodexDotIndicator extends StatelessComponent {
               'border': 'none',
               'padding': '0',
               'background-color': i == props.index
-                  ? (props.activeColor ?? 'var(--codex-accent)')
+                  ? (props.activeColor ?? 'var(--primary)')
                   : (props.inactiveColor ?? 'var(--muted-foreground)'),
               'opacity': i == props.index ? '1' : '0.4',
               'transition': 'all var(--arcane-transition-slow)',
@@ -102,12 +102,12 @@ class CodexStepIndicator extends StatelessComponent {
               'display': 'flex',
               'align-items': 'center',
               'justify-content': 'center',
-              'font-size': 'var(--arcane-font-size-xs)',
-              'font-weight': 'var(--arcane-font-weight-semibold)',
+              'font-size': 'var(--font-size-xs)',
+              'font-weight': 'var(--font-weight-semibold)',
               'background-color': _getBackgroundColor(i),
               'color': _getTextColor(i),
               'border': i == props.currentStep
-                  ? '2px solid var(--codex-accent)'
+                  ? '2px solid var(--primary)'
                   : '1px solid var(--border)',
               'transition': 'all var(--arcane-transition-slow)',
               'cursor': props.allowStepNavigation && i < props.currentStep
@@ -133,7 +133,7 @@ class CodexStepIndicator extends StatelessComponent {
                 'flex': '1',
                 'height': '2px',
                 'background-color': i < props.currentStep
-                    ? 'var(--codex-accent)'
+                    ? 'var(--primary)'
                     : 'var(--border)',
                 'transition': 'background-color var(--arcane-transition-slow)',
               }),
@@ -151,14 +151,14 @@ class CodexStepIndicator extends StatelessComponent {
   }
 
   String _getBackgroundColor(int index) {
-    if (index < props.currentStep) return 'var(--codex-accent)';
-    if (index == props.currentStep) return 'rgba(var(--codex-accent-rgb), 0.1)';
+    if (index < props.currentStep) return 'var(--primary)';
+    if (index == props.currentStep) return 'rgba(var(--primary-rgb), 0.1)';
     return 'var(--background)';
   }
 
   String _getTextColor(int index) {
     if (index < props.currentStep) return '#ffffff';
-    if (index == props.currentStep) return 'var(--codex-accent)';
+    if (index == props.currentStep) return 'var(--primary)';
     return 'var(--muted-foreground)';
   }
 }

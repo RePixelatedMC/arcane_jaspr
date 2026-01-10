@@ -56,7 +56,7 @@ class CodexHeader extends StatelessComponent {
             'display': 'flex',
             'align-items': 'center',
             'justify-content': 'center',
-            'gap': 'var(--arcane-space-2)', // Codex: more gap
+            'gap': 'var(--space-2)', // Codex: more gap
             'flex-grow': '1', // Allow nav to grow and center
           }),
           [
@@ -106,17 +106,17 @@ class CodexHeader extends StatelessComponent {
               'gap': '0.375rem',
               // Codex: larger padding
               'padding': '0.625rem 1rem',
-              'font-size': 'var(--arcane-font-size-sm)',
+              'font-size': 'var(--font-size-sm)',
               'font-weight': item.isActive ? '600' : '500',
               'color': item.isActive
-                  ? 'var(--codex-accent)'
+                  ? 'var(--primary)'
                   : 'var(--muted-foreground)',
               'text-decoration': 'none',
               'border-radius': 'var(--radius-md)',
               'transition': 'all var(--transition)',
               // Codex: subtle background on hover
               'background-color': item.isActive
-                  ? 'rgba(var(--codex-accent-rgb), 0.1)'
+                  ? 'rgba(var(--primary-rgb), 0.1)'
                   : 'transparent',
             }),
             [
@@ -136,10 +136,10 @@ class CodexHeader extends StatelessComponent {
               'align-items': 'center',
               'gap': '0.375rem',
               'padding': '0.625rem 1rem',
-              'font-size': 'var(--arcane-font-size-sm)',
+              'font-size': 'var(--font-size-sm)',
               'font-weight': item.isActive ? '600' : '500',
               'color': item.isActive
-                  ? 'var(--codex-accent)'
+                  ? 'var(--primary)'
                   : 'var(--muted-foreground)',
               'background': 'transparent',
               'border': 'none',
@@ -182,7 +182,7 @@ class CodexHeader extends StatelessComponent {
             'background-color': 'var(--input)',
             'border': '1px solid var(--border)',
             'border-radius': 'var(--radius)',
-            'font-size': 'var(--arcane-font-size-sm)',
+            'font-size': 'var(--font-size-sm)',
             'color': 'var(--foreground)',
             'outline': 'none',
             'min-width': '200px',
@@ -204,7 +204,7 @@ class CodexHeader extends StatelessComponent {
             'position': 'absolute',
             'left': '0.75rem',
             'color': 'var(--muted-foreground)',
-            'font-size': 'var(--arcane-font-size-sm)',
+            'font-size': 'var(--font-size-sm)',
             'pointer-events': 'none',
           }),
           [Component.text('\u{1F50D}')], // Magnifying glass
@@ -233,7 +233,7 @@ class CodexNavLink extends StatelessComponent {
         if (props.showArrow)
           const dom.span(
             styles: dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-xs)',
+              'font-size': 'var(--font-size-xs)',
               'transition': 'transform var(--transition)',
             }),
             [Component.text('\u2192')], // Right arrow
@@ -248,10 +248,10 @@ class CodexNavLink extends StatelessComponent {
         styles: dom.Styles(raw: {
           'display': 'inline-flex',
           'align-items': 'center',
-          'font-size': 'var(--arcane-font-size-sm)',
+          'font-size': 'var(--font-size-sm)',
           'font-weight': props.isActive ? '600' : '500',
           'color': props.isActive
-              ? 'var(--codex-accent)'
+              ? 'var(--primary)'
               : 'var(--muted-foreground)',
           'text-decoration': 'none',
           'transition': 'all var(--transition)',
@@ -268,10 +268,10 @@ class CodexNavLink extends StatelessComponent {
         'background': 'transparent',
         'border': 'none',
         'padding': '0',
-        'font-size': 'var(--arcane-font-size-sm)',
+        'font-size': 'var(--font-size-sm)',
         'font-weight': props.isActive ? '600' : '500',
         'color': props.isActive
-            ? 'var(--codex-accent)'
+            ? 'var(--primary)'
             : 'var(--muted-foreground)',
         'cursor': 'pointer',
         'transition': 'all var(--transition)',

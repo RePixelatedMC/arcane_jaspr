@@ -43,15 +43,15 @@ class _CodexRadioCardsState<T> extends State<CodexRadioCards<T>> {
         'padding': '1.25rem',
         'border-radius': 'var(--radius)',
         'border': isSelected
-            ? '2px solid var(--codex-accent)'
+            ? '2px solid var(--primary)'
             : '2px solid var(--border)',
         'background-color':
-            isSelected ? 'rgba(var(--codex-accent-rgb), 0.1)' : 'var(--card)',
+            isSelected ? 'rgba(var(--primary-rgb), 0.1)' : 'var(--card)',
         'cursor': isDisabled ? 'not-allowed' : 'pointer',
         'opacity': isDisabled ? '0.5' : '1',
         'transition': 'all var(--arcane-transition)',
         'text-align': 'left',
-        if (isSelected) 'box-shadow': '0 0 20px rgba(var(--codex-accent-rgb), 0.15)',
+        if (isSelected) 'box-shadow': '0 0 20px rgba(var(--primary-rgb), 0.15)',
         if (component.props.cardWidth != null) 'width': '${component.props.cardWidth}px',
         'flex': component.props.cardWidth == null ? '1' : 'none',
         'min-width': '0',
@@ -68,7 +68,7 @@ class _CodexRadioCardsState<T> extends State<CodexRadioCards<T>> {
           dom.div(
             styles: dom.Styles(raw: {
               'margin-bottom': '0.75rem',
-              'color': isSelected ? 'var(--codex-accent)' : 'var(--muted-foreground)',
+              'color': isSelected ? 'var(--primary)' : 'var(--muted-foreground)',
             }),
             [item.icon!],
           ),
@@ -76,8 +76,8 @@ class _CodexRadioCardsState<T> extends State<CodexRadioCards<T>> {
           dom.div(
             classes: 'codex-radio-card-title',
             styles: dom.Styles(raw: {
-              'font-weight': 'var(--arcane-font-weight-semibold)',
-              'color': isSelected ? 'var(--codex-accent)' : 'var(--foreground)',
+              'font-weight': 'var(--font-weight-semibold)',
+              'color': isSelected ? 'var(--primary)' : 'var(--foreground)',
               'margin-bottom': item.subtitle != null ? '0.5rem' : '0',
             }),
             [Component.text(item.title!)],
@@ -86,8 +86,8 @@ class _CodexRadioCardsState<T> extends State<CodexRadioCards<T>> {
           dom.div(
             classes: 'codex-radio-card-subtitle',
             styles: dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-sm)',
-              'color': isSelected ? 'var(--codex-accent)' : 'var(--muted-foreground)',
+              'font-size': 'var(--font-size-sm)',
+              'color': isSelected ? 'var(--primary)' : 'var(--muted-foreground)',
             }),
             [Component.text(item.subtitle!)],
           ),
@@ -120,18 +120,18 @@ Component renderArcaneChip(ArcaneChipProps props) {
       'gap': '8px',
       'padding': '8px 14px',
       'border-radius': 'var(--arcane-radius-full)',
-      'font-size': 'var(--arcane-font-size-sm)',
+      'font-size': 'var(--font-size-sm)',
       'border': props.selected
-          ? '1px solid var(--codex-accent)'
+          ? '1px solid var(--primary)'
           : '1px solid var(--border)',
       'background-color': props.selected
-          ? 'rgba(var(--codex-accent-rgb), 0.1)'
+          ? 'rgba(var(--primary-rgb), 0.1)'
           : 'var(--card)',
-      'color': props.selected ? 'var(--codex-accent)' : 'var(--foreground)',
+      'color': props.selected ? 'var(--primary)' : 'var(--foreground)',
       'cursor': props.disabled ? 'not-allowed' : 'pointer',
       'opacity': props.disabled ? '0.5' : '1',
       'transition': 'all var(--arcane-transition)',
-      if (props.selected) 'box-shadow': '0 0 15px rgba(var(--codex-accent-rgb), 0.15)',
+      if (props.selected) 'box-shadow': '0 0 15px rgba(var(--primary-rgb), 0.15)',
     }),
     events: {
       'click': (event) {

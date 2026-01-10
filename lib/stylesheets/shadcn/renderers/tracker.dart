@@ -28,7 +28,7 @@ class ShadcnTracker extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': 'var(--arcane-space-4)',
+        'gap': 'var(--space-4)',
       }),
       [
         // Grid
@@ -52,8 +52,8 @@ class ShadcnTracker extends StatelessComponent {
             styles: const dom.Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
-              'gap': 'var(--arcane-space-4)',
-              'font-size': 'var(--arcane-font-size-xs)',
+              'gap': 'var(--space-4)',
+              'font-size': 'var(--font-size-xs)',
               'color': 'var(--muted-foreground)',
             }),
             [
@@ -126,7 +126,7 @@ class ShadcnUptimeTracker extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': 'var(--arcane-space-2)',
+        'gap': 'var(--space-2)',
       }),
       [
         // Bars
@@ -170,15 +170,15 @@ class ShadcnUptimeTracker extends StatelessComponent {
             [
               dom.span(
                 styles: const dom.Styles(raw: {
-                  'font-size': 'var(--arcane-font-size-xs)',
+                  'font-size': 'var(--font-size-xs)',
                   'color': 'var(--muted-foreground)',
                 }),
                 [Component.text('${props.days.length} days')],
               ),
               dom.span(
                 styles: const dom.Styles(raw: {
-                  'font-size': 'var(--arcane-font-size-sm)',
-                  'font-weight': 'var(--arcane-font-weight-medium)',
+                  'font-size': 'var(--font-size-sm)',
+                  'font-weight': 'var(--font-weight-medium)',
                   'color': 'var(--success)',
                 }),
                 [

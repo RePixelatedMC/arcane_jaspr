@@ -42,7 +42,7 @@ Component renderScrollRail(ScrollRailProps props) {
         'border-left': _getBorderStyle(props.showBorder),
       if (props.customScrollbar) ...{
         'scrollbar-width': 'thin',
-        'scrollbar-color': 'rgba(var(--codex-accent-rgb), 0.3) transparent',
+        'scrollbar-color': 'rgba(var(--primary-rgb), 0.3) transparent',
       },
     }),
     [

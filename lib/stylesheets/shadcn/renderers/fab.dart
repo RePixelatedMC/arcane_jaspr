@@ -125,8 +125,8 @@ class ShadcnFAB extends StatelessComponent {
         if (props.label != null)
           span(
             styles: const Styles(raw: {
-              'font-weight': 'var(--arcane-font-weight-medium)',
-              'font-size': 'var(--arcane-font-size-base)',
+              'font-weight': 'var(--font-weight-medium)',
+              'font-size': 'var(--font-size-base)',
               'white-space': 'nowrap',
             }),
             [Component.text(props.label!)],

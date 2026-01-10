@@ -75,7 +75,7 @@ class CodexDisclosure extends StatelessComponent {
             'display': 'flex',
             'align-items': 'center',
             'justify-content': 'space-between',
-            'gap': 'var(--arcane-space-4)',
+            'gap': 'var(--space-4)',
             'padding': '0.75rem 1.25rem',
             'background-color': summaryBg,
             'cursor': 'pointer',
@@ -98,7 +98,7 @@ class CodexDisclosure extends StatelessComponent {
                 classes: 'codex-disclosure-chevron',
                 styles: dom.Styles(raw: {
                   'color': 'var(--muted-foreground)',
-                  'font-size': 'var(--arcane-font-size-sm)',
+                  'font-size': 'var(--font-size-sm)',
                   'transition': 'transform var(--arcane-transition)',
                 }),
                 [Component.text('\u25BC')],

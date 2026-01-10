@@ -34,7 +34,7 @@ class ShadcnStatusIndicator extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'inline-flex',
         'align-items': 'center',
-        'gap': 'var(--arcane-space-2)',
+        'gap': 'var(--space-2)',
       }),
       [
         // Dot
@@ -68,7 +68,7 @@ class ShadcnStatusIndicator extends StatelessComponent {
         if (props.label != null)
           dom.span(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-sm)',
+              'font-size': 'var(--font-size-sm)',
               'color': 'var(--muted-foreground)',
             }),
             [Component.text(props.label!)],
@@ -111,8 +111,8 @@ class ShadcnStatusBadge extends StatelessComponent {
         'border-radius': 'var(--radius)',
         'background': bgColor,
         'color': color,
-        'font-size': 'var(--arcane-font-size-xs)',
-        'font-weight': 'var(--arcane-font-weight-medium)',
+        'font-size': 'var(--font-size-xs)',
+        'font-weight': 'var(--font-weight-medium)',
         'line-height': '1',
       }),
       [

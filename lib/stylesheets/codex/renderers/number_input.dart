@@ -46,8 +46,8 @@ class CodexNumberInput extends StatelessComponent {
           span(
             classes: 'codex-number-input-label',
             styles: const Styles(raw: {
-              'font-size': 'var(--arcane-font-size-sm)',
-              'font-weight': 'var(--arcane-font-weight-medium)',
+              'font-size': 'var(--font-size-sm)',
+              'font-weight': 'var(--font-weight-medium)',
               'color': 'var(--foreground)',
             }),
             [Component.text(props.label!)],
@@ -89,7 +89,7 @@ class CodexNumberInput extends StatelessComponent {
                     ? 'var(--foreground)'
                     : 'var(--muted-foreground)',
                 'font-size': fontSize,
-                'font-weight': 'var(--arcane-font-weight-bold)',
+                'font-weight': 'var(--font-weight-bold)',
                 'cursor':
                     (canDecrement && !props.disabled) ? 'pointer' : 'not-allowed',
                 'transition': 'all var(--arcane-transition)',
@@ -115,12 +115,12 @@ class CodexNumberInput extends StatelessComponent {
                 'display': 'flex',
                 'align-items': 'center',
                 'justify-content': 'center',
-                'gap': 'var(--arcane-space-2)',
+                'gap': 'var(--space-2)',
                 'min-width': '70px',
                 'padding': '0 0.75rem',
                 'background': 'var(--input)',
                 'font-size': fontSize,
-                'font-weight': 'var(--arcane-font-weight-medium)',
+                'font-weight': 'var(--font-weight-medium)',
                 'font-variant-numeric': 'tabular-nums',
                 'color': 'var(--foreground)',
               }),
@@ -169,7 +169,7 @@ class CodexNumberInput extends StatelessComponent {
                     ? 'var(--foreground)'
                     : 'var(--muted-foreground)',
                 'font-size': fontSize,
-                'font-weight': 'var(--arcane-font-weight-bold)',
+                'font-weight': 'var(--font-weight-bold)',
                 'cursor':
                     (canIncrement && !props.disabled) ? 'pointer' : 'not-allowed',
                 'transition': 'all var(--arcane-transition)',

@@ -114,8 +114,8 @@ class CodexAlert extends StatelessComponent {
               dom.div(
                 classes: 'codex-alert-title',
                 styles: const dom.Styles(raw: {
-                  'font-weight': 'var(--arcane-font-weight-semibold)',
-                  'font-size': 'var(--arcane-font-size-sm)',
+                  'font-weight': 'var(--font-weight-semibold)',
+                  'font-size': 'var(--font-size-sm)',
                   'margin-bottom': '0.375rem', // Codex: slightly more
                 }),
                 [Component.text(props.title!)],
@@ -126,7 +126,7 @@ class CodexAlert extends StatelessComponent {
               dom.div(
                 classes: 'codex-alert-message',
                 styles: const dom.Styles(raw: {
-                  'font-size': 'var(--arcane-font-size-sm)',
+                  'font-size': 'var(--font-size-sm)',
                   'color': 'inherit',
                   'opacity': '0.9',
                 }),
@@ -146,7 +146,7 @@ class CodexAlert extends StatelessComponent {
               'flex-shrink': '0',
               'display': 'flex',
               'align-items': 'flex-start',
-              'gap': 'var(--arcane-space-2)',
+              'gap': 'var(--space-2)',
             }),
             [
               if (props.action != null) props.action!,
@@ -188,8 +188,8 @@ class CodexAlert extends StatelessComponent {
         'justify-content': 'center',
         'width': '20px',
         'height': '20px',
-        'font-size': 'var(--arcane-font-size-sm)',
-        'font-weight': 'var(--arcane-font-weight-bold)',
+        'font-size': 'var(--font-size-sm)',
+        'font-weight': 'var(--font-weight-bold)',
       }),
       [Component.text(icon)],
     );

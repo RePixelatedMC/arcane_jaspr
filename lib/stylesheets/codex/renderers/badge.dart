@@ -22,8 +22,8 @@ class CodexBadge extends StatelessComponent {
       'align-items': 'center',
       'gap': '0.375rem', // Codex: slightly more gap
       'border-radius': 'var(--arcane-radius-full)',
-      'font-size': 'var(--arcane-font-size-xs)',
-      'font-weight': 'var(--arcane-font-weight-semibold)',
+      'font-size': 'var(--font-size-xs)',
+      'font-weight': 'var(--font-weight-semibold)',
       'line-height': '1',
       'white-space': 'nowrap',
       'transition': 'all var(--transition)',
@@ -39,23 +39,23 @@ class CodexBadge extends StatelessComponent {
       },
       BadgeSize.large => {
         'padding': '0.375rem 1rem', // Codex: more padding
-        'font-size': 'var(--arcane-font-size-sm)',
+        'font-size': 'var(--font-size-sm)',
       },
     };
 
     // Codex variant-specific styles with accent colors and glows
     final Map<String, String> variantStyles = switch (props.variant) {
       BadgeVariant.standard => {
-        'background-color': 'var(--codex-accent)',
+        'background-color': 'var(--primary)',
         'color': '#ffffff',
         'border': '1px solid transparent',
-        'box-shadow': 'var(--codex-accent-glow-subtle)',
+        'box-shadow': '0 0 15px rgba(var(--primary-rgb), 0.2)',
       },
       BadgeVariant.primary => {
-        'background-color': 'var(--codex-accent)',
+        'background-color': 'var(--primary)',
         'color': '#ffffff',
         'border': '1px solid transparent',
-        'box-shadow': 'var(--codex-accent-glow-subtle)',
+        'box-shadow': '0 0 15px rgba(var(--primary-rgb), 0.2)',
       },
       BadgeVariant.secondary => {
         'background-color': 'var(--secondary)',
@@ -87,8 +87,8 @@ class CodexBadge extends StatelessComponent {
       },
       BadgeVariant.outline => {
         'background-color': 'transparent',
-        'color': 'var(--codex-accent)',
-        'border': '1px solid var(--codex-accent-border)',
+        'color': 'var(--primary)',
+        'border': '1px solid var(--primary)',
       },
     };
 

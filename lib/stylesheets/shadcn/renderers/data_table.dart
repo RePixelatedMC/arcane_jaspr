@@ -41,7 +41,7 @@ class ShadcnDataTable<T> extends StatelessComponent {
             'width': '100%',
             'border-collapse': 'collapse',
             // ShadCN: text-sm
-            'font-size': 'var(--arcane-font-size-sm)',
+            'font-size': 'var(--font-size-sm)',
           }),
           [
             // Header
@@ -85,7 +85,7 @@ class ShadcnDataTable<T> extends StatelessComponent {
                           // ShadCN: h-12 px-4 text-left align-middle font-medium text-muted-foreground
                           'padding': '12px 16px',
                           'text-align': column.align.css,
-                          'font-weight': 'var(--arcane-font-weight-medium)',
+                          'font-weight': 'var(--font-weight-medium)',
                           'color': 'var(--muted-foreground)',
                           'white-space': 'nowrap',
                           if (column.width != null)

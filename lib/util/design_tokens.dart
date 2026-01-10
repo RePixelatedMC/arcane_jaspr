@@ -96,9 +96,9 @@ abstract class ArcaneSpacing {
 abstract class ArcaneTypography {
   ArcaneTypography._();
 
-  static const String fontFamily = "var(--arcane-font-sans, 'Inter', ui-sans-serif, system-ui, sans-serif)";
-  static const String fontFamilyMono = "var(--arcane-font-mono, ui-monospace, SFMono-Regular, Menlo, monospace)";
-  static const String fontFamilyHeading = "var(--arcane-font-heading, var(--arcane-font-sans))";
+  static const String fontFamily = "var(--font-sans, 'Inter', ui-sans-serif, system-ui, sans-serif)";
+  static const String fontFamilyMono = "var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace)";
+  static const String fontFamilyHeading = "var(--font-heading, var(--font-sans))";
 
   static const String fontSizeXs = '12px';
   static const String fontSizeSm = '14px';

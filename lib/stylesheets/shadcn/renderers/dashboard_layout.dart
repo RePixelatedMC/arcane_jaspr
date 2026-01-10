@@ -111,8 +111,8 @@ class ShadcnDashboardLayout extends StatelessComponent {
           dom.div(
             classes: 'arcane-dashboard-nav-group-label',
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-xs)',
-              'font-weight': 'var(--arcane-font-weight-semibold)',
+              'font-size': 'var(--font-size-xs)',
+              'font-weight': 'var(--font-weight-semibold)',
               'color': 'var(--muted-foreground)',
               'text-transform': 'uppercase',
               'letter-spacing': '0.05em',
@@ -135,11 +135,11 @@ class ShadcnDashboardLayout extends StatelessComponent {
       styles: dom.Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
-        'gap': 'var(--arcane-space-2)',
+        'gap': 'var(--space-2)',
         'padding': '0.5rem 1rem',
         'color': isActive ? 'var(--accent)' : 'var(--muted-foreground)',
         'text-decoration': 'none',
-        'font-size': 'var(--arcane-font-size-sm)',
+        'font-size': 'var(--font-size-sm)',
         'font-weight': isActive ? '600' : '500',
         'border-radius': 'var(--arcane-radius-sm)',
         'background': isActive ? 'color-mix(in srgb, var(--accent) 10%, transparent)' : 'transparent',
@@ -177,10 +177,10 @@ class ShadcnDashboardLayout extends StatelessComponent {
             styles: const dom.Styles(raw: {
               'background': 'var(--accent)',
               'color': 'var(--accent-foreground)',
-              'font-size': 'var(--arcane-font-size-xs)',
+              'font-size': 'var(--font-size-xs)',
               'padding': '2px 6px',
               'border-radius': 'var(--arcane-radius-full)',
-              'font-weight': 'var(--arcane-font-weight-medium)',
+              'font-weight': 'var(--font-weight-medium)',
             }),
             [Component.text(item.badge!)],
           ),

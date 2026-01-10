@@ -28,10 +28,10 @@ class CodexIconButton extends StatelessComponent {
     // Codex variant styles with accent colors and glows
     final Map<String, String> variantStyles = switch (props.variant) {
       IconButtonVariant.primary => {
-          'background-color': 'var(--codex-accent)',
+          'background-color': 'var(--primary)',
           'color': '#ffffff',
           'border': 'none',
-          'box-shadow': 'var(--codex-accent-glow-subtle)',
+          'box-shadow': '0 0 15px rgba(var(--primary-rgb), 0.2)',
         },
       IconButtonVariant.secondary => {
           'background-color': 'var(--secondary)',
@@ -40,8 +40,8 @@ class CodexIconButton extends StatelessComponent {
         },
       IconButtonVariant.outline => {
           'background-color': 'transparent',
-          'color': 'var(--codex-accent)',
-          'border': '1px solid var(--codex-accent-border)',
+          'color': 'var(--primary)',
+          'border': '1px solid var(--primary)',
         },
       IconButtonVariant.ghost => {
           'background-color': 'transparent',
@@ -85,7 +85,7 @@ class CodexIconButton extends StatelessComponent {
         // Codex: larger radius
         'border-radius': 'var(--radius-md)', // 10px vs ShadCN 6px
         ...variantStyles,
-        'font-weight': 'var(--arcane-font-weight-medium)',
+        'font-weight': 'var(--font-weight-medium)',
         'cursor': isDisabled ? 'not-allowed' : 'pointer',
         if (isDisabled) 'pointer-events': 'none',
         'opacity': isDisabled ? '0.5' : '1',

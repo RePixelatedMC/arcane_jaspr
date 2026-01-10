@@ -26,11 +26,11 @@ class ShadcnButton extends StatelessComponent {
       'display': 'inline-flex',
       'align-items': 'center',
       'justify-content': 'center',
-      'gap': 'var(--arcane-space-2)', // gap-2
+      'gap': 'var(--space-2)', // gap-2
       'white-space': 'nowrap',
       'border-radius': 'var(--radius)', // rounded-md
-      'font-size': 'var(--arcane-font-size-sm)', // text-sm
-      'font-weight': 'var(--arcane-font-weight-medium)', // font-medium
+      'font-size': 'var(--font-size-sm)', // text-sm
+      'font-weight': 'var(--font-weight-medium)', // font-medium
       'line-height': '1.25rem',
       'transition': 'color 150ms, background-color 150ms, border-color 150ms',
       'outline': 'none',

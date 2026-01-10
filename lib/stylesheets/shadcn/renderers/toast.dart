@@ -144,8 +144,8 @@ class ShadcnToast extends StatelessComponent {
               dom.span(
                 classes: 'arcane-toast-title',
                 styles: const dom.Styles(raw: {
-                  'font-weight': 'var(--arcane-font-weight-semibold)',
-                  'font-size': 'var(--arcane-font-size-sm)',
+                  'font-weight': 'var(--font-weight-semibold)',
+                  'font-size': 'var(--font-size-sm)',
                   'color': 'var(--foreground)',
                   'line-height': '1.4',
                 }),
@@ -154,7 +154,7 @@ class ShadcnToast extends StatelessComponent {
             dom.span(
               classes: 'arcane-toast-message',
               styles: dom.Styles(raw: {
-                'font-size': 'var(--arcane-font-size-sm)',
+                'font-size': 'var(--font-size-sm)',
                 'color': props.title != null
                     ? 'var(--muted-foreground)'
                     : 'var(--foreground)',
@@ -166,7 +166,7 @@ class ShadcnToast extends StatelessComponent {
               dom.span(
                 classes: 'arcane-toast-description',
                 styles: const dom.Styles(raw: {
-                  'font-size': 'var(--arcane-font-size-xs)',
+                  'font-size': 'var(--font-size-xs)',
                   'color': 'var(--muted-foreground)',
                   'line-height': '1.5',
                   'margin-top': '4px',
@@ -184,8 +184,8 @@ class ShadcnToast extends StatelessComponent {
                       'display': 'inline-flex',
                       'align-items': 'center',
                       'padding': '4px 8px',
-                      'font-size': 'var(--arcane-font-size-xs)',
-                      'font-weight': 'var(--arcane-font-weight-medium)',
+                      'font-size': 'var(--font-size-xs)',
+                      'font-weight': 'var(--font-weight-medium)',
                       'color': props.action!.destructive
                           ? 'var(--destructive)'
                           : 'var(--primary)',

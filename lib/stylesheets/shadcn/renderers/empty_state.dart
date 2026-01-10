@@ -55,7 +55,7 @@ class ShadcnEmptyState extends StatelessComponent {
           classes: 'arcane-empty-state-title',
           styles: dom.Styles(raw: {
             'font-size': titleSize,
-            'font-weight': 'var(--arcane-font-weight-semibold)',
+            'font-weight': 'var(--font-weight-semibold)',
             'color': 'var(--foreground)',
           }),
           [Component.text(props.title)],
@@ -79,7 +79,7 @@ class ShadcnEmptyState extends StatelessComponent {
             classes: 'arcane-empty-state-actions',
             styles: const dom.Styles(raw: {
               'display': 'flex',
-              'gap': 'var(--arcane-space-2)',
+              'gap': 'var(--space-2)',
               'margin-top': '0.5rem',
             }),
             [

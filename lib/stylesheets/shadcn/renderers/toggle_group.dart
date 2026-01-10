@@ -21,7 +21,7 @@ class ShadcnToggleGroup extends StatelessComponent {
         'justify-content': 'center',
         'border-radius': 'var(--arcane-radius-sm)',
         'background-color': 'transparent',
-        'gap': 'var(--arcane-space-1)',
+        'gap': 'var(--space-1)',
       }),
       [for (final item in props.items) _buildItem(item)],
     );
@@ -68,8 +68,8 @@ class ShadcnToggleGroup extends StatelessComponent {
         'padding': '0 $paddingH',
         'min-width': height,
         'border-radius': 'var(--arcane-radius-sm)',
-        'font-size': 'var(--arcane-font-size-sm)',
-        'font-weight': 'var(--arcane-font-weight-medium)',
+        'font-size': 'var(--font-size-sm)',
+        'font-weight': 'var(--font-weight-medium)',
         'background-color':
             isSelected ? 'var(--accent)' : 'transparent',
         'color': isSelected

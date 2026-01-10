@@ -59,8 +59,8 @@ class ShadcnSlider extends StatelessComponent {
               if (props.label != null)
                 dom.span(
                   styles: const dom.Styles(raw: {
-                    'font-size': 'var(--arcane-font-size-sm)', // text-sm
-                    'font-weight': 'var(--arcane-font-weight-medium)', // font-medium
+                    'font-size': 'var(--font-size-sm)', // text-sm
+                    'font-weight': 'var(--font-weight-medium)', // font-medium
                     'color': 'var(--foreground)',
                   }),
                   [Component.text(props.label!)],
@@ -69,8 +69,8 @@ class ShadcnSlider extends StatelessComponent {
                 dom.span(
                   classes: 'arcane-slider-value',
                   styles: const dom.Styles(raw: {
-                    'font-size': 'var(--arcane-font-size-sm)', // text-sm
-                    'font-weight': 'var(--arcane-font-weight-medium)', // font-medium
+                    'font-size': 'var(--font-size-sm)', // text-sm
+                    'font-weight': 'var(--font-weight-medium)', // font-medium
                     'font-variant-numeric': 'tabular-nums',
                     'color': 'var(--muted-foreground)',
                     'min-width': '40px',
@@ -215,14 +215,14 @@ class ShadcnSlider extends StatelessComponent {
             [
               dom.span(
                 styles: const dom.Styles(raw: {
-                  'font-size': 'var(--arcane-font-size-xs)', // text-xs
+                  'font-size': 'var(--font-size-xs)', // text-xs
                   'color': 'var(--muted-foreground)',
                 }),
                 [Component.text(props.min.toStringAsFixed(0))],
               ),
               dom.span(
                 styles: const dom.Styles(raw: {
-                  'font-size': 'var(--arcane-font-size-xs)', // text-xs
+                  'font-size': 'var(--font-size-xs)', // text-xs
                   'color': 'var(--muted-foreground)',
                 }),
                 [Component.text(props.max.toStringAsFixed(0))],

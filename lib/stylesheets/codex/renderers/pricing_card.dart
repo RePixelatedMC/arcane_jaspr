@@ -27,10 +27,11 @@ class CodexPricingCard extends StatelessComponent {
         'padding': '2.5rem', // Codex: larger padding
         'background-color': 'var(--card)',
         'border': isHighlighted
-            ? '1px solid rgba(var(--codex-accent-rgb), 0.4)'
+            ? '1px solid rgba(var(--primary-rgb), 0.4)'
             : '1px solid var(--border)',
         'border-radius': 'var(--radius-2xl)',
-        if (isHighlighted) 'box-shadow': 'var(--codex-accent-glow-subtle)',
+        if (isHighlighted)
+          'box-shadow': '0 0 30px rgba(var(--primary-rgb), 0.15)',
         'position': 'relative',
         'overflow': 'hidden',
       }),
@@ -44,10 +45,10 @@ class CodexPricingCard extends StatelessComponent {
               'top': '1rem',
               'right': '1rem',
               'padding': '0.375rem 0.75rem',
-              'background-color': 'var(--codex-accent)',
-              'color': '#ffffff',
-              'font-size': 'var(--arcane-font-size-xs)',
-              'font-weight': 'var(--arcane-font-weight-semibold)',
+              'background-color': 'var(--primary)',
+              'color': 'var(--primary-foreground)',
+              'font-size': 'var(--font-size-xs)',
+              'font-weight': 'var(--font-weight-semibold)',
               'border-radius': 'var(--radius-full)',
               'text-transform': 'uppercase',
               'letter-spacing': '0.05em',
@@ -59,8 +60,8 @@ class CodexPricingCard extends StatelessComponent {
         dom.h3(
           classes: 'codex-pricing-name',
           styles: const dom.Styles(raw: {
-            'font-size': 'var(--arcane-font-size-xl)',
-            'font-weight': 'var(--arcane-font-weight-semibold)',
+            'font-size': 'var(--font-size-xl)',
+            'font-weight': 'var(--font-weight-semibold)',
             'color': 'var(--foreground)',
             'margin': '0',
           }),
@@ -71,7 +72,7 @@ class CodexPricingCard extends StatelessComponent {
         dom.p(
           classes: 'codex-pricing-description',
           styles: const dom.Styles(raw: {
-            'font-size': 'var(--arcane-font-size-sm)',
+            'font-size': 'var(--font-size-sm)',
             'color': 'var(--muted-foreground)',
             'margin': '0.5rem 0 0 0',
           }),
@@ -84,7 +85,7 @@ class CodexPricingCard extends StatelessComponent {
           styles: const dom.Styles(raw: {
             'display': 'flex',
             'align-items': 'baseline',
-            'gap': 'var(--arcane-space-1)',
+            'gap': 'var(--space-1)',
             'margin-top': '1.5rem',
           }),
           [
@@ -92,8 +93,8 @@ class CodexPricingCard extends StatelessComponent {
               dom.span(
                 classes: 'codex-pricing-currency',
                 styles: const dom.Styles(raw: {
-                  'font-size': 'var(--arcane-font-size-2xl)',
-                  'font-weight': 'var(--arcane-font-weight-semibold)',
+                  'font-size': 'var(--font-size-2xl)',
+                  'font-weight': 'var(--font-weight-semibold)',
                   'color': 'var(--foreground)',
                 }),
                 [Component.text(tier.currency)],
@@ -102,7 +103,7 @@ class CodexPricingCard extends StatelessComponent {
                 classes: 'codex-pricing-amount',
                 styles: const dom.Styles(raw: {
                   'font-size': '3rem',
-                  'font-weight': 'var(--arcane-font-weight-bold)',
+                  'font-weight': 'var(--font-weight-bold)',
                   'color': 'var(--foreground)',
                   'line-height': '1',
                 }),
@@ -111,7 +112,7 @@ class CodexPricingCard extends StatelessComponent {
               dom.span(
                 classes: 'codex-pricing-period',
                 styles: const dom.Styles(raw: {
-                  'font-size': 'var(--arcane-font-size-sm)',
+                  'font-size': 'var(--font-size-sm)',
                   'color': 'var(--muted-foreground)',
                 }),
                 [Component.text('/${tier.period}')],
@@ -121,7 +122,7 @@ class CodexPricingCard extends StatelessComponent {
                 classes: 'codex-pricing-custom',
                 styles: dom.Styles(raw: {
                   'font-size': '2rem',
-                  'font-weight': 'var(--arcane-font-weight-semibold)',
+                  'font-weight': 'var(--font-weight-semibold)',
                   'color': 'var(--foreground)',
                 }),
                 [Component.text('Custom')],
@@ -137,15 +138,16 @@ class CodexPricingCard extends StatelessComponent {
             'width': '100%',
             'margin-top': '1.5rem',
             'padding': '0.875rem 1.5rem', // Codex: larger padding
-            'background-color': isHighlighted ? 'var(--codex-accent)' : 'var(--secondary)',
-            'color': isHighlighted ? '#ffffff' : 'var(--foreground)',
+            'background-color': isHighlighted ? 'var(--primary)' : 'var(--muted)',
+            'color': isHighlighted ? 'var(--primary-foreground)' : 'var(--foreground)',
             'border': isHighlighted ? 'none' : '1px solid var(--border)',
             'border-radius': 'var(--radius)',
             'font-size': '0.9375rem',
-            'font-weight': 'var(--arcane-font-weight-semibold)',
+            'font-weight': 'var(--font-weight-semibold)',
             'cursor': 'pointer',
             'transition': 'all var(--transition)',
-            if (isHighlighted) 'box-shadow': 'var(--codex-accent-glow-subtle)',
+            if (isHighlighted)
+              'box-shadow': '0 0 20px rgba(var(--primary-rgb), 0.3)',
           }),
           events: props.onCtaPressed == null
               ? null
@@ -182,18 +184,18 @@ class CodexPricingCard extends StatelessComponent {
                   'display': 'flex',
                   'align-items': 'flex-start',
                   'gap': '0.75rem',
-                  'font-size': 'var(--arcane-font-size-sm)',
+                  'font-size': 'var(--font-size-sm)',
                   'color': 'var(--foreground)',
                 }),
                 [
                   const dom.span(
                     classes: 'codex-pricing-check',
                     styles: dom.Styles(raw: {
-                      'color': 'var(--codex-success)',
-                      'font-weight': 'var(--arcane-font-weight-semibold)',
+                      'color': 'var(--success)',
+                      'font-weight': 'var(--font-weight-semibold)',
                       'flex-shrink': '0',
                     }),
-                    [Component.text('!')],
+                    [Component.text('+')],
                   ),
                   Component.text(feature),
                 ],
@@ -220,7 +222,7 @@ class CodexPricingGrid extends StatelessComponent {
       styles: dom.Styles(raw: {
         'display': 'grid',
         'grid-template-columns': 'repeat($columns, minmax(280px, 1fr))',
-        'gap': 'var(--arcane-space-6)', // Codex: larger gap
+        'gap': 'var(--space-6)', // Codex: larger gap
         'width': '100%',
         'max-width': '${columns * 350}px',
         'margin': '0 auto',

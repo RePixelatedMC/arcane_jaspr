@@ -92,7 +92,7 @@ class ShadcnIconButton extends StatelessComponent {
         // Variant-specific styles
         ...variantStyles,
         // ShadCN: font-medium
-        'font-weight': 'var(--arcane-font-weight-medium)',
+        'font-weight': 'var(--font-weight-medium)',
         // Cursor and interaction
         'cursor': isDisabled ? 'not-allowed' : 'pointer',
         // ShadCN: disabled:pointer-events-none disabled:opacity-50

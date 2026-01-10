@@ -52,7 +52,7 @@ class CodexScrollArea extends StatelessComponent {
         // Touch scrolling
         '-webkit-overflow-scrolling': 'touch',
         // Thin scrollbar with accent color
-        'scrollbar-color': 'rgba(var(--codex-accent-rgb), 0.3) transparent',
+        'scrollbar-color': 'rgba(var(--primary-rgb), 0.3) transparent',
         'scrollbar-width': 'thin',
       }),
       [
@@ -152,7 +152,7 @@ class CodexVirtualScroll<T> extends StatelessComponent {
         'height': props.height,
         'overflow-y': 'auto',
         'position': 'relative',
-        'scrollbar-color': 'rgba(var(--codex-accent-rgb), 0.3) transparent',
+        'scrollbar-color': 'rgba(var(--primary-rgb), 0.3) transparent',
         'scrollbar-width': 'thin',
       }),
       events: props.onScroll != null

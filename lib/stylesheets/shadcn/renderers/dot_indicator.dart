@@ -94,7 +94,7 @@ class ShadcnStepIndicator extends StatelessComponent {
               'display': 'flex',
               'flex-direction': 'column',
               'align-items': 'center',
-              'gap': 'var(--arcane-space-1)',
+              'gap': 'var(--space-1)',
             }),
             [
               // Circle
@@ -115,7 +115,7 @@ class ShadcnStepIndicator extends StatelessComponent {
                   'align-items': 'center',
                   'justify-content': 'center',
                   'font-size': fontSize,
-                  'font-weight': 'var(--arcane-font-weight-medium)',
+                  'font-weight': 'var(--font-weight-medium)',
                   'border': 'none',
                   'background':
                       i <= props.currentStep ? 'var(--accent)' : 'var(--muted)',

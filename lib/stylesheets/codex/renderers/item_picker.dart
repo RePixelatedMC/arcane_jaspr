@@ -105,7 +105,7 @@ class _CodexItemPickerState<T> extends State<CodexItemPicker<T>> {
                         'border-radius': 'var(--radius)',
                         'background': 'var(--input)',
                         'color': 'var(--foreground)',
-                        'font-size': 'var(--arcane-font-size-sm)',
+                        'font-size': 'var(--font-size-sm)',
                         'outline': 'none',
                         'transition': 'border-color var(--arcane-transition)',
                       }),
@@ -127,7 +127,7 @@ class _CodexItemPickerState<T> extends State<CodexItemPicker<T>> {
                   'overflow-y': 'auto',
                   'display': 'flex',
                   'flex-direction': 'column',
-                  'gap': 'var(--arcane-space-2)',
+                  'gap': 'var(--space-2)',
                 }),
                 [
                   if (filteredItems.isEmpty)
@@ -136,7 +136,7 @@ class _CodexItemPickerState<T> extends State<CodexItemPicker<T>> {
                         'padding': '2rem',
                         'text-align': 'center',
                         'color': 'var(--muted-foreground)',
-                        'font-size': 'var(--arcane-font-size-sm)',
+                        'font-size': 'var(--font-size-sm)',
                       }),
                       [Component.text('No items found')],
                     )
@@ -150,7 +150,7 @@ class _CodexItemPickerState<T> extends State<CodexItemPicker<T>> {
                     'padding': '0.75rem 1rem',
                     'background': 'var(--secondary)',
                     'border-radius': 'var(--radius)',
-                    'font-size': 'var(--arcane-font-size-sm)',
+                    'font-size': 'var(--font-size-sm)',
                     'color': 'var(--muted-foreground)',
                   }),
                   [Component.text('${_multiSelection.length} item(s) selected')],
@@ -190,10 +190,10 @@ class _CodexItemPickerState<T> extends State<CodexItemPicker<T>> {
         'align-items': 'center',
         'gap': '0.75rem',
         'padding': '0.75rem 1rem',
-        'border': '1px solid ${selected ? 'rgba(var(--codex-accent-rgb), 0.5)' : 'var(--border)'}',
+        'border': '1px solid ${selected ? 'rgba(var(--primary-rgb), 0.5)' : 'var(--border)'}',
         'border-radius': 'var(--radius)',
-        'background': selected ? 'rgba(var(--codex-accent-rgb), 0.1)' : 'transparent',
-        'color': selected ? 'var(--codex-accent)' : 'var(--foreground)',
+        'background': selected ? 'rgba(var(--primary-rgb), 0.1)' : 'transparent',
+        'color': selected ? 'var(--primary)' : 'var(--foreground)',
         'cursor': 'pointer',
         'text-align': 'left',
         'transition': 'all var(--arcane-transition)',
@@ -208,8 +208,8 @@ class _CodexItemPickerState<T> extends State<CodexItemPicker<T>> {
               'width': '1.25rem',
               'height': '1.25rem',
               'border-radius': 'var(--radius-sm)',
-              'border': '2px solid ${selected ? 'var(--codex-accent)' : 'var(--border)'}',
-              'background': selected ? 'var(--codex-accent)' : 'transparent',
+              'border': '2px solid ${selected ? 'var(--primary)' : 'var(--border)'}',
+              'background': selected ? 'var(--primary)' : 'transparent',
               'display': 'flex',
               'align-items': 'center',
               'justify-content': 'center',
@@ -220,8 +220,8 @@ class _CodexItemPickerState<T> extends State<CodexItemPicker<T>> {
                 const dom.span(
                   styles: dom.Styles(raw: {
                     'color': '#ffffff',
-                    'font-size': 'var(--arcane-font-size-xs)',
-                    'font-weight': 'var(--arcane-font-weight-bold)',
+                    'font-size': 'var(--font-size-xs)',
+                    'font-weight': 'var(--font-weight-bold)',
                   }),
                   [Component.text('\u2713')],
                 ),
@@ -237,8 +237,8 @@ class _CodexItemPickerState<T> extends State<CodexItemPicker<T>> {
         if (!component.props.multiSelect && selected)
           const dom.span(
             styles: dom.Styles(raw: {
-              'color': 'var(--codex-accent)',
-              'font-size': 'var(--arcane-font-size-base)',
+              'color': 'var(--primary)',
+              'font-size': 'var(--font-size-base)',
             }),
             [Component.text('\u2713')],
           ),

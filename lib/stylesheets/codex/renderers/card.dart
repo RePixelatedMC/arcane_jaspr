@@ -35,8 +35,8 @@ class CodexCard extends StatelessComponent {
     final variantStyles = switch (props.variant) {
       CardVariant.elevated => <String, String>{
           'background-color': props.backgroundColor ?? 'var(--card)',
-          'border': '1px solid var(--codex-accent-border)',
-          'box-shadow': 'var(--codex-accent-glow-subtle)',
+          'border': '1px solid var(--primary)',
+          'box-shadow': '0 0 15px rgba(var(--primary-rgb), 0.2)',
         },
       CardVariant.flat => <String, String>{
           'background-color': props.backgroundColor ?? 'var(--card)',
@@ -45,7 +45,7 @@ class CodexCard extends StatelessComponent {
         },
       CardVariant.outlined => <String, String>{
           'background-color': props.backgroundColor ?? 'transparent',
-          'border': '1px solid var(--codex-accent-border)',
+          'border': '1px solid var(--primary)',
           'box-shadow': 'none',
         },
       CardVariant.ghost => <String, String>{
@@ -56,8 +56,8 @@ class CodexCard extends StatelessComponent {
       CardVariant.glass => <String, String>{
           // Codex glass: slightly accent-tinted, more blur
           'background-color': 'rgba(10, 10, 10, 0.85)',
-          'border': '1px solid var(--codex-accent-border)',
-          'box-shadow': 'var(--codex-accent-glow-subtle)',
+          'border': '1px solid var(--primary)',
+          'box-shadow': '0 0 15px rgba(var(--primary-rgb), 0.2)',
           'backdrop-filter': 'blur(12px)',
           '-webkit-backdrop-filter': 'blur(12px)',
         },

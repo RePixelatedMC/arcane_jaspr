@@ -33,8 +33,8 @@ class CodexSlider extends StatelessComponent {
     // Codex variant colors with accent as primary
     final (String fillColor, String glowColor) = switch (props.variant) {
       SliderVariant.primary => (
-          'var(--codex-accent)',
-          'var(--codex-accent-glow-subtle)',
+          'var(--primary)',
+          '0 0 15px rgba(var(--primary-rgb), 0.2)',
         ),
       SliderVariant.success => (
           'var(--success)',
@@ -71,8 +71,8 @@ class CodexSlider extends StatelessComponent {
               if (props.label != null)
                 dom.span(
                   styles: const dom.Styles(raw: {
-                    'font-size': 'var(--arcane-font-size-sm)',
-                    'font-weight': 'var(--arcane-font-weight-medium)',
+                    'font-size': 'var(--font-size-sm)',
+                    'font-weight': 'var(--font-weight-medium)',
                     'color': 'var(--foreground)',
                   }),
                   [Component.text(props.label!)],
@@ -81,8 +81,8 @@ class CodexSlider extends StatelessComponent {
                 dom.span(
                   classes: 'codex-slider-value',
                   styles: const dom.Styles(raw: {
-                    'font-size': 'var(--arcane-font-size-sm)',
-                    'font-weight': 'var(--arcane-font-weight-medium)',
+                    'font-size': 'var(--font-size-sm)',
+                    'font-weight': 'var(--font-weight-medium)',
                     'font-variant-numeric': 'tabular-nums',
                     'color': 'var(--muted-foreground)',
                     'min-width': '40px',
@@ -214,14 +214,14 @@ class CodexSlider extends StatelessComponent {
             [
               dom.span(
                 styles: const dom.Styles(raw: {
-                  'font-size': 'var(--arcane-font-size-xs)',
+                  'font-size': 'var(--font-size-xs)',
                   'color': 'var(--muted-foreground)',
                 }),
                 [Component.text(props.min.toStringAsFixed(0))],
               ),
               dom.span(
                 styles: const dom.Styles(raw: {
-                  'font-size': 'var(--arcane-font-size-xs)',
+                  'font-size': 'var(--font-size-xs)',
                   'color': 'var(--muted-foreground)',
                 }),
                 [Component.text(props.max.toStringAsFixed(0))],

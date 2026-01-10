@@ -48,8 +48,8 @@ class ShadcnPricingCard extends StatelessComponent {
         dom.div(
           classes: 'arcane-pricing-name',
           styles: const dom.Styles(raw: {
-            'font-size': 'var(--arcane-font-size-xl)',
-            'font-weight': 'var(--arcane-font-weight-semibold)',
+            'font-size': 'var(--font-size-xl)',
+            'font-weight': 'var(--font-weight-semibold)',
             'color': 'var(--foreground)',
             'margin-bottom': '0.5rem',
           }),
@@ -62,14 +62,14 @@ class ShadcnPricingCard extends StatelessComponent {
           styles: const dom.Styles(raw: {
             'display': 'flex',
             'align-items': 'baseline',
-            'gap': 'var(--arcane-space-1)',
+            'gap': 'var(--space-1)',
             'margin-bottom': '0.5rem',
           }),
           [
             if (tier.price != null) ...[
               dom.span(
                 styles: const dom.Styles(raw: {
-                  'font-size': 'var(--arcane-font-size-sm)',
+                  'font-size': 'var(--font-size-sm)',
                   'color': 'var(--muted-foreground)',
                 }),
                 [Component.text(tier.currency)],
@@ -77,7 +77,7 @@ class ShadcnPricingCard extends StatelessComponent {
               dom.span(
                 styles: const dom.Styles(raw: {
                   'font-size': '2.5rem',
-                  'font-weight': 'var(--arcane-font-weight-bold)',
+                  'font-weight': 'var(--font-weight-bold)',
                   'color': 'var(--foreground)',
                   'line-height': '1',
                   'letter-spacing': '-0.02em',
@@ -86,7 +86,7 @@ class ShadcnPricingCard extends StatelessComponent {
               ),
               dom.span(
                 styles: const dom.Styles(raw: {
-                  'font-size': 'var(--arcane-font-size-sm)',
+                  'font-size': 'var(--font-size-sm)',
                   'color': 'var(--muted-foreground)',
                 }),
                 [Component.text('/${tier.period}')],
@@ -94,8 +94,8 @@ class ShadcnPricingCard extends StatelessComponent {
             ] else
               const dom.span(
                 styles: dom.Styles(raw: {
-                  'font-size': 'var(--arcane-font-size-2xl)',
-                  'font-weight': 'var(--arcane-font-weight-semibold)',
+                  'font-size': 'var(--font-size-2xl)',
+                  'font-weight': 'var(--font-weight-semibold)',
                   'color': 'var(--foreground)',
                 }),
                 [Component.text('Custom')],
@@ -107,7 +107,7 @@ class ShadcnPricingCard extends StatelessComponent {
         dom.p(
           classes: 'arcane-pricing-description',
           styles: const dom.Styles(raw: {
-            'font-size': 'var(--arcane-font-size-base)',
+            'font-size': 'var(--font-size-base)',
             'color': 'var(--muted-foreground)',
             'margin': '0 0 2rem 0',
             'line-height': '1.5',
@@ -122,8 +122,8 @@ class ShadcnPricingCard extends StatelessComponent {
           styles: dom.Styles(raw: {
             'width': '100%',
             'padding': '1rem 1.5rem',
-            'font-size': 'var(--arcane-font-size-base)',
-            'font-weight': 'var(--arcane-font-weight-medium)',
+            'font-size': 'var(--font-size-base)',
+            'font-weight': 'var(--font-weight-medium)',
             'border-radius': 'var(--arcane-radius-sm)',
             'border': tier.isHighlighted
                 ? 'none'
@@ -150,7 +150,7 @@ class ShadcnPricingCard extends StatelessComponent {
           styles: const dom.Styles(raw: {
             'display': 'flex',
             'flex-direction': 'column',
-            'gap': 'var(--arcane-space-4)',
+            'gap': 'var(--space-4)',
           }),
           [
             for (final feature in tier.features)
@@ -159,8 +159,8 @@ class ShadcnPricingCard extends StatelessComponent {
                 styles: const dom.Styles(raw: {
                   'display': 'flex',
                   'align-items': 'flex-start',
-                  'gap': 'var(--arcane-space-4)',
-                  'font-size': 'var(--arcane-font-size-sm)',
+                  'gap': 'var(--space-4)',
+                  'font-size': 'var(--font-size-sm)',
                   'color': 'var(--foreground)',
                 }),
                 [
@@ -169,7 +169,7 @@ class ShadcnPricingCard extends StatelessComponent {
                     styles: dom.Styles(raw: {
                       'color': 'var(--success)',
                       'flex-shrink': '0',
-                      'font-size': 'var(--arcane-font-size-base)',
+                      'font-size': 'var(--font-size-base)',
                     }),
                     [Component.text('\u2713')],
                   ),
@@ -198,7 +198,7 @@ class ShadcnPricingGrid extends StatelessComponent {
       styles: dom.Styles(raw: {
         'display': 'grid',
         'grid-template-columns': 'repeat($cols, minmax(280px, 1fr))',
-        'gap': 'var(--arcane-space-8)',
+        'gap': 'var(--space-8)',
         'align-items': 'start',
       }),
       [

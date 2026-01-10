@@ -37,15 +37,15 @@ class ShadcnTimePicker extends StatelessComponent {
         'position': 'relative',
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': 'var(--arcane-space-1)',
+        'gap': 'var(--space-1)',
       }),
       [
         // Label
         if (props.label != null)
           dom.span(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-sm)',
-              'font-weight': 'var(--arcane-font-weight-medium)',
+              'font-size': 'var(--font-size-sm)',
+              'font-weight': 'var(--font-weight-medium)',
               'color': 'var(--foreground)',
             }),
             [Component.text(props.label!)],
@@ -63,7 +63,7 @@ class ShadcnTimePicker extends StatelessComponent {
           styles: dom.Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
-            'gap': 'var(--arcane-space-2)',
+            'gap': 'var(--space-2)',
             'width': '100%',
             'height': sizeStyles['height']!,
             'padding': '0 0.75rem',
@@ -142,7 +142,7 @@ class ShadcnTimePicker extends StatelessComponent {
               dom.div(
                 styles: const dom.Styles(raw: {
                   'display': 'flex',
-                  'gap': 'var(--arcane-space-4)',
+                  'gap': 'var(--space-4)',
                 }),
                 [
                   // Hours column
@@ -173,13 +173,13 @@ class ShadcnTimePicker extends StatelessComponent {
                       styles: const dom.Styles(raw: {
                         'display': 'flex',
                         'flex-direction': 'column',
-                        'gap': 'var(--arcane-space-1)',
+                        'gap': 'var(--space-1)',
                       }),
                       [
                         const dom.span(
                           styles: dom.Styles(raw: {
-                            'font-size': 'var(--arcane-font-size-xs)',
-                            'font-weight': 'var(--arcane-font-weight-medium)',
+                            'font-size': 'var(--font-size-xs)',
+                            'font-weight': 'var(--font-weight-medium)',
                             'color': 'var(--muted-foreground)',
                             'text-transform': 'uppercase',
                             'margin-bottom': '0.25rem',
@@ -196,7 +196,7 @@ class ShadcnTimePicker extends StatelessComponent {
                             'background': !props.isPM ? 'var(--primary)' : 'transparent',
                             'color': !props.isPM ? 'var(--primary-foreground)' : 'var(--foreground)',
                             'cursor': 'pointer',
-                            'font-size': 'var(--arcane-font-size-sm)',
+                            'font-size': 'var(--font-size-sm)',
                             'transition': 'all var(--arcane-transition)',
                           }),
                           events: {
@@ -216,7 +216,7 @@ class ShadcnTimePicker extends StatelessComponent {
                             'background': props.isPM ? 'var(--primary)' : 'transparent',
                             'color': props.isPM ? 'var(--primary-foreground)' : 'var(--foreground)',
                             'cursor': 'pointer',
-                            'font-size': 'var(--arcane-font-size-sm)',
+                            'font-size': 'var(--font-size-sm)',
                             'transition': 'all var(--arcane-transition)',
                           }),
                           events: {
@@ -236,7 +236,7 @@ class ShadcnTimePicker extends StatelessComponent {
                 styles: const dom.Styles(raw: {
                   'display': 'flex',
                   'justify-content': 'flex-end',
-                  'gap': 'var(--arcane-space-2)',
+                  'gap': 'var(--space-2)',
                   'margin-top': '1rem',
                   'padding-top': '1rem',
                   'border-top': '1px solid var(--border)',
@@ -251,7 +251,7 @@ class ShadcnTimePicker extends StatelessComponent {
                       'background': 'transparent',
                       'color': 'var(--foreground)',
                       'cursor': 'pointer',
-                      'font-size': 'var(--arcane-font-size-sm)',
+                      'font-size': 'var(--font-size-sm)',
                     }),
                     events: {
                       'click': (_) => props.onCancel?.call(),
@@ -267,7 +267,7 @@ class ShadcnTimePicker extends StatelessComponent {
                       'background': 'var(--primary)',
                       'color': 'var(--primary-foreground)',
                       'cursor': 'pointer',
-                      'font-size': 'var(--arcane-font-size-sm)',
+                      'font-size': 'var(--font-size-sm)',
                     }),
                     events: {
                       'click': (_) => props.onConfirm?.call(),
@@ -283,7 +283,7 @@ class ShadcnTimePicker extends StatelessComponent {
         if (props.error != null)
           dom.span(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-sm)',
+              'font-size': 'var(--font-size-sm)',
               'color': 'var(--destructive)',
             }),
             [Component.text(props.error!)],
@@ -303,13 +303,13 @@ class ShadcnTimePicker extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': 'var(--arcane-space-1)',
+        'gap': 'var(--space-1)',
       }),
       [
         dom.span(
           styles: const dom.Styles(raw: {
-            'font-size': 'var(--arcane-font-size-xs)',
-            'font-weight': 'var(--arcane-font-weight-medium)',
+            'font-size': 'var(--font-size-xs)',
+            'font-weight': 'var(--font-weight-medium)',
             'color': 'var(--muted-foreground)',
             'text-transform': 'uppercase',
             'margin-bottom': '0.25rem',
@@ -336,7 +336,7 @@ class ShadcnTimePicker extends StatelessComponent {
                   'background': value == selectedValue ? 'var(--primary)' : 'transparent',
                   'color': value == selectedValue ? 'var(--primary-foreground)' : 'var(--foreground)',
                   'cursor': 'pointer',
-                  'font-size': 'var(--arcane-font-size-sm)',
+                  'font-size': 'var(--font-size-sm)',
                   'text-align': 'center',
                   'min-width': '48px',
                   'transition': 'all var(--arcane-transition)',

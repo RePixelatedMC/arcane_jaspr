@@ -37,11 +37,11 @@ class CodexStatCard extends StatelessComponent {
                   'width': '48px',
                   'height': '48px',
                   'border-radius': 'var(--radius)',
-                  'background': props.iconBackground ?? 'rgba(var(--codex-accent-rgb), 0.15)',
+                  'background': props.iconBackground ?? 'rgba(var(--primary-rgb), 0.15)',
                   'display': 'flex',
                   'align-items': 'center',
                   'justify-content': 'center',
-                  'font-size': 'var(--arcane-font-size-xl)',
+                  'font-size': 'var(--font-size-xl)',
                 }),
                 [Component.text(props.icon!)],
               ),
@@ -50,7 +50,7 @@ class CodexStatCard extends StatelessComponent {
                 styles: dom.Styles(raw: {
                   'display': 'flex',
                   'align-items': 'center',
-                  'gap': 'var(--arcane-space-2)',
+                  'gap': 'var(--space-2)',
                   'padding': '0.375rem 0.75rem',
                   'border-radius': 'var(--radius)',
                   'background': props.trendPositive
@@ -59,8 +59,8 @@ class CodexStatCard extends StatelessComponent {
                   'color': props.trendPositive
                       ? 'var(--success)'
                       : 'var(--destructive)',
-                  'font-size': 'var(--arcane-font-size-xs)',
-                  'font-weight': 'var(--arcane-font-weight-medium)',
+                  'font-size': 'var(--font-size-xs)',
+                  'font-weight': 'var(--font-weight-medium)',
                 }),
                 [
                   Component.text(props.trendPositive ? '\u2191' : '\u2193'),
@@ -74,7 +74,7 @@ class CodexStatCard extends StatelessComponent {
           dom.div(
             styles: const dom.Styles(raw: {
               'font-size': '2rem',
-              'font-weight': 'var(--arcane-font-weight-bold)',
+              'font-weight': 'var(--font-weight-bold)',
               'color': 'var(--foreground)',
               'line-height': '1.2',
             }),
@@ -82,7 +82,7 @@ class CodexStatCard extends StatelessComponent {
           ),
           dom.div(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-sm)',
+              'font-size': 'var(--font-size-sm)',
               'color': 'var(--muted-foreground)',
               'margin-top': '0.5rem',
             }),
@@ -92,7 +92,7 @@ class CodexStatCard extends StatelessComponent {
         if (props.description != null)
           dom.div(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-xs)',
+              'font-size': 'var(--font-size-xs)',
               'color': 'var(--muted-foreground)',
               'padding-top': '1rem',
               'border-top': '1px solid var(--border)',

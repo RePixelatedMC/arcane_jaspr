@@ -79,7 +79,7 @@ class ShadcnDisclosure extends StatelessComponent {
             'display': 'flex',
             'align-items': 'center',
             'justify-content': 'space-between',
-            'gap': 'var(--arcane-space-4)',
+            'gap': 'var(--space-4)',
             'padding': '0.5rem 1rem',
             'background-color': summaryBg,
             'cursor': 'pointer',
@@ -102,7 +102,7 @@ class ShadcnDisclosure extends StatelessComponent {
                 classes: 'arcane-disclosure-chevron',
                 styles: dom.Styles(raw: {
                   'color': 'var(--muted-foreground)',
-                  'font-size': 'var(--arcane-font-size-sm)',
+                  'font-size': 'var(--font-size-sm)',
                   'transition': 'transform var(--arcane-transition)',
                 }),
                 [Component.text('\u25BC')],

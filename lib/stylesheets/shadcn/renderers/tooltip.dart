@@ -46,8 +46,8 @@ class ShadcnTooltip extends StatelessComponent {
             'padding': hasCustomContent ? '12px' : '6px 12px',
             'max-width': '${props.maxWidth}px',
             // ShadCN: text-sm
-            'font-size': 'var(--arcane-font-size-sm)',
-            'font-weight': 'var(--arcane-font-weight-medium)',
+            'font-size': 'var(--font-size-sm)',
+            'font-weight': 'var(--font-weight-medium)',
             'line-height': '1.4',
             // ShadCN: text-popover-foreground
             'color': 'var(--popover-foreground)',

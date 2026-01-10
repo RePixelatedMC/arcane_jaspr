@@ -66,7 +66,7 @@ class _CodexTimeDialogState extends State<CodexTimeDialog> {
                 dom.div(
                   styles: const dom.Styles(raw: {
                     'color': 'var(--muted-foreground)',
-                    'font-size': 'var(--arcane-font-size-sm)',
+                    'font-size': 'var(--font-size-sm)',
                     'line-height': '1.625',
                   }),
                   [Component.text(component.props.message!)],
@@ -78,7 +78,7 @@ class _CodexTimeDialogState extends State<CodexTimeDialog> {
                   'align-items': 'center',
                   'gap': '0.75rem',
                   'font-size': '2.25rem',
-                  'font-weight': 'var(--arcane-font-weight-bold)',
+                  'font-weight': 'var(--font-weight-bold)',
                   'font-variant-numeric': 'tabular-nums',
                   'color': 'var(--foreground)',
                 }),
@@ -93,7 +93,7 @@ class _CodexTimeDialogState extends State<CodexTimeDialog> {
                   if (!component.props.use24Hour)
                     dom.span(
                       styles: const dom.Styles(raw: {
-                        'font-size': 'var(--arcane-font-size-xl)',
+                        'font-size': 'var(--font-size-xl)',
                         'margin-left': '0.75rem',
                         'color': 'var(--muted-foreground)',
                       }),
@@ -139,13 +139,13 @@ class _CodexTimeDialogState extends State<CodexTimeDialog> {
                       styles: const dom.Styles(raw: {
                         'display': 'flex',
                         'flex-direction': 'column',
-                        'gap': 'var(--arcane-space-2)',
+                        'gap': 'var(--space-2)',
                       }),
                       [
                         const dom.span(
                           styles: dom.Styles(raw: {
-                            'font-size': 'var(--arcane-font-size-xs)',
-                            'font-weight': 'var(--arcane-font-weight-medium)',
+                            'font-size': 'var(--font-size-xs)',
+                            'font-weight': 'var(--font-weight-medium)',
                             'color': 'var(--muted-foreground)',
                             'text-transform': 'uppercase',
                             'text-align': 'center',
@@ -159,10 +159,10 @@ class _CodexTimeDialogState extends State<CodexTimeDialog> {
                             'padding': '0.625rem 1.25rem',
                             'border': 'none',
                             'border-radius': 'var(--radius)',
-                            'background': !_isPM ? 'var(--codex-accent)' : 'transparent',
+                            'background': !_isPM ? 'var(--primary)' : 'transparent',
                             'color': !_isPM ? '#ffffff' : 'var(--foreground)',
                             'cursor': 'pointer',
-                            'font-size': 'var(--arcane-font-size-sm)',
+                            'font-size': 'var(--font-size-sm)',
                             'transition': 'all var(--arcane-transition)',
                           }),
                           events: {
@@ -178,10 +178,10 @@ class _CodexTimeDialogState extends State<CodexTimeDialog> {
                             'padding': '0.625rem 1.25rem',
                             'border': 'none',
                             'border-radius': 'var(--radius)',
-                            'background': _isPM ? 'var(--codex-accent)' : 'transparent',
+                            'background': _isPM ? 'var(--primary)' : 'transparent',
                             'color': _isPM ? '#ffffff' : 'var(--foreground)',
                             'cursor': 'pointer',
-                            'font-size': 'var(--arcane-font-size-sm)',
+                            'font-size': 'var(--font-size-sm)',
                             'transition': 'all var(--arcane-transition)',
                           }),
                           events: {
@@ -225,13 +225,13 @@ class _CodexTimeDialogState extends State<CodexTimeDialog> {
       styles: const dom.Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': 'var(--arcane-space-2)',
+        'gap': 'var(--space-2)',
       }),
       [
         dom.span(
           styles: const dom.Styles(raw: {
-            'font-size': 'var(--arcane-font-size-xs)',
-            'font-weight': 'var(--arcane-font-weight-medium)',
+            'font-size': 'var(--font-size-xs)',
+            'font-weight': 'var(--font-weight-medium)',
             'color': 'var(--muted-foreground)',
             'text-transform': 'uppercase',
             'text-align': 'center',
@@ -256,10 +256,10 @@ class _CodexTimeDialogState extends State<CodexTimeDialog> {
                   'padding': '0.375rem 1.25rem',
                   'border': 'none',
                   'border-radius': 'var(--radius)',
-                  'background': value == selectedValue ? 'var(--codex-accent)' : 'transparent',
+                  'background': value == selectedValue ? 'var(--primary)' : 'transparent',
                   'color': value == selectedValue ? '#ffffff' : 'var(--foreground)',
                   'cursor': 'pointer',
-                  'font-size': 'var(--arcane-font-size-sm)',
+                  'font-size': 'var(--font-size-sm)',
                   'text-align': 'center',
                   'min-width': '52px',
                   'transition': 'all var(--arcane-transition)',

@@ -38,8 +38,8 @@ class CodexFeatureCard extends StatelessComponent {
               'width': '56px', // Codex: larger
               'height': '56px',
               'border-radius': 'var(--radius)',
-              'background-color': 'rgba(var(--codex-accent-rgb), 0.1)',
-              'color': 'var(--codex-accent)',
+              'background-color': 'rgba(var(--primary-rgb), 0.1)',
+              'color': 'var(--primary)',
               'flex-shrink': '0',
             }),
             [props.icon!],
@@ -58,14 +58,14 @@ class CodexFeatureCard extends StatelessComponent {
               styles: const dom.Styles(raw: {
                 'display': 'flex',
                 'align-items': 'center',
-                'gap': 'var(--arcane-space-2)',
+                'gap': 'var(--space-2)',
               }),
               [
                 dom.h3(
                   classes: 'codex-feature-card-title',
                   styles: const dom.Styles(raw: {
-                    'font-size': 'var(--arcane-font-size-lg)',
-                    'font-weight': 'var(--arcane-font-weight-semibold)',
+                    'font-size': 'var(--font-size-lg)',
+                    'font-weight': 'var(--font-weight-semibold)',
                     'color': 'var(--foreground)',
                     'margin': '0',
                   }),
@@ -75,8 +75,8 @@ class CodexFeatureCard extends StatelessComponent {
                   const dom.span(
                     classes: 'codex-feature-card-arrow',
                     styles: dom.Styles(raw: {
-                      'font-size': 'var(--arcane-font-size-base)',
-                      'color': 'var(--codex-accent)',
+                      'font-size': 'var(--font-size-base)',
+                      'color': 'var(--primary)',
                       'transition': 'transform var(--transition)',
                     }),
                     [Component.text('->')],
@@ -148,7 +148,7 @@ class CodexIconCard extends StatelessComponent {
         'flex-direction': 'column',
         'align-items': 'center',
         'text-align': 'center',
-        'gap': 'var(--arcane-space-4)',
+        'gap': 'var(--space-4)',
       }),
       [
         // Icon
@@ -161,8 +161,8 @@ class CodexIconCard extends StatelessComponent {
             'width': '64px', // Codex: larger
             'height': '64px',
             'border-radius': 'var(--radius-lg)',
-            'background-color': 'rgba(var(--codex-accent-rgb), 0.1)',
-            'color': 'var(--codex-accent)',
+            'background-color': 'rgba(var(--primary-rgb), 0.1)',
+            'color': 'var(--primary)',
           }),
           [props.icon],
         ),
@@ -171,8 +171,8 @@ class CodexIconCard extends StatelessComponent {
         dom.h4(
           classes: 'codex-icon-card-title',
           styles: const dom.Styles(raw: {
-            'font-size': 'var(--arcane-font-size-base)',
-            'font-weight': 'var(--arcane-font-weight-semibold)',
+            'font-size': 'var(--font-size-base)',
+            'font-weight': 'var(--font-weight-semibold)',
             'color': 'var(--foreground)',
             'margin': '0',
           }),
@@ -184,7 +184,7 @@ class CodexIconCard extends StatelessComponent {
           dom.p(
             classes: 'codex-icon-card-subtitle',
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-sm)',
+              'font-size': 'var(--font-size-sm)',
               'color': 'var(--muted-foreground)',
               'margin': '0',
             }),

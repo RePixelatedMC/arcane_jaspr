@@ -20,8 +20,8 @@ class CodexBar extends StatelessComponent {
             ? dom.span(
                 classes: 'codex-bar-title',
                 styles: const dom.Styles(raw: {
-                  'font-size': 'var(--arcane-font-size-lg)',
-                  'font-weight': 'var(--arcane-font-weight-semibold)',
+                  'font-size': 'var(--font-size-lg)',
+                  'font-weight': 'var(--font-weight-semibold)',
                   'color': 'var(--foreground)',
                   'white-space': 'nowrap',
                   'overflow': 'hidden',
@@ -36,7 +36,7 @@ class CodexBar extends StatelessComponent {
             ? dom.span(
                 classes: 'codex-bar-subtitle',
                 styles: const dom.Styles(raw: {
-                  'font-size': 'var(--arcane-font-size-xs)',
+                  'font-size': 'var(--font-size-xs)',
                   'color': 'var(--muted-foreground)',
                   'white-space': 'nowrap',
                   'overflow': 'hidden',
@@ -55,7 +55,7 @@ class CodexBar extends StatelessComponent {
       styles: dom.Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
-        'gap': 'var(--arcane-space-4)',
+        'gap': 'var(--space-4)',
         'height': '${effectiveHeight}px',
         'padding': effectivePadding,
         'background-color': props.transparent ? 'transparent' : 'var(--card)',
@@ -137,7 +137,7 @@ class CodexBar extends StatelessComponent {
       [
         const dom.span(
           styles: dom.Styles(raw: {
-            'font-size': 'var(--arcane-font-size-xl)',
+            'font-size': 'var(--font-size-xl)',
           }),
           [Component.text('\u2190')], // Left arrow
         ),
@@ -167,8 +167,8 @@ class CodexDialogBar extends StatelessComponent {
         if (props.title != null)
           dom.span(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-lg)',
-              'font-weight': 'var(--arcane-font-weight-semibold)',
+              'font-size': 'var(--font-size-lg)',
+              'font-weight': 'var(--font-weight-semibold)',
               'color': 'var(--foreground)',
             }),
             [Component.text(props.title!)],
@@ -190,7 +190,7 @@ class CodexDialogBar extends StatelessComponent {
               'color': 'var(--muted-foreground)',
               'cursor': 'pointer',
               'transition': 'all var(--arcane-transition)',
-              'font-size': 'var(--arcane-font-size-xl)',
+              'font-size': 'var(--font-size-xl)',
             }),
             events: {
               'click': (event) => props.onClose!(),

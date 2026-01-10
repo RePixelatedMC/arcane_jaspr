@@ -79,7 +79,7 @@ class ShadcnCommand extends StatelessComponent {
               styles: const dom.Styles(raw: {
                 'display': 'flex',
                 'align-items': 'center',
-                'gap': 'var(--arcane-space-2)',
+                'gap': 'var(--space-2)',
                 'padding': '12px 16px',
                 'border-bottom': '1px solid var(--border)',
               }),
@@ -88,7 +88,7 @@ class ShadcnCommand extends StatelessComponent {
                 const dom.span(
                   styles: dom.Styles(raw: {
                     'color': 'var(--muted-foreground)',
-                    'font-size': 'var(--arcane-font-size-lg)',
+                    'font-size': 'var(--font-size-lg)',
                   }),
                   [Component.text('\u{1F50D}')], // Magnifying glass emoji
                 ),
@@ -106,7 +106,7 @@ class ShadcnCommand extends StatelessComponent {
                     'background': 'transparent',
                     'border': 'none',
                     // ShadCN: text-sm
-                    'font-size': 'var(--arcane-font-size-sm)',
+                    'font-size': 'var(--font-size-sm)',
                     'color': 'var(--foreground)',
                     'outline': 'none',
                   }),
@@ -139,7 +139,7 @@ class ShadcnCommand extends StatelessComponent {
                       'padding': '24px',
                       'text-align': 'center',
                       'color': 'var(--muted-foreground)',
-                      'font-size': 'var(--arcane-font-size-sm)',
+                      'font-size': 'var(--font-size-sm)',
                     }),
                     [Component.text(props.emptyMessage)],
                   )
@@ -151,8 +151,8 @@ class ShadcnCommand extends StatelessComponent {
                       dom.div(
                         styles: const dom.Styles(raw: {
                           'padding': '8px 12px',
-                          'font-size': 'var(--arcane-font-size-xs)',
-                          'font-weight': 'var(--arcane-font-weight-semibold)',
+                          'font-size': 'var(--font-size-xs)',
+                          'font-weight': 'var(--font-weight-semibold)',
                           'color': 'var(--muted-foreground)',
                           'text-transform': 'uppercase',
                           'letter-spacing': '0.05em',
@@ -175,7 +175,7 @@ class ShadcnCommand extends StatelessComponent {
                 'gap': '16px',
                 'padding': '8px 12px',
                 'border-top': '1px solid var(--border)',
-                'font-size': 'var(--arcane-font-size-xs)',
+                'font-size': 'var(--font-size-xs)',
                 'color': 'var(--muted-foreground)',
               }),
               [
@@ -202,7 +202,7 @@ class ShadcnCommand extends StatelessComponent {
       styles: dom.Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
-        'gap': 'var(--arcane-space-2)',
+        'gap': 'var(--space-2)',
         'padding': '8px 12px',
         // ShadCN: rounded-sm
         'border-radius': 'var(--arcane-radius-xs)',
@@ -220,7 +220,7 @@ class ShadcnCommand extends StatelessComponent {
           styles: const dom.Styles(raw: {
             'flex': '1',
             // ShadCN: text-sm
-            'font-size': 'var(--arcane-font-size-sm)',
+            'font-size': 'var(--font-size-sm)',
             'color': 'var(--foreground)',
           }),
           [Component.text(item.label)],
@@ -229,7 +229,7 @@ class ShadcnCommand extends StatelessComponent {
           // ShadCN: ml-auto text-xs tracking-widest text-muted-foreground
           dom.span(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-xs)',
+              'font-size': 'var(--font-size-xs)',
               'color': 'var(--muted-foreground)',
               'padding': '2px 4px',
               'background-color': 'var(--muted)',
@@ -248,7 +248,7 @@ class ShadcnCommand extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
-        'gap': 'var(--arcane-space-1)',
+        'gap': 'var(--space-1)',
       }),
       [
         dom.span(

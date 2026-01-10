@@ -26,7 +26,7 @@ class ShadcnStatusBadge extends StatelessComponent {
       styles: dom.Styles(raw: {
         'display': 'inline-flex',
         'align-items': 'center',
-        'gap': 'var(--arcane-space-2)',
+        'gap': 'var(--space-2)',
         'padding': padding,
         'background': effectiveBackground,
         'border': '1px solid $effectiveBorder',

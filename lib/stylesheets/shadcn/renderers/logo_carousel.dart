@@ -13,7 +13,7 @@ Component renderLogoCarousel(LogoCarouselProps props) {
     styles: const dom.Styles(raw: {
       'display': 'flex',
       'flex-direction': 'column',
-      'gap': 'var(--arcane-space-6)',
+      'gap': 'var(--space-6)',
       'width': '100%',
       'overflow': 'hidden',
     }),
@@ -24,8 +24,8 @@ Component renderLogoCarousel(LogoCarouselProps props) {
           classes: 'arcane-logo-carousel-title',
           styles: const dom.Styles(raw: {
             'text-align': 'center',
-            'font-size': 'var(--arcane-font-size-sm)',
-            'font-weight': 'var(--arcane-font-weight-medium)',
+            'font-size': 'var(--font-size-sm)',
+            'font-weight': 'var(--font-weight-medium)',
             'color': 'var(--muted-foreground)',
             'text-transform': 'uppercase',
             'letter-spacing': '0.05em',
@@ -85,8 +85,8 @@ Component _buildLogo(LogoItem logo, LogoCarouselProps props) {
             )
           : dom.span(
               styles: dom.Styles(raw: {
-                'font-size': 'var(--arcane-font-size-lg)',
-                'font-weight': 'var(--arcane-font-weight-semibold)',
+                'font-size': 'var(--font-size-lg)',
+                'font-weight': 'var(--font-weight-semibold)',
                 'color': 'var(--muted-foreground)',
                 if (props.grayscale) 'filter': 'grayscale(100%)',
                 'opacity': props.grayscale ? '0.6' : '1',
@@ -133,15 +133,15 @@ Component renderLogoGrid(LogoGridProps props) {
     styles: const dom.Styles(raw: {
       'display': 'flex',
       'flex-direction': 'column',
-      'gap': 'var(--arcane-space-6)',
+      'gap': 'var(--space-6)',
     }),
     [
       if (props.title != null)
         dom.div(
           styles: const dom.Styles(raw: {
             'text-align': 'center',
-            'font-size': 'var(--arcane-font-size-sm)',
-            'font-weight': 'var(--arcane-font-weight-medium)',
+            'font-size': 'var(--font-size-sm)',
+            'font-weight': 'var(--font-weight-medium)',
             'color': 'var(--muted-foreground)',
             'text-transform': 'uppercase',
             'letter-spacing': '0.05em',
@@ -185,8 +185,8 @@ Component renderLogoGrid(LogoGridProps props) {
                 else
                   dom.span(
                     styles: const dom.Styles(raw: {
-                      'font-size': 'var(--arcane-font-size-base)',
-                      'font-weight': 'var(--arcane-font-weight-semibold)',
+                      'font-size': 'var(--font-size-base)',
+                      'font-weight': 'var(--font-weight-semibold)',
                       'color': 'var(--muted-foreground)',
                     }),
                     [Component.text(logo.name)],

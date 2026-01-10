@@ -74,7 +74,7 @@ class ShadcnLoadingState extends StatelessComponent {
         'justify-content': 'center',
         'min-height': '100%',
         'flex': '1',
-        'gap': 'var(--arcane-space-6)',
+        'gap': 'var(--space-6)',
         'padding': '4rem 2rem',
       }),
       [
@@ -94,7 +94,7 @@ class ShadcnLoadingState extends StatelessComponent {
         if (props.message != null)
           dom.div(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-sm)',
+              'font-size': 'var(--font-size-sm)',
               'color': 'var(--muted-foreground)',
             }),
             [Component.text(props.message!)],
@@ -123,7 +123,7 @@ class ShadcnErrorState extends StatelessComponent {
         'flex': '1',
         'text-align': 'center',
         'padding': '4rem 2rem',
-        'gap': 'var(--arcane-space-6)',
+        'gap': 'var(--space-6)',
       }),
       [
         // Error icon
@@ -137,8 +137,8 @@ class ShadcnErrorState extends StatelessComponent {
         if (props.title != null)
           dom.div(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-xl)',
-              'font-weight': 'var(--arcane-font-weight-semibold)',
+              'font-size': 'var(--font-size-xl)',
+              'font-weight': 'var(--font-weight-semibold)',
               'color': 'var(--foreground)',
             }),
             [Component.text(props.title!)],
@@ -146,7 +146,7 @@ class ShadcnErrorState extends StatelessComponent {
         if (props.message != null)
           dom.div(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-sm)',
+              'font-size': 'var(--font-size-sm)',
               'color': 'var(--muted-foreground)',
               'max-width': '400px',
             }),

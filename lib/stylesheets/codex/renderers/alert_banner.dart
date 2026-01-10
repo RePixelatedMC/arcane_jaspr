@@ -14,16 +14,16 @@ class CodexAlertBanner extends StatelessComponent {
     final (String bgColor, String borderColor, String textColor, String iconColor) = switch (props.variant) {
       AlertBannerVariant.info => props.filled
           ? (
-              'var(--codex-accent)',
-              'var(--codex-accent)',
+              'var(--primary)',
+              'var(--primary)',
               '#ffffff',
               '#ffffff',
             )
           : (
-              'rgba(var(--codex-accent-rgb), 0.1)',
-              'rgba(var(--codex-accent-rgb), 0.25)',
+              'rgba(var(--primary-rgb), 0.1)',
+              'rgba(var(--primary-rgb), 0.25)',
               'var(--foreground)',
-              'var(--codex-accent)',
+              'var(--primary)',
             ),
       AlertBannerVariant.success => props.filled
           ? (
@@ -85,7 +85,7 @@ class CodexAlertBanner extends StatelessComponent {
       styles: dom.Styles(raw: {
         'display': 'flex',
         'align-items': 'flex-start',
-        'gap': 'var(--arcane-space-4)',
+        'gap': 'var(--space-4)',
         'padding': '1.25rem 1.5rem',
         'background-color': bgColor,
         'border': '1px solid $borderColor',
@@ -97,7 +97,7 @@ class CodexAlertBanner extends StatelessComponent {
           classes: 'codex-alert-banner-icon',
           styles: dom.Styles(raw: {
             'flex-shrink': '0',
-            'font-size': 'var(--arcane-font-size-lg)',
+            'font-size': 'var(--font-size-lg)',
             'color': iconColor,
           }),
           [props.icon ?? Component.text(defaultIcon)],
@@ -113,8 +113,8 @@ class CodexAlertBanner extends StatelessComponent {
               dom.div(
                 classes: 'codex-alert-banner-title',
                 styles: const dom.Styles(raw: {
-                  'font-weight': 'var(--arcane-font-weight-semibold)',
-                  'font-size': 'var(--arcane-font-size-sm)',
+                  'font-weight': 'var(--font-weight-semibold)',
+                  'font-size': 'var(--font-size-sm)',
                   'margin-bottom': '0.25rem',
                 }),
                 [Component.text(props.title!)],
@@ -122,7 +122,7 @@ class CodexAlertBanner extends StatelessComponent {
             dom.div(
               classes: 'codex-alert-banner-message',
               styles: const dom.Styles(raw: {
-                'font-size': 'var(--arcane-font-size-sm)',
+                'font-size': 'var(--font-size-sm)',
                 'line-height': '1.625',
               }),
               [Component.text(props.message)],
@@ -145,7 +145,7 @@ class CodexAlertBanner extends StatelessComponent {
               'color': 'inherit',
               'opacity': '0.7',
               'cursor': 'pointer',
-              'font-size': 'var(--arcane-font-size-base)',
+              'font-size': 'var(--font-size-base)',
               'line-height': '1',
               'transition': 'opacity var(--arcane-transition)',
             }),

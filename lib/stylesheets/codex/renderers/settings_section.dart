@@ -17,7 +17,7 @@ class CodexSettingsSection extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': 'var(--arcane-space-2)',
+        'gap': 'var(--space-2)',
       }),
       [
         // Header
@@ -32,8 +32,8 @@ class CodexSettingsSection extends StatelessComponent {
           [
             dom.h3(
               styles: dom.Styles(raw: {
-                'font-size': 'var(--arcane-font-size-base)',
-                'font-weight': 'var(--arcane-font-weight-semibold)',
+                'font-size': 'var(--font-size-base)',
+                'font-weight': 'var(--font-weight-semibold)',
                 'color': props.danger ? 'var(--destructive)' : 'var(--foreground)',
                 'margin': '0',
               }),
@@ -96,7 +96,7 @@ class CodexSettingsInfoRow extends StatelessComponent {
         dom.span(
           classes: 'codex-settings-info-label',
           styles: const dom.Styles(raw: {
-            'font-size': 'var(--arcane-font-size-sm)',
+            'font-size': 'var(--font-size-sm)',
             'color': 'var(--muted-foreground)',
           }),
           [Component.text(props.label)],
@@ -106,8 +106,8 @@ class CodexSettingsInfoRow extends StatelessComponent {
         dom.span(
           classes: 'codex-settings-info-value',
           styles: dom.Styles(raw: {
-            'font-size': 'var(--arcane-font-size-sm)',
-            'font-weight': 'var(--arcane-font-weight-medium)',
+            'font-size': 'var(--font-size-sm)',
+            'font-weight': 'var(--font-weight-medium)',
             'color': 'var(--foreground)',
             if (props.monospace) 'font-family': 'var(--font-mono)',
           }),
@@ -140,13 +140,13 @@ class CodexSettingsToggleRow extends StatelessComponent {
           styles: const dom.Styles(raw: {
             'display': 'flex',
             'flex-direction': 'column',
-            'gap': 'var(--arcane-space-1)',
+            'gap': 'var(--space-1)',
           }),
           [
             dom.span(
               classes: 'codex-settings-toggle-label',
               styles: const dom.Styles(raw: {
-                'font-size': 'var(--arcane-font-size-sm)',
+                'font-size': 'var(--font-size-sm)',
                 'color': 'var(--foreground)',
               }),
               [Component.text(props.title)],
@@ -154,7 +154,7 @@ class CodexSettingsToggleRow extends StatelessComponent {
             if (props.description != null)
               dom.span(
                 styles: const dom.Styles(raw: {
-                  'font-size': 'var(--arcane-font-size-xs)',
+                  'font-size': 'var(--font-size-xs)',
                   'color': 'var(--muted-foreground)',
                 }),
                 [Component.text(props.description!)],
@@ -173,7 +173,7 @@ class CodexSettingsToggleRow extends StatelessComponent {
             'padding': '2px',
             'cursor': props.disabled ? 'not-allowed' : 'pointer',
             'background-color':
-                props.enabled ? 'var(--codex-accent)' : 'var(--muted)',
+                props.enabled ? 'var(--primary)' : 'var(--muted)',
             'transition': 'background-color var(--arcane-transition)',
             'display': 'flex',
             'align-items': 'center',
@@ -220,7 +220,7 @@ class CodexSettingsSubheader extends StatelessComponent {
         dom.h4(
           styles: const dom.Styles(raw: {
             'font-size': '0.8125rem',
-            'font-weight': 'var(--arcane-font-weight-semibold)',
+            'font-weight': 'var(--font-weight-semibold)',
             'text-transform': 'uppercase',
             'letter-spacing': '0.05em',
             'color': 'var(--muted-foreground)',
@@ -231,7 +231,7 @@ class CodexSettingsSubheader extends StatelessComponent {
         if (props.description != null)
           dom.p(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-xs)',
+              'font-size': 'var(--font-size-xs)',
               'color': 'var(--muted-foreground)',
               'margin': '0.25rem 0 0 0',
             }),
@@ -262,7 +262,7 @@ class CodexSettingsNote extends StatelessComponent {
         'border-left': '3px solid ${_getBorderColor()}',
         'display': 'flex',
         'align-items': 'center',
-        'gap': 'var(--arcane-space-2)',
+        'gap': 'var(--space-2)',
       }),
       [
         _getIcon(),
@@ -273,7 +273,7 @@ class CodexSettingsNote extends StatelessComponent {
 
   String _getBackgroundColor() {
     return switch (props.variant) {
-      SettingsNoteVariant.info => 'rgba(var(--codex-accent-rgb), 0.1)',
+      SettingsNoteVariant.info => 'rgba(var(--primary-rgb), 0.1)',
       SettingsNoteVariant.warning => 'rgba(245, 158, 11, 0.1)',
       SettingsNoteVariant.success => 'rgba(34, 197, 94, 0.1)',
     };
@@ -285,7 +285,7 @@ class CodexSettingsNote extends StatelessComponent {
 
   String _getBorderColor() {
     return switch (props.variant) {
-      SettingsNoteVariant.info => 'var(--codex-accent)',
+      SettingsNoteVariant.info => 'var(--primary)',
       SettingsNoteVariant.warning => 'rgb(245, 158, 11)',
       SettingsNoteVariant.success => 'rgb(34, 197, 94)',
     };

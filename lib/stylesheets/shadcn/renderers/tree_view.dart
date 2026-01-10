@@ -69,7 +69,7 @@ class _ShadcnTreeViewState extends State<ShadcnTreeView> {
   Component build(BuildContext context) {
     return dom.div(
       attributes: {'role': 'tree'},
-      styles: const dom.Styles(raw: {'font-size': 'var(--arcane-font-size-sm)'}),
+      styles: const dom.Styles(raw: {'font-size': 'var(--font-size-sm)'}),
       [
         for (final node in component.props.nodes) _buildNode(node, 0),
       ],

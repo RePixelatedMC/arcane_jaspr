@@ -47,10 +47,10 @@ class CodexDialog extends StatelessComponent {
             'background-color': 'rgba(10, 10, 10, 0.95)',
             'backdrop-filter': 'blur(12px)',
             '-webkit-backdrop-filter': 'blur(12px)',
-            'border': '1px solid var(--codex-accent-border)',
+            'border': '1px solid var(--primary)',
             'border-radius': 'var(--radius-2xl)', // Codex: larger radius
             // Codex: subtle accent glow
-            'box-shadow': '0 0 40px rgba(var(--codex-accent-rgb), 0.15), 0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+            'box-shadow': '0 0 40px rgba(var(--primary-rgb), 0.15), 0 25px 50px -12px rgba(0, 0, 0, 0.25)',
             // Codex: more padding
             'padding': '2rem',
           }),
@@ -87,8 +87,8 @@ class CodexDialog extends StatelessComponent {
               dom.h2(
                 classes: 'codex-dialog-title',
                 styles: const dom.Styles(raw: {
-                  'font-size': 'var(--arcane-font-size-xl)',
-                  'font-weight': 'var(--arcane-font-weight-semibold)',
+                  'font-size': 'var(--font-size-xl)',
+                  'font-weight': 'var(--font-weight-semibold)',
                   'color': 'var(--foreground)',
                   'margin': '0 0 1rem 0',
                   'padding-right': '2rem', // Space for close button
@@ -211,7 +211,7 @@ class CodexSheet extends StatelessComponent {
             'backdrop-filter': 'blur(12px)',
             '-webkit-backdrop-filter': 'blur(12px)',
             // Codex: subtle glow
-            'box-shadow': '0 0 30px rgba(var(--codex-accent-rgb), 0.1)',
+            'box-shadow': '0 0 30px rgba(var(--primary-rgb), 0.1)',
           }),
           events: {'click': (e) => e.stopPropagation()},
           [
@@ -303,8 +303,8 @@ class CodexSheet extends StatelessComponent {
             if (props.title != null)
               dom.h2(
                 styles: const dom.Styles(raw: {
-                  'font-size': 'var(--arcane-font-size-lg)',
-                  'font-weight': 'var(--arcane-font-weight-semibold)',
+                  'font-size': 'var(--font-size-lg)',
+                  'font-weight': 'var(--font-weight-semibold)',
                   'color': 'var(--foreground)',
                   'margin': '0',
                 }),
@@ -313,7 +313,7 @@ class CodexSheet extends StatelessComponent {
             if (props.description != null)
               dom.p(
                 styles: const dom.Styles(raw: {
-                  'font-size': 'var(--arcane-font-size-sm)',
+                  'font-size': 'var(--font-size-sm)',
                   'color': 'var(--muted-foreground)',
                   'margin': '0.375rem 0 0 0',
                 }),

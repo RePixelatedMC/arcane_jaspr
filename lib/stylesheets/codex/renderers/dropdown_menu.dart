@@ -69,7 +69,7 @@ class CodexDropdownMenu extends StatelessComponent {
               'background-color': 'var(--card)',
               'border': '1px solid var(--border)',
               'border-radius': 'var(--radius)',
-              'box-shadow': '0 0 30px rgba(var(--codex-accent-rgb), 0.1)',
+              'box-shadow': '0 0 30px rgba(var(--primary-rgb), 0.1)',
               'overflow': 'hidden',
               'color': 'var(--foreground)',
               'animation': 'arcane-dropdown-fade var(--arcane-transition)-out',
@@ -101,7 +101,7 @@ class CodexDropdownMenu extends StatelessComponent {
       'align-items': 'center',
       'gap': '10px',
       'padding': '8px 12px',
-      'font-size': 'var(--arcane-font-size-sm)',
+      'font-size': 'var(--font-size-sm)',
       'color': item.disabled ? 'var(--muted-foreground)' : 'var(--foreground)',
       'text-decoration': 'none',
       'border-radius': 'var(--radius)',
@@ -138,7 +138,7 @@ class CodexDropdownMenu extends StatelessComponent {
           if (item.description != null)
             dom.span(
               styles: const dom.Styles(raw: {
-                'font-size': 'var(--arcane-font-size-xs)',
+                'font-size': 'var(--font-size-xs)',
                 'color': 'var(--muted-foreground)',
               }),
               [Component.text(item.description!)],

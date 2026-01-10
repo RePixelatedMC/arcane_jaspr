@@ -23,7 +23,7 @@ class CodexStatusIndicator extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'inline-flex',
         'align-items': 'center',
-        'gap': 'var(--arcane-space-2)',
+        'gap': 'var(--space-2)',
       }),
       [
         // Dot
@@ -46,7 +46,7 @@ class CodexStatusIndicator extends StatelessComponent {
           dom.span(
             classes: 'codex-status-label',
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-sm)',
+              'font-size': 'var(--font-size-sm)',
               'color': 'var(--foreground)',
             }),
             [Component.text(props.label!)],
@@ -58,31 +58,31 @@ class CodexStatusIndicator extends StatelessComponent {
   (String color, String glow) _getStatusStyles(StatusType status) {
     return switch (status) {
       StatusType.online => (
-          'var(--codex-success)',
+          'var(--success)',
           '0 0 8px rgba(22, 101, 52, 0.5)'
         ),
       StatusType.offline => ('var(--muted-foreground)', 'none'),
       StatusType.busy => (
-          'var(--codex-destructive)',
+          'var(--destructive)',
           '0 0 8px rgba(153, 27, 27, 0.5)'
         ),
       StatusType.away => (
-          'var(--codex-warning)',
+          'var(--warning)',
           '0 0 8px rgba(146, 64, 14, 0.5)'
         ),
       StatusType.success => (
-          'var(--codex-success)',
+          'var(--success)',
           '0 0 8px rgba(22, 101, 52, 0.5)'
         ),
       StatusType.error => (
-          'var(--codex-destructive)',
+          'var(--destructive)',
           '0 0 8px rgba(153, 27, 27, 0.5)'
         ),
       StatusType.warning => (
-          'var(--codex-warning)',
+          'var(--warning)',
           '0 0 8px rgba(146, 64, 14, 0.5)'
         ),
-      StatusType.info => ('var(--codex-info)', '0 0 8px rgba(30, 64, 175, 0.5)'),
+      StatusType.info => ('var(--info)', '0 0 8px rgba(30, 64, 175, 0.5)'),
     };
   }
 }
@@ -102,7 +102,7 @@ class CodexSimpleStatusBadge extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'inline-flex',
         'align-items': 'center',
-        'gap': 'var(--arcane-space-2)',
+        'gap': 'var(--space-2)',
         'padding': '0.375rem 0.75rem',
         'background-color': 'var(--secondary)',
         'border-radius': 'var(--radius-full)',
@@ -127,7 +127,7 @@ class CodexSimpleStatusBadge extends StatelessComponent {
           classes: 'codex-status-badge-label',
           styles: const dom.Styles(raw: {
             'font-size': '0.8125rem',
-            'font-weight': 'var(--arcane-font-weight-medium)',
+            'font-weight': 'var(--font-weight-medium)',
             'color': 'var(--foreground)',
           }),
           [Component.text(props.label)],
@@ -139,31 +139,31 @@ class CodexSimpleStatusBadge extends StatelessComponent {
   (String color, String glow) _getStatusStyles(StatusType status) {
     return switch (status) {
       StatusType.online => (
-          'var(--codex-success)',
+          'var(--success)',
           '0 0 6px rgba(22, 101, 52, 0.5)'
         ),
       StatusType.offline => ('var(--muted-foreground)', 'none'),
       StatusType.busy => (
-          'var(--codex-destructive)',
+          'var(--destructive)',
           '0 0 6px rgba(153, 27, 27, 0.5)'
         ),
       StatusType.away => (
-          'var(--codex-warning)',
+          'var(--warning)',
           '0 0 6px rgba(146, 64, 14, 0.5)'
         ),
       StatusType.success => (
-          'var(--codex-success)',
+          'var(--success)',
           '0 0 6px rgba(22, 101, 52, 0.5)'
         ),
       StatusType.error => (
-          'var(--codex-destructive)',
+          'var(--destructive)',
           '0 0 6px rgba(153, 27, 27, 0.5)'
         ),
       StatusType.warning => (
-          'var(--codex-warning)',
+          'var(--warning)',
           '0 0 6px rgba(146, 64, 14, 0.5)'
         ),
-      StatusType.info => ('var(--codex-info)', '0 0 6px rgba(30, 64, 175, 0.5)'),
+      StatusType.info => ('var(--info)', '0 0 6px rgba(30, 64, 175, 0.5)'),
     };
   }
 }

@@ -33,8 +33,8 @@ class CodexFileUpload extends StatelessComponent {
         if (props.label != null)
           dom.label(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-sm)',
-              'font-weight': 'var(--arcane-font-weight-medium)',
+              'font-size': 'var(--font-size-sm)',
+              'font-weight': 'var(--font-weight-medium)',
               'color': 'var(--foreground)',
             }),
             [Component.text(props.label!)],
@@ -54,7 +54,7 @@ class CodexFileUpload extends StatelessComponent {
             styles: const dom.Styles(raw: {
               'display': 'flex',
               'flex-direction': 'column',
-              'gap': 'var(--arcane-space-2)',
+              'gap': 'var(--space-2)',
             }),
             [
               for (final file in props.selectedFiles)
@@ -67,7 +67,7 @@ class CodexFileUpload extends StatelessComponent {
                     'background': 'var(--card)',
                     'border': '1px solid var(--border)',
                     'border-radius': 'var(--radius)',
-                    'font-size': 'var(--arcane-font-size-sm)',
+                    'font-size': 'var(--font-size-sm)',
                   }),
                   [
                     dom.span(
@@ -96,7 +96,7 @@ class CodexFileUpload extends StatelessComponent {
         if (props.helperText != null)
           dom.span(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-xs)',
+              'font-size': 'var(--font-size-xs)',
               'color': 'var(--muted-foreground)',
             }),
             [Component.text(props.helperText!)],
@@ -116,11 +116,11 @@ class CodexFileUpload extends StatelessComponent {
         'gap': '1.25rem',
         'padding': padding,
         'border': props.isDragOver
-            ? '2px dashed var(--codex-accent)'
+            ? '2px dashed var(--primary)'
             : '2px dashed var(--border)',
         'border-radius': 'var(--radius)',
         'background': props.isDragOver
-            ? 'rgba(var(--codex-accent-rgb), 0.05)'
+            ? 'rgba(var(--primary-rgb), 0.05)'
             : 'transparent',
         'cursor': props.disabled ? 'not-allowed' : 'pointer',
         'opacity': props.disabled ? '0.5' : '1',
@@ -138,7 +138,7 @@ class CodexFileUpload extends StatelessComponent {
         dom.span(
           styles: dom.Styles(raw: {
             'color':
-                props.isDragOver ? 'var(--codex-accent)' : 'var(--muted-foreground)',
+                props.isDragOver ? 'var(--primary)' : 'var(--muted-foreground)',
           }),
           [ArcaneIcon.cloudUpload(size: iconSize)],
         ),
@@ -155,8 +155,8 @@ class CodexFileUpload extends StatelessComponent {
         // Browse button
         dom.span(
           styles: const dom.Styles(raw: {
-            'color': 'var(--codex-accent)',
-            'font-weight': 'var(--arcane-font-weight-medium)',
+            'color': 'var(--primary)',
+            'font-weight': 'var(--font-weight-medium)',
             'text-decoration': 'underline',
           }),
           [Component.text(props.browseText)],
@@ -185,7 +185,7 @@ class CodexFileUpload extends StatelessComponent {
             'gap': '0.75rem',
             'padding': '0.75rem 1.25rem',
             'font-size': fontSize,
-            'font-weight': 'var(--arcane-font-weight-medium)',
+            'font-weight': 'var(--font-weight-medium)',
             'background': 'var(--secondary)',
             'border': '1px solid var(--border)',
             'border-radius': 'var(--radius)',
@@ -212,14 +212,14 @@ class CodexFileUpload extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'inline-flex',
         'align-items': 'center',
-        'gap': 'var(--arcane-space-2)',
+        'gap': 'var(--space-2)',
       }),
       [
         dom.a(
           href: '#',
           styles: dom.Styles(raw: {
             'font-size': fontSize,
-            'color': 'var(--codex-accent)',
+            'color': 'var(--primary)',
             'text-decoration': 'underline',
             'cursor': props.disabled ? 'not-allowed' : 'pointer',
             'opacity': props.disabled ? '0.5' : '1',

@@ -37,7 +37,7 @@ class ShadcnCheckItem extends StatelessComponent {
         dom.span(
           styles: dom.Styles(raw: {
             'color': iconColor,
-            'font-weight': 'var(--arcane-font-weight-semibold)',
+            'font-weight': 'var(--font-weight-semibold)',
             'flex-shrink': '0',
             'line-height': '1.5',
           }),
@@ -107,12 +107,12 @@ class ShadcnFeatureRow extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
-        'gap': 'var(--arcane-space-2)',
+        'gap': 'var(--space-2)',
       }),
       [
         dom.span(
           styles: dom.Styles(raw: {
-            'font-size': 'var(--arcane-font-size-sm)',
+            'font-size': 'var(--font-size-sm)',
             'color': iconColor,
             'flex-shrink': '0',
           }),
@@ -120,7 +120,7 @@ class ShadcnFeatureRow extends StatelessComponent {
         ),
         dom.span(
           styles: dom.Styles(raw: {
-            'font-size': 'var(--arcane-font-size-sm)',
+            'font-size': 'var(--font-size-sm)',
             'color': props.included ? 'var(--foreground)' : 'var(--muted-foreground)',
           }),
           [Component.text(props.feature)],

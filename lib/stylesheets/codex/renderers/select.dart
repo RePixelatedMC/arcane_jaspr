@@ -39,8 +39,8 @@ class CodexSelect<T> extends StatelessComponent {
             classes: 'codex-select-label',
             styles: const dom.Styles(raw: {
               'display': 'block',
-              'font-size': 'var(--arcane-font-size-sm)',
-              'font-weight': 'var(--arcane-font-weight-medium)',
+              'font-size': 'var(--font-size-sm)',
+              'font-weight': 'var(--font-weight-medium)',
               'color': 'var(--foreground)',
               'margin-bottom': '0.5rem',
             }),
@@ -75,7 +75,7 @@ class CodexSelect<T> extends StatelessComponent {
             'border': props.error != null
                 ? '1px solid var(--destructive)'
                 : props.isOpen
-                    ? '1px solid var(--codex-accent)'
+                    ? '1px solid var(--primary)'
                     : '1px solid var(--border)',
             'border-radius': 'var(--radius)',
             'font-size': fontSize,
@@ -86,7 +86,7 @@ class CodexSelect<T> extends StatelessComponent {
             'outline': 'none',
             'transition': 'all var(--transition)',
             // Codex: glow when open
-            if (props.isOpen) 'box-shadow': '0 0 0 2px rgba(var(--codex-accent-rgb), 0.2)',
+            if (props.isOpen) 'box-shadow': '0 0 0 2px rgba(var(--primary-rgb), 0.2)',
             if (props.disabled) 'opacity': '0.5',
           }),
           events: props.disabled || props.onToggle == null
@@ -147,7 +147,7 @@ class CodexSelect<T> extends StatelessComponent {
                 'display': 'flex',
                 'align-items': 'center',
                 'color': 'var(--muted-foreground)',
-                'font-size': 'var(--arcane-font-size-xs)',
+                'font-size': 'var(--font-size-xs)',
                 'transition': 'transform var(--transition)',
                 'transform': props.isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
               }),
@@ -202,7 +202,7 @@ class CodexSelect<T> extends StatelessComponent {
                         'background-color': 'var(--secondary)',
                         'border': '1px solid var(--border)',
                         'border-radius': 'var(--radius-md)',
-                        'font-size': 'var(--arcane-font-size-sm)',
+                        'font-size': 'var(--font-size-sm)',
                         'color': 'var(--foreground)',
                         'outline': 'none',
                       }),
@@ -261,7 +261,7 @@ class CodexSelect<T> extends StatelessComponent {
           dom.div(
             classes: 'codex-select-error',
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-xs)',
+              'font-size': 'var(--font-size-xs)',
               'color': 'var(--destructive)',
               'margin-top': '0.5rem',
             }),
@@ -271,7 +271,7 @@ class CodexSelect<T> extends StatelessComponent {
           dom.div(
             classes: 'codex-select-helper',
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-xs)',
+              'font-size': 'var(--font-size-xs)',
               'color': 'var(--muted-foreground)',
               'margin-top': '0.5rem',
             }),
@@ -324,12 +324,12 @@ class CodexSelect<T> extends StatelessComponent {
         'width': '100%',
         'padding': '0.625rem 0.75rem', // Codex: more padding
         'background-color': isSelected
-            ? 'rgba(var(--codex-accent-rgb), 0.15)'
+            ? 'rgba(var(--primary-rgb), 0.15)'
             : 'transparent',
         'border': 'none',
         'border-radius': 'var(--radius-md)',
-        'font-size': 'var(--arcane-font-size-sm)',
-        'color': isSelected ? 'var(--codex-accent)' : 'var(--foreground)',
+        'font-size': 'var(--font-size-sm)',
+        'color': isSelected ? 'var(--primary)' : 'var(--foreground)',
         'text-align': 'left',
         'cursor': option.disabled ? 'not-allowed' : 'pointer',
         'transition': 'all var(--transition)',
@@ -347,9 +347,9 @@ class CodexSelect<T> extends StatelessComponent {
               'height': '18px',
               'border-radius': 'var(--radius-sm)',
               'border': isSelected
-                  ? '2px solid var(--codex-accent)'
+                  ? '2px solid var(--primary)'
                   : '2px solid var(--border)',
-              'background-color': isSelected ? 'var(--codex-accent)' : 'transparent',
+              'background-color': isSelected ? 'var(--primary)' : 'transparent',
               'display': 'flex',
               'align-items': 'center',
               'justify-content': 'center',
@@ -361,7 +361,7 @@ class CodexSelect<T> extends StatelessComponent {
                   styles: dom.Styles(raw: {
                     'color': '#ffffff',
                     'font-size': '12px',
-                    'font-weight': 'var(--arcane-font-weight-bold)',
+                    'font-weight': 'var(--font-weight-bold)',
                   }),
                   [Component.text('\u2713')],
                 ),
@@ -389,7 +389,7 @@ class CodexSelect<T> extends StatelessComponent {
             if (option.subtitle != null)
               dom.div(
                 styles: const dom.Styles(raw: {
-                  'font-size': 'var(--arcane-font-size-xs)',
+                  'font-size': 'var(--font-size-xs)',
                   'color': 'var(--muted-foreground)',
                   'margin-top': '0.125rem',
                 }),
@@ -402,7 +402,7 @@ class CodexSelect<T> extends StatelessComponent {
         if (option.description != null)
           dom.span(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-xs)',
+              'font-size': 'var(--font-size-xs)',
               'color': 'var(--muted-foreground)',
               'flex-shrink': '0',
             }),

@@ -24,8 +24,8 @@ Component renderLogoCarousel(LogoCarouselProps props) {
           classes: 'codex-logo-carousel-title',
           styles: const dom.Styles(raw: {
             'text-align': 'center',
-            'font-size': 'var(--arcane-font-size-sm)',
-            'font-weight': 'var(--arcane-font-weight-medium)',
+            'font-size': 'var(--font-size-sm)',
+            'font-weight': 'var(--font-weight-medium)',
             'color': 'var(--muted-foreground)',
             'text-transform': 'uppercase',
             'letter-spacing': '0.05em',
@@ -85,8 +85,8 @@ Component _buildLogo(LogoItem logo, LogoCarouselProps props) {
             )
           : dom.span(
               styles: dom.Styles(raw: {
-                'font-size': 'var(--arcane-font-size-lg)',
-                'font-weight': 'var(--arcane-font-weight-semibold)',
+                'font-size': 'var(--font-size-lg)',
+                'font-weight': 'var(--font-weight-semibold)',
                 'color': 'var(--muted-foreground)',
                 if (props.grayscale) 'filter': 'grayscale(100%)',
                 'opacity': props.grayscale ? '0.5' : '1',
@@ -140,8 +140,8 @@ Component renderLogoGrid(LogoGridProps props) {
         dom.div(
           styles: const dom.Styles(raw: {
             'text-align': 'center',
-            'font-size': 'var(--arcane-font-size-sm)',
-            'font-weight': 'var(--arcane-font-weight-medium)',
+            'font-size': 'var(--font-size-sm)',
+            'font-weight': 'var(--font-weight-medium)',
             'color': 'var(--muted-foreground)',
             'text-transform': 'uppercase',
             'letter-spacing': '0.05em',
@@ -185,8 +185,8 @@ Component renderLogoGrid(LogoGridProps props) {
                 else
                   dom.span(
                     styles: const dom.Styles(raw: {
-                      'font-size': 'var(--arcane-font-size-base)',
-                      'font-weight': 'var(--arcane-font-weight-semibold)',
+                      'font-size': 'var(--font-size-base)',
+                      'font-weight': 'var(--font-weight-semibold)',
                       'color': 'var(--muted-foreground)',
                     }),
                     [Component.text(logo.name)],

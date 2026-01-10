@@ -30,7 +30,7 @@ class CodexCheckItem extends StatelessComponent {
         dom.span(
           classes: 'codex-check-item-icon',
           styles: dom.Styles(raw: {
-            'color': props.iconColor ?? 'var(--codex-accent)',
+            'color': props.iconColor ?? 'var(--primary)',
             'font-size': props.fontSize ?? '0.9375rem',
             'flex-shrink': '0',
           }),
@@ -98,7 +98,7 @@ class CodexFeatureRow extends StatelessComponent {
   Component build(BuildContext context) {
     final String iconSymbol = props.included ? '[check]' : 'X';
     final String iconColor = props.included
-        ? (props.includedColor ?? 'var(--codex-accent)')
+        ? (props.includedColor ?? 'var(--primary)')
         : (props.excludedColor ?? 'var(--muted-foreground)');
 
     return dom.div(
@@ -113,7 +113,7 @@ class CodexFeatureRow extends StatelessComponent {
           classes: 'codex-feature-row-icon',
           styles: dom.Styles(raw: {
             'color': iconColor,
-            'font-size': 'var(--arcane-font-size-sm)',
+            'font-size': 'var(--font-size-sm)',
             'flex-shrink': '0',
           }),
           [Component.text(iconSymbol)],
@@ -124,7 +124,7 @@ class CodexFeatureRow extends StatelessComponent {
             'color': props.included
                 ? 'var(--foreground)'
                 : 'var(--muted-foreground)',
-            'font-size': 'var(--arcane-font-size-sm)',
+            'font-size': 'var(--font-size-sm)',
           }),
           [Component.text(props.feature)],
         ),

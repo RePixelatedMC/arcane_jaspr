@@ -21,17 +21,17 @@ class CodexIntegrationCard extends StatelessComponent {
         'flex-direction': 'column',
         'align-items': 'center',
         'text-align': 'center',
-        'gap': 'var(--arcane-space-4)',
+        'gap': 'var(--space-4)',
         'padding': '1.5rem',
         'background-color': 'var(--card)',
         'border': props.featured
-            ? '1px solid var(--codex-accent)'
+            ? '1px solid var(--primary)'
             : '1px solid var(--border)',
         'border-radius': 'var(--radius)',
         'transition': 'all var(--arcane-transition)',
         if (isInteractive) 'cursor': 'pointer',
         if (props.featured)
-          'box-shadow': '0 0 20px rgba(var(--codex-accent-rgb), 0.15)',
+          'box-shadow': '0 0 20px rgba(var(--primary-rgb), 0.15)',
       }),
       events: props.onTap != null ? {'click': (_) => props.onTap!()} : null,
       [
@@ -60,7 +60,7 @@ class CodexIntegrationCard extends StatelessComponent {
               'align-items': 'center',
               'justify-content': 'center',
               'color': 'var(--muted-foreground)',
-              'font-weight': 'var(--arcane-font-weight-semibold)',
+              'font-weight': 'var(--font-weight-semibold)',
             }),
             [Component.text(props.name.substring(0, 1).toUpperCase())],
           ),
@@ -71,7 +71,7 @@ class CodexIntegrationCard extends StatelessComponent {
           styles: const dom.Styles(raw: {
             'display': 'flex',
             'flex-direction': 'column',
-            'gap': 'var(--arcane-space-1)',
+            'gap': 'var(--space-1)',
           }),
           [
             // Category badge
@@ -80,10 +80,10 @@ class CodexIntegrationCard extends StatelessComponent {
                 classes: 'codex-integration-category',
                 styles: const dom.Styles(raw: {
                   'font-size': '0.6875rem',
-                  'font-weight': 'var(--arcane-font-weight-medium)',
+                  'font-weight': 'var(--font-weight-medium)',
                   'text-transform': 'uppercase',
                   'letter-spacing': '0.05em',
-                  'color': 'var(--codex-accent)',
+                  'color': 'var(--primary)',
                 }),
                 [Component.text(props.category!)],
               ),
@@ -93,7 +93,7 @@ class CodexIntegrationCard extends StatelessComponent {
               classes: 'codex-integration-name',
               styles: const dom.Styles(raw: {
                 'font-size': '0.9375rem',
-                'font-weight': 'var(--arcane-font-weight-semibold)',
+                'font-weight': 'var(--font-weight-semibold)',
                 'color': 'var(--foreground)',
               }),
               [Component.text(props.name)],
@@ -157,8 +157,8 @@ class CodexIntegrationGrid extends StatelessComponent {
               if (props.title != null)
                 dom.h2(
                   styles: const dom.Styles(raw: {
-                    'font-size': 'var(--arcane-font-size-2xl)',
-                    'font-weight': 'var(--arcane-font-weight-bold)',
+                    'font-size': 'var(--font-size-2xl)',
+                    'font-weight': 'var(--font-weight-bold)',
                     'color': 'var(--foreground)',
                     'margin': '0 0 0.5rem 0',
                   }),
@@ -167,7 +167,7 @@ class CodexIntegrationGrid extends StatelessComponent {
               if (props.description != null)
                 dom.p(
                   styles: const dom.Styles(raw: {
-                    'font-size': 'var(--arcane-font-size-base)',
+                    'font-size': 'var(--font-size-base)',
                     'color': 'var(--muted-foreground)',
                     'margin': '0',
                   }),

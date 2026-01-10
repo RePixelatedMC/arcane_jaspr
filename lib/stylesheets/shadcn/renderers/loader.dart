@@ -38,7 +38,7 @@ class ShadcnLoader extends StatelessComponent {
       classes: 'arcane-dots-loader',
       styles: const dom.Styles(raw: {
         'display': 'flex',
-        'gap': 'var(--arcane-space-1)',
+        'gap': 'var(--space-1)',
         'align-items': 'center',
       }),
       [
@@ -121,7 +121,7 @@ class ShadcnLoadingOverlay extends StatelessComponent {
           dom.span(
             styles: const dom.Styles(raw: {
               'color': 'var(--muted-foreground)',
-              'font-size': 'var(--arcane-font-size-base)',
+              'font-size': 'var(--font-size-base)',
             }),
             [Component.text(props.message!)],
           ),

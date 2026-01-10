@@ -29,16 +29,16 @@ class CodexTestimonialCard extends StatelessComponent {
             classes: 'codex-testimonial-rating',
             styles: const dom.Styles(raw: {
               'display': 'flex',
-              'gap': 'var(--arcane-space-1)',
+              'gap': 'var(--space-1)',
             }),
             [
               for (int i = 0; i < 5; i++)
                 dom.span(
                   styles: dom.Styles(raw: {
                     'color': i < props.rating!
-                        ? 'var(--codex-accent)'
+                        ? 'var(--primary)'
                         : 'var(--muted-foreground)',
-                    'font-size': 'var(--arcane-font-size-base)',
+                    'font-size': 'var(--font-size-base)',
                   }),
                   [Component.text(i < props.rating! ? '*' : 'o')],
                 ),
@@ -58,8 +58,8 @@ class CodexTestimonialCard extends StatelessComponent {
             if (props.showQuotes)
               const dom.span(
                 styles: dom.Styles(raw: {
-                  'color': 'var(--codex-accent)',
-                  'font-size': 'var(--arcane-font-size-2xl)',
+                  'color': 'var(--primary)',
+                  'font-size': 'var(--font-size-2xl)',
                   'line-height': '0',
                   'vertical-align': 'bottom',
                   'margin-right': '0.25rem',
@@ -70,8 +70,8 @@ class CodexTestimonialCard extends StatelessComponent {
             if (props.showQuotes)
               const dom.span(
                 styles: dom.Styles(raw: {
-                  'color': 'var(--codex-accent)',
-                  'font-size': 'var(--arcane-font-size-2xl)',
+                  'color': 'var(--primary)',
+                  'font-size': 'var(--font-size-2xl)',
                   'line-height': '0',
                   'vertical-align': 'bottom',
                   'margin-left': '0.25rem',
@@ -109,13 +109,13 @@ class CodexTestimonialCard extends StatelessComponent {
                   'width': '40px',
                   'height': '40px',
                   'border-radius': '50%',
-                  'background-color': 'var(--codex-accent)',
+                  'background-color': 'var(--primary)',
                   'display': 'flex',
                   'align-items': 'center',
                   'justify-content': 'center',
                   'color': '#ffffff',
-                  'font-weight': 'var(--arcane-font-weight-semibold)',
-                  'font-size': 'var(--arcane-font-size-base)',
+                  'font-weight': 'var(--font-weight-semibold)',
+                  'font-size': 'var(--font-size-base)',
                 }),
                 [Component.text(props.authorName.substring(0, 1).toUpperCase())],
               ),
@@ -130,8 +130,8 @@ class CodexTestimonialCard extends StatelessComponent {
               [
                 dom.span(
                   styles: const dom.Styles(raw: {
-                    'font-size': 'var(--arcane-font-size-sm)',
-                    'font-weight': 'var(--arcane-font-weight-medium)',
+                    'font-size': 'var(--font-size-sm)',
+                    'font-weight': 'var(--font-weight-medium)',
                     'color': 'var(--foreground)',
                   }),
                   [Component.text(props.authorName)],

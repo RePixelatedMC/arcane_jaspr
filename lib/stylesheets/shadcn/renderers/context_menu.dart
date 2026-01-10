@@ -70,12 +70,12 @@ class ShadcnContextMenu extends StatelessComponent {
           'position': 'relative',
           'display': 'flex',
           'align-items': 'center',
-          'gap': 'var(--arcane-space-2)',
+          'gap': 'var(--space-2)',
           'padding': '6px 8px',
           'border-radius': 'var(--arcane-radius-xs)',
           'cursor': item.disabled ? 'not-allowed' : 'default',
           'transition': 'color var(--arcane-transition), background-color var(--arcane-transition)',
-          'font-size': 'var(--arcane-font-size-sm)',
+          'font-size': 'var(--font-size-sm)',
           'user-select': 'none',
           'outline': 'none',
           if (item.disabled) 'pointer-events': 'none',
@@ -95,7 +95,7 @@ class ShadcnContextMenu extends StatelessComponent {
           const dom.span(
             styles: dom.Styles(raw: {
               'color': 'var(--muted-foreground)',
-              'font-size': 'var(--arcane-font-size-xs)',
+              'font-size': 'var(--font-size-xs)',
             }),
             [Component.text('\u{203A}')], // Right arrow
           ),
@@ -134,12 +134,12 @@ class ShadcnContextMenu extends StatelessComponent {
         'position': 'relative',
         'display': 'flex',
         'align-items': 'center',
-        'gap': 'var(--arcane-space-2)',
+        'gap': 'var(--space-2)',
         'padding': '6px 8px',
         'border-radius': 'var(--arcane-radius-xs)',
         'cursor': item.disabled ? 'not-allowed' : 'default',
         'transition': 'color var(--arcane-transition), background-color var(--arcane-transition)',
-        'font-size': 'var(--arcane-font-size-sm)',
+        'font-size': 'var(--font-size-sm)',
         'user-select': 'none',
         'outline': 'none',
         if (item.disabled) 'pointer-events': 'none',
@@ -164,7 +164,7 @@ class ShadcnContextMenu extends StatelessComponent {
           dom.span(
             styles: const dom.Styles(raw: {
               'margin-left': 'auto',
-              'font-size': 'var(--arcane-font-size-xs)',
+              'font-size': 'var(--font-size-xs)',
               'letter-spacing': '0.1em',
               'color': 'var(--muted-foreground)',
             }),

@@ -20,7 +20,7 @@ class ShadcnStatCard extends StatelessComponent {
         'padding': '1.5rem',
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': 'var(--arcane-space-4)',
+        'gap': 'var(--space-4)',
       }),
       [
         // Header with icon and trend
@@ -41,7 +41,7 @@ class ShadcnStatCard extends StatelessComponent {
                   'display': 'flex',
                   'align-items': 'center',
                   'justify-content': 'center',
-                  'font-size': 'var(--arcane-font-size-lg)',
+                  'font-size': 'var(--font-size-lg)',
                 }),
                 [Component.text(props.icon!)],
               ),
@@ -50,7 +50,7 @@ class ShadcnStatCard extends StatelessComponent {
                 styles: dom.Styles(raw: {
                   'display': 'flex',
                   'align-items': 'center',
-                  'gap': 'var(--arcane-space-1)',
+                  'gap': 'var(--space-1)',
                   'padding': '0.25rem 0.5rem',
                   'border-radius': 'var(--radius)',
                   'background': props.trendPositive
@@ -59,8 +59,8 @@ class ShadcnStatCard extends StatelessComponent {
                   'color': props.trendPositive
                       ? 'var(--success)'
                       : 'var(--destructive)',
-                  'font-size': 'var(--arcane-font-size-xs)',
-                  'font-weight': 'var(--arcane-font-weight-medium)',
+                  'font-size': 'var(--font-size-xs)',
+                  'font-weight': 'var(--font-weight-medium)',
                 }),
                 [
                   Component.text(props.trendPositive ? '↑' : '↓'),
@@ -74,7 +74,7 @@ class ShadcnStatCard extends StatelessComponent {
           dom.div(
             styles: const dom.Styles(raw: {
               'font-size': '1.75rem',
-              'font-weight': 'var(--arcane-font-weight-bold)',
+              'font-weight': 'var(--font-weight-bold)',
               'color': 'var(--foreground)',
               'line-height': '1.2',
             }),
@@ -82,7 +82,7 @@ class ShadcnStatCard extends StatelessComponent {
           ),
           dom.div(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-sm)',
+              'font-size': 'var(--font-size-sm)',
               'color': 'var(--muted-foreground)',
               'margin-top': '0.25rem',
             }),
@@ -92,7 +92,7 @@ class ShadcnStatCard extends StatelessComponent {
         if (props.description != null)
           dom.div(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-xs)',
+              'font-size': 'var(--font-size-xs)',
               'color': 'var(--muted-foreground)',
               'padding-top': '0.75rem',
               'border-top': '1px solid var(--border)',

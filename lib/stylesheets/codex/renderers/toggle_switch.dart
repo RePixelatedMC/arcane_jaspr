@@ -30,9 +30,9 @@ class CodexToggleSwitch extends StatelessComponent {
     // Codex uses accent color for primary, with glow
     final (String activeColor, String inactiveColor, String glowColor) = switch (props.variant) {
       ToggleSwitchVariant.primary => (
-          'var(--codex-accent)',
+          'var(--primary)',
           'var(--muted)',
-          'var(--codex-accent-glow-subtle)',
+          '0 0 15px rgba(var(--primary-rgb), 0.2)',
         ),
       ToggleSwitchVariant.success => (
           'var(--success)',
@@ -117,8 +117,8 @@ class CodexToggleSwitch extends StatelessComponent {
     final Component labelWidget = dom.span(
       classes: 'codex-toggle-label',
       styles: dom.Styles(raw: {
-        'font-size': 'var(--arcane-font-size-sm)',
-        'font-weight': 'var(--arcane-font-weight-medium)',
+        'font-size': 'var(--font-size-sm)',
+        'font-weight': 'var(--font-weight-medium)',
         'color': props.disabled
             ? 'var(--muted-foreground)'
             : 'var(--foreground)',

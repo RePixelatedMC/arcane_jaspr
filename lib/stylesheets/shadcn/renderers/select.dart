@@ -80,7 +80,7 @@ class ShadcnSelect<T> extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': 'var(--arcane-space-1)',
+        'gap': 'var(--space-1)',
         'position': 'relative',
       }),
       [
@@ -89,12 +89,12 @@ class ShadcnSelect<T> extends StatelessComponent {
           dom.label(
             classes: 'arcane-select-label',
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-sm)',
-              'font-weight': 'var(--arcane-font-weight-medium)',
+              'font-size': 'var(--font-size-sm)',
+              'font-weight': 'var(--font-weight-medium)',
               'color': 'var(--foreground)',
               'display': 'flex',
               'align-items': 'center',
-              'gap': 'var(--arcane-space-1)',
+              'gap': 'var(--space-1)',
             }),
             [
               Component.text(props.label!),
@@ -118,7 +118,7 @@ class ShadcnSelect<T> extends StatelessComponent {
             'display': 'flex',
             'align-items': 'center',
             'justify-content': 'space-between',
-            'gap': 'var(--arcane-space-2)',
+            'gap': 'var(--space-2)',
             'padding': size['padding']!,
             'min-height': size['height']!,
             'width': '100%',
@@ -257,7 +257,7 @@ class ShadcnSelect<T> extends StatelessComponent {
                         'border-radius': 'var(--arcane-radius-xs)',
                         'background': 'transparent',
                         'color': 'var(--foreground)',
-                        'font-size': 'var(--arcane-font-size-sm)',
+                        'font-size': 'var(--font-size-sm)',
                         'outline': 'none',
                       }),
                       events: props.onSearchChange != null
@@ -282,7 +282,7 @@ class ShadcnSelect<T> extends StatelessComponent {
                   styles: const dom.Styles(raw: {
                     'padding': '24px 16px',
                     'color': 'var(--muted-foreground)',
-                    'font-size': 'var(--arcane-font-size-sm)',
+                    'font-size': 'var(--font-size-sm)',
                     'text-align': 'center',
                   }),
                   [Component.text(props.loadingText)],
@@ -300,7 +300,7 @@ class ShadcnSelect<T> extends StatelessComponent {
                         styles: const dom.Styles(raw: {
                           'padding': '8px 16px',
                           'color': 'var(--muted-foreground)',
-                          'font-size': 'var(--arcane-font-size-sm)',
+                          'font-size': 'var(--font-size-sm)',
                           'text-align': 'center',
                         }),
                         [Component.text(props.emptyMessage)],
@@ -317,7 +317,7 @@ class ShadcnSelect<T> extends StatelessComponent {
         if (props.helperText != null && props.error == null)
           dom.span(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-xs)',
+              'font-size': 'var(--font-size-xs)',
               'color': 'var(--muted-foreground)',
             }),
             [Component.text(props.helperText!)],
@@ -327,7 +327,7 @@ class ShadcnSelect<T> extends StatelessComponent {
         if (props.error != null)
           dom.span(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-xs)',
+              'font-size': 'var(--font-size-xs)',
               'color': 'var(--destructive)',
             }),
             [Component.text(props.error!)],
@@ -357,7 +357,7 @@ class ShadcnSelect<T> extends StatelessComponent {
       styles: dom.Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
-        'gap': 'var(--arcane-space-2)',
+        'gap': 'var(--space-2)',
         'width': '100%',
         'padding': '8px 12px',
         'background-color':
@@ -369,7 +369,7 @@ class ShadcnSelect<T> extends StatelessComponent {
         'opacity': (isDisabled || maxReached) ? '0.5' : '1',
         'transition': 'background-color var(--arcane-transition), color var(--arcane-transition)',
         'text-align': 'left',
-        'font-size': 'var(--arcane-font-size-sm)',
+        'font-size': 'var(--font-size-sm)',
       }),
       events: props.onSelect != null && !isDisabled && !maxReached
           ? {'click': (_) => props.onSelect!(option.value)}
@@ -397,7 +397,7 @@ class ShadcnSelect<T> extends StatelessComponent {
                   styles: dom.Styles(raw: {
                     'color': 'var(--primary-foreground)',
                     'font-size': '10px',
-                    'font-weight': 'var(--arcane-font-weight-bold)',
+                    'font-weight': 'var(--font-weight-bold)',
                   }),
                   [Component.text('\u{2713}')], // Checkmark
                 ),
@@ -428,7 +428,7 @@ class ShadcnSelect<T> extends StatelessComponent {
             if (option.subtitle != null)
               dom.span(
                 styles: const dom.Styles(raw: {
-                  'font-size': 'var(--arcane-font-size-xs)',
+                  'font-size': 'var(--font-size-xs)',
                   'color': 'var(--muted-foreground)',
                   'overflow': 'hidden',
                   'text-overflow': 'ellipsis',
@@ -443,7 +443,7 @@ class ShadcnSelect<T> extends StatelessComponent {
         if (option.description != null)
           dom.span(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-xs)',
+              'font-size': 'var(--font-size-xs)',
               'color': 'var(--muted-foreground)',
               'flex-shrink': '0',
             }),

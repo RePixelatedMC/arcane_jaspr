@@ -36,7 +36,7 @@ class CodexDataTable<T> extends StatelessComponent {
           styles: const dom.Styles(raw: {
             'width': '100%',
             'border-collapse': 'collapse',
-            'font-size': 'var(--arcane-font-size-sm)',
+            'font-size': 'var(--font-size-sm)',
           }),
           [
             // Header
@@ -66,7 +66,7 @@ class CodexDataTable<T> extends StatelessComponent {
                                 'checked': 'true',
                             },
                             styles: const dom.Styles(raw: {
-                              'accent-color': 'var(--codex-accent)',
+                              'accent-color': 'var(--primary)',
                             }),
                             events: {
                               if (props.onToggleSelectAll != null)
@@ -80,7 +80,7 @@ class CodexDataTable<T> extends StatelessComponent {
                         styles: dom.Styles(raw: {
                           'padding': '16px 20px',
                           'text-align': column.align.css,
-                          'font-weight': 'var(--arcane-font-weight-medium)',
+                          'font-weight': 'var(--font-weight-medium)',
                           'color': 'var(--muted-foreground)',
                           'white-space': 'nowrap',
                           if (column.width != null)
@@ -115,7 +115,7 @@ class CodexDataTable<T> extends StatelessComponent {
           'codex-data-table-row ${isSelected ? 'selected' : ''} ${isClickable ? 'clickable' : ''}',
       styles: dom.Styles(raw: {
         'background-color':
-            isSelected ? 'rgba(var(--codex-accent-rgb), 0.1)' : 'var(--background)',
+            isSelected ? 'rgba(var(--primary-rgb), 0.1)' : 'var(--background)',
         if (props.showDividers) 'border-bottom': '1px solid var(--border)',
         if (isClickable) 'cursor': 'pointer',
         'transition': 'background-color var(--arcane-transition)',
@@ -139,7 +139,7 @@ class CodexDataTable<T> extends StatelessComponent {
                   if (isSelected) 'checked': 'true',
                 },
                 styles: const dom.Styles(raw: {
-                  'accent-color': 'var(--codex-accent)',
+                  'accent-color': 'var(--primary)',
                 }),
                 events: {
                   if (props.onToggleSelection != null)

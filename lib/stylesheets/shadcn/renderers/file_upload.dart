@@ -26,15 +26,15 @@ class ShadcnFileUpload extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': 'var(--arcane-space-2)',
+        'gap': 'var(--space-2)',
       }),
       [
         // Label
         if (props.label != null)
           dom.label(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-sm)',
-              'font-weight': 'var(--arcane-font-weight-medium)',
+              'font-size': 'var(--font-size-sm)',
+              'font-weight': 'var(--font-weight-medium)',
               'color': 'var(--foreground)',
             }),
             [Component.text(props.label!)],
@@ -54,7 +54,7 @@ class ShadcnFileUpload extends StatelessComponent {
             styles: const dom.Styles(raw: {
               'display': 'flex',
               'flex-direction': 'column',
-              'gap': 'var(--arcane-space-1)',
+              'gap': 'var(--space-1)',
             }),
             [
               for (final file in props.selectedFiles)
@@ -66,7 +66,7 @@ class ShadcnFileUpload extends StatelessComponent {
                     'padding': '0.5rem',
                     'background': 'var(--muted)',
                     'border-radius': 'var(--radius)',
-                    'font-size': 'var(--arcane-font-size-sm)',
+                    'font-size': 'var(--font-size-sm)',
                   }),
                   [
                     dom.span(
@@ -95,7 +95,7 @@ class ShadcnFileUpload extends StatelessComponent {
         if (props.helperText != null)
           dom.span(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-xs)',
+              'font-size': 'var(--font-size-xs)',
               'color': 'var(--muted-foreground)',
             }),
             [Component.text(props.helperText!)],
@@ -112,7 +112,7 @@ class ShadcnFileUpload extends StatelessComponent {
         'flex-direction': 'column',
         'align-items': 'center',
         'justify-content': 'center',
-        'gap': 'var(--arcane-space-4)',
+        'gap': 'var(--space-4)',
         'padding': padding,
         'border': props.isDragOver
             ? '2px dashed var(--primary)'
@@ -154,7 +154,7 @@ class ShadcnFileUpload extends StatelessComponent {
         dom.span(
           styles: const dom.Styles(raw: {
             'color': 'var(--primary)',
-            'font-weight': 'var(--arcane-font-weight-medium)',
+            'font-weight': 'var(--font-weight-medium)',
             'text-decoration': 'underline',
           }),
           [Component.text(props.browseText)],
@@ -171,7 +171,7 @@ class ShadcnFileUpload extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'inline-flex',
         'align-items': 'center',
-        'gap': 'var(--arcane-space-2)',
+        'gap': 'var(--space-2)',
       }),
       [
         dom.button(
@@ -180,10 +180,10 @@ class ShadcnFileUpload extends StatelessComponent {
           styles: dom.Styles(raw: {
             'display': 'inline-flex',
             'align-items': 'center',
-            'gap': 'var(--arcane-space-2)',
+            'gap': 'var(--space-2)',
             'padding': '0.5rem 1rem',
             'font-size': fontSize,
-            'font-weight': 'var(--arcane-font-weight-medium)',
+            'font-weight': 'var(--font-weight-medium)',
             'background': 'var(--secondary)',
             'border': '1px solid var(--border)',
             'border-radius': 'var(--radius)',
@@ -210,7 +210,7 @@ class ShadcnFileUpload extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'inline-flex',
         'align-items': 'center',
-        'gap': 'var(--arcane-space-1)',
+        'gap': 'var(--space-1)',
       }),
       [
         dom.a(

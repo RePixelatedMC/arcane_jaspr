@@ -67,7 +67,7 @@ class ShadcnStepper extends StatelessComponent {
       classes: 'arcane-steps-item',
       styles: dom.Styles(raw: {
         'display': 'flex',
-        'gap': 'var(--arcane-space-6)',
+        'gap': 'var(--space-6)',
         'position': 'relative',
         'padding-bottom': isLast ? '0' : '2rem',
       }),
@@ -207,7 +207,7 @@ class ShadcnStepper extends StatelessComponent {
         'align-items': 'center',
         'justify-content': 'center',
         'font-size': _numberSize,
-        'font-weight': 'var(--arcane-font-weight-semibold)',
+        'font-weight': 'var(--font-weight-semibold)',
         'color': isFilled ? colors['text']! : colors['border']!,
         'flex-shrink': '0',
         'z-index': '1',
@@ -240,8 +240,8 @@ class ShadcnStepper extends StatelessComponent {
         // Title
         dom.div(
           styles: dom.Styles(raw: {
-            'font-size': 'var(--arcane-font-size-base)',
-            'font-weight': 'var(--arcane-font-weight-semibold)',
+            'font-size': 'var(--font-size-base)',
+            'font-weight': 'var(--font-weight-semibold)',
             'color': status == StepStatus.pending
                 ? 'var(--muted)'
                 : 'var(--foreground)',
@@ -254,7 +254,7 @@ class ShadcnStepper extends StatelessComponent {
         if (step.description != null)
           dom.div(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-sm)',
+              'font-size': 'var(--font-size-sm)',
               'color': 'var(--muted-foreground)',
               'line-height': '1.5',
             }),

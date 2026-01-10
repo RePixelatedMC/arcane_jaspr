@@ -183,7 +183,7 @@ class ShadcnDrawer extends StatelessComponent {
                         'cursor': 'pointer',
                         // ShadCN: rounded-sm
                         'border-radius': 'var(--arcane-radius-xs)',
-                        'font-size': 'var(--arcane-font-size-base)',
+                        'font-size': 'var(--font-size-base)',
                         // ShadCN: transition-opacity
                         'transition': 'opacity var(--arcane-transition)',
                       }),

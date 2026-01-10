@@ -32,8 +32,8 @@ class ShadcnRatingStars extends StatelessComponent {
             styles: const dom.Styles(raw: {
               'margin-left': '0.5rem',
               'color': 'var(--foreground)',
-              'font-weight': 'var(--arcane-font-weight-medium)',
-              'font-size': 'var(--arcane-font-size-sm)',
+              'font-weight': 'var(--font-weight-medium)',
+              'font-size': 'var(--font-size-sm)',
             }),
             [Component.text(props.rating.toStringAsFixed(1))],
           ),

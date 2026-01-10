@@ -29,8 +29,8 @@ class CodexProgress extends StatelessComponent {
     // Codex variant colors with accent as primary
     final (String indicatorColor, String? glowColor) = switch (props.variant) {
       ProgressVariant.primary => (
-          props.indicatorColor ?? 'var(--codex-accent)',
-          'var(--codex-accent-glow-subtle)',
+          props.indicatorColor ?? 'var(--primary)',
+          '0 0 15px rgba(var(--primary-rgb), 0.2)',
         ),
       ProgressVariant.success => (
           props.indicatorColor ?? 'var(--success)',
@@ -110,8 +110,8 @@ class CodexProgress extends StatelessComponent {
             classes: 'codex-progress-value',
             styles: const dom.Styles(raw: {
               'margin-top': '0.5rem',
-              'font-size': 'var(--arcane-font-size-xs)',
-              'font-weight': 'var(--arcane-font-weight-medium)',
+              'font-size': 'var(--font-size-xs)',
+              'font-weight': 'var(--font-weight-medium)',
               'color': 'var(--muted-foreground)',
               'text-align': 'right',
               'font-variant-numeric': 'tabular-nums',
@@ -136,7 +136,7 @@ class CodexCircularProgress extends StatelessComponent {
 
     final String size = props.size ?? '64px'; // Codex: slightly larger default
     final String strokeWidth = props.strokeWidth ?? '6px'; // Codex: thicker stroke
-    final String fillColor = props.fillColor ?? 'var(--codex-accent)';
+    final String fillColor = props.fillColor ?? 'var(--primary)';
     final String trackColor = props.trackColor ?? 'var(--muted)';
 
     return dom.div(
@@ -189,8 +189,8 @@ class CodexCircularProgress extends StatelessComponent {
               if (props.showPercentage)
                 dom.span(
                   styles: const dom.Styles(raw: {
-                    'font-size': 'var(--arcane-font-size-sm)',
-                    'font-weight': 'var(--arcane-font-weight-semibold)',
+                    'font-size': 'var(--font-size-sm)',
+                    'font-weight': 'var(--font-weight-semibold)',
                     'color': 'var(--foreground)',
                     'font-variant-numeric': 'tabular-nums',
                   }),
@@ -221,7 +221,7 @@ class CodexLoadingSpinner extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     final String size = props.size ?? '24px'; // Codex: slightly larger
-    final String color = props.color ?? 'var(--codex-accent)';
+    final String color = props.color ?? 'var(--primary)';
 
     return dom.span(
       classes: 'codex-loading-spinner',

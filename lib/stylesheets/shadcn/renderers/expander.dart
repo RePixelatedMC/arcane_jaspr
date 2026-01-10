@@ -56,7 +56,7 @@ class _ShadcnExpanderState extends State<ShadcnExpander> {
           styles: const dom.Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
-            'gap': 'var(--arcane-space-4)',
+            'gap': 'var(--space-4)',
             'width': '100%',
             'padding': '1rem 1.5rem',
             'background-color': 'var(--card)',

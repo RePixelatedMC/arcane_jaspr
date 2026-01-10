@@ -21,10 +21,10 @@ class ShadcnBadge extends StatelessComponent {
     final Map<String, String> baseStyles = {
       'display': 'inline-flex',
       'align-items': 'center',
-      'gap': 'var(--arcane-space-1)', // gap-1
+      'gap': 'var(--space-1)', // gap-1
       'border-radius': 'var(--arcane-radius-full)', // rounded-full
-      'font-size': 'var(--arcane-font-size-xs)', // text-xs
-      'font-weight': 'var(--arcane-font-weight-semibold)', // font-semibold
+      'font-size': 'var(--font-size-xs)', // text-xs
+      'font-weight': 'var(--font-weight-semibold)', // font-semibold
       'line-height': '1',
       'white-space': 'nowrap',
       'transition': 'color 150ms, background-color 150ms, border-color 150ms',
@@ -40,7 +40,7 @@ class ShadcnBadge extends StatelessComponent {
       },
       BadgeSize.large => {
         'padding': '0.25rem 0.75rem', // py-1 px-3
-        'font-size': 'var(--arcane-font-size-sm)', // text-sm
+        'font-size': 'var(--font-size-sm)', // text-sm
       },
     };
 

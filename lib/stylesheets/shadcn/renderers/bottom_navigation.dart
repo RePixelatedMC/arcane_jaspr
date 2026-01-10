@@ -47,7 +47,7 @@ class ShadcnBottomNavigationBar extends StatelessComponent {
         'flex-direction': 'column',
         'align-items': 'center',
         'justify-content': 'center',
-        'gap': 'var(--arcane-space-1)',
+        'gap': 'var(--space-1)',
         'flex': '1',
         'height': '100%',
         'padding': '0.5rem',
@@ -105,7 +105,7 @@ class ShadcnBottomNavigationBar extends StatelessComponent {
                   'background-color': 'var(--destructive)',
                   'color': 'var(--destructive-foreground)',
                   'font-size': '0.625rem',
-                  'font-weight': 'var(--arcane-font-weight-semibold)',
+                  'font-weight': 'var(--font-weight-semibold)',
                   'border-radius': 'var(--arcane-radius-xs)',
                   'display': 'flex',
                   'align-items': 'center',
@@ -121,7 +121,7 @@ class ShadcnBottomNavigationBar extends StatelessComponent {
           dom.span(
             classes: 'arcane-bottom-nav-label',
             styles: dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-xs)',
+              'font-size': 'var(--font-size-xs)',
               'font-weight': isSelected ? '600' : '500',
               'white-space': 'nowrap',
               'overflow': 'hidden',

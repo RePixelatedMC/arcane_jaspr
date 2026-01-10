@@ -40,7 +40,7 @@ class CodexAuthBrandingPanel extends StatelessComponent {
           classes: 'codex-auth-branding-tagline',
           styles: const dom.Styles(raw: {
             'font-size': '2rem',
-            'font-weight': 'var(--arcane-font-weight-bold)',
+            'font-weight': 'var(--font-weight-bold)',
             'color': 'var(--foreground)',
             'margin': '0 0 1rem 0',
             'line-height': '1.2',
@@ -53,7 +53,7 @@ class CodexAuthBrandingPanel extends StatelessComponent {
           dom.p(
             classes: 'codex-auth-branding-description',
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-base)',
+              'font-size': 'var(--font-size-base)',
               'color': 'var(--muted-foreground)',
               'margin': '0 0 2rem 0',
               'line-height': '1.6',
@@ -92,10 +92,10 @@ class CodexAuthBrandingPanel extends StatelessComponent {
                         'justify-content': 'center',
                         'width': '20px',
                         'height': '20px',
-                        'background-color': 'rgba(var(--codex-accent-rgb), 0.15)',
-                        'color': 'var(--codex-accent)',
+                        'background-color': 'rgba(var(--primary-rgb), 0.15)',
+                        'color': 'var(--primary)',
                         'border-radius': '50%',
-                        'font-size': 'var(--arcane-font-size-xs)',
+                        'font-size': 'var(--font-size-xs)',
                       }),
                       [Component.text('[check]')],
                     ),
@@ -113,7 +113,7 @@ class CodexAuthBrandingPanel extends StatelessComponent {
               'padding': '1.5rem',
               'background-color': 'var(--secondary)',
               'border-radius': 'var(--radius)',
-              'border-left': '3px solid var(--codex-accent)',
+              'border-left': '3px solid var(--primary)',
             }),
             [
               // Quote
@@ -139,8 +139,8 @@ class CodexAuthBrandingPanel extends StatelessComponent {
                   [
                     dom.span(
                       styles: const dom.Styles(raw: {
-                        'font-size': 'var(--arcane-font-size-sm)',
-                        'font-weight': 'var(--arcane-font-weight-semibold)',
+                        'font-size': 'var(--font-size-sm)',
+                        'font-weight': 'var(--font-weight-semibold)',
                         'color': 'var(--foreground)',
                       }),
                       [Component.text(props.testimonialAuthor!)],

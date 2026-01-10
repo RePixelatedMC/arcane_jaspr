@@ -59,14 +59,14 @@ class _ShadcnTimeDialogState extends State<ShadcnTimeDialog> {
             styles: const dom.Styles(raw: {
               'display': 'flex',
               'flex-direction': 'column',
-              'gap': 'var(--arcane-space-6)',
+              'gap': 'var(--space-6)',
             }),
             [
               if (component.props.message != null)
                 dom.div(
                   styles: const dom.Styles(raw: {
                     'color': 'var(--muted-foreground)',
-                    'font-size': 'var(--arcane-font-size-sm)',
+                    'font-size': 'var(--font-size-sm)',
                     'line-height': '1.625',
                   }),
                   [Component.text(component.props.message!)],
@@ -76,9 +76,9 @@ class _ShadcnTimeDialogState extends State<ShadcnTimeDialog> {
                   'display': 'flex',
                   'justify-content': 'center',
                   'align-items': 'center',
-                  'gap': 'var(--arcane-space-2)',
-                  'font-size': 'var(--arcane-font-size-3xl)',
-                  'font-weight': 'var(--arcane-font-weight-bold)',
+                  'gap': 'var(--space-2)',
+                  'font-size': 'var(--font-size-3xl)',
+                  'font-weight': 'var(--font-weight-bold)',
                   'font-variant-numeric': 'tabular-nums',
                   'color': 'var(--foreground)',
                 }),
@@ -93,7 +93,7 @@ class _ShadcnTimeDialogState extends State<ShadcnTimeDialog> {
                   if (!component.props.use24Hour)
                     dom.span(
                       styles: const dom.Styles(raw: {
-                        'font-size': 'var(--arcane-font-size-lg)',
+                        'font-size': 'var(--font-size-lg)',
                         'margin-left': '0.5rem',
                         'color': 'var(--muted-foreground)',
                       }),
@@ -105,7 +105,7 @@ class _ShadcnTimeDialogState extends State<ShadcnTimeDialog> {
                 styles: const dom.Styles(raw: {
                   'display': 'flex',
                   'justify-content': 'center',
-                  'gap': 'var(--arcane-space-4)',
+                  'gap': 'var(--space-4)',
                 }),
                 [
                   _buildTimeColumn(
@@ -139,13 +139,13 @@ class _ShadcnTimeDialogState extends State<ShadcnTimeDialog> {
                       styles: const dom.Styles(raw: {
                         'display': 'flex',
                         'flex-direction': 'column',
-                        'gap': 'var(--arcane-space-1)',
+                        'gap': 'var(--space-1)',
                       }),
                       [
                         const dom.span(
                           styles: dom.Styles(raw: {
-                            'font-size': 'var(--arcane-font-size-xs)',
-                            'font-weight': 'var(--arcane-font-weight-medium)',
+                            'font-size': 'var(--font-size-xs)',
+                            'font-weight': 'var(--font-weight-medium)',
                             'color': 'var(--muted-foreground)',
                             'text-transform': 'uppercase',
                             'text-align': 'center',
@@ -162,7 +162,7 @@ class _ShadcnTimeDialogState extends State<ShadcnTimeDialog> {
                             'background': !_isPM ? 'var(--primary)' : 'transparent',
                             'color': !_isPM ? 'var(--primary-foreground)' : 'var(--foreground)',
                             'cursor': 'pointer',
-                            'font-size': 'var(--arcane-font-size-sm)',
+                            'font-size': 'var(--font-size-sm)',
                             'transition': 'all var(--arcane-transition)',
                           }),
                           events: {
@@ -181,7 +181,7 @@ class _ShadcnTimeDialogState extends State<ShadcnTimeDialog> {
                             'background': _isPM ? 'var(--primary)' : 'transparent',
                             'color': _isPM ? 'var(--primary-foreground)' : 'var(--foreground)',
                             'cursor': 'pointer',
-                            'font-size': 'var(--arcane-font-size-sm)',
+                            'font-size': 'var(--font-size-sm)',
                             'transition': 'all var(--arcane-transition)',
                           }),
                           events: {
@@ -225,13 +225,13 @@ class _ShadcnTimeDialogState extends State<ShadcnTimeDialog> {
       styles: const dom.Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': 'var(--arcane-space-1)',
+        'gap': 'var(--space-1)',
       }),
       [
         dom.span(
           styles: const dom.Styles(raw: {
-            'font-size': 'var(--arcane-font-size-xs)',
-            'font-weight': 'var(--arcane-font-weight-medium)',
+            'font-size': 'var(--font-size-xs)',
+            'font-weight': 'var(--font-weight-medium)',
             'color': 'var(--muted-foreground)',
             'text-transform': 'uppercase',
             'text-align': 'center',
@@ -259,7 +259,7 @@ class _ShadcnTimeDialogState extends State<ShadcnTimeDialog> {
                   'background': value == selectedValue ? 'var(--primary)' : 'transparent',
                   'color': value == selectedValue ? 'var(--primary-foreground)' : 'var(--foreground)',
                   'cursor': 'pointer',
-                  'font-size': 'var(--arcane-font-size-sm)',
+                  'font-size': 'var(--font-size-sm)',
                   'text-align': 'center',
                   'min-width': '48px',
                   'transition': 'all var(--arcane-transition)',

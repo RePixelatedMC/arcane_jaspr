@@ -72,7 +72,7 @@ class ShadcnCallout extends StatelessComponent {
       },
       styles: dom.Styles(raw: {
         'display': 'flex',
-        'gap': 'var(--arcane-space-4)',
+        'gap': 'var(--space-4)',
         'padding': '1rem',
         'background': background,
         'border-left': '4px solid $borderColor',
@@ -91,7 +91,7 @@ class ShadcnCallout extends StatelessComponent {
               'align-items': 'center',
               'justify-content': 'center',
               'color': iconColor,
-              'font-size': 'var(--arcane-font-size-base)',
+              'font-size': 'var(--font-size-base)',
             }),
             [props.icon ?? Component.text(_defaultIcon)],
           ),
@@ -108,7 +108,7 @@ class ShadcnCallout extends StatelessComponent {
               dom.div(
                 classes: 'arcane-callout-title',
                 styles: const dom.Styles(raw: {
-                  'font-weight': 'var(--arcane-font-weight-semibold)',
+                  'font-weight': 'var(--font-weight-semibold)',
                   'color': 'var(--foreground)',
                   'margin-bottom': '0.25rem',
                 }),
@@ -118,7 +118,7 @@ class ShadcnCallout extends StatelessComponent {
               dom.div(
                 classes: 'arcane-callout-body',
                 styles: const dom.Styles(raw: {
-                  'font-size': 'var(--arcane-font-size-sm)',
+                  'font-size': 'var(--font-size-sm)',
                   'color': 'var(--foreground)',
                   'line-height': '1.7',
                 }),

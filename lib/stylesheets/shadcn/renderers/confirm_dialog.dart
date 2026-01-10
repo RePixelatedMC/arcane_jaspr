@@ -28,7 +28,7 @@ class ShadcnConfirmDialog extends StatelessComponent {
               'flex-direction': 'column',
               'align-items': 'center',
               'text-align': 'center',
-              'gap': 'var(--arcane-space-4)',
+              'gap': 'var(--space-4)',
             }),
             [
               if (props.icon != null)
@@ -42,7 +42,7 @@ class ShadcnConfirmDialog extends StatelessComponent {
               dom.div(
                 styles: const dom.Styles(raw: {
                   'color': 'var(--foreground)',
-                  'font-size': 'var(--arcane-font-size-sm)',
+                  'font-size': 'var(--font-size-sm)',
                   'line-height': '1.625',
                 }),
                 [Component.text(props.message)],
@@ -93,7 +93,7 @@ class ShadcnAlertDialog extends StatelessComponent {
               'flex-direction': 'column',
               'align-items': 'center',
               'text-align': 'center',
-              'gap': 'var(--arcane-space-4)',
+              'gap': 'var(--space-4)',
             }),
             [
               if (props.icon != null)
@@ -107,7 +107,7 @@ class ShadcnAlertDialog extends StatelessComponent {
               dom.div(
                 styles: const dom.Styles(raw: {
                   'color': 'var(--foreground)',
-                  'font-size': 'var(--arcane-font-size-sm)',
+                  'font-size': 'var(--font-size-sm)',
                   'line-height': '1.625',
                 }),
                 [Component.text(props.message)],

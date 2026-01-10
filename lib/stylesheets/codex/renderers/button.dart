@@ -27,8 +27,8 @@ class CodexButton extends StatelessComponent {
       'gap': '0.625rem', // 10px (vs ShadCN 8px)
       'white-space': 'nowrap',
       'border-radius': 'var(--radius)', // 14px
-      'font-size': 'var(--arcane-font-size-sm)',
-      'font-weight': 'var(--arcane-font-weight-medium)',
+      'font-size': 'var(--font-size-sm)',
+      'font-weight': 'var(--font-weight-medium)',
       'line-height': '1.25rem',
       'transition': 'all var(--transition)',
       'outline': 'none',
@@ -42,10 +42,10 @@ class CodexButton extends StatelessComponent {
     // Codex variant styles - accent-driven with subtle glows
     final Map<String, String> variantStyles = switch (props.variant) {
       ButtonVariant.primary => {
-        'background-color': 'var(--codex-accent)',
+        'background-color': 'var(--primary)',
         'color': '#ffffff',
         'border': 'none',
-        'box-shadow': 'var(--codex-accent-glow-medium)',
+        'box-shadow': '0 0 20px rgba(var(--primary-rgb), 0.3)',
       },
       ButtonVariant.destructive => {
         'background-color': 'var(--destructive)',
@@ -55,8 +55,8 @@ class CodexButton extends StatelessComponent {
       },
       ButtonVariant.outline => {
         'background-color': 'transparent',
-        'color': 'var(--codex-accent)',
-        'border': '1px solid var(--codex-accent-border)',
+        'color': 'var(--primary)',
+        'border': '1px solid var(--primary)',
       },
       ButtonVariant.secondary => {
         'background-color': 'var(--secondary)',
@@ -70,7 +70,7 @@ class CodexButton extends StatelessComponent {
       },
       ButtonVariant.link => {
         'background-color': 'transparent',
-        'color': 'var(--codex-accent)',
+        'color': 'var(--primary)',
         'border': 'none',
         'text-decoration': 'underline',
         'text-underline-offset': '4px',
@@ -96,10 +96,10 @@ class CodexButton extends StatelessComponent {
         'box-shadow': '0 0 20px rgba(var(--info-rgb), 0.3)',
       },
       ButtonVariant.accent => {
-        'background': 'var(--codex-accent-gradient)',
+        'background': 'linear-gradient(135deg, var(--primary), color-mix(in srgb, var(--primary) 80%, white))',
         'color': '#ffffff',
         'border': 'none',
-        'box-shadow': 'var(--codex-accent-glow-medium)',
+        'box-shadow': '0 0 20px rgba(var(--primary-rgb), 0.3)',
       },
     };
 

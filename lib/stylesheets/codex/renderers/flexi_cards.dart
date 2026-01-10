@@ -47,12 +47,12 @@ class _CodexFlexiCardsState extends State<CodexFlexiCards> {
         'padding': '1.5rem',
         'background-color': 'var(--card)',
         'border': isHovered
-            ? '1px solid var(--codex-accent)'
+            ? '1px solid var(--primary)'
             : '1px solid var(--border)',
         'border-radius': 'var(--radius)',
         'transition': 'all ${component.props.transitionDuration}ms ease',
         if (isHovered)
-          'box-shadow': '0 0 20px rgba(var(--codex-accent-rgb), 0.15)',
+          'box-shadow': '0 0 20px rgba(var(--primary-rgb), 0.15)',
         if (component.props.widthPreLock != null && !isHovered)
           'width': component.props.widthPreLock!,
         if (component.props.widthPostLock != null && isHovered)
@@ -85,8 +85,8 @@ class _CodexFlexiCardsState extends State<CodexFlexiCards> {
         dom.h3(
           classes: 'codex-flexi-card-title',
           styles: const dom.Styles(raw: {
-            'font-size': 'var(--arcane-font-size-base)',
-            'font-weight': 'var(--arcane-font-weight-semibold)',
+            'font-size': 'var(--font-size-base)',
+            'font-weight': 'var(--font-weight-semibold)',
             'color': 'var(--foreground)',
             'margin': '0 0 0.5rem 0',
           }),
@@ -98,7 +98,7 @@ class _CodexFlexiCardsState extends State<CodexFlexiCards> {
           dom.p(
             classes: 'codex-flexi-card-description',
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-sm)',
+              'font-size': 'var(--font-size-sm)',
               'color': 'var(--muted-foreground)',
               'margin': '0',
               'line-height': '1.5',
@@ -181,8 +181,8 @@ class CodexFlexiCardsSimple extends StatelessComponent {
         // Title
         dom.h3(
           styles: const dom.Styles(raw: {
-            'font-size': 'var(--arcane-font-size-base)',
-            'font-weight': 'var(--arcane-font-weight-semibold)',
+            'font-size': 'var(--font-size-base)',
+            'font-weight': 'var(--font-weight-semibold)',
             'color': 'var(--foreground)',
             'margin': '0 0 0.5rem 0',
           }),
@@ -192,7 +192,7 @@ class CodexFlexiCardsSimple extends StatelessComponent {
         // Description
         dom.p(
           styles: const dom.Styles(raw: {
-            'font-size': 'var(--arcane-font-size-sm)',
+            'font-size': 'var(--font-size-sm)',
             'color': 'var(--muted-foreground)',
             'margin': '0',
             'line-height': '1.5',

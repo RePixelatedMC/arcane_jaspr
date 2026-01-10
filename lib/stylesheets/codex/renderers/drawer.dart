@@ -40,28 +40,28 @@ class CodexDrawer extends StatelessComponent {
           'top': '0',
           'bottom': '0',
           'width': props.width ?? sizeValue,
-          'border-right': '1px solid var(--codex-accent-border)',
+          'border-right': '1px solid var(--primary)',
         },
       DrawerPosition.right => {
           'right': '0',
           'top': '0',
           'bottom': '0',
           'width': props.width ?? sizeValue,
-          'border-left': '1px solid var(--codex-accent-border)',
+          'border-left': '1px solid var(--primary)',
         },
       DrawerPosition.top => {
           'left': '0',
           'right': '0',
           'top': '0',
           'height': props.height ?? sizeValue,
-          'border-bottom': '1px solid var(--codex-accent-border)',
+          'border-bottom': '1px solid var(--primary)',
         },
       DrawerPosition.bottom => {
           'left': '0',
           'right': '0',
           'bottom': '0',
           'height': props.height ?? sizeValue,
-          'border-top': '1px solid var(--codex-accent-border)',
+          'border-top': '1px solid var(--primary)',
         },
     };
 
@@ -94,7 +94,7 @@ class CodexDrawer extends StatelessComponent {
             'backdrop-filter': 'blur(12px)',
             '-webkit-backdrop-filter': 'blur(12px)',
             // Codex: subtle accent glow
-            'box-shadow': '0 0 30px rgba(var(--codex-accent-rgb), 0.15)',
+            'box-shadow': '0 0 30px rgba(var(--primary-rgb), 0.15)',
             'overflow': 'hidden',
           }),
           events: {'click': (e) => e.stopPropagation()},

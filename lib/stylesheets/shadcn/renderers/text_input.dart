@@ -138,7 +138,7 @@ class ShadcnTextInput extends StatelessComponent {
       styles: dom.Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': 'var(--arcane-space-2)', // ShadCN: space-y-2
+        'gap': 'var(--space-2)', // ShadCN: space-y-2
         if (props.fullWidth) 'width': '100%',
       }),
       [
@@ -150,8 +150,8 @@ class ShadcnTextInput extends StatelessComponent {
             attributes: props.id != null ? {'for': props.id!} : null,
             styles: const dom.Styles(raw: {
               // ShadCN: text-sm font-medium leading-none
-              'font-size': 'var(--arcane-font-size-sm)',
-              'font-weight': 'var(--arcane-font-weight-medium)',
+              'font-size': 'var(--font-size-sm)',
+              'font-weight': 'var(--font-weight-medium)',
               'line-height': '1',
               'color': 'var(--foreground)',
             }),
@@ -268,7 +268,7 @@ class ShadcnTextInput extends StatelessComponent {
           dom.span(
             classes: 'arcane-text-input-error',
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-sm)',
+              'font-size': 'var(--font-size-sm)',
               'color': 'var(--destructive)',
             }),
             [Component.text(props.error!)],
@@ -277,7 +277,7 @@ class ShadcnTextInput extends StatelessComponent {
           dom.span(
             classes: 'arcane-text-input-helper',
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-sm)',
+              'font-size': 'var(--font-size-sm)',
               'color': 'var(--muted-foreground)',
             }),
             [Component.text(props.helperText!)],

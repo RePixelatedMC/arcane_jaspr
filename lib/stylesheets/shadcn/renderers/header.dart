@@ -50,7 +50,7 @@ class ShadcnHeader extends StatelessComponent {
               styles: const dom.Styles(raw: {
                 'display': 'flex',
                 'align-items': 'center',
-                'gap': 'var(--arcane-space-1)',
+                'gap': 'var(--space-1)',
               }),
               [
                 for (final item in props.navItems) _buildNavItem(item),
@@ -83,7 +83,7 @@ class ShadcnHeader extends StatelessComponent {
                     },
                     styles: const dom.Styles(raw: {
                       'padding': '8px 12px 8px 36px',
-                      'font-size': 'var(--arcane-font-size-sm)',
+                      'font-size': 'var(--font-size-sm)',
                       'background-color': 'var(--muted)',
                       'border': '1px solid var(--border)',
                       'border-radius': 'var(--arcane-radius-sm)',
@@ -113,7 +113,7 @@ class ShadcnHeader extends StatelessComponent {
                       'top': '50%',
                       'transform': 'translateY(-50%)',
                       'color': 'var(--muted-foreground)',
-                      'font-size': 'var(--arcane-font-size-sm)',
+                      'font-size': 'var(--font-size-sm)',
                       'pointer-events': 'none',
                     }),
                     [Component.text('\u{1F50D}')], // Magnifying glass
@@ -147,10 +147,10 @@ class ShadcnHeader extends StatelessComponent {
             styles: dom.Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
-              'gap': 'var(--arcane-space-1)',
+              'gap': 'var(--space-1)',
               'padding': '8px 12px',
-              'font-size': 'var(--arcane-font-size-sm)',
-              'font-weight': 'var(--arcane-font-weight-medium)',
+              'font-size': 'var(--font-size-sm)',
+              'font-weight': 'var(--font-weight-medium)',
               'color': item.isActive
                   ? 'var(--foreground)'
                   : 'var(--muted-foreground)',
@@ -174,10 +174,10 @@ class ShadcnHeader extends StatelessComponent {
             styles: dom.Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
-              'gap': 'var(--arcane-space-1)',
+              'gap': 'var(--space-1)',
               'padding': '8px 12px',
-              'font-size': 'var(--arcane-font-size-sm)',
-              'font-weight': 'var(--arcane-font-weight-medium)',
+              'font-size': 'var(--font-size-sm)',
+              'font-weight': 'var(--font-weight-medium)',
               'color': item.isActive
                   ? 'var(--foreground)'
                   : 'var(--muted-foreground)',
@@ -229,9 +229,9 @@ class ShadcnNavLink extends StatelessComponent {
         styles: dom.Styles(raw: {
           'display': 'inline-flex',
           'align-items': 'center',
-          'gap': 'var(--arcane-space-1)',
-          'font-size': 'var(--arcane-font-size-sm)',
-          'font-weight': 'var(--arcane-font-weight-medium)',
+          'gap': 'var(--space-1)',
+          'font-size': 'var(--font-size-sm)',
+          'font-weight': 'var(--font-weight-medium)',
           'color':
               props.isActive ? 'var(--primary)' : 'var(--muted-foreground)',
           'text-decoration': 'none',
@@ -247,9 +247,9 @@ class ShadcnNavLink extends StatelessComponent {
       styles: dom.Styles(raw: {
         'display': 'inline-flex',
         'align-items': 'center',
-        'gap': 'var(--arcane-space-1)',
-        'font-size': 'var(--arcane-font-size-sm)',
-        'font-weight': 'var(--arcane-font-weight-medium)',
+        'gap': 'var(--space-1)',
+        'font-size': 'var(--font-size-sm)',
+        'font-weight': 'var(--font-weight-medium)',
         'color': props.isActive ? 'var(--primary)' : 'var(--muted-foreground)',
         'text-decoration': 'none',
         'transition': 'color var(--arcane-transition)',

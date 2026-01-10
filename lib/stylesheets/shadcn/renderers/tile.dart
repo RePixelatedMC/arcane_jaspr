@@ -18,7 +18,7 @@ class ShadcnTile extends StatelessComponent {
       styles: dom.Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
-        'gap': 'var(--arcane-space-2)',
+        'gap': 'var(--space-2)',
         'padding': effectivePadding,
         'background-color': props.selected ? 'color-mix(in srgb, var(--accent) 10%, transparent)' : 'transparent',
         'cursor': props.disabled ? 'not-allowed' : (props.onTap != null ? 'pointer' : 'default'),
@@ -63,7 +63,7 @@ class ShadcnTile extends StatelessComponent {
                 classes: 'arcane-tile-title',
                 styles: dom.Styles(raw: {
                   'font-size': props.dense ? '0.875rem' : '1rem',
-                  'font-weight': 'var(--arcane-font-weight-medium)',
+                  'font-weight': 'var(--font-weight-medium)',
                   'color': props.selected ? 'var(--accent)' : 'var(--foreground)',
                   'white-space': 'nowrap',
                   'overflow': 'hidden',
@@ -124,7 +124,7 @@ class ShadcnNavTile extends StatelessComponent {
       styles: dom.Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
-        'gap': 'var(--arcane-space-2)',
+        'gap': 'var(--space-2)',
         'width': '100%',
         'padding': '0.5rem 1rem',
         'background-color': props.selected ? 'color-mix(in srgb, var(--accent) 10%, transparent)' : 'transparent',
@@ -135,7 +135,7 @@ class ShadcnNavTile extends StatelessComponent {
         'opacity': props.disabled ? '0.5' : '1',
         'transition': 'all var(--arcane-transition)',
         'text-align': 'left',
-        'font-size': 'var(--arcane-font-size-base)',
+        'font-size': 'var(--font-size-base)',
         'font-weight': props.selected ? '600' : '500',
       }),
       events: {
@@ -173,10 +173,10 @@ class ShadcnNavTile extends StatelessComponent {
             styles: const dom.Styles(raw: {
               'background-color': 'var(--primary)',
               'color': 'var(--primary-foreground)',
-              'font-size': 'var(--arcane-font-size-xs)',
+              'font-size': 'var(--font-size-xs)',
               'padding': '2px 6px',
               'border-radius': 'var(--arcane-radius-full)',
-              'font-weight': 'var(--arcane-font-weight-medium)',
+              'font-weight': 'var(--font-weight-medium)',
             }),
             [Component.text(props.badge!)],
           ),

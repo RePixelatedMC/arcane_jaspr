@@ -50,7 +50,7 @@ class ShadcnTagInput extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': 'var(--arcane-space-2)',
+        'gap': 'var(--space-2)',
       }),
       [
         // Label
@@ -58,8 +58,8 @@ class ShadcnTagInput extends StatelessComponent {
           Component.element(
             tag: 'label',
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-sm)',
-              'font-weight': 'var(--arcane-font-weight-medium)',
+              'font-size': 'var(--font-size-sm)',
+              'font-weight': 'var(--font-weight-medium)',
               'line-height': '1',
               'color': 'var(--foreground)',
             }),
@@ -108,7 +108,7 @@ class ShadcnTagInput extends StatelessComponent {
                   'border': 'none',
                   'background': 'transparent',
                   'outline': 'none',
-                  'font-size': 'var(--arcane-font-size-sm)',
+                  'font-size': 'var(--font-size-sm)',
                   'color': 'var(--foreground)',
                   'padding': '4px',
                 }),
@@ -143,7 +143,7 @@ class ShadcnTagInput extends StatelessComponent {
           dom.span(
             classes: hasError ? 'arcane-tag-input-error' : 'arcane-tag-input-helper',
             styles: dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-xs)',
+              'font-size': 'var(--font-size-xs)',
               'color': hasError ? 'var(--destructive)' : 'var(--muted-foreground)',
             }),
             [Component.text(hasError ? props.errorText! : props.helperText!)],
@@ -159,13 +159,13 @@ class ShadcnTagInput extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'inline-flex',
         'align-items': 'center',
-        'gap': 'var(--arcane-space-1)',
+        'gap': 'var(--space-1)',
         'padding': '0.125rem 0.5rem',
         'background-color': 'var(--secondary)',
         'color': 'var(--secondary-foreground)',
         'border-radius': 'var(--arcane-radius-full)',
-        'font-size': 'var(--arcane-font-size-xs)',
-        'font-weight': 'var(--arcane-font-weight-medium)',
+        'font-size': 'var(--font-size-xs)',
+        'font-weight': 'var(--font-weight-medium)',
         'line-height': '1.25',
       }),
       [

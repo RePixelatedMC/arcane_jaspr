@@ -24,7 +24,7 @@ class CodexStaticTable extends StatelessComponent {
           styles: const dom.Styles(raw: {
             'width': '100%',
             'border-collapse': 'collapse',
-            'font-size': 'var(--arcane-font-size-sm)',
+            'font-size': 'var(--font-size-sm)',
           }),
           [
             // Header
@@ -46,7 +46,7 @@ class CodexStaticTable extends StatelessComponent {
                               (props.alignments != null && i < props.alignments!.length)
                                   ? props.alignments![i].css
                                   : 'left',
-                          'font-weight': 'var(--arcane-font-weight-semibold)',
+                          'font-weight': 'var(--font-weight-semibold)',
                           'color': 'var(--foreground)',
                           'white-space': 'nowrap',
                         }),
@@ -123,9 +123,9 @@ class CodexKeyValueTable extends StatelessComponent {
                 styles: dom.Styles(raw: {
                   'padding': '1.25rem 1.75rem',
                   'background-color': 'var(--secondary)',
-                  'font-weight': 'var(--arcane-font-weight-medium)',
+                  'font-weight': 'var(--font-weight-medium)',
                   'color': 'var(--foreground)',
-                  'font-size': 'var(--arcane-font-size-sm)',
+                  'font-size': 'var(--font-size-sm)',
                   if (props.keyWidth != null) 'width': '${props.keyWidth}px',
                   if (props.keyWidth != null) 'flex-shrink': '0',
                   if (props.keyWidth == null) 'flex': '0 0 30%',
@@ -142,7 +142,7 @@ class CodexKeyValueTable extends StatelessComponent {
                   'padding': '1.25rem 1.75rem',
                   'background-color': 'var(--card)',
                   'color': 'var(--foreground)',
-                  'font-size': 'var(--arcane-font-size-sm)',
+                  'font-size': 'var(--font-size-sm)',
                 }),
                 [props.rows[i].value],
               ),

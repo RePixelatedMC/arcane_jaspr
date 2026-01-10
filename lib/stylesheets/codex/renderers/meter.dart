@@ -42,7 +42,7 @@ class CodexMeter extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': 'var(--arcane-space-2)',
+        'gap': 'var(--space-2)',
         'width': '100%',
       }),
       [
@@ -59,8 +59,8 @@ class CodexMeter extends StatelessComponent {
               if (props.label != null)
                 dom.span(
                   styles: const dom.Styles(raw: {
-                    'font-size': 'var(--arcane-font-size-sm)',
-                    'font-weight': 'var(--arcane-font-weight-medium)',
+                    'font-size': 'var(--font-size-sm)',
+                    'font-weight': 'var(--font-weight-medium)',
                     'color': 'var(--foreground)',
                   }),
                   [Component.text(props.label!)],
@@ -68,7 +68,7 @@ class CodexMeter extends StatelessComponent {
               if (props.showValue)
                 dom.span(
                   styles: const dom.Styles(raw: {
-                    'font-size': 'var(--arcane-font-size-sm)',
+                    'font-size': 'var(--font-size-sm)',
                     'color': 'var(--muted-foreground)',
                   }),
                   [
@@ -101,7 +101,7 @@ class CodexMeter extends StatelessComponent {
                         ? 'unset'
                         : fillColor,
                 if (props.style == MeterStyleVariant.gradient)
-                  'background': 'linear-gradient(90deg, var(--codex-success), var(--codex-warning), var(--codex-destructive))',
+                  'background': 'linear-gradient(90deg, var(--success), var(--warning), var(--destructive))',
                 'border-radius': 'var(--radius-full)',
                 'transition': 'width 0.3s ease',
                 'box-shadow': '0 0 8px ${fillColor}40',
@@ -122,7 +122,7 @@ class CodexMeter extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': 'var(--arcane-space-2)',
+        'gap': 'var(--space-2)',
         'width': '100%',
       }),
       [
@@ -139,8 +139,8 @@ class CodexMeter extends StatelessComponent {
               if (props.label != null)
                 dom.span(
                   styles: const dom.Styles(raw: {
-                    'font-size': 'var(--arcane-font-size-sm)',
-                    'font-weight': 'var(--arcane-font-weight-medium)',
+                    'font-size': 'var(--font-size-sm)',
+                    'font-weight': 'var(--font-weight-medium)',
                     'color': 'var(--foreground)',
                   }),
                   [Component.text(props.label!)],
@@ -148,7 +148,7 @@ class CodexMeter extends StatelessComponent {
               if (props.showValue)
                 dom.span(
                   styles: const dom.Styles(raw: {
-                    'font-size': 'var(--arcane-font-size-sm)',
+                    'font-size': 'var(--font-size-sm)',
                     'color': 'var(--muted-foreground)',
                   }),
                   [
@@ -209,7 +209,7 @@ class CodexMeter extends StatelessComponent {
         'display': 'flex',
         'flex-direction': 'column',
         'align-items': 'center',
-        'gap': 'var(--arcane-space-2)',
+        'gap': 'var(--space-2)',
       }),
       [
         // Circular meter using CSS conic-gradient
@@ -242,8 +242,8 @@ class CodexMeter extends StatelessComponent {
                 if (props.showValue)
                   dom.span(
                     styles: const dom.Styles(raw: {
-                      'font-size': 'var(--arcane-font-size-base)',
-                      'font-weight': 'var(--arcane-font-weight-semibold)',
+                      'font-size': 'var(--font-size-base)',
+                      'font-weight': 'var(--font-weight-semibold)',
                       'color': 'var(--foreground)',
                     }),
                     [
@@ -260,8 +260,8 @@ class CodexMeter extends StatelessComponent {
         if (props.label != null)
           dom.span(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-sm)',
-              'font-weight': 'var(--arcane-font-weight-medium)',
+              'font-size': 'var(--font-size-sm)',
+              'font-weight': 'var(--font-weight-medium)',
               'color': 'var(--foreground)',
             }),
             [Component.text(props.label!)],
@@ -274,20 +274,20 @@ class CodexMeter extends StatelessComponent {
     if (props.color == MeterColorVariant.adaptive) {
       // Adaptive color based on value
       if (props.percentage < 33) {
-        return 'var(--codex-success)';
+        return 'var(--success)';
       } else if (props.percentage < 66) {
-        return 'var(--codex-warning)';
+        return 'var(--warning)';
       } else {
-        return 'var(--codex-destructive)';
+        return 'var(--destructive)';
       }
     }
 
     return switch (props.color) {
-      MeterColorVariant.primary => 'var(--codex-accent)',
-      MeterColorVariant.success => 'var(--codex-success)',
-      MeterColorVariant.warning => 'var(--codex-warning)',
-      MeterColorVariant.error => 'var(--codex-destructive)',
-      MeterColorVariant.adaptive => 'var(--codex-accent)', // Fallback
+      MeterColorVariant.primary => 'var(--primary)',
+      MeterColorVariant.success => 'var(--success)',
+      MeterColorVariant.warning => 'var(--warning)',
+      MeterColorVariant.error => 'var(--destructive)',
+      MeterColorVariant.adaptive => 'var(--primary)', // Fallback
     };
   }
 
@@ -295,11 +295,11 @@ class CodexMeter extends StatelessComponent {
     if (props.color == MeterColorVariant.adaptive) {
       final double segmentPercentage = (index + 1) / props.segments * 100;
       if (segmentPercentage < 33) {
-        return 'var(--codex-success)';
+        return 'var(--success)';
       } else if (segmentPercentage < 66) {
-        return 'var(--codex-warning)';
+        return 'var(--warning)';
       } else {
-        return 'var(--codex-destructive)';
+        return 'var(--destructive)';
       }
     }
     return _getFillColor();

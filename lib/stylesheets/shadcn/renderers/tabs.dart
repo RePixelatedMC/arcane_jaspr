@@ -87,7 +87,7 @@ class ShadcnTabs extends StatelessComponent {
         'display': 'inline-flex',
         'align-items': 'center',
         'justify-content': 'center',
-        'gap': 'var(--arcane-space-2)',
+        'gap': 'var(--space-2)',
         // ShadCN: whitespace-nowrap
         'white-space': 'nowrap',
         // ShadCN: rounded-sm (4px)
@@ -95,8 +95,8 @@ class ShadcnTabs extends StatelessComponent {
         // ShadCN: px-3 py-1.5
         'padding': '6px 12px',
         // ShadCN: text-sm font-medium
-        'font-size': 'var(--arcane-font-size-sm)',
-        'font-weight': 'var(--arcane-font-weight-medium)',
+        'font-size': 'var(--font-size-sm)',
+        'font-weight': 'var(--font-weight-medium)',
         'border': 'none',
         // ShadCN: data-[state=active]:bg-background data-[state=active]:text-foreground
         'background-color': isSelected ? 'var(--background)' : 'transparent',
@@ -130,7 +130,7 @@ class ShadcnTabs extends StatelessComponent {
               'font-size': '0.6875rem',
               'padding': '2px 6px',
               'border-radius': 'var(--arcane-radius-full)',
-              'font-weight': 'var(--arcane-font-weight-medium)',
+              'font-weight': 'var(--font-weight-medium)',
               'margin-left': '4px',
             }),
             [Component.text(tab.badge!)],
@@ -181,15 +181,15 @@ class ShadcnTabBar extends StatelessComponent {
         'display': 'inline-flex',
         'align-items': 'center',
         'justify-content': 'center',
-        'gap': 'var(--arcane-space-2)',
+        'gap': 'var(--space-2)',
         'white-space': 'nowrap',
         // ShadCN: rounded-sm (4px)
         'border-radius': 'var(--arcane-radius-xs)',
         // ShadCN: px-3 py-1.5
         'padding': '6px 12px',
         // ShadCN: text-sm font-medium
-        'font-size': 'var(--arcane-font-size-sm)',
-        'font-weight': 'var(--arcane-font-weight-medium)',
+        'font-size': 'var(--font-size-sm)',
+        'font-weight': 'var(--font-weight-medium)',
         'border': 'none',
         // ShadCN: data-[state=active]:bg-background data-[state=active]:text-foreground
         'background-color': isSelected ? 'var(--background)' : 'transparent',

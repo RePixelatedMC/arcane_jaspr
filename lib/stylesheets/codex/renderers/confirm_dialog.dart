@@ -35,7 +35,7 @@ class CodexConfirmDialog extends StatelessComponent {
                 dom.div(
                   styles: dom.Styles(raw: {
                     'font-size': '3rem',
-                    'color': props.destructive ? 'var(--destructive)' : 'var(--codex-accent)',
+                    'color': props.destructive ? 'var(--destructive)' : 'var(--primary)',
                   }),
                   [props.icon!],
                 ),
@@ -100,7 +100,7 @@ class CodexAlertDialog extends StatelessComponent {
                 dom.div(
                   styles: const dom.Styles(raw: {
                     'font-size': '3rem',
-                    'color': 'var(--codex-accent)',
+                    'color': 'var(--primary)',
                   }),
                   [props.icon!],
                 ),

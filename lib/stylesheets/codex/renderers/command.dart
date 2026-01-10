@@ -57,7 +57,7 @@ class CodexCommand extends StatelessComponent {
             'color': 'var(--foreground)',
             'border': '1px solid var(--border)',
             'border-radius': 'var(--radius)',
-            'box-shadow': '0 0 40px rgba(var(--codex-accent-rgb), 0.15)',
+            'box-shadow': '0 0 40px rgba(var(--primary-rgb), 0.15)',
             'overflow': 'hidden',
             'animation': 'arcane-scale-in var(--arcane-transition-slow)',
           }),
@@ -75,7 +75,7 @@ class CodexCommand extends StatelessComponent {
                 const dom.span(
                   styles: dom.Styles(raw: {
                     'color': 'var(--muted-foreground)',
-                    'font-size': 'var(--arcane-font-size-lg)',
+                    'font-size': 'var(--font-size-lg)',
                   }),
                   [Component.text('\u{1F50D}')],
                 ),
@@ -124,7 +124,7 @@ class CodexCommand extends StatelessComponent {
                       'padding': '24px',
                       'text-align': 'center',
                       'color': 'var(--muted-foreground)',
-                      'font-size': 'var(--arcane-font-size-sm)',
+                      'font-size': 'var(--font-size-sm)',
                     }),
                     [Component.text(props.emptyMessage)],
                   )
@@ -134,8 +134,8 @@ class CodexCommand extends StatelessComponent {
                       dom.div(
                         styles: const dom.Styles(raw: {
                           'padding': '10px 14px',
-                          'font-size': 'var(--arcane-font-size-xs)',
-                          'font-weight': 'var(--arcane-font-weight-semibold)',
+                          'font-size': 'var(--font-size-xs)',
+                          'font-weight': 'var(--font-weight-semibold)',
                           'color': 'var(--muted-foreground)',
                           'text-transform': 'uppercase',
                           'letter-spacing': '0.05em',
@@ -157,7 +157,7 @@ class CodexCommand extends StatelessComponent {
                 'gap': '20px',
                 'padding': '10px 16px',
                 'border-top': '1px solid var(--border)',
-                'font-size': 'var(--arcane-font-size-xs)',
+                'font-size': 'var(--font-size-xs)',
                 'color': 'var(--muted-foreground)',
               }),
               [
@@ -199,7 +199,7 @@ class CodexCommand extends StatelessComponent {
         dom.span(
           styles: const dom.Styles(raw: {
             'flex': '1',
-            'font-size': 'var(--arcane-font-size-sm)',
+            'font-size': 'var(--font-size-sm)',
             'color': 'var(--foreground)',
           }),
           [Component.text(item.label)],
@@ -207,7 +207,7 @@ class CodexCommand extends StatelessComponent {
         if (item.shortcut != null)
           dom.span(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-xs)',
+              'font-size': 'var(--font-size-xs)',
               'color': 'var(--muted-foreground)',
               'padding': '4px 8px',
               'background-color': 'var(--secondary)',

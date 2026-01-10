@@ -85,7 +85,7 @@ class ShadcnAlertBanner extends StatelessComponent {
       styles: dom.Styles(raw: {
         'display': 'flex',
         'align-items': 'flex-start',
-        'gap': 'var(--arcane-space-4)',
+        'gap': 'var(--space-4)',
         'padding': '1rem 1.25rem',
         'background-color': bgColor,
         'border': '1px solid $borderColor',
@@ -97,7 +97,7 @@ class ShadcnAlertBanner extends StatelessComponent {
           classes: 'arcane-alert-icon',
           styles: dom.Styles(raw: {
             'flex-shrink': '0',
-            'font-size': 'var(--arcane-font-size-lg)',
+            'font-size': 'var(--font-size-lg)',
             'color': iconColor,
           }),
           [props.icon ?? Component.text(defaultIcon)],
@@ -113,8 +113,8 @@ class ShadcnAlertBanner extends StatelessComponent {
               dom.div(
                 classes: 'arcane-alert-title',
                 styles: const dom.Styles(raw: {
-                  'font-weight': 'var(--arcane-font-weight-semibold)',
-                  'font-size': 'var(--arcane-font-size-sm)',
+                  'font-weight': 'var(--font-weight-semibold)',
+                  'font-size': 'var(--font-size-sm)',
                   'margin-bottom': '0.25rem',
                 }),
                 [Component.text(props.title!)],
@@ -122,7 +122,7 @@ class ShadcnAlertBanner extends StatelessComponent {
             dom.div(
               classes: 'arcane-alert-message',
               styles: const dom.Styles(raw: {
-                'font-size': 'var(--arcane-font-size-sm)',
+                'font-size': 'var(--font-size-sm)',
                 'line-height': '1.625',
               }),
               [Component.text(props.message)],
@@ -145,7 +145,7 @@ class ShadcnAlertBanner extends StatelessComponent {
               'color': 'inherit',
               'opacity': '0.7',
               'cursor': 'pointer',
-              'font-size': 'var(--arcane-font-size-base)',
+              'font-size': 'var(--font-size-base)',
               'line-height': '1',
               'transition': 'opacity var(--arcane-transition)',
             }),

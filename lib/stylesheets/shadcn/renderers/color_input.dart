@@ -34,7 +34,7 @@ class ShadcnColorInput extends StatelessComponent {
       styles: const Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': 'var(--arcane-space-2)',
+        'gap': 'var(--space-2)',
       }),
       [
         // Label
@@ -42,8 +42,8 @@ class ShadcnColorInput extends StatelessComponent {
           span(
             classes: 'arcane-color-input-label',
             styles: const Styles(raw: {
-              'font-size': 'var(--arcane-font-size-sm)',
-              'font-weight': 'var(--arcane-font-weight-medium)',
+              'font-size': 'var(--font-size-sm)',
+              'font-weight': 'var(--font-weight-medium)',
               'color': 'var(--foreground)',
             }),
             [Component.text(props.label!)],
@@ -55,7 +55,7 @@ class ShadcnColorInput extends StatelessComponent {
           styles: const Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
-            'gap': 'var(--arcane-space-2)',
+            'gap': 'var(--space-2)',
           }),
           [
             // Color swatch with native picker
@@ -158,7 +158,7 @@ class ShadcnColorInput extends StatelessComponent {
             styles: const Styles(raw: {
               'display': 'flex',
               'flex-wrap': 'wrap',
-              'gap': 'var(--arcane-space-1)',
+              'gap': 'var(--space-1)',
             }),
             [
               for (final String preset in colorPresets)

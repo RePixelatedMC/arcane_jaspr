@@ -63,7 +63,7 @@ class ShadcnDivider extends StatelessComponent {
       styles: dom.Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
-        'gap': 'var(--arcane-space-4)',
+        'gap': 'var(--space-4)',
         'margin': '${margin}px 0',
       }),
       [
@@ -80,7 +80,7 @@ class ShadcnDivider extends StatelessComponent {
         // Label
         dom.span(
           styles: const dom.Styles(raw: {
-            'font-size': 'var(--arcane-font-size-sm)',
+            'font-size': 'var(--font-size-sm)',
             'color': 'var(--muted-foreground)',
             'white-space': 'nowrap',
           }),

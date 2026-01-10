@@ -3,6 +3,8 @@
 
 import 'dart:io';
 
+import 'package:fast_log/fast_log.dart';
+
 /// Dart reserved words that need special handling
 const dartReservedWords = {
   'assert', 'break', 'case', 'catch', 'class', 'const', 'continue',
@@ -454,6 +456,6 @@ class ArcaneIcon {
   final outputFile = File('lib/component/view/icon.dart');
   await outputFile.writeAsString(buffer.toString());
 
-  print('Generated ${outputFile.path} with ${iconNames.length} icons');
-  print('Categories: ${categories.keys.join(', ')}');
+  info('Generated ${outputFile.path} with ${iconNames.length} icons');
+  info('Categories: ${categories.keys.join(', ')}');
 }

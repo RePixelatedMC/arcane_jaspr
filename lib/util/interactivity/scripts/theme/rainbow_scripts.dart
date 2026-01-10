@@ -6,121 +6,61 @@ class RainbowScripts {
   RainbowScripts._();
 
   static const String code = '''
-  // Rainbow theme animation
+  // Rainbow theme animation - smooth hue rotation
   function bindRainbowTheme() {
-    console.log('[Arcane Rainbow] bindRainbowTheme called');
+    let root = document.querySelector('.codex-rainbow') ||
+               document.getElementById('arcane-root');
 
-    // Try to find the element, or set up observer to wait for it
-    function tryBind(source) {
-      console.log('[Arcane Rainbow] tryBind called from:', source);
-      const root = document.querySelector('.codex-rainbow') ||
-                   document.querySelector('#arcane-root.codex-rainbow');
-      console.log('[Arcane Rainbow] Found element:', root);
-      if (!root) {
-        // Debug: show what elements exist
-        const arcaneRoot = document.getElementById('arcane-root');
-        console.log('[Arcane Rainbow] #arcane-root exists:', !!arcaneRoot);
-        if (arcaneRoot) {
-          console.log('[Arcane Rainbow] #arcane-root classes:', arcaneRoot.className);
-        }
-        return false;
-      }
-      startRainbowAnimation(root);
-      return true;
+    if (!root) {
+      setTimeout(bindRainbowTheme, 500);
+      return;
     }
 
-    // Try immediately
-    if (tryBind('immediate')) return;
-
-    console.log('[Arcane Rainbow] Setting up MutationObserver...');
-    // If not found, watch for DOM changes (handles Jaspr hydration)
-    const observer = new MutationObserver(function(mutations, obs) {
-      if (tryBind('mutation')) {
-        obs.disconnect();
-      }
-    });
-    observer.observe(document.body || document.documentElement, {
-      childList: true,
-      subtree: true,
-      attributes: true,
-      attributeFilter: ['class']
-    });
-
-    // Also retry after a delay as fallback
-    setTimeout(function() { tryBind('timeout-500'); }, 500);
-    setTimeout(function() { tryBind('timeout-1000'); }, 1000);
-    setTimeout(function() { tryBind('timeout-2000'); }, 2000);
-  }
-
-  function startRainbowAnimation(root) {
     if (root.dataset.rainbowBound) return;
     root.dataset.rainbowBound = 'true';
-    console.log('[Arcane] Rainbow theme detected, starting animation...');
 
-    // Rainbow colors in HSL (hue values)
-    const colors = [
-      { h: 0, name: 'red' },      // Red
-      { h: 30, name: 'orange' },  // Orange
-      { h: 50, name: 'yellow' },  // Yellow
-      { h: 140, name: 'green' },  // Green
-      { h: 200, name: 'cyan' },   // Cyan
-      { h: 220, name: 'blue' },   // Blue
-      { h: 270, name: 'indigo' }, // Indigo
-      { h: 300, name: 'violet' }, // Violet
-    ];
-
-    let startTime = null;
-    const duration = 8000; // 8 seconds for full cycle
-
-    function hslToHex(h, s, l) {
-      l /= 100;
-      const a = s * Math.min(l, 1 - l) / 100;
-      const f = n => {
-        const k = (n + h / 30) % 12;
-        const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
-        return Math.round(255 * color).toString(16).padStart(2, '0');
-      };
-      return '#' + f(0) + f(8) + f(4);
+    if (!root.classList.contains('codex-rainbow')) {
+      root.classList.add('codex-rainbow');
     }
 
-    let frameCount = 0;
+    const docRoot = document.documentElement;
+    const duration = 15000; // 15 seconds for very smooth cycle
+    let startTime = null;
+
+    // HSL to RGB values (0-255)
+    function hslToRgb(h, s, l) {
+      s /= 100; l /= 100;
+      const a = s * Math.min(l, 1 - l);
+      const f = n => {
+        const k = (n + h / 30) % 12;
+        return Math.round(255 * (l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1)));
+      };
+      return [f(0), f(8), f(4)];
+    }
+
+    function rgbToHex(r, g, b) {
+      return '#' + [r, g, b].map(x => x.toString(16).padStart(2, '0')).join('');
+    }
+
     function animate(timestamp) {
       if (!startTime) startTime = timestamp;
-      const elapsed = timestamp - startTime;
-      const progress = (elapsed % duration) / duration;
+      const progress = ((timestamp - startTime) % duration) / duration;
+      const hue = progress * 360; // Smooth float, not integer
 
-      // Calculate current hue (0-360)
-      const hue = progress * 360;
-
-      // Log every 60 frames (about once per second)
-      frameCount++;
-      if (frameCount % 60 === 0) {
-        console.log('[Arcane Rainbow] Hue:', Math.round(hue));
-      }
-
-      // Check if we're in dark mode
       const isDark = root.classList.contains('dark');
+      const s = isDark ? 85 : 75;
+      const l = isDark ? 55 : 50;
 
-      // Generate colors
-      const saturation = isDark ? 85 : 80;
-      const lightness = isDark ? 60 : 55;
-      const ringLightness = isDark ? 50 : 45;
+      const [r, g, b] = hslToRgb(hue, s, l);
+      const primary = rgbToHex(r, g, b);
+      const [rr, rg, rb] = hslToRgb(hue, s, l - 10);
+      const ring = rgbToHex(rr, rg, rb);
 
-      const primaryColor = hslToHex(hue, saturation, lightness);
-      const ringColor = hslToHex(hue, saturation, ringLightness);
-
-      // Apply to root element
-      root.style.setProperty('--primary', primaryColor);
-      root.style.setProperty('--ring', ringColor);
-
-      // Apply glow color for dark mode shadows
-      if (isDark) {
-        const glowColor = 'rgba(' +
-          parseInt(primaryColor.slice(1,3), 16) + ',' +
-          parseInt(primaryColor.slice(3,5), 16) + ',' +
-          parseInt(primaryColor.slice(5,7), 16) + ',0.3)';
-        root.style.setProperty('--glow-color', glowColor);
-      }
+      // Set all color variables at once
+      docRoot.style.setProperty('--primary', primary);
+      docRoot.style.setProperty('--ring', ring);
+      docRoot.style.setProperty('--primary-rgb', r + ',' + g + ',' + b);
+      docRoot.style.setProperty('--glow-color', 'rgba(' + r + ',' + g + ',' + b + ',0.35)');
 
       requestAnimationFrame(animate);
     }

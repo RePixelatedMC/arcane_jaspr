@@ -96,7 +96,7 @@ class ShadcnBreadcrumbs extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'inline-flex',
         'align-items': 'center',
-        'gap': 'var(--arcane-space-1)',
+        'gap': 'var(--space-1)',
       }),
       [
         if (item.icon != null) item.icon!,
@@ -116,7 +116,7 @@ class ShadcnBreadcrumbs extends StatelessComponent {
         attributes: {'aria-current': 'page'},
         styles: const dom.Styles(raw: {
           'color': 'var(--foreground)',
-          'font-weight': 'var(--arcane-font-weight-normal)',
+          'font-weight': 'var(--font-weight-normal)',
         }),
         [content],
       );

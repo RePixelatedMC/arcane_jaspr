@@ -47,7 +47,7 @@ class CodexToggleGroup extends StatelessComponent {
       ToggleGroupVariantStyle.outline => <String, String>{
           'border': '1px solid var(--border)',
           'background-color':
-              isSelected ? 'rgba(var(--codex-accent-rgb), 0.15)' : 'transparent',
+              isSelected ? 'rgba(var(--primary-rgb), 0.15)' : 'transparent',
         },
     };
 
@@ -67,18 +67,18 @@ class CodexToggleGroup extends StatelessComponent {
         'padding': '0 $paddingH',
         'min-width': height,
         'border-radius': 'var(--radius)',
-        'font-size': 'var(--arcane-font-size-sm)',
-        'font-weight': 'var(--arcane-font-weight-medium)',
+        'font-size': 'var(--font-size-sm)',
+        'font-weight': 'var(--font-weight-medium)',
         'background-color':
-            isSelected ? 'rgba(var(--codex-accent-rgb), 0.15)' : 'transparent',
+            isSelected ? 'rgba(var(--primary-rgb), 0.15)' : 'transparent',
         'color': isSelected
-            ? 'var(--codex-accent)'
+            ? 'var(--primary)'
             : 'var(--foreground)',
         'transition': 'color var(--arcane-transition), background-color var(--arcane-transition)',
         'cursor': isDisabled ? 'not-allowed' : 'pointer',
         'pointer-events': isDisabled ? 'none' : 'auto',
         'opacity': isDisabled ? '0.5' : '1',
-        if (isSelected) 'box-shadow': '0 0 15px rgba(var(--codex-accent-rgb), 0.15)',
+        if (isSelected) 'box-shadow': '0 0 15px rgba(var(--primary-rgb), 0.15)',
         ...variantStyles,
       }),
       events: {

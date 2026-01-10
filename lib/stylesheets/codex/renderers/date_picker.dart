@@ -32,15 +32,15 @@ class CodexDatePicker extends StatelessComponent {
         'position': 'relative',
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': 'var(--arcane-space-2)',
+        'gap': 'var(--space-2)',
       }),
       [
         // Label
         if (props.label != null)
           dom.span(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-sm)',
-              'font-weight': 'var(--arcane-font-weight-medium)',
+              'font-size': 'var(--font-size-sm)',
+              'font-weight': 'var(--font-weight-medium)',
               'color': 'var(--foreground)',
             }),
             [Component.text(props.label!)],
@@ -126,7 +126,7 @@ class CodexDatePicker extends StatelessComponent {
               'left': '0',
               'margin-top': '0.5rem',
               'z-index': '50',
-              'box-shadow': '0 0 30px rgba(var(--codex-accent-rgb), 0.1)',
+              'box-shadow': '0 0 30px rgba(var(--primary-rgb), 0.1)',
             }),
             [CodexCalendar(props.calendarProps!)],
           ),
@@ -135,7 +135,7 @@ class CodexDatePicker extends StatelessComponent {
         if (hasError)
           dom.span(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-sm)',
+              'font-size': 'var(--font-size-sm)',
               'color': 'var(--destructive)',
             }),
             [Component.text(props.error!)],

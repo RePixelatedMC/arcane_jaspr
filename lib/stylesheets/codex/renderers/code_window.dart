@@ -30,7 +30,7 @@ class CodexCodeWindow extends StatelessComponent {
           styles: dom.Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
-            'gap': 'var(--arcane-space-2)',
+            'gap': 'var(--space-2)',
             'padding': '0.75rem 1rem',
             'background': effectiveHeaderBg,
             'border-bottom': '1px solid var(--border)',
@@ -46,7 +46,7 @@ class CodexCodeWindow extends StatelessComponent {
                 styles: dom.Styles(raw: {
                   'flex': '1',
                   'text-align': props.showButtons ? 'center' : 'left',
-                  'font-size': 'var(--arcane-font-size-xs)',
+                  'font-size': 'var(--font-size-xs)',
                   'color': 'var(--muted-foreground)',
                   'font-family':
                       'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
@@ -62,7 +62,7 @@ class CodexCodeWindow extends StatelessComponent {
             'padding': '1.25rem',
             'font-family':
                 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
-            'font-size': 'var(--arcane-font-size-sm)',
+            'font-size': 'var(--font-size-sm)',
             'line-height': '1.6',
             'color': effectiveCodeColor,
             'overflow-x': 'auto',
@@ -110,7 +110,7 @@ class CodexCodeWindow extends StatelessComponent {
     return switch (props.style) {
       CodeWindowStyle.dark => 'var(--foreground)',
       CodeWindowStyle.light => '#1a1a1a',
-      CodeWindowStyle.terminal => 'var(--codex-accent)',
+      CodeWindowStyle.terminal => 'var(--primary)',
     };
   }
 }
@@ -138,7 +138,7 @@ class CodexCodePreview extends StatelessComponent {
               'padding': '0.375rem 0.75rem',
               'background': 'var(--card)',
               'border-bottom': '1px solid var(--border)',
-              'font-size': 'var(--arcane-font-size-xs)',
+              'font-size': 'var(--font-size-xs)',
               'color': 'var(--muted-foreground)',
               'text-transform': 'uppercase',
             }),
@@ -151,7 +151,7 @@ class CodexCodePreview extends StatelessComponent {
             if (props.mono)
               'font-family':
                   'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
-            'font-size': 'var(--arcane-font-size-sm)',
+            'font-size': 'var(--font-size-sm)',
             'line-height': '1.5',
             'color': 'var(--foreground)',
             'overflow-x': 'auto',

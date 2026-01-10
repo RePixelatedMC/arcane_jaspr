@@ -94,8 +94,8 @@ class _ShadcnFlexiCardsState extends State<ShadcnFlexiCards> {
       dom.div(
         classes: 'arcane-flexi-card-title',
         styles: const dom.Styles(raw: {
-          'font-size': 'var(--arcane-font-size-lg)',
-          'font-weight': 'var(--arcane-font-weight-semibold)',
+          'font-size': 'var(--font-size-lg)',
+          'font-weight': 'var(--font-weight-semibold)',
           'color': 'var(--foreground)',
           'margin-bottom': '0.5rem',
         }),
@@ -106,7 +106,7 @@ class _ShadcnFlexiCardsState extends State<ShadcnFlexiCards> {
       dom.div(
         classes: 'arcane-flexi-card-long-text',
         styles: dom.Styles(raw: {
-          'font-size': 'var(--arcane-font-size-base)',
+          'font-size': 'var(--font-size-base)',
           'line-height': '1.7',
           'color': 'var(--muted-foreground)',
           'opacity': showLongText ? '1' : '0',
@@ -284,8 +284,8 @@ class ShadcnFlexiCardsSimple extends StatelessComponent {
         dom.div(
           classes: 'arcane-flexi-card-simple-title',
           styles: const dom.Styles(raw: {
-            'font-size': 'var(--arcane-font-size-lg)',
-            'font-weight': 'var(--arcane-font-weight-semibold)',
+            'font-size': 'var(--font-size-lg)',
+            'font-weight': 'var(--font-weight-semibold)',
             'color': 'var(--foreground)',
             'margin-bottom': '0.5rem',
           }),
@@ -296,7 +296,7 @@ class ShadcnFlexiCardsSimple extends StatelessComponent {
         dom.div(
           classes: 'arcane-flexi-card-simple-desc',
           styles: const dom.Styles(raw: {
-            'font-size': 'var(--arcane-font-size-base)',
+            'font-size': 'var(--font-size-base)',
             'line-height': '1.7',
             'color': 'var(--muted-foreground)',
           }),
