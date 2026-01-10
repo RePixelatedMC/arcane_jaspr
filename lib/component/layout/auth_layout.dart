@@ -24,9 +24,9 @@ class ArcaneAuthLayout extends StatelessComponent {
     this.footer,
     this.showGrid = true,
     this.showGlows = true,
-    this.primaryGlowColor = 'hsl(var(--accent) / 0.15)',
-    this.secondaryGlowColor = 'hsl(199 89% 48% / 0.15)',
-    this.gridColor = 'hsl(var(--border) / 0.3)',
+    this.primaryGlowColor = 'color-mix(in srgb, var(--accent) 15%, transparent)',
+    this.secondaryGlowColor = 'color-mix(in srgb, var(--info) 15%, transparent)',
+    this.gridColor = 'color-mix(in srgb, var(--border) 30%, transparent)',
     this.maxWidth = '420px',
     this.backgroundColor = 'var(--background)',
   });
@@ -40,9 +40,9 @@ class ArcaneAuthLayout extends StatelessComponent {
     this.showGlows = true,
     this.maxWidth = '420px',
     this.backgroundColor = 'var(--background)',
-  })  : primaryGlowColor = 'hsl(var(--accent) / 0.15)',
-        secondaryGlowColor = 'hsl(199 89% 48% / 0.15)',
-        gridColor = 'hsl(var(--border) / 0.3)';
+  })  : primaryGlowColor = 'color-mix(in srgb, var(--accent) 15%, transparent)',
+        secondaryGlowColor = 'color-mix(in srgb, var(--info) 15%, transparent)',
+        gridColor = 'color-mix(in srgb, var(--border) 30%, transparent)';
 
   @override
   Component build(BuildContext context) {

@@ -43,7 +43,7 @@ class CodexHeroSection extends StatelessComponent {
           classes: 'codex-hero-headline',
           styles: const dom.Styles(raw: {
             'font-size': 'clamp(2.5rem, 6vw, 4rem)',
-            'font-weight': '700',
+            'font-weight': 'var(--arcane-font-weight-bold)',
             'line-height': '1.1',
             'color': 'var(--foreground)',
             'margin': '0',
@@ -73,7 +73,7 @@ class CodexHeroSection extends StatelessComponent {
             styles: dom.Styles(raw: {
               'display': 'flex',
               'flex-wrap': 'wrap',
-              'gap': '1rem', // Codex: larger gap
+              'gap': 'var(--arcane-space-4)', // Codex: larger gap
               'margin-top': '2.5rem', // Codex: larger margin
               'justify-content': props.centered ? 'center' : 'flex-start',
             }),

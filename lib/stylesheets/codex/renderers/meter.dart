@@ -42,7 +42,7 @@ class CodexMeter extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': '0.5rem',
+        'gap': 'var(--arcane-space-2)',
         'width': '100%',
       }),
       [
@@ -59,8 +59,8 @@ class CodexMeter extends StatelessComponent {
               if (props.label != null)
                 dom.span(
                   styles: const dom.Styles(raw: {
-                    'font-size': '0.875rem',
-                    'font-weight': '500',
+                    'font-size': 'var(--arcane-font-size-sm)',
+                    'font-weight': 'var(--arcane-font-weight-medium)',
                     'color': 'var(--foreground)',
                   }),
                   [Component.text(props.label!)],
@@ -68,7 +68,7 @@ class CodexMeter extends StatelessComponent {
               if (props.showValue)
                 dom.span(
                   styles: const dom.Styles(raw: {
-                    'font-size': '0.875rem',
+                    'font-size': 'var(--arcane-font-size-sm)',
                     'color': 'var(--muted-foreground)',
                   }),
                   [
@@ -122,7 +122,7 @@ class CodexMeter extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': '0.5rem',
+        'gap': 'var(--arcane-space-2)',
         'width': '100%',
       }),
       [
@@ -139,8 +139,8 @@ class CodexMeter extends StatelessComponent {
               if (props.label != null)
                 dom.span(
                   styles: const dom.Styles(raw: {
-                    'font-size': '0.875rem',
-                    'font-weight': '500',
+                    'font-size': 'var(--arcane-font-size-sm)',
+                    'font-weight': 'var(--arcane-font-weight-medium)',
                     'color': 'var(--foreground)',
                   }),
                   [Component.text(props.label!)],
@@ -148,7 +148,7 @@ class CodexMeter extends StatelessComponent {
               if (props.showValue)
                 dom.span(
                   styles: const dom.Styles(raw: {
-                    'font-size': '0.875rem',
+                    'font-size': 'var(--arcane-font-size-sm)',
                     'color': 'var(--muted-foreground)',
                   }),
                   [
@@ -205,11 +205,11 @@ class CodexMeter extends StatelessComponent {
 
     return dom.div(
       classes: 'codex-meter codex-meter-circular',
-      styles: dom.Styles(raw: {
+      styles: const dom.Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
         'align-items': 'center',
-        'gap': '0.5rem',
+        'gap': 'var(--arcane-space-2)',
       }),
       [
         // Circular meter using CSS conic-gradient
@@ -242,8 +242,8 @@ class CodexMeter extends StatelessComponent {
                 if (props.showValue)
                   dom.span(
                     styles: const dom.Styles(raw: {
-                      'font-size': '1rem',
-                      'font-weight': '600',
+                      'font-size': 'var(--arcane-font-size-base)',
+                      'font-weight': 'var(--arcane-font-weight-semibold)',
                       'color': 'var(--foreground)',
                     }),
                     [
@@ -260,8 +260,8 @@ class CodexMeter extends StatelessComponent {
         if (props.label != null)
           dom.span(
             styles: const dom.Styles(raw: {
-              'font-size': '0.875rem',
-              'font-weight': '500',
+              'font-size': 'var(--arcane-font-size-sm)',
+              'font-weight': 'var(--arcane-font-weight-medium)',
               'color': 'var(--foreground)',
             }),
             [Component.text(props.label!)],

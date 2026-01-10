@@ -43,8 +43,8 @@ class CodexCodeSnippet extends StatelessComponent {
               // Title/language
               dom.span(
                 styles: const dom.Styles(raw: {
-                  'font-size': '0.75rem',
-                  'font-weight': '500',
+                  'font-size': 'var(--arcane-font-size-xs)',
+                  'font-weight': 'var(--arcane-font-weight-medium)',
                   'color': 'var(--muted-foreground)',
                   'text-transform': 'uppercase',
                   'letter-spacing': '0.05em',
@@ -57,10 +57,10 @@ class CodexCodeSnippet extends StatelessComponent {
 
               // Copy button
               if (props.showCopyButton)
-                dom.button(
+                const dom.button(
                   classes: 'codex-code-copy-button',
                   attributes: {'type': 'button'},
-                  styles: const dom.Styles(raw: {
+                  styles: dom.Styles(raw: {
                     'display': 'flex',
                     'align-items': 'center',
                     'gap': '0.375rem',
@@ -68,12 +68,12 @@ class CodexCodeSnippet extends StatelessComponent {
                     'background-color': 'var(--secondary)',
                     'border': '1px solid var(--border)',
                     'border-radius': 'var(--radius-sm)',
-                    'font-size': '0.75rem',
+                    'font-size': 'var(--arcane-font-size-xs)',
                     'color': 'var(--muted-foreground)',
                     'cursor': 'pointer',
                     'transition': 'all var(--transition)',
                   }),
-                  [const Component.text('Copy')],
+                  [Component.text('Copy')],
                 ),
             ],
           ),
@@ -197,7 +197,7 @@ class CodexTerminal extends StatelessComponent {
           styles: const dom.Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
-            'gap': '0.5rem',
+            'gap': 'var(--arcane-space-2)',
             'padding': '0.75rem 1rem',
             'background-color': '#0a0a0a',
             'border-bottom': '1px solid var(--border)',
@@ -207,7 +207,7 @@ class CodexTerminal extends StatelessComponent {
             dom.div(
               styles: const dom.Styles(raw: {
                 'display': 'flex',
-                'gap': '0.5rem',
+                'gap': 'var(--arcane-space-2)',
               }),
               [
                 _buildDot('#ff5f56'), // Red
@@ -222,7 +222,7 @@ class CodexTerminal extends StatelessComponent {
                 styles: const dom.Styles(raw: {
                   'margin-left': 'auto',
                   'margin-right': 'auto',
-                  'font-size': '0.75rem',
+                  'font-size': 'var(--arcane-font-size-xs)',
                   'color': 'var(--muted-foreground)',
                 }),
                 [Component.text(props.title!)],
@@ -230,19 +230,19 @@ class CodexTerminal extends StatelessComponent {
 
             // Copy button
             if (props.showCopyButton)
-              dom.button(
+              const dom.button(
                 classes: 'codex-terminal-copy',
                 attributes: {'type': 'button'},
-                styles: const dom.Styles(raw: {
+                styles: dom.Styles(raw: {
                   'margin-left': 'auto',
                   'padding': '0.25rem 0.5rem',
                   'background': 'transparent',
                   'border': 'none',
-                  'font-size': '0.75rem',
+                  'font-size': 'var(--arcane-font-size-xs)',
                   'color': 'var(--muted-foreground)',
                   'cursor': 'pointer',
                 }),
-                [const Component.text('Copy')],
+                [Component.text('Copy')],
               ),
           ],
         ),

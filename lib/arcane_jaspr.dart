@@ -57,6 +57,9 @@ export 'core/theme_provider.dart';
 export 'core/renderers.dart' hide SheetPosition;
 export 'core/props/button_props.dart';
 
+// Theme
+export 'theme/index.dart';
+
 // Stylesheets
 export 'stylesheets/stylesheet.dart';
 export 'stylesheets/shadcn/shadcn_stylesheet.dart';

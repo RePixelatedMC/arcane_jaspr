@@ -18,13 +18,13 @@ class ShadcnGameTile extends StatelessComponent {
         'display': 'flex',
         'flex-direction': 'column',
         'align-items': 'center',
-        'gap': '1rem',
+        'gap': 'var(--arcane-space-4)',
         'padding': '1.5rem',
-        'background-color': props.selected ? 'hsl(var(--accent) / 0.1)' : 'var(--card)',
+        'background-color': props.selected ? 'color-mix(in srgb, var(--accent) 10%, transparent)' : 'var(--card)',
         'border': '2px solid ${props.selected ? 'var(--accent)' : 'var(--border)'}',
-        'border-radius': '0.375rem',
+        'border-radius': 'var(--arcane-radius-sm)',
         'cursor': 'pointer',
-        'transition': 'all 150ms ease',
+        'transition': 'all var(--arcane-transition)',
         'position': 'relative',
         'overflow': 'hidden',
       }),
@@ -41,12 +41,12 @@ class ShadcnGameTile extends StatelessComponent {
               'top': '0.5rem',
               'right': '0.5rem',
               'padding': '2px 0.5rem',
-              'font-size': '0.75rem',
-              'font-weight': '600',
+              'font-size': 'var(--arcane-font-size-xs)',
+              'font-weight': 'var(--arcane-font-weight-semibold)',
               'text-transform': 'uppercase',
               'color': 'var(--accent-foreground)',
               'background-color': 'var(--accent)',
-              'border-radius': '9999px',
+              'border-radius': 'var(--arcane-radius-full)',
             }),
             [Component.text(props.badge!)],
           ),
@@ -61,7 +61,7 @@ class ShadcnGameTile extends StatelessComponent {
             'align-items': 'center',
             'justify-content': 'center',
             'background-color': 'var(--muted)',
-            'border-radius': '0.375rem',
+            'border-radius': 'var(--arcane-radius-sm)',
             'overflow': 'hidden',
           }),
           [
@@ -80,9 +80,9 @@ class ShadcnGameTile extends StatelessComponent {
             else
               dom.span(
                 styles: const dom.Styles(raw: {
-                  'font-size': '1.25rem',
+                  'font-size': 'var(--arcane-font-size-xl)',
                   'color': 'var(--muted-foreground)',
-                  'font-weight': '700',
+                  'font-weight': 'var(--arcane-font-weight-bold)',
                 }),
                 [Component.text(props.name.isNotEmpty ? props.name[0].toUpperCase() : '?')],
               ),
@@ -92,8 +92,8 @@ class ShadcnGameTile extends StatelessComponent {
         // Name
         dom.div(
           styles: dom.Styles(raw: {
-            'font-size': '1rem',
-            'font-weight': '600',
+            'font-size': 'var(--arcane-font-size-base)',
+            'font-weight': 'var(--arcane-font-weight-semibold)',
             'color': props.selected ? 'var(--accent)' : 'var(--foreground)',
             'text-align': 'center',
           }),
@@ -104,7 +104,7 @@ class ShadcnGameTile extends StatelessComponent {
         if (props.subtitle != null)
           dom.div(
             styles: const dom.Styles(raw: {
-              'font-size': '0.75rem',
+              'font-size': 'var(--arcane-font-size-xs)',
               'color': 'var(--muted-foreground)',
             }),
             [Component.text(props.subtitle!)],
@@ -116,9 +116,9 @@ class ShadcnGameTile extends StatelessComponent {
             styles: dom.Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
-              'gap': '0.25rem',
-              'font-size': '0.75rem',
-              'color': 'hsl(38 92% 50%)',
+              'gap': 'var(--arcane-space-1)',
+              'font-size': 'var(--arcane-font-size-xs)',
+              'color': 'var(--warning)',
             }),
             [Component.text('Popular')],
           ),
@@ -140,7 +140,7 @@ class ShadcnGameSelector extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': '2rem',
+        'gap': 'var(--arcane-space-8)',
       }),
       [
         if (props.title != null || props.description != null)
@@ -148,14 +148,14 @@ class ShadcnGameSelector extends StatelessComponent {
             styles: const dom.Styles(raw: {
               'display': 'flex',
               'flex-direction': 'column',
-              'gap': '0.5rem',
+              'gap': 'var(--arcane-space-2)',
             }),
             [
               if (props.title != null)
                 dom.div(
                   styles: const dom.Styles(raw: {
-                    'font-size': '1.25rem',
-                    'font-weight': '600',
+                    'font-size': 'var(--arcane-font-size-xl)',
+                    'font-weight': 'var(--arcane-font-weight-semibold)',
                     'color': 'var(--foreground)',
                   }),
                   [Component.text(props.title!)],
@@ -163,7 +163,7 @@ class ShadcnGameSelector extends StatelessComponent {
               if (props.description != null)
                 dom.div(
                   styles: const dom.Styles(raw: {
-                    'font-size': '0.875rem',
+                    'font-size': 'var(--arcane-font-size-sm)',
                     'color': 'var(--muted-foreground)',
                   }),
                   [Component.text(props.description!)],
@@ -201,9 +201,9 @@ class ShadcnGameCard extends StatelessComponent {
         'flex-direction': 'column',
         'background-color': 'var(--card)',
         'border': '1px solid var(--border)',
-        'border-radius': '0.375rem',
+        'border-radius': 'var(--arcane-radius-sm)',
         'overflow': 'hidden',
-        'transition': 'all 150ms ease',
+        'transition': 'all var(--arcane-transition)',
         if (props.onTap != null) 'cursor': 'pointer',
       }),
       events: {
@@ -248,7 +248,7 @@ class ShadcnGameCard extends StatelessComponent {
                     'justify-content': 'center',
                     'background-color': 'var(--card)',
                     'border': '2px solid var(--border)',
-                    'border-radius': '0.375rem',
+                    'border-radius': 'var(--arcane-radius-sm)',
                     'overflow': 'hidden',
                   }),
                   [
@@ -267,9 +267,9 @@ class ShadcnGameCard extends StatelessComponent {
                     else
                       dom.span(
                         styles: const dom.Styles(raw: {
-                          'font-size': '1.125rem',
+                          'font-size': 'var(--arcane-font-size-lg)',
                           'color': 'var(--muted-foreground)',
-                          'font-weight': '700',
+                          'font-weight': 'var(--arcane-font-weight-bold)',
                         }),
                         [Component.text(props.name.isNotEmpty ? props.name[0].toUpperCase() : '?')],
                       ),
@@ -286,7 +286,7 @@ class ShadcnGameCard extends StatelessComponent {
             'padding': '2rem 1.5rem 1.5rem',
             'display': 'flex',
             'flex-direction': 'column',
-            'gap': '1rem',
+            'gap': 'var(--arcane-space-4)',
           }),
           [
             // Name and status
@@ -299,8 +299,8 @@ class ShadcnGameCard extends StatelessComponent {
               [
                 dom.div(
                   styles: const dom.Styles(raw: {
-                    'font-size': '1.125rem',
-                    'font-weight': '600',
+                    'font-size': 'var(--arcane-font-size-lg)',
+                    'font-weight': 'var(--arcane-font-weight-semibold)',
                     'color': 'var(--foreground)',
                   }),
                   [Component.text(props.name)],
@@ -308,8 +308,8 @@ class ShadcnGameCard extends StatelessComponent {
                 if (props.status != null)
                   dom.span(
                     styles: const dom.Styles(raw: {
-                      'font-size': '0.75rem',
-                      'color': 'hsl(142 76% 36%)',
+                      'font-size': 'var(--arcane-font-size-xs)',
+                      'color': 'var(--success)',
                     }),
                     [Component.text(props.status!)],
                   ),
@@ -320,7 +320,7 @@ class ShadcnGameCard extends StatelessComponent {
             if (props.description != null)
               dom.div(
                 styles: const dom.Styles(raw: {
-                  'font-size': '0.875rem',
+                  'font-size': 'var(--arcane-font-size-sm)',
                   'line-height': '1.5',
                   'color': 'var(--muted-foreground)',
                 }),
@@ -333,7 +333,7 @@ class ShadcnGameCard extends StatelessComponent {
                 styles: const dom.Styles(raw: {
                   'display': 'flex',
                   'flex-wrap': 'wrap',
-                  'gap': '0.5rem',
+                  'gap': 'var(--arcane-space-2)',
                   'margin-top': '0.25rem',
                 }),
                 [
@@ -341,10 +341,10 @@ class ShadcnGameCard extends StatelessComponent {
                     dom.span(
                       styles: const dom.Styles(raw: {
                         'padding': '0.25rem 0.5rem',
-                        'font-size': '0.75rem',
+                        'font-size': 'var(--arcane-font-size-xs)',
                         'color': 'var(--muted-foreground)',
                         'background-color': 'var(--muted)',
-                        'border-radius': '0.25rem',
+                        'border-radius': 'var(--arcane-radius-xs)',
                       }),
                       [Component.text(feature)],
                     ),
@@ -358,14 +358,14 @@ class ShadcnGameCard extends StatelessComponent {
                 styles: const dom.Styles(raw: {
                   'margin-top': '0.5rem',
                   'padding': '0.5rem 1.5rem',
-                  'font-size': '0.875rem',
-                  'font-weight': '500',
+                  'font-size': 'var(--arcane-font-size-sm)',
+                  'font-weight': 'var(--arcane-font-weight-medium)',
                   'color': 'var(--accent-foreground)',
                   'background-color': 'var(--accent)',
                   'border': 'none',
-                  'border-radius': '0.375rem',
+                  'border-radius': 'var(--arcane-radius-sm)',
                   'cursor': 'pointer',
-                  'transition': 'all 150ms ease',
+                  'transition': 'all var(--arcane-transition)',
                 }),
                 [Component.text(props.ctaText!)],
               ),

@@ -17,16 +17,16 @@ class ShadcnStatusBadge extends StatelessComponent {
     final fontSize = _getFontSize();
 
     final effectiveBackground =
-        props.background ?? 'rgba(${_getStatusRgb()}, 0.1)';
+        props.background ?? 'color-mix(in srgb, $color 10%, transparent)';
     final effectiveBorder =
-        props.borderColor ?? 'rgba(${_getStatusRgb()}, 0.25)';
+        props.borderColor ?? 'color-mix(in srgb, $color 25%, transparent)';
 
     return dom.div(
       classes: 'arcane-status-badge arcane-status-${props.status.name}',
       styles: dom.Styles(raw: {
         'display': 'inline-flex',
         'align-items': 'center',
-        'gap': '0.5rem',
+        'gap': 'var(--arcane-space-2)',
         'padding': padding,
         'background': effectiveBackground,
         'border': '1px solid $effectiveBorder',
@@ -72,27 +72,9 @@ class ShadcnStatusBadge extends StatelessComponent {
       case StatusType.busy:
         return 'var(--destructive)';
       case StatusType.info:
-        return 'hsl(199 89% 48%)';
+        return 'var(--info)';
       case StatusType.offline:
         return 'var(--muted-foreground)';
-    }
-  }
-
-  String _getStatusRgb() {
-    switch (props.status) {
-      case StatusType.success:
-      case StatusType.online:
-        return '34, 197, 94';
-      case StatusType.warning:
-      case StatusType.away:
-        return '245, 158, 11';
-      case StatusType.error:
-      case StatusType.busy:
-        return '239, 68, 68';
-      case StatusType.info:
-        return '14, 165, 233';
-      case StatusType.offline:
-        return '115, 115, 115';
     }
   }
 

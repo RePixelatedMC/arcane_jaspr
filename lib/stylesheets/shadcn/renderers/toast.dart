@@ -92,7 +92,7 @@ class ShadcnToast extends StatelessComponent {
         // ShadCN: border
         'border': '1px solid var(--border)',
         // ShadCN: rounded-md (6px)
-        'border-radius': '0.375rem',
+        'border-radius': 'var(--arcane-radius-sm)',
         // ShadCN: shadow-lg
         'box-shadow':
             '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
@@ -144,8 +144,8 @@ class ShadcnToast extends StatelessComponent {
               dom.span(
                 classes: 'arcane-toast-title',
                 styles: const dom.Styles(raw: {
-                  'font-weight': '600',
-                  'font-size': '0.875rem',
+                  'font-weight': 'var(--arcane-font-weight-semibold)',
+                  'font-size': 'var(--arcane-font-size-sm)',
                   'color': 'var(--foreground)',
                   'line-height': '1.4',
                 }),
@@ -154,7 +154,7 @@ class ShadcnToast extends StatelessComponent {
             dom.span(
               classes: 'arcane-toast-message',
               styles: dom.Styles(raw: {
-                'font-size': '0.875rem',
+                'font-size': 'var(--arcane-font-size-sm)',
                 'color': props.title != null
                     ? 'var(--muted-foreground)'
                     : 'var(--foreground)',
@@ -166,7 +166,7 @@ class ShadcnToast extends StatelessComponent {
               dom.span(
                 classes: 'arcane-toast-description',
                 styles: const dom.Styles(raw: {
-                  'font-size': '0.75rem',
+                  'font-size': 'var(--arcane-font-size-xs)',
                   'color': 'var(--muted-foreground)',
                   'line-height': '1.5',
                   'margin-top': '4px',
@@ -184,16 +184,16 @@ class ShadcnToast extends StatelessComponent {
                       'display': 'inline-flex',
                       'align-items': 'center',
                       'padding': '4px 8px',
-                      'font-size': '0.75rem',
-                      'font-weight': '500',
+                      'font-size': 'var(--arcane-font-size-xs)',
+                      'font-weight': 'var(--arcane-font-weight-medium)',
                       'color': props.action!.destructive
                           ? 'var(--destructive)'
                           : 'var(--primary)',
                       'background': 'transparent',
                       'border': '1px solid var(--border)',
-                      'border-radius': '0.25rem',
+                      'border-radius': 'var(--arcane-radius-xs)',
                       'cursor': 'pointer',
-                      'transition': 'opacity 150ms ease',
+                      'transition': 'opacity var(--arcane-transition)',
                     }),
                     events: {'click': (_) => props.action!.onPressed()},
                     [Component.text(props.action!.label)],
@@ -219,8 +219,8 @@ class ShadcnToast extends StatelessComponent {
               'background': 'transparent',
               'color': 'var(--muted-foreground)',
               'cursor': 'pointer',
-              'border-radius': '0.25rem',
-              'transition': 'opacity 150ms ease',
+              'border-radius': 'var(--arcane-radius-xs)',
+              'transition': 'opacity var(--arcane-transition)',
               'flex-shrink': '0',
               'opacity': '0.7',
             }),

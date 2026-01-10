@@ -67,14 +67,14 @@ class CodexToggleGroup extends StatelessComponent {
         'padding': '0 $paddingH',
         'min-width': height,
         'border-radius': 'var(--radius)',
-        'font-size': '0.875rem',
-        'font-weight': '500',
+        'font-size': 'var(--arcane-font-size-sm)',
+        'font-weight': 'var(--arcane-font-weight-medium)',
         'background-color':
             isSelected ? 'rgba(var(--codex-accent-rgb), 0.15)' : 'transparent',
         'color': isSelected
             ? 'var(--codex-accent)'
             : 'var(--foreground)',
-        'transition': 'color 150ms ease, background-color 150ms ease',
+        'transition': 'color var(--arcane-transition), background-color var(--arcane-transition)',
         'cursor': isDisabled ? 'not-allowed' : 'pointer',
         'pointer-events': isDisabled ? 'none' : 'auto',
         'opacity': isDisabled ? '0.5' : '1',

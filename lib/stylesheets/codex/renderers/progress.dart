@@ -64,7 +64,7 @@ class CodexProgress extends StatelessComponent {
             'width': '100%',
             'height': trackHeight,
             'background-color': props.trackColor ?? 'var(--muted)',
-            'border-radius': '9999px',
+            'border-radius': 'var(--arcane-radius-full)',
             'overflow': 'hidden',
           }),
           [
@@ -79,7 +79,7 @@ class CodexProgress extends StatelessComponent {
                   'height': '100%',
                   'width': '40%',
                   'background-color': indicatorColor,
-                  'border-radius': '9999px',
+                  'border-radius': 'var(--arcane-radius-full)',
                   if (glowColor != null) 'box-shadow': glowColor,
                   'animation': 'codex-progress-indeterminate 1.5s ease-in-out infinite',
                 }),
@@ -95,7 +95,7 @@ class CodexProgress extends StatelessComponent {
                   'height': '100%',
                   'width': '$percentage%',
                   'background-color': indicatorColor,
-                  'border-radius': '9999px',
+                  'border-radius': 'var(--arcane-radius-full)',
                   if (glowColor != null) 'box-shadow': glowColor,
                   'transition': 'width 0.3s ease-out',
                 }),
@@ -110,8 +110,8 @@ class CodexProgress extends StatelessComponent {
             classes: 'codex-progress-value',
             styles: const dom.Styles(raw: {
               'margin-top': '0.5rem',
-              'font-size': '0.75rem',
-              'font-weight': '500',
+              'font-size': 'var(--arcane-font-size-xs)',
+              'font-weight': 'var(--arcane-font-weight-medium)',
               'color': 'var(--muted-foreground)',
               'text-align': 'right',
               'font-variant-numeric': 'tabular-nums',
@@ -162,7 +162,7 @@ class CodexCircularProgress extends StatelessComponent {
             'position': 'absolute',
             'width': '100%',
             'height': '100%',
-            'border-radius': '9999px',
+            'border-radius': 'var(--arcane-radius-full)',
             'background':
                 'conic-gradient($fillColor 0deg ${clampedValue * 360}deg, $trackColor ${clampedValue * 360}deg 360deg)',
             'mask':
@@ -189,8 +189,8 @@ class CodexCircularProgress extends StatelessComponent {
               if (props.showPercentage)
                 dom.span(
                   styles: const dom.Styles(raw: {
-                    'font-size': '0.875rem',
-                    'font-weight': '600',
+                    'font-size': 'var(--arcane-font-size-sm)',
+                    'font-weight': 'var(--arcane-font-weight-semibold)',
                     'color': 'var(--foreground)',
                     'font-variant-numeric': 'tabular-nums',
                   }),
@@ -231,7 +231,7 @@ class CodexLoadingSpinner extends StatelessComponent {
         'height': size,
         'border': '3px solid var(--muted)',
         'border-top-color': color,
-        'border-radius': '9999px',
+        'border-radius': 'var(--arcane-radius-full)',
         'animation': 'arcane-spin 0.75s linear infinite',
         // Codex: subtle glow
         'box-shadow': '0 0 8px $color',

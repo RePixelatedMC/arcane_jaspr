@@ -37,7 +37,7 @@ class ShadcnCommand extends StatelessComponent {
         'padding-top': '20vh',
         // ShadCN: bg-black/80
         'background-color': 'rgba(0, 0, 0, 0.5)',
-        'animation': 'arcane-fade-in 200ms ease',
+        'animation': 'arcane-fade-in var(--arcane-transition-slow)',
       }),
       events: {
         'click': (e) {
@@ -66,12 +66,12 @@ class ShadcnCommand extends StatelessComponent {
             // ShadCN: border
             'border': '1px solid var(--border)',
             // ShadCN: rounded-lg
-            'border-radius': '0.5rem',
+            'border-radius': 'var(--arcane-radius-md)',
             // ShadCN: shadow-lg
             'box-shadow':
                 '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
             'overflow': 'hidden',
-            'animation': 'arcane-scale-in 200ms ease',
+            'animation': 'arcane-scale-in var(--arcane-transition-slow)',
           }),
           [
             // Search input - ShadCN: flex items-center border-b px-3
@@ -79,7 +79,7 @@ class ShadcnCommand extends StatelessComponent {
               styles: const dom.Styles(raw: {
                 'display': 'flex',
                 'align-items': 'center',
-                'gap': '8px',
+                'gap': 'var(--arcane-space-2)',
                 'padding': '12px 16px',
                 'border-bottom': '1px solid var(--border)',
               }),
@@ -88,7 +88,7 @@ class ShadcnCommand extends StatelessComponent {
                 const dom.span(
                   styles: dom.Styles(raw: {
                     'color': 'var(--muted-foreground)',
-                    'font-size': '1.125rem',
+                    'font-size': 'var(--arcane-font-size-lg)',
                   }),
                   [Component.text('\u{1F50D}')], // Magnifying glass emoji
                 ),
@@ -106,7 +106,7 @@ class ShadcnCommand extends StatelessComponent {
                     'background': 'transparent',
                     'border': 'none',
                     // ShadCN: text-sm
-                    'font-size': '0.875rem',
+                    'font-size': 'var(--arcane-font-size-sm)',
                     'color': 'var(--foreground)',
                     'outline': 'none',
                   }),
@@ -139,7 +139,7 @@ class ShadcnCommand extends StatelessComponent {
                       'padding': '24px',
                       'text-align': 'center',
                       'color': 'var(--muted-foreground)',
-                      'font-size': '0.875rem',
+                      'font-size': 'var(--arcane-font-size-sm)',
                     }),
                     [Component.text(props.emptyMessage)],
                   )
@@ -151,8 +151,8 @@ class ShadcnCommand extends StatelessComponent {
                       dom.div(
                         styles: const dom.Styles(raw: {
                           'padding': '8px 12px',
-                          'font-size': '0.75rem',
-                          'font-weight': '600',
+                          'font-size': 'var(--arcane-font-size-xs)',
+                          'font-weight': 'var(--arcane-font-weight-semibold)',
                           'color': 'var(--muted-foreground)',
                           'text-transform': 'uppercase',
                           'letter-spacing': '0.05em',
@@ -175,7 +175,7 @@ class ShadcnCommand extends StatelessComponent {
                 'gap': '16px',
                 'padding': '8px 12px',
                 'border-top': '1px solid var(--border)',
-                'font-size': '0.75rem',
+                'font-size': 'var(--arcane-font-size-xs)',
                 'color': 'var(--muted-foreground)',
               }),
               [
@@ -202,12 +202,12 @@ class ShadcnCommand extends StatelessComponent {
       styles: dom.Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
-        'gap': '8px',
+        'gap': 'var(--arcane-space-2)',
         'padding': '8px 12px',
         // ShadCN: rounded-sm
-        'border-radius': '0.25rem',
+        'border-radius': 'var(--arcane-radius-xs)',
         'cursor': item.disabled ? 'not-allowed' : 'pointer',
-        'transition': 'background-color 150ms ease',
+        'transition': 'background-color var(--arcane-transition)',
         if (item.disabled) 'opacity': '0.5',
       }),
       events: {
@@ -220,7 +220,7 @@ class ShadcnCommand extends StatelessComponent {
           styles: const dom.Styles(raw: {
             'flex': '1',
             // ShadCN: text-sm
-            'font-size': '0.875rem',
+            'font-size': 'var(--arcane-font-size-sm)',
             'color': 'var(--foreground)',
           }),
           [Component.text(item.label)],
@@ -229,11 +229,11 @@ class ShadcnCommand extends StatelessComponent {
           // ShadCN: ml-auto text-xs tracking-widest text-muted-foreground
           dom.span(
             styles: const dom.Styles(raw: {
-              'font-size': '0.75rem',
+              'font-size': 'var(--arcane-font-size-xs)',
               'color': 'var(--muted-foreground)',
               'padding': '2px 4px',
               'background-color': 'var(--muted)',
-              'border-radius': '0.25rem',
+              'border-radius': 'var(--arcane-radius-xs)',
               'font-family':
                   'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
             }),
@@ -248,14 +248,14 @@ class ShadcnCommand extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
-        'gap': '4px',
+        'gap': 'var(--arcane-space-1)',
       }),
       [
         dom.span(
           styles: const dom.Styles(raw: {
             'padding': '2px 6px',
             'background-color': 'var(--muted)',
-            'border-radius': '0.25rem',
+            'border-radius': 'var(--arcane-radius-xs)',
             'font-family':
                 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
           }),

@@ -41,7 +41,7 @@ class ShadcnNumberInput extends StatelessComponent {
       styles: const Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': '0.5rem',
+        'gap': 'var(--arcane-space-2)',
       }),
       [
         // Label
@@ -49,8 +49,8 @@ class ShadcnNumberInput extends StatelessComponent {
           span(
             classes: 'arcane-number-input-label',
             styles: const Styles(raw: {
-              'font-size': '0.875rem',
-              'font-weight': '500',
+              'font-size': 'var(--arcane-font-size-sm)',
+              'font-weight': 'var(--arcane-font-weight-medium)',
               'color': 'var(--foreground)',
             }),
             [Component.text(props.label!)],
@@ -64,7 +64,7 @@ class ShadcnNumberInput extends StatelessComponent {
             'align-items': 'stretch',
             'height': height,
             'border': '1px solid var(--border)',
-            'border-radius': '0.375rem',
+            'border-radius': 'var(--arcane-radius-sm)',
             'overflow': 'hidden',
             'opacity': props.disabled ? '0.5' : '1',
           }),
@@ -92,10 +92,10 @@ class ShadcnNumberInput extends StatelessComponent {
                     ? 'var(--foreground)'
                     : 'var(--muted-foreground)',
                 'font-size': fontSize,
-                'font-weight': '700',
+                'font-weight': 'var(--arcane-font-weight-bold)',
                 'cursor':
                     (canDecrement && !props.disabled) ? 'pointer' : 'not-allowed',
-                'transition': 'all 150ms ease',
+                'transition': 'all var(--arcane-transition)',
                 'user-select': 'none',
               }),
               events: (canDecrement && !props.disabled)
@@ -118,12 +118,12 @@ class ShadcnNumberInput extends StatelessComponent {
                 'display': 'flex',
                 'align-items': 'center',
                 'justify-content': 'center',
-                'gap': '0.25rem',
+                'gap': 'var(--arcane-space-1)',
                 'min-width': '60px',
                 'padding': '0 0.5rem',
                 'background': 'var(--input)',
                 'font-size': fontSize,
-                'font-weight': '500',
+                'font-weight': 'var(--arcane-font-weight-medium)',
                 'font-variant-numeric': 'tabular-nums',
                 'color': 'var(--foreground)',
               }),
@@ -172,10 +172,10 @@ class ShadcnNumberInput extends StatelessComponent {
                     ? 'var(--foreground)'
                     : 'var(--muted-foreground)',
                 'font-size': fontSize,
-                'font-weight': '700',
+                'font-weight': 'var(--arcane-font-weight-bold)',
                 'cursor':
                     (canIncrement && !props.disabled) ? 'pointer' : 'not-allowed',
-                'transition': 'all 150ms ease',
+                'transition': 'all var(--arcane-transition)',
                 'user-select': 'none',
               }),
               events: (canIncrement && !props.disabled)

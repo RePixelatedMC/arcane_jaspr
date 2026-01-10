@@ -143,14 +143,14 @@ html {
   font-size: 16px;
   line-height: 1.6;
   scroll-behavior: smooth;
-  background-color: var(--arcane-background);
-  color: var(--arcane-on-background);
+  background-color: var(--background);
+  color: var(--foreground);
 }
 
 body {
   min-height: 100vh;
-  background-color: var(--arcane-background);
-  color: var(--arcane-on-background);
+  background-color: var(--background);
+  color: var(--foreground);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -160,13 +160,13 @@ body {
    ============================================ */
 .prose {
   max-width: 65ch;
-  color: var(--arcane-on-surface);
+  color: var(--foreground);
 }
 
 .prose h1, .prose h2, .prose h3,
 .prose h4, .prose h5, .prose h6 {
   font-family: var(--font-heading);
-  color: var(--arcane-on-surface);
+  color: var(--foreground);
   font-weight: 600;
   line-height: 1.25;
   margin-top: 2rem;
@@ -176,36 +176,36 @@ body {
 .prose h1 { font-size: 2.25rem; margin-top: 0; }
 .prose h2 {
   font-size: 1.5rem;
-  border-bottom: 1px solid var(--arcane-border);
+  border-bottom: 1px solid var(--border);
   padding-bottom: 0.5rem;
 }
 .prose h3 { font-size: 1.25rem; }
 .prose h4 { font-size: 1rem; }
 
 .prose p {
-  color: var(--arcane-on-surface-variant);
+  color: var(--muted-foreground);
   margin-bottom: 1rem;
 }
 
 .prose li {
-  color: var(--arcane-on-surface-variant);
+  color: var(--muted-foreground);
   margin-bottom: 0.25rem;
 }
 
 .prose a {
-  color: var(--arcane-primary);
+  color: var(--primary);
   text-decoration: none;
-  transition: color var(--arcane-transition-fast);
+  transition: color var(--transition-fast);
 }
 
 .prose a:hover {
-  color: var(--arcane-primary);
+  color: var(--primary);
   text-decoration: underline;
   opacity: 0.8;
 }
 
 .prose strong, .prose b {
-  color: var(--arcane-on-surface);
+  color: var(--foreground);
   font-weight: 600;
 }
 
@@ -219,20 +219,20 @@ body {
 }
 
 .prose li::marker {
-  color: var(--arcane-muted-foreground);
+  color: var(--muted-foreground);
 }
 
 .prose blockquote {
-  border-left: 4px solid var(--arcane-border);
+  border-left: 4px solid var(--border);
   padding-left: 1rem;
   margin: 1rem 0;
   font-style: italic;
-  color: var(--arcane-muted-foreground);
+  color: var(--muted-foreground);
 }
 
 .prose pre {
   background-color: oklch(0.97 0 0);
-  border: 1px solid var(--arcane-border);
+  border: 1px solid var(--border);
   border-radius: 8px;
   padding: 16px 20px;
   overflow-x: auto;
@@ -361,7 +361,7 @@ body {
 
 .prose hr {
   border: none;
-  border-top: 1px solid var(--arcane-border);
+  border-top: 1px solid var(--border);
   margin: 2rem 0;
 }
 
@@ -372,78 +372,207 @@ body {
 }
 
 .prose th, .prose td {
-  border: 1px solid var(--arcane-border);
+  border: 1px solid var(--border);
   padding: 0.75rem;
   text-align: left;
 }
 
 .prose th {
-  background-color: var(--arcane-surface-variant);
-  color: var(--arcane-on-surface);
+  background-color: var(--muted);
+  color: var(--foreground);
   font-weight: 600;
 }
 
 .prose td {
-  color: var(--arcane-on-surface-variant);
+  color: var(--muted-foreground);
 }
 
 .prose img {
   max-width: 100%;
   height: auto;
-  border-radius: var(--arcane-radius-md);
+  border-radius: var(--radius-md);
 }
 
 /* ============================================
    CONTENT SECTION STYLING
    ============================================ */
 .content, section.content {
-  color: var(--arcane-on-surface-variant);
+  color: var(--muted-foreground);
 }
 
 .content h1, .content h2, .content h3,
 .content h4, .content h5, .content h6,
 section h1, section h2, section h3,
 section h4, section h5, section h6 {
-  color: var(--arcane-on-surface);
+  color: var(--foreground);
 }
 
 .content p, section p {
-  color: var(--arcane-on-surface-variant);
+  color: var(--muted-foreground);
 }
 
 .content a, section a {
-  color: var(--arcane-primary);
+  color: var(--primary);
 }
 
 /* ============================================
-   TABLE OF CONTENTS
+   TABLE OF CONTENTS - Tree Line Style
+   Each item draws its own connectors for proper L-connectors
    ============================================ */
 .toc-content ul {
   list-style: none;
-  padding-left: 0;
+  padding-left: 1rem;
   margin: 0;
 }
 
+.toc-content > ul {
+  padding-left: 1rem;
+}
+
+/* All list items get tree line treatment */
+.toc-content li {
+  position: relative;
+}
+
+/* Horizontal branch to content - use 50% for dynamic centering */
+.toc-content li::before {
+  content: '';
+  position: absolute;
+  left: -1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0.75rem;
+  height: 1px;
+  background: var(--border);
+}
+
+/* Vertical line segment connecting to next sibling */
+.toc-content li::after {
+  content: '';
+  position: absolute;
+  left: -1rem;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--border);
+}
+
+/* Last item: L-connector - vertical stops at center */
+.toc-content li:last-child::after {
+  bottom: 50%;
+}
+
+/* First item: vertical starts from center */
+.toc-content li:first-child::after {
+  top: 50%;
+}
+
+/* Only child: just horizontal, no vertical */
+.toc-content li:only-child::after {
+  display: none;
+}
+
+/* Nested lists - progressively lighter */
 .toc-content ul ul {
-  padding-left: 12px;
-  border-left: 1px solid var(--arcane-border);
-  margin-left: 8px;
+  --toc-line-opacity: 0.7;
+}
+
+.toc-content ul ul li::before,
+.toc-content ul ul li::after {
+  background: color-mix(in srgb, var(--border) 70%, transparent);
+}
+
+.toc-content ul ul ul li::before,
+.toc-content ul ul ul li::after {
+  background: color-mix(in srgb, var(--border) 50%, transparent);
 }
 
 .toc-content a {
-  color: var(--arcane-muted-foreground);
+  color: var(--muted-foreground);
   text-decoration: none;
   font-size: 13px;
   display: block;
   padding: 6px 10px;
   margin: 2px 0;
-  border-radius: var(--arcane-radius-sm);
-  transition: all var(--arcane-transition-fast);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
 }
 
 .toc-content a:hover {
-  color: var(--arcane-on-surface);
-  background: var(--arcane-surface-variant);
+  color: var(--foreground);
+  background: var(--muted);
+}
+
+/* Active TOC link - currently visible section */
+.toc-content a.toc-active {
+  color: var(--primary);
+  font-weight: 600;
+  background: var(--accent);
+  border-left: 2px solid var(--primary);
+  padding-left: 8px;
+}
+
+/* ============================================
+   SIDEBAR NAVIGATION - Tree Lines
+   Each item draws its own connectors for proper L-connectors
+   ============================================ */
+.sidebar-tree-nav {
+  position: relative;
+}
+
+/* Container for items with tree lines */
+.sidebar-tree-items {
+  position: relative;
+  padding-left: 1rem;
+  margin-left: 0.5rem;
+}
+
+/* Each nav item in tree */
+.sidebar-tree-item {
+  position: relative;
+}
+
+/* Horizontal branch for each item */
+.sidebar-tree-item::before {
+  content: '';
+  position: absolute;
+  left: -1rem;
+  top: 50%;
+  width: 0.75rem;
+  height: 1px;
+  background: var(--border);
+}
+
+/* Vertical line connecting to next sibling */
+.sidebar-tree-item::after {
+  content: '';
+  position: absolute;
+  left: -1rem;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--border);
+}
+
+/* Last item: L-connector */
+.sidebar-tree-item:last-child::after {
+  bottom: 50%;
+}
+
+/* First item: start from branch */
+.sidebar-tree-item:first-child::after {
+  top: 50%;
+}
+
+/* Only child: just horizontal */
+.sidebar-tree-item:only-child::after {
+  display: none;
+}
+
+/* No tree lines variant */
+.sidebar-tree-items.no-tree-lines .sidebar-tree-item::before,
+.sidebar-tree-items.no-tree-lines .sidebar-tree-item::after {
+  display: none;
 }
 
 /* ============================================
@@ -458,8 +587,8 @@ section h4, section h5, section h6 {
 .anchor-link {
   opacity: 0;
   margin-left: 0.5rem;
-  color: var(--arcane-muted-foreground);
-  transition: opacity var(--arcane-transition-fast);
+  color: var(--muted-foreground);
+  transition: opacity var(--transition-fast);
 }
 
 .prose h1:hover .anchor-link,
@@ -489,7 +618,7 @@ section h4, section h5, section h6 {
   background: transparent;
   border: none;
   border-radius: 4px;
-  color: var(--arcane-muted-foreground);
+  color: var(--muted-foreground);
   cursor: pointer;
   opacity: 0;
   transition: all 0.15s ease;
@@ -506,7 +635,7 @@ section h4, section h5, section h6 {
 .copy-code-btn:hover {
   opacity: 1 !important;
   background: rgba(0, 0, 0, 0.05);
-  color: var(--arcane-foreground);
+  color: var(--foreground);
 }
 
 .dark .copy-code-btn:hover {
@@ -514,7 +643,7 @@ section h4, section h5, section h6 {
 }
 
 .copy-code-btn.copied {
-  color: var(--arcane-success);
+  color: var(--success);
   opacity: 1 !important;
 }
 
@@ -525,23 +654,23 @@ section h4, section h5, section h6 {
 
 /* Demo code block copy buttons */
 .demo-code-block button:hover {
-  background: var(--arcane-surface-variant) !important;
-  color: var(--arcane-foreground) !important;
+  background: var(--muted) !important;
+  color: var(--foreground) !important;
 }
 
 /* ============================================
    SELECTION
    ============================================ */
 ::selection {
-  background-color: rgba(var(--arcane-accent-rgb), 0.5);
-  color: var(--arcane-foreground);
+  background-color: rgba(var(--accent-rgb), 0.5);
+  color: var(--foreground);
 }
 
 /* ============================================
    FOCUS STATES
    ============================================ */
 button:focus-visible {
-  outline: 2px solid var(--arcane-ring);
+  outline: 2px solid var(--ring);
   outline-offset: 2px;
 }
 
@@ -549,12 +678,12 @@ button:focus-visible {
    SEARCH
    ============================================ */
 #docs-search:focus {
-  border-color: var(--arcane-ring);
-  box-shadow: 0 0 0 3px rgba(var(--arcane-foreground-rgb), 0.1);
+  border-color: var(--ring);
+  box-shadow: 0 0 0 3px rgba(var(--foreground-rgb), 0.1);
 }
 
 #docs-search::placeholder {
-  color: var(--arcane-muted-foreground);
+  color: var(--muted-foreground);
   opacity: 0.7;
 }
 
@@ -566,8 +695,8 @@ button:focus-visible {
    HEADER CONTROLS
    ============================================ */
 #theme-toggle:hover {
-  background: var(--arcane-muted);
-  border-color: var(--arcane-border);
+  background: var(--muted);
+  border-color: var(--border);
 }
 
 #theme-toggle:active {
@@ -575,16 +704,16 @@ button:focus-visible {
 }
 
 #search-trigger:hover {
-  background: var(--arcane-muted);
-  border-color: var(--arcane-muted-foreground);
+  background: var(--muted);
+  border-color: var(--muted-foreground);
 }
 
 #preset-select:hover {
-  border-color: var(--arcane-muted-foreground);
+  border-color: var(--muted-foreground);
 }
 
 #preset-select:focus {
-  border-color: var(--arcane-ring);
+  border-color: var(--ring);
   outline: none;
 }
 
@@ -592,7 +721,7 @@ button:focus-visible {
    SIDEBAR HOVER
    ============================================ */
 aside a:hover {
-  background: var(--arcane-surface-variant) !important;
+  background: var(--muted) !important;
 }
 
 /* ============================================

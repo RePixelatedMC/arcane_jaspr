@@ -69,7 +69,7 @@ class CodexToggleSwitch extends StatelessComponent {
         'height': '${height}px',
         'padding': '${thumbOffset}px',
         'border': props.value ? 'none' : '1px solid var(--border)',
-        'border-radius': '9999px',
+        'border-radius': 'var(--arcane-radius-full)',
         'background-color': props.value ? activeColor : inactiveColor,
         // Codex: subtle glow when active
         'box-shadow': props.value ? glowColor : 'none',
@@ -95,7 +95,7 @@ class CodexToggleSwitch extends StatelessComponent {
             'display': 'block',
             'width': '${thumbSize}px',
             'height': '${thumbSize}px',
-            'border-radius': '9999px',
+            'border-radius': 'var(--arcane-radius-full)',
             'background-color': 'var(--foreground)',
             'box-shadow': '0 2px 4px rgba(0, 0, 0, 0.2)',
             'transform': 'translateX(${thumbTranslate}px)',
@@ -117,8 +117,8 @@ class CodexToggleSwitch extends StatelessComponent {
     final Component labelWidget = dom.span(
       classes: 'codex-toggle-label',
       styles: dom.Styles(raw: {
-        'font-size': '0.875rem',
-        'font-weight': '500',
+        'font-size': 'var(--arcane-font-size-sm)',
+        'font-weight': 'var(--arcane-font-weight-medium)',
         'color': props.disabled
             ? 'var(--muted-foreground)'
             : 'var(--foreground)',

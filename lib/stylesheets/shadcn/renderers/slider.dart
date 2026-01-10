@@ -59,8 +59,8 @@ class ShadcnSlider extends StatelessComponent {
               if (props.label != null)
                 dom.span(
                   styles: const dom.Styles(raw: {
-                    'font-size': '0.875rem', // text-sm
-                    'font-weight': '500', // font-medium
+                    'font-size': 'var(--arcane-font-size-sm)', // text-sm
+                    'font-weight': 'var(--arcane-font-weight-medium)', // font-medium
                     'color': 'var(--foreground)',
                   }),
                   [Component.text(props.label!)],
@@ -69,8 +69,8 @@ class ShadcnSlider extends StatelessComponent {
                 dom.span(
                   classes: 'arcane-slider-value',
                   styles: const dom.Styles(raw: {
-                    'font-size': '0.875rem', // text-sm
-                    'font-weight': '500', // font-medium
+                    'font-size': 'var(--arcane-font-size-sm)', // text-sm
+                    'font-weight': 'var(--arcane-font-weight-medium)', // font-medium
                     'font-variant-numeric': 'tabular-nums',
                     'color': 'var(--muted-foreground)',
                     'min-width': '40px',
@@ -112,7 +112,7 @@ class ShadcnSlider extends StatelessComponent {
                 // ShadCN: bg-secondary
                 'background-color': 'var(--secondary)',
                 // ShadCN: rounded-full
-                'border-radius': '9999px',
+                'border-radius': 'var(--arcane-radius-full)',
                 // ShadCN: overflow-hidden
                 'overflow': 'hidden',
               }),
@@ -158,10 +158,10 @@ class ShadcnSlider extends StatelessComponent {
                 // ShadCN: border-2 border-primary
                 'border': '2px solid $fillColor',
                 // ShadCN: rounded-full
-                'border-radius': '9999px',
+                'border-radius': 'var(--arcane-radius-full)',
                 // ShadCN: transition-colors
                 'transition':
-                    'color 150ms ease, transform 150ms ease, box-shadow 150ms ease',
+                    'color var(--arcane-transition), transform var(--arcane-transition), box-shadow var(--arcane-transition)',
                 'pointer-events': 'none',
                 'z-index': '2',
               }),
@@ -215,14 +215,14 @@ class ShadcnSlider extends StatelessComponent {
             [
               dom.span(
                 styles: const dom.Styles(raw: {
-                  'font-size': '0.75rem', // text-xs
+                  'font-size': 'var(--arcane-font-size-xs)', // text-xs
                   'color': 'var(--muted-foreground)',
                 }),
                 [Component.text(props.min.toStringAsFixed(0))],
               ),
               dom.span(
                 styles: const dom.Styles(raw: {
-                  'font-size': '0.75rem', // text-xs
+                  'font-size': 'var(--arcane-font-size-xs)', // text-xs
                   'color': 'var(--muted-foreground)',
                 }),
                 [Component.text(props.max.toStringAsFixed(0))],
@@ -261,7 +261,7 @@ class ShadcnSlider extends StatelessComponent {
               'width': '2px',
               'height': '2px',
               'background': 'var(--muted-foreground)',
-              'border-radius': '9999px',
+              'border-radius': 'var(--arcane-radius-full)',
             }),
             [],
           ),

@@ -88,18 +88,18 @@ class ShadcnIconButton extends StatelessComponent {
         'height': dimension,
         'flex-shrink': '0',
         // ShadCN: rounded-md
-        'border-radius': '0.375rem',
+        'border-radius': 'var(--arcane-radius-sm)',
         // Variant-specific styles
         ...variantStyles,
         // ShadCN: font-medium
-        'font-weight': '500',
+        'font-weight': 'var(--arcane-font-weight-medium)',
         // Cursor and interaction
         'cursor': isDisabled ? 'not-allowed' : 'pointer',
         // ShadCN: disabled:pointer-events-none disabled:opacity-50
         if (isDisabled) 'pointer-events': 'none',
         'opacity': isDisabled ? '0.5' : '1',
         // ShadCN: transition-colors
-        'transition': 'color 150ms ease, background-color 150ms ease, border-color 150ms ease',
+        'transition': 'color var(--arcane-transition), background-color var(--arcane-transition), border-color var(--arcane-transition)',
       }),
       events: {
         'click': (event) {
@@ -135,7 +135,7 @@ class ShadcnIconButton extends StatelessComponent {
         'height': size,
         'border': '2px solid currentColor',
         'border-right-color': 'transparent',
-        'border-radius': '9999px',
+        'border-radius': 'var(--arcane-radius-full)',
         'animation': 'arcane-spin 0.75s linear infinite',
       }),
       [],

@@ -12,7 +12,7 @@ class CodexMobileMenu extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     if (!props.isOpen) {
-      return dom.div([]);
+      return const dom.div([]);
     }
 
     return dom.div(
@@ -47,7 +47,7 @@ class CodexMobileMenu extends StatelessComponent {
                   'border': 'none',
                   'color': 'var(--foreground)',
                   'cursor': 'pointer',
-                  'font-size': '1.5rem',
+                  'font-size': 'var(--arcane-font-size-2xl)',
                 }),
                 events: {'click': (_) => props.onClose!()},
                 [const Component.text('X')],
@@ -95,11 +95,11 @@ class CodexMobileMenu extends StatelessComponent {
           'align-items': 'center',
           'gap': '0.75rem',
           'padding': '0.875rem 1rem',
-          'font-size': '1rem',
+          'font-size': 'var(--arcane-font-size-base)',
           'color': 'var(--foreground)',
           'text-decoration': 'none',
           'border-radius': 'var(--radius)',
-          'transition': 'background-color 150ms ease',
+          'transition': 'background-color var(--arcane-transition)',
         }),
         [
           if (item.icon != null) item.icon!,
@@ -119,7 +119,7 @@ class CodexMobileMenu extends StatelessComponent {
             'justify-content': 'space-between',
             'width': '100%',
             'padding': '0.875rem 1rem',
-            'font-size': '1rem',
+            'font-size': 'var(--arcane-font-size-base)',
             'color': 'var(--foreground)',
             'background': 'none',
             'border': 'none',
@@ -140,11 +140,11 @@ class CodexMobileMenu extends StatelessComponent {
               ],
             ),
             if (hasChildren)
-              dom.span(
-                styles: const dom.Styles(raw: {
+              const dom.span(
+                styles: dom.Styles(raw: {
                   'color': 'var(--muted-foreground)',
                 }),
-                [const Component.text('>')],
+                [Component.text('>')],
               ),
           ],
         ),

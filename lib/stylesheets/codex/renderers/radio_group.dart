@@ -48,20 +48,20 @@ class CodexRadioGroup<T> extends StatelessComponent {
           dom.div(
             classes: 'codex-radio-group-label',
             styles: const dom.Styles(raw: {
-              'font-size': '0.875rem',
-              'font-weight': '500',
+              'font-size': 'var(--arcane-font-size-sm)',
+              'font-weight': 'var(--arcane-font-weight-medium)',
               'color': 'var(--foreground)',
               'margin-bottom': '0.75rem', // Codex: more margin
             }),
             [
               Component.text(props.label!),
               if (props.required)
-                dom.span(
-                  styles: const dom.Styles(raw: {
+                const dom.span(
+                  styles: dom.Styles(raw: {
                     'color': 'var(--destructive)',
                     'margin-left': '0.25rem',
                   }),
-                  [const Component.text('*')],
+                  [Component.text('*')],
                 ),
             ],
           ),
@@ -81,7 +81,7 @@ class CodexRadioGroup<T> extends StatelessComponent {
           dom.div(
             classes: 'codex-radio-group-error',
             styles: const dom.Styles(raw: {
-              'font-size': '0.75rem',
+              'font-size': 'var(--arcane-font-size-xs)',
               'color': 'var(--destructive)',
               'margin-top': '0.5rem',
             }),
@@ -91,7 +91,7 @@ class CodexRadioGroup<T> extends StatelessComponent {
           dom.div(
             classes: 'codex-radio-group-helper',
             styles: const dom.Styles(raw: {
-              'font-size': '0.75rem',
+              'font-size': 'var(--arcane-font-size-xs)',
               'color': 'var(--muted-foreground)',
               'margin-top': '0.5rem',
             }),
@@ -133,7 +133,7 @@ class CodexRadioGroup<T> extends StatelessComponent {
           styles: dom.Styles(raw: {
             'width': '20px', // Codex: larger (vs 16px)
             'height': '20px',
-            'border-radius': '9999px',
+            'border-radius': 'var(--arcane-radius-full)',
             'border': isSelected
                 ? '2px solid var(--codex-accent)'
                 : '2px solid var(--border)',
@@ -148,11 +148,11 @@ class CodexRadioGroup<T> extends StatelessComponent {
           }),
           [
             if (isSelected)
-              dom.div(
-                styles: const dom.Styles(raw: {
+              const dom.div(
+                styles: dom.Styles(raw: {
                   'width': '10px',
                   'height': '10px',
-                  'border-radius': '9999px',
+                  'border-radius': 'var(--arcane-radius-full)',
                   'background-color': 'var(--codex-accent)',
                 }),
                 [],
@@ -168,14 +168,14 @@ class CodexRadioGroup<T> extends StatelessComponent {
               styles: const dom.Styles(raw: {
                 'display': 'flex',
                 'align-items': 'center',
-                'gap': '0.5rem',
+                'gap': 'var(--arcane-space-2)',
               }),
               [
                 if (option.icon != null) option.icon!,
                 dom.span(
                   styles: const dom.Styles(raw: {
-                    'font-size': '0.875rem',
-                    'font-weight': '500',
+                    'font-size': 'var(--arcane-font-size-sm)',
+                    'font-weight': 'var(--arcane-font-weight-medium)',
                     'color': 'var(--foreground)',
                   }),
                   [Component.text(option.label)],
@@ -185,7 +185,7 @@ class CodexRadioGroup<T> extends StatelessComponent {
             if (option.description != null)
               dom.span(
                 styles: const dom.Styles(raw: {
-                  'font-size': '0.75rem',
+                  'font-size': 'var(--arcane-font-size-xs)',
                   'color': 'var(--muted-foreground)',
                   'margin-top': '0.25rem',
                   'display': 'block',
@@ -234,8 +234,8 @@ class CodexRadioGroup<T> extends StatelessComponent {
           [
             dom.div(
               styles: dom.Styles(raw: {
-                'font-size': '0.875rem',
-                'font-weight': '500',
+                'font-size': 'var(--arcane-font-size-sm)',
+                'font-weight': 'var(--arcane-font-weight-medium)',
                 'color': isSelected ? 'var(--codex-accent)' : 'var(--foreground)',
               }),
               [Component.text(option.label)],
@@ -243,7 +243,7 @@ class CodexRadioGroup<T> extends StatelessComponent {
             if (option.description != null)
               dom.div(
                 styles: const dom.Styles(raw: {
-                  'font-size': '0.75rem',
+                  'font-size': 'var(--arcane-font-size-xs)',
                   'color': 'var(--muted-foreground)',
                   'margin-top': '0.25rem',
                 }),
@@ -266,14 +266,14 @@ class CodexRadioGroup<T> extends StatelessComponent {
         'display': 'inline-flex',
         'align-items': 'center',
         'justify-content': 'center',
-        'gap': '0.5rem',
+        'gap': 'var(--arcane-space-2)',
         'padding': '0.625rem 1rem', // Codex: more padding
         'background-color': isSelected ? 'var(--codex-accent)' : 'transparent',
         'color': isSelected ? '#ffffff' : 'var(--foreground)',
         'border': isSelected ? 'none' : '1px solid var(--border)',
         'border-radius': 'var(--radius-md)',
-        'font-size': '0.875rem',
-        'font-weight': '500',
+        'font-size': 'var(--arcane-font-size-sm)',
+        'font-weight': 'var(--arcane-font-weight-medium)',
         'cursor': isDisabled ? 'not-allowed' : 'pointer',
         'transition': 'all var(--transition)',
         // Codex: glow when selected
@@ -306,9 +306,9 @@ class CodexRadioGroup<T> extends StatelessComponent {
             : 'var(--secondary)',
         'color': isSelected ? '#ffffff' : 'var(--foreground)',
         'border': 'none',
-        'border-radius': '9999px',
-        'font-size': '0.75rem',
-        'font-weight': '500',
+        'border-radius': 'var(--arcane-radius-full)',
+        'font-size': 'var(--arcane-font-size-xs)',
+        'font-weight': 'var(--arcane-font-weight-medium)',
         'cursor': isDisabled ? 'not-allowed' : 'pointer',
         'transition': 'all var(--transition)',
         if (isSelected) 'box-shadow': 'var(--codex-accent-glow-subtle)',

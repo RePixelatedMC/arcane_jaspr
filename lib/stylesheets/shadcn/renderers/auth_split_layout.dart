@@ -55,7 +55,7 @@ Component _buildBrandingPanel(Component brandingContent) {
               'width': '60%',
               'height': '60%',
               'background':
-                  'radial-gradient(circle, hsl(var(--accent) / 0.2) 0%, transparent 70%)',
+                  'radial-gradient(circle, color-mix(in srgb, var(--accent) 20%, transparent) 0%, transparent 70%)',
             }),
             [],
           ),
@@ -68,7 +68,7 @@ Component _buildBrandingPanel(Component brandingContent) {
               'width': '50%',
               'height': '50%',
               'background':
-                  'radial-gradient(circle, hsl(var(--secondary) / 0.15) 0%, transparent 70%)',
+                  'radial-gradient(circle, color-mix(in srgb, var(--secondary) 15%, transparent) 0%, transparent 70%)',
             }),
             [],
           ),
@@ -78,7 +78,7 @@ Component _buildBrandingPanel(Component brandingContent) {
               'position': 'absolute',
               'inset': '0',
               'background-image':
-                  'linear-gradient(hsl(var(--foreground) / 0.03) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground) / 0.03) 1px, transparent 1px)',
+                  'linear-gradient(color-mix(in srgb, var(--foreground) 3%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--foreground) 3%, transparent) 1px, transparent 1px)',
               'background-size': '40px 40px',
             }),
             [],

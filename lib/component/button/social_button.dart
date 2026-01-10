@@ -165,7 +165,7 @@ class SocialSignInButton extends StatelessComponent {
 
   static _SocialProviderConfig _getConfig(SocialProvider provider) {
     return switch (provider) {
-      SocialProvider.google => _SocialProviderConfig(
+      SocialProvider.google => const _SocialProviderConfig(
           defaultLabel: 'Continue with Google',
           backgroundColor: '#ffffff',
           foregroundColor: '#1f1f1f',
@@ -173,7 +173,7 @@ class SocialSignInButton extends StatelessComponent {
           hoverBackgroundColor: '#f8f9fa',
           buildIcon: _buildGoogleIcon,
         ),
-      SocialProvider.github => _SocialProviderConfig(
+      SocialProvider.github => const _SocialProviderConfig(
           defaultLabel: 'Continue with GitHub',
           backgroundColor: '#24292e',
           foregroundColor: '#ffffff',
@@ -181,7 +181,7 @@ class SocialSignInButton extends StatelessComponent {
           hoverBackgroundColor: '#2f363d',
           buildIcon: _buildGithubIcon,
         ),
-      SocialProvider.apple => _SocialProviderConfig(
+      SocialProvider.apple => const _SocialProviderConfig(
           defaultLabel: 'Continue with Apple',
           backgroundColor: '#000000',
           foregroundColor: '#ffffff',
@@ -189,7 +189,7 @@ class SocialSignInButton extends StatelessComponent {
           hoverBackgroundColor: '#1a1a1a',
           buildIcon: _buildAppleIcon,
         ),
-      SocialProvider.microsoft => _SocialProviderConfig(
+      SocialProvider.microsoft => const _SocialProviderConfig(
           defaultLabel: 'Continue with Microsoft',
           backgroundColor: '#2f2f2f',
           foregroundColor: '#ffffff',
@@ -197,7 +197,7 @@ class SocialSignInButton extends StatelessComponent {
           hoverBackgroundColor: '#3f3f3f',
           buildIcon: _buildMicrosoftIcon,
         ),
-      SocialProvider.discord => _SocialProviderConfig(
+      SocialProvider.discord => const _SocialProviderConfig(
           defaultLabel: 'Continue with Discord',
           backgroundColor: '#5865F2',
           foregroundColor: '#ffffff',
@@ -205,7 +205,7 @@ class SocialSignInButton extends StatelessComponent {
           hoverBackgroundColor: '#4752c4',
           buildIcon: _buildDiscordIcon,
         ),
-      SocialProvider.twitter => _SocialProviderConfig(
+      SocialProvider.twitter => const _SocialProviderConfig(
           defaultLabel: 'Continue with X',
           backgroundColor: '#000000',
           foregroundColor: '#ffffff',
@@ -213,7 +213,7 @@ class SocialSignInButton extends StatelessComponent {
           hoverBackgroundColor: '#1a1a1a',
           buildIcon: _buildTwitterIcon,
         ),
-      SocialProvider.facebook => _SocialProviderConfig(
+      SocialProvider.facebook => const _SocialProviderConfig(
           defaultLabel: 'Continue with Facebook',
           backgroundColor: '#1877F2',
           foregroundColor: '#ffffff',
@@ -221,7 +221,7 @@ class SocialSignInButton extends StatelessComponent {
           hoverBackgroundColor: '#166fe5',
           buildIcon: _buildFacebookIcon,
         ),
-      SocialProvider.linkedin => _SocialProviderConfig(
+      SocialProvider.linkedin => const _SocialProviderConfig(
           defaultLabel: 'Continue with LinkedIn',
           backgroundColor: '#0A66C2',
           foregroundColor: '#ffffff',
@@ -229,7 +229,7 @@ class SocialSignInButton extends StatelessComponent {
           hoverBackgroundColor: '#004182',
           buildIcon: _buildLinkedInIcon,
         ),
-      SocialProvider.slack => _SocialProviderConfig(
+      SocialProvider.slack => const _SocialProviderConfig(
           defaultLabel: 'Continue with Slack',
           backgroundColor: '#4A154B',
           foregroundColor: '#ffffff',
@@ -237,7 +237,7 @@ class SocialSignInButton extends StatelessComponent {
           hoverBackgroundColor: '#611f64',
           buildIcon: _buildSlackIcon,
         ),
-      SocialProvider.gitlab => _SocialProviderConfig(
+      SocialProvider.gitlab => const _SocialProviderConfig(
           defaultLabel: 'Continue with GitLab',
           backgroundColor: '#FC6D26',
           foregroundColor: '#ffffff',

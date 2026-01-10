@@ -47,11 +47,11 @@ class CodexBreadcrumbs extends StatelessComponent {
 
     final List<Component> children = [
       if (index == 0 && props.showHomeIcon)
-        dom.span(
-          styles: const dom.Styles(raw: {
+        const dom.span(
+          styles: dom.Styles(raw: {
             'margin-right': '0.375rem',
           }),
-          [const Component.text('\u{1F3E0}')], // Home icon
+          [Component.text('\u{1F3E0}')], // Home icon
         )
       else if (item.icon != null) ...[
         item.icon!,

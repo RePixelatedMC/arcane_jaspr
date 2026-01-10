@@ -206,7 +206,7 @@ class ArcaneFormattedInput extends StatefulComponent {
   static final List<StyleRule> styles = [
     css('.arcane-formatted-input-segment input:focus').styles(raw: {
       'border-color': 'var(--accent)',
-      'box-shadow': '0 0 0 2px hsl(var(--accent) / 0.2)',
+      'box-shadow': '0 0 0 2px color-mix(in srgb, var(--accent) 20%, transparent)',
     }),
   ];
 }

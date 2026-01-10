@@ -23,7 +23,7 @@ class CodexStatusIndicator extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'inline-flex',
         'align-items': 'center',
-        'gap': '0.5rem',
+        'gap': 'var(--arcane-space-2)',
       }),
       [
         // Dot
@@ -46,7 +46,7 @@ class CodexStatusIndicator extends StatelessComponent {
           dom.span(
             classes: 'codex-status-label',
             styles: const dom.Styles(raw: {
-              'font-size': '0.875rem',
+              'font-size': 'var(--arcane-font-size-sm)',
               'color': 'var(--foreground)',
             }),
             [Component.text(props.label!)],
@@ -102,7 +102,7 @@ class CodexSimpleStatusBadge extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'inline-flex',
         'align-items': 'center',
-        'gap': '0.5rem',
+        'gap': 'var(--arcane-space-2)',
         'padding': '0.375rem 0.75rem',
         'background-color': 'var(--secondary)',
         'border-radius': 'var(--radius-full)',
@@ -127,7 +127,7 @@ class CodexSimpleStatusBadge extends StatelessComponent {
           classes: 'codex-status-badge-label',
           styles: const dom.Styles(raw: {
             'font-size': '0.8125rem',
-            'font-weight': '500',
+            'font-weight': 'var(--arcane-font-weight-medium)',
             'color': 'var(--foreground)',
           }),
           [Component.text(props.label)],

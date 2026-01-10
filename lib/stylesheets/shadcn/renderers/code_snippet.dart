@@ -34,7 +34,7 @@ class _ShadcnCodeSnippetState extends State<ShadcnCodeSnippet> {
       classes: 'arcane-code-snippet',
       styles: const dom.Styles(raw: {
         'position': 'relative',
-        'background-color': 'hsl(var(--muted) / 0.5)',
+        'background-color': 'color-mix(in srgb, var(--muted) 50%, transparent)',
         'border': '1px solid var(--border)',
         'border-radius': 'calc(var(--radius) - 2px)',
         'overflow': 'hidden',
@@ -54,8 +54,8 @@ class _ShadcnCodeSnippetState extends State<ShadcnCodeSnippet> {
               if (component.props.title != null)
                 dom.span(
                   styles: const dom.Styles(raw: {
-                    'font-size': '0.875rem',
-                    'font-weight': '500',
+                    'font-size': 'var(--arcane-font-size-sm)',
+                    'font-weight': 'var(--arcane-font-weight-medium)',
                     'color': 'var(--muted-foreground)',
                   }),
                   [Component.text(component.props.title!)],
@@ -63,13 +63,13 @@ class _ShadcnCodeSnippetState extends State<ShadcnCodeSnippet> {
               else if (component.props.language != null)
                 dom.span(
                   styles: const dom.Styles(raw: {
-                    'font-size': '0.75rem',
-                    'font-weight': '500',
+                    'font-size': 'var(--arcane-font-size-xs)',
+                    'font-weight': 'var(--arcane-font-weight-medium)',
                     'color': 'var(--muted-foreground)',
                     'text-transform': 'uppercase',
                     'padding': '0.25rem 0.5rem',
                     'background-color': 'var(--muted)',
-                    'border-radius': '0.25rem',
+                    'border-radius': 'var(--arcane-radius-xs)',
                   }),
                   [Component.text(component.props.language!)],
                 ),
@@ -102,12 +102,12 @@ class _ShadcnCodeSnippetState extends State<ShadcnCodeSnippet> {
                   'height': '28px',
                   'padding': '0',
                   'color':
-                      _copied ? 'hsl(142 76% 36%)' : 'var(--muted-foreground)',
+                      _copied ? 'var(--success)' : 'var(--muted-foreground)',
                   'background': 'transparent',
                   'border': 'none',
-                  'border-radius': '0.25rem',
+                  'border-radius': 'var(--arcane-radius-xs)',
                   'cursor': 'pointer',
-                  'transition': 'all 150ms ease',
+                  'transition': 'all var(--arcane-transition)',
                 }),
                 events: {'click': (e) => _copyToClipboard()},
                 [
@@ -173,7 +173,7 @@ class _ShadcnCodeSnippetState extends State<ShadcnCodeSnippet> {
                 styles: dom.Styles(raw: {
                   'font-family':
                       'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
-                  'font-size': '0.875rem',
+                  'font-size': 'var(--arcane-font-size-sm)',
                   'line-height': '1.7',
                   'color': 'var(--muted-foreground)',
                   'text-align': 'right',
@@ -197,7 +197,7 @@ class _ShadcnCodeSnippetState extends State<ShadcnCodeSnippet> {
       styles: const dom.Styles(raw: {
         'font-family':
             'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
-        'font-size': '0.875rem',
+        'font-size': 'var(--arcane-font-size-sm)',
         'line-height': '1.7',
         'color': 'var(--foreground)',
         'white-space': 'pre',
@@ -225,7 +225,7 @@ class ShadcnInlineCode extends StatelessComponent {
             'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
         'font-size': '0.875em',
         'background-color': 'var(--muted)',
-        'border-radius': '0.25rem',
+        'border-radius': 'var(--arcane-radius-xs)',
         'color': 'var(--accent)',
       }),
       children: [Component.text(props.code)],
@@ -263,7 +263,7 @@ class _ShadcnTerminalState extends State<ShadcnTerminal> {
       classes: 'arcane-terminal',
       styles: const dom.Styles(raw: {
         'position': 'relative',
-        'background-color': 'hsl(var(--muted) / 0.5)',
+        'background-color': 'color-mix(in srgb, var(--muted) 50%, transparent)',
         'border': '1px solid var(--border)',
         'border-radius': 'calc(var(--radius) - 2px)',
         'overflow': 'hidden',
@@ -275,7 +275,7 @@ class _ShadcnTerminalState extends State<ShadcnTerminal> {
           styles: const dom.Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
-            'gap': '1rem',
+            'gap': 'var(--arcane-space-4)',
             'padding': '0.5rem 1rem',
             'background-color': 'var(--muted)',
             'border-bottom': '1px solid var(--border)',
@@ -284,18 +284,18 @@ class _ShadcnTerminalState extends State<ShadcnTerminal> {
             dom.div(
               styles: const dom.Styles(raw: {
                 'display': 'flex',
-                'gap': '0.5rem',
+                'gap': 'var(--arcane-space-2)',
               }),
               [
                 _windowDot('var(--destructive)'),
-                _windowDot('hsl(38 92% 50%)'),
-                _windowDot('hsl(142 76% 36%)'),
+                _windowDot('var(--warning)'),
+                _windowDot('var(--success)'),
               ],
             ),
             if (component.props.title != null)
               dom.span(
                 styles: const dom.Styles(raw: {
-                  'font-size': '0.875rem',
+                  'font-size': 'var(--arcane-font-size-sm)',
                   'color': 'var(--muted-foreground)',
                   'flex': '1',
                 }),
@@ -330,12 +330,12 @@ class _ShadcnTerminalState extends State<ShadcnTerminal> {
                   'height': '28px',
                   'padding': '0',
                   'color':
-                      _copied ? 'hsl(142 76% 36%)' : 'var(--muted-foreground)',
+                      _copied ? 'var(--success)' : 'var(--muted-foreground)',
                   'background': 'transparent',
                   'border': 'none',
-                  'border-radius': '0.25rem',
+                  'border-radius': 'var(--arcane-radius-xs)',
                   'cursor': 'pointer',
-                  'transition': 'all 150ms ease',
+                  'transition': 'all var(--arcane-transition)',
                 }),
                 events: {'click': (e) => _copyToClipboard()},
                 [
@@ -360,10 +360,10 @@ class _ShadcnTerminalState extends State<ShadcnTerminal> {
             for (final cmd in component.props.commands) ...[
               dom.span(
                 styles: const dom.Styles(raw: {
-                  'color': 'hsl(142 76% 36%)',
+                  'color': 'var(--success)',
                   'font-family':
                       'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
-                  'font-size': '0.875rem',
+                  'font-size': 'var(--arcane-font-size-sm)',
                 }),
                 [Component.text('${component.props.prompt} ')],
               ),
@@ -372,7 +372,7 @@ class _ShadcnTerminalState extends State<ShadcnTerminal> {
                   'color': 'var(--foreground)',
                   'font-family':
                       'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
-                  'font-size': '0.875rem',
+                  'font-size': 'var(--arcane-font-size-sm)',
                 }),
                 [Component.text(cmd)],
               ),
@@ -389,7 +389,7 @@ class _ShadcnTerminalState extends State<ShadcnTerminal> {
       styles: dom.Styles(raw: {
         'width': '12px',
         'height': '12px',
-        'border-radius': '9999px',
+        'border-radius': 'var(--arcane-radius-full)',
         'background-color': color,
       }),
       [],

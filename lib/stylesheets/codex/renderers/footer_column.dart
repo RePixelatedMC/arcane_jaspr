@@ -20,8 +20,8 @@ Component renderFooterColumn(FooterColumnProps props) {
       dom.h4(
         styles: dom.Styles(raw: {
           'font-family': 'ui-sans-serif, system-ui, sans-serif',
-          'font-size': '0.875rem',
-          'font-weight': '600',
+          'font-size': 'var(--arcane-font-size-sm)',
+          'font-weight': 'var(--arcane-font-weight-semibold)',
           'color': effectiveTitleColor,
           'text-transform': 'uppercase',
           'letter-spacing': '0.05em',
@@ -34,11 +34,11 @@ Component renderFooterColumn(FooterColumnProps props) {
             href: link.href ?? '#',
             styles: dom.Styles(raw: {
               'display': 'block',
-              'font-size': '0.875rem',
+              'font-size': 'var(--arcane-font-size-sm)',
               'color': effectiveLinkColor,
               'text-decoration': 'none',
               'margin-bottom': effectiveLinkGap,
-              'transition': 'color 150ms ease',
+              'transition': 'color var(--arcane-transition)',
             }),
             [
               if (link.icon != null) ...[
@@ -72,7 +72,7 @@ Component renderFooterBrandColumn(FooterBrandColumnProps props) {
       if (props.description != null)
         dom.p(
           styles: dom.Styles(raw: {
-            'font-size': '0.875rem',
+            'font-size': 'var(--arcane-font-size-sm)',
             'color': 'var(--muted-foreground)',
             'line-height': '1.6',
             'margin': '0 0 1.25rem 0',

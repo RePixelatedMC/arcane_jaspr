@@ -11,11 +11,11 @@ class ShadcnStatusIndicator extends StatelessComponent {
 
   String get _color {
     return switch (props.status) {
-      StatusType.online || StatusType.success => 'hsl(142 76% 36%)',
+      StatusType.online || StatusType.success => 'var(--success)',
       StatusType.offline => 'var(--muted-foreground)',
       StatusType.busy || StatusType.error => 'var(--destructive)',
-      StatusType.away || StatusType.warning => 'hsl(38 92% 50%)',
-      StatusType.info => 'hsl(199 89% 48%)',
+      StatusType.away || StatusType.warning => 'var(--warning)',
+      StatusType.info => 'var(--info)',
     };
   }
 
@@ -34,7 +34,7 @@ class ShadcnStatusIndicator extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'inline-flex',
         'align-items': 'center',
-        'gap': '0.5rem',
+        'gap': 'var(--arcane-space-2)',
       }),
       [
         // Dot
@@ -44,7 +44,7 @@ class ShadcnStatusIndicator extends StatelessComponent {
             'position': 'relative',
             'width': effectiveSize,
             'height': effectiveSize,
-            'border-radius': '9999px',
+            'border-radius': 'var(--arcane-radius-full)',
             'background': color,
             'flex-shrink': '0',
           }),
@@ -55,7 +55,7 @@ class ShadcnStatusIndicator extends StatelessComponent {
                 styles: dom.Styles(raw: {
                   'position': 'absolute',
                   'inset': '-2px',
-                  'border-radius': '9999px',
+                  'border-radius': 'var(--arcane-radius-full)',
                   'background': color,
                   'opacity': '0.4',
                   'animation': 'arcane-pulse 2s infinite',
@@ -68,7 +68,7 @@ class ShadcnStatusIndicator extends StatelessComponent {
         if (props.label != null)
           dom.span(
             styles: const dom.Styles(raw: {
-              'font-size': '0.875rem',
+              'font-size': 'var(--arcane-font-size-sm)',
               'color': 'var(--muted-foreground)',
             }),
             [Component.text(props.label!)],
@@ -87,13 +87,13 @@ class ShadcnStatusBadge extends StatelessComponent {
   (String, String) get _colors {
     return switch (props.status) {
       StatusType.online || StatusType.success =>
-        ('hsl(142 76% 36%)', 'hsl(142 76% 36% / 0.15)'),
+        ('var(--success)', 'color-mix(in srgb, var(--success) 15%, transparent)'),
       StatusType.offline => ('var(--muted-foreground)', 'var(--muted)'),
       StatusType.busy || StatusType.error =>
-        ('var(--destructive)', 'hsl(var(--destructive) / 0.15)'),
+        ('var(--destructive)', 'color-mix(in srgb, var(--destructive) 15%, transparent)'),
       StatusType.away || StatusType.warning =>
-        ('hsl(38 92% 50%)', 'hsl(38 92% 50% / 0.15)'),
-      StatusType.info => ('hsl(199 89% 48%)', 'hsl(199 89% 48% / 0.15)'),
+        ('var(--warning)', 'color-mix(in srgb, var(--warning) 15%, transparent)'),
+      StatusType.info => ('var(--info)', 'color-mix(in srgb, var(--info) 15%, transparent)'),
     };
   }
 
@@ -111,8 +111,8 @@ class ShadcnStatusBadge extends StatelessComponent {
         'border-radius': 'var(--radius)',
         'background': bgColor,
         'color': color,
-        'font-size': '0.75rem',
-        'font-weight': '500',
+        'font-size': 'var(--arcane-font-size-xs)',
+        'font-weight': 'var(--arcane-font-weight-medium)',
         'line-height': '1',
       }),
       [
@@ -120,7 +120,7 @@ class ShadcnStatusBadge extends StatelessComponent {
           styles: dom.Styles(raw: {
             'width': '6px',
             'height': '6px',
-            'border-radius': '9999px',
+            'border-radius': 'var(--arcane-radius-full)',
             'background': color,
           }),
           [],

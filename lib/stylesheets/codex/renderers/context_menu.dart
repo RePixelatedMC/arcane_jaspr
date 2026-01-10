@@ -70,8 +70,8 @@ class CodexContextMenu extends StatelessComponent {
           'padding': '8px 12px',
           'border-radius': 'var(--radius)',
           'cursor': item.disabled ? 'not-allowed' : 'default',
-          'transition': 'color 150ms ease, background-color 150ms ease',
-          'font-size': '0.875rem',
+          'transition': 'color var(--arcane-transition), background-color var(--arcane-transition)',
+          'font-size': 'var(--arcane-font-size-sm)',
           'user-select': 'none',
           'outline': 'none',
           if (item.disabled) 'pointer-events': 'none',
@@ -91,7 +91,7 @@ class CodexContextMenu extends StatelessComponent {
           const dom.span(
             styles: dom.Styles(raw: {
               'color': 'var(--muted-foreground)',
-              'font-size': '0.75rem',
+              'font-size': 'var(--arcane-font-size-xs)',
             }),
             [Component.text('\u{203A}')],
           ),
@@ -131,8 +131,8 @@ class CodexContextMenu extends StatelessComponent {
         'padding': '8px 12px',
         'border-radius': 'var(--radius)',
         'cursor': item.disabled ? 'not-allowed' : 'default',
-        'transition': 'color 150ms ease, background-color 150ms ease',
-        'font-size': '0.875rem',
+        'transition': 'color var(--arcane-transition), background-color var(--arcane-transition)',
+        'font-size': 'var(--arcane-font-size-sm)',
         'user-select': 'none',
         'outline': 'none',
         if (item.disabled) 'pointer-events': 'none',
@@ -156,7 +156,7 @@ class CodexContextMenu extends StatelessComponent {
           dom.span(
             styles: const dom.Styles(raw: {
               'margin-left': 'auto',
-              'font-size': '0.75rem',
+              'font-size': 'var(--arcane-font-size-xs)',
               'letter-spacing': '0.1em',
               'color': 'var(--muted-foreground)',
             }),

@@ -30,7 +30,7 @@ class ShadcnHeroSection extends StatelessComponent {
             'display': 'flex',
             'flex-direction': 'column',
             'align-items': props.centered ? 'center' : 'flex-start',
-            'gap': '1.5rem',
+            'gap': 'var(--arcane-space-6)',
           }),
           [
             // Badge
@@ -57,7 +57,7 @@ class ShadcnHeroSection extends StatelessComponent {
                 styles: dom.Styles(raw: {
                   'display': 'flex',
                   'flex-wrap': 'wrap',
-                  'gap': '0.5rem',
+                  'gap': 'var(--arcane-space-2)',
                   'margin-top': '0.5rem',
                   if (props.centered) 'justify-content': 'center',
                 }),

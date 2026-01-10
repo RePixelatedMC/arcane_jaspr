@@ -11,7 +11,7 @@ class ShadcnRatingStars extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final filledColor = props.filledColor ?? 'hsl(38 92% 50%)'; // Gold/amber
+    final filledColor = props.filledColor ?? 'var(--warning)'; // Gold/amber
     final emptyColor = props.emptyColor ?? 'var(--muted)';
 
     return dom.div(
@@ -32,8 +32,8 @@ class ShadcnRatingStars extends StatelessComponent {
             styles: const dom.Styles(raw: {
               'margin-left': '0.5rem',
               'color': 'var(--foreground)',
-              'font-weight': '500',
-              'font-size': '0.875rem',
+              'font-weight': 'var(--arcane-font-weight-medium)',
+              'font-size': 'var(--arcane-font-size-sm)',
             }),
             [Component.text(props.rating.toStringAsFixed(1))],
           ),
@@ -62,7 +62,7 @@ class ShadcnRatingStars extends StatelessComponent {
         'color': color,
         'line-height': '1',
         if (opacity < 1.0) 'opacity': opacity.toString(),
-        'transition': 'color 150ms ease',
+        'transition': 'color var(--arcane-transition)',
       }),
       [const Component.text('\u2605')], // Filled star character
     );

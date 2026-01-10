@@ -20,6 +20,7 @@ class ArcaneStyleData {
   final Position? position;
   final Visibility? visibility;
   final ZIndex? zIndex;
+  final String? zIndexCustom;
   final Overflow? overflow;
   final OverflowAxis? overflowX;
   final OverflowAxis? overflowY;
@@ -144,6 +145,7 @@ class ArcaneStyleData {
     this.position,
     this.visibility,
     this.zIndex,
+    this.zIndexCustom,
     this.overflow,
     this.overflowX,
     this.overflowY,
@@ -262,6 +264,7 @@ class ArcaneStyleData {
     if (position != null) css['position'] = position!.css;
     if (visibility != null) css['visibility'] = visibility!.css;
     if (zIndex != null) css['z-index'] = zIndex!.css;
+    if (zIndexCustom != null) css['z-index'] = zIndexCustom!;
     if (overflow != null) css['overflow'] = overflow!.css;
     if (overflowX != null) css['overflow-x'] = overflowX!.css;
     if (overflowY != null) css['overflow-y'] = overflowY!.css;
@@ -401,6 +404,7 @@ class ArcaneStyleData {
     if (position != null) css['position'] = position!.css;
     if (visibility != null) css['visibility'] = visibility!.css;
     if (zIndex != null) css['z-index'] = zIndex!.css;
+    if (zIndexCustom != null) css['z-index'] = zIndexCustom!;
     if (overflow != null) css['overflow'] = overflow!.css;
     if (overflowX != null) css['overflow-x'] = overflowX!.css;
     if (overflowY != null) css['overflow-y'] = overflowY!.css;
@@ -536,6 +540,7 @@ class ArcaneStyleData {
       position: other.position ?? position,
       visibility: other.visibility ?? visibility,
       zIndex: other.zIndex ?? zIndex,
+      zIndexCustom: other.zIndexCustom ?? zIndexCustom,
       overflow: other.overflow ?? overflow,
       overflowX: other.overflowX ?? overflowX,
       overflowY: other.overflowY ?? overflowY,
@@ -651,6 +656,7 @@ class ArcaneStyleData {
     Position? position,
     Visibility? visibility,
     ZIndex? zIndex,
+    String? zIndexCustom,
     Overflow? overflow,
     OverflowAxis? overflowX,
     OverflowAxis? overflowY,
@@ -763,6 +769,7 @@ class ArcaneStyleData {
       position: position ?? this.position,
       visibility: visibility ?? this.visibility,
       zIndex: zIndex ?? this.zIndex,
+      zIndexCustom: zIndexCustom ?? this.zIndexCustom,
       overflow: overflow ?? this.overflow,
       overflowX: overflowX ?? this.overflowX,
       overflowY: overflowY ?? this.overflowY,

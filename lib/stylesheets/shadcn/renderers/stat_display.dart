@@ -23,14 +23,14 @@ class ShadcnStatDisplay extends StatelessComponent {
         styles: dom.Styles(raw: {
           'display': 'flex',
           'align-items': 'baseline',
-          'gap': '0.5rem',
+          'gap': 'var(--arcane-space-2)',
           'text-align': effectiveAlign,
         }),
         [
           dom.span(
             styles: dom.Styles(raw: {
               'font-size': effectiveValueSize,
-              'font-weight': '700',
+              'font-weight': 'var(--arcane-font-weight-bold)',
               'color': effectiveValueColor,
             }),
             [Component.text(props.value)],
@@ -58,7 +58,7 @@ class ShadcnStatDisplay extends StatelessComponent {
         dom.div(
           styles: dom.Styles(raw: {
             'font-size': effectiveValueSize,
-            'font-weight': '700',
+            'font-weight': 'var(--arcane-font-weight-bold)',
             'color': effectiveValueColor,
             'margin-bottom': '0.25rem',
           }),

@@ -35,17 +35,17 @@ class _CodexCycleButtonState<T> extends State<CodexCycleButton<T>> {
       CycleButtonSize.small => {
           'height': '2.25rem',
           'padding': '0 1rem',
-          'font-size': '0.875rem',
+          'font-size': 'var(--arcane-font-size-sm)',
         },
       CycleButtonSize.medium => {
           'height': '2.75rem',
           'padding': '0 1.25rem',
-          'font-size': '0.875rem',
+          'font-size': 'var(--arcane-font-size-sm)',
         },
       CycleButtonSize.large => {
           'height': '3.25rem',
           'padding': '0 2.5rem',
-          'font-size': '1rem',
+          'font-size': 'var(--arcane-font-size-base)',
         },
       CycleButtonSize.icon => {
           'height': '2.75rem',
@@ -114,14 +114,14 @@ class _CodexCycleButtonState<T> extends State<CodexCycleButton<T>> {
         'display': 'inline-flex',
         'align-items': 'center',
         'justify-content': 'center',
-        'gap': '0.5rem',
+        'gap': 'var(--arcane-space-2)',
         ...sizeStyles,
-        'font-weight': '500',
+        'font-weight': 'var(--arcane-font-weight-medium)',
         'border-radius': 'var(--radius)',
         ...variantStyles,
         'cursor': props.disabled ? 'not-allowed' : 'pointer',
         'opacity': props.disabled ? '0.5' : '1',
-        'transition': 'all 150ms ease',
+        'transition': 'all var(--arcane-transition)',
         'white-space': 'nowrap',
       }),
       events: {
@@ -162,17 +162,17 @@ class CodexToggleButton extends StatelessComponent {
       CycleButtonSize.small => {
           'height': '2.25rem',
           'padding': '0 1rem',
-          'font-size': '0.875rem',
+          'font-size': 'var(--arcane-font-size-sm)',
         },
       CycleButtonSize.medium => {
           'height': '2.75rem',
           'padding': '0 1.25rem',
-          'font-size': '0.875rem',
+          'font-size': 'var(--arcane-font-size-sm)',
         },
       CycleButtonSize.large => {
           'height': '3.25rem',
           'padding': '0 2.5rem',
-          'font-size': '1rem',
+          'font-size': 'var(--arcane-font-size-base)',
         },
       CycleButtonSize.icon => {
           'height': '2.75rem',
@@ -204,9 +204,9 @@ class CodexToggleButton extends StatelessComponent {
         'display': 'inline-flex',
         'align-items': 'center',
         'justify-content': 'center',
-        'gap': '0.5rem',
+        'gap': 'var(--arcane-space-2)',
         ...sizeStyles,
-        'font-weight': '500',
+        'font-weight': 'var(--arcane-font-weight-medium)',
         'border-radius': 'var(--radius)',
         'background-color': props.value ? 'var(--codex-accent)' : 'var(--secondary)',
         'color': props.value ? '#ffffff' : 'var(--foreground)',
@@ -214,7 +214,7 @@ class CodexToggleButton extends StatelessComponent {
         if (props.value) 'box-shadow': '0 0 20px rgba(var(--codex-accent-rgb), 0.3)',
         'cursor': props.disabled ? 'not-allowed' : 'pointer',
         'opacity': props.disabled ? '0.5' : '1',
-        'transition': 'all 150ms ease',
+        'transition': 'all var(--arcane-transition)',
       }),
       events: {
         'click': (event) {

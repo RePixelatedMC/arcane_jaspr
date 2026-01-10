@@ -51,25 +51,25 @@ class ShadcnAlert extends StatelessComponent {
       AlertVariant.subtle => <String, String>{
           'background-color': bgColor,
           'border': '1px solid $borderColor',
-          'border-radius': '0.5rem', // rounded-lg
+          'border-radius': 'var(--arcane-radius-md)', // rounded-lg
         },
       AlertVariant.solid => <String, String>{
           'background-color': primary,
           'border': '1px solid transparent',
-          'border-radius': '0.5rem',
+          'border-radius': 'var(--arcane-radius-md)',
           'color': 'var(--primary-foreground)',
         },
       AlertVariant.outline => <String, String>{
           'background-color': 'var(--background)',
           'border': '1px solid $borderColor',
-          'border-radius': '0.5rem',
+          'border-radius': 'var(--arcane-radius-md)',
           'color': 'var(--foreground)',
         },
       AlertVariant.accent => <String, String>{
           'background-color': bgColor,
           'border': '1px solid $borderColor',
           'border-left': '4px solid $primary',
-          'border-radius': '0.5rem',
+          'border-radius': 'var(--arcane-radius-md)',
         },
     };
 
@@ -100,7 +100,7 @@ class ShadcnAlert extends StatelessComponent {
               'align-items': 'center',
               'justify-content': 'center',
               'color': isSolid ? 'var(--primary-foreground)' : primary,
-              'font-size': '16px',
+              'font-size': 'var(--arcane-font-size-base)',
               'margin-top': '1px',
             }),
             [props.icon ?? Component.text(_defaultIcon)],
@@ -119,7 +119,7 @@ class ShadcnAlert extends StatelessComponent {
               dom.div(
                 classes: 'arcane-alert-title',
                 styles: dom.Styles(raw: {
-                  'font-weight': '500',
+                  'font-weight': 'var(--arcane-font-weight-medium)',
                   'line-height': '1',
                   'letter-spacing': '-0.025em',
                   'color': isSolid ? 'var(--primary-foreground)' : 'var(--foreground)',
@@ -132,7 +132,7 @@ class ShadcnAlert extends StatelessComponent {
               dom.div(
                 classes: 'arcane-alert-description',
                 styles: dom.Styles(raw: {
-                  'font-size': '14px',
+                  'font-size': 'var(--arcane-font-size-sm)',
                   'line-height': '1.625',
                   'color': isSolid ? 'var(--primary-foreground)' : 'var(--muted-foreground)',
                 }),
@@ -169,10 +169,10 @@ class ShadcnAlert extends StatelessComponent {
               'background': 'transparent',
               'color': isSolid ? 'var(--primary-foreground)' : 'var(--muted-foreground)',
               'cursor': 'pointer',
-              'border-radius': '0.25rem', // rounded-sm
+              'border-radius': 'var(--arcane-radius-xs)', // rounded-sm
               'opacity': '0.7',
-              'transition': 'opacity 150ms ease',
-              'font-size': '16px',
+              'transition': 'opacity var(--arcane-transition)',
+              'font-size': 'var(--arcane-font-size-base)',
             }),
             events: {'click': (_) => props.onDismiss?.call()},
             [const Component.text('\u00D7')], // ×

@@ -127,7 +127,7 @@ class CodexCalendar extends StatelessComponent {
                 'border-radius': 'var(--radius)',
                 'cursor': 'pointer',
                 'color': 'var(--foreground)',
-                'transition': 'background-color 150ms ease',
+                'transition': 'background-color var(--arcane-transition)',
               }),
               events: props.onPreviousMonth != null
                   ? {'click': (_) => props.onPreviousMonth!()}
@@ -136,8 +136,8 @@ class CodexCalendar extends StatelessComponent {
             ),
             dom.span(
               styles: const dom.Styles(raw: {
-                'font-weight': '600',
-                'font-size': '0.875rem',
+                'font-weight': 'var(--arcane-font-weight-semibold)',
+                'font-size': 'var(--arcane-font-size-sm)',
                 'color': 'var(--foreground)',
               }),
               [Component.text('${_months[displayMonth.month - 1]} ${displayMonth.year}')],
@@ -159,7 +159,7 @@ class CodexCalendar extends StatelessComponent {
                 'border-radius': 'var(--radius)',
                 'cursor': 'pointer',
                 'color': 'var(--foreground)',
-                'transition': 'background-color 150ms ease',
+                'transition': 'background-color var(--arcane-transition)',
               }),
               events: props.onNextMonth != null
                   ? {'click': (_) => props.onNextMonth!()}
@@ -191,8 +191,8 @@ class CodexCalendar extends StatelessComponent {
                   'align-items': 'center',
                   'justify-content': 'center',
                   'height': '36px',
-                  'font-size': '0.75rem',
-                  'font-weight': '500',
+                  'font-size': 'var(--arcane-font-size-xs)',
+                  'font-weight': 'var(--arcane-font-weight-medium)',
                   'color': 'var(--muted-foreground)',
                 }),
                 [Component.text(day)],
@@ -219,7 +219,7 @@ class CodexCalendar extends StatelessComponent {
                     'justify-content': 'center',
                     'width': '36px',
                     'height': '36px',
-                    'font-size': '0.75rem',
+                    'font-size': 'var(--arcane-font-size-xs)',
                     'color': 'var(--muted-foreground)',
                   }),
                   [Component.text('${_getWeekNumber(days[i])}')],
@@ -241,7 +241,7 @@ class CodexCalendar extends StatelessComponent {
               'font-size': '0.8125rem',
               'color': 'var(--muted-foreground)',
               'cursor': 'pointer',
-              'transition': 'background-color 150ms ease',
+              'transition': 'background-color var(--arcane-transition)',
               'align-self': 'center',
             }),
             events: props.onGoToToday != null
@@ -287,14 +287,14 @@ class CodexCalendar extends StatelessComponent {
             : isInRange
                 ? 'rgba(var(--codex-accent-rgb), 0.2)'
                 : 'transparent',
-        'font-size': '0.875rem',
+        'font-size': 'var(--arcane-font-size-sm)',
         'color': isSelected
             ? '#ffffff'
             : isOutside
                 ? 'var(--muted)'
                 : 'var(--foreground)',
         'cursor': isDisabled ? 'not-allowed' : 'pointer',
-        'transition': 'background-color 150ms ease, color 150ms ease',
+        'transition': 'background-color var(--arcane-transition), color var(--arcane-transition)',
         if (isDisabled) 'opacity': '0.5',
         if (isRangeStart) 'border-top-left-radius': 'var(--radius)',
         if (isRangeStart) 'border-bottom-left-radius': 'var(--radius)',

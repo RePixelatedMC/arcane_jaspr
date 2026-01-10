@@ -46,8 +46,8 @@ class CodexNumberInput extends StatelessComponent {
           span(
             classes: 'codex-number-input-label',
             styles: const Styles(raw: {
-              'font-size': '0.875rem',
-              'font-weight': '500',
+              'font-size': 'var(--arcane-font-size-sm)',
+              'font-weight': 'var(--arcane-font-weight-medium)',
               'color': 'var(--foreground)',
             }),
             [Component.text(props.label!)],
@@ -89,10 +89,10 @@ class CodexNumberInput extends StatelessComponent {
                     ? 'var(--foreground)'
                     : 'var(--muted-foreground)',
                 'font-size': fontSize,
-                'font-weight': '700',
+                'font-weight': 'var(--arcane-font-weight-bold)',
                 'cursor':
                     (canDecrement && !props.disabled) ? 'pointer' : 'not-allowed',
-                'transition': 'all 150ms ease',
+                'transition': 'all var(--arcane-transition)',
                 'user-select': 'none',
               }),
               events: (canDecrement && !props.disabled)
@@ -115,12 +115,12 @@ class CodexNumberInput extends StatelessComponent {
                 'display': 'flex',
                 'align-items': 'center',
                 'justify-content': 'center',
-                'gap': '0.5rem',
+                'gap': 'var(--arcane-space-2)',
                 'min-width': '70px',
                 'padding': '0 0.75rem',
                 'background': 'var(--input)',
                 'font-size': fontSize,
-                'font-weight': '500',
+                'font-weight': 'var(--arcane-font-weight-medium)',
                 'font-variant-numeric': 'tabular-nums',
                 'color': 'var(--foreground)',
               }),
@@ -169,10 +169,10 @@ class CodexNumberInput extends StatelessComponent {
                     ? 'var(--foreground)'
                     : 'var(--muted-foreground)',
                 'font-size': fontSize,
-                'font-weight': '700',
+                'font-weight': 'var(--arcane-font-weight-bold)',
                 'cursor':
                     (canIncrement && !props.disabled) ? 'pointer' : 'not-allowed',
-                'transition': 'all 150ms ease',
+                'transition': 'all var(--arcane-transition)',
                 'user-select': 'none',
               }),
               events: (canIncrement && !props.disabled)

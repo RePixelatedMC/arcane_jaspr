@@ -26,7 +26,7 @@ class CodexLoader extends StatelessComponent {
         'height': props.size,
         'border': '${props.strokeWidth} solid var(--border)',
         'border-top-color': props.color ?? 'var(--codex-accent)',
-        'border-radius': '9999px',
+        'border-radius': 'var(--arcane-radius-full)',
         'animation': 'spin 1s linear infinite',
       }),
       [],
@@ -47,7 +47,7 @@ class CodexLoader extends StatelessComponent {
             styles: dom.Styles(raw: {
               'width': props.dotSize,
               'height': props.dotSize,
-              'border-radius': '9999px',
+              'border-radius': 'var(--arcane-radius-full)',
               'background': props.color ?? 'var(--codex-accent)',
               'animation': 'dotBounce 1.4s infinite ease-in-out both',
               'animation-delay': '${i * 0.16}s',
@@ -71,7 +71,7 @@ class CodexLoader extends StatelessComponent {
           styles: dom.Styles(raw: {
             'position': 'absolute',
             'inset': '0',
-            'border-radius': '9999px',
+            'border-radius': 'var(--arcane-radius-full)',
             'background': props.color ?? 'var(--codex-accent)',
             'opacity': '0.4',
             'animation': 'pulseGrow 1.5s infinite ease-in-out',
@@ -82,7 +82,7 @@ class CodexLoader extends StatelessComponent {
           styles: dom.Styles(raw: {
             'position': 'absolute',
             'inset': '25%',
-            'border-radius': '9999px',
+            'border-radius': 'var(--arcane-radius-full)',
             'background': props.color ?? 'var(--codex-accent)',
           }),
           [],
@@ -109,7 +109,7 @@ class CodexLoadingOverlay extends StatelessComponent {
         'flex-direction': 'column',
         'align-items': 'center',
         'justify-content': 'center',
-        'gap': '1.5rem',
+        'gap': 'var(--arcane-space-6)',
         'background': 'rgba(0, 0, 0, 0.8)',
         'backdrop-filter': 'blur(12px)',
         '-webkit-backdrop-filter': 'blur(12px)',
@@ -121,7 +121,7 @@ class CodexLoadingOverlay extends StatelessComponent {
           dom.span(
             styles: const dom.Styles(raw: {
               'color': 'var(--muted-foreground)',
-              'font-size': '1rem',
+              'font-size': 'var(--arcane-font-size-base)',
             }),
             [Component.text(props.message!)],
           ),

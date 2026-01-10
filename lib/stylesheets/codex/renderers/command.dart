@@ -32,7 +32,7 @@ class CodexCommand extends StatelessComponent {
         'justify-content': 'center',
         'padding-top': '20vh',
         'background-color': 'rgba(0, 0, 0, 0.8)',
-        'animation': 'arcane-fade-in 200ms ease',
+        'animation': 'arcane-fade-in var(--arcane-transition-slow)',
       }),
       events: {
         'click': (e) {
@@ -59,7 +59,7 @@ class CodexCommand extends StatelessComponent {
             'border-radius': 'var(--radius)',
             'box-shadow': '0 0 40px rgba(var(--codex-accent-rgb), 0.15)',
             'overflow': 'hidden',
-            'animation': 'arcane-scale-in 200ms ease',
+            'animation': 'arcane-scale-in var(--arcane-transition-slow)',
           }),
           [
             // Search input
@@ -75,7 +75,7 @@ class CodexCommand extends StatelessComponent {
                 const dom.span(
                   styles: dom.Styles(raw: {
                     'color': 'var(--muted-foreground)',
-                    'font-size': '1.125rem',
+                    'font-size': 'var(--arcane-font-size-lg)',
                   }),
                   [Component.text('\u{1F50D}')],
                 ),
@@ -124,7 +124,7 @@ class CodexCommand extends StatelessComponent {
                       'padding': '24px',
                       'text-align': 'center',
                       'color': 'var(--muted-foreground)',
-                      'font-size': '0.875rem',
+                      'font-size': 'var(--arcane-font-size-sm)',
                     }),
                     [Component.text(props.emptyMessage)],
                   )
@@ -134,8 +134,8 @@ class CodexCommand extends StatelessComponent {
                       dom.div(
                         styles: const dom.Styles(raw: {
                           'padding': '10px 14px',
-                          'font-size': '0.75rem',
-                          'font-weight': '600',
+                          'font-size': 'var(--arcane-font-size-xs)',
+                          'font-weight': 'var(--arcane-font-weight-semibold)',
                           'color': 'var(--muted-foreground)',
                           'text-transform': 'uppercase',
                           'letter-spacing': '0.05em',
@@ -157,7 +157,7 @@ class CodexCommand extends StatelessComponent {
                 'gap': '20px',
                 'padding': '10px 16px',
                 'border-top': '1px solid var(--border)',
-                'font-size': '0.75rem',
+                'font-size': 'var(--arcane-font-size-xs)',
                 'color': 'var(--muted-foreground)',
               }),
               [
@@ -187,7 +187,7 @@ class CodexCommand extends StatelessComponent {
         'padding': '10px 14px',
         'border-radius': 'var(--radius)',
         'cursor': item.disabled ? 'not-allowed' : 'pointer',
-        'transition': 'background-color 150ms ease',
+        'transition': 'background-color var(--arcane-transition)',
         if (item.disabled) 'opacity': '0.5',
       }),
       events: {
@@ -199,7 +199,7 @@ class CodexCommand extends StatelessComponent {
         dom.span(
           styles: const dom.Styles(raw: {
             'flex': '1',
-            'font-size': '0.875rem',
+            'font-size': 'var(--arcane-font-size-sm)',
             'color': 'var(--foreground)',
           }),
           [Component.text(item.label)],
@@ -207,7 +207,7 @@ class CodexCommand extends StatelessComponent {
         if (item.shortcut != null)
           dom.span(
             styles: const dom.Styles(raw: {
-              'font-size': '0.75rem',
+              'font-size': 'var(--arcane-font-size-xs)',
               'color': 'var(--muted-foreground)',
               'padding': '4px 8px',
               'background-color': 'var(--secondary)',

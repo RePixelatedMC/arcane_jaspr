@@ -36,8 +36,8 @@ class CodexOtpInput extends StatelessComponent {
         if (props.label != null)
           dom.span(
             styles: const dom.Styles(raw: {
-              'font-size': '0.875rem',
-              'font-weight': '500',
+              'font-size': 'var(--arcane-font-size-sm)',
+              'font-weight': 'var(--arcane-font-weight-medium)',
               'color': 'var(--foreground)',
             }),
             [Component.text(props.label!)],
@@ -58,7 +58,7 @@ class CodexOtpInput extends StatelessComponent {
                 dom.span(
                   styles: const dom.Styles(raw: {
                     'color': 'var(--muted-foreground)',
-                    'font-size': '1.125rem',
+                    'font-size': 'var(--arcane-font-size-lg)',
                     'margin': '0 6px',
                   }),
                   [Component.text(props.separator!)],
@@ -86,12 +86,12 @@ class CodexOtpInput extends StatelessComponent {
                   'height': size,
                   'font-size': fontSize,
                   'text-align': 'center',
-                  'font-weight': '600',
+                  'font-weight': 'var(--arcane-font-weight-semibold)',
                   'color': 'var(--foreground)',
                   'background-color': 'var(--input)',
                   'border': '2px solid ${hasError ? 'var(--destructive)' : 'var(--border)'}',
                   'border-radius': 'var(--radius)',
-                  'transition': 'border-color 150ms ease, box-shadow 150ms ease',
+                  'transition': 'border-color var(--arcane-transition), box-shadow var(--arcane-transition)',
                   'caret-color': 'transparent',
                   if (props.disabled) 'opacity': '0.5',
                   if (props.disabled) 'cursor': 'not-allowed',
@@ -113,7 +113,7 @@ class CodexOtpInput extends StatelessComponent {
         if (hasError)
           dom.span(
             styles: const dom.Styles(raw: {
-              'font-size': '0.875rem',
+              'font-size': 'var(--arcane-font-size-sm)',
               'color': 'var(--destructive)',
             }),
             [Component.text(props.error!)],

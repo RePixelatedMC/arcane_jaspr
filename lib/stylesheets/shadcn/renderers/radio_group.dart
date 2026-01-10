@@ -32,7 +32,7 @@ class ShadcnRadioGroup<T> extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': '0.5rem', // ShadCN: space-y-2
+        'gap': 'var(--arcane-space-2)', // ShadCN: space-y-2
       }),
       [
         // Label - ShadCN: text-sm font-medium
@@ -42,8 +42,8 @@ class ShadcnRadioGroup<T> extends StatelessComponent {
             id: '${groupName}_label',
             styles: const dom.Styles(raw: {
               // ShadCN: text-sm font-medium
-              'font-size': '0.875rem',
-              'font-weight': '500',
+              'font-size': 'var(--arcane-font-size-sm)',
+              'font-weight': 'var(--arcane-font-weight-medium)',
               'color': 'var(--foreground)',
             }),
             children: [
@@ -82,7 +82,7 @@ class ShadcnRadioGroup<T> extends StatelessComponent {
           dom.span(
             styles: const dom.Styles(raw: {
               // ShadCN: text-sm text-destructive
-              'font-size': '0.875rem',
+              'font-size': 'var(--arcane-font-size-sm)',
               'color': 'var(--destructive)',
             }),
             [Component.text(props.error!)],
@@ -91,7 +91,7 @@ class ShadcnRadioGroup<T> extends StatelessComponent {
           dom.span(
             styles: const dom.Styles(raw: {
               // ShadCN: text-sm text-muted-foreground
-              'font-size': '0.875rem',
+              'font-size': 'var(--arcane-font-size-sm)',
               'color': 'var(--muted-foreground)',
             }),
             [Component.text(props.helperText!)],
@@ -130,7 +130,7 @@ class ShadcnRadioGroup<T> extends StatelessComponent {
       styles: dom.Styles(raw: {
         'display': 'flex',
         'align-items': option.description != null ? 'flex-start' : 'center',
-        'gap': '0.5rem',
+        'gap': 'var(--arcane-space-2)',
         'cursor': isDisabled ? 'not-allowed' : 'pointer',
         // ShadCN: disabled:opacity-50 disabled:cursor-not-allowed
         'opacity': isDisabled ? '0.5' : '1',
@@ -170,7 +170,7 @@ class ShadcnRadioGroup<T> extends StatelessComponent {
             'width': '16px',
             'height': '16px',
             // ShadCN: rounded-full
-            'border-radius': '9999px',
+            'border-radius': 'var(--arcane-radius-full)',
             // ShadCN: border border-primary
             'border': hasError
                 ? '1px solid var(--destructive)'
@@ -179,7 +179,7 @@ class ShadcnRadioGroup<T> extends StatelessComponent {
             'flex-shrink': '0',
             // ShadCN: transition-colors
             'transition':
-                'color 150ms ease, background-color 150ms ease, border-color 150ms ease',
+                'color var(--arcane-transition), background-color var(--arcane-transition), border-color var(--arcane-transition)',
           }),
           [
             // Inner dot when selected - ShadCN: h-2.5 w-2.5 (10px), bg-primary
@@ -190,7 +190,7 @@ class ShadcnRadioGroup<T> extends StatelessComponent {
                   'width': '10px',
                   'height': '10px',
                   // ShadCN: rounded-full
-                  'border-radius': '9999px',
+                  'border-radius': 'var(--arcane-radius-full)',
                   // ShadCN: bg-primary
                   'background': 'var(--primary)',
                 }),
@@ -211,15 +211,15 @@ class ShadcnRadioGroup<T> extends StatelessComponent {
               styles: const dom.Styles(raw: {
                 'display': 'flex',
                 'align-items': 'center',
-                'gap': '0.25rem',
+                'gap': 'var(--arcane-space-1)',
               }),
               [
                 if (option.icon != null) option.icon!,
                 dom.span(
                   styles: const dom.Styles(raw: {
                     // ShadCN: text-sm font-medium
-                    'font-size': '0.875rem',
-                    'font-weight': '500',
+                    'font-size': 'var(--arcane-font-size-sm)',
+                    'font-weight': 'var(--arcane-font-weight-medium)',
                     'color': 'var(--foreground)',
                     'line-height': '1',
                   }),
@@ -232,7 +232,7 @@ class ShadcnRadioGroup<T> extends StatelessComponent {
               dom.span(
                 styles: const dom.Styles(raw: {
                   // ShadCN: text-sm text-muted-foreground
-                  'font-size': '0.875rem',
+                  'font-size': 'var(--arcane-font-size-sm)',
                   'color': 'var(--muted-foreground)',
                   'margin-top': '0.25rem',
                 }),
@@ -257,9 +257,9 @@ class ShadcnRadioGroup<T> extends StatelessComponent {
       styles: dom.Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': '0.25rem',
+        'gap': 'var(--arcane-space-1)',
         'padding': '1rem',
-        'border-radius': '0.5rem',
+        'border-radius': 'var(--arcane-radius-md)',
         'border': isSelected
             ? '2px solid var(--primary)'
             : hasError
@@ -268,7 +268,7 @@ class ShadcnRadioGroup<T> extends StatelessComponent {
         'background': isSelected ? 'var(--accent)' : 'var(--card)',
         'cursor': isDisabled ? 'not-allowed' : 'pointer',
         'opacity': isDisabled ? '0.5' : '1',
-        'transition': 'border-color 150ms ease, background-color 150ms ease',
+        'transition': 'border-color var(--arcane-transition), background-color var(--arcane-transition)',
       }),
       children: [
         // Hidden input
@@ -313,7 +313,7 @@ class ShadcnRadioGroup<T> extends StatelessComponent {
               styles: dom.Styles(raw: {
                 'width': '16px',
                 'height': '16px',
-                'border-radius': '9999px',
+                'border-radius': 'var(--arcane-radius-full)',
                 'border': isSelected
                     ? '5px solid var(--primary)'
                     : '1px solid var(--border)',
@@ -327,8 +327,8 @@ class ShadcnRadioGroup<T> extends StatelessComponent {
         // Label
         dom.span(
           styles: dom.Styles(raw: {
-            'font-size': '0.875rem',
-            'font-weight': '500',
+            'font-size': 'var(--arcane-font-size-sm)',
+            'font-weight': 'var(--arcane-font-weight-medium)',
             'color': isSelected ? 'var(--primary)' : 'var(--foreground)',
           }),
           [Component.text(option.label)],
@@ -338,7 +338,7 @@ class ShadcnRadioGroup<T> extends StatelessComponent {
         if (option.description != null)
           dom.span(
             styles: const dom.Styles(raw: {
-              'font-size': '0.875rem',
+              'font-size': 'var(--arcane-font-size-sm)',
               'color': 'var(--muted-foreground)',
             }),
             [Component.text(option.description!)],
@@ -360,7 +360,7 @@ class ShadcnRadioGroup<T> extends StatelessComponent {
         'display': 'inline-flex',
         'align-items': 'center',
         'justify-content': 'center',
-        'gap': '0.25rem',
+        'gap': 'var(--arcane-space-1)',
         'padding': '0.5rem 1rem',
         'border': isSelected
             ? '1px solid var(--primary)'
@@ -368,12 +368,12 @@ class ShadcnRadioGroup<T> extends StatelessComponent {
         'background': isSelected ? 'var(--primary)' : 'var(--card)',
         'color':
             isSelected ? 'var(--primary-foreground)' : 'var(--foreground)',
-        'font-size': '0.875rem',
-        'font-weight': '500',
+        'font-size': 'var(--arcane-font-size-sm)',
+        'font-weight': 'var(--arcane-font-weight-medium)',
         'cursor': isDisabled ? 'not-allowed' : 'pointer',
         'opacity': isDisabled ? '0.5' : '1',
         'transition':
-            'color 150ms ease, background-color 150ms ease, border-color 150ms ease',
+            'color var(--arcane-transition), background-color var(--arcane-transition), border-color var(--arcane-transition)',
         // Button group - no rounded corners in middle
         'border-radius': '0',
         'margin-left': '-1px',
@@ -415,19 +415,19 @@ class ShadcnRadioGroup<T> extends StatelessComponent {
       styles: dom.Styles(raw: {
         'display': 'inline-flex',
         'align-items': 'center',
-        'gap': '0.25rem',
+        'gap': 'var(--arcane-space-1)',
         'padding': '0.25rem 1rem',
-        'border-radius': '9999px',
+        'border-radius': 'var(--arcane-radius-full)',
         'border': isSelected
             ? '1px solid var(--primary)'
             : '1px solid var(--border)',
         'background': isSelected ? 'var(--accent)' : 'var(--card)',
         'color': isSelected ? 'var(--primary)' : 'var(--foreground)',
-        'font-size': '0.875rem',
+        'font-size': 'var(--arcane-font-size-sm)',
         'cursor': isDisabled ? 'not-allowed' : 'pointer',
         'opacity': isDisabled ? '0.5' : '1',
         'transition':
-            'color 150ms ease, background-color 150ms ease, border-color 150ms ease',
+            'color var(--arcane-transition), background-color var(--arcane-transition), border-color var(--arcane-transition)',
       }),
       children: [
         dom.input(

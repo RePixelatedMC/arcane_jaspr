@@ -8,7 +8,7 @@ import '../demos/demo_registry.dart';
 import '../utils/constants.dart';
 import '../utils/docs_scripts.dart';
 
-const ArcaneStylesheet _stylesheet = CodexStylesheet();
+const ArcaneStylesheet _stylesheet = CodexStylesheet(accent: CodexAccent.purple);
 
 /// Custom documentation layout using Arcane UI components
 class ArcaneDocsLayout extends PageLayoutBase {
@@ -27,13 +27,11 @@ class ArcaneDocsLayout extends PageLayoutBase {
     yield meta(name: 'viewport', content: 'width=device-width, initial-scale=1');
 
     // Inject stylesheet base CSS (contains all CSS variables and base styles)
-    if (_stylesheet.baseCss != null) {
-      yield Component.element(
-        tag: 'style',
-        attributes: {'id': 'arcane-theme-vars'},
-        children: [RawText(_stylesheet.baseCss!)],
-      );
-    }
+    yield Component.element(
+      tag: 'style',
+      attributes: {'id': 'arcane-theme-vars'},
+      children: [RawText(_stylesheet.baseCss)],
+    );
 
     // Load external CSS (Google Fonts, etc.)
     if (_stylesheet.externalCssUrls.isNotEmpty) {
@@ -126,7 +124,10 @@ class _ThemedDocsPageState extends State<ThemedDocsPage> {
     );
 
     // Dark mode uses .dark class (defined in ShadcnStylesheet.baseCss)
-    final rootClasses = _isDark ? 'dark' : '';
+    // Also include any stylesheet-specific body class (e.g., 'codex-rainbow')
+    final themeClass = _isDark ? 'dark' : '';
+    // Hardcode 'codex-rainbow' since we're using rainbow accent
+    final rootClasses = '$themeClass codex-rainbow'.trim();
 
     // Wrap with ArcaneThemeProvider to enable context.renderers access
     return ArcaneThemeProvider(

@@ -11,23 +11,12 @@ class ShadcnGradientText extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    // Use full gradient if provided, otherwise build from start/end
-    final String backgroundGradient;
-    if (props.gradient != null) {
-      backgroundGradient = props.gradient!;
-    } else {
-      final start = props.gradientStart ?? 'var(--primary)';
-      final end = props.gradientEnd ?? 'var(--accent)';
-      final angle = props.gradientAngle ?? '135deg';
-      backgroundGradient = 'linear-gradient($angle, $start 0%, $end 100%)';
-    }
-
     return dom.span(
       classes: 'arcane-gradient-text',
       styles: dom.Styles(raw: {
         'font-size': props.fontSize,
         'font-weight': props.fontWeight,
-        'background': backgroundGradient,
+        'background': props.buildGradient(),
         '-webkit-background-clip': 'text',
         'background-clip': 'text',
         'color': 'transparent',
@@ -51,7 +40,7 @@ class ShadcnAnimatedGradientText extends StatelessComponent {
         'font-size': props.fontSize,
         'font-weight': props.fontWeight,
         'background':
-            'linear-gradient(135deg, hsl(142 76% 36%) 0%, hsl(199 89% 48%) 25%, var(--accent) 50%, var(--destructive) 75%, hsl(142 76% 36%) 100%)',
+            'linear-gradient(135deg, var(--success) 0%, var(--info) 25%, var(--accent) 50%, var(--destructive) 75%, var(--success) 100%)',
         'background-size': '200% 200%',
         '-webkit-background-clip': 'text',
         'background-clip': 'text',

@@ -40,7 +40,7 @@ class CodexAuthBrandingPanel extends StatelessComponent {
           classes: 'codex-auth-branding-tagline',
           styles: const dom.Styles(raw: {
             'font-size': '2rem',
-            'font-weight': '700',
+            'font-weight': 'var(--arcane-font-weight-bold)',
             'color': 'var(--foreground)',
             'margin': '0 0 1rem 0',
             'line-height': '1.2',
@@ -53,7 +53,7 @@ class CodexAuthBrandingPanel extends StatelessComponent {
           dom.p(
             classes: 'codex-auth-branding-description',
             styles: const dom.Styles(raw: {
-              'font-size': '1rem',
+              'font-size': 'var(--arcane-font-size-base)',
               'color': 'var(--muted-foreground)',
               'margin': '0 0 2rem 0',
               'line-height': '1.6',
@@ -85,8 +85,8 @@ class CodexAuthBrandingPanel extends StatelessComponent {
                   }),
                   [
                     // Checkmark
-                    dom.span(
-                      styles: const dom.Styles(raw: {
+                    const dom.span(
+                      styles: dom.Styles(raw: {
                         'display': 'flex',
                         'align-items': 'center',
                         'justify-content': 'center',
@@ -95,9 +95,9 @@ class CodexAuthBrandingPanel extends StatelessComponent {
                         'background-color': 'rgba(var(--codex-accent-rgb), 0.15)',
                         'color': 'var(--codex-accent)',
                         'border-radius': '50%',
-                        'font-size': '0.75rem',
+                        'font-size': 'var(--arcane-font-size-xs)',
                       }),
-                      [const Component.text('[check]')],
+                      [Component.text('[check]')],
                     ),
                     Component.text(feature),
                   ],
@@ -139,8 +139,8 @@ class CodexAuthBrandingPanel extends StatelessComponent {
                   [
                     dom.span(
                       styles: const dom.Styles(raw: {
-                        'font-size': '0.875rem',
-                        'font-weight': '600',
+                        'font-size': 'var(--arcane-font-size-sm)',
+                        'font-weight': 'var(--arcane-font-weight-semibold)',
                         'color': 'var(--foreground)',
                       }),
                       [Component.text(props.testimonialAuthor!)],

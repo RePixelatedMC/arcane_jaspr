@@ -84,7 +84,7 @@ class _ShadcnItemPickerState<T> extends State<ShadcnItemPicker<T>> {
             styles: const dom.Styles(raw: {
               'display': 'flex',
               'flex-direction': 'column',
-              'gap': '1rem',
+              'gap': 'var(--arcane-space-4)',
             }),
             [
               if (component.props.showSearch)
@@ -105,7 +105,7 @@ class _ShadcnItemPickerState<T> extends State<ShadcnItemPicker<T>> {
                         'border-radius': 'var(--radius)',
                         'background': 'transparent',
                         'color': 'var(--foreground)',
-                        'font-size': '0.875rem',
+                        'font-size': 'var(--arcane-font-size-sm)',
                         'outline': 'none',
                       }),
                       events: {
@@ -126,7 +126,7 @@ class _ShadcnItemPickerState<T> extends State<ShadcnItemPicker<T>> {
                   'overflow-y': 'auto',
                   'display': 'flex',
                   'flex-direction': 'column',
-                  'gap': '0.25rem',
+                  'gap': 'var(--arcane-space-1)',
                 }),
                 [
                   if (filteredItems.isEmpty)
@@ -135,7 +135,7 @@ class _ShadcnItemPickerState<T> extends State<ShadcnItemPicker<T>> {
                         'padding': '1.5rem',
                         'text-align': 'center',
                         'color': 'var(--muted-foreground)',
-                        'font-size': '0.875rem',
+                        'font-size': 'var(--arcane-font-size-sm)',
                       }),
                       [Component.text('No items found')],
                     )
@@ -149,7 +149,7 @@ class _ShadcnItemPickerState<T> extends State<ShadcnItemPicker<T>> {
                     'padding': '0.5rem 1rem',
                     'background': 'var(--muted)',
                     'border-radius': 'var(--radius)',
-                    'font-size': '0.875rem',
+                    'font-size': 'var(--arcane-font-size-sm)',
                     'color': 'var(--muted-foreground)',
                   }),
                   [Component.text('${_multiSelection.length} item(s) selected')],
@@ -187,7 +187,7 @@ class _ShadcnItemPickerState<T> extends State<ShadcnItemPicker<T>> {
         'width': '100%',
         'display': 'flex',
         'align-items': 'center',
-        'gap': '0.5rem',
+        'gap': 'var(--arcane-space-2)',
         'padding': '0.5rem 0.75rem',
         'border': '1px solid ${selected ? 'var(--ring)' : 'var(--border)'}',
         'border-radius': 'var(--radius)',
@@ -195,7 +195,7 @@ class _ShadcnItemPickerState<T> extends State<ShadcnItemPicker<T>> {
         'color': selected ? 'var(--accent-foreground)' : 'var(--foreground)',
         'cursor': 'pointer',
         'text-align': 'left',
-        'transition': 'all 150ms ease',
+        'transition': 'all var(--arcane-transition)',
       }),
       events: {
         'click': (_) => _selectItem(item),
@@ -206,7 +206,7 @@ class _ShadcnItemPickerState<T> extends State<ShadcnItemPicker<T>> {
             styles: dom.Styles(raw: {
               'width': '1rem',
               'height': '1rem',
-              'border-radius': '0.25rem',
+              'border-radius': 'var(--arcane-radius-xs)',
               'border': '2px solid ${selected ? 'var(--primary)' : 'var(--border)'}',
               'background': selected ? 'var(--primary)' : 'transparent',
               'display': 'flex',
@@ -220,7 +220,7 @@ class _ShadcnItemPickerState<T> extends State<ShadcnItemPicker<T>> {
                   styles: dom.Styles(raw: {
                     'color': 'var(--primary-foreground)',
                     'font-size': '0.625rem',
-                    'font-weight': '700',
+                    'font-weight': 'var(--arcane-font-weight-bold)',
                   }),
                   [Component.text('\u2713')],
                 ),
@@ -237,7 +237,7 @@ class _ShadcnItemPickerState<T> extends State<ShadcnItemPicker<T>> {
           const dom.span(
             styles: dom.Styles(raw: {
               'color': 'var(--primary)',
-              'font-size': '1rem',
+              'font-size': 'var(--arcane-font-size-base)',
             }),
             [Component.text('\u2713')],
           ),

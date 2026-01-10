@@ -18,8 +18,8 @@ class ShadcnSection extends StatelessComponent {
             ? dom.div(
                 classes: 'arcane-section-header',
                 styles: dom.Styles(raw: {
-                  'font-size': '0.875rem',
-                  'font-weight': '600',
+                  'font-size': 'var(--arcane-font-size-sm)',
+                  'font-weight': 'var(--arcane-font-weight-semibold)',
                   'color': 'var(--muted-foreground)',
                   'text-transform': 'uppercase',
                   'letter-spacing': '0.05em',

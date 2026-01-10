@@ -70,7 +70,7 @@ class _CodexTreeViewState extends State<CodexTreeView> {
     return dom.div(
       classes: 'codex-tree-view',
       attributes: {'role': 'tree'},
-      styles: const dom.Styles(raw: {'font-size': '0.875rem'}),
+      styles: const dom.Styles(raw: {'font-size': 'var(--arcane-font-size-sm)'}),
       [
         for (final node in component.props.nodes) _buildNode(node, 0),
       ],
@@ -105,7 +105,7 @@ class _CodexTreeViewState extends State<CodexTreeView> {
             'opacity': node.disabled ? '0.5' : '1',
             'background': isSelected ? 'rgba(var(--codex-accent-rgb), 0.15)' : 'transparent',
             'border-radius': 'var(--radius-sm)',
-            'transition': 'all 150ms ease',
+            'transition': 'all var(--arcane-transition)',
             'user-select': 'none',
           }),
           events: {
@@ -130,7 +130,7 @@ class _CodexTreeViewState extends State<CodexTreeView> {
                   'font-size': '10px',
                   'color': 'var(--muted-foreground)',
                   'transform': isExpanded ? 'rotate(90deg)' : 'rotate(0deg)',
-                  'transition': 'transform 200ms ease',
+                  'transition': 'transform var(--arcane-transition-slow)',
                 }),
                 [const Component.text('\u25B6')],
               )

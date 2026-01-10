@@ -53,13 +53,13 @@ class _CodexExpanderState extends State<CodexExpander> {
           styles: const dom.Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
-            'gap': '1rem',
+            'gap': 'var(--arcane-space-4)',
             'width': '100%',
             'padding': '1.25rem 1.75rem',
             'background-color': 'var(--card)',
             'border': 'none',
             'cursor': 'pointer',
-            'transition': 'all 150ms ease',
+            'transition': 'all var(--arcane-transition)',
             'text-align': 'left',
           }),
           events: {
@@ -79,7 +79,7 @@ class _CodexExpanderState extends State<CodexExpander> {
                 classes: 'codex-expander-icon',
                 styles: dom.Styles(raw: {
                   'color': 'var(--muted-foreground)',
-                  'transition': 'transform 150ms ease',
+                  'transition': 'transform var(--arcane-transition)',
                   'transform': _isExpanded ? 'rotate(180deg)' : 'rotate(0)',
                 }),
                 [const Component.text('\u25BC')],

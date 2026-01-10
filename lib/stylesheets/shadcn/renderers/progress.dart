@@ -49,7 +49,7 @@ class ShadcnProgress extends StatelessComponent {
         'width': '100%',
         'height': height,
         'overflow': 'hidden',
-        'border-radius': '9999px', // rounded-full
+        'border-radius': 'var(--arcane-radius-full)', // rounded-full
         'background-color': trackColor,
       }),
       [
@@ -59,8 +59,8 @@ class ShadcnProgress extends StatelessComponent {
           styles: dom.Styles(raw: {
             'height': '100%',
             'background-color': indicatorColor,
-            'border-radius': '9999px',
-            'transition': 'width 200ms ease',
+            'border-radius': 'var(--arcane-radius-full)',
+            'transition': 'width var(--arcane-transition-slow)',
             if (props.indeterminate) ...{
               'width': '50%',
               'animation': 'arcane-progress-indeterminate 1.5s ease-in-out infinite',
@@ -112,7 +112,7 @@ class ShadcnCircularProgress extends StatelessComponent {
             'position': 'absolute',
             'width': '100%',
             'height': '100%',
-            'border-radius': '9999px',
+            'border-radius': 'var(--arcane-radius-full)',
             'background':
                 'conic-gradient($fillColor 0deg ${props.value * 360}deg, $trackColor ${props.value * 360}deg 360deg)',
             'mask':
@@ -134,8 +134,8 @@ class ShadcnCircularProgress extends StatelessComponent {
             if (props.showPercentage)
               dom.span(
                 styles: const dom.Styles(raw: {
-                  'font-size': '1.25rem',
-                  'font-weight': '700',
+                  'font-size': 'var(--arcane-font-size-xl)',
+                  'font-weight': 'var(--arcane-font-weight-bold)',
                   'color': 'var(--foreground)',
                 }),
                 [Component.text('$percent%')],
@@ -143,7 +143,7 @@ class ShadcnCircularProgress extends StatelessComponent {
             if (props.label != null)
               dom.span(
                 styles: const dom.Styles(raw: {
-                  'font-size': '0.875rem',
+                  'font-size': 'var(--arcane-font-size-sm)',
                   'color': 'var(--muted-foreground)',
                 }),
                 [Component.text(props.label!)],
@@ -177,7 +177,7 @@ class ShadcnLoadingSpinner extends StatelessComponent {
         'height': actualSize,
         'border': '3px solid var(--border)',
         'border-top-color': spinnerColor,
-        'border-radius': '9999px',
+        'border-radius': 'var(--arcane-radius-full)',
         'animation': 'arcane-spin 0.75s linear infinite',
       }),
       [],

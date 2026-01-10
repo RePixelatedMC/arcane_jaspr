@@ -119,7 +119,7 @@ class CodexStepper extends StatelessComponent {
                 [],
               )
             else
-              dom.div(styles: const dom.Styles(raw: {'flex': '1'}), []),
+              const dom.div(styles: dom.Styles(raw: {'flex': '1'}), []),
 
             // Step number/indicator
             dom.div(
@@ -135,7 +135,7 @@ class CodexStepper extends StatelessComponent {
                 'border': '2px solid $borderColor',
                 'color': textColor,
                 'font-size': numSize,
-                'font-weight': '600',
+                'font-weight': 'var(--arcane-font-weight-semibold)',
                 'box-shadow': glow,
                 'flex-shrink': '0',
                 'cursor': isClickable ? 'pointer' : 'default',
@@ -163,7 +163,7 @@ class CodexStepper extends StatelessComponent {
                 [],
               )
             else
-              dom.div(styles: const dom.Styles(raw: {'flex': '1'}), []),
+              const dom.div(styles: dom.Styles(raw: {'flex': '1'}), []),
           ],
         ),
 
@@ -179,7 +179,7 @@ class CodexStepper extends StatelessComponent {
               classes: 'codex-stepper-title',
               styles: dom.Styles(raw: {
                 'font-size': fontSize,
-                'font-weight': '500',
+                'font-weight': 'var(--arcane-font-weight-medium)',
                 'color': item.status == StepStatus.current
                     ? 'var(--codex-accent)'
                     : item.status == StepStatus.pending
@@ -192,7 +192,7 @@ class CodexStepper extends StatelessComponent {
               dom.div(
                 classes: 'codex-stepper-description',
                 styles: const dom.Styles(raw: {
-                  'font-size': '0.75rem',
+                  'font-size': 'var(--arcane-font-size-xs)',
                   'color': 'var(--muted-foreground)',
                   'margin-top': '0.25rem',
                   'max-width': '120px',
@@ -248,7 +248,7 @@ class CodexStepper extends StatelessComponent {
       classes: 'codex-stepper-step-vertical ${item.status.name}',
       styles: const dom.Styles(raw: {
         'display': 'flex',
-        'gap': '1rem', // Codex: larger gap
+        'gap': 'var(--arcane-space-4)', // Codex: larger gap
       }),
       [
         // Connector column
@@ -274,7 +274,7 @@ class CodexStepper extends StatelessComponent {
                 'border': '2px solid $borderColor',
                 'color': textColor,
                 'font-size': numSize,
-                'font-weight': '600',
+                'font-weight': 'var(--arcane-font-weight-semibold)',
                 'box-shadow': glow,
                 'flex-shrink': '0',
                 'cursor': isClickable ? 'pointer' : 'default',
@@ -316,7 +316,7 @@ class CodexStepper extends StatelessComponent {
               classes: 'codex-stepper-title',
               styles: dom.Styles(raw: {
                 'font-size': fontSize,
-                'font-weight': '500',
+                'font-weight': 'var(--arcane-font-weight-medium)',
                 'color': item.status == StepStatus.current
                     ? 'var(--codex-accent)'
                     : item.status == StepStatus.pending

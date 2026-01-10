@@ -153,14 +153,14 @@ class _ShadcnInputDialogState extends State<ShadcnInputDialog> {
             styles: const dom.Styles(raw: {
               'display': 'flex',
               'flex-direction': 'column',
-              'gap': '1rem',
+              'gap': 'var(--arcane-space-4)',
             }),
             [
               if (component.props.message != null)
                 dom.div(
                   styles: const dom.Styles(raw: {
                     'color': 'var(--muted-foreground)',
-                    'font-size': '0.875rem',
+                    'font-size': 'var(--arcane-font-size-sm)',
                     'line-height': '1.625',
                   }),
                   [Component.text(component.props.message!)],
@@ -170,7 +170,7 @@ class _ShadcnInputDialogState extends State<ShadcnInputDialog> {
                 styles: const dom.Styles(raw: {
                   'display': 'flex',
                   'flex-direction': 'column',
-                  'gap': '0.25rem',
+                  'gap': 'var(--arcane-space-1)',
                 }),
                 [
                   if (isMultiline)
@@ -191,7 +191,7 @@ class _ShadcnInputDialogState extends State<ShadcnInputDialog> {
                         'border-radius': 'var(--radius)',
                         'background-color': 'transparent',
                         'color': 'var(--foreground)',
-                        'font-size': '0.875rem',
+                        'font-size': 'var(--arcane-font-size-sm)',
                         'resize': 'vertical',
                         'font-family': 'inherit',
                         'outline': 'none',
@@ -246,7 +246,7 @@ class _ShadcnInputDialogState extends State<ShadcnInputDialog> {
                             'border-radius': 'var(--radius)',
                             'background-color': 'transparent',
                             'color': 'var(--foreground)',
-                            'font-size': '0.875rem',
+                            'font-size': 'var(--arcane-font-size-sm)',
                             'outline': 'none',
                             'transition': 'border-color 150ms, box-shadow 150ms',
                           }),
@@ -295,7 +295,7 @@ class _ShadcnInputDialogState extends State<ShadcnInputDialog> {
                         'border-radius': 'var(--radius)',
                         'background-color': 'transparent',
                         'color': 'var(--foreground)',
-                        'font-size': '0.875rem',
+                        'font-size': 'var(--arcane-font-size-sm)',
                         'outline': 'none',
                         'transition': 'border-color 150ms, box-shadow 150ms',
                       }),
@@ -320,10 +320,10 @@ class _ShadcnInputDialogState extends State<ShadcnInputDialog> {
                     dom.span(
                       styles: const dom.Styles(raw: {
                         'color': 'var(--destructive)',
-                        'font-size': '0.75rem',
+                        'font-size': 'var(--arcane-font-size-xs)',
                         'display': 'flex',
                         'align-items': 'center',
-                        'gap': '0.25rem',
+                        'gap': 'var(--arcane-space-1)',
                       }),
                       [Component.text(_error!)],
                     ),
@@ -331,7 +331,7 @@ class _ShadcnInputDialogState extends State<ShadcnInputDialog> {
                     const dom.span(
                       styles: dom.Styles(raw: {
                         'color': 'var(--muted-foreground)',
-                        'font-size': '0.75rem',
+                        'font-size': 'var(--arcane-font-size-xs)',
                       }),
                       [Component.text('Please use your work email address')],
                     ),

@@ -32,7 +32,7 @@ class ShadcnDialog extends StatelessComponent {
         // ShadCN: bg-black/80 (80% black overlay)
         'background-color': 'rgba(0, 0, 0, 0.8)',
         // ShadCN: animate-in fade-in-0
-        'animation': 'arcane-fade-in 200ms ease',
+        'animation': 'arcane-fade-in var(--arcane-transition-slow)',
       }),
       events: props.barrierDismissible
           ? {
@@ -56,11 +56,11 @@ class ShadcnDialog extends StatelessComponent {
             'background-color': 'var(--background)',
             'color': 'var(--foreground)',
             // ShadCN: rounded-lg (8px)
-            'border-radius': '0.5rem',
+            'border-radius': 'var(--arcane-radius-md)',
             // ShadCN: border
             'border': '1px solid var(--border)',
             // ShadCN: shadow-lg
-            'box-shadow': '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
+            'box-shadow': 'var(--arcane-shadow-lg)',
             // ShadCN: w-full max-w-lg (512px)
             'max-width': '${props.maxWidth}px',
             'width': '100%',
@@ -69,7 +69,7 @@ class ShadcnDialog extends StatelessComponent {
             'flex-direction': 'column',
             'overflow': 'hidden',
             // ShadCN: animate-in fade-in-0 zoom-in-95 duration-200
-            'animation': 'arcane-scale-in 200ms ease',
+            'animation': 'arcane-scale-in var(--arcane-transition-slow)',
           }),
           events: {
             'click': (event) => event.stopPropagation(),
@@ -94,8 +94,8 @@ class ShadcnDialog extends StatelessComponent {
                     dom.span(
                       id: 'dialog-title',
                       styles: const dom.Styles(raw: {
-                        'font-size': '1.125rem',
-                        'font-weight': '600',
+                        'font-size': 'var(--arcane-font-size-lg)',
+                        'font-weight': 'var(--arcane-font-weight-semibold)',
                         'line-height': '1',
                         'letter-spacing': '-0.025em',
                         'color': 'var(--foreground)',
@@ -123,7 +123,7 @@ class ShadcnDialog extends StatelessComponent {
                         'width': '24px',
                         'height': '24px',
                         // ShadCN: rounded-sm (4px)
-                        'border-radius': '0.25rem',
+                        'border-radius': 'var(--arcane-radius-xs)',
                         'background': 'transparent',
                         'border': 'none',
                         // ShadCN: opacity-70
@@ -131,8 +131,8 @@ class ShadcnDialog extends StatelessComponent {
                         'color': 'var(--foreground)',
                         'cursor': 'pointer',
                         // ShadCN: transition-opacity
-                        'transition': 'opacity 150ms ease',
-                        'font-size': '16px',
+                        'transition': 'opacity var(--arcane-transition)',
+                        'font-size': 'var(--arcane-font-size-base)',
                         'padding': '0',
                       }),
                       events: {
@@ -164,7 +164,7 @@ class ShadcnDialog extends StatelessComponent {
                   'flex-direction': 'row',
                   'justify-content': 'flex-end',
                   // ShadCN: space-x-2
-                  'gap': '8px',
+                  'gap': 'var(--arcane-space-2)',
                   // ShadCN: p-6 pt-0
                   'padding': '0 24px 24px 24px',
                   'flex-shrink': '0',
@@ -236,7 +236,7 @@ class ShadcnSheet extends StatelessComponent {
       'background-color': 'var(--background)',
       'color': 'var(--foreground)',
       // ShadCN: shadow-lg
-      'box-shadow': '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
+      'box-shadow': 'var(--arcane-shadow-lg)',
       'display': 'flex',
       'flex-direction': 'column',
       'overflow': 'hidden',
@@ -256,7 +256,7 @@ class ShadcnSheet extends StatelessComponent {
           'height': '100%',
           'width': sizeVal ?? '400px',
           'max-width': '100vw',
-          'animation': 'arcane-slide-left 300ms ease-in-out',
+          'animation': 'arcane-slide-left var(--arcane-transition-slower)-in-out',
         });
         break;
       case SheetPosition.left:
@@ -267,7 +267,7 @@ class ShadcnSheet extends StatelessComponent {
           'height': '100%',
           'width': sizeVal ?? '400px',
           'max-width': '100vw',
-          'animation': 'arcane-slide-right 300ms ease-in-out',
+          'animation': 'arcane-slide-right var(--arcane-transition-slower)-in-out',
         });
         break;
       case SheetPosition.bottom:
@@ -279,7 +279,7 @@ class ShadcnSheet extends StatelessComponent {
           if (sizeVal != null) 'height': sizeVal,
           'max-height': '90vh',
           'width': props.maxWidth ?? '100%',
-          'animation': 'arcane-slide-up 300ms ease-in-out',
+          'animation': 'arcane-slide-up var(--arcane-transition-slower)-in-out',
         });
         break;
       case SheetPosition.top:
@@ -289,7 +289,7 @@ class ShadcnSheet extends StatelessComponent {
           'top': '0',
           if (sizeVal != null) 'height': sizeVal,
           'max-height': '90vh',
-          'animation': 'arcane-slide-down 300ms ease-in-out',
+          'animation': 'arcane-slide-down var(--arcane-transition-slower)-in-out',
         });
         break;
     }
@@ -317,8 +317,8 @@ class ShadcnSheet extends StatelessComponent {
               // ShadCN: bg-black/80
               'background-color': 'rgba(0, 0, 0, 0.8)',
               'opacity': props.isOpen ? '1' : '0',
-              'transition': 'opacity 300ms ease',
-              'animation': 'arcane-fade-in 200ms ease',
+              'transition': 'opacity var(--arcane-transition-slower)',
+              'animation': 'arcane-fade-in var(--arcane-transition-slow)',
             }),
             events: props.closeOnBackdropClick
                 ? {'click': (_) => props.onClose?.call()}
@@ -349,7 +349,7 @@ class ShadcnSheet extends StatelessComponent {
                       'width': '36px',
                       'height': '4px',
                       'background': 'var(--muted-foreground)',
-                      'border-radius': '9999px',
+                      'border-radius': 'var(--arcane-radius-full)',
                       'opacity': '0.4',
                     }),
                     [],
@@ -382,13 +382,13 @@ class ShadcnSheet extends StatelessComponent {
                         'flex': '1',
                         'display': 'flex',
                         'flex-direction': 'column',
-                        'gap': '4px',
+                        'gap': 'var(--arcane-space-1)',
                       }),
                       [
                         dom.span(
                           styles: const dom.Styles(raw: {
-                            'font-size': '1.125rem',
-                            'font-weight': '600',
+                            'font-size': 'var(--arcane-font-size-lg)',
+                            'font-weight': 'var(--arcane-font-weight-semibold)',
                             'color': 'var(--foreground)',
                           }),
                           [Component.text(props.title!)],
@@ -396,7 +396,7 @@ class ShadcnSheet extends StatelessComponent {
                         if (props.description != null)
                           dom.span(
                             styles: const dom.Styles(raw: {
-                              'font-size': '0.875rem',
+                              'font-size': 'var(--arcane-font-size-sm)',
                               'color': 'var(--muted-foreground)',
                             }),
                             [Component.text(props.description!)],
@@ -420,9 +420,9 @@ class ShadcnSheet extends StatelessComponent {
                         'background': 'transparent',
                         'color': 'var(--muted-foreground)',
                         'cursor': 'pointer',
-                        'border-radius': '0.375rem',
-                        'font-size': '1.25rem',
-                        'transition': 'color 150ms ease, background 150ms ease',
+                        'border-radius': 'var(--arcane-radius-sm)',
+                        'font-size': 'var(--arcane-font-size-xl)',
+                        'transition': 'color var(--arcane-transition), background var(--arcane-transition)',
                         'flex-shrink': '0',
                       }),
                       events: {'click': (_) => props.onClose?.call()},

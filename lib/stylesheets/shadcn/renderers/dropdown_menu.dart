@@ -86,15 +86,15 @@ class ShadcnDropdownMenu extends StatelessComponent {
               // ShadCN: border
               'border': '1px solid var(--border)',
               // ShadCN: rounded-md (6px)
-              'border-radius': '0.375rem',
+              'border-radius': 'var(--arcane-radius-sm)',
               // ShadCN: shadow-md
-              'box-shadow': '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
+              'box-shadow': 'var(--arcane-shadow-md)',
               // ShadCN: overflow-hidden
               'overflow': 'hidden',
               // ShadCN: text-popover-foreground
               'color': 'var(--popover-foreground)',
               // Animation
-              'animation': 'arcane-dropdown-fade 150ms ease-out',
+              'animation': 'arcane-dropdown-fade var(--arcane-transition)-out',
             }),
             [
               for (final item in props.items)
@@ -123,19 +123,19 @@ class ShadcnDropdownMenu extends StatelessComponent {
       'position': 'relative',
       'display': 'flex',
       'align-items': 'center',
-      'gap': '8px',
+      'gap': 'var(--arcane-space-2)',
       // ShadCN: px-2 py-1.5
       'padding': '6px 8px',
       // ShadCN: text-sm
-      'font-size': '0.875rem',
+      'font-size': 'var(--arcane-font-size-sm)',
       'color': item.disabled ? 'var(--muted-foreground)' : 'var(--popover-foreground)',
       'text-decoration': 'none',
       // ShadCN: rounded-sm (4px)
-      'border-radius': '0.25rem',
+      'border-radius': 'var(--arcane-radius-xs)',
       // ShadCN: cursor-default (or pointer)
       'cursor': item.disabled ? 'not-allowed' : 'pointer',
       // ShadCN: transition-colors
-      'transition': 'color 150ms ease, background-color 150ms ease',
+      'transition': 'color var(--arcane-transition), background-color var(--arcane-transition)',
       'background-color': 'transparent',
       'border': 'none',
       'width': '100%',
@@ -171,7 +171,7 @@ class ShadcnDropdownMenu extends StatelessComponent {
           if (item.description != null)
             dom.span(
               styles: const dom.Styles(raw: {
-                'font-size': '0.75rem',
+                'font-size': 'var(--arcane-font-size-xs)',
                 'color': 'var(--muted-foreground)',
               }),
               [Component.text(item.description!)],

@@ -45,13 +45,13 @@ class _ShadcnNewsletterFormState extends State<ShadcnNewsletterForm> {
         styles: const dom.Styles(raw: {
           'display': 'flex',
           'align-items': 'center',
-          'gap': '0.5rem',
+          'gap': 'var(--arcane-space-2)',
           'padding': '1rem 1.5rem',
-          'background-color': 'hsl(142 76% 36% / 0.1)',
+          'background-color': 'color-mix(in srgb, var(--success) 10%, transparent)',
           'border': '1px solid var(--success)',
           'border-radius': 'var(--radius)',
           'color': 'var(--success)',
-          'font-size': '0.875rem',
+          'font-size': 'var(--arcane-font-size-sm)',
         }),
         [
           const dom.span([Component.text('\u2713')]),
@@ -72,13 +72,13 @@ class _ShadcnNewsletterFormState extends State<ShadcnNewsletterForm> {
         styles: const dom.Styles(raw: {
           'display': 'flex',
           'flex-direction': 'column',
-          'gap': '0.5rem',
+          'gap': 'var(--arcane-space-2)',
         }),
         [
           dom.div(
             styles: const dom.Styles(raw: {
               'display': 'flex',
-              'gap': '0.5rem',
+              'gap': 'var(--arcane-space-2)',
             }),
             [
               dom.input(
@@ -91,14 +91,14 @@ class _ShadcnNewsletterFormState extends State<ShadcnNewsletterForm> {
                   'flex': '1',
                   'height': inputHeight,
                   'padding': inputPadding,
-                  'font-size': '0.875rem',
+                  'font-size': 'var(--arcane-font-size-sm)',
                   'background-color': 'var(--card)',
                   'border':
                       '1px solid ${_error != null ? 'var(--destructive)' : 'var(--border)'}',
                   'border-radius': 'var(--radius)',
                   'color': 'var(--foreground)',
                   'outline': 'none',
-                  'transition': 'all 150ms ease',
+                  'transition': 'all var(--arcane-transition)',
                 }),
                 events: {
                   'input': (e) {
@@ -123,15 +123,15 @@ class _ShadcnNewsletterFormState extends State<ShadcnNewsletterForm> {
                 styles: dom.Styles(raw: {
                   'height': inputHeight,
                   'padding': buttonPadding,
-                  'font-size': '0.875rem',
-                  'font-weight': '500',
+                  'font-size': 'var(--arcane-font-size-sm)',
+                  'font-weight': 'var(--arcane-font-weight-medium)',
                   'color': 'var(--accent-foreground)',
                   'background-color': 'var(--accent)',
                   'border': 'none',
                   'border-radius': 'var(--radius)',
                   'cursor': 'pointer',
                   'white-space': 'nowrap',
-                  'transition': 'all 150ms ease',
+                  'transition': 'all var(--arcane-transition)',
                 }),
                 events: {
                   'click': (e) => _handleSubmit(),
@@ -143,7 +143,7 @@ class _ShadcnNewsletterFormState extends State<ShadcnNewsletterForm> {
             dom.span(
               [Component.text(_error!)],
               styles: const dom.Styles(raw: {
-                'font-size': '0.75rem',
+                'font-size': 'var(--arcane-font-size-xs)',
                 'color': 'var(--destructive)',
               }),
             ),
@@ -157,7 +157,7 @@ class _ShadcnNewsletterFormState extends State<ShadcnNewsletterForm> {
       styles: const dom.Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': '1rem',
+        'gap': 'var(--arcane-space-4)',
       }),
       [
         dom.input(
@@ -170,7 +170,7 @@ class _ShadcnNewsletterFormState extends State<ShadcnNewsletterForm> {
             'width': '100%',
             'height': inputHeight,
             'padding': inputPadding,
-            'font-size': '0.875rem',
+            'font-size': 'var(--arcane-font-size-sm)',
             'background-color': 'var(--card)',
             'border':
                 '1px solid ${_error != null ? 'var(--destructive)' : 'var(--border)'}',
@@ -192,7 +192,7 @@ class _ShadcnNewsletterFormState extends State<ShadcnNewsletterForm> {
           dom.span(
             [Component.text(_error!)],
             styles: const dom.Styles(raw: {
-              'font-size': '0.75rem',
+              'font-size': 'var(--arcane-font-size-xs)',
               'color': 'var(--destructive)',
               'margin-top': '-0.25rem',
             }),
@@ -205,14 +205,14 @@ class _ShadcnNewsletterFormState extends State<ShadcnNewsletterForm> {
             'width': '100%',
             'height': inputHeight,
             'padding': buttonPadding,
-            'font-size': '0.875rem',
-            'font-weight': '500',
+            'font-size': 'var(--arcane-font-size-sm)',
+            'font-weight': 'var(--arcane-font-weight-medium)',
             'color': 'var(--accent-foreground)',
             'background-color': 'var(--accent)',
             'border': 'none',
             'border-radius': 'var(--radius)',
             'cursor': 'pointer',
-            'transition': 'all 150ms ease',
+            'transition': 'all var(--arcane-transition)',
           }),
           events: {
             'click': (e) => _handleSubmit(),
@@ -278,7 +278,7 @@ class _ShadcnWaitlistFormState extends State<ShadcnWaitlistForm> {
           dom.div(
             [Component.text(component.props.successMessage)],
             styles: const dom.Styles(raw: {
-              'font-size': '1rem',
+              'font-size': 'var(--arcane-font-size-base)',
               'color': 'var(--foreground)',
             }),
           ),
@@ -291,7 +291,7 @@ class _ShadcnWaitlistFormState extends State<ShadcnWaitlistForm> {
       styles: const dom.Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': '1.5rem',
+        'gap': 'var(--arcane-space-6)',
         'padding': '2rem',
         'background-color': 'var(--card)',
         'border': '1px solid var(--border)',
@@ -302,8 +302,8 @@ class _ShadcnWaitlistFormState extends State<ShadcnWaitlistForm> {
           dom.div(
             [Component.text(component.props.title!)],
             styles: const dom.Styles(raw: {
-              'font-size': '1.125rem',
-              'font-weight': '600',
+              'font-size': 'var(--arcane-font-size-lg)',
+              'font-weight': 'var(--arcane-font-weight-semibold)',
               'color': 'var(--foreground)',
             }),
           ),
@@ -311,7 +311,7 @@ class _ShadcnWaitlistFormState extends State<ShadcnWaitlistForm> {
           dom.div(
             [Component.text(component.props.description!)],
             styles: const dom.Styles(raw: {
-              'font-size': '0.875rem',
+              'font-size': 'var(--arcane-font-size-sm)',
               'color': 'var(--muted-foreground)',
               'line-height': '1.625',
             }),
@@ -324,7 +324,7 @@ class _ShadcnWaitlistFormState extends State<ShadcnWaitlistForm> {
               'width': '100%',
               'height': '44px',
               'padding': '10px 14px',
-              'font-size': '0.875rem',
+              'font-size': 'var(--arcane-font-size-sm)',
               'background-color': 'var(--muted)',
               'border': '1px solid var(--border)',
               'border-radius': 'var(--radius)',
@@ -345,7 +345,7 @@ class _ShadcnWaitlistFormState extends State<ShadcnWaitlistForm> {
             'width': '100%',
             'height': '44px',
             'padding': '10px 14px',
-            'font-size': '0.875rem',
+            'font-size': 'var(--arcane-font-size-sm)',
             'background-color': 'var(--muted)',
             'border':
                 '1px solid ${_error != null ? 'var(--destructive)' : 'var(--border)'}',
@@ -367,7 +367,7 @@ class _ShadcnWaitlistFormState extends State<ShadcnWaitlistForm> {
           dom.span(
             [Component.text(_error!)],
             styles: const dom.Styles(raw: {
-              'font-size': '0.75rem',
+              'font-size': 'var(--arcane-font-size-xs)',
               'color': 'var(--destructive)',
             }),
           ),
@@ -377,14 +377,14 @@ class _ShadcnWaitlistFormState extends State<ShadcnWaitlistForm> {
           styles: const dom.Styles(raw: {
             'width': '100%',
             'height': '44px',
-            'font-size': '0.875rem',
-            'font-weight': '500',
+            'font-size': 'var(--arcane-font-size-sm)',
+            'font-weight': 'var(--arcane-font-weight-medium)',
             'color': 'var(--accent-foreground)',
             'background-color': 'var(--accent)',
             'border': 'none',
             'border-radius': 'var(--radius)',
             'cursor': 'pointer',
-            'transition': 'all 150ms ease',
+            'transition': 'all var(--arcane-transition)',
           }),
           events: {
             'click': (e) => _handleSubmit(),

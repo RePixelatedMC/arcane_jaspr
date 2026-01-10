@@ -73,9 +73,9 @@ class ShadcnPopover extends StatelessComponent {
               // ShadCN: border
               'border': '1px solid var(--border)',
               // ShadCN: rounded-md (6px)
-              'border-radius': '0.375rem',
+              'border-radius': 'var(--arcane-radius-sm)',
               // ShadCN: shadow-md
-              'box-shadow': '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
+              'box-shadow': 'var(--arcane-shadow-md)',
               // ShadCN: p-4
               'padding': '16px',
               // ShadCN: text-popover-foreground

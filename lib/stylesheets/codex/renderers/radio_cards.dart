@@ -49,7 +49,7 @@ class _CodexRadioCardsState<T> extends State<CodexRadioCards<T>> {
             isSelected ? 'rgba(var(--codex-accent-rgb), 0.1)' : 'var(--card)',
         'cursor': isDisabled ? 'not-allowed' : 'pointer',
         'opacity': isDisabled ? '0.5' : '1',
-        'transition': 'all 150ms ease',
+        'transition': 'all var(--arcane-transition)',
         'text-align': 'left',
         if (isSelected) 'box-shadow': '0 0 20px rgba(var(--codex-accent-rgb), 0.15)',
         if (component.props.cardWidth != null) 'width': '${component.props.cardWidth}px',
@@ -76,7 +76,7 @@ class _CodexRadioCardsState<T> extends State<CodexRadioCards<T>> {
           dom.div(
             classes: 'codex-radio-card-title',
             styles: dom.Styles(raw: {
-              'font-weight': '600',
+              'font-weight': 'var(--arcane-font-weight-semibold)',
               'color': isSelected ? 'var(--codex-accent)' : 'var(--foreground)',
               'margin-bottom': item.subtitle != null ? '0.5rem' : '0',
             }),
@@ -86,7 +86,7 @@ class _CodexRadioCardsState<T> extends State<CodexRadioCards<T>> {
           dom.div(
             classes: 'codex-radio-card-subtitle',
             styles: dom.Styles(raw: {
-              'font-size': '0.875rem',
+              'font-size': 'var(--arcane-font-size-sm)',
               'color': isSelected ? 'var(--codex-accent)' : 'var(--muted-foreground)',
             }),
             [Component.text(item.subtitle!)],
@@ -119,8 +119,8 @@ Component renderArcaneChip(ArcaneChipProps props) {
       'align-items': 'center',
       'gap': '8px',
       'padding': '8px 14px',
-      'border-radius': '9999px',
-      'font-size': '0.875rem',
+      'border-radius': 'var(--arcane-radius-full)',
+      'font-size': 'var(--arcane-font-size-sm)',
       'border': props.selected
           ? '1px solid var(--codex-accent)'
           : '1px solid var(--border)',
@@ -130,7 +130,7 @@ Component renderArcaneChip(ArcaneChipProps props) {
       'color': props.selected ? 'var(--codex-accent)' : 'var(--foreground)',
       'cursor': props.disabled ? 'not-allowed' : 'pointer',
       'opacity': props.disabled ? '0.5' : '1',
-      'transition': 'all 150ms ease',
+      'transition': 'all var(--arcane-transition)',
       if (props.selected) 'box-shadow': '0 0 15px rgba(var(--codex-accent-rgb), 0.15)',
     }),
     events: {

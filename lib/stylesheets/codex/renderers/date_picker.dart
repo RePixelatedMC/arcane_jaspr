@@ -32,15 +32,15 @@ class CodexDatePicker extends StatelessComponent {
         'position': 'relative',
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': '0.5rem',
+        'gap': 'var(--arcane-space-2)',
       }),
       [
         // Label
         if (props.label != null)
           dom.span(
             styles: const dom.Styles(raw: {
-              'font-size': '0.875rem',
-              'font-weight': '500',
+              'font-size': 'var(--arcane-font-size-sm)',
+              'font-weight': 'var(--arcane-font-weight-medium)',
               'color': 'var(--foreground)',
             }),
             [Component.text(props.label!)],
@@ -68,7 +68,7 @@ class CodexDatePicker extends StatelessComponent {
             'font-size': fontSize,
             'color': hasValue ? 'var(--foreground)' : 'var(--muted-foreground)',
             'cursor': props.disabled ? 'not-allowed' : 'pointer',
-            'transition': 'border-color 150ms ease, box-shadow 150ms ease',
+            'transition': 'border-color var(--arcane-transition), box-shadow var(--arcane-transition)',
             'text-align': 'left',
             if (props.disabled) 'opacity': '0.5',
           }),
@@ -101,7 +101,7 @@ class CodexDatePicker extends StatelessComponent {
                 styles: const dom.Styles(raw: {
                   'color': 'var(--muted-foreground)',
                   'cursor': 'pointer',
-                  'transition': 'color 150ms ease',
+                  'transition': 'color var(--arcane-transition)',
                 }),
                 events: props.onClear != null
                     ? {
@@ -135,7 +135,7 @@ class CodexDatePicker extends StatelessComponent {
         if (hasError)
           dom.span(
             styles: const dom.Styles(raw: {
-              'font-size': '0.875rem',
+              'font-size': 'var(--arcane-font-size-sm)',
               'color': 'var(--destructive)',
             }),
             [Component.text(props.error!)],

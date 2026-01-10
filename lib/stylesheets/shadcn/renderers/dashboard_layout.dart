@@ -111,8 +111,8 @@ class ShadcnDashboardLayout extends StatelessComponent {
           dom.div(
             classes: 'arcane-dashboard-nav-group-label',
             styles: const dom.Styles(raw: {
-              'font-size': '0.75rem',
-              'font-weight': '600',
+              'font-size': 'var(--arcane-font-size-xs)',
+              'font-weight': 'var(--arcane-font-weight-semibold)',
               'color': 'var(--muted-foreground)',
               'text-transform': 'uppercase',
               'letter-spacing': '0.05em',
@@ -135,18 +135,18 @@ class ShadcnDashboardLayout extends StatelessComponent {
       styles: dom.Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
-        'gap': '0.5rem',
+        'gap': 'var(--arcane-space-2)',
         'padding': '0.5rem 1rem',
         'color': isActive ? 'var(--accent)' : 'var(--muted-foreground)',
         'text-decoration': 'none',
-        'font-size': '0.875rem',
+        'font-size': 'var(--arcane-font-size-sm)',
         'font-weight': isActive ? '600' : '500',
-        'border-radius': '0.375rem',
-        'background': isActive ? 'hsl(var(--accent) / 0.1)' : 'transparent',
+        'border-radius': 'var(--arcane-radius-sm)',
+        'background': isActive ? 'color-mix(in srgb, var(--accent) 10%, transparent)' : 'transparent',
         'border': isActive
             ? '1px solid var(--accent)'
             : '1px solid transparent',
-        'transition': 'all 150ms ease',
+        'transition': 'all var(--arcane-transition)',
         'margin-bottom': '0.25rem',
       }),
       [
@@ -177,10 +177,10 @@ class ShadcnDashboardLayout extends StatelessComponent {
             styles: const dom.Styles(raw: {
               'background': 'var(--accent)',
               'color': 'var(--accent-foreground)',
-              'font-size': '0.75rem',
+              'font-size': 'var(--arcane-font-size-xs)',
               'padding': '2px 6px',
-              'border-radius': '9999px',
-              'font-weight': '500',
+              'border-radius': 'var(--arcane-radius-full)',
+              'font-weight': 'var(--arcane-font-weight-medium)',
             }),
             [Component.text(item.badge!)],
           ),

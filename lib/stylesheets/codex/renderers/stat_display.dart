@@ -29,7 +29,7 @@ class CodexStatDisplay extends StatelessComponent {
             classes: 'codex-stat-value',
             styles: dom.Styles(raw: {
               'font-size': props.valueFontSize ?? '2rem',
-              'font-weight': '700',
+              'font-weight': 'var(--arcane-font-weight-bold)',
               'color': props.valueColor ?? 'var(--foreground)',
             }),
             [Component.text(props.value)],
@@ -38,7 +38,7 @@ class CodexStatDisplay extends StatelessComponent {
             classes: 'codex-stat-label',
             styles: dom.Styles(raw: {
               'font-size': props.labelFontSize ?? '0.75rem',
-              'font-weight': '500',
+              'font-weight': 'var(--arcane-font-weight-medium)',
               'text-transform': 'uppercase',
               'letter-spacing': '0.05em',
               'color': props.labelColor ?? 'var(--muted-foreground)',
@@ -50,7 +50,7 @@ class CodexStatDisplay extends StatelessComponent {
             classes: 'codex-stat-value',
             styles: dom.Styles(raw: {
               'font-size': props.valueFontSize ?? '1.5rem',
-              'font-weight': '700',
+              'font-weight': 'var(--arcane-font-weight-bold)',
               'color': props.valueColor ?? 'var(--foreground)',
             }),
             [Component.text(props.value)],

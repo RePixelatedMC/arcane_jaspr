@@ -21,9 +21,9 @@ class CodexBadge extends StatelessComponent {
       'display': 'inline-flex',
       'align-items': 'center',
       'gap': '0.375rem', // Codex: slightly more gap
-      'border-radius': '9999px',
-      'font-size': '0.75rem',
-      'font-weight': '600',
+      'border-radius': 'var(--arcane-radius-full)',
+      'font-size': 'var(--arcane-font-size-xs)',
+      'font-weight': 'var(--arcane-font-weight-semibold)',
       'line-height': '1',
       'white-space': 'nowrap',
       'transition': 'all var(--transition)',
@@ -39,7 +39,7 @@ class CodexBadge extends StatelessComponent {
       },
       BadgeSize.large => {
         'padding': '0.375rem 1rem', // Codex: more padding
-        'font-size': '0.875rem',
+        'font-size': 'var(--arcane-font-size-sm)',
       },
     };
 

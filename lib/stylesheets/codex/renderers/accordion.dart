@@ -59,7 +59,7 @@ class CodexAccordion extends StatelessComponent {
             'background': 'transparent',
             'border': 'none',
             'font-size': '0.9375rem',
-            'font-weight': '500',
+            'font-weight': 'var(--arcane-font-weight-medium)',
             'color': isOpen ? 'var(--codex-accent)' : 'var(--foreground)',
             'text-align': 'left',
             'cursor': 'pointer',
@@ -72,7 +72,7 @@ class CodexAccordion extends StatelessComponent {
             Component.text(item.title),
             dom.span(
               styles: dom.Styles(raw: {
-                'font-size': '0.75rem',
+                'font-size': 'var(--arcane-font-size-xs)',
                 'color': isOpen ? 'var(--codex-accent)' : 'var(--muted-foreground)',
                 'transition': 'transform var(--transition)',
                 'transform': isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
@@ -93,7 +93,7 @@ class CodexAccordion extends StatelessComponent {
               item.customContent ??
                   dom.div(
                     styles: const dom.Styles(raw: {
-                      'font-size': '0.875rem',
+                      'font-size': 'var(--arcane-font-size-sm)',
                       'color': 'var(--muted-foreground)',
                       'line-height': '1.6',
                     }),

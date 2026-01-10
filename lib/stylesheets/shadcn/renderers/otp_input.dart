@@ -30,15 +30,15 @@ class ShadcnOtpInput extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': '8px',
+        'gap': 'var(--arcane-space-2)',
       }),
       [
         // Label
         if (props.label != null)
           dom.span(
             styles: const dom.Styles(raw: {
-              'font-size': '14px',
-              'font-weight': '500',
+              'font-size': 'var(--arcane-font-size-sm)',
+              'font-weight': 'var(--arcane-font-weight-medium)',
               'color': 'var(--foreground)',
             }),
             [Component.text(props.label!)],
@@ -50,7 +50,7 @@ class ShadcnOtpInput extends StatelessComponent {
           styles: const dom.Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
-            'gap': '8px',
+            'gap': 'var(--arcane-space-2)',
           }),
           [
             for (var i = 0; i < props.length; i++) ...[
@@ -87,12 +87,12 @@ class ShadcnOtpInput extends StatelessComponent {
                   'height': size,
                   'font-size': fontSize,
                   'text-align': 'center',
-                  'font-weight': '600',
+                  'font-weight': 'var(--arcane-font-weight-semibold)',
                   'color': 'var(--foreground)',
                   'background-color': 'var(--background)',
                   'border': '2px solid ${hasError ? 'var(--destructive)' : 'var(--input)'}',
-                  'border-radius': '6px',
-                  'transition': 'border-color 150ms ease, box-shadow 150ms ease',
+                  'border-radius': 'var(--arcane-radius-sm)',
+                  'transition': 'border-color var(--arcane-transition), box-shadow var(--arcane-transition)',
                   'caret-color': 'transparent',
                   if (props.disabled) 'opacity': '0.5',
                   if (props.disabled) 'cursor': 'not-allowed',
@@ -114,7 +114,7 @@ class ShadcnOtpInput extends StatelessComponent {
         if (hasError)
           dom.span(
             styles: const dom.Styles(raw: {
-              'font-size': '14px',
+              'font-size': 'var(--arcane-font-size-sm)',
               'color': 'var(--destructive)',
             }),
             [Component.text(props.error!)],

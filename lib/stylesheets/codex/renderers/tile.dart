@@ -19,7 +19,7 @@ class CodexTile extends StatelessComponent {
       styles: dom.Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
-        'gap': '1rem',
+        'gap': 'var(--arcane-space-4)',
         'padding': padding,
         'background-color': props.selected
             ? 'rgba(var(--codex-accent-rgb, 16, 185, 129), 0.1)'
@@ -27,7 +27,7 @@ class CodexTile extends StatelessComponent {
         'border-radius': 'var(--radius)',
         'cursor': isInteractive ? 'pointer' : 'default',
         'opacity': props.disabled ? '0.5' : '1',
-        'transition': 'all 150ms ease',
+        'transition': 'all var(--arcane-transition)',
       }),
       events: isInteractive ? {'click': (_) => props.onTap!()} : null,
       [
@@ -49,7 +49,7 @@ class CodexTile extends StatelessComponent {
             'min-width': '0',
             'display': 'flex',
             'flex-direction': 'column',
-            'gap': '0.25rem',
+            'gap': 'var(--arcane-space-1)',
           }),
           [
             // Title
@@ -60,7 +60,7 @@ class CodexTile extends StatelessComponent {
                 classes: 'codex-tile-title',
                 styles: dom.Styles(raw: {
                   'font-size': props.dense ? '0.875rem' : '0.9375rem',
-                  'font-weight': '500',
+                  'font-weight': 'var(--arcane-font-weight-medium)',
                   'color': props.selected ? 'var(--codex-accent, #10b981)' : 'var(--foreground)',
                   'overflow': 'hidden',
                   'text-overflow': 'ellipsis',
@@ -124,7 +124,7 @@ class CodexNavTile extends StatelessComponent {
         'border-radius': 'var(--radius)',
         'cursor': isInteractive ? 'pointer' : 'default',
         'opacity': props.disabled ? '0.5' : '1',
-        'transition': 'all 150ms ease',
+        'transition': 'all var(--arcane-transition)',
         if (props.selected) 'border-left': '3px solid var(--codex-accent, #10b981)',
       }),
       events: isInteractive ? {'click': (_) => props.onTap!()} : null,
@@ -145,7 +145,7 @@ class CodexNavTile extends StatelessComponent {
           classes: 'codex-nav-tile-label',
           styles: dom.Styles(raw: {
             'flex': '1',
-            'font-size': '0.875rem',
+            'font-size': 'var(--arcane-font-size-sm)',
             'font-weight': props.selected ? '500' : '400',
             'color': props.selected ? 'var(--codex-accent, #10b981)' : 'var(--foreground)',
           }),
@@ -158,11 +158,11 @@ class CodexNavTile extends StatelessComponent {
             classes: 'codex-nav-tile-badge',
             styles: const dom.Styles(raw: {
               'padding': '0.125rem 0.5rem',
-              'font-size': '0.75rem',
-              'font-weight': '500',
+              'font-size': 'var(--arcane-font-size-xs)',
+              'font-weight': 'var(--arcane-font-weight-medium)',
               'background-color': 'var(--codex-accent, #10b981)',
               'color': '#ffffff',
-              'border-radius': '9999px',
+              'border-radius': 'var(--arcane-radius-full)',
             }),
             [Component.text(props.badge!)],
           ),

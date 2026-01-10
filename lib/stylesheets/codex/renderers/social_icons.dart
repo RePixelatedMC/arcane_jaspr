@@ -40,8 +40,8 @@ class CodexSocialIcon extends StatelessComponent {
         if (props.showBackground) 'background': 'var(--secondary)',
         'color': iconColor,
         'font-size': 'calc(${props.size} * 0.5)',
-        'font-weight': '600',
-        'transition': 'all 150ms ease',
+        'font-weight': 'var(--arcane-font-weight-semibold)',
+        'transition': 'all var(--arcane-transition)',
         'cursor': 'pointer',
       }),
       [Component.text(_icon)],
@@ -127,8 +127,8 @@ class CodexSocialLinks extends StatelessComponent {
               'gap': '0.75rem',
               'text-decoration': 'none',
               'color': 'var(--muted-foreground)',
-              'font-size': '0.875rem',
-              'transition': 'all 150ms ease',
+              'font-size': 'var(--arcane-font-size-sm)',
+              'transition': 'all var(--arcane-transition)',
             }),
             [
               dom.span(

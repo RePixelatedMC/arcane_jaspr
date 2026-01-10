@@ -67,14 +67,14 @@ class CodexTimeline extends StatelessComponent {
           'codex-timeline-item ${item.status.name} ${isRight ? 'right' : 'left'}',
       styles: dom.Styles(raw: {
         'display': 'flex',
-        'gap': '1rem', // Codex: larger gap
+        'gap': 'var(--arcane-space-4)', // Codex: larger gap
         if (isRight) 'flex-direction': 'row-reverse',
       }),
       [
         // Connector line and dot
         dom.div(
           classes: 'codex-timeline-connector',
-          styles: dom.Styles(raw: {
+          styles: const dom.Styles(raw: {
             'display': 'flex',
             'flex-direction': 'column',
             'align-items': 'center',
@@ -98,9 +98,9 @@ class CodexTimeline extends StatelessComponent {
 
             // Line
             if (props.showConnectors && !isLast)
-              dom.div(
+              const dom.div(
                 classes: 'codex-timeline-line',
-                styles: const dom.Styles(raw: {
+                styles: dom.Styles(raw: {
                   'flex': '1',
                   'width': '2px',
                   'min-height': '2rem',
@@ -125,7 +125,7 @@ class CodexTimeline extends StatelessComponent {
               dom.div(
                 classes: 'codex-timeline-date',
                 styles: const dom.Styles(raw: {
-                  'font-size': '0.75rem',
+                  'font-size': 'var(--arcane-font-size-xs)',
                   'color': 'var(--muted-foreground)',
                   'margin-bottom': '0.25rem',
                 }),
@@ -137,7 +137,7 @@ class CodexTimeline extends StatelessComponent {
               classes: 'codex-timeline-title',
               styles: dom.Styles(raw: {
                 'font-size': fontSize,
-                'font-weight': '600',
+                'font-weight': 'var(--arcane-font-weight-semibold)',
                 'color': item.status == TimelineStatus.current
                     ? 'var(--codex-accent)'
                     : 'var(--foreground)',
@@ -170,7 +170,7 @@ class CodexTimeline extends StatelessComponent {
               dom.div(
                 classes: 'codex-timeline-description',
                 styles: const dom.Styles(raw: {
-                  'font-size': '0.875rem',
+                  'font-size': 'var(--arcane-font-size-sm)',
                   'color': 'var(--muted-foreground)',
                   'line-height': '1.6',
                   'margin-top': '0.5rem',
@@ -234,8 +234,8 @@ class CodexTimeline extends StatelessComponent {
           [
             // Left line
             if (index > 0 && props.showConnectors)
-              dom.div(
-                styles: const dom.Styles(raw: {
+              const dom.div(
+                styles: dom.Styles(raw: {
                   'flex': '1',
                   'height': '2px',
                   'background-color': 'var(--border)',
@@ -243,7 +243,7 @@ class CodexTimeline extends StatelessComponent {
                 [],
               )
             else
-              dom.div(styles: const dom.Styles(raw: {'flex': '1'}), []),
+              const dom.div(styles: dom.Styles(raw: {'flex': '1'}), []),
 
             // Dot
             dom.div(
@@ -261,8 +261,8 @@ class CodexTimeline extends StatelessComponent {
 
             // Right line
             if (!isLast && props.showConnectors)
-              dom.div(
-                styles: const dom.Styles(raw: {
+              const dom.div(
+                styles: dom.Styles(raw: {
                   'flex': '1',
                   'height': '2px',
                   'background-color': 'var(--border)',
@@ -270,7 +270,7 @@ class CodexTimeline extends StatelessComponent {
                 [],
               )
             else
-              dom.div(styles: const dom.Styles(raw: {'flex': '1'}), []),
+              const dom.div(styles: dom.Styles(raw: {'flex': '1'}), []),
           ],
         ),
 
@@ -286,7 +286,7 @@ class CodexTimeline extends StatelessComponent {
               classes: 'codex-timeline-title',
               styles: dom.Styles(raw: {
                 'font-size': fontSize,
-                'font-weight': '600',
+                'font-weight': 'var(--arcane-font-weight-semibold)',
                 'color': item.status == TimelineStatus.current
                     ? 'var(--codex-accent)'
                     : 'var(--foreground)',
@@ -296,7 +296,7 @@ class CodexTimeline extends StatelessComponent {
             if (item.date != null)
               dom.div(
                 styles: const dom.Styles(raw: {
-                  'font-size': '0.75rem',
+                  'font-size': 'var(--arcane-font-size-xs)',
                   'color': 'var(--muted-foreground)',
                   'margin-top': '0.25rem',
                 }),

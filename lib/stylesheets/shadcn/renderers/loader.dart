@@ -26,7 +26,7 @@ class ShadcnLoader extends StatelessComponent {
         'height': props.size,
         'border': '${props.strokeWidth} solid var(--border)',
         'border-top-color': props.color ?? 'var(--primary)',
-        'border-radius': '9999px',
+        'border-radius': 'var(--arcane-radius-full)',
         'animation': 'spin 1s linear infinite',
       }),
       [],
@@ -38,7 +38,7 @@ class ShadcnLoader extends StatelessComponent {
       classes: 'arcane-dots-loader',
       styles: const dom.Styles(raw: {
         'display': 'flex',
-        'gap': '4px',
+        'gap': 'var(--arcane-space-1)',
         'align-items': 'center',
       }),
       [
@@ -47,7 +47,7 @@ class ShadcnLoader extends StatelessComponent {
             styles: dom.Styles(raw: {
               'width': props.dotSize,
               'height': props.dotSize,
-              'border-radius': '9999px',
+              'border-radius': 'var(--arcane-radius-full)',
               'background': props.color ?? 'var(--primary)',
               'animation': 'dotBounce 1.4s infinite ease-in-out both',
               'animation-delay': '${i * 0.16}s',
@@ -71,7 +71,7 @@ class ShadcnLoader extends StatelessComponent {
           styles: dom.Styles(raw: {
             'position': 'absolute',
             'inset': '0',
-            'border-radius': '9999px',
+            'border-radius': 'var(--arcane-radius-full)',
             'background': props.color ?? 'var(--primary)',
             'opacity': '0.4',
             'animation': 'pulseGrow 1.5s infinite ease-in-out',
@@ -82,7 +82,7 @@ class ShadcnLoader extends StatelessComponent {
           styles: dom.Styles(raw: {
             'position': 'absolute',
             'inset': '25%',
-            'border-radius': '9999px',
+            'border-radius': 'var(--arcane-radius-full)',
             'background': props.color ?? 'var(--primary)',
           }),
           [],
@@ -121,7 +121,7 @@ class ShadcnLoadingOverlay extends StatelessComponent {
           dom.span(
             styles: const dom.Styles(raw: {
               'color': 'var(--muted-foreground)',
-              'font-size': '16px',
+              'font-size': 'var(--arcane-font-size-base)',
             }),
             [Component.text(props.message!)],
           ),

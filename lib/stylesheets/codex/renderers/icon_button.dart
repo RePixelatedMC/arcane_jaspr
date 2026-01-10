@@ -85,7 +85,7 @@ class CodexIconButton extends StatelessComponent {
         // Codex: larger radius
         'border-radius': 'var(--radius-md)', // 10px vs ShadCN 6px
         ...variantStyles,
-        'font-weight': '500',
+        'font-weight': 'var(--arcane-font-weight-medium)',
         'cursor': isDisabled ? 'not-allowed' : 'pointer',
         if (isDisabled) 'pointer-events': 'none',
         'opacity': isDisabled ? '0.5' : '1',
@@ -125,7 +125,7 @@ class CodexIconButton extends StatelessComponent {
         'height': size,
         'border': '2px solid currentColor',
         'border-right-color': 'transparent',
-        'border-radius': '9999px',
+        'border-radius': 'var(--arcane-radius-full)',
         'animation': 'arcane-spin 0.75s linear infinite',
       }),
       [],

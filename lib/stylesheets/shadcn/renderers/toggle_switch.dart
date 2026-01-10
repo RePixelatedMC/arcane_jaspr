@@ -67,7 +67,7 @@ class ShadcnToggleSwitch extends StatelessComponent {
         'padding': '${thumbOffset}px',
         'border': props.value ? 'none' : '1px solid var(--border)',
         // ShadCN: rounded-full
-        'border-radius': '9999px',
+        'border-radius': 'var(--arcane-radius-full)',
         // ShadCN: bg-input (off) / bg-primary (on)
         'background-color': props.value ? activeColor : inactiveColor,
         'cursor': props.disabled ? 'not-allowed' : 'pointer',
@@ -75,7 +75,7 @@ class ShadcnToggleSwitch extends StatelessComponent {
         'opacity': props.disabled ? '0.5' : '1',
         'pointer-events': props.disabled ? 'none' : 'auto',
         // ShadCN: transition-colors
-        'transition': 'background-color 150ms ease, border-color 150ms ease',
+        'transition': 'background-color var(--arcane-transition), border-color var(--arcane-transition)',
         'outline': 'none',
         'box-sizing': 'border-box',
       }),
@@ -98,7 +98,7 @@ class ShadcnToggleSwitch extends StatelessComponent {
             'width': '${thumbSize}px',
             'height': '${thumbSize}px',
             // ShadCN: rounded-full
-            'border-radius': '9999px',
+            'border-radius': 'var(--arcane-radius-full)',
             // ShadCN: bg-background
             'background-color': 'var(--background)',
             // ShadCN: shadow-lg
@@ -106,7 +106,7 @@ class ShadcnToggleSwitch extends StatelessComponent {
                 '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
             // ShadCN: transition-transform
             'transform': 'translateX(${thumbTranslate}px)',
-            'transition': 'transform 150ms ease',
+            'transition': 'transform var(--arcane-transition)',
             'pointer-events': 'none',
             'flex-shrink': '0',
           }),
@@ -126,8 +126,8 @@ class ShadcnToggleSwitch extends StatelessComponent {
       styles: dom.Styles(raw: {
         // ShadCN: text-sm font-medium leading-none
         // peer-disabled:cursor-not-allowed peer-disabled:opacity-70
-        'font-size': '0.875rem', // 14px
-        'font-weight': '500',
+        'font-size': 'var(--arcane-font-size-sm)', // 14px
+        'font-weight': 'var(--arcane-font-weight-medium)',
         'color': props.disabled
             ? 'var(--muted-foreground)'
             : 'var(--foreground)',
@@ -142,7 +142,7 @@ class ShadcnToggleSwitch extends StatelessComponent {
       styles: dom.Styles(raw: {
         'display': 'inline-flex',
         'align-items': 'center',
-        'gap': '0.5rem', // gap-2
+        'gap': 'var(--arcane-space-2)', // gap-2
         'cursor': props.disabled ? 'not-allowed' : 'pointer',
       }),
       events: {

@@ -391,11 +391,11 @@ class ArcaneFieldStyles {
   static final List<StyleRule> styles = [
     css('.arcane-field-textarea:focus, .arcane-field-input:focus').styles(raw: {
       'border-color': 'var(--accent)',
-      'box-shadow': '0 0 0 2px hsl(var(--accent) / 0.1)',
+      'box-shadow': '0 0 0 2px color-mix(in srgb, var(--accent) 10%, transparent)',
     }),
     css('.arcane-field-select:focus').styles(raw: {
       'border-color': 'var(--accent)',
-      'box-shadow': '0 0 0 2px hsl(var(--accent) / 0.1)',
+      'box-shadow': '0 0 0 2px color-mix(in srgb, var(--accent) 10%, transparent)',
     }),
   ];
 }

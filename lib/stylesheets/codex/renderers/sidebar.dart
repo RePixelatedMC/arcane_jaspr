@@ -75,7 +75,7 @@ class CodexSidebar extends StatelessComponent {
                   'display': 'flex',
                   'align-items': 'center',
                   'justify-content': props.isCollapsed ? 'center' : 'flex-end',
-                  'gap': '0.5rem',
+                  'gap': 'var(--arcane-space-2)',
                   'padding': '0.625rem',
                   'background': 'transparent',
                   'border': '1px solid var(--border)',
@@ -96,7 +96,7 @@ class CodexSidebar extends StatelessComponent {
                 [
                   dom.span(
                     styles: const dom.Styles(raw: {
-                      'font-size': '0.875rem',
+                      'font-size': 'var(--arcane-font-size-sm)',
                     }),
                     [
                       Component.text(
@@ -147,7 +147,7 @@ class CodexSidebarItem extends StatelessComponent {
       // Codex: larger padding
       'padding': props.collapsed ? '0.75rem' : '0.75rem 1rem',
       'border-radius': 'var(--radius-md)',
-      'font-size': '0.875rem',
+      'font-size': 'var(--arcane-font-size-sm)',
       'font-weight': props.selected ? '600' : '500',
       'text-decoration': 'none',
       'cursor': isDisabled ? 'not-allowed' : 'pointer',
@@ -193,9 +193,9 @@ class CodexSidebarItem extends StatelessComponent {
             'background-color': 'var(--codex-accent)',
             'color': '#ffffff',
             'font-size': '0.625rem',
-            'font-weight': '600',
+            'font-weight': 'var(--arcane-font-weight-semibold)',
             'padding': '0.125rem 0.375rem',
-            'border-radius': '9999px',
+            'border-radius': 'var(--arcane-radius-full)',
           }),
           [Component.text(props.badge!)],
         ),
@@ -242,7 +242,7 @@ class CodexSidebarGroup extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': '0.25rem',
+        'gap': 'var(--arcane-space-1)',
         'margin-bottom': '1rem', // Codex: more spacing between groups
       }),
       [
@@ -251,8 +251,8 @@ class CodexSidebarGroup extends StatelessComponent {
             classes: 'codex-sidebar-group-label',
             styles: const dom.Styles(raw: {
               'padding': '0.375rem 1rem',
-              'font-size': '0.75rem',
-              'font-weight': '600',
+              'font-size': 'var(--arcane-font-size-xs)',
+              'font-weight': 'var(--arcane-font-weight-semibold)',
               'text-transform': 'uppercase',
               'letter-spacing': '0.05em',
               'color': 'var(--muted-foreground)',
@@ -293,8 +293,8 @@ class CodexSidebarSubMenu extends StatelessComponent {
             'border': 'none',
             'border-radius': 'var(--radius-md)',
             'background': 'transparent',
-            'font-size': '0.875rem',
-            'font-weight': '500',
+            'font-size': 'var(--arcane-font-size-sm)',
+            'font-weight': 'var(--arcane-font-weight-medium)',
             'color': 'var(--muted-foreground)',
             'cursor': 'pointer',
             'transition': 'all var(--transition)',
@@ -325,9 +325,9 @@ class CodexSidebarSubMenu extends StatelessComponent {
                     'background-color': 'var(--codex-accent)',
                     'color': '#ffffff',
                     'font-size': '0.625rem',
-                    'font-weight': '600',
+                    'font-weight': 'var(--arcane-font-weight-semibold)',
                     'padding': '0.125rem 0.375rem',
-                    'border-radius': '9999px',
+                    'border-radius': 'var(--arcane-radius-full)',
                   }),
                   [Component.text(props.badge!)],
                 ),
@@ -367,9 +367,9 @@ class CodexSidebarSeparator extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return dom.div(
+    return const dom.div(
       classes: 'codex-sidebar-separator',
-      styles: const dom.Styles(raw: {
+      styles: dom.Styles(raw: {
         'height': '1px',
         'background-color': 'var(--border)',
         'margin': '0.75rem 0', // Codex: more margin

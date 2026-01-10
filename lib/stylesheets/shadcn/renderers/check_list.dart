@@ -37,7 +37,7 @@ class ShadcnCheckItem extends StatelessComponent {
         dom.span(
           styles: dom.Styles(raw: {
             'color': iconColor,
-            'font-weight': '600',
+            'font-weight': 'var(--arcane-font-weight-semibold)',
             'flex-shrink': '0',
             'line-height': '1.5',
           }),
@@ -98,7 +98,7 @@ class ShadcnFeatureRow extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final includedColor = props.includedColor ?? 'hsl(142 76% 36%)';
+    final includedColor = props.includedColor ?? 'var(--success)';
     final excludedColor = props.excludedColor ?? 'var(--muted-foreground)';
     final iconColor = props.included ? includedColor : excludedColor;
 
@@ -107,12 +107,12 @@ class ShadcnFeatureRow extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
-        'gap': '0.5rem',
+        'gap': 'var(--arcane-space-2)',
       }),
       [
         dom.span(
           styles: dom.Styles(raw: {
-            'font-size': '0.875rem',
+            'font-size': 'var(--arcane-font-size-sm)',
             'color': iconColor,
             'flex-shrink': '0',
           }),
@@ -120,7 +120,7 @@ class ShadcnFeatureRow extends StatelessComponent {
         ),
         dom.span(
           styles: dom.Styles(raw: {
-            'font-size': '0.875rem',
+            'font-size': 'var(--arcane-font-size-sm)',
             'color': props.included ? 'var(--foreground)' : 'var(--muted-foreground)',
           }),
           [Component.text(props.feature)],

@@ -71,7 +71,7 @@ Component _buildHandle(bool isHorizontal, int index, bool showGrip) {
       'background-color': 'var(--border)',
       'cursor': isHorizontal ? 'col-resize' : 'row-resize',
       'outline': 'none',
-      'transition': 'background-color 150ms ease',
+      'transition': 'background-color var(--arcane-transition)',
       'z-index': '10',
     }),
     [
@@ -83,7 +83,7 @@ Component _buildHandle(bool isHorizontal, int index, bool showGrip) {
             'align-items': 'center',
             'justify-content': 'center',
             'z-index': '10',
-            'border-radius': '0.25rem',
+            'border-radius': 'var(--arcane-radius-xs)',
             'border': '1px solid var(--border)',
             'background-color': 'var(--border)',
             'width': isHorizontal ? '12px' : '16px',

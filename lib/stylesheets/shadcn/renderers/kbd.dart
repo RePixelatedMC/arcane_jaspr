@@ -27,7 +27,7 @@ class ShadcnKbd extends StatelessComponent {
       'padding': padding,
       'font-size': fontSize,
       'font-family': 'var(--arcane-font-mono, ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace)',
-      'font-weight': '500',
+      'font-weight': 'var(--arcane-font-weight-medium)',
       'line-height': '1',
       'white-space': 'nowrap',
       'user-select': 'none',
@@ -66,7 +66,7 @@ class ShadcnKbd extends StatelessComponent {
         styles: const dom.Styles(raw: {
           'display': 'inline-flex',
           'align-items': 'center',
-          'gap': '4px',
+          'gap': 'var(--arcane-space-1)',
         }),
         [
           for (var i = 0; i < props.keys!.length; i++) ...[
@@ -79,7 +79,7 @@ class ShadcnKbd extends StatelessComponent {
               dom.span(
                 styles: const dom.Styles(raw: {
                   'color': 'var(--arcane-muted-foreground)',
-                  'font-size': '0.75rem',
+                  'font-size': 'var(--arcane-font-size-xs)',
                 }),
                 [Component.text(props.separator)],
               ),

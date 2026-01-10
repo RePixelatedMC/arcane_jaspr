@@ -15,7 +15,7 @@ class CodexTracker extends StatelessComponent {
     }
     return switch (level) {
       TrackerLevel.fine => 'var(--codex-accent)',
-      TrackerLevel.warning => 'hsl(38 92% 50%)',
+      TrackerLevel.warning => 'var(--warning)',
       TrackerLevel.critical => 'var(--destructive)',
       TrackerLevel.unknown => 'var(--muted)',
     };
@@ -53,7 +53,7 @@ class CodexTracker extends StatelessComponent {
               'display': 'flex',
               'align-items': 'center',
               'gap': '1.25rem',
-              'font-size': '0.75rem',
+              'font-size': 'var(--arcane-font-size-xs)',
               'color': 'var(--muted-foreground)',
             }),
             [
@@ -91,7 +91,7 @@ class CodexTracker extends StatelessComponent {
         'border-radius': 'var(--radius-xs)',
         'background': _getColor(cellData.level),
         'cursor': props.onCellTap != null ? 'pointer' : 'default',
-        'transition': 'transform 150ms ease',
+        'transition': 'transform var(--arcane-transition)',
       }),
       events: props.onCellTap != null
           ? {'click': (_) => props.onCellTap!(index, cellData)}
@@ -110,7 +110,7 @@ class CodexUptimeTracker extends StatelessComponent {
   String _getBarColor(double uptime) {
     if (uptime >= 99.9) return 'var(--codex-accent)';
     if (uptime >= 99.0) return 'var(--codex-accent-secondary)';
-    if (uptime >= 95.0) return 'hsl(38 92% 50%)';
+    if (uptime >= 95.0) return 'var(--warning)';
     return 'var(--destructive)';
   }
 
@@ -152,7 +152,7 @@ class CodexUptimeTracker extends StatelessComponent {
                   'min-height': '2px',
                   'background': _getBarColor(day.uptime),
                   'border-radius': '${props.barWidth / 2}px ${props.barWidth / 2}px 0 0',
-                  'transition': 'opacity 150ms ease',
+                  'transition': 'opacity var(--arcane-transition)',
                 }),
                 [],
               ),
@@ -170,15 +170,15 @@ class CodexUptimeTracker extends StatelessComponent {
             [
               dom.span(
                 styles: const dom.Styles(raw: {
-                  'font-size': '0.75rem',
+                  'font-size': 'var(--arcane-font-size-xs)',
                   'color': 'var(--muted-foreground)',
                 }),
                 [Component.text('${props.days.length} days')],
               ),
               dom.span(
                 styles: const dom.Styles(raw: {
-                  'font-size': '0.875rem',
-                  'font-weight': '500',
+                  'font-size': 'var(--arcane-font-size-sm)',
+                  'font-weight': 'var(--arcane-font-weight-medium)',
                   'color': 'var(--codex-accent)',
                 }),
                 [

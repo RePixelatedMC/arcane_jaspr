@@ -39,8 +39,8 @@ class CodexColorInput extends StatelessComponent {
           span(
             classes: 'codex-color-input-label',
             styles: const Styles(raw: {
-              'font-size': '0.875rem',
-              'font-weight': '500',
+              'font-size': 'var(--arcane-font-size-sm)',
+              'font-weight': 'var(--arcane-font-weight-medium)',
               'color': 'var(--foreground)',
             }),
             [Component.text(props.label!)],
@@ -177,7 +177,7 @@ class CodexColorInput extends StatelessComponent {
                     'border-radius': 'var(--radius-sm)',
                     'background': preset,
                     'cursor': props.disabled ? 'not-allowed' : 'pointer',
-                    'transition': 'all 150ms ease',
+                    'transition': 'all var(--arcane-transition)',
                   }),
                   events: props.disabled
                       ? null

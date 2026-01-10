@@ -56,7 +56,7 @@ class CodexHeader extends StatelessComponent {
             'display': 'flex',
             'align-items': 'center',
             'justify-content': 'center',
-            'gap': '0.5rem', // Codex: more gap
+            'gap': 'var(--arcane-space-2)', // Codex: more gap
             'flex-grow': '1', // Allow nav to grow and center
           }),
           [
@@ -106,7 +106,7 @@ class CodexHeader extends StatelessComponent {
               'gap': '0.375rem',
               // Codex: larger padding
               'padding': '0.625rem 1rem',
-              'font-size': '0.875rem',
+              'font-size': 'var(--arcane-font-size-sm)',
               'font-weight': item.isActive ? '600' : '500',
               'color': item.isActive
                   ? 'var(--codex-accent)'
@@ -122,9 +122,9 @@ class CodexHeader extends StatelessComponent {
             [
               Component.text(item.label),
               if (hasDropdown)
-                dom.span(
-                  styles: const dom.Styles(raw: {'font-size': '0.625rem'}),
-                  [const Component.text('\u25BC')], // Down arrow
+                const dom.span(
+                  styles: dom.Styles(raw: {'font-size': '0.625rem'}),
+                  [Component.text('\u25BC')], // Down arrow
                 ),
             ],
           )
@@ -136,7 +136,7 @@ class CodexHeader extends StatelessComponent {
               'align-items': 'center',
               'gap': '0.375rem',
               'padding': '0.625rem 1rem',
-              'font-size': '0.875rem',
+              'font-size': 'var(--arcane-font-size-sm)',
               'font-weight': item.isActive ? '600' : '500',
               'color': item.isActive
                   ? 'var(--codex-accent)'
@@ -151,9 +151,9 @@ class CodexHeader extends StatelessComponent {
             [
               Component.text(item.label),
               if (hasDropdown)
-                dom.span(
-                  styles: const dom.Styles(raw: {'font-size': '0.625rem'}),
-                  [const Component.text('\u25BC')],
+                const dom.span(
+                  styles: dom.Styles(raw: {'font-size': '0.625rem'}),
+                  [Component.text('\u25BC')],
                 ),
             ],
           ),
@@ -182,7 +182,7 @@ class CodexHeader extends StatelessComponent {
             'background-color': 'var(--input)',
             'border': '1px solid var(--border)',
             'border-radius': 'var(--radius)',
-            'font-size': '0.875rem',
+            'font-size': 'var(--arcane-font-size-sm)',
             'color': 'var(--foreground)',
             'outline': 'none',
             'min-width': '200px',
@@ -199,15 +199,15 @@ class CodexHeader extends StatelessComponent {
                 },
         ),
         // Search icon placeholder
-        dom.span(
-          styles: const dom.Styles(raw: {
+        const dom.span(
+          styles: dom.Styles(raw: {
             'position': 'absolute',
             'left': '0.75rem',
             'color': 'var(--muted-foreground)',
-            'font-size': '0.875rem',
+            'font-size': 'var(--arcane-font-size-sm)',
             'pointer-events': 'none',
           }),
-          [const Component.text('\u{1F50D}')], // Magnifying glass
+          [Component.text('\u{1F50D}')], // Magnifying glass
         ),
       ],
     );
@@ -231,12 +231,12 @@ class CodexNavLink extends StatelessComponent {
       [
         Component.text(props.label),
         if (props.showArrow)
-          dom.span(
-            styles: const dom.Styles(raw: {
-              'font-size': '0.75rem',
+          const dom.span(
+            styles: dom.Styles(raw: {
+              'font-size': 'var(--arcane-font-size-xs)',
               'transition': 'transform var(--transition)',
             }),
-            [const Component.text('\u2192')], // Right arrow
+            [Component.text('\u2192')], // Right arrow
           ),
       ],
     );
@@ -248,7 +248,7 @@ class CodexNavLink extends StatelessComponent {
         styles: dom.Styles(raw: {
           'display': 'inline-flex',
           'align-items': 'center',
-          'font-size': '0.875rem',
+          'font-size': 'var(--arcane-font-size-sm)',
           'font-weight': props.isActive ? '600' : '500',
           'color': props.isActive
               ? 'var(--codex-accent)'
@@ -268,7 +268,7 @@ class CodexNavLink extends StatelessComponent {
         'background': 'transparent',
         'border': 'none',
         'padding': '0',
-        'font-size': '0.875rem',
+        'font-size': 'var(--arcane-font-size-sm)',
         'font-weight': props.isActive ? '600' : '500',
         'color': props.isActive
             ? 'var(--codex-accent)'

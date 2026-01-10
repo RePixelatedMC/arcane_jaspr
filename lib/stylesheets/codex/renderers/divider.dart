@@ -68,7 +68,7 @@ class CodexDivider extends StatelessComponent {
         'align-items': 'center',
         'width': '100%',
         'margin': '$margin 0',
-        'gap': '1rem', // Codex: more gap
+        'gap': 'var(--arcane-space-4)', // Codex: more gap
       }),
       [
         // Left line
@@ -87,8 +87,8 @@ class CodexDivider extends StatelessComponent {
         // Label
         dom.span(
           styles: const dom.Styles(raw: {
-            'font-size': '0.75rem',
-            'font-weight': '500',
+            'font-size': 'var(--arcane-font-size-xs)',
+            'font-weight': 'var(--arcane-font-weight-medium)',
             'text-transform': 'uppercase',
             'letter-spacing': '0.05em',
             'color': 'var(--muted-foreground)',

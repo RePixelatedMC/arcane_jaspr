@@ -59,7 +59,7 @@ class ShadcnTimeline extends StatelessComponent {
       classes: 'arcane-timeline-item',
       styles: dom.Styles(raw: {
         'display': 'flex',
-        'gap': '1.5rem',
+        'gap': 'var(--arcane-space-6)',
         'position': 'relative',
         'padding-bottom': isLast ? '0' : '2rem',
       }),
@@ -194,7 +194,7 @@ class ShadcnTimeline extends StatelessComponent {
       styles: dom.Styles(raw: {
         'display': 'grid',
         'grid-template-columns': '1fr auto 1fr',
-        'gap': '1.5rem',
+        'gap': 'var(--arcane-space-6)',
         'position': 'relative',
         'padding-bottom': isLast ? '0' : '2rem',
       }),
@@ -259,18 +259,18 @@ class ShadcnTimeline extends StatelessComponent {
       styles: dom.Styles(raw: {
         'width': _indicatorSize,
         'height': _indicatorSize,
-        'border-radius': '9999px',
+        'border-radius': 'var(--arcane-radius-full)',
         'background': isFilled ? colors['bg']! : 'var(--background)',
         'border': '2px solid ${colors['border']!}',
         'display': 'flex',
         'align-items': 'center',
         'justify-content': 'center',
         'font-size': _iconSize,
-        'font-weight': '600',
+        'font-weight': 'var(--arcane-font-weight-semibold)',
         'color': isFilled ? colors['text']! : colors['border']!,
         'flex-shrink': '0',
         'z-index': '1',
-        'transition': 'all 150ms ease',
+        'transition': 'all var(--arcane-transition)',
       }),
       [
         if (item.icon != null)
@@ -284,7 +284,7 @@ class ShadcnTimeline extends StatelessComponent {
             styles: dom.Styles(raw: {
               'width': '8px',
               'height': '8px',
-              'border-radius': '9999px',
+              'border-radius': 'var(--arcane-radius-full)',
               'background': colors['text']!,
             }),
             [],
@@ -294,7 +294,7 @@ class ShadcnTimeline extends StatelessComponent {
             styles: dom.Styles(raw: {
               'width': '8px',
               'height': '8px',
-              'border-radius': '9999px',
+              'border-radius': 'var(--arcane-radius-full)',
               'background': 'var(--border)',
             }),
             [],
@@ -321,14 +321,14 @@ class ShadcnTimeline extends StatelessComponent {
             'display': 'flex',
             'flex-wrap': 'wrap',
             'align-items': 'center',
-            'gap': '0.5rem',
+            'gap': 'var(--arcane-space-2)',
             'margin-bottom': '0.25rem',
           }),
           [
             dom.span(
               styles: dom.Styles(raw: {
-                'font-size': '1rem',
-                'font-weight': '600',
+                'font-size': 'var(--arcane-font-size-base)',
+                'font-weight': 'var(--arcane-font-weight-semibold)',
                 'color': item.status == TimelineStatus.pending
                     ? 'var(--muted-foreground)'
                     : 'var(--foreground)',
@@ -338,7 +338,7 @@ class ShadcnTimeline extends StatelessComponent {
             if (item.date != null)
               dom.span(
                 styles: const dom.Styles(raw: {
-                  'font-size': '0.75rem',
+                  'font-size': 'var(--arcane-font-size-xs)',
                   'color': 'var(--muted-foreground)',
                 }),
                 [Component.text(item.date!)],
@@ -348,7 +348,7 @@ class ShadcnTimeline extends StatelessComponent {
         if (item.subtitle != null)
           dom.div(
             styles: const dom.Styles(raw: {
-              'font-size': '0.875rem',
+              'font-size': 'var(--arcane-font-size-sm)',
               'color': 'var(--muted-foreground)',
               'margin-bottom': '0.25rem',
             }),
@@ -362,7 +362,7 @@ class ShadcnTimeline extends StatelessComponent {
         else if (item.description != null)
           dom.div(
             styles: const dom.Styles(raw: {
-              'font-size': '0.875rem',
+              'font-size': 'var(--arcane-font-size-sm)',
               'color': 'var(--muted-foreground)',
               'line-height': '1.7',
             }),
@@ -375,10 +375,10 @@ class ShadcnTimeline extends StatelessComponent {
   Map<String, String> _getStatusColors(TimelineStatus status) {
     return switch (status) {
       TimelineStatus.complete => {
-          'bg': 'hsl(142 76% 36%)',
-          'border': 'hsl(142 76% 36%)',
-          'text': 'var(--background)',
-          'line': 'hsl(142 76% 36%)',
+          'bg': 'var(--success)',
+          'border': 'var(--success)',
+          'text': 'var(--success-foreground)',
+          'line': 'var(--success)',
         },
       TimelineStatus.current => {
           'bg': 'var(--accent)',

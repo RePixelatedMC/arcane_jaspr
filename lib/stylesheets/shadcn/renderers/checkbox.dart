@@ -61,7 +61,7 @@ class ShadcnCheckbox extends StatelessComponent {
       styles: dom.Styles(raw: {
         'display': 'flex',
         'align-items': 'flex-start',
-        'gap': '0.5rem', // gap-2
+        'gap': 'var(--arcane-space-2)', // gap-2
         'cursor': props.disabled ? 'not-allowed' : 'pointer',
         // ShadCN: disabled:opacity-50 disabled:cursor-not-allowed
         'opacity': props.disabled ? '0.5' : '1',
@@ -97,7 +97,7 @@ class ShadcnCheckbox extends StatelessComponent {
             'flex-shrink': '0',
             // ShadCN: transition-colors
             'transition':
-                'color 150ms ease, background-color 150ms ease, border-color 150ms ease',
+                'color var(--arcane-transition), background-color var(--arcane-transition), border-color var(--arcane-transition)',
           }),
           [
             if (props.checked)
@@ -107,7 +107,7 @@ class ShadcnCheckbox extends StatelessComponent {
                   // ShadCN: text-primary-foreground when checked
                   'color': checkColor,
                   'font-size': checkSize,
-                  'font-weight': '700',
+                  'font-weight': 'var(--arcane-font-weight-bold)',
                   'line-height': '1',
                 }),
                 [const Component.text('\u2713')], // Unicode checkmark
@@ -126,8 +126,8 @@ class ShadcnCheckbox extends StatelessComponent {
                   styles: const dom.Styles(raw: {
                     // ShadCN: text-sm font-medium leading-none
                     // peer-disabled:cursor-not-allowed peer-disabled:opacity-70
-                    'font-size': '0.875rem', // 14px
-                    'font-weight': '500',
+                    'font-size': 'var(--arcane-font-size-sm)', // 14px
+                    'font-weight': 'var(--arcane-font-weight-medium)',
                     'color': 'var(--foreground)',
                     'display': 'block',
                     'line-height': '1',
@@ -138,7 +138,7 @@ class ShadcnCheckbox extends StatelessComponent {
                 dom.span(
                   styles: const dom.Styles(raw: {
                     // ShadCN: text-sm text-muted-foreground
-                    'font-size': '0.875rem', // 14px
+                    'font-size': 'var(--arcane-font-size-sm)', // 14px
                     'color': 'var(--muted-foreground)',
                     'display': 'block',
                     'margin-top': '0.25rem', // 4px

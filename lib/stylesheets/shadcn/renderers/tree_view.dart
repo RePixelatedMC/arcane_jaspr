@@ -69,7 +69,7 @@ class _ShadcnTreeViewState extends State<ShadcnTreeView> {
   Component build(BuildContext context) {
     return dom.div(
       attributes: {'role': 'tree'},
-      styles: const dom.Styles(raw: {'font-size': '0.875rem'}),
+      styles: const dom.Styles(raw: {'font-size': 'var(--arcane-font-size-sm)'}),
       [
         for (final node in component.props.nodes) _buildNode(node, 0),
       ],
@@ -102,8 +102,8 @@ class _ShadcnTreeViewState extends State<ShadcnTreeView> {
             'cursor': node.disabled ? 'not-allowed' : 'pointer',
             'opacity': node.disabled ? '0.5' : '1',
             'background': isSelected ? 'var(--muted)' : 'transparent',
-            'border-radius': '0.25rem',
-            'transition': 'all 150ms ease',
+            'border-radius': 'var(--arcane-radius-xs)',
+            'transition': 'all var(--arcane-transition)',
             'user-select': 'none',
           }),
           events: {

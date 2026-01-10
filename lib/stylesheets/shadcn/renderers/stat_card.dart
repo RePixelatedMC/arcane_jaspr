@@ -20,7 +20,7 @@ class ShadcnStatCard extends StatelessComponent {
         'padding': '1.5rem',
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': '1rem',
+        'gap': 'var(--arcane-space-4)',
       }),
       [
         // Header with icon and trend
@@ -37,11 +37,11 @@ class ShadcnStatCard extends StatelessComponent {
                   'width': '40px',
                   'height': '40px',
                   'border-radius': 'var(--radius)',
-                  'background': props.iconBackground ?? 'hsl(var(--primary) / 0.1)',
+                  'background': props.iconBackground ?? 'color-mix(in srgb, var(--primary) 10%, transparent)',
                   'display': 'flex',
                   'align-items': 'center',
                   'justify-content': 'center',
-                  'font-size': '1.125rem',
+                  'font-size': 'var(--arcane-font-size-lg)',
                 }),
                 [Component.text(props.icon!)],
               ),
@@ -50,17 +50,17 @@ class ShadcnStatCard extends StatelessComponent {
                 styles: dom.Styles(raw: {
                   'display': 'flex',
                   'align-items': 'center',
-                  'gap': '0.25rem',
+                  'gap': 'var(--arcane-space-1)',
                   'padding': '0.25rem 0.5rem',
                   'border-radius': 'var(--radius)',
                   'background': props.trendPositive
-                      ? 'hsl(142 76% 36% / 0.1)'
-                      : 'hsl(var(--destructive) / 0.1)',
+                      ? 'color-mix(in srgb, var(--success) 10%, transparent)'
+                      : 'color-mix(in srgb, var(--destructive) 10%, transparent)',
                   'color': props.trendPositive
-                      ? 'hsl(142 76% 36%)'
+                      ? 'var(--success)'
                       : 'var(--destructive)',
-                  'font-size': '0.75rem',
-                  'font-weight': '500',
+                  'font-size': 'var(--arcane-font-size-xs)',
+                  'font-weight': 'var(--arcane-font-weight-medium)',
                 }),
                 [
                   Component.text(props.trendPositive ? '↑' : '↓'),
@@ -74,7 +74,7 @@ class ShadcnStatCard extends StatelessComponent {
           dom.div(
             styles: const dom.Styles(raw: {
               'font-size': '1.75rem',
-              'font-weight': '700',
+              'font-weight': 'var(--arcane-font-weight-bold)',
               'color': 'var(--foreground)',
               'line-height': '1.2',
             }),
@@ -82,7 +82,7 @@ class ShadcnStatCard extends StatelessComponent {
           ),
           dom.div(
             styles: const dom.Styles(raw: {
-              'font-size': '0.875rem',
+              'font-size': 'var(--arcane-font-size-sm)',
               'color': 'var(--muted-foreground)',
               'margin-top': '0.25rem',
             }),
@@ -92,7 +92,7 @@ class ShadcnStatCard extends StatelessComponent {
         if (props.description != null)
           dom.div(
             styles: const dom.Styles(raw: {
-              'font-size': '0.75rem',
+              'font-size': 'var(--arcane-font-size-xs)',
               'color': 'var(--muted-foreground)',
               'padding-top': '0.75rem',
               'border-top': '1px solid var(--border)',

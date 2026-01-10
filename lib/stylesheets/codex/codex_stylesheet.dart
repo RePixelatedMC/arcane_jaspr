@@ -1,3 +1,4 @@
+import '../../theme/index.dart';
 import '../stylesheet.dart';
 import 'renderers/codex_renderers.dart';
 
@@ -5,7 +6,7 @@ import 'renderers/codex_renderers.dart';
 ///
 /// Implements a neon, glowing gaming aesthetic:
 /// - OLED-optimized dark mode with pure black backgrounds
-/// - Vibrant neon accents (configurable: Green/Red/Blue/Purple)
+/// - Vibrant neon accents (configurable: Green/Red/Blue/Purple/Rainbow)
 /// - Subtle glow effects via colored shadows
 /// - Larger radii and spacing for a modern feel
 /// - Clean, accessible light mode with soft contrasts
@@ -13,7 +14,7 @@ import 'renderers/codex_renderers.dart';
 /// - Akzidenz-GroteskPro font for body text
 /// - Hack font for code
 ///
-/// The light mode uses soft whites and grays with vibrant accents for a fresh, energetic look.
+/// The light mode uses soft whites and grays with vibrant accents.
 class CodexStylesheet extends ArcaneStylesheet {
   /// The accent theme to use. Defaults to green.
   final CodexAccent accent;
@@ -29,14 +30,70 @@ class CodexStylesheet extends ArcaneStylesheet {
   @override
   ComponentRenderers get renderers => const CodexRenderers();
 
-  @override
-  List<String> get externalCssUrls => const [];
+  // ============================================
+  // Theme Seeds
+  // ============================================
 
   @override
-  String get baseCss => '''
-/* Codex Theme - Neon Gaming Aesthetic */
+  ThemeSeed get lightSeed => ThemeSeed(
+        // Codex uses the accent color as primary
+        primary: accent.color,
+        background: 0xFFf9fafb,
+        // Light gray secondary/accent
+        secondary: 0xFFf3f4f6,
+        accent: 0xFFf3f4f6,
+        // Semantic colors
+        destructive: 0xFFef4444,
+        success: 0xFF22c55e,
+        warning: 0xFFf59e0b,
+        info: 0xFF3b82f6,
+      );
 
-/* Font Face Declarations */
+  @override
+  ThemeSeed get darkSeed => ThemeSeed(
+        // Same accent in dark mode
+        primary: accent.color,
+        background: 0xFF000000, // OLED black
+        // Dark gray secondary/accent
+        secondary: 0xFF111827,
+        accent: 0xFF111827,
+        // Darker semantic colors for dark mode
+        destructive: 0xFF7f1d1d,
+        success: 0xFF166534,
+        warning: 0xFF92400e,
+        info: 0xFF1e40af,
+        isDark: true,
+        // Enable neon glow on shadows
+        accentGlow: true,
+      );
+
+  // ============================================
+  // Fonts
+  // ============================================
+
+  @override
+  FontConfig get fonts => const FontConfig(
+        sans:
+            "'Akzidenz-GroteskPro', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
+        heading:
+            "'ITCAvantGardeStd', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
+        mono: "'Hack', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+      );
+
+  // ============================================
+  // Border Radius
+  // ============================================
+
+  @override
+  RadiusConfig get radius => const RadiusConfig.large();
+
+  // ============================================
+  // Font Faces
+  // ============================================
+
+  @override
+  String get fontFaces => '''
+/* Akzidenz-GroteskPro - Body Font */
 @font-face {
   font-family: 'Akzidenz-GroteskPro';
   src: url('/assets/fonts/Akzidenz-GroteskPro/akzidenzgroteskpro_regular.ttf') format('truetype');
@@ -93,6 +150,7 @@ class CodexStylesheet extends ArcaneStylesheet {
   font-display: swap;
 }
 
+/* Hack - Monospace Font */
 @font-face {
   font-family: 'Hack';
   src: url('/assets/fonts/HackFont/Hack-Regular.ttf') format('truetype');
@@ -225,419 +283,20 @@ class CodexStylesheet extends ArcaneStylesheet {
   font-style: italic;
   font-display: swap;
 }
+''';
 
-/* Accent Presets */
-:root, .codex-green {
-  --codex-accent: #10b981; /* Emerald green */
-  --codex-accent-rgb: 16, 185, 129;
-  --codex-accent-secondary: #059669; /* Darker green */
-  --codex-accent-secondary-rgb: 5, 150, 105;
-  --codex-accent-gradient: linear-gradient(135deg, var(--codex-accent) 0%, var(--codex-accent-secondary) 100%);
-  --codex-accent-glow-medium: 0 0 20px rgba(var(--codex-accent-rgb), 0.3);
-  --codex-accent-border: rgba(var(--codex-accent-rgb), 0.25);
-}
+  // ============================================
+  // Component-Specific CSS
+  // ============================================
 
-.codex-red {
-  --codex-accent: #ef4444; /* Bright red */
-  --codex-accent-rgb: 239, 68, 68;
-  --codex-accent-secondary: #dc2626; /* Darker red */
-  --codex-accent-secondary-rgb: 220, 38, 38;
-  --codex-accent-gradient: linear-gradient(135deg, var(--codex-accent) 0%, var(--codex-accent-secondary) 100%);
-  --codex-accent-glow-medium: 0 0 20px rgba(var(--codex-accent-rgb), 0.3);
-  --codex-accent-border: rgba(var(--codex-accent-rgb), 0.25);
-}
+  /// Returns the CSS class to apply to the body element for this accent.
+  /// For rainbow theme, returns 'codex-rainbow' which enables the animation.
+  @override
+  String get bodyClass => accent == CodexAccent.rainbow ? 'codex-rainbow' : '';
 
-.codex-blue {
-  --codex-accent: #3b82f6; /* Electric blue */
-  --codex-accent-rgb: 59, 130, 246;
-  --codex-accent-secondary: #2563eb; /* Darker blue */
-  --codex-accent-secondary-rgb: 37, 99, 235;
-  --codex-accent-gradient: linear-gradient(135deg, var(--codex-accent) 0%, var(--codex-accent-secondary) 100%);
-  --codex-accent-glow-medium: 0 0 20px rgba(var(--codex-accent-rgb), 0.3);
-  --codex-accent-border: rgba(var(--codex-accent-rgb), 0.25);
-}
-
-.codex-purple {
-  --codex-accent: #8b5cf6; /* Vibrant purple */
-  --codex-accent-rgb: 139, 92, 246;
-  --codex-accent-secondary: #7c3aed; /* Darker purple */
-  --codex-accent-secondary-rgb: 124, 58, 237;
-  --codex-accent-gradient: linear-gradient(135deg, var(--codex-accent) 0%, var(--codex-accent-secondary) 100%);
-  --codex-accent-glow-medium: 0 0 20px rgba(var(--codex-accent-rgb), 0.3);
-  --codex-accent-border: rgba(var(--codex-accent-rgb), 0.25);
-}
-
-/* CSS Variables - Light Mode (default) */
-:root {
-  /* Core ShadCN-like Variables */
-  --background: #f9fafb;
-  --foreground: #111827;
-
-  --card: #ffffff;
-  --card-foreground: #111827;
-
-  --popover: #ffffff;
-  --popover-foreground: #111827;
-
-  --primary: var(--codex-accent);
-  --primary-foreground: #ffffff;
-
-  --secondary: #f3f4f6;
-  --secondary-foreground: #111827;
-
-  --muted: #f3f4f6;
-  --muted-foreground: #6b7280;
-
-  --accent: #f3f4f6;
-  --accent-foreground: #111827;
-
-  --destructive: #ef4444;
-  --destructive-foreground: #ffffff;
-
-  --success: #22c55e;
-  --success-foreground: #ffffff;
-
-  --warning: #f59e0b;
-  --warning-foreground: #111827;
-
-  --info: #3b82f6;
-  --info-foreground: #ffffff;
-
-  --border: #e5e7eb;
-  --input: #e5e7eb;
-  --ring: var(--codex-accent);
-
-  --radius: 0.75rem;
-
-  --font-sans: 'Akzidenz-GroteskPro', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-heading: 'ITCAvantGardeStd', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: 'Hack', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-
-  /* Arcane Token Aliases */
-  --arcane-background: var(--background);
-  --arcane-foreground: var(--foreground);
-  --arcane-on-background: var(--foreground);
-  --arcane-card: var(--card);
-  --arcane-card-foreground: var(--card-foreground);
-  --arcane-card-hover: #f3f4f6;
-  --arcane-card-alt: var(--secondary);
-  --arcane-popover: var(--popover);
-  --arcane-popover-foreground: var(--popover-foreground);
-
-  --arcane-primary: var(--primary);
-  --arcane-primary-foreground: var(--primary-foreground);
-  --arcane-on-primary: var(--primary-foreground);
-  --arcane-secondary: var(--secondary);
-  --arcane-secondary-foreground: var(--secondary-foreground);
-  --arcane-on-secondary: var(--secondary-foreground);
-  --arcane-accent: var(--accent);
-  --arcane-accent-foreground: var(--accent-foreground);
-  --arcane-accent-hover: #e5e7eb;
-  --arcane-accent-container: rgba(243, 244, 246, 0.1);
-
-  --arcane-surface: var(--card);
-  --arcane-on-surface: var(--card-foreground);
-  --arcane-surface-variant: var(--secondary);
-  --arcane-on-surface-variant: var(--secondary-foreground);
-
-  --arcane-muted: var(--muted);
-  --arcane-muted-foreground: var(--muted-foreground);
-
-  --arcane-destructive: var(--destructive);
-  --arcane-destructive-foreground: var(--destructive-foreground);
-  --arcane-destructive-hover: #dc2626;
-  --arcane-destructive-container: rgba(239, 68, 68, 0.1);
-  --arcane-success: var(--success);
-  --arcane-success-foreground: var(--success-foreground);
-  --arcane-success-hover: #16a34a;
-  --arcane-success-container: rgba(34, 197, 94, 0.1);
-  --arcane-warning: var(--warning);
-  --arcane-warning-foreground: var(--warning-foreground);
-  --arcane-warning-hover: #d97706;
-  --arcane-warning-container: rgba(245, 158, 11, 0.1);
-  --arcane-info: var(--info);
-  --arcane-info-foreground: var(--info-foreground);
-  --arcane-info-hover: #2563eb;
-  --arcane-info-container: rgba(59, 130, 246, 0.1);
-
-  --arcane-border: var(--border);
-  --arcane-border-subtle: var(--input);
-  --arcane-input: var(--input);
-  --arcane-input-foreground: var(--foreground);
-  --arcane-ring: var(--ring);
-  --arcane-outline: var(--border);
-  --arcane-outline-variant: var(--input);
-
-  --arcane-overlay: rgba(17, 24, 39, 0.5);
-  --arcane-overlay-strong: rgba(17, 24, 39, 0.7);
-  --arcane-scrim: rgba(17, 24, 39, 0.5);
-  --arcane-tooltip: var(--popover);
-  --arcane-tooltip-foreground: var(--popover-foreground);
-  --arcane-code-background: var(--secondary);
-  --arcane-navbar: rgba(255, 255, 255, 0.8);
-
-  --arcane-background-rgb: 249, 250, 251;
-  --arcane-foreground-rgb: 17, 24, 39;
-  --arcane-on-background-rgb: 17, 24, 39;
-  --arcane-primary-rgb: var(--codex-accent-rgb);
-  --arcane-secondary-rgb: 243, 244, 246;
-  --arcane-accent-rgb: 243, 244, 246;
-  --arcane-muted-rgb: 107, 114, 128;
-  --arcane-destructive-rgb: 239, 68, 68;
-  --arcane-success-rgb: 34, 197, 94;
-  --arcane-warning-rgb: 245, 158, 11;
-  --arcane-info-rgb: 59, 130, 246;
-  --arcane-surface-rgb: 255, 255, 255;
-  --arcane-on-surface-rgb: 17, 24, 39;
-  --arcane-surface-variant-rgb: 243, 244, 246;
-  --arcane-on-surface-variant-rgb: 17, 24, 39;
-  --arcane-card-rgb: 255, 255, 255;
-  --arcane-border-rgb: 229, 231, 235;
-  --arcane-input-rgb: 229, 231, 235;
-
-  --arcane-font-sans: var(--font-sans);
-  --arcane-font-heading: var(--font-heading);
-  --arcane-font-mono: var(--font-mono);
-
-  --arcane-radius: var(--radius);
-  --arcane-radius-xs: 0.25rem;
-  --arcane-radius-sm: 0.375rem;
-  --arcane-radius-md: 0.5rem;
-  --arcane-radius-lg: 0.75rem;
-  --arcane-radius-xl: 1rem;
-  --arcane-radius-2xl: 1.25rem;
-  --arcane-radius-full: 9999px;
-
-  --arcane-shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --arcane-shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
-  --arcane-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-  --arcane-shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
-  --arcane-shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-  --arcane-shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-
-  --arcane-transition-fast: 100ms cubic-bezier(0.4, 0, 0.2, 1);
-  --arcane-transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  --arcane-transition-slow: 200ms cubic-bezier(0.4, 0, 0.2, 1);
-
-  --arcane-interactive-radius: var(--arcane-radius-md);
-  --arcane-container-radius: var(--arcane-radius-lg);
-  --arcane-input-radius: var(--arcane-radius-md);
-  --arcane-indicator-checkbox-radius: var(--arcane-radius-sm);
-  --arcane-indicator-radio-radius: 50%;
-  --arcane-indicator-toggle-track-radius: 9999px;
-  --arcane-indicator-toggle-thumb-radius: 50%;
-
-  --arcane-tertiary: var(--accent);
-  --arcane-on-tertiary: var(--accent-foreground);
-  --arcane-tertiary-rgb: 243, 244, 246;
-  --arcane-primary-container: rgba(var(--codex-accent-rgb), 0.1);
-  --arcane-on-primary-container: var(--primary);
-  --arcane-secondary-container: rgba(243, 244, 246, 0.1);
-  --arcane-on-secondary-container: var(--secondary-foreground);
-  --arcane-tertiary-container: rgba(243, 244, 246, 0.1);
-  --arcane-on-tertiary-container: var(--accent-foreground);
-  --arcane-background-secondary: #f3f4f6;
-  --arcane-background-tertiary: #e5e7eb;
-  --arcane-text-subtle: rgba(107, 114, 128, 0.85);
-  --arcane-text-faint: rgba(107, 114, 128, 0.65);
-  --arcane-inverse-surface: #111827;
-  --arcane-on-inverse-surface: #f9fafb;
-  --arcane-surface-tint: var(--accent);
-  --arcane-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-  --arcane-accent-glow: rgba(var(--codex-accent-rgb), 0.1);
-  --arcane-secondary-glow: rgba(243, 244, 246, 0.1);
-  --arcane-grid-color: rgba(243, 244, 246, 0.03);
-
-  --arcane-style-radius-xs: var(--arcane-radius-xs);
-  --arcane-style-radius-sm: var(--arcane-radius-sm);
-  --arcane-style-radius-md: var(--arcane-radius-md);
-  --arcane-style-radius-lg: var(--arcane-radius-lg);
-  --arcane-style-radius-xl: var(--arcane-radius-xl);
-  --arcane-style-radius-2xl: var(--arcane-radius-2xl);
-  --arcane-style-shadow-xs: var(--arcane-shadow-xs);
-  --arcane-style-shadow-sm: var(--arcane-shadow-sm);
-  --arcane-style-shadow-md: var(--arcane-shadow-md);
-  --arcane-style-shadow-lg: var(--arcane-shadow-lg);
-  --arcane-style-shadow-xl: var(--arcane-shadow-xl);
-  --arcane-style-transition-fast: var(--arcane-transition-fast);
-  --arcane-style-transition: var(--arcane-transition);
-  --arcane-style-transition-slow: var(--arcane-transition-slow);
-
-  /* Neon Colors for Gaming Accents */
-  --arcane-neon-pink: #ec4899;
-  --arcane-neon-cyan: #22d3ee;
-  --arcane-neon-purple: #a855f7;
-  --arcane-neon-green: #22c55e;
-  --arcane-neon-orange: #f97316;
-}
-
-/* Dark Mode - OLED-optimized with neon glows */
-.dark {
-  --background: #000000;
-  --foreground: #f9fafb;
-
-  --card: #0a0a0a;
-  --card-foreground: #f9fafb;
-
-  --popover: #0a0a0a;
-  --popover-foreground: #f9fafb;
-
-  --primary: var(--codex-accent);
-  --primary-foreground: #000000;
-
-  --secondary: #111827;
-  --secondary-foreground: #f9fafb;
-
-  --muted: #111827;
-  --muted-foreground: #9ca3af;
-
-  --accent: #111827;
-  --accent-foreground: #f9fafb;
-
-  --destructive: #7f1d1d;
-  --destructive-foreground: #f9fafb;
-
-  --success: #166534;
-  --success-foreground: #ffffff;
-
-  --warning: #92400e;
-  --warning-foreground: #ffffff;
-
-  --info: #1e40af;
-  --info-foreground: #ffffff;
-
-  --border: #1f2937;
-  --input: #111827;
-  --ring: var(--codex-accent-secondary);
-
-  --arcane-background: var(--background);
-  --arcane-foreground: var(--foreground);
-  --arcane-on-background: var(--foreground);
-  --arcane-card: var(--card);
-  --arcane-card-foreground: var(--card-foreground);
-  --arcane-card-hover: #111827;
-  --arcane-card-alt: var(--secondary);
-  --arcane-popover: var(--popover);
-  --arcane-popover-foreground: var(--popover-foreground);
-
-  --arcane-primary: var(--primary);
-  --arcane-primary-foreground: var(--primary-foreground);
-  --arcane-on-primary: var(--primary-foreground);
-  --arcane-secondary: var(--secondary);
-  --arcane-secondary-foreground: var(--secondary-foreground);
-  --arcane-on-secondary: var(--secondary-foreground);
-  --arcane-accent: var(--accent);
-  --arcane-accent-foreground: var(--accent-foreground);
-  --arcane-accent-hover: #1f2937;
-  --arcane-accent-container: rgba(17, 24, 39, 0.1);
-
-  --arcane-surface: var(--card);
-  --arcane-on-surface: var(--card-foreground);
-  --arcane-surface-variant: var(--secondary);
-  --arcane-on-surface-variant: var(--secondary-foreground);
-
-  --arcane-muted: var(--muted);
-  --arcane-muted-foreground: var(--muted-foreground);
-
-  --arcane-destructive: var(--destructive);
-  --arcane-destructive-foreground: var(--destructive-foreground);
-  --arcane-destructive-hover: #991b1b;
-  --arcane-destructive-container: rgba(127, 29, 29, 0.1);
-  --arcane-success: var(--success);
-  --arcane-success-foreground: var(--success-foreground);
-  --arcane-success-hover: #15803d;
-  --arcane-success-container: rgba(22, 101, 52, 0.1);
-  --arcane-warning: var(--warning);
-  --arcane-warning-foreground: var(--warning-foreground);
-  --arcane-warning-hover: #a16207;
-  --arcane-warning-container: rgba(146, 64, 14, 0.1);
-  --arcane-info: var(--info);
-  --arcane-info-foreground: var(--info-foreground);
-  --arcane-info-hover: #1d4ed8;
-  --arcane-info-container: rgba(30, 64, 175, 0.1);
-
-  --arcane-border: var(--border);
-  --arcane-border-subtle: var(--input);
-  --arcane-input: var(--input);
-  --arcane-input-foreground: var(--foreground);
-  --arcane-ring: var(--ring);
-  --arcane-outline: var(--border);
-  --arcane-outline-variant: var(--input);
-
-  --arcane-overlay: rgba(0, 0, 0, 0.5);
-  --arcane-overlay-strong: rgba(0, 0, 0, 0.7);
-  --arcane-scrim: rgba(0, 0, 0, 0.5);
-  --arcane-tooltip: var(--popover);
-  --arcane-tooltip-foreground: var(--popover-foreground);
-  --arcane-code-background: var(--secondary);
-  --arcane-navbar: rgba(0, 0, 0, 0.8);
-
-  --arcane-background-rgb: 0, 0, 0;
-  --arcane-foreground-rgb: 249, 250, 251;
-  --arcane-on-background-rgb: 249, 250, 251;
-  --arcane-primary-rgb: var(--codex-accent-rgb);
-  --arcane-secondary-rgb: 17, 24, 39;
-  --arcane-accent-rgb: 17, 24, 39;
-  --arcane-muted-rgb: 156, 163, 175;
-  --arcane-destructive-rgb: 127, 29, 29;
-  --arcane-success-rgb: 22, 101, 52;
-  --arcane-warning-rgb: 146, 64, 14;
-  --arcane-info-rgb: 30, 64, 175;
-  --arcane-surface-rgb: 10, 10, 10;
-  --arcane-on-surface-rgb: 249, 250, 251;
-  --arcane-surface-variant-rgb: 17, 24, 39;
-  --arcane-on-surface-variant-rgb: 249, 250, 251;
-  --arcane-card-rgb: 10, 10, 10;
-  --arcane-border-rgb: 31, 41, 55;
-  --arcane-input-rgb: 17, 24, 39;
-
-  --arcane-tertiary: var(--accent);
-  --arcane-on-tertiary: var(--accent-foreground);
-  --arcane-tertiary-rgb: 17, 24, 39;
-  --arcane-primary-container: rgba(var(--codex-accent-rgb), 0.1);
-  --arcane-on-primary-container: var(--primary);
-  --arcane-secondary-container: rgba(17, 24, 39, 0.1);
-  --arcane-on-secondary-container: var(--secondary-foreground);
-  --arcane-tertiary-container: rgba(17, 24, 39, 0.1);
-  --arcane-on-tertiary-container: var(--accent-foreground);
-  --arcane-background-secondary: #0a0a0a;
-  --arcane-background-tertiary: #111827;
-  --arcane-text-subtle: rgba(156, 163, 175, 0.85);
-  --arcane-text-faint: rgba(156, 163, 175, 0.65);
-  --arcane-inverse-surface: #f9fafb;
-  --arcane-on-inverse-surface: #111827;
-  --arcane-surface-tint: var(--accent);
-  --arcane-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.2);
-  --arcane-accent-glow: rgba(var(--codex-accent-rgb), 0.15);
-  --arcane-secondary-glow: rgba(17, 24, 39, 0.1);
-  --arcane-grid-color: rgba(17, 24, 39, 0.03);
-
-  /* Shadows with Neon Glow in Dark Mode */
-  --arcane-shadow-xs: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 0 8px rgba(var(--codex-accent-rgb), 0.08);
-  --arcane-shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 0 12px rgba(var(--codex-accent-rgb), 0.1);
-  --arcane-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 0 16px rgba(var(--codex-accent-rgb), 0.12);
-  --arcane-shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 0 20px rgba(var(--codex-accent-rgb), 0.15);
-  --arcane-shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 0 30px rgba(var(--codex-accent-rgb), 0.2);
-  --arcane-shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 50px rgba(var(--codex-accent-rgb), 0.25);
-}
-
-/* Base Styles */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html, body {
-  height: 100%;
-  font-family: var(--font-sans);
-  background-color: var(--background);
-  color: var(--foreground);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* Heading Styles - Akzidenz-GroteskPro */
+  @override
+  String get componentCss => '''
+/* Heading Styles - Use heading font */
 h1, h2, h3, h4, h5, h6,
 .arcane-heading,
 .arcane-headline,
@@ -663,75 +322,171 @@ label {
   font-family: var(--font-heading);
 }
 
-/* Global Styled Scrollbars */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: var(--border) transparent;
-}
-
-*::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-*::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-*::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: 9999px;
-}
-
-*::-webkit-scrollbar-thumb:hover {
-  background: var(--muted-foreground);
-}
-
-*::-webkit-scrollbar-corner {
-  background: transparent;
-}
-
-/* Spinner Animation */
-@keyframes arcane-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-/* Focus Ring Utility */
-.focus-ring:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 2px var(--background), 0 0 0 4px var(--ring);
-}
-
-/* Button Hover States */
-.arcane-button:hover:not([disabled]) {
-  filter: brightness(0.95);
-}
-
-.arcane-button:active:not([disabled]) {
-  filter: brightness(0.9);
-}
-
 /* Glow Utilities */
 .codex-glow {
-  box-shadow: var(--arcane-shadow-md);
+  box-shadow: var(--shadow-md);
 }
 
 .codex-glow-strong {
-  box-shadow: var(--arcane-shadow-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+$_rainbowCss
+
+/* Tree Lines for Disclosure/Navigation
+   Each item draws its own connectors:
+   - ::before = horizontal branch to content
+   - ::after = vertical line down to next sibling (except last item = L-connector)
+*/
+.arcane-tree-lines {
+  position: relative;
+  --tree-indent: 1rem;
+  --tree-line-color: var(--border);
+}
+
+/* Each direct child is a tree item */
+.arcane-tree-lines > * {
+  position: relative;
+  padding-left: var(--tree-indent);
+}
+
+/* Horizontal branch from vertical line to content */
+.arcane-tree-lines > *::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: calc(var(--tree-indent) - 4px);
+  height: 1px;
+  background: var(--tree-line-color);
+}
+
+/* Vertical line segment - connects this item to the next */
+.arcane-tree-lines > *::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--tree-line-color);
+}
+
+/* Last item: L-connector - vertical line only goes to the horizontal branch */
+.arcane-tree-lines > *:last-child::after {
+  bottom: 50%;
+}
+
+/* First item: start vertical line from horizontal branch */
+.arcane-tree-lines > *:first-child::after {
+  top: 50%;
+}
+
+/* Only child: just horizontal branch, no vertical */
+.arcane-tree-lines > *:only-child::after {
+  display: none;
+}
+
+/* Nested tree lines - progressively lighter for visual hierarchy */
+.arcane-tree-lines .arcane-tree-lines {
+  --tree-line-color: color-mix(in srgb, var(--border) 70%, transparent);
+}
+
+.arcane-tree-lines .arcane-tree-lines .arcane-tree-lines {
+  --tree-line-color: color-mix(in srgb, var(--border) 50%, transparent);
+}
+
+.arcane-tree-lines .arcane-tree-lines .arcane-tree-lines .arcane-tree-lines {
+  --tree-line-color: color-mix(in srgb, var(--border) 35%, transparent);
+}
+''';
+
+  /// CSS for rainbow/RGB spin effect.
+  /// Uses explicit color keyframes for maximum browser compatibility.
+  /// Scoped to .codex-rainbow class.
+  static const String _rainbowCss = '''
+/* Rainbow RGB Spin Animation - Scoped to .codex-rainbow */
+@keyframes codex-rainbow-colors {
+  0%, 100% { --primary: #ff6b6b; --ring: #e55555; } /* Red */
+  14% { --primary: #ffa94d; --ring: #e89035; } /* Orange */
+  28% { --primary: #ffe066; --ring: #e6c94d; } /* Yellow */
+  42% { --primary: #69db7c; --ring: #52c462; } /* Green */
+  57% { --primary: #4dabf7; --ring: #3592dd; } /* Blue */
+  71% { --primary: #9775fa; --ring: #7d5ce0; } /* Indigo */
+  85% { --primary: #e599f7; --ring: #cc7fdd; } /* Violet */
+}
+
+@keyframes codex-rainbow-glow {
+  0%, 100% { --glow-color: rgba(255, 107, 107, 0.3); }
+  14% { --glow-color: rgba(255, 169, 77, 0.3); }
+  28% { --glow-color: rgba(255, 224, 102, 0.3); }
+  42% { --glow-color: rgba(105, 219, 124, 0.3); }
+  57% { --glow-color: rgba(77, 171, 247, 0.3); }
+  71% { --glow-color: rgba(151, 117, 250, 0.3); }
+  85% { --glow-color: rgba(229, 153, 247, 0.3); }
+}
+
+.codex-rainbow {
+  animation: codex-rainbow-colors 8s linear infinite;
+}
+
+.codex-rainbow.dark {
+  --primary-foreground: #000000;
+  animation: codex-rainbow-colors 8s linear infinite, codex-rainbow-glow 8s linear infinite;
+}
+
+/* Rainbow shadows with glow in dark mode */
+.codex-rainbow.dark {
+  --shadow-xs: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 0 8px var(--glow-color, rgba(77, 171, 247, 0.15));
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 0 12px var(--glow-color, rgba(77, 171, 247, 0.2));
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 0 16px var(--glow-color, rgba(77, 171, 247, 0.25));
+  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 0 20px var(--glow-color, rgba(77, 171, 247, 0.3));
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 0 30px var(--glow-color, rgba(77, 171, 247, 0.35));
+  --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 50px var(--glow-color, rgba(77, 171, 247, 0.4));
+}
+
+/* Rainbow text selection */
+.codex-rainbow ::selection {
+  background: var(--primary, #4dabf7);
+  color: #000000;
+}
+
+.codex-rainbow ::-moz-selection {
+  background: var(--primary, #4dabf7);
+  color: #000000;
 }
 ''';
 }
 
 /// Available accent themes for Codex.
 enum CodexAccent {
-  green,
-  red,
-  blue,
-  purple,
-}
+  /// Emerald green - #10b981
+  green(0xFF10b981),
 
-/// Extension to get CSS class name for accent.
-extension CodexAccentExtension on CodexAccent {
-  String get cssClass => 'codex-\$name';
+  /// Bright red - #ef4444
+  red(0xFFef4444),
+
+  /// Electric blue - #3b82f6
+  blue(0xFF3b82f6),
+
+  /// Vibrant purple - #8b5cf6
+  purple(0xFF8b5cf6),
+
+  /// Neon cyan - #22d3ee
+  cyan(0xFF22d3ee),
+
+  /// Hot pink - #ec4899
+  pink(0xFFec4899),
+
+  /// Bright orange - #f97316
+  orange(0xFFf97316),
+
+  /// Rainbow RGB spin - cycles through all colors.
+  /// Uses cyan as the base color, with CSS animation override.
+  rainbow(0xFF22d3ee);
+
+  /// The color value for this accent.
+  final int color;
+
+  const CodexAccent(this.color);
 }

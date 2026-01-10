@@ -47,7 +47,7 @@ class CodexDotIndicator extends StatelessComponent {
                   ? (props.activeColor ?? 'var(--codex-accent)')
                   : (props.inactiveColor ?? 'var(--muted-foreground)'),
               'opacity': i == props.index ? '1' : '0.4',
-              'transition': 'all 200ms ease',
+              'transition': 'all var(--arcane-transition-slow)',
               'cursor': props.interactive ? 'pointer' : 'default',
             }),
             events: props.onChanged != null && props.interactive
@@ -84,7 +84,7 @@ class CodexStepIndicator extends StatelessComponent {
 
     return dom.div(
       classes: 'codex-step-indicator',
-      styles: dom.Styles(raw: {
+      styles: const dom.Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
         'gap': '8px',
@@ -102,14 +102,14 @@ class CodexStepIndicator extends StatelessComponent {
               'display': 'flex',
               'align-items': 'center',
               'justify-content': 'center',
-              'font-size': '0.75rem',
-              'font-weight': '600',
+              'font-size': 'var(--arcane-font-size-xs)',
+              'font-weight': 'var(--arcane-font-weight-semibold)',
               'background-color': _getBackgroundColor(i),
               'color': _getTextColor(i),
               'border': i == props.currentStep
                   ? '2px solid var(--codex-accent)'
                   : '1px solid var(--border)',
-              'transition': 'all 200ms ease',
+              'transition': 'all var(--arcane-transition-slow)',
               'cursor': props.allowStepNavigation && i < props.currentStep
                   ? 'pointer'
                   : 'default',
@@ -135,7 +135,7 @@ class CodexStepIndicator extends StatelessComponent {
                 'background-color': i < props.currentStep
                     ? 'var(--codex-accent)'
                     : 'var(--border)',
-                'transition': 'background-color 200ms ease',
+                'transition': 'background-color var(--arcane-transition-slow)',
               }),
               [],
             ),

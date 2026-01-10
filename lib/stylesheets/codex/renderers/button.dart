@@ -27,8 +27,8 @@ class CodexButton extends StatelessComponent {
       'gap': '0.625rem', // 10px (vs ShadCN 8px)
       'white-space': 'nowrap',
       'border-radius': 'var(--radius)', // 14px
-      'font-size': '0.875rem',
-      'font-weight': '500',
+      'font-size': 'var(--arcane-font-size-sm)',
+      'font-weight': 'var(--arcane-font-weight-medium)',
       'line-height': '1.25rem',
       'transition': 'all var(--transition)',
       'outline': 'none',
@@ -165,10 +165,10 @@ class CodexButton extends StatelessComponent {
 
     // Add arrow indicator if showArrow is true
     if (props.showArrow && !props.loading) {
-      children.add(dom.span(
-        styles: const dom.Styles(raw: {
+      children.add(const dom.span(
+        styles: dom.Styles(raw: {
           'margin-left': '0.25rem',
-          'transition': 'transform 150ms ease',
+          'transition': 'transform var(--arcane-transition)',
         }),
         [Component.text('\u2192')],
       ));

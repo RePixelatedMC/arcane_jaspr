@@ -14,6 +14,7 @@ class DisclosureProps {
   final bool open;
   final DisclosureVariant variant;
   final bool showChevron;
+  final bool showTreeLines;
   final String? classes;
 
   const DisclosureProps({
@@ -22,6 +23,7 @@ class DisclosureProps {
     this.open = false,
     this.variant = DisclosureVariant.default_,
     this.showChevron = true,
+    this.showTreeLines = true,
     this.classes,
   });
 }

@@ -138,9 +138,9 @@ class _ShadcnSlotCounterState extends State<ShadcnSlotCounter> {
       case SlotCounterColor.muted:
         return 'var(--muted-foreground)';
       case SlotCounterColor.success:
-        return 'hsl(142 76% 36%)';
+        return 'var(--success)';
       case SlotCounterColor.warning:
-        return 'hsl(38 92% 50%)';
+        return 'var(--warning)';
       case SlotCounterColor.destructive:
         return 'var(--destructive)';
     }
@@ -156,7 +156,7 @@ class _ShadcnSlotCounterState extends State<ShadcnSlotCounter> {
         'display': 'inline-flex',
         'flex-direction': 'column',
         'align-items': 'center',
-        'gap': '0.25rem',
+        'gap': 'var(--arcane-space-1)',
       }),
       [
         // Value row
@@ -164,7 +164,7 @@ class _ShadcnSlotCounterState extends State<ShadcnSlotCounter> {
           styles: dom.Styles(raw: {
             'display': 'inline-flex',
             'align-items': 'baseline',
-            'gap': '0.25rem',
+            'gap': 'var(--arcane-space-1)',
             if (component.props.monospace) 'font-family': 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
           }),
           [
@@ -184,7 +184,7 @@ class _ShadcnSlotCounterState extends State<ShadcnSlotCounter> {
                 'font-weight': component.props.valueBold ? '700' : '400',
                 'color': _getColor(component.props.valueColor),
                 'opacity': _isSpinning ? '0.7' : '1',
-                'transition': 'all 150ms ease',
+                'transition': 'all var(--arcane-transition)',
               }),
               [Component.text(displayValue)],
             ),

@@ -24,8 +24,8 @@ class ShadcnFeatureCard extends StatelessComponent {
             'justify-content': 'center',
             'width': '48px',
             'height': '48px',
-            'border-radius': '0.375rem',
-            'background-color': 'hsl(var(--accent) / 0.1)',
+            'border-radius': 'var(--arcane-radius-sm)',
+            'background-color': 'color-mix(in srgb, var(--accent) 10%, transparent)',
             'color': 'var(--accent)',
             'flex-shrink': '0',
             if (!props.horizontal) 'margin-bottom': '1.5rem',
@@ -46,9 +46,9 @@ class ShadcnFeatureCard extends StatelessComponent {
             styles: const dom.Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
-              'gap': '0.5rem',
-              'font-size': '1.125rem',
-              'font-weight': '600',
+              'gap': 'var(--arcane-space-2)',
+              'font-size': 'var(--arcane-font-size-lg)',
+              'font-weight': 'var(--arcane-font-weight-semibold)',
               'color': 'var(--foreground)',
               'margin-bottom': '0.5rem',
             }),
@@ -58,7 +58,7 @@ class ShadcnFeatureCard extends StatelessComponent {
                 const dom.span(
                   classes: 'arcane-feature-card-arrow',
                   styles: dom.Styles(raw: {
-                    'transition': 'all 150ms ease',
+                    'transition': 'all var(--arcane-transition)',
                   }),
                   [Component.text('\u2192')],
                 ),
@@ -69,7 +69,7 @@ class ShadcnFeatureCard extends StatelessComponent {
           dom.p(
             classes: 'arcane-feature-card-description',
             styles: const dom.Styles(raw: {
-              'font-size': '1rem',
+              'font-size': 'var(--arcane-font-size-base)',
               'line-height': '1.7',
               'color': 'var(--muted-foreground)',
               'margin': '0',
@@ -87,8 +87,8 @@ class ShadcnFeatureCard extends StatelessComponent {
       'padding': '2rem',
       'background-color': 'var(--card)',
       'border': '1px solid var(--border)',
-      'border-radius': '0.75rem',
-      'transition': 'all 200ms ease',
+      'border-radius': 'var(--arcane-radius-lg)',
+      'transition': 'all var(--arcane-transition-slow)',
       if (isClickable) 'cursor': 'pointer',
     };
 
@@ -146,7 +146,7 @@ class ShadcnIconCard extends StatelessComponent {
           'justify-content': 'center',
           'width': '40px',
           'height': '40px',
-          'border-radius': '0.375rem',
+          'border-radius': 'var(--arcane-radius-sm)',
           'background-color': 'var(--muted)',
           'color': 'var(--accent)',
           'margin-bottom': '1rem',
@@ -156,8 +156,8 @@ class ShadcnIconCard extends StatelessComponent {
       dom.span(
         classes: 'arcane-icon-card-title',
         styles: const dom.Styles(raw: {
-          'font-size': '1rem',
-          'font-weight': '500',
+          'font-size': 'var(--arcane-font-size-base)',
+          'font-weight': 'var(--arcane-font-weight-medium)',
           'color': 'var(--foreground)',
         }),
         [Component.text(props.title)],
@@ -166,7 +166,7 @@ class ShadcnIconCard extends StatelessComponent {
         dom.span(
           classes: 'arcane-icon-card-subtitle',
           styles: const dom.Styles(raw: {
-            'font-size': '0.875rem',
+            'font-size': 'var(--arcane-font-size-sm)',
             'color': 'var(--muted-foreground)',
             'margin-top': '0.25rem',
           }),
@@ -182,8 +182,8 @@ class ShadcnIconCard extends StatelessComponent {
       'padding': '1.5rem',
       'background-color': 'var(--card)',
       'border': '1px solid var(--border)',
-      'border-radius': '0.375rem',
-      'transition': 'all 200ms ease',
+      'border-radius': 'var(--arcane-radius-sm)',
+      'transition': 'all var(--arcane-transition-slow)',
       if (isClickable) 'cursor': 'pointer',
     };
 

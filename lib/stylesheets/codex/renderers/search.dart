@@ -126,9 +126,9 @@ class CodexSearch extends StatelessComponent {
 
             // Loading spinner or clear button
             if (props.loading)
-              dom.div(
+              const dom.div(
                 classes: 'codex-search-loading',
-                styles: const dom.Styles(raw: {
+                styles: dom.Styles(raw: {
                   'position': 'absolute',
                   'right': '0.875rem',
                   'display': 'flex',
@@ -136,13 +136,13 @@ class CodexSearch extends StatelessComponent {
                 }),
                 [
                   dom.span(
-                    styles: const dom.Styles(raw: {
+                    styles: dom.Styles(raw: {
                       'display': 'inline-block',
                       'width': '16px',
                       'height': '16px',
                       'border': '2px solid var(--muted)',
                       'border-top-color': 'var(--codex-accent)',
-                      'border-radius': '9999px',
+                      'border-radius': 'var(--arcane-radius-full)',
                       'animation': 'arcane-spin 0.75s linear infinite',
                     }),
                     [],
@@ -163,7 +163,7 @@ class CodexSearch extends StatelessComponent {
                   'height': '20px',
                   'background': 'transparent',
                   'border': 'none',
-                  'border-radius': '9999px',
+                  'border-radius': 'var(--arcane-radius-full)',
                   'color': 'var(--muted-foreground)',
                   'cursor': 'pointer',
                   'transition': 'all var(--transition)',
@@ -223,8 +223,8 @@ class CodexSearch extends StatelessComponent {
         [
           dom.div(
             styles: const dom.Styles(raw: {
-              'font-size': '0.875rem',
-              'font-weight': '500',
+              'font-size': 'var(--arcane-font-size-sm)',
+              'font-weight': 'var(--arcane-font-weight-medium)',
               'color': 'var(--foreground)',
             }),
             [Component.text(result.title)],
@@ -232,7 +232,7 @@ class CodexSearch extends StatelessComponent {
           if (result.subtitle != null)
             dom.div(
               styles: const dom.Styles(raw: {
-                'font-size': '0.75rem',
+                'font-size': 'var(--arcane-font-size-xs)',
                 'color': 'var(--muted-foreground)',
                 'margin-top': '0.125rem',
               }),
@@ -259,8 +259,8 @@ class CodexSearch extends StatelessComponent {
       [
         dom.div(
           styles: const dom.Styles(raw: {
-            'font-size': '0.875rem',
-            'font-weight': '500',
+            'font-size': 'var(--arcane-font-size-sm)',
+            'font-weight': 'var(--arcane-font-weight-medium)',
             'color': 'var(--foreground)',
           }),
           [Component.text(result.title)],
@@ -268,7 +268,7 @@ class CodexSearch extends StatelessComponent {
         if (result.subtitle != null)
           dom.div(
             styles: const dom.Styles(raw: {
-              'font-size': '0.75rem',
+              'font-size': 'var(--arcane-font-size-xs)',
               'color': 'var(--muted-foreground)',
               'margin-top': '0.125rem',
             }),

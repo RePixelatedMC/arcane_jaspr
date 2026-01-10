@@ -12,17 +12,18 @@ class ShadcnGlass extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     final effectiveRadius = props.radius ?? 'var(--radius)';
+    final opacityPercent = (props.opacity * 100).toInt();
 
     return dom.div(
       classes: 'arcane-glass',
       styles: dom.Styles(raw: {
-        'background-color': 'hsl(var(--card) / ${props.opacity})',
+        'background-color': 'color-mix(in srgb, var(--card) $opacityPercent%, transparent)',
         'backdrop-filter': 'blur(${props.blur}px)',
         '-webkit-backdrop-filter': 'blur(${props.blur}px)',
         'border-radius': effectiveRadius,
         if (props.padding != null) 'padding': props.padding!,
-        if (props.border) 'border': '1px solid hsl(var(--border) / 0.5)',
-        'box-shadow': '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
+        if (props.border) 'border': '1px solid color-mix(in srgb, var(--border) 50%, transparent)',
+        'box-shadow': 'var(--arcane-shadow-md)',
       }),
       [props.child],
     );
@@ -39,17 +40,18 @@ class ShadcnGlassCard extends StatelessComponent {
   Component build(BuildContext context) {
     final effectiveRadius = props.radius ?? 'var(--radius)';
     final effectivePadding = props.padding ?? '1rem';
+    final opacityPercent = (props.opacity * 100).toInt();
 
     final glassContent = dom.div(
       classes: 'arcane-glass',
       styles: dom.Styles(raw: {
-        'background-color': 'hsl(var(--card) / ${props.opacity})',
+        'background-color': 'color-mix(in srgb, var(--card) $opacityPercent%, transparent)',
         'backdrop-filter': 'blur(${props.blur}px)',
         '-webkit-backdrop-filter': 'blur(${props.blur}px)',
         'border-radius': effectiveRadius,
         'padding': effectivePadding,
-        if (props.border) 'border': '1px solid hsl(var(--border) / 0.5)',
-        'box-shadow': '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
+        if (props.border) 'border': '1px solid color-mix(in srgb, var(--border) 50%, transparent)',
+        'box-shadow': 'var(--arcane-shadow-md)',
       }),
       [props.child],
     );
@@ -59,7 +61,7 @@ class ShadcnGlassCard extends StatelessComponent {
         classes: 'arcane-glass-card',
         styles: const dom.Styles(raw: {
           'cursor': 'pointer',
-          'transition': 'transform 150ms ease',
+          'transition': 'transform var(--arcane-transition)',
         }),
         events: {
           'click': (event) => props.onTap!(),
@@ -93,7 +95,7 @@ class ShadcnGradientGlass extends StatelessComponent {
         '-webkit-backdrop-filter': 'blur(${props.blur}px)',
         'border-radius': effectiveRadius,
         if (props.padding != null) 'padding': props.padding!,
-        'border': '1px solid hsl(var(--border) / 0.3)',
+        'border': '1px solid color-mix(in srgb, var(--border) 30%, transparent)',
       }),
       [props.child],
     );

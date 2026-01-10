@@ -16,30 +16,35 @@ class CodexDisclosure extends StatelessComponent {
       String containerBorder,
       String summaryBg,
       String contentBorder,
+      String contentPadding,
     ) = switch (props.variant) {
       DisclosureVariant.default_ => (
           'transparent',
           'none',
           'var(--secondary)',
           '1px solid var(--border)',
+          '1.25rem',
         ),
       DisclosureVariant.minimal => (
           'transparent',
           'none',
           'transparent',
           'none',
+          '0.25rem 0 0 0', // Minimal top padding only
         ),
       DisclosureVariant.bordered => (
           'transparent',
           '1px solid var(--border)',
           'transparent',
           '1px solid var(--border)',
+          '1.25rem',
         ),
       DisclosureVariant.filled => (
           'var(--card)',
           '1px solid var(--border)',
           'var(--secondary)',
           '1px solid var(--border)',
+          '1.25rem',
         ),
     };
 
@@ -70,11 +75,11 @@ class CodexDisclosure extends StatelessComponent {
             'display': 'flex',
             'align-items': 'center',
             'justify-content': 'space-between',
-            'gap': '1rem',
+            'gap': 'var(--arcane-space-4)',
             'padding': '0.75rem 1.25rem',
             'background-color': summaryBg,
             'cursor': 'pointer',
-            'transition': 'all 150ms ease',
+            'transition': 'all var(--arcane-transition)',
             'list-style': 'none',
             '-webkit-user-select': 'none',
             'user-select': 'none',
@@ -93,8 +98,8 @@ class CodexDisclosure extends StatelessComponent {
                 classes: 'codex-disclosure-chevron',
                 styles: dom.Styles(raw: {
                   'color': 'var(--muted-foreground)',
-                  'font-size': '0.875rem',
-                  'transition': 'transform 150ms ease',
+                  'font-size': 'var(--arcane-font-size-sm)',
+                  'transition': 'transform var(--arcane-transition)',
                 }),
                 [Component.text('\u25BC')],
               ),
@@ -102,10 +107,14 @@ class CodexDisclosure extends StatelessComponent {
         ),
         // Content
         dom.div(
-          classes: 'codex-disclosure-content',
+          classes: 'codex-disclosure-content${props.showTreeLines ? ' arcane-tree-lines' : ''}',
           styles: dom.Styles(raw: {
-            'padding': '1.25rem',
+            'padding': contentPadding,
             'border-top': contentBorder,
+            if (props.showTreeLines) ...{
+              'padding-left': '1.5rem',
+              'position': 'relative',
+            },
           }),
           [props.child],
         ),

@@ -18,12 +18,12 @@ class ShadcnIntegrationCard extends StatelessComponent {
       styles: dom.Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': '1.5rem',
+        'gap': 'var(--arcane-space-6)',
         'padding': '2rem',
         'background-color': 'var(--card)',
         'border': '1px solid ${props.featured ? 'var(--accent)' : 'var(--border)'}',
-        'border-radius': '0.375rem',
-        'transition': 'all 150ms ease',
+        'border-radius': 'var(--arcane-radius-sm)',
+        'transition': 'all var(--arcane-transition)',
         'cursor': isClickable ? 'pointer' : 'default',
       }),
       [
@@ -45,7 +45,7 @@ class ShadcnIntegrationCard extends StatelessComponent {
                 'align-items': 'center',
                 'justify-content': 'center',
                 'background-color': 'var(--muted)',
-                'border-radius': '0.375rem',
+                'border-radius': 'var(--arcane-radius-sm)',
                 'overflow': 'hidden',
               }),
               [
@@ -64,8 +64,8 @@ class ShadcnIntegrationCard extends StatelessComponent {
                 else
                   dom.span(
                     styles: const dom.Styles(raw: {
-                      'font-size': '1.25rem',
-                      'font-weight': '600',
+                      'font-size': 'var(--arcane-font-size-xl)',
+                      'font-weight': 'var(--arcane-font-weight-semibold)',
                       'color': 'var(--muted-foreground)',
                     }),
                     [Component.text(props.name.substring(0, 1).toUpperCase())],
@@ -78,13 +78,13 @@ class ShadcnIntegrationCard extends StatelessComponent {
               dom.span(
                 styles: const dom.Styles(raw: {
                   'padding': '0.25rem 0.5rem',
-                  'font-size': '0.75rem',
-                  'font-weight': '500',
+                  'font-size': 'var(--arcane-font-size-xs)',
+                  'font-weight': 'var(--arcane-font-weight-medium)',
                   'text-transform': 'uppercase',
                   'letter-spacing': '0.05em',
                   'color': 'var(--muted-foreground)',
                   'background-color': 'var(--muted)',
-                  'border-radius': '9999px',
+                  'border-radius': 'var(--arcane-radius-full)',
                 }),
                 [Component.text(props.category!)],
               ),
@@ -96,14 +96,14 @@ class ShadcnIntegrationCard extends StatelessComponent {
           styles: const dom.Styles(raw: {
             'display': 'flex',
             'flex-direction': 'column',
-            'gap': '0.5rem',
+            'gap': 'var(--arcane-space-2)',
           }),
           [
             // Name
             dom.div(
               styles: const dom.Styles(raw: {
-                'font-size': '1rem',
-                'font-weight': '600',
+                'font-size': 'var(--arcane-font-size-base)',
+                'font-weight': 'var(--arcane-font-weight-semibold)',
                 'color': 'var(--foreground)',
               }),
               [Component.text(props.name)],
@@ -113,7 +113,7 @@ class ShadcnIntegrationCard extends StatelessComponent {
             if (props.description != null)
               dom.div(
                 styles: const dom.Styles(raw: {
-                  'font-size': '0.875rem',
+                  'font-size': 'var(--arcane-font-size-sm)',
                   'line-height': '1.5',
                   'color': 'var(--muted-foreground)',
                 }),
@@ -128,10 +128,10 @@ class ShadcnIntegrationCard extends StatelessComponent {
             styles: dom.Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
-              'gap': '0.25rem',
+              'gap': 'var(--arcane-space-1)',
               'margin-top': 'auto',
-              'font-size': '0.875rem',
-              'font-weight': '500',
+              'font-size': 'var(--arcane-font-size-sm)',
+              'font-weight': 'var(--arcane-font-weight-medium)',
               'color': 'var(--accent)',
             }),
             [
@@ -186,14 +186,14 @@ class ShadcnIntegrationGrid extends StatelessComponent {
             styles: const dom.Styles(raw: {
               'display': 'flex',
               'flex-direction': 'column',
-              'gap': '0.5rem',
+              'gap': 'var(--arcane-space-2)',
             }),
             [
               if (props.title != null)
                 dom.div(
                   styles: const dom.Styles(raw: {
-                    'font-size': '1.5rem',
-                    'font-weight': '600',
+                    'font-size': 'var(--arcane-font-size-2xl)',
+                    'font-weight': 'var(--arcane-font-weight-semibold)',
                     'color': 'var(--foreground)',
                   }),
                   [Component.text(props.title!)],
@@ -201,7 +201,7 @@ class ShadcnIntegrationGrid extends StatelessComponent {
               if (props.description != null)
                 dom.div(
                   styles: const dom.Styles(raw: {
-                    'font-size': '1rem',
+                    'font-size': 'var(--arcane-font-size-base)',
                     'color': 'var(--muted-foreground)',
                   }),
                   [Component.text(props.description!)],

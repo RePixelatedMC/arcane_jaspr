@@ -32,7 +32,7 @@ class ShadcnDataTable<T> extends StatelessComponent {
         'overflow-x': 'auto',
         // ShadCN: rounded-md border
         'border': '1px solid var(--border)',
-        'border-radius': '0.5rem',
+        'border-radius': 'var(--arcane-radius-md)',
       }),
       [
         dom.table(
@@ -41,7 +41,7 @@ class ShadcnDataTable<T> extends StatelessComponent {
             'width': '100%',
             'border-collapse': 'collapse',
             // ShadCN: text-sm
-            'font-size': '0.875rem',
+            'font-size': 'var(--arcane-font-size-sm)',
           }),
           [
             // Header
@@ -85,7 +85,7 @@ class ShadcnDataTable<T> extends StatelessComponent {
                           // ShadCN: h-12 px-4 text-left align-middle font-medium text-muted-foreground
                           'padding': '12px 16px',
                           'text-align': column.align.css,
-                          'font-weight': '500',
+                          'font-weight': 'var(--arcane-font-weight-medium)',
                           'color': 'var(--muted-foreground)',
                           'white-space': 'nowrap',
                           if (column.width != null)
@@ -127,7 +127,7 @@ class ShadcnDataTable<T> extends StatelessComponent {
             isSelected ? 'var(--muted)' : 'var(--background)',
         if (props.showDividers) 'border-bottom': '1px solid var(--border)',
         if (isClickable) 'cursor': 'pointer',
-        'transition': 'background-color 150ms ease',
+        'transition': 'background-color var(--arcane-transition)',
       }),
       events: isClickable
           ? {

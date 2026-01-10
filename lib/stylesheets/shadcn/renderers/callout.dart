@@ -25,22 +25,22 @@ class ShadcnCallout extends StatelessComponent {
   (String background, String border, String iconColor) get _variantColors =>
       switch (props.variant) {
         CalloutVariant.info => (
-            'hsl(199 89% 48% / 0.1)',
-            'hsl(199 89% 48%)',
-            'hsl(199 89% 48%)'
+            'color-mix(in srgb, var(--info) 10%, transparent)',
+            'var(--info)',
+            'var(--info)'
           ),
         CalloutVariant.success => (
-            'hsl(142 76% 36% / 0.1)',
-            'hsl(142 76% 36%)',
-            'hsl(142 76% 36%)'
+            'color-mix(in srgb, var(--success) 10%, transparent)',
+            'var(--success)',
+            'var(--success)'
           ),
         CalloutVariant.warning => (
-            'hsl(38 92% 50% / 0.1)',
-            'hsl(38 92% 50%)',
-            'hsl(38 92% 50%)'
+            'color-mix(in srgb, var(--warning) 10%, transparent)',
+            'var(--warning)',
+            'var(--warning)'
           ),
         CalloutVariant.error => (
-            'hsl(var(--destructive) / 0.1)',
+            'color-mix(in srgb, var(--destructive) 10%, transparent)',
             'var(--destructive)',
             'var(--destructive)'
           ),
@@ -50,12 +50,12 @@ class ShadcnCallout extends StatelessComponent {
             'var(--muted-foreground)'
           ),
         CalloutVariant.tip => (
-            'hsl(var(--accent) / 0.1)',
+            'color-mix(in srgb, var(--accent) 10%, transparent)',
             'var(--accent)',
             'var(--accent)'
           ),
         CalloutVariant.note => (
-            'hsl(var(--primary) / 0.1)',
+            'color-mix(in srgb, var(--primary) 10%, transparent)',
             'var(--primary)',
             'var(--primary)'
           ),
@@ -72,7 +72,7 @@ class ShadcnCallout extends StatelessComponent {
       },
       styles: dom.Styles(raw: {
         'display': 'flex',
-        'gap': '1rem',
+        'gap': 'var(--arcane-space-4)',
         'padding': '1rem',
         'background': background,
         'border-left': '4px solid $borderColor',
@@ -91,7 +91,7 @@ class ShadcnCallout extends StatelessComponent {
               'align-items': 'center',
               'justify-content': 'center',
               'color': iconColor,
-              'font-size': '1rem',
+              'font-size': 'var(--arcane-font-size-base)',
             }),
             [props.icon ?? Component.text(_defaultIcon)],
           ),
@@ -108,7 +108,7 @@ class ShadcnCallout extends StatelessComponent {
               dom.div(
                 classes: 'arcane-callout-title',
                 styles: const dom.Styles(raw: {
-                  'font-weight': '600',
+                  'font-weight': 'var(--arcane-font-weight-semibold)',
                   'color': 'var(--foreground)',
                   'margin-bottom': '0.25rem',
                 }),
@@ -118,7 +118,7 @@ class ShadcnCallout extends StatelessComponent {
               dom.div(
                 classes: 'arcane-callout-body',
                 styles: const dom.Styles(raw: {
-                  'font-size': '0.875rem',
+                  'font-size': 'var(--arcane-font-size-sm)',
                   'color': 'var(--foreground)',
                   'line-height': '1.7',
                 }),
@@ -146,7 +146,7 @@ class ShadcnCallout extends StatelessComponent {
               'color': 'var(--muted-foreground)',
               'cursor': 'pointer',
               'border-radius': '0.125rem',
-              'transition': 'all 150ms ease',
+              'transition': 'all var(--arcane-transition)',
             }),
             events: {
               'click': (_) => props.onDismiss?.call(),

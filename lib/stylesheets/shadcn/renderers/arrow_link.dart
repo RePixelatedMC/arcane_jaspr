@@ -37,12 +37,12 @@ class ShadcnArrowLink extends StatelessComponent {
     final Map<String, String> styles = {
       'display': 'inline-flex',
       'align-items': 'center',
-      'gap': '0.5rem',
+      'gap': 'var(--arcane-space-2)',
       'font-size': fontSize,
       'color': color,
       'text-decoration': 'none',
       'cursor': 'pointer',
-      'transition': 'all 150ms ease',
+      'transition': 'all var(--arcane-transition)',
     };
 
     if (props.href != null) {

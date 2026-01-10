@@ -25,7 +25,7 @@ class ShadcnSidebar extends StatelessComponent {
         'height': '100%',
         'background-color': 'var(--background)',
         'border-${props.rightSide ? 'left' : 'right'}': '1px solid var(--border)',
-        'transition': 'width 200ms ease',
+        'transition': 'width var(--arcane-transition-slow)',
         'flex-shrink': '0',
         'overflow': 'hidden',
       }),
@@ -50,7 +50,7 @@ class ShadcnSidebar extends StatelessComponent {
             'min-height': '0',
             'display': 'flex',
             'flex-direction': 'column',
-            'gap': '8px',
+            'gap': 'var(--arcane-space-2)',
             'overflow-y': 'auto',
             'overflow-x': 'hidden',
             'padding': '8px',
@@ -85,13 +85,13 @@ class ShadcnSidebar extends StatelessComponent {
                   'margin': props.isCollapsed ? '0 auto' : '0',
                   'margin-top':
                       props.footer != null && !props.isCollapsed ? '8px' : '0',
-                  'border-radius': '6px',
+                  'border-radius': 'var(--arcane-radius-sm)',
                   'background': 'transparent',
                   'border': 'none',
                   'color': 'var(--muted-foreground)',
                   'cursor': 'pointer',
-                  'transition': 'color 150ms ease, background-color 150ms ease',
-                  'font-size': '14px',
+                  'transition': 'color var(--arcane-transition), background-color var(--arcane-transition)',
+                  'font-size': 'var(--arcane-font-size-sm)',
                 }),
                 events: props.onToggleCollapse != null
                     ? {'click': (_) => props.onToggleCollapse!()}
@@ -99,7 +99,7 @@ class ShadcnSidebar extends StatelessComponent {
                 [
                   dom.span(
                     styles: dom.Styles(raw: {
-                      'transition': 'transform 200ms ease',
+                      'transition': 'transform var(--arcane-transition-slow)',
                       'transform': props.rightSide
                           ? (props.isCollapsed ? 'rotate(180deg)' : 'rotate(0)')
                           : (props.isCollapsed
@@ -112,7 +112,7 @@ class ShadcnSidebar extends StatelessComponent {
                     const dom.span(
                       styles: dom.Styles(raw: {
                         'margin-left': '8px',
-                        'font-size': '14px',
+                        'font-size': 'var(--arcane-font-size-sm)',
                       }),
                       [Component.text('Collapse')],
                     ),
@@ -139,17 +139,17 @@ class ShadcnSidebarItem extends StatelessComponent {
       'width': '100%',
       'align-items': 'center',
       'justify-content': props.collapsed ? 'center' : 'flex-start',
-      'gap': '8px',
+      'gap': 'var(--arcane-space-2)',
       'padding': '8px',
-      'border-radius': '6px',
+      'border-radius': 'var(--arcane-radius-sm)',
       'overflow': 'hidden',
       'border': 'none',
       'text-align': 'left',
-      'font-size': '14px',
+      'font-size': 'var(--arcane-font-size-sm)',
       'outline': 'none',
       'text-decoration': 'none',
       'transition':
-          'color 150ms ease, background-color 150ms ease, width 200ms ease, padding 200ms ease',
+          'color var(--arcane-transition), background-color var(--arcane-transition), width var(--arcane-transition-slow), padding var(--arcane-transition-slow)',
       'background-color': props.selected ? 'var(--accent)' : 'transparent',
       'color':
           props.selected ? 'var(--accent-foreground)' : 'var(--foreground)',
@@ -188,10 +188,10 @@ class ShadcnSidebarItem extends StatelessComponent {
           styles: const dom.Styles(raw: {
             'background-color': 'var(--primary)',
             'color': 'var(--primary-foreground)',
-            'font-size': '12px',
+            'font-size': 'var(--arcane-font-size-xs)',
             'padding': '2px 8px',
-            'border-radius': '9999px',
-            'font-weight': '500',
+            'border-radius': 'var(--arcane-radius-full)',
+            'font-weight': 'var(--arcane-font-weight-medium)',
           }),
           [Component.text(props.badge!)],
         ),
@@ -262,10 +262,10 @@ class ShadcnSidebarGroup extends StatelessComponent {
               'height': '32px',
               'flex-shrink': '0',
               'align-items': 'center',
-              'border-radius': '6px',
+              'border-radius': 'var(--arcane-radius-sm)',
               'padding': '0 8px',
-              'font-size': '12px',
-              'font-weight': '500',
+              'font-size': 'var(--arcane-font-size-xs)',
+              'font-weight': 'var(--arcane-font-weight-medium)',
               'color': 'var(--muted-foreground)',
             }),
             [Component.text(props.label!)],
@@ -277,8 +277,8 @@ class ShadcnSidebarGroup extends StatelessComponent {
             'width': '100%',
             'display': 'flex',
             'flex-direction': 'column',
-            'gap': '4px',
-            'font-size': '14px',
+            'gap': 'var(--arcane-space-1)',
+            'font-size': 'var(--arcane-font-size-sm)',
           }),
           props.children,
         ),
@@ -313,17 +313,17 @@ class ShadcnSidebarSubMenu extends StatelessComponent {
             'width': '100%',
             'align-items': 'center',
             'justify-content': props.collapsed ? 'center' : 'space-between',
-            'gap': '8px',
+            'gap': 'var(--arcane-space-2)',
             'padding': '8px',
-            'border-radius': '6px',
+            'border-radius': 'var(--arcane-radius-sm)',
             'border': 'none',
             'background': 'transparent',
             'text-align': 'left',
-            'font-size': '14px',
-            'font-weight': '500',
+            'font-size': 'var(--arcane-font-size-sm)',
+            'font-weight': 'var(--arcane-font-weight-medium)',
             'color': 'var(--foreground)',
             'cursor': 'pointer',
-            'transition': 'color 150ms ease, background-color 150ms ease',
+            'transition': 'color var(--arcane-transition), background-color var(--arcane-transition)',
           }),
           events: props.onToggle != null ? {'click': (_) => props.onToggle!()} : null,
           [
@@ -331,7 +331,7 @@ class ShadcnSidebarSubMenu extends StatelessComponent {
               styles: const dom.Styles(raw: {
                 'display': 'flex',
                 'align-items': 'center',
-                'gap': '8px',
+                'gap': 'var(--arcane-space-2)',
               }),
               [
                 if (props.icon != null)
@@ -355,7 +355,7 @@ class ShadcnSidebarSubMenu extends StatelessComponent {
                 styles: const dom.Styles(raw: {
                   'display': 'flex',
                   'align-items': 'center',
-                  'gap': '8px',
+                  'gap': 'var(--arcane-space-2)',
                 }),
                 [
                   if (props.badge != null)
@@ -363,17 +363,17 @@ class ShadcnSidebarSubMenu extends StatelessComponent {
                       styles: const dom.Styles(raw: {
                         'background-color': 'var(--primary)',
                         'color': 'var(--primary-foreground)',
-                        'font-size': '12px',
+                        'font-size': 'var(--arcane-font-size-xs)',
                         'padding': '2px 8px',
-                        'border-radius': '9999px',
-                        'font-weight': '500',
+                        'border-radius': 'var(--arcane-radius-full)',
+                        'font-weight': 'var(--arcane-font-weight-medium)',
                       }),
                       [Component.text(props.badge!)],
                     ),
                   dom.span(
                     styles: dom.Styles(raw: {
-                      'font-size': '12px',
-                      'transition': 'transform 150ms ease',
+                      'font-size': 'var(--arcane-font-size-xs)',
+                      'transition': 'transform var(--arcane-transition)',
                       'transform': props.isOpen ? 'rotate(180deg)' : 'rotate(0)',
                     }),
                     [const Component.text('\u25BC')],
@@ -390,7 +390,7 @@ class ShadcnSidebarSubMenu extends StatelessComponent {
               'padding-left': '24px',
               'display': 'flex',
               'flex-direction': 'column',
-              'gap': '4px',
+              'gap': 'var(--arcane-space-1)',
               'margin-top': '4px',
             }),
             props.children,
@@ -444,14 +444,14 @@ class ShadcnSidebarSeparator extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return dom.div(
+    return const dom.div(
       classes: 'arcane-sidebar-separator',
-      styles: const dom.Styles(raw: {
+      styles: dom.Styles(raw: {
         'height': '1px',
         'background-color': 'var(--border)',
         'margin': '8px 0',
       }),
-      const [],
+      [],
     );
   }
 }

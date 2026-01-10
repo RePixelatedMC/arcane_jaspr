@@ -36,7 +36,7 @@ class CodexDataTable<T> extends StatelessComponent {
           styles: const dom.Styles(raw: {
             'width': '100%',
             'border-collapse': 'collapse',
-            'font-size': '0.875rem',
+            'font-size': 'var(--arcane-font-size-sm)',
           }),
           [
             // Header
@@ -80,7 +80,7 @@ class CodexDataTable<T> extends StatelessComponent {
                         styles: dom.Styles(raw: {
                           'padding': '16px 20px',
                           'text-align': column.align.css,
-                          'font-weight': '500',
+                          'font-weight': 'var(--arcane-font-weight-medium)',
                           'color': 'var(--muted-foreground)',
                           'white-space': 'nowrap',
                           if (column.width != null)
@@ -118,7 +118,7 @@ class CodexDataTable<T> extends StatelessComponent {
             isSelected ? 'rgba(var(--codex-accent-rgb), 0.1)' : 'var(--background)',
         if (props.showDividers) 'border-bottom': '1px solid var(--border)',
         if (isClickable) 'cursor': 'pointer',
-        'transition': 'background-color 150ms ease',
+        'transition': 'background-color var(--arcane-transition)',
       }),
       events: isClickable
           ? {

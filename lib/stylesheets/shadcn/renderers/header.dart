@@ -50,7 +50,7 @@ class ShadcnHeader extends StatelessComponent {
               styles: const dom.Styles(raw: {
                 'display': 'flex',
                 'align-items': 'center',
-                'gap': '4px',
+                'gap': 'var(--arcane-space-1)',
               }),
               [
                 for (final item in props.navItems) _buildNavItem(item),
@@ -83,14 +83,14 @@ class ShadcnHeader extends StatelessComponent {
                     },
                     styles: const dom.Styles(raw: {
                       'padding': '8px 12px 8px 36px',
-                      'font-size': '14px',
+                      'font-size': 'var(--arcane-font-size-sm)',
                       'background-color': 'var(--muted)',
                       'border': '1px solid var(--border)',
-                      'border-radius': '6px',
+                      'border-radius': 'var(--arcane-radius-sm)',
                       'color': 'var(--foreground)',
                       'width': '200px',
                       'outline': 'none',
-                      'transition': 'border-color 150ms ease, width 150ms ease',
+                      'transition': 'border-color var(--arcane-transition), width var(--arcane-transition)',
                     }),
                     events: props.onSearch != null
                         ? {
@@ -113,7 +113,7 @@ class ShadcnHeader extends StatelessComponent {
                       'top': '50%',
                       'transform': 'translateY(-50%)',
                       'color': 'var(--muted-foreground)',
-                      'font-size': '14px',
+                      'font-size': 'var(--arcane-font-size-sm)',
                       'pointer-events': 'none',
                     }),
                     [Component.text('\u{1F50D}')], // Magnifying glass
@@ -147,16 +147,16 @@ class ShadcnHeader extends StatelessComponent {
             styles: dom.Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
-              'gap': '4px',
+              'gap': 'var(--arcane-space-1)',
               'padding': '8px 12px',
-              'font-size': '14px',
-              'font-weight': '500',
+              'font-size': 'var(--arcane-font-size-sm)',
+              'font-weight': 'var(--arcane-font-weight-medium)',
               'color': item.isActive
                   ? 'var(--foreground)'
                   : 'var(--muted-foreground)',
               'text-decoration': 'none',
-              'border-radius': '6px',
-              'transition': 'color 150ms ease, background-color 150ms ease',
+              'border-radius': 'var(--arcane-radius-sm)',
+              'transition': 'color var(--arcane-transition), background-color var(--arcane-transition)',
             }),
             [
               Component.text(item.label),
@@ -174,18 +174,18 @@ class ShadcnHeader extends StatelessComponent {
             styles: dom.Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
-              'gap': '4px',
+              'gap': 'var(--arcane-space-1)',
               'padding': '8px 12px',
-              'font-size': '14px',
-              'font-weight': '500',
+              'font-size': 'var(--arcane-font-size-sm)',
+              'font-weight': 'var(--arcane-font-weight-medium)',
               'color': item.isActive
                   ? 'var(--foreground)'
                   : 'var(--muted-foreground)',
               'background': 'none',
               'border': 'none',
-              'border-radius': '6px',
+              'border-radius': 'var(--arcane-radius-sm)',
               'cursor': 'pointer',
-              'transition': 'color 150ms ease, background-color 150ms ease',
+              'transition': 'color var(--arcane-transition), background-color var(--arcane-transition)',
             }),
             events: item.onTap != null ? {'click': (_) => item.onTap!()} : null,
             [
@@ -216,7 +216,7 @@ class ShadcnNavLink extends StatelessComponent {
         const dom.span(
           classes: 'nav-link-arrow',
           styles: dom.Styles(raw: {
-            'transition': 'transform 150ms ease',
+            'transition': 'transform var(--arcane-transition)',
           }),
           [Component.text('\u{2192}')], // Right arrow
         ),
@@ -229,13 +229,13 @@ class ShadcnNavLink extends StatelessComponent {
         styles: dom.Styles(raw: {
           'display': 'inline-flex',
           'align-items': 'center',
-          'gap': '4px',
-          'font-size': '14px',
-          'font-weight': '500',
+          'gap': 'var(--arcane-space-1)',
+          'font-size': 'var(--arcane-font-size-sm)',
+          'font-weight': 'var(--arcane-font-weight-medium)',
           'color':
               props.isActive ? 'var(--primary)' : 'var(--muted-foreground)',
           'text-decoration': 'none',
-          'transition': 'color 150ms ease',
+          'transition': 'color var(--arcane-transition)',
         }),
         content,
       );
@@ -247,12 +247,12 @@ class ShadcnNavLink extends StatelessComponent {
       styles: dom.Styles(raw: {
         'display': 'inline-flex',
         'align-items': 'center',
-        'gap': '4px',
-        'font-size': '14px',
-        'font-weight': '500',
+        'gap': 'var(--arcane-space-1)',
+        'font-size': 'var(--arcane-font-size-sm)',
+        'font-weight': 'var(--arcane-font-weight-medium)',
         'color': props.isActive ? 'var(--primary)' : 'var(--muted-foreground)',
         'text-decoration': 'none',
-        'transition': 'color 150ms ease',
+        'transition': 'color var(--arcane-transition)',
         'background': 'none',
         'border': 'none',
         'padding': '0',

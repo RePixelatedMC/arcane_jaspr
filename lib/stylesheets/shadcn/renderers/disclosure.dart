@@ -19,30 +19,35 @@ class ShadcnDisclosure extends StatelessComponent {
       String containerBorder,
       String summaryBg,
       String contentBorder,
+      String contentPadding,
     ) = switch (props.variant) {
       DisclosureVariant.default_ => (
           'transparent',
           'none',
           'var(--muted)',
           '1px solid var(--border)',
+          '1rem',
         ),
       DisclosureVariant.minimal => (
           'transparent',
           'none',
           'transparent',
           'none',
+          '0.25rem 0 0 0', // Minimal top padding only
         ),
       DisclosureVariant.bordered => (
           'transparent',
           '1px solid var(--border)',
           'transparent',
           '1px solid var(--border)',
+          '1rem',
         ),
       DisclosureVariant.filled => (
           'var(--card)',
           '1px solid var(--border)',
           'var(--muted)',
           '1px solid var(--border)',
+          '1rem',
         ),
     };
 
@@ -74,11 +79,11 @@ class ShadcnDisclosure extends StatelessComponent {
             'display': 'flex',
             'align-items': 'center',
             'justify-content': 'space-between',
-            'gap': '1rem',
+            'gap': 'var(--arcane-space-4)',
             'padding': '0.5rem 1rem',
             'background-color': summaryBg,
             'cursor': 'pointer',
-            'transition': 'all 150ms ease',
+            'transition': 'all var(--arcane-transition)',
             'list-style': 'none',
             '-webkit-user-select': 'none',
             'user-select': 'none',
@@ -97,8 +102,8 @@ class ShadcnDisclosure extends StatelessComponent {
                 classes: 'arcane-disclosure-chevron',
                 styles: dom.Styles(raw: {
                   'color': 'var(--muted-foreground)',
-                  'font-size': '0.875rem',
-                  'transition': 'transform 150ms ease',
+                  'font-size': 'var(--arcane-font-size-sm)',
+                  'transition': 'transform var(--arcane-transition)',
                 }),
                 [Component.text('\u25BC')],
               ),
@@ -106,10 +111,14 @@ class ShadcnDisclosure extends StatelessComponent {
         ),
         // Content
         dom.div(
-          classes: 'arcane-disclosure-content',
+          classes: 'arcane-disclosure-content${props.showTreeLines ? ' arcane-tree-lines' : ''}',
           styles: dom.Styles(raw: {
-            'padding': '1rem',
+            'padding': contentPadding,
             'border-top': contentBorder,
+            if (props.showTreeLines) ...{
+              'padding-left': '1.5rem',
+              'position': 'relative',
+            },
           }),
           [props.child],
         ),

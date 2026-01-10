@@ -18,7 +18,7 @@ class CodexFieldWrapper extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': '0.5rem',
+        'gap': 'var(--arcane-space-2)',
       }),
       [
         // Label row
@@ -28,25 +28,25 @@ class CodexFieldWrapper extends StatelessComponent {
             styles: const dom.Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
-              'gap': '0.5rem',
+              'gap': 'var(--arcane-space-2)',
             }),
             [
               if (props.leading != null) props.leading!,
               dom.label(
                 styles: const dom.Styles(raw: {
-                  'font-size': '0.875rem',
-                  'font-weight': '500',
+                  'font-size': 'var(--arcane-font-size-sm)',
+                  'font-weight': 'var(--arcane-font-weight-medium)',
                   'color': 'var(--foreground)',
                 }),
                 [
                   Component.text(props.labelText!),
                   if (props.required)
-                    dom.span(
-                      styles: const dom.Styles(raw: {
+                    const dom.span(
+                      styles: dom.Styles(raw: {
                         'color': 'var(--destructive)',
                         'margin-left': '0.25rem',
                       }),
-                      [const Component.text('*')],
+                      [Component.text('*')],
                     ),
                 ],
               ),
@@ -115,8 +115,8 @@ class CodexFormSection extends StatelessComponent {
               if (props.title != null)
                 dom.legend(
                   styles: const dom.Styles(raw: {
-                    'font-size': '1rem',
-                    'font-weight': '600',
+                    'font-size': 'var(--arcane-font-size-base)',
+                    'font-weight': 'var(--arcane-font-weight-semibold)',
                     'color': 'var(--foreground)',
                     'padding': '0',
                   }),
@@ -125,7 +125,7 @@ class CodexFormSection extends StatelessComponent {
               if (props.description != null)
                 dom.p(
                   styles: const dom.Styles(raw: {
-                    'font-size': '0.875rem',
+                    'font-size': 'var(--arcane-font-size-sm)',
                     'color': 'var(--muted-foreground)',
                     'margin': '0.25rem 0 0 0',
                   }),

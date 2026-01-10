@@ -33,8 +33,8 @@ class CodexFileUpload extends StatelessComponent {
         if (props.label != null)
           dom.label(
             styles: const dom.Styles(raw: {
-              'font-size': '0.875rem',
-              'font-weight': '500',
+              'font-size': 'var(--arcane-font-size-sm)',
+              'font-weight': 'var(--arcane-font-weight-medium)',
               'color': 'var(--foreground)',
             }),
             [Component.text(props.label!)],
@@ -54,7 +54,7 @@ class CodexFileUpload extends StatelessComponent {
             styles: const dom.Styles(raw: {
               'display': 'flex',
               'flex-direction': 'column',
-              'gap': '0.5rem',
+              'gap': 'var(--arcane-space-2)',
             }),
             [
               for (final file in props.selectedFiles)
@@ -67,7 +67,7 @@ class CodexFileUpload extends StatelessComponent {
                     'background': 'var(--card)',
                     'border': '1px solid var(--border)',
                     'border-radius': 'var(--radius)',
-                    'font-size': '0.875rem',
+                    'font-size': 'var(--arcane-font-size-sm)',
                   }),
                   [
                     dom.span(
@@ -96,7 +96,7 @@ class CodexFileUpload extends StatelessComponent {
         if (props.helperText != null)
           dom.span(
             styles: const dom.Styles(raw: {
-              'font-size': '0.75rem',
+              'font-size': 'var(--arcane-font-size-xs)',
               'color': 'var(--muted-foreground)',
             }),
             [Component.text(props.helperText!)],
@@ -124,7 +124,7 @@ class CodexFileUpload extends StatelessComponent {
             : 'transparent',
         'cursor': props.disabled ? 'not-allowed' : 'pointer',
         'opacity': props.disabled ? '0.5' : '1',
-        'transition': 'all 150ms ease',
+        'transition': 'all var(--arcane-transition)',
         'text-align': 'center',
       }),
       events: {
@@ -156,7 +156,7 @@ class CodexFileUpload extends StatelessComponent {
         dom.span(
           styles: const dom.Styles(raw: {
             'color': 'var(--codex-accent)',
-            'font-weight': '500',
+            'font-weight': 'var(--arcane-font-weight-medium)',
             'text-decoration': 'underline',
           }),
           [Component.text(props.browseText)],
@@ -185,14 +185,14 @@ class CodexFileUpload extends StatelessComponent {
             'gap': '0.75rem',
             'padding': '0.75rem 1.25rem',
             'font-size': fontSize,
-            'font-weight': '500',
+            'font-weight': 'var(--arcane-font-weight-medium)',
             'background': 'var(--secondary)',
             'border': '1px solid var(--border)',
             'border-radius': 'var(--radius)',
             'color': 'var(--foreground)',
             'cursor': props.disabled ? 'not-allowed' : 'pointer',
             'opacity': props.disabled ? '0.5' : '1',
-            'transition': 'all 150ms ease',
+            'transition': 'all var(--arcane-transition)',
           }),
           events: {
             'click': (_) => props.onClick?.call(),
@@ -212,7 +212,7 @@ class CodexFileUpload extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'inline-flex',
         'align-items': 'center',
-        'gap': '0.5rem',
+        'gap': 'var(--arcane-space-2)',
       }),
       [
         dom.a(

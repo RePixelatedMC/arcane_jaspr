@@ -87,8 +87,8 @@ class CodexDialog extends StatelessComponent {
               dom.h2(
                 classes: 'codex-dialog-title',
                 styles: const dom.Styles(raw: {
-                  'font-size': '1.25rem',
-                  'font-weight': '600',
+                  'font-size': 'var(--arcane-font-size-xl)',
+                  'font-weight': 'var(--arcane-font-weight-semibold)',
                   'color': 'var(--foreground)',
                   'margin': '0 0 1rem 0',
                   'padding-right': '2rem', // Space for close button
@@ -217,20 +217,20 @@ class CodexSheet extends StatelessComponent {
           [
             // Drag handle for bottom/top sheets
             if (props.showDragHandle && !_isHorizontal)
-              dom.div(
+              const dom.div(
                 classes: 'codex-sheet-drag-handle',
-                styles: const dom.Styles(raw: {
+                styles: dom.Styles(raw: {
                   'display': 'flex',
                   'justify-content': 'center',
                   'padding': '0.75rem 0 0.5rem',
                 }),
                 [
                   dom.div(
-                    styles: const dom.Styles(raw: {
+                    styles: dom.Styles(raw: {
                       'width': '48px',
                       'height': '4px',
                       'background-color': 'var(--muted)',
-                      'border-radius': '9999px',
+                      'border-radius': 'var(--arcane-radius-full)',
                     }),
                     [],
                   ),
@@ -303,8 +303,8 @@ class CodexSheet extends StatelessComponent {
             if (props.title != null)
               dom.h2(
                 styles: const dom.Styles(raw: {
-                  'font-size': '1.125rem',
-                  'font-weight': '600',
+                  'font-size': 'var(--arcane-font-size-lg)',
+                  'font-weight': 'var(--arcane-font-weight-semibold)',
                   'color': 'var(--foreground)',
                   'margin': '0',
                 }),
@@ -313,7 +313,7 @@ class CodexSheet extends StatelessComponent {
             if (props.description != null)
               dom.p(
                 styles: const dom.Styles(raw: {
-                  'font-size': '0.875rem',
+                  'font-size': 'var(--arcane-font-size-sm)',
                   'color': 'var(--muted-foreground)',
                   'margin': '0.375rem 0 0 0',
                 }),

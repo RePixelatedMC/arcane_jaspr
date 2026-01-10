@@ -62,7 +62,7 @@ class ShadcnSurfaceCard extends StatelessComponent {
         'box-shadow': _shadowStyle,
         if (backdropFilter != null) 'backdrop-filter': backdropFilter,
         if (backdropFilter != null) '-webkit-backdrop-filter': backdropFilter,
-        'transition': 'all 150ms ease',
+        'transition': 'all var(--arcane-transition)',
       }),
       [props.child],
     );

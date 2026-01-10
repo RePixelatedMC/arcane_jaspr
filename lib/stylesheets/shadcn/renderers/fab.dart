@@ -67,8 +67,8 @@ class ShadcnFAB extends StatelessComponent {
           'border': '1px solid var(--border)',
         },
       FABVariant.success => {
-          'background-color': 'hsl(142 76% 36%)',
-          'color': 'white',
+          'background-color': 'var(--success)',
+          'color': 'var(--success-foreground)',
         },
       FABVariant.destructive => {
           'background-color': 'var(--destructive)',
@@ -99,8 +99,8 @@ class ShadcnFAB extends StatelessComponent {
         'border': 'none',
         'cursor': props.disabled ? 'not-allowed' : 'pointer',
         'opacity': props.disabled ? '0.5' : '1',
-        'box-shadow': '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
-        'transition': 'all 200ms ease',
+        'box-shadow': 'var(--arcane-shadow-lg)',
+        'transition': 'all var(--arcane-transition-slow)',
         'z-index': '50',
         ...variantStyles,
       }),
@@ -125,8 +125,8 @@ class ShadcnFAB extends StatelessComponent {
         if (props.label != null)
           span(
             styles: const Styles(raw: {
-              'font-weight': '500',
-              'font-size': '1rem',
+              'font-weight': 'var(--arcane-font-weight-medium)',
+              'font-size': 'var(--arcane-font-size-base)',
               'white-space': 'nowrap',
             }),
             [Component.text(props.label!)],

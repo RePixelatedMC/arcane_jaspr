@@ -34,7 +34,7 @@ class ShadcnColorInput extends StatelessComponent {
       styles: const Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': '0.5rem',
+        'gap': 'var(--arcane-space-2)',
       }),
       [
         // Label
@@ -42,8 +42,8 @@ class ShadcnColorInput extends StatelessComponent {
           span(
             classes: 'arcane-color-input-label',
             styles: const Styles(raw: {
-              'font-size': '0.875rem',
-              'font-weight': '500',
+              'font-size': 'var(--arcane-font-size-sm)',
+              'font-weight': 'var(--arcane-font-weight-medium)',
               'color': 'var(--foreground)',
             }),
             [Component.text(props.label!)],
@@ -55,7 +55,7 @@ class ShadcnColorInput extends StatelessComponent {
           styles: const Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
-            'gap': '0.5rem',
+            'gap': 'var(--arcane-space-2)',
           }),
           [
             // Color swatch with native picker
@@ -65,7 +65,7 @@ class ShadcnColorInput extends StatelessComponent {
                 'position': 'relative',
                 'width': swatchSize,
                 'height': swatchSize,
-                'border-radius': '0.375rem',
+                'border-radius': 'var(--arcane-radius-sm)',
                 'background': normalizedValue,
                 'border': '2px solid var(--border)',
                 'cursor': props.disabled ? 'not-allowed' : 'pointer',
@@ -127,7 +127,7 @@ class ShadcnColorInput extends StatelessComponent {
                       'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
                   'background': 'var(--input)',
                   'border': '1px solid var(--border)',
-                  'border-radius': '0.375rem',
+                  'border-radius': 'var(--arcane-radius-sm)',
                   'color': 'var(--foreground)',
                   'outline': 'none',
                   'text-transform': 'uppercase',
@@ -158,7 +158,7 @@ class ShadcnColorInput extends StatelessComponent {
             styles: const Styles(raw: {
               'display': 'flex',
               'flex-wrap': 'wrap',
-              'gap': '0.25rem',
+              'gap': 'var(--arcane-space-1)',
             }),
             [
               for (final String preset in colorPresets)
@@ -180,7 +180,7 @@ class ShadcnColorInput extends StatelessComponent {
                     'border-radius': '0.125rem',
                     'background': preset,
                     'cursor': props.disabled ? 'not-allowed' : 'pointer',
-                    'transition': 'all 150ms ease',
+                    'transition': 'all var(--arcane-transition)',
                   }),
                   events: props.disabled
                       ? null

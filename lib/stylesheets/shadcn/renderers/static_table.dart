@@ -24,7 +24,7 @@ class ShadcnStaticTable extends StatelessComponent {
           styles: const dom.Styles(raw: {
             'width': '100%',
             'border-collapse': 'collapse',
-            'font-size': '0.875rem',
+            'font-size': 'var(--arcane-font-size-sm)',
           }),
           [
             // Header
@@ -46,7 +46,7 @@ class ShadcnStaticTable extends StatelessComponent {
                               (props.alignments != null && i < props.alignments!.length)
                                   ? props.alignments![i].css
                                   : 'left',
-                          'font-weight': '600',
+                          'font-weight': 'var(--arcane-font-weight-semibold)',
                           'color': 'var(--foreground)',
                           'white-space': 'nowrap',
                         }),
@@ -123,9 +123,9 @@ class ShadcnKeyValueTable extends StatelessComponent {
                 styles: dom.Styles(raw: {
                   'padding': '1rem 1.5rem',
                   'background-color': 'var(--muted)',
-                  'font-weight': '500',
+                  'font-weight': 'var(--arcane-font-weight-medium)',
                   'color': 'var(--foreground)',
-                  'font-size': '0.875rem',
+                  'font-size': 'var(--arcane-font-size-sm)',
                   if (props.keyWidth != null) 'width': '${props.keyWidth}px',
                   if (props.keyWidth != null) 'flex-shrink': '0',
                   if (props.keyWidth == null) 'flex': '0 0 30%',
@@ -142,7 +142,7 @@ class ShadcnKeyValueTable extends StatelessComponent {
                   'padding': '1rem 1.5rem',
                   'background-color': 'var(--card)',
                   'color': 'var(--foreground)',
-                  'font-size': '0.875rem',
+                  'font-size': 'var(--arcane-font-size-sm)',
                 }),
                 [props.rows[i].value],
               ),

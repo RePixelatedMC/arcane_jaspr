@@ -58,28 +58,28 @@ class CodexFeatureCard extends StatelessComponent {
               styles: const dom.Styles(raw: {
                 'display': 'flex',
                 'align-items': 'center',
-                'gap': '0.5rem',
+                'gap': 'var(--arcane-space-2)',
               }),
               [
                 dom.h3(
                   classes: 'codex-feature-card-title',
                   styles: const dom.Styles(raw: {
-                    'font-size': '1.125rem',
-                    'font-weight': '600',
+                    'font-size': 'var(--arcane-font-size-lg)',
+                    'font-weight': 'var(--arcane-font-weight-semibold)',
                     'color': 'var(--foreground)',
                     'margin': '0',
                   }),
                   [Component.text(props.title)],
                 ),
                 if (props.showArrow && isInteractive)
-                  dom.span(
+                  const dom.span(
                     classes: 'codex-feature-card-arrow',
-                    styles: const dom.Styles(raw: {
-                      'font-size': '1rem',
+                    styles: dom.Styles(raw: {
+                      'font-size': 'var(--arcane-font-size-base)',
                       'color': 'var(--codex-accent)',
                       'transition': 'transform var(--transition)',
                     }),
-                    [const Component.text('->')],
+                    [Component.text('->')],
                   ),
               ],
             ),
@@ -148,7 +148,7 @@ class CodexIconCard extends StatelessComponent {
         'flex-direction': 'column',
         'align-items': 'center',
         'text-align': 'center',
-        'gap': '1rem',
+        'gap': 'var(--arcane-space-4)',
       }),
       [
         // Icon
@@ -171,8 +171,8 @@ class CodexIconCard extends StatelessComponent {
         dom.h4(
           classes: 'codex-icon-card-title',
           styles: const dom.Styles(raw: {
-            'font-size': '1rem',
-            'font-weight': '600',
+            'font-size': 'var(--arcane-font-size-base)',
+            'font-weight': 'var(--arcane-font-weight-semibold)',
             'color': 'var(--foreground)',
             'margin': '0',
           }),
@@ -184,7 +184,7 @@ class CodexIconCard extends StatelessComponent {
           dom.p(
             classes: 'codex-icon-card-subtitle',
             styles: const dom.Styles(raw: {
-              'font-size': '0.875rem',
+              'font-size': 'var(--arcane-font-size-sm)',
               'color': 'var(--muted-foreground)',
               'margin': '0',
             }),

@@ -41,15 +41,15 @@ class _ShadcnRadioCardsState<T> extends State<ShadcnRadioCards<T>> {
         'flex-direction': 'column',
         'align-items': 'flex-start',
         'padding': '1rem',
-        'border-radius': '0.375rem',
+        'border-radius': 'var(--arcane-radius-sm)',
         'border': isSelected
             ? '2px solid var(--accent)'
             : '2px solid var(--border)',
         'background-color':
-            isSelected ? 'hsl(var(--accent) / 0.1)' : 'var(--card)',
+            isSelected ? 'color-mix(in srgb, var(--accent) 10%, transparent)' : 'var(--card)',
         'cursor': isDisabled ? 'not-allowed' : 'pointer',
         'opacity': isDisabled ? '0.5' : '1',
-        'transition': 'all 150ms ease',
+        'transition': 'all var(--arcane-transition)',
         'text-align': 'left',
         if (component.props.cardWidth != null) 'width': '${component.props.cardWidth}px',
         'flex': component.props.cardWidth == null ? '1' : 'none',
@@ -75,7 +75,7 @@ class _ShadcnRadioCardsState<T> extends State<ShadcnRadioCards<T>> {
           dom.div(
             classes: 'arcane-radio-card-title',
             styles: dom.Styles(raw: {
-              'font-weight': '600',
+              'font-weight': 'var(--arcane-font-weight-semibold)',
               'color': isSelected ? 'var(--accent)' : 'var(--foreground)',
               'margin-bottom': item.subtitle != null ? '0.25rem' : '0',
             }),
@@ -85,7 +85,7 @@ class _ShadcnRadioCardsState<T> extends State<ShadcnRadioCards<T>> {
           dom.div(
             classes: 'arcane-radio-card-subtitle',
             styles: dom.Styles(raw: {
-              'font-size': '0.875rem',
+              'font-size': 'var(--arcane-font-size-sm)',
               'color': isSelected ? 'var(--accent)' : 'var(--muted-foreground)',
             }),
             [Component.text(item.subtitle!)],
@@ -118,18 +118,18 @@ Component renderArcaneChip(ArcaneChipProps props) {
       'align-items': 'center',
       'gap': '6px',
       'padding': '6px 12px',
-      'border-radius': '9999px',
-      'font-size': '0.875rem',
+      'border-radius': 'var(--arcane-radius-full)',
+      'font-size': 'var(--arcane-font-size-sm)',
       'border': props.selected
           ? '1px solid var(--accent)'
           : '1px solid var(--border)',
       'background-color': props.selected
-          ? 'hsl(var(--accent) / 0.1)'
+          ? 'color-mix(in srgb, var(--accent) 10%, transparent)'
           : 'var(--card)',
       'color': props.selected ? 'var(--accent)' : 'var(--foreground)',
       'cursor': props.disabled ? 'not-allowed' : 'pointer',
       'opacity': props.disabled ? '0.5' : '1',
-      'transition': 'all 150ms ease',
+      'transition': 'all var(--arcane-transition)',
     }),
     events: {
       'click': (event) {

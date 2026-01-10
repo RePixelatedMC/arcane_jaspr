@@ -292,7 +292,7 @@ class ArcaneImageCard extends StatelessComponent {
               'right': '0',
               'padding': '1rem',
               'background':
-                  'linear-gradient(to top, hsl(var(--background) / 0.8), transparent)',
+                  'linear-gradient(to top, color-mix(in srgb, var(--background) 80%, transparent), transparent)',
               'color': 'var(--foreground)',
             }),
             [

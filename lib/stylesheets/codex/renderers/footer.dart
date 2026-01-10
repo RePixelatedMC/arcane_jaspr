@@ -47,14 +47,14 @@ class CodexFooter extends StatelessComponent {
                     styles: const dom.Styles(raw: {
                       'display': 'flex',
                       'flex-direction': 'column',
-                      'gap': '1rem',
+                      'gap': 'var(--arcane-space-4)',
                     }),
                     [
                       if (props.logo != null) props.logo!,
                       if (props.description != null)
                         dom.p(
                           styles: const dom.Styles(raw: {
-                            'font-size': '0.875rem',
+                            'font-size': 'var(--arcane-font-size-sm)',
                             'color': 'var(--muted-foreground)',
                             'line-height': '1.6',
                             'margin': '0',
@@ -88,8 +88,8 @@ class CodexFooter extends StatelessComponent {
                     [
                       dom.h4(
                         styles: const dom.Styles(raw: {
-                          'font-size': '0.875rem',
-                          'font-weight': '600',
+                          'font-size': 'var(--arcane-font-size-sm)',
+                          'font-weight': 'var(--arcane-font-weight-semibold)',
                           'color': 'var(--foreground)',
                           'margin': '0 0 0.5rem 0',
                           'text-transform': 'uppercase',
@@ -112,22 +112,22 @@ class CodexFooter extends StatelessComponent {
                       'gap': '0.75rem',
                     }),
                     [
-                      dom.h4(
-                        styles: const dom.Styles(raw: {
-                          'font-size': '0.875rem',
-                          'font-weight': '600',
+                      const dom.h4(
+                        styles: dom.Styles(raw: {
+                          'font-size': 'var(--arcane-font-size-sm)',
+                          'font-weight': 'var(--arcane-font-weight-semibold)',
                           'color': 'var(--foreground)',
                           'margin': '0 0 0.5rem 0',
                           'text-transform': 'uppercase',
                           'letter-spacing': '0.05em',
                         }),
-                        [const Component.text('Newsletter')],
+                        [Component.text('Newsletter')],
                       ),
                       dom.div(
                         classes: 'codex-footer-newsletter-form',
                         styles: const dom.Styles(raw: {
                           'display': 'flex',
-                          'gap': '0.5rem',
+                          'gap': 'var(--arcane-space-2)',
                         }),
                         [
                           dom.input(
@@ -142,7 +142,7 @@ class CodexFooter extends StatelessComponent {
                               'border': '1px solid var(--border)',
                               'border-radius': 'var(--radius)',
                               'color': 'var(--foreground)',
-                              'font-size': '0.875rem',
+                              'font-size': 'var(--arcane-font-size-sm)',
                             }),
                           ),
                           dom.button(
@@ -153,8 +153,8 @@ class CodexFooter extends StatelessComponent {
                               'color': '#ffffff',
                               'border': 'none',
                               'border-radius': 'var(--radius)',
-                              'font-size': '0.875rem',
-                              'font-weight': '500',
+                              'font-size': 'var(--arcane-font-size-sm)',
+                              'font-weight': 'var(--arcane-font-weight-medium)',
                               'cursor': 'pointer',
                               'white-space': 'nowrap',
                             }),
@@ -175,7 +175,7 @@ class CodexFooter extends StatelessComponent {
                 'flex-wrap': 'wrap',
                 'justify-content': 'space-between',
                 'align-items': 'center',
-                'gap': '1rem',
+                'gap': 'var(--arcane-space-4)',
                 'margin-top': '3rem',
                 'padding-top': '2rem',
                 'border-top': '1px solid var(--border)',
@@ -198,7 +198,7 @@ class CodexFooter extends StatelessComponent {
                     styles: const dom.Styles(raw: {
                       'display': 'flex',
                       'flex-wrap': 'wrap',
-                      'gap': '1.5rem',
+                      'gap': 'var(--arcane-space-6)',
                     }),
                     [
                       for (final link in props.bottomLinks!) _buildLink(link),
@@ -221,7 +221,7 @@ class CodexFooter extends StatelessComponent {
         if (link.external) 'rel': 'noopener noreferrer',
       },
       styles: const dom.Styles(raw: {
-        'font-size': '0.875rem',
+        'font-size': 'var(--arcane-font-size-sm)',
         'color': 'var(--muted-foreground)',
         'text-decoration': 'none',
         'transition': 'color var(--transition)',
@@ -233,17 +233,17 @@ class CodexFooter extends StatelessComponent {
       [
         if (link.icon != null)
           dom.span(
-            styles: const dom.Styles(raw: {'font-size': '1rem'}),
+            styles: const dom.Styles(raw: {'font-size': 'var(--arcane-font-size-base)'}),
             [Component.text(link.icon!)],
           ),
         Component.text(link.label),
         if (link.external)
-          dom.span(
-            styles: const dom.Styles(raw: {
-              'font-size': '0.75rem',
+          const dom.span(
+            styles: dom.Styles(raw: {
+              'font-size': 'var(--arcane-font-size-xs)',
               'opacity': '0.6',
             }),
-            [const Component.text('->')],
+            [Component.text('->')],
           ),
       ],
     );

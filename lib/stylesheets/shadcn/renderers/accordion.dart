@@ -25,7 +25,7 @@ class ShadcnAccordion extends StatelessComponent {
         'display': 'flex',
         'flex-direction': 'column',
         if (props.bordered) 'border': '1px solid var(--border)',
-        if (props.bordered) 'border-radius': '0.5rem',
+        if (props.bordered) 'border-radius': 'var(--arcane-radius-md)',
         'overflow': 'hidden',
       }),
       [
@@ -65,12 +65,12 @@ class ShadcnAccordion extends StatelessComponent {
             'border': 'none',
             'text-align': 'left',
             // ShadCN: font-medium
-            'font-size': '0.875rem',
-            'font-weight': '500',
+            'font-size': 'var(--arcane-font-size-sm)',
+            'font-weight': 'var(--arcane-font-weight-medium)',
             'color': 'var(--foreground)',
             'cursor': 'pointer',
             // ShadCN: transition-all
-            'transition': 'all 200ms ease',
+            'transition': 'all var(--arcane-transition-slow)',
           }),
           events: {
             'click': (e) {
@@ -94,7 +94,7 @@ class ShadcnAccordion extends StatelessComponent {
                 // ShadCN: [&[data-state=open]>svg]:rotate-180
                 'transform': isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
                 // ShadCN: transition-transform duration-200
-                'transition': 'transform 200ms ease',
+                'transition': 'transform var(--arcane-transition-slow)',
                 'flex-shrink': '0',
               }),
               [const Component.text('\u25BC')], // Down arrow
@@ -117,7 +117,7 @@ class ShadcnAccordion extends StatelessComponent {
                 // ShadCN: pb-4 pt-0
                 'padding-bottom': '16px',
                 // ShadCN: text-sm
-                'font-size': '0.875rem',
+                'font-size': 'var(--arcane-font-size-sm)',
                 'line-height': '1.625',
                 'color': 'var(--muted-foreground)',
               }),

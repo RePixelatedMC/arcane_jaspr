@@ -77,10 +77,10 @@ class ArcaneChatScreen<M extends AbstractChatMessage, U extends AbstractChatUser
   static final List<StyleRule> styles = [
     css('.arcane-chat-input:focus').styles(raw: {
       'border-color': 'var(--accent)',
-      'box-shadow': '0 0 0 2px hsl(var(--accent) / 0.1)',
+      'box-shadow': '0 0 0 2px color-mix(in srgb, var(--accent) 10%, transparent)',
     }),
     css('.arcane-chat-send:hover').styles(raw: {
-      'background': 'hsl(var(--accent) / 0.9)',
+      'background': 'color-mix(in srgb, var(--accent) 90%, transparent)',
     }),
   ];
 }

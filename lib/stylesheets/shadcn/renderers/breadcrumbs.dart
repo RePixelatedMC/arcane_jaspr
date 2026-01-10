@@ -96,7 +96,7 @@ class ShadcnBreadcrumbs extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'inline-flex',
         'align-items': 'center',
-        'gap': '4px',
+        'gap': 'var(--arcane-space-1)',
       }),
       [
         if (item.icon != null) item.icon!,
@@ -116,7 +116,7 @@ class ShadcnBreadcrumbs extends StatelessComponent {
         attributes: {'aria-current': 'page'},
         styles: const dom.Styles(raw: {
           'color': 'var(--foreground)',
-          'font-weight': '400',
+          'font-weight': 'var(--arcane-font-weight-normal)',
         }),
         [content],
       );
@@ -129,7 +129,7 @@ class ShadcnBreadcrumbs extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'color': 'var(--muted-foreground)',
         'text-decoration': 'none',
-        'transition': 'color 150ms ease',
+        'transition': 'color var(--arcane-transition)',
       }),
       events: props.onItemClick != null
           ? {

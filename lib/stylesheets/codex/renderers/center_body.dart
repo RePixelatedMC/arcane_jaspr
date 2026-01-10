@@ -74,7 +74,7 @@ class CodexLoadingState extends StatelessComponent {
         'justify-content': 'center',
         'min-height': '100%',
         'flex': '1',
-        'gap': '1.5rem',
+        'gap': 'var(--arcane-space-6)',
         'padding': '4rem 2rem',
       }),
       [
@@ -86,7 +86,7 @@ class CodexLoadingState extends StatelessComponent {
             'height': '44px',
             'border': '3px solid var(--border)',
             'border-top-color': 'var(--codex-accent)',
-            'border-radius': '9999px',
+            'border-radius': 'var(--arcane-radius-full)',
             'animation': 'arcane-spin 0.75s linear infinite',
           }),
           [],
@@ -94,7 +94,7 @@ class CodexLoadingState extends StatelessComponent {
         if (props.message != null)
           dom.div(
             styles: const dom.Styles(raw: {
-              'font-size': '0.875rem',
+              'font-size': 'var(--arcane-font-size-sm)',
               'color': 'var(--muted-foreground)',
             }),
             [Component.text(props.message!)],
@@ -123,7 +123,7 @@ class CodexErrorState extends StatelessComponent {
         'flex': '1',
         'text-align': 'center',
         'padding': '4rem 2rem',
-        'gap': '1.5rem',
+        'gap': 'var(--arcane-space-6)',
       }),
       [
         // Error icon
@@ -137,8 +137,8 @@ class CodexErrorState extends StatelessComponent {
         if (props.title != null)
           dom.div(
             styles: const dom.Styles(raw: {
-              'font-size': '1.25rem',
-              'font-weight': '600',
+              'font-size': 'var(--arcane-font-size-xl)',
+              'font-weight': 'var(--arcane-font-weight-semibold)',
               'color': 'var(--foreground)',
             }),
             [Component.text(props.title!)],
@@ -146,7 +146,7 @@ class CodexErrorState extends StatelessComponent {
         if (props.message != null)
           dom.div(
             styles: const dom.Styles(raw: {
-              'font-size': '0.875rem',
+              'font-size': 'var(--arcane-font-size-sm)',
               'color': 'var(--muted-foreground)',
               'max-width': '400px',
             }),

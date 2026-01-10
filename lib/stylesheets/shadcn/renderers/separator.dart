@@ -55,7 +55,7 @@ class ShadcnSeparator extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
-        'gap': '1rem',
+        'gap': 'var(--arcane-space-4)',
         'width': '100%',
       }),
       [
@@ -73,7 +73,7 @@ class ShadcnSeparator extends StatelessComponent {
         if (props.label != null)
           dom.span(
             styles: const dom.Styles(raw: {
-              'font-size': '0.875rem',
+              'font-size': 'var(--arcane-font-size-sm)',
               'color': 'var(--muted-foreground)',
               'white-space': 'nowrap',
             }),

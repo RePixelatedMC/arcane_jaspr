@@ -33,7 +33,7 @@ class _CodexNewsletterFormState extends State<CodexNewsletterForm> {
           'padding': '1rem',
           'text-align': 'center',
           'color': 'var(--success)',
-          'font-size': '0.875rem',
+          'font-size': 'var(--arcane-font-size-sm)',
         }),
         [Component.text(component.props.successMessage)],
       );
@@ -62,13 +62,13 @@ class _CodexNewsletterFormState extends State<CodexNewsletterForm> {
           styles: dom.Styles(raw: {
             'flex': isInline ? '1' : 'unset',
             'padding': isCompact ? '0.625rem 0.875rem' : '0.75rem 1rem',
-            'font-size': '0.875rem',
+            'font-size': 'var(--arcane-font-size-sm)',
             'color': 'var(--foreground)',
             'background-color': 'var(--input)',
             'border': '1px solid var(--border)',
             'border-radius': 'var(--radius)',
             'outline': 'none',
-            'transition': 'all 150ms ease',
+            'transition': 'all var(--arcane-transition)',
           }),
           attributes: {'placeholder': component.props.placeholder},
           events: {
@@ -85,14 +85,14 @@ class _CodexNewsletterFormState extends State<CodexNewsletterForm> {
           classes: 'codex-newsletter-btn',
           styles: dom.Styles(raw: {
             'padding': isCompact ? '0.625rem 1rem' : '0.75rem 1.25rem',
-            'font-size': '0.875rem',
-            'font-weight': '500',
+            'font-size': 'var(--arcane-font-size-sm)',
+            'font-weight': 'var(--arcane-font-weight-medium)',
             'color': '#ffffff',
             'background-color': 'var(--codex-accent)',
             'border': 'none',
             'border-radius': 'var(--radius)',
             'cursor': 'pointer',
-            'transition': 'all 150ms ease',
+            'transition': 'all var(--arcane-transition)',
             'white-space': 'nowrap',
           }),
           [Component.text(component.props.buttonText)],
@@ -139,8 +139,8 @@ class _CodexWaitlistFormState extends State<CodexWaitlistForm> {
         [
           dom.div(
             styles: const dom.Styles(raw: {
-              'font-size': '1.125rem',
-              'font-weight': '600',
+              'font-size': 'var(--arcane-font-size-lg)',
+              'font-weight': 'var(--arcane-font-weight-semibold)',
               'color': 'var(--foreground)',
               'margin-bottom': '0.5rem',
             }),
@@ -155,7 +155,7 @@ class _CodexWaitlistFormState extends State<CodexWaitlistForm> {
       styles: const dom.Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': '1rem',
+        'gap': 'var(--arcane-space-4)',
       }),
       events: {
         'submit': (event) {
@@ -168,8 +168,8 @@ class _CodexWaitlistFormState extends State<CodexWaitlistForm> {
         if (component.props.title != null)
           dom.h3(
             styles: const dom.Styles(raw: {
-              'font-size': '1.25rem',
-              'font-weight': '600',
+              'font-size': 'var(--arcane-font-size-xl)',
+              'font-weight': 'var(--arcane-font-weight-semibold)',
               'color': 'var(--foreground)',
               'margin': '0',
             }),
@@ -180,7 +180,7 @@ class _CodexWaitlistFormState extends State<CodexWaitlistForm> {
         if (component.props.description != null)
           dom.p(
             styles: const dom.Styles(raw: {
-              'font-size': '0.875rem',
+              'font-size': 'var(--arcane-font-size-sm)',
               'color': 'var(--muted-foreground)',
               'margin': '0',
             }),
@@ -194,13 +194,13 @@ class _CodexWaitlistFormState extends State<CodexWaitlistForm> {
             classes: 'codex-waitlist-name',
             styles: const dom.Styles(raw: {
               'padding': '0.75rem 1rem',
-              'font-size': '0.875rem',
+              'font-size': 'var(--arcane-font-size-sm)',
               'color': 'var(--foreground)',
               'background-color': 'var(--input)',
               'border': '1px solid var(--border)',
               'border-radius': 'var(--radius)',
               'outline': 'none',
-              'transition': 'all 150ms ease',
+              'transition': 'all var(--arcane-transition)',
             }),
             attributes: {'placeholder': 'Your name'},
             events: {
@@ -219,13 +219,13 @@ class _CodexWaitlistFormState extends State<CodexWaitlistForm> {
           classes: 'codex-waitlist-email',
           styles: const dom.Styles(raw: {
             'padding': '0.75rem 1rem',
-            'font-size': '0.875rem',
+            'font-size': 'var(--arcane-font-size-sm)',
             'color': 'var(--foreground)',
             'background-color': 'var(--input)',
             'border': '1px solid var(--border)',
             'border-radius': 'var(--radius)',
             'outline': 'none',
-            'transition': 'all 150ms ease',
+            'transition': 'all var(--arcane-transition)',
           }),
           attributes: {'placeholder': 'Your email'},
           events: {
@@ -245,13 +245,13 @@ class _CodexWaitlistFormState extends State<CodexWaitlistForm> {
           styles: const dom.Styles(raw: {
             'padding': '0.875rem 1.5rem',
             'font-size': '0.9375rem',
-            'font-weight': '600',
+            'font-weight': 'var(--arcane-font-weight-semibold)',
             'color': '#ffffff',
             'background-color': 'var(--codex-accent)',
             'border': 'none',
             'border-radius': 'var(--radius)',
             'cursor': 'pointer',
-            'transition': 'all 150ms ease',
+            'transition': 'all var(--arcane-transition)',
             'box-shadow': '0 0 20px rgba(var(--codex-accent-rgb), 0.3)',
           }),
           [Component.text(component.props.buttonText)],

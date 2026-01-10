@@ -66,7 +66,7 @@ class CodexAuthorCard extends StatelessComponent {
               dom.span(
                 styles: dom.Styles(raw: {
                   'font-size': '${avatarSize * 0.4}px',
-                  'font-weight': '600',
+                  'font-weight': 'var(--arcane-font-weight-semibold)',
                   'color': '#ffffff',
                 }),
                 [
@@ -91,7 +91,7 @@ class CodexAuthorCard extends StatelessComponent {
               classes: 'codex-author-name',
               styles: dom.Styles(raw: {
                 'font-size': nameFontSize,
-                'font-weight': '500',
+                'font-weight': 'var(--arcane-font-weight-medium)',
                 'color': props.nameColor ?? 'var(--foreground)',
               }),
               [Component.text(props.name)],

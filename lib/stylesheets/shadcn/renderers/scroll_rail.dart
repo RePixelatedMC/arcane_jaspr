@@ -15,7 +15,7 @@ String _getWidthValue(ScrollRailSize size, String? width) =>
 
 String _getBorderStyle(bool showBorder) {
   if (!showBorder) return 'none';
-  return '1px solid hsl(var(--border) / 0.5)';
+  return '1px solid color-mix(in srgb, var(--border) 50%, transparent)';
 }
 
 /// Renders a scroll rail component.

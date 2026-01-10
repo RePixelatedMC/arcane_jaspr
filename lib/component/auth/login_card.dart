@@ -111,8 +111,8 @@ class _ArcaneLoginCardState extends State<ArcaneLoginCard> {
             styles: const ArcaneStyleData(
               padding: PaddingPreset.md,
               margin: MarginPreset.bottomMd,
-              backgroundCustom: 'hsl(var(--destructive) / 0.1)',
-              borderCustom: '1px solid hsl(var(--destructive) / 0.3)',
+              backgroundCustom: 'color-mix(in srgb, var(--destructive) 10%, transparent)',
+              borderCustom: '1px solid color-mix(in srgb, var(--destructive) 30%, transparent)',
               borderRadius: Radius.md,
               textColor: TextColor.error,
               fontSize: FontSize.sm,

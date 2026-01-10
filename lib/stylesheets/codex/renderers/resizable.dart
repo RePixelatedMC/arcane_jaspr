@@ -71,7 +71,7 @@ Component _buildHandle(bool isHorizontal, int index, bool showGrip) {
       'background-color': 'var(--border)',
       'cursor': isHorizontal ? 'col-resize' : 'row-resize',
       'outline': 'none',
-      'transition': 'background-color 150ms ease',
+      'transition': 'background-color var(--arcane-transition)',
       'z-index': '10',
     }),
     [

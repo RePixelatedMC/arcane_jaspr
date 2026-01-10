@@ -30,7 +30,7 @@ class ShadcnAuthorCard extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
-        'gap': '1rem',
+        'gap': 'var(--arcane-space-4)',
       }),
       [
         // Avatar
@@ -61,7 +61,7 @@ class ShadcnAuthorCard extends StatelessComponent {
               dom.span(
                 styles: dom.Styles(raw: {
                   'font-size': initialsFontSize,
-                  'font-weight': '600',
+                  'font-weight': 'var(--arcane-font-weight-semibold)',
                   'color': 'var(--accent-foreground)',
                 }),
                 [Component.text(effectiveInitials)],
@@ -78,7 +78,7 @@ class ShadcnAuthorCard extends StatelessComponent {
             dom.div(
               styles: dom.Styles(raw: {
                 'font-size': nameFontSize,
-                'font-weight': '600',
+                'font-weight': 'var(--arcane-font-weight-semibold)',
                 'color': effectiveNameColor,
               }),
               [Component.text(props.name)],

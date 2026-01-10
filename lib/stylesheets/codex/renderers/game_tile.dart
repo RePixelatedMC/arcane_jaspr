@@ -34,7 +34,7 @@ class _CodexGameTileState extends State<CodexGameTile> {
             ? '2px solid var(--codex-accent)'
             : '1px solid var(--border)',
         'cursor': 'pointer',
-        'transition': 'all 200ms ease',
+        'transition': 'all var(--arcane-transition-slow)',
         'padding': '1rem',
         'display': 'flex',
         'flex-direction': 'column',
@@ -83,8 +83,8 @@ class _CodexGameTileState extends State<CodexGameTile> {
         dom.h3(
           classes: 'codex-game-tile-title',
           styles: const dom.Styles(raw: {
-            'font-size': '0.875rem',
-            'font-weight': '600',
+            'font-size': 'var(--arcane-font-size-sm)',
+            'font-weight': 'var(--arcane-font-weight-semibold)',
             'color': 'var(--foreground)',
             'margin': '0',
             'text-align': 'center',
@@ -97,7 +97,7 @@ class _CodexGameTileState extends State<CodexGameTile> {
           dom.span(
             classes: 'codex-game-tile-subtitle',
             styles: const dom.Styles(raw: {
-              'font-size': '0.75rem',
+              'font-size': 'var(--arcane-font-size-xs)',
               'color': 'var(--muted-foreground)',
               'text-align': 'center',
             }),
@@ -114,11 +114,11 @@ class _CodexGameTileState extends State<CodexGameTile> {
               'right': '0.5rem',
               'padding': '0.125rem 0.5rem',
               'font-size': '0.625rem',
-              'font-weight': '600',
+              'font-weight': 'var(--arcane-font-weight-semibold)',
               'text-transform': 'uppercase',
               'color': 'var(--codex-accent)',
               'background-color': 'rgba(var(--codex-accent-rgb), 0.1)',
-              'border-radius': '9999px',
+              'border-radius': 'var(--arcane-radius-full)',
             }),
             [Component.text(component.props.badge!)],
           ),
@@ -179,8 +179,8 @@ class CodexGameSelector extends StatelessComponent {
           dom.h2(
             styles: const dom.Styles(raw: {
               'grid-column': '1 / -1',
-              'font-size': '1.25rem',
-              'font-weight': '600',
+              'font-size': 'var(--arcane-font-size-xl)',
+              'font-weight': 'var(--arcane-font-weight-semibold)',
               'color': 'var(--foreground)',
               'margin': '0 0 0.5rem 0',
             }),
@@ -192,7 +192,7 @@ class CodexGameSelector extends StatelessComponent {
           dom.p(
             styles: const dom.Styles(raw: {
               'grid-column': '1 / -1',
-              'font-size': '0.875rem',
+              'font-size': 'var(--arcane-font-size-sm)',
               'color': 'var(--muted-foreground)',
               'margin': '0 0 1rem 0',
             }),
@@ -218,7 +218,7 @@ class CodexGameCard extends StatelessComponent {
       classes: 'codex-game-card',
       styles: const dom.Styles(raw: {
         'display': 'flex',
-        'gap': '1rem',
+        'gap': 'var(--arcane-space-4)',
         'padding': '1rem',
         'background-color': 'var(--card)',
         'border': '1px solid var(--border)',
@@ -252,15 +252,15 @@ class CodexGameCard extends StatelessComponent {
             'flex': '1',
             'display': 'flex',
             'flex-direction': 'column',
-            'gap': '0.25rem',
+            'gap': 'var(--arcane-space-1)',
           }),
           [
             // Title
             dom.h3(
               classes: 'codex-game-card-title',
               styles: const dom.Styles(raw: {
-                'font-size': '1rem',
-                'font-weight': '600',
+                'font-size': 'var(--arcane-font-size-base)',
+                'font-weight': 'var(--arcane-font-weight-semibold)',
                 'color': 'var(--foreground)',
                 'margin': '0',
               }),
@@ -285,7 +285,7 @@ class CodexGameCard extends StatelessComponent {
               dom.span(
                 classes: 'codex-game-card-status',
                 styles: const dom.Styles(raw: {
-                  'font-size': '0.75rem',
+                  'font-size': 'var(--arcane-font-size-xs)',
                   'color': 'var(--codex-accent)',
                 }),
                 [Component.text(props.status!)],
@@ -298,7 +298,7 @@ class CodexGameCard extends StatelessComponent {
                 styles: const dom.Styles(raw: {
                   'display': 'flex',
                   'flex-wrap': 'wrap',
-                  'gap': '0.25rem',
+                  'gap': 'var(--arcane-space-1)',
                   'margin-top': '0.5rem',
                 }),
                 [
@@ -308,11 +308,11 @@ class CodexGameCard extends StatelessComponent {
                       styles: const dom.Styles(raw: {
                         'padding': '0.125rem 0.5rem',
                         'font-size': '0.6875rem',
-                        'font-weight': '500',
+                        'font-weight': 'var(--arcane-font-weight-medium)',
                         'color': 'var(--codex-accent)',
                         'background-color':
                             'rgba(var(--codex-accent-rgb), 0.1)',
-                        'border-radius': '9999px',
+                        'border-radius': 'var(--arcane-radius-full)',
                       }),
                       [Component.text(feature)],
                     ),
@@ -326,8 +326,8 @@ class CodexGameCard extends StatelessComponent {
                 styles: const dom.Styles(raw: {
                   'margin-top': '0.5rem',
                   'padding': '0.5rem 1rem',
-                  'font-size': '0.75rem',
-                  'font-weight': '600',
+                  'font-size': 'var(--arcane-font-size-xs)',
+                  'font-weight': 'var(--arcane-font-weight-semibold)',
                   'color': 'var(--primary-foreground)',
                   'background-color': 'var(--codex-accent)',
                   'border': 'none',

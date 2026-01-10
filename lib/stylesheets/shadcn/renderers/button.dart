@@ -26,11 +26,11 @@ class ShadcnButton extends StatelessComponent {
       'display': 'inline-flex',
       'align-items': 'center',
       'justify-content': 'center',
-      'gap': '0.5rem', // gap-2
+      'gap': 'var(--arcane-space-2)', // gap-2
       'white-space': 'nowrap',
       'border-radius': 'var(--radius)', // rounded-md
-      'font-size': '0.875rem', // text-sm
-      'font-weight': '500', // font-medium
+      'font-size': 'var(--arcane-font-size-sm)', // text-sm
+      'font-weight': 'var(--arcane-font-weight-medium)', // font-medium
       'line-height': '1.25rem',
       'transition': 'color 150ms, background-color 150ms, border-color 150ms',
       'outline': 'none',
@@ -160,10 +160,10 @@ class ShadcnButton extends StatelessComponent {
 
     // Add arrow indicator if showArrow is true
     if (props.showArrow && !props.loading) {
-      children.add(dom.span(
-        styles: const dom.Styles(raw: {
+      children.add(const dom.span(
+        styles: dom.Styles(raw: {
           'margin-left': '0.25rem',
-          'transition': 'transform 150ms ease',
+          'transition': 'transform var(--arcane-transition)',
         }),
         [Component.text('\u2192')],
       ));

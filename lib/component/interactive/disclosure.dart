@@ -12,6 +12,7 @@ class ArcaneDisclosure extends StatelessComponent {
   final bool open;
   final DisclosureVariant variant;
   final bool showChevron;
+  final bool showTreeLines;
   final String? classes;
 
   const ArcaneDisclosure({
@@ -20,6 +21,7 @@ class ArcaneDisclosure extends StatelessComponent {
     this.open = false,
     this.variant = DisclosureVariant.default_,
     this.showChevron = true,
+    this.showTreeLines = true,
     this.classes,
     super.key,
   });
@@ -29,6 +31,7 @@ class ArcaneDisclosure extends StatelessComponent {
     required this.child,
     this.open = false,
     this.showChevron = true,
+    this.showTreeLines = true,
     this.classes,
     super.key,
   }) : variant = DisclosureVariant.minimal;
@@ -38,6 +41,7 @@ class ArcaneDisclosure extends StatelessComponent {
     required this.child,
     this.open = false,
     this.showChevron = true,
+    this.showTreeLines = true,
     this.classes,
     super.key,
   }) : variant = DisclosureVariant.bordered;
@@ -47,6 +51,7 @@ class ArcaneDisclosure extends StatelessComponent {
     required this.child,
     this.open = false,
     this.showChevron = true,
+    this.showTreeLines = true,
     this.classes,
     super.key,
   }) : variant = DisclosureVariant.filled;
@@ -59,6 +64,7 @@ class ArcaneDisclosure extends StatelessComponent {
       open: open,
       variant: variant,
       showChevron: showChevron,
+      showTreeLines: showTreeLines,
       classes: classes,
     ));
   }

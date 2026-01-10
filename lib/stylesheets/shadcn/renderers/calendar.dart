@@ -94,11 +94,11 @@ class ShadcnCalendar extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': '8px',
+        'gap': 'var(--arcane-space-2)',
         'padding': '12px',
         'background-color': 'var(--card)',
         'border': '1px solid var(--border)',
-        'border-radius': '8px',
+        'border-radius': 'var(--arcane-radius-md)',
         'width': 'fit-content',
       }),
       [
@@ -108,7 +108,7 @@ class ShadcnCalendar extends StatelessComponent {
             'display': 'flex',
             'align-items': 'center',
             'justify-content': 'space-between',
-            'gap': '8px',
+            'gap': 'var(--arcane-space-2)',
           }),
           [
             dom.button(
@@ -125,10 +125,10 @@ class ShadcnCalendar extends StatelessComponent {
                 'height': '32px',
                 'background': 'transparent',
                 'border': 'none',
-                'border-radius': '4px',
+                'border-radius': 'var(--arcane-radius-xs)',
                 'cursor': 'pointer',
                 'color': 'var(--foreground)',
-                'transition': 'background-color 150ms ease',
+                'transition': 'background-color var(--arcane-transition)',
               }),
               events: props.onPreviousMonth != null
                   ? {'click': (_) => props.onPreviousMonth!()}
@@ -137,8 +137,8 @@ class ShadcnCalendar extends StatelessComponent {
             ),
             dom.span(
               styles: const dom.Styles(raw: {
-                'font-weight': '600',
-                'font-size': '14px',
+                'font-weight': 'var(--arcane-font-weight-semibold)',
+                'font-size': 'var(--arcane-font-size-sm)',
                 'color': 'var(--foreground)',
               }),
               [Component.text('${_months[displayMonth.month - 1]} ${displayMonth.year}')],
@@ -157,10 +157,10 @@ class ShadcnCalendar extends StatelessComponent {
                 'height': '32px',
                 'background': 'transparent',
                 'border': 'none',
-                'border-radius': '4px',
+                'border-radius': 'var(--arcane-radius-xs)',
                 'cursor': 'pointer',
                 'color': 'var(--foreground)',
-                'transition': 'background-color 150ms ease',
+                'transition': 'background-color var(--arcane-transition)',
               }),
               events: props.onNextMonth != null
                   ? {'click': (_) => props.onNextMonth!()}
@@ -192,8 +192,8 @@ class ShadcnCalendar extends StatelessComponent {
                   'align-items': 'center',
                   'justify-content': 'center',
                   'height': '32px',
-                  'font-size': '12px',
-                  'font-weight': '500',
+                  'font-size': 'var(--arcane-font-size-xs)',
+                  'font-weight': 'var(--arcane-font-weight-medium)',
                   'color': 'var(--muted-foreground)',
                 }),
                 [Component.text(day)],
@@ -220,7 +220,7 @@ class ShadcnCalendar extends StatelessComponent {
                     'justify-content': 'center',
                     'width': '32px',
                     'height': '32px',
-                    'font-size': '12px',
+                    'font-size': 'var(--arcane-font-size-xs)',
                     'color': 'var(--muted-foreground)',
                   }),
                   [Component.text('${_getWeekNumber(days[i])}')],
@@ -238,11 +238,11 @@ class ShadcnCalendar extends StatelessComponent {
               'padding': '4px 8px',
               'background': 'transparent',
               'border': '1px solid var(--border)',
-              'border-radius': '4px',
+              'border-radius': 'var(--arcane-radius-xs)',
               'font-size': '13px',
               'color': 'var(--muted-foreground)',
               'cursor': 'pointer',
-              'transition': 'background-color 150ms ease',
+              'transition': 'background-color var(--arcane-transition)',
               'align-self': 'center',
             }),
             events: props.onGoToToday != null
@@ -282,20 +282,20 @@ class ShadcnCalendar extends StatelessComponent {
         'border': isToday && !isSelected
             ? '1px solid var(--primary)'
             : 'none',
-        'border-radius': '4px',
+        'border-radius': 'var(--arcane-radius-xs)',
         'background': isSelected
             ? 'var(--primary)'
             : isInRange
                 ? 'var(--accent)'
                 : 'transparent',
-        'font-size': '14px',
+        'font-size': 'var(--arcane-font-size-sm)',
         'color': isSelected
             ? 'var(--primary-foreground)'
             : isOutside
                 ? 'var(--muted)'
                 : 'var(--foreground)',
         'cursor': isDisabled ? 'not-allowed' : 'pointer',
-        'transition': 'background-color 150ms ease, color 150ms ease',
+        'transition': 'background-color var(--arcane-transition), color var(--arcane-transition)',
         if (isDisabled) 'opacity': '0.5',
         if (isRangeStart) 'border-top-left-radius': '6px',
         if (isRangeStart) 'border-bottom-left-radius': '6px',

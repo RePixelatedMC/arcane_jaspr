@@ -5,15 +5,15 @@ import '../../../core/props/cta_banner_props.dart';
 
 /// Renders a CTA banner with gradient background.
 Component renderCtaBanner(CtaBannerProps props) {
-  final String start = props.gradientStart ?? 'hsl(142 76% 36%)';
-  final String end = props.gradientEnd ?? 'hsl(142 76% 30%)';
+  final String start = props.gradientStart ?? 'var(--success)';
+  final String end = props.gradientEnd ?? 'var(--success)';
 
   return dom.div(
     classes: 'arcane-cta-banner',
     styles: dom.Styles(raw: {
       'position': 'relative',
       'padding': '64px 32px',
-      'border-radius': '0.75rem',
+      'border-radius': 'var(--arcane-radius-lg)',
       'background': props.backgroundImage != null
           ? 'url(${props.backgroundImage}) center/cover no-repeat'
           : 'linear-gradient(135deg, $start 0%, $end 100%)',
@@ -44,8 +44,8 @@ Component renderCtaBanner(CtaBannerProps props) {
           // Title
           dom.h2(
             styles: const dom.Styles(raw: {
-              'font-size': '1.875rem',
-              'font-weight': '700',
+              'font-size': 'var(--arcane-font-size-3xl)',
+              'font-weight': 'var(--arcane-font-weight-bold)',
               'color': 'var(--foreground)',
               'margin': '0 0 1rem 0',
             }),
@@ -55,8 +55,8 @@ Component renderCtaBanner(CtaBannerProps props) {
           if (props.subtitle != null)
             dom.p(
               styles: const dom.Styles(raw: {
-                'font-size': '1.125rem',
-                'color': 'hsl(var(--foreground) / 0.7)',
+                'font-size': 'var(--arcane-font-size-lg)',
+                'color': 'color-mix(in srgb, var(--foreground) 70%, transparent)',
                 'margin': '0 0 2rem 0',
                 'line-height': '1.6',
               }),
@@ -68,7 +68,7 @@ Component renderCtaBanner(CtaBannerProps props) {
               styles: const dom.Styles(raw: {
                 'display': 'flex',
                 'justify-content': 'center',
-                'gap': '1rem',
+                'gap': 'var(--arcane-space-4)',
                 'flex-wrap': 'wrap',
               }),
               [

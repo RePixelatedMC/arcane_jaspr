@@ -132,8 +132,8 @@ class CodexTextInput extends StatelessComponent {
             tag: 'label',
             attributes: props.id != null ? {'for': props.id!} : null,
             styles: const dom.Styles(raw: {
-              'font-size': '0.875rem',
-              'font-weight': '500',
+              'font-size': 'var(--arcane-font-size-sm)',
+              'font-weight': 'var(--arcane-font-weight-medium)',
               'line-height': '1',
               'color': 'var(--foreground)',
             }),
@@ -249,7 +249,7 @@ class CodexTextInput extends StatelessComponent {
           dom.span(
             classes: 'codex-text-input-error',
             styles: const dom.Styles(raw: {
-              'font-size': '0.875rem',
+              'font-size': 'var(--arcane-font-size-sm)',
               'color': 'var(--destructive)',
             }),
             [Component.text(props.error!)],
@@ -258,7 +258,7 @@ class CodexTextInput extends StatelessComponent {
           dom.span(
             classes: 'codex-text-input-helper',
             styles: const dom.Styles(raw: {
-              'font-size': '0.875rem',
+              'font-size': 'var(--arcane-font-size-sm)',
               'color': 'var(--muted-foreground)',
             }),
             [Component.text(props.helperText!)],

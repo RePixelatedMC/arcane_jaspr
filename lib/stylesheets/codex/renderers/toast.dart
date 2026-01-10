@@ -102,8 +102,8 @@ class CodexToast extends StatelessComponent {
               dom.div(
                 classes: 'codex-toast-title',
                 styles: const dom.Styles(raw: {
-                  'font-size': '0.875rem',
-                  'font-weight': '600',
+                  'font-size': 'var(--arcane-font-size-sm)',
+                  'font-weight': 'var(--arcane-font-weight-semibold)',
                   'color': 'var(--foreground)',
                   'margin-bottom': '0.25rem',
                 }),
@@ -112,7 +112,7 @@ class CodexToast extends StatelessComponent {
             dom.div(
               classes: 'codex-toast-message',
               styles: const dom.Styles(raw: {
-                'font-size': '0.875rem',
+                'font-size': 'var(--arcane-font-size-sm)',
                 'color': 'var(--foreground)',
               }),
               [Component.text(props.message)],
@@ -121,7 +121,7 @@ class CodexToast extends StatelessComponent {
               dom.div(
                 classes: 'codex-toast-description',
                 styles: const dom.Styles(raw: {
-                  'font-size': '0.75rem',
+                  'font-size': 'var(--arcane-font-size-xs)',
                   'color': 'var(--muted-foreground)',
                   'margin-top': '0.375rem',
                 }),
@@ -133,8 +133,8 @@ class CodexToast extends StatelessComponent {
                 styles: dom.Styles(raw: {
                   'margin-top': '0.5rem',
                   'padding': '0.375rem 0.75rem',
-                  'font-size': '0.75rem',
-                  'font-weight': '500',
+                  'font-size': 'var(--arcane-font-size-xs)',
+                  'font-weight': 'var(--arcane-font-weight-medium)',
                   'background': props.action!.destructive
                       ? 'var(--destructive)'
                       : 'var(--codex-accent)',
@@ -180,15 +180,15 @@ class CodexToast extends StatelessComponent {
 
   Component _buildDefaultIcon() {
     if (props.variant == ToastVariant.loading) {
-      return dom.span(
+      return const dom.span(
         classes: 'codex-toast-spinner',
-        styles: const dom.Styles(raw: {
+        styles: dom.Styles(raw: {
           'display': 'inline-block',
           'width': '18px',
           'height': '18px',
           'border': '2px solid var(--muted)',
           'border-top-color': 'var(--codex-accent)',
-          'border-radius': '9999px',
+          'border-radius': 'var(--arcane-radius-full)',
           'animation': 'arcane-spin 0.75s linear infinite',
         }),
         [],
@@ -210,8 +210,8 @@ class CodexToast extends StatelessComponent {
         'justify-content': 'center',
         'width': '20px',
         'height': '20px',
-        'font-size': '14px',
-        'font-weight': '700',
+        'font-size': 'var(--arcane-font-size-sm)',
+        'font-weight': 'var(--arcane-font-weight-bold)',
       }),
       [Component.text(icon)],
     );

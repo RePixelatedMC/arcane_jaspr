@@ -55,7 +55,7 @@ class CodexDashboardLayout extends StatelessComponent {
                 'padding': '1rem',
                 'display': 'flex',
                 'flex-direction': 'column',
-                'gap': '1.5rem',
+                'gap': 'var(--arcane-space-6)',
               }),
               [
                 for (final group in props.navigation)
@@ -112,7 +112,7 @@ class CodexDashboardLayout extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': '0.25rem',
+        'gap': 'var(--arcane-space-1)',
       }),
       [
         // Group label
@@ -121,7 +121,7 @@ class CodexDashboardLayout extends StatelessComponent {
             classes: 'codex-dashboard-nav-group-label',
             styles: const dom.Styles(raw: {
               'font-size': '0.6875rem',
-              'font-weight': '600',
+              'font-weight': 'var(--arcane-font-weight-semibold)',
               'text-transform': 'uppercase',
               'letter-spacing': '0.05em',
               'color': 'var(--muted-foreground)',
@@ -149,7 +149,7 @@ class CodexDashboardLayout extends StatelessComponent {
         'align-items': 'center',
         'gap': '0.75rem',
         'padding': '0.625rem 0.75rem',
-        'font-size': '0.875rem',
+        'font-size': 'var(--arcane-font-size-sm)',
         'font-weight': isActive ? '500' : '400',
         'color': isActive ? 'var(--codex-accent)' : 'var(--foreground)',
         'text-decoration': 'none',
@@ -157,7 +157,7 @@ class CodexDashboardLayout extends StatelessComponent {
         'background-color': isActive
             ? 'rgba(var(--codex-accent-rgb), 0.1)'
             : 'transparent',
-        'transition': 'all 150ms ease',
+        'transition': 'all var(--arcane-transition)',
       }),
       [
         // Icon
@@ -189,10 +189,10 @@ class CodexDashboardLayout extends StatelessComponent {
             styles: const dom.Styles(raw: {
               'padding': '0.125rem 0.5rem',
               'font-size': '0.6875rem',
-              'font-weight': '500',
+              'font-weight': 'var(--arcane-font-weight-medium)',
               'background-color': 'var(--codex-accent)',
               'color': '#ffffff',
-              'border-radius': '9999px',
+              'border-radius': 'var(--arcane-radius-full)',
             }),
             [Component.text(item.badge!)],
           ),
@@ -230,7 +230,7 @@ class CodexDashboardTopBar extends StatelessComponent {
             [props.leading!],
           )
         else
-          dom.div([]),
+          const dom.div([]),
 
         // Trailing (notifications, user menu)
         if (props.trailing != null)
@@ -239,7 +239,7 @@ class CodexDashboardTopBar extends StatelessComponent {
             styles: const dom.Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
-              'gap': '1rem',
+              'gap': 'var(--arcane-space-4)',
             }),
             [props.trailing!],
           ),

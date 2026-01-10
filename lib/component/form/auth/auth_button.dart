@@ -75,7 +75,7 @@ class AuthButton extends StatelessComponent {
           'background': 'linear-gradient(135deg, var(--accent) 0%, var(--info) 100%)',
           'color': 'var(--accent-foreground)',
           'border': 'none',
-          'box-shadow': '0 0 20px hsl(var(--accent) / 0.3)',
+          'box-shadow': '0 0 20px color-mix(in srgb, var(--accent) 30%, transparent)',
         };
 
       case AuthButtonVariant.secondary:

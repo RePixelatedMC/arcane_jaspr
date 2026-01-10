@@ -104,7 +104,7 @@ class CodexCheckbox extends StatelessComponent {
                 styles: dom.Styles(raw: {
                   'color': checkColor,
                   'font-size': checkSize,
-                  'font-weight': '700',
+                  'font-weight': 'var(--arcane-font-weight-bold)',
                   'line-height': '1',
                 }),
                 [const Component.text('\u2713')],
@@ -121,8 +121,8 @@ class CodexCheckbox extends StatelessComponent {
               if (props.label != null)
                 dom.span(
                   styles: const dom.Styles(raw: {
-                    'font-size': '0.875rem',
-                    'font-weight': '500',
+                    'font-size': 'var(--arcane-font-size-sm)',
+                    'font-weight': 'var(--arcane-font-weight-medium)',
                     'color': 'var(--foreground)',
                     'display': 'block',
                     'line-height': '1.25',
@@ -132,7 +132,7 @@ class CodexCheckbox extends StatelessComponent {
               if (props.description != null)
                 dom.span(
                   styles: const dom.Styles(raw: {
-                    'font-size': '0.875rem',
+                    'font-size': 'var(--arcane-font-size-sm)',
                     'color': 'var(--muted-foreground)',
                     'display': 'block',
                     'margin-top': '0.375rem', // Codex: slightly more gap

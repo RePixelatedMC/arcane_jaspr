@@ -85,8 +85,8 @@ class _CodexFlexiCardsState extends State<CodexFlexiCards> {
         dom.h3(
           classes: 'codex-flexi-card-title',
           styles: const dom.Styles(raw: {
-            'font-size': '1rem',
-            'font-weight': '600',
+            'font-size': 'var(--arcane-font-size-base)',
+            'font-weight': 'var(--arcane-font-weight-semibold)',
             'color': 'var(--foreground)',
             'margin': '0 0 0.5rem 0',
           }),
@@ -98,7 +98,7 @@ class _CodexFlexiCardsState extends State<CodexFlexiCards> {
           dom.p(
             classes: 'codex-flexi-card-description',
             styles: const dom.Styles(raw: {
-              'font-size': '0.875rem',
+              'font-size': 'var(--arcane-font-size-sm)',
               'color': 'var(--muted-foreground)',
               'margin': '0',
               'line-height': '1.5',
@@ -107,7 +107,7 @@ class _CodexFlexiCardsState extends State<CodexFlexiCards> {
           ),
 
         // Spacer
-        dom.div(styles: const dom.Styles(raw: {'flex': '1'}), []),
+        const dom.div(styles: dom.Styles(raw: {'flex': '1'}), []),
 
         // Footer
         if (item.footer != null) item.footer!,
@@ -162,7 +162,7 @@ class CodexFlexiCardsSimple extends StatelessComponent {
         'background-color': 'var(--card)',
         'border': '1px solid var(--border)',
         'border-radius': 'var(--radius)',
-        'transition': 'all 150ms ease',
+        'transition': 'all var(--arcane-transition)',
         if (item.onTap != null || item.href != null) 'cursor': 'pointer',
       }),
       events: item.onTap != null ? {'click': (_) => item.onTap!()} : null,
@@ -181,8 +181,8 @@ class CodexFlexiCardsSimple extends StatelessComponent {
         // Title
         dom.h3(
           styles: const dom.Styles(raw: {
-            'font-size': '1rem',
-            'font-weight': '600',
+            'font-size': 'var(--arcane-font-size-base)',
+            'font-weight': 'var(--arcane-font-weight-semibold)',
             'color': 'var(--foreground)',
             'margin': '0 0 0.5rem 0',
           }),
@@ -192,7 +192,7 @@ class CodexFlexiCardsSimple extends StatelessComponent {
         // Description
         dom.p(
           styles: const dom.Styles(raw: {
-            'font-size': '0.875rem',
+            'font-size': 'var(--arcane-font-size-sm)',
             'color': 'var(--muted-foreground)',
             'margin': '0',
             'line-height': '1.5',
@@ -202,7 +202,7 @@ class CodexFlexiCardsSimple extends StatelessComponent {
 
         // Footer
         if (item.footer != null) ...[
-          dom.div(styles: const dom.Styles(raw: {'flex': '1', 'min-height': '1rem'}), []),
+          const dom.div(styles: dom.Styles(raw: {'flex': '1', 'min-height': '1rem'}), []),
           item.footer!,
         ],
       ],

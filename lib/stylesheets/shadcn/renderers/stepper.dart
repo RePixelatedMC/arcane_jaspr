@@ -67,7 +67,7 @@ class ShadcnStepper extends StatelessComponent {
       classes: 'arcane-steps-item',
       styles: dom.Styles(raw: {
         'display': 'flex',
-        'gap': '1.5rem',
+        'gap': 'var(--arcane-space-6)',
         'position': 'relative',
         'padding-bottom': isLast ? '0' : '2rem',
       }),
@@ -200,19 +200,19 @@ class ShadcnStepper extends StatelessComponent {
       styles: dom.Styles(raw: {
         'width': _indicatorSize,
         'height': _indicatorSize,
-        'border-radius': '9999px',
+        'border-radius': 'var(--arcane-radius-full)',
         'background': isFilled ? colors['bg']! : 'var(--background)',
         'border': '2px solid ${colors['border']!}',
         'display': 'flex',
         'align-items': 'center',
         'justify-content': 'center',
         'font-size': _numberSize,
-        'font-weight': '600',
+        'font-weight': 'var(--arcane-font-weight-semibold)',
         'color': isFilled ? colors['text']! : colors['border']!,
         'flex-shrink': '0',
         'z-index': '1',
         'cursor': isClickable ? 'pointer' : 'default',
-        'transition': 'all 150ms ease',
+        'transition': 'all var(--arcane-transition)',
         'padding': '0',
       }),
       events: isClickable
@@ -240,8 +240,8 @@ class ShadcnStepper extends StatelessComponent {
         // Title
         dom.div(
           styles: dom.Styles(raw: {
-            'font-size': '1rem',
-            'font-weight': '600',
+            'font-size': 'var(--arcane-font-size-base)',
+            'font-weight': 'var(--arcane-font-weight-semibold)',
             'color': status == StepStatus.pending
                 ? 'var(--muted)'
                 : 'var(--foreground)',
@@ -254,7 +254,7 @@ class ShadcnStepper extends StatelessComponent {
         if (step.description != null)
           dom.div(
             styles: const dom.Styles(raw: {
-              'font-size': '0.875rem',
+              'font-size': 'var(--arcane-font-size-sm)',
               'color': 'var(--muted-foreground)',
               'line-height': '1.5',
             }),
@@ -273,10 +273,10 @@ class ShadcnStepper extends StatelessComponent {
   Map<String, String> _getStatusColors(StepStatus status) {
     return switch (status) {
       StepStatus.complete => {
-          'bg': 'hsl(142 76% 36%)',
-          'border': 'hsl(142 76% 36%)',
-          'text': 'var(--background)',
-          'line': 'hsl(142 76% 36%)',
+          'bg': 'var(--success)',
+          'border': 'var(--success)',
+          'text': 'var(--success-foreground)',
+          'line': 'var(--success)',
         },
       StepStatus.current => {
           'bg': 'var(--accent)',

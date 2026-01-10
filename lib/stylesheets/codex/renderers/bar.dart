@@ -20,8 +20,8 @@ class CodexBar extends StatelessComponent {
             ? dom.span(
                 classes: 'codex-bar-title',
                 styles: const dom.Styles(raw: {
-                  'font-size': '1.125rem',
-                  'font-weight': '600',
+                  'font-size': 'var(--arcane-font-size-lg)',
+                  'font-weight': 'var(--arcane-font-weight-semibold)',
                   'color': 'var(--foreground)',
                   'white-space': 'nowrap',
                   'overflow': 'hidden',
@@ -36,7 +36,7 @@ class CodexBar extends StatelessComponent {
             ? dom.span(
                 classes: 'codex-bar-subtitle',
                 styles: const dom.Styles(raw: {
-                  'font-size': '0.75rem',
+                  'font-size': 'var(--arcane-font-size-xs)',
                   'color': 'var(--muted-foreground)',
                   'white-space': 'nowrap',
                   'overflow': 'hidden',
@@ -55,7 +55,7 @@ class CodexBar extends StatelessComponent {
       styles: dom.Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
-        'gap': '1rem',
+        'gap': 'var(--arcane-space-4)',
         'height': '${effectiveHeight}px',
         'padding': effectivePadding,
         'background-color': props.transparent ? 'transparent' : 'var(--card)',
@@ -120,12 +120,12 @@ class CodexBar extends StatelessComponent {
         'justify-content': 'center',
         'width': '40px',
         'height': '40px',
-        'border-radius': '9999px',
+        'border-radius': 'var(--arcane-radius-full)',
         'background': 'transparent',
         'border': 'none',
         'color': 'var(--foreground)',
         'cursor': 'pointer',
-        'transition': 'background-color 150ms ease',
+        'transition': 'background-color var(--arcane-transition)',
       }),
       events: {
         'click': (event) {
@@ -137,7 +137,7 @@ class CodexBar extends StatelessComponent {
       [
         const dom.span(
           styles: dom.Styles(raw: {
-            'font-size': '1.25rem',
+            'font-size': 'var(--arcane-font-size-xl)',
           }),
           [Component.text('\u2190')], // Left arrow
         ),
@@ -167,8 +167,8 @@ class CodexDialogBar extends StatelessComponent {
         if (props.title != null)
           dom.span(
             styles: const dom.Styles(raw: {
-              'font-size': '1.125rem',
-              'font-weight': '600',
+              'font-size': 'var(--arcane-font-size-lg)',
+              'font-weight': 'var(--arcane-font-weight-semibold)',
               'color': 'var(--foreground)',
             }),
             [Component.text(props.title!)],
@@ -184,13 +184,13 @@ class CodexDialogBar extends StatelessComponent {
               'justify-content': 'center',
               'width': '36px',
               'height': '36px',
-              'border-radius': '9999px',
+              'border-radius': 'var(--arcane-radius-full)',
               'background': 'transparent',
               'border': 'none',
               'color': 'var(--muted-foreground)',
               'cursor': 'pointer',
-              'transition': 'all 150ms ease',
-              'font-size': '1.25rem',
+              'transition': 'all var(--arcane-transition)',
+              'font-size': 'var(--arcane-font-size-xl)',
             }),
             events: {
               'click': (event) => props.onClose!(),

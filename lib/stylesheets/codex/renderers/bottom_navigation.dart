@@ -41,7 +41,7 @@ class CodexBottomNavigationBar extends StatelessComponent {
         'flex-direction': 'column',
         'align-items': 'center',
         'justify-content': 'center',
-        'gap': '0.25rem',
+        'gap': 'var(--arcane-space-1)',
         'flex': '1',
         'padding': '0.5rem',
         'background': 'none',
@@ -50,7 +50,7 @@ class CodexBottomNavigationBar extends StatelessComponent {
         'color': isSelected
             ? 'var(--codex-accent)'
             : 'var(--muted-foreground)',
-        'transition': 'color 150ms ease',
+        'transition': 'color var(--arcane-transition)',
       }),
       events: props.onChanged != null
           ? {'click': (_) => props.onChanged!(index)}
@@ -77,10 +77,10 @@ class CodexBottomNavigationBar extends StatelessComponent {
                   'height': '16px',
                   'padding': '0 4px',
                   'font-size': '0.625rem',
-                  'font-weight': '600',
+                  'font-weight': 'var(--arcane-font-weight-semibold)',
                   'color': '#ffffff',
                   'background-color': 'var(--destructive)',
-                  'border-radius': '9999px',
+                  'border-radius': 'var(--arcane-radius-full)',
                   'display': 'flex',
                   'align-items': 'center',
                   'justify-content': 'center',
@@ -161,7 +161,7 @@ class CodexHamburgerButton extends StatelessComponent {
               'height': '2px',
               'background-color': 'var(--foreground)',
               'border-radius': '1px',
-              'transition': 'all 150ms ease',
+              'transition': 'all var(--arcane-transition)',
             }),
             [],
           ),

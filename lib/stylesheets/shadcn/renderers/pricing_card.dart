@@ -22,14 +22,14 @@ class ShadcnPricingCard extends StatelessComponent {
         'flex-direction': 'column',
         'padding': '2rem',
         'background-color': tier.isHighlighted
-            ? 'hsl(var(--accent) / 0.05)'
+            ? 'color-mix(in srgb, var(--accent) 5%, transparent)'
             : 'var(--card)',
         'border': tier.isHighlighted
             ? '2px solid var(--accent)'
             : '1px solid var(--border)',
-        'border-radius': '0.75rem',
+        'border-radius': 'var(--arcane-radius-lg)',
         'position': 'relative',
-        'transition': 'all 200ms ease',
+        'transition': 'all var(--arcane-transition-slow)',
       }),
       [
         // Popular badge
@@ -48,8 +48,8 @@ class ShadcnPricingCard extends StatelessComponent {
         dom.div(
           classes: 'arcane-pricing-name',
           styles: const dom.Styles(raw: {
-            'font-size': '1.25rem',
-            'font-weight': '600',
+            'font-size': 'var(--arcane-font-size-xl)',
+            'font-weight': 'var(--arcane-font-weight-semibold)',
             'color': 'var(--foreground)',
             'margin-bottom': '0.5rem',
           }),
@@ -62,14 +62,14 @@ class ShadcnPricingCard extends StatelessComponent {
           styles: const dom.Styles(raw: {
             'display': 'flex',
             'align-items': 'baseline',
-            'gap': '0.25rem',
+            'gap': 'var(--arcane-space-1)',
             'margin-bottom': '0.5rem',
           }),
           [
             if (tier.price != null) ...[
               dom.span(
                 styles: const dom.Styles(raw: {
-                  'font-size': '0.875rem',
+                  'font-size': 'var(--arcane-font-size-sm)',
                   'color': 'var(--muted-foreground)',
                 }),
                 [Component.text(tier.currency)],
@@ -77,7 +77,7 @@ class ShadcnPricingCard extends StatelessComponent {
               dom.span(
                 styles: const dom.Styles(raw: {
                   'font-size': '2.5rem',
-                  'font-weight': '700',
+                  'font-weight': 'var(--arcane-font-weight-bold)',
                   'color': 'var(--foreground)',
                   'line-height': '1',
                   'letter-spacing': '-0.02em',
@@ -86,7 +86,7 @@ class ShadcnPricingCard extends StatelessComponent {
               ),
               dom.span(
                 styles: const dom.Styles(raw: {
-                  'font-size': '0.875rem',
+                  'font-size': 'var(--arcane-font-size-sm)',
                   'color': 'var(--muted-foreground)',
                 }),
                 [Component.text('/${tier.period}')],
@@ -94,8 +94,8 @@ class ShadcnPricingCard extends StatelessComponent {
             ] else
               const dom.span(
                 styles: dom.Styles(raw: {
-                  'font-size': '1.5rem',
-                  'font-weight': '600',
+                  'font-size': 'var(--arcane-font-size-2xl)',
+                  'font-weight': 'var(--arcane-font-weight-semibold)',
                   'color': 'var(--foreground)',
                 }),
                 [Component.text('Custom')],
@@ -107,7 +107,7 @@ class ShadcnPricingCard extends StatelessComponent {
         dom.p(
           classes: 'arcane-pricing-description',
           styles: const dom.Styles(raw: {
-            'font-size': '1rem',
+            'font-size': 'var(--arcane-font-size-base)',
             'color': 'var(--muted-foreground)',
             'margin': '0 0 2rem 0',
             'line-height': '1.5',
@@ -122,9 +122,9 @@ class ShadcnPricingCard extends StatelessComponent {
           styles: dom.Styles(raw: {
             'width': '100%',
             'padding': '1rem 1.5rem',
-            'font-size': '1rem',
-            'font-weight': '500',
-            'border-radius': '0.375rem',
+            'font-size': 'var(--arcane-font-size-base)',
+            'font-weight': 'var(--arcane-font-weight-medium)',
+            'border-radius': 'var(--arcane-radius-sm)',
             'border': tier.isHighlighted
                 ? 'none'
                 : '1px solid var(--border)',
@@ -135,7 +135,7 @@ class ShadcnPricingCard extends StatelessComponent {
                 ? 'var(--accent-foreground)'
                 : 'var(--foreground)',
             'cursor': 'pointer',
-            'transition': 'all 150ms ease',
+            'transition': 'all var(--arcane-transition)',
             'margin-bottom': '2rem',
           }),
           events: {
@@ -150,7 +150,7 @@ class ShadcnPricingCard extends StatelessComponent {
           styles: const dom.Styles(raw: {
             'display': 'flex',
             'flex-direction': 'column',
-            'gap': '1rem',
+            'gap': 'var(--arcane-space-4)',
           }),
           [
             for (final feature in tier.features)
@@ -159,17 +159,17 @@ class ShadcnPricingCard extends StatelessComponent {
                 styles: const dom.Styles(raw: {
                   'display': 'flex',
                   'align-items': 'flex-start',
-                  'gap': '1rem',
-                  'font-size': '0.875rem',
+                  'gap': 'var(--arcane-space-4)',
+                  'font-size': 'var(--arcane-font-size-sm)',
                   'color': 'var(--foreground)',
                 }),
                 [
                   // Checkmark
                   const dom.span(
                     styles: dom.Styles(raw: {
-                      'color': 'hsl(142 76% 36%)',
+                      'color': 'var(--success)',
                       'flex-shrink': '0',
-                      'font-size': '1rem',
+                      'font-size': 'var(--arcane-font-size-base)',
                     }),
                     [Component.text('\u2713')],
                   ),
@@ -198,7 +198,7 @@ class ShadcnPricingGrid extends StatelessComponent {
       styles: dom.Styles(raw: {
         'display': 'grid',
         'grid-template-columns': 'repeat($cols, minmax(280px, 1fr))',
-        'gap': '2rem',
+        'gap': 'var(--arcane-space-8)',
         'align-items': 'start',
       }),
       [

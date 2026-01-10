@@ -9,6 +9,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+**ArcaneColor Type-Safe Theme Colors**
+- Added `ArcaneColor` enum with all theme color references (primary, accent, success, warning, info, destructive, etc.)
+- `.css` getter returns CSS variable reference (e.g., `var(--accent)`)
+- `.withOpacity(double)` returns proper `color-mix()` syntax for transparency
+- Added `GradientStop` class for gradient color stops with optional positions
+- Added `GradientBuilder` class for fluent gradient building API
+- Added `List<ArcaneColor>.toGradient()` extension for easy gradient creation
+
+**ArcaneGradientText Enhancements**
+- Added `.success` constructor (success to accent gradient)
+- Added `.warning` constructor (warning to destructive gradient)
+- Added `.error` constructor (destructive to warning gradient)
+- Added `.rainbow` constructor (multi-color theme gradient)
+- Added `.fromColors()` factory for `List<ArcaneColor>` with even distribution
+- Added `.custom()` constructor for `List<GradientStop>` with custom positions
+- Added `GradientTextProps.buildGradient()` method for unified gradient building
+
 **ArcaneButton CTA Enhancements**
 - Added `ButtonVariant.accent` for gradient background buttons (green-to-cyan in Codex, primary-to-secondary in ShadCN)
 - Added `href` property to render button as anchor tag (`<a>`) for navigation CTAs
@@ -27,6 +44,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Supports `seed` parameter for consistent random cats
 - Named constructors: `.gif()` for animated cats, `.says()` for text overlay, `.lazy()` for lazy loading
 - Optional `apiWidth` and `apiHeight` parameters for custom dimensions
+
+**CSS Design Token System**
+- Added spacing scale CSS variables (`--arcane-space-0` through `--arcane-space-32`)
+- Added font size CSS variables (`--arcane-font-size-xs` through `--arcane-font-size-5xl`)
+- Added font weight CSS variables (`--arcane-font-weight-normal`, `medium`, `semibold`, `bold`)
+- Added `--arcane-transition-slower` (300ms) for slower animations
+- Updated transitions to use `ease` timing function for consistency
+
+### Changed
+
+**Renderer CSS Variable Migration**
+- Migrated 800+ hardcoded style values across 60+ renderer files to use CSS variables
+- All `transition` values now use `var(--arcane-transition-*)` variables
+- All `border-radius` values now use `var(--arcane-radius-*)` variables
+- All `gap` values now use `var(--arcane-space-*)` variables
+- All `font-size` values now use `var(--arcane-font-size-*)` variables
+- All `font-weight` values now use `var(--arcane-font-weight-*)` variables
+- Updated both ShadCN and Codex stylesheets and renderers
+
+### Fixed
+
+**Theme Color Consistency**
+- Fixed hardcoded HSL colors across 20+ component files to use theme CSS variables
+- Replaced `hsl(142 76% 36%)` with `var(--success)`
+- Replaced `hsl(38 92% 50%)` with `var(--warning)`
+- Replaced `hsl(199 89% 48%)` with `var(--info)`
+- Fixed invalid `hsl(var(--x) / opacity)` CSS syntax to use `color-mix(in srgb, var(--x) X%, transparent)` pattern
+- Fixed `ArcaneGradientText.brand` to use `var(--primary)` to `var(--accent)` instead of info color
 
 ## [2.8.0] - Unreleased
 

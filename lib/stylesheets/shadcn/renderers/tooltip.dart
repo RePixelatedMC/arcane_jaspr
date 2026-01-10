@@ -46,8 +46,8 @@ class ShadcnTooltip extends StatelessComponent {
             'padding': hasCustomContent ? '12px' : '6px 12px',
             'max-width': '${props.maxWidth}px',
             // ShadCN: text-sm
-            'font-size': '0.875rem',
-            'font-weight': '500',
+            'font-size': 'var(--arcane-font-size-sm)',
+            'font-weight': 'var(--arcane-font-weight-medium)',
             'line-height': '1.4',
             // ShadCN: text-popover-foreground
             'color': 'var(--popover-foreground)',
@@ -56,9 +56,9 @@ class ShadcnTooltip extends StatelessComponent {
             // ShadCN: border
             'border': '1px solid var(--border)',
             // ShadCN: rounded-md (6px)
-            'border-radius': '0.375rem',
+            'border-radius': 'var(--arcane-radius-sm)',
             // ShadCN: shadow-md
-            'box-shadow': '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
+            'box-shadow': 'var(--arcane-shadow-md)',
             // ShadCN: overflow-hidden
             'overflow': 'hidden',
             if (!hasCustomContent) 'white-space': 'nowrap',
@@ -66,7 +66,7 @@ class ShadcnTooltip extends StatelessComponent {
             'opacity': '0',
             'visibility': 'hidden',
             // ShadCN: animate-in fade-in-0 zoom-in-95
-            'transition': 'opacity 150ms ease, visibility 150ms ease, transform 150ms ease',
+            'transition': 'opacity var(--arcane-transition), visibility var(--arcane-transition), transform var(--arcane-transition)',
             ..._getPositionStyles(props.position),
           }),
           [

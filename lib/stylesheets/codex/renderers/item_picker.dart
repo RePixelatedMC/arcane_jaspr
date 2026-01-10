@@ -105,9 +105,9 @@ class _CodexItemPickerState<T> extends State<CodexItemPicker<T>> {
                         'border-radius': 'var(--radius)',
                         'background': 'var(--input)',
                         'color': 'var(--foreground)',
-                        'font-size': '0.875rem',
+                        'font-size': 'var(--arcane-font-size-sm)',
                         'outline': 'none',
-                        'transition': 'border-color 150ms ease',
+                        'transition': 'border-color var(--arcane-transition)',
                       }),
                       events: {
                         'input': (event) {
@@ -127,7 +127,7 @@ class _CodexItemPickerState<T> extends State<CodexItemPicker<T>> {
                   'overflow-y': 'auto',
                   'display': 'flex',
                   'flex-direction': 'column',
-                  'gap': '0.5rem',
+                  'gap': 'var(--arcane-space-2)',
                 }),
                 [
                   if (filteredItems.isEmpty)
@@ -136,7 +136,7 @@ class _CodexItemPickerState<T> extends State<CodexItemPicker<T>> {
                         'padding': '2rem',
                         'text-align': 'center',
                         'color': 'var(--muted-foreground)',
-                        'font-size': '0.875rem',
+                        'font-size': 'var(--arcane-font-size-sm)',
                       }),
                       [Component.text('No items found')],
                     )
@@ -150,7 +150,7 @@ class _CodexItemPickerState<T> extends State<CodexItemPicker<T>> {
                     'padding': '0.75rem 1rem',
                     'background': 'var(--secondary)',
                     'border-radius': 'var(--radius)',
-                    'font-size': '0.875rem',
+                    'font-size': 'var(--arcane-font-size-sm)',
                     'color': 'var(--muted-foreground)',
                   }),
                   [Component.text('${_multiSelection.length} item(s) selected')],
@@ -196,7 +196,7 @@ class _CodexItemPickerState<T> extends State<CodexItemPicker<T>> {
         'color': selected ? 'var(--codex-accent)' : 'var(--foreground)',
         'cursor': 'pointer',
         'text-align': 'left',
-        'transition': 'all 150ms ease',
+        'transition': 'all var(--arcane-transition)',
       }),
       events: {
         'click': (_) => _selectItem(item),
@@ -220,8 +220,8 @@ class _CodexItemPickerState<T> extends State<CodexItemPicker<T>> {
                 const dom.span(
                   styles: dom.Styles(raw: {
                     'color': '#ffffff',
-                    'font-size': '0.75rem',
-                    'font-weight': '700',
+                    'font-size': 'var(--arcane-font-size-xs)',
+                    'font-weight': 'var(--arcane-font-weight-bold)',
                   }),
                   [Component.text('\u2713')],
                 ),
@@ -238,7 +238,7 @@ class _CodexItemPickerState<T> extends State<CodexItemPicker<T>> {
           const dom.span(
             styles: dom.Styles(raw: {
               'color': 'var(--codex-accent)',
-              'font-size': '1rem',
+              'font-size': 'var(--arcane-font-size-base)',
             }),
             [Component.text('\u2713')],
           ),

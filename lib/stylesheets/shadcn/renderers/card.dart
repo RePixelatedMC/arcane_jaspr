@@ -30,7 +30,7 @@ class ShadcnCard extends StatelessComponent {
       CardVariant.elevated => <String, String>{
           'background-color': props.backgroundColor ?? 'var(--card)',
           'border': '1px solid var(--border)',
-          'box-shadow': '0 1px 2px 0 rgb(0 0 0 / 0.05)', // shadow-sm
+          'box-shadow': 'var(--arcane-shadow-xs)', // shadow-sm
         },
       CardVariant.flat => <String, String>{
           'background-color': props.backgroundColor ?? 'var(--card)',
@@ -50,15 +50,15 @@ class ShadcnCard extends StatelessComponent {
       CardVariant.glass => <String, String>{
           'background-color': 'color-mix(in srgb, var(--card) 80%, transparent)',
           'border': '1px solid var(--border)',
-          'box-shadow': '0 1px 2px 0 rgb(0 0 0 / 0.05)',
+          'box-shadow': 'var(--arcane-shadow-xs)',
           'backdrop-filter': 'blur(8px)',
           '-webkit-backdrop-filter': 'blur(8px)',
         },
       CardVariant.interactive => <String, String>{
           'background-color': props.backgroundColor ?? 'var(--card)',
           'border': '1px solid var(--border)',
-          'box-shadow': '0 1px 2px 0 rgb(0 0 0 / 0.05)',
-          'transition': 'all 150ms ease',
+          'box-shadow': 'var(--arcane-shadow-xs)',
+          'transition': 'all var(--arcane-transition)',
         },
     };
 

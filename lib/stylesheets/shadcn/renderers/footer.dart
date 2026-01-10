@@ -44,7 +44,7 @@ class ShadcnFooter extends StatelessComponent {
                     dom.p(
                       styles: const dom.Styles(raw: {
                         'margin': '1rem 0 0 0',
-                        'font-size': '0.875rem',
+                        'font-size': 'var(--arcane-font-size-sm)',
                         'color': 'var(--muted-foreground)',
                         'max-width': '280px',
                         'line-height': '1.6',
@@ -56,7 +56,7 @@ class ShadcnFooter extends StatelessComponent {
                       classes: 'arcane-footer-social',
                       styles: const dom.Styles(raw: {
                         'display': 'flex',
-                        'gap': '1rem',
+                        'gap': 'var(--arcane-space-4)',
                         'margin-top': '1.5rem',
                       }),
                       props.socialLinks!,
@@ -72,8 +72,8 @@ class ShadcnFooter extends StatelessComponent {
                   dom.div(
                     classes: 'arcane-footer-group-title',
                     styles: const dom.Styles(raw: {
-                      'font-size': '0.875rem',
-                      'font-weight': '600',
+                      'font-size': 'var(--arcane-font-size-sm)',
+                      'font-weight': 'var(--arcane-font-weight-semibold)',
                       'color': 'var(--foreground)',
                       'margin-bottom': '1rem',
                     }),
@@ -84,7 +84,7 @@ class ShadcnFooter extends StatelessComponent {
                     styles: const dom.Styles(raw: {
                       'display': 'flex',
                       'flex-direction': 'column',
-                      'gap': '0.5rem',
+                      'gap': 'var(--arcane-space-2)',
                     }),
                     [
                       for (final link in group.links) _buildLink(link),
@@ -100,8 +100,8 @@ class ShadcnFooter extends StatelessComponent {
                 [
                   const dom.div(
                     styles: dom.Styles(raw: {
-                      'font-size': '0.875rem',
-                      'font-weight': '600',
+                      'font-size': 'var(--arcane-font-size-sm)',
+                      'font-weight': 'var(--arcane-font-weight-semibold)',
                       'color': 'var(--foreground)',
                       'margin-bottom': '1rem',
                     }),
@@ -110,7 +110,7 @@ class ShadcnFooter extends StatelessComponent {
                   dom.div(
                     styles: const dom.Styles(raw: {
                       'display': 'flex',
-                      'gap': '0.5rem',
+                      'gap': 'var(--arcane-space-2)',
                     }),
                     [
                       dom.input(
@@ -121,10 +121,10 @@ class ShadcnFooter extends StatelessComponent {
                         styles: const dom.Styles(raw: {
                           'flex': '1',
                           'padding': '10px 14px',
-                          'font-size': '0.875rem',
+                          'font-size': 'var(--arcane-font-size-sm)',
                           'background-color': 'var(--muted)',
                           'border': '1px solid var(--border)',
-                          'border-radius': '0.375rem',
+                          'border-radius': 'var(--arcane-radius-sm)',
                           'color': 'var(--foreground)',
                           'outline': 'none',
                         }),
@@ -133,14 +133,14 @@ class ShadcnFooter extends StatelessComponent {
                         attributes: {'type': 'submit'},
                         styles: const dom.Styles(raw: {
                           'padding': '10px 1rem',
-                          'font-size': '0.875rem',
-                          'font-weight': '500',
+                          'font-size': 'var(--arcane-font-size-sm)',
+                          'font-weight': 'var(--arcane-font-weight-medium)',
                           'background-color': 'var(--accent)',
                           'color': 'var(--accent-foreground)',
                           'border': 'none',
-                          'border-radius': '0.375rem',
+                          'border-radius': 'var(--arcane-radius-sm)',
                           'cursor': 'pointer',
-                          'transition': 'all 150ms ease',
+                          'transition': 'all var(--arcane-transition)',
                         }),
                         [Component.text(props.newsletterButtonText)],
                       ),
@@ -163,7 +163,7 @@ class ShadcnFooter extends StatelessComponent {
             'justify-content': 'space-between',
             'align-items': 'center',
             'flex-wrap': 'wrap',
-            'gap': '1rem',
+            'gap': 'var(--arcane-space-4)',
           }),
           [
             // Copyright
@@ -171,7 +171,7 @@ class ShadcnFooter extends StatelessComponent {
               dom.span(
                 [Component.text(props.copyright!)],
                 styles: const dom.Styles(raw: {
-                  'font-size': '0.75rem',
+                  'font-size': 'var(--arcane-font-size-xs)',
                   'color': 'var(--muted-foreground)',
                 }),
               ),
@@ -181,7 +181,7 @@ class ShadcnFooter extends StatelessComponent {
               dom.div(
                 styles: const dom.Styles(raw: {
                   'display': 'flex',
-                  'gap': '1.5rem',
+                  'gap': 'var(--arcane-space-6)',
                 }),
                 [
                   for (final link in props.bottomLinks!) _buildLink(link),
@@ -195,10 +195,10 @@ class ShadcnFooter extends StatelessComponent {
 
   Component _buildLink(FooterLink link) {
     const dom.Styles linkStyles = dom.Styles(raw: {
-      'font-size': '0.875rem',
+      'font-size': 'var(--arcane-font-size-sm)',
       'color': 'var(--muted-foreground)',
       'text-decoration': 'none',
-      'transition': 'all 150ms ease',
+      'transition': 'all var(--arcane-transition)',
     });
 
     if (link.href != null) {
@@ -217,10 +217,10 @@ class ShadcnFooter extends StatelessComponent {
       classes: 'arcane-footer-link',
       attributes: {'type': 'button'},
       styles: const dom.Styles(raw: {
-        'font-size': '0.875rem',
+        'font-size': 'var(--arcane-font-size-sm)',
         'color': 'var(--muted-foreground)',
         'text-decoration': 'none',
-        'transition': 'all 150ms ease',
+        'transition': 'all var(--arcane-transition)',
         'background': 'none',
         'border': 'none',
         'padding': '0',
@@ -246,12 +246,12 @@ class ShadcnFooterSocialIcon extends StatelessComponent {
       'justify-content': 'center',
       'width': '36px',
       'height': '36px',
-      'border-radius': '0.375rem',
+      'border-radius': 'var(--arcane-radius-sm)',
       'color': 'var(--muted-foreground)',
       'background': 'none',
       'border': 'none',
       'cursor': 'pointer',
-      'transition': 'all 150ms ease',
+      'transition': 'all var(--arcane-transition)',
     });
 
     if (props.href != null) {

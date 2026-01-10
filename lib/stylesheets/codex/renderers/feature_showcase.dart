@@ -39,7 +39,7 @@ class CodexFeatureShowcase extends StatelessComponent {
                   classes: 'codex-feature-showcase-title',
                   styles: const dom.Styles(raw: {
                     'font-size': '1.75rem',
-                    'font-weight': '700',
+                    'font-weight': 'var(--arcane-font-weight-bold)',
                     'color': 'var(--foreground)',
                     'margin': '0 0 1.25rem 0',
                   }),
@@ -51,7 +51,7 @@ class CodexFeatureShowcase extends StatelessComponent {
                   dom.p(
                     classes: 'codex-feature-showcase-subtitle',
                     styles: dom.Styles(raw: {
-                      'font-size': '1.25rem',
+                      'font-size': 'var(--arcane-font-size-xl)',
                       'color': 'var(--muted-foreground)',
                       'margin': '0',
                       'max-width': '640px',

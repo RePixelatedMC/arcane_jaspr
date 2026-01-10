@@ -32,15 +32,15 @@ class ShadcnDatePicker extends StatelessComponent {
         'position': 'relative',
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': '4px',
+        'gap': 'var(--arcane-space-1)',
       }),
       [
         // Label
         if (props.label != null)
           dom.span(
             styles: const dom.Styles(raw: {
-              'font-size': '14px',
-              'font-weight': '500',
+              'font-size': 'var(--arcane-font-size-sm)',
+              'font-weight': 'var(--arcane-font-weight-medium)',
               'color': 'var(--foreground)',
             }),
             [Component.text(props.label!)],
@@ -58,17 +58,17 @@ class ShadcnDatePicker extends StatelessComponent {
           styles: dom.Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
-            'gap': '8px',
+            'gap': 'var(--arcane-space-2)',
             'width': '100%',
             'height': height,
             'padding': '0 12px',
             'background-color': 'var(--background)',
             'border': '1px solid ${hasError ? 'var(--destructive)' : 'var(--input)'}',
-            'border-radius': '6px',
+            'border-radius': 'var(--arcane-radius-sm)',
             'font-size': fontSize,
             'color': hasValue ? 'var(--foreground)' : 'var(--muted-foreground)',
             'cursor': props.disabled ? 'not-allowed' : 'pointer',
-            'transition': 'border-color 150ms ease, box-shadow 150ms ease',
+            'transition': 'border-color var(--arcane-transition), box-shadow var(--arcane-transition)',
             'text-align': 'left',
             if (props.disabled) 'opacity': '0.5',
           }),
@@ -101,7 +101,7 @@ class ShadcnDatePicker extends StatelessComponent {
                 styles: const dom.Styles(raw: {
                   'color': 'var(--muted-foreground)',
                   'cursor': 'pointer',
-                  'transition': 'color 150ms ease',
+                  'transition': 'color var(--arcane-transition)',
                 }),
                 events: props.onClear != null
                     ? {
@@ -126,7 +126,7 @@ class ShadcnDatePicker extends StatelessComponent {
               'left': '0',
               'margin-top': '4px',
               'z-index': '50',
-              'box-shadow': '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
+              'box-shadow': 'var(--arcane-shadow-lg)',
             }),
             [ShadcnCalendar(props.calendarProps!)],
           ),
@@ -135,7 +135,7 @@ class ShadcnDatePicker extends StatelessComponent {
         if (hasError)
           dom.span(
             styles: const dom.Styles(raw: {
-              'font-size': '14px',
+              'font-size': 'var(--arcane-font-size-sm)',
               'color': 'var(--destructive)',
             }),
             [Component.text(props.error!)],

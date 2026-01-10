@@ -157,7 +157,7 @@ class CodexPagination extends StatelessComponent {
         'height': buttonSize,
         'padding': '0 0.75rem',
         'font-size': fontSize,
-        'font-weight': '500',
+        'font-weight': 'var(--arcane-font-weight-medium)',
         'border-radius': 'var(--radius-md)',
         'cursor': disabled ? 'not-allowed' : 'pointer',
         'transition': 'all var(--transition)',

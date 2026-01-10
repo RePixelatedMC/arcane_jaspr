@@ -117,7 +117,7 @@ class ShadcnDrawer extends StatelessComponent {
               'background-color': 'rgba(0, 0, 0, 0.8)',
               'opacity': props.isOpen ? '1' : '0',
               // ShadCN: transition-opacity
-              'transition': 'opacity 300ms ease',
+              'transition': 'opacity var(--arcane-transition-slower)',
             }),
             events: props.closeOnBackdropClick
                 ? {'click': (_) => props.onClose?.call()}
@@ -139,7 +139,7 @@ class ShadcnDrawer extends StatelessComponent {
             'display': 'flex',
             'flex-direction': 'column',
             // ShadCN: transition ease-in-out
-            'transition': 'transform 300ms ease-in-out',
+            'transition': 'transform var(--arcane-transition-slower)-in-out',
             'border-radius': _borderRadius,
             ..._positionStyles,
           }),
@@ -182,10 +182,10 @@ class ShadcnDrawer extends StatelessComponent {
                         'color': 'var(--foreground)',
                         'cursor': 'pointer',
                         // ShadCN: rounded-sm
-                        'border-radius': '0.25rem',
-                        'font-size': '16px',
+                        'border-radius': 'var(--arcane-radius-xs)',
+                        'font-size': 'var(--arcane-font-size-base)',
                         // ShadCN: transition-opacity
-                        'transition': 'opacity 150ms ease',
+                        'transition': 'opacity var(--arcane-transition)',
                       }),
                       events: {'click': (_) => props.onClose?.call()},
                       [const Component.text('\u00D7')],

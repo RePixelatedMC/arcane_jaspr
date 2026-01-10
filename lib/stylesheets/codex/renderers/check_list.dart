@@ -113,7 +113,7 @@ class CodexFeatureRow extends StatelessComponent {
           classes: 'codex-feature-row-icon',
           styles: dom.Styles(raw: {
             'color': iconColor,
-            'font-size': '0.875rem',
+            'font-size': 'var(--arcane-font-size-sm)',
             'flex-shrink': '0',
           }),
           [Component.text(iconSymbol)],
@@ -124,7 +124,7 @@ class CodexFeatureRow extends StatelessComponent {
             'color': props.included
                 ? 'var(--foreground)'
                 : 'var(--muted-foreground)',
-            'font-size': '0.875rem',
+            'font-size': 'var(--arcane-font-size-sm)',
           }),
           [Component.text(props.feature)],
         ),

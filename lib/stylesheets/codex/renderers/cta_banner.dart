@@ -45,7 +45,7 @@ Component renderCodexCtaBanner(CtaBannerProps props) {
           dom.h2(
             styles: const dom.Styles(raw: {
               'font-size': '2rem',
-              'font-weight': '700',
+              'font-weight': 'var(--arcane-font-weight-bold)',
               'color': '#ffffff',
               'margin': '0 0 1.25rem 0',
             }),
@@ -55,7 +55,7 @@ Component renderCodexCtaBanner(CtaBannerProps props) {
           if (props.subtitle != null)
             dom.p(
               styles: const dom.Styles(raw: {
-                'font-size': '1.125rem',
+                'font-size': 'var(--arcane-font-size-lg)',
                 'color': 'rgba(255, 255, 255, 0.8)',
                 'margin': '0 0 2.5rem 0',
                 'line-height': '1.6',

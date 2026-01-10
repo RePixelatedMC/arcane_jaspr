@@ -190,7 +190,7 @@ class _ArcaneDateTimePickerState extends State<ArcaneDateTimePicker> {
               }
               final currentTime = component.value != null
                   ? TimeOfDay.fromDateTime(component.value!)
-                  : TimeOfDay(hour: 0, minute: 0);
+                  : const TimeOfDay(hour: 0, minute: 0);
               final newDateTime = DateTime(
                 date.year,
                 date.month,

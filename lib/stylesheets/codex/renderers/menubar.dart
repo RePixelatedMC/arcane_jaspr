@@ -55,8 +55,8 @@ class CodexMenubar extends StatelessComponent {
             'align-items': 'center',
             'border-radius': 'var(--radius-sm)',
             'padding': '8px 14px',
-            'font-size': '0.875rem',
-            'font-weight': '500',
+            'font-size': 'var(--arcane-font-size-sm)',
+            'font-weight': 'var(--arcane-font-weight-medium)',
             'outline': 'none',
             'border': 'none',
             'background-color':
@@ -64,7 +64,7 @@ class CodexMenubar extends StatelessComponent {
             'color': isOpen
                 ? 'var(--codex-accent)'
                 : 'var(--foreground)',
-            'transition': 'background-color 150ms ease, color 150ms ease',
+            'transition': 'background-color var(--arcane-transition), color var(--arcane-transition)',
           }),
           events: {
             'click': (_) => props.onMenuChange?.call(isOpen ? null : index),
@@ -129,9 +129,9 @@ class CodexMenubar extends StatelessComponent {
         'border-radius': 'var(--radius-sm)',
         'padding': '8px 10px',
         'padding-left': item.isCheckbox ? '36px' : '10px',
-        'font-size': '0.875rem',
+        'font-size': 'var(--arcane-font-size-sm)',
         'outline': 'none',
-        'transition': 'background-color 150ms ease, color 150ms ease',
+        'transition': 'background-color var(--arcane-transition), color var(--arcane-transition)',
         if (item.disabled) 'pointer-events': 'none',
         if (item.disabled) 'opacity': '0.5',
       }),
@@ -146,7 +146,7 @@ class CodexMenubar extends StatelessComponent {
               'position': 'absolute',
               'left': '10px',
               'color': 'var(--codex-accent)',
-              'font-size': '0.75rem',
+              'font-size': 'var(--arcane-font-size-xs)',
             }),
             [Component.text('\u{2713}')],
           ),
@@ -162,7 +162,7 @@ class CodexMenubar extends StatelessComponent {
           dom.span(
             styles: const dom.Styles(raw: {
               'margin-left': 'auto',
-              'font-size': '0.75rem',
+              'font-size': 'var(--arcane-font-size-xs)',
               'letter-spacing': '0.1em',
               'color': 'var(--muted-foreground)',
             }),

@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
   ${_codeBlockCopyButtons()}
   ${_syntaxHighlighting()}
   ${_interactiveComponents()}
+  ${_tocScrollTracking()}
 });
 ''';
   }
@@ -285,4 +286,73 @@ if (typeof hljs !== 'undefined') {
 
   // Variant selector removed - using single stylesheet system
   static String _variantSelectorHandler() => '';
+
+  static String _tocScrollTracking() => '''
+// ===== TOC SCROLL TRACKING =====
+// Highlights the current section in the "On this page" TOC based on scroll position
+var tocContainer = document.querySelector('.toc-content');
+if (tocContainer) {
+  var tocLinks = tocContainer.querySelectorAll('a');
+  var headings = [];
+
+  // Build array of headings that match TOC links
+  tocLinks.forEach(function(link) {
+    var href = link.getAttribute('href');
+    if (href && href.startsWith('#')) {
+      var id = href.slice(1);
+      var heading = document.getElementById(id);
+      if (heading) {
+        headings.push({ id: id, element: heading, link: link });
+      }
+    }
+  });
+
+  if (headings.length > 0) {
+    // Track active heading
+    var currentActive = null;
+
+    function updateActiveLink(activeId) {
+      if (currentActive === activeId) return;
+      currentActive = activeId;
+
+      tocLinks.forEach(function(link) {
+        var href = link.getAttribute('href');
+        var isActive = href === '#' + activeId;
+        link.classList.toggle('toc-active', isActive);
+      });
+    }
+
+    // Use Intersection Observer for efficient scroll tracking
+    var observerOptions = {
+      root: null,
+      rootMargin: '-80px 0px -70% 0px',
+      threshold: 0
+    };
+
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          updateActiveLink(entry.target.id);
+        }
+      });
+    }, observerOptions);
+
+    headings.forEach(function(h) {
+      observer.observe(h.element);
+    });
+
+    // Also handle scroll to top - activate first heading
+    window.addEventListener('scroll', function() {
+      if (window.scrollY < 100 && headings.length > 0) {
+        updateActiveLink(headings[0].id);
+      }
+    });
+
+    // Initialize - activate first heading if at top
+    if (window.scrollY < 100 && headings.length > 0) {
+      updateActiveLink(headings[0].id);
+    }
+  }
+}
+''';
 }

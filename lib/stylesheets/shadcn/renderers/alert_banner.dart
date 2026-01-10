@@ -14,16 +14,16 @@ class ShadcnAlertBanner extends StatelessComponent {
     final (String bgColor, String borderColor, String textColor, String iconColor) = switch (props.variant) {
       AlertBannerVariant.info => props.filled
           ? (
-              'hsl(199 89% 48%)',
-              'hsl(199 89% 48%)',
-              'white',
-              'white',
+              'var(--info)',
+              'var(--info)',
+              'var(--info-foreground)',
+              'var(--info-foreground)',
             )
           : (
               'transparent',
-              'hsl(199 89% 48%)',
+              'var(--info)',
               'var(--foreground)',
-              'hsl(199 89% 48%)',
+              'var(--info)',
             ),
       AlertBannerVariant.success => props.filled
           ? (
@@ -85,7 +85,7 @@ class ShadcnAlertBanner extends StatelessComponent {
       styles: dom.Styles(raw: {
         'display': 'flex',
         'align-items': 'flex-start',
-        'gap': '1rem',
+        'gap': 'var(--arcane-space-4)',
         'padding': '1rem 1.25rem',
         'background-color': bgColor,
         'border': '1px solid $borderColor',
@@ -97,7 +97,7 @@ class ShadcnAlertBanner extends StatelessComponent {
           classes: 'arcane-alert-icon',
           styles: dom.Styles(raw: {
             'flex-shrink': '0',
-            'font-size': '1.125rem',
+            'font-size': 'var(--arcane-font-size-lg)',
             'color': iconColor,
           }),
           [props.icon ?? Component.text(defaultIcon)],
@@ -113,8 +113,8 @@ class ShadcnAlertBanner extends StatelessComponent {
               dom.div(
                 classes: 'arcane-alert-title',
                 styles: const dom.Styles(raw: {
-                  'font-weight': '600',
-                  'font-size': '0.875rem',
+                  'font-weight': 'var(--arcane-font-weight-semibold)',
+                  'font-size': 'var(--arcane-font-size-sm)',
                   'margin-bottom': '0.25rem',
                 }),
                 [Component.text(props.title!)],
@@ -122,7 +122,7 @@ class ShadcnAlertBanner extends StatelessComponent {
             dom.div(
               classes: 'arcane-alert-message',
               styles: const dom.Styles(raw: {
-                'font-size': '0.875rem',
+                'font-size': 'var(--arcane-font-size-sm)',
                 'line-height': '1.625',
               }),
               [Component.text(props.message)],
@@ -145,9 +145,9 @@ class ShadcnAlertBanner extends StatelessComponent {
               'color': 'inherit',
               'opacity': '0.7',
               'cursor': 'pointer',
-              'font-size': '1rem',
+              'font-size': 'var(--arcane-font-size-base)',
               'line-height': '1',
-              'transition': 'opacity 150ms ease',
+              'transition': 'opacity var(--arcane-transition)',
             }),
             events: {
               'click': (e) => props.onDismiss?.call(),

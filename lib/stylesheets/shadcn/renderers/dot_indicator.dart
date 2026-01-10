@@ -46,7 +46,7 @@ class ShadcnDotIndicator extends StatelessComponent {
             styles: dom.Styles(raw: {
               'width': i == props.index ? 'calc($dotSize * 2)' : dotSize,
               'height': dotSize,
-              'border-radius': '9999px',
+              'border-radius': 'var(--arcane-radius-full)',
               'background':
                   i == props.index ? effectiveActiveColor : effectiveInactiveColor,
               'border': 'none',
@@ -94,7 +94,7 @@ class ShadcnStepIndicator extends StatelessComponent {
               'display': 'flex',
               'flex-direction': 'column',
               'align-items': 'center',
-              'gap': '0.25rem',
+              'gap': 'var(--arcane-space-1)',
             }),
             [
               // Circle
@@ -110,12 +110,12 @@ class ShadcnStepIndicator extends StatelessComponent {
                 styles: dom.Styles(raw: {
                   'width': circleSize,
                   'height': circleSize,
-                  'border-radius': '9999px',
+                  'border-radius': 'var(--arcane-radius-full)',
                   'display': 'flex',
                   'align-items': 'center',
                   'justify-content': 'center',
                   'font-size': fontSize,
-                  'font-weight': '500',
+                  'font-weight': 'var(--arcane-font-weight-medium)',
                   'border': 'none',
                   'background':
                       i <= props.currentStep ? 'var(--accent)' : 'var(--muted)',
@@ -125,7 +125,7 @@ class ShadcnStepIndicator extends StatelessComponent {
                   'cursor': props.allowStepNavigation && i <= props.currentStep
                       ? 'pointer'
                       : 'default',
-                  'transition': 'all 150ms ease',
+                  'transition': 'all var(--arcane-transition)',
                 }),
                 events: props.allowStepNavigation &&
                         i <= props.currentStep &&
@@ -167,7 +167,7 @@ class ShadcnStepIndicator extends StatelessComponent {
                 'margin-top': 'calc($circleSize / 2 - $lineHeight / 2)',
                 'background':
                     i < props.currentStep ? 'var(--accent)' : 'var(--border)',
-                'transition': 'all 150ms ease',
+                'transition': 'all var(--arcane-transition)',
               }),
               [],
             ),

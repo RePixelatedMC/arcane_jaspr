@@ -156,7 +156,7 @@ class _CodexSlotCounterState extends State<CodexSlotCounter> {
         'display': 'inline-flex',
         'flex-direction': 'column',
         'align-items': 'center',
-        'gap': '0.5rem',
+        'gap': 'var(--arcane-space-2)',
       }),
       [
         // Value row
@@ -164,7 +164,7 @@ class _CodexSlotCounterState extends State<CodexSlotCounter> {
           styles: dom.Styles(raw: {
             'display': 'inline-flex',
             'align-items': 'baseline',
-            'gap': '0.5rem',
+            'gap': 'var(--arcane-space-2)',
             if (component.props.monospace) 'font-family': 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
           }),
           [
@@ -184,7 +184,7 @@ class _CodexSlotCounterState extends State<CodexSlotCounter> {
                 'font-weight': component.props.valueBold ? '700' : '400',
                 'color': _getColor(component.props.valueColor),
                 'opacity': _isSpinning ? '0.7' : '1',
-                'transition': 'all 150ms ease',
+                'transition': 'all var(--arcane-transition)',
               }),
               [Component.text(displayValue)],
             ),

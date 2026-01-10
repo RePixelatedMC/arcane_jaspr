@@ -39,7 +39,7 @@ class ArcaneCheckItem extends StatelessComponent {
     this.fontSize,
     this.gap,
     super.key,
-  }) : iconColor = 'hsl(142 76% 36%)';
+  }) : iconColor = 'var(--success)';
 
   @override
   Component build(BuildContext context) {
@@ -97,7 +97,7 @@ class ArcaneCheckList extends StatelessComponent {
     this.listGap,
     this.alignItems,
     super.key,
-  }) : iconColor = 'hsl(142 76% 36%)';
+  }) : iconColor = 'var(--success)';
 
   @override
   Component build(BuildContext context) {

@@ -50,7 +50,7 @@ class ShadcnTagInput extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': '0.5rem',
+        'gap': 'var(--arcane-space-2)',
       }),
       [
         // Label
@@ -58,8 +58,8 @@ class ShadcnTagInput extends StatelessComponent {
           Component.element(
             tag: 'label',
             styles: const dom.Styles(raw: {
-              'font-size': '0.875rem',
-              'font-weight': '500',
+              'font-size': 'var(--arcane-font-size-sm)',
+              'font-weight': 'var(--arcane-font-weight-medium)',
               'line-height': '1',
               'color': 'var(--foreground)',
             }),
@@ -75,9 +75,9 @@ class ShadcnTagInput extends StatelessComponent {
             'align-items': 'center',
             'gap': '0.375rem',
             'padding': '0.5rem',
-            'border-radius': '0.375rem',
+            'border-radius': 'var(--arcane-radius-sm)',
             'min-height': '44px',
-            'transition': 'border-color 150ms ease, box-shadow 150ms ease',
+            'transition': 'border-color var(--arcane-transition), box-shadow var(--arcane-transition)',
             'cursor': props.disabled ? 'not-allowed' : 'text',
             'opacity': props.disabled ? '0.5' : '1',
             ...containerStyles,
@@ -108,7 +108,7 @@ class ShadcnTagInput extends StatelessComponent {
                   'border': 'none',
                   'background': 'transparent',
                   'outline': 'none',
-                  'font-size': '0.875rem',
+                  'font-size': 'var(--arcane-font-size-sm)',
                   'color': 'var(--foreground)',
                   'padding': '4px',
                 }),
@@ -143,7 +143,7 @@ class ShadcnTagInput extends StatelessComponent {
           dom.span(
             classes: hasError ? 'arcane-tag-input-error' : 'arcane-tag-input-helper',
             styles: dom.Styles(raw: {
-              'font-size': '0.75rem',
+              'font-size': 'var(--arcane-font-size-xs)',
               'color': hasError ? 'var(--destructive)' : 'var(--muted-foreground)',
             }),
             [Component.text(hasError ? props.errorText! : props.helperText!)],
@@ -159,13 +159,13 @@ class ShadcnTagInput extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'display': 'inline-flex',
         'align-items': 'center',
-        'gap': '0.25rem',
+        'gap': 'var(--arcane-space-1)',
         'padding': '0.125rem 0.5rem',
         'background-color': 'var(--secondary)',
         'color': 'var(--secondary-foreground)',
-        'border-radius': '9999px',
-        'font-size': '0.75rem',
-        'font-weight': '500',
+        'border-radius': 'var(--arcane-radius-full)',
+        'font-size': 'var(--arcane-font-size-xs)',
+        'font-weight': 'var(--arcane-font-weight-medium)',
         'line-height': '1.25',
       }),
       [
@@ -184,13 +184,13 @@ class ShadcnTagInput extends StatelessComponent {
               'padding': '0',
               'border': 'none',
               'background': 'transparent',
-              'border-radius': '9999px',
+              'border-radius': 'var(--arcane-radius-full)',
               'color': 'var(--muted-foreground)',
               'cursor': 'pointer',
               'font-size': '10px',
               'line-height': '1',
               'opacity': '0.7',
-              'transition': 'opacity 150ms ease, color 150ms ease',
+              'transition': 'opacity var(--arcane-transition), color var(--arcane-transition)',
             }),
             events: {
               'click': (_) => props.onRemoveTag?.call(index),

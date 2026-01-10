@@ -67,7 +67,7 @@ class CodexCallout extends StatelessComponent {
       classes: 'codex-callout codex-callout-${props.variant.name}',
       styles: dom.Styles(raw: {
         'display': 'flex',
-        'gap': '1rem', // Codex: larger gap
+        'gap': 'var(--arcane-space-4)', // Codex: larger gap
         'padding': '1.25rem', // Codex: larger padding
         'background-color': bgColor,
         'border-left': '3px solid $borderColor',
@@ -85,7 +85,7 @@ class CodexCallout extends StatelessComponent {
               'width': '24px',
               'height': '24px',
               'color': textColor,
-              'font-weight': '600',
+              'font-weight': 'var(--arcane-font-weight-semibold)',
               'flex-shrink': '0',
             }),
             [props.icon ?? Component.text(iconChar)],
@@ -107,7 +107,7 @@ class CodexCallout extends StatelessComponent {
                 classes: 'codex-callout-title',
                 styles: dom.Styles(raw: {
                   'font-size': '0.9375rem',
-                  'font-weight': '600',
+                  'font-weight': 'var(--arcane-font-weight-semibold)',
                   'color': textColor,
                 }),
                 [Component.text(props.title!)],
@@ -118,7 +118,7 @@ class CodexCallout extends StatelessComponent {
               dom.div(
                 classes: 'codex-callout-text',
                 styles: const dom.Styles(raw: {
-                  'font-size': '0.875rem',
+                  'font-size': 'var(--arcane-font-size-sm)',
                   'color': 'var(--muted-foreground)',
                   'line-height': '1.6',
                 }),

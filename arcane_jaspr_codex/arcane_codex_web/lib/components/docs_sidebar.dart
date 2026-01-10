@@ -272,6 +272,7 @@ class DocsSidebar extends StatelessComponent {
   /// Build a fixed section that's always expanded (no toggle)
   Component _buildFixedSection(String title, Component icon, List<Component> items) {
     return ArcaneDiv(
+      classes: 'sidebar-tree-nav',
       styles: const ArcaneStyleData(
         margin: MarginPreset.bottomMd,
       ),
@@ -293,13 +294,11 @@ class DocsSidebar extends StatelessComponent {
             ArcaneText(title),
           ],
         ),
-        // Items (always visible)
-        ArcaneDiv(
-          styles: const ArcaneStyleData(
-            padding: PaddingPreset.horizontalSm,
-          ),
-          children: items,
-        ),
+        // Items with tree lines
+        div(classes: 'sidebar-tree-items', [
+          for (final item in items)
+            div(classes: 'sidebar-tree-item', [item]),
+        ]),
       ],
     );
   }
@@ -308,6 +307,7 @@ class DocsSidebar extends StatelessComponent {
   Component _buildCollapsibleSection(String title, Component icon, List<Component> items, {bool defaultOpen = false}) {
     return ArcaneDisclosure.minimal(
       open: defaultOpen,
+      showTreeLines: false, // We use custom tree lines CSS
       summary: ArcaneRow(
         gapSize: Gap.sm,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -323,9 +323,11 @@ class DocsSidebar extends StatelessComponent {
           ),
         ],
       ),
-      child: ArcaneColumn(
-        children: items,
-      ),
+      // Use same structure as fixed section for consistent tree lines
+      child: div(classes: 'sidebar-tree-items', [
+        for (final item in items)
+          div(classes: 'sidebar-tree-item', [item]),
+      ]),
     );
   }
 
@@ -344,15 +346,15 @@ class DocsSidebar extends StatelessComponent {
         gap: Gap.sm,
         fontSize: FontSize.sm,
         borderRadius: Radius.md,
-        margin: MarginPreset.bottomXs,
         transition: Transition.allFast,
         crossAxisAlignment: CrossAxisAlignment.center,
         textDecoration: TextDecoration.none,
         padding: PaddingPreset.buttonSm,
-        // ShadCN-style: muted background for active, no border indicator
-        textColor: isActive ? TextColor.primary : TextColor.mutedForeground,
-        fontWeight: isActive ? FontWeight.w500 : FontWeight.normal,
+        // Active state: accent color text with muted background and left border indicator
+        textColor: isActive ? TextColor.accent : TextColor.mutedForeground,
+        fontWeight: isActive ? FontWeight.w600 : FontWeight.normal,
         background: isActive ? Background.muted : Background.transparent,
+        borderLeft: isActive ? BorderPreset.accentThick : null,
       ),
       child: ArcaneSpan(child: ArcaneText(label)),
     );

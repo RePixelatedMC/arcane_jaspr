@@ -13,7 +13,7 @@ Component renderLogoCarousel(LogoCarouselProps props) {
     styles: const dom.Styles(raw: {
       'display': 'flex',
       'flex-direction': 'column',
-      'gap': '1.5rem',
+      'gap': 'var(--arcane-space-6)',
       'width': '100%',
       'overflow': 'hidden',
     }),
@@ -24,8 +24,8 @@ Component renderLogoCarousel(LogoCarouselProps props) {
           classes: 'arcane-logo-carousel-title',
           styles: const dom.Styles(raw: {
             'text-align': 'center',
-            'font-size': '0.875rem',
-            'font-weight': '500',
+            'font-size': 'var(--arcane-font-size-sm)',
+            'font-weight': 'var(--arcane-font-weight-medium)',
             'color': 'var(--muted-foreground)',
             'text-transform': 'uppercase',
             'letter-spacing': '0.05em',
@@ -80,13 +80,13 @@ Component _buildLogo(LogoItem logo, LogoCarouselProps props) {
                 'object-fit': 'contain',
                 if (props.grayscale) 'filter': 'grayscale(100%)',
                 'opacity': props.grayscale ? '0.6' : '1',
-                'transition': 'all 150ms ease',
+                'transition': 'all var(--arcane-transition)',
               }),
             )
           : dom.span(
               styles: dom.Styles(raw: {
-                'font-size': '1.125rem',
-                'font-weight': '600',
+                'font-size': 'var(--arcane-font-size-lg)',
+                'font-weight': 'var(--arcane-font-weight-semibold)',
                 'color': 'var(--muted-foreground)',
                 if (props.grayscale) 'filter': 'grayscale(100%)',
                 'opacity': props.grayscale ? '0.6' : '1',
@@ -133,15 +133,15 @@ Component renderLogoGrid(LogoGridProps props) {
     styles: const dom.Styles(raw: {
       'display': 'flex',
       'flex-direction': 'column',
-      'gap': '1.5rem',
+      'gap': 'var(--arcane-space-6)',
     }),
     [
       if (props.title != null)
         dom.div(
           styles: const dom.Styles(raw: {
             'text-align': 'center',
-            'font-size': '0.875rem',
-            'font-weight': '500',
+            'font-size': 'var(--arcane-font-size-sm)',
+            'font-weight': 'var(--arcane-font-weight-medium)',
             'color': 'var(--muted-foreground)',
             'text-transform': 'uppercase',
             'letter-spacing': '0.05em',
@@ -179,14 +179,14 @@ Component renderLogoGrid(LogoGridProps props) {
                       'object-fit': 'contain',
                       if (props.grayscale) 'filter': 'grayscale(100%)',
                       'opacity': props.grayscale ? '0.6' : '1',
-                      'transition': 'all 150ms ease',
+                      'transition': 'all var(--arcane-transition)',
                     }),
                   )
                 else
                   dom.span(
                     styles: const dom.Styles(raw: {
-                      'font-size': '1rem',
-                      'font-weight': '600',
+                      'font-size': 'var(--arcane-font-size-base)',
+                      'font-weight': 'var(--arcane-font-weight-semibold)',
                       'color': 'var(--muted-foreground)',
                     }),
                     [Component.text(logo.name)],

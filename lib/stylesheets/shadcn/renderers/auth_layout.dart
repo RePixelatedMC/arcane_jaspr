@@ -135,13 +135,13 @@ class ShadcnAuthBackLink extends StatelessComponent {
       href: props.href,
       classes: 'arcane-auth-back-link',
       styles: const dom.Styles(raw: {
-        'font-size': '0.875rem',
+        'font-size': 'var(--arcane-font-size-sm)',
         'color': 'var(--muted-foreground)',
         'text-decoration': 'none',
         'display': 'inline-flex',
         'align-items': 'center',
-        'gap': '0.25rem',
-        'transition': 'all 150ms ease',
+        'gap': 'var(--arcane-space-1)',
+        'transition': 'all var(--arcane-transition)',
       }),
       [Component.text('\u2190 ${props.text}')],
     );

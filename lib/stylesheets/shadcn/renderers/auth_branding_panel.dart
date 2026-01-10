@@ -34,7 +34,7 @@ class ShadcnAuthBrandingPanel extends StatelessComponent {
                 styles: const dom.Styles(raw: {
                   'width': '48px',
                   'height': '48px',
-                  'border-radius': '0.5rem',
+                  'border-radius': 'var(--arcane-radius-md)',
                   'object-fit': 'contain',
                 }),
               ),
@@ -44,8 +44,8 @@ class ShadcnAuthBrandingPanel extends StatelessComponent {
         // Tagline
         dom.div(
           styles: const dom.Styles(raw: {
-            'font-size': '1.875rem',
-            'font-weight': '700',
+            'font-size': 'var(--arcane-font-size-3xl)',
+            'font-weight': 'var(--arcane-font-weight-bold)',
             'color': 'var(--foreground)',
             'margin-bottom': '0.75rem',
             'line-height': '1.25',
@@ -58,7 +58,7 @@ class ShadcnAuthBrandingPanel extends StatelessComponent {
         if (props.description != null)
           dom.div(
             styles: const dom.Styles(raw: {
-              'font-size': '1rem',
+              'font-size': 'var(--arcane-font-size-base)',
               'color': 'var(--muted-foreground)',
               'margin-bottom': '2rem',
               'line-height': '1.625',
@@ -72,7 +72,7 @@ class ShadcnAuthBrandingPanel extends StatelessComponent {
             styles: const dom.Styles(raw: {
               'display': 'flex',
               'flex-direction': 'column',
-              'gap': '0.75rem',
+              'gap': 'var(--arcane-space-3)',
               'margin-bottom': '3rem',
             }),
             [
@@ -99,8 +99,8 @@ class ShadcnAuthBrandingPanel extends StatelessComponent {
           styles: const dom.Styles(raw: {
             'width': '20px',
             'height': '20px',
-            'border-radius': '9999px',
-            'background': 'hsl(var(--accent) / 0.2)',
+            'border-radius': 'var(--arcane-radius-full)',
+            'background': 'color-mix(in srgb, var(--accent) 20%, transparent)',
             'display': 'flex',
             'align-items': 'center',
             'justify-content': 'center',
@@ -113,7 +113,7 @@ class ShadcnAuthBrandingPanel extends StatelessComponent {
         // Feature text
         dom.div(
           styles: const dom.Styles(raw: {
-            'font-size': '0.875rem',
+            'font-size': 'var(--arcane-font-size-sm)',
             'color': 'var(--foreground)',
             'line-height': '1.5',
           }),
@@ -127,16 +127,16 @@ class ShadcnAuthBrandingPanel extends StatelessComponent {
     return dom.div(
       styles: const dom.Styles(raw: {
         'padding': '1.5rem',
-        'background': 'hsl(var(--card) / 0.5)',
+        'background': 'color-mix(in srgb, var(--card) 50%, transparent)',
         'border': '1px solid var(--border)',
-        'border-radius': '0.5rem',
+        'border-radius': 'var(--arcane-radius-md)',
         'margin-top': 'auto',
       }),
       [
         // Quote
         dom.div(
           styles: const dom.Styles(raw: {
-            'font-size': '0.875rem',
+            'font-size': 'var(--arcane-font-size-sm)',
             'color': 'var(--foreground)',
             'margin-bottom': '1rem',
             'line-height': '1.625',
@@ -158,13 +158,13 @@ class ShadcnAuthBrandingPanel extends StatelessComponent {
                 styles: const dom.Styles(raw: {
                   'width': '36px',
                   'height': '36px',
-                  'border-radius': '9999px',
+                  'border-radius': 'var(--arcane-radius-full)',
                   'background': 'linear-gradient(135deg, var(--accent) 0%, var(--info) 100%)',
                   'display': 'flex',
                   'align-items': 'center',
                   'justify-content': 'center',
-                  'font-size': '0.875rem',
-                  'font-weight': '600',
+                  'font-size': 'var(--arcane-font-size-sm)',
+                  'font-weight': 'var(--arcane-font-weight-semibold)',
                   'color': 'var(--accent-foreground)',
                 }),
                 [Component.text(props.testimonialAuthor![0].toUpperCase())],
@@ -173,8 +173,8 @@ class ShadcnAuthBrandingPanel extends StatelessComponent {
                 [
                   dom.div(
                     styles: const dom.Styles(raw: {
-                      'font-size': '0.875rem',
-                      'font-weight': '600',
+                      'font-size': 'var(--arcane-font-size-sm)',
+                      'font-weight': 'var(--arcane-font-weight-semibold)',
                       'color': 'var(--foreground)',
                     }),
                     [Component.text(props.testimonialAuthor!)],
@@ -182,7 +182,7 @@ class ShadcnAuthBrandingPanel extends StatelessComponent {
                   if (props.testimonialTitle != null)
                     dom.div(
                       styles: const dom.Styles(raw: {
-                        'font-size': '0.75rem',
+                        'font-size': 'var(--arcane-font-size-xs)',
                         'color': 'var(--muted-foreground)',
                       }),
                       [Component.text(props.testimonialTitle!)],

@@ -71,8 +71,8 @@ class CodexSlider extends StatelessComponent {
               if (props.label != null)
                 dom.span(
                   styles: const dom.Styles(raw: {
-                    'font-size': '0.875rem',
-                    'font-weight': '500',
+                    'font-size': 'var(--arcane-font-size-sm)',
+                    'font-weight': 'var(--arcane-font-weight-medium)',
                     'color': 'var(--foreground)',
                   }),
                   [Component.text(props.label!)],
@@ -81,8 +81,8 @@ class CodexSlider extends StatelessComponent {
                 dom.span(
                   classes: 'codex-slider-value',
                   styles: const dom.Styles(raw: {
-                    'font-size': '0.875rem',
-                    'font-weight': '500',
+                    'font-size': 'var(--arcane-font-size-sm)',
+                    'font-weight': 'var(--arcane-font-weight-medium)',
                     'font-variant-numeric': 'tabular-nums',
                     'color': 'var(--muted-foreground)',
                     'min-width': '40px',
@@ -120,7 +120,7 @@ class CodexSlider extends StatelessComponent {
                 'right': '0',
                 'height': trackHeight,
                 'background-color': 'var(--muted)',
-                'border-radius': '9999px',
+                'border-radius': 'var(--arcane-radius-full)',
                 'overflow': 'hidden',
               }),
               [
@@ -157,7 +157,7 @@ class CodexSlider extends StatelessComponent {
                 'height': thumbSize,
                 'background-color': 'var(--foreground)',
                 'border': '2px solid $fillColor',
-                'border-radius': '9999px',
+                'border-radius': 'var(--arcane-radius-full)',
                 // Codex: subtle glow on thumb
                 'box-shadow': glowColor,
                 'transition': 'all var(--transition)',
@@ -214,14 +214,14 @@ class CodexSlider extends StatelessComponent {
             [
               dom.span(
                 styles: const dom.Styles(raw: {
-                  'font-size': '0.75rem',
+                  'font-size': 'var(--arcane-font-size-xs)',
                   'color': 'var(--muted-foreground)',
                 }),
                 [Component.text(props.min.toStringAsFixed(0))],
               ),
               dom.span(
                 styles: const dom.Styles(raw: {
-                  'font-size': '0.75rem',
+                  'font-size': 'var(--arcane-font-size-xs)',
                   'color': 'var(--muted-foreground)',
                 }),
                 [Component.text(props.max.toStringAsFixed(0))],
@@ -260,7 +260,7 @@ class CodexSlider extends StatelessComponent {
               'width': '3px', // Codex: slightly larger markers
               'height': '3px',
               'background': 'var(--muted-foreground)',
-              'border-radius': '9999px',
+              'border-radius': 'var(--arcane-radius-full)',
             }),
             [],
           ),

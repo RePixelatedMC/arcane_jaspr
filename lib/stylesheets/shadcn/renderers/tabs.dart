@@ -39,7 +39,7 @@ class ShadcnTabs extends StatelessComponent {
             'align-items': 'center',
             'justify-content': 'center',
             // ShadCN: rounded-md
-            'border-radius': '0.375rem',
+            'border-radius': 'var(--arcane-radius-sm)',
             // ShadCN: bg-muted
             'background-color': 'var(--muted)',
             // ShadCN: p-1
@@ -87,16 +87,16 @@ class ShadcnTabs extends StatelessComponent {
         'display': 'inline-flex',
         'align-items': 'center',
         'justify-content': 'center',
-        'gap': '0.5rem',
+        'gap': 'var(--arcane-space-2)',
         // ShadCN: whitespace-nowrap
         'white-space': 'nowrap',
         // ShadCN: rounded-sm (4px)
-        'border-radius': '0.25rem',
+        'border-radius': 'var(--arcane-radius-xs)',
         // ShadCN: px-3 py-1.5
         'padding': '6px 12px',
         // ShadCN: text-sm font-medium
-        'font-size': '0.875rem',
-        'font-weight': '500',
+        'font-size': 'var(--arcane-font-size-sm)',
+        'font-weight': 'var(--arcane-font-weight-medium)',
         'border': 'none',
         // ShadCN: data-[state=active]:bg-background data-[state=active]:text-foreground
         'background-color': isSelected ? 'var(--background)' : 'transparent',
@@ -104,7 +104,7 @@ class ShadcnTabs extends StatelessComponent {
         // ShadCN: data-[state=active]:shadow-sm
         'box-shadow': isSelected ? '0 1px 2px 0 rgb(0 0 0 / 0.05)' : 'none',
         // ShadCN: transition-all
-        'transition': 'all 150ms ease',
+        'transition': 'all var(--arcane-transition)',
         // ShadCN: disabled:pointer-events-none disabled:opacity-50
         'cursor': isDisabled ? 'not-allowed' : 'pointer',
         'pointer-events': isDisabled ? 'none' : 'auto',
@@ -129,8 +129,8 @@ class ShadcnTabs extends StatelessComponent {
               'color': 'var(--primary-foreground)',
               'font-size': '0.6875rem',
               'padding': '2px 6px',
-              'border-radius': '9999px',
-              'font-weight': '500',
+              'border-radius': 'var(--arcane-radius-full)',
+              'font-weight': 'var(--arcane-font-weight-medium)',
               'margin-left': '4px',
             }),
             [Component.text(tab.badge!)],
@@ -157,7 +157,7 @@ class ShadcnTabBar extends StatelessComponent {
         'height': '40px',
         'align-items': 'center',
         'justify-content': 'center',
-        'border-radius': '0.375rem',
+        'border-radius': 'var(--arcane-radius-sm)',
         'background-color': 'var(--muted)',
         'padding': '4px',
         'color': 'var(--muted-foreground)',
@@ -181,15 +181,15 @@ class ShadcnTabBar extends StatelessComponent {
         'display': 'inline-flex',
         'align-items': 'center',
         'justify-content': 'center',
-        'gap': '0.5rem',
+        'gap': 'var(--arcane-space-2)',
         'white-space': 'nowrap',
         // ShadCN: rounded-sm (4px)
-        'border-radius': '0.25rem',
+        'border-radius': 'var(--arcane-radius-xs)',
         // ShadCN: px-3 py-1.5
         'padding': '6px 12px',
         // ShadCN: text-sm font-medium
-        'font-size': '0.875rem',
-        'font-weight': '500',
+        'font-size': 'var(--arcane-font-size-sm)',
+        'font-weight': 'var(--arcane-font-weight-medium)',
         'border': 'none',
         // ShadCN: data-[state=active]:bg-background data-[state=active]:text-foreground
         'background-color': isSelected ? 'var(--background)' : 'transparent',
@@ -197,7 +197,7 @@ class ShadcnTabBar extends StatelessComponent {
         // ShadCN: data-[state=active]:shadow-sm
         'box-shadow': isSelected ? '0 1px 2px 0 rgb(0 0 0 / 0.05)' : 'none',
         // ShadCN: transition-all
-        'transition': 'all 150ms ease',
+        'transition': 'all var(--arcane-transition)',
         'cursor': 'pointer',
         if (props.fill) 'flex': '1',
       }),

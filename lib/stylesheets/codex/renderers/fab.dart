@@ -101,7 +101,7 @@ class CodexFAB extends StatelessComponent {
         'cursor': props.disabled ? 'not-allowed' : 'pointer',
         'opacity': props.disabled ? '0.5' : '1',
         'box-shadow': '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
-        'transition': 'all 200ms ease',
+        'transition': 'all var(--arcane-transition-slow)',
         'z-index': '50',
         ...variantStyles,
       }),
@@ -126,8 +126,8 @@ class CodexFAB extends StatelessComponent {
         if (props.label != null)
           span(
             styles: const Styles(raw: {
-              'font-weight': '500',
-              'font-size': '1rem',
+              'font-weight': 'var(--arcane-font-weight-medium)',
+              'font-size': 'var(--arcane-font-size-base)',
               'white-space': 'nowrap',
             }),
             [Component.text(props.label!)],

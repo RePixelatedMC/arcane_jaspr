@@ -94,9 +94,9 @@ class CodexThumbHashCard extends StatelessComponent {
       }),
       [
         // Background placeholder (would need JS to decode thumbhash)
-        dom.div(
+        const dom.div(
           classes: 'codex-thumbhash-background',
-          styles: const dom.Styles(raw: {
+          styles: dom.Styles(raw: {
             'position': 'absolute',
             'inset': '0',
             'background': 'var(--secondary)',

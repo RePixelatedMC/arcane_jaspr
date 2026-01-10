@@ -47,7 +47,7 @@ class ShadcnBottomNavigationBar extends StatelessComponent {
         'flex-direction': 'column',
         'align-items': 'center',
         'justify-content': 'center',
-        'gap': '0.25rem',
+        'gap': 'var(--arcane-space-1)',
         'flex': '1',
         'height': '100%',
         'padding': '0.5rem',
@@ -55,7 +55,7 @@ class ShadcnBottomNavigationBar extends StatelessComponent {
         'border': 'none',
         'color': isSelected ? 'var(--accent)' : 'var(--muted-foreground)',
         'cursor': 'pointer',
-        'transition': 'all 150ms ease',
+        'transition': 'all var(--arcane-transition)',
         'position': 'relative',
       }),
       events: {
@@ -76,10 +76,10 @@ class ShadcnBottomNavigationBar extends StatelessComponent {
             'justify-content': 'center',
             'width': '48px',
             'height': '32px',
-            'border-radius': '0.5rem',
+            'border-radius': 'var(--arcane-radius-md)',
             'background-color':
-                isSelected ? 'hsl(var(--accent) / 0.1)' : 'transparent',
-            'transition': 'all 150ms ease',
+                isSelected ? 'color-mix(in srgb, var(--accent) 10%, transparent)' : 'transparent',
+            'transition': 'all var(--arcane-transition)',
           }),
           [
             dom.div(
@@ -105,8 +105,8 @@ class ShadcnBottomNavigationBar extends StatelessComponent {
                   'background-color': 'var(--destructive)',
                   'color': 'var(--destructive-foreground)',
                   'font-size': '0.625rem',
-                  'font-weight': '600',
-                  'border-radius': '0.25rem',
+                  'font-weight': 'var(--arcane-font-weight-semibold)',
+                  'border-radius': 'var(--arcane-radius-xs)',
                   'display': 'flex',
                   'align-items': 'center',
                   'justify-content': 'center',
@@ -121,7 +121,7 @@ class ShadcnBottomNavigationBar extends StatelessComponent {
           dom.span(
             classes: 'arcane-bottom-nav-label',
             styles: dom.Styles(raw: {
-              'font-size': '0.75rem',
+              'font-size': 'var(--arcane-font-size-xs)',
               'font-weight': isSelected ? '600' : '500',
               'white-space': 'nowrap',
               'overflow': 'hidden',

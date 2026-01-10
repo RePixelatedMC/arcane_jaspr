@@ -77,8 +77,8 @@ class _ArcaneAppState extends State<ArcaneApp> {
       );
     }
 
-    final String? baseCss = stylesheet.baseCss;
-    if (baseCss != null && baseCss.isNotEmpty) {
+    final String baseCss = stylesheet.baseCss;
+    if (baseCss.isNotEmpty) {
       headElements.add(
         Component.element(
           tag: 'style',
@@ -87,9 +87,16 @@ class _ArcaneAppState extends State<ArcaneApp> {
       );
     }
 
+    // Build CSS classes: brightness + any stylesheet-specific classes
+    final String brightnessClass = isDark ? 'dark' : 'light';
+    final String? stylesheetClass = stylesheet.bodyClass;
+    final String rootClasses = stylesheetClass != null && stylesheetClass.isNotEmpty
+        ? '$brightnessClass $stylesheetClass'
+        : brightnessClass;
+
     final Component rootDiv = dom.div(
       id: 'arcane-root',
-      classes: isDark ? 'dark' : 'light',
+      classes: rootClasses,
       styles: const dom.Styles(raw: {
         'min-height': '100vh',
         'background-color': 'var(--background)',

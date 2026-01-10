@@ -14,11 +14,11 @@ class ShadcnSettingsSection extends StatelessComponent {
     return dom.div(
       classes: 'arcane-settings-section ${props.danger ? 'danger' : ''}',
       styles: dom.Styles(raw: {
-        'background': props.danger ? 'hsl(var(--destructive) / 0.05)' : 'var(--card)',
+        'background': props.danger ? 'color-mix(in srgb, var(--destructive) 5%, transparent)' : 'var(--card)',
         'border': props.danger
-            ? '1px solid hsl(var(--destructive) / 0.2)'
+            ? '1px solid color-mix(in srgb, var(--destructive) 20%, transparent)'
             : '1px solid var(--border)',
-        'border-radius': '0.5rem',
+        'border-radius': 'var(--arcane-radius-md)',
         'padding': '1.5rem',
         'margin-bottom': '1.5rem',
       }),
@@ -29,16 +29,16 @@ class ShadcnSettingsSection extends StatelessComponent {
           styles: dom.Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
-            'gap': '0.5rem',
+            'gap': 'var(--arcane-space-2)',
             'margin-bottom': '1.5rem',
             'padding-bottom': '1rem',
-            'border-bottom': '1px solid ${props.danger ? 'hsl(var(--destructive) / 0.2)' : 'var(--border)'}',
+            'border-bottom': '1px solid ${props.danger ? 'color-mix(in srgb, var(--destructive) 20%, transparent)' : 'var(--border)'}',
           }),
           [
             dom.h2(
               styles: dom.Styles(raw: {
-                'font-size': '1.125rem',
-                'font-weight': '600',
+                'font-size': 'var(--arcane-font-size-lg)',
+                'font-weight': 'var(--arcane-font-weight-semibold)',
                 'color': props.danger ? 'var(--destructive)' : 'var(--foreground)',
                 'margin': '0',
               }),
@@ -50,7 +50,7 @@ class ShadcnSettingsSection extends StatelessComponent {
         if (props.description != null)
           dom.p(
             styles: const dom.Styles(raw: {
-              'font-size': '0.875rem',
+              'font-size': 'var(--arcane-font-size-sm)',
               'color': 'var(--muted-foreground)',
               'margin': '0 0 1rem 0',
             }),
@@ -83,14 +83,14 @@ class ShadcnSettingsInfoRow extends StatelessComponent {
       [
         dom.span(
           styles: const dom.Styles(raw: {
-            'font-size': '0.875rem',
+            'font-size': 'var(--arcane-font-size-sm)',
             'color': 'var(--muted-foreground)',
           }),
           [Component.text(props.label)],
         ),
         dom.span(
           styles: dom.Styles(raw: {
-            'font-size': '0.875rem',
+            'font-size': 'var(--arcane-font-size-sm)',
             'color': 'var(--foreground)',
             if (props.monospace) 'font-family': 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
           }),
@@ -128,8 +128,8 @@ class ShadcnSettingsToggleRow extends StatelessComponent {
           [
             dom.div(
               styles: const dom.Styles(raw: {
-                'font-size': '0.875rem',
-                'font-weight': '500',
+                'font-size': 'var(--arcane-font-size-sm)',
+                'font-weight': 'var(--arcane-font-weight-medium)',
                 'color': 'var(--foreground)',
               }),
               [Component.text(props.title)],
@@ -137,7 +137,7 @@ class ShadcnSettingsToggleRow extends StatelessComponent {
             if (props.description != null)
               dom.div(
                 styles: const dom.Styles(raw: {
-                  'font-size': '0.75rem',
+                  'font-size': 'var(--arcane-font-size-xs)',
                   'color': 'var(--muted-foreground)',
                   'margin-top': '2px',
                 }),
@@ -158,11 +158,11 @@ class ShadcnSettingsToggleRow extends StatelessComponent {
             'width': '44px',
             'height': '24px',
             'background': props.enabled ? 'var(--accent)' : 'var(--muted)',
-            'border-radius': '12px',
+            'border-radius': 'var(--arcane-radius-lg)',
             'border': 'none',
             'cursor': props.disabled ? 'not-allowed' : 'pointer',
             'position': 'relative',
-            'transition': 'all 150ms ease',
+            'transition': 'all var(--arcane-transition)',
             'flex-shrink': '0',
           }),
           events: {
@@ -176,11 +176,11 @@ class ShadcnSettingsToggleRow extends StatelessComponent {
                 'width': '20px',
                 'height': '20px',
                 'background': 'var(--accent-foreground)',
-                'border-radius': '9999px',
+                'border-radius': 'var(--arcane-radius-full)',
                 'position': 'absolute',
                 'top': '2px',
                 'left': props.enabled ? '22px' : '2px',
-                'transition': 'all 150ms ease',
+                'transition': 'all var(--arcane-transition)',
               }),
               [],
             ),
@@ -207,8 +207,8 @@ class ShadcnSettingsSubheader extends StatelessComponent {
       [
         dom.div(
           styles: dom.Styles(raw: {
-            'font-size': '0.875rem',
-            'font-weight': '500',
+            'font-size': 'var(--arcane-font-size-sm)',
+            'font-weight': 'var(--arcane-font-weight-medium)',
             'color': 'var(--foreground)',
             'margin-bottom': props.description != null ? '0.25rem' : '0',
           }),
@@ -217,7 +217,7 @@ class ShadcnSettingsSubheader extends StatelessComponent {
         if (props.description != null)
           dom.p(
             styles: const dom.Styles(raw: {
-              'font-size': '0.75rem',
+              'font-size': 'var(--arcane-font-size-xs)',
               'color': 'var(--muted-foreground)',
               'margin': '0',
             }),
@@ -243,12 +243,12 @@ class ShadcnSettingsNote extends StatelessComponent {
         'margin-top': '1rem',
         'padding': '1rem',
         'background': background,
-        'border-radius': '0.375rem',
+        'border-radius': 'var(--arcane-radius-sm)',
       }),
       [
         dom.p(
           styles: const dom.Styles(raw: {
-            'font-size': '0.875rem',
+            'font-size': 'var(--arcane-font-size-sm)',
             'color': 'var(--muted-foreground)',
             'margin': '0',
           }),
@@ -261,11 +261,11 @@ class ShadcnSettingsNote extends StatelessComponent {
   String _getBackground() {
     switch (props.variant) {
       case SettingsNoteVariant.info:
-        return 'hsl(var(--accent) / 0.1)';
+        return 'color-mix(in srgb, var(--accent) 10%, transparent)';
       case SettingsNoteVariant.warning:
-        return 'hsl(38 92% 50% / 0.1)';
+        return 'color-mix(in srgb, var(--warning) 10%, transparent)';
       case SettingsNoteVariant.success:
-        return 'hsl(142 76% 36% / 0.1)';
+        return 'color-mix(in srgb, var(--success) 10%, transparent)';
     }
   }
 }

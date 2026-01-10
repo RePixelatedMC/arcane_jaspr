@@ -95,7 +95,7 @@ class CodexAvatar extends StatelessComponent {
               dom.span(
                 styles: dom.Styles(raw: {
                   'font-size': fontSize,
-                  'font-weight': '600',
+                  'font-weight': 'var(--arcane-font-weight-semibold)',
                   'color': 'var(--muted-foreground)',
                   'text-transform': 'uppercase',
                   'user-select': 'none',
@@ -124,7 +124,7 @@ class CodexAvatar extends StatelessComponent {
               'right': '0',
               'width': statusSize,
               'height': statusSize,
-              'border-radius': '9999px',
+              'border-radius': 'var(--arcane-radius-full)',
               'background-color': props.statusColor ?? 'var(--success)',
               // Codex: ring with card background
               'border': '2px solid var(--card)',

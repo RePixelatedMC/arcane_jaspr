@@ -45,7 +45,7 @@ class CodexTabs extends StatelessComponent {
       classes: 'codex-tabs-list',
       styles: dom.Styles(raw: {
         'display': 'flex',
-        'gap': '0.25rem', // Codex: small gap between tabs
+        'gap': 'var(--arcane-space-1)', // Codex: small gap between tabs
         'border-bottom': '1px solid var(--border)',
         'padding-bottom': '1px', // Space for active indicator
         if (props.fill) 'width': '100%',
@@ -73,10 +73,10 @@ class CodexTabs extends StatelessComponent {
         'display': 'inline-flex',
         'align-items': 'center',
         'justify-content': 'center',
-        'gap': '0.5rem',
+        'gap': 'var(--arcane-space-2)',
         // Codex: larger padding
         'padding': '0.75rem 1.25rem',
-        'font-size': '0.875rem',
+        'font-size': 'var(--arcane-font-size-sm)',
         'font-weight': isSelected ? '600' : '500',
         'color': isSelected
             ? 'var(--codex-accent)'
@@ -110,9 +110,9 @@ class CodexTabs extends StatelessComponent {
               'background-color': 'var(--codex-accent)',
               'color': '#ffffff',
               'font-size': '0.625rem',
-              'font-weight': '600',
+              'font-weight': 'var(--arcane-font-weight-semibold)',
               'padding': '0.125rem 0.375rem',
-              'border-radius': '9999px',
+              'border-radius': 'var(--arcane-radius-full)',
               'margin-left': '0.25rem',
             }),
             [Component.text(tab.badge!)],
@@ -134,7 +134,7 @@ class CodexTabBar extends StatelessComponent {
       classes: 'codex-tab-bar',
       styles: dom.Styles(raw: {
         'display': 'flex',
-        'gap': '0.25rem',
+        'gap': 'var(--arcane-space-1)',
         // Codex: contained tab bar with background
         'background-color': 'var(--muted)',
         'padding': '0.25rem',
@@ -162,10 +162,10 @@ class CodexTabBar extends StatelessComponent {
         'display': 'inline-flex',
         'align-items': 'center',
         'justify-content': 'center',
-        'gap': '0.5rem',
+        'gap': 'var(--arcane-space-2)',
         // Codex: larger padding
         'padding': '0.625rem 1rem',
-        'font-size': '0.875rem',
+        'font-size': 'var(--arcane-font-size-sm)',
         'font-weight': isSelected ? '600' : '500',
         'color': isSelected ? 'var(--foreground)' : 'var(--muted-foreground)',
         'background-color': isSelected ? 'var(--card)' : 'transparent',

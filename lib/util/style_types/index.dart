@@ -1,6 +1,7 @@
 /// Barrel export for all style types
 library;
 
+export 'arcane_color.dart';
 export 'arcane_style_data.dart';
 export 'spacing.dart';
 export 'colors.dart';

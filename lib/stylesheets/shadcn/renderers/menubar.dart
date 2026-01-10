@@ -20,8 +20,8 @@ class ShadcnMenubar extends StatelessComponent {
         'display': 'flex',
         'height': '40px',
         'align-items': 'center',
-        'gap': '4px',
-        'border-radius': '6px',
+        'gap': 'var(--arcane-space-1)',
+        'border-radius': 'var(--arcane-radius-sm)',
         'border': '1px solid var(--border)',
         'background-color': 'var(--background)',
         'padding': '4px',
@@ -55,10 +55,10 @@ class ShadcnMenubar extends StatelessComponent {
             'cursor': 'default',
             'user-select': 'none',
             'align-items': 'center',
-            'border-radius': '4px',
+            'border-radius': 'var(--arcane-radius-xs)',
             'padding': '6px 12px',
-            'font-size': '14px',
-            'font-weight': '500',
+            'font-size': 'var(--arcane-font-size-sm)',
+            'font-weight': 'var(--arcane-font-weight-medium)',
             'outline': 'none',
             'border': 'none',
             'background-color':
@@ -66,7 +66,7 @@ class ShadcnMenubar extends StatelessComponent {
             'color': isOpen
                 ? 'var(--accent-foreground)'
                 : 'var(--foreground)',
-            'transition': 'background-color 150ms ease, color 150ms ease',
+            'transition': 'background-color var(--arcane-transition), color var(--arcane-transition)',
           }),
           events: {
             'click': (_) => props.onMenuChange?.call(isOpen ? null : index),
@@ -90,7 +90,7 @@ class ShadcnMenubar extends StatelessComponent {
               'margin-top': '4px',
               'background-color': 'var(--popover)',
               'border': '1px solid var(--border)',
-              'border-radius': '6px',
+              'border-radius': 'var(--arcane-radius-sm)',
               'box-shadow':
                   '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
               'color': 'var(--popover-foreground)',
@@ -130,13 +130,13 @@ class ShadcnMenubar extends StatelessComponent {
         'cursor': item.disabled ? 'not-allowed' : 'default',
         'user-select': 'none',
         'align-items': 'center',
-        'gap': '8px',
-        'border-radius': '4px',
+        'gap': 'var(--arcane-space-2)',
+        'border-radius': 'var(--arcane-radius-xs)',
         'padding': '6px 8px',
         'padding-left': item.isCheckbox ? '32px' : '8px',
-        'font-size': '14px',
+        'font-size': 'var(--arcane-font-size-sm)',
         'outline': 'none',
-        'transition': 'background-color 150ms ease, color 150ms ease',
+        'transition': 'background-color var(--arcane-transition), color var(--arcane-transition)',
         if (item.disabled) 'pointer-events': 'none',
         if (item.disabled) 'opacity': '0.5',
       }),
@@ -151,7 +151,7 @@ class ShadcnMenubar extends StatelessComponent {
               'position': 'absolute',
               'left': '8px',
               'color': 'var(--foreground)',
-              'font-size': '12px',
+              'font-size': 'var(--arcane-font-size-xs)',
             }),
             [Component.text('\u{2713}')], // Checkmark
           ),
@@ -168,7 +168,7 @@ class ShadcnMenubar extends StatelessComponent {
           dom.span(
             styles: const dom.Styles(raw: {
               'margin-left': 'auto',
-              'font-size': '12px',
+              'font-size': 'var(--arcane-font-size-xs)',
               'letter-spacing': '0.1em',
               'color': 'var(--muted-foreground)',
             }),

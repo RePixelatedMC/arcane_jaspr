@@ -19,7 +19,7 @@ class ShadcnTestimonialCard extends StatelessComponent {
         'padding': '2rem',
         'background-color': 'var(--card)',
         'border': '1px solid var(--border)',
-        'border-radius': '0.75rem',
+        'border-radius': 'var(--arcane-radius-lg)',
       }),
       [
         // Rating stars
@@ -35,9 +35,9 @@ class ShadcnTestimonialCard extends StatelessComponent {
               for (var i = 0; i < 5; i++)
                 dom.span(
                   styles: dom.Styles(raw: {
-                    'font-size': '1rem',
+                    'font-size': 'var(--arcane-font-size-base)',
                     'color': i < props.rating!
-                        ? 'hsl(38 92% 50%)'
+                        ? 'var(--warning)'
                         : 'var(--muted-foreground)',
                   }),
                   [const Component.text('\u2605')],
@@ -50,7 +50,7 @@ class ShadcnTestimonialCard extends StatelessComponent {
           classes: 'arcane-testimonial-quote',
           styles: const dom.Styles(raw: {
             'position': 'relative',
-            'font-size': '1rem',
+            'font-size': 'var(--arcane-font-size-base)',
             'line-height': '1.7',
             'color': 'var(--foreground)',
             'margin-bottom': '1.5rem',
@@ -87,7 +87,7 @@ class ShadcnTestimonialCard extends StatelessComponent {
           styles: const dom.Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
-            'gap': '1rem',
+            'gap': 'var(--arcane-space-4)',
           }),
           [
             // Avatar
@@ -97,7 +97,7 @@ class ShadcnTestimonialCard extends StatelessComponent {
                 styles: const dom.Styles(raw: {
                   'width': '44px',
                   'height': '44px',
-                  'border-radius': '9999px',
+                  'border-radius': 'var(--arcane-radius-full)',
                   'overflow': 'hidden',
                   'flex-shrink': '0',
                 }),
@@ -119,14 +119,14 @@ class ShadcnTestimonialCard extends StatelessComponent {
                 styles: const dom.Styles(raw: {
                   'width': '44px',
                   'height': '44px',
-                  'border-radius': '9999px',
-                  'background-color': 'hsl(var(--accent) / 0.1)',
+                  'border-radius': 'var(--arcane-radius-full)',
+                  'background-color': 'color-mix(in srgb, var(--accent) 10%, transparent)',
                   'color': 'var(--accent)',
                   'display': 'flex',
                   'align-items': 'center',
                   'justify-content': 'center',
-                  'font-weight': '600',
-                  'font-size': '1rem',
+                  'font-weight': 'var(--arcane-font-weight-semibold)',
+                  'font-size': 'var(--arcane-font-size-base)',
                   'flex-shrink': '0',
                 }),
                 [Component.text(props.authorName[0].toUpperCase())],
@@ -138,8 +138,8 @@ class ShadcnTestimonialCard extends StatelessComponent {
               [
                 dom.div(
                   styles: const dom.Styles(raw: {
-                    'font-weight': '600',
-                    'font-size': '1rem',
+                    'font-weight': 'var(--arcane-font-weight-semibold)',
+                    'font-size': 'var(--arcane-font-size-base)',
                     'color': 'var(--foreground)',
                   }),
                   [Component.text(props.authorName)],
@@ -147,7 +147,7 @@ class ShadcnTestimonialCard extends StatelessComponent {
                 if (props.authorTitle != null || props.authorCompany != null)
                   dom.div(
                     styles: const dom.Styles(raw: {
-                      'font-size': '0.875rem',
+                      'font-size': 'var(--arcane-font-size-sm)',
                       'color': 'var(--muted-foreground)',
                       'margin-top': '2px',
                     }),
@@ -189,10 +189,10 @@ class ShadcnRatingStarsSimple extends StatelessComponent {
             styles: dom.Styles(raw: {
               'font-size': '${props.size}px',
               'color': i < props.rating
-                  ? 'hsl(38 92% 50%)'
+                  ? 'var(--warning)'
                   : 'var(--muted-foreground)',
               if (props.interactive) 'cursor': 'pointer',
-              'transition': 'all 150ms ease',
+              'transition': 'all var(--arcane-transition)',
             }),
             events: props.interactive
                 ? {

@@ -81,7 +81,7 @@ class _ShadcnFlexiCardsState extends State<ShadcnFlexiCards> {
           'justify-content': 'center',
           'width': '56px',
           'height': '56px',
-          'border-radius': '0.5rem',
+          'border-radius': 'var(--arcane-radius-md)',
           'background-color': 'var(--accent)',
           'color': 'var(--accent-foreground)',
           'margin-bottom': '1rem',
@@ -94,8 +94,8 @@ class _ShadcnFlexiCardsState extends State<ShadcnFlexiCards> {
       dom.div(
         classes: 'arcane-flexi-card-title',
         styles: const dom.Styles(raw: {
-          'font-size': '1.125rem',
-          'font-weight': '600',
+          'font-size': 'var(--arcane-font-size-lg)',
+          'font-weight': 'var(--arcane-font-weight-semibold)',
           'color': 'var(--foreground)',
           'margin-bottom': '0.5rem',
         }),
@@ -106,7 +106,7 @@ class _ShadcnFlexiCardsState extends State<ShadcnFlexiCards> {
       dom.div(
         classes: 'arcane-flexi-card-long-text',
         styles: dom.Styles(raw: {
-          'font-size': '1rem',
+          'font-size': 'var(--arcane-font-size-base)',
           'line-height': '1.7',
           'color': 'var(--muted-foreground)',
           'opacity': showLongText ? '1' : '0',
@@ -130,7 +130,7 @@ class _ShadcnFlexiCardsState extends State<ShadcnFlexiCards> {
             'padding-top': '1rem',
             'border-top': '1px solid var(--border)',
             'opacity': showLongText ? '1' : '0.6',
-            'transition': 'opacity 200ms ease',
+            'transition': 'opacity var(--arcane-transition-slow)',
           }),
           [item.footer!],
         ),
@@ -171,7 +171,7 @@ class _ShadcnFlexiCardsState extends State<ShadcnFlexiCards> {
       'padding': '1.5rem',
       'background-color': 'var(--card)',
       'border': '1px solid var(--border)',
-      'border-radius': '0.75rem',
+      'border-radius': 'var(--arcane-radius-lg)',
       'transform': transform,
       'transform-origin': 'center center',
       'transition': 'all ${component.props.transitionDuration}ms cubic-bezier(0.4, 0, 0.2, 1)',
@@ -261,7 +261,7 @@ class ShadcnFlexiCardsSimple extends StatelessComponent {
         'padding': '1.5rem',
         'background-color': 'var(--card)',
         'border': '1px solid var(--border)',
-        'border-radius': '0.75rem',
+        'border-radius': 'var(--arcane-radius-lg)',
       }),
       [
         // Icon
@@ -272,7 +272,7 @@ class ShadcnFlexiCardsSimple extends StatelessComponent {
             'justify-content': 'center',
             'width': '56px',
             'height': '56px',
-            'border-radius': '0.5rem',
+            'border-radius': 'var(--arcane-radius-md)',
             'background-color': 'var(--accent)',
             'color': 'var(--accent-foreground)',
             'margin-bottom': '1rem',
@@ -284,8 +284,8 @@ class ShadcnFlexiCardsSimple extends StatelessComponent {
         dom.div(
           classes: 'arcane-flexi-card-simple-title',
           styles: const dom.Styles(raw: {
-            'font-size': '1.125rem',
-            'font-weight': '600',
+            'font-size': 'var(--arcane-font-size-lg)',
+            'font-weight': 'var(--arcane-font-weight-semibold)',
             'color': 'var(--foreground)',
             'margin-bottom': '0.5rem',
           }),
@@ -296,7 +296,7 @@ class ShadcnFlexiCardsSimple extends StatelessComponent {
         dom.div(
           classes: 'arcane-flexi-card-simple-desc',
           styles: const dom.Styles(raw: {
-            'font-size': '1rem',
+            'font-size': 'var(--arcane-font-size-base)',
             'line-height': '1.7',
             'color': 'var(--muted-foreground)',
           }),

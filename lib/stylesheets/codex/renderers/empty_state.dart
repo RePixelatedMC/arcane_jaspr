@@ -70,7 +70,7 @@ class CodexEmptyState extends StatelessComponent {
           styles: const dom.Styles(raw: {
             'display': 'flex',
             'flex-direction': 'column',
-            'gap': '0.5rem',
+            'gap': 'var(--arcane-space-2)',
           }),
           [
             // Title
@@ -78,7 +78,7 @@ class CodexEmptyState extends StatelessComponent {
               classes: 'codex-empty-state-title',
               styles: dom.Styles(raw: {
                 'font-size': titleSize,
-                'font-weight': '600',
+                'font-weight': 'var(--arcane-font-weight-semibold)',
                 'color': 'var(--foreground)',
                 'margin': '0',
               }),

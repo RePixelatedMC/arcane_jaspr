@@ -21,14 +21,14 @@ class ShadcnCardSection extends StatelessComponent {
                   'display': 'flex',
                   'align-items': 'center',
                   'justify-content': 'space-between',
-                  'gap': '1rem',
+                  'gap': 'var(--arcane-space-4)',
                   'margin-bottom': effectiveGap,
                 }),
                 [
                   dom.span(
                     styles: const dom.Styles(raw: {
-                      'font-size': '0.875rem',
-                      'font-weight': '600',
+                      'font-size': 'var(--arcane-font-size-sm)',
+                      'font-weight': 'var(--arcane-font-weight-semibold)',
                       'color': 'var(--muted-foreground)',
                       'text-transform': 'uppercase',
                       'letter-spacing': '0.05em',
@@ -39,7 +39,7 @@ class ShadcnCardSection extends StatelessComponent {
                     dom.div(
                       styles: const dom.Styles(raw: {
                         'display': 'flex',
-                        'gap': '0.5rem',
+                        'gap': 'var(--arcane-space-2)',
                       }),
                       props.trailing!,
                     ),
@@ -93,8 +93,8 @@ class ShadcnListCard extends StatelessComponent {
             classes: 'arcane-list-card-header',
             styles: const dom.Styles(raw: {
               'padding': '1rem 1.5rem',
-              'font-size': '0.875rem',
-              'font-weight': '600',
+              'font-size': 'var(--arcane-font-size-sm)',
+              'font-weight': 'var(--arcane-font-weight-semibold)',
               'color': 'var(--muted-foreground)',
               'border-bottom': '1px solid var(--border)',
               'background-color': 'var(--muted)',
