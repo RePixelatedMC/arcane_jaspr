@@ -7,19 +7,21 @@ component: dialog
 
 # ArcaneDialog
 
-A modal dialog component for displaying important content, confirmations, or collecting user input.
+A flexible modal dialog component for displaying content, confirmations, forms, or any custom UI.
 
 ## Basic Usage
 
 ```dart
-ArcaneDialog.show(
-  context,
+ArcaneDialog(
   title: 'Dialog Title',
-  content: ArcaneText('Dialog content goes here'),
-  actions: [
-    ArcaneButton.secondary(label: 'Cancel', onPressed: close),
-    ArcaneButton.primary(label: 'Confirm', onPressed: confirm),
+  children: [
+    ArcaneText('Dialog content goes here.'),
   ],
+  actions: [
+    ArcaneButton(label: 'Cancel', variant: ButtonVariant.outline, onPressed: close),
+    ArcaneButton(label: 'Confirm', variant: ButtonVariant.primary, onPressed: confirm),
+  ],
+  onClose: close,
 )
 ```
 
@@ -27,359 +29,231 @@ ArcaneDialog.show(
 
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
-| `title` | `String?` | `null` | Dialog title |
-| `content` | `Component` | required | Dialog content |
-| `actions` | `List<Component>` | `[]` | Action buttons |
-| `size` | `DialogSize` | `medium` | Dialog size |
-| `dismissible` | `bool` | `true` | Click outside to close |
-| `showCloseButton` | `bool` | `true` | Show close button |
-| `styles` | `ArcaneStyleData?` | `null` | Additional styling |
+| `title` | `String?` | `null` | Dialog title text |
+| `child` | `Component?` | `null` | Single content component |
+| `children` | `List<Component>?` | `null` | Multiple content components |
+| `actions` | `List<Component>?` | `null` | Action buttons in footer |
+| `showCloseButton` | `bool` | `true` | Show X close button |
+| `onClose` | `VoidCallback?` | `null` | Called when dialog closes |
+| `maxWidth` | `double` | `500` | Maximum dialog width in pixels |
+| `barrierDismissible` | `bool` | `true` | Click outside to close |
 
-## Sizes
-
-```dart
-// Small
-ArcaneDialog.show(
-  context,
-  size: DialogSize.small,
-  title: 'Small Dialog',
-  content: Content(),
-)
-
-// Medium (default)
-ArcaneDialog.show(
-  context,
-  size: DialogSize.medium,
-  title: 'Medium Dialog',
-  content: Content(),
-)
-
-// Large
-ArcaneDialog.show(
-  context,
-  size: DialogSize.large,
-  title: 'Large Dialog',
-  content: Content(),
-)
-
-// Full screen
-ArcaneDialog.show(
-  context,
-  size: DialogSize.fullScreen,
-  title: 'Full Screen Dialog',
-  content: Content(),
-)
-```
-
-## Alert Dialog
+## Confirmation Dialog
 
 ```dart
-ArcaneAlertDialog.show(
-  context,
-  title: 'Delete Item?',
-  message: 'This action cannot be undone.',
-  confirmLabel: 'Delete',
-  cancelLabel: 'Cancel',
-  isDestructive: true,
-  onConfirm: deleteItem,
-)
-```
-
-## Confirm Dialog
-
-```dart
-ArcaneConfirmDialog.show(
-  context,
-  title: 'Publish Post?',
-  message: 'Your post will be visible to everyone.',
-  confirmLabel: 'Publish',
-  cancelLabel: 'Keep as Draft',
-  onConfirm: publishPost,
-)
-```
-
-## Text Input Dialog
-
-```dart
-ArcaneTextInputDialog.show(
-  context,
-  title: 'Rename File',
-  label: 'File name',
-  initialValue: file.name,
-  confirmLabel: 'Rename',
-  onConfirm: (newName) => renameFile(newName),
-)
-```
-
-## Examples
-
-### Confirmation Dialog
-
-```dart
-void showDeleteConfirmation() {
-  ArcaneDialog.show(
-    context,
-    title: 'Delete Project?',
-    content: ArcaneColumn(
-      gap: Gap.md,
-      children: [
-        ArcaneParagraph(
-          text: 'Are you sure you want to delete "${project.name}"? This will permanently remove all files and data associated with this project.',
-        ),
-        ArcaneAlertBanner(
-          variant: AlertVariant.warning,
-          message: 'This action cannot be undone.',
-        ),
-      ],
+ArcaneDialog(
+  title: 'Delete Project?',
+  children: [
+    ArcaneText('Are you sure you want to delete this project?'),
+    ArcaneText(
+      'This action cannot be undone.',
+      styles: ArcaneStyleData(color: 'var(--destructive)'),
     ),
-    actions: [
-      ArcaneButton.secondary(
-        label: 'Cancel',
-        onPressed: () => Navigator.pop(context),
-      ),
-      ArcaneButton.destructive(
-        label: 'Delete Project',
-        onPressed: () {
-          deleteProject();
-          Navigator.pop(context);
-        },
-      ),
-    ],
-  );
-}
+  ],
+  actions: [
+    ArcaneButton(
+      label: 'Cancel',
+      variant: ButtonVariant.outline,
+      onPressed: close,
+    ),
+    ArcaneButton(
+      label: 'Delete',
+      variant: ButtonVariant.destructive,
+      onPressed: () {
+        deleteProject();
+        close();
+      },
+    ),
+  ],
+  onClose: close,
+)
 ```
 
-### Form Dialog
+## Form Dialog
+
+Compose any form inputs inside the dialog content:
 
 ```dart
-void showEditProfileDialog() {
-  ArcaneDialog.show(
-    context,
-    title: 'Edit Profile',
-    size: DialogSize.medium,
-    content: ArcaneForm(
-      child: ArcaneColumn(
-        gap: Gap.md,
-        children: [
-          ArcaneTextInput(
-            label: 'Display Name',
-            value: user.displayName,
-          ),
-          ArcaneTextArea(
-            label: 'Bio',
-            value: user.bio,
-            maxLength: 160,
-          ),
-          ArcaneSelect(
-            label: 'Timezone',
-            options: timezones,
-            value: user.timezone,
-          ),
-        ],
-      ),
+ArcaneDialog(
+  title: 'Edit Profile',
+  maxWidth: 450,
+  children: [
+    ArcaneTextInput(
+      label: 'Display Name',
+      value: displayName,
+      onChanged: (value) => setState(() => displayName = value),
     ),
-    actions: [
-      ArcaneButton.secondary(
-        label: 'Cancel',
-        onPressed: () => Navigator.pop(context),
-      ),
-      ArcaneButton.primary(
-        label: 'Save Changes',
-        onPressed: saveProfile,
-      ),
-    ],
-  );
-}
+    ArcaneTextInput(
+      label: 'Email',
+      value: email,
+      onChanged: (value) => setState(() => email = value),
+    ),
+    ArcaneTextArea(
+      label: 'Bio',
+      value: bio,
+      maxLines: 4,
+      onChanged: (value) => setState(() => bio = value),
+    ),
+  ],
+  actions: [
+    ArcaneButton(
+      label: 'Cancel',
+      variant: ButtonVariant.outline,
+      onPressed: close,
+    ),
+    ArcaneButton(
+      label: 'Save Changes',
+      variant: ButtonVariant.primary,
+      onPressed: saveProfile,
+    ),
+  ],
+  onClose: close,
+)
 ```
 
-### Image Preview Dialog
+## Item Selection Dialog
+
+Build custom item pickers by composing your own list:
 
 ```dart
-void showImagePreview(String imageUrl) {
-  ArcaneDialog.show(
-    context,
-    size: DialogSize.large,
-    showCloseButton: true,
-    content: ArcaneColumn(
-      gap: Gap.md,
-      children: [
-        img(
-          src: imageUrl,
-          styles: const ArcaneStyleData(
-            maxWidth: '100%',
-            borderRadius: Radius.md,
-          ),
-        ),
-        ArcaneRow(
-          mainAxisAlignment: MainAxisAlignment.center,
-          gap: Gap.md,
-          children: [
-            ArcaneButton.secondary(
-              leadingIcon: span([text('⬇️')]),
-              label: 'Download',
-              onPressed: () => downloadImage(imageUrl),
-            ),
-            ArcaneButton.secondary(
-              leadingIcon: span([text('🔗')]),
-              label: 'Copy Link',
-              onPressed: () => copyLink(imageUrl),
-            ),
-          ],
-        ),
-      ],
+ArcaneDialog(
+  title: 'Select Theme',
+  maxWidth: 400,
+  children: [
+    for (final theme in themes)
+      ArcaneButton(
+        label: theme.name,
+        variant: selectedTheme == theme
+          ? ButtonVariant.primary
+          : ButtonVariant.ghost,
+        onPressed: () => setState(() => selectedTheme = theme),
+        fullWidth: true,
+      ),
+  ],
+  actions: [
+    ArcaneButton(
+      label: 'Cancel',
+      variant: ButtonVariant.outline,
+      onPressed: close,
     ),
-  );
-}
+    ArcaneButton(
+      label: 'Apply',
+      variant: ButtonVariant.primary,
+      onPressed: () {
+        applyTheme(selectedTheme);
+        close();
+      },
+    ),
+  ],
+  onClose: close,
+)
 ```
 
-### Settings Dialog
+## Dialog Without Title
 
 ```dart
-void showSettingsDialog() {
-  ArcaneDialog.show(
-    context,
-    title: 'Settings',
-    size: DialogSize.medium,
-    content: ArcaneColumn(
-      gap: Gap.lg,
-      children: [
-        ArcaneDiv(
-          children: [
-            ArcaneHeading(text: 'Appearance', level: 3),
-            ArcaneGutter(size: GutterSize.sm),
-            ArcaneRow(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ArcaneText('Theme'),
-                ArcaneToggleButtonGroup<String>(
-                  value: theme,
-                  options: [
-                    ToggleOption(value: 'light', label: 'Light'),
-                    ToggleOption(value: 'dark', label: 'Dark'),
-                    ToggleOption(value: 'system', label: 'System'),
-                  ],
-                  onChanged: setTheme,
-                ),
-              ],
-            ),
-          ],
-        ),
-        ArcaneDivider(),
-        ArcaneDiv(
-          children: [
-            ArcaneHeading(text: 'Notifications', level: 3),
-            ArcaneGutter(size: GutterSize.sm),
-            ArcaneColumn(
-              gap: Gap.sm,
-              children: [
-                ArcaneToggleSwitch(
-                  label: 'Email notifications',
-                  value: emailNotifs,
-                  onChanged: setEmailNotifs,
-                ),
-                ArcaneToggleSwitch(
-                  label: 'Push notifications',
-                  value: pushNotifs,
-                  onChanged: setPushNotifs,
-                ),
-              ],
-            ),
-          ],
-        ),
-      ],
-    ),
-    actions: [
-      ArcaneButton.primary(
-        label: 'Done',
-        onPressed: () => Navigator.pop(context),
-      ),
-    ],
-  );
-}
-```
-
-### Multi-Step Dialog
-
-```dart
-void showOnboardingDialog() {
-  ArcaneDialog.show(
-    context,
-    title: 'Welcome to Arcane',
-    dismissible: false,
-    content: ArcaneColumn(
-      gap: Gap.lg,
-      children: [
-        ArcaneCenter(
-          child: span(
-            [text('🚀')],
-            styles: const ArcaneStyleData(fontSize: FontSize.xl4),
-          ),
-        ),
-        ArcaneParagraph(
-          text: steps[currentStep].description,
-          styles: const ArcaneStyleData(textAlign: TextAlign.center),
-        ),
-        ArcaneProgressBar(
-          value: (currentStep + 1) / steps.length,
-        ),
-      ],
-    ),
-    actions: [
-      if (currentStep > 0)
-        ArcaneButton.ghost(
-          label: 'Back',
-          onPressed: previousStep,
-        ),
-      ArcaneButton.primary(
-        label: currentStep == steps.length - 1 ? 'Get Started' : 'Next',
-        onPressed: currentStep == steps.length - 1 ? finish : nextStep,
-      ),
-    ],
-  );
-}
-```
-
-### Keyboard Shortcut Dialog
-
-```dart
-void showShortcutsDialog() {
-  ArcaneDialog.show(
-    context,
-    title: 'Keyboard Shortcuts',
-    size: DialogSize.medium,
-    content: ArcaneColumn(
-      gap: Gap.md,
-      children: [
-        _shortcutRow('⌘ + S', 'Save'),
-        _shortcutRow('⌘ + Z', 'Undo'),
-        _shortcutRow('⌘ + Shift + Z', 'Redo'),
-        _shortcutRow('⌘ + K', 'Search'),
-        _shortcutRow('⌘ + /', 'Toggle comment'),
-        _shortcutRow('Esc', 'Close dialog'),
-      ],
-    ),
-    actions: [
-      ArcaneButton.primary(
-        label: 'Got it',
-        onPressed: () => Navigator.pop(context),
-      ),
-    ],
-  );
-}
-
-Component _shortcutRow(String shortcut, String action) {
-  return ArcaneRow(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+ArcaneDialog(
+  showCloseButton: true,
+  child: ArcaneColumn(
+    gap: Gap.lg,
     children: [
-      ArcaneText(action),
-      ArcaneInlineCode(code: shortcut),
+      ArcaneAvatar(src: user.avatarUrl, size: AvatarSize.xl),
+      ArcaneText(user.name, styles: ArcaneStyleData(fontWeight: FontWeight.bold)),
+      ArcaneText(user.bio),
     ],
-  );
+  ),
+  onClose: close,
+)
+```
+
+## Non-Dismissible Dialog
+
+Prevent closing by clicking outside:
+
+```dart
+ArcaneDialog(
+  title: 'Terms of Service',
+  barrierDismissible: false,
+  showCloseButton: false,
+  children: [
+    ArcaneText('Please read and accept the terms to continue.'),
+    // ... terms content
+  ],
+  actions: [
+    ArcaneButton(
+      label: 'I Accept',
+      variant: ButtonVariant.primary,
+      onPressed: acceptTerms,
+    ),
+  ],
+)
+```
+
+## With Search and Filtering
+
+```dart
+class ItemPickerDialog extends StatefulComponent {
+  final List<Item> items;
+  final void Function(Item) onSelect;
+  final VoidCallback onClose;
+
+  @override
+  State createState() => _ItemPickerDialogState();
+}
+
+class _ItemPickerDialogState extends State<ItemPickerDialog> {
+  String query = '';
+
+  List<Item> get filteredItems => widget.items
+      .where((item) => item.name.toLowerCase().contains(query.toLowerCase()))
+      .toList();
+
+  @override
+  Component build(BuildContext context) {
+    return ArcaneDialog(
+      title: 'Select Item',
+      maxWidth: 480,
+      children: [
+        ArcaneTextInput(
+          placeholder: 'Search...',
+          value: query,
+          onChanged: (value) => setState(() => query = value),
+        ),
+        ArcaneDiv(
+          styles: ArcaneStyleData(
+            maxHeight: '300px',
+            overflowY: Overflow.auto,
+          ),
+          children: [
+            for (final item in filteredItems)
+              ArcaneButton(
+                label: item.name,
+                variant: ButtonVariant.ghost,
+                onPressed: () {
+                  widget.onSelect(item);
+                  widget.onClose();
+                },
+                fullWidth: true,
+              ),
+          ],
+        ),
+      ],
+      actions: [
+        ArcaneButton(
+          label: 'Cancel',
+          variant: ButtonVariant.outline,
+          onPressed: widget.onClose,
+        ),
+      ],
+      onClose: widget.onClose,
+    );
+  }
 }
 ```
 
 ## Related Components
 
+- [ArcaneConfirmDialog](/arcane_jaspr/docs/feedback/arcane-confirm-dialog) - Pre-built confirmation dialog
 - [ArcaneToast](/arcane_jaspr/docs/feedback/arcane-toast) - Temporary notifications
 - [ArcaneAlertBanner](/arcane_jaspr/docs/feedback/arcane-alert-banner) - Inline alerts
-- [ArcaneSheet](/arcane_jaspr/docs/feedback/arcane-sheet) - Bottom sheet
+- [ArcaneSheet](/arcane_jaspr/docs/layout/arcane-sheet) - Slide-in panel

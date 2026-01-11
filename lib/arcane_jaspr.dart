@@ -138,7 +138,6 @@ export 'component/view/tile.dart';
 export 'component/view/center_body.dart';
 export 'component/view/badge.dart';
 export 'component/view/game_tile.dart';
-export 'component/view/divider.dart' hide ArcaneDivider;
 export 'component/view/code_snippet.dart';
 export 'component/view/avatar.dart';
 export 'component/view/progress_bar.dart';
@@ -157,8 +156,7 @@ export 'component/view/callout.dart';
 export 'component/view/kbd.dart';
 export 'component/view/meter.dart';
 export 'component/view/alert.dart';
-export 'component/view/popover.dart';
-export 'component/view/hovercard.dart';
+export 'component/view/floating.dart';
 export 'component/view/separator.dart';
 export 'component/view/fade_edge.dart';
 export 'component/view/marquee.dart';
@@ -214,11 +212,9 @@ export 'component/screen/chat_screen.dart';
 // Dialog
 export 'component/dialog/dialog.dart';
 export 'component/dialog/confirm.dart';
-export 'component/dialog/input.dart';
 export 'component/dialog/toast.dart';
 export 'component/dialog/command.dart';
 export 'component/dialog/time.dart';
-export 'component/dialog/item_picker.dart';
 
 // Form
 export 'component/form/field.dart';
@@ -228,7 +224,6 @@ export 'component/form/newsletter_form.dart';
 
 // Feedback
 export 'component/feedback/alert_banner.dart';
-export 'component/feedback/tooltip.dart';
 export 'component/feedback/loader.dart';
 export 'component/feedback/status_badge.dart' hide StatusType;
 
@@ -296,3 +291,12 @@ export 'component/view/auth_branding_panel.dart';
 
 // Auth Utilities
 export 'util/auth/password_policy.dart';
+
+// Content Utilities
+export 'util/content/reading_time.dart';
+export 'util/content/prose_styles.dart';
+
+// Documentation Components
+export 'component/layout/docs_layout.dart';
+export 'component/navigation/toc.dart';
+export 'component/navigation/page_nav.dart';

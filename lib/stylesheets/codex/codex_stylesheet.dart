@@ -15,11 +15,13 @@ import 'renderers/codex_renderers.dart';
 /// - Hack font for code
 ///
 /// The light mode uses soft whites and grays with vibrant accents.
+///
+/// Supports multiple color themes via [CodexTheme].
 class CodexStylesheet extends ArcaneStylesheet {
-  /// The accent theme to use. Defaults to green.
-  final CodexAccent accent;
+  /// The color theme to use. Defaults to green.
+  final CodexTheme theme;
 
-  const CodexStylesheet({this.accent = CodexAccent.green});
+  const CodexStylesheet({this.theme = CodexTheme.green});
 
   @override
   String get id => 'codex';
@@ -36,8 +38,8 @@ class CodexStylesheet extends ArcaneStylesheet {
 
   @override
   ThemeSeed get lightSeed => ThemeSeed(
-        // Codex uses the accent color as primary
-        primary: accent.color,
+        // Codex uses the theme color as primary
+        primary: theme.color,
         background: 0xFFf9fafb,
         // Light gray secondary/accent
         secondary: 0xFFf3f4f6,
@@ -51,8 +53,8 @@ class CodexStylesheet extends ArcaneStylesheet {
 
   @override
   ThemeSeed get darkSeed => ThemeSeed(
-        // Same accent in dark mode
-        primary: accent.color,
+        // Same theme color in dark mode
+        primary: theme.color,
         background: 0xFF000000, // OLED black
         // Neutral dark gray secondary/accent (no blue tint)
         secondary: 0xFF1a1a1a,
@@ -289,11 +291,11 @@ class CodexStylesheet extends ArcaneStylesheet {
   // Component-Specific CSS
   // ============================================
 
-  /// Returns the CSS class to apply to the body element for this accent.
-  /// Returns 'codex-{accent}' (e.g., 'codex-orange', 'codex-rainbow') to enable
-  /// accent-specific styling in CSS.
+  /// Returns the CSS class to apply to the body element for this theme.
+  /// Returns 'codex-{theme}' (e.g., 'codex-orange', 'codex-rainbow') to enable
+  /// theme-specific styling in CSS.
   @override
-  String get bodyClass => 'codex-${accent.name}';
+  String get bodyClass => 'codex-${theme.name}';
 
   @override
   String get componentCss => '''
@@ -332,7 +334,7 @@ label {
   box-shadow: var(--shadow-lg);
 }
 
-${accent == CodexAccent.rainbow ? _rainbowCss : ''}
+${theme == CodexTheme.rainbow ? _rainbowCss : ''}
 
 /* Tree Lines for Disclosure/Navigation
    Each item draws its own connectors:
@@ -459,8 +461,10 @@ ${accent == CodexAccent.rainbow ? _rainbowCss : ''}
 ''';
 }
 
-/// Available accent themes for Codex.
-enum CodexAccent {
+/// Color themes for Codex stylesheet.
+///
+/// Each theme defines a primary accent color.
+enum CodexTheme {
   /// Emerald green - #10b981
   green(0xFF10b981),
 
@@ -486,8 +490,8 @@ enum CodexAccent {
   /// Uses cyan as the base color, with CSS animation override.
   rainbow(0xFF22d3ee);
 
-  /// The color value for this accent.
+  /// The color value for this theme.
   final int color;
 
-  const CodexAccent(this.color);
+  const CodexTheme(this.color);
 }

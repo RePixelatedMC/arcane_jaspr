@@ -5,10 +5,11 @@ import '../../../core/props/slider_props.dart';
 
 /// Codex Slider renderer.
 ///
-/// Implements the Codex design language:
-/// - Larger track and thumb sizes (1.25x)
-/// - Accent-colored fill with subtle glow
-/// - Larger border radius
+/// Implements the Codex Neon Cyberpunk design language:
+/// - Glowing neon track with gradient fill
+/// - Pulsing thumb with intense glow
+/// - Cyberpunk-style step markers
+/// - Holographic value display
 class CodexSlider extends StatelessComponent {
   final SliderProps props;
 
@@ -20,72 +21,79 @@ class CodexSlider extends StatelessComponent {
         ((props.value - props.min) / (props.max - props.min) * 100)
             .clamp(0.0, 100.0);
 
-    // Codex Slider sizes - 1.25x larger than ShadCN
+    // Codex Neon Slider sizes - larger with more presence
     final (String trackHeight, String thumbSize, String hitAreaHeight) =
         switch (props.size) {
-      SliderSize.sm => ('8px', '20px', '32px'), // vs ShadCN 6px/16px
-      SliderSize.md => ('10px', '24px', '40px'), // vs ShadCN 8px/20px
-      SliderSize.lg => ('12px', '28px', '48px'), // vs ShadCN 10px/24px
+      SliderSize.sm => ('10px', '24px', '40px'),
+      SliderSize.md => ('12px', '28px', '48px'),
+      SliderSize.lg => ('14px', '32px', '56px'),
     };
 
     final int thumbSizeNum = int.parse(thumbSize.replaceAll('px', ''));
 
-    // Codex variant colors with accent as primary
-    final (String fillColor, String glowColor) = switch (props.variant) {
+    // Codex Neon variant colors with intense glows
+    final (String fillGradient, String glowColor, String thumbGlow) = switch (props.variant) {
       SliderVariant.primary => (
-          'var(--primary)',
-          '0 0 15px rgba(var(--primary-rgb), 0.2)',
-        ),
+        'linear-gradient(90deg, var(--primary) 0%, color-mix(in srgb, var(--primary) 70%, #ff00ff) 100%)',
+        '0 0 20px rgba(var(--primary-rgb), 0.4)',
+        '0 0 15px rgba(var(--primary-rgb), 0.5), 0 0 30px rgba(var(--primary-rgb), 0.25)',
+      ),
       SliderVariant.success => (
-          'var(--success)',
-          '0 0 10px rgba(var(--success-rgb), 0.25)',
-        ),
+        'linear-gradient(90deg, var(--success) 0%, color-mix(in srgb, var(--success) 70%, #00ffaa) 100%)',
+        '0 0 20px rgba(var(--success-rgb), 0.4)',
+        '0 0 15px rgba(var(--success-rgb), 0.5), 0 0 30px rgba(var(--success-rgb), 0.25)',
+      ),
       SliderVariant.warning => (
-          'var(--warning)',
-          '0 0 10px rgba(var(--warning-rgb), 0.25)',
-        ),
+        'linear-gradient(90deg, var(--warning) 0%, color-mix(in srgb, var(--warning) 70%, #ffaa00) 100%)',
+        '0 0 20px rgba(var(--warning-rgb), 0.4)',
+        '0 0 15px rgba(var(--warning-rgb), 0.5), 0 0 30px rgba(var(--warning-rgb), 0.25)',
+      ),
       SliderVariant.error => (
-          'var(--destructive)',
-          '0 0 10px rgba(var(--destructive-rgb), 0.25)',
-        ),
+        'linear-gradient(90deg, var(--destructive) 0%, color-mix(in srgb, var(--destructive) 70%, #ff0066) 100%)',
+        '0 0 20px rgba(var(--destructive-rgb), 0.4)',
+        '0 0 15px rgba(var(--destructive-rgb), 0.5), 0 0 30px rgba(var(--destructive-rgb), 0.25)',
+      ),
     };
 
     return dom.div(
-      classes: 'codex-slider ${props.disabled ? 'disabled' : ''}',
+      classes: 'codex-slider codex-neon ${props.disabled ? 'disabled' : ''}',
       styles: dom.Styles(raw: {
         'width': '100%',
-        'opacity': props.disabled ? '0.5' : '1',
+        'opacity': props.disabled ? '0.4' : '1',
         'pointer-events': props.disabled ? 'none' : 'auto',
       }),
       [
-        // Label row
+        // Label row with neon styling
         if (props.label != null || props.showValue)
           dom.div(
             styles: const dom.Styles(raw: {
               'display': 'flex',
               'justify-content': 'space-between',
               'align-items': 'center',
-              'margin-bottom': '0.75rem', // Codex: more spacing
+              'margin-bottom': '1rem',
             }),
             [
               if (props.label != null)
                 dom.span(
                   styles: const dom.Styles(raw: {
                     'font-size': 'var(--font-size-sm)',
-                    'font-weight': 'var(--font-weight-medium)',
+                    'font-weight': 'var(--font-weight-semibold)',
+                    'letter-spacing': '0.025em',
+                    'text-transform': 'uppercase',
                     'color': 'var(--foreground)',
                   }),
                   [Component.text(props.label!)],
                 ),
               if (props.showValue)
                 dom.span(
-                  classes: 'codex-slider-value',
+                  classes: 'codex-slider-value codex-neon',
                   styles: const dom.Styles(raw: {
                     'font-size': 'var(--font-size-sm)',
-                    'font-weight': 'var(--font-weight-medium)',
+                    'font-weight': 'var(--font-weight-bold)',
                     'font-variant-numeric': 'tabular-nums',
-                    'color': 'var(--muted-foreground)',
-                    'min-width': '40px',
+                    'color': 'var(--primary)',
+                    'text-shadow': '0 0 10px rgba(var(--primary-rgb), 0.4)',
+                    'min-width': '50px',
                     'text-align': 'right',
                   }),
                   [
@@ -111,29 +119,31 @@ class CodexSlider extends StatelessComponent {
             'user-select': 'none',
           }),
           [
-            // Track background - Codex uses muted color
+            // Track background with neon style
             dom.div(
-              classes: 'codex-slider-track',
+              classes: 'codex-slider-track codex-neon',
               styles: dom.Styles(raw: {
                 'position': 'absolute',
                 'left': '0',
                 'right': '0',
                 'height': trackHeight,
-                'background-color': 'var(--muted)',
-                'border-radius': 'var(--arcane-radius-full)',
+                'background': 'linear-gradient(135deg, rgba(var(--muted-rgb), 0.6) 0%, rgba(var(--muted-rgb), 0.4) 100%)',
+                'border-radius': '9999px',
                 'overflow': 'hidden',
+                'box-shadow': '0 0 10px rgba(var(--primary-rgb), 0.05)',
               }),
               [
-                // Range/filled portion with accent color
+                // Range/filled portion with neon gradient
                 dom.div(
-                  classes: 'codex-slider-track-fill',
+                  classes: 'codex-slider-track-fill codex-neon',
                   styles: dom.Styles(raw: {
                     'position': 'absolute',
                     'left': '0',
                     'top': '0',
                     'width': '$percentage%',
                     'height': '100%',
-                    'background-color': fillColor,
+                    'background': fillGradient,
+                    'box-shadow': glowColor,
                     'transition': 'width 0.1s ease-out',
                   }),
                   [],
@@ -145,9 +155,9 @@ class CodexSlider extends StatelessComponent {
             if (props.showSteps && props.step != null)
               _buildStepMarkers(trackHeight),
 
-            // Thumb - Codex styling with glow
+            // Neon thumb with intense glow
             dom.div(
-              classes: 'codex-slider-thumb',
+              classes: 'codex-slider-thumb codex-neon',
               styles: dom.Styles(raw: {
                 'position': 'absolute',
                 'left': 'calc($percentage% - ${thumbSizeNum / 2}px)',
@@ -155,12 +165,12 @@ class CodexSlider extends StatelessComponent {
                 'transform': 'translateY(-50%)',
                 'width': thumbSize,
                 'height': thumbSize,
-                'background-color': 'var(--foreground)',
-                'border': '2px solid $fillColor',
-                'border-radius': 'var(--arcane-radius-full)',
-                // Codex: subtle glow on thumb
-                'box-shadow': glowColor,
-                'transition': 'all var(--transition)',
+                'background': 'linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.9) 100%)',
+                'border': '3px solid var(--primary)',
+                'border-radius': '50%',
+                // Intense neon glow on thumb
+                'box-shadow': '$thumbGlow, 0 4px 12px rgba(0, 0, 0, 0.3)',
+                'transition': 'all 0.15s ease-out',
                 'pointer-events': 'none',
                 'z-index': '2',
               }),
@@ -203,25 +213,25 @@ class CodexSlider extends StatelessComponent {
           ],
         ),
 
-        // Min/Max labels (optional, shown when no label is provided)
+        // Min/Max labels with neon styling
         if (props.label == null && !props.showValue)
           dom.div(
             styles: const dom.Styles(raw: {
               'display': 'flex',
               'justify-content': 'space-between',
-              'margin-top': '0.375rem', // Codex: slightly more
+              'margin-top': '0.5rem',
             }),
             [
               dom.span(
                 styles: const dom.Styles(raw: {
-                  'font-size': 'var(--font-size-xs)',
+                  'font-size': 'var(--font-size-sm)',
                   'color': 'var(--muted-foreground)',
                 }),
                 [Component.text(props.min.toStringAsFixed(0))],
               ),
               dom.span(
                 styles: const dom.Styles(raw: {
-                  'font-size': 'var(--font-size-xs)',
+                  'font-size': 'var(--font-size-sm)',
                   'color': 'var(--muted-foreground)',
                 }),
                 [Component.text(props.max.toStringAsFixed(0))],
@@ -257,10 +267,11 @@ class CodexSlider extends StatelessComponent {
         for (var i = 0; i <= steps; i++)
           const dom.div(
             styles: dom.Styles(raw: {
-              'width': '3px', // Codex: slightly larger markers
-              'height': '3px',
-              'background': 'var(--muted-foreground)',
-              'border-radius': 'var(--arcane-radius-full)',
+              'width': '4px',
+              'height': '4px',
+              'background': 'var(--primary)',
+              'border-radius': '50%',
+              'box-shadow': '0 0 6px rgba(var(--primary-rgb), 0.4)',
             }),
             [],
           ),

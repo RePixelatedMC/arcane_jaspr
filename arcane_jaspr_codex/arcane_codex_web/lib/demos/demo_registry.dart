@@ -132,9 +132,7 @@ class DemoRegistry {
     'dialog': FeedbackDemos.dialog,
     'alert-banner': FeedbackDemos.alertBanner,
     'status-badge': FeedbackDemos.statusBadge,
-    'input-dialog': FeedbackDemos.inputDialog,
     'time-dialog': FeedbackDemos.timeDialog,
-    'item-picker': FeedbackDemos.itemPicker,
 
     // Form components
     'form': FormDemos.form,

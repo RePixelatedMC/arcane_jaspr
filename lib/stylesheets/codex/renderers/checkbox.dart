@@ -5,11 +5,11 @@ import '../../../core/props/checkbox_props.dart';
 
 /// Codex Checkbox renderer.
 ///
-/// Implements the Codex design language:
-/// - Larger checkbox sizes (1.25x)
-/// - Accent-colored when checked with subtle glow
-/// - Larger border radius
-/// - More gap between checkbox and label
+/// Implements the Codex Neon Cyberpunk design language:
+/// - Glowing neon checkboxes with pulsing effect
+/// - Holographic check animation
+/// - Cyberpunk-style variant colors with intense glows
+/// - Animated state transitions
 class CodexCheckbox extends StatelessComponent {
   final CheckboxProps props;
 
@@ -17,59 +17,55 @@ class CodexCheckbox extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    // Codex size dimensions - slightly larger than ShadCN
+    // Codex Neon size dimensions - larger with more presence
     final String boxSize = switch (props.size) {
-      CheckboxSize.small => '16px', // vs ShadCN 14px
-      CheckboxSize.medium => '20px', // vs ShadCN 16px
-      CheckboxSize.large => '24px', // vs ShadCN 20px
+      CheckboxSize.small => '20px',
+      CheckboxSize.medium => '24px',
+      CheckboxSize.large => '28px',
     };
 
     final String checkSize = switch (props.size) {
       CheckboxSize.small => '12px',
       CheckboxSize.medium => '14px',
-      CheckboxSize.large => '16px',
+      CheckboxSize.large => '18px',
     };
 
-    // Codex uses accent color for primary variant
-    final (String checkedBg, String borderColor, String glowColor) = switch (props.variant) {
+    // Codex Neon variant colors with intense glows
+    final (String checkedBg, String borderColor, String glowColor, String checkColor) = switch (props.variant) {
       CheckboxVariant.primary => (
-          'var(--primary)',
-          'var(--primary)',
-          '0 0 15px rgba(var(--primary-rgb), 0.2)',
-        ),
+        'linear-gradient(135deg, var(--primary) 0%, color-mix(in srgb, var(--primary) 70%, #ff00ff) 100%)',
+        'var(--primary)',
+        '0 0 20px rgba(var(--primary-rgb), 0.4), 0 0 40px rgba(var(--primary-rgb), 0.15)',
+        '#ffffff',
+      ),
       CheckboxVariant.success => (
-          'var(--success)',
-          'var(--success)',
-          '0 0 10px rgba(var(--success-rgb), 0.3)',
-        ),
+        'linear-gradient(135deg, var(--success) 0%, color-mix(in srgb, var(--success) 70%, #00ffaa) 100%)',
+        'var(--success)',
+        '0 0 20px rgba(var(--success-rgb), 0.4), 0 0 40px rgba(var(--success-rgb), 0.15)',
+        '#ffffff',
+      ),
       CheckboxVariant.warning => (
-          'var(--warning)',
-          'var(--warning)',
-          '0 0 10px rgba(var(--warning-rgb), 0.3)',
-        ),
+        'linear-gradient(135deg, var(--warning) 0%, color-mix(in srgb, var(--warning) 70%, #ffaa00) 100%)',
+        'var(--warning)',
+        '0 0 20px rgba(var(--warning-rgb), 0.4), 0 0 40px rgba(var(--warning-rgb), 0.15)',
+        '#000000',
+      ),
       CheckboxVariant.error => (
-          'var(--destructive)',
-          'var(--destructive)',
-          '0 0 10px rgba(var(--destructive-rgb), 0.3)',
-        ),
-    };
-
-    // Checkmark foreground color
-    final String checkColor = switch (props.variant) {
-      CheckboxVariant.primary => '#ffffff',
-      CheckboxVariant.success => 'var(--success-foreground)',
-      CheckboxVariant.warning => 'var(--warning-foreground)',
-      CheckboxVariant.error => 'var(--destructive-foreground)',
+        'linear-gradient(135deg, var(--destructive) 0%, color-mix(in srgb, var(--destructive) 70%, #ff0066) 100%)',
+        'var(--destructive)',
+        '0 0 20px rgba(var(--destructive-rgb), 0.4), 0 0 40px rgba(var(--destructive-rgb), 0.15)',
+        '#ffffff',
+      ),
     };
 
     return dom.div(
-      classes: 'codex-checkbox-wrapper',
+      classes: 'codex-checkbox-wrapper codex-neon',
       styles: dom.Styles(raw: {
         'display': 'flex',
         'align-items': 'flex-start',
-        'gap': '0.75rem', // Codex: more gap (12px vs ShadCN 8px)
+        'gap': '1rem',
         'cursor': props.disabled ? 'not-allowed' : 'pointer',
-        'opacity': props.disabled ? '0.5' : '1',
+        'opacity': props.disabled ? '0.4' : '1',
         'pointer-events': props.disabled ? 'none' : 'auto',
       }),
       events: props.disabled || props.onChanged == null
@@ -78,25 +74,27 @@ class CodexCheckbox extends StatelessComponent {
               'click': (event) => props.onChanged!(!props.checked),
             },
       [
-        // Checkbox box - Codex styling with accent glow
+        // Neon checkbox box
         dom.div(
-          classes: 'codex-checkbox',
+          classes: 'codex-checkbox codex-neon',
           styles: dom.Styles(raw: {
             'width': boxSize,
             'height': boxSize,
-            // Codex: larger radius than ShadCN
-            'border-radius': 'var(--radius-sm)', // 8px vs ShadCN 4px
-            'background-color': props.checked ? checkedBg : 'transparent',
+            // Codex Neon: rounded corners
+            'border-radius': 'var(--radius-sm)',
+            'background': props.checked
+                ? checkedBg
+                : 'linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(var(--card-rgb), 0.6) 100%)',
             'border': props.checked
                 ? '1px solid $borderColor'
-                : '1px solid var(--border)',
-            // Codex: subtle glow when checked
-            'box-shadow': props.checked ? glowColor : 'none',
+                : '1px solid rgba(var(--border-rgb), 0.5)',
+            // Neon glow when checked
+            'box-shadow': props.checked ? glowColor : '0 0 10px rgba(var(--primary-rgb), 0.1)',
             'display': 'flex',
             'align-items': 'center',
             'justify-content': 'center',
             'flex-shrink': '0',
-            'transition': 'all var(--transition)',
+            'transition': 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
           }),
           [
             if (props.checked)
@@ -106,6 +104,8 @@ class CodexCheckbox extends StatelessComponent {
                   'font-size': checkSize,
                   'font-weight': 'var(--font-weight-bold)',
                   'line-height': '1',
+                  'text-shadow': '0 0 8px currentColor',
+                  'animation': 'codex-check-pop 0.2s ease-out',
                 }),
                 [const Component.text('\u2713')],
               ),
@@ -125,7 +125,7 @@ class CodexCheckbox extends StatelessComponent {
                     'font-weight': 'var(--font-weight-medium)',
                     'color': 'var(--foreground)',
                     'display': 'block',
-                    'line-height': '1.25',
+                    'line-height': '1.4',
                   }),
                   [Component.text(props.label!)],
                 ),
@@ -135,7 +135,8 @@ class CodexCheckbox extends StatelessComponent {
                     'font-size': 'var(--font-size-sm)',
                     'color': 'var(--muted-foreground)',
                     'display': 'block',
-                    'margin-top': '0.375rem', // Codex: slightly more gap
+                    'margin-top': '0.375rem',
+                    'line-height': '1.4',
                   }),
                   [Component.text(props.description!)],
                 ),

@@ -7,8 +7,8 @@ import '../demos/demo_registry.dart';
 import '../utils/constants.dart';
 import '../utils/docs_scripts.dart';
 
-// const ArcaneStylesheet _stylesheet = ShadcnStylesheet(theme: ShadcnTheme.charcoal);
-const ArcaneStylesheet _stylesheet = CodexStylesheet(accent: CodexAccent.orange);
+const ArcaneStylesheet _stylesheet = ShadcnStylesheet(theme: ShadcnTheme.charcoal);
+// const ArcaneStylesheet _stylesheet = CodexStylesheet(theme: CodexTheme.orange);
 
 /// Custom documentation layout using Arcane UI components
 class ArcaneDocsLayout extends PageLayoutBase {

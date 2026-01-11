@@ -5,10 +5,11 @@ import '../../../core/props/search_props.dart';
 
 /// Codex Search Input renderer.
 ///
-/// Implements the Codex design language:
-/// - Larger sizes (1.25x)
-/// - Accent focus ring with subtle glow
-/// - Glass effect on dropdown
+/// Implements the Codex Neon Cyberpunk design language:
+/// - Glowing neon focus effects
+/// - Holographic-style dropdown with glass morphism
+/// - Cyberpunk-inspired search icon glow
+/// - Animated scanning line effect
 class CodexSearch extends StatelessComponent {
   final SearchProps props;
 
@@ -16,32 +17,35 @@ class CodexSearch extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    // Codex sizes - 1.25x larger
+    // Codex Neon sizes - larger with more presence
     final (String height, String fontSize, String padding, String iconSize) =
         switch (props.size) {
-      SearchSize.sm => ('36px', '0.8125rem', '0 0.75rem 0 2.25rem', '16px'),
-      SearchSize.md => ('44px', '0.875rem', '0 1rem 0 2.75rem', '18px'), // vs 40px
-      SearchSize.lg => ('52px', '1rem', '0 1.25rem 0 3rem', '20px'), // vs 48px
+      SearchSize.sm => ('40px', '0.8125rem', '0 1rem 0 2.75rem', '18px'),
+      SearchSize.md => ('48px', '0.875rem', '0 1.25rem 0 3.25rem', '20px'),
+      SearchSize.lg => ('56px', '1rem', '0 1.5rem 0 3.75rem', '22px'),
     };
 
-    // Codex style variants
+    // Codex Neon style variants
     final Map<String, String> styleVariantStyles = switch (props.style) {
       SearchStyle.standard => {
-          'background-color': 'var(--input)',
-          'border': '1px solid var(--border)',
-        },
+        'background': 'linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(var(--card-rgb), 0.6) 100%)',
+        'border': '1px solid rgba(var(--primary-rgb), 0.3)',
+        'box-shadow': '0 0 15px rgba(var(--primary-rgb), 0.1)',
+      },
       SearchStyle.filled => {
-          'background-color': 'var(--secondary)',
-          'border': '1px solid transparent',
-        },
+        'background': 'linear-gradient(135deg, var(--secondary) 0%, color-mix(in srgb, var(--secondary) 80%, var(--primary)) 100%)',
+        'border': '1px solid rgba(var(--primary-rgb), 0.2)',
+        'box-shadow': '0 0 10px rgba(var(--primary-rgb), 0.1)',
+      },
       SearchStyle.ghost => {
-          'background-color': 'transparent',
-          'border': '1px solid transparent',
-        },
+        'background': 'transparent',
+        'border': '1px solid transparent',
+        'box-shadow': 'none',
+      },
     };
 
     return dom.div(
-      classes: 'codex-search ${props.disabled ? 'disabled' : ''}',
+      classes: 'codex-search codex-neon ${props.disabled ? 'disabled' : ''}',
       styles: dom.Styles(raw: {
         'position': 'relative',
         'width': props.width ?? '100%',
@@ -56,34 +60,35 @@ class CodexSearch extends StatelessComponent {
             'align-items': 'center',
           }),
           [
-            // Search icon
+            // Neon search icon
             if (props.showIcon)
               dom.div(
                 classes: 'codex-search-icon',
                 styles: dom.Styles(raw: {
                   'position': 'absolute',
-                  'left': '0.875rem',
+                  'left': '1rem',
                   'display': 'flex',
                   'align-items': 'center',
                   'justify-content': 'center',
                   'pointer-events': 'none',
-                  'color': 'var(--muted-foreground)',
+                  'color': 'var(--primary)',
                   'width': iconSize,
                   'height': iconSize,
+                  'filter': 'drop-shadow(0 0 6px currentColor)',
                 }),
                 [
                   props.icon ??
                       dom.span(
                         styles: dom.Styles(raw: {'font-size': iconSize}),
-                        [const Component.text('\u{1F50D}')], // Magnifying glass
+                        [const Component.text('\u{1F50D}')],
                       ),
                 ],
               ),
 
-            // Input
+            // Input with neon styling
             dom.input(
               type: dom.InputType.search,
-              classes: 'codex-search-input',
+              classes: 'codex-search-input codex-neon',
               attributes: {
                 'placeholder': props.placeholder,
                 if (props.value != null) 'value': props.value!,
@@ -97,12 +102,12 @@ class CodexSearch extends StatelessComponent {
                 'height': height,
                 'padding': padding,
                 ...styleVariantStyles,
-                'border-radius': 'var(--radius)', // Codex: larger radius
+                'border-radius': 'var(--radius)',
                 'font-size': fontSize,
                 'color': 'var(--foreground)',
                 'outline': 'none',
-                'transition': 'all var(--transition)',
-                if (props.disabled) 'opacity': '0.5',
+                'transition': 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                if (props.disabled) 'opacity': '0.4',
                 if (props.disabled) 'cursor': 'not-allowed',
               }),
               events: {
@@ -124,26 +129,27 @@ class CodexSearch extends StatelessComponent {
               },
             ),
 
-            // Loading spinner or clear button
+            // Loading spinner with neon glow or clear button
             if (props.loading)
-              const dom.div(
+              dom.div(
                 classes: 'codex-search-loading',
-                styles: dom.Styles(raw: {
+                styles: const dom.Styles(raw: {
                   'position': 'absolute',
-                  'right': '0.875rem',
+                  'right': '1rem',
                   'display': 'flex',
                   'align-items': 'center',
                 }),
                 [
                   dom.span(
-                    styles: dom.Styles(raw: {
+                    styles: const dom.Styles(raw: {
                       'display': 'inline-block',
-                      'width': '16px',
-                      'height': '16px',
-                      'border': '2px solid var(--muted)',
+                      'width': '18px',
+                      'height': '18px',
+                      'border': '2px solid rgba(var(--primary-rgb), 0.3)',
                       'border-top-color': 'var(--primary)',
-                      'border-radius': 'var(--arcane-radius-full)',
-                      'animation': 'arcane-spin 0.75s linear infinite',
+                      'border-radius': '50%',
+                      'animation': 'arcane-spin 0.6s linear infinite',
+                      'box-shadow': '0 0 10px rgba(var(--primary-rgb), 0.3)',
                     }),
                     [],
                   ),
@@ -155,18 +161,19 @@ class CodexSearch extends StatelessComponent {
                 attributes: {'type': 'button'},
                 styles: const dom.Styles(raw: {
                   'position': 'absolute',
-                  'right': '0.875rem',
+                  'right': '1rem',
                   'display': 'flex',
                   'align-items': 'center',
                   'justify-content': 'center',
-                  'width': '20px',
-                  'height': '20px',
-                  'background': 'transparent',
-                  'border': 'none',
-                  'border-radius': 'var(--arcane-radius-full)',
-                  'color': 'var(--muted-foreground)',
+                  'width': '24px',
+                  'height': '24px',
+                  'background': 'rgba(var(--destructive-rgb), 0.2)',
+                  'border': '1px solid rgba(var(--destructive-rgb), 0.3)',
+                  'border-radius': '50%',
+                  'color': 'var(--destructive)',
                   'cursor': 'pointer',
-                  'transition': 'all var(--transition)',
+                  'transition': 'all 0.2s ease',
+                  'font-size': '12px',
                 }),
                 events: props.onChanged == null
                     ? null
@@ -176,10 +183,10 @@ class CodexSearch extends StatelessComponent {
           ],
         ),
 
-        // Search results dropdown
+        // Neon glass dropdown
         if (props.showDropdown && props.results != null && props.results!.isNotEmpty)
           dom.div(
-            classes: 'codex-search-dropdown',
+            classes: 'codex-search-dropdown codex-neon',
             attributes: {
               if (props.resultsId != null) 'id': props.resultsId!,
             },
@@ -188,16 +195,16 @@ class CodexSearch extends StatelessComponent {
               'top': '100%',
               'left': '0',
               'right': '0',
-              'margin-top': '0.5rem',
-              'max-height': props.dropdownMaxHeight ?? '300px',
+              'margin-top': '0.75rem',
+              'max-height': props.dropdownMaxHeight ?? '320px',
               'overflow-y': 'auto',
-              // Codex: glass effect
-              'background-color': 'rgba(10, 10, 10, 0.95)',
-              'backdrop-filter': 'blur(12px)',
-              '-webkit-backdrop-filter': 'blur(12px)',
-              'border': '1px solid var(--border)',
+              // Neon glass effect
+              'background': 'linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(var(--card-rgb), 0.9) 100%)',
+              'backdrop-filter': 'blur(16px)',
+              '-webkit-backdrop-filter': 'blur(16px)',
+              'border': '1px solid rgba(var(--primary-rgb), 0.3)',
               'border-radius': 'var(--radius)',
-              'box-shadow': '0 10px 40px rgba(0, 0, 0, 0.3)',
+              'box-shadow': '0 0 30px rgba(var(--primary-rgb), 0.15), 0 20px 60px rgba(0, 0, 0, 0.5)',
               'z-index': '50',
             }),
             [
@@ -213,18 +220,19 @@ class CodexSearch extends StatelessComponent {
     if (result.href != null) {
       return dom.a(
         href: result.href!,
-        classes: 'codex-search-result',
+        classes: 'codex-search-result codex-neon',
         styles: const dom.Styles(raw: {
           'display': 'block',
-          'padding': '0.75rem 1rem',
+          'padding': '1rem 1.25rem',
           'text-decoration': 'none',
-          'transition': 'background-color var(--transition)',
+          'border-bottom': '1px solid rgba(var(--border-rgb), 0.3)',
+          'transition': 'all 0.2s ease',
         }),
         [
           dom.div(
             styles: const dom.Styles(raw: {
               'font-size': 'var(--font-size-sm)',
-              'font-weight': 'var(--font-weight-medium)',
+              'font-weight': 'var(--font-weight-semibold)',
               'color': 'var(--foreground)',
             }),
             [Component.text(result.title)],
@@ -234,7 +242,7 @@ class CodexSearch extends StatelessComponent {
               styles: const dom.Styles(raw: {
                 'font-size': 'var(--font-size-xs)',
                 'color': 'var(--muted-foreground)',
-                'margin-top': '0.125rem',
+                'margin-top': '0.25rem',
               }),
               [Component.text(result.subtitle!)],
             ),
@@ -243,24 +251,25 @@ class CodexSearch extends StatelessComponent {
     }
 
     return dom.button(
-      classes: 'codex-search-result',
+      classes: 'codex-search-result codex-neon',
       attributes: {'type': 'button'},
       styles: const dom.Styles(raw: {
         'display': 'block',
         'width': '100%',
         'text-align': 'left',
-        'padding': '0.75rem 1rem',
+        'padding': '1rem 1.25rem',
         'background': 'transparent',
         'border': 'none',
+        'border-bottom': '1px solid rgba(var(--border-rgb), 0.3)',
         'cursor': 'pointer',
-        'transition': 'background-color var(--transition)',
+        'transition': 'all 0.2s ease',
       }),
       events: result.onTap == null ? null : {'click': (_) => result.onTap!()},
       [
         dom.div(
           styles: const dom.Styles(raw: {
             'font-size': 'var(--font-size-sm)',
-            'font-weight': 'var(--font-weight-medium)',
+            'font-weight': 'var(--font-weight-semibold)',
             'color': 'var(--foreground)',
           }),
           [Component.text(result.title)],
@@ -270,7 +279,7 @@ class CodexSearch extends StatelessComponent {
             styles: const dom.Styles(raw: {
               'font-size': 'var(--font-size-xs)',
               'color': 'var(--muted-foreground)',
-              'margin-top': '0.125rem',
+              'margin-top': '0.25rem',
             }),
             [Component.text(result.subtitle!)],
           ),

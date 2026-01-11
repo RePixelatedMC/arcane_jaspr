@@ -4,6 +4,12 @@ import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, T
 import '../../../core/props/color_input_props.dart';
 
 /// Codex Color Input renderer.
+///
+/// Implements the Codex Neon Cyberpunk design language:
+/// - Glowing neon color swatches with intense borders
+/// - Holographic preset palette with glow effects
+/// - Cyberpunk-style hex input with neon accents
+/// - Animated selection states with pulse effects
 class CodexColorInput extends StatelessComponent {
   final ColorInputProps props;
 
@@ -11,17 +17,18 @@ class CodexColorInput extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
+    // Codex Neon sizes - larger with more presence
     final (swatchSize, fontSize, inputPadding) = switch (props.size) {
-      ColorInputSize.sm => ('32px', '0.875rem', '8px 12px'),
-      ColorInputSize.md => ('40px', '1rem', '10px 14px'),
-      ColorInputSize.lg => ('48px', '1.125rem', '12px 18px'),
+      ColorInputSize.sm => ('40px', '0.875rem', '10px 14px'),
+      ColorInputSize.md => ('48px', '1rem', '12px 16px'),
+      ColorInputSize.lg => ('56px', '1.125rem', '14px 20px'),
     };
 
     final List<String> colorPresets = props.presets ?? ColorInputProps.defaultPresets;
     final String normalizedValue = _normalizeColor(props.value);
 
     return div(
-      classes: 'codex-color-input',
+      classes: 'codex-color-input codex-neon',
       id: props.id,
       attributes: {
         'data-value': normalizedValue,
@@ -31,16 +38,18 @@ class CodexColorInput extends StatelessComponent {
       styles: const Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': '0.75rem',
+        'gap': '0.875rem',
       }),
       [
-        // Label
+        // Label with neon styling
         if (props.label != null)
           span(
-            classes: 'codex-color-input-label',
+            classes: 'codex-color-input-label codex-neon',
             styles: const Styles(raw: {
               'font-size': 'var(--font-size-sm)',
-              'font-weight': 'var(--font-weight-medium)',
+              'font-weight': 'var(--font-weight-semibold)',
+              'letter-spacing': '0.025em',
+              'text-transform': 'uppercase',
               'color': 'var(--foreground)',
             }),
             [Component.text(props.label!)],
@@ -52,23 +61,26 @@ class CodexColorInput extends StatelessComponent {
           styles: const Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
-            'gap': '0.75rem',
+            'gap': '1rem',
           }),
           [
-            // Color swatch with native picker
+            // Neon color swatch with glow
             div(
-              classes: 'codex-color-input-swatch',
+              classes: 'codex-color-input-swatch codex-neon',
               styles: Styles(raw: {
                 'position': 'relative',
                 'width': swatchSize,
                 'height': swatchSize,
                 'border-radius': 'var(--radius)',
                 'background': normalizedValue,
-                'border': '2px solid var(--border)',
+                'border': '2px solid rgba(var(--primary-rgb), 0.5)',
                 'cursor': props.disabled ? 'not-allowed' : 'pointer',
-                'opacity': props.disabled ? '0.5' : '1',
+                'opacity': props.disabled ? '0.4' : '1',
                 'overflow': 'hidden',
                 'flex-shrink': '0',
+                // Neon glow around swatch
+                'box-shadow': '0 0 20px ${normalizedValue}66, 0 0 10px rgba(var(--primary-rgb), 0.2)',
+                'transition': 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
               }),
               [
                 // Native color input (invisible but functional)
@@ -104,11 +116,11 @@ class CodexColorInput extends StatelessComponent {
               ],
             ),
 
-            // Hex text input
+            // Neon hex text input
             if (props.showHexInput)
               input(
                 type: InputType.text,
-                classes: 'codex-color-input-hex',
+                classes: 'codex-color-input-hex codex-neon',
                 attributes: {
                   'value': normalizedValue.toUpperCase(),
                   'placeholder': '#000000',
@@ -117,17 +129,21 @@ class CodexColorInput extends StatelessComponent {
                   if (props.disabled) 'disabled': 'true',
                 },
                 styles: Styles(raw: {
-                  'width': '100px',
+                  'width': '120px',
                   'padding': inputPadding,
                   'font-size': fontSize,
                   'font-family':
                       'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
-                  'background': 'var(--input)',
-                  'border': '1px solid var(--border)',
+                  'background': 'linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0%, rgba(var(--card-rgb), 0.4) 100%)',
+                  'border': '1px solid rgba(var(--primary-rgb), 0.3)',
                   'border-radius': 'var(--radius)',
-                  'color': 'var(--foreground)',
+                  'color': 'var(--primary)',
                   'outline': 'none',
                   'text-transform': 'uppercase',
+                  // Neon text glow
+                  'text-shadow': '0 0 8px rgba(var(--primary-rgb), 0.4)',
+                  'box-shadow': '0 0 15px rgba(var(--primary-rgb), 0.1)',
+                  'transition': 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                 }),
                 events: props.disabled
                     ? null
@@ -148,36 +164,39 @@ class CodexColorInput extends StatelessComponent {
           ],
         ),
 
-        // Preset swatches
+        // Neon preset swatches
         if (colorPresets.isNotEmpty)
           div(
-            classes: 'codex-color-input-presets',
+            classes: 'codex-color-input-presets codex-neon',
             styles: const Styles(raw: {
               'display': 'flex',
               'flex-wrap': 'wrap',
-              'gap': '0.375rem',
+              'gap': '0.5rem',
             }),
             [
               for (final String preset in colorPresets)
                 button(
                   type: ButtonType.button,
-                  classes: 'codex-color-input-preset',
+                  classes: 'codex-color-input-preset codex-neon',
                   attributes: {
                     'data-color': preset.toUpperCase(),
                     if (props.disabled) 'disabled': 'true',
                   },
                   styles: Styles(raw: {
-                    'width': '28px',
-                    'height': '28px',
+                    'width': '32px',
+                    'height': '32px',
                     'padding': '0',
-                    'border':
-                        preset.toUpperCase() == normalizedValue.toUpperCase()
-                            ? '2px solid var(--primary)'
-                            : '2px solid var(--border)',
+                    'border': preset.toUpperCase() == normalizedValue.toUpperCase()
+                        ? '2px solid var(--primary)'
+                        : '2px solid rgba(var(--border-rgb), 0.4)',
                     'border-radius': 'var(--radius-sm)',
                     'background': preset,
                     'cursor': props.disabled ? 'not-allowed' : 'pointer',
-                    'transition': 'all var(--arcane-transition)',
+                    'transition': 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    // Neon glow on selected preset
+                    'box-shadow': preset.toUpperCase() == normalizedValue.toUpperCase()
+                        ? '0 0 15px ${preset}99, 0 0 25px rgba(var(--primary-rgb), 0.3)'
+                        : '0 0 8px ${preset}44',
                   }),
                   events: props.disabled
                       ? null

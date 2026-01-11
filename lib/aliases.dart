@@ -69,7 +69,6 @@ typedef ACtaGroup = ArcaneCtaGroup;
 typedef ADashboardLayout = ArcaneDashboardLayout;
 typedef ADashboardTopBar = ArcaneDashboardTopBar;
 typedef ADashboardUserMenu = ArcaneDashboardUserMenu;
-typedef ADivider = ArcaneDivider;
 typedef AExpanded = ArcaneExpanded;
 typedef AFlow = ArcaneFlow;
 typedef AFooter = ArcaneFooter;
@@ -98,7 +97,6 @@ typedef ASurface = ArcaneSurface;
 typedef ATabItem = ArcaneTabItem;
 typedef ATabs = ArcaneTabs;
 typedef AToolbar = ArcaneToolbar;
-typedef AVerticalDivider = ArcaneVerticalDivider;
 
 typedef ABottomBar = ArcaneBottomBar;
 typedef ABottomNavigationBar = ArcaneBottomNavigationBar;

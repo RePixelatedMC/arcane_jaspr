@@ -433,7 +433,7 @@ class _PopoverDemoState extends State<PopoverDemo> {
         ArcaneRow(
           gapSize: Gap.md,
           children: [
-            ArcanePopover(
+            ArcaneFloating.popover(
               trigger: ArcaneButton.secondary(
                 label: 'Click Me',
                 onPressed: () {},
@@ -458,10 +458,9 @@ class _PopoverDemoState extends State<PopoverDemo> {
                   ),
                 ],
               ),
-              position: PopoverPosition.bottom,
-              triggerType: PopoverTrigger.click,
+              position: FloatingPosition.bottom,
             ),
-            ArcanePopover(
+            ArcaneFloating.hovercard(
               trigger: ArcaneButton.outline(
                 label: 'Hover Me',
                 onPressed: () {},
@@ -474,8 +473,7 @@ class _PopoverDemoState extends State<PopoverDemo> {
                   ArcaneText('Hover popover!', color: TextColor.muted),
                 ],
               ),
-              position: PopoverPosition.top,
-              triggerType: PopoverTrigger.hover,
+              position: FloatingPosition.top,
             ),
           ],
         ),
@@ -507,7 +505,7 @@ class _HovercardDemoState extends State<HovercardDemo> {
         ArcaneRow(
           gapSize: Gap.lg,
           children: [
-            ArcaneHovercard(
+            ArcaneFloating.hovercard(
               trigger: ArcaneDiv(
                 styles: const ArcaneStyleData(
                   padding: PaddingPreset.sm,
@@ -541,7 +539,7 @@ class _HovercardDemoState extends State<HovercardDemo> {
                       ),
                     ],
                   ),
-                  ArcaneDivider(),
+                  ArcaneSeparator(),
                   ArcaneText(
                     'Building amazing web apps with Dart and Jaspr.',
                     color: TextColor.muted,
@@ -549,9 +547,9 @@ class _HovercardDemoState extends State<HovercardDemo> {
                   ),
                 ],
               ),
-              position: HovercardPosition.bottom,
+              position: FloatingPosition.bottom,
             ),
-            ArcaneHovercard(
+            ArcaneFloating.hovercard(
               trigger: ArcaneText(
                 'Hover for info',
                 color: TextColor.accent,
@@ -566,7 +564,7 @@ class _HovercardDemoState extends State<HovercardDemo> {
                   ),
                 ],
               ),
-              position: HovercardPosition.right,
+              position: FloatingPosition.right,
             ),
           ],
         ),
@@ -594,24 +592,24 @@ class TooltipDemo extends StatelessComponent {
         ArcaneRow(
           gapSize: Gap.lg,
           children: [
-            ArcaneTooltip(
-              content: 'Tooltip on top',
-              position: TooltipPosition.top,
+            ArcaneFloating.tooltip(
+              textContent: 'Tooltip on top',
+              position: FloatingPosition.top,
               child: ArcaneButton.secondary(label: 'Top', onPressed: () {}),
             ),
-            ArcaneTooltip(
-              content: 'Tooltip on bottom',
-              position: TooltipPosition.bottom,
+            ArcaneFloating.tooltip(
+              textContent: 'Tooltip on bottom',
+              position: FloatingPosition.bottom,
               child: ArcaneButton.secondary(label: 'Bottom', onPressed: () {}),
             ),
-            ArcaneTooltip(
-              content: 'Tooltip on left',
-              position: TooltipPosition.left,
+            ArcaneFloating.tooltip(
+              textContent: 'Tooltip on left',
+              position: FloatingPosition.left,
               child: ArcaneButton.secondary(label: 'Left', onPressed: () {}),
             ),
-            ArcaneTooltip(
-              content: 'Tooltip on right',
-              position: TooltipPosition.right,
+            ArcaneFloating.tooltip(
+              textContent: 'Tooltip on right',
+              position: FloatingPosition.right,
               child: ArcaneButton.secondary(label: 'Right', onPressed: () {}),
             ),
           ],
@@ -620,22 +618,23 @@ class TooltipDemo extends StatelessComponent {
         ArcaneRow(
           gapSize: Gap.lg,
           children: [
-            ArcaneTooltip(
-              content: 'Click to copy to clipboard',
+            ArcaneFloating.tooltip(
+              textContent: 'Click to copy to clipboard',
               child: ArcaneIconButton(
                 icon: ArcaneIcon.copy(),
                 onPressed: () {},
               ),
             ),
-            ArcaneTooltip(
-              content: 'View settings',
+            ArcaneFloating.tooltip(
+              textContent: 'View settings',
               child: ArcaneIconButton(
                 icon: ArcaneIcon.settings(),
                 onPressed: () {},
               ),
             ),
-            ArcaneInfoTooltip(
-              content: 'This field is required for form submission',
+            ArcaneFloating.tooltip(
+              textContent: 'This field is required for form submission',
+              child: ArcaneIcon.info(size: IconSize.sm),
             ),
           ],
         ),

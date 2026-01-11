@@ -5,6 +5,9 @@ import '../../../core/props/separator_props.dart';
 
 /// ShadCN Separator renderer.
 ///
+/// Unified separator component combining features from both Divider and Separator.
+/// Supports variants, dashed lines, labels, icons, and custom colors.
+///
 /// Reference: https://ui.shadcn.com/docs/components/separator
 class ShadcnSeparator extends StatelessComponent {
   final SeparatorProps props;
@@ -13,58 +16,68 @@ class ShadcnSeparator extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final effectiveColor = props.color ?? 'var(--border)';
     final isHorizontal = props.orientation == SeparatorOrientation.horizontal;
+    final effectiveMargin = props.margin ?? 16;
 
-    // Handle label/icon case (horizontal only)
+    // Get thickness and color based on variant
+    final (thickness, variantColor) = switch (props.variant) {
+      SeparatorVariant.standard => ('1px', 'var(--border)'),
+      SeparatorVariant.subtle => ('1px', 'var(--muted)'),
+      SeparatorVariant.bold => ('2px', 'var(--border)'),
+    };
+
+    // Use custom color if provided, otherwise use variant color
+    final effectiveColor = props.color ?? variantColor;
+
+    // Handle labeled/icon horizontal separator
     if ((props.label != null || props.icon != null) && isHorizontal) {
-      return _buildLabeledSeparator(effectiveColor);
+      return _buildLabeledSeparator(thickness, effectiveColor, effectiveMargin);
     }
 
-    // ShadCN Separator: shrink-0 bg-border
-    // Horizontal: h-[1px] w-full
-    // Vertical: h-full w-[1px]
-    return dom.div(
+    // Vertical separator
+    if (!isHorizontal) {
+      return _buildVerticalSeparator(thickness, effectiveColor, effectiveMargin);
+    }
+
+    // Simple horizontal separator
+    return dom.hr(
       classes: 'arcane-separator',
       attributes: {
         'role': props.decorative ? 'none' : 'separator',
-        if (!props.decorative) 'aria-orientation': props.orientation.name,
+        if (!props.decorative) 'aria-orientation': 'horizontal',
       },
       styles: dom.Styles(raw: {
-        'flex-shrink': '0',
-        'background-color': effectiveColor,
-        if (isHorizontal) ...{
-          'height': '1px',
-          'width': '100%',
-        } else ...{
-          'width': '1px',
-          'height': '100%',
-          'min-height': '20px',
-        },
+        'margin': '${effectiveMargin}px 0',
+        'border': 'none',
+        'height': thickness,
+        ..._getBackgroundStyle(effectiveColor),
       }),
-      [],
     );
   }
 
-  Component _buildLabeledSeparator(String effectiveColor) {
+  Component _buildLabeledSeparator(
+    String thickness,
+    String color,
+    double margin,
+  ) {
     return dom.div(
-      classes: 'arcane-separator-labeled',
+      classes: 'arcane-separator arcane-separator-labeled',
       attributes: {
         'role': props.decorative ? 'none' : 'separator',
       },
-      styles: const dom.Styles(raw: {
+      styles: dom.Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
-        'gap': 'var(--space-4)',
-        'width': '100%',
+        'gap': 'var(--arcane-space-4)',
+        'margin': '${margin}px 0',
       }),
       [
         // Left line
         dom.div(
           styles: dom.Styles(raw: {
             'flex': '1',
-            'height': '0',
-            'border-top': '1px solid $effectiveColor',
+            'height': thickness,
+            ..._getBackgroundStyle(color),
           }),
           [],
         ),
@@ -73,7 +86,7 @@ class ShadcnSeparator extends StatelessComponent {
         if (props.label != null)
           dom.span(
             styles: const dom.Styles(raw: {
-              'font-size': 'var(--font-size-sm)',
+              'font-size': 'var(--arcane-font-size-sm)',
               'color': 'var(--muted-foreground)',
               'white-space': 'nowrap',
             }),
@@ -91,12 +104,51 @@ class ShadcnSeparator extends StatelessComponent {
         dom.div(
           styles: dom.Styles(raw: {
             'flex': '1',
-            'height': '0',
-            'border-top': '1px solid $effectiveColor',
+            'height': thickness,
+            ..._getBackgroundStyle(color),
           }),
           [],
         ),
       ],
     );
+  }
+
+  Component _buildVerticalSeparator(
+    String thickness,
+    String color,
+    double margin,
+  ) {
+    return dom.div(
+      classes: 'arcane-separator arcane-separator-vertical',
+      attributes: {
+        'role': props.decorative ? 'none' : 'separator',
+        if (!props.decorative) 'aria-orientation': 'vertical',
+      },
+      styles: dom.Styles(raw: {
+        'width': thickness,
+        'margin': '0 ${margin}px',
+        ..._getBackgroundStyle(color),
+        if (props.height != null)
+          'height': '${props.height}px'
+        else ...{
+          'align-self': 'stretch',
+          'min-height': '20px',
+        },
+      }),
+      [],
+    );
+  }
+
+  Map<String, String> _getBackgroundStyle(String color) {
+    if (props.dashed) {
+      final isVertical =
+          props.orientation == SeparatorOrientation.vertical;
+      return {
+        'background': isVertical
+            ? 'repeating-linear-gradient(to bottom, $color 0, $color 4px, transparent 4px, transparent 8px)'
+            : 'repeating-linear-gradient(to right, $color 0, $color 4px, transparent 4px, transparent 8px)',
+      };
+    }
+    return {'background-color': color};
   }
 }

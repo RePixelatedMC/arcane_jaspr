@@ -199,9 +199,7 @@ class DocsSidebar extends StatelessComponent {
               _buildNavItem(label: 'AlertBanner', href: '/docs/feedback/arcane-alert-banner'),
               _buildNavItem(label: 'StatusBadge', href: '/docs/feedback/arcane-status-badge'),
               _buildNavItem(label: 'Command', href: '/docs/feedback/arcane-command'),
-              _buildNavItem(label: 'InputDialog', href: '/docs/feedback/arcane-input-dialog'),
               _buildNavItem(label: 'TimeDialog', href: '/docs/feedback/arcane-time-dialog'),
-              _buildNavItem(label: 'ItemPicker', href: '/docs/feedback/arcane-item-picker'),
             ], defaultOpen: _sectionContainsPath('feedback')),
 
             // Forms section

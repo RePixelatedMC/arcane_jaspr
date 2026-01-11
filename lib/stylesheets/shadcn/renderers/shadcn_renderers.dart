@@ -18,7 +18,6 @@ import 'drawer.dart';
 import 'dropdown_menu.dart';
 import 'empty_state.dart';
 import 'header.dart';
-import 'hovercard.dart';
 import 'icon_button.dart';
 import 'loader.dart';
 import 'menubar.dart';
@@ -26,7 +25,6 @@ import 'meter.dart';
 import 'number_input.dart';
 import 'otp_input.dart';
 import 'pagination.dart';
-import 'popover.dart';
 import 'progress.dart';
 import 'radio_group.dart';
 import 'scroll_area.dart';
@@ -42,20 +40,17 @@ import 'text_input.dart';
 import 'toast.dart';
 import 'toggle_group.dart';
 import 'toggle_switch.dart';
-import 'tooltip.dart';
 import 'accordion.dart';
 import 'breadcrumbs.dart';
 import 'fab.dart';
+import 'floating.dart';
 import 'cycle_button.dart';
 import 'chip.dart';
 import 'confirm_dialog.dart';
-import 'input_dialog.dart';
-import 'item_picker.dart';
 import 'time_dialog.dart';
 import 'alert_banner.dart';
 import 'status_badge.dart' as status_badge_renderer;
 import 'kbd.dart';
-import 'divider.dart';
 import 'callout.dart';
 import 'disclosure.dart';
 import 'expander.dart';
@@ -232,9 +227,6 @@ class ShadcnRenderers extends ComponentRenderers {
   Component kbd(KbdProps props) => ShadcnKbd(props);
 
   @override
-  Component divider(DividerProps props) => ShadcnDivider(props);
-
-  @override
   Component callout(CalloutProps props) => ShadcnCallout(props);
 
   @override
@@ -361,10 +353,7 @@ class ShadcnRenderers extends ComponentRenderers {
   Component accordion(AccordionProps props) => ShadcnAccordion(props);
 
   @override
-  Component tooltip(TooltipProps props) => ShadcnTooltip(props);
-
-  @override
-  Component popover(PopoverProps props) => ShadcnPopover(props);
+  Component floating(FloatingProps props) => ShadcnFloating(props);
 
   @override
   Component dropdownMenu(DropdownMenuProps props) => ShadcnDropdownMenu(props);
@@ -488,12 +477,6 @@ class ShadcnRenderers extends ComponentRenderers {
   Component alertDialog(AlertDialogProps props) => ShadcnAlertDialog(props);
 
   @override
-  Component inputDialog(InputDialogProps props) => ShadcnInputDialog(props);
-
-  @override
-  Component itemPicker<T>(ItemPickerProps<T> props) => ShadcnItemPicker<T>(props);
-
-  @override
   Component timeDialog(TimeDialogProps props) => ShadcnTimeDialog(props);
 
   @override
@@ -549,9 +532,6 @@ class ShadcnRenderers extends ComponentRenderers {
 
   @override
   Component contextMenu(ContextMenuProps props) => ShadcnContextMenu(props);
-
-  @override
-  Component hovercard(HovercardProps props) => ShadcnHovercard(props);
 
   @override
   Component toggleGroup(ToggleGroupProps props) => ShadcnToggleGroup(props);

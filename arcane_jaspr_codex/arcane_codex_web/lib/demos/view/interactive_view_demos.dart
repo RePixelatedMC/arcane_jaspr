@@ -3,14 +3,14 @@ import 'package:arcane_jaspr/arcane_jaspr.dart';
 /// Interactive view demos (tooltip, popover, hovercard, expander)
 class InteractiveViewDemos {
   static List<Component> tooltip() => [
-        ArcaneTooltip(
-          content: 'Tooltip message',
+        ArcaneFloating.tooltip(
+          textContent: 'Tooltip message',
           child: ArcaneButton.secondary(label: 'Hover me', onPressed: () {}),
         ),
       ];
 
   static List<Component> popover() => [
-        ArcanePopover(
+        ArcaneFloating.popover(
           trigger: ArcaneButton.secondary(label: 'Open Popover', onPressed: () {}),
           content: ArcaneDiv(
             styles: const ArcaneStyleData(padding: PaddingPreset.sm),
@@ -18,12 +18,12 @@ class InteractiveViewDemos {
               ArcaneText('Popover content'),
             ],
           ),
-          position: PopoverPosition.bottom,
+          position: FloatingPosition.bottom,
         ),
       ];
 
   static List<Component> hovercard() => [
-        ArcaneHovercard(
+        ArcaneFloating.hovercard(
           trigger: ArcaneButton.secondary(label: 'Hover me', onPressed: () {}),
           content: ArcaneColumn(
             gapSize: Gap.sm,
@@ -43,7 +43,7 @@ class InteractiveViewDemos {
               ),
             ],
           ),
-          position: HovercardPosition.bottom,
+          position: FloatingPosition.bottom,
         ),
       ];
 

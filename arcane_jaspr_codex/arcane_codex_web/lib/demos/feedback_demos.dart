@@ -78,31 +78,6 @@ class FeedbackDemos {
         ),
       ];
 
-  static List<Component> inputDialog() => [
-        ArcaneDiv(
-          styles: const ArcaneStyleData(
-            padding: PaddingPreset.md,
-            background: Background.surface,
-            borderRadius: Radius.md,
-          ),
-          children: [
-            ArcaneColumn(
-              gapSize: Gap.sm,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ArcaneText('Input Dialog', weight: FontWeight.bold),
-                ArcaneText('Collect user input with type-specific validation', color: TextColor.muted),
-                ArcaneText('Supports: .text(), .email(), .password(), .multiline(), .number()', size: FontSize.sm, color: TextColor.muted),
-                ArcaneButton.secondary(
-                  label: 'Open Input Dialog',
-                  onPressed: () {},
-                ),
-              ],
-            ),
-          ],
-        ),
-      ];
-
   static List<Component> timeDialog() => [
         ArcaneDiv(
           styles: const ArcaneStyleData(
@@ -119,30 +94,6 @@ class FeedbackDemos {
                 ArcaneText('Time picker in dialog format', color: TextColor.muted),
                 ArcaneButton.secondary(
                   label: 'Open Time Dialog',
-                  onPressed: () {},
-                ),
-              ],
-            ),
-          ],
-        ),
-      ];
-
-  static List<Component> itemPicker() => [
-        ArcaneDiv(
-          styles: const ArcaneStyleData(
-            padding: PaddingPreset.md,
-            background: Background.surface,
-            borderRadius: Radius.md,
-          ),
-          children: [
-            ArcaneColumn(
-              gapSize: Gap.sm,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ArcaneText('Item Picker', weight: FontWeight.bold),
-                ArcaneText('Select from a list of items', color: TextColor.muted),
-                ArcaneButton.secondary(
-                  label: 'Open Item Picker',
                   onPressed: () {},
                 ),
               ],

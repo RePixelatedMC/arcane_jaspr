@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [x.x.x] - Unreleased
+
+### Added
+
+**Documentation Components (migrated from arcane_inkwell)**
+- `ArcaneDocsLayout` - Documentation-style layout with fixed header, sidebar, main content, and optional TOC
+- `ArcaneToc` - Table of contents component with tree-line visual connectors
+- `ArcanePageNav` - Previous/Next page navigation component for documentation
+- `TocEntry` and `PageNavItem` data classes for navigation
+
+**Content Utilities**
+- `calculateReadingTime()` - Calculate estimated reading time from markdown content
+- `ReadingTimeResult` class with minutes, wordCount, and formatted text getter
+- `String.readingTime` extension for convenient reading time calculation
+
+**Prose CSS Styles**
+- `arcaneProseStyles` - Typography styles for markdown content (headings, paragraphs, lists, links, blockquotes, tables)
+- `arcaneProseCodeStyles` - Syntax highlighting for code blocks (light/dark modes with GitHub-inspired colors)
+- `arcaneCodeCopyButtonStyles` - Copy button styles for code blocks
+- `arcaneCalloutStyles` - Callout/admonition block styles (note, tip, important, warning, caution)
+- `arcaneSidebarTreeStyles` - Tree-line navigation styles for sidebars
+- `arcaneTocTreeLinesCss` - Tree-line styles for table of contents
+- `arcaneAllDocsStyles` - Combined constant with all documentation styles
+- `arcaneDocsLayoutResponsiveCss` - Responsive breakpoint styles for docs layout
+- `arcanePageNavCss` - Hover styles for page navigation
+
 ## [2.9.0] - Unreleased
 
 ### Added
@@ -52,7 +78,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added `--arcane-transition-slower` (300ms) for slower animations
 - Updated transitions to use `ease` timing function for consistency
 
+**Unified Floating Component**
+- Added `ArcaneFloating` component that consolidates Tooltip, Popover, and Hovercard into one
+- Named constructors: `.tooltip()`, `.tooltipCustom()`, `.popover()`, `.hovercard()`
+- Unified `FloatingProps` with `FloatingTrigger` (hover, click, manual) and `FloatingPosition` (8 positions)
+
+**Unified Separator Component**
+- Merged `ArcaneDivider` and `ArcaneSeparator` into single `ArcaneSeparator` component
+- Named constructors: `.vertical()`, `.withLabel()`, `.withIcon()`, `.dashed()`, `.subtle()`, `.bold()`
+- Combined feature sets: variants (standard/subtle/bold), dashed lines, labels, icons, custom colors
+- Unified `SeparatorProps` with `SeparatorVariant` and `SeparatorOrientation` enums
+
 ### Changed
+
+**CodexStylesheet API Consistency**
+- Renamed `CodexAccent` enum to `CodexTheme` for consistency with `ShadcnTheme`
+- Renamed `accent` parameter to `theme` in `CodexStylesheet` constructor
+- Migration: `CodexStylesheet(accent: CodexAccent.orange)` -> `CodexStylesheet(theme: CodexTheme.orange)`
 
 **Renderer CSS Variable Migration**
 - Migrated 800+ hardcoded style values across 60+ renderer files to use CSS variables
@@ -69,6 +111,35 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `ArcaneApp` and `ArcaneWindow` now require the `stylesheet` parameter (previously defaulted to `ShadcnStylesheet`)
 - You must now explicitly choose a stylesheet for your app
 - No fallback stylesheet behavior - explicit configuration required
+
+### Removed
+
+**Dialog Component Consolidation**
+- Removed `ArcaneInputDialog` component - use `ArcaneDialog` with form inputs as children
+- Removed `ArcaneItemPicker` component - use `ArcaneDialog` with custom list content
+- Removed `InputDialogProps` and `ItemPickerProps` classes
+- Removed `inputDialog()` and `itemPicker()` methods from `ComponentRenderers`
+- Removed ShadCN and Codex renderer implementations for `inputDialog` and `itemPicker`
+- The unified `ArcaneDialog` now handles all dialog use cases through composition
+
+**Divider Component Consolidation**
+- Removed `ArcaneDivider` component - use `ArcaneSeparator` with appropriate named constructor
+- Removed `ArcaneVerticalDivider` - use `ArcaneSeparator.vertical()`
+- Removed `DividerProps` and `DividerVariant`/`DividerOrientation` enums
+- Removed `divider()` method from `ComponentRenderers`
+- Removed ShadCN and Codex renderer implementations for `divider`
+- The unified `ArcaneSeparator` now handles all divider/separator use cases
+
+**Floating Component Consolidation**
+- Removed `ArcaneTooltip` component - use `ArcaneFloating.tooltip()`
+- Removed `ArcaneTooltipCustom` component - use `ArcaneFloating.tooltipCustom()`
+- Removed `ArcaneInfoTooltip` component
+- Removed `ArcanePopover` component - use `ArcaneFloating.popover()`
+- Removed `ArcaneHovercard` component - use `ArcaneFloating.hovercard()`
+- Removed `TooltipProps`, `PopoverProps`, `HovercardProps` classes
+- Removed `tooltip()`, `popover()`, `hovercard()` methods from `ComponentRenderers`
+- Removed ShadCN and Codex renderer implementations for `tooltip`, `popover`, `hovercard`
+- The unified `ArcaneFloating` now handles all floating UI patterns
 
 ### Fixed
 

@@ -19,8 +19,7 @@ import 'props/separator_props.dart';
 import 'props/skeleton_props.dart';
 import 'props/tabs_props.dart';
 import 'props/accordion_props.dart';
-import 'props/tooltip_props.dart';
-import 'props/popover_props.dart';
+import 'props/floating_props.dart';
 import 'props/dropdown_menu_props.dart';
 import 'props/dialog_props.dart';
 import 'props/drawer_props.dart';
@@ -33,7 +32,6 @@ import 'props/breadcrumbs_props.dart';
 import 'props/pagination_props.dart';
 import 'props/select_props.dart';
 import 'props/context_menu_props.dart';
-import 'props/hovercard_props.dart';
 import 'props/toggle_group_props.dart';
 import 'props/menubar_props.dart';
 import 'props/calendar_props.dart';
@@ -48,7 +46,6 @@ import 'props/fab_props.dart';
 import 'props/cycle_button_props.dart';
 import 'props/chip_props.dart';
 import 'props/kbd_props.dart';
-import 'props/divider_props.dart';
 import 'props/callout_props.dart';
 import 'props/disclosure_props.dart';
 import 'props/expander_props.dart';
@@ -91,8 +88,6 @@ import 'props/game_tile_props.dart';
 import 'props/settings_section_props.dart';
 import 'props/slot_counter_props.dart';
 import 'props/confirm_dialog_props.dart';
-import 'props/input_dialog_props.dart';
-import 'props/item_picker_props.dart';
 import 'props/time_dialog_props.dart';
 import 'props/alert_banner_props.dart';
 import 'props/status_badge_props.dart';
@@ -127,8 +122,6 @@ export 'props/game_tile_props.dart';
 export 'props/settings_section_props.dart';
 export 'props/slot_counter_props.dart';
 export 'props/confirm_dialog_props.dart';
-export 'props/input_dialog_props.dart';
-export 'props/item_picker_props.dart';
 export 'props/time_dialog_props.dart';
 export 'props/alert_banner_props.dart';
 export 'props/status_badge_props.dart';
@@ -179,8 +172,7 @@ export 'props/separator_props.dart';
 export 'props/skeleton_props.dart';
 export 'props/tabs_props.dart';
 export 'props/accordion_props.dart';
-export 'props/tooltip_props.dart';
-export 'props/popover_props.dart';
+export 'props/floating_props.dart';
 export 'props/dropdown_menu_props.dart';
 export 'props/dialog_props.dart';
 export 'props/drawer_props.dart';
@@ -193,7 +185,6 @@ export 'props/breadcrumbs_props.dart';
 export 'props/pagination_props.dart';
 export 'props/select_props.dart';
 export 'props/context_menu_props.dart';
-export 'props/hovercard_props.dart';
 export 'props/toggle_group_props.dart';
 export 'props/menubar_props.dart';
 export 'props/calendar_props.dart';
@@ -208,7 +199,6 @@ export 'props/fab_props.dart';
 export 'props/cycle_button_props.dart';
 export 'props/chip_props.dart';
 export 'props/kbd_props.dart';
-export 'props/divider_props.dart';
 export 'props/callout_props.dart';
 export 'props/disclosure_props.dart';
 export 'props/expander_props.dart';
@@ -346,9 +336,6 @@ abstract class ComponentRenderers {
   /// Render a keyboard shortcut display component
   Component kbd(KbdProps props);
 
-  /// Render a divider component
-  Component divider(DividerProps props);
-
   /// Render a callout component
   Component callout(CalloutProps props);
 
@@ -475,11 +462,8 @@ abstract class ComponentRenderers {
   /// Render an accordion component
   Component accordion(AccordionProps props);
 
-  /// Render a tooltip component
-  Component tooltip(TooltipProps props);
-
-  /// Render a popover component
-  Component popover(PopoverProps props);
+  /// Render a unified floating component (tooltip, popover, hovercard)
+  Component floating(FloatingProps props);
 
   /// Render a dropdown menu component
   Component dropdownMenu(DropdownMenuProps props);
@@ -631,12 +615,6 @@ abstract class ComponentRenderers {
   /// Render an alert dialog component
   Component alertDialog(AlertDialogProps props);
 
-  /// Render an input dialog component (text, email, password, multiline, number)
-  Component inputDialog(InputDialogProps props);
-
-  /// Render an item picker dialog component
-  Component itemPicker<T>(ItemPickerProps<T> props);
-
   /// Render a time dialog component
   Component timeDialog(TimeDialogProps props);
 
@@ -657,9 +635,6 @@ abstract class ComponentRenderers {
 
   /// Render a context menu component
   Component contextMenu(ContextMenuProps props);
-
-  /// Render a hovercard component
-  Component hovercard(HovercardProps props);
 
   /// Render a toggle group component
   Component toggleGroup(ToggleGroupProps props);

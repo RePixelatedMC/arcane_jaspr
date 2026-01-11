@@ -40,7 +40,6 @@ import 'data_table.dart';
 import 'date_picker.dart';
 import 'dialog.dart';
 import 'disclosure.dart';
-import 'divider.dart';
 import 'dot_indicator.dart';
 import 'drawer.dart';
 import 'dropdown_menu.dart';
@@ -53,6 +52,7 @@ import 'feature_showcase.dart';
 import 'field_wrapper.dart';
 import 'file_upload.dart';
 import 'flexi_cards.dart';
+import 'floating.dart';
 import 'flow.dart';
 import 'footer.dart';
 import 'form.dart';
@@ -62,11 +62,8 @@ import 'gradient_text.dart';
 import 'gutter.dart';
 import 'header.dart';
 import 'hero_section.dart';
-import 'hovercard.dart';
 import 'icon_button.dart';
-import 'input_dialog.dart';
 import 'integration_card.dart';
-import 'item_picker.dart';
 import 'kbd.dart';
 import 'loader.dart';
 import 'marquee.dart';
@@ -77,7 +74,6 @@ import 'newsletter_form.dart';
 import 'number_input.dart';
 import 'otp_input.dart';
 import 'pagination.dart';
-import 'popover.dart';
 import 'pricing_card.dart';
 import 'progress.dart';
 import 'radio_cards.dart';
@@ -112,7 +108,6 @@ import 'timeline.dart';
 import 'toast.dart';
 import 'toggle_group.dart';
 import 'toggle_switch.dart';
-import 'tooltip.dart';
 import 'tracker.dart';
 import 'tree_view.dart';
 
@@ -239,10 +234,7 @@ class CodexRenderers extends ShadcnRenderers {
       CodexToastContainer(props);
 
   @override
-  Component popover(PopoverProps props) => CodexPopover(props);
-
-  @override
-  Component tooltip(TooltipProps props) => CodexTooltip(props);
+  Component floating(FloatingProps props) => CodexFloating(props);
 
   // ==========================================================================
   // ADDITIONAL INPUT COMPONENTS (Codex-specific implementations)
@@ -285,9 +277,6 @@ class CodexRenderers extends ShadcnRenderers {
 
   @override
   Component emptyState(EmptyStateProps props) => CodexEmptyState(props);
-
-  @override
-  Component divider(DividerProps props) => CodexDivider(props);
 
   // ==========================================================================
   // CONTENT & CODE COMPONENTS (Codex-specific implementations)
@@ -721,16 +710,6 @@ class CodexRenderers extends ShadcnRenderers {
 
   @override
   Component outlineText(OutlineTextProps props) => CodexOutlineText(props);
-
-  @override
-  Component hovercard(HovercardProps props) => CodexHovercard(props);
-
-  @override
-  Component inputDialog(InputDialogProps props) => CodexInputDialog(props);
-
-  @override
-  Component itemPicker<T>(ItemPickerProps<T> props) =>
-      CodexItemPicker<T>(props);
 
   @override
   Component kbd(KbdProps props) => CodexKbd(props);

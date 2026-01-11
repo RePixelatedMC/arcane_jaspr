@@ -4,6 +4,12 @@ import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, T
 import '../../../core/props/fab_props.dart';
 
 /// Codex FAB (Floating Action Button) renderer.
+///
+/// Implements the Codex Neon Cyberpunk design language:
+/// - Intense neon glows with pulsing animation
+/// - Holographic-style gradient effects
+/// - Glowing borders and icon effects
+/// - Cyberpunk floating presence
 class CodexFAB extends StatelessComponent {
   final FABProps props;
 
@@ -13,73 +19,81 @@ class CodexFAB extends StatelessComponent {
   Component build(BuildContext context) {
     final bool isExtended = props.label != null;
 
-    // Get size-specific dimensions (Codex: larger sizes)
+    // Codex Neon sizes - larger with more commanding presence
     final (double dimension, double iconSize) = switch (props.size) {
-      FABSize.small => (44.0, 20.0),
-      FABSize.regular => (60.0, 26.0),
-      FABSize.large => (76.0, 34.0),
+      FABSize.small => (48.0, 22.0),
+      FABSize.regular => (64.0, 28.0),
+      FABSize.large => (80.0, 36.0),
     };
 
     // Get position styles
     final Map<String, String> positionStyles = switch (props.position) {
       FABPosition.bottomRight => {
-          'position': 'fixed',
-          'bottom': '2rem',
-          'right': '2rem',
-        },
+        'position': 'fixed',
+        'bottom': '2rem',
+        'right': '2rem',
+      },
       FABPosition.bottomLeft => {
-          'position': 'fixed',
-          'bottom': '2rem',
-          'left': '2rem',
-        },
+        'position': 'fixed',
+        'bottom': '2rem',
+        'left': '2rem',
+      },
       FABPosition.bottomCenter => {
-          'position': 'fixed',
-          'bottom': '2rem',
-          'left': '50%',
-          'transform': 'translateX(-50%)',
-        },
+        'position': 'fixed',
+        'bottom': '2rem',
+        'left': '50%',
+        'transform': 'translateX(-50%)',
+      },
       FABPosition.topRight => {
-          'position': 'fixed',
-          'top': '2rem',
-          'right': '2rem',
-        },
+        'position': 'fixed',
+        'top': '2rem',
+        'right': '2rem',
+      },
       FABPosition.topLeft => {
-          'position': 'fixed',
-          'top': '2rem',
-          'left': '2rem',
-        },
+        'position': 'fixed',
+        'top': '2rem',
+        'left': '2rem',
+      },
       FABPosition.relative => {},
     };
 
-    // Get variant styles
+    // Codex Neon variant styles with intense cyberpunk glows
     final Map<String, String> variantStyles = switch (props.variant) {
       FABVariant.primary => {
-          'background-color': 'var(--primary)',
-          'color': '#ffffff',
-          'box-shadow': '0 0 30px rgba(var(--primary-rgb), 0.35)',
-        },
+        'background': 'linear-gradient(135deg, var(--primary) 0%, color-mix(in srgb, var(--primary) 60%, #ff00ff) 100%)',
+        'color': '#ffffff',
+        'border': '1px solid rgba(var(--primary-rgb), 0.6)',
+        'box-shadow': '0 0 30px rgba(var(--primary-rgb), 0.5), 0 0 60px rgba(var(--primary-rgb), 0.25), 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
+      },
       FABVariant.secondary => {
-          'background-color': 'var(--secondary)',
-          'color': 'var(--foreground)',
-        },
+        'background': 'linear-gradient(135deg, var(--secondary) 0%, color-mix(in srgb, var(--secondary) 70%, var(--primary)) 100%)',
+        'color': 'var(--secondary-foreground)',
+        'border': '1px solid rgba(var(--border-rgb), 0.4)',
+        'box-shadow': '0 0 20px rgba(var(--secondary-rgb), 0.3), 0 8px 32px rgba(0, 0, 0, 0.4)',
+      },
       FABVariant.surface => {
-          'background-color': 'var(--card)',
-          'color': 'var(--foreground)',
-          'border': '1px solid var(--border)',
-        },
+        'background': 'linear-gradient(135deg, var(--card) 0%, color-mix(in srgb, var(--card) 80%, var(--primary)) 100%)',
+        'color': 'var(--foreground)',
+        'border': '1px solid rgba(var(--primary-rgb), 0.2)',
+        'box-shadow': '0 0 15px rgba(var(--primary-rgb), 0.15), 0 8px 32px rgba(0, 0, 0, 0.4)',
+      },
       FABVariant.success => {
-          'background-color': 'var(--success)',
-          'color': '#ffffff',
-        },
+        'background': 'linear-gradient(135deg, var(--success) 0%, color-mix(in srgb, var(--success) 60%, #00ffaa) 100%)',
+        'color': '#ffffff',
+        'border': '1px solid rgba(var(--success-rgb), 0.6)',
+        'box-shadow': '0 0 30px rgba(var(--success-rgb), 0.5), 0 0 60px rgba(var(--success-rgb), 0.25), 0 8px 32px rgba(0, 0, 0, 0.4)',
+      },
       FABVariant.destructive => {
-          'background-color': 'var(--destructive)',
-          'color': '#ffffff',
-        },
+        'background': 'linear-gradient(135deg, var(--destructive) 0%, color-mix(in srgb, var(--destructive) 60%, #ff0066) 100%)',
+        'color': '#ffffff',
+        'border': '1px solid rgba(var(--destructive-rgb), 0.6)',
+        'box-shadow': '0 0 30px rgba(var(--destructive-rgb), 0.5), 0 0 60px rgba(var(--destructive-rgb), 0.25), 0 8px 32px rgba(0, 0, 0, 0.4)',
+      },
     };
 
     return button(
       id: props.id,
-      classes: 'codex-fab ${props.disabled ? 'disabled' : ''} ${isExtended ? 'extended' : ''}',
+      classes: 'codex-fab codex-neon ${props.disabled ? 'disabled' : ''} ${isExtended ? 'extended' : ''}',
       attributes: {
         if (props.disabled) 'disabled': 'true',
         'type': 'button',
@@ -92,17 +106,18 @@ class CodexFAB extends StatelessComponent {
         'display': 'inline-flex',
         'align-items': 'center',
         'justify-content': 'center',
-        'gap': isExtended ? '0.75rem' : '0',
+        'gap': isExtended ? '0.875rem' : '0',
         if (!isExtended) 'width': '${dimension}px',
-        if (isExtended) 'padding': '0 2rem',
+        if (isExtended) 'padding': '0 2.5rem',
         'height': '${dimension}px',
-        'border-radius': isExtended ? '${dimension / 2}px' : 'var(--radius)',
-        'border': 'none',
+        'border-radius': isExtended ? '${dimension / 2}px' : '50%',
         'cursor': props.disabled ? 'not-allowed' : 'pointer',
-        'opacity': props.disabled ? '0.5' : '1',
-        'box-shadow': '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
-        'transition': 'all var(--arcane-transition-slow)',
+        'opacity': props.disabled ? '0.4' : '1',
         'z-index': '50',
+        'position': 'relative',
+        'overflow': 'hidden',
+        // Neon transition with floating effect
+        'transition': 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.2s ease-out',
         ...variantStyles,
       }),
       events: {
@@ -120,15 +135,19 @@ class CodexFAB extends StatelessComponent {
             'display': 'flex',
             'align-items': 'center',
             'justify-content': 'center',
+            'filter': 'drop-shadow(0 0 6px currentColor)',
           }),
           [props.icon],
         ),
         if (props.label != null)
           span(
             styles: const Styles(raw: {
-              'font-weight': 'var(--font-weight-medium)',
-              'font-size': 'var(--font-size-base)',
+              'font-weight': 'var(--font-weight-semibold)',
+              'font-size': 'var(--font-size-sm)',
+              'letter-spacing': '0.025em',
+              'text-transform': 'uppercase',
               'white-space': 'nowrap',
+              'text-shadow': '0 0 10px rgba(255, 255, 255, 0.5)',
             }),
             [Component.text(props.label!)],
           ),

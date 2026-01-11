@@ -1,0 +1,145 @@
+import 'package:jaspr/jaspr.dart';
+
+/// Floating content trigger mode.
+enum FloatingTrigger {
+  /// Show on hover (for tooltips and hovercards)
+  hover,
+
+  /// Show on click (for popovers)
+  click,
+
+  /// Manually controlled via isOpen
+  manual,
+}
+
+/// Position of floating content relative to trigger.
+enum FloatingPosition {
+  top,
+  bottom,
+  left,
+  right,
+  topStart,
+  topEnd,
+  bottomStart,
+  bottomEnd,
+}
+
+/// Unified floating component properties.
+///
+/// Combines features from Tooltip, Popover, and Hovercard into a single
+/// flexible component that can render floating content in various ways.
+class FloatingProps {
+  /// The trigger element that activates the floating content.
+  final Component trigger;
+
+  /// The floating content to display. Use for rich content.
+  final Component? content;
+
+  /// Simple text content (for tooltip mode). Mutually exclusive with [content].
+  final String? textContent;
+
+  /// Current open state. Null for internal state management.
+  final bool? isOpen;
+
+  /// How to trigger the floating content.
+  final FloatingTrigger triggerType;
+
+  /// Position relative to trigger.
+  final FloatingPosition position;
+
+  /// Callback when open state changes.
+  final void Function(bool isOpen)? onOpenChange;
+
+  /// Called when toggle is triggered (for click mode).
+  final void Function()? onToggle;
+
+  /// Called when mouse enters (for hover mode).
+  final void Function()? onMouseEnter;
+
+  /// Called when mouse leaves (for hover mode).
+  final void Function()? onMouseLeave;
+
+  /// Whether to show an arrow pointing to trigger.
+  final bool showArrow;
+
+  /// Distance from trigger in pixels.
+  final int offset;
+
+  /// Delay before showing (in milliseconds). 0 for immediate.
+  final int openDelay;
+
+  /// Delay before hiding (in milliseconds). 0 for immediate.
+  final int closeDelay;
+
+  /// Maximum width for content (especially for text tooltips).
+  final double? maxWidth;
+
+  /// Whether clicking outside should close the floating content.
+  final bool closeOnOutsideClick;
+
+  /// Whether pressing Escape should close the floating content.
+  final bool closeOnEscape;
+
+  const FloatingProps({
+    required this.trigger,
+    this.content,
+    this.textContent,
+    this.isOpen,
+    this.triggerType = FloatingTrigger.hover,
+    this.position = FloatingPosition.top,
+    this.onOpenChange,
+    this.onToggle,
+    this.onMouseEnter,
+    this.onMouseLeave,
+    this.showArrow = true,
+    this.offset = 8,
+    this.openDelay = 0,
+    this.closeDelay = 0,
+    this.maxWidth,
+    this.closeOnOutsideClick = true,
+    this.closeOnEscape = true,
+  });
+
+  /// Whether this is a simple text tooltip (no component content).
+  bool get isTextTooltip => textContent != null && content == null;
+
+  FloatingProps copyWith({
+    Component? trigger,
+    Component? content,
+    String? textContent,
+    bool? isOpen,
+    FloatingTrigger? triggerType,
+    FloatingPosition? position,
+    void Function(bool isOpen)? onOpenChange,
+    void Function()? onToggle,
+    void Function()? onMouseEnter,
+    void Function()? onMouseLeave,
+    bool? showArrow,
+    int? offset,
+    int? openDelay,
+    int? closeDelay,
+    double? maxWidth,
+    bool? closeOnOutsideClick,
+    bool? closeOnEscape,
+  }) {
+    return FloatingProps(
+      trigger: trigger ?? this.trigger,
+      content: content ?? this.content,
+      textContent: textContent ?? this.textContent,
+      isOpen: isOpen ?? this.isOpen,
+      triggerType: triggerType ?? this.triggerType,
+      position: position ?? this.position,
+      onOpenChange: onOpenChange ?? this.onOpenChange,
+      onToggle: onToggle ?? this.onToggle,
+      onMouseEnter: onMouseEnter ?? this.onMouseEnter,
+      onMouseLeave: onMouseLeave ?? this.onMouseLeave,
+      showArrow: showArrow ?? this.showArrow,
+      offset: offset ?? this.offset,
+      openDelay: openDelay ?? this.openDelay,
+      closeDelay: closeDelay ?? this.closeDelay,
+      maxWidth: maxWidth ?? this.maxWidth,
+      closeOnOutsideClick: closeOnOutsideClick ?? this.closeOnOutsideClick,
+      closeOnEscape: closeOnEscape ?? this.closeOnEscape,
+    );
+  }
+}
