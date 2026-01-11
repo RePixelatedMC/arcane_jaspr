@@ -63,6 +63,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - All `font-weight` values now use `var(--arcane-font-weight-*)` variables
 - Updated both ShadCN and Codex stylesheets and renderers
 
+### Breaking Changes
+
+**Stylesheet Now Required**
+- `ArcaneApp` and `ArcaneWindow` now require the `stylesheet` parameter (previously defaulted to `ShadcnStylesheet`)
+- You must now explicitly choose a stylesheet for your app
+- No fallback stylesheet behavior - explicit configuration required
+
 ### Fixed
 
 **Theme Color Consistency**

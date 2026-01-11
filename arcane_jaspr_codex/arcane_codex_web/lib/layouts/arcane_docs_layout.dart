@@ -2,13 +2,13 @@ import 'package:arcane_jaspr/arcane_jaspr.dart' hide TableOfContents;
 import 'package:jaspr_content/jaspr_content.dart';
 
 import '../components/docs_sidebar.dart';
-import '../components/docs_header.dart';
 import '../components/interactive_demo.dart';
 import '../demos/demo_registry.dart';
 import '../utils/constants.dart';
 import '../utils/docs_scripts.dart';
 
-const ArcaneStylesheet _stylesheet = ShadcnStylesheet(theme: ShadcnTheme.charcoal);
+// const ArcaneStylesheet _stylesheet = ShadcnStylesheet(theme: ShadcnTheme.charcoal);
+const ArcaneStylesheet _stylesheet = CodexStylesheet(accent: CodexAccent.orange);
 
 /// Custom documentation layout using Arcane UI components
 class ArcaneDocsLayout extends PageLayoutBase {
@@ -123,11 +123,11 @@ class _ThemedDocsPageState extends State<ThemedDocsPage> {
       onThemeToggle: _toggleTheme,
     );
 
-    // Dark mode uses .dark class (defined in ShadcnStylesheet.baseCss)
-    // Also include any stylesheet-specific body class (e.g., 'codex-rainbow')
+    // Dark mode uses .dark class (defined in stylesheet baseCss)
+    // Also include any stylesheet-specific body class (e.g., 'codex-orange')
     final themeClass = _isDark ? 'dark' : '';
-    // Hardcode 'codex-rainbow' since we're using rainbow accent
-    final rootClasses = '$themeClass codex-rainbow'.trim();
+    final stylesheetClass = _stylesheet.bodyClass ?? '';
+    final rootClasses = [themeClass, stylesheetClass].where((c) => c.isNotEmpty).join(' ');
 
     // Wrap with ArcaneThemeProvider to enable context.renderers access
     return ArcaneThemeProvider(
@@ -164,7 +164,7 @@ class _ThemedDocsPageState extends State<ThemedDocsPage> {
     );
   }
 
-  /// Main content area with header
+  /// Main content area
   Component _buildMainArea(DemoRegistry demoRegistry) {
     return ArcaneDiv(
       styles: const ArcaneStyleData(
@@ -174,10 +174,6 @@ class _ThemedDocsPageState extends State<ThemedDocsPage> {
         minHeight: '100vh',
       ),
       children: [
-        DocsHeader(
-          isDark: _isDark,
-          onThemeToggle: _toggleTheme,
-        ),
         _buildContentArea(demoRegistry),
       ],
     );
@@ -193,6 +189,7 @@ class _ThemedDocsPageState extends State<ThemedDocsPage> {
         maxWidth: MaxWidth.container,
         margin: MarginPreset.autoX,
         flexGrow: 1,
+        raw: {'padding-top': '2rem'},
       ),
       children: [
         _buildMainContent(demoRegistry),
@@ -306,38 +303,43 @@ class _ThemedDocsPageState extends State<ThemedDocsPage> {
 
   /// Table of contents sidebar
   Component _buildTableOfContents() {
-    return ArcaneDiv(
-      styles: const ArcaneStyleData(
-        widthCustom: '240px',
-        flexShrink: 0,
-        position: Position.sticky,
-        overflow: Overflow.auto,
-        top: '80px',
-        alignSelf: CrossAxisAlignment.start,
-        maxHeight: 'calc(100vh - 100px)',
-      ),
-      children: [
-        ArcaneDiv(
-          styles: const ArcaneStyleData(
-            padding: PaddingPreset.md,
-            borderRadius: Radius.lg,
-            background: Background.surface,
-            border: BorderPreset.subtle,
-          ),
-          children: [
-            ArcaneDiv(
-              styles: const ArcaneStyleData(
-                fontSize: FontSize.xs,
-                fontWeight: FontWeight.w700,
-                margin: MarginPreset.bottomMd,
-                textTransform: TextTransform.uppercase,
-                letterSpacing: LetterSpacing.wide,
-                textColor: TextColor.onSurfaceVariant,
-                padding: PaddingPreset.bottomMd,
-                borderBottom: BorderPreset.subtle,
-              ),
-              children: [ArcaneText('On this page')],
+    return div(
+      classes: 'toc-container',
+      styles: const Styles(raw: {
+        'width': '220px',
+        'flex-shrink': '0',
+        'position': 'sticky',
+        'top': '80px',
+        'align-self': 'flex-start',
+        'max-height': 'calc(100vh - 100px)',
+        'overflow-y': 'auto',
+      }),
+      [
+        div(
+          classes: 'toc-wrapper',
+          styles: const Styles(raw: {
+            'padding': '1rem',
+            'border-radius': 'var(--radius-lg)',
+            'background': 'var(--card)',
+            'border': '1px solid var(--border)',
+          }),
+          [
+            // Header
+            div(
+              classes: 'toc-header',
+              styles: const Styles(raw: {
+                'font-size': '0.6875rem',
+                'font-weight': '600',
+                'text-transform': 'uppercase',
+                'letter-spacing': '0.05em',
+                'color': 'var(--muted-foreground)',
+                'padding-bottom': '0.75rem',
+                'margin-bottom': '0.75rem',
+                'border-bottom': '1px solid var(--border)',
+              }),
+              [Component.text('On this page')],
             ),
+            // TOC content
             div(classes: 'toc-content', [component.toc!.build()]),
           ],
         ),

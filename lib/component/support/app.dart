@@ -11,6 +11,11 @@ export '../../stylesheets/shadcn/shadcn_stylesheet.dart';
 export '../../stylesheets/codex/codex_stylesheet.dart';
 
 /// Root application component for Arcane Jaspr apps.
+///
+/// The [stylesheet] parameter is required - there is no default stylesheet.
+/// You must explicitly choose a stylesheet for your app:
+/// - [ShadcnStylesheet] - Clean, minimal ShadCN-inspired design
+/// - [CodexStylesheet] - Gaming/cyberpunk aesthetic with neon glows
 class ArcaneApp extends StatefulComponent {
   final ArcaneStylesheet stylesheet;
   final Brightness brightness;
@@ -21,7 +26,7 @@ class ArcaneApp extends StatefulComponent {
   final bool includeFallbackScripts;
 
   const ArcaneApp({
-    this.stylesheet = const ShadcnStylesheet(),
+    required this.stylesheet,
     this.brightness = Brightness.dark,
     required this.child,
     this.title,
@@ -121,13 +126,15 @@ class _ArcaneAppState extends State<ArcaneApp> {
 }
 
 /// Web wrapper for ArcaneApp with optional background styling.
+///
+/// The [stylesheet] parameter is required - there is no default stylesheet.
 class ArcaneWindow extends StatelessComponent {
   final ArcaneStylesheet stylesheet;
   final Brightness brightness;
   final Component child;
 
   const ArcaneWindow({
-    this.stylesheet = const ShadcnStylesheet(),
+    required this.stylesheet,
     this.brightness = Brightness.dark,
     required this.child,
     super.key,

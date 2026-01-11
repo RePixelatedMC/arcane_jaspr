@@ -290,9 +290,10 @@ class CodexStylesheet extends ArcaneStylesheet {
   // ============================================
 
   /// Returns the CSS class to apply to the body element for this accent.
-  /// For rainbow theme, returns 'codex-rainbow' which enables the animation.
+  /// Returns 'codex-{accent}' (e.g., 'codex-orange', 'codex-rainbow') to enable
+  /// accent-specific styling in CSS.
   @override
-  String get bodyClass => accent == CodexAccent.rainbow ? 'codex-rainbow' : '';
+  String get bodyClass => 'codex-${accent.name}';
 
   @override
   String get componentCss => '''
@@ -331,7 +332,7 @@ label {
   box-shadow: var(--shadow-lg);
 }
 
-$_rainbowCss
+${accent == CodexAccent.rainbow ? _rainbowCss : ''}
 
 /* Tree Lines for Disclosure/Navigation
    Each item draws its own connectors:

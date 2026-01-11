@@ -2,26 +2,23 @@
 ///
 /// This script animates the --primary and --ring CSS variables
 /// through a rainbow color cycle when the .codex-rainbow class is present.
+/// IMPORTANT: Only activates if .codex-rainbow class is already on the root element.
 class RainbowScripts {
   RainbowScripts._();
 
   static const String code = '''
   // Rainbow theme animation - smooth hue rotation
+  // ONLY activates if .codex-rainbow class is already present
   function bindRainbowTheme() {
-    let root = document.querySelector('.codex-rainbow') ||
-               document.getElementById('arcane-root');
+    let root = document.querySelector('.codex-rainbow');
 
+    // Only proceed if .codex-rainbow class is explicitly set
     if (!root) {
-      setTimeout(bindRainbowTheme, 500);
-      return;
+      return; // Do nothing if rainbow theme is not enabled
     }
 
     if (root.dataset.rainbowBound) return;
     root.dataset.rainbowBound = 'true';
-
-    if (!root.classList.contains('codex-rainbow')) {
-      root.classList.add('codex-rainbow');
-    }
 
     const docRoot = document.documentElement;
     const duration = 15000; // 15 seconds for very smooth cycle

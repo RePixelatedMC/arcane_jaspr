@@ -49,6 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
   static String _themeUtilities() => '''
 // ===== THEME UTILITIES =====
 // Dark mode uses .dark class on root element
+// IMPORTANT: Must preserve stylesheet class (e.g., codex-orange) when toggling theme
 function getCurrentMode() {
   return localStorage.getItem('arcane-theme-mode') || '${DocsScriptConfig.defaultThemeMode}';
 }
@@ -56,7 +57,9 @@ function updateClasses() {
   var mode = getCurrentMode();
   var root = document.getElementById('arcane-root');
   if (root) {
-    root.className = mode === 'dark' ? 'dark' : '';
+    // Toggle dark/light class while preserving other classes (e.g., codex-orange)
+    root.classList.remove('dark', 'light');
+    root.classList.add(mode === 'dark' ? 'dark' : 'light');
   }
 }
 function setMode(mode) {
@@ -68,11 +71,12 @@ function updateModeToggleIcon(mode) {
   var themeToggle = document.getElementById('theme-toggle');
   if (!themeToggle) return;
   // Toggle visibility of sun/moon icons (rendered by ArcaneIcon)
-  var sunIcon = themeToggle.querySelector('.theme-icon-sun');
-  var moonIcon = themeToggle.querySelector('.theme-icon-moon');
-  if (sunIcon && moonIcon) {
-    sunIcon.style.display = mode === 'dark' ? 'flex' : 'none';
-    moonIcon.style.display = mode === 'dark' ? 'none' : 'flex';
+  // Sun icon shown in dark mode (click to go light), moon icon shown in light mode (click to go dark)
+  var lightIcon = themeToggle.querySelector('.theme-icon-light');
+  var darkIcon = themeToggle.querySelector('.theme-icon-dark');
+  if (lightIcon && darkIcon) {
+    lightIcon.style.display = mode === 'dark' ? 'block' : 'none';
+    darkIcon.style.display = mode === 'dark' ? 'none' : 'block';
   }
 }
 // Initialize on load

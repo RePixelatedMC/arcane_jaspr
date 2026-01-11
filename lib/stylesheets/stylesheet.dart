@@ -250,8 +250,8 @@ html, body {
 
   /// ShadCN UI stylesheet - minimal, modern, accessible.
   ///
-  /// This is the DEFAULT stylesheet and fallback for all components.
-  /// Based on https://ui.shadcn.com
+  /// Clean, minimal design based on https://ui.shadcn.com
+  /// Use [ShadcnStylesheet] from `shadcn_stylesheet.dart` for full implementation.
   static const ArcaneStylesheet shadcn = _ShadcnStylesheetRef();
 
   /// Codex stylesheet - gaming aesthetic with neon glows.

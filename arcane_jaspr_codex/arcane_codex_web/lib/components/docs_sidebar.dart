@@ -2,7 +2,7 @@ import 'package:arcane_jaspr/arcane_jaspr.dart';
 
 import '../utils/constants.dart';
 
-/// Documentation sidebar with collapsible navigation groups
+/// Documentation sidebar with collapsible navigation groups and tree lines
 class DocsSidebar extends StatelessComponent {
   final String currentPath;
 
@@ -19,46 +19,20 @@ class DocsSidebar extends StatelessComponent {
       showBorder: true,
       padding: '0',
       scrollPersistenceId: 'docs-sidebar',
-      // Use same background as page - ShadCN style
       children: [
-        // Header
-        ArcaneDiv(
-          styles: const ArcaneStyleData(
-            padding: PaddingPreset.md,
-            borderBottom: BorderPreset.subtle,
-          ),
-          children: [
-            ArcaneLink(
-              href: '${AppConstants.baseUrl}/',
-              styles: const ArcaneStyleData(
-                textDecoration: TextDecoration.none,
-              ),
-              child: ArcaneDiv(
-                styles: const ArcaneStyleData(
-                  fontWeight: FontWeight.bold,
-                  fontSize: FontSize.lg,
-                  textColor: TextColor.primary,
-                ),
-                children: [ArcaneText(AppConstants.siteName)],
-              ),
-            ),
-            ArcaneDiv(
-              styles: const ArcaneStyleData(
-                fontSize: FontSize.sm,
-                textColor: TextColor.mutedForeground,
-                margin: MarginPreset.topXs,
-              ),
-              children: [const ArcaneText('Documentation')],
-            ),
-          ],
-        ),
+        // Header section with branding and controls
+        _buildHeader(),
 
-        // Navigation
-        ArcaneNav(
-          styles: const ArcaneStyleData(
-            padding: PaddingPreset.sm,
-          ),
-          children: [
+        // Main navigation with tree view
+        nav(
+          classes: 'sidebar-nav',
+          styles: const Styles(raw: {
+            'padding': '0.75rem',
+            'display': 'flex',
+            'flex-direction': 'column',
+            'gap': '0.5rem',
+          }),
+          [
             // Getting Started section (always expanded, not collapsible)
             _buildFixedSection('Getting Started', ArcaneIcon.zap(size: IconSize.sm), [
               _buildNavItem(label: 'Introduction', href: '/docs'),
@@ -265,69 +239,145 @@ class DocsSidebar extends StatelessComponent {
     );
   }
 
-  bool _sectionContainsPath(String section) {
-    return currentPath.startsWith('/docs/$section');
-  }
-
-  /// Build a fixed section that's always expanded (no toggle)
-  Component _buildFixedSection(String title, Component icon, List<Component> items) {
-    return ArcaneDiv(
-      classes: 'sidebar-tree-nav',
-      styles: const ArcaneStyleData(
-        margin: MarginPreset.bottomMd,
-      ),
-      children: [
-        // Section header - ShadCN style: minimal, no background
-        ArcaneDiv(
-          styles: const ArcaneStyleData(
-            display: Display.flex,
-            gap: Gap.sm,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            fontSize: FontSize.xs,
-            fontWeight: FontWeight.w500,
-            padding: PaddingPreset.horizontalSm,
-            margin: MarginPreset.bottomXs,
-            textColor: TextColor.mutedForeground,
-          ),
-          children: [
-            icon,
-            ArcaneText(title),
+  /// Build the sidebar header with branding and navigation
+  Component _buildHeader() {
+    return div(
+      classes: 'sidebar-header',
+      [
+        // Brand section
+        div(
+          classes: 'sidebar-brand',
+          [
+            a(
+              href: '${AppConstants.baseUrl}/',
+              styles: const Styles(raw: {'text-decoration': 'none'}),
+              [
+                div(classes: 'sidebar-brand-title', [Component.text(AppConstants.siteName)]),
+                div(classes: 'sidebar-brand-subtitle', [Component.text('Documentation')]),
+              ],
+            ),
           ],
         ),
-        // Items with tree lines
-        div(classes: 'sidebar-tree-items', [
-          for (final item in items)
-            div(classes: 'sidebar-tree-item', [item]),
-        ]),
+
+        // Navigation tabs
+        div(
+          classes: 'sidebar-tabs',
+          [
+            _buildTab('Docs', '/docs', isActive: currentPath.startsWith('/docs') && !_isComponentsSection()),
+            _buildTab('Components', '/docs/inputs/arcane-button', isActive: _isComponentsSection()),
+            _buildTab('Guides', '/guides', isActive: currentPath.startsWith('/guides')),
+          ],
+        ),
+
+        // Search and theme toggle row
+        div(
+          classes: 'sidebar-controls',
+          [
+            // Search input
+            div(
+              classes: 'sidebar-search',
+              [
+                input(
+                  id: 'docs-search',
+                  attributes: const {
+                    'type': 'text',
+                    'placeholder': 'Search...',
+                    'autocomplete': 'off',
+                  },
+                ),
+                div(classes: 'search-icon', [ArcaneIcon.search(size: IconSize.sm)]),
+              ],
+            ),
+            // Theme toggle button
+            button(
+              id: 'theme-toggle',
+              classes: 'sidebar-theme-toggle',
+              attributes: const {'type': 'button', 'title': 'Toggle theme'},
+              [
+                span(classes: 'theme-icon-light', [ArcaneIcon.sun(size: IconSize.sm)]),
+                span(classes: 'theme-icon-dark', [ArcaneIcon.moon(size: IconSize.sm)]),
+              ],
+            ),
+          ],
+        ),
       ],
     );
   }
 
-  /// Build a collapsible section using ArcaneDisclosure
+  /// Build a navigation tab
+  Component _buildTab(String label, String href, {bool isActive = false}) {
+    return a(
+      href: '${AppConstants.baseUrl}$href',
+      classes: 'sidebar-tab${isActive ? ' active' : ''}',
+      [Component.text(label)],
+    );
+  }
+
+  bool _sectionContainsPath(String section) {
+    return currentPath.startsWith('/docs/$section');
+  }
+
+  /// Check if current path is in a components section (inputs, layout, typography, view, navigation, feedback, forms, auth, screens)
+  bool _isComponentsSection() {
+    const componentSections = ['inputs', 'layout', 'typography', 'view', 'navigation', 'feedback', 'forms', 'auth', 'screens'];
+    for (final section in componentSections) {
+      if (currentPath.startsWith('/docs/$section')) return true;
+    }
+    return false;
+  }
+
+  /// Build a fixed section that's always expanded (no toggle)
+  Component _buildFixedSection(String title, Component icon, List<Component> items) {
+    return div(
+      classes: 'sidebar-section',
+      [
+        // Section header
+        div(
+          classes: 'sidebar-section-header',
+          [
+            icon,
+            span([Component.text(title)]),
+          ],
+        ),
+        // Tree items container
+        div(
+          classes: 'sidebar-tree',
+          [
+            for (final item in items) item,
+          ],
+        ),
+      ],
+    );
+  }
+
+  /// Build a collapsible section using native details/summary
   Component _buildCollapsibleSection(String title, Component icon, List<Component> items, {bool defaultOpen = false}) {
-    return ArcaneDisclosure.minimal(
-      open: defaultOpen,
-      showTreeLines: false, // We use custom tree lines CSS
-      summary: ArcaneRow(
-        gapSize: Gap.sm,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          icon,
-          ArcaneDiv(
-            styles: const ArcaneStyleData(
-              fontSize: FontSize.xs,
-              fontWeight: FontWeight.w500,
-              textColor: TextColor.mutedForeground,
+    return div(
+      classes: 'sidebar-section',
+      [
+        Component.element(
+          tag: 'details',
+          classes: 'sidebar-details',
+          attributes: defaultOpen ? {'open': ''} : {},
+          children: [
+            Component.element(
+              tag: 'summary',
+              classes: 'sidebar-summary',
+              children: [
+                icon,
+                span([Component.text(title)]),
+                span(classes: 'sidebar-chevron', []),
+              ],
             ),
-            children: [ArcaneText(title)],
-          ),
-        ],
-      ),
-      // Use same structure as fixed section for consistent tree lines
-      child: div(classes: 'sidebar-tree-items', [
-        for (final item in items)
-          div(classes: 'sidebar-tree-item', [item]),
-      ]),
+            div(
+              classes: 'sidebar-tree',
+              [
+                for (final item in items) item,
+              ],
+            ),
+          ],
+        ),
+      ],
     );
   }
 
@@ -339,24 +389,45 @@ class DocsSidebar extends StatelessComponent {
     final fullHref = '${AppConstants.baseUrl}$href';
     final isActive = currentPath == href || currentPath == '$href/';
 
-    return ArcaneLink(
-      href: fullHref,
-      styles: ArcaneStyleData(
-        display: Display.flex,
-        gap: Gap.sm,
-        fontSize: FontSize.sm,
-        borderRadius: Radius.md,
-        transition: Transition.allFast,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        textDecoration: TextDecoration.none,
-        padding: PaddingPreset.buttonSm,
-        // Active state: accent color text with muted background and left border indicator
-        textColor: isActive ? TextColor.accent : TextColor.mutedForeground,
-        fontWeight: isActive ? FontWeight.w600 : FontWeight.normal,
-        background: isActive ? Background.muted : Background.transparent,
-        borderLeft: isActive ? BorderPreset.accentThick : null,
-      ),
-      child: ArcaneSpan(child: ArcaneText(label)),
+    return div(
+      classes: 'sidebar-tree-item',
+      [
+        a(
+          href: fullHref,
+          classes: 'sidebar-link${isActive ? ' active' : ''}',
+          [Component.text(label)],
+        ),
+      ],
+    );
+  }
+
+  /// Build a nested collapsible section inside a tree (folder within folder)
+  Component _buildNestedFolder(String title, List<Component> items, {bool defaultOpen = false}) {
+    return div(
+      classes: 'sidebar-tree-item',
+      [
+        Component.element(
+          tag: 'details',
+          classes: 'sidebar-details',
+          attributes: defaultOpen ? {'open': ''} : {},
+          children: [
+            Component.element(
+              tag: 'summary',
+              classes: 'sidebar-summary',
+              children: [
+                span([Component.text(title)]),
+                span(classes: 'sidebar-chevron', []),
+              ],
+            ),
+            div(
+              classes: 'sidebar-tree',
+              [
+                for (final item in items) item,
+              ],
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
