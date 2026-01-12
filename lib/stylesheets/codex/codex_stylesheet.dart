@@ -1,6 +1,7 @@
 import '../../component/navigation/toc.dart' show arcaneTocTreeLinesCss;
 import '../../theme/index.dart';
 import '../../util/content/prose_styles.dart';
+import '../../util/content/sidebar_styles.dart' show arcaneSidebarCodexStyles;
 import '../stylesheet.dart';
 import 'renderers/codex_renderers.dart';
 
@@ -554,6 +555,8 @@ ${theme == CodexTheme.rainbow ? _rainbowCss : ''}
 }
 
 $arcaneSidebarTreeStyles
+
+$arcaneSidebarCodexStyles
 
 $arcaneTocTreeLinesCss
 ''';

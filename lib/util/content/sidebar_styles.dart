@@ -139,22 +139,74 @@ const String arcaneSidebarTreeStyles = '''
 :not(.dark) .theme-icon-light { display: none; }
 
 /* ============================================
-   SIDEBAR SECTIONS
+   SIDEBAR SECTIONS - ShadCN Visual Styles
    ============================================ */
-.sidebar-section {
-  margin-bottom: 0.75rem;
-}
-
 .sidebar-section-header {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.375rem 0.5rem;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 600;
-  color: var(--foreground);
+  color: var(--muted-foreground);
   text-transform: uppercase;
   letter-spacing: 0.05em;
+}
+
+/* Folder summaries - ShadCN visual styling */
+.sidebar-summary {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--foreground);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-md, 6px);
+  transition: all 0.2s ease;
+}
+
+.sidebar-summary:hover {
+  background: var(--muted);
+  color: var(--foreground);
+}
+
+/* Expanded folder - ShadCN subtle highlight */
+.sidebar-details[open] > .sidebar-summary {
+  background: var(--muted);
+  color: var(--foreground);
+}
+
+.sidebar-details[open] > .sidebar-summary:hover {
+  background: color-mix(in srgb, var(--muted) 150%, transparent);
+}
+
+/* Chevron visual styling - ShadCN */
+.sidebar-chevron {
+  opacity: 0.6;
+}
+
+.sidebar-summary:hover .sidebar-chevron {
+  opacity: 1;
+}
+
+.sidebar-details[open] > .sidebar-summary .sidebar-chevron {
+  opacity: 1;
+}
+
+/* Nested folder styling - decreasing opacity */
+.sidebar-tree .sidebar-summary {
+  font-size: 0.8125rem;
+  color: var(--muted-foreground);
+  opacity: 0.9;
+}
+
+.sidebar-tree .sidebar-tree .sidebar-summary {
+  opacity: 0.85;
+}
+
+.sidebar-tree .sidebar-tree .sidebar-tree .sidebar-summary {
+  opacity: 0.8;
+}
+
+/* Tree connector colors - ShadCN (var(--border)) */
+.sidebar-tree > .sidebar-section::before,
+.sidebar-tree > .sidebar-section::after {
+  background: var(--border);
 }
 
 /* ============================================
@@ -272,9 +324,9 @@ const String arcaneSidebarTreeStyles = '''
 
 /* Active state */
 .sidebar-link.active {
-  color: var(--foreground);
+  color: var(--accent-foreground);
   font-weight: 500;
-  background: var(--muted);
+  background: var(--accent);
 }
 
 /* Collapsible section styles */
@@ -521,6 +573,8 @@ const String arcaneSidebarCodexStyles = '''
 .codex .sidebar-summary {
   font-family: var(--font-mono);
   color: var(--muted-foreground);
+  background: transparent;
+  border: none;
   border-bottom: 1px solid transparent;
 }
 
@@ -528,13 +582,26 @@ const String arcaneSidebarCodexStyles = '''
 .codex .sidebar-summary:hover {
   color: var(--primary);
   background: color-mix(in srgb, var(--primary) 8%, transparent);
+  border: none;
   border-bottom-color: color-mix(in srgb, var(--primary) 20%, transparent);
 }
 
 [class*="codex-"] .sidebar-details[open] > .sidebar-summary,
 .codex .sidebar-details[open] > .sidebar-summary {
   color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 12%, transparent);
   border-bottom-color: color-mix(in srgb, var(--primary) 20%, transparent);
+  box-shadow:
+    0 4px 12px -2px color-mix(in srgb, var(--primary) 25%, transparent),
+    inset 0 1px 0 color-mix(in srgb, var(--primary) 15%, transparent);
+}
+
+[class*="codex-"] .sidebar-details[open] > .sidebar-summary:hover,
+.codex .sidebar-details[open] > .sidebar-summary:hover {
+  background: color-mix(in srgb, var(--primary) 18%, transparent);
+  box-shadow:
+    0 6px 16px -2px color-mix(in srgb, var(--primary) 35%, transparent),
+    inset 0 1px 0 color-mix(in srgb, var(--primary) 20%, transparent);
 }
 
 /* Codex chevron - glowing */
@@ -566,6 +633,21 @@ const String arcaneSidebarCodexStyles = '''
 
 [class*="codex-"] .sidebar-tree-item:last-child::after,
 .codex .sidebar-tree-item:last-child::after {
+  background: var(--primary);
+  width: 2px;
+  box-shadow: 0 0 6px color-mix(in srgb, var(--primary) 30%, transparent);
+}
+
+/* Codex overrides for .sidebar-section connectors (used by arcane_inkwell) */
+[class*="codex-"] .sidebar-tree > .sidebar-section::before,
+.codex .sidebar-tree > .sidebar-section::before {
+  background: var(--primary);
+  opacity: 0.6;
+  height: 2px;
+}
+
+[class*="codex-"] .sidebar-tree > .sidebar-section::after,
+.codex .sidebar-tree > .sidebar-section::after {
   background: var(--primary);
   width: 2px;
   box-shadow: 0 0 6px color-mix(in srgb, var(--primary) 30%, transparent);
