@@ -169,6 +169,7 @@ export 'component/view/arrow_link.dart';
 export 'component/view/map/arcane_map.dart';
 export 'component/view/map/paths/world_paths.dart';
 export 'component/view/map/paths/usa_paths.dart';
+export 'component/view/placeholder_image.dart';
 
 // Card
 export 'component/card/card.dart';

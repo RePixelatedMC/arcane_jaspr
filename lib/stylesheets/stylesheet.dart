@@ -186,7 +186,7 @@ html, body {
 /* Scrollbars */
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--border) transparent;
+  scrollbar-color: var(--border) var(--background);
 }
 
 *::-webkit-scrollbar {
@@ -195,7 +195,7 @@ html, body {
 }
 
 *::-webkit-scrollbar-track {
-  background: transparent;
+  background: var(--background);
 }
 
 *::-webkit-scrollbar-thumb {
@@ -208,7 +208,25 @@ html, body {
 }
 
 *::-webkit-scrollbar-corner {
-  background: transparent;
+  background: var(--background);
+}
+
+/* Document scrollbar - explicit dark mode support */
+html.dark {
+  scrollbar-color: #27272a #09090b;
+}
+
+html.dark::-webkit-scrollbar-track {
+  background: #09090b;
+}
+
+html.dark::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 9999px;
+}
+
+html.dark::-webkit-scrollbar-corner {
+  background: #09090b;
 }
 
 /* Text Selection */

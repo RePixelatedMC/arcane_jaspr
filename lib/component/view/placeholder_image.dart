@@ -1,6 +1,5 @@
 import 'package:jaspr/jaspr.dart';
 
-import '../../core/props/placeholder_image_props.dart';
 import '../../core/theme_provider.dart';
 
 export '../../core/props/placeholder_image_props.dart';
@@ -33,7 +32,7 @@ class ArcanePlaceholderImage extends StatelessComponent {
   final PlaceholderImageProps _props;
 
   /// Create a placeholder image with custom options.
-  const ArcanePlaceholderImage({
+  ArcanePlaceholderImage({
     PlaceholderSource source = PlaceholderSource.cat,
     String? seed,
     PlaceholderSize size = PlaceholderSize.md,
@@ -72,26 +71,44 @@ class ArcanePlaceholderImage extends StatelessComponent {
           classes: classes,
         );
 
-  const ArcanePlaceholderImage._fromProps(this._props, {super.key});
+  ArcanePlaceholderImage._fromProps(this._props, {super.key});
 
   /// Create a random cat image.
-  const factory ArcanePlaceholderImage.cat({
+  factory ArcanePlaceholderImage.cat({
     String? seed,
-    PlaceholderSize size,
+    PlaceholderSize size = PlaceholderSize.md,
     int? width,
     int? height,
-    PlaceholderShape shape,
-    PlaceholderFit fit,
+    PlaceholderShape shape = PlaceholderShape.rounded,
+    PlaceholderFit fit = PlaceholderFit.cover,
     String? alt,
-    bool animated,
-    bool lazy,
+    bool animated = false,
+    bool lazy = true,
     void Function()? onTap,
     String? classes,
     Key? key,
-  }) = _CatImage;
+  }) {
+    return ArcanePlaceholderImage._fromProps(
+      PlaceholderImageProps(
+        source: PlaceholderSource.cat,
+        seed: seed,
+        size: size,
+        width: width,
+        height: height,
+        shape: shape,
+        fit: fit,
+        alt: alt,
+        animated: animated,
+        lazy: lazy,
+        onTap: onTap,
+        classes: classes,
+      ),
+      key: key,
+    );
+  }
 
   /// Create a cat image with text overlay.
-  static ArcanePlaceholderImage catSays(
+  factory ArcanePlaceholderImage.catSays(
     String text, {
     String? seed,
     PlaceholderSize size = PlaceholderSize.md,
@@ -127,80 +144,7 @@ class ArcanePlaceholderImage extends StatelessComponent {
   }
 
   /// Create a random photo from picsum.
-  const factory ArcanePlaceholderImage.photo({
-    String? seed,
-    PlaceholderSize size,
-    int? width,
-    int? height,
-    PlaceholderShape shape,
-    PlaceholderFit fit,
-    String? alt,
-    bool grayscale,
-    int? blur,
-    bool lazy,
-    void Function()? onTap,
-    String? classes,
-    Key? key,
-  }) = _PhotoImage;
-
-  /// Create a solid color placeholder.
-  const factory ArcanePlaceholderImage.solid({
-    String? backgroundColor,
-    String? textColor,
-    String? text,
-    PlaceholderSize size,
-    int? width,
-    int? height,
-    PlaceholderShape shape,
-    String? alt,
-    bool lazy,
-    void Function()? onTap,
-    String? classes,
-    Key? key,
-  }) = _SolidImage;
-
-  @override
-  Component build(BuildContext context) {
-    return context.renderers.placeholderImage(_props);
-  }
-}
-
-/// Cat image variant.
-class _CatImage extends ArcanePlaceholderImage {
-  const _CatImage({
-    String? seed,
-    PlaceholderSize size = PlaceholderSize.md,
-    int? width,
-    int? height,
-    PlaceholderShape shape = PlaceholderShape.rounded,
-    PlaceholderFit fit = PlaceholderFit.cover,
-    String? alt,
-    bool animated = false,
-    bool lazy = true,
-    void Function()? onTap,
-    String? classes,
-    super.key,
-  }) : super._fromProps(
-          PlaceholderImageProps(
-            source: PlaceholderSource.cat,
-            seed: seed,
-            size: size,
-            width: width,
-            height: height,
-            shape: shape,
-            fit: fit,
-            alt: alt,
-            animated: animated,
-            lazy: lazy,
-            onTap: onTap,
-            classes: classes,
-          ),
-        );
-}
-
-/// Photo image variant.
-class _PhotoImage extends ArcanePlaceholderImage {
-  const _PhotoImage({
+  factory ArcanePlaceholderImage.photo({
     String? seed,
     PlaceholderSize size = PlaceholderSize.md,
     int? width,
@@ -213,29 +157,30 @@ class _PhotoImage extends ArcanePlaceholderImage {
     bool lazy = true,
     void Function()? onTap,
     String? classes,
-    super.key,
-  }) : super._fromProps(
-          PlaceholderImageProps(
-            source: PlaceholderSource.picsum,
-            seed: seed,
-            size: size,
-            width: width,
-            height: height,
-            shape: shape,
-            fit: fit,
-            alt: alt,
-            grayscale: grayscale,
-            blur: blur,
-            lazy: lazy,
-            onTap: onTap,
-            classes: classes,
-          ),
-        );
-}
+    Key? key,
+  }) {
+    return ArcanePlaceholderImage._fromProps(
+      PlaceholderImageProps(
+        source: PlaceholderSource.picsum,
+        seed: seed,
+        size: size,
+        width: width,
+        height: height,
+        shape: shape,
+        fit: fit,
+        alt: alt,
+        grayscale: grayscale,
+        blur: blur,
+        lazy: lazy,
+        onTap: onTap,
+        classes: classes,
+      ),
+      key: key,
+    );
+  }
 
-/// Solid color placeholder variant.
-class _SolidImage extends ArcanePlaceholderImage {
-  const _SolidImage({
+  /// Create a solid color placeholder.
+  factory ArcanePlaceholderImage.solid({
     String? backgroundColor,
     String? textColor,
     String? text,
@@ -247,22 +192,30 @@ class _SolidImage extends ArcanePlaceholderImage {
     bool lazy = true,
     void Function()? onTap,
     String? classes,
-    super.key,
-  }) : super._fromProps(
-          PlaceholderImageProps(
-            source: PlaceholderSource.placeholder,
-            size: size,
-            width: width,
-            height: height,
-            shape: shape,
-            fit: PlaceholderFit.cover,
-            alt: alt,
-            text: text,
-            backgroundColor: backgroundColor,
-            textColor: textColor,
-            lazy: lazy,
-            onTap: onTap,
-            classes: classes,
-          ),
-        );
+    Key? key,
+  }) {
+    return ArcanePlaceholderImage._fromProps(
+      PlaceholderImageProps(
+        source: PlaceholderSource.placeholder,
+        size: size,
+        width: width,
+        height: height,
+        shape: shape,
+        fit: PlaceholderFit.cover,
+        alt: alt,
+        text: text,
+        backgroundColor: backgroundColor,
+        textColor: textColor,
+        lazy: lazy,
+        onTap: onTap,
+        classes: classes,
+      ),
+      key: key,
+    );
+  }
+
+  @override
+  Component build(BuildContext context) {
+    return context.renderers.placeholderImage(_props);
+  }
 }

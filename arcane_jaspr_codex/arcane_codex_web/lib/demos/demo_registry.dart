@@ -123,6 +123,7 @@ class DemoRegistry {
     'feature-showcase': ViewDemos.featureShowcase,
     'world-map': ViewDemos.worldMap,
     'usa-map': ViewDemos.usaMap,
+    'placeholder-image': ViewDemos.placeholderImage,
 
     // Navigation components
     'header': NavigationDemos.header,

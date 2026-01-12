@@ -111,6 +111,7 @@ import 'toggle_group.dart';
 import 'toggle_switch.dart';
 import 'tracker.dart';
 import 'tree_view.dart';
+import 'placeholder_image.dart';
 
 /// Codex component renderers.
 ///
@@ -151,6 +152,10 @@ class CodexRenderers extends ShadcnRenderers {
 
   @override
   Component avatar(AvatarProps props) => CodexAvatar(props);
+
+  @override
+  Component placeholderImage(PlaceholderImageProps props) =>
+      CodexPlaceholderImage(props);
 
   @override
   Component progress(ProgressProps props) => CodexProgress(props);

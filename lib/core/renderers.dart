@@ -114,6 +114,7 @@ import 'props/aspect_ratio_props.dart';
 import 'props/scroll_rail_props.dart';
 import 'props/resizable_props.dart';
 import 'props/radio_cards_props.dart';
+import 'props/placeholder_image_props.dart';
 
 export 'props/alert_props.dart';
 export 'props/auth_branding_panel_props.dart';
@@ -229,6 +230,7 @@ export 'props/fade_edge_props.dart';
 export 'props/center_body_props.dart';
 export 'props/card_section_props.dart';
 export 'props/section_props.dart';
+export 'props/placeholder_image_props.dart';
 
 /// Interface that all stylesheets must implement.
 abstract class ComponentRenderers {
@@ -287,6 +289,9 @@ abstract class ComponentRenderers {
 
   /// Render an avatar component
   Component avatar(AvatarProps props);
+
+  /// Render a placeholder image component
+  Component placeholderImage(PlaceholderImageProps props);
 
   /// Render a badge component
   Component badge(BadgeProps props);

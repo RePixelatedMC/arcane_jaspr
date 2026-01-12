@@ -116,6 +116,7 @@ import 'aspect_ratio.dart';
 import 'scroll_rail.dart';
 import 'resizable.dart';
 import 'radio_cards.dart';
+import 'placeholder_image.dart';
 
 /// ShadCN component renderers.
 ///
@@ -177,6 +178,10 @@ class ShadcnRenderers extends ComponentRenderers {
 
   @override
   Component avatar(AvatarProps props) => ShadcnAvatar(props);
+
+  @override
+  Component placeholderImage(PlaceholderImageProps props) =>
+      ShadcnPlaceholderImage(props);
 
   @override
   Component badge(BadgeProps props) => ShadcnBadge(props);

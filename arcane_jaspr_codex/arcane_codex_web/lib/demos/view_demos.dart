@@ -29,6 +29,7 @@ class ViewDemos {
   static List<Component> skeleton() => BasicViewDemos.skeleton();
   static List<Component> emptyState() => BasicViewDemos.emptyState();
   static List<Component> avatarGroup() => BasicViewDemos.avatarGroup();
+  static List<Component> placeholderImage() => BasicViewDemos.placeholderImage();
 
   // Data view demos
   static List<Component> progressBar() => DataViewDemos.progressBar();

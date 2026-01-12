@@ -32,8 +32,8 @@ void main() async {
         sidebarFooter: 'Built with Arcane Inkwell',
         sidebarFooterUrl: 'https://github.com/ArcaneArts/arcane_inkwell',
       ),
-      stylesheet: const CodexStylesheet(theme: CodexTheme.green),
-      // stylesheet: const ShadcnStylesheet(theme: ShadcnTheme.charcoal),
+      // stylesheet: const CodexStylesheet(theme: CodexTheme.green),
+      stylesheet: const ShadcnStylesheet(theme: ShadcnTheme.sky),
     ),
   );
 }

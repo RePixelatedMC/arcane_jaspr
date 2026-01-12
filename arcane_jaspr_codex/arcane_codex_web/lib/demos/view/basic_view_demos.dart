@@ -100,4 +100,75 @@ class BasicViewDemos {
           ],
         ),
       ];
+
+  static List<Component> placeholderImage() => [
+        ArcaneColumn(
+          gapSize: Gap.lg,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ArcaneText('Cat Images (cataas.com)', weight: FontWeight.w600),
+            ArcaneRow(
+              gapSize: Gap.md,
+              children: [
+                ArcanePlaceholderImage(seed: 'demo-1', size: PlaceholderSize.sm),
+                ArcanePlaceholderImage(seed: 'demo-2', size: PlaceholderSize.sm),
+                ArcanePlaceholderImage(
+                  seed: 'demo-3',
+                  size: PlaceholderSize.sm,
+                  shape: PlaceholderShape.circle,
+                ),
+              ],
+            ),
+            ArcaneText('Different Sizes', weight: FontWeight.w600),
+            ArcaneRow(
+              gapSize: Gap.md,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                ArcanePlaceholderImage.cat(seed: 'size-xs', size: PlaceholderSize.xs),
+                ArcanePlaceholderImage.cat(seed: 'size-sm', size: PlaceholderSize.sm),
+                ArcanePlaceholderImage.cat(seed: 'size-md', size: PlaceholderSize.md),
+              ],
+            ),
+            ArcaneText('Photo Images (picsum.photos)', weight: FontWeight.w600),
+            ArcaneRow(
+              gapSize: Gap.md,
+              children: [
+                ArcanePlaceholderImage.photo(seed: 'photo-1', size: PlaceholderSize.sm),
+                ArcanePlaceholderImage.photo(
+                  seed: 'photo-2',
+                  size: PlaceholderSize.sm,
+                  grayscale: true,
+                ),
+                ArcanePlaceholderImage.photo(
+                  seed: 'photo-3',
+                  size: PlaceholderSize.sm,
+                  blur: 3,
+                ),
+              ],
+            ),
+            ArcaneText('Shapes', weight: FontWeight.w600),
+            ArcaneRow(
+              gapSize: Gap.md,
+              children: [
+                ArcanePlaceholderImage(
+                  seed: 'shape-square',
+                  size: PlaceholderSize.sm,
+                  shape: PlaceholderShape.square,
+                ),
+                ArcanePlaceholderImage(
+                  seed: 'shape-rounded',
+                  size: PlaceholderSize.sm,
+                  shape: PlaceholderShape.rounded,
+                ),
+                ArcanePlaceholderImage(
+                  seed: 'shape-circle',
+                  size: PlaceholderSize.sm,
+                  shape: PlaceholderShape.circle,
+                ),
+              ],
+            ),
+          ],
+        ),
+      ];
 }
