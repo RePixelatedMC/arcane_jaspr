@@ -183,10 +183,10 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Scrollbars */
+/* Scrollbars - Themed with accent color */
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--border) var(--background);
+  scrollbar-color: var(--primary) transparent;
 }
 
 *::-webkit-scrollbar {
@@ -195,38 +195,46 @@ html, body {
 }
 
 *::-webkit-scrollbar-track {
-  background: var(--background);
+  background: transparent;
 }
 
 *::-webkit-scrollbar-thumb {
-  background: var(--border);
+  background: var(--primary);
   border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
 }
 
 *::-webkit-scrollbar-thumb:hover {
-  background: var(--muted-foreground);
+  background: color-mix(in srgb, var(--primary) 80%, white);
+  border: 2px solid transparent;
+  background-clip: padding-box;
 }
 
 *::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Document-level scrollbar */
+html, body {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) var(--background);
+}
+
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track {
   background: var(--background);
 }
 
-/* Document scrollbar - explicit dark mode support */
-html.dark {
-  scrollbar-color: #27272a #09090b;
-}
-
-html.dark::-webkit-scrollbar-track {
-  background: #09090b;
-}
-
-html.dark::-webkit-scrollbar-thumb {
-  background: #27272a;
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb {
+  background: var(--primary);
   border-radius: 9999px;
 }
 
-html.dark::-webkit-scrollbar-corner {
-  background: #09090b;
+html::-webkit-scrollbar-thumb:hover,
+body::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--primary) 80%, white);
 }
 
 /* Text Selection */

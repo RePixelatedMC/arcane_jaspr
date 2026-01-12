@@ -2,8 +2,10 @@
 library;
 
 import 'package:arcane_inkwell/arcane_inkwell.dart' hide runApp;
+import 'package:arcane_jaspr/arcane_jaspr.dart';
 import 'package:jaspr/server.dart';
 
+import 'components/interactive_demo.dart';
 import 'main.server.options.dart';
 
 /// Base URL for the site (for GitHub Pages subdirectory hosting)
@@ -34,6 +36,7 @@ void main() async {
       ),
       // stylesheet: const CodexStylesheet(theme: CodexTheme.green),
       stylesheet: const ShadcnStylesheet(theme: ShadcnTheme.sky),
+      demoBuilder: (String componentType) => InteractiveDemo(componentType: componentType),
     ),
   );
 }
