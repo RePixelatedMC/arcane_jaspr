@@ -1,4 +1,6 @@
+import '../../component/navigation/toc.dart' show arcaneTocTreeLinesCss;
 import '../../theme/index.dart';
+import '../../util/content/prose_styles.dart';
 import '../stylesheet.dart';
 import 'renderers/codex_renderers.dart';
 
@@ -299,6 +301,154 @@ class CodexStylesheet extends ArcaneStylesheet {
 
   @override
   String get componentCss => '''
+/* ============================================
+   PROSE - Codex Gaming Typography
+   ============================================ */
+.prose {
+  max-width: 65ch;
+  color: var(--foreground);
+  line-height: 1.8;
+}
+
+.prose h1, .prose h2, .prose h3,
+.prose h4, .prose h5, .prose h6 {
+  font-family: var(--font-heading);
+  color: var(--foreground);
+  font-weight: 600;
+  line-height: 1.2;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.prose h1 {
+  font-size: 2.5rem;
+  margin-top: 0;
+  letter-spacing: -0.02em;
+}
+
+.prose h2 {
+  font-size: 1.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid color-mix(in srgb, var(--primary) 30%, transparent);
+}
+
+.prose h3 { font-size: 1.375rem; }
+.prose h4 { font-size: 1.125rem; }
+
+.prose p {
+  margin-bottom: 1.5rem;
+}
+
+.prose a {
+  color: var(--primary);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--primary) 50%, transparent);
+  transition: all 0.15s ease;
+}
+
+.prose a:hover {
+  border-bottom-color: var(--primary);
+  text-shadow: 0 0 8px color-mix(in srgb, var(--primary) 30%, transparent);
+}
+
+.prose strong, .prose b {
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.prose ul, .prose ol {
+  margin-bottom: 1.5rem;
+  padding-left: 1.5rem;
+}
+
+.prose li {
+  margin-bottom: 0.625rem;
+}
+
+.prose li::marker {
+  color: var(--primary);
+}
+
+.prose blockquote {
+  border-left: 3px solid var(--primary);
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  background: color-mix(in srgb, var(--primary) 5%, transparent);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+
+.prose blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+.prose hr {
+  border: none;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--primary), transparent);
+  margin: 2.5rem 0;
+  opacity: 0.5;
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+}
+
+.prose th, .prose td {
+  border: 1px solid var(--border);
+  padding: 0.875rem;
+  text-align: left;
+}
+
+.prose th {
+  background: color-mix(in srgb, var(--primary) 10%, var(--muted));
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.prose img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+  margin: 2rem 0;
+  border: 1px solid var(--border);
+}
+
+/* Code blocks - Codex terminal style */
+.prose pre {
+  background: #0a0a0a;
+  border: 1px solid color-mix(in srgb, var(--primary) 30%, var(--border));
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  box-shadow: 0 0 20px color-mix(in srgb, var(--primary) 10%, transparent);
+}
+
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+}
+
+.prose :not(pre) > code {
+  background: color-mix(in srgb, var(--primary) 15%, var(--muted));
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.875em;
+  color: var(--primary);
+}
+
+/* Syntax highlighting - Codex neon */
+.prose .hljs-keyword { color: #ff7b72; }
+.prose .hljs-string { color: var(--primary); }
+.prose .hljs-number { color: #79c0ff; }
+.prose .hljs-function, .prose .hljs-title { color: #d2a8ff; }
+.prose .hljs-comment { color: #6e7681; font-style: italic; }
+.prose .hljs-variable { color: #ffa657; }
+.prose .hljs-class, .prose .hljs-built_in { color: #7ee787; }
+
 /* Heading Styles - Use heading font */
 h1, h2, h3, h4, h5, h6,
 .arcane-heading,
@@ -402,6 +552,10 @@ ${theme == CodexTheme.rainbow ? _rainbowCss : ''}
 .arcane-tree-lines .arcane-tree-lines .arcane-tree-lines .arcane-tree-lines {
   --tree-line-color: color-mix(in srgb, var(--border) 35%, transparent);
 }
+
+$arcaneSidebarTreeStyles
+
+$arcaneTocTreeLinesCss
 ''';
 
   /// CSS for rainbow/RGB spin effect.

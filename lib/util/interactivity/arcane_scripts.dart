@@ -87,6 +87,8 @@ class ArcaneScripts {
 
     // Views
     bindMapDebugMode();
+    bindMapPinTooltips();
+    bindLocationListHover();
 
     // Theme
     bindRainbowTheme();

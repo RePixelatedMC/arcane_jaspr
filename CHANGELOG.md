@@ -7,7 +7,73 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [x.x.x] - Unreleased
 
+### Changed
+
+**ArcaneMap Theme Integration**
+- `MapStyle` now uses CSS variables by default for theme-aware styling:
+  - Default constructor uses `var(--card)`, `var(--muted)`, `var(--border)`, `var(--primary)`, etc.
+  - Added `MapStyle.themed` constant (default behavior, uses CSS variables)
+  - Existing `MapStyle.dark` and `MapStyle.light` still available with explicit hex colors
+- Added `arcaneMapCss` constant with comprehensive styling:
+  - **ShadCN (base)**: Clean map styling with theme variable integration
+  - Hover effects on regions and location pins
+  - Debug tooltip styling using theme colors
+  - **Codex (overrides)**: Neon cyberpunk map effects
+  - Glowing region hover effects with `drop-shadow`
+  - Pulsing pin animation (`arcane-map-pin-pulse`)
+  - Neon-styled debug tooltips with text shadows
+- Added `data-active="true"` attribute to active regions for CSS targeting
+
+**ArcaneFlexiCards Smooth Animation**
+- Redesigned height animation to use CSS Grid `grid-template-rows` technique:
+  - `0fr` to `1fr` transition provides smooth, natural height animation
+  - No more abrupt "jumping" when long text is revealed
+  - Footer animates smoothly alongside text content
+- Text no longer "shuffles" during resize:
+  - Inner content wrapper with `overflow: hidden` and `min-height: 0`
+  - Opacity fades in sync with height animation
+- Improved transition timing with `cubic-bezier(0.4, 0, 0.2, 1)` easing
+- Non-hovered cards now shrink to `0.8x` when another card is hovered
+- Added `.hovered` CSS class for additional styling hooks
+- **Codex renderer enhancements**:
+  - Icon glows on hover with `box-shadow`
+  - Title changes to primary color with text shadow on hover
+  - Card background tints toward primary on hover
+  - Border glows with neon effect
+
+**Improved TOC and Sidebar Tree Styles**
+- `arcaneTocTreeLinesCss` - Complete rewrite with proper tree line visualization:
+  - **ShadCN (base)**: Clean, subtle tree lines using `var(--border)` color
+  - Added scrollbar styling for `.kb-toc` and `.toc-container` classes
+  - Uses `::before` for horizontal branches and `::after` for vertical connectors
+  - Proper last-child handling with L-bend effect (vertical line stops at center for last item)
+  - Fading tree lines at deeper nesting levels
+  - Single-child detection to hide unnecessary tree lines
+  - Smaller, more subtle link styling (12px font, refined padding)
+  - **Codex (overrides)**: Glowing neon tree lines with `var(--primary)` color
+  - Thicker 2px lines with `box-shadow` glow effects
+  - Border-left accent on links with glowing active states
+  - Monospace font for headers
+- `arcaneSidebarTreeStyles` - Complete rewrite matching Codex website patterns:
+  - **ShadCN (base)**: Clean tree lines with subtle borders
+  - Added `.sidebar-tree` container class support
+  - Consistent tree line implementation using `::before`/`::after` pseudo-elements
+  - Added collapsible section styles (`.sidebar-details`, `.sidebar-summary`, `.sidebar-chevron`)
+  - Added animated chevron icon for expand/collapse
+  - Proper `.sidebar-link` styling with hover and active states
+  - Fading tree lines at deeper nesting levels
+  - **Codex (overrides)**: Cyberpunk glowing tree lines
+  - Thicker 2px primary-colored lines with glow effects
+  - Border-left accent styling with straight left edges
+  - Prominent glow on active states with inset box-shadow
+  - Monospace font for section headers and summaries
+
 ### Added
+
+**Project Conventions**
+- Documented sitemap generation: Use `--sitemap-domain=<domain>` with `jaspr build`
+- Documented favicon convention: Place `icon.png` in `web/assets/` directory
+- Updated `ArcaneDocsLayout` to use `assets/icon.png` for favicon with apple-touch-icon support
 
 **Documentation Components (migrated from arcane_inkwell)**
 - `ArcaneDocsLayout` - Documentation-style layout with fixed header, sidebar, main content, and optional TOC

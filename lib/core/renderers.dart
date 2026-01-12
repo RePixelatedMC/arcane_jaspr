@@ -480,6 +480,9 @@ abstract class ComponentRenderers {
   /// Render a sidebar submenu (collapsible nested items)
   Component sidebarSubMenu(SidebarSubMenuProps props);
 
+  /// Render a sidebar section (fixed, non-collapsible section with header)
+  Component sidebarSection(SidebarSectionProps props);
+
   /// Render content only when sidebar is expanded
   Component sidebarExpanded(List<Component> children);
 

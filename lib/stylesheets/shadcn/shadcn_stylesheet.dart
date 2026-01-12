@@ -1,4 +1,6 @@
+import '../../component/navigation/toc.dart' show arcaneTocTreeLinesCss;
 import '../../theme/index.dart';
+import '../../util/content/prose_styles.dart';
 import '../stylesheet.dart';
 import 'renderers/shadcn_renderers.dart';
 
@@ -81,6 +83,143 @@ class ShadcnStylesheet extends ArcaneStylesheet {
 
   @override
   String get componentCss => '''
+/* ============================================
+   PROSE - ShadCN Clean Typography
+   ============================================ */
+.prose {
+  max-width: 65ch;
+  color: var(--foreground);
+  line-height: 1.75;
+}
+
+.prose h1, .prose h2, .prose h3,
+.prose h4, .prose h5, .prose h6 {
+  color: var(--foreground);
+  font-weight: 600;
+  line-height: 1.25;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.prose h1 { font-size: 2.25rem; margin-top: 0; }
+.prose h2 {
+  font-size: 1.5rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.5rem;
+}
+.prose h3 { font-size: 1.25rem; }
+.prose h4 { font-size: 1.125rem; }
+
+.prose p {
+  margin-bottom: 1.25rem;
+}
+
+.prose a {
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.15s ease;
+}
+
+.prose a:hover {
+  opacity: 0.8;
+}
+
+.prose strong, .prose b {
+  font-weight: 600;
+}
+
+.prose ul, .prose ol {
+  margin-bottom: 1.25rem;
+  padding-left: 1.5rem;
+}
+
+.prose li {
+  margin-bottom: 0.5rem;
+}
+
+.prose li::marker {
+  color: var(--muted-foreground);
+}
+
+.prose blockquote {
+  border-left: 4px solid var(--border);
+  padding-left: 1rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  color: var(--muted-foreground);
+}
+
+.prose hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 2rem 0;
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+}
+
+.prose th, .prose td {
+  border: 1px solid var(--border);
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.prose th {
+  background: var(--muted);
+  font-weight: 600;
+}
+
+.prose img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+  margin: 1.5rem 0;
+}
+
+/* Code blocks */
+.prose pre {
+  background: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+}
+
+.prose :not(pre) > code {
+  background: var(--muted);
+  padding: 0.125rem 0.375rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.875em;
+}
+
+/* Syntax highlighting - Light */
+.prose .hljs-keyword { color: #d73a49; }
+.prose .hljs-string { color: #032f62; }
+.prose .hljs-number { color: #005cc5; }
+.prose .hljs-function, .prose .hljs-title { color: #6f42c1; }
+.prose .hljs-comment { color: #6a737d; font-style: italic; }
+.prose .hljs-variable { color: #e36209; }
+.prose .hljs-class, .prose .hljs-built_in { color: #22863a; }
+
+/* Syntax highlighting - Dark */
+.dark .prose .hljs-keyword { color: #ff7b72; }
+.dark .prose .hljs-string { color: #a5d6ff; }
+.dark .prose .hljs-number { color: #79c0ff; }
+.dark .prose .hljs-function, .dark .prose .hljs-title { color: #d2a8ff; }
+.dark .prose .hljs-comment { color: #8b949e; font-style: italic; }
+.dark .prose .hljs-variable { color: #ffa657; }
+.dark .prose .hljs-class, .dark .prose .hljs-built_in { color: #7ee787; }
+
 /* Tree Lines for Disclosure/Navigation
    Each item draws its own connectors:
    - ::before = horizontal branch to content
@@ -147,6 +286,10 @@ class ShadcnStylesheet extends ArcaneStylesheet {
 .arcane-tree-lines .arcane-tree-lines .arcane-tree-lines .arcane-tree-lines {
   --tree-line-color: color-mix(in srgb, var(--border) 35%, transparent);
 }
+
+$arcaneSidebarTreeStyles
+
+$arcaneTocTreeLinesCss
 ''';
 }
 

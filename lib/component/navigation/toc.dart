@@ -176,61 +176,150 @@ class ArcaneToc extends StatelessComponent {
 /// CSS styles for ArcaneToc tree-line visual connectors.
 ///
 /// Include this in your stylesheet's baseCss for tree-line styling.
+/// Provides comprehensive tree visualization with proper vertical/horizontal
+/// line connectors, scrollbar styling, and active state highlighting.
 const String arcaneTocTreeLinesCss = '''
-/* TOC Tree Line Styles */
+/* ============================================
+   TABLE OF CONTENTS - Tree Line Styles
+   Clean tree view with subtle connecting lines
+   ============================================ */
+
+/* Scrollbar styling for TOC container */
+.kb-toc,
+.toc-container {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.kb-toc::-webkit-scrollbar,
+.toc-container::-webkit-scrollbar {
+  width: 4px;
+}
+
+.kb-toc::-webkit-scrollbar-track,
+.toc-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.kb-toc::-webkit-scrollbar-thumb,
+.toc-container::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 2px;
+}
+
+/* TOC content with tree lines */
 .toc-content ul {
   list-style: none;
-  padding-left: 1rem;
+  padding-left: 0;
   margin: 0;
   position: relative;
 }
 
-.toc-content ul::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0.75rem;
-  bottom: 0.75rem;
-  width: 1px;
-  background: var(--border);
+/* Top-level list gets tree line padding */
+.toc-content > ul {
+  padding-left: 0.75rem;
+  margin-left: 0.25rem;
 }
 
-.toc-content ul:has(> li:only-child)::before {
-  display: none;
+/* Nested lists */
+.toc-content ul ul {
+  padding-left: 0.875rem;
+  margin-left: 0.375rem;
+  margin-top: 0.25rem;
+  position: relative;
 }
 
+/* All list items */
 .toc-content li {
   position: relative;
 }
 
-.toc-content li::before {
+/* Horizontal branch for top-level items */
+.toc-content > ul > li::before {
   content: '';
   position: absolute;
-  left: -1rem;
-  top: 0.75rem;
-  width: 0.75rem;
+  left: -0.5rem;
+  top: 50%;
+  width: 0.375rem;
   height: 1px;
   background: var(--border);
 }
 
-.toc-content li:only-child::before {
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  top: calc(0.75rem - 2px);
-  left: calc(-1rem - 2px);
+/* Vertical line segment for top-level items (not last) */
+.toc-content > ul > li:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: -0.5rem;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--border);
 }
 
+/* Last top-level item - vertical line only to center (L-bend) */
+.toc-content > ul > li:last-child::after {
+  content: '';
+  position: absolute;
+  left: -0.5rem;
+  top: 0;
+  height: 50%;
+  width: 1px;
+  background: var(--border);
+}
+
+/* Horizontal branch for nested items */
+.toc-content ul ul li::before {
+  content: '';
+  position: absolute;
+  left: -0.875rem;
+  top: 50%;
+  width: 0.5rem;
+  height: 1px;
+  background: var(--border);
+}
+
+/* Vertical line segment for nested items (not last) */
+.toc-content ul ul li:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: -0.875rem;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--border);
+}
+
+/* Last nested item - vertical line only to center (L-bend) */
+.toc-content ul ul li:last-child::after {
+  content: '';
+  position: absolute;
+  left: -0.875rem;
+  top: 0;
+  height: 50%;
+  width: 1px;
+  background: var(--border);
+}
+
+/* Single child - show dot instead of tree lines */
+.toc-content > ul:has(> li:only-child) > li::before,
+.toc-content > ul:has(> li:only-child) > li::after {
+  display: none;
+}
+
+.toc-content ul ul:has(> li:only-child) > li::before,
+.toc-content ul ul:has(> li:only-child) > li::after {
+  display: none;
+}
+
+/* Link styling */
 .toc-content a {
   color: var(--muted-foreground);
   text-decoration: none;
-  font-size: 13px;
+  font-size: 12px;
   display: block;
-  padding: 4px 8px;
-  min-height: 1.5rem;
-  line-height: 1.5rem;
+  padding: 0.375rem 0.625rem;
   border-radius: var(--radius-sm);
-  transition: all var(--arcane-transition-fast);
+  transition: color 0.15s ease, background 0.15s ease;
 }
 
 .toc-content a:hover {
@@ -238,21 +327,96 @@ const String arcaneTocTreeLinesCss = '''
   background: var(--muted);
 }
 
+/* Active TOC link */
 .toc-content a.toc-active {
+  color: var(--foreground);
+  font-weight: 500;
+  background: var(--muted);
+}
+
+/* Nested link sizing */
+.toc-content ul ul a {
+  font-size: 11px;
+  padding: 0.25rem 0.5rem;
+}
+
+/* Fading tree lines at deeper nesting levels */
+.toc-content ul ul li::before,
+.toc-content ul ul li::after {
+  background: color-mix(in srgb, var(--border) 70%, transparent);
+}
+
+.toc-content ul ul ul li::before,
+.toc-content ul ul ul li::after {
+  background: color-mix(in srgb, var(--border) 50%, transparent);
+}
+
+/* ============================================
+   TABLE OF CONTENTS - Codex Gaming Style
+   Cyberpunk with glowing tree lines
+   ============================================ */
+[class*="codex-"] .toc-wrapper,
+.codex .toc-wrapper {
+  background: color-mix(in srgb, var(--card) 80%, transparent);
+  border-color: color-mix(in srgb, var(--primary) 20%, var(--border));
+  box-shadow: 0 0 20px color-mix(in srgb, var(--primary) 5%, transparent);
+}
+
+[class*="codex-"] .toc-header,
+.codex .toc-header {
+  font-family: var(--font-mono);
+  color: var(--primary);
+  border-bottom-color: color-mix(in srgb, var(--primary) 25%, transparent);
+}
+
+/* Codex horizontal branches - glowing */
+[class*="codex-"] .toc-content > ul > li::before,
+[class*="codex-"] .toc-content ul ul li::before,
+.codex .toc-content > ul > li::before,
+.codex .toc-content ul ul li::before {
+  background: var(--primary);
+  opacity: 0.5;
+  height: 2px;
+}
+
+/* Codex vertical lines - glowing */
+[class*="codex-"] .toc-content > ul > li:not(:last-child)::after,
+[class*="codex-"] .toc-content > ul > li:last-child::after,
+[class*="codex-"] .toc-content ul ul li:not(:last-child)::after,
+[class*="codex-"] .toc-content ul ul li:last-child::after,
+.codex .toc-content > ul > li:not(:last-child)::after,
+.codex .toc-content > ul > li:last-child::after,
+.codex .toc-content ul ul li:not(:last-child)::after,
+.codex .toc-content ul ul li:last-child::after {
+  background: var(--primary);
+  width: 2px;
+  box-shadow: 0 0 4px color-mix(in srgb, var(--primary) 20%, transparent);
+}
+
+/* Codex link styling */
+[class*="codex-"] .toc-content a,
+.codex .toc-content a {
+  padding: 0.5rem 0.75rem;
+  border-left: 3px solid transparent;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+[class*="codex-"] .toc-content a:hover,
+.codex .toc-content a:hover {
+  color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 10%, transparent);
+  border-left-color: color-mix(in srgb, var(--primary) 50%, transparent);
+}
+
+[class*="codex-"] .toc-content a.toc-active,
+.codex .toc-content a.toc-active {
   color: var(--primary);
   font-weight: 600;
-  background: var(--accent);
-  border-left: 2px solid var(--primary);
-  padding-left: 6px;
-}
-
-.toc-content ul ul::before,
-.toc-content ul ul li::before {
-  background: color-mix(in srgb, var(--border) 60%, transparent);
-}
-
-.toc-content ul ul ul::before,
-.toc-content ul ul ul li::before {
-  background: color-mix(in srgb, var(--border) 40%, transparent);
+  background: color-mix(in srgb, var(--primary) 15%, transparent);
+  border-left-color: var(--primary);
+  box-shadow:
+    inset 0 0 16px color-mix(in srgb, var(--primary) 12%, transparent),
+    0 0 8px color-mix(in srgb, var(--primary) 6%, transparent);
 }
 ''';

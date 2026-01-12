@@ -22,8 +22,13 @@ class ArcaneDocsLayout extends PageLayoutBase {
     yield* super.buildHead(page);
 
     final assetPrefix = AppConstants.baseUrl.isNotEmpty ? AppConstants.baseUrl : '';
-    yield link(
-        rel: 'icon', type: 'image/x-icon', href: '$assetPrefix/favicon.ico');
+    // Favicons and app icons
+    yield link(rel: 'icon', type: 'image/x-icon', href: '$assetPrefix/assets/favicon.ico');
+    yield link(rel: 'icon', type: 'image/png', href: '$assetPrefix/assets/icon-32.png', attributes: const {'sizes': '32x32'});
+    yield link(rel: 'icon', type: 'image/png', href: '$assetPrefix/assets/icon-16.png', attributes: const {'sizes': '16x16'});
+    yield link(rel: 'apple-touch-icon', href: '$assetPrefix/assets/apple-touch-icon.png', attributes: const {'sizes': '180x180'});
+    yield link(rel: 'manifest', href: '$assetPrefix/manifest.json');
+    yield meta(name: 'theme-color', content: '#09090b');
     yield meta(name: 'viewport', content: 'width=device-width, initial-scale=1');
 
     // Inject stylesheet base CSS (contains all CSS variables and base styles)
@@ -303,45 +308,21 @@ class _ThemedDocsPageState extends State<ThemedDocsPage> {
 
   /// Table of contents sidebar
   Component _buildTableOfContents() {
-    return div(
-      classes: 'toc-container',
-      styles: const Styles(raw: {
-        'width': '220px',
-        'flex-shrink': '0',
-        'position': 'sticky',
-        'top': '80px',
-        'align-self': 'flex-start',
-        'max-height': 'calc(100vh - 100px)',
-        'overflow-y': 'auto',
-      }),
-      [
-        div(
-          classes: 'toc-wrapper',
-          styles: const Styles(raw: {
-            'padding': '1rem',
-            'border-radius': 'var(--radius-lg)',
-            'background': 'var(--card)',
-            'border': '1px solid var(--border)',
-          }),
-          [
-            // Header
-            div(
-              classes: 'toc-header',
-              styles: const Styles(raw: {
-                'font-size': '0.6875rem',
-                'font-weight': '600',
-                'text-transform': 'uppercase',
-                'letter-spacing': '0.05em',
-                'color': 'var(--muted-foreground)',
-                'padding-bottom': '0.75rem',
-                'margin-bottom': '0.75rem',
-                'border-bottom': '1px solid var(--border)',
-              }),
-              [Component.text('On this page')],
-            ),
-            // TOC content
-            div(classes: 'toc-content', [component.toc!.build()]),
-          ],
+    return ArcaneDiv(
+      styles: const ArcaneStyleData(
+        position: Position.sticky,
+        raw: {
+          'width': '220px',
+          'flex-shrink': '0',
+          'top': '80px',
+          'align-self': 'flex-start',
+          'max-height': 'calc(100vh - 100px)',
+          'overflow-y': 'auto',
+        },
+      ),
+      children: [
+        ArcaneToc.custom(
+          content: component.toc!.build(),
         ),
       ],
     );

@@ -126,5 +126,85 @@ class MapScripts {
       }, 1500);
     }
   }
+
+  // ===== MAP PIN TOOLTIPS =====
+  function bindMapPinTooltips() {
+    document.querySelectorAll('.arcane-world-map[data-has-tooltips="true"], .arcane-usa-map[data-has-tooltips="true"]').forEach(function(map) {
+      if (map.dataset.arcaneMapTooltipsBound) return;
+      map.dataset.arcaneMapTooltipsBound = 'true';
+      bindPinTooltips(map);
+    });
+  }
+
+  function bindPinTooltips(map) {
+    var pins = map.querySelectorAll('.arcane-map-pin[data-location]');
+    pins.forEach(function(pin) {
+      var locationId = pin.getAttribute('data-location');
+      if (!locationId) return;
+
+      pin.addEventListener('mouseenter', function() {
+        highlightMapPin(map, locationId);
+      });
+
+      pin.addEventListener('mouseleave', function() {
+        unhighlightMapPin(map, locationId);
+      });
+    });
+  }
+
+  function highlightMapPin(map, locationId) {
+    var pin = map.querySelector('.arcane-map-pin[data-location="' + locationId + '"]');
+    var tooltip = map.querySelector('.arcane-map-tooltip[data-for-location="' + locationId + '"]');
+
+    if (pin) {
+      pin.style.transform = 'translate(-50%, -50%) scale(1.5)';
+      pin.style.boxShadow = '0 0 20px 10px rgba(34, 197, 94, 0.6)';
+    }
+    if (tooltip) {
+      tooltip.style.opacity = '1';
+      tooltip.style.visibility = 'visible';
+    }
+  }
+
+  function unhighlightMapPin(map, locationId) {
+    var pin = map.querySelector('.arcane-map-pin[data-location="' + locationId + '"]');
+    var tooltip = map.querySelector('.arcane-map-tooltip[data-for-location="' + locationId + '"]');
+
+    if (pin) {
+      pin.style.transform = 'translate(-50%, -50%) scale(1)';
+      pin.style.boxShadow = '';
+    }
+    if (tooltip) {
+      tooltip.style.opacity = '0';
+      tooltip.style.visibility = 'hidden';
+    }
+  }
+
+  // ===== LOCATION LIST HOVER =====
+  function bindLocationListHover() {
+    document.querySelectorAll('.location-list-item').forEach(function(item) {
+      if (item.dataset.arcaneListHoverBound) return;
+      item.dataset.arcaneListHoverBound = 'true';
+
+      // Extract location ID from id attribute (format: location-item-{id})
+      var itemId = item.getAttribute('id');
+      var locationId = itemId ? itemId.replace('location-item-', '') : null;
+      if (!locationId) return;
+
+      // Find the map container (may not be a direct parent)
+      var mapContainer = document.querySelector('.arcane-world-map, .arcane-usa-map');
+      if (!mapContainer) return;
+
+      item.addEventListener('mouseenter', function() {
+        item.style.background = 'var(--arcane-surface-variant, rgba(255,255,255,0.05))';
+        highlightMapPin(mapContainer, locationId);
+      });
+
+      item.addEventListener('mouseleave', function() {
+        item.style.background = '';
+        unhighlightMapPin(mapContainer, locationId);
+      });
+    });
+  }
 ''';
 }

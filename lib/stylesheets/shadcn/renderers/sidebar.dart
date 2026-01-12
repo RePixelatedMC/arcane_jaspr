@@ -33,27 +33,22 @@ class ShadcnSidebar extends StatelessComponent {
         // ShadCN SidebarHeader
         if (props.header != null)
           dom.div(
-            classes: 'arcane-sidebar-header',
-            styles: const dom.Styles(raw: {
-              'padding': '8px',
-              'border-bottom': '1px solid var(--border)',
-              'flex-shrink': '0',
-            }),
+            classes: 'sidebar-header',
             [props.header!],
           ),
 
-        // ShadCN SidebarContent
-        dom.div(
-          classes: 'arcane-sidebar-content',
+        // ShadCN SidebarContent with nav wrapper
+        dom.nav(
+          classes: 'sidebar-nav',
           styles: const dom.Styles(raw: {
             'flex': '1',
             'min-height': '0',
             'display': 'flex',
             'flex-direction': 'column',
-            'gap': 'var(--space-2)',
+            'gap': '0.5rem',
             'overflow-y': 'auto',
             'overflow-x': 'hidden',
-            'padding': '8px',
+            'padding': '0.75rem',
           }),
           props.children,
         ),
@@ -125,7 +120,8 @@ class ShadcnSidebar extends StatelessComponent {
   }
 }
 
-/// ShadCN-style sidebar item
+/// ShadCN-style sidebar item using codex structure
+/// Renders as: <div class="sidebar-tree-item"><a class="sidebar-link">...</a></div>
 class ShadcnSidebarItem extends StatelessComponent {
   final SidebarItemProps props;
 
@@ -133,102 +129,35 @@ class ShadcnSidebarItem extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final tooltipText = props.tooltip ?? props.label;
-    final itemStyles = dom.Styles(raw: {
-      'display': 'flex',
-      'width': '100%',
-      'align-items': 'center',
-      'justify-content': props.collapsed ? 'center' : 'flex-start',
-      'gap': 'var(--space-2)',
-      'padding': '8px',
-      'border-radius': 'var(--arcane-radius-sm)',
-      'overflow': 'hidden',
-      'border': 'none',
-      'text-align': 'left',
-      'font-size': 'var(--font-size-sm)',
-      'outline': 'none',
-      'text-decoration': 'none',
-      'transition':
-          'color var(--arcane-transition), background-color var(--arcane-transition), width var(--arcane-transition-slow), padding var(--arcane-transition-slow)',
-      'background-color': props.selected ? 'var(--accent)' : 'transparent',
-      'color':
-          props.selected ? 'var(--accent-foreground)' : 'var(--foreground)',
-      'font-weight': props.selected ? '600' : '500',
-      'cursor': props.disabled ? 'not-allowed' : 'pointer',
-      'pointer-events': props.disabled ? 'none' : 'auto',
-      'opacity': props.disabled ? '0.5' : '1',
-    });
+    final linkClasses = 'sidebar-link${props.selected ? ' active' : ''}';
 
-    final content = [
-      if (props.icon != null)
-        dom.div(
-          styles: const dom.Styles(raw: {
-            'width': '16px',
-            'height': '16px',
-            'display': 'flex',
-            'align-items': 'center',
-            'justify-content': 'center',
-            'flex-shrink': '0',
-          }),
-          [props.icon!],
-        ),
-      if (!props.collapsed)
-        dom.span(
-          styles: const dom.Styles(raw: {
-            'flex': '1',
-            'overflow': 'hidden',
-            'text-overflow': 'ellipsis',
-            'white-space': 'nowrap',
-          }),
-          [Component.text(props.label)],
-        ),
-      if (!props.collapsed && props.badge != null)
-        dom.span(
-          classes: 'arcane-sidebar-item-badge',
-          styles: const dom.Styles(raw: {
-            'background-color': 'var(--primary)',
-            'color': 'var(--primary-foreground)',
-            'font-size': 'var(--font-size-xs)',
-            'padding': '2px 8px',
-            'border-radius': 'var(--arcane-radius-full)',
-            'font-weight': 'var(--font-weight-medium)',
-          }),
-          [Component.text(props.badge!)],
-        ),
-    ];
-
-    // Use anchor if href is provided, otherwise button
+    // Use anchor if href is provided
     if (props.href != null) {
-      return dom.a(
-        href: props.href!,
-        classes:
-            'arcane-sidebar-item ${props.selected ? 'selected' : ''} ${props.disabled ? 'disabled' : ''}',
-        attributes: {
-          if (props.collapsed) 'title': tooltipText,
-        },
-        styles: itemStyles,
-        content,
+      return dom.div(
+        classes: 'sidebar-tree-item',
+        [
+          dom.a(
+            href: props.href!,
+            classes: linkClasses,
+            [Component.text(props.label)],
+          ),
+        ],
       );
     }
 
-    // ShadCN SidebarMenuButton
-    return dom.button(
-      classes:
-          'arcane-sidebar-item ${props.selected ? 'selected' : ''} ${props.disabled ? 'disabled' : ''}',
-      attributes: {
-        'type': 'button',
-        if (props.disabled) 'disabled': 'true',
-        if (props.collapsed) 'title': tooltipText,
-      },
-      styles: itemStyles,
-      events: {
-        'click': (event) {
-          if (!props.disabled && props.onTap != null) {
-            props.onTap!();
-          }
-        },
-      },
-      content,
+    // Otherwise use button (for actions without navigation)
+    return dom.div(
+      classes: 'sidebar-tree-item',
+      [
+        dom.button(
+          classes: linkClasses,
+          attributes: {'type': 'button'},
+          events: props.onTap != null
+              ? {'click': (_) => props.onTap!()}
+              : null,
+          [Component.text(props.label)],
+        ),
+      ],
     );
   }
 }
@@ -287,7 +216,8 @@ class ShadcnSidebarGroup extends StatelessComponent {
   }
 }
 
-/// ShadCN-style sidebar submenu (collapsible nested items)
+/// ShadCN-style sidebar submenu using native details/summary
+/// Renders as: <div class="sidebar-section"><details class="sidebar-details">...</details></div>
 class ShadcnSidebarSubMenu extends StatelessComponent {
   final SidebarSubMenuProps props;
 
@@ -296,105 +226,56 @@ class ShadcnSidebarSubMenu extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     return dom.div(
-      classes: 'arcane-sidebar-submenu ${props.isOpen ? 'open' : ''}',
-      styles: const dom.Styles(raw: {
-        'width': '100%',
-      }),
+      classes: 'sidebar-section',
       [
-        // Trigger button
-        dom.button(
-          classes: 'arcane-sidebar-submenu-trigger',
-          attributes: {
-            'type': 'button',
-            if (props.collapsed) 'title': props.label,
-          },
-          styles: dom.Styles(raw: {
-            'display': 'flex',
-            'width': '100%',
-            'align-items': 'center',
-            'justify-content': props.collapsed ? 'center' : 'space-between',
-            'gap': 'var(--space-2)',
-            'padding': '8px',
-            'border-radius': 'var(--arcane-radius-sm)',
-            'border': 'none',
-            'background': 'transparent',
-            'text-align': 'left',
-            'font-size': 'var(--font-size-sm)',
-            'font-weight': 'var(--font-weight-medium)',
-            'color': 'var(--foreground)',
-            'cursor': 'pointer',
-            'transition': 'color var(--arcane-transition), background-color var(--arcane-transition)',
-          }),
-          events: props.onToggle != null ? {'click': (_) => props.onToggle!()} : null,
-          [
-            dom.div(
-              styles: const dom.Styles(raw: {
-                'display': 'flex',
-                'align-items': 'center',
-                'gap': 'var(--space-2)',
-              }),
-              [
-                if (props.icon != null)
-                  dom.div(
-                    styles: const dom.Styles(raw: {
-                      'width': '16px',
-                      'height': '16px',
-                      'display': 'flex',
-                      'align-items': 'center',
-                      'justify-content': 'center',
-                      'flex-shrink': '0',
-                    }),
-                    [props.icon!],
-                  ),
-                if (!props.collapsed)
-                  dom.span([Component.text(props.label)]),
+        Component.element(
+          tag: 'details',
+          classes: 'sidebar-details',
+          attributes: props.defaultOpen ? {'open': ''} : {},
+          children: [
+            Component.element(
+              tag: 'summary',
+              classes: 'sidebar-summary',
+              children: [
+                if (props.icon != null) props.icon!,
+                dom.span([Component.text(props.label)]),
+                dom.span(classes: 'sidebar-chevron', []),
               ],
             ),
-            if (!props.collapsed)
-              dom.div(
-                styles: const dom.Styles(raw: {
-                  'display': 'flex',
-                  'align-items': 'center',
-                  'gap': 'var(--space-2)',
-                }),
-                [
-                  if (props.badge != null)
-                    dom.span(
-                      styles: const dom.Styles(raw: {
-                        'background-color': 'var(--primary)',
-                        'color': 'var(--primary-foreground)',
-                        'font-size': 'var(--font-size-xs)',
-                        'padding': '2px 8px',
-                        'border-radius': 'var(--arcane-radius-full)',
-                        'font-weight': 'var(--font-weight-medium)',
-                      }),
-                      [Component.text(props.badge!)],
-                    ),
-                  dom.span(
-                    styles: dom.Styles(raw: {
-                      'font-size': 'var(--font-size-xs)',
-                      'transition': 'transform var(--arcane-transition)',
-                      'transform': props.isOpen ? 'rotate(180deg)' : 'rotate(0)',
-                    }),
-                    [const Component.text('\u25BC')],
-                  ),
-                ],
-              ),
+            dom.div(
+              classes: 'sidebar-tree',
+              props.children,
+            ),
           ],
         ),
-        // Submenu content
-        if (props.isOpen && !props.collapsed)
-          dom.div(
-            classes: 'arcane-sidebar-submenu-content',
-            styles: const dom.Styles(raw: {
-              'padding-left': '24px',
-              'display': 'flex',
-              'flex-direction': 'column',
-              'gap': 'var(--space-1)',
-              'margin-top': '4px',
-            }),
-            props.children,
-          ),
+      ],
+    );
+  }
+}
+
+/// ShadCN-style sidebar section (fixed, non-collapsible)
+/// Renders as: <div class="sidebar-section"><div class="sidebar-section-header">...</div><div class="sidebar-tree">...</div></div>
+class ShadcnSidebarSection extends StatelessComponent {
+  final SidebarSectionProps props;
+
+  const ShadcnSidebarSection(this.props, {super.key});
+
+  @override
+  Component build(BuildContext context) {
+    return dom.div(
+      classes: 'sidebar-section',
+      [
+        dom.div(
+          classes: 'sidebar-section-header',
+          [
+            if (props.icon != null) props.icon!,
+            dom.span([Component.text(props.label)]),
+          ],
+        ),
+        dom.div(
+          classes: 'sidebar-tree',
+          props.children,
+        ),
       ],
     );
   }

@@ -38,13 +38,16 @@ class SidebarGroupProps {
   });
 }
 
-/// Sidebar submenu component properties.
+/// Sidebar submenu component properties (collapsible section).
+///
+/// Uses native `<details>/<summary>` for static-site-friendly collapsibles.
 class SidebarSubMenuProps {
   final String label;
   final Component? icon;
   final List<Component> children;
-  final bool isOpen;
-  final void Function()? onToggle;
+
+  /// Whether the section is open by default (sets `open` attribute on `<details>`).
+  final bool defaultOpen;
   final bool collapsed;
   final String? badge;
 
@@ -52,10 +55,24 @@ class SidebarSubMenuProps {
     required this.label,
     required this.children,
     this.icon,
-    this.isOpen = false,
-    this.onToggle,
+    this.defaultOpen = false,
     this.collapsed = false,
     this.badge,
+  });
+}
+
+/// Sidebar section component properties (fixed, non-collapsible section).
+///
+/// For sections that are always expanded with a header.
+class SidebarSectionProps {
+  final String label;
+  final Component? icon;
+  final List<Component> children;
+
+  const SidebarSectionProps({
+    required this.label,
+    this.icon,
+    required this.children,
   });
 }
 

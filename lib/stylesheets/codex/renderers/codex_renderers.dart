@@ -1,4 +1,5 @@
 import 'package:jaspr/jaspr.dart';
+import 'package:jaspr/dom.dart' as dom;
 
 import '../../../core/renderers.dart';
 import '../../shadcn/renderers/shadcn_renderers.dart';
@@ -209,6 +210,18 @@ class CodexRenderers extends ShadcnRenderers {
   @override
   Component sidebarSubMenu(SidebarSubMenuProps props) =>
       CodexSidebarSubMenu(props);
+
+  @override
+  Component sidebarSection(SidebarSectionProps props) =>
+      CodexSidebarSection(props);
+
+  @override
+  Component sidebarExpanded(List<Component> children) =>
+      dom.div(classes: 'arcane-sidebar-expanded-only', children);
+
+  @override
+  Component sidebarCollapsed(List<Component> children) =>
+      dom.div(classes: 'arcane-sidebar-collapsed-only', children);
 
   @override
   Component sidebarSeparator() => const CodexSidebarSeparator();

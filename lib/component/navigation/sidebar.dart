@@ -3,7 +3,7 @@ import 'package:jaspr/jaspr.dart';
 import '../../core/theme_provider.dart';
 
 export '../../core/props/sidebar_props.dart'
-    show SidebarItemProps, SidebarGroupProps, SidebarSubMenuProps;
+    show SidebarItemProps, SidebarGroupProps, SidebarSubMenuProps, SidebarSectionProps;
 
 /// Sidebar navigation component.
 class ArcaneSidebar extends StatefulComponent {
@@ -179,8 +179,11 @@ class ArcaneSidebarSeparator extends StatelessComponent {
   }
 }
 
-/// Collapsible submenu within a sidebar item.
-class ArcaneSidebarSubMenu extends StatefulComponent {
+/// Collapsible submenu section using native `<details>/<summary>`.
+///
+/// Works on static sites without hydration. The `defaultOpen` prop
+/// controls whether the section starts expanded.
+class ArcaneSidebarSubMenu extends StatelessComponent {
   final String label;
   final Component? icon;
   final List<Component> children;
@@ -199,32 +202,39 @@ class ArcaneSidebarSubMenu extends StatefulComponent {
   });
 
   @override
-  State<ArcaneSidebarSubMenu> createState() => _ArcaneSidebarSubMenuState();
+  Component build(BuildContext context) {
+    return context.renderers.sidebarSubMenu(SidebarSubMenuProps(
+      label: label,
+      icon: icon,
+      children: children,
+      defaultOpen: defaultOpen,
+      collapsed: collapsed,
+      badge: badge,
+    ));
+  }
 }
 
-class _ArcaneSidebarSubMenuState extends State<ArcaneSidebarSubMenu> {
-  late bool _isOpen;
+/// Fixed sidebar section that is always expanded.
+///
+/// For sections with a header that don't need collapsing behavior.
+class ArcaneSidebarSection extends StatelessComponent {
+  final String label;
+  final Component? icon;
+  final List<Component> children;
 
-  @override
-  void initState() {
-    super.initState();
-    _isOpen = component.defaultOpen;
-  }
-
-  void _toggle() {
-    setState(() => _isOpen = !_isOpen);
-  }
+  const ArcaneSidebarSection({
+    required this.label,
+    required this.children,
+    this.icon,
+    super.key,
+  });
 
   @override
   Component build(BuildContext context) {
-    return context.renderers.sidebarSubMenu(SidebarSubMenuProps(
-      label: component.label,
-      icon: component.icon,
-      children: component.children,
-      isOpen: _isOpen,
-      onToggle: _toggle,
-      collapsed: component.collapsed,
-      badge: component.badge,
+    return context.renderers.sidebarSection(SidebarSectionProps(
+      label: label,
+      icon: icon,
+      children: children,
     ));
   }
 }

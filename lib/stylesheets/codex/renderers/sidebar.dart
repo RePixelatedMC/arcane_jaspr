@@ -5,10 +5,8 @@ import '../../../core/props/sidebar_props.dart';
 
 /// Codex Sidebar renderer.
 ///
-/// Implements the Codex design language:
-/// - OLED-first dark background
-/// - Accent-colored active states with subtle glow
-/// - More spacing between items
+/// Uses the same HTML structure as ShadCN for consistency.
+/// CSS handles visual differences via [class*="codex-"] selectors.
 class CodexSidebar extends StatelessComponent {
   final SidebarProps props;
 
@@ -16,11 +14,10 @@ class CodexSidebar extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    // Codex: slightly wider sidebar
     final double width = props.isCollapsed ? props.collapsedWidth : props.width;
 
     return dom.aside(
-      classes: 'codex-sidebar ${props.isCollapsed ? 'collapsed' : 'expanded'}',
+      classes: 'arcane-sidebar ${props.isCollapsed ? 'collapsed' : ''} ${props.rightSide ? 'right' : 'left'}',
       styles: dom.Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
@@ -28,108 +25,98 @@ class CodexSidebar extends StatelessComponent {
         'min-width': '${width}px',
         'height': '100%',
         'background-color': 'var(--card)',
-        // Codex: subtle border
         'border-right': props.rightSide ? 'none' : '1px solid var(--border)',
         'border-left': props.rightSide ? '1px solid var(--border)' : 'none',
         'overflow': 'hidden',
         'transition': 'width 0.2s ease, min-width 0.2s ease',
+        'flex-shrink': '0',
       }),
       [
-        // Header
+        // Header (uses .sidebar-header for CSS targeting)
         if (props.header != null)
           dom.div(
-            classes: 'codex-sidebar-header',
-            styles: const dom.Styles(raw: {
-              'flex-shrink': '0',
-              'padding': '1.25rem', // Codex: more padding
-              'border-bottom': '1px solid var(--border)',
-            }),
+            classes: 'sidebar-header',
             [props.header!],
           ),
 
-        // Main content
-        dom.div(
-          classes: 'codex-sidebar-content',
+        // Main content with nav wrapper (matches codex structure)
+        dom.nav(
+          classes: 'sidebar-nav',
           styles: const dom.Styles(raw: {
             'flex': '1',
+            'min-height': '0',
+            'display': 'flex',
+            'flex-direction': 'column',
+            'gap': '0.5rem',
             'overflow-y': 'auto',
             'overflow-x': 'hidden',
-            'padding': '0.75rem', // Codex: more padding
+            'padding': '0.75rem',
           }),
           props.children,
         ),
 
-        // Collapse toggle
-        if (props.showCollapseToggle)
+        // Footer/collapse toggle
+        if (props.showCollapseToggle || props.footer != null)
           dom.div(
-            classes: 'codex-sidebar-toggle',
+            classes: 'arcane-sidebar-footer',
             styles: const dom.Styles(raw: {
               'flex-shrink': '0',
               'padding': '0.75rem',
               'border-top': '1px solid var(--border)',
             }),
             [
-              dom.button(
-                styles: dom.Styles(raw: {
-                  'width': '100%',
-                  'display': 'flex',
-                  'align-items': 'center',
-                  'justify-content': props.isCollapsed ? 'center' : 'flex-end',
-                  'gap': 'var(--space-2)',
-                  'padding': '0.625rem',
-                  'background': 'transparent',
-                  'border': '1px solid var(--border)',
-                  'border-radius': 'var(--radius-md)',
-                  'color': 'var(--muted-foreground)',
-                  'cursor': 'pointer',
-                  'transition': 'all var(--transition)',
-                }),
-                events: {
-                  'click': (_) {
-                    if (props.onToggleCollapse != null) {
-                      props.onToggleCollapse!();
-                    } else if (props.onCollapseChanged != null) {
-                      props.onCollapseChanged!(!props.isCollapsed);
-                    }
+              if (props.footer != null && !props.isCollapsed) props.footer!,
+              if (props.showCollapseToggle)
+                dom.button(
+                  styles: dom.Styles(raw: {
+                    'width': '100%',
+                    'display': 'flex',
+                    'align-items': 'center',
+                    'justify-content': props.isCollapsed ? 'center' : 'flex-end',
+                    'gap': 'var(--space-2)',
+                    'padding': '0.625rem',
+                    'background': 'transparent',
+                    'border': '1px solid var(--border)',
+                    'border-radius': 'var(--radius-md)',
+                    'color': 'var(--muted-foreground)',
+                    'cursor': 'pointer',
+                    'transition': 'all var(--transition)',
+                  }),
+                  events: {
+                    'click': (_) {
+                      if (props.onToggleCollapse != null) {
+                        props.onToggleCollapse!();
+                      } else if (props.onCollapseChanged != null) {
+                        props.onCollapseChanged!(!props.isCollapsed);
+                      }
+                    },
                   },
-                },
-                [
-                  dom.span(
-                    styles: const dom.Styles(raw: {
-                      'font-size': 'var(--font-size-sm)',
-                    }),
-                    [
-                      Component.text(
-                        props.isCollapsed
-                            ? (props.rightSide ? '\u2190' : '\u2192')
-                            : (props.rightSide ? '\u2192' : '\u2190'),
-                      ),
-                    ],
-                  ),
-                  if (!props.isCollapsed)
-                    const Component.text('Collapse'),
-                ],
-              ),
+                  [
+                    dom.span(
+                      styles: const dom.Styles(raw: {
+                        'font-size': 'var(--font-size-sm)',
+                      }),
+                      [
+                        Component.text(
+                          props.isCollapsed
+                              ? (props.rightSide ? '\u2190' : '\u2192')
+                              : (props.rightSide ? '\u2192' : '\u2190'),
+                        ),
+                      ],
+                    ),
+                    if (!props.isCollapsed)
+                      const Component.text('Collapse'),
+                  ],
+                ),
             ],
-          ),
-
-        // Footer
-        if (props.footer != null)
-          dom.div(
-            classes: 'codex-sidebar-footer',
-            styles: const dom.Styles(raw: {
-              'flex-shrink': '0',
-              'padding': '1.25rem',
-              'border-top': '1px solid var(--border)',
-            }),
-            [props.footer!],
           ),
       ],
     );
   }
 }
 
-/// Codex Sidebar Item renderer.
+/// Codex Sidebar Item using same structure as ShadCN.
+/// Renders as: <div class="sidebar-tree-item"><a class="sidebar-link">...</a></div>
 class CodexSidebarItem extends StatelessComponent {
   final SidebarItemProps props;
 
@@ -137,94 +124,35 @@ class CodexSidebarItem extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final bool isDisabled = props.disabled;
+    final linkClasses = 'sidebar-link${props.selected ? ' active' : ''}';
 
-    final Map<String, String> baseStyles = {
-      'display': 'flex',
-      'align-items': 'center',
-      'gap': props.collapsed ? '0' : '0.75rem', // Codex: more gap
-      'width': '100%',
-      // Codex: larger padding
-      'padding': props.collapsed ? '0.75rem' : '0.75rem 1rem',
-      'border-radius': 'var(--radius-md)',
-      'font-size': 'var(--font-size-sm)',
-      'font-weight': props.selected ? '600' : '500',
-      'text-decoration': 'none',
-      'cursor': isDisabled ? 'not-allowed' : 'pointer',
-      'opacity': isDisabled ? '0.5' : '1',
-      'transition': 'all var(--transition)',
-      'justify-content': props.collapsed ? 'center' : 'flex-start',
-      // Codex: accent colors for selected state
-      'background-color': props.selected
-          ? 'rgba(var(--primary-rgb), 0.15)'
-          : 'transparent',
-      'color': props.selected
-          ? 'var(--primary)'
-          : 'var(--muted-foreground)',
-      // Codex: subtle glow when selected
-      if (props.selected) 'box-shadow': 'inset 0 0 0 1px rgba(var(--primary-rgb), 0.2)',
-    };
-
-    final List<Component> content = [
-      if (props.icon != null)
-        dom.span(
-          styles: const dom.Styles(raw: {
-            'flex-shrink': '0',
-            'display': 'flex',
-            'align-items': 'center',
-            'justify-content': 'center',
-          }),
-          [props.icon!],
-        ),
-      if (!props.collapsed)
-        dom.span(
-          styles: const dom.Styles(raw: {
-            'flex': '1',
-            'overflow': 'hidden',
-            'text-overflow': 'ellipsis',
-            'white-space': 'nowrap',
-          }),
-          [Component.text(props.label)],
-        ),
-      if (!props.collapsed && props.badge != null)
-        dom.span(
-          classes: 'codex-sidebar-badge',
-          styles: const dom.Styles(raw: {
-            'background-color': 'var(--primary)',
-            'color': '#ffffff',
-            'font-size': '0.625rem',
-            'font-weight': 'var(--font-weight-semibold)',
-            'padding': '0.125rem 0.375rem',
-            'border-radius': 'var(--arcane-radius-full)',
-          }),
-          [Component.text(props.badge!)],
-        ),
-    ];
-
+    // Use anchor if href is provided
     if (props.href != null) {
-      return dom.a(
-        href: props.href!,
-        classes: 'codex-sidebar-item ${props.selected ? 'selected' : ''} ${isDisabled ? 'disabled' : ''}',
-        attributes: {
-          if (props.tooltip != null && props.collapsed) 'title': props.tooltip!,
-        },
-        styles: dom.Styles(raw: baseStyles),
-        content,
+      return dom.div(
+        classes: 'sidebar-tree-item',
+        [
+          dom.a(
+            href: props.href!,
+            classes: linkClasses,
+            [Component.text(props.label)],
+          ),
+        ],
       );
     }
 
-    return dom.button(
-      classes: 'codex-sidebar-item ${props.selected ? 'selected' : ''} ${isDisabled ? 'disabled' : ''}',
-      attributes: {
-        'type': 'button',
-        if (props.tooltip != null && props.collapsed) 'title': props.tooltip!,
-        if (isDisabled) 'disabled': 'true',
-      },
-      styles: dom.Styles(raw: {...baseStyles, 'border': 'none'}),
-      events: isDisabled || props.onTap == null
-          ? null
-          : {'click': (_) => props.onTap!()},
-      content,
+    // Otherwise use button
+    return dom.div(
+      classes: 'sidebar-tree-item',
+      [
+        dom.button(
+          classes: linkClasses,
+          attributes: {'type': 'button'},
+          events: props.onTap != null
+              ? {'click': (_) => props.onTap!()}
+              : null,
+          [Component.text(props.label)],
+        ),
+      ],
     );
   }
 }
@@ -243,7 +171,7 @@ class CodexSidebarGroup extends StatelessComponent {
         'display': 'flex',
         'flex-direction': 'column',
         'gap': 'var(--space-1)',
-        'margin-bottom': '1rem', // Codex: more spacing between groups
+        'margin-bottom': '1rem',
       }),
       [
         if (props.label != null && !props.collapsed)
@@ -266,7 +194,8 @@ class CodexSidebarGroup extends StatelessComponent {
   }
 }
 
-/// Codex Sidebar SubMenu renderer.
+/// Codex Sidebar SubMenu using native details/summary.
+/// Same HTML structure as ShadCN for CSS consistency.
 class CodexSidebarSubMenu extends StatelessComponent {
   final SidebarSubMenuProps props;
 
@@ -275,87 +204,56 @@ class CodexSidebarSubMenu extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     return dom.div(
-      classes: 'codex-sidebar-submenu ${props.isOpen ? 'open' : 'closed'}',
-      styles: const dom.Styles(raw: {
-        'display': 'flex',
-        'flex-direction': 'column',
-      }),
+      classes: 'sidebar-section',
       [
-        // Trigger button
-        dom.button(
-          classes: 'codex-sidebar-submenu-trigger',
-          styles: dom.Styles(raw: {
-            'display': 'flex',
-            'align-items': 'center',
-            'gap': props.collapsed ? '0' : '0.75rem',
-            'width': '100%',
-            'padding': props.collapsed ? '0.75rem' : '0.75rem 1rem',
-            'border': 'none',
-            'border-radius': 'var(--radius-md)',
-            'background': 'transparent',
-            'font-size': 'var(--font-size-sm)',
-            'font-weight': 'var(--font-weight-medium)',
-            'color': 'var(--muted-foreground)',
-            'cursor': 'pointer',
-            'transition': 'all var(--transition)',
-            'justify-content': props.collapsed ? 'center' : 'flex-start',
-          }),
-          events: props.onToggle == null ? null : {'click': (_) => props.onToggle!()},
-          [
-            if (props.icon != null)
-              dom.span(
-                styles: const dom.Styles(raw: {
-                  'flex-shrink': '0',
-                  'display': 'flex',
-                  'align-items': 'center',
-                }),
-                [props.icon!],
-              ),
-            if (!props.collapsed) ...[
-              dom.span(
-                styles: const dom.Styles(raw: {
-                  'flex': '1',
-                  'text-align': 'left',
-                }),
-                [Component.text(props.label)],
-              ),
-              if (props.badge != null)
-                dom.span(
-                  styles: const dom.Styles(raw: {
-                    'background-color': 'var(--primary)',
-                    'color': '#ffffff',
-                    'font-size': '0.625rem',
-                    'font-weight': 'var(--font-weight-semibold)',
-                    'padding': '0.125rem 0.375rem',
-                    'border-radius': 'var(--arcane-radius-full)',
-                  }),
-                  [Component.text(props.badge!)],
-                ),
-              dom.span(
-                styles: dom.Styles(raw: {
-                  'font-size': '0.625rem',
-                  'transition': 'transform var(--transition)',
-                  'transform': props.isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-                }),
-                [const Component.text('\u25BC')], // Down arrow
-              ),
-            ],
+        Component.element(
+          tag: 'details',
+          classes: 'sidebar-details',
+          attributes: props.defaultOpen ? {'open': ''} : {},
+          children: [
+            Component.element(
+              tag: 'summary',
+              classes: 'sidebar-summary',
+              children: [
+                if (props.icon != null) props.icon!,
+                dom.span([Component.text(props.label)]),
+                dom.span(classes: 'sidebar-chevron', []),
+              ],
+            ),
+            dom.div(
+              classes: 'sidebar-tree',
+              props.children,
+            ),
           ],
         ),
+      ],
+    );
+  }
+}
 
-        // Children (shown when open)
-        if (props.isOpen && !props.collapsed)
-          dom.div(
-            classes: 'codex-sidebar-submenu-content',
-            styles: const dom.Styles(raw: {
-              'display': 'flex',
-              'flex-direction': 'column',
-              'gap': '0.125rem',
-              'padding-left': '1.5rem', // Codex: indent children
-              'margin-top': '0.25rem',
-            }),
-            props.children,
-          ),
+/// Codex Sidebar Section (fixed, non-collapsible).
+/// Same HTML structure as ShadCN.
+class CodexSidebarSection extends StatelessComponent {
+  final SidebarSectionProps props;
+
+  const CodexSidebarSection(this.props, {super.key});
+
+  @override
+  Component build(BuildContext context) {
+    return dom.div(
+      classes: 'sidebar-section',
+      [
+        dom.div(
+          classes: 'sidebar-section-header',
+          [
+            if (props.icon != null) props.icon!,
+            dom.span([Component.text(props.label)]),
+          ],
+        ),
+        dom.div(
+          classes: 'sidebar-tree',
+          props.children,
+        ),
       ],
     );
   }
@@ -372,7 +270,7 @@ class CodexSidebarSeparator extends StatelessComponent {
       styles: dom.Styles(raw: {
         'height': '1px',
         'background-color': 'var(--border)',
-        'margin': '0.75rem 0', // Codex: more margin
+        'margin': '0.75rem 0',
       }),
       [],
     );

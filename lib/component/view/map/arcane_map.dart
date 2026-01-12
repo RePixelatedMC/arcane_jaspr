@@ -4,8 +4,6 @@ import 'package:jaspr/dom.dart' as dom;
 import 'map_data.dart';
 import 'map_projection.dart';
 import 'map_style.dart';
-import 'paths/usa_paths.dart';
-import 'paths/world_paths.dart';
 
 export 'map_data.dart';
 export 'map_projection.dart';
@@ -13,8 +11,8 @@ export 'map_style.dart';
 
 /// Unified map component supporting both world and USA maps.
 ///
-/// Renders an interactive SVG map with optional location pins,
-/// region highlighting, and tooltips.
+/// Renders an SVG map image with location pins overlaid on top.
+/// The SVG should be served from /assets/map/world.svg or /assets/map/us.svg.
 class ArcaneMap extends StatelessComponent {
   /// The type of map to display.
   final MapType type;
@@ -28,12 +26,6 @@ class ArcaneMap extends StatelessComponent {
   /// Callback when hovering over a location pin.
   final MapLocationCallback? onLocationHover;
 
-  /// Callback when a region (state/country) is tapped.
-  final MapRegionCallback? onRegionTap;
-
-  /// Callback when hovering over a region.
-  final MapRegionCallback? onRegionHover;
-
   /// Custom tooltip builder for location pins.
   final Component Function(MapLocation)? tooltipBuilder;
 
@@ -46,25 +38,23 @@ class ArcaneMap extends StatelessComponent {
   /// Optional fixed height (CSS value).
   final String? height;
 
-  /// Set of region codes that are highlighted/active.
-  final Set<String> activeRegions;
-
   /// Enable debug mode to show coordinates on hover.
   final bool debugMode;
+
+  /// Custom SVG URL (overrides default asset path).
+  final String? svgUrl;
 
   const ArcaneMap({
     this.type = MapType.world,
     this.locations = const [],
     this.onLocationTap,
     this.onLocationHover,
-    this.onRegionTap,
-    this.onRegionHover,
     this.tooltipBuilder,
     this.style = const MapStyle(),
     this.showTooltips = true,
     this.height,
-    this.activeRegions = const {},
     this.debugMode = false,
+    this.svgUrl,
     super.key,
   });
 
@@ -73,143 +63,118 @@ class ArcaneMap extends StatelessComponent {
     final dims = MapProjection.dimensions(type);
     final className =
         type == MapType.world ? 'arcane-world-map' : 'arcane-usa-map';
+    final mapUrl =
+        svgUrl ?? (type == MapType.world ? '/assets/map/world.svg' : '/assets/map/us.svg');
 
     return dom.div(
       classes: className,
       attributes: {
         if (debugMode) 'data-debug-mode': 'true',
         'data-map-type': type.name,
+        if (showTooltips && tooltipBuilder != null) 'data-has-tooltips': 'true',
       },
       styles: dom.Styles(raw: {
         'position': 'relative',
         'width': '100%',
         if (height != null) 'height': height!,
-        'aspect-ratio': '${dims.aspectRatio}',
-        'background': style.backgroundColor,
         'border-radius': '8px',
-        'overflow': 'hidden',
+        'overflow': 'visible',
       }),
       [
-        // SVG Map rendered as raw HTML
-        dom.RawText(_buildSvgHtml(dims)),
+        // SVG Map as image
+        dom.img(
+          src: mapUrl,
+          attributes: {'alt': 'Map'},
+          styles: dom.Styles(raw: {
+            'width': '100%',
+            'height': '100%',
+            'display': 'block',
+            'object-fit': 'contain',
+          }),
+        ),
+        // Location pins as overlays
+        for (final location in locations) _buildPin(location, dims),
+        // Tooltip containers (if tooltipBuilder is provided)
+        if (showTooltips && tooltipBuilder != null)
+          for (final location in locations) _buildTooltipWrapper(location, dims),
       ],
     );
   }
 
-  String _buildSvgHtml(
-      ({double width, double height, String viewBox, double aspectRatio})
-          dims) {
-    final buffer = StringBuffer();
+  Component _buildPin(
+    MapLocation location,
+    ({double width, double height, String viewBox, double aspectRatio}) dims,
+  ) {
+    final (x, y) = MapProjection.getCoordinates(
+      type,
+      location.id,
+      location.latitude,
+      location.longitude,
+    );
 
-    // Open SVG tag
-    buffer.write('<svg viewBox="${dims.viewBox}" ');
-    buffer.write('preserveAspectRatio="xMidYMid meet" ');
-    buffer.write('style="width:100%;height:100%;display:block;">');
+    // Calculate percentage position
+    final leftPct = (x / dims.width) * 100;
+    final topPct = (y / dims.height) * 100;
+    final color = location.isActive ? style.pinActiveColor : style.pinColor;
+    final size = style.pinSize * 2; // Double for HTML rendering
 
-    // Regions (states/countries)
-    buffer.write(_buildRegionsHtml());
-
-    // Location pins with glow filters
-    buffer.write(_buildPinsHtml());
-
-    // Close SVG tag
-    buffer.write('</svg>');
-
-    return buffer.toString();
+    return dom.div(
+      classes: 'arcane-map-pin',
+      attributes: {
+        'data-location': location.id,
+      },
+      styles: dom.Styles(raw: {
+        'position': 'absolute',
+        'left': '${leftPct.toStringAsFixed(2)}%',
+        'top': '${topPct.toStringAsFixed(2)}%',
+        'width': '${size}px',
+        'height': '${size}px',
+        'background': color,
+        'border-radius': '50%',
+        'transform': 'translate(-50%, -50%)',
+        'cursor': onLocationTap != null ? 'pointer' : 'default',
+        'transition': 'transform 150ms ease, box-shadow 150ms ease',
+        'box-shadow': style.pinGlowIntensity > 0
+            ? '0 0 ${size}px ${(size * 0.5).toInt()}px ${color}40'
+            : 'none',
+        'z-index': '10',
+      }),
+      [],
+    );
   }
 
-  String _buildRegionsHtml() {
-    final buffer = StringBuffer();
+  Component _buildTooltipWrapper(
+    MapLocation location,
+    ({double width, double height, String viewBox, double aspectRatio}) dims,
+  ) {
+    final (x, y) = MapProjection.getCoordinates(
+      type,
+      location.id,
+      location.latitude,
+      location.longitude,
+    );
 
-    if (type == MapType.usa) {
-      for (final entry in ArcaneUSAMapPaths.states.entries) {
-        final code = entry.key;
-        final (name, path) = entry.value;
-        final isActive = activeRegions.contains(code);
+    // Calculate percentage position for absolute positioning
+    final leftPct = (x / dims.width) * 100;
+    final topPct = (y / dims.height) * 100;
 
-        buffer.write('<path ');
-        buffer.write('d="$path" ');
-        buffer.write('data-region="$code" ');
-        buffer.write('data-name="$name" ');
-        buffer.write('style="');
-        buffer.write('fill:${isActive ? style.regionActiveFill : style.regionFill};');
-        buffer.write('stroke:${style.regionStroke};');
-        buffer.write('stroke-width:${style.strokeWidth};');
-        buffer.write('cursor:${onRegionTap != null ? 'pointer' : 'default'};');
-        buffer.write('transition:fill 150ms ease;');
-        buffer.write('" />');
-      }
-    } else {
-      // World map - paths are stored as alternating [path, code, path, code...]
-      const paths = ArcaneWorldMapPaths.allPaths;
-      for (var i = 0; i < paths.length - 1; i += 2) {
-        final path = paths[i];
-        final code = paths[i + 1];
-        final isActive = activeRegions.contains(code);
-
-        buffer.write('<path ');
-        buffer.write('d="$path" ');
-        buffer.write('data-region="$code" ');
-        buffer.write('style="');
-        buffer.write('fill:${isActive ? style.regionActiveFill : style.regionFill};');
-        buffer.write('stroke:${style.regionStroke};');
-        buffer.write('stroke-width:${style.strokeWidth};');
-        buffer.write('cursor:${onRegionTap != null ? 'pointer' : 'default'};');
-        buffer.write('transition:fill 150ms ease;');
-        buffer.write('" />');
-      }
-    }
-
-    return buffer.toString();
-  }
-
-  String _buildPinsHtml() {
-    if (locations.isEmpty) return '';
-
-    final buffer = StringBuffer();
-
-    // Glow filter definitions
-    if (style.pinGlowIntensity > 0) {
-      buffer.write('<defs>');
-      for (final location in locations) {
-        buffer.write('<filter id="glow-${location.id}" ');
-        buffer.write('x="-50%" y="-50%" width="200%" height="200%">');
-        buffer.write('<feGaussianBlur stdDeviation="${style.pinSize * 0.5}" result="coloredBlur"/>');
-        buffer.write('<feMerge>');
-        buffer.write('<feMergeNode in="coloredBlur"/>');
-        buffer.write('<feMergeNode in="SourceGraphic"/>');
-        buffer.write('</feMerge>');
-        buffer.write('</filter>');
-      }
-      buffer.write('</defs>');
-    }
-
-    // Pin circles
-    for (final location in locations) {
-      final (x, y) = MapProjection.getCoordinates(
-        type,
-        location.id,
-        location.latitude,
-        location.longitude,
-      );
-
-      final color =
-          location.isActive ? style.pinActiveColor : style.pinColor;
-
-      buffer.write('<circle ');
-      buffer.write('cx="$x" cy="$y" r="${style.pinSize}" ');
-      buffer.write('data-location="${location.id}" ');
-      if (style.pinGlowIntensity > 0) {
-        buffer.write('filter="url(#glow-${location.id})" ');
-      }
-      buffer.write('style="');
-      buffer.write('fill:$color;');
-      buffer.write('cursor:${onLocationTap != null ? 'pointer' : 'default'};');
-      buffer.write('transition:fill 150ms ease;');
-      buffer.write('opacity:${location.isActive ? 1 : 1 - style.pinGlowIntensity * 0.3};');
-      buffer.write('" />');
-    }
-
-    return buffer.toString();
+    return dom.div(
+      classes: 'arcane-map-tooltip',
+      attributes: {
+        'data-for-location': location.id,
+      },
+      styles: dom.Styles(raw: {
+        'position': 'absolute',
+        'left': '${leftPct.toStringAsFixed(2)}%',
+        'top': '${topPct.toStringAsFixed(2)}%',
+        'transform': 'translate(-50%, -100%) translateY(-16px)',
+        'z-index': '100',
+        'pointer-events': 'none',
+        'opacity': '0',
+        'visibility': 'hidden',
+        'transition': 'opacity 150ms ease, visibility 150ms ease',
+      }),
+      [tooltipBuilder!(location)],
+    );
   }
 }

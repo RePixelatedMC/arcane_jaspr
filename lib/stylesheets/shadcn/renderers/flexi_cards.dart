@@ -4,6 +4,9 @@ import 'package:jaspr/dom.dart' as dom;
 import '../../../core/props/flexi_cards_props.dart';
 
 /// ShadCN FlexiCards renderer (stateful version with hover tracking).
+///
+/// Uses CSS Grid with `grid-template-rows` for smooth height animations.
+/// Text is stabilized by using fixed positioning within the animated container.
 class ShadcnFlexiCards extends StatefulComponent {
   final FlexiCardsProps props;
 
@@ -33,6 +36,7 @@ class _ShadcnFlexiCardsState extends State<ShadcnFlexiCards> {
         'flex-direction': 'row',
         'gap': component.props.gap,
         'width': '100%',
+        'align-items': 'stretch',
       }),
       [
         for (int i = 0; i < component.props.items.length; i++)
@@ -44,6 +48,7 @@ class _ShadcnFlexiCardsState extends State<ShadcnFlexiCards> {
   Component _buildCard(BuildContext context, int index, FlexiCardItem item) {
     final bool isHovered = _hoveredIndex == index;
     final bool hasHoveredCard = _hoveredIndex != null;
+    final int duration = component.props.transitionDuration;
 
     // Calculate flex values
     final double flexValue = isHovered
@@ -55,7 +60,7 @@ class _ShadcnFlexiCardsState extends State<ShadcnFlexiCards> {
         ? 'scale(1, ${component.props.heightScaleFactor})'
         : 'scale(1, 1)';
 
-    // Determine opacity for long text
+    // Whether to show expanded content
     final bool showLongText = !component.props.expandLongTextOnHover || isHovered;
 
     final List<Component> cardContent = [
@@ -66,8 +71,7 @@ class _ShadcnFlexiCardsState extends State<ShadcnFlexiCards> {
           styles: const dom.Styles(raw: {
             'padding': '0.5rem 1rem',
             'border-bottom': '1px solid var(--border)',
-            'margin': '-1.5rem',
-            'margin-bottom': '1rem',
+            'margin': '-1.5rem -1.5rem 1rem -1.5rem',
           }),
           [item.header!],
         ),
@@ -81,7 +85,7 @@ class _ShadcnFlexiCardsState extends State<ShadcnFlexiCards> {
           'justify-content': 'center',
           'width': '56px',
           'height': '56px',
-          'border-radius': 'var(--arcane-radius-md)',
+          'border-radius': 'var(--radius-md, 8px)',
           'background-color': 'var(--accent)',
           'color': 'var(--accent-foreground)',
           'margin-bottom': '1rem',
@@ -90,30 +94,54 @@ class _ShadcnFlexiCardsState extends State<ShadcnFlexiCards> {
         [item.icon],
       ),
 
-      // Short text (title)
+      // Short text (title) - always visible
       dom.div(
         classes: 'arcane-flexi-card-title',
         styles: const dom.Styles(raw: {
-          'font-size': 'var(--font-size-lg)',
-          'font-weight': 'var(--font-weight-semibold)',
+          'font-size': 'var(--font-size-lg, 1.125rem)',
+          'font-weight': 'var(--font-weight-semibold, 600)',
           'color': 'var(--foreground)',
           'margin-bottom': '0.5rem',
         }),
         [Component.text(item.shortText)],
       ),
 
-      // Long text (description) - with animation
+      // Long text (description) - uses CSS Grid for smooth animation
+      // Outer wrapper uses grid-template-rows for height animation
       dom.div(
-        classes: 'arcane-flexi-card-long-text',
+        classes: 'arcane-flexi-card-long-text-wrapper',
         styles: dom.Styles(raw: {
-          'font-size': 'var(--font-size-base)',
-          'line-height': '1.7',
-          'color': 'var(--muted-foreground)',
-          'opacity': showLongText ? '1' : '0',
-          'max-height': showLongText ? '200px' : '0',
-          'margin-bottom': showLongText ? '1rem' : '0',
+          'display': 'grid',
+          // 0fr collapses to 0 height, 1fr expands to content height
+          'grid-template-rows': showLongText ? '1fr' : '0fr',
+          'transition': 'grid-template-rows ${duration}ms cubic-bezier(0.4, 0, 0.2, 1)',
         }),
-        [Component.text(item.longText)],
+        [
+          // Inner wrapper hides overflow and holds the content
+          dom.div(
+            classes: 'arcane-flexi-card-long-text-inner',
+            styles: dom.Styles(raw: {
+              'overflow': 'hidden',
+              // min-height: 0 is critical for grid-template-rows animation
+              'min-height': '0',
+            }),
+            [
+              // Actual text content with opacity fade
+              dom.div(
+                classes: 'arcane-flexi-card-long-text',
+                styles: dom.Styles(raw: {
+                  'font-size': 'var(--font-size-base, 1rem)',
+                  'line-height': '1.7',
+                  'color': 'var(--muted-foreground)',
+                  'opacity': showLongText ? '1' : '0',
+                  'transition': 'opacity ${duration}ms cubic-bezier(0.4, 0, 0.2, 1)',
+                  'padding-bottom': '1rem',
+                }),
+                [Component.text(item.longText)],
+              ),
+            ],
+          ),
+        ],
       ),
 
       // Spacer to push footer to bottom
@@ -122,17 +150,36 @@ class _ShadcnFlexiCardsState extends State<ShadcnFlexiCards> {
         [],
       ),
 
-      // Footer (optional)
+      // Footer (optional) - also uses grid animation
       if (item.footer != null)
         dom.div(
-          classes: 'arcane-flexi-card-footer',
+          classes: 'arcane-flexi-card-footer-wrapper',
           styles: dom.Styles(raw: {
-            'padding-top': '1rem',
-            'border-top': '1px solid var(--border)',
-            'opacity': showLongText ? '1' : '0.6',
-            'transition': 'opacity var(--arcane-transition-slow)',
+            'display': 'grid',
+            'grid-template-rows': showLongText ? '1fr' : '0fr',
+            'transition': 'grid-template-rows ${duration}ms cubic-bezier(0.4, 0, 0.2, 1)',
           }),
-          [item.footer!],
+          [
+            dom.div(
+              classes: 'arcane-flexi-card-footer-inner',
+              styles: const dom.Styles(raw: {
+                'overflow': 'hidden',
+                'min-height': '0',
+              }),
+              [
+                dom.div(
+                  classes: 'arcane-flexi-card-footer',
+                  styles: dom.Styles(raw: {
+                    'padding-top': '1rem',
+                    'border-top': '1px solid var(--border)',
+                    'opacity': showLongText ? '1' : '0.6',
+                    'transition': 'opacity ${duration}ms cubic-bezier(0.4, 0, 0.2, 1)',
+                  }),
+                  [item.footer!],
+                ),
+              ],
+            ),
+          ],
         ),
     ];
 
@@ -171,10 +218,14 @@ class _ShadcnFlexiCardsState extends State<ShadcnFlexiCards> {
       'padding': '1.5rem',
       'background-color': 'var(--card)',
       'border': '1px solid var(--border)',
-      'border-radius': 'var(--arcane-radius-lg)',
+      'border-radius': 'var(--radius-lg, 12px)',
       'transform': transform,
       'transform-origin': 'center center',
-      'transition': 'all ${component.props.transitionDuration}ms cubic-bezier(0.4, 0, 0.2, 1)',
+      'transition': 'flex ${duration}ms cubic-bezier(0.4, 0, 0.2, 1), '
+          'width ${duration}ms cubic-bezier(0.4, 0, 0.2, 1), '
+          'transform ${duration}ms cubic-bezier(0.4, 0, 0.2, 1), '
+          'border-color ${duration}ms cubic-bezier(0.4, 0, 0.2, 1), '
+          'box-shadow ${duration}ms cubic-bezier(0.4, 0, 0.2, 1)',
       'overflow': 'hidden',
       if (item.onTap != null || item.href != null) 'cursor': 'pointer',
     };
@@ -182,7 +233,7 @@ class _ShadcnFlexiCardsState extends State<ShadcnFlexiCards> {
     // Wrap in link if href provided
     if (item.href != null) {
       return dom.a(
-        classes: 'arcane-flexi-card',
+        classes: 'arcane-flexi-card${isHovered ? ' hovered' : ''}',
         href: item.href!,
         styles: dom.Styles(raw: {
           ...cardStyles,
@@ -200,7 +251,7 @@ class _ShadcnFlexiCardsState extends State<ShadcnFlexiCards> {
     // Wrap in button if onTap provided
     if (item.onTap != null) {
       return dom.button(
-        classes: 'arcane-flexi-card',
+        classes: 'arcane-flexi-card${isHovered ? ' hovered' : ''}',
         type: dom.ButtonType.button,
         styles: dom.Styles(raw: {
           ...cardStyles,
@@ -217,7 +268,7 @@ class _ShadcnFlexiCardsState extends State<ShadcnFlexiCards> {
 
     // Default div
     return dom.div(
-      classes: 'arcane-flexi-card',
+      classes: 'arcane-flexi-card${isHovered ? ' hovered' : ''}',
       styles: dom.Styles(raw: cardStyles),
       events: {
         'mouseenter': (_) => _onCardHover(index),

@@ -505,6 +505,10 @@ class ShadcnRenderers extends ComponentRenderers {
       ShadcnSidebarSubMenu(props);
 
   @override
+  Component sidebarSection(SidebarSectionProps props) =>
+      ShadcnSidebarSection(props);
+
+  @override
   Component sidebarExpanded(List<Component> children) =>
       ShadcnSidebarExpanded(children);
 
