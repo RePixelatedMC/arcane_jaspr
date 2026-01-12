@@ -1,7 +1,7 @@
 ---
 title: ArcaneIcon
 description: Complete wrapper for all 1,666 Lucide icons with semantic API
-layout: docs
+layout: kb
 component: icon
 ---
 

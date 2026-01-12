@@ -1,7 +1,7 @@
 ---
 title: ArcaneMarquee
 description: Infinite scrolling marquee with optional fade edges
-layout: docs
+layout: kb
 component: marquee
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: ArcaneTooltip
 description: Contextual information popup on hover
-layout: docs
+layout: kb
 component: tooltip
 ---
 

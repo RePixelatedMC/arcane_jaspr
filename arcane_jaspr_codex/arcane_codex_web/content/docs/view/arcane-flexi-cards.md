@@ -1,7 +1,7 @@
 ---
 title: ArcaneFlexiCards
 description: Interactive card layout where hovering expands the focused card while shrinking others
-layout: docs
+layout: kb
 component: flexi-cards
 ---
 

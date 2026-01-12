@@ -1,7 +1,7 @@
 ---
 title: ArcaneSwitcher
 description: Animated content switcher for transitions between children
-layout: docs
+layout: kb
 component: switcher
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: ArcaneGlowText
 description: Text with glowing effect
-layout: docs
+layout: kb
 component: glow-text
 ---
 

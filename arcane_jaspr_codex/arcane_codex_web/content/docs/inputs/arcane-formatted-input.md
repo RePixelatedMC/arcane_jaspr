@@ -1,7 +1,7 @@
 ---
 title: ArcaneFormattedInput
 description: Patterned input for structured data like dates, phones, credit cards
-layout: docs
+layout: kb
 component: formatted-input
 ---
 

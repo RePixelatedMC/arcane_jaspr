@@ -1,7 +1,7 @@
 ---
 title: Theming
 description: Learn how to configure stylesheets and theming in Arcane Jaspr
-layout: docs
+layout: kb
 component: theming
 ---
 

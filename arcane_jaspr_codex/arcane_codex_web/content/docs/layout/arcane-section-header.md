@@ -1,7 +1,7 @@
 ---
 title: ArcaneSectionHeader
 description: Reusable section headers with label, heading, and description
-layout: docs
+layout: kb
 component: section-header
 ---
 

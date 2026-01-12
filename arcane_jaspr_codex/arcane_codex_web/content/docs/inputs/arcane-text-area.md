@@ -1,7 +1,7 @@
 ---
 title: ArcaneTextArea
 description: Multi-line text input for longer content
-layout: docs
+layout: kb
 component: text-area
 ---
 

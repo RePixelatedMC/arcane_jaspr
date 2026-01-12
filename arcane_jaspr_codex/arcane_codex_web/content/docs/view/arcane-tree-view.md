@@ -1,7 +1,7 @@
 ---
 title: ArcaneTreeView
 description: Hierarchical tree structure display
-layout: docs
+layout: kb
 component: tree-view
 ---
 

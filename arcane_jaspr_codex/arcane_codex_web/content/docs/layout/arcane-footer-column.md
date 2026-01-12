@@ -1,7 +1,7 @@
 ---
 title: ArcaneFooterColumn
 description: Footer columns with title and link lists
-layout: docs
+layout: kb
 component: footer-column
 ---
 

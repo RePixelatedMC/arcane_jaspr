@@ -1,7 +1,7 @@
 ---
 title: AuthSplitLayout
 description: Split-screen layout for authentication pages
-layout: docs
+layout: kb
 component: auth-split-layout
 ---
 

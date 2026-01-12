@@ -1,7 +1,7 @@
 ---
 title: ArcaneBadge
 description: Small label for status, counts, or categories
-layout: docs
+layout: kb
 component: badge
 ---
 

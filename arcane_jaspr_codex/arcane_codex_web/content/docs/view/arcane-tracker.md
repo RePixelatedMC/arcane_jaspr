@@ -1,7 +1,7 @@
 ---
 title: ArcaneTracker
 description: GitHub-style contribution grid and uptime tracker
-layout: docs
+layout: kb
 component: tracker
 ---
 

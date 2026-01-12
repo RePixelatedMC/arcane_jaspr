@@ -1,7 +1,7 @@
 ---
 title: ArcaneRichText
 description: Compose styled text with multiple spans
-layout: docs
+layout: kb
 component: rich-text
 ---
 

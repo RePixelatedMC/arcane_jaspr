@@ -1,7 +1,7 @@
 ---
 title: Display & Layout
 description: Reference for display, position, and flex layout enums
-layout: docs
+layout: kb
 component: display
 ---
 

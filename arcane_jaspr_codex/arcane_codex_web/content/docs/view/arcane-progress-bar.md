@@ -1,7 +1,7 @@
 ---
 title: ArcaneProgressBar
 description: Linear progress indicator
-layout: docs
+layout: kb
 component: progress-bar
 ---
 

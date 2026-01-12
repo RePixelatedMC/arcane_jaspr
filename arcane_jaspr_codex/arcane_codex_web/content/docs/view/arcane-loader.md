@@ -1,7 +1,7 @@
 ---
 title: ArcaneLoader
 description: Loading spinner indicator
-layout: docs
+layout: kb
 component: loader
 ---
 

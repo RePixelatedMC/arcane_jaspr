@@ -66,6 +66,7 @@ class ArcaneMap extends StatelessComponent {
     final mapUrl =
         svgUrl ?? (type == MapType.world ? '/assets/map/world.svg' : '/assets/map/us.svg');
 
+    // Use aspect-ratio container to ensure pins align with SVG
     return dom.div(
       classes: className,
       attributes: {
@@ -74,29 +75,42 @@ class ArcaneMap extends StatelessComponent {
         if (showTooltips && tooltipBuilder != null) 'data-has-tooltips': 'true',
       },
       styles: dom.Styles(raw: {
-        'position': 'relative',
+        'display': 'flex',
+        'justify-content': 'center',
+        'align-items': 'center',
         'width': '100%',
         if (height != null) 'height': height!,
-        'border-radius': '8px',
         'overflow': 'visible',
       }),
       [
-        // SVG Map as image
-        dom.img(
-          src: mapUrl,
-          attributes: {'alt': 'Map'},
+        // Inner container with aspect ratio matching the SVG
+        dom.div(
           styles: dom.Styles(raw: {
+            'position': 'relative',
             'width': '100%',
-            'height': '100%',
-            'display': 'block',
-            'object-fit': 'contain',
+            'max-width': '100%',
+            'aspect-ratio': '${dims.aspectRatio}',
+            'max-height': '100%',
           }),
+          [
+            // SVG Map as image - fills the aspect-ratio container
+            dom.img(
+              src: mapUrl,
+              attributes: {'alt': 'Map'},
+              styles: dom.Styles(raw: {
+                'width': '100%',
+                'height': '100%',
+                'display': 'block',
+                'border-radius': '8px',
+              }),
+            ),
+            // Location pins as overlays - positioned relative to this container
+            for (final location in locations) _buildPin(location, dims),
+            // Tooltip containers (if tooltipBuilder is provided)
+            if (showTooltips && tooltipBuilder != null)
+              for (final location in locations) _buildTooltipWrapper(location, dims),
+          ],
         ),
-        // Location pins as overlays
-        for (final location in locations) _buildPin(location, dims),
-        // Tooltip containers (if tooltipBuilder is provided)
-        if (showTooltips && tooltipBuilder != null)
-          for (final location in locations) _buildTooltipWrapper(location, dims),
       ],
     );
   }

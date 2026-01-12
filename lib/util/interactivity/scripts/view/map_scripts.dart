@@ -1,53 +1,154 @@
 /// Map debug mode interactivity scripts.
 ///
 /// Handles coordinate display on hover and clipboard copy on click
-/// for ArcaneMap components in debug mode.
+/// for ArcaneMap components when Shift key is held.
 class MapScripts {
   MapScripts._();
 
   static const String code = r'''
-  // ===== MAP DEBUG MODE =====
-  function bindMapDebugMode() {
-    // World Map debug mode
-    document.querySelectorAll('.arcane-world-map[data-debug-mode="true"]').forEach(function(map) {
-      if (map.dataset.arcaneMapDebugBound) return;
-      map.dataset.arcaneMapDebugBound = 'true';
-      bindMapDebug(map, 2000, 857, 83, -60, 360, 143, 'world');
-    });
+  // ===== MAP SHIFT+HOVER COORDINATE MODE =====
+  var _shiftKeyHeld = false;
+  var _mapCoordTooltips = {};
+  var _mapCoordCounter = 0;
 
-    // USA Map debug mode
-    document.querySelectorAll('.arcane-usa-map[data-debug-mode="true"]').forEach(function(map) {
-      if (map.dataset.arcaneMapDebugBound) return;
-      map.dataset.arcaneMapDebugBound = 'true';
-      bindMapDebug(map, 1000, 589, 50, 25, 58, 25, 'usa');
+  function bindMapCoordinateMode() {
+    // Track Shift key globally (only bind once)
+    if (!window._arcaneShiftKeyBound) {
+      window._arcaneShiftKeyBound = true;
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Shift' && !_shiftKeyHeld) {
+          _shiftKeyHeld = true;
+          document.querySelectorAll('.arcane-world-map, .arcane-usa-map').forEach(function(map) {
+            map.style.cursor = 'crosshair';
+          });
+        }
+      });
+
+      document.addEventListener('keyup', function(e) {
+        if (e.key === 'Shift') {
+          _shiftKeyHeld = false;
+          document.querySelectorAll('.arcane-world-map, .arcane-usa-map').forEach(function(map) {
+            map.style.cursor = '';
+          });
+          // Hide all coord tooltips
+          Object.values(_mapCoordTooltips).forEach(function(tooltip) {
+            if (tooltip) {
+              tooltip.style.opacity = '0';
+              tooltip.style.visibility = 'hidden';
+            }
+          });
+        }
+      });
+
+      // Watch for new maps being added (for tabs, etc.)
+      var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          mutation.addedNodes.forEach(function(node) {
+            if (node.nodeType === 1) {
+              // Check if the added node is a map or contains maps
+              if (node.classList && (node.classList.contains('arcane-world-map') || node.classList.contains('arcane-usa-map'))) {
+                bindSingleMap(node);
+              }
+              // Also check children
+              if (node.querySelectorAll) {
+                node.querySelectorAll('.arcane-world-map, .arcane-usa-map').forEach(function(map) {
+                  bindSingleMap(map);
+                });
+              }
+            }
+          });
+        });
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
+    }
+
+    // Bind to all existing maps
+    bindAllMaps();
+  }
+
+  function bindAllMaps() {
+    document.querySelectorAll('.arcane-world-map, .arcane-usa-map').forEach(function(map) {
+      bindSingleMap(map);
     });
   }
 
-  function bindMapDebug(map, mapWidth, mapHeight, latMax, latMin, lngRange, latRange, mapType) {
-    var tooltip = createMapDebugTooltip();
-    map.appendChild(tooltip);
-    map.style.cursor = 'crosshair';
+  function bindSingleMap(map) {
+    if (map.dataset.arcaneCoordModeBound) return;
+    map.dataset.arcaneCoordModeBound = 'true';
+    bindMapCoordinates(map);
+  }
 
-    map.addEventListener('mousemove', function(e) {
-      var rect = map.getBoundingClientRect();
-      var relX = (e.clientX - rect.left) / rect.width;
-      var relY = (e.clientY - rect.top) / rect.height;
+  function bindMapCoordinates(map) {
+    // Create tooltip and append to body (not map) to avoid Jaspr DOM conflicts
+    var tooltip = createMapCoordTooltip();
+    var mapId = 'coord-map-' + (_mapCoordCounter++);
+    map.dataset.coordMapId = mapId;
+    _mapCoordTooltips[mapId] = tooltip;
+    document.body.appendChild(tooltip);
 
-      var svgX = relX * mapWidth;
-      var svgY = relY * mapHeight;
+    // Helper to get map dimensions based on class at event time
+    function getMapDimensions(mapEl) {
+      var isUsa = mapEl.classList.contains('arcane-usa-map');
+      return {
+        width: isUsa ? 1000 : 2000,
+        height: isUsa ? 589 : 857,
+        latMax: isUsa ? 50 : 83,
+        latRange: isUsa ? 25 : 143,
+        isUsa: isUsa
+      };
+    }
+
+    function calculateCoords(relX, relY, dims) {
+      var svgX = relX * dims.width;
+      var svgY = relY * dims.height;
 
       var lat, lng;
-      if (mapType === 'usa') {
+      if (dims.isUsa) {
         // USA map projection inverse
         lng = ((svgX - 50) / 900) * 58 - 125;
         lat = 50 - ((svgY - 50) / 450) * 25;
       } else {
         // World map projection (equirectangular)
-        lng = (svgX / mapWidth) * lngRange - 180;
-        lat = latMax - (svgY / mapHeight) * latRange;
+        lng = (svgX / dims.width) * 360 - 180;
+        lat = dims.latMax - (svgY / dims.height) * dims.latRange;
       }
 
-      updateMapDebugTooltip(tooltip, lat, lng, svgX, svgY, relX * 100, relY * 100);
+      return { lat: lat, lng: lng, svgX: svgX, svgY: svgY };
+    }
+
+    map.addEventListener('mousemove', function(e) {
+      if (!_shiftKeyHeld) {
+        tooltip.style.opacity = '0';
+        tooltip.style.visibility = 'hidden';
+        return;
+      }
+
+      var dims = getMapDimensions(map);
+      var rect = map.getBoundingClientRect();
+      var mouseX = e.clientX - rect.left;
+      var mouseY = e.clientY - rect.top;
+      var relX = Math.max(0, Math.min(1, mouseX / rect.width));
+      var relY = Math.max(0, Math.min(1, mouseY / rect.height));
+
+      var coords = calculateCoords(relX, relY, dims);
+
+      // Position tooltip fixed to viewport
+      tooltip.style.position = 'fixed';
+      tooltip.style.left = (e.clientX) + 'px';
+      tooltip.style.top = (e.clientY + 20) + 'px';
+      tooltip.style.transform = 'translateX(-50%)';
+      tooltip.style.opacity = '1';
+      tooltip.style.visibility = 'visible';
+
+      // Update content
+      var latEl = tooltip.querySelector('.coord-lat');
+      var lngEl = tooltip.querySelector('.coord-lng');
+      var svgEl = tooltip.querySelector('.coord-svg');
+
+      if (latEl) latEl.textContent = 'Lat: ' + coords.lat.toFixed(4);
+      if (lngEl) lngEl.textContent = 'Lng: ' + coords.lng.toFixed(4);
+      if (svgEl) svgEl.textContent = 'SVG: ' + Math.round(coords.svgX) + ', ' + Math.round(coords.svgY);
     });
 
     map.addEventListener('mouseleave', function() {
@@ -56,66 +157,90 @@ class MapScripts {
     });
 
     map.addEventListener('click', function(e) {
+      // Always stop propagation to prevent Jaspr DOM reconciliation issues
+      e.stopPropagation();
+
+      if (!_shiftKeyHeld) return;
+
+      e.preventDefault();
+
+      var dims = getMapDimensions(map);
       var rect = map.getBoundingClientRect();
-      var relX = (e.clientX - rect.left) / rect.width;
-      var relY = (e.clientY - rect.top) / rect.height;
+      var relX = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+      var relY = Math.max(0, Math.min(1, (e.clientY - rect.top) / rect.height));
 
-      var svgX = relX * mapWidth;
-      var svgY = relY * mapHeight;
+      var coords = calculateCoords(relX, relY, dims);
 
-      var lat, lng;
-      if (mapType === 'usa') {
-        lng = ((svgX - 50) / 900) * 58 - 125;
-        lat = 50 - ((svgY - 50) / 450) * 25;
+      var coordText = 'Lat: ' + coords.lat.toFixed(4) + ', Lng: ' + coords.lng.toFixed(4) + ', SVG: (' + Math.round(coords.svgX) + ', ' + Math.round(coords.svgY) + ')';
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(coordText).then(function() {
+          showCoordCopiedFeedback(tooltip);
+        }).catch(function(err) {
+          console.warn('[Arcane] Clipboard write failed:', err);
+          fallbackCopyToClipboard(coordText, tooltip);
+        });
       } else {
-        lng = (svgX / mapWidth) * lngRange - 180;
-        lat = latMax - (svgY / mapHeight) * latRange;
+        fallbackCopyToClipboard(coordText, tooltip);
       }
-
-      var coordText = lat.toFixed(4) + ', ' + lng.toFixed(4);
-      navigator.clipboard.writeText(coordText).then(function() {
-        showCopiedFeedback(tooltip);
-      }).catch(function(err) {
-        console.warn('[Arcane] Clipboard write failed:', err);
-      });
-    });
+    }, true);
   }
 
-  function createMapDebugTooltip() {
+  function fallbackCopyToClipboard(text, tooltip) {
+    var textArea = document.createElement('textarea');
+    textArea.value = text;
+    textArea.style.position = 'fixed';
+    textArea.style.left = '-9999px';
+    document.body.appendChild(textArea);
+    textArea.select();
+    try {
+      document.execCommand('copy');
+      showCoordCopiedFeedback(tooltip);
+    } catch (err) {
+      console.warn('[Arcane] Fallback copy failed:', err);
+    }
+    document.body.removeChild(textArea);
+  }
+
+  function createMapCoordTooltip() {
     var tooltip = document.createElement('div');
-    tooltip.className = 'arcane-map-debug-tooltip';
+    tooltip.className = 'arcane-map-coord-tooltip';
     tooltip.style.cssText = 'position: absolute; z-index: 9999; pointer-events: none; opacity: 0; visibility: hidden; transition: opacity 150ms ease;';
 
     var inner = document.createElement('div');
-    inner.style.cssText = 'background: #1e1e2e; border: 1px solid #4b5563; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); padding: 10px 14px;';
+    inner.style.cssText = 'background: rgba(30, 30, 46, 0.95); border: 1px solid #4b5563; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); padding: 10px 14px; backdrop-filter: blur(8px);';
 
-    inner.innerHTML = '<div class="debug-lat" style="font-size: 13px; font-family: ui-monospace, monospace; color: #f8fafc; white-space: nowrap; font-weight: 500;">Lat: 0.0000</div>' +
-      '<div class="debug-lng" style="font-size: 13px; font-family: ui-monospace, monospace; color: #f8fafc; white-space: nowrap; font-weight: 500;">Lng: 0.0000</div>' +
-      '<div class="debug-svg" style="font-size: 11px; font-family: ui-monospace, monospace; color: #9ca3af; white-space: nowrap; margin-top: 6px;">SVG: 0, 0</div>' +
-      '<div class="debug-hint" style="font-size: 11px; color: #60a5fa; margin-top: 6px; font-weight: 500;">Click to copy</div>';
+    var latDiv = document.createElement('div');
+    latDiv.className = 'coord-lat';
+    latDiv.style.cssText = 'font-size: 13px; font-family: ui-monospace, monospace; color: #f8fafc; white-space: nowrap; font-weight: 500;';
+    latDiv.textContent = 'Lat: 0.0000';
 
+    var lngDiv = document.createElement('div');
+    lngDiv.className = 'coord-lng';
+    lngDiv.style.cssText = 'font-size: 13px; font-family: ui-monospace, monospace; color: #f8fafc; white-space: nowrap; font-weight: 500;';
+    lngDiv.textContent = 'Lng: 0.0000';
+
+    var svgDiv = document.createElement('div');
+    svgDiv.className = 'coord-svg';
+    svgDiv.style.cssText = 'font-size: 11px; font-family: ui-monospace, monospace; color: #9ca3af; white-space: nowrap; margin-top: 6px;';
+    svgDiv.textContent = 'SVG: 0, 0';
+
+    var hintDiv = document.createElement('div');
+    hintDiv.className = 'coord-hint';
+    hintDiv.style.cssText = 'font-size: 11px; color: #60a5fa; margin-top: 6px; font-weight: 500;';
+    hintDiv.textContent = 'Click to copy';
+
+    inner.appendChild(latDiv);
+    inner.appendChild(lngDiv);
+    inner.appendChild(svgDiv);
+    inner.appendChild(hintDiv);
     tooltip.appendChild(inner);
+
     return tooltip;
   }
 
-  function updateMapDebugTooltip(tooltip, lat, lng, svgX, svgY, leftPct, topPct) {
-    tooltip.style.left = leftPct + '%';
-    tooltip.style.top = 'calc(' + topPct + '% + 15px)';
-    tooltip.style.transform = 'translateX(-50%)';
-    tooltip.style.opacity = '1';
-    tooltip.style.visibility = 'visible';
-
-    var latEl = tooltip.querySelector('.debug-lat');
-    var lngEl = tooltip.querySelector('.debug-lng');
-    var svgEl = tooltip.querySelector('.debug-svg');
-
-    if (latEl) latEl.textContent = 'Lat: ' + lat.toFixed(4);
-    if (lngEl) lngEl.textContent = 'Lng: ' + lng.toFixed(4);
-    if (svgEl) svgEl.textContent = 'SVG: ' + Math.round(svgX) + ', ' + Math.round(svgY);
-  }
-
-  function showCopiedFeedback(tooltip) {
-    var hint = tooltip.querySelector('.debug-hint');
+  function showCoordCopiedFeedback(tooltip) {
+    var hint = tooltip.querySelector('.coord-hint');
     if (hint) {
       var original = hint.textContent;
       hint.textContent = 'Copied!';
@@ -127,8 +252,37 @@ class MapScripts {
     }
   }
 
+  // Legacy function name for backward compatibility
+  function bindMapDebugMode() {
+    bindMapCoordinateMode();
+  }
+
   // ===== MAP PIN TOOLTIPS =====
   function bindMapPinTooltips() {
+    // Set up observer for dynamically added maps (only once)
+    if (!window._arcanePinTooltipsObserver) {
+      window._arcanePinTooltipsObserver = true;
+      var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          mutation.addedNodes.forEach(function(node) {
+            if (node.nodeType === 1 && node.querySelectorAll) {
+              node.querySelectorAll('.arcane-world-map[data-has-tooltips="true"], .arcane-usa-map[data-has-tooltips="true"]').forEach(function(map) {
+                if (!map.dataset.arcaneMapTooltipsBound) {
+                  map.dataset.arcaneMapTooltipsBound = 'true';
+                  bindPinTooltips(map);
+                }
+              });
+              // Also bind location list items
+              node.querySelectorAll('.location-list-item').forEach(function(item) {
+                bindLocationListItem(item);
+              });
+            }
+          });
+        });
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
+    }
+
     document.querySelectorAll('.arcane-world-map[data-has-tooltips="true"], .arcane-usa-map[data-has-tooltips="true"]').forEach(function(map) {
       if (map.dataset.arcaneMapTooltipsBound) return;
       map.dataset.arcaneMapTooltipsBound = 'true';
@@ -143,6 +297,7 @@ class MapScripts {
       if (!locationId) return;
 
       pin.addEventListener('mouseenter', function() {
+        if (_shiftKeyHeld) return;
         highlightMapPin(map, locationId);
       });
 
@@ -183,27 +338,34 @@ class MapScripts {
   // ===== LOCATION LIST HOVER =====
   function bindLocationListHover() {
     document.querySelectorAll('.location-list-item').forEach(function(item) {
-      if (item.dataset.arcaneListHoverBound) return;
-      item.dataset.arcaneListHoverBound = 'true';
+      bindLocationListItem(item);
+    });
+  }
 
-      // Extract location ID from id attribute (format: location-item-{id})
-      var itemId = item.getAttribute('id');
-      var locationId = itemId ? itemId.replace('location-item-', '') : null;
-      if (!locationId) return;
+  function bindLocationListItem(item) {
+    if (item.dataset.arcaneListHoverBound) return;
+    item.dataset.arcaneListHoverBound = 'true';
 
-      // Find the map container (may not be a direct parent)
+    var itemId = item.getAttribute('id');
+    var locationId = itemId ? itemId.replace('location-item-', '') : null;
+    if (!locationId) return;
+
+    item.addEventListener('mouseenter', function() {
+      if (_shiftKeyHeld) return;
+      // Find the closest visible map
       var mapContainer = document.querySelector('.arcane-world-map, .arcane-usa-map');
       if (!mapContainer) return;
 
-      item.addEventListener('mouseenter', function() {
-        item.style.background = 'var(--arcane-surface-variant, rgba(255,255,255,0.05))';
-        highlightMapPin(mapContainer, locationId);
-      });
+      item.style.background = 'var(--arcane-surface-variant, rgba(255,255,255,0.05))';
+      highlightMapPin(mapContainer, locationId);
+    });
 
-      item.addEventListener('mouseleave', function() {
-        item.style.background = '';
+    item.addEventListener('mouseleave', function() {
+      var mapContainer = document.querySelector('.arcane-world-map, .arcane-usa-map');
+      item.style.background = '';
+      if (mapContainer) {
         unhighlightMapPin(mapContainer, locationId);
-      });
+      }
     });
   }
 ''';

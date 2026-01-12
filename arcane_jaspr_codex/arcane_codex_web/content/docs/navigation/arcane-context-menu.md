@@ -1,7 +1,7 @@
 ---
 title: ArcaneContextMenu
 description: Right-click context menu
-layout: docs
+layout: kb
 component: context-menu
 ---
 

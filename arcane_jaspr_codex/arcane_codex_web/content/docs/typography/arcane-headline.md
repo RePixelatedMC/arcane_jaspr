@@ -1,7 +1,7 @@
 ---
 title: ArcaneHeadline
 description: Large display headline for hero sections
-layout: docs
+layout: kb
 component: headline
 ---
 

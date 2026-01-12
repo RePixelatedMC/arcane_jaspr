@@ -1,7 +1,7 @@
 ---
 title: Why Jaspr?
 description: When to choose Jaspr over Flutter for web development
-layout: docs
+layout: kb
 ---
 
 # Why Jaspr + Arcane Jaspr?

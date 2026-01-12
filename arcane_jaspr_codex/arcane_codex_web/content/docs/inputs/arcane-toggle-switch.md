@@ -1,7 +1,7 @@
 ---
 title: ArcaneToggleSwitch
 description: Toggle switch for on/off states
-layout: docs
+layout: kb
 component: toggle-switch
 ---
 

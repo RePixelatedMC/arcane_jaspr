@@ -1,7 +1,7 @@
 ---
 title: ArcaneSlotCounter
 description: Animated slot machine style counter with customizable formatting
-layout: docs
+layout: kb
 component: slot-counter
 ---
 

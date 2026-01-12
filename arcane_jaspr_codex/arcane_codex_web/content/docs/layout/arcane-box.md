@@ -1,7 +1,7 @@
 ---
 title: ArcaneBox
 description: Styled container with padding and border
-layout: docs
+layout: kb
 component: box
 ---
 

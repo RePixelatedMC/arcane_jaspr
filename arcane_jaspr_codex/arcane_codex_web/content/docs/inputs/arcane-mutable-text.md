@@ -1,7 +1,7 @@
 ---
 title: ArcaneMutableText
 description: Inline editable text component with click-to-edit functionality
-layout: docs
+layout: kb
 component: mutable-text
 ---
 

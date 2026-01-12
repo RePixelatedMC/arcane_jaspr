@@ -1,7 +1,7 @@
 ---
 title: ArcaneBreadcrumbs
 description: Navigation breadcrumb trail
-layout: docs
+layout: kb
 component: breadcrumbs
 ---
 

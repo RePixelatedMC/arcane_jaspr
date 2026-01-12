@@ -1,7 +1,7 @@
 ---
 title: ArcaneFieldWrapper
 description: Layout wrapper for form field styling
-layout: docs
+layout: kb
 component: field-wrapper
 ---
 

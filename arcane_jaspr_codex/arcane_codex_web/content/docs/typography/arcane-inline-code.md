@@ -1,7 +1,7 @@
 ---
 title: ArcaneInlineCode
 description: Inline code text formatting
-layout: docs
+layout: kb
 component: inline-code
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: ArcaneTabs
 description: Tabbed interface for organizing content
-layout: docs
+layout: kb
 component: tabs
 ---
 

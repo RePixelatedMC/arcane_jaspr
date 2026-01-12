@@ -1,7 +1,7 @@
 ---
 title: ArcaneDialog
 description: Modal dialog for important content and actions
-layout: docs
+layout: kb
 component: dialog
 ---
 

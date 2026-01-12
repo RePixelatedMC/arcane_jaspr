@@ -1,7 +1,7 @@
 ---
 title: ArcaneSurfaceCard
 description: Card with surface effects like blur, frosted glass, and gradients
-layout: docs
+layout: kb
 component: surface-card
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: ArcaneFlow
 description: Auto-wrapping flex container for flowing layouts
-layout: docs
+layout: kb
 component: flow
 ---
 

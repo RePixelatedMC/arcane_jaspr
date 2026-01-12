@@ -1,7 +1,7 @@
 ---
 title: ArcaneStatDisplay
 description: Metric display with large value and label
-layout: docs
+layout: kb
 component: stat-display
 ---
 

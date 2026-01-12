@@ -1,7 +1,7 @@
 ---
 title: ArcaneLoginCard
 description: Complete login UI with email/password and social sign-in
-layout: docs
+layout: kb
 component: login-card
 ---
 

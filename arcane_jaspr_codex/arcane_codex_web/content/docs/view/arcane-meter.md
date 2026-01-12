@@ -1,7 +1,7 @@
 ---
 title: ArcaneMeter
 description: Progress meter or gauge display
-layout: docs
+layout: kb
 component: meter
 ---
 

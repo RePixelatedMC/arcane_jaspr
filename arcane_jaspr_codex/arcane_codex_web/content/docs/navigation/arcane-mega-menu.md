@@ -1,7 +1,7 @@
 ---
 title: ArcaneMegaMenu
 description: Large navigation menu with sections and rich content
-layout: docs
+layout: kb
 component: mega-menu
 ---
 

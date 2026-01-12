@@ -1,7 +1,7 @@
 ---
 title: ArcaneHovercard
 description: Hover-triggered floating card with rich interactive content
-layout: docs
+layout: kb
 component: hovercard
 ---
 

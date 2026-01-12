@@ -1,7 +1,7 @@
 ---
 title: ArcaneCard
 description: Versatile card container with shadow and styling
-layout: docs
+layout: kb
 component: card
 ---
 

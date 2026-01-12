@@ -1,7 +1,7 @@
 ---
 title: ArcaneColumn
 description: Vertical flex layout container
-layout: docs
+layout: kb
 component: column
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: ArcaneDataTable
 description: Full-featured data table with sorting and selection
-layout: docs
+layout: kb
 component: data-table
 ---
 

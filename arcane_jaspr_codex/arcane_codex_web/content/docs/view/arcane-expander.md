@@ -1,7 +1,7 @@
 ---
 title: ArcaneExpander
 description: Single expandable/collapsible content section
-layout: docs
+layout: kb
 component: expander
 ---
 

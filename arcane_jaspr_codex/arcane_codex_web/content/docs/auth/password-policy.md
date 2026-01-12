@@ -1,7 +1,7 @@
 ---
 title: PasswordPolicy
 description: Configurable password validation rules
-layout: docs
+layout: kb
 component: password-policy
 ---
 

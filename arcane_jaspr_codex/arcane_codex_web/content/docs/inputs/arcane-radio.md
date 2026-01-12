@@ -1,7 +1,7 @@
 ---
 title: Radio
 description: Radio buttons and radio groups for single selection from options
-layout: docs
+layout: kb
 component: radio
 ---
 

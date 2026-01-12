@@ -1,7 +1,7 @@
 ---
 title: ArcaneAlert
 description: Inline alert for status messages
-layout: docs
+layout: kb
 component: alert
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: ArcaneTile
 description: Interactive tile component for grid layouts
-layout: docs
+layout: kb
 component: tile
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: ArcaneKbd
 description: Keyboard key display for shortcuts
-layout: docs
+layout: kb
 component: kbd
 ---
 

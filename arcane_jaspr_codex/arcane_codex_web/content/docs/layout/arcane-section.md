@@ -1,7 +1,7 @@
 ---
 title: ArcaneSection
 description: Semantic section wrapper with consistent spacing
-layout: docs
+layout: kb
 component: section
 ---
 

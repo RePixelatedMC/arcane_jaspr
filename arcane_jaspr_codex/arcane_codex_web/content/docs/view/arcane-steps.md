@@ -1,7 +1,7 @@
 ---
 title: ArcaneSteps
 description: Numbered step indicators for multi-step processes
-layout: docs
+layout: kb
 component: steps
 ---
 

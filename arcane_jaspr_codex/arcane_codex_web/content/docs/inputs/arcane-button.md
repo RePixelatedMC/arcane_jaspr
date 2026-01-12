@@ -1,7 +1,7 @@
 ---
 title: ArcaneButton
 description: Interactive button component with multiple variants and sizes
-layout: docs
+layout: kb
 component: button
 ---
 

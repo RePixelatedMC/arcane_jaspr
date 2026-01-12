@@ -1,7 +1,7 @@
 ---
 title: ArcaneTimeDialog
 description: Dialog for time selection
-layout: docs
+layout: kb
 component: time-dialog
 ---
 

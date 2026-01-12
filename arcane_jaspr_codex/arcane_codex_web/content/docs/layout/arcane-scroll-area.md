@@ -1,7 +1,7 @@
 ---
 title: ArcaneScrollArea
 description: Scrollable container with customizable scrollbars
-layout: docs
+layout: kb
 component: scroll-area
 ---
 

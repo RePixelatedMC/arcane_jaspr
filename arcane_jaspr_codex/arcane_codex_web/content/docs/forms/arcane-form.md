@@ -1,7 +1,7 @@
 ---
 title: ArcaneForm
 description: Form wrapper with validation and submission handling
-layout: docs
+layout: kb
 component: form
 ---
 

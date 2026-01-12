@@ -1,7 +1,7 @@
 ---
 title: AuthBrandingPanel
 description: Branding panel for split-screen auth layouts
-layout: docs
+layout: kb
 component: auth-branding-panel
 ---
 

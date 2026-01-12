@@ -1,7 +1,7 @@
 ---
 title: ArcaneTabBar
 description: Inline tab bar for switching views
-layout: docs
+layout: kb
 component: inline-tabs
 ---
 

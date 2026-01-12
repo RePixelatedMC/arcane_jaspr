@@ -1,7 +1,7 @@
 ---
 title: ArcaneTextInput
 description: Single-line text input field with validation and styling
-layout: docs
+layout: kb
 component: text-input
 ---
 

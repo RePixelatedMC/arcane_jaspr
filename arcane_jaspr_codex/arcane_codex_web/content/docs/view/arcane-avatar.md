@@ -1,7 +1,7 @@
 ---
 title: ArcaneAvatar
 description: User avatar with image or initials fallback
-layout: docs
+layout: kb
 component: avatar
 ---
 

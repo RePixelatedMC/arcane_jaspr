@@ -1,7 +1,7 @@
 ---
 title: ArcaneSearch
 description: Specialized search input with clear functionality
-layout: docs
+layout: kb
 component: search
 ---
 

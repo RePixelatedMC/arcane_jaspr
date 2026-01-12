@@ -1,7 +1,7 @@
 ---
 title: ArcaneGutter
 description: Vertical spacing element between sections
-layout: docs
+layout: kb
 component: gutter
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: ArcaneButtonGroup
 description: Group of related buttons with connected styling
-layout: docs
+layout: kb
 component: button-group
 ---
 

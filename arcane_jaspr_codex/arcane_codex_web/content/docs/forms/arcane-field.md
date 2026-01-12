@@ -1,7 +1,7 @@
 ---
 title: ArcaneField
 description: Form field with label, input, and validation
-layout: docs
+layout: kb
 component: field
 ---
 

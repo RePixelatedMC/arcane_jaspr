@@ -1,7 +1,7 @@
 ---
 title: ArcaneCheckList
 description: Lists with checkmark icons for features and benefits
-layout: docs
+layout: kb
 component: check-list
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: ArcaneMobileMenu
 description: Mobile navigation overlay menu
-layout: docs
+layout: kb
 component: mobile-menu
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: ArcaneSubheadline
 description: Supporting subtitle text for headlines
-layout: docs
+layout: kb
 component: subheadline
 ---
 

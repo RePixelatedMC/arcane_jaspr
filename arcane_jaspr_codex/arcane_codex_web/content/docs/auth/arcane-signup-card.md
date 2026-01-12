@@ -1,7 +1,7 @@
 ---
 title: ArcaneSignupCard
 description: Complete registration UI with validation and social sign-up
-layout: docs
+layout: kb
 component: signup-card
 ---
 

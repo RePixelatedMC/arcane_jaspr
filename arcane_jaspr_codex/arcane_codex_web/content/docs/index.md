@@ -1,7 +1,7 @@
 ---
 title: Introduction
 description: A Flutter-like UI component library for Dart web applications
-layout: docs
+layout: kb
 ---
 
 # Introduction

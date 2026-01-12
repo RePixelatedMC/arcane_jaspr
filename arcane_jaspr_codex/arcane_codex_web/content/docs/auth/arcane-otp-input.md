@@ -1,7 +1,7 @@
 ---
 title: ArcaneOtpInput
 description: One-time password input with separate digit fields
-layout: docs
+layout: kb
 component: otp-input
 ---
 

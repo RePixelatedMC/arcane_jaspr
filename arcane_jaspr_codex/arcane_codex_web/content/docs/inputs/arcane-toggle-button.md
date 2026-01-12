@@ -1,7 +1,7 @@
 ---
 title: ToggleButton
 description: Toggle buttons for on/off states and grouped selections
-layout: docs
+layout: kb
 component: toggle-button
 ---
 

@@ -123,7 +123,7 @@ class MapProjection {
   static const Map<String, (double, double)> worldCityCoords = {
     // North America
     'nyc': (587, 254),
-    'lax': (247, 295),
+    'lax': (355, 278),
     'chi': (514, 245),
     'sfo': (210, 274),
     'sea': (220, 220),
@@ -132,8 +132,8 @@ class MapProjection {
     'tor': (545, 235),
     'van': (220, 210),
     // Europe
-    'lon': (1000, 182),
-    'lhr': (1000, 182),
+    'lon': (970, 159),
+    'lhr': (970, 159),
     'par': (1011, 200),
     'ber': (1068, 180),
     'mad': (980, 238),
@@ -145,13 +145,13 @@ class MapProjection {
     'mil': (1050, 210),
     // Asia
     'tyo': (1694, 275),
-    'sin': (1523, 434),
+    'sin': (1566, 478),
     'hkg': (1562, 336),
     'sel': (1615, 261),
     'mum': (1373, 357),
     'dxb': (1294, 332),
     // Oceania
-    'syd': (1776, 534),
+    'syd': (1785, 707),
     'mel': (1744, 559),
     // South America
     'sao': (665, 508),

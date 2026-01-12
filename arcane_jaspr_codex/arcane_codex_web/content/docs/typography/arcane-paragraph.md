@@ -1,7 +1,7 @@
 ---
 title: ArcaneParagraph
 description: Block-level paragraph text component
-layout: docs
+layout: kb
 component: paragraph
 ---
 

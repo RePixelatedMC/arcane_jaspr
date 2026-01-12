@@ -1,7 +1,7 @@
 ---
 title: Installation
 description: How to add Arcane Jaspr to your project
-layout: docs
+layout: kb
 previous:
   url: /docs
   title: Introduction

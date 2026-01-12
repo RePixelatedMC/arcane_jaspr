@@ -1,7 +1,7 @@
 ---
 title: ArcaneForgotPasswordCard
 description: Password reset request UI
-layout: docs
+layout: kb
 component: forgot-password-card
 ---
 

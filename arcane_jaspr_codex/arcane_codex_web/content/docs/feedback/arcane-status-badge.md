@@ -1,7 +1,7 @@
 ---
 title: ArcaneStatusBadge
 description: Status indicator badges with pulse animation
-layout: docs
+layout: kb
 component: status-badge
 ---
 

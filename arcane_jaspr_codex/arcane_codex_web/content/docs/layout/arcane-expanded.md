@@ -1,7 +1,7 @@
 ---
 title: ArcaneExpanded
 description: Flex child that expands to fill available space
-layout: docs
+layout: kb
 component: expanded
 ---
 

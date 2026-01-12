@@ -1,7 +1,7 @@
 ---
 title: ArcaneCodeWindow
 description: Code display with macOS-style window chrome
-layout: docs
+layout: kb
 component: code-window
 ---
 

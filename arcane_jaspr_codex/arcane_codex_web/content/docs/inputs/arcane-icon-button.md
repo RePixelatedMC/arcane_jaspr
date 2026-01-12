@@ -1,7 +1,7 @@
 ---
 title: ArcaneIconButton
 description: Compact icon-only button component
-layout: docs
+layout: kb
 component: icon-button
 ---
 

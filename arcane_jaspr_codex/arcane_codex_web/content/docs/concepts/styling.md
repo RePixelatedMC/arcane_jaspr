@@ -1,7 +1,7 @@
 ---
 title: Styling
 description: Learn how to style components using ArcaneStyleData
-layout: docs
+layout: kb
 component: styling
 ---
 

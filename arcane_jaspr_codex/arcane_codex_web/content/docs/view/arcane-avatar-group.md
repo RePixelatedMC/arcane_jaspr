@@ -1,7 +1,7 @@
 ---
 title: ArcaneAvatarGroup
 description: Stacked avatar display with overflow indicator
-layout: docs
+layout: kb
 component: avatar-group
 ---
 

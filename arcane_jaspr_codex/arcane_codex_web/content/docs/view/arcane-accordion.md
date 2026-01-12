@@ -1,7 +1,7 @@
 ---
 title: ArcaneAccordion
 description: Collapsible content sections
-layout: docs
+layout: kb
 component: accordion
 ---
 

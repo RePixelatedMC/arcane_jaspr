@@ -1,7 +1,7 @@
 ---
 title: ArcaneGradientText
 description: Text with gradient color effects
-layout: docs
+layout: kb
 component: gradient-text
 ---
 

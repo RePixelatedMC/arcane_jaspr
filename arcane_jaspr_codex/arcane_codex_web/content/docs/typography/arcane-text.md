@@ -1,7 +1,7 @@
 ---
 title: ArcaneText
 description: Basic text display component with styling
-layout: docs
+layout: kb
 component: text
 ---
 

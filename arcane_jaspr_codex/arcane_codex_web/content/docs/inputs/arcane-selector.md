@@ -1,7 +1,7 @@
 ---
 title: ArcaneSelector
 description: Flexible dropdown selector with multi-select, search, and rich options
-layout: docs
+layout: kb
 component: selector
 ---
 

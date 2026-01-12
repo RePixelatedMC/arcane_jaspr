@@ -1,7 +1,7 @@
 ---
 title: ArcaneDashboardLayout
 description: Complete dashboard layout with sidebar and header
-layout: docs
+layout: kb
 component: dashboard-layout
 ---
 

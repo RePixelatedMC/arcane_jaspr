@@ -1,7 +1,7 @@
 ---
 title: Social Sign-In Buttons
 description: Pre-styled OAuth provider buttons for authentication
-layout: docs
+layout: kb
 component: social-buttons
 ---
 

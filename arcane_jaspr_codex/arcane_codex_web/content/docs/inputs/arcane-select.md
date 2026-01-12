@@ -1,7 +1,7 @@
 ---
 title: ArcaneSelect
 description: Dropdown select component for choosing from options
-layout: docs
+layout: kb
 component: select
 ---
 

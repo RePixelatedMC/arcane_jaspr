@@ -1,7 +1,7 @@
 ---
 title: ArcaneFeatureShowcase
 description: A feature showcase section using expandable FlexiCards
-layout: docs
+layout: kb
 component: feature-showcase
 ---
 

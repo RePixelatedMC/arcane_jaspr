@@ -1,7 +1,7 @@
 ---
 title: ArcaneSheet
 description: Modal sheet that slides in from screen edges
-layout: docs
+layout: kb
 component: sheet
 ---
 

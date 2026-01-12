@@ -1,7 +1,7 @@
 ---
 title: ArcaneSkeleton
 description: Animated placeholder for loading content
-layout: docs
+layout: kb
 component: skeleton
 ---
 

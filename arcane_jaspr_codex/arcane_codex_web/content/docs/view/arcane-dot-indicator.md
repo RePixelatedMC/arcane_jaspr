@@ -1,7 +1,7 @@
 ---
 title: ArcaneDotIndicator
 description: Dot indicators for carousels and page views
-layout: docs
+layout: kb
 component: dot-indicator
 ---
 

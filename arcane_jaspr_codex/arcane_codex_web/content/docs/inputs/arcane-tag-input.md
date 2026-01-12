@@ -1,7 +1,7 @@
 ---
 title: ArcaneTagInput
 description: Tag input for collecting multiple values
-layout: docs
+layout: kb
 component: tag-input
 ---
 

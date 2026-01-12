@@ -1,7 +1,7 @@
 ---
 title: ArcaneCallout
 description: Inline notice box for important information
-layout: docs
+layout: kb
 component: callout
 ---
 

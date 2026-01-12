@@ -1,7 +1,7 @@
 ---
 title: ArcaneColorInput
 description: Color picker input with presets
-layout: docs
+layout: kb
 component: color-input
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: ArcaneStepIndicator
 description: Labeled step indicator for multi-step flows
-layout: docs
+layout: kb
 component: step-indicator
 ---
 

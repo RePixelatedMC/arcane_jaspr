@@ -1,7 +1,7 @@
 ---
 title: ArcaneCommand
 description: Command palette for quick actions
-layout: docs
+layout: kb
 component: command
 ---
 

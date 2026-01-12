@@ -1,7 +1,7 @@
 ---
 title: ArcaneFadeEdge
 description: Gradient fade overlays for carousels and scrolling content
-layout: docs
+layout: kb
 component: fade-edge
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: ArcaneDrawer
 description: Slide-in side panel for navigation or content
-layout: docs
+layout: kb
 component: drawer
 ---
 

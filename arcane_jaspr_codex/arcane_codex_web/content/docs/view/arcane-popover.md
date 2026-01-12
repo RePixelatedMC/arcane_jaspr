@@ -1,7 +1,7 @@
 ---
 title: ArcanePopover
 description: Floating content panel
-layout: docs
+layout: kb
 component: popover
 ---
 

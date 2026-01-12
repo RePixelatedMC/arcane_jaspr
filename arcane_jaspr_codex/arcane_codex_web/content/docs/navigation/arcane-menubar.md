@@ -1,7 +1,7 @@
 ---
 title: ArcaneMenubar
 description: Horizontal application menu bar
-layout: docs
+layout: kb
 component: menubar
 ---
 

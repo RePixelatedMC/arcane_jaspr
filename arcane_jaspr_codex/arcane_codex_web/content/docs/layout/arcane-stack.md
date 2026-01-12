@@ -1,7 +1,7 @@
 ---
 title: ArcaneStack
 description: Layered positioning container for overlapping elements
-layout: docs
+layout: kb
 component: stack
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: ArcaneSpan
 description: Inline text span for styled text fragments
-layout: docs
+layout: kb
 component: span
 ---
 

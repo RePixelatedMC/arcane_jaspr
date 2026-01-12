@@ -1,7 +1,7 @@
 ---
 title: ArcaneResizable
 description: Resizable panel groups with draggable dividers
-layout: docs
+layout: kb
 component: resizable
 ---
 

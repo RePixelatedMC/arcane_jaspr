@@ -1,7 +1,7 @@
 ---
 title: ArcaneToast
 description: Toast notification system with global API
-layout: docs
+layout: kb
 component: toast
 ---
 

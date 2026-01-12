@@ -1,7 +1,7 @@
 ---
 title: Typography
 description: Reference for font size, weight, family, and text styling enums
-layout: docs
+layout: kb
 component: typography-styles
 ---
 

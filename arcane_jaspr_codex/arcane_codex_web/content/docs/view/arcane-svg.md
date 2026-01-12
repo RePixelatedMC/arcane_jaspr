@@ -1,7 +1,7 @@
 ---
 title: ArcaneSvg
 description: SVG element abstraction
-layout: docs
+layout: kb
 component: svg
 ---
 

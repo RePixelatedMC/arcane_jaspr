@@ -1,7 +1,7 @@
 ---
 title: ArcaneBottomNav
 description: Mobile bottom navigation bar
-layout: docs
+layout: kb
 component: bottom-nav
 ---
 

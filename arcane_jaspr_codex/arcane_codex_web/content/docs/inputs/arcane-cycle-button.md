@@ -1,7 +1,7 @@
 ---
 title: ArcaneCycleButton
 description: Button that cycles through a list of options
-layout: docs
+layout: kb
 component: cycle-button
 ---
 

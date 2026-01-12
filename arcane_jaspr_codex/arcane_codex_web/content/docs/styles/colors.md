@@ -1,7 +1,7 @@
 ---
 title: Colors
 description: Reference for background, text, and border color enums
-layout: docs
+layout: kb
 component: colors
 ---
 

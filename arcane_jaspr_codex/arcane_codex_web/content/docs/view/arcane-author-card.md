@@ -1,7 +1,7 @@
 ---
 title: ArcaneAuthorCard
 description: Author attribution card with avatar, name, and role
-layout: docs
+layout: kb
 component: author-card
 ---
 

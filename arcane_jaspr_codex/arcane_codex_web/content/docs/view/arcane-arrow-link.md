@@ -1,7 +1,7 @@
 ---
 title: ArcaneArrowLink
 description: Inline text link with arrow icon
-layout: docs
+layout: kb
 component: arrow-link
 ---
 

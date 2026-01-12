@@ -1,7 +1,7 @@
 ---
 title: ArcaneDateTimePicker
 description: Unified date and time picker with three modes
-layout: docs
+layout: kb
 component: datetime-picker
 ---
 

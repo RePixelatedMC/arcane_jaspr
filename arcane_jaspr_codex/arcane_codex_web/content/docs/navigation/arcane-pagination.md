@@ -1,7 +1,7 @@
 ---
 title: ArcanePagination
 description: Page navigation controls
-layout: docs
+layout: kb
 component: pagination
 ---
 

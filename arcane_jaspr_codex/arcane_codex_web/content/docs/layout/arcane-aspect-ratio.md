@@ -1,7 +1,7 @@
 ---
 title: ArcaneAspectRatio
 description: Container that maintains a specific aspect ratio
-layout: docs
+layout: kb
 component: aspect-ratio
 ---
 

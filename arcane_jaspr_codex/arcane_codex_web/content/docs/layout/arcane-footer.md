@@ -1,7 +1,7 @@
 ---
 title: ArcaneFooter
 description: Website footer component with common layouts
-layout: docs
+layout: kb
 component: footer
 ---
 

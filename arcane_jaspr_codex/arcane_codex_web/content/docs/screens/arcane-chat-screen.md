@@ -1,7 +1,7 @@
 ---
 title: ArcaneChatScreen
 description: Full-featured chat interface screen
-layout: docs
+layout: kb
 component: chat-screen
 ---
 

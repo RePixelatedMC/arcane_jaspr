@@ -1,7 +1,7 @@
 ---
 title: ArcaneSidebar
 description: Vertical side navigation panel
-layout: docs
+layout: kb
 component: sidebar
 ---
 

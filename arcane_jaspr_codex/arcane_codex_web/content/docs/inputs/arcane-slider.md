@@ -1,7 +1,7 @@
 ---
 title: ArcaneSlider
 description: Range slider for numeric value selection
-layout: docs
+layout: kb
 component: slider
 ---
 

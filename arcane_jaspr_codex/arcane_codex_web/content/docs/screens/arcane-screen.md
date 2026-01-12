@@ -1,7 +1,7 @@
 ---
 title: ArcaneScreen
 description: Full-screen layout wrapper with optional navigation
-layout: docs
+layout: kb
 component: screen
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: ArcaneMap
 description: Unified interactive SVG map component
-layout: docs
+layout: kb
 component: world-map
 ---
 

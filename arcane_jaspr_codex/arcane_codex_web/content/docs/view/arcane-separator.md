@@ -1,7 +1,7 @@
 ---
 title: ArcaneSeparator
 description: Visual separator for dividing content sections
-layout: docs
+layout: kb
 component: separator
 ---
 

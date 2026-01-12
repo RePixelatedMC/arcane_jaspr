@@ -1,7 +1,7 @@
 ---
 title: ArcaneActionSheet
 description: Mobile-style action menu with options
-layout: docs
+layout: kb
 component: action-sheet
 ---
 

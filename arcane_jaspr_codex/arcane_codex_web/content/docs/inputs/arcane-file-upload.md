@@ -1,7 +1,7 @@
 ---
 title: ArcaneFileUpload
 description: File upload component with drag and drop support
-layout: docs
+layout: kb
 component: file-upload
 ---
 

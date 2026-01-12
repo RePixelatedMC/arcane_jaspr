@@ -1,7 +1,7 @@
 ---
 title: ArcaneNumberInput
 description: Numeric input with increment/decrement controls
-layout: docs
+layout: kb
 component: number-input
 ---
 

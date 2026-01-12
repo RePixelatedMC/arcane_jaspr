@@ -1,7 +1,7 @@
 ---
 title: Arcane Jaspr
 description: A Flutter-like UI component library for Dart web applications
-layout: docs
+layout: kb
 ---
 
 # Arcane Jaspr

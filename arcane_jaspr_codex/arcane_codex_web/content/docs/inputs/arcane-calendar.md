@@ -1,7 +1,7 @@
 ---
 title: ArcaneCalendar
 description: Full calendar component for date selection
-layout: docs
+layout: kb
 component: calendar
 ---
 

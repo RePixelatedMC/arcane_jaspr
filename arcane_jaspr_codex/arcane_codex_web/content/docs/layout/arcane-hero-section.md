@@ -1,7 +1,7 @@
 ---
 title: ArcaneHeroSection
 description: Full-width hero section for landing pages
-layout: docs
+layout: kb
 component: hero-section
 ---
 

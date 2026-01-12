@@ -1,7 +1,7 @@
 ---
 title: ArcanePadding
 description: Simple padding wrapper component
-layout: docs
+layout: kb
 component: padding
 ---
 

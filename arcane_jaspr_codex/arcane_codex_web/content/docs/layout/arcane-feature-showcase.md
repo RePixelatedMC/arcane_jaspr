@@ -1,7 +1,7 @@
 ---
 title: ArcaneFeatureShowcase
 description: Full-page section using FlexiCards for feature highlights
-layout: docs
+layout: kb
 component: feature-showcase
 ---
 

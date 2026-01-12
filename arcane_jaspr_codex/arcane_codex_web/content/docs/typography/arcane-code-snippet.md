@@ -1,7 +1,7 @@
 ---
 title: ArcaneCodeSnippet
 description: Code block with syntax highlighting
-layout: docs
+layout: kb
 component: code-snippet
 ---
 

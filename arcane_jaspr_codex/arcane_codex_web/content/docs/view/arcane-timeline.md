@@ -1,7 +1,7 @@
 ---
 title: ArcaneTimeline
 description: Display chronological events with multiple layout options
-layout: docs
+layout: kb
 component: timeline
 ---
 
