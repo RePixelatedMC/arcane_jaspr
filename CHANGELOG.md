@@ -9,6 +9,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+**Revamped Light Theme Color Generation**
+- `PaletteGenerator` now tints light mode surfaces with the primary color for cohesive theming:
+  - Secondary surfaces get subtle primary hue tinting instead of flat gray
+  - Accent surfaces have more prominent tinting for visual hierarchy
+  - Card backgrounds receive very subtle primary warmth
+  - Borders now have a hint of the primary color for cohesion
+  - Added `_tintedSurface()` helper that combines darkening with hue blending
+- `ShadcnTheme` neutral themes (midnight, charcoal, cream, slate) now derive light surfaces automatically:
+  - Removed explicit gray `lightSecondary`/`lightAccent` values
+  - Let generator create harmonious tinted surfaces based on primary color
+  - cream uses warm stone primary (`0xFF78716c`) for cohesive warm tinting
+  - slate uses cool slate primary (`0xFF475569`) for professional blue undertones
+- `ShadcnTheme` pastel themes updated with more vibrant light primaries:
+  - rose: `0xFFe11d48` (vibrant rose)
+  - lavender: `0xFF9333ea` (vibrant purple)
+  - mint: `0xFF16a34a` (vibrant green)
+  - sky: `0xFF0284c7` (vibrant sky blue)
+  - peach: `0xFFea580c` (vibrant orange)
+  - teal: `0xFF0d9488` (vibrant teal)
+- `CodexStylesheet` light theme now derives surfaces with theme color tinting:
+  - Removed explicit gray secondary/accent values
+  - Light mode surfaces now match the chosen theme color (green, red, blue, etc.)
+
 **ArcaneMap Theme Integration**
 - `MapStyle` now uses CSS variables by default for theme-aware styling:
   - Default constructor uses `var(--card)`, `var(--muted)`, `var(--border)`, `var(--primary)`, etc.

@@ -13,30 +13,40 @@ abstract class PaletteGenerator {
   /// Generate a full palette from seed colors.
   static ThemePalette generate(ThemeSeed seed) {
     final bool isDark = seed.isDark;
+    final int primary = seed.primary;
 
     // Resolve background
     final int background = seed.background ?? (isDark ? 0xFF000000 : 0xFFffffff);
     final int foreground = contrastingForeground(background);
 
     // Resolve secondary (slightly off from background)
+    // Light mode: tint with primary hue to add life
+    // Dark mode: just lighten for subtle elevation
     final int secondary = seed.secondary ?? (isDark
         ? lighten(background, 0.06) // Dark: slightly lighter
-        : darken(background, 0.04)); // Light: slightly darker
+        : _tintedSurface(background, primary, 0.04, 0.08)); // Light: darken + tint
 
-    // Resolve accent (same as secondary by default)
-    final int accent = seed.accent ?? secondary;
+    // Resolve accent - more prominent tinting for light mode
+    final int accent = seed.accent ?? (isDark
+        ? secondary
+        : _tintedSurface(background, primary, 0.06, 0.12));
 
-    // Resolve border - dark mode needs more contrast to be visible
+    // Resolve border - light mode gets subtle primary tint for cohesion
     final int border = seed.border ?? (isDark
         ? lighten(background, 0.18)
-        : darken(background, 0.10));
+        : _tintedSurface(background, primary, 0.12, 0.06));
 
     // Card is same as background or slightly elevated
-    final int card = isDark ? lighten(background, 0.04) : background;
-    final int cardHover = isDark ? lighten(card, 0.04) : darken(card, 0.02);
+    // Light mode: subtle primary tint for warmth
+    final int card = isDark
+        ? lighten(background, 0.04)
+        : _tintedSurface(background, primary, 0.01, 0.03);
+    final int cardHover = isDark
+        ? lighten(card, 0.04)
+        : _tintedSurface(card, primary, 0.02, 0.04);
 
-    // Muted is like secondary
-    final int muted = secondary;
+    // Muted - light mode gets subtle tinting
+    final int muted = isDark ? secondary : _tintedSurface(background, primary, 0.03, 0.06);
     // Note: Use blendColors for both modes since setAlpha doesn't work
     // with hex output (toHex strips alpha channel)
     final int mutedForeground = blendColors(
@@ -45,8 +55,7 @@ abstract class PaletteGenerator {
       isDark ? 0.60 : 0.45,
     );
 
-    // Primary
-    final int primary = seed.primary;
+    // Primary foreground
     final int primaryForeground = contrastingForeground(primary);
 
     // Semantic colors
@@ -243,6 +252,40 @@ abstract class PaletteGenerator {
     final int b = color & 0xFF;
     final double alpha = a / 255.0;
     return 'rgba($r, $g, $b, ${alpha.toStringAsFixed(2)})';
+  }
+
+  // ============================================
+  // Light Theme Tinting
+  // ============================================
+
+  /// Create a tinted surface color for light themes.
+  ///
+  /// Combines darkening (for depth) with hue tinting (for life).
+  /// [darkenAmount] controls how much darker (0.0-1.0)
+  /// [tintAmount] controls how much of the accent color bleeds in (0.0-1.0)
+  ///
+  /// Example: _tintedSurface(white, blue, 0.04, 0.08)
+  /// Result: A slightly darker off-white with a subtle blue tint
+  static int _tintedSurface(
+    int background,
+    int accent,
+    double darkenAmount,
+    double tintAmount,
+  ) {
+    // First darken the background for depth
+    final int darkened = darken(background, darkenAmount);
+    // Then blend in the accent color for hue
+    return blendColors(accent, darkened, tintAmount);
+  }
+
+  /// Create a more saturated tint for light theme accents.
+  ///
+  /// Uses the accent color more prominently while keeping it light.
+  /// Good for hover states and interactive elements.
+  static int _accentTint(int background, int accent, double amount) {
+    // Lighten the accent significantly, then blend with background
+    final int lightenedAccent = lighten(accent, 0.7);
+    return blendColors(lightenedAccent, background, amount);
   }
 
   // ============================================

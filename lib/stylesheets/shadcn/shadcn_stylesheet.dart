@@ -39,6 +39,8 @@ class ShadcnStylesheet extends ArcaneStylesheet {
   ThemeSeed get lightSeed => ThemeSeed(
         primary: theme.lightPrimary,
         background: theme.lightBackground,
+        // Only pass secondary/accent if explicitly defined in theme
+        // Otherwise let PaletteGenerator derive them with primary tinting
         secondary: theme.lightSecondary,
         accent: theme.lightAccent,
         destructive: 0xFFef4444,
@@ -296,19 +298,21 @@ $arcaneTocTreeLinesCss
 /// Color themes for ShadCN stylesheet.
 ///
 /// Each theme defines colors for both light and dark modes.
+/// For neutral themes, light secondary/accent are null to allow
+/// the palette generator to derive them with primary hue tinting.
 enum ShadcnTheme {
   // ============================================
-  // Neutral Themes
+  // Neutral Themes (auto-tinted light surfaces)
   // ============================================
 
   /// OLED-optimized with pure black/white.
   /// Maximum contrast, perfect for AMOLED screens.
+  /// Light mode surfaces are auto-tinted with the primary color.
   midnight(
     // Light: pure white background, near-black primary
+    // Secondary/accent derived with subtle primary tinting
     lightBackground: 0xFFffffff,
     lightPrimary: 0xFF09090b,
-    lightSecondary: 0xFFf4f4f5,
-    lightAccent: 0xFFf4f4f5,
     // Dark: pure black background, near-white primary
     darkBackground: 0xFF000000,
     darkPrimary: 0xFFfafafa,
@@ -319,11 +323,9 @@ enum ShadcnTheme {
   /// Softer dark theme with off-black.
   /// Easier on the eyes in dark environments.
   charcoal(
-    // Light: soft white background
+    // Light: soft white background with auto-tinted surfaces
     lightBackground: 0xFFfafafa,
     lightPrimary: 0xFF18181b,
-    lightSecondary: 0xFFf4f4f5,
-    lightAccent: 0xFFe4e4e7,
     // Dark: off-black background (easier on eyes)
     darkBackground: 0xFF0a0a0a,
     darkPrimary: 0xFFfafafa,
@@ -336,9 +338,7 @@ enum ShadcnTheme {
   cream(
     // Light: warm ivory background
     lightBackground: 0xFFfefdfb,
-    lightPrimary: 0xFF1c1917,
-    lightSecondary: 0xFFf5f5f0,
-    lightAccent: 0xFFe7e5e4,
+    lightPrimary: 0xFF78716c, // Warm stone primary for cohesive tinting
     // Dark: warm dark brown
     darkBackground: 0xFF0c0a09,
     darkPrimary: 0xFFfafaf9,
@@ -349,11 +349,9 @@ enum ShadcnTheme {
   /// Cool slate/gray tones.
   /// Professional, neutral appearance.
   slate(
-    // Light: cool gray-white
+    // Light: cool gray-white with slate tinting
     lightBackground: 0xFFf8fafc,
-    lightPrimary: 0xFF0f172a,
-    lightSecondary: 0xFFf1f5f9,
-    lightAccent: 0xFFe2e8f0,
+    lightPrimary: 0xFF475569, // Slate primary for cool tinting
     // Dark: deep slate
     darkBackground: 0xFF020617,
     darkPrimary: 0xFFf8fafc,
@@ -362,15 +360,15 @@ enum ShadcnTheme {
   ),
 
   // ============================================
-  // Pastel Themes
+  // Pastel Themes (vibrant colored surfaces)
   // ============================================
 
   /// Soft rose/pink pastel.
   /// Warm, gentle, and inviting.
   rose(
-    // Light: blush pink background
+    // Light: blush pink background with rose-tinted surfaces
     lightBackground: 0xFFfff1f2,
-    lightPrimary: 0xFF881337,
+    lightPrimary: 0xFFe11d48, // Vibrant rose for strong tinting
     lightSecondary: 0xFFffe4e6,
     lightAccent: 0xFFfecdd3,
     // Dark: deep rose
@@ -383,9 +381,9 @@ enum ShadcnTheme {
   /// Soft lavender/purple pastel.
   /// Calming and creative.
   lavender(
-    // Light: soft lavender background
+    // Light: soft lavender background with purple-tinted surfaces
     lightBackground: 0xFFfaf5ff,
-    lightPrimary: 0xFF581c87,
+    lightPrimary: 0xFF9333ea, // Vibrant purple for strong tinting
     lightSecondary: 0xFFf3e8ff,
     lightAccent: 0xFFe9d5ff,
     // Dark: deep purple
@@ -398,9 +396,9 @@ enum ShadcnTheme {
   /// Soft mint/green pastel.
   /// Fresh and natural.
   mint(
-    // Light: soft mint background
+    // Light: soft mint background with green-tinted surfaces
     lightBackground: 0xFFf0fdf4,
-    lightPrimary: 0xFF14532d,
+    lightPrimary: 0xFF16a34a, // Vibrant green for strong tinting
     lightSecondary: 0xFFdcfce7,
     lightAccent: 0xFFbbf7d0,
     // Dark: deep forest
@@ -413,9 +411,9 @@ enum ShadcnTheme {
   /// Soft sky/blue pastel.
   /// Clean and professional.
   sky(
-    // Light: soft sky background
+    // Light: soft sky background with blue-tinted surfaces
     lightBackground: 0xFFf0f9ff,
-    lightPrimary: 0xFF0c4a6e,
+    lightPrimary: 0xFF0284c7, // Vibrant sky blue for strong tinting
     lightSecondary: 0xFFe0f2fe,
     lightAccent: 0xFFbae6fd,
     // Dark: deep ocean
@@ -428,9 +426,9 @@ enum ShadcnTheme {
   /// Soft peach/orange pastel.
   /// Warm and energetic.
   peach(
-    // Light: soft peach background
+    // Light: soft peach background with orange-tinted surfaces
     lightBackground: 0xFFfff7ed,
-    lightPrimary: 0xFF7c2d12,
+    lightPrimary: 0xFFea580c, // Vibrant orange for strong tinting
     lightSecondary: 0xFFffedd5,
     lightAccent: 0xFFfed7aa,
     // Dark: deep amber
@@ -443,9 +441,9 @@ enum ShadcnTheme {
   /// Soft teal/cyan pastel.
   /// Modern and vibrant.
   teal(
-    // Light: soft teal background
+    // Light: soft teal background with cyan-tinted surfaces
     lightBackground: 0xFFf0fdfa,
-    lightPrimary: 0xFF134e4a,
+    lightPrimary: 0xFF0d9488, // Vibrant teal for strong tinting
     lightSecondary: 0xFFccfbf1,
     lightAccent: 0xFF99f6e4,
     // Dark: deep teal
@@ -458,14 +456,14 @@ enum ShadcnTheme {
   /// Light mode background color.
   final int lightBackground;
 
-  /// Light mode primary color.
+  /// Light mode primary color (used for tinting and interactive elements).
   final int lightPrimary;
 
-  /// Light mode secondary color.
-  final int lightSecondary;
+  /// Light mode secondary color. If null, derived with primary tinting.
+  final int? lightSecondary;
 
-  /// Light mode accent color.
-  final int lightAccent;
+  /// Light mode accent color. If null, derived with primary tinting.
+  final int? lightAccent;
 
   /// Dark mode background color.
   final int darkBackground;
@@ -482,8 +480,8 @@ enum ShadcnTheme {
   const ShadcnTheme({
     required this.lightBackground,
     required this.lightPrimary,
-    required this.lightSecondary,
-    required this.lightAccent,
+    this.lightSecondary,
+    this.lightAccent,
     required this.darkBackground,
     required this.darkPrimary,
     required this.darkSecondary,

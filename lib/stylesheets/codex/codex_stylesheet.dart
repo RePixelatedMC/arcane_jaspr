@@ -43,10 +43,10 @@ class CodexStylesheet extends ArcaneStylesheet {
   ThemeSeed get lightSeed => ThemeSeed(
         // Codex uses the theme color as primary
         primary: theme.color,
-        background: 0xFFf9fafb,
-        // Light gray secondary/accent
-        secondary: 0xFFf3f4f6,
-        accent: 0xFFf3f4f6,
+        // Slightly warm white background - let generator tint surfaces with primary
+        background: 0xFFfafafa,
+        // Let secondary/accent be auto-derived with primary tinting
+        // This gives light mode life and cohesion with the chosen theme color
         // Semantic colors
         destructive: 0xFFef4444,
         success: 0xFF22c55e,
