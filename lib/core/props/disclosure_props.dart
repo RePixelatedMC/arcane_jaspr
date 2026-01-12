@@ -23,7 +23,7 @@ class DisclosureProps {
     this.open = false,
     this.variant = DisclosureVariant.default_,
     this.showChevron = true,
-    this.showTreeLines = true,
+    this.showTreeLines = false,
     this.classes,
   });
 }

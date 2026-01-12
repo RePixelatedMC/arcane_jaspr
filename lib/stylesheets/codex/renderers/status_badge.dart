@@ -31,6 +31,8 @@ class CodexStatusBadge extends StatelessComponent {
         'background': effectiveBackground,
         'border': '1px solid $effectiveBorder',
         'border-radius': 'var(--radius)',
+        'backdrop-filter': 'blur(12px)',
+        '-webkit-backdrop-filter': 'blur(12px)',
       }),
       [
         dom.span(
