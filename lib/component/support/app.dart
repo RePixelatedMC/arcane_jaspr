@@ -1,5 +1,6 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:jaspr/jaspr.dart' hide Document;
 import 'package:jaspr/dom.dart' as dom;
+import 'package:jaspr/server.dart' show Document;
 
 import '../../core/theme_provider.dart';
 import '../../stylesheets/shadcn/shadcn_stylesheet.dart';
@@ -46,6 +47,7 @@ class _ArcaneAppState extends State<ArcaneApp> {
     final bool isDark = component.brightness == Brightness.dark;
     final ArcaneStylesheet stylesheet = component.stylesheet;
 
+    // Build head elements for Document.head() injection
     final List<Component> headElements = [];
 
     for (final String url in stylesheet.externalCssUrls) {
@@ -111,7 +113,6 @@ class _ArcaneAppState extends State<ArcaneApp> {
         '-moz-osx-font-smoothing': 'grayscale',
       }),
       [
-        ...headElements,
         component.child,
         if (component.includeFallbackScripts) const ArcaneScriptsComponent(),
       ],
@@ -120,7 +121,11 @@ class _ArcaneAppState extends State<ArcaneApp> {
     return ArcaneThemeProvider(
       stylesheet: stylesheet,
       brightness: component.brightness,
-      child: rootDiv,
+      child: Component.fragment([
+        // Inject styles into the actual document <head>
+        Document.head(children: headElements),
+        rootDiv,
+      ]),
     );
   }
 }
