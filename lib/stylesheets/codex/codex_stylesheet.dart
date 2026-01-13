@@ -104,7 +104,7 @@ class CodexStylesheet extends ArcaneStylesheet {
   src: url('/assets/fonts/Akzidenz-GroteskPro/akzidenzgroteskpro_regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -112,7 +112,7 @@ class CodexStylesheet extends ArcaneStylesheet {
   src: url('/assets/fonts/Akzidenz-GroteskPro/akzidenzgroteskpro_it.ttf') format('truetype');
   font-weight: 400;
   font-style: italic;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -120,7 +120,7 @@ class CodexStylesheet extends ArcaneStylesheet {
   src: url('/assets/fonts/Akzidenz-GroteskPro/akzidenzgroteskpro_md.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -128,7 +128,7 @@ class CodexStylesheet extends ArcaneStylesheet {
   src: url('/assets/fonts/Akzidenz-GroteskPro/akzidenzgroteskpro_bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -136,7 +136,7 @@ class CodexStylesheet extends ArcaneStylesheet {
   src: url('/assets/fonts/Akzidenz-GroteskPro/akzidenzgroteskpro_boldit.ttf') format('truetype');
   font-weight: 700;
   font-style: italic;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -144,7 +144,7 @@ class CodexStylesheet extends ArcaneStylesheet {
   src: url('/assets/fonts/Akzidenz-GroteskPro/akzidenzgroteskpro_xbd.ttf') format('truetype');
   font-weight: 800;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -152,7 +152,7 @@ class CodexStylesheet extends ArcaneStylesheet {
   src: url('/assets/fonts/Akzidenz-GroteskPro/akzidenzgroteskpro_light.ttf') format('truetype');
   font-weight: 300;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 /* Hack - Monospace Font */
@@ -161,7 +161,7 @@ class CodexStylesheet extends ArcaneStylesheet {
   src: url('/assets/fonts/HackFont/Hack-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -169,7 +169,7 @@ class CodexStylesheet extends ArcaneStylesheet {
   src: url('/assets/fonts/HackFont/Hack-Italic.ttf') format('truetype');
   font-weight: 400;
   font-style: italic;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -177,7 +177,7 @@ class CodexStylesheet extends ArcaneStylesheet {
   src: url('/assets/fonts/HackFont/Hack-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -185,7 +185,7 @@ class CodexStylesheet extends ArcaneStylesheet {
   src: url('/assets/fonts/HackFont/Hack-BoldItalic.ttf') format('truetype');
   font-weight: 700;
   font-style: italic;
-  font-display: swap;
+  font-display: block;
 }
 
 /* ITCAvantGardeStd - Heading Font */
@@ -196,7 +196,7 @@ class CodexStylesheet extends ArcaneStylesheet {
        url('/assets/fonts/ITCAvantGardeStd/ITCAvantGardeStd-XLt.ttf') format('truetype');
   font-weight: 200;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -206,7 +206,7 @@ class CodexStylesheet extends ArcaneStylesheet {
        url('/assets/fonts/ITCAvantGardeStd/ITCAvantGardeStd-XLtObl.ttf') format('truetype');
   font-weight: 200;
   font-style: italic;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -216,7 +216,7 @@ class CodexStylesheet extends ArcaneStylesheet {
        url('/assets/fonts/ITCAvantGardeStd/ITCAvantGardeStd-Bk.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -226,7 +226,7 @@ class CodexStylesheet extends ArcaneStylesheet {
        url('/assets/fonts/ITCAvantGardeStd/ITCAvantGardeStd-BkObl.ttf') format('truetype');
   font-weight: 400;
   font-style: italic;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -236,7 +236,7 @@ class CodexStylesheet extends ArcaneStylesheet {
        url('/assets/fonts/ITCAvantGardeStd/ITCAvantGardeStd-Md.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -246,7 +246,7 @@ class CodexStylesheet extends ArcaneStylesheet {
        url('/assets/fonts/ITCAvantGardeStd/ITCAvantGardeStd-MdObl.ttf') format('truetype');
   font-weight: 500;
   font-style: italic;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -256,7 +256,7 @@ class CodexStylesheet extends ArcaneStylesheet {
        url('/assets/fonts/ITCAvantGardeStd/ITCAvantGardeStd-Demi.ttf') format('truetype');
   font-weight: 600;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -266,7 +266,7 @@ class CodexStylesheet extends ArcaneStylesheet {
        url('/assets/fonts/ITCAvantGardeStd/ITCAvantGardeStd-DemiObl.ttf') format('truetype');
   font-weight: 600;
   font-style: italic;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -276,7 +276,7 @@ class CodexStylesheet extends ArcaneStylesheet {
        url('/assets/fonts/ITCAvantGardeStd/ITCAvantGardeStd-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -286,7 +286,7 @@ class CodexStylesheet extends ArcaneStylesheet {
        url('/assets/fonts/ITCAvantGardeStd/ITCAvantGardeStd-BoldObl.ttf') format('truetype');
   font-weight: 700;
   font-style: italic;
-  font-display: swap;
+  font-display: block;
 }
 ''';
 
@@ -308,7 +308,8 @@ class CodexStylesheet extends ArcaneStylesheet {
 .prose {
   max-width: 65ch;
   color: var(--foreground);
-  line-height: 1.8;
+  font-size: 0.9375rem;
+  line-height: 1.65;
 }
 
 .prose h1, .prose h2, .prose h3,
@@ -316,28 +317,28 @@ class CodexStylesheet extends ArcaneStylesheet {
   font-family: var(--font-heading);
   color: var(--foreground);
   font-weight: 600;
-  line-height: 1.2;
-  margin-top: 2.5rem;
-  margin-bottom: 1rem;
+  line-height: 1.3;
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
 }
 
 .prose h1 {
-  font-size: 2.5rem;
+  font-size: 1.75rem;
   margin-top: 0;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
 }
 
 .prose h2 {
-  font-size: 1.75rem;
-  padding-bottom: 0.75rem;
+  font-size: 1.375rem;
+  padding-bottom: 0.5rem;
   border-bottom: 2px solid color-mix(in srgb, var(--primary) 30%, transparent);
 }
 
-.prose h3 { font-size: 1.375rem; }
-.prose h4 { font-size: 1.125rem; }
+.prose h3 { font-size: 1.125rem; }
+.prose h4 { font-size: 1rem; }
 
 .prose p {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .prose a {
@@ -358,12 +359,12 @@ class CodexStylesheet extends ArcaneStylesheet {
 }
 
 .prose ul, .prose ol {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   padding-left: 1.5rem;
 }
 
 .prose li {
-  margin-bottom: 0.625rem;
+  margin-bottom: 0.375rem;
 }
 
 .prose li::marker {
@@ -372,8 +373,8 @@ class CodexStylesheet extends ArcaneStylesheet {
 
 .prose blockquote {
   border-left: 3px solid var(--primary);
-  padding: 1rem 1.25rem;
-  margin: 1.5rem 0;
+  padding: 0.75rem 1rem;
+  margin: 1rem 0;
   background: color-mix(in srgb, var(--primary) 5%, transparent);
   border-radius: 0 var(--radius-md) var(--radius-md) 0;
 }
@@ -386,20 +387,21 @@ class CodexStylesheet extends ArcaneStylesheet {
   border: none;
   height: 2px;
   background: linear-gradient(90deg, transparent, var(--primary), transparent);
-  margin: 2.5rem 0;
+  margin: 1.75rem 0;
   opacity: 0.5;
 }
 
 .prose table {
   width: 100%;
   border-collapse: collapse;
-  margin: 1.5rem 0;
+  margin: 1rem 0;
 }
 
 .prose th, .prose td {
   border: 1px solid var(--border);
-  padding: 0.875rem;
+  padding: 0.625rem 0.75rem;
   text-align: left;
+  font-size: 0.875rem;
 }
 
 .prose th {
@@ -413,7 +415,7 @@ class CodexStylesheet extends ArcaneStylesheet {
   max-width: 100%;
   height: auto;
   border-radius: var(--radius-lg);
-  margin: 2rem 0;
+  margin: 1.5rem 0;
   border: 1px solid var(--border);
 }
 
@@ -422,9 +424,9 @@ class CodexStylesheet extends ArcaneStylesheet {
   background: #0a0a0a;
   border: 1px solid color-mix(in srgb, var(--primary) 30%, var(--border));
   border-radius: var(--radius-lg);
-  padding: 1.25rem 1.5rem;
+  padding: 1rem 1.25rem;
   overflow-x: auto;
-  margin: 1.5rem 0;
+  margin: 1rem 0;
   box-shadow: 0 0 20px color-mix(in srgb, var(--primary) 10%, transparent);
 }
 

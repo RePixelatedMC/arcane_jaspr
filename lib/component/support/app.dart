@@ -1,10 +1,14 @@
-import 'package:jaspr/jaspr.dart' hide Document;
+import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
-import 'package:jaspr/server.dart' show Document;
 
 import '../../core/theme_provider.dart';
 import '../../stylesheets/shadcn/shadcn_stylesheet.dart';
 import '../../util/interactivity/arcane_scripts.dart';
+
+// Conditional import for Document handling - server vs client
+import 'document_stub.dart'
+    if (dart.library.io) 'document_server.dart'
+    if (dart.library.js_interop) 'document_web.dart';
 
 export '../../core/theme_provider.dart';
 export '../../stylesheets/stylesheet.dart';
@@ -47,51 +51,22 @@ class _ArcaneAppState extends State<ArcaneApp> {
     final bool isDark = component.brightness == Brightness.dark;
     final ArcaneStylesheet stylesheet = component.stylesheet;
 
-    // Build head elements for Document.head() injection
-    final List<Component> headElements = [];
+    // Build head elements data for injection
+    final List<HeadElementData> headElements = [];
 
     for (final String url in stylesheet.externalCssUrls) {
       if (url.contains('fonts.googleapis.com')) {
         headElements.addAll([
-          const Component.element(
-            tag: 'link',
-            attributes: {
-              'href': 'https://fonts.googleapis.com',
-              'rel': 'preconnect',
-            },
-            children: [],
-          ),
-          const Component.element(
-            tag: 'link',
-            attributes: {
-              'href': 'https://fonts.gstatic.com',
-              'rel': 'preconnect',
-              'crossorigin': '',
-            },
-            children: [],
-          ),
+          HeadElementData.preconnect('https://fonts.googleapis.com'),
+          HeadElementData.preconnect('https://fonts.gstatic.com', crossorigin: true),
         ]);
       }
-      headElements.add(
-        Component.element(
-          tag: 'link',
-          attributes: {
-            'href': url,
-            'rel': 'stylesheet',
-          },
-          children: const [],
-        ),
-      );
+      headElements.add(HeadElementData.link(url));
     }
 
     final String baseCss = stylesheet.baseCss;
     if (baseCss.isNotEmpty) {
-      headElements.add(
-        Component.element(
-          tag: 'style',
-          children: [dom.RawText(baseCss)],
-        ),
-      );
+      headElements.add(HeadElementData.style(baseCss));
     }
 
     // Build CSS classes: brightness + any stylesheet-specific classes
@@ -123,9 +98,9 @@ class _ArcaneAppState extends State<ArcaneApp> {
       brightness: component.brightness,
       child: Component.fragment([
         // Add brightness class to html element for CSS variable scoping
-        Document.html(attributes: {'class': brightnessClass}),
+        DocumentHelper.html(attributes: {'class': brightnessClass}),
         // Inject styles into the actual document <head>
-        Document.head(children: headElements),
+        DocumentHelper.head(elements: headElements),
         rootDiv,
       ]),
     );
