@@ -122,6 +122,8 @@ class _ArcaneAppState extends State<ArcaneApp> {
       stylesheet: stylesheet,
       brightness: component.brightness,
       child: Component.fragment([
+        // Add brightness class to html element for CSS variable scoping
+        Document.html(attributes: {'class': brightnessClass}),
         // Inject styles into the actual document <head>
         Document.head(children: headElements),
         rootDiv,

@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 **Browser Scrollbar Styling**
 - `ArcaneApp` now injects stylesheet CSS into the document `<head>` using `Document.head()` instead of inside the `#arcane-root` div
-- This fixes browser scrollbar styling for `html` and `body` elements which requires CSS to be in the actual document head
+- `ArcaneApp` now adds the brightness class (`dark`/`light`) to the `<html>` element using `Document.html()` so CSS variables cascade properly to browser-level scrollbars
 - Scrollbars are now styled by default without requiring additional configuration
 
 ### Changed
