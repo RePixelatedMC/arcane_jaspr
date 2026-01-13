@@ -215,15 +215,25 @@ html, body {
   background: transparent;
 }
 
-/* Document-level scrollbar */
-html, body {
+/* Document-level scrollbar - explicit dark/light mode */
+html.dark, html.dark body {
   scrollbar-width: thin;
-  scrollbar-color: var(--primary) var(--background);
+  scrollbar-color: var(--primary) #09090b;
 }
 
-html::-webkit-scrollbar-track,
-body::-webkit-scrollbar-track {
-  background: var(--background);
+html.dark::-webkit-scrollbar-track,
+html.dark body::-webkit-scrollbar-track {
+  background: #09090b;
+}
+
+html.light, html.light body {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) #ffffff;
+}
+
+html.light::-webkit-scrollbar-track,
+html.light body::-webkit-scrollbar-track {
+  background: #ffffff;
 }
 
 html::-webkit-scrollbar-thumb,
