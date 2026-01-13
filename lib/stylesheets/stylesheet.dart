@@ -215,8 +215,9 @@ html, body {
   background: transparent;
 }
 
-/* Document-level scrollbar */
-html, body {
+/* Document-level scrollbar - uses CSS variables from html.dark/html.light */
+html.dark, html.dark body,
+html.light, html.light body {
   scrollbar-width: thin;
   scrollbar-color: var(--primary) var(--background);
 }
@@ -227,28 +228,36 @@ body::-webkit-scrollbar {
   height: 8px;
 }
 
-html::-webkit-scrollbar-track,
-body::-webkit-scrollbar-track {
+html.dark::-webkit-scrollbar-track,
+html.dark body::-webkit-scrollbar-track,
+html.light::-webkit-scrollbar-track,
+html.light body::-webkit-scrollbar-track {
   background: var(--background);
 }
 
-html::-webkit-scrollbar-thumb,
-body::-webkit-scrollbar-thumb {
+html.dark::-webkit-scrollbar-thumb,
+html.dark body::-webkit-scrollbar-thumb,
+html.light::-webkit-scrollbar-thumb,
+html.light body::-webkit-scrollbar-thumb {
   background: var(--primary);
   border-radius: 9999px;
   border: 2px solid transparent;
   background-clip: padding-box;
 }
 
-html::-webkit-scrollbar-thumb:hover,
-body::-webkit-scrollbar-thumb:hover {
+html.dark::-webkit-scrollbar-thumb:hover,
+html.dark body::-webkit-scrollbar-thumb:hover,
+html.light::-webkit-scrollbar-thumb:hover,
+html.light body::-webkit-scrollbar-thumb:hover {
   background: color-mix(in srgb, var(--primary) 80%, white);
   border: 2px solid transparent;
   background-clip: padding-box;
 }
 
-html::-webkit-scrollbar-corner,
-body::-webkit-scrollbar-corner {
+html.dark::-webkit-scrollbar-corner,
+html.dark body::-webkit-scrollbar-corner,
+html.light::-webkit-scrollbar-corner,
+html.light body::-webkit-scrollbar-corner {
   background: var(--background);
 }
 

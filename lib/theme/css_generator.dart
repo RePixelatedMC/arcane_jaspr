@@ -204,9 +204,12 @@ abstract class CssGenerator {
     final StringBuffer buffer = StringBuffer();
 
     // Light mode (includes static values)
+    // Use both :root and html.light so variables work for:
+    // - Default/fallback (:root)
+    // - Document-level scrollbars when light class is on html (html.light)
     buffer.writeln(generate(
       light,
-      selector: ':root',
+      selector: ':root, html.light, .light',
       fonts: fonts,
       radius: radius,
       includeStatic: true,
@@ -215,9 +218,12 @@ abstract class CssGenerator {
     buffer.writeln();
 
     // Dark mode (no static values, they inherit from :root)
+    // Use both html.dark and .dark so variables work for:
+    // - Document-level scrollbars (html.dark)
+    // - Component-level styling (.dark on #arcane-root)
     buffer.writeln(generate(
       dark,
-      selector: '.dark',
+      selector: 'html.dark, .dark',
       fonts: fonts,
       radius: radius,
       includeStatic: false,
