@@ -215,36 +215,41 @@ html, body {
   background: transparent;
 }
 
-/* Document-level scrollbar - explicit dark/light mode */
-html.dark, html.dark body {
+/* Document-level scrollbar */
+html, body {
   scrollbar-width: thin;
-  scrollbar-color: var(--primary) #09090b;
+  scrollbar-color: var(--primary) var(--background);
 }
 
-html.dark::-webkit-scrollbar-track,
-html.dark body::-webkit-scrollbar-track {
-  background: #09090b;
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 }
 
-html.light, html.light body {
-  scrollbar-width: thin;
-  scrollbar-color: var(--primary) #ffffff;
-}
-
-html.light::-webkit-scrollbar-track,
-html.light body::-webkit-scrollbar-track {
-  background: #ffffff;
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track {
+  background: var(--background);
 }
 
 html::-webkit-scrollbar-thumb,
 body::-webkit-scrollbar-thumb {
   background: var(--primary);
   border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
 }
 
 html::-webkit-scrollbar-thumb:hover,
 body::-webkit-scrollbar-thumb:hover {
   background: color-mix(in srgb, var(--primary) 80%, white);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+html::-webkit-scrollbar-corner,
+body::-webkit-scrollbar-corner {
+  background: var(--background);
 }
 
 /* Text Selection */
