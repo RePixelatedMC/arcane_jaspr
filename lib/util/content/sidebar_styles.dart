@@ -653,16 +653,42 @@ const String arcaneSidebarCodexStyles = '''
   box-shadow: 0 0 6px color-mix(in srgb, var(--primary) 30%, transparent);
 }
 
-/* Codex nested summaries */
+/* Codex nested folders (subfolders) - distinct card-like appearance */
+[class*="codex-"] .sidebar-tree .sidebar-section,
+.codex .sidebar-tree .sidebar-section {
+  margin: 0.25rem 0;
+  padding: 0.125rem 0;
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--primary) 3%, transparent);
+  border: 1px solid color-mix(in srgb, var(--primary) 8%, transparent);
+}
+
+[class*="codex-"] .sidebar-tree .sidebar-tree .sidebar-section,
+.codex .sidebar-tree .sidebar-tree .sidebar-section {
+  background: color-mix(in srgb, var(--primary) 5%, transparent);
+  border-color: color-mix(in srgb, var(--primary) 12%, transparent);
+}
+
+[class*="codex-"] .sidebar-tree .sidebar-tree .sidebar-tree .sidebar-section,
+.codex .sidebar-tree .sidebar-tree .sidebar-tree .sidebar-section {
+  background: color-mix(in srgb, var(--primary) 7%, transparent);
+  border-color: color-mix(in srgb, var(--primary) 15%, transparent);
+}
+
+/* Codex nested summaries - folder headers */
 [class*="codex-"] .sidebar-tree .sidebar-details .sidebar-summary,
 [class*="codex-"] .sidebar-tree-items .sidebar-details .sidebar-summary,
 .codex .sidebar-tree .sidebar-details .sidebar-summary,
 .codex .sidebar-tree-items .sidebar-details .sidebar-summary {
   font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
   color: var(--muted-foreground);
   border-bottom: none;
-  border-left: 2px solid transparent;
+  border-left: 3px solid color-mix(in srgb, var(--primary) 30%, transparent);
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  margin: 0.125rem 0;
+  padding-left: 0.625rem;
 }
 
 [class*="codex-"] .sidebar-tree .sidebar-details .sidebar-summary:hover,
@@ -670,8 +696,8 @@ const String arcaneSidebarCodexStyles = '''
 .codex .sidebar-tree .sidebar-details .sidebar-summary:hover,
 .codex .sidebar-tree-items .sidebar-details .sidebar-summary:hover {
   color: var(--primary);
-  background: color-mix(in srgb, var(--primary) 8%, transparent);
-  border-left-color: color-mix(in srgb, var(--primary) 50%, transparent);
+  background: color-mix(in srgb, var(--primary) 10%, transparent);
+  border-left-color: color-mix(in srgb, var(--primary) 60%, transparent);
 }
 
 [class*="codex-"] .sidebar-tree .sidebar-details[open] > .sidebar-summary,
@@ -680,6 +706,30 @@ const String arcaneSidebarCodexStyles = '''
 .codex .sidebar-tree-items .sidebar-details[open] > .sidebar-summary {
   color: var(--primary);
   border-left-color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 8%, transparent);
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--primary) 15%, transparent);
+}
+
+/* Codex nested tree content - more indentation and visual separation */
+[class*="codex-"] .sidebar-tree .sidebar-tree,
+.codex .sidebar-tree .sidebar-tree {
+  padding-left: 1rem;
+  margin-left: 0.375rem;
+  border-left: 1px solid color-mix(in srgb, var(--primary) 20%, transparent);
+}
+
+[class*="codex-"] .sidebar-tree .sidebar-tree .sidebar-tree,
+.codex .sidebar-tree .sidebar-tree .sidebar-tree {
+  border-left-color: color-mix(in srgb, var(--primary) 15%, transparent);
+}
+
+/* Codex nested items - clearer visual hierarchy */
+[class*="codex-"] .sidebar-tree .sidebar-tree .sidebar-link,
+.codex .sidebar-tree .sidebar-tree .sidebar-link {
+  font-size: 0.8125rem;
+  padding: 0.375rem 0.625rem;
+  margin: 0.125rem 0;
+  border-left: 2px solid transparent;
 }
 
 /* Codex link styling - straight left edge */

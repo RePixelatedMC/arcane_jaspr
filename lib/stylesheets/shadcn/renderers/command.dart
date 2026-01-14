@@ -1,6 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
+import '../../../component/view/icon.dart';
 import '../../../core/props/command_props.dart';
 
 /// ShadCN Command renderer.
@@ -85,12 +86,13 @@ class ShadcnCommand extends StatelessComponent {
               }),
               [
                 // ShadCN: Search icon
-                const dom.span(
-                  styles: dom.Styles(raw: {
+                dom.span(
+                  styles: const dom.Styles(raw: {
                     'color': 'var(--muted-foreground)',
-                    'font-size': 'var(--font-size-lg)',
+                    'display': 'flex',
+                    'align-items': 'center',
                   }),
-                  [Component.text('\u{1F50D}')], // Magnifying glass emoji
+                  [ArcaneIcon.search(size: IconSize.md)],
                 ),
                 dom.input(
                   classes: 'arcane-command-input',

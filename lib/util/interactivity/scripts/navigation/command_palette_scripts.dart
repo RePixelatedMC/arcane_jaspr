@@ -30,68 +30,81 @@ class CommandPaletteScripts {
       overlay.dataset.arcaneInteractive = 'true';
 
       var dialog = overlay.querySelector('.arcane-command-dialog, .codex-command-dialog');
-      var input = overlay.querySelector('.arcane-command-input, .codex-command-input');
-      var items = overlay.querySelectorAll('.arcane-command-item, .codex-command-item');
       var selectedIndex = -1;
 
-      function updateSelection() {
-        items.forEach(function(item, i) {
-          item.classList.toggle('selected', i === selectedIndex);
+      // Helper to get current visible items (re-queries DOM each time for Jaspr reactivity)
+      function getVisibleItems() {
+        var allItems = overlay.querySelectorAll('.arcane-command-item:not(.disabled), .codex-command-item:not(.disabled)');
+        return Array.from(allItems).filter(function(item) {
+          return item.offsetParent !== null; // Only visible items
         });
+      }
+
+      function updateSelection(items) {
+        // Clear all selections first
+        overlay.querySelectorAll('.arcane-command-item, .codex-command-item').forEach(function(item) {
+          item.classList.remove('selected');
+        });
+        // Apply selection to current item
         if (selectedIndex >= 0 && items[selectedIndex]) {
+          items[selectedIndex].classList.add('selected');
           items[selectedIndex].scrollIntoView({ block: 'nearest' });
         }
       }
 
-      // Add hover handlers for mouse interaction
-      items.forEach(function(item, i) {
-        item.addEventListener('mouseenter', function() {
-          selectedIndex = i;
-          updateSelection();
-        });
-      });
-
-      overlay.addEventListener('keydown', function(e) {
-        if (e.key === 'ArrowDown') {
-          e.preventDefault();
-          selectedIndex = Math.min(selectedIndex + 1, items.length - 1);
-          updateSelection();
-        } else if (e.key === 'ArrowUp') {
-          e.preventDefault();
-          selectedIndex = Math.max(selectedIndex - 1, 0);
-          updateSelection();
-        } else if (e.key === 'Enter' && selectedIndex >= 0) {
-          e.preventDefault();
-          items[selectedIndex].click();
-        } else if (e.key === 'Escape') {
-          overlay.style.display = 'none';
+      // Use event delegation for hover (works with dynamically rendered items)
+      overlay.addEventListener('mouseover', function(e) {
+        var item = e.target.closest('.arcane-command-item, .codex-command-item');
+        if (item && !item.classList.contains('disabled')) {
+          var items = getVisibleItems();
+          selectedIndex = items.indexOf(item);
+          updateSelection(items);
         }
       });
 
+      overlay.addEventListener('keydown', function(e) {
+        var items = getVisibleItems();
+
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          if (items.length > 0) {
+            selectedIndex = Math.min(selectedIndex + 1, items.length - 1);
+            if (selectedIndex < 0) selectedIndex = 0;
+            updateSelection(items);
+          }
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          if (items.length > 0) {
+            selectedIndex = Math.max(selectedIndex - 1, 0);
+            updateSelection(items);
+          }
+        } else if (e.key === 'Enter') {
+          e.preventDefault();
+          if (selectedIndex >= 0 && items[selectedIndex]) {
+            items[selectedIndex].click();
+          } else if (items.length > 0) {
+            // If nothing selected, pick first item
+            items[0].click();
+          }
+        } else if (e.key === 'Escape') {
+          e.preventDefault();
+          // Click overlay background to trigger onClose callback
+          overlay.click();
+        }
+      });
+
+      // Reset selection when input changes (Jaspr handles filtering)
+      var input = overlay.querySelector('.arcane-command-input, .codex-command-input');
       if (input) {
         input.addEventListener('input', function() {
-          var query = input.value.toLowerCase();
-          items.forEach(function(item) {
-            var label = item.textContent.toLowerCase();
-            item.style.display = label.includes(query) ? '' : 'none';
-          });
           selectedIndex = -1;
-          updateSelection();
         });
       }
 
       overlay.addEventListener('click', function(e) {
-        if (!dialog.contains(e.target)) {
-          overlay.style.display = 'none';
+        if (!dialog || !dialog.contains(e.target)) {
+          // Clicking outside dialog - overlay handles close via onClose prop
         }
-      });
-
-      items.forEach(function(item) {
-        item.addEventListener('click', function() {
-          if (!item.classList.contains('disabled')) {
-            overlay.style.display = 'none';
-          }
-        });
       });
     });
 
