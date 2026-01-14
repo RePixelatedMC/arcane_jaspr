@@ -569,39 +569,54 @@ const String arcaneSidebarCodexStyles = '''
   margin-bottom: 0.25rem;
 }
 
+/* TOP-LEVEL folder summary - always looks like a folder (collapsed or expanded) */
 [class*="codex-"] .sidebar-summary,
 .codex .sidebar-summary {
   font-family: var(--font-mono);
   color: var(--muted-foreground);
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid transparent;
+  background: color-mix(in srgb, var(--primary) 5%, transparent);
+  border: 1px solid color-mix(in srgb, var(--primary) 15%, transparent);
+  border-radius: var(--radius-md);
+  box-shadow: 0 2px 4px color-mix(in srgb, var(--primary) 8%, transparent);
+  transition: all 0.15s ease;
 }
 
+/* TOP-LEVEL folder hover - NO hover effect on summary itself */
 [class*="codex-"] .sidebar-summary:hover,
 .codex .sidebar-summary:hover {
-  color: var(--primary);
-  background: color-mix(in srgb, var(--primary) 8%, transparent);
-  border: none;
-  border-bottom-color: color-mix(in srgb, var(--primary) 20%, transparent);
+  /* Intentionally empty - hover handled by .sidebar-section:hover */
 }
 
-/* TOP-LEVEL expanded folder header - keep the nice folder look */
+/* TOP-LEVEL folder section hover - WHOLE folder glows (only when NOT hovering nested content) */
+[class*="codex-"] .sidebar-section:hover:not(:has(.sidebar-section:hover)):not(:has(.sidebar-link:hover)) > .sidebar-details > .sidebar-summary,
+.codex .sidebar-section:hover:not(:has(.sidebar-section:hover)):not(:has(.sidebar-link:hover)) > .sidebar-details > .sidebar-summary {
+  color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 12%, transparent);
+  border-color: color-mix(in srgb, var(--primary) 40%, transparent);
+  box-shadow:
+    0 4px 12px -2px color-mix(in srgb, var(--primary) 30%, transparent),
+    0 0 8px color-mix(in srgb, var(--primary) 15%, transparent);
+}
+
+/* TOP-LEVEL expanded folder header */
 [class*="codex-"] .sidebar-details[open] > .sidebar-summary,
 .codex .sidebar-details[open] > .sidebar-summary {
   color: var(--primary);
   background: color-mix(in srgb, var(--primary) 12%, transparent);
-  border-bottom-color: color-mix(in srgb, var(--primary) 20%, transparent);
+  border-color: color-mix(in srgb, var(--primary) 30%, transparent);
   box-shadow:
     0 4px 12px -2px color-mix(in srgb, var(--primary) 25%, transparent),
     inset 0 1px 0 color-mix(in srgb, var(--primary) 15%, transparent);
 }
 
-[class*="codex-"] .sidebar-details[open] > .sidebar-summary:hover,
-.codex .sidebar-details[open] > .sidebar-summary:hover {
+/* TOP-LEVEL expanded folder hover - whole section glows more (only when NOT hovering nested content) */
+[class*="codex-"] .sidebar-section:hover:not(:has(.sidebar-section:hover)):not(:has(.sidebar-link:hover)) > .sidebar-details[open] > .sidebar-summary,
+.codex .sidebar-section:hover:not(:has(.sidebar-section:hover)):not(:has(.sidebar-link:hover)) > .sidebar-details[open] > .sidebar-summary {
   background: color-mix(in srgb, var(--primary) 18%, transparent);
+  border-color: color-mix(in srgb, var(--primary) 50%, transparent);
   box-shadow:
     0 6px 16px -2px color-mix(in srgb, var(--primary) 35%, transparent),
+    0 0 12px color-mix(in srgb, var(--primary) 20%, transparent),
     inset 0 1px 0 color-mix(in srgb, var(--primary) 20%, transparent);
 }
 
@@ -612,7 +627,7 @@ const String arcaneSidebarCodexStyles = '''
   display: block;
   height: 1px;
   background: color-mix(in srgb, var(--primary) 25%, transparent);
-  margin: 0.375rem 0 0.5rem 0;
+  margin: 0.375rem 0 0.625rem 0;
 }
 
 /* Codex chevron - glowing */
@@ -628,50 +643,125 @@ const String arcaneSidebarCodexStyles = '''
 }
 
 /* Codex tree lines - glowing primary color */
-[class*="codex-"] .sidebar-tree-item::before,
-.codex .sidebar-tree-item::before {
+[class*="codex-"] .sidebar-tree .sidebar-tree-item::before,
+.codex .sidebar-tree .sidebar-tree-item::before {
   background: var(--primary);
   opacity: 0.6;
-  height: 2px;
+  height: 2px !important;
+  width: 0.75rem !important;
+  top: 50%;
+  left: -1rem;
 }
 
-[class*="codex-"] .sidebar-tree-item:not(:last-child)::after,
-.codex .sidebar-tree-item:not(:last-child)::after {
+[class*="codex-"] .sidebar-tree .sidebar-tree-item:not(:last-child)::after,
+.codex .sidebar-tree .sidebar-tree-item:not(:last-child)::after {
   background: var(--primary);
-  width: 2px;
+  width: 2px !important;
+  left: -1rem;
+  /* Extend through margins to connect items */
+  top: calc(-0.25rem - 1px);
+  bottom: calc(-0.25rem - 1px);
   box-shadow: 0 0 6px color-mix(in srgb, var(--primary) 30%, transparent);
 }
 
-[class*="codex-"] .sidebar-tree-item:last-child::after,
-.codex .sidebar-tree-item:last-child::after {
+[class*="codex-"] .sidebar-tree .sidebar-tree-item:last-child::after,
+.codex .sidebar-tree .sidebar-tree-item:last-child::after {
   background: var(--primary);
-  width: 2px;
+  width: 2px !important;
+  left: -1rem;
+  top: calc(-0.25rem - 1px);
+  height: calc(50% + 0.25rem + 1px);
   box-shadow: 0 0 6px color-mix(in srgb, var(--primary) 30%, transparent);
 }
 
-/* Codex overrides for .sidebar-section connectors (used by arcane_inkwell) */
-[class*="codex-"] .sidebar-tree > .sidebar-section::before,
-.codex .sidebar-tree > .sidebar-section::before {
+/* Codex overrides for .sidebar-section connectors - aligned with files */
+[class*="codex-"] .sidebar-tree .sidebar-section::before,
+.codex .sidebar-tree .sidebar-section::before {
+  content: '';
+  position: absolute;
   background: var(--primary);
   opacity: 0.6;
-  height: 2px;
+  height: 2px !important;
+  width: calc(0.75rem + 1px) !important;
+  top: 50%;
+  left: calc(-1rem - 1px);
 }
 
-[class*="codex-"] .sidebar-tree > .sidebar-section::after,
-.codex .sidebar-tree > .sidebar-section::after {
+[class*="codex-"] .sidebar-tree .sidebar-section:not(:last-child)::after,
+.codex .sidebar-tree .sidebar-section:not(:last-child)::after {
+  content: '';
+  position: absolute;
   background: var(--primary);
-  width: 2px;
+  width: 2px !important;
+  left: calc(-1rem - 1px);
+  /* Extend through margins to connect sections */
+  top: calc(-0.25rem - 1px);
+  bottom: calc(-0.25rem - 1px);
   box-shadow: 0 0 6px color-mix(in srgb, var(--primary) 30%, transparent);
 }
 
-/* Codex nested folders (subfolders) - distinct card-like appearance */
+[class*="codex-"] .sidebar-tree .sidebar-section:last-child::after,
+.codex .sidebar-tree .sidebar-section:last-child::after {
+  content: '';
+  position: absolute;
+  background: var(--primary);
+  width: 2px !important;
+  left: calc(-1rem - 1px);
+  top: calc(-0.25rem - 1px);
+  height: calc(50% + 0.25rem + 1px);
+  box-shadow: 0 0 6px color-mix(in srgb, var(--primary) 30%, transparent);
+}
+
+/* Codex folders - distinct card-like appearance */
 [class*="codex-"] .sidebar-tree .sidebar-section,
 .codex .sidebar-tree .sidebar-section {
+  position: relative;
   margin: 0.25rem 0;
-  padding: 0.125rem 0;
+  padding: 0;
   border-radius: var(--radius-md);
   background: color-mix(in srgb, var(--primary) 3%, transparent);
   border: 1px solid color-mix(in srgb, var(--primary) 8%, transparent);
+  transition: all 0.15s ease;
+}
+
+/* SUBfolders (folders inside folders) - left border acts as tree line for children */
+[class*="codex-"] .sidebar-section .sidebar-tree .sidebar-section,
+.codex .sidebar-section .sidebar-tree .sidebar-section {
+  border-left: 2px solid var(--primary);
+  box-shadow: inset 2px 0 6px -2px color-mix(in srgb, var(--primary) 30%, transparent);
+}
+
+/* Subfolder tree line alignment - account for 2px left border instead of 1px */
+[class*="codex-"] .sidebar-section .sidebar-tree .sidebar-section::before,
+.codex .sidebar-section .sidebar-tree .sidebar-section::before {
+  left: calc(-1rem - 2px);
+  width: calc(0.75rem + 2px) !important;
+}
+
+[class*="codex-"] .sidebar-section .sidebar-tree .sidebar-section:not(:last-child)::after,
+.codex .sidebar-section .sidebar-tree .sidebar-section:not(:last-child)::after {
+  left: calc(-1rem - 2px);
+}
+
+[class*="codex-"] .sidebar-section .sidebar-tree .sidebar-section:last-child::after,
+.codex .sidebar-section .sidebar-tree .sidebar-section:last-child::after {
+  left: calc(-1rem - 2px);
+}
+
+/* Subfolder with open details - add bottom padding for children */
+[class*="codex-"] .sidebar-tree .sidebar-section:has(.sidebar-details[open]),
+.codex .sidebar-tree .sidebar-section:has(.sidebar-details[open]) {
+  padding-bottom: 0.375rem;
+}
+
+/* Subfolder section hover - whole section glows (only when not hovering deeper nested content) */
+[class*="codex-"] .sidebar-tree .sidebar-section:hover:not(:has(.sidebar-section:hover)):not(:has(.sidebar-link:hover)),
+.codex .sidebar-tree .sidebar-section:hover:not(:has(.sidebar-section:hover)):not(:has(.sidebar-link:hover)) {
+  background: color-mix(in srgb, var(--primary) 10%, transparent);
+  border-color: color-mix(in srgb, var(--primary) 35%, transparent);
+  box-shadow:
+    0 2px 10px -2px color-mix(in srgb, var(--primary) 25%, transparent),
+    0 0 6px color-mix(in srgb, var(--primary) 12%, transparent);
 }
 
 [class*="codex-"] .sidebar-tree .sidebar-tree .sidebar-section,
@@ -686,7 +776,7 @@ const String arcaneSidebarCodexStyles = '''
   border-color: color-mix(in srgb, var(--primary) 15%, transparent);
 }
 
-/* Codex nested summaries - subfolder headers - smaller, with proper spacing */
+/* Codex nested summaries - subfolder headers - smaller, plain text style */
 [class*="codex-"] .sidebar-tree .sidebar-details .sidebar-summary,
 [class*="codex-"] .sidebar-tree-items .sidebar-details .sidebar-summary,
 .codex .sidebar-tree .sidebar-details .sidebar-summary,
@@ -695,64 +785,98 @@ const String arcaneSidebarCodexStyles = '''
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--muted-foreground);
-  border-bottom: none;
-  border-left: 3px solid color-mix(in srgb, var(--primary) 30%, transparent);
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  margin: 0.125rem 0;
-  padding: 0.375rem 0.625rem;
-  padding-left: 1rem;
+  /* Reset all top-level folder styles - subfolders are plain */
+  background: transparent !important;
+  border: none !important;
+  border-radius: var(--radius-sm) !important;
+  box-shadow: none !important;
+  margin: 0;
+  padding: 0.5rem 0.75rem 0.5rem 1.25rem !important;
   gap: 0.5rem;
 }
 
+/* Subfolder summary hover - just color change, section handles glow */
 [class*="codex-"] .sidebar-tree .sidebar-details .sidebar-summary:hover,
 [class*="codex-"] .sidebar-tree-items .sidebar-details .sidebar-summary:hover,
 .codex .sidebar-tree .sidebar-details .sidebar-summary:hover,
 .codex .sidebar-tree-items .sidebar-details .sidebar-summary:hover {
   color: var(--primary);
-  background: color-mix(in srgb, var(--primary) 10%, transparent);
-  border-left-color: color-mix(in srgb, var(--primary) 60%, transparent);
 }
 
-/* Subfolder expanded - NO glow/selected look, just subtle indicator */
+/* Subfolder expanded - just color change */
 [class*="codex-"] .sidebar-tree .sidebar-details[open] > .sidebar-summary,
 [class*="codex-"] .sidebar-tree-items .sidebar-details[open] > .sidebar-summary,
 .codex .sidebar-tree .sidebar-details[open] > .sidebar-summary,
 .codex .sidebar-tree-items .sidebar-details[open] > .sidebar-summary {
   color: var(--foreground);
-  border-left-color: var(--primary);
-  background: transparent;
-  box-shadow: none;
 }
 
-/* Codex nested tree content - more indentation and visual separation */
+/* Codex nested tree content - tree lines inside the folder box */
 [class*="codex-"] .sidebar-tree .sidebar-tree,
 .codex .sidebar-tree .sidebar-tree {
-  padding-left: 1rem;
-  margin-left: 0.375rem;
-  border-left: 1px solid color-mix(in srgb, var(--primary) 20%, transparent);
+  padding-left: 1.5rem;
+  margin-left: 0;
 }
 
-[class*="codex-"] .sidebar-tree .sidebar-tree .sidebar-tree,
-.codex .sidebar-tree .sidebar-tree .sidebar-tree {
-  border-left-color: color-mix(in srgb, var(--primary) 15%, transparent);
+/* Tree lines inside SUBfolders only - the subfolder's left border IS the vertical tree */
+/* Horizontal lines extend INWARD from the left border to items */
+/* Target: items inside a section that is inside another section's tree */
+[class*="codex-"] .sidebar-section .sidebar-tree .sidebar-section .sidebar-tree .sidebar-tree-item::before,
+.codex .sidebar-section .sidebar-tree .sidebar-section .sidebar-tree .sidebar-tree-item::before {
+  /* Horizontal line from left border inward to item */
+  content: '';
+  position: absolute;
+  background: var(--primary);
+  opacity: 0.6;
+  height: 2px;
+  top: 50%;
+  left: 0;
+  width: 0.5rem;
+  transform: translateX(-100%);
 }
 
-/* Codex nested items - smaller, with proper left padding */
+/* Remove vertical tree lines inside subfolders - the subfolder's border is the tree */
+[class*="codex-"] .sidebar-section .sidebar-tree .sidebar-section .sidebar-tree .sidebar-tree-item::after,
+.codex .sidebar-section .sidebar-tree .sidebar-section .sidebar-tree .sidebar-tree-item::after {
+  display: none;
+}
+
+/* Nested subfolders inside subfolders - horizontal line inward from parent's left edge */
+[class*="codex-"] .sidebar-section .sidebar-tree .sidebar-section .sidebar-tree .sidebar-section::before,
+.codex .sidebar-section .sidebar-tree .sidebar-section .sidebar-tree .sidebar-section::before {
+  content: '';
+  position: absolute;
+  background: var(--primary);
+  opacity: 0.6;
+  height: 2px;
+  top: 50%;
+  left: 0;
+  width: 0.5rem;
+  transform: translateX(-100%);
+}
+
+/* Remove vertical tree lines for deeply nested folders */
+[class*="codex-"] .sidebar-section .sidebar-tree .sidebar-section .sidebar-tree .sidebar-section::after,
+.codex .sidebar-section .sidebar-tree .sidebar-section .sidebar-tree .sidebar-section::after {
+  display: none;
+}
+
+/* Codex nested items - smaller, aligned with subfolders */
 [class*="codex-"] .sidebar-tree .sidebar-link,
 .codex .sidebar-tree .sidebar-link {
   font-size: 0.8125rem;
-  padding: 0.375rem 0.625rem;
-  padding-left: 1rem;
+  padding: 0.5rem 0.75rem 0.5rem 1.25rem !important;
   margin: 0.125rem 0;
-  border-left: 2px solid transparent;
+  border-left: none !important;
 }
 
-/* Codex link styling - straight left edge */
+/* Codex link styling - subtle file indicator */
 [class*="codex-"] .sidebar-link,
 .codex .sidebar-link {
   padding: 0.5rem 0.75rem;
-  border-left: 3px solid transparent;
+  border-left: 3px solid color-mix(in srgb, var(--primary) 20%, transparent);
   border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  background: color-mix(in srgb, var(--primary) 2%, transparent);
   transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
@@ -760,7 +884,8 @@ const String arcaneSidebarCodexStyles = '''
 .codex .sidebar-link:hover {
   color: var(--primary);
   background: color-mix(in srgb, var(--primary) 10%, transparent);
-  border-left-color: color-mix(in srgb, var(--primary) 50%, transparent);
+  border-left-color: color-mix(in srgb, var(--primary) 60%, transparent);
+  box-shadow: 0 0 6px color-mix(in srgb, var(--primary) 10%, transparent);
 }
 
 /* Codex active state - prominent glow */
