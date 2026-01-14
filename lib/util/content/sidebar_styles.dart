@@ -754,6 +754,21 @@ const String arcaneSidebarCodexStyles = '''
   padding-bottom: 0.375rem;
 }
 
+/* Root folder children - reduced indentation */
+[class*="codex-"] .sidebar-tree-nav > .sidebar-tree > .sidebar-section > .sidebar-details > .sidebar-tree,
+.codex .sidebar-tree-nav > .sidebar-tree > .sidebar-section > .sidebar-details > .sidebar-tree {
+  padding-left: 0.875rem;
+}
+
+/* Hide horizontal connectors for all BUT last child in root folders */
+/* Keep vertical lines, only show horizontal L-connector on last item */
+[class*="codex-"] .sidebar-tree-nav > .sidebar-tree > .sidebar-section > .sidebar-details > .sidebar-tree > .sidebar-tree-item:not(:last-child)::before,
+[class*="codex-"] .sidebar-tree-nav > .sidebar-tree > .sidebar-section > .sidebar-details > .sidebar-tree > .sidebar-section:not(:last-child)::before,
+.codex .sidebar-tree-nav > .sidebar-tree > .sidebar-section > .sidebar-details > .sidebar-tree > .sidebar-tree-item:not(:last-child)::before,
+.codex .sidebar-tree-nav > .sidebar-tree > .sidebar-section > .sidebar-details > .sidebar-tree > .sidebar-section:not(:last-child)::before {
+  display: none;
+}
+
 /* Subfolder section hover - whole section glows (only when not hovering deeper nested content) */
 [class*="codex-"] .sidebar-tree .sidebar-section:hover:not(:has(.sidebar-section:hover)):not(:has(.sidebar-link:hover)),
 .codex .sidebar-tree .sidebar-section:hover:not(:has(.sidebar-section:hover)):not(:has(.sidebar-link:hover)) {
@@ -818,45 +833,18 @@ const String arcaneSidebarCodexStyles = '''
   margin-left: 0;
 }
 
-/* Tree lines inside SUBfolders only - the subfolder's left border IS the vertical tree */
-/* Horizontal lines extend INWARD from the left border to items */
-/* Target: items inside a section that is inside another section's tree */
+/* Remove all tree lines inside subfolders */
 [class*="codex-"] .sidebar-section .sidebar-tree .sidebar-section .sidebar-tree .sidebar-tree-item::before,
-.codex .sidebar-section .sidebar-tree .sidebar-section .sidebar-tree .sidebar-tree-item::before {
-  /* Horizontal line from left border inward to item */
-  content: '';
-  position: absolute;
-  background: var(--primary);
-  opacity: 0.6;
-  height: 2px;
-  top: 50%;
-  left: 0;
-  width: 0.5rem;
-  transform: translateX(-100%);
-}
-
-/* Remove vertical tree lines inside subfolders - the subfolder's border is the tree */
 [class*="codex-"] .sidebar-section .sidebar-tree .sidebar-section .sidebar-tree .sidebar-tree-item::after,
+.codex .sidebar-section .sidebar-tree .sidebar-section .sidebar-tree .sidebar-tree-item::before,
 .codex .sidebar-section .sidebar-tree .sidebar-section .sidebar-tree .sidebar-tree-item::after {
   display: none;
 }
 
-/* Nested subfolders inside subfolders - horizontal line inward from parent's left edge */
+/* Remove tree lines for nested subfolders inside subfolders */
 [class*="codex-"] .sidebar-section .sidebar-tree .sidebar-section .sidebar-tree .sidebar-section::before,
-.codex .sidebar-section .sidebar-tree .sidebar-section .sidebar-tree .sidebar-section::before {
-  content: '';
-  position: absolute;
-  background: var(--primary);
-  opacity: 0.6;
-  height: 2px;
-  top: 50%;
-  left: 0;
-  width: 0.5rem;
-  transform: translateX(-100%);
-}
-
-/* Remove vertical tree lines for deeply nested folders */
 [class*="codex-"] .sidebar-section .sidebar-tree .sidebar-section .sidebar-tree .sidebar-section::after,
+.codex .sidebar-section .sidebar-tree .sidebar-section .sidebar-tree .sidebar-section::before,
 .codex .sidebar-section .sidebar-tree .sidebar-section .sidebar-tree .sidebar-section::after {
   display: none;
 }
