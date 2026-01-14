@@ -19,6 +19,10 @@ class CommandPaletteScripts {
           outline: 2px solid var(--ring, var(--primary, #3b82f6));\
           outline-offset: -2px;\
         }\
+        .arcane-command-item.js-hidden,\
+        .codex-command-item.js-hidden {\
+          display: none !important;\
+        }\
       ';
       document.head.appendChild(style);
     }
@@ -32,36 +36,94 @@ class CommandPaletteScripts {
       var dialog = overlay.querySelector('.arcane-command-dialog, .codex-command-dialog');
       var selectedIndex = -1;
 
-      // Helper to get current visible items (re-queries DOM each time for Jaspr reactivity)
+      // Helper to get current visible items
       function getVisibleItems() {
-        var allItems = overlay.querySelectorAll('.arcane-command-item:not(.disabled), .codex-command-item:not(.disabled)');
+        var allItems = overlay.querySelectorAll('.arcane-command-item:not(.disabled):not(.js-hidden), .codex-command-item:not(.disabled):not(.js-hidden)');
         return Array.from(allItems).filter(function(item) {
-          return item.offsetParent !== null; // Only visible items
+          return item.offsetParent !== null;
         });
       }
 
       function updateSelection(items) {
-        // Clear all selections first
         overlay.querySelectorAll('.arcane-command-item, .codex-command-item').forEach(function(item) {
           item.classList.remove('selected');
         });
-        // Apply selection to current item
         if (selectedIndex >= 0 && items[selectedIndex]) {
           items[selectedIndex].classList.add('selected');
           items[selectedIndex].scrollIntoView({ block: 'nearest' });
         }
       }
 
-      // Use event delegation for hover (works with dynamically rendered items)
-      overlay.addEventListener('mouseover', function(e) {
+      // Close overlay helper
+      function closeOverlay() {
+        overlay.style.display = 'none';
+        // Dispatch custom event for Jaspr to handle state update
+        overlay.dispatchEvent(new CustomEvent('arcane-command-close', { bubbles: true }));
+      }
+
+      // Handle item click - navigate via data-href
+      function handleItemClick(item) {
+        var href = item.dataset.href;
+        var target = item.dataset.target;
+        if (href) {
+          if (target === '_blank') {
+            window.open(href, '_blank', 'noopener,noreferrer');
+          } else {
+            window.location.href = href;
+          }
+          closeOverlay();
+        }
+      }
+
+      // Filter items based on search query
+      function filterItems(query) {
+        var allItems = overlay.querySelectorAll('.arcane-command-item, .codex-command-item');
+        var q = query.toLowerCase().trim();
+
+        allItems.forEach(function(item) {
+          if (!q) {
+            item.classList.remove('js-hidden');
+            return;
+          }
+          var label = (item.dataset.label || '').toLowerCase();
+          var keywords = (item.dataset.keywords || '').toLowerCase();
+          var matches = label.includes(q) || keywords.includes(q);
+          item.classList.toggle('js-hidden', !matches);
+        });
+
+        // Also hide group headings if all their items are hidden
+        var groups = overlay.querySelectorAll('.arcane-command-list > div, .codex-command-list > div');
+        // Group headings don't have role="option", items do
+      }
+
+      // Event delegation for item clicks
+      overlay.addEventListener('click', function(e) {
         var item = e.target.closest('.arcane-command-item, .codex-command-item');
         if (item && !item.classList.contains('disabled')) {
+          e.stopPropagation();
+          handleItemClick(item);
+          return;
+        }
+
+        // Close on overlay background click
+        if (overlay.dataset.commandClosable === 'true') {
+          if (!dialog || !dialog.contains(e.target)) {
+            closeOverlay();
+          }
+        }
+      });
+
+      // Hover selection
+      overlay.addEventListener('mouseover', function(e) {
+        var item = e.target.closest('.arcane-command-item, .codex-command-item');
+        if (item && !item.classList.contains('disabled') && !item.classList.contains('js-hidden')) {
           var items = getVisibleItems();
           selectedIndex = items.indexOf(item);
           updateSelection(items);
         }
       });
 
+      // Keyboard navigation
       overlay.addEventListener('keydown', function(e) {
         var items = getVisibleItems();
 
@@ -81,41 +143,32 @@ class CommandPaletteScripts {
         } else if (e.key === 'Enter') {
           e.preventDefault();
           if (selectedIndex >= 0 && items[selectedIndex]) {
-            items[selectedIndex].click();
+            handleItemClick(items[selectedIndex]);
           } else if (items.length > 0) {
-            // If nothing selected, pick first item
-            items[0].click();
+            handleItemClick(items[0]);
           }
         } else if (e.key === 'Escape') {
           e.preventDefault();
-          // Click overlay background to trigger onClose callback
-          overlay.click();
+          closeOverlay();
         }
       });
 
-      // Reset selection when input changes (Jaspr handles filtering)
+      // Search input filtering
       var input = overlay.querySelector('.arcane-command-input, .codex-command-input');
       if (input) {
         input.addEventListener('input', function() {
           selectedIndex = -1;
+          filterItems(this.value);
         });
       }
-
-      overlay.addEventListener('click', function(e) {
-        if (!dialog || !dialog.contains(e.target)) {
-          // Clicking outside dialog - overlay handles close via onClose prop
-        }
-      });
     });
 
     // Global Ctrl+K / Cmd+K keyboard shortcut
-    // Only bind once per document
     if (!document._arcaneCommandKeyBound) {
       document._arcaneCommandKeyBound = true;
       document.addEventListener('keydown', function(e) {
         if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
           e.preventDefault();
-          // Look for command trigger elements (buttons that open command palettes)
           var trigger = document.querySelector('[data-command-trigger]');
           if (trigger) {
             trigger.click();

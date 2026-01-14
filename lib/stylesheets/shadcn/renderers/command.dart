@@ -26,6 +26,7 @@ class ShadcnCommand extends StatelessComponent {
       classes: 'arcane-command-overlay',
       attributes: {
         'data-command': 'true',
+        'data-command-closable': 'true', // JavaScript handles close
       },
       styles: const dom.Styles(raw: {
         'position': 'fixed',
@@ -40,15 +41,7 @@ class ShadcnCommand extends StatelessComponent {
         'background-color': 'rgba(0, 0, 0, 0.5)',
         'animation': 'arcane-fade-in var(--arcane-transition-slow)',
       }),
-      events: {
-        'click': (e) {
-          // Close when clicking overlay
-          final target = e.target as dynamic;
-          if (target.classList.contains('arcane-command-overlay')) {
-            props.onClose?.call();
-          }
-        },
-      },
+      // Note: No Dart event handlers - JavaScript handles all interactions
       [
         dom.div(
           classes: 'arcane-command-dialog',
@@ -94,30 +87,13 @@ class ShadcnCommand extends StatelessComponent {
                   }),
                   [ArcaneIcon.search(size: IconSize.md)],
                 ),
-                dom.input(
-                  classes: 'arcane-command-input',
-                  type: dom.InputType.text,
-                  attributes: {
-                    'placeholder': props.placeholder,
-                    'autofocus': 'true',
-                    'autocomplete': 'off',
-                    'spellcheck': 'false',
-                  },
-                  styles: const dom.Styles(raw: {
-                    'flex': '1',
-                    'background': 'transparent',
-                    'border': 'none',
-                    // ShadCN: text-sm
-                    'font-size': 'var(--font-size-sm)',
-                    'color': 'var(--foreground)',
-                    'outline': 'none',
-                  }),
-                  events: {
-                    'input': (e) {
-                      final target = e.target as dynamic;
-                      props.onSearch?.call(target.value as String);
-                    },
-                  },
+                // Raw HTML input to prevent Jaspr client hydration crashes
+                RawText(
+                  '<input class="arcane-command-input" type="text" '
+                  'placeholder="${props.placeholder}" '
+                  'autofocus autocomplete="off" spellcheck="false" '
+                  'style="flex:1;background:transparent;border:none;'
+                  'font-size:var(--font-size-sm);color:var(--foreground);outline:none;">',
                 ),
               ],
             ),
@@ -200,6 +176,13 @@ class ShadcnCommand extends StatelessComponent {
         'role': 'option',
         'aria-selected': 'false',
         if (item.disabled) 'aria-disabled': 'true',
+        // Data attributes for JavaScript navigation
+        if (item.href != null) 'data-href': item.href!,
+        if (item.hrefTarget != null) 'data-target': item.hrefTarget!,
+        // Store keywords for JS filtering
+        if (item.keywords != null && item.keywords!.isNotEmpty)
+          'data-keywords': item.keywords!.join(','),
+        'data-label': item.label,
       },
       styles: dom.Styles(raw: {
         'display': 'flex',
@@ -212,10 +195,7 @@ class ShadcnCommand extends StatelessComponent {
         'transition': 'background-color var(--arcane-transition)',
         if (item.disabled) 'opacity': '0.5',
       }),
-      events: {
-        if (!item.disabled && props.onSelectItem != null)
-          'click': (e) => props.onSelectItem!(item),
-      },
+      // Note: No Dart event handlers - JavaScript handles clicks via data-href
       [
         if (item.icon != null) item.icon!,
         dom.span(

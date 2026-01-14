@@ -9,6 +9,14 @@ class CommandItemProps {
   final bool disabled;
   final List<String>? keywords;
 
+  /// Optional href for JavaScript-based navigation.
+  /// When set, clicking the item will navigate to this URL.
+  /// Use '_blank' target by setting [hrefTarget].
+  final String? href;
+
+  /// Target for href navigation (e.g., '_blank' for new tab).
+  final String? hrefTarget;
+
   const CommandItemProps({
     required this.label,
     this.icon,
@@ -16,6 +24,8 @@ class CommandItemProps {
     this.onSelect,
     this.disabled = false,
     this.keywords,
+    this.href,
+    this.hrefTarget,
   });
 }
 

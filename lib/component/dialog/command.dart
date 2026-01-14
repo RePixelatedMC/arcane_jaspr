@@ -75,6 +75,8 @@ class _ArcaneCommandState extends State<ArcaneCommand> {
                         onSelect: i.onSelect,
                         disabled: i.disabled,
                         keywords: i.keywords,
+                        href: i.href,
+                        hrefTarget: i.hrefTarget,
                       ))
                   .toList(),
             ))
@@ -88,6 +90,8 @@ class _ArcaneCommandState extends State<ArcaneCommand> {
               onSelect: i.onSelect,
               disabled: i.disabled,
               keywords: i.keywords,
+              href: i.href,
+              hrefTarget: i.hrefTarget,
             ))
         .toList();
 
@@ -125,6 +129,12 @@ class CommandItem {
   final bool disabled;
   final List<String>? keywords;
 
+  /// Optional href for JavaScript-based navigation.
+  final String? href;
+
+  /// Target for href navigation (e.g., '_blank' for new tab).
+  final String? hrefTarget;
+
   const CommandItem({
     required this.label,
     this.icon,
@@ -132,5 +142,7 @@ class CommandItem {
     this.onSelect,
     this.disabled = false,
     this.keywords,
+    this.href,
+    this.hrefTarget,
   });
 }
