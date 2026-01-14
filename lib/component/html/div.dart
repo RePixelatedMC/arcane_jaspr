@@ -34,6 +34,7 @@ class ArcaneDiv extends StatelessComponent {
   final String? classes;
   final String? id;
   final Map<String, void Function(dynamic)>? events;
+  final Map<String, String>? attributes;
 
   const ArcaneDiv({
     required this.children,
@@ -41,6 +42,7 @@ class ArcaneDiv extends StatelessComponent {
     this.classes,
     this.id,
     this.events,
+    this.attributes,
     super.key,
   });
 
@@ -50,6 +52,7 @@ class ArcaneDiv extends StatelessComponent {
     String? classes,
     String? id,
     Map<String, void Function(dynamic)>? events,
+    Map<String, String>? attributes,
     Key? key,
   }) = _ArcaneDivChild;
 
@@ -60,6 +63,7 @@ class ArcaneDiv extends StatelessComponent {
       classes: classes,
       styles: styles?.toStyles() ?? const Styles(raw: {}),
       events: events,
+      attributes: attributes,
       children,
     );
   }
@@ -74,6 +78,7 @@ class _ArcaneDivChild extends ArcaneDiv {
     super.classes,
     super.id,
     super.events,
+    super.attributes,
     super.key,
   })  : _child = child,
         super(children: const []);
@@ -85,6 +90,7 @@ class _ArcaneDivChild extends ArcaneDiv {
       classes: classes,
       styles: styles?.toStyles() ?? const Styles(raw: {}),
       events: events,
+      attributes: attributes,
       [_child],
     );
   }
