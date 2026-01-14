@@ -85,6 +85,9 @@ class _CodexTreeViewState extends State<CodexTreeView> {
     final showLines = component.props.style == TreeViewStyle.lines;
     final isCompact = component.props.style == TreeViewStyle.compact;
 
+    // Only show selection highlight for leaf nodes, not expanded folders
+    final showSelectionHighlight = isSelected && !node.hasChildren;
+
     return dom.div(
       styles: const dom.Styles(raw: {}),
       [
@@ -103,7 +106,8 @@ class _CodexTreeViewState extends State<CodexTreeView> {
             'padding-left': '${indent + 16}px',
             'cursor': node.disabled ? 'not-allowed' : 'pointer',
             'opacity': node.disabled ? '0.5' : '1',
-            'background': isSelected ? 'rgba(var(--primary-rgb), 0.15)' : 'transparent',
+            'background':
+                showSelectionHighlight ? 'rgba(var(--primary-rgb), 0.15)' : 'transparent',
             'border-radius': 'var(--radius-sm)',
             'transition': 'all var(--arcane-transition)',
             'user-select': 'none',
@@ -112,8 +116,10 @@ class _CodexTreeViewState extends State<CodexTreeView> {
             'click': (_) {
               if (node.hasChildren) {
                 _toggleExpand(node);
+              } else {
+                // Only select leaf nodes on click
+                _selectNode(node);
               }
-              _selectNode(node);
             },
           },
           [
@@ -126,7 +132,7 @@ class _CodexTreeViewState extends State<CodexTreeView> {
                   'justify-content': 'center',
                   'width': '18px',
                   'height': '18px',
-                  'margin-right': '0.375rem',
+                  'margin-right': '0.5rem',
                   'font-size': '10px',
                   'color': 'var(--muted-foreground)',
                   'transform': isExpanded ? 'rotate(90deg)' : 'rotate(0deg)',
@@ -138,7 +144,7 @@ class _CodexTreeViewState extends State<CodexTreeView> {
               const dom.span(
                 styles: dom.Styles(raw: {
                   'width': '18px',
-                  'margin-right': '0.375rem',
+                  'margin-right': '0.5rem',
                 }),
                 [],
               ),
@@ -147,7 +153,7 @@ class _CodexTreeViewState extends State<CodexTreeView> {
             if (node.icon != null)
               dom.span(
                 styles: const dom.Styles(raw: {
-                  'margin-right': '0.375rem',
+                  'margin-right': '0.5rem',
                   'display': 'inline-flex',
                   'align-items': 'center',
                 }),
@@ -157,13 +163,25 @@ class _CodexTreeViewState extends State<CodexTreeView> {
             // Node label
             dom.span(
               styles: dom.Styles(raw: {
-                'color': isSelected ? 'var(--primary)' : 'var(--foreground)',
-                'font-weight': isSelected ? '500' : '400',
+                'color': showSelectionHighlight ? 'var(--primary)' : 'var(--foreground)',
+                'font-weight': showSelectionHighlight ? '500' : '400',
               }),
               [Component.text(node.label)],
             ),
           ],
         ),
+
+        // Divider between folder tile and children
+        if (node.hasChildren && isExpanded)
+          dom.div(
+            styles: dom.Styles(raw: {
+              'height': '1px',
+              'background': 'var(--border)',
+              'margin': '0.25rem 0',
+              'margin-left': '${indent + 16}px',
+            }),
+            [],
+          ),
 
         // Children
         if (node.hasChildren && isExpanded)
@@ -172,6 +190,7 @@ class _CodexTreeViewState extends State<CodexTreeView> {
             styles: dom.Styles(raw: {
               if (showLines) 'border-left': '1px solid var(--border)',
               if (showLines) 'margin-left': '${indent + 24}px',
+              'padding-left': showLines ? '0' : '0',
             }),
             [
               for (final child in node.children)
