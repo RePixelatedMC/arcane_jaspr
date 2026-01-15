@@ -112,6 +112,7 @@ class CodexCommand extends StatelessComponent {
                   for (final group in props.groups) ...[
                     if (group.heading != null)
                       dom.div(
+                        classes: 'codex-command-group-heading',
                         styles: const dom.Styles(raw: {
                           'padding': '10px 14px',
                           'font-size': 'var(--font-size-xs)',
@@ -122,10 +123,11 @@ class CodexCommand extends StatelessComponent {
                         }),
                         [Component.text(group.heading!)],
                       ),
-                    for (final item in group.items) _buildItem(item),
+                    for (final item in group.items)
+                      _buildItem(item, group.heading),
                   ]
                 else
-                  for (final item in props.filteredItems) _buildItem(item),
+                  for (final item in props.filteredItems) _buildItem(item, null),
               ],
             ),
 
@@ -152,7 +154,7 @@ class CodexCommand extends StatelessComponent {
     );
   }
 
-  Component _buildItem(CommandItemProps item) {
+  Component _buildItem(CommandItemProps item, String? groupName) {
     return dom.div(
       classes: 'codex-command-item ${item.disabled ? 'disabled' : ''}',
       attributes: {
@@ -166,6 +168,7 @@ class CodexCommand extends StatelessComponent {
         if (item.keywords != null && item.keywords!.isNotEmpty)
           'data-keywords': item.keywords!.join(','),
         'data-label': item.label,
+        if (groupName != null) 'data-group': groupName,
       },
       styles: dom.Styles(raw: {
         'display': 'flex',

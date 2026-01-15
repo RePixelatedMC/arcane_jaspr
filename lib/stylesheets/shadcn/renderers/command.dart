@@ -127,6 +127,7 @@ class ShadcnCommand extends StatelessComponent {
                     if (group.heading != null)
                       // ShadCN: px-2 py-1.5 text-xs font-medium text-muted-foreground
                       dom.div(
+                        classes: 'arcane-command-group-heading',
                         styles: const dom.Styles(raw: {
                           'padding': '8px 12px',
                           'font-size': 'var(--font-size-xs)',
@@ -137,11 +138,13 @@ class ShadcnCommand extends StatelessComponent {
                         }),
                         [Component.text(group.heading!)],
                       ),
-                    for (final item in group.items) _buildItem(item),
+                    for (final item in group.items)
+                      _buildItem(item, group.heading),
                   ]
                 else
                   // Show flat list when searching
-                  for (final item in props.filteredItems) _buildItem(item),
+                  for (final item in props.filteredItems)
+                    _buildItem(item, null),
               ],
             ),
 
@@ -168,7 +171,7 @@ class ShadcnCommand extends StatelessComponent {
     );
   }
 
-  Component _buildItem(CommandItemProps item) {
+  Component _buildItem(CommandItemProps item, String? groupName) {
     // ShadCN: relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none
     return dom.div(
       classes: 'arcane-command-item ${item.disabled ? 'disabled' : ''}',
@@ -183,6 +186,7 @@ class ShadcnCommand extends StatelessComponent {
         if (item.keywords != null && item.keywords!.isNotEmpty)
           'data-keywords': item.keywords!.join(','),
         'data-label': item.label,
+        if (groupName != null) 'data-group': groupName,
       },
       styles: dom.Styles(raw: {
         'display': 'flex',
