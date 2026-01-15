@@ -131,7 +131,9 @@ class ArcaneMap extends StatelessComponent {
     // Calculate percentage position
     final leftPct = (x / dims.width) * 100;
     final topPct = (y / dims.height) * 100;
-    final color = location.isActive ? style.pinActiveColor : style.pinColor;
+    // Use location's custom color if provided, otherwise fall back to style
+    final color = location.color ??
+        (location.isActive ? style.pinActiveColor : style.pinColor);
     final size = style.pinSize * 2; // Double for HTML rendering
 
     return dom.div(

@@ -45,6 +45,10 @@ class MapLocation {
   /// Whether this location is in an active/highlighted state.
   final bool isActive;
 
+  /// Optional custom pin color (CSS color value).
+  /// If not provided, uses the map's default pin color.
+  final String? color;
+
   const MapLocation({
     required this.id,
     required this.name,
@@ -56,6 +60,7 @@ class MapLocation {
     this.description,
     this.metadata,
     this.isActive = false,
+    this.color,
   });
 
   MapLocation copyWith({
@@ -69,6 +74,7 @@ class MapLocation {
     String? description,
     Map<String, dynamic>? metadata,
     bool? isActive,
+    String? color,
   }) {
     return MapLocation(
       id: id ?? this.id,
@@ -81,6 +87,7 @@ class MapLocation {
       description: description ?? this.description,
       metadata: metadata ?? this.metadata,
       isActive: isActive ?? this.isActive,
+      color: color ?? this.color,
     );
   }
 }
