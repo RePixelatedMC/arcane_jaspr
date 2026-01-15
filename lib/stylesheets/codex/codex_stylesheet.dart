@@ -43,10 +43,12 @@ class CodexStylesheet extends ArcaneStylesheet {
   ThemeSeed get lightSeed => ThemeSeed(
         // Codex uses the theme color as primary
         primary: theme.color,
-        // Slightly warm white background - let generator tint surfaces with primary
-        background: 0xFFfafafa,
-        // Let secondary/accent be auto-derived with primary tinting
-        // This gives light mode life and cohesion with the chosen theme color
+        // Clean white background - surfaces provide the color
+        background: 0xFFffffff,
+        // Bold, gaming-inspired surfaces - clearly tinted with theme color
+        secondary: theme.lightSecondary,
+        accent: theme.lightAccent,
+        border: theme.lightBorder,
         // Semantic colors
         destructive: 0xFFef4444,
         success: 0xFF22c55e,
@@ -622,35 +624,97 @@ $arcaneTocTreeLinesCss
 
 /// Color themes for Codex stylesheet.
 ///
-/// Each theme defines a primary accent color.
+/// Each theme defines a primary accent color and bold light mode surfaces.
+/// Light mode surfaces are intentionally more saturated for a gaming aesthetic.
 enum CodexTheme {
   /// Emerald green - #10b981
-  green(0xFF10b981),
+  /// Light mode: Bold mint surfaces
+  green(
+    color: 0xFF10b981,
+    lightSecondary: 0xFFd1fae5,
+    lightAccent: 0xFFa7f3d0,
+    lightBorder: 0xFF6ee7b7,
+  ),
 
   /// Bright red - #ef4444
-  red(0xFFef4444),
+  /// Light mode: Bold coral/rose surfaces
+  red(
+    color: 0xFFef4444,
+    lightSecondary: 0xFFfee2e2,
+    lightAccent: 0xFFfecaca,
+    lightBorder: 0xFFfca5a5,
+  ),
 
   /// Electric blue - #3b82f6
-  blue(0xFF3b82f6),
+  /// Light mode: Bold sky blue surfaces
+  blue(
+    color: 0xFF3b82f6,
+    lightSecondary: 0xFFdbeafe,
+    lightAccent: 0xFFbfdbfe,
+    lightBorder: 0xFF93c5fd,
+  ),
 
   /// Vibrant purple - #8b5cf6
-  purple(0xFF8b5cf6),
+  /// Light mode: Bold lavender surfaces
+  purple(
+    color: 0xFF8b5cf6,
+    lightSecondary: 0xFFede9fe,
+    lightAccent: 0xFFddd6fe,
+    lightBorder: 0xFFc4b5fd,
+  ),
 
   /// Neon cyan - #22d3ee
-  cyan(0xFF22d3ee),
+  /// Light mode: Bold aqua surfaces
+  cyan(
+    color: 0xFF22d3ee,
+    lightSecondary: 0xFFcffafe,
+    lightAccent: 0xFFa5f3fc,
+    lightBorder: 0xFF67e8f9,
+  ),
 
   /// Hot pink - #ec4899
-  pink(0xFFec4899),
+  /// Light mode: Bold pink surfaces
+  pink(
+    color: 0xFFec4899,
+    lightSecondary: 0xFFfce7f3,
+    lightAccent: 0xFFfbcfe8,
+    lightBorder: 0xFFf9a8d4,
+  ),
 
   /// Bright orange - #f97316
-  orange(0xFFf97316),
+  /// Light mode: Bold peach/amber surfaces
+  orange(
+    color: 0xFFf97316,
+    lightSecondary: 0xFFffedd5,
+    lightAccent: 0xFFfed7aa,
+    lightBorder: 0xFFfdba74,
+  ),
 
   /// Rainbow RGB spin - cycles through all colors.
   /// Uses cyan as the base color, with CSS animation override.
-  rainbow(0xFF22d3ee);
+  rainbow(
+    color: 0xFF22d3ee,
+    lightSecondary: 0xFFcffafe,
+    lightAccent: 0xFFa5f3fc,
+    lightBorder: 0xFF67e8f9,
+  );
 
-  /// The color value for this theme.
+  /// The primary accent color for this theme.
   final int color;
 
-  const CodexTheme(this.color);
+  /// Light mode secondary surface color (cards, elevated surfaces).
+  final int lightSecondary;
+
+  /// Light mode accent surface color (hover states, interactive).
+  final int lightAccent;
+
+  /// Light mode border color.
+  final int lightBorder;
+
+  const CodexTheme({
+    required this.color,
+    required this.lightSecondary,
+    required this.lightAccent,
+    required this.lightBorder,
+  });
 }

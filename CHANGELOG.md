@@ -17,28 +17,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-**Revamped Light Theme Color Generation**
-- `PaletteGenerator` now tints light mode surfaces with the primary color for cohesive theming:
-  - Secondary surfaces get subtle primary hue tinting instead of flat gray
-  - Accent surfaces have more prominent tinting for visual hierarchy
-  - Card backgrounds receive very subtle primary warmth
-  - Borders now have a hint of the primary color for cohesion
-  - Added `_tintedSurface()` helper that combines darkening with hue blending
-- `ShadcnTheme` neutral themes (midnight, charcoal, cream, slate) now derive light surfaces automatically:
-  - Removed explicit gray `lightSecondary`/`lightAccent` values
-  - Let generator create harmonious tinted surfaces based on primary color
-  - cream uses warm stone primary (`0xFF78716c`) for cohesive warm tinting
-  - slate uses cool slate primary (`0xFF475569`) for professional blue undertones
-- `ShadcnTheme` pastel themes updated with more vibrant light primaries:
-  - rose: `0xFFe11d48` (vibrant rose)
-  - lavender: `0xFF9333ea` (vibrant purple)
-  - mint: `0xFF16a34a` (vibrant green)
-  - sky: `0xFF0284c7` (vibrant sky blue)
-  - peach: `0xFFea580c` (vibrant orange)
-  - teal: `0xFF0d9488` (vibrant teal)
-- `CodexStylesheet` light theme now derives surfaces with theme color tinting:
-  - Removed explicit gray secondary/accent values
-  - Light mode surfaces now match the chosen theme color (green, red, blue, etc.)
+**Redesigned Light Themes for Richer Surfaces**
+- `PaletteGenerator` light mode tinting increased for more visible surface contrast:
+  - Secondary: 6% darken + 12% primary blend (was 4%/8%)
+  - Accent: 10% darken + 18% primary blend (was 6%/12%)
+  - Border: 18% darken + 10% primary blend (was 12%/6%)
+  - Card: 2% darken + 5% primary blend (was 1%/3%)
+  - Muted: 5% darken + 10% primary blend (was 3%/6%)
+- `ShadcnTheme` pastel themes now use white backgrounds with richer tinted surfaces:
+  - All pastel themes changed from tinted backgrounds to clean white (`0xFFffffff`)
+  - Explicit secondary/accent colors provide visible contrast against white
+  - Professional aesthetic with clearly distinguishable surface layers
+- `CodexTheme` now includes bold, gaming-inspired light surface colors:
+  - Each theme (green, red, blue, purple, cyan, pink, orange, rainbow) defines explicit `lightSecondary`, `lightAccent`, and `lightBorder`
+  - Light surfaces are intentionally more saturated for gaming aesthetic
+  - Example: green theme uses mint surfaces (`0xFFd1fae5`, `0xFFa7f3d0`, `0xFF6ee7b7`)
+- `CodexStylesheet.lightSeed` updated to use explicit theme colors instead of auto-derivation
 
 **ArcaneMap Theme Integration**
 - `MapStyle` now uses CSS variables by default for theme-aware styling:

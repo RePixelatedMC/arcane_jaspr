@@ -205,7 +205,7 @@ class MapScripts {
   function createMapCoordTooltip() {
     var tooltip = document.createElement('div');
     tooltip.className = 'arcane-map-coord-tooltip';
-    tooltip.style.cssText = 'position: absolute; z-index: 9999; pointer-events: none; opacity: 0; visibility: hidden; transition: opacity 150ms ease;';
+    tooltip.style.cssText = 'position: fixed; z-index: 9999; pointer-events: none; opacity: 0; visibility: hidden; transition: opacity 150ms ease;';
 
     var inner = document.createElement('div');
     inner.style.cssText = 'background: rgba(30, 30, 46, 0.95); border: 1px solid #4b5563; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); padding: 10px 14px; backdrop-filter: blur(8px);';

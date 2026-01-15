@@ -80,6 +80,7 @@ class ArcaneMap extends StatelessComponent {
         'align-items': 'center',
         'width': '100%',
         if (height != null) 'height': height!,
+        'max-height': '80vh',
         'overflow': 'visible',
       }),
       [
@@ -91,6 +92,7 @@ class ArcaneMap extends StatelessComponent {
             'max-width': '100%',
             'aspect-ratio': '${dims.aspectRatio}',
             'max-height': '100%',
+            'overflow': 'visible',
           }),
           [
             // SVG Map as image - fills the aspect-ratio container

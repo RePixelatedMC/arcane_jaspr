@@ -20,33 +20,33 @@ abstract class PaletteGenerator {
     final int foreground = contrastingForeground(background);
 
     // Resolve secondary (slightly off from background)
-    // Light mode: tint with primary hue to add life
+    // Light mode: tint with primary hue for richer surfaces
     // Dark mode: just lighten for subtle elevation
     final int secondary = seed.secondary ?? (isDark
         ? lighten(background, 0.06) // Dark: slightly lighter
-        : _tintedSurface(background, primary, 0.04, 0.08)); // Light: darken + tint
+        : _tintedSurface(background, primary, 0.06, 0.12)); // Light: richer tinting
 
     // Resolve accent - more prominent tinting for light mode
     final int accent = seed.accent ?? (isDark
         ? secondary
-        : _tintedSurface(background, primary, 0.06, 0.12));
+        : _tintedSurface(background, primary, 0.10, 0.18));
 
-    // Resolve border - light mode gets subtle primary tint for cohesion
+    // Resolve border - light mode gets visible primary tint
     final int border = seed.border ?? (isDark
         ? lighten(background, 0.18)
-        : _tintedSurface(background, primary, 0.12, 0.06));
+        : _tintedSurface(background, primary, 0.18, 0.10));
 
     // Card is same as background or slightly elevated
-    // Light mode: subtle primary tint for warmth
+    // Light mode: subtle but visible primary tint
     final int card = isDark
         ? lighten(background, 0.04)
-        : _tintedSurface(background, primary, 0.01, 0.03);
+        : _tintedSurface(background, primary, 0.02, 0.05);
     final int cardHover = isDark
         ? lighten(card, 0.04)
-        : _tintedSurface(card, primary, 0.02, 0.04);
+        : _tintedSurface(card, primary, 0.04, 0.06);
 
-    // Muted - light mode gets subtle tinting
-    final int muted = isDark ? secondary : _tintedSurface(background, primary, 0.03, 0.06);
+    // Muted - light mode gets visible tinting
+    final int muted = isDark ? secondary : _tintedSurface(background, primary, 0.05, 0.10);
     // Note: Use blendColors for both modes since setAlpha doesn't work
     // with hex output (toHex strips alpha channel)
     final int mutedForeground = blendColors(

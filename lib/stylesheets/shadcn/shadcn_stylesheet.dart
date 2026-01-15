@@ -360,17 +360,17 @@ enum ShadcnTheme {
   ),
 
   // ============================================
-  // Pastel Themes (vibrant colored surfaces)
+  // Pastel Themes (richer colored surfaces)
   // ============================================
 
-  /// Soft rose/pink pastel.
-  /// Warm, gentle, and inviting.
+  /// Rose/pink theme.
+  /// Warm, elegant, with visible rose surfaces.
   rose(
-    // Light: blush pink background with rose-tinted surfaces
-    lightBackground: 0xFFfff1f2,
-    lightPrimary: 0xFFe11d48, // Vibrant rose for strong tinting
-    lightSecondary: 0xFFffe4e6,
-    lightAccent: 0xFFfecdd3,
+    // Light: clean white with rich rose-tinted surfaces
+    lightBackground: 0xFFffffff,
+    lightPrimary: 0xFFe11d48, // Vibrant rose
+    lightSecondary: 0xFFfce7f3, // Rich pink surface
+    lightAccent: 0xFFfbcfe8, // Deeper pink for interaction
     // Dark: deep rose
     darkBackground: 0xFF0f0506,
     darkPrimary: 0xFFfda4af,
@@ -378,14 +378,14 @@ enum ShadcnTheme {
     darkAccent: 0xFF4c0519,
   ),
 
-  /// Soft lavender/purple pastel.
-  /// Calming and creative.
+  /// Lavender/purple theme.
+  /// Calming and creative with visible purple surfaces.
   lavender(
-    // Light: soft lavender background with purple-tinted surfaces
-    lightBackground: 0xFFfaf5ff,
-    lightPrimary: 0xFF9333ea, // Vibrant purple for strong tinting
-    lightSecondary: 0xFFf3e8ff,
-    lightAccent: 0xFFe9d5ff,
+    // Light: clean white with rich lavender-tinted surfaces
+    lightBackground: 0xFFffffff,
+    lightPrimary: 0xFF9333ea, // Vibrant purple
+    lightSecondary: 0xFFede9fe, // Rich lavender surface
+    lightAccent: 0xFFddd6fe, // Deeper lavender for interaction
     // Dark: deep purple
     darkBackground: 0xFF09050f,
     darkPrimary: 0xFFd8b4fe,
@@ -393,14 +393,14 @@ enum ShadcnTheme {
     darkAccent: 0xFF3b0764,
   ),
 
-  /// Soft mint/green pastel.
-  /// Fresh and natural.
+  /// Mint/green theme.
+  /// Fresh and natural with visible green surfaces.
   mint(
-    // Light: soft mint background with green-tinted surfaces
-    lightBackground: 0xFFf0fdf4,
-    lightPrimary: 0xFF16a34a, // Vibrant green for strong tinting
-    lightSecondary: 0xFFdcfce7,
-    lightAccent: 0xFFbbf7d0,
+    // Light: clean white with rich mint-tinted surfaces
+    lightBackground: 0xFFffffff,
+    lightPrimary: 0xFF16a34a, // Vibrant green
+    lightSecondary: 0xFFdcfce7, // Rich mint surface
+    lightAccent: 0xFFbbf7d0, // Deeper mint for interaction
     // Dark: deep forest
     darkBackground: 0xFF030f07,
     darkPrimary: 0xFF86efac,
@@ -408,14 +408,14 @@ enum ShadcnTheme {
     darkAccent: 0xFF14532d,
   ),
 
-  /// Soft sky/blue pastel.
-  /// Clean and professional.
+  /// Sky/blue theme.
+  /// Clean and professional with visible blue surfaces.
   sky(
-    // Light: soft sky background with blue-tinted surfaces
-    lightBackground: 0xFFf0f9ff,
-    lightPrimary: 0xFF0284c7, // Vibrant sky blue for strong tinting
-    lightSecondary: 0xFFe0f2fe,
-    lightAccent: 0xFFbae6fd,
+    // Light: clean white with rich sky-tinted surfaces
+    lightBackground: 0xFFffffff,
+    lightPrimary: 0xFF0284c7, // Vibrant sky blue
+    lightSecondary: 0xFFe0f2fe, // Rich sky surface
+    lightAccent: 0xFFbae6fd, // Deeper blue for interaction
     // Dark: deep ocean
     darkBackground: 0xFF030a0f,
     darkPrimary: 0xFF7dd3fc,
@@ -423,14 +423,14 @@ enum ShadcnTheme {
     darkAccent: 0xFF0c4a6e,
   ),
 
-  /// Soft peach/orange pastel.
-  /// Warm and energetic.
+  /// Peach/orange theme.
+  /// Warm and energetic with visible orange surfaces.
   peach(
-    // Light: soft peach background with orange-tinted surfaces
-    lightBackground: 0xFFfff7ed,
-    lightPrimary: 0xFFea580c, // Vibrant orange for strong tinting
-    lightSecondary: 0xFFffedd5,
-    lightAccent: 0xFFfed7aa,
+    // Light: clean white with rich peach-tinted surfaces
+    lightBackground: 0xFFffffff,
+    lightPrimary: 0xFFea580c, // Vibrant orange
+    lightSecondary: 0xFFffedd5, // Rich peach surface
+    lightAccent: 0xFFfed7aa, // Deeper orange for interaction
     // Dark: deep amber
     darkBackground: 0xFF0f0803,
     darkPrimary: 0xFFfdba74,
@@ -438,14 +438,14 @@ enum ShadcnTheme {
     darkAccent: 0xFF7c2d12,
   ),
 
-  /// Soft teal/cyan pastel.
-  /// Modern and vibrant.
+  /// Teal/cyan theme.
+  /// Modern and vibrant with visible teal surfaces.
   teal(
-    // Light: soft teal background with cyan-tinted surfaces
-    lightBackground: 0xFFf0fdfa,
-    lightPrimary: 0xFF0d9488, // Vibrant teal for strong tinting
-    lightSecondary: 0xFFccfbf1,
-    lightAccent: 0xFF99f6e4,
+    // Light: clean white with rich teal-tinted surfaces
+    lightBackground: 0xFFffffff,
+    lightPrimary: 0xFF0d9488, // Vibrant teal
+    lightSecondary: 0xFFccfbf1, // Rich teal surface
+    lightAccent: 0xFF99f6e4, // Deeper teal for interaction
     // Dark: deep teal
     darkBackground: 0xFF030f0e,
     darkPrimary: 0xFF5eead4,
