@@ -4,9 +4,15 @@ class CommandPaletteScripts {
 
   static const String code = r'''
   function bindCommandPalettes() {
+    console.log('[ArcaneCommand] bindCommandPalettes called');
+
     // Guard against multiple bindings
-    if (window.__arcaneCommandBound) return;
+    if (window.__arcaneCommandBound) {
+      console.log('[ArcaneCommand] Already bound, skipping');
+      return;
+    }
     window.__arcaneCommandBound = true;
+    console.log('[ArcaneCommand] Setting up event delegation...');
 
     // Track selection state per overlay
     var selectedIndices = new WeakMap();
@@ -108,11 +114,13 @@ class CommandPaletteScripts {
 
     // Document-level click handler (works for dynamically rendered overlays)
     document.addEventListener('click', function(e) {
+      console.log('[ArcaneCommand] Click detected on:', e.target.tagName, e.target.className);
       var overlay = findOverlay(e.target);
 
       // Handle item clicks
       var item = e.target.closest('.arcane-command-item, .codex-command-item');
       if (item && overlay && !item.classList.contains('disabled')) {
+        console.log('[ArcaneCommand] Item click - href:', item.dataset.href);
         e.preventDefault();
         e.stopPropagation();
         handleItemClick(item, overlay);
@@ -121,10 +129,14 @@ class CommandPaletteScripts {
 
       // Handle click-outside to close
       var anyOverlay = document.querySelector('.arcane-command-overlay, .codex-command-overlay');
+      console.log('[ArcaneCommand] Found overlay:', !!anyOverlay, anyOverlay ? 'display=' + anyOverlay.style.display : 'N/A');
       if (anyOverlay && anyOverlay.style.display !== 'none') {
         var dialog = anyOverlay.querySelector('.arcane-command-dialog, .codex-command-dialog');
-        if (anyOverlay.dataset.commandClosable === 'true') {
+        var closable = anyOverlay.dataset.commandClosable;
+        console.log('[ArcaneCommand] Dialog found:', !!dialog, 'closable:', closable);
+        if (closable === 'true') {
           if (!dialog || !dialog.contains(e.target)) {
+            console.log('[ArcaneCommand] Closing overlay (click outside)');
             closeOverlay(anyOverlay);
           }
         }
@@ -149,10 +161,14 @@ class CommandPaletteScripts {
 
     // Document-level keyboard handler (works for dynamically rendered overlays)
     document.addEventListener('keydown', function(e) {
+      console.log('[ArcaneCommand] Keydown:', e.key);
       var overlay = document.querySelector('.arcane-command-overlay, .codex-command-overlay');
+      console.log('[ArcaneCommand] Keydown overlay found:', !!overlay, overlay ? 'display=' + overlay.style.display : 'N/A');
+
       if (!overlay || overlay.style.display === 'none') {
         // Only handle Ctrl+K when no overlay is open
         if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+          console.log('[ArcaneCommand] Ctrl+K pressed, opening command palette');
           e.preventDefault();
           e.stopPropagation();
           var trigger = document.querySelector('[data-command-trigger]');
@@ -165,8 +181,10 @@ class CommandPaletteScripts {
 
       var items = getVisibleItems(overlay);
       var selectedIndex = getSelectedIndex(overlay);
+      console.log('[ArcaneCommand] Items count:', items.length, 'selectedIndex:', selectedIndex);
 
       if (e.key === 'ArrowDown') {
+        console.log('[ArcaneCommand] ArrowDown');
         e.preventDefault();
         e.stopPropagation();
         if (items.length > 0) {
@@ -175,6 +193,7 @@ class CommandPaletteScripts {
           updateSelection(overlay, items);
         }
       } else if (e.key === 'ArrowUp') {
+        console.log('[ArcaneCommand] ArrowUp');
         e.preventDefault();
         e.stopPropagation();
         if (items.length > 0) {
@@ -183,14 +202,18 @@ class CommandPaletteScripts {
           updateSelection(overlay, items);
         }
       } else if (e.key === 'Enter') {
+        console.log('[ArcaneCommand] Enter pressed');
         e.preventDefault();
         e.stopPropagation();
         if (selectedIndex >= 0 && items[selectedIndex]) {
+          console.log('[ArcaneCommand] Clicking selected item');
           handleItemClick(items[selectedIndex], overlay);
         } else if (items.length > 0) {
+          console.log('[ArcaneCommand] Clicking first item');
           handleItemClick(items[0], overlay);
         }
       } else if (e.key === 'Escape') {
+        console.log('[ArcaneCommand] Escape pressed, closing');
         e.preventDefault();
         e.stopPropagation();
         closeOverlay(overlay);
