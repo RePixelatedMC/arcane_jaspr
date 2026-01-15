@@ -4,6 +4,13 @@ class CommandPaletteScripts {
 
   static const String code = r'''
   function bindCommandPalettes() {
+    // Guard against multiple bindings
+    if (window.__arcaneCommandBound) return;
+    window.__arcaneCommandBound = true;
+
+    // Track selection state per overlay
+    var selectedIndices = new WeakMap();
+
     // Inject hover/selected CSS styles if not already present
     if (!document.getElementById('arcane-command-styles')) {
       var style = document.createElement('style');
@@ -27,155 +34,181 @@ class CommandPaletteScripts {
       document.head.appendChild(style);
     }
 
-    // Handle both arcane- and codex- prefixed overlays
-    var overlays = document.querySelectorAll('.arcane-command-overlay, .codex-command-overlay');
-    overlays.forEach(function(overlay) {
-      if (overlay.dataset.arcaneInteractive === 'true') return;
-      overlay.dataset.arcaneInteractive = 'true';
+    // Helper to find the overlay from any target
+    function findOverlay(target) {
+      return target.closest('.arcane-command-overlay, .codex-command-overlay');
+    }
 
-      var dialog = overlay.querySelector('.arcane-command-dialog, .codex-command-dialog');
-      var selectedIndex = -1;
+    // Helper to get current visible items in an overlay
+    function getVisibleItems(overlay) {
+      var allItems = overlay.querySelectorAll('.arcane-command-item:not(.disabled):not(.js-hidden), .codex-command-item:not(.disabled):not(.js-hidden)');
+      return Array.from(allItems).filter(function(item) {
+        return item.offsetParent !== null;
+      });
+    }
 
-      // Helper to get current visible items
-      function getVisibleItems() {
-        var allItems = overlay.querySelectorAll('.arcane-command-item:not(.disabled):not(.js-hidden), .codex-command-item:not(.disabled):not(.js-hidden)');
-        return Array.from(allItems).filter(function(item) {
-          return item.offsetParent !== null;
-        });
+    // Get/set selected index for an overlay
+    function getSelectedIndex(overlay) {
+      return selectedIndices.get(overlay) || -1;
+    }
+    function setSelectedIndex(overlay, index) {
+      selectedIndices.set(overlay, index);
+    }
+
+    function updateSelection(overlay, items) {
+      var selectedIndex = getSelectedIndex(overlay);
+      overlay.querySelectorAll('.arcane-command-item, .codex-command-item').forEach(function(item) {
+        item.classList.remove('selected');
+      });
+      if (selectedIndex >= 0 && items[selectedIndex]) {
+        items[selectedIndex].classList.add('selected');
+        items[selectedIndex].scrollIntoView({ block: 'nearest' });
       }
+    }
 
-      function updateSelection(items) {
-        overlay.querySelectorAll('.arcane-command-item, .codex-command-item').forEach(function(item) {
-          item.classList.remove('selected');
-        });
-        if (selectedIndex >= 0 && items[selectedIndex]) {
-          items[selectedIndex].classList.add('selected');
-          items[selectedIndex].scrollIntoView({ block: 'nearest' });
+    // Close overlay helper
+    function closeOverlay(overlay) {
+      if (!overlay) return;
+      overlay.style.display = 'none';
+      setSelectedIndex(overlay, -1);
+      // Dispatch custom event for Jaspr to handle state update
+      overlay.dispatchEvent(new CustomEvent('arcane-command-close', { bubbles: true }));
+    }
+
+    // Handle item click - navigate via data-href
+    function handleItemClick(item, overlay) {
+      var href = item.dataset.href;
+      var target = item.dataset.target;
+      if (href) {
+        if (target === '_blank') {
+          window.open(href, '_blank', 'noopener,noreferrer');
+        } else {
+          window.location.href = href;
         }
+        closeOverlay(overlay);
       }
+    }
 
-      // Close overlay helper
-      function closeOverlay() {
-        overlay.style.display = 'none';
-        // Dispatch custom event for Jaspr to handle state update
-        overlay.dispatchEvent(new CustomEvent('arcane-command-close', { bubbles: true }));
-      }
+    // Filter items based on search query
+    function filterItems(overlay, query) {
+      var allItems = overlay.querySelectorAll('.arcane-command-item, .codex-command-item');
+      var q = query.toLowerCase().trim();
 
-      // Handle item click - navigate via data-href
-      function handleItemClick(item) {
-        var href = item.dataset.href;
-        var target = item.dataset.target;
-        if (href) {
-          if (target === '_blank') {
-            window.open(href, '_blank', 'noopener,noreferrer');
-          } else {
-            window.location.href = href;
-          }
-          closeOverlay();
-        }
-      }
-
-      // Filter items based on search query
-      function filterItems(query) {
-        var allItems = overlay.querySelectorAll('.arcane-command-item, .codex-command-item');
-        var q = query.toLowerCase().trim();
-
-        allItems.forEach(function(item) {
-          if (!q) {
-            item.classList.remove('js-hidden');
-            return;
-          }
-          var label = (item.dataset.label || '').toLowerCase();
-          var keywords = (item.dataset.keywords || '').toLowerCase();
-          var matches = label.includes(q) || keywords.includes(q);
-          item.classList.toggle('js-hidden', !matches);
-        });
-
-        // Also hide group headings if all their items are hidden
-        var groups = overlay.querySelectorAll('.arcane-command-list > div, .codex-command-list > div');
-        // Group headings don't have role="option", items do
-      }
-
-      // Event delegation for item clicks
-      overlay.addEventListener('click', function(e) {
-        var item = e.target.closest('.arcane-command-item, .codex-command-item');
-        if (item && !item.classList.contains('disabled')) {
-          e.stopPropagation();
-          handleItemClick(item);
+      allItems.forEach(function(item) {
+        if (!q) {
+          item.classList.remove('js-hidden');
           return;
         }
+        var label = (item.dataset.label || '').toLowerCase();
+        var keywords = (item.dataset.keywords || '').toLowerCase();
+        var matches = label.includes(q) || keywords.includes(q);
+        item.classList.toggle('js-hidden', !matches);
+      });
+    }
 
-        // Close on overlay background click
-        if (overlay.dataset.commandClosable === 'true') {
+    // Document-level click handler (works for dynamically rendered overlays)
+    document.addEventListener('click', function(e) {
+      var overlay = findOverlay(e.target);
+
+      // Handle item clicks
+      var item = e.target.closest('.arcane-command-item, .codex-command-item');
+      if (item && overlay && !item.classList.contains('disabled')) {
+        e.preventDefault();
+        e.stopPropagation();
+        handleItemClick(item, overlay);
+        return;
+      }
+
+      // Handle click-outside to close
+      var anyOverlay = document.querySelector('.arcane-command-overlay, .codex-command-overlay');
+      if (anyOverlay && anyOverlay.style.display !== 'none') {
+        var dialog = anyOverlay.querySelector('.arcane-command-dialog, .codex-command-dialog');
+        if (anyOverlay.dataset.commandClosable === 'true') {
           if (!dialog || !dialog.contains(e.target)) {
-            closeOverlay();
+            closeOverlay(anyOverlay);
           }
         }
-      });
+      }
+    }, true); // Capture phase
 
-      // Hover selection
-      overlay.addEventListener('mouseover', function(e) {
-        var item = e.target.closest('.arcane-command-item, .codex-command-item');
-        if (item && !item.classList.contains('disabled') && !item.classList.contains('js-hidden')) {
-          var items = getVisibleItems();
-          selectedIndex = items.indexOf(item);
-          updateSelection(items);
-        }
-      });
+    // Document-level mouseover for hover selection
+    document.addEventListener('mouseover', function(e) {
+      var item = e.target.closest('.arcane-command-item, .codex-command-item');
+      if (!item) return;
+      var overlay = findOverlay(item);
+      if (!overlay) return;
+      if (item.classList.contains('disabled') || item.classList.contains('js-hidden')) return;
 
-      // Keyboard navigation
-      overlay.addEventListener('keydown', function(e) {
-        var items = getVisibleItems();
-
-        if (e.key === 'ArrowDown') {
-          e.preventDefault();
-          if (items.length > 0) {
-            selectedIndex = Math.min(selectedIndex + 1, items.length - 1);
-            if (selectedIndex < 0) selectedIndex = 0;
-            updateSelection(items);
-          }
-        } else if (e.key === 'ArrowUp') {
-          e.preventDefault();
-          if (items.length > 0) {
-            selectedIndex = Math.max(selectedIndex - 1, 0);
-            updateSelection(items);
-          }
-        } else if (e.key === 'Enter') {
-          e.preventDefault();
-          if (selectedIndex >= 0 && items[selectedIndex]) {
-            handleItemClick(items[selectedIndex]);
-          } else if (items.length > 0) {
-            handleItemClick(items[0]);
-          }
-        } else if (e.key === 'Escape') {
-          e.preventDefault();
-          closeOverlay();
-        }
-      });
-
-      // Search input filtering
-      var input = overlay.querySelector('.arcane-command-input, .codex-command-input');
-      if (input) {
-        input.addEventListener('input', function() {
-          selectedIndex = -1;
-          filterItems(this.value);
-        });
+      var items = getVisibleItems(overlay);
+      var idx = items.indexOf(item);
+      if (idx >= 0) {
+        setSelectedIndex(overlay, idx);
+        updateSelection(overlay, items);
       }
     });
 
-    // Global Ctrl+K / Cmd+K keyboard shortcut
-    if (!document._arcaneCommandKeyBound) {
-      document._arcaneCommandKeyBound = true;
-      document.addEventListener('keydown', function(e) {
+    // Document-level keyboard handler (works for dynamically rendered overlays)
+    document.addEventListener('keydown', function(e) {
+      var overlay = document.querySelector('.arcane-command-overlay, .codex-command-overlay');
+      if (!overlay || overlay.style.display === 'none') {
+        // Only handle Ctrl+K when no overlay is open
         if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
           e.preventDefault();
+          e.stopPropagation();
           var trigger = document.querySelector('[data-command-trigger]');
           if (trigger) {
             trigger.click();
           }
         }
-      });
-    }
+        return;
+      }
+
+      var items = getVisibleItems(overlay);
+      var selectedIndex = getSelectedIndex(overlay);
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        e.stopPropagation();
+        if (items.length > 0) {
+          selectedIndex = selectedIndex < 0 ? 0 : Math.min(selectedIndex + 1, items.length - 1);
+          setSelectedIndex(overlay, selectedIndex);
+          updateSelection(overlay, items);
+        }
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        e.stopPropagation();
+        if (items.length > 0) {
+          selectedIndex = Math.max(selectedIndex - 1, 0);
+          setSelectedIndex(overlay, selectedIndex);
+          updateSelection(overlay, items);
+        }
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        e.stopPropagation();
+        if (selectedIndex >= 0 && items[selectedIndex]) {
+          handleItemClick(items[selectedIndex], overlay);
+        } else if (items.length > 0) {
+          handleItemClick(items[0], overlay);
+        }
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        e.stopPropagation();
+        closeOverlay(overlay);
+      }
+    }, true); // Capture phase
+
+    // Document-level input handler for search filtering
+    document.addEventListener('input', function(e) {
+      var input = e.target;
+      if (!input.classList.contains('arcane-command-input') && !input.classList.contains('codex-command-input')) return;
+      var overlay = findOverlay(input);
+      if (!overlay) return;
+
+      setSelectedIndex(overlay, -1);
+      filterItems(overlay, input.value);
+    });
+
+    console.log('[ArcaneCommand] Initialized with document-level event delegation');
   }
 ''';
 }
