@@ -88,7 +88,7 @@ class ShadcnCommand extends StatelessComponent {
                   [ArcaneIcon.search(size: IconSize.md)],
                 ),
                 // Raw HTML input to prevent Jaspr client hydration crashes
-                RawText(
+                dom.RawText(
                   '<input class="arcane-command-input" type="text" '
                   'placeholder="${props.placeholder}" '
                   'autofocus autocomplete="off" spellcheck="false" '

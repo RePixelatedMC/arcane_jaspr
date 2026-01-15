@@ -37,7 +37,10 @@ Future<void> main(List<String> args) async {
   // Step 2: Generate manifest
   await _generateManifest(baseUrl ?? '');
 
-  // Step 3: Build with jaspr
+  // Step 3: Generate search index
+  await _generateSearchIndex(baseUrl ?? '');
+
+  // Step 4: Build with jaspr
   await _runJasprBuild(domain, baseUrl);
 
   print('\nBuild complete!');
@@ -166,6 +169,24 @@ Future<void> _generateManifest(String baseUrl) async {
 
   manifestFile.writeAsStringSync(manifest);
   print('  Generated: manifest.json');
+}
+
+Future<void> _generateSearchIndex(String baseUrl) async {
+  print('Generating search index...');
+
+  final List<String> args = ['tool/generate_search_index.dart'];
+  if (baseUrl.isNotEmpty) {
+    args.add('--base-url=$baseUrl');
+  }
+
+  final ProcessResult result = await Process.run('dart', args);
+
+  if (result.exitCode != 0) {
+    print('Warning: Search index generation failed');
+    print(result.stderr);
+  } else {
+    print(result.stdout);
+  }
 }
 
 Future<void> _runJasprBuild(String domain, String? baseUrl) async {
