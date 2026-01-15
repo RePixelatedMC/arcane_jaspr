@@ -27,7 +27,9 @@ class CommandPaletteScripts {
           outline-offset: -2px;\
         }\
         .arcane-command-item.js-hidden,\
-        .codex-command-item.js-hidden {\
+        .codex-command-item.js-hidden,\
+        .arcane-command-group-heading.js-hidden,\
+        .codex-command-group-heading.js-hidden {\
           display: none !important;\
         }\
       ';
@@ -91,40 +93,105 @@ class CommandPaletteScripts {
 
     // Filter items based on search query
     function filterItems(overlay, query) {
-      var allItems = overlay.querySelectorAll('.arcane-command-item, .codex-command-item');
-      var allHeadings = overlay.querySelectorAll('.arcane-command-group-heading, .codex-command-group-heading');
+      var list = overlay.querySelector('.arcane-command-list, .codex-command-list');
+      if (!list) return;
+
       var q = query.toLowerCase().trim();
 
-      // First, filter all items
-      allItems.forEach(function(item) {
-        if (!q) {
-          item.classList.remove('js-hidden');
-          return;
+      // Get all children of the list (headings and items are siblings)
+      var children = Array.from(list.children);
+
+      // First pass: filter all items
+      children.forEach(function(child) {
+        if (child.classList.contains('arcane-command-item') || child.classList.contains('codex-command-item')) {
+          if (!q) {
+            child.classList.remove('js-hidden');
+            return;
+          }
+          var label = (child.dataset.label || '').toLowerCase();
+          var keywords = (child.dataset.keywords || '').toLowerCase();
+          var matches = label.includes(q) || keywords.includes(q);
+          child.classList.toggle('js-hidden', !matches);
         }
-        var label = (item.dataset.label || '').toLowerCase();
-        var keywords = (item.dataset.keywords || '').toLowerCase();
-        var matches = label.includes(q) || keywords.includes(q);
-        item.classList.toggle('js-hidden', !matches);
       });
 
-      // Then, hide/show group headings based on whether they have visible items
-      allHeadings.forEach(function(heading) {
-        if (!q) {
-          // No query - show all headings
-          heading.classList.remove('js-hidden');
-          return;
-        }
-        var groupName = heading.textContent.trim();
-        // Find items that belong to this group
-        var groupItems = overlay.querySelectorAll('[data-group="' + groupName + '"]');
-        var hasVisibleItems = false;
-        groupItems.forEach(function(item) {
-          if (!item.classList.contains('js-hidden')) {
+      // Second pass: hide headings that have no visible items following them
+      var currentHeading = null;
+      var hasVisibleItems = false;
+
+      children.forEach(function(child, index) {
+        var isHeading = child.classList.contains('arcane-command-group-heading') ||
+                        child.classList.contains('codex-command-group-heading');
+        var isItem = child.classList.contains('arcane-command-item') ||
+                     child.classList.contains('codex-command-item');
+
+        if (isHeading) {
+          // Before processing new heading, finalize the previous one
+          if (currentHeading) {
+            if (!q) {
+              currentHeading.classList.remove('js-hidden');
+            } else {
+              currentHeading.classList.toggle('js-hidden', !hasVisibleItems);
+            }
+          }
+          // Start tracking new heading
+          currentHeading = child;
+          hasVisibleItems = false;
+        } else if (isItem && currentHeading) {
+          // Check if this item is visible
+          if (!child.classList.contains('js-hidden')) {
             hasVisibleItems = true;
           }
-        });
-        heading.classList.toggle('js-hidden', !hasVisibleItems);
+        }
       });
+
+      // Finalize the last heading
+      if (currentHeading) {
+        if (!q) {
+          currentHeading.classList.remove('js-hidden');
+        } else {
+          currentHeading.classList.toggle('js-hidden', !hasVisibleItems);
+        }
+      }
+    }
+
+    // Auto-focus input when overlay appears
+    function focusCommandInput(overlay) {
+      if (!overlay) return;
+      var input = overlay.querySelector('.arcane-command-input, .codex-command-input');
+      if (input) {
+        setTimeout(function() {
+          input.focus();
+        }, 50);
+      }
+    }
+
+    // Watch for overlay appearance using MutationObserver
+    var observer = new MutationObserver(function(mutations) {
+      mutations.forEach(function(mutation) {
+        mutation.addedNodes.forEach(function(node) {
+          if (node.nodeType === 1) {
+            // Check if the added node is an overlay or contains one
+            if (node.classList && (node.classList.contains('arcane-command-overlay') ||
+                                   node.classList.contains('codex-command-overlay'))) {
+              focusCommandInput(node);
+            } else if (node.querySelector) {
+              var overlay = node.querySelector('.arcane-command-overlay, .codex-command-overlay');
+              if (overlay) {
+                focusCommandInput(overlay);
+              }
+            }
+          }
+        });
+      });
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    // Also focus any existing overlay on page load
+    var existingOverlay = document.querySelector('.arcane-command-overlay, .codex-command-overlay');
+    if (existingOverlay && existingOverlay.style.display !== 'none') {
+      focusCommandInput(existingOverlay);
     }
 
     // Document-level click handler (works for dynamically rendered overlays)
