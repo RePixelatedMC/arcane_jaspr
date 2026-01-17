@@ -160,6 +160,7 @@ $componentCss
   /// Base CSS shared by all stylesheets.
   ///
   /// Includes:
+  /// - Lucide icon font
   /// - Box sizing reset
   /// - Body styling
   /// - Scrollbar styling
@@ -167,6 +168,17 @@ $componentCss
   /// - Focus ring utility
   /// - Spinner animation
   static const String _sharedBaseCss = '''
+/* Lucide Icon Font - Required for ArcaneIcon */
+@font-face {
+  font-family: 'lucide';
+  src: url('/assets/fonts/lucide/lucide.woff2') format('woff2'),
+       url('/assets/fonts/lucide/lucide.woff') format('woff'),
+       url('/assets/fonts/lucide/lucide.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
 /* Base Reset */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -291,6 +303,29 @@ html.light body::-webkit-scrollbar-corner {
 
 .arcane-button:active:not([disabled]) {
   filter: brightness(0.9);
+}
+
+/* Carousel - Infinite scrolling with drag support */
+@keyframes scroll-carousel {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.arcane-carousel-track:hover {
+  animation-play-state: paused;
+}
+
+.arcane-carousel-track.dragging {
+  animation: none !important;
+  cursor: grabbing;
+}
+
+.arcane-carousel-track.dragging * {
+  pointer-events: none;
+}
+
+.arcane-carousel-track.resuming {
+  transition: none;
 }
 ''';
 

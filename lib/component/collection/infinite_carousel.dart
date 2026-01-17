@@ -14,6 +14,13 @@ import 'package:jaspr/dom.dart'
         FontWeight;
 
 /// Infinite scrolling carousel that auto-scrolls horizontally.
+///
+/// Features:
+/// - Click and drag to manually scroll
+/// - Infinite looping in both directions
+/// - Auto-resume scrolling after inactivity
+/// - Touch support for mobile devices
+/// - Pauses on hover
 class ArcaneInfiniteCarousel extends StatelessComponent {
   final List<Component> children;
   final String gap;
@@ -23,6 +30,10 @@ class ArcaneInfiniteCarousel extends StatelessComponent {
   final String backgroundColor;
   final String? trackClass;
 
+  /// Delay in seconds before resuming auto-scroll after user interaction.
+  /// Default: 5 seconds.
+  final int resumeDelay;
+
   const ArcaneInfiniteCarousel({
     super.key,
     required this.children,
@@ -31,6 +42,7 @@ class ArcaneInfiniteCarousel extends StatelessComponent {
     this.showFadeEdges = true,
     this.fadeWidth = '150px',
     this.backgroundColor = 'var(--card)',
+    this.resumeDelay = 5,
   }) : trackClass = null;
 
   const ArcaneInfiniteCarousel.withClass({
@@ -42,12 +54,17 @@ class ArcaneInfiniteCarousel extends StatelessComponent {
     this.showFadeEdges = true,
     this.fadeWidth = '150px',
     this.backgroundColor = 'var(--card)',
+    this.resumeDelay = 5,
   });
 
   @override
   Component build(BuildContext context) {
     return div(
-      classes: 'arcane-infinite-carousel',
+      classes: 'arcane-carousel',
+      attributes: {
+        'data-animation-duration': animationDuration.toString(),
+        'data-resume-delay': (resumeDelay * 1000).toString(),
+      },
       styles: const Styles(raw: {
         'position': 'relative',
         'overflow': 'hidden',
@@ -62,7 +79,8 @@ class ArcaneInfiniteCarousel extends StatelessComponent {
               'top': '0',
               'bottom': '0',
               'width': fadeWidth,
-              'background': 'linear-gradient(to right, $backgroundColor, transparent)',
+              'background':
+                  'linear-gradient(to right, $backgroundColor, transparent)',
               'z-index': '10',
               'pointer-events': 'none',
             }),
@@ -77,19 +95,24 @@ class ArcaneInfiniteCarousel extends StatelessComponent {
               'top': '0',
               'bottom': '0',
               'width': fadeWidth,
-              'background': 'linear-gradient(to left, $backgroundColor, transparent)',
+              'background':
+                  'linear-gradient(to left, $backgroundColor, transparent)',
               'z-index': '10',
               'pointer-events': 'none',
             }),
             [],
           ),
         div(
-          classes: trackClass ?? 'arcane-infinite-carousel-track',
+          classes:
+              '${trackClass ?? 'arcane-infinite-carousel-track'} arcane-carousel-track',
           styles: Styles(raw: {
             'display': 'flex',
             'width': 'max-content',
+            'cursor': 'grab',
+            'user-select': 'none',
             if (trackClass == null)
-              'animation': 'scroll-carousel ${animationDuration}s linear infinite',
+              'animation':
+                  'scroll-carousel ${animationDuration}s linear infinite',
           }),
           [
             div(

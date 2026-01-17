@@ -31,6 +31,9 @@ class CodexGradientText extends StatelessComponent {
         '-webkit-background-clip': 'text',
         'background-clip': 'text',
         'color': 'transparent',
+        'display': 'inline-block',
+        'padding-block': '0.1em',
+        'margin-block': '-0.1em',
       }),
       [Component.text(props.content)],
     );

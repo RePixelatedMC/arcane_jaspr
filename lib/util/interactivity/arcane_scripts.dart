@@ -8,6 +8,7 @@ import 'scripts/navigation/navigation_scripts.dart';
 import 'scripts/dialog/dialog_scripts.dart';
 import 'scripts/view/view_scripts.dart';
 import 'scripts/theme/rainbow_scripts.dart';
+import 'scripts/carousel/carousel_scripts.dart';
 
 /// Fallback JavaScript for Arcane components on static sites.
 class ArcaneScripts {
@@ -92,6 +93,9 @@ class ArcaneScripts {
 
     // Theme
     bindRainbowTheme();
+
+    // Carousels
+    bindCarousels();
   }
 
   ${SliderScripts.code}
@@ -101,6 +105,7 @@ class ArcaneScripts {
   ${DialogScripts.code}
   ${ViewScripts.code}
   ${RainbowScripts.code}
+  ${CarouselScripts.code}
 })();
 ''';
 }

@@ -160,7 +160,7 @@ class CodexStylesheet extends ArcaneStylesheet {
 /* Hack - Monospace Font */
 @font-face {
   font-family: 'Hack';
-  src: url('/assets/fonts/HackFont/Hack-Regular.ttf') format('truetype');
+  src: url('/assets/fonts/hack/Hack-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: block;
@@ -168,7 +168,7 @@ class CodexStylesheet extends ArcaneStylesheet {
 
 @font-face {
   font-family: 'Hack';
-  src: url('/assets/fonts/HackFont/Hack-Italic.ttf') format('truetype');
+  src: url('/assets/fonts/hack/Hack-Italic.ttf') format('truetype');
   font-weight: 400;
   font-style: italic;
   font-display: block;
@@ -176,7 +176,7 @@ class CodexStylesheet extends ArcaneStylesheet {
 
 @font-face {
   font-family: 'Hack';
-  src: url('/assets/fonts/HackFont/Hack-Bold.ttf') format('truetype');
+  src: url('/assets/fonts/hack/Hack-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
   font-display: block;
@@ -184,7 +184,7 @@ class CodexStylesheet extends ArcaneStylesheet {
 
 @font-face {
   font-family: 'Hack';
-  src: url('/assets/fonts/HackFont/Hack-BoldItalic.ttf') format('truetype');
+  src: url('/assets/fonts/hack/Hack-BoldItalic.ttf') format('truetype');
   font-weight: 700;
   font-style: italic;
   font-display: block;

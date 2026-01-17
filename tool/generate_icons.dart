@@ -1,12 +1,14 @@
 // Tool to generate the complete ArcaneIcon wrapper for all Lucide icons
+// Uses the Lucide icon font for efficient loading (single font file vs 1600+ separate SVG components)
 // Run with: dart tool/generate_icons.dart
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:fast_log/fast_log.dart';
 
 /// Dart reserved words that need special handling
-const dartReservedWords = {
+const Set<String> dartReservedWords = <String>{
   'assert', 'break', 'case', 'catch', 'class', 'const', 'continue',
   'default', 'do', 'else', 'enum', 'extends', 'false', 'final',
   'finally', 'for', 'if', 'in', 'is', 'new', 'null', 'rethrow',
@@ -21,31 +23,25 @@ const dartReservedWords = {
 };
 
 /// Special abbreviations - keep uppercase for AZ/ZA sorting icons only
-/// Note: jaspr_lucide uses standard PascalCase (Cpu, Nfc, Gpu, etc.)
-const upperAbbreviations = {
+const Map<String, String> upperAbbreviations = <String, String>{
   'az': 'AZ',
   'za': 'ZA',
 };
 
-/// Icons with special class names in jaspr_lucide (due to Dart conflicts)
-const classNameOverrides = {
-  'component_': 'Component_', // Trailing underscore because of Dart conflict
-};
-
 /// Semantic aliases for common icon names
-/// Maps alias method name -> actual lucide method name
-const semanticAliases = {
+/// Maps alias method name -> actual lucide icon name (kebab-case)
+const Map<String, String> semanticAliases = <String, String>{
   // Navigation
   'home': 'house',
   'close': 'x',
-  'back': 'arrowLeft',
-  'forward': 'arrowRight',
-  'up': 'arrowUp',
-  'down': 'arrowDown',
+  'back': 'arrow-left',
+  'forward': 'arrow-right',
+  'up': 'arrow-up',
+  'down': 'arrow-down',
 
   // Actions
   'edit': 'pencil',
-  'delete': 'trash2',
+  'delete': 'trash-2',
   'remove': 'trash',
   'add': 'plus',
   'create': 'plus',
@@ -53,30 +49,30 @@ const semanticAliases = {
   'confirm': 'check',
 
   // UI elements
-  'dropdown': 'chevronDown',
-  'expand': 'chevronDown',
-  'collapse': 'chevronUp',
-  'next': 'chevronRight',
-  'prev': 'chevronLeft',
-  'previous': 'chevronLeft',
+  'dropdown': 'chevron-down',
+  'expand': 'chevron-down',
+  'collapse': 'chevron-up',
+  'next': 'chevron-right',
+  'prev': 'chevron-left',
+  'previous': 'chevron-left',
 
   // Grid/Layout
-  'grid': 'grid3x3',
-  'dashboard': 'layoutDashboard',
-  'sidebar': 'panelLeft',
+  'grid': 'grid-3x3',
+  'dashboard': 'layout-dashboard',
+  'sidebar': 'panel-left',
 
   // Status
-  'success': 'circleCheck',
-  'error': 'circleX',
-  'warning': 'triangleAlert',
-  'danger': 'triangleAlert',
+  'success': 'circle-check',
+  'error': 'circle-x',
+  'warning': 'triangle-alert',
+  'danger': 'triangle-alert',
   'info': 'info',
-  'help': 'circleQuestionMark',
+  'help': 'circle-question-mark',
 
   // User
   'profile': 'user',
   'account': 'user',
-  'avatar': 'circleUserRound',
+  'avatar': 'circle-user-round',
 
   // Misc
   'search': 'search',
@@ -87,48 +83,48 @@ const semanticAliases = {
   'notifications': 'bell',
   'alerts': 'bell',
   'email': 'mail',
-  'message': 'messageSquare',
-  'chat': 'messageCircle',
-  'comment': 'messageSquare',
+  'message': 'message-square',
+  'chat': 'message-circle',
+  'comment': 'message-square',
   'attachment': 'paperclip',
   'link': 'link',
-  'share': 'share2',
+  'share': 'share-2',
   'save': 'save',
   'download': 'download',
   'upload': 'upload',
   'copy': 'copy',
   'paste': 'clipboard',
   'cut': 'scissors',
-  'undo': 'undo2',
-  'redo': 'redo2',
-  'refresh': 'refreshCw',
-  'reload': 'refreshCw',
-  'sync': 'refreshCw',
-  'loading': 'loaderCircle',
-  'spinner': 'loaderCircle',
+  'undo': 'undo-2',
+  'redo': 'redo-2',
+  'refresh': 'refresh-cw',
+  'reload': 'refresh-cw',
+  'sync': 'refresh-cw',
+  'loading': 'loader-circle',
+  'spinner': 'loader-circle',
   'lock': 'lock',
-  'unlock': 'lockOpen',
+  'unlock': 'lock-open',
   'visible': 'eye',
-  'hidden': 'eyeOff',
+  'hidden': 'eye-off',
   'show': 'eye',
-  'hide': 'eyeOff',
+  'hide': 'eye-off',
   'play': 'play',
   'pause': 'pause',
   'stop': 'square',
   'record': 'circle',
-  'volume': 'volume2',
-  'mute': 'volumeX',
+  'volume': 'volume-2',
+  'mute': 'volume-x',
   'fullscreen': 'maximize',
   'exitFullscreen': 'minimize',
-  'zoomIn': 'zoomIn',
-  'zoomOut': 'zoomOut',
+  'zoomIn': 'zoom-in',
+  'zoomOut': 'zoom-out',
   'calendar': 'calendar',
   'date': 'calendar',
   'time': 'clock',
   'timer': 'timer',
-  'alarm': 'alarmClock',
-  'location': 'mapPin',
-  'pin': 'mapPin',
+  'alarm': 'alarm-clock',
+  'location': 'map-pin',
+  'pin': 'map-pin',
   'phone': 'phone',
   'call': 'phone',
   'video': 'video',
@@ -139,26 +135,19 @@ const semanticAliases = {
   'music': 'music',
   'audio': 'music',
   'file': 'file',
-  'document': 'fileText',
+  'document': 'file-text',
   'folder': 'folder',
   'directory': 'folder',
   'print': 'printer',
-  'export': 'fileOutput',
-
-  // Backwards compatibility aliases for renamed icons
-  'key': 'keyIcon',
-  'factory': 'factoryIcon',
-  'target': 'targetIcon',
-  'map': 'mapIcon',
-  'contrast': 'contrastIcon',
+  'export': 'file-output',
   'moreHorizontal': 'ellipsis',
-  'moreVertical': 'ellipsisVertical',
+  'moreVertical': 'ellipsis-vertical',
   'filter': 'funnel',
-  'sort': 'arrowUpDown',
+  'sort': 'arrow-up-down',
 };
 
-/// Icons that need manual name adjustments
-const nameOverrides = <String, String>{
+/// Icons that need manual name adjustments (kebab-case key -> method name)
+const Map<String, String> nameOverrides = <String, String>{
   // Reserved words or conflicts
   'import': 'importIcon',
   'type': 'typeIcon',
@@ -209,44 +198,17 @@ const nameOverrides = <String, String>{
   'radius': 'radiusIcon',
 };
 
-/// Convert snake_case to PascalCase (for Lucide class names)
-String snakeToPascal(String snake) {
-  // Check for special class name overrides first
-  if (classNameOverrides.containsKey(snake)) {
-    return classNameOverrides[snake]!;
-  }
+/// Convert kebab-case to camelCase (for method names)
+String kebabToCamel(String kebab) {
+  final List<String> parts = kebab.split('-');
+  final StringBuffer buffer = StringBuffer();
 
-  return snake.split('_').map((part) {
-    if (part.isEmpty) return '';
-
-    // Check for special abbreviations first (AZ/ZA for sorting icons)
-    final lower = part.toLowerCase();
-    if (upperAbbreviations.containsKey(lower)) {
-      return upperAbbreviations[lower]!;
-    }
-
-    // Handle numeric parts
-    if (RegExp(r'^\d').hasMatch(part)) {
-      return part;
-    }
-    return part[0].toUpperCase() + part.substring(1).toLowerCase();
-  }).join();
-}
-
-/// Convert snake_case to camelCase (for method names)
-String snakeToCamel(String snake) {
-  // Remove trailing underscore for method naming
-  var cleanSnake = snake.endsWith('_') ? snake.substring(0, snake.length - 1) : snake;
-
-  final parts = cleanSnake.split('_');
-  final buffer = StringBuffer();
-
-  for (var i = 0; i < parts.length; i++) {
-    var part = parts[i];
+  for (int i = 0; i < parts.length; i++) {
+    String part = parts[i];
     if (part.isEmpty) continue;
 
     // Check for special abbreviations (AZ/ZA)
-    final lower = part.toLowerCase();
+    final String lower = part.toLowerCase();
     if (upperAbbreviations.containsKey(lower)) {
       if (i == 0) {
         buffer.write(lower); // First part stays lowercase
@@ -277,13 +239,13 @@ String snakeToCamel(String snake) {
 }
 
 /// Get the method name, handling reserved words
-String getMethodName(String snakeName) {
-  final camel = snakeToCamel(snakeName);
-
+String getMethodName(String kebabName) {
   // Check for overrides first
-  if (nameOverrides.containsKey(snakeName)) {
-    return nameOverrides[snakeName]!;
+  if (nameOverrides.containsKey(kebabName)) {
+    return nameOverrides[kebabName]!;
   }
+
+  final String camel = kebabToCamel(kebabName);
 
   // Check if it's a reserved word
   if (dartReservedWords.contains(camel)) {
@@ -294,92 +256,55 @@ String getMethodName(String snakeName) {
 }
 
 void main() async {
-  // Read icon names from jaspr_lucide exports
-  final pubCacheDir = Platform.environment['HOME']! + '/.pub-cache/hosted/pub.dev';
-  final lucideDir = Directory(pubCacheDir)
-      .listSync()
-      .whereType<Directory>()
-      .firstWhere((d) => d.path.contains('jaspr_lucide'));
+  // Read icon info from the lucide font info.json
+  final File infoFile = File('assets/fonts/lucide/info.json');
+  if (!infoFile.existsSync()) {
+    error('info.json not found. Run: npm pack lucide-static && extract font files');
+    exit(1);
+  }
 
-  final jasperLucideFile = File('${lucideDir.path}/lib/jaspr_lucide.dart');
-  final content = await jasperLucideFile.readAsString();
+  final String infoContent = await infoFile.readAsString();
+  final Map<String, dynamic> iconInfo = jsonDecode(infoContent) as Map<String, dynamic>;
 
-  // Extract icon names from exports
-  final exportRegex = RegExp(r"export 'generated_icons/(.+)\.dart';");
-  final iconNames = exportRegex
-      .allMatches(content)
-      .map((m) => m.group(1)!)
-      .toList()
-    ..sort();
+  final List<String> iconNames = iconInfo.keys.toList()..sort();
+  print('Found ${iconNames.length} icons in Lucide font');
 
-  print('Found ${iconNames.length} icons');
-
-  // Group icons by category (based on common prefixes)
-  final categories = <String, List<String>>{};
-  for (final name in iconNames) {
-    String category = 'misc';
-
-    if (name.startsWith('arrow')) category = 'arrows';
-    else if (name.startsWith('chevron')) category = 'chevrons';
-    else if (name.startsWith('circle')) category = 'circles';
-    else if (name.startsWith('square')) category = 'squares';
-    else if (name.startsWith('file')) category = 'files';
-    else if (name.startsWith('folder')) category = 'folders';
-    else if (name.startsWith('user')) category = 'users';
-    else if (name.startsWith('calendar')) category = 'calendar';
-    else if (name.startsWith('clock')) category = 'time';
-    else if (name.startsWith('chart')) category = 'charts';
-    else if (name.startsWith('align')) category = 'alignment';
-    else if (name.startsWith('badge')) category = 'badges';
-    else if (name.startsWith('book')) category = 'books';
-    else if (name.startsWith('box')) category = 'boxes';
-    else if (name.startsWith('cloud')) category = 'cloud';
-    else if (name.startsWith('code')) category = 'code';
-    else if (name.startsWith('git')) category = 'git';
-    else if (name.startsWith('layout')) category = 'layout';
-    else if (name.startsWith('list')) category = 'lists';
-    else if (name.startsWith('log')) category = 'auth';
-    else if (name.startsWith('mail')) category = 'mail';
-    else if (name.startsWith('message')) category = 'messages';
-    else if (name.startsWith('panel')) category = 'panels';
-    else if (name.startsWith('shield')) category = 'security';
-    else if (name.startsWith('text')) category = 'text';
-    else if (name.startsWith('toggle')) category = 'toggles';
-
-    categories.putIfAbsent(category, () => []).add(name);
+  // Build codepoint map
+  final Map<String, String> codepoints = <String, String>{};
+  for (final String name in iconNames) {
+    final Map<String, dynamic> info = iconInfo[name] as Map<String, dynamic>;
+    // encodedCode is like "\\e585" - we need just "e585"
+    String code = info['encodedCode'] as String;
+    if (code.startsWith('\\')) {
+      code = code.substring(1);
+    }
+    codepoints[name] = code;
   }
 
   // Generate the Dart file
-  final buffer = StringBuffer();
+  final StringBuffer buffer = StringBuffer();
 
   buffer.writeln('''
 // GENERATED FILE - DO NOT EDIT MANUALLY
 // Generated by tool/generate_icons.dart
-// Wraps all ${iconNames.length} Lucide icons with a clean API
+// Uses the Lucide icon font for efficient loading
+// Font files: assets/fonts/lucide/lucide.woff2 (245KB for all ${iconNames.length} icons)
 
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' show Unit;
-import 'package:jaspr_lucide/jaspr_lucide.dart' as lucide;
+import 'package:jaspr/dom.dart' as dom;
 
-/// Icon size presets for consistent sizing across the app
+/// Icon size presets for consistent sizing.
 enum IconSize {
-  /// 12px - Tiny indicators, badges
   xs,
-  /// 16px - Inline, compact UI, small buttons
   sm,
-  /// 20px - Default size for most UI elements
   md,
-  /// 24px - Prominent icons, large buttons
   lg,
-  /// 32px - Hero sections, feature highlights
   xl,
-  /// 48px - Large displays, marketing sections
   xl2,
 }
 
-/// Extension to convert IconSize to pixel values
+/// Extension to convert IconSize to pixel values.
 extension IconSizeExtension on IconSize {
-  /// Get the pixel value for this size
   double get pixels => switch (this) {
         IconSize.xs => 12,
         IconSize.sm => 16,
@@ -388,18 +313,48 @@ extension IconSizeExtension on IconSize {
         IconSize.xl => 32,
         IconSize.xl2 => 48,
       };
-
-  /// Get as Unit for jaspr_lucide icons
-  Unit get unit => Unit.pixels(pixels);
 }
 
-/// Wrapper class providing a clean, discoverable API for all ${iconNames.length} Lucide icons.
+/// Base component for font-based icons.
+/// Uses the Lucide icon font with Unicode codepoints.
+class _LucideIcon extends StatelessComponent {
+  final String codepoint;
+  final IconSize size;
+
+  const _LucideIcon({
+    required this.codepoint,
+    this.size = IconSize.md,
+  });
+
+  @override
+  Component build(BuildContext context) {
+    final double px = size.pixels;
+    return dom.i(
+      styles: dom.Styles(raw: <String, String>{
+        'font-family': "'lucide', sans-serif",
+        'font-style': 'normal',
+        'font-weight': 'normal',
+        'font-size': '\${px}px',
+        'line-height': '1',
+        'display': 'inline-block',
+        'width': '\${px}px',
+        'height': '\${px}px',
+        '-webkit-font-smoothing': 'antialiased',
+        '-moz-osx-font-smoothing': 'grayscale',
+      }),
+      [Component.text(String.fromCharCode(int.parse(codepoint, radix: 16)))],
+    );
+  }
+}
+
+/// Wrapper class providing access to all ${iconNames.length} Lucide icons.
 ///
-/// Instead of using confusing raw icon constructors like `House()` or `Search()`,
-/// use this class for clarity and discoverability:
+/// Uses the Lucide icon font for efficient loading - a single 245KB font file
+/// instead of 1600+ separate SVG component files.
 ///
+/// Usage:
 /// ```dart
-/// ArcaneIcon.home()
+/// ArcaneIcon.house()
 /// ArcaneIcon.search(size: IconSize.lg)
 /// ArcaneIcon.settings()
 /// ```
@@ -412,14 +367,19 @@ class ArcaneIcon {
 ''');
 
   // Generate methods for each icon
-  for (final name in iconNames) {
-    final methodName = getMethodName(name);
-    final className = snakeToPascal(name);
+  for (final String name in iconNames) {
+    final String methodName = getMethodName(name);
+    final String codepoint = codepoints[name]!;
+    // Convert name to PascalCase for the doc comment
+    final String displayName = name
+        .split('-')
+        .map((String s) => s.isEmpty ? '' : s[0].toUpperCase() + s.substring(1))
+        .join('');
 
     buffer.writeln('''
-  /// $className icon
+  /// $displayName icon
   static Component $methodName({IconSize size = IconSize.md}) =>
-      lucide.$className(width: size.unit, height: size.unit);
+      _LucideIcon(codepoint: '$codepoint', size: size);
 ''');
   }
 
@@ -433,29 +393,62 @@ class ArcaneIcon {
 ''');
 
   // Generate alias methods
-  for (final entry in semanticAliases.entries) {
-    final aliasName = entry.key;
-    final targetName = entry.value;
+  final Set<String> existingMethods = iconNames.map((String n) => getMethodName(n)).toSet();
+
+  for (final MapEntry<String, String> entry in semanticAliases.entries) {
+    final String aliasName = entry.key;
+    final String targetIconName = entry.value;
 
     // Skip if alias would conflict with an existing method
-    final existingMethods = iconNames.map((n) => getMethodName(n)).toSet();
     if (existingMethods.contains(aliasName)) {
       continue;
     }
 
+    // Get the codepoint for the target icon
+    if (!codepoints.containsKey(targetIconName)) {
+      warn('Alias "$aliasName" -> "$targetIconName" not found in icon set');
+      continue;
+    }
+
+    final String codepoint = codepoints[targetIconName]!;
+
     buffer.writeln('''
-  /// Alias for [$targetName] - semantic name for common use case
+  /// Alias for $targetIconName - semantic name for common use case
   static Component $aliasName({IconSize size = IconSize.md}) =>
-      $targetName(size: size);
+      _LucideIcon(codepoint: '$codepoint', size: size);
 ''');
   }
 
   buffer.writeln('}');
 
   // Write the generated file
-  final outputFile = File('lib/component/view/icon.dart');
+  final File outputFile = File('lib/component/view/icon.dart');
   await outputFile.writeAsString(buffer.toString());
 
   info('Generated ${outputFile.path} with ${iconNames.length} icons');
-  info('Categories: ${categories.keys.join(', ')}');
+
+  // Generate CSS file for the font
+  await _generateFontCss();
+}
+
+/// Generate CSS file with @font-face for the Lucide icon font
+Future<void> _generateFontCss() async {
+  const String css = '''
+/* Lucide Icon Font - Generated by tool/generate_icons.dart */
+/* Include this CSS in your web app to load the icon font */
+
+@font-face {
+  font-family: 'lucide';
+  src: url('fonts/lucide/lucide.woff2') format('woff2'),
+       url('fonts/lucide/lucide.woff') format('woff'),
+       url('fonts/lucide/lucide.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+''';
+
+  final File cssFile = File('assets/fonts/lucide/lucide.css');
+  await cssFile.writeAsString(css);
+  info('Generated ${cssFile.path}');
 }

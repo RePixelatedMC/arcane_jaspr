@@ -1,8 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
-import 'package:jaspr_lucide/jaspr_lucide.dart'
-    hide Factory, Target, Key, List, Timer, View, Map;
 
+import '../../../component/view/icon.dart';
 import '../../../core/props/toast_props.dart';
 
 /// ShadCN Toast renderer.
@@ -19,17 +18,12 @@ class ShadcnToast extends StatelessComponent {
       return props.icon!;
     }
 
-    final iconWidget = switch (props.variant) {
-      ToastVariant.success =>
-        CircleCheck(width: const dom.Unit.pixels(20), height: const dom.Unit.pixels(20)),
-      ToastVariant.error =>
-        CircleX(width: const dom.Unit.pixels(20), height: const dom.Unit.pixels(20)),
-      ToastVariant.warning =>
-        TriangleAlert(width: const dom.Unit.pixels(20), height: const dom.Unit.pixels(20)),
-      ToastVariant.info =>
-        Info(width: const dom.Unit.pixels(20), height: const dom.Unit.pixels(20)),
-      ToastVariant.loading =>
-        Loader(width: const dom.Unit.pixels(20), height: const dom.Unit.pixels(20)),
+    final Component iconWidget = switch (props.variant) {
+      ToastVariant.success => ArcaneIcon.circleCheck(size: IconSize.md),
+      ToastVariant.error => ArcaneIcon.circleX(size: IconSize.md),
+      ToastVariant.warning => ArcaneIcon.triangleAlert(size: IconSize.md),
+      ToastVariant.info => ArcaneIcon.info(size: IconSize.md),
+      ToastVariant.loading => ArcaneIcon.loader(size: IconSize.md),
     };
 
     final isLoading = props.variant == ToastVariant.loading;
@@ -225,7 +219,7 @@ class ShadcnToast extends StatelessComponent {
               'opacity': '0.7',
             }),
             events: {'click': (_) => props.onDismiss!()},
-            [X(width: const dom.Unit.pixels(16), height: const dom.Unit.pixels(16))],
+            [ArcaneIcon.x(size: IconSize.sm)],
           ),
 
         // Progress bar

@@ -2,21 +2,6 @@ library arcane_jaspr;
 
 export 'package:jaspr/jaspr.dart';
 
-export 'package:jaspr_lucide/jaspr_lucide.dart'
-    hide
-        Factory,
-        Target,
-        Key,
-        List,
-        Timer,
-        View,
-        Map,
-        Import,
-        Contrast,
-        Radius,
-        SpellCheck,
-        TextWrap;
-
 export 'package:jaspr/dom.dart'
     hide
         Color,
