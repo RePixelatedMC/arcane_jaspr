@@ -12,10 +12,42 @@ import '../../../core/props/accordion_props.dart';
 /// - AccordionItem: border-b
 /// - AccordionTrigger: flex flex-1 items-center justify-between py-4 font-medium transition-all hover:underline [&[data-state=open]>svg]:rotate-180
 /// - AccordionContent: overflow-hidden text-sm transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down
-class ShadcnAccordion extends StatelessComponent {
+///
+/// This is a StatefulComponent that manages its own open/closed state internally,
+/// ensuring proper event handling in SSR environments.
+class ShadcnAccordion extends StatefulComponent {
   final AccordionProps props;
 
   const ShadcnAccordion(this.props, {super.key});
+
+  @override
+  State<ShadcnAccordion> createState() => _ShadcnAccordionState();
+}
+
+class _ShadcnAccordionState extends State<ShadcnAccordion> {
+  late Set<int> _openItems;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize with the provided open items from props
+    _openItems = Set<int>.from(component.props.openItems);
+  }
+
+  void _toggleItem(int index) {
+    setState(() {
+      if (_openItems.contains(index)) {
+        _openItems.remove(index);
+      } else {
+        if (!component.props.allowMultiple) {
+          _openItems.clear();
+        }
+        _openItems.add(index);
+      }
+    });
+    // Also call the external callback if provided
+    component.props.onToggle?.call(index);
+  }
 
   @override
   Component build(BuildContext context) {
@@ -24,20 +56,20 @@ class ShadcnAccordion extends StatelessComponent {
       styles: dom.Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        if (props.bordered) 'border': '1px solid var(--border)',
-        if (props.bordered) 'border-radius': 'var(--arcane-radius-md)',
+        if (component.props.bordered) 'border': '1px solid var(--border)',
+        if (component.props.bordered) 'border-radius': 'var(--arcane-radius-md)',
         'overflow': 'hidden',
       }),
       [
-        for (int i = 0; i < props.items.length; i++)
-          _buildItem(i, props.items[i]),
+        for (int i = 0; i < component.props.items.length; i++)
+          _buildItem(i, component.props.items[i]),
       ],
     );
   }
 
   Component _buildItem(int index, AccordionItemProps item) {
-    final bool isOpen = props.openItems.contains(index);
-    final bool isLast = index == props.items.length - 1;
+    final bool isOpen = _openItems.contains(index);
+    final bool isLast = index == component.props.items.length - 1;
 
     return dom.div(
       classes: 'arcane-accordion-item ${isOpen ? 'open' : ''}',
@@ -73,11 +105,7 @@ class ShadcnAccordion extends StatelessComponent {
             'transition': 'all var(--arcane-transition-slow)',
           }),
           events: {
-            'click': (e) {
-              if (props.onToggle != null) {
-                props.onToggle!(index);
-              }
-            },
+            'click': (_) => _toggleItem(index),
           },
           [
             dom.span([Component.text(item.title)]),

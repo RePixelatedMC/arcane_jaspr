@@ -9,32 +9,64 @@ import '../../../core/props/accordion_props.dart';
 /// - Larger padding
 /// - Accent-colored when open
 /// - Smooth animations
-class CodexAccordion extends StatelessComponent {
+///
+/// This is a StatefulComponent that manages its own open/closed state internally,
+/// ensuring proper event handling in SSR environments.
+class CodexAccordion extends StatefulComponent {
   final AccordionProps props;
 
   const CodexAccordion(this.props, {super.key});
 
   @override
+  State<CodexAccordion> createState() => _CodexAccordionState();
+}
+
+class _CodexAccordionState extends State<CodexAccordion> {
+  late Set<int> _openItems;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize with the provided open items from props
+    _openItems = Set<int>.from(component.props.openItems);
+  }
+
+  void _toggleItem(int index) {
+    setState(() {
+      if (_openItems.contains(index)) {
+        _openItems.remove(index);
+      } else {
+        if (!component.props.allowMultiple) {
+          _openItems.clear();
+        }
+        _openItems.add(index);
+      }
+    });
+    // Also call the external callback if provided
+    component.props.onToggle?.call(index);
+  }
+
+  @override
   Component build(BuildContext context) {
     return dom.div(
-      classes: 'codex-accordion ${props.bordered ? 'bordered' : ''}',
+      classes: 'codex-accordion ${component.props.bordered ? 'bordered' : ''}',
       styles: dom.Styles(raw: {
         'width': '100%',
-        if (props.bordered) ...{
+        if (component.props.bordered) ...{
           'border': '1px solid var(--border)',
           'border-radius': 'var(--radius)',
           'overflow': 'hidden',
         },
       }),
       [
-        for (var i = 0; i < props.items.length; i++)
-          _buildItem(props.items[i], i, i == props.items.length - 1),
+        for (int i = 0; i < component.props.items.length; i++)
+          _buildItem(component.props.items[i], i, i == component.props.items.length - 1),
       ],
     );
   }
 
   Component _buildItem(AccordionItemProps item, int index, bool isLast) {
-    final bool isOpen = props.openItems.contains(index);
+    final bool isOpen = _openItems.contains(index);
 
     return dom.div(
       classes: 'codex-accordion-item ${isOpen ? 'open' : 'closed'}',
@@ -65,9 +97,9 @@ class CodexAccordion extends StatelessComponent {
             'cursor': 'pointer',
             'transition': 'all var(--transition)',
           }),
-          events: props.onToggle == null
-              ? null
-              : {'click': (_) => props.onToggle!(index)},
+          events: {
+            'click': (_) => _toggleItem(index),
+          },
           [
             Component.text(item.title),
             dom.span(

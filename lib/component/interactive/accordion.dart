@@ -18,7 +18,10 @@ class ArcaneAccordionItem {
 }
 
 /// Collapsible accordion component.
-class ArcaneAccordion extends StatefulComponent {
+///
+/// This is a StatelessComponent that delegates state management to the renderer,
+/// ensuring proper event handling in SSR environments.
+class ArcaneAccordion extends StatelessComponent {
   final List<ArcaneAccordionItem> items;
   final bool allowMultiple;
   final bool bordered;
@@ -31,39 +34,16 @@ class ArcaneAccordion extends StatefulComponent {
   });
 
   @override
-  State<ArcaneAccordion> createState() => _ArcaneAccordionState();
-}
-
-class _ArcaneAccordionState extends State<ArcaneAccordion> {
-  late Set<int> _openItems;
-
-  @override
-  void initState() {
-    super.initState();
-    _openItems = {};
-    for (int i = 0; i < component.items.length; i++) {
-      if (component.items[i].defaultOpen) {
-        _openItems.add(i);
+  Component build(BuildContext context) {
+    // Determine which items should be open by default
+    final Set<int> defaultOpenItems = {};
+    for (int i = 0; i < items.length; i++) {
+      if (items[i].defaultOpen) {
+        defaultOpenItems.add(i);
       }
     }
-  }
 
-  void _toggleItem(int index) {
-    setState(() {
-      if (_openItems.contains(index)) {
-        _openItems.remove(index);
-      } else {
-        if (!component.allowMultiple) {
-          _openItems.clear();
-        }
-        _openItems.add(index);
-      }
-    });
-  }
-
-  @override
-  Component build(BuildContext context) {
-    final List<AccordionItemProps> itemProps = component.items
+    final List<AccordionItemProps> itemProps = items
         .map((item) => AccordionItemProps(
               title: item.title,
               content: item.content,
@@ -73,10 +53,9 @@ class _ArcaneAccordionState extends State<ArcaneAccordion> {
 
     return context.renderers.accordion(AccordionProps(
       items: itemProps,
-      openItems: _openItems,
-      onToggle: _toggleItem,
-      allowMultiple: component.allowMultiple,
-      bordered: component.bordered,
+      openItems: defaultOpenItems,
+      allowMultiple: allowMultiple,
+      bordered: bordered,
     ));
   }
 }
