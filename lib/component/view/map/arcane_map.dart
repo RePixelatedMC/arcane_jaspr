@@ -106,11 +106,43 @@ class ArcaneMap extends StatelessComponent {
                 'border-radius': '8px',
               }),
             ),
-            // Location pins as overlays - positioned relative to this container
-            for (final location in locations) _buildPin(location, dims),
-            // Tooltip containers (if tooltipBuilder is provided)
+            // Pins container
+            dom.div(
+              key: const ValueKey('pins-container'),
+              classes: 'arcane-map-pins',
+              styles: const dom.Styles(raw: {
+                'position': 'absolute',
+                'top': '0',
+                'left': '0',
+                'width': '100%',
+                'height': '100%',
+                'pointer-events': 'none',
+                'z-index': '10',
+              }),
+              [
+                for (final location in locations)
+                  _buildPin(location, dims, key: ValueKey('pin-${location.id}')),
+              ],
+            ),
+            // Tooltip containers
             if (showTooltips && tooltipBuilder != null)
-              for (final location in locations) _buildTooltipWrapper(location, dims),
+              dom.div(
+                key: const ValueKey('tooltips-container'),
+                classes: 'arcane-map-tooltips',
+                styles: const dom.Styles(raw: {
+                  'position': 'absolute',
+                  'top': '0',
+                  'left': '0',
+                  'width': '100%',
+                  'height': '100%',
+                  'pointer-events': 'none',
+                  'z-index': '100',
+                }),
+                [
+                  for (final location in locations)
+                    _buildTooltipWrapper(location, dims, key: ValueKey('tooltip-${location.id}')),
+                ],
+              ),
           ],
         ),
       ],
@@ -119,8 +151,9 @@ class ArcaneMap extends StatelessComponent {
 
   Component _buildPin(
     MapLocation location,
-    ({double width, double height, String viewBox, double aspectRatio}) dims,
-  ) {
+    ({double width, double height, String viewBox, double aspectRatio}) dims, {
+    Key? key,
+  }) {
     final (x, y) = MapProjection.getCoordinates(
       type,
       location.id,
@@ -137,6 +170,7 @@ class ArcaneMap extends StatelessComponent {
     final size = style.pinSize * 2; // Double for HTML rendering
 
     return dom.div(
+      key: key,
       classes: 'arcane-map-pin',
       attributes: {
         'data-location': location.id,
@@ -150,6 +184,7 @@ class ArcaneMap extends StatelessComponent {
         'background': color,
         'border-radius': '50%',
         'transform': 'translate(-50%, -50%)',
+        'pointer-events': 'auto',
         'cursor': onLocationTap != null ? 'pointer' : 'default',
         'transition': 'transform 150ms ease, box-shadow 150ms ease',
         'box-shadow': style.pinGlowIntensity > 0
@@ -163,8 +198,9 @@ class ArcaneMap extends StatelessComponent {
 
   Component _buildTooltipWrapper(
     MapLocation location,
-    ({double width, double height, String viewBox, double aspectRatio}) dims,
-  ) {
+    ({double width, double height, String viewBox, double aspectRatio}) dims, {
+    Key? key,
+  }) {
     final (x, y) = MapProjection.getCoordinates(
       type,
       location.id,
@@ -177,6 +213,7 @@ class ArcaneMap extends StatelessComponent {
     final topPct = (y / dims.height) * 100;
 
     return dom.div(
+      key: key,
       classes: 'arcane-map-tooltip',
       attributes: {
         'data-for-location': location.id,

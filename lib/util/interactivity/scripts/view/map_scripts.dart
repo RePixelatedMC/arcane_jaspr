@@ -157,12 +157,11 @@ class MapScripts {
     });
 
     map.addEventListener('click', function(e) {
-      // Always stop propagation to prevent Jaspr DOM reconciliation issues
+      // Always stop propagation and prevent default to prevent Jaspr DOM reconciliation issues
       e.stopPropagation();
+      e.preventDefault();
 
       if (!_shiftKeyHeld) return;
-
-      e.preventDefault();
 
       var dims = getMapDimensions(map);
       var rect = map.getBoundingClientRect();
