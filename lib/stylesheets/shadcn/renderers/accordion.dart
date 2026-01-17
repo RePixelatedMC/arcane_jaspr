@@ -5,155 +5,123 @@ import '../../../core/props/accordion_props.dart';
 
 /// ShadCN Accordion renderer.
 ///
-/// Outputs the exact HTML structure and CSS from ui.shadcn.com.
+/// Uses native HTML details/summary elements for reliable expand/collapse
+/// behavior that works in SSR environments without JavaScript hydration issues.
+///
 /// Reference: https://ui.shadcn.com/docs/components/accordion
-///
-/// ShadCN Accordion:
-/// - AccordionItem: border-b
-/// - AccordionTrigger: flex flex-1 items-center justify-between py-4 font-medium transition-all hover:underline [&[data-state=open]>svg]:rotate-180
-/// - AccordionContent: overflow-hidden text-sm transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down
-///
-/// This is a StatefulComponent that manages its own open/closed state internally,
-/// ensuring proper event handling in SSR environments.
-class ShadcnAccordion extends StatefulComponent {
+class ShadcnAccordion extends StatelessComponent {
   final AccordionProps props;
 
   const ShadcnAccordion(this.props, {super.key});
 
   @override
-  State<ShadcnAccordion> createState() => _ShadcnAccordionState();
-}
-
-class _ShadcnAccordionState extends State<ShadcnAccordion> {
-  late Set<int> _openItems;
-
-  @override
-  void initState() {
-    super.initState();
-    // Initialize with the provided open items from props
-    _openItems = Set<int>.from(component.props.openItems);
-  }
-
-  void _toggleItem(int index) {
-    setState(() {
-      if (_openItems.contains(index)) {
-        _openItems.remove(index);
-      } else {
-        if (!component.props.allowMultiple) {
-          _openItems.clear();
-        }
-        _openItems.add(index);
-      }
-    });
-    // Also call the external callback if provided
-    component.props.onToggle?.call(index);
-  }
-
-  @override
   Component build(BuildContext context) {
     return dom.div(
-      classes: 'arcane-accordion',
-      styles: dom.Styles(raw: {
-        'display': 'flex',
-        'flex-direction': 'column',
-        if (component.props.bordered) 'border': '1px solid var(--border)',
-        if (component.props.bordered) 'border-radius': 'var(--arcane-radius-md)',
-        'overflow': 'hidden',
-      }),
+      classes: 'arcane-accordion faq-container',
+      styles: dom.Styles(
+        raw: {
+          'display': 'flex',
+          'flex-direction': 'column',
+          'gap': '0.75rem',
+          'width': '100%',
+          if (props.bordered) 'border': '1px solid var(--border)',
+          if (props.bordered) 'border-radius': 'var(--arcane-radius-md)',
+          if (props.bordered) 'overflow': 'hidden',
+        },
+      ),
       [
-        for (int i = 0; i < component.props.items.length; i++)
-          _buildItem(i, component.props.items[i]),
+        for (int i = 0; i < props.items.length; i++)
+          _buildItem(props.items[i], i, props.openItems.contains(i)),
       ],
     );
   }
 
-  Component _buildItem(int index, AccordionItemProps item) {
-    final bool isOpen = _openItems.contains(index);
-    final bool isLast = index == component.props.items.length - 1;
-
-    return dom.div(
-      classes: 'arcane-accordion-item ${isOpen ? 'open' : ''}',
-      styles: dom.Styles(raw: {
-        // ShadCN: border-b (each item has bottom border, except last)
-        if (!isLast) 'border-bottom': '1px solid var(--border)',
-      }),
-      [
-        // ShadCN AccordionTrigger
-        dom.button(
-          classes: 'arcane-accordion-trigger',
-          attributes: {
-            'type': 'button',
-            'aria-expanded': isOpen.toString(),
-          },
-          styles: const dom.Styles(raw: {
-            'display': 'flex',
-            'flex': '1',
-            'align-items': 'center',
-            'justify-content': 'space-between',
-            'width': '100%',
-            // ShadCN: py-4 (16px)
-            'padding': '16px 0',
-            'background': 'none',
-            'border': 'none',
-            'text-align': 'left',
-            // ShadCN: font-medium
-            'font-size': 'var(--font-size-sm)',
-            'font-weight': 'var(--font-weight-medium)',
-            'color': 'var(--foreground)',
-            'cursor': 'pointer',
-            // ShadCN: transition-all
-            'transition': 'all var(--arcane-transition-slow)',
-          }),
-          events: {
-            'click': (_) => _toggleItem(index),
-          },
-          [
-            dom.span([Component.text(item.title)]),
-            // ShadCN chevron that rotates
-            dom.span(
-              classes: 'arcane-accordion-chevron',
-              styles: dom.Styles(raw: {
-                'display': 'flex',
-                'align-items': 'center',
-                'justify-content': 'center',
-                'width': '16px',
-                'height': '16px',
-                'color': 'var(--muted-foreground)',
-                // ShadCN: [&[data-state=open]>svg]:rotate-180
-                'transform': isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-                // ShadCN: transition-transform duration-200
-                'transition': 'transform var(--arcane-transition-slow)',
-                'flex-shrink': '0',
-              }),
-              [const Component.text('\u25BC')], // Down arrow
+  Component _buildItem(AccordionItemProps item, int index, bool defaultOpen) {
+    return Component.element(
+      tag: 'details',
+      attributes: {
+        if (defaultOpen) 'open': '',
+      },
+      children: [
+        // Summary (clickable header)
+        Component.element(
+          tag: 'summary',
+          styles: const dom.Styles(
+            raw: {
+              'display': 'flex',
+              'align-items': 'center',
+              'justify-content': 'space-between',
+              'gap': '1rem',
+              'padding': '1rem 1.25rem',
+              'cursor': 'pointer',
+              'list-style': 'none',
+              '-webkit-user-select': 'none',
+              'user-select': 'none',
+            },
+          ),
+          children: [
+            // Title text
+            dom.div(
+              styles: const dom.Styles(
+                raw: {
+                  'flex-grow': '1',
+                  'font-size': 'var(--font-size-sm)',
+                  'font-weight': 'var(--font-weight-medium)',
+                  'color': 'var(--foreground)',
+                  'line-height': '1.5',
+                },
+              ),
+              [Component.text(item.title)],
+            ),
+            // Chevron
+            dom.div(
+              classes: 'faq-chevron',
+              styles: const dom.Styles(
+                raw: {
+                  'display': 'flex',
+                  'align-items': 'center',
+                  'justify-content': 'center',
+                  'width': '16px',
+                  'height': '16px',
+                  'color': 'var(--muted-foreground)',
+                  'flex-shrink': '0',
+                  'transition': 'transform 0.2s ease',
+                },
+              ),
+              [
+                dom.span(
+                  styles: const dom.Styles(
+                    raw: {
+                      'font-size': '0.625rem',
+                      'line-height': '1',
+                    },
+                  ),
+                  [const Component.text('\u25BC')],
+                ),
+              ],
             ),
           ],
         ),
-
-        // ShadCN AccordionContent
+        // Content (shown when open)
         dom.div(
-          classes: 'arcane-accordion-panel',
-          styles: dom.Styles(raw: {
-            'overflow': 'hidden',
-            // Simple show/hide for now
-            'display': isOpen ? 'block' : 'none',
-          }),
+          styles: const dom.Styles(
+            raw: {
+              'padding': '0 1.25rem 1rem 1.25rem',
+              'border-top': '1px solid rgba(255, 255, 255, 0.06)',
+            },
+          ),
           [
             dom.div(
-              classes: 'arcane-accordion-content',
-              styles: const dom.Styles(raw: {
-                // ShadCN: pb-4 pt-0
-                'padding-bottom': '16px',
-                // ShadCN: text-sm
-                'font-size': 'var(--font-size-sm)',
-                'line-height': '1.625',
-                'color': 'var(--muted-foreground)',
-              }),
+              styles: const dom.Styles(
+                raw: {
+                  'padding-top': '1rem',
+                  'font-size': 'var(--font-size-sm)',
+                  'color': 'var(--muted-foreground)',
+                  'line-height': '1.625',
+                },
+              ),
               [
-                if (item.customContent != null)
-                  item.customContent!
-                else
-                  Component.text(item.content),
+                item.customContent ?? Component.text(item.content),
               ],
             ),
           ],
