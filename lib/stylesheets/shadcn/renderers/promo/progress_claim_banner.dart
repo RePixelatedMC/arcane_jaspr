@@ -92,8 +92,8 @@ class _ShadcnProgressClaimBannerState extends State<ShadcnProgressClaimBanner> {
         'z-index': '50',
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': '12px',
-        'padding': '16px 20px',
+        'gap': '16px',
+        'padding': '16px',
         'background-color': 'var(--card)',
         'border': '1px solid var(--border)',
         'border-radius': 'var(--arcane-radius-md)',
@@ -116,7 +116,7 @@ class _ShadcnProgressClaimBannerState extends State<ShadcnProgressClaimBanner> {
               styles: const dom.Styles(raw: {
                 'display': 'flex',
                 'flex-direction': 'column',
-                'gap': '2px',
+                'gap': '4px',
               }),
               [
                 dom.span(
@@ -124,6 +124,7 @@ class _ShadcnProgressClaimBannerState extends State<ShadcnProgressClaimBanner> {
                     'font-size': 'var(--font-size-base)',
                     'font-weight': 'var(--font-weight-semibold)',
                     'color': 'var(--foreground)',
+                    'line-height': '1.4',
                   }),
                   [Component.text(component.props.title)],
                 ),
@@ -131,6 +132,7 @@ class _ShadcnProgressClaimBannerState extends State<ShadcnProgressClaimBanner> {
                   styles: const dom.Styles(raw: {
                     'font-size': 'var(--font-size-sm)',
                     'color': 'var(--muted-foreground)',
+                    'line-height': '1.4',
                   }),
                   [Component.text(component.props.message)],
                 ),
@@ -153,6 +155,10 @@ class _ShadcnProgressClaimBannerState extends State<ShadcnProgressClaimBanner> {
                 'color': 'var(--muted-foreground)',
                 'cursor': 'pointer',
                 'opacity': '0.7',
+                'transition': 'opacity var(--arcane-transition)',
+                'font-size': '20px',
+                'line-height': '1',
+                'flex-shrink': '0',
               }),
               events: {'click': (_) => _handleDismiss()},
               [const Component.text('\u00D7')],
@@ -165,13 +171,13 @@ class _ShadcnProgressClaimBannerState extends State<ShadcnProgressClaimBanner> {
           styles: const dom.Styles(raw: {
             'display': 'flex',
             'flex-direction': 'column',
-            'gap': '6px',
+            'gap': '8px',
           }),
           [
             dom.div(
               styles: const dom.Styles(raw: {
                 'width': '100%',
-                'height': '8px',
+                'height': '6px',
                 'background-color': 'var(--muted)',
                 'border-radius': 'var(--arcane-radius-full)',
                 'overflow': 'hidden',
@@ -182,8 +188,7 @@ class _ShadcnProgressClaimBannerState extends State<ShadcnProgressClaimBanner> {
                     'width': '${(progress * 100).toStringAsFixed(1)}%',
                     'height': '100%',
                     'background-color': 'var(--primary)',
-                    'border-radius': 'var(--arcane-radius-full)',
-                    'transition': 'width var(--arcane-transition-slow)',
+                    'transition': 'width 600ms cubic-bezier(0.4, 0, 0.2, 1)',
                   }),
                   [],
                 ),
@@ -197,13 +202,18 @@ class _ShadcnProgressClaimBannerState extends State<ShadcnProgressClaimBanner> {
                 'color': 'var(--muted-foreground)',
               }),
               [
-                dom.span([Component.text('$_currentClaimed claimed')]),
+                dom.span(
+                  styles: const dom.Styles(raw: {
+                    'font-weight': 'var(--font-weight-medium)',
+                  }),
+                  [Component.text('$_currentClaimed claimed')],
+                ),
                 dom.span(
                   styles: const dom.Styles(raw: {
                     'font-weight': 'var(--font-weight-semibold)',
                     'color': 'var(--destructive)',
                   }),
-                  [Component.text('Only $remaining left!')],
+                  [Component.text('Only $remaining left')],
                 ),
               ],
             ),
@@ -215,20 +225,22 @@ class _ShadcnProgressClaimBannerState extends State<ShadcnProgressClaimBanner> {
           styles: const dom.Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
-            'gap': '12px',
+            'gap': '8px',
           }),
           [
             if (component.props.promoCode != null)
-              dom.span(
+              dom.div(
                 styles: const dom.Styles(raw: {
-                  'padding': '6px 10px',
+                  'padding': '8px 12px',
                   'background-color': 'var(--muted)',
-                  'border-radius': 'var(--arcane-radius-xs)',
+                  'border': '1px solid var(--border)',
+                  'border-radius': 'var(--arcane-radius-sm)',
                   'font-family':
                       'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
                   'font-weight': 'var(--font-weight-semibold)',
                   'font-size': 'var(--font-size-sm)',
                   'color': 'var(--foreground)',
+                  'letter-spacing': '0.025em',
                 }),
                 [Component.text(component.props.promoCode!)],
               ),
@@ -240,14 +252,15 @@ class _ShadcnProgressClaimBannerState extends State<ShadcnProgressClaimBanner> {
                   'display': 'inline-flex',
                   'align-items': 'center',
                   'justify-content': 'center',
-                  'gap': '6px',
-                  'padding': '10px 16px',
+                  'height': '36px',
+                  'padding': '0 16px',
                   'background-color': 'var(--primary)',
                   'color': 'var(--primary-foreground)',
                   'font-size': 'var(--font-size-sm)',
                   'font-weight': 'var(--font-weight-medium)',
                   'text-decoration': 'none',
-                  'border-radius': 'var(--arcane-radius-xs)',
+                  'border-radius': 'var(--arcane-radius-sm)',
+                  'transition': 'opacity var(--arcane-transition)',
                 }),
                 events: {
                   'click': (e) {

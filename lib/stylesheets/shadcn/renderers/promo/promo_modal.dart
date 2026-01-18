@@ -96,9 +96,9 @@ class _ShadcnPromoModalState extends State<ShadcnPromoModal> {
         'display': 'flex',
         'align-items': 'center',
         'justify-content': 'center',
-        'padding': '24px',
+        'padding': '16px',
         'background-color': 'rgba(0, 0, 0, 0.8)',
-        'animation': 'arcane-fade-in var(--arcane-transition-slow)',
+        'backdrop-filter': 'blur(2px)',
       }),
       events: {
         'click': (event) {
@@ -114,17 +114,14 @@ class _ShadcnPromoModalState extends State<ShadcnPromoModal> {
             'position': 'relative',
             'display': 'flex',
             'flex-direction': 'column',
-            'align-items': 'center',
-            'gap': '24px',
-            'padding': '32px',
+            'gap': '20px',
+            'padding': '24px',
             'background-color': 'var(--card)',
             'border': '1px solid var(--border)',
-            'border-radius': 'var(--arcane-radius-lg)',
-            'box-shadow': 'var(--arcane-shadow-lg)',
-            'max-width': '480px',
+            'border-radius': 'var(--arcane-radius-md)',
+            'box-shadow': '0 10px 40px rgba(0, 0, 0, 0.3)',
+            'max-width': '448px',
             'width': '100%',
-            'text-align': 'center',
-            'animation': 'arcane-scale-in var(--arcane-transition-slow)',
           }),
           events: {
             'click': (event) => event.stopPropagation(),
@@ -138,8 +135,8 @@ class _ShadcnPromoModalState extends State<ShadcnPromoModal> {
               },
               styles: const dom.Styles(raw: {
                 'position': 'absolute',
-                'top': '16px',
-                'right': '16px',
+                'top': '12px',
+                'right': '12px',
                 'display': 'inline-flex',
                 'align-items': 'center',
                 'justify-content': 'center',
@@ -151,6 +148,8 @@ class _ShadcnPromoModalState extends State<ShadcnPromoModal> {
                 'color': 'var(--muted-foreground)',
                 'cursor': 'pointer',
                 'opacity': '0.7',
+                'transition': 'opacity var(--arcane-transition)',
+                'border-radius': 'var(--arcane-radius-xs)',
               }),
               events: {'click': (_) => _handleDismiss()},
               [const Component.text('\u00D7')],
@@ -161,163 +160,186 @@ class _ShadcnPromoModalState extends State<ShadcnPromoModal> {
               dom.div(
                 styles: const dom.Styles(raw: {
                   'width': '100%',
-                  'max-height': '200px',
+                  'max-height': '180px',
                   'overflow': 'hidden',
                   'border-radius': 'var(--arcane-radius-sm)',
+                  'margin': '-4px 0 0 0',
                 }),
                 [component.props.heroImage!],
               ),
 
-            // Discount badge
-            if (component.props.discount != null)
-              dom.span(
-                styles: const dom.Styles(raw: {
-                  'display': 'inline-block',
-                  'padding': '8px 16px',
-                  'background-color': 'var(--primary)',
-                  'color': 'var(--primary-foreground)',
-                  'font-size': 'var(--font-size-2xl)',
-                  'font-weight': 'var(--font-weight-bold)',
-                  'border-radius': 'var(--arcane-radius-xs)',
-                }),
-                [Component.text(component.props.discount!)],
-              ),
-
-            // Text content
+            // Content section
             dom.div(
               styles: const dom.Styles(raw: {
                 'display': 'flex',
                 'flex-direction': 'column',
-                'gap': '8px',
+                'gap': '16px',
               }),
               [
-                dom.span(
-                  styles: const dom.Styles(raw: {
-                    'font-size': 'var(--font-size-sm)',
-                    'font-weight': 'var(--font-weight-medium)',
-                    'text-transform': 'uppercase',
-                    'letter-spacing': '0.1em',
-                    'color': 'var(--muted-foreground)',
-                  }),
-                  [Component.text(component.props.subtitle)],
-                ),
-                dom.span(
-                  styles: const dom.Styles(raw: {
-                    'font-size': 'var(--font-size-2xl)',
-                    'font-weight': 'var(--font-weight-bold)',
-                    'color': 'var(--foreground)',
-                    'line-height': '1.2',
-                  }),
-                  [Component.text(component.props.title)],
-                ),
-                if (component.props.description != null)
-                  dom.span(
+                // Discount badge
+                if (component.props.discount != null)
+                  dom.div(
                     styles: const dom.Styles(raw: {
-                      'font-size': 'var(--font-size-sm)',
-                      'color': 'var(--muted-foreground)',
-                      'line-height': '1.5',
+                      'display': 'inline-flex',
+                      'align-items': 'center',
+                      'justify-content': 'center',
+                      'padding': '6px 12px',
+                      'background-color': 'var(--primary)',
+                      'color': 'var(--primary-foreground)',
+                      'font-size': 'var(--font-size-xl)',
+                      'font-weight': 'var(--font-weight-bold)',
+                      'border-radius': 'var(--arcane-radius-sm)',
+                      'align-self': 'flex-start',
                     }),
-                    [Component.text(component.props.description!)],
+                    [Component.text(component.props.discount!)],
+                  ),
+
+                // Text content
+                dom.div(
+                  styles: const dom.Styles(raw: {
+                    'display': 'flex',
+                    'flex-direction': 'column',
+                    'gap': '8px',
+                  }),
+                  [
+                    if (component.props.subtitle.isNotEmpty)
+                      dom.div(
+                        styles: const dom.Styles(raw: {
+                          'font-size': 'var(--font-size-xs)',
+                          'font-weight': 'var(--font-weight-semibold)',
+                          'text-transform': 'uppercase',
+                          'letter-spacing': '0.1em',
+                          'color': 'var(--muted-foreground)',
+                        }),
+                        [Component.text(component.props.subtitle)],
+                      ),
+                    dom.h2(
+                      styles: const dom.Styles(raw: {
+                        'font-size': 'var(--font-size-xl)',
+                        'font-weight': 'var(--font-weight-bold)',
+                        'color': 'var(--foreground)',
+                        'line-height': '1.3',
+                        'margin': '0',
+                      }),
+                      [Component.text(component.props.title)],
+                    ),
+                    if (component.props.description != null)
+                      dom.p(
+                        styles: const dom.Styles(raw: {
+                          'font-size': 'var(--font-size-sm)',
+                          'color': 'var(--muted-foreground)',
+                          'line-height': '1.5',
+                          'margin': '0',
+                        }),
+                        [Component.text(component.props.description!)],
+                      ),
+                  ],
+                ),
+
+                // Countdown
+                if (_remainingTime.inSeconds > 0)
+                  dom.div(
+                    styles: const dom.Styles(raw: {
+                      'display': 'flex',
+                      'flex-direction': 'column',
+                      'align-items': 'center',
+                      'gap': '6px',
+                      'padding': '12px',
+                      'background-color': 'var(--muted)',
+                      'border-radius': 'var(--arcane-radius-sm)',
+                    }),
+                    [
+                      const dom.div(
+                        styles: dom.Styles(raw: {
+                          'font-size': 'var(--font-size-xs)',
+                          'color': 'var(--muted-foreground)',
+                          'text-transform': 'uppercase',
+                          'letter-spacing': '0.05em',
+                          'font-weight': 'var(--font-weight-medium)',
+                        }),
+                        [Component.text('Offer expires in')],
+                      ),
+                      dom.div(
+                        styles: const dom.Styles(raw: {
+                          'font-size': 'var(--font-size-lg)',
+                          'font-weight': 'var(--font-weight-bold)',
+                          'font-family':
+                              'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
+                          'color': 'var(--foreground)',
+                        }),
+                        [Component.text(_formatCountdown(_remainingTime))],
+                      ),
+                    ],
+                  ),
+
+                // Promo code
+                if (component.props.promoCode != null)
+                  dom.div(
+                    styles: const dom.Styles(raw: {
+                      'display': 'flex',
+                      'flex-direction': 'column',
+                      'gap': '6px',
+                    }),
+                    [
+                      const dom.div(
+                        styles: dom.Styles(raw: {
+                          'font-size': 'var(--font-size-xs)',
+                          'color': 'var(--muted-foreground)',
+                          'font-weight': 'var(--font-weight-medium)',
+                          'text-align': 'center',
+                        }),
+                        [Component.text('Use code')],
+                      ),
+                      dom.code(
+                        styles: const dom.Styles(raw: {
+                          'padding': '10px 16px',
+                          'background-color': 'var(--muted)',
+                          'border': '2px dashed var(--border)',
+                          'border-radius': 'var(--arcane-radius-sm)',
+                          'font-family':
+                              'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
+                          'font-weight': 'var(--font-weight-bold)',
+                          'font-size': 'var(--font-size-base)',
+                          'color': 'var(--foreground)',
+                          'letter-spacing': '0.05em',
+                          'text-align': 'center',
+                          'display': 'block',
+                        }),
+                        [Component.text(component.props.promoCode!)],
+                      ),
+                    ],
+                  ),
+
+                // CTA Button
+                if (component.props.ctaText != null)
+                  dom.a(
+                    href: component.props.ctaHref ?? '#',
+                    styles: const dom.Styles(raw: {
+                      'display': 'flex',
+                      'align-items': 'center',
+                      'justify-content': 'center',
+                      'height': '40px',
+                      'padding': '0 24px',
+                      'background-color': 'var(--primary)',
+                      'color': 'var(--primary-foreground)',
+                      'font-size': 'var(--font-size-sm)',
+                      'font-weight': 'var(--font-weight-semibold)',
+                      'text-decoration': 'none',
+                      'border-radius': 'var(--arcane-radius-sm)',
+                      'transition': 'all var(--arcane-transition)',
+                    }),
+                    events: {
+                      'click': (e) {
+                        if (component.props.onCtaClick != null) {
+                          e.preventDefault();
+                          component.props.onCtaClick!();
+                        }
+                      },
+                    },
+                    [Component.text(component.props.ctaText!)],
                   ),
               ],
             ),
-
-            // Countdown
-            if (_remainingTime.inSeconds > 0)
-              dom.div(
-                styles: const dom.Styles(raw: {
-                  'display': 'flex',
-                  'flex-direction': 'column',
-                  'align-items': 'center',
-                  'gap': '4px',
-                }),
-                [
-                  const dom.span(
-                    styles: dom.Styles(raw: {
-                      'font-size': 'var(--font-size-xs)',
-                      'color': 'var(--muted-foreground)',
-                      'text-transform': 'uppercase',
-                      'letter-spacing': '0.05em',
-                    }),
-                    [Component.text('Offer expires in')],
-                  ),
-                  dom.span(
-                    styles: const dom.Styles(raw: {
-                      'font-size': 'var(--font-size-xl)',
-                      'font-weight': 'var(--font-weight-bold)',
-                      'font-family':
-                          'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
-                      'color': 'var(--foreground)',
-                    }),
-                    [Component.text(_formatCountdown(_remainingTime))],
-                  ),
-                ],
-              ),
-
-            // Promo code
-            if (component.props.promoCode != null)
-              dom.div(
-                styles: const dom.Styles(raw: {
-                  'display': 'flex',
-                  'flex-direction': 'column',
-                  'align-items': 'center',
-                  'gap': '4px',
-                }),
-                [
-                  const dom.span(
-                    styles: dom.Styles(raw: {
-                      'font-size': 'var(--font-size-xs)',
-                      'color': 'var(--muted-foreground)',
-                    }),
-                    [Component.text('Use code')],
-                  ),
-                  dom.span(
-                    styles: const dom.Styles(raw: {
-                      'padding': '8px 16px',
-                      'background-color': 'var(--muted)',
-                      'border': '2px dashed var(--border)',
-                      'border-radius': 'var(--arcane-radius-xs)',
-                      'font-family':
-                          'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
-                      'font-weight': 'var(--font-weight-bold)',
-                      'font-size': 'var(--font-size-lg)',
-                      'color': 'var(--foreground)',
-                      'letter-spacing': '0.1em',
-                    }),
-                    [Component.text(component.props.promoCode!)],
-                  ),
-                ],
-              ),
-
-            // CTA Button
-            if (component.props.ctaText != null)
-              dom.a(
-                href: component.props.ctaHref ?? '#',
-                styles: const dom.Styles(raw: {
-                  'display': 'inline-flex',
-                  'align-items': 'center',
-                  'justify-content': 'center',
-                  'gap': '8px',
-                  'padding': '12px 32px',
-                  'background-color': 'var(--primary)',
-                  'color': 'var(--primary-foreground)',
-                  'font-size': 'var(--font-size-base)',
-                  'font-weight': 'var(--font-weight-semibold)',
-                  'text-decoration': 'none',
-                  'border-radius': 'var(--arcane-radius-sm)',
-                  'transition': 'opacity var(--arcane-transition)',
-                  'width': '100%',
-                }),
-                events: {
-                  'click': (e) {
-                    if (component.props.onCtaClick != null) {
-                      e.preventDefault();
-                      component.props.onCtaClick!();
-                    }
-                  },
-                },
-                [Component.text(component.props.ctaText!)],
-              ),
           ],
         ),
       ],

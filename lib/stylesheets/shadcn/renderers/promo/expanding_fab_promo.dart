@@ -52,7 +52,7 @@ class _ShadcnExpandingFabPromoState extends State<ShadcnExpandingFabPromo> {
         'display': 'flex',
         'flex-direction': 'column',
         'align-items': 'flex-end',
-        'gap': '12px',
+        'gap': '16px',
       }),
       [
         // Expanded panel
@@ -60,16 +60,18 @@ class _ShadcnExpandingFabPromoState extends State<ShadcnExpandingFabPromo> {
           dom.div(
             classes: 'arcane-fab-promo-panel',
             styles: const dom.Styles(raw: {
+              'position': 'relative',
               'display': 'flex',
               'flex-direction': 'column',
               'gap': '16px',
-              'padding': '20px',
+              'padding': '24px',
               'background-color': 'var(--card)',
               'border': '1px solid var(--border)',
               'border-radius': 'var(--arcane-radius-md)',
               'box-shadow': 'var(--arcane-shadow-lg)',
-              'max-width': '280px',
-              'animation': 'arcane-scale-in var(--arcane-transition)',
+              'max-width': '320px',
+              'width': '320px',
+              'animation': 'arcane-scale-in 0.2s ease-out',
             }),
             [
               // Close button
@@ -80,19 +82,20 @@ class _ShadcnExpandingFabPromoState extends State<ShadcnExpandingFabPromo> {
                 },
                 styles: const dom.Styles(raw: {
                   'position': 'absolute',
-                  'top': '12px',
-                  'right': '12px',
+                  'top': '16px',
+                  'right': '16px',
                   'display': 'inline-flex',
                   'align-items': 'center',
                   'justify-content': 'center',
-                  'width': '20px',
-                  'height': '20px',
+                  'width': '24px',
+                  'height': '24px',
                   'padding': '0',
                   'background': 'transparent',
                   'border': 'none',
+                  'border-radius': 'var(--arcane-radius-xs)',
                   'color': 'var(--muted-foreground)',
                   'cursor': 'pointer',
-                  'opacity': '0.7',
+                  'transition': 'background-color var(--arcane-transition)',
                 }),
                 events: {'click': (_) => _handleDismiss()},
                 [const Component.text('\u00D7')],
@@ -103,12 +106,12 @@ class _ShadcnExpandingFabPromoState extends State<ShadcnExpandingFabPromo> {
                 dom.span(
                   styles: const dom.Styles(raw: {
                     'display': 'inline-block',
-                    'padding': '4px 10px',
+                    'padding': '4px 12px',
                     'background-color': 'var(--primary)',
                     'color': 'var(--primary-foreground)',
                     'font-size': 'var(--font-size-lg)',
                     'font-weight': 'var(--font-weight-bold)',
-                    'border-radius': 'var(--arcane-radius-xs)',
+                    'border-radius': 'var(--arcane-radius-sm)',
                     'align-self': 'flex-start',
                   }),
                   [Component.text(component.props.discount!)],
@@ -119,14 +122,15 @@ class _ShadcnExpandingFabPromoState extends State<ShadcnExpandingFabPromo> {
                 styles: const dom.Styles(raw: {
                   'display': 'flex',
                   'flex-direction': 'column',
-                  'gap': '4px',
+                  'gap': '8px',
                 }),
                 [
                   dom.span(
                     styles: const dom.Styles(raw: {
-                      'font-size': 'var(--font-size-base)',
+                      'font-size': 'var(--font-size-lg)',
                       'font-weight': 'var(--font-weight-semibold)',
                       'color': 'var(--foreground)',
+                      'line-height': '1.4',
                     }),
                     [Component.text(component.props.title)],
                   ),
@@ -134,7 +138,7 @@ class _ShadcnExpandingFabPromoState extends State<ShadcnExpandingFabPromo> {
                     styles: const dom.Styles(raw: {
                       'font-size': 'var(--font-size-sm)',
                       'color': 'var(--muted-foreground)',
-                      'line-height': '1.5',
+                      'line-height': '1.6',
                     }),
                     [Component.text(component.props.message)],
                   ),
@@ -145,10 +149,10 @@ class _ShadcnExpandingFabPromoState extends State<ShadcnExpandingFabPromo> {
               if (component.props.promoCode != null)
                 dom.span(
                   styles: const dom.Styles(raw: {
-                    'padding': '6px 10px',
+                    'padding': '8px 12px',
                     'background-color': 'var(--muted)',
                     'border': '1px dashed var(--border)',
-                    'border-radius': 'var(--arcane-radius-xs)',
+                    'border-radius': 'var(--arcane-radius-sm)',
                     'font-family':
                         'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
                     'font-weight': 'var(--font-weight-bold)',
@@ -167,14 +171,15 @@ class _ShadcnExpandingFabPromoState extends State<ShadcnExpandingFabPromo> {
                     'display': 'inline-flex',
                     'align-items': 'center',
                     'justify-content': 'center',
-                    'gap': '6px',
-                    'padding': '10px 16px',
+                    'height': '40px',
+                    'padding': '0 16px',
                     'background-color': 'var(--primary)',
                     'color': 'var(--primary-foreground)',
                     'font-size': 'var(--font-size-sm)',
-                    'font-weight': 'var(--font-weight-medium)',
+                    'font-weight': 'var(--font-weight-semibold)',
                     'text-decoration': 'none',
-                    'border-radius': 'var(--arcane-radius-xs)',
+                    'border-radius': 'var(--arcane-radius-sm)',
+                    'transition': 'opacity var(--arcane-transition)',
                     'width': '100%',
                   }),
                   events: {
@@ -209,7 +214,7 @@ class _ShadcnExpandingFabPromoState extends State<ShadcnExpandingFabPromo> {
             'border-radius': 'var(--arcane-radius-full)',
             'box-shadow': 'var(--arcane-shadow-lg)',
             'cursor': 'pointer',
-            'transition': 'transform var(--arcane-transition), box-shadow var(--arcane-transition)',
+            'transition': 'transform 0.2s ease-out',
             'transform': _isExpanded ? 'rotate(45deg)' : 'rotate(0deg)',
           }),
           events: {'click': (_) => _toggleExpand()},
@@ -219,14 +224,18 @@ class _ShadcnExpandingFabPromoState extends State<ShadcnExpandingFabPromo> {
                 styles: const dom.Styles(raw: {
                   'width': '24px',
                   'height': '24px',
+                  'display': 'flex',
+                  'align-items': 'center',
+                  'justify-content': 'center',
                 }),
                 [component.props.icon!],
               )
             else
               dom.span(
                 styles: const dom.Styles(raw: {
-                  'font-size': 'var(--font-size-2xl)',
-                  'font-weight': 'var(--font-weight-light)',
+                  'font-size': '24px',
+                  'font-weight': 'var(--font-weight-bold)',
+                  'line-height': '1',
                 }),
                 [Component.text(_isExpanded ? '+' : '%')],
               ),

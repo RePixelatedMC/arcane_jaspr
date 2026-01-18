@@ -71,11 +71,11 @@ class _ShadcnMinimizablePromoState extends State<ShadcnMinimizablePromo> {
         'right': '0',
         'top': '50%',
         'transform': _isVisible
-            ? 'translateY(-50%) translateX(${_isExpanded ? '0' : 'calc(100% - 36px)'})'
+            ? 'translateY(-50%) translateX(${_isExpanded ? '0' : 'calc(100% - 44px)'})'
             : 'translateY(-50%) translateX(100%)',
         'z-index': '50',
         'display': 'flex',
-        'transition': 'transform 300ms cubic-bezier(0.4, 0, 0.2, 1)',
+        'transition': 'transform 400ms cubic-bezier(0.4, 0, 0.2, 1)',
       }),
       [
         // Tab (minimized state handle)
@@ -88,19 +88,23 @@ class _ShadcnMinimizablePromoState extends State<ShadcnMinimizablePromo> {
             'display': 'flex',
             'align-items': 'center',
             'justify-content': 'center',
-            'width': '36px',
-            'padding': '12px 0',
+            'min-height': '120px',
+            'width': '44px',
+            'padding': '16px 0',
             'background-color': 'var(--primary)',
             'color': 'var(--primary-foreground)',
-            'border': 'none',
-            'border-radius': 'var(--arcane-radius-sm) 0 0 var(--arcane-radius-sm)',
+            'border': '1px solid var(--border)',
+            'border-right': 'none',
+            'border-radius': 'var(--arcane-radius-md) 0 0 var(--arcane-radius-md)',
             'cursor': 'pointer',
             'writing-mode': 'vertical-rl',
             'text-orientation': 'mixed',
-            'font-size': 'var(--font-size-xs)',
-            'font-weight': 'var(--font-weight-bold)',
-            'letter-spacing': '0.1em',
+            'font-size': 'var(--font-size-sm)',
+            'font-weight': 'var(--font-weight-semibold)',
+            'letter-spacing': '0.05em',
             'text-transform': 'uppercase',
+            'transition': 'background-color var(--arcane-transition)',
+            'box-shadow': '-2px 0 8px rgba(0, 0, 0, 0.1)',
           }),
           events: {'click': (_) => _toggleExpand()},
           [Component.text(component.props.tabLabel)],
@@ -110,15 +114,17 @@ class _ShadcnMinimizablePromoState extends State<ShadcnMinimizablePromo> {
         dom.div(
           classes: 'arcane-minimizable-promo-panel',
           styles: const dom.Styles(raw: {
+            'position': 'relative',
             'display': 'flex',
             'flex-direction': 'column',
             'gap': '16px',
-            'padding': '20px',
+            'padding': '24px',
             'background-color': 'var(--card)',
             'border': '1px solid var(--border)',
             'border-right': 'none',
             'box-shadow': 'var(--arcane-shadow-lg)',
-            'width': '260px',
+            'width': '280px',
+            'max-width': 'calc(100vw - 48px)',
           }),
           [
             // Close button
@@ -142,6 +148,9 @@ class _ShadcnMinimizablePromoState extends State<ShadcnMinimizablePromo> {
                 'color': 'var(--muted-foreground)',
                 'cursor': 'pointer',
                 'opacity': '0.7',
+                'transition': 'opacity var(--arcane-transition)',
+                'font-size': '20px',
+                'line-height': '1',
               }),
               events: {'click': (_) => _handleDismiss()},
               [const Component.text('\u00D7')],
@@ -149,15 +158,15 @@ class _ShadcnMinimizablePromoState extends State<ShadcnMinimizablePromo> {
 
             // Discount badge
             if (component.props.discount != null)
-              dom.span(
+              dom.div(
                 styles: const dom.Styles(raw: {
-                  'display': 'inline-block',
-                  'padding': '4px 10px',
+                  'display': 'inline-flex',
+                  'padding': '6px 12px',
                   'background-color': 'var(--primary)',
                   'color': 'var(--primary-foreground)',
-                  'font-size': 'var(--font-size-lg)',
+                  'font-size': 'var(--font-size-xl)',
                   'font-weight': 'var(--font-weight-bold)',
-                  'border-radius': 'var(--arcane-radius-xs)',
+                  'border-radius': 'var(--arcane-radius-sm)',
                   'align-self': 'flex-start',
                 }),
                 [Component.text(component.props.discount!)],
@@ -168,19 +177,22 @@ class _ShadcnMinimizablePromoState extends State<ShadcnMinimizablePromo> {
               styles: const dom.Styles(raw: {
                 'display': 'flex',
                 'flex-direction': 'column',
-                'gap': '4px',
+                'gap': '8px',
               }),
               [
-                dom.span(
+                dom.h3(
                   styles: const dom.Styles(raw: {
-                    'font-size': 'var(--font-size-base)',
+                    'margin': '0',
+                    'font-size': 'var(--font-size-lg)',
                     'font-weight': 'var(--font-weight-semibold)',
                     'color': 'var(--foreground)',
+                    'line-height': '1.4',
                   }),
                   [Component.text(component.props.title)],
                 ),
-                dom.span(
+                dom.p(
                   styles: const dom.Styles(raw: {
+                    'margin': '0',
                     'font-size': 'var(--font-size-sm)',
                     'color': 'var(--muted-foreground)',
                     'line-height': '1.5',
@@ -192,18 +204,21 @@ class _ShadcnMinimizablePromoState extends State<ShadcnMinimizablePromo> {
 
             // Promo code
             if (component.props.promoCode != null)
-              dom.span(
+              dom.div(
                 styles: const dom.Styles(raw: {
-                  'padding': '6px 10px',
+                  'display': 'flex',
+                  'align-items': 'center',
+                  'justify-content': 'center',
+                  'padding': '10px 12px',
                   'background-color': 'var(--muted)',
                   'border': '1px dashed var(--border)',
-                  'border-radius': 'var(--arcane-radius-xs)',
+                  'border-radius': 'var(--arcane-radius-sm)',
                   'font-family':
                       'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
-                  'font-weight': 'var(--font-weight-bold)',
-                  'font-size': 'var(--font-size-sm)',
+                  'font-weight': 'var(--font-weight-semibold)',
+                  'font-size': 'var(--font-size-base)',
                   'color': 'var(--foreground)',
-                  'text-align': 'center',
+                  'letter-spacing': '0.05em',
                 }),
                 [Component.text(component.props.promoCode!)],
               ),
@@ -216,14 +231,15 @@ class _ShadcnMinimizablePromoState extends State<ShadcnMinimizablePromo> {
                   'display': 'inline-flex',
                   'align-items': 'center',
                   'justify-content': 'center',
-                  'gap': '6px',
-                  'padding': '10px 16px',
+                  'height': '40px',
+                  'padding': '0 16px',
                   'background-color': 'var(--primary)',
                   'color': 'var(--primary-foreground)',
                   'font-size': 'var(--font-size-sm)',
                   'font-weight': 'var(--font-weight-medium)',
                   'text-decoration': 'none',
-                  'border-radius': 'var(--arcane-radius-xs)',
+                  'border-radius': 'var(--arcane-radius-sm)',
+                  'transition': 'opacity var(--arcane-transition)',
                   'width': '100%',
                 }),
                 events: {

@@ -42,7 +42,7 @@ class _ShadcnMarqueeTickerBarState extends State<ShadcnMarqueeTickerBar> {
           dom.span(
             styles: const dom.Styles(raw: {
               'white-space': 'nowrap',
-              'padding': '0 24px',
+              'padding': '0 32px',
             }),
             [Component.text(message)],
           ),
@@ -50,8 +50,8 @@ class _ShadcnMarqueeTickerBarState extends State<ShadcnMarqueeTickerBar> {
         marqueeItems.add(
           const dom.span(
             styles: dom.Styles(raw: {
-              'color': 'var(--muted-foreground)',
-              'opacity': '0.5',
+              'color': 'var(--border)',
+              'opacity': '0.6',
             }),
             [Component.text('\u2022')],
           ),
@@ -69,7 +69,7 @@ class _ShadcnMarqueeTickerBarState extends State<ShadcnMarqueeTickerBar> {
         'z-index': '50',
         'display': 'flex',
         'align-items': 'center',
-        'padding': '10px 0',
+        'height': '40px',
         'background-color': 'var(--muted)',
         'border-bottom': component.props.showAtBottom ? 'none' : '1px solid var(--border)',
         'border-top': component.props.showAtBottom ? '1px solid var(--border)' : 'none',
@@ -86,6 +86,7 @@ class _ShadcnMarqueeTickerBarState extends State<ShadcnMarqueeTickerBar> {
             'font-size': 'var(--font-size-sm)',
             'font-weight': 'var(--font-weight-medium)',
             'color': 'var(--foreground)',
+            'line-height': '1.5',
           }),
           marqueeItems,
         ),
@@ -98,18 +99,18 @@ class _ShadcnMarqueeTickerBarState extends State<ShadcnMarqueeTickerBar> {
               'right': '48px',
               'display': 'flex',
               'align-items': 'center',
-              'gap': '12px',
-              'padding': '0 16px',
-              'background': 'linear-gradient(to right, transparent, var(--muted) 20%, var(--muted))',
+              'gap': '8px',
+              'padding-left': '32px',
+              'background': 'linear-gradient(to right, transparent, var(--muted) 10%, var(--muted))',
             }),
             [
               if (component.props.promoCode != null)
                 dom.span(
                   styles: const dom.Styles(raw: {
-                    'padding': '4px 8px',
+                    'padding': '4px 10px',
                     'background-color': 'var(--background)',
                     'border': '1px solid var(--border)',
-                    'border-radius': 'var(--arcane-radius-xs)',
+                    'border-radius': 'var(--arcane-radius-sm)',
                     'font-family':
                         'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
                     'font-weight': 'var(--font-weight-semibold)',
@@ -124,14 +125,15 @@ class _ShadcnMarqueeTickerBarState extends State<ShadcnMarqueeTickerBar> {
                   styles: const dom.Styles(raw: {
                     'display': 'inline-flex',
                     'align-items': 'center',
-                    'gap': '4px',
-                    'padding': '6px 12px',
+                    'height': '28px',
+                    'padding': '0 12px',
                     'background-color': 'var(--primary)',
                     'color': 'var(--primary-foreground)',
                     'font-size': 'var(--font-size-sm)',
-                    'font-weight': 'var(--font-weight-medium)',
+                    'font-weight': 'var(--font-weight-semibold)',
                     'text-decoration': 'none',
-                    'border-radius': 'var(--arcane-radius-xs)',
+                    'border-radius': 'var(--arcane-radius-sm)',
+                    'transition': 'opacity var(--arcane-transition)',
                   }),
                   events: {
                     'click': (e) {
@@ -155,17 +157,19 @@ class _ShadcnMarqueeTickerBarState extends State<ShadcnMarqueeTickerBar> {
             },
             styles: const dom.Styles(raw: {
               'position': 'absolute',
-              'right': '12px',
+              'right': '8px',
               'display': 'inline-flex',
               'align-items': 'center',
               'justify-content': 'center',
-              'width': '24px',
-              'height': '24px',
+              'width': '28px',
+              'height': '28px',
               'padding': '0',
-              'background': 'var(--muted)',
+              'background': 'transparent',
               'border': 'none',
+              'border-radius': 'var(--arcane-radius-sm)',
               'color': 'var(--muted-foreground)',
               'cursor': 'pointer',
+              'transition': 'background-color var(--arcane-transition)',
             }),
             events: {'click': (_) => _handleDismiss()},
             [const Component.text('\u00D7')],

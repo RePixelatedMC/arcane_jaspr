@@ -89,70 +89,67 @@ class _ShadcnCornerPromoToastState extends State<ShadcnCornerPromoToast> {
         'z-index': '50',
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': '12px',
-        'padding': '16px',
+        'gap': '8px',
+        'padding': '12px',
         'background-color': 'var(--card)',
         'border': '1px solid var(--border)',
         'border-radius': 'var(--arcane-radius-md)',
-        'box-shadow': 'var(--arcane-shadow-lg)',
+        'box-shadow': '0 4px 12px rgba(0, 0, 0, 0.15)',
         'transition': 'transform 300ms cubic-bezier(0.4, 0, 0.2, 1)',
-        'max-width': '320px',
+        'max-width': '356px',
+        'width': '100%',
         ..._getPositionStyles(),
       }),
       [
-        // Header with icon and dismiss
+        // Header with dismiss
         dom.div(
           styles: const dom.Styles(raw: {
             'display': 'flex',
-            'align-items': 'flex-start',
-            'justify-content': 'space-between',
-            'gap': '12px',
+            'gap': '8px',
           }),
           [
+            // Icon and content
+            if (component.props.icon != null)
+              dom.div(
+                styles: const dom.Styles(raw: {
+                  'width': '20px',
+                  'height': '20px',
+                  'flex-shrink': '0',
+                  'color': 'var(--foreground)',
+                  'margin-top': '2px',
+                }),
+                [component.props.icon!],
+              ),
+            // Text content
             dom.div(
               styles: const dom.Styles(raw: {
                 'display': 'flex',
-                'align-items': 'flex-start',
-                'gap': '12px',
+                'flex-direction': 'column',
+                'gap': '4px',
+                'flex': '1',
+                'min-width': '0',
               }),
               [
-                if (component.props.icon != null)
-                  dom.div(
-                    styles: const dom.Styles(raw: {
-                      'width': '20px',
-                      'height': '20px',
-                      'flex-shrink': '0',
-                      'color': 'var(--primary)',
-                    }),
-                    [component.props.icon!],
-                  ),
                 dom.div(
                   styles: const dom.Styles(raw: {
-                    'display': 'flex',
-                    'flex-direction': 'column',
-                    'gap': '4px',
+                    'font-size': 'var(--font-size-sm)',
+                    'font-weight': 'var(--font-weight-semibold)',
+                    'color': 'var(--foreground)',
+                    'line-height': '1.4',
                   }),
-                  [
-                    dom.span(
-                      styles: const dom.Styles(raw: {
-                        'font-size': 'var(--font-size-sm)',
-                        'font-weight': 'var(--font-weight-semibold)',
-                        'color': 'var(--foreground)',
-                      }),
-                      [Component.text(component.props.title)],
-                    ),
-                    dom.span(
-                      styles: const dom.Styles(raw: {
-                        'font-size': 'var(--font-size-sm)',
-                        'color': 'var(--muted-foreground)',
-                        'line-height': '1.5',
-                      }),
-                      [Component.text(component.props.message)],
-                    ),
-                  ],
+                  [Component.text(component.props.title)],
+                ),
+                dom.div(
+                  styles: const dom.Styles(raw: {
+                    'font-size': 'var(--font-size-sm)',
+                    'color': 'var(--muted-foreground)',
+                    'line-height': '1.4',
+                  }),
+                  [Component.text(component.props.message)],
                 ),
               ],
             ),
+            // Dismiss button
             dom.button(
               attributes: {
                 'type': 'button',
@@ -170,6 +167,8 @@ class _ShadcnCornerPromoToastState extends State<ShadcnCornerPromoToast> {
                 'color': 'var(--muted-foreground)',
                 'cursor': 'pointer',
                 'opacity': '0.7',
+                'transition': 'opacity var(--arcane-transition)',
+                'flex-shrink': '0',
               }),
               events: {'click': (_) => _handleDismiss()},
               [const Component.text('\u00D7')],
@@ -177,45 +176,51 @@ class _ShadcnCornerPromoToastState extends State<ShadcnCornerPromoToast> {
           ],
         ),
 
-        // Promo code and CTA
+        // Actions section
         if (component.props.promoCode != null || component.props.ctaText != null)
           dom.div(
             styles: const dom.Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
               'gap': '8px',
-              'flex-wrap': 'wrap',
+              'padding-top': '4px',
             }),
             [
               if (component.props.promoCode != null)
-                dom.span(
+                dom.code(
                   styles: const dom.Styles(raw: {
-                    'padding': '4px 8px',
+                    'flex': '1',
+                    'padding': '6px 8px',
                     'background-color': 'var(--muted)',
-                    'border-radius': 'var(--arcane-radius-xs)',
+                    'border': '1px solid var(--border)',
+                    'border-radius': 'var(--arcane-radius-sm)',
                     'font-family':
                         'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
                     'font-weight': 'var(--font-weight-semibold)',
                     'font-size': 'var(--font-size-xs)',
                     'color': 'var(--foreground)',
+                    'text-align': 'center',
                   }),
                   [Component.text(component.props.promoCode!)],
                 ),
               if (component.props.ctaText != null)
                 dom.a(
                   href: component.props.ctaHref ?? '#',
-                  styles: const dom.Styles(raw: {
+                  styles: dom.Styles(raw: {
                     'display': 'inline-flex',
                     'align-items': 'center',
-                    'gap': '4px',
-                    'padding': '6px 12px',
+                    'justify-content': 'center',
+                    'height': '28px',
+                    'padding': '0 10px',
                     'background-color': 'var(--primary)',
                     'color': 'var(--primary-foreground)',
                     'font-size': 'var(--font-size-sm)',
                     'font-weight': 'var(--font-weight-medium)',
                     'text-decoration': 'none',
-                    'border-radius': 'var(--arcane-radius-xs)',
-                    'transition': 'opacity var(--arcane-transition)',
+                    'border-radius': 'var(--arcane-radius-sm)',
+                    'transition': 'all var(--arcane-transition)',
+                    'white-space': 'nowrap',
+                    if (component.props.promoCode == null) 'flex': '1',
                   }),
                   events: {
                     'click': (e) {

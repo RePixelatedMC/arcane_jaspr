@@ -100,7 +100,6 @@ class _ShadcnFullscreenTakeoverState extends State<ShadcnFullscreenTakeover> {
         'justify-content': 'center',
         'padding': '48px 24px',
         'background-color': 'var(--background)',
-        'animation': 'arcane-fade-in var(--arcane-transition-slow)',
         'overflow': 'auto',
       }),
       [
@@ -111,22 +110,25 @@ class _ShadcnFullscreenTakeoverState extends State<ShadcnFullscreenTakeover> {
             'aria-label': 'Close',
           },
           styles: const dom.Styles(raw: {
-            'position': 'absolute',
+            'position': 'fixed',
             'top': '24px',
             'right': '24px',
             'display': 'inline-flex',
             'align-items': 'center',
             'justify-content': 'center',
-            'width': '40px',
-            'height': '40px',
+            'width': '44px',
+            'height': '44px',
             'padding': '0',
-            'background': 'var(--muted)',
+            'background': 'var(--card)',
             'border': '1px solid var(--border)',
             'border-radius': 'var(--arcane-radius-full)',
             'color': 'var(--foreground)',
             'cursor': 'pointer',
-            'font-size': 'var(--font-size-xl)',
-            'transition': 'background var(--arcane-transition)',
+            'font-size': '24px',
+            'line-height': '1',
+            'box-shadow': 'var(--arcane-shadow-lg)',
+            'transition': 'background-color var(--arcane-transition)',
+            'z-index': '1',
           }),
           events: {'click': (_) => _handleDismiss()},
           [const Component.text('\u00D7')],
@@ -139,21 +141,23 @@ class _ShadcnFullscreenTakeoverState extends State<ShadcnFullscreenTakeover> {
             'flex-direction': 'column',
             'align-items': 'center',
             'gap': '32px',
-            'max-width': '600px',
+            'max-width': '640px',
+            'width': '100%',
             'text-align': 'center',
           }),
           [
             // Discount badge
             if (component.props.discount != null)
-              dom.span(
+              dom.div(
                 styles: const dom.Styles(raw: {
-                  'display': 'inline-block',
-                  'padding': '12px 24px',
+                  'display': 'inline-flex',
+                  'padding': '16px 32px',
                   'background-color': 'var(--primary)',
                   'color': 'var(--primary-foreground)',
-                  'font-size': 'var(--font-size-4xl)',
+                  'font-size': '48px',
                   'font-weight': 'var(--font-weight-bold)',
-                  'border-radius': 'var(--arcane-radius-sm)',
+                  'line-height': '1',
+                  'border-radius': 'var(--arcane-radius-md)',
                 }),
                 [Component.text(component.props.discount!)],
               ),
@@ -163,22 +167,23 @@ class _ShadcnFullscreenTakeoverState extends State<ShadcnFullscreenTakeover> {
               styles: const dom.Styles(raw: {
                 'display': 'flex',
                 'flex-direction': 'column',
-                'gap': '12px',
+                'gap': '16px',
               }),
               [
-                dom.span(
+                dom.div(
                   styles: const dom.Styles(raw: {
                     'font-size': 'var(--font-size-sm)',
-                    'font-weight': 'var(--font-weight-medium)',
+                    'font-weight': 'var(--font-weight-semibold)',
                     'text-transform': 'uppercase',
-                    'letter-spacing': '0.15em',
+                    'letter-spacing': '0.1em',
                     'color': 'var(--muted-foreground)',
                   }),
                   [Component.text(component.props.subheadline)],
                 ),
-                dom.span(
+                dom.h1(
                   styles: const dom.Styles(raw: {
-                    'font-size': 'var(--font-size-4xl)',
+                    'margin': '0',
+                    'font-size': '48px',
                     'font-weight': 'var(--font-weight-bold)',
                     'color': 'var(--foreground)',
                     'line-height': '1.1',
@@ -186,11 +191,13 @@ class _ShadcnFullscreenTakeoverState extends State<ShadcnFullscreenTakeover> {
                   [Component.text(component.props.headline)],
                 ),
                 if (component.props.description != null)
-                  dom.span(
+                  dom.p(
                     styles: const dom.Styles(raw: {
+                      'margin': '0',
                       'font-size': 'var(--font-size-lg)',
                       'color': 'var(--muted-foreground)',
                       'line-height': '1.6',
+                      'max-width': '480px',
                     }),
                     [Component.text(component.props.description!)],
                   ),
@@ -204,28 +211,32 @@ class _ShadcnFullscreenTakeoverState extends State<ShadcnFullscreenTakeover> {
                   'display': 'flex',
                   'flex-direction': 'column',
                   'align-items': 'center',
-                  'gap': '8px',
+                  'gap': '12px',
                 }),
                 [
-                  const dom.span(
+                  const dom.div(
                     styles: dom.Styles(raw: {
                       'font-size': 'var(--font-size-sm)',
+                      'font-weight': 'var(--font-weight-medium)',
                       'color': 'var(--muted-foreground)',
                       'text-transform': 'uppercase',
-                      'letter-spacing': '0.1em',
+                      'letter-spacing': '0.05em',
                     }),
                     [Component.text('Offer expires in')],
                   ),
-                  dom.span(
+                  dom.div(
                     styles: const dom.Styles(raw: {
-                      'font-size': 'var(--font-size-3xl)',
+                      'display': 'inline-flex',
+                      'font-size': '36px',
                       'font-weight': 'var(--font-weight-bold)',
                       'font-family':
                           'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
                       'color': 'var(--foreground)',
-                      'padding': '8px 16px',
+                      'padding': '12px 24px',
                       'background-color': 'var(--muted)',
-                      'border-radius': 'var(--arcane-radius-sm)',
+                      'border': '1px solid var(--border)',
+                      'border-radius': 'var(--arcane-radius-md)',
+                      'line-height': '1',
                     }),
                     [Component.text(_formatCountdown(_remainingTime))],
                   ),
@@ -239,28 +250,31 @@ class _ShadcnFullscreenTakeoverState extends State<ShadcnFullscreenTakeover> {
                   'display': 'flex',
                   'flex-direction': 'column',
                   'align-items': 'center',
-                  'gap': '8px',
+                  'gap': '12px',
                 }),
                 [
-                  const dom.span(
+                  const dom.div(
                     styles: dom.Styles(raw: {
                       'font-size': 'var(--font-size-sm)',
+                      'font-weight': 'var(--font-weight-medium)',
                       'color': 'var(--muted-foreground)',
                     }),
                     [Component.text('Use code at checkout')],
                   ),
-                  dom.span(
+                  dom.div(
                     styles: const dom.Styles(raw: {
-                      'padding': '12px 24px',
+                      'display': 'inline-flex',
+                      'padding': '16px 32px',
                       'background-color': 'var(--muted)',
                       'border': '2px dashed var(--border)',
-                      'border-radius': 'var(--arcane-radius-sm)',
+                      'border-radius': 'var(--arcane-radius-md)',
                       'font-family':
                           'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
                       'font-weight': 'var(--font-weight-bold)',
-                      'font-size': 'var(--font-size-2xl)',
+                      'font-size': '32px',
                       'color': 'var(--foreground)',
-                      'letter-spacing': '0.15em',
+                      'letter-spacing': '0.1em',
+                      'line-height': '1',
                     }),
                     [Component.text(component.props.promoCode!)],
                   ),
@@ -275,7 +289,7 @@ class _ShadcnFullscreenTakeoverState extends State<ShadcnFullscreenTakeover> {
                 'align-items': 'center',
                 'gap': '12px',
                 'width': '100%',
-                'max-width': '320px',
+                'max-width': '360px',
               }),
               [
                 if (component.props.ctaText != null)
@@ -285,16 +299,17 @@ class _ShadcnFullscreenTakeoverState extends State<ShadcnFullscreenTakeover> {
                       'display': 'inline-flex',
                       'align-items': 'center',
                       'justify-content': 'center',
-                      'gap': '8px',
-                      'padding': '16px 32px',
+                      'height': '56px',
+                      'padding': '0 32px',
                       'background-color': 'var(--primary)',
                       'color': 'var(--primary-foreground)',
                       'font-size': 'var(--font-size-lg)',
                       'font-weight': 'var(--font-weight-semibold)',
                       'text-decoration': 'none',
-                      'border-radius': 'var(--arcane-radius-sm)',
+                      'border-radius': 'var(--arcane-radius-md)',
                       'width': '100%',
                       'transition': 'opacity var(--arcane-transition)',
+                      'box-shadow': 'var(--arcane-shadow-lg)',
                     }),
                     events: {
                       'click': (e) {
@@ -313,7 +328,8 @@ class _ShadcnFullscreenTakeoverState extends State<ShadcnFullscreenTakeover> {
                       'display': 'inline-flex',
                       'align-items': 'center',
                       'justify-content': 'center',
-                      'padding': '12px 24px',
+                      'height': '40px',
+                      'padding': '0 24px',
                       'background': 'transparent',
                       'color': 'var(--muted-foreground)',
                       'font-size': 'var(--font-size-sm)',
@@ -321,6 +337,7 @@ class _ShadcnFullscreenTakeoverState extends State<ShadcnFullscreenTakeover> {
                       'text-decoration': 'underline',
                       'border': 'none',
                       'cursor': 'pointer',
+                      'transition': 'color var(--arcane-transition)',
                     }),
                     events: {'click': (_) => _handleDismiss()},
                     [Component.text(component.props.secondaryCtaText!)],

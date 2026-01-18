@@ -88,13 +88,13 @@ class _ShadcnSlidingSidebarBannerState
         'display': 'flex',
         'flex-direction': 'column',
         'gap': '16px',
-        'padding': '20px',
+        'padding': '24px',
         'background-color': 'var(--card)',
         'border': '1px solid var(--border)',
         'box-shadow': 'var(--arcane-shadow-lg)',
-        'transition': 'transform 400ms cubic-bezier(0.4, 0, 0.2, 1)',
-        'max-width': '280px',
-        'width': '280px',
+        'transition': 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+        'max-width': '320px',
+        'width': '320px',
         ..._getPositionStyles(),
       }),
       [
@@ -106,19 +106,20 @@ class _ShadcnSlidingSidebarBannerState
           },
           styles: const dom.Styles(raw: {
             'position': 'absolute',
-            'top': '12px',
-            'right': '12px',
+            'top': '16px',
+            'right': '16px',
             'display': 'inline-flex',
             'align-items': 'center',
             'justify-content': 'center',
-            'width': '20px',
-            'height': '20px',
+            'width': '24px',
+            'height': '24px',
             'padding': '0',
             'background': 'transparent',
             'border': 'none',
+            'border-radius': 'var(--arcane-radius-xs)',
             'color': 'var(--muted-foreground)',
             'cursor': 'pointer',
-            'opacity': '0.7',
+            'transition': 'background-color var(--arcane-transition)',
           }),
           events: {'click': (_) => _handleDismiss()},
           [const Component.text('\u00D7')],
@@ -129,12 +130,12 @@ class _ShadcnSlidingSidebarBannerState
           dom.span(
             styles: const dom.Styles(raw: {
               'display': 'inline-block',
-              'padding': '6px 12px',
+              'padding': '4px 12px',
               'background-color': 'var(--primary)',
               'color': 'var(--primary-foreground)',
-              'font-size': 'var(--font-size-xl)',
+              'font-size': 'var(--font-size-lg)',
               'font-weight': 'var(--font-weight-bold)',
-              'border-radius': 'var(--arcane-radius-xs)',
+              'border-radius': 'var(--arcane-radius-sm)',
               'align-self': 'flex-start',
             }),
             [Component.text(component.props.discount!)],
@@ -145,14 +146,14 @@ class _ShadcnSlidingSidebarBannerState
           styles: const dom.Styles(raw: {
             'display': 'flex',
             'flex-direction': 'column',
-            'gap': '4px',
+            'gap': '8px',
           }),
           [
             if (component.props.subtitle != null)
               dom.span(
                 styles: const dom.Styles(raw: {
                   'font-size': 'var(--font-size-xs)',
-                  'font-weight': 'var(--font-weight-medium)',
+                  'font-weight': 'var(--font-weight-semibold)',
                   'text-transform': 'uppercase',
                   'letter-spacing': '0.05em',
                   'color': 'var(--muted-foreground)',
@@ -164,6 +165,7 @@ class _ShadcnSlidingSidebarBannerState
                 'font-size': 'var(--font-size-lg)',
                 'font-weight': 'var(--font-weight-semibold)',
                 'color': 'var(--foreground)',
+                'line-height': '1.4',
               }),
               [Component.text(component.props.title)],
             ),
@@ -171,7 +173,7 @@ class _ShadcnSlidingSidebarBannerState
               styles: const dom.Styles(raw: {
                 'font-size': 'var(--font-size-sm)',
                 'color': 'var(--muted-foreground)',
-                'line-height': '1.5',
+                'line-height': '1.6',
               }),
               [Component.text(component.props.message)],
             ),
@@ -187,22 +189,25 @@ class _ShadcnSlidingSidebarBannerState
               'margin': '0',
               'display': 'flex',
               'flex-direction': 'column',
-              'gap': '6px',
+              'gap': '8px',
             }),
             [
               for (final feature in component.props.features!)
                 dom.li(
                   styles: const dom.Styles(raw: {
                     'display': 'flex',
-                    'align-items': 'center',
+                    'align-items': 'flex-start',
                     'gap': '8px',
                     'font-size': 'var(--font-size-sm)',
                     'color': 'var(--foreground)',
+                    'line-height': '1.5',
                   }),
                   [
                     const dom.span(
                       styles: dom.Styles(raw: {
-                        'color': 'var(--success)',
+                        'color': 'var(--primary)',
+                        'flex-shrink': '0',
+                        'margin-top': '2px',
                       }),
                       [Component.text('\u2713')],
                     ),
@@ -218,22 +223,23 @@ class _ShadcnSlidingSidebarBannerState
             styles: const dom.Styles(raw: {
               'display': 'flex',
               'flex-direction': 'column',
-              'gap': '4px',
+              'gap': '6px',
             }),
             [
               const dom.span(
                 styles: dom.Styles(raw: {
                   'font-size': 'var(--font-size-xs)',
+                  'font-weight': 'var(--font-weight-medium)',
                   'color': 'var(--muted-foreground)',
                 }),
                 [Component.text('Use code')],
               ),
               dom.span(
                 styles: const dom.Styles(raw: {
-                  'padding': '6px 10px',
+                  'padding': '8px 12px',
                   'background-color': 'var(--muted)',
                   'border': '1px dashed var(--border)',
-                  'border-radius': 'var(--arcane-radius-xs)',
+                  'border-radius': 'var(--arcane-radius-sm)',
                   'font-family':
                       'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
                   'font-weight': 'var(--font-weight-bold)',
@@ -254,14 +260,14 @@ class _ShadcnSlidingSidebarBannerState
               'display': 'inline-flex',
               'align-items': 'center',
               'justify-content': 'center',
-              'gap': '6px',
-              'padding': '10px 16px',
+              'height': '40px',
+              'padding': '0 16px',
               'background-color': 'var(--primary)',
               'color': 'var(--primary-foreground)',
               'font-size': 'var(--font-size-sm)',
-              'font-weight': 'var(--font-weight-medium)',
+              'font-weight': 'var(--font-weight-semibold)',
               'text-decoration': 'none',
-              'border-radius': 'var(--arcane-radius-xs)',
+              'border-radius': 'var(--arcane-radius-sm)',
               'transition': 'opacity var(--arcane-transition)',
               'width': '100%',
             }),
