@@ -56,3 +56,13 @@ class IconButtonProps {
     );
   }
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer method for icon button components.
+mixin IconButtonRendererContract {
+  /// Render an icon button component.
+  Component iconButton(IconButtonProps props);
+}

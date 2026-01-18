@@ -1,0 +1,263 @@
+import 'package:jaspr/jaspr.dart';
+import 'package:jaspr/dom.dart' as dom;
+
+import '../../../../core/props/promo_props.dart';
+
+/// Codex Expanding FAB Promo renderer.
+///
+/// A floating action button that expands into a full promo panel when tapped.
+class CodexExpandingFabPromo extends StatefulComponent {
+  final ExpandingFabPromoProps props;
+
+  const CodexExpandingFabPromo(this.props, {super.key});
+
+  @override
+  State<CodexExpandingFabPromo> createState() => _CodexExpandingFabPromoState();
+}
+
+class _CodexExpandingFabPromoState extends State<CodexExpandingFabPromo> {
+  bool _isExpanded = false;
+  bool _isDismissed = false;
+
+  void _toggle() {
+    setState(() {
+      _isExpanded = !_isExpanded;
+    });
+  }
+
+  void _dismiss() {
+    setState(() {
+      _isDismissed = true;
+    });
+    component.props.onDismiss?.call();
+  }
+
+  @override
+  Component build(BuildContext context) {
+    if (_isDismissed) {
+      return const dom.div([], styles: dom.Styles(raw: {'display': 'none'}));
+    }
+
+    if (!_isExpanded) {
+      // Collapsed FAB state
+      return dom.button(
+        classes: 'codex-expanding-fab-promo collapsed',
+        styles: const dom.Styles(raw: {
+          'position': 'fixed',
+          'bottom': '2rem',
+          'right': '2rem',
+          'z-index': '100',
+          'width': '64px',
+          'height': '64px',
+          'display': 'flex',
+          'align-items': 'center',
+          'justify-content': 'center',
+          'background':
+              'linear-gradient(135deg, var(--primary) 0%, rgba(var(--primary-rgb), 0.7) 100%)',
+          'border': '1px solid rgba(var(--primary-rgb), 0.5)',
+          'border-radius': '50%',
+          'color': '#ffffff',
+          'cursor': 'pointer',
+          // Codex: intense glow
+          'box-shadow':
+              '0 0 30px rgba(var(--primary-rgb), 0.5), 0 0 60px rgba(var(--primary-rgb), 0.25), 0 8px 32px rgba(0, 0, 0, 0.4)',
+          'transition': 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+        }),
+        events: {'click': (_) => _toggle()},
+        [
+          component.props.icon ??
+              const dom.span(
+                styles: dom.Styles(raw: {
+                  'font-size': '1.5rem',
+                  'filter': 'drop-shadow(0 0 6px currentColor)',
+                }),
+                [Component.text('%')],
+              ),
+        ],
+      );
+    }
+
+    // Expanded panel state
+    return dom.div(
+      classes: 'codex-expanding-fab-promo expanded',
+      styles: const dom.Styles(raw: {
+        'position': 'fixed',
+        'bottom': '2rem',
+        'right': '2rem',
+        'z-index': '100',
+        'width': '320px',
+        'max-width': 'calc(100vw - 4rem)',
+        // Codex: glass effect
+        'background-color': 'rgba(10, 10, 10, 0.95)',
+        'backdrop-filter': 'blur(12px)',
+        '-webkit-backdrop-filter': 'blur(12px)',
+        'border': '1px solid var(--primary)',
+        'border-radius': 'var(--radius-xl)',
+        // Codex: accent glow
+        'box-shadow':
+            '0 0 40px rgba(var(--primary-rgb), 0.3), 0 25px 50px -12px rgba(0, 0, 0, 0.5)',
+        'padding': '1.5rem',
+      }),
+      [
+        // Header with collapse button
+        dom.div(
+          styles: const dom.Styles(raw: {
+            'display': 'flex',
+            'align-items': 'center',
+            'justify-content': 'space-between',
+            'margin-bottom': '1rem',
+          }),
+          [
+            // Discount badge
+            if (component.props.discount != null)
+              dom.span(
+                styles: const dom.Styles(raw: {
+                  'padding': '0.5rem 1rem',
+                  'background': 'var(--primary)',
+                  'border-radius': 'var(--radius)',
+                  'font-size': 'var(--font-size-lg)',
+                  'font-weight': 'var(--font-weight-bold)',
+                  'color': '#ffffff',
+                  'box-shadow': '0 0 15px rgba(var(--primary-rgb), 0.4)',
+                }),
+                [Component.text(component.props.discount!)],
+              )
+            else
+              const dom.div([], styles: dom.Styles(raw: {})),
+
+            // Buttons
+            dom.div(
+              styles: const dom.Styles(raw: {
+                'display': 'flex',
+                'gap': '0.5rem',
+              }),
+              [
+                // Collapse button
+                dom.button(
+                  styles: const dom.Styles(raw: {
+                    'width': '28px',
+                    'height': '28px',
+                    'display': 'flex',
+                    'align-items': 'center',
+                    'justify-content': 'center',
+                    'background': 'transparent',
+                    'border': '1px solid var(--border)',
+                    'border-radius': 'var(--radius-sm)',
+                    'color': 'var(--muted-foreground)',
+                    'cursor': 'pointer',
+                  }),
+                  events: {'click': (_) => _toggle()},
+                  [const Component.text('\u2212')],
+                ),
+                // Dismiss button
+                dom.button(
+                  styles: const dom.Styles(raw: {
+                    'width': '28px',
+                    'height': '28px',
+                    'display': 'flex',
+                    'align-items': 'center',
+                    'justify-content': 'center',
+                    'background': 'transparent',
+                    'border': '1px solid var(--border)',
+                    'border-radius': 'var(--radius-sm)',
+                    'color': 'var(--muted-foreground)',
+                    'cursor': 'pointer',
+                  }),
+                  events: {'click': (_) => _dismiss()},
+                  [const Component.text('\u2715')],
+                ),
+              ],
+            ),
+          ],
+        ),
+
+        // Title
+        dom.div(
+          styles: const dom.Styles(raw: {
+            'font-size': 'var(--font-size-lg)',
+            'font-weight': 'var(--font-weight-bold)',
+            'color': 'var(--foreground)',
+            'margin-bottom': '0.5rem',
+          }),
+          [Component.text(component.props.title)],
+        ),
+
+        // Message
+        dom.div(
+          styles: const dom.Styles(raw: {
+            'font-size': 'var(--font-size-sm)',
+            'color': 'var(--muted-foreground)',
+            'line-height': '1.6',
+            'margin-bottom': '1rem',
+          }),
+          [Component.text(component.props.message)],
+        ),
+
+        // Promo code
+        if (component.props.promoCode != null)
+          dom.div(
+            styles: const dom.Styles(raw: {
+              'padding': '0.75rem',
+              'background': 'rgba(var(--primary-rgb), 0.1)',
+              'border': '1px dashed rgba(var(--primary-rgb), 0.3)',
+              'border-radius': 'var(--radius)',
+              'margin-bottom': '1rem',
+              'text-align': 'center',
+            }),
+            [
+              const dom.div(
+                styles: dom.Styles(raw: {
+                  'font-size': 'var(--font-size-xs)',
+                  'color': 'var(--muted-foreground)',
+                  'margin-bottom': '0.25rem',
+                }),
+                [Component.text('Use code')],
+              ),
+              dom.div(
+                styles: const dom.Styles(raw: {
+                  'font-family':
+                      'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
+                  'font-size': 'var(--font-size-base)',
+                  'font-weight': 'var(--font-weight-bold)',
+                  'color': 'var(--primary)',
+                  'letter-spacing': '0.1em',
+                }),
+                [Component.text(component.props.promoCode!)],
+              ),
+            ],
+          ),
+
+        // CTA Button
+        if (component.props.ctaText != null)
+          dom.a(
+            href: component.props.ctaHref ?? '#',
+            styles: const dom.Styles(raw: {
+              'display': 'block',
+              'width': '100%',
+              'padding': '0.875rem',
+              'background': 'var(--primary)',
+              'border': 'none',
+              'border-radius': 'var(--radius)',
+              'color': '#ffffff',
+              'font-size': 'var(--font-size-sm)',
+              'font-weight': 'var(--font-weight-semibold)',
+              'text-align': 'center',
+              'text-decoration': 'none',
+              'cursor': 'pointer',
+              'transition': 'all var(--transition)',
+              'box-shadow': '0 0 15px rgba(var(--primary-rgb), 0.4)',
+            }),
+            events: component.props.onCtaClick != null
+                ? {
+                    'click': (e) {
+                      e.preventDefault();
+                      component.props.onCtaClick!();
+                    }
+                  }
+                : null,
+            [Component.text(component.props.ctaText!)],
+          ),
+      ],
+    );
+  }
+}

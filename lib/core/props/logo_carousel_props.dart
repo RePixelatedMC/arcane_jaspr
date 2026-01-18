@@ -56,3 +56,13 @@ class LogoGridProps {
     this.columns = 6,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for logo carousel components.
+mixin LogoCarouselRendererContract {
+  Component logoCarousel(LogoCarouselProps props);
+  Component logoGrid(LogoGridProps props);
+}

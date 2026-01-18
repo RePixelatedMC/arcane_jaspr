@@ -85,3 +85,16 @@ class TabBarProps {
     );
   }
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for tab components.
+mixin TabsRendererContract {
+  /// Renders a tabbed interface with content panels.
+  Component tabs(TabsProps props);
+
+  /// Renders a standalone tab bar without content panels.
+  Component tabBar(TabBarProps props);
+}

@@ -30,3 +30,12 @@ class AlertBannerProps {
     this.filled = false,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for alert banner components.
+mixin AlertBannerRendererContract {
+  Component alertBanner(AlertBannerProps props);
+}

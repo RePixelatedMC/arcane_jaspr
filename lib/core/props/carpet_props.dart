@@ -54,3 +54,14 @@ class ArcaneDividerProps {
     this.vertical = false,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for carpet/surface components.
+mixin CarpetRendererContract {
+  Component carpet(CarpetProps props);
+  Component surface(SurfaceProps props);
+  Component arcaneDivider(ArcaneDividerProps props);
+}

@@ -13,3 +13,12 @@ class ContextMenuProps {
     required this.items,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for context menu components.
+mixin ContextMenuRendererContract {
+  Component contextMenu(ContextMenuProps props);
+}

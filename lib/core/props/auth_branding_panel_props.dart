@@ -1,3 +1,5 @@
+import 'package:jaspr/jaspr.dart';
+
 /// Auth branding panel component properties.
 class AuthBrandingPanelProps {
   final String? logoUrl;
@@ -17,4 +19,13 @@ class AuthBrandingPanelProps {
     this.testimonialAuthor,
     this.testimonialTitle,
   });
+}
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for auth branding panel components.
+mixin AuthBrandingPanelRendererContract {
+  Component authBrandingPanel(AuthBrandingPanelProps props);
 }

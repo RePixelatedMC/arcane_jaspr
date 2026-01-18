@@ -54,3 +54,13 @@ class CardProps {
     );
   }
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for card components.
+mixin CardRendererContract {
+  /// Renders a card container component.
+  Component card(CardProps props);
+}

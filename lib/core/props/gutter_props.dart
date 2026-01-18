@@ -1,3 +1,5 @@
+import 'package:jaspr/jaspr.dart';
+
 enum GutterSize {
   xsmall(4),
   small(8),
@@ -26,4 +28,14 @@ class GapProps {
   final bool horizontal;
 
   const GapProps(this.size, {this.horizontal = false});
+}
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for gutter/spacing components.
+mixin GutterRendererContract {
+  Component gutter(GutterProps props);
+  Component gap(GapProps props);
 }

@@ -48,3 +48,14 @@ class ButtonGroupProps {
     this.gap = 0,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for button panel components.
+mixin ButtonPanelRendererContract {
+  Component buttonPanel(ButtonPanelProps props);
+  Component toolbar(ToolbarProps props);
+  Component buttonGroup(ButtonGroupProps props);
+}

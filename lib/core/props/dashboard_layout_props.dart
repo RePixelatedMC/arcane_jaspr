@@ -63,3 +63,13 @@ class DashboardTopBarProps {
     this.backgroundColor = 'var(--card)',
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for dashboard layout components.
+mixin DashboardLayoutRendererContract {
+  Component dashboardLayout(DashboardLayoutProps props);
+  Component dashboardTopBar(DashboardTopBarProps props);
+}

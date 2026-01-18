@@ -100,3 +100,12 @@ class SelectProps<T> {
     this.onSearchChange,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for select components.
+mixin SelectRendererContract {
+  Component select<T>(SelectProps<T> props);
+}

@@ -1,3 +1,5 @@
+import 'package:jaspr/jaspr.dart';
+
 enum SectionHeaderAlign {
   left,
   center,
@@ -27,4 +29,13 @@ class SectionHeaderProps {
     this.headingColor,
     this.descriptionColor,
   });
+}
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for section header components.
+mixin SectionHeaderRendererContract {
+  Component sectionHeader(SectionHeaderProps props);
 }

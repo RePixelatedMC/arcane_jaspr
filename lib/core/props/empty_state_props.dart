@@ -56,3 +56,13 @@ class EmptyStateProps {
     );
   }
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for empty state components.
+mixin EmptyStateRendererContract {
+  /// Renders an empty state placeholder component.
+  Component emptyState(EmptyStateProps props);
+}

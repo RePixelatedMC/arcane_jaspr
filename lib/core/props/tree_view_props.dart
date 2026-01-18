@@ -55,3 +55,12 @@ class TreeViewProps {
     this.expandAll = false,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for tree view components.
+mixin TreeViewRendererContract {
+  Component treeView(TreeViewProps props);
+}

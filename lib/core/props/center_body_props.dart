@@ -49,3 +49,15 @@ class ErrorStateProps {
     this.action,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for center body components.
+mixin CenterBodyRendererContract {
+  Component centerBody(CenterBodyProps props);
+  Component pageBody(PageBodyProps props);
+  Component loadingState(LoadingStateProps props);
+  Component errorState(ErrorStateProps props);
+}

@@ -37,3 +37,13 @@ class IconCardProps {
     this.href,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for feature card components.
+mixin FeatureCardRendererContract {
+  Component featureCard(FeatureCardProps props);
+  Component iconCard(IconCardProps props);
+}

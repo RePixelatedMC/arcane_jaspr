@@ -120,7 +120,7 @@ class _ShadcnFlexiCardsState extends State<ShadcnFlexiCards> {
           // Inner wrapper hides overflow and holds the content
           dom.div(
             classes: 'arcane-flexi-card-long-text-inner',
-            styles: dom.Styles(raw: {
+            styles: const dom.Styles(raw: {
               'overflow': 'hidden',
               // min-height: 0 is critical for grid-template-rows animation
               'min-height': '0',

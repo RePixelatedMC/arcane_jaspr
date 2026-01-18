@@ -1,0 +1,57 @@
+import 'package:jaspr/dom.dart' as dom;
+import 'package:jaspr/jaspr.dart';
+
+import '../../core/theme_provider.dart';
+
+/// A scrolling marquee-style announcement bar.
+///
+/// Great for creating urgency with continuous movement.
+class ArcaneMarqueeTickerBar extends StatefulComponent {
+  final List<String> messages;
+  final String? promoCode;
+  final String? ctaText;
+  final String? ctaHref;
+  final void Function()? onCtaClick;
+  final void Function()? onDismiss;
+  final bool showAtBottom;
+
+  const ArcaneMarqueeTickerBar({
+    required this.messages,
+    this.promoCode,
+    this.ctaText,
+    this.ctaHref,
+    this.onCtaClick,
+    this.onDismiss,
+    this.showAtBottom = false,
+    super.key,
+  });
+
+  @override
+  State<ArcaneMarqueeTickerBar> createState() => _ArcaneMarqueeTickerBarState();
+}
+
+class _ArcaneMarqueeTickerBarState extends State<ArcaneMarqueeTickerBar> {
+  bool _isDismissed = false;
+
+  void _handleDismiss() {
+    setState(() => _isDismissed = true);
+    component.onDismiss?.call();
+  }
+
+  @override
+  Component build(BuildContext context) {
+    if (_isDismissed) return const dom.div([]);
+
+    return context.renderers.marqueeTickerBar(MarqueeTickerBarProps(
+      messages: component.messages,
+      promoCode: component.promoCode,
+      ctaText: component.ctaText,
+      ctaHref: component.ctaHref,
+      onCtaClick: component.onCtaClick,
+      onDismiss: _handleDismiss,
+      showAtBottom: component.showAtBottom,
+    ));
+  }
+}
+
+typedef AMarqueeTickerBar = ArcaneMarqueeTickerBar;

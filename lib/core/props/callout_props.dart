@@ -32,3 +32,13 @@ class CalloutProps {
     this.onDismiss,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for callout components.
+mixin CalloutRendererContract {
+  /// Renders a callout component.
+  Component callout(CalloutProps props);
+}

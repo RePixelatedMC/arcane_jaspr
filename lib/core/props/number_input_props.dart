@@ -1,3 +1,5 @@
+import 'package:jaspr/jaspr.dart';
+
 enum NumberInputSize {
   sm,
   md,
@@ -67,4 +69,14 @@ class NumberInputProps {
       attributes: attributes ?? this.attributes,
     );
   }
+}
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer method for number input components.
+mixin NumberInputRendererContract {
+  /// Render a number input component.
+  Component numberInput(NumberInputProps props);
 }

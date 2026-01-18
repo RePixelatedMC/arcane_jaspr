@@ -47,3 +47,12 @@ class FeatureShowcaseProps {
     this.centerHeader = true,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for feature showcase components.
+mixin FeatureShowcaseRendererContract {
+  Component featureShowcase(FeatureShowcaseProps props);
+}

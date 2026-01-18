@@ -45,3 +45,13 @@ class AccordionProps {
     );
   }
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for accordion components.
+mixin AccordionRendererContract {
+  /// Renders an accordion with collapsible sections.
+  Component accordion(AccordionProps props);
+}

@@ -20,3 +20,12 @@ class SectionProps {
     this.card = false,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for section components.
+mixin SectionRendererContract {
+  Component section(SectionProps props);
+}

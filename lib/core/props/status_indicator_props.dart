@@ -1,3 +1,5 @@
+import 'package:jaspr/jaspr.dart';
+
 enum StatusType {
   online,
   offline,
@@ -33,4 +35,14 @@ class SimpleStatusBadgeProps {
     required this.status,
     required this.label,
   });
+}
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for status indicator components.
+mixin StatusIndicatorRendererContract {
+  Component statusIndicator(StatusIndicatorProps props);
+  Component statusBadge(SimpleStatusBadgeProps props);
 }

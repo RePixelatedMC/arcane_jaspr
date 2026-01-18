@@ -66,3 +66,13 @@ class ScrollRailLayoutProps {
     this.contentBackground,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for scroll rail components.
+mixin ScrollRailRendererContract {
+  Component scrollRail(ScrollRailProps props);
+  Component scrollRailLayout(ScrollRailLayoutProps props);
+}

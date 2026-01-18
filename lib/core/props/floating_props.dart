@@ -143,3 +143,12 @@ class FloatingProps {
     );
   }
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for floating components.
+mixin FloatingRendererContract {
+  Component floating(FloatingProps props);
+}

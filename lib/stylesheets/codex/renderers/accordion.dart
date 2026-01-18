@@ -74,9 +74,9 @@ class CodexAccordion extends StatelessComponent {
               [Component.text(item.title)],
             ),
             // Chevron button
-            dom.div(
+            const dom.div(
               classes: 'faq-chevron',
-              styles: const dom.Styles(
+              styles: dom.Styles(
                 raw: {
                   'display': 'flex',
                   'align-items': 'center',
@@ -92,13 +92,13 @@ class CodexAccordion extends StatelessComponent {
               ),
               [
                 dom.span(
-                  styles: const dom.Styles(
+                  styles: dom.Styles(
                     raw: {
                       'font-size': '0.75rem',
                       'line-height': '1',
                     },
                   ),
-                  [const Component.text('\u25BC')],
+                  [Component.text('\u25BC')],
                 ),
               ],
             ),

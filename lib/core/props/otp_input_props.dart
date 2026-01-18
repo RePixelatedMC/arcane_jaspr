@@ -1,3 +1,5 @@
+import 'package:jaspr/jaspr.dart';
+
 enum OtpInputSizeVariant {
   sm,
   md,
@@ -29,4 +31,14 @@ class OtpInputProps {
     this.separatorPosition,
     this.onInput,
   });
+}
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer method for OTP input components.
+mixin OtpInputRendererContract {
+  /// Render an OTP input component.
+  Component otpInput(OtpInputProps props);
 }

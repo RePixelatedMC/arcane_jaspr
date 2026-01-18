@@ -33,3 +33,13 @@ class StatCardRowProps {
     this.gap,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for stat card components.
+mixin StatCardRendererContract {
+  Component statCard(StatCardProps props);
+  Component statCardRow(StatCardRowProps props);
+}

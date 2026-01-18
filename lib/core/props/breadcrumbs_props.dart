@@ -44,3 +44,13 @@ class BreadcrumbsProps {
     this.onItemClick,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for breadcrumb components.
+mixin BreadcrumbsRendererContract {
+  /// Renders a breadcrumb navigation trail.
+  Component breadcrumbs(BreadcrumbsProps props);
+}

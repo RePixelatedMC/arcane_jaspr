@@ -39,3 +39,13 @@ class IntegrationGridProps {
     this.description,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for integration card components.
+mixin IntegrationCardRendererContract {
+  Component integrationCard(IntegrationCardProps props);
+  Component integrationGrid(IntegrationGridProps props);
+}

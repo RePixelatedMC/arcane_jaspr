@@ -119,3 +119,13 @@ class ToastContainerProps {
     this.toasts = const [],
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for toast components.
+mixin ToastRendererContract {
+  Component toast(ToastProps props);
+  Component toastContainer(ToastContainerProps props);
+}

@@ -37,3 +37,13 @@ class AuthBackLinkProps {
     this.text = 'Back to home',
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for auth layout components.
+mixin AuthLayoutRendererContract {
+  Component authLayout(AuthLayoutProps props);
+  Component authBackLink(AuthBackLinkProps props);
+}

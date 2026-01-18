@@ -47,3 +47,13 @@ class DialogBarProps {
     this.onClose,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for bar components.
+mixin BarRendererContract {
+  Component bar(BarProps props);
+  Component dialogBar(DialogBarProps props);
+}

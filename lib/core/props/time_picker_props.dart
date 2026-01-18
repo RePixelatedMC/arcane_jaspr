@@ -1,3 +1,5 @@
+import 'package:jaspr/jaspr.dart';
+
 /// Represents a time of day with hour and minute.
 class TimeOfDay {
   final int hour;
@@ -96,4 +98,14 @@ class TimePickerProps {
     this.onConfirm,
     this.onCancel,
   });
+}
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer method for time picker components.
+mixin TimePickerRendererContract {
+  /// Render a time picker component.
+  Component timePicker(TimePickerProps props);
 }

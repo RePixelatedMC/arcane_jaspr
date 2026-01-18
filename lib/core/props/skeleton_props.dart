@@ -1,3 +1,5 @@
+import 'package:jaspr/jaspr.dart';
+
 enum SkeletonShape {
   rectangle,
   circle,
@@ -35,4 +37,14 @@ class SkeletonProps {
       animate: animate ?? this.animate,
     );
   }
+}
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for skeleton components.
+mixin SkeletonRendererContract {
+  /// Renders a skeleton loading placeholder component.
+  Component skeleton(SkeletonProps props);
 }

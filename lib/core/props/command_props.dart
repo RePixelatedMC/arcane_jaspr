@@ -88,3 +88,12 @@ class CommandProps {
     );
   }
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for command palette components.
+mixin CommandRendererContract {
+  Component command(CommandProps props);
+}

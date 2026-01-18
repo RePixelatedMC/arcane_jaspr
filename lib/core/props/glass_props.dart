@@ -62,3 +62,14 @@ class GradientGlassProps {
     this.direction = 'to bottom right',
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for glass components.
+mixin GlassRendererContract {
+  Component glass(GlassProps props);
+  Component glassCard(GlassCardProps props);
+  Component gradientGlass(GradientGlassProps props);
+}

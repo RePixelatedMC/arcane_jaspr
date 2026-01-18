@@ -43,3 +43,13 @@ class KeyValueRowData {
 
   const KeyValueRowData({required this.key, required this.value});
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for static table components.
+mixin StaticTableRendererContract {
+  Component staticTable(StaticTableProps props);
+  Component keyValueTable(KeyValueTableProps props);
+}

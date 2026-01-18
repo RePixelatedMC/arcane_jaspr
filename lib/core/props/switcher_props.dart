@@ -33,3 +33,13 @@ class IndexedStackProps {
     required this.children,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for switcher components.
+mixin SwitcherRendererContract {
+  Component switcher(SwitcherProps props);
+  Component indexedStack(IndexedStackProps props);
+}

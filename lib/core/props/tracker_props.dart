@@ -1,3 +1,5 @@
+import 'package:jaspr/jaspr.dart';
+
 enum TrackerLevel {
   fine,
   warning,
@@ -73,4 +75,14 @@ class UptimeTrackerProps {
     this.showDates = false,
     this.showPercentage = true,
   });
+}
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for tracker components.
+mixin TrackerRendererContract {
+  Component tracker(TrackerProps props);
+  Component uptimeTracker(UptimeTrackerProps props);
 }

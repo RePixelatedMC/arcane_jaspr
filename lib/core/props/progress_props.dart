@@ -1,3 +1,5 @@
+import 'package:jaspr/jaspr.dart';
+
 enum ProgressSize {
   small,
   medium,
@@ -83,4 +85,20 @@ class LoadingSpinnerProps {
     this.size,
     this.color,
   });
+}
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for progress components.
+mixin ProgressRendererContract {
+  /// Renders a linear progress bar component.
+  Component progress(ProgressProps props);
+
+  /// Renders a circular progress indicator component.
+  Component circularProgress(CircularProgressProps props);
+
+  /// Renders a loading spinner component.
+  Component loadingSpinner(LoadingSpinnerProps props);
 }

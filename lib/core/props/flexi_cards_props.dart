@@ -64,3 +64,13 @@ class FlexiCardsSimpleProps {
     this.gap = '1.5rem',
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for flexi cards components.
+mixin FlexiCardsRendererContract {
+  Component flexiCards(FlexiCardsProps props);
+  Component flexiCardsSimple(FlexiCardsSimpleProps props);
+}

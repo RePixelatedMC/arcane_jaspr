@@ -114,3 +114,13 @@ class TextInputProps {
     );
   }
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer method for text input components.
+mixin TextInputRendererContract {
+  /// Render a text input component.
+  Component textInput(TextInputProps props);
+}

@@ -47,3 +47,16 @@ class ChipGroupProps {
     this.gap,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for chip components.
+mixin ChipRendererContract {
+  /// Renders a chip component.
+  Component chip(ChipProps props);
+
+  /// Renders a group of chips.
+  Component chipGroup(ChipGroupProps props);
+}

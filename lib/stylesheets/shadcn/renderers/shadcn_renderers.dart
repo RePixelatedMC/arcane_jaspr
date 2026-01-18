@@ -117,6 +117,7 @@ import 'scroll_rail.dart';
 import 'resizable.dart';
 import 'radio_cards.dart';
 import 'placeholder_image.dart';
+import 'promo/promo.dart';
 
 /// ShadCN component renderers.
 ///
@@ -751,4 +752,51 @@ class ShadcnRenderers extends ComponentRenderers {
 
   @override
   Component arcaneChip(ArcaneChipProps props) => renderArcaneChip(props);
+
+  // ==========================================================================
+  // PROMO COMPONENTS
+  // ==========================================================================
+
+  @override
+  Component topAnnouncementBar(TopAnnouncementBarProps props) =>
+      ShadcnTopAnnouncementBar(props);
+
+  @override
+  Component bottomFloatingBanner(BottomFloatingBannerProps props) =>
+      ShadcnBottomFloatingBanner(props);
+
+  @override
+  Component cornerPromoToast(CornerPromoToastProps props) =>
+      ShadcnCornerPromoToast(props);
+
+  @override
+  Component promoModal(PromoModalProps props) => ShadcnPromoModal(props);
+
+  @override
+  Component inlineHeroBanner(InlineHeroBannerProps props) =>
+      ShadcnInlineHeroBanner(props);
+
+  @override
+  Component slidingSidebarBanner(SlidingSidebarBannerProps props) =>
+      ShadcnSlidingSidebarBanner(props);
+
+  @override
+  Component marqueeTickerBar(MarqueeTickerBarProps props) =>
+      ShadcnMarqueeTickerBar(props);
+
+  @override
+  Component expandingFabPromo(ExpandingFabPromoProps props) =>
+      ShadcnExpandingFabPromo(props);
+
+  @override
+  Component progressClaimBanner(ProgressClaimBannerProps props) =>
+      ShadcnProgressClaimBanner(props);
+
+  @override
+  Component minimizablePromo(MinimizablePromoProps props) =>
+      ShadcnMinimizablePromo(props);
+
+  @override
+  Component fullscreenTakeover(FullscreenTakeoverProps props) =>
+      ShadcnFullscreenTakeover(props);
 }

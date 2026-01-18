@@ -55,3 +55,12 @@ class TimelineProps {
     this.showConnectors = true,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for timeline components.
+mixin TimelineRendererContract {
+  Component timeline(TimelineProps props);
+}

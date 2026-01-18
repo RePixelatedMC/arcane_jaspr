@@ -1,3 +1,5 @@
+import 'package:jaspr/jaspr.dart';
+
 /// Code snippet component properties.
 class CodeSnippetProps {
   final String code;
@@ -37,4 +39,15 @@ class TerminalProps {
     this.title,
     this.showCopyButton = true,
   });
+}
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for code snippet components.
+mixin CodeSnippetRendererContract {
+  Component codeSnippet(CodeSnippetProps props);
+  Component inlineCode(InlineCodeProps props);
+  Component terminal(TerminalProps props);
 }

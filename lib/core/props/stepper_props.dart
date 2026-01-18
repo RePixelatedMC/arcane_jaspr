@@ -50,3 +50,12 @@ class StepperProps {
     this.onStepTap,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for stepper components.
+mixin StepperRendererContract {
+  Component stepper(StepperProps props);
+}

@@ -39,3 +39,13 @@ class CtaGroupProps {
     this.gap = 12,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for hero section components.
+mixin HeroSectionRendererContract {
+  Component heroSection(HeroSectionProps props);
+  Component ctaGroup(CtaGroupProps props);
+}

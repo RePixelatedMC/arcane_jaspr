@@ -112,6 +112,7 @@ import 'toggle_switch.dart';
 import 'tracker.dart';
 import 'tree_view.dart';
 import 'placeholder_image.dart';
+import 'promo/promo.dart';
 
 /// Codex component renderers.
 ///
@@ -817,4 +818,51 @@ class CodexRenderers extends ShadcnRenderers {
 
   @override
   Component treeView(TreeViewProps props) => CodexTreeView(props);
+
+  // ==========================================================================
+  // PROMO COMPONENTS (Codex-specific implementations)
+  // ==========================================================================
+
+  @override
+  Component topAnnouncementBar(TopAnnouncementBarProps props) =>
+      CodexTopAnnouncementBar(props);
+
+  @override
+  Component bottomFloatingBanner(BottomFloatingBannerProps props) =>
+      CodexBottomFloatingBanner(props);
+
+  @override
+  Component cornerPromoToast(CornerPromoToastProps props) =>
+      CodexCornerPromoToast(props);
+
+  @override
+  Component promoModal(PromoModalProps props) => CodexPromoModal(props);
+
+  @override
+  Component inlineHeroBanner(InlineHeroBannerProps props) =>
+      CodexInlineHeroBanner(props);
+
+  @override
+  Component slidingSidebarBanner(SlidingSidebarBannerProps props) =>
+      CodexSlidingSidebarBanner(props);
+
+  @override
+  Component marqueeTickerBar(MarqueeTickerBarProps props) =>
+      CodexMarqueeTickerBar(props);
+
+  @override
+  Component expandingFabPromo(ExpandingFabPromoProps props) =>
+      CodexExpandingFabPromo(props);
+
+  @override
+  Component progressClaimBanner(ProgressClaimBannerProps props) =>
+      CodexProgressClaimBanner(props);
+
+  @override
+  Component minimizablePromo(MinimizablePromoProps props) =>
+      CodexMinimizablePromo(props);
+
+  @override
+  Component fullscreenTakeover(FullscreenTakeoverProps props) =>
+      CodexFullscreenTakeover(props);
 }

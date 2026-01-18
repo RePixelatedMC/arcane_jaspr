@@ -53,13 +53,13 @@ class DocumentHelper {
         htmlEl.setAttribute(entry.key, entry.value);
       }
     }
-    return Component.fragment(const []);
+    return const Component.fragment([]);
   }
 
   /// Inject elements into the document head synchronously
   static Component head({List<HeadElementData>? elements}) {
     if (_stylesInjected || elements == null || elements.isEmpty) {
-      return Component.fragment(const []);
+      return const Component.fragment([]);
     }
     _stylesInjected = true;
 
@@ -86,7 +86,7 @@ class DocumentHelper {
     // Hide loading screen after fonts are ready
     _hideLoadingScreenWhenReady();
 
-    return Component.fragment(const []);
+    return const Component.fragment([]);
   }
 
   /// Hide the loading screen after fonts have loaded

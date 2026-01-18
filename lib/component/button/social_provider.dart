@@ -37,7 +37,7 @@ class SocialProviderConfig {
   /// Get the configuration for a given provider.
   static SocialProviderConfig forProvider(SocialProvider provider) {
     return switch (provider) {
-      SocialProvider.google => SocialProviderConfig(
+      SocialProvider.google => const SocialProviderConfig(
           defaultLabel: 'Continue with Google',
           backgroundColor: '#ffffff',
           foregroundColor: '#1f1f1f',
@@ -45,7 +45,7 @@ class SocialProviderConfig {
           hoverBackgroundColor: '#f8f9fa',
           buildIcon: SocialIcons.google,
         ),
-      SocialProvider.github => SocialProviderConfig(
+      SocialProvider.github => const SocialProviderConfig(
           defaultLabel: 'Continue with GitHub',
           backgroundColor: '#24292e',
           foregroundColor: '#ffffff',
@@ -53,7 +53,7 @@ class SocialProviderConfig {
           hoverBackgroundColor: '#2f363d',
           buildIcon: SocialIcons.github,
         ),
-      SocialProvider.apple => SocialProviderConfig(
+      SocialProvider.apple => const SocialProviderConfig(
           defaultLabel: 'Continue with Apple',
           backgroundColor: '#000000',
           foregroundColor: '#ffffff',
@@ -61,7 +61,7 @@ class SocialProviderConfig {
           hoverBackgroundColor: '#1a1a1a',
           buildIcon: SocialIcons.apple,
         ),
-      SocialProvider.microsoft => SocialProviderConfig(
+      SocialProvider.microsoft => const SocialProviderConfig(
           defaultLabel: 'Continue with Microsoft',
           backgroundColor: '#2f2f2f',
           foregroundColor: '#ffffff',
@@ -69,7 +69,7 @@ class SocialProviderConfig {
           hoverBackgroundColor: '#3f3f3f',
           buildIcon: SocialIcons.microsoft,
         ),
-      SocialProvider.discord => SocialProviderConfig(
+      SocialProvider.discord => const SocialProviderConfig(
           defaultLabel: 'Continue with Discord',
           backgroundColor: '#5865F2',
           foregroundColor: '#ffffff',
@@ -77,7 +77,7 @@ class SocialProviderConfig {
           hoverBackgroundColor: '#4752c4',
           buildIcon: SocialIcons.discord,
         ),
-      SocialProvider.twitter => SocialProviderConfig(
+      SocialProvider.twitter => const SocialProviderConfig(
           defaultLabel: 'Continue with X',
           backgroundColor: '#000000',
           foregroundColor: '#ffffff',
@@ -85,7 +85,7 @@ class SocialProviderConfig {
           hoverBackgroundColor: '#1a1a1a',
           buildIcon: SocialIcons.twitter,
         ),
-      SocialProvider.facebook => SocialProviderConfig(
+      SocialProvider.facebook => const SocialProviderConfig(
           defaultLabel: 'Continue with Facebook',
           backgroundColor: '#1877F2',
           foregroundColor: '#ffffff',
@@ -93,7 +93,7 @@ class SocialProviderConfig {
           hoverBackgroundColor: '#166fe5',
           buildIcon: SocialIcons.facebook,
         ),
-      SocialProvider.linkedin => SocialProviderConfig(
+      SocialProvider.linkedin => const SocialProviderConfig(
           defaultLabel: 'Continue with LinkedIn',
           backgroundColor: '#0A66C2',
           foregroundColor: '#ffffff',
@@ -101,7 +101,7 @@ class SocialProviderConfig {
           hoverBackgroundColor: '#004182',
           buildIcon: SocialIcons.linkedin,
         ),
-      SocialProvider.slack => SocialProviderConfig(
+      SocialProvider.slack => const SocialProviderConfig(
           defaultLabel: 'Continue with Slack',
           backgroundColor: '#4A154B',
           foregroundColor: '#ffffff',
@@ -109,7 +109,7 @@ class SocialProviderConfig {
           hoverBackgroundColor: '#611f64',
           buildIcon: SocialIcons.slack,
         ),
-      SocialProvider.gitlab => SocialProviderConfig(
+      SocialProvider.gitlab => const SocialProviderConfig(
           defaultLabel: 'Continue with GitLab',
           backgroundColor: '#FC6D26',
           foregroundColor: '#ffffff',

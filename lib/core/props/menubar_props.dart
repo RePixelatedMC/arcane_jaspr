@@ -1,3 +1,5 @@
+import 'package:jaspr/jaspr.dart';
+
 import 'menu_item_props.dart';
 
 export 'menu_item_props.dart';
@@ -24,4 +26,13 @@ class MenubarProps {
     this.openMenuIndex,
     this.onMenuChange,
   });
+}
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for menubar components.
+mixin MenubarRendererContract {
+  Component menubar(MenubarProps props);
 }

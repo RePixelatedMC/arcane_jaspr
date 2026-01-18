@@ -33,3 +33,13 @@ class FooterBrandColumnProps {
     this.descriptionMaxWidth,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for footer column components.
+mixin FooterColumnRendererContract {
+  Component footerColumn(FooterColumnProps props);
+  Component footerBrandColumn(FooterBrandColumnProps props);
+}

@@ -1,3 +1,5 @@
+import 'package:jaspr/jaspr.dart';
+
 enum SocialPlatform {
   twitter,
   github,
@@ -63,4 +65,15 @@ class SocialLinksProps {
     this.vertical = false,
     this.gap = '16px',
   });
+}
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for social icons components.
+mixin SocialIconsRendererContract {
+  Component socialIcon(SocialIconProps props);
+  Component socialIconGroup(SocialIconGroupProps props);
+  Component socialLinks(SocialLinksProps props);
 }

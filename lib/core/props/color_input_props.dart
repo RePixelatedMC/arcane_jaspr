@@ -1,3 +1,5 @@
+import 'package:jaspr/jaspr.dart';
+
 enum ColorInputSize {
   sm,
   md,
@@ -64,4 +66,14 @@ class ColorInputProps {
       attributes: attributes ?? this.attributes,
     );
   }
+}
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer method for color input components.
+mixin ColorInputRendererContract {
+  /// Render a color input component.
+  Component colorInput(ColorInputProps props);
 }

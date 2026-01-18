@@ -1,3 +1,5 @@
+import 'package:jaspr/jaspr.dart';
+
 /// Rating stars component properties.
 class RatingStarsProps {
   final double rating;
@@ -15,4 +17,13 @@ class RatingStarsProps {
     this.emptyColor,
     this.showValue = false,
   });
+}
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for rating stars components.
+mixin RatingStarsRendererContract {
+  Component ratingStars(RatingStarsProps props);
 }

@@ -1,3 +1,5 @@
+import 'package:jaspr/jaspr.dart';
+
 import 'calendar_props.dart';
 
 enum DatePickerSizeVariant {
@@ -47,4 +49,13 @@ class DatePickerProps {
     this.onClear,
     this.calendarProps,
   });
+}
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for date picker components.
+mixin DatePickerRendererContract {
+  Component datePicker(DatePickerProps props);
 }

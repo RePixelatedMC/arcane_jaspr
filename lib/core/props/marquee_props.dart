@@ -29,3 +29,12 @@ class MarqueeProps {
     this.id,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for marquee components.
+mixin MarqueeRendererContract {
+  Component marquee(MarqueeProps props);
+}

@@ -1,3 +1,5 @@
+import 'package:jaspr/jaspr.dart';
+
 import '../../component/input/time_picker.dart';
 
 /// Time dialog component properties.
@@ -25,4 +27,13 @@ class TimeDialogProps {
     this.minuteInterval = 1,
     this.showSeconds = false,
   });
+}
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for time dialog components.
+mixin TimeDialogRendererContract {
+  Component timeDialog(TimeDialogProps props);
 }

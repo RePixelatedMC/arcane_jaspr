@@ -115,3 +115,13 @@ class SearchProps {
     );
   }
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer method for search input components.
+mixin SearchRendererContract {
+  /// Render a search input component.
+  Component search(SearchProps props);
+}

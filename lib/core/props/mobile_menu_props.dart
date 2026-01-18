@@ -46,3 +46,16 @@ class HamburgerButtonProps {
     this.size = 24,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for mobile menu components.
+mixin MobileMenuRendererContract {
+  /// Renders a mobile navigation menu.
+  Component mobileMenu(MobileMenuProps props);
+
+  /// Renders a hamburger menu button.
+  Component hamburgerButton(HamburgerButtonProps props);
+}

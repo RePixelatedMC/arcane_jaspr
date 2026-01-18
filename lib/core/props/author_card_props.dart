@@ -1,3 +1,5 @@
+import 'package:jaspr/jaspr.dart';
+
 enum AuthorCardSize {
   sm,
   md,
@@ -25,4 +27,13 @@ class AuthorCardProps {
     this.nameColor,
     this.roleColor,
   });
+}
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for author card components.
+mixin AuthorCardRendererContract {
+  Component authorCard(AuthorCardProps props);
 }

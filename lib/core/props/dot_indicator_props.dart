@@ -1,3 +1,5 @@
+import 'package:jaspr/jaspr.dart';
+
 enum DotIndicatorSize {
   sm,
   md,
@@ -48,4 +50,17 @@ class StepIndicatorProps {
     this.allowStepNavigation = true,
     this.size = StepIndicatorSize.md,
   });
+}
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for indicator components.
+mixin DotIndicatorRendererContract {
+  /// Renders a dot indicator for pagination/carousel.
+  Component dotIndicator(DotIndicatorProps props);
+
+  /// Renders a step indicator for multi-step processes.
+  Component stepIndicator(StepIndicatorProps props);
 }

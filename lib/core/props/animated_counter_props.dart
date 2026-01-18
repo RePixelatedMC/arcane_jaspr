@@ -50,3 +50,14 @@ class MetricDisplayProps {
     this.trendPositive = true,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for animated counter components.
+mixin AnimatedCounterRendererContract {
+  Component animatedCounter(AnimatedCounterProps props);
+  Component counterRow(CounterRowProps props);
+  Component metricDisplay(MetricDisplayProps props);
+}

@@ -1,3 +1,5 @@
+import 'package:jaspr/jaspr.dart';
+
 /// Placeholder image source provider.
 enum PlaceholderSource {
   /// Random cat images from cataas.com.
@@ -181,4 +183,14 @@ class PlaceholderImageProps {
       PlaceholderSize.xl => 1024,
     };
   }
+}
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for placeholder image components.
+mixin PlaceholderImageRendererContract {
+  /// Renders a placeholder image component.
+  Component placeholderImage(PlaceholderImageProps props);
 }

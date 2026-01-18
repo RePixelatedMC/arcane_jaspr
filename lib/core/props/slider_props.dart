@@ -1,3 +1,5 @@
+import 'package:jaspr/jaspr.dart';
+
 enum SliderSize {
   sm,
   md,
@@ -116,4 +118,14 @@ class SliderProps {
       onRangeChanged: onRangeChanged ?? this.onRangeChanged,
     );
   }
+}
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer method for slider components.
+mixin SliderRendererContract {
+  /// Render a slider component.
+  Component slider(SliderProps props);
 }

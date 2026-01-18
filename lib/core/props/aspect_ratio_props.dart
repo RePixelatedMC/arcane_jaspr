@@ -14,3 +14,12 @@ class AspectRatioProps {
     this.styles,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for aspect ratio components.
+mixin AspectRatioRendererContract {
+  Component aspectRatio(AspectRatioProps props);
+}

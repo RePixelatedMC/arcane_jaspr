@@ -45,3 +45,13 @@ class BadgeProps {
     );
   }
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for badge components.
+mixin BadgeRendererContract {
+  /// Renders a badge component.
+  Component badge(BadgeProps props);
+}

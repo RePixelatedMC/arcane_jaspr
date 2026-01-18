@@ -24,3 +24,12 @@ class ExpanderProps {
     this.maintainState = true,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for expander components.
+mixin ExpanderRendererContract {
+  Component expander(ExpanderProps props);
+}

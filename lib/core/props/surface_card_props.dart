@@ -62,3 +62,13 @@ class ThumbHashCardProps {
     this.overlayOpacity = 0.3,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for surface card components.
+mixin SurfaceCardRendererContract {
+  Component surfaceCard(SurfaceCardProps props);
+  Component thumbHashCard(ThumbHashCardProps props);
+}

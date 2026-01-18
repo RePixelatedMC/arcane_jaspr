@@ -1,3 +1,5 @@
+import 'package:jaspr/jaspr.dart';
+
 enum CodeWindowStyle {
   dark,
   light,
@@ -36,4 +38,14 @@ class CodePreviewProps {
     this.language,
     this.mono = true,
   });
+}
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for code window components.
+mixin CodeWindowRendererContract {
+  Component codeWindow(CodeWindowProps props);
+  Component codePreview(CodePreviewProps props);
 }

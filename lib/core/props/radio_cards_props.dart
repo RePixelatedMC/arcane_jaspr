@@ -71,3 +71,14 @@ class ArcaneChipProps {
     this.disabled = false,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for radio cards components.
+mixin RadioCardsRendererContract {
+  Component radioCards<T>(RadioCardsProps<T> props);
+  Component selectableChipGroup(SelectableChipGroupProps props);
+  Component arcaneChip(ArcaneChipProps props);
+}

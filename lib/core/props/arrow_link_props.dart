@@ -1,3 +1,5 @@
+import 'package:jaspr/jaspr.dart';
+
 enum ArrowLinkSize {
   xs,
   sm,
@@ -24,4 +26,13 @@ class ArrowLinkProps {
     this.accent = true,
     this.onTap,
   });
+}
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for arrow link components.
+mixin ArrowLinkRendererContract {
+  Component arrowLink(ArrowLinkProps props);
 }

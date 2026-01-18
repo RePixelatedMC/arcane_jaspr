@@ -20,3 +20,12 @@ class CtaBannerProps {
     this.backgroundImage,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for CTA banner components.
+mixin CtaBannerRendererContract {
+  Component ctaBanner(CtaBannerProps props);
+}

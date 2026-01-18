@@ -96,3 +96,13 @@ class ButtonProps {
     );
   }
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer method for button components.
+mixin ButtonRendererContract {
+  /// Render a button component.
+  Component button(ButtonProps props);
+}

@@ -39,3 +39,13 @@ class AlertDialogProps {
     this.icon,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for confirm and alert dialog components.
+mixin ConfirmDialogRendererContract {
+  Component confirmDialog(ConfirmDialogProps props);
+  Component alertDialog(AlertDialogProps props);
+}

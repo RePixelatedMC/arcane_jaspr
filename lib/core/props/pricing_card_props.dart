@@ -1,3 +1,5 @@
+import 'package:jaspr/jaspr.dart';
+
 /// Pricing tier data.
 class PricingTier {
   final String name;
@@ -45,4 +47,14 @@ class PricingGridProps {
     this.onTierSelected,
     this.columns,
   });
+}
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for pricing card components.
+mixin PricingCardRendererContract {
+  Component pricingCard(PricingCardProps props);
+  Component pricingGrid(PricingGridProps props);
 }

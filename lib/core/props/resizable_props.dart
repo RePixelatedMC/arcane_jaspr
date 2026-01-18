@@ -36,3 +36,12 @@ class ResizableProps {
     this.showGrip = true,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for resizable components.
+mixin ResizableRendererContract {
+  Component resizable(ResizableProps props);
+}

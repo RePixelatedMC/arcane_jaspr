@@ -94,3 +94,13 @@ class RadioGroupProps<T> {
     );
   }
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer method for radio group components.
+mixin RadioGroupRendererContract {
+  /// Render a radio group component.
+  Component radioGroup<T>(RadioGroupProps<T> props);
+}

@@ -1,3 +1,5 @@
+import 'package:jaspr/jaspr.dart';
+
 enum AvatarSize {
   xs,
   sm,
@@ -55,4 +57,14 @@ class AvatarProps {
       onTap: onTap ?? this.onTap,
     );
   }
+}
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for avatar components.
+mixin AvatarRendererContract {
+  /// Renders an avatar component.
+  Component avatar(AvatarProps props);
 }

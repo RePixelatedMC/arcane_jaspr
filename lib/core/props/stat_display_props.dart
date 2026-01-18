@@ -42,3 +42,13 @@ class StatRowProps {
     this.justifyContent,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for stat display components.
+mixin StatDisplayRendererContract {
+  Component statDisplay(StatDisplayProps props);
+  Component statRow(StatRowProps props);
+}

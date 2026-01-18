@@ -35,3 +35,13 @@ class ListCardProps {
     this.divided = true,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for card section components.
+mixin CardSectionRendererContract {
+  Component cardSection(CardSectionProps props);
+  Component listCard(ListCardProps props);
+}

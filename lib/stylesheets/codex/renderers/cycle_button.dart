@@ -156,16 +156,16 @@ class _CodexCycleButtonState<T> extends State<CodexCycleButton<T>> {
             [Component.text(currentOption.label!)],
           ),
         // Neon cycle indicator
-        span(
+        const span(
           classes: 'codex-cycle-button-indicator',
-          styles: const Styles(raw: {
+          styles: Styles(raw: {
             'font-size': '0.7em',
             'opacity': '0.6',
             'display': 'inline-block',
             'color': 'var(--primary)',
             'text-shadow': '0 0 8px currentColor',
           }),
-          [const Component.text('\u21bb')],
+          [Component.text('\u21bb')],
         ),
       ],
     );

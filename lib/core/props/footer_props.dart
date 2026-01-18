@@ -69,3 +69,13 @@ class FooterSocialIconProps {
     this.onTap,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for footer components.
+mixin FooterRendererContract {
+  Component footer(FooterProps props);
+  Component footerSocialIcon(FooterSocialIconProps props);
+}

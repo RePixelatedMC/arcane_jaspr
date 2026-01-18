@@ -47,3 +47,13 @@ class NavTileProps {
     this.onTap,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for tile components.
+mixin TileRendererContract {
+  Component tile(TileProps props);
+  Component navTile(NavTileProps props);
+}

@@ -86,3 +86,13 @@ class TagInputProps {
     );
   }
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer method for tag input components.
+mixin TagInputRendererContract {
+  /// Render a tag input component.
+  Component tagInput(TagInputProps props);
+}

@@ -1,3 +1,5 @@
+import 'package:jaspr/jaspr.dart';
+
 /// Testimonial card component properties.
 class TestimonialCardProps {
   final String quote;
@@ -34,4 +36,14 @@ class RatingStarsSimpleProps {
     this.interactive = false,
     this.onRatingChanged,
   });
+}
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for testimonial card components.
+mixin TestimonialCardRendererContract {
+  Component testimonialCard(TestimonialCardProps props);
+  Component ratingStarsSimple(RatingStarsSimpleProps props);
 }

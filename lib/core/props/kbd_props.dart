@@ -1,3 +1,5 @@
+import 'package:jaspr/jaspr.dart';
+
 enum KbdStyle {
   raised,
   flat,
@@ -41,4 +43,14 @@ class KbdProps {
     this.style = KbdStyle.raised,
     this.size = KbdSize.md,
   }) : keyText = null;
+}
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for keyboard shortcut components.
+mixin KbdRendererContract {
+  /// Renders a keyboard shortcut display component.
+  Component kbd(KbdProps props);
 }

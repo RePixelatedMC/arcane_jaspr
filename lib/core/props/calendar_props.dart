@@ -1,3 +1,5 @@
+import 'package:jaspr/jaspr.dart';
+
 enum CalendarModeVariant {
   single,
   range,
@@ -49,4 +51,13 @@ class CalendarProps {
     this.onGoToToday,
     this.onSelectDate,
   });
+}
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for calendar components.
+mixin CalendarRendererContract {
+  Component calendar(CalendarProps props);
 }

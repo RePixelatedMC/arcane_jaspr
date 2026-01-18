@@ -99,7 +99,7 @@ class ArcaneMap extends StatelessComponent {
             dom.img(
               src: mapUrl,
               attributes: {'alt': 'Map'},
-              styles: dom.Styles(raw: {
+              styles: const dom.Styles(raw: {
                 'width': '100%',
                 'height': '100%',
                 'display': 'block',

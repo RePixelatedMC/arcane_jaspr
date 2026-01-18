@@ -97,3 +97,19 @@ class PaddingWrapperProps {
 
   const PaddingWrapperProps({required this.padding, required this.child});
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for flow/layout components.
+mixin FlowRendererContract {
+  Component flow(FlowProps props);
+  Component row(RowProps props);
+  Component column(ColumnProps props);
+  Component center(CenterProps props);
+  Component spacer(SpacerProps props);
+  Component expanded(ExpandedProps props);
+  Component sizedBox(SizedBoxProps props);
+  Component paddingWrapper(PaddingWrapperProps props);
+}

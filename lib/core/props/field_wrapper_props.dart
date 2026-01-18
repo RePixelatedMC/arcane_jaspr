@@ -71,3 +71,15 @@ class InputGroupProps {
     this.gap = 8,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for field wrapper components.
+mixin FieldWrapperRendererContract {
+  Component fieldWrapper(FieldWrapperProps props);
+  Component formSection(FormSectionProps props);
+  Component form(FormProps props);
+  Component inputGroup(InputGroupProps props);
+}

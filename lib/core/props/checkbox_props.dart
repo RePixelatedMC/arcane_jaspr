@@ -1,3 +1,5 @@
+import 'package:jaspr/jaspr.dart';
+
 enum CheckboxSize {
   small,
   medium,
@@ -50,4 +52,14 @@ class CheckboxProps {
       onChanged: onChanged ?? this.onChanged,
     );
   }
+}
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer method for checkbox components.
+mixin CheckboxRendererContract {
+  /// Render a checkbox component.
+  Component checkbox(CheckboxProps props);
 }

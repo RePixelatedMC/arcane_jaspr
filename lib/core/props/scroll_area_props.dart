@@ -113,3 +113,16 @@ class VirtualScrollProps<T> {
     this.onScroll,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for scroll area components.
+mixin ScrollAreaRendererContract {
+  /// Renders a scroll area component.
+  Component scrollArea(ScrollAreaProps props);
+
+  /// Renders a virtualized scroll list component.
+  Component virtualScroll<T>(VirtualScrollProps<T> props);
+}

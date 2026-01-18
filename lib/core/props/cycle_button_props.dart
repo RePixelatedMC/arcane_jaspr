@@ -119,3 +119,16 @@ class ToggleButtonProps {
     );
   }
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for cycle button and toggle button components.
+mixin CycleButtonRendererContract {
+  /// Render a cycle button component.
+  Component cycleButton<T>(CycleButtonProps<T> props);
+
+  /// Render a toggle button component.
+  Component toggleButton(ToggleButtonProps props);
+}

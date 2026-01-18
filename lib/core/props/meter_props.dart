@@ -1,3 +1,5 @@
+import 'package:jaspr/jaspr.dart';
+
 enum MeterStyleVariant {
   bar,
   gradient,
@@ -84,4 +86,14 @@ class MeterProps {
       segments: segments ?? this.segments,
     );
   }
+}
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for meter components.
+mixin MeterRendererContract {
+  /// Renders a meter/gauge component.
+  Component meter(MeterProps props);
 }

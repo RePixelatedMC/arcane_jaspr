@@ -55,3 +55,13 @@ class DisclosureItemProps {
     this.showChevron = true,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for disclosure components.
+mixin DisclosureRendererContract {
+  Component disclosure(DisclosureProps props);
+  Component disclosureGroup(DisclosureGroupProps props);
+}

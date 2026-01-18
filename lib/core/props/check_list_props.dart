@@ -1,3 +1,5 @@
+import 'package:jaspr/jaspr.dart';
+
 enum CheckStyle {
   check,
   bullet,
@@ -61,4 +63,15 @@ class FeatureRowProps {
     this.includedColor,
     this.excludedColor,
   });
+}
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for check list components.
+mixin CheckListRendererContract {
+  Component checkItem(CheckItemProps props);
+  Component checkList(CheckListProps props);
+  Component featureRow(FeatureRowProps props);
 }

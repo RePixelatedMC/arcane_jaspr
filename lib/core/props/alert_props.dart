@@ -66,3 +66,13 @@ class AlertProps {
     );
   }
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for alert components.
+mixin AlertRendererContract {
+  /// Renders an alert notification component.
+  Component alert(AlertProps props);
+}

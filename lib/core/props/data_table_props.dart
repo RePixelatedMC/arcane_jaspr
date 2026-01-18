@@ -57,3 +57,12 @@ class DataTableProps<T> {
     this.onToggleSelectAll,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for data table components.
+mixin DataTableRendererContract {
+  Component dataTable<T>(DataTableProps<T> props);
+}

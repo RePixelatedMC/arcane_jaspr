@@ -74,9 +74,9 @@ class ShadcnAccordion extends StatelessComponent {
               [Component.text(item.title)],
             ),
             // Chevron
-            dom.div(
+            const dom.div(
               classes: 'faq-chevron',
-              styles: const dom.Styles(
+              styles: dom.Styles(
                 raw: {
                   'display': 'flex',
                   'align-items': 'center',
@@ -90,13 +90,13 @@ class ShadcnAccordion extends StatelessComponent {
               ),
               [
                 dom.span(
-                  styles: const dom.Styles(
+                  styles: dom.Styles(
                     raw: {
                       'font-size': '0.625rem',
                       'line-height': '1',
                     },
                   ),
-                  [const Component.text('\u25BC')],
+                  [Component.text('\u25BC')],
                 ),
               ],
             ),

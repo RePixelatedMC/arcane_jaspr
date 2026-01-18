@@ -1,3 +1,5 @@
+import 'package:jaspr/jaspr.dart';
+
 enum FadeDirection {
   left,
   right,
@@ -20,4 +22,13 @@ class FadeEdgeProps {
     this.height,
     this.zIndex,
   });
+}
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for fade edge components.
+mixin FadeEdgeRendererContract {
+  Component fadeEdge(FadeEdgeProps props);
 }

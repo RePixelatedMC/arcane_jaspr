@@ -202,6 +202,9 @@ export 'component/dialog/toast.dart';
 export 'component/dialog/command.dart';
 export 'component/dialog/time.dart';
 
+// Promo
+export 'component/promo/promo.dart';
+
 // Form
 export 'component/form/field.dart';
 export 'component/form/field_wrapper.dart';

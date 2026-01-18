@@ -125,3 +125,13 @@ class SheetProps {
     );
   }
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for dialog components.
+mixin DialogRendererContract {
+  Component dialog(DialogProps props);
+  Component sheet(SheetProps props);
+}

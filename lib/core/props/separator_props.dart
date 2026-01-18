@@ -85,3 +85,13 @@ class SeparatorProps {
     );
   }
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for separator components.
+mixin SeparatorRendererContract {
+  /// Renders a separator/divider component.
+  Component separator(SeparatorProps props);
+}

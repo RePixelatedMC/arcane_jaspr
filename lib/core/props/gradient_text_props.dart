@@ -1,3 +1,5 @@
+import 'package:jaspr/jaspr.dart';
+
 import '../../util/style_types/arcane_color.dart';
 
 /// Gradient text component properties.
@@ -112,4 +114,16 @@ class OutlineTextProps {
     this.fontWeight = '700',
     this.strokeWidth = 2,
   });
+}
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for gradient text components.
+mixin GradientTextRendererContract {
+  Component gradientText(GradientTextProps props);
+  Component animatedGradientText(AnimatedGradientTextProps props);
+  Component glowText(GlowTextProps props);
+  Component outlineText(OutlineTextProps props);
 }

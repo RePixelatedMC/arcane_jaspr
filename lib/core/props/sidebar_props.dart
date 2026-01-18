@@ -102,3 +102,34 @@ class SidebarProps {
     this.onToggleCollapse,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for sidebar components.
+mixin SidebarRendererContract {
+  /// Renders the main sidebar container.
+  Component sidebar(SidebarProps props);
+
+  /// Renders a sidebar navigation item.
+  Component sidebarItem(SidebarItemProps props);
+
+  /// Renders a sidebar group with optional label.
+  Component sidebarGroup(SidebarGroupProps props);
+
+  /// Renders a collapsible sidebar submenu.
+  Component sidebarSubMenu(SidebarSubMenuProps props);
+
+  /// Renders a fixed (non-collapsible) sidebar section.
+  Component sidebarSection(SidebarSectionProps props);
+
+  /// Renders content shown when sidebar is expanded.
+  Component sidebarExpanded(List<Component> children);
+
+  /// Renders content shown when sidebar is collapsed.
+  Component sidebarCollapsed(List<Component> children);
+
+  /// Renders a sidebar separator.
+  Component sidebarSeparator();
+}

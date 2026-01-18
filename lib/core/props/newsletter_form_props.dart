@@ -1,3 +1,5 @@
+import 'package:jaspr/jaspr.dart';
+
 /// Newsletter form component properties.
 class NewsletterFormProps {
   final String placeholder;
@@ -34,4 +36,14 @@ class WaitlistFormProps {
     this.onSubmit,
     this.collectName = true,
   });
+}
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for newsletter form components.
+mixin NewsletterFormRendererContract {
+  Component newsletterForm(NewsletterFormProps props);
+  Component waitlistForm(WaitlistFormProps props);
 }

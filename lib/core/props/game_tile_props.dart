@@ -64,3 +64,14 @@ class GameCardProps {
     this.ctaText,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for game tile components.
+mixin GameTileRendererContract {
+  Component gameTile(GameTileProps props);
+  Component gameSelector(GameSelectorProps props);
+  Component gameCard(GameCardProps props);
+}

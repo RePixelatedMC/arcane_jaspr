@@ -239,7 +239,7 @@ class ShadcnSidebarSubMenu extends StatelessComponent {
               children: [
                 if (props.icon != null) props.icon!,
                 dom.span([Component.text(props.label)]),
-                dom.span(classes: 'sidebar-chevron', []),
+                const dom.span(classes: 'sidebar-chevron', []),
               ],
             ),
             dom.div(

@@ -1,3 +1,5 @@
+import 'package:jaspr/jaspr.dart';
+
 enum ToggleSwitchSize {
   small,
   medium,
@@ -50,4 +52,14 @@ class ToggleSwitchProps {
       labelLeft: labelLeft ?? this.labelLeft,
     );
   }
+}
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer method for toggle switch components.
+mixin ToggleSwitchRendererContract {
+  /// Render a toggle switch component.
+  Component toggleSwitch(ToggleSwitchProps props);
 }

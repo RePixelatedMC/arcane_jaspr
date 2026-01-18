@@ -1,3 +1,5 @@
+import 'package:jaspr/jaspr.dart';
+
 enum SlotCounterSize { xs, sm, md, lg, xl }
 
 enum SlotCounterColor { primary, accent, muted, success, warning, destructive }
@@ -138,4 +140,15 @@ class SlotCounterCardProps {
     this.showBorder = false,
     this.showBackground = false,
   });
+}
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for slot counter components.
+mixin SlotCounterRendererContract {
+  Component slotCounter(SlotCounterProps props);
+  Component slotCounterRow(SlotCounterRowProps props);
+  Component slotCounterCard(SlotCounterCardProps props);
 }

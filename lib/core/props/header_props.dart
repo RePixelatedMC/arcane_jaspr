@@ -58,3 +58,16 @@ class NavLinkProps {
     this.showArrow = false,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for header components.
+mixin HeaderRendererContract {
+  /// Renders the main header/navbar component.
+  Component header(HeaderProps props);
+
+  /// Renders a navigation link.
+  Component navLink(NavLinkProps props);
+}

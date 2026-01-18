@@ -68,3 +68,16 @@ class SettingsNoteProps {
     this.variant = SettingsNoteVariant.info,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for settings section components.
+mixin SettingsSectionRendererContract {
+  Component settingsSection(SettingsSectionProps props);
+  Component settingsInfoRow(SettingsInfoRowProps props);
+  Component settingsToggleRow(SettingsToggleRowProps props);
+  Component settingsSubheader(SettingsSubheaderProps props);
+  Component settingsNote(SettingsNoteProps props);
+}

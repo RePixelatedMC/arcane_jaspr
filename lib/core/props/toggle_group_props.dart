@@ -53,3 +53,12 @@ class ToggleGroupProps {
     this.onMultiChanged,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for toggle group components.
+mixin ToggleGroupRendererContract {
+  Component toggleGroup(ToggleGroupProps props);
+}

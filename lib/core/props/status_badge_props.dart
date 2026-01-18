@@ -1,3 +1,5 @@
+import 'package:jaspr/jaspr.dart';
+
 import 'status_indicator_props.dart' show StatusType;
 
 export 'status_indicator_props.dart' show StatusType;
@@ -29,4 +31,13 @@ class StatusBadgeProps {
     this.background,
     this.borderColor,
   });
+}
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for status badge components.
+mixin StatusBadgeRendererContract {
+  Component statusBadge2(StatusBadgeProps props);
 }

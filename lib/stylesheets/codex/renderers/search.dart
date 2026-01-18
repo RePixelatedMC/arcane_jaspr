@@ -131,9 +131,9 @@ class CodexSearch extends StatelessComponent {
 
             // Loading spinner with neon glow or clear button
             if (props.loading)
-              dom.div(
+              const dom.div(
                 classes: 'codex-search-loading',
-                styles: const dom.Styles(raw: {
+                styles: dom.Styles(raw: {
                   'position': 'absolute',
                   'right': '1rem',
                   'display': 'flex',
@@ -141,7 +141,7 @@ class CodexSearch extends StatelessComponent {
                 }),
                 [
                   dom.span(
-                    styles: const dom.Styles(raw: {
+                    styles: dom.Styles(raw: {
                       'display': 'inline-block',
                       'width': '18px',
                       'height': '18px',

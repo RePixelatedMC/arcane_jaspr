@@ -54,3 +54,13 @@ class LoadingOverlayProps {
     this.message,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for loader components.
+mixin LoaderRendererContract {
+  Component loader(LoaderProps props);
+  Component loadingOverlay(LoadingOverlayProps props);
+}

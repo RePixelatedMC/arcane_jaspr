@@ -44,3 +44,16 @@ class BottomBarProps {
     this.safeArea = true,
   });
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for bottom navigation components.
+mixin BottomNavigationRendererContract {
+  /// Renders a bottom navigation bar with items.
+  Component bottomNavigationBar(BottomNavigationBarProps props);
+
+  /// Renders a bottom bar container.
+  Component bottomBar(BottomBarProps props);
+}

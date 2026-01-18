@@ -186,8 +186,8 @@ class CodexButton extends StatelessComponent {
 
     // Add arrow indicator if showArrow is true
     if (props.showArrow && !props.loading) {
-      children.add(dom.span(
-        styles: const dom.Styles(raw: {
+      children.add(const dom.span(
+        styles: dom.Styles(raw: {
           'margin-left': '0.5rem',
           'transition': 'transform 0.3s ease',
           'display': 'inline-block',
@@ -244,8 +244,8 @@ class CodexButton extends StatelessComponent {
 
   /// Build loading spinner with neon glow
   Component _buildSpinner() {
-    return dom.span(
-      styles: const dom.Styles(raw: {
+    return const dom.span(
+      styles: dom.Styles(raw: {
         'display': 'inline-block',
         'width': '1.25rem',
         'height': '1.25rem',

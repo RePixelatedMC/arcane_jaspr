@@ -1,3 +1,5 @@
+import 'package:jaspr/jaspr.dart';
+
 enum FileUploadStyle {
   dropzone,
   button,
@@ -66,4 +68,14 @@ class FileUploadProps {
     this.onDrop,
     this.onInputChange,
   });
+}
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer method for file upload components.
+mixin FileUploadRendererContract {
+  /// Render a file upload component.
+  Component fileUpload(FileUploadProps props);
 }

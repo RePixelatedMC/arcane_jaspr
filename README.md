@@ -302,6 +302,93 @@ ArcaneToast(message: 'Saved!')
 ArcaneAlertBanner(message: 'Success!', variant: AlertVariant.success)
 ```
 
+### Promotional Components
+```dart
+// Top announcement bar
+ArcaneTopAnnouncementBar(
+  message: 'Summer Sale: 20% off all plans!',
+  promoCode: 'SUMMER20',
+  ctaText: 'Shop Now',
+  ctaHref: '/sale',
+)
+
+// Bottom floating banner with countdown
+ArcaneBottomFloatingBanner(
+  title: 'Limited Time Offer',
+  message: 'Get 50% off annual plans',
+  ctaText: 'Claim Offer',
+  countdownDuration: Duration(hours: 2),
+)
+
+// Corner toast notification
+ArcaneCornerPromoToast(
+  title: 'New Feature!',
+  message: 'Try our new dashboard',
+  position: PromoCornerPosition.bottomRight,
+)
+
+// Full-screen promo modal
+ArcanePromoModal(
+  headline: 'Black Friday Sale',
+  discount: '50% OFF',
+  promoCode: 'BLACKFRIDAY',
+  ctaText: 'Shop Now',
+)
+
+// Inline hero banner
+ArcaneInlineHeroBanner(
+  badge: 'New',
+  headline: 'Introducing Premium',
+  description: 'Unlock advanced features',
+  style: PromoInlineHeroBannerStyle.ribbon,
+)
+
+// Sliding sidebar banner
+ArcaneSlidingSidebarBanner(
+  title: 'Upgrade Today',
+  message: 'Get exclusive features',
+  position: PromoSidebarPosition.right,
+  features: ['Feature 1', 'Feature 2'],
+)
+
+// Scrolling marquee ticker
+ArcaneMarqueeTickerBar(
+  messages: ['Flash Sale!', 'Free Shipping', 'New Arrivals'],
+  ctaText: 'Shop Now',
+)
+
+// Expanding FAB promo
+ArcaneExpandingFabPromo(
+  title: 'Need Help?',
+  message: 'Chat with us',
+  ctaText: 'Start Chat',
+)
+
+// Progress claim banner
+ArcaneProgressClaimBanner(
+  title: 'Limited Offer',
+  currentClaimed: 73,
+  totalAvailable: 100,
+  ctaText: 'Claim Now',
+)
+
+// Minimizable sidebar promo
+ArcaneMinimizablePromo(
+  tabLabel: 'SALE',
+  title: 'Flash Sale',
+  message: 'Save up to 40%',
+  discount: '40% OFF',
+)
+
+// Full-screen takeover
+ArcaneFullscreenTakeover(
+  headline: 'Cyber Monday',
+  subheadline: 'Biggest Sale of the Year',
+  discount: '60% OFF',
+  countdownDuration: Duration(hours: 24),
+)
+```
+
 ## Static Site Support
 
 `ArcaneApp` automatically injects JavaScript fallbacks for static sites built with `jaspr build`. All interactive components work without hydration:

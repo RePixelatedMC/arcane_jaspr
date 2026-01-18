@@ -48,7 +48,7 @@ class DocumentHelper {
   /// Inject elements into the document head
   static Component head({List<HeadElementData>? elements}) {
     if (elements == null || elements.isEmpty) {
-      return Document.head(children: const []);
+      return const Document.head(children: []);
     }
 
     final List<Component> children = [];

@@ -1,3 +1,5 @@
+import 'package:jaspr/jaspr.dart';
+
 enum PaginationStyleVariant {
   outline,
   filled,
@@ -40,4 +42,14 @@ class PaginationProps {
     this.nextText = '->',
     this.pageNumbers = const [],
   });
+}
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for pagination components.
+mixin PaginationRendererContract {
+  /// Renders a pagination control.
+  Component pagination(PaginationProps props);
 }

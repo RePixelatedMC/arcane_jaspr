@@ -75,3 +75,13 @@ class FABProps {
     );
   }
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer method for floating action button components.
+mixin FabRendererContract {
+  /// Render a floating action button component.
+  Component fab(FABProps props);
+}

@@ -49,3 +49,12 @@ class DropdownMenuProps {
     );
   }
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for dropdown menu components.
+mixin DropdownMenuRendererContract {
+  Component dropdownMenu(DropdownMenuProps props);
+}

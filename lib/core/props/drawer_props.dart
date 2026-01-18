@@ -75,3 +75,12 @@ class DrawerProps {
     );
   }
 }
+
+// ============================================================================
+// RENDERER CONTRACT
+// ============================================================================
+
+/// Mixin defining the renderer methods for drawer components.
+mixin DrawerRendererContract {
+  Component drawer(DrawerProps props);
+}
