@@ -72,6 +72,13 @@ abstract class ArcaneColors {
   static const String valheimGold = '#D4A843';
   static const String cs2Orange = '#DE9B35';
   static const String terrariaGreen = '#29A629';
+
+  // Brand colors
+  static const String discordBlurple = '#5865F2';
+  static const String twitchPurple = '#9146FF';
+  static const String youtubeRed = '#FF0000';
+  static const String githubBlack = '#24292e';
+  static const String steamBlue = '#1b2838';
 }
 
 /// Spacing design tokens as CSS value strings.
