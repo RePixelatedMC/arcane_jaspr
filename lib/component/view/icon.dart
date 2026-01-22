@@ -7028,4 +7028,12 @@ class ArcaneIcon {
   static Component sort({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e37d', size: size);
 
+  /// Alias for key-round - semantic name for common use case
+  static Component key({IconSize size = IconSize.md}) =>
+      _LucideIcon(codepoint: 'e4a3', size: size);
+
+  /// Alias for map - semantic name for common use case
+  static Component map({IconSize size = IconSize.md}) =>
+      _LucideIcon(codepoint: 'e110', size: size);
+
 }

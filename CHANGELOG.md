@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.9.1] - Unreleased
 
+### Added
+
+**ArcaneIcon Semantic Aliases**
+- Added `ArcaneIcon.key()` alias mapping to `key-round` icon for intuitive usage in security-related UI
+- Added `ArcaneIcon.map()` alias for the map icon (resolves conflict with Dart's `Map` type)
+
 ### Fixed
 
 **Browser Scrollbar Styling**

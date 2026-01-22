@@ -144,6 +144,8 @@ const Map<String, String> semanticAliases = <String, String>{
   'moreVertical': 'ellipsis-vertical',
   'filter': 'funnel',
   'sort': 'arrow-up-down',
+  'key': 'key-round',
+  'map': 'map',
 };
 
 /// Icons that need manual name adjustments (kebab-case key -> method name)

@@ -2,7 +2,7 @@
 library;
 
 import 'package:arcane_inkwell/arcane_inkwell.dart' hide runApp;
-import 'package:arcane_jaspr/arcane_jaspr.dart';
+import 'package:arcane_jaspr/arcane_jaspr.dart' hide runApp;
 import 'package:jaspr/server.dart';
 
 import 'components/interactive_demo.dart';

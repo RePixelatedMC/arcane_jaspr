@@ -105,7 +105,7 @@ class DocsHeader extends StatelessComponent {
         textColor: TextColor.mutedForeground,
         transition: Transition.allFast,
       ),
-      child: Github(width: Unit.pixels(18), height: Unit.pixels(18)),
+      child: ArcaneIcon.github(size: IconSize.sm),
     );
   }
 
