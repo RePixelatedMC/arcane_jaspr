@@ -21,6 +21,12 @@ class CarouselScripts {
       var animationDuration = parseInt(carousel.dataset.animationDuration) || 60;
       var resumeDelay = parseInt(carousel.dataset.resumeDelay) || 5000;
 
+      // Velocity tracking for momentum
+      var lastX = 0;
+      var lastTime = 0;
+      var velocity = 0;
+      var momentumAnimationId = null;
+
       function getTrackWidth() {
         return track.scrollWidth / 2;
       }
@@ -53,11 +59,20 @@ class CarouselScripts {
         }
       }
 
+      function stopMomentum() {
+        if (momentumAnimationId) {
+          cancelAnimationFrame(momentumAnimationId);
+          momentumAnimationId = null;
+        }
+      }
+
       function startDrag(clientX) {
         if (resumeTimer) {
           clearTimeout(resumeTimer);
           resumeTimer = null;
         }
+
+        stopMomentum();
 
         trackWidth = getTrackWidth();
 
@@ -69,6 +84,9 @@ class CarouselScripts {
 
         isDragging = true;
         startX = clientX;
+        lastX = clientX;
+        lastTime = performance.now();
+        velocity = 0;
         dragStartTranslateX = currentTranslateX;
 
         track.classList.add('dragging');
@@ -78,31 +96,96 @@ class CarouselScripts {
 
       function updateDrag(clientX) {
         if (!isDragging) return;
+
+        var now = performance.now();
+        var deltaTime = now - lastTime;
+
+        if (deltaTime > 0) {
+          // Calculate velocity (pixels per millisecond)
+          velocity = (clientX - lastX) / deltaTime;
+        }
+
+        lastX = clientX;
+        lastTime = now;
+
         var deltaX = clientX - startX;
         currentTranslateX = dragStartTranslateX + deltaX;
         wrapPosition();
         applyTransform();
       }
 
-      function endDrag() {
-        if (!isDragging) return;
-        isDragging = false;
+      function animateMomentum() {
+        // Apply friction to slow down
+        var friction = 0.95;
+        velocity *= friction;
 
+        // Stop when velocity is negligible
+        if (Math.abs(velocity) < 0.01) {
+          stopMomentum();
+          scheduleResume();
+          return;
+        }
+
+        // Move based on velocity (multiply by ~16ms for smooth 60fps)
+        currentTranslateX += velocity * 16;
+        wrapPosition();
+        applyTransform();
+
+        momentumAnimationId = requestAnimationFrame(animateMomentum);
+      }
+
+      function scheduleResume() {
         if (resumeTimer) clearTimeout(resumeTimer);
         resumeTimer = setTimeout(resumeAnimation, resumeDelay);
       }
 
+      function endDrag() {
+        if (!isDragging) return;
+        isDragging = false;
+
+        // If there's significant velocity, start momentum animation
+        if (Math.abs(velocity) > 0.1) {
+          momentumAnimationId = requestAnimationFrame(animateMomentum);
+        } else {
+          scheduleResume();
+        }
+      }
+
+      // Track the current style element for cleanup
+      var currentStyleEl = null;
+
       function resumeAnimation() {
         if (!track) return;
 
-        track.classList.add('resuming');
+        trackWidth = getTrackWidth();
+        if (trackWidth <= 0) return;
 
-        setTimeout(function() {
-          track.classList.remove('dragging');
-          track.classList.remove('resuming');
-          track.style.transform = '';
-          hasInteracted = false;
-        }, 500);
+        // Normalize position to be within valid range
+        wrapPosition();
+
+        // Clean up previous dynamic style if exists
+        if (currentStyleEl && currentStyleEl.parentNode) {
+          currentStyleEl.parentNode.removeChild(currentStyleEl);
+        }
+
+        // Create a unique animation name for this carousel instance
+        var animName = 'scroll-carousel-resume-' + Date.now();
+
+        // Inject a keyframe animation that starts from the current position
+        currentStyleEl = document.createElement('style');
+        currentStyleEl.textContent = '@keyframes ' + animName + ' { from { transform: translateX(' + currentTranslateX + 'px); } to { transform: translateX(' + (currentTranslateX - trackWidth) + 'px); } }';
+        document.head.appendChild(currentStyleEl);
+
+        // Apply the animation in a single frame to avoid snap
+        // First set the animation, which will immediately start from currentTranslateX
+        track.style.animation = 'none';
+        track.offsetHeight; // Force reflow
+        track.style.transform = '';
+        track.style.animation = animName + ' ' + animationDuration + 's linear infinite';
+
+        track.classList.remove('dragging');
+        track.classList.remove('resuming');
+        hasInteracted = false;
       }
 
       // Mouse events
