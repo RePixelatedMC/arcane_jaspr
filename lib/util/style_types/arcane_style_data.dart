@@ -120,9 +120,14 @@ class ArcaneStyleData {
   final UserSelect? userSelect;
   final Transform? transform;
   final String? transformCustom;
+  final TransformOrigin? transformOrigin;
+  final String? transformOriginCustom;
   final BackdropFilter? backdropFilter;
   final String? filterCustom;
   final Easing? easing;
+  final AnimationPreset? animation;
+  final String? animationCustom;
+  final String? animationDelay;
 
   final ObjectFit? objectFit;
   final String? objectFitCustom;
@@ -237,9 +242,14 @@ class ArcaneStyleData {
     this.userSelect,
     this.transform,
     this.transformCustom,
+    this.transformOrigin,
+    this.transformOriginCustom,
     this.backdropFilter,
     this.filterCustom,
     this.easing,
+    this.animation,
+    this.animationCustom,
+    this.animationDelay,
     this.objectFit,
     this.objectFitCustom,
     this.objectPosition,
@@ -370,11 +380,18 @@ class ArcaneStyleData {
     if (userSelect != null) css['user-select'] = userSelect!.css;
     if (transform != null) css['transform'] = transform!.css;
     if (transformCustom != null) css['transform'] = transformCustom!;
+    if (transformOrigin != null) css['transform-origin'] = transformOrigin!.css;
+    if (transformOriginCustom != null) {
+      css['transform-origin'] = transformOriginCustom!;
+    }
     if (backdropFilter != null) {
       css['backdrop-filter'] = backdropFilter!.css;
       css['-webkit-backdrop-filter'] = backdropFilter!.css;
     }
     if (filterCustom != null) css['filter'] = filterCustom!;
+    if (animation != null) css['animation'] = animation!.css;
+    if (animationCustom != null) css['animation'] = animationCustom!;
+    if (animationDelay != null) css['animation-delay'] = animationDelay!;
 
     if (objectFit != null) css['object-fit'] = objectFit!.css;
     if (objectFitCustom != null) css['object-fit'] = objectFitCustom!;
@@ -510,11 +527,18 @@ class ArcaneStyleData {
     if (userSelect != null) css['user-select'] = userSelect!.css;
     if (transform != null) css['transform'] = transform!.css;
     if (transformCustom != null) css['transform'] = transformCustom!;
+    if (transformOrigin != null) css['transform-origin'] = transformOrigin!.css;
+    if (transformOriginCustom != null) {
+      css['transform-origin'] = transformOriginCustom!;
+    }
     if (backdropFilter != null) {
       css['backdrop-filter'] = backdropFilter!.css;
       css['-webkit-backdrop-filter'] = backdropFilter!.css;
     }
     if (filterCustom != null) css['filter'] = filterCustom!;
+    if (animation != null) css['animation'] = animation!.css;
+    if (animationCustom != null) css['animation'] = animationCustom!;
+    if (animationDelay != null) css['animation-delay'] = animationDelay!;
 
     if (objectFit != null) css['object-fit'] = objectFit!.css;
     if (objectFitCustom != null) css['object-fit'] = objectFitCustom!;
@@ -632,9 +656,14 @@ class ArcaneStyleData {
       userSelect: other.userSelect ?? userSelect,
       transform: other.transform ?? transform,
       transformCustom: other.transformCustom ?? transformCustom,
+      transformOrigin: other.transformOrigin ?? transformOrigin,
+      transformOriginCustom: other.transformOriginCustom ?? transformOriginCustom,
       backdropFilter: other.backdropFilter ?? backdropFilter,
       filterCustom: other.filterCustom ?? filterCustom,
       easing: other.easing ?? easing,
+      animation: other.animation ?? animation,
+      animationCustom: other.animationCustom ?? animationCustom,
+      animationDelay: other.animationDelay ?? animationDelay,
       objectFit: other.objectFit ?? objectFit,
       objectFitCustom: other.objectFitCustom ?? objectFitCustom,
       objectPosition: other.objectPosition ?? objectPosition,
@@ -748,9 +777,14 @@ class ArcaneStyleData {
     UserSelect? userSelect,
     Transform? transform,
     String? transformCustom,
+    TransformOrigin? transformOrigin,
+    String? transformOriginCustom,
     BackdropFilter? backdropFilter,
     String? filterCustom,
     Easing? easing,
+    AnimationPreset? animation,
+    String? animationCustom,
+    String? animationDelay,
     ObjectFit? objectFit,
     String? objectFitCustom,
     ObjectPosition? objectPosition,
@@ -861,9 +895,14 @@ class ArcaneStyleData {
       userSelect: userSelect ?? this.userSelect,
       transform: transform ?? this.transform,
       transformCustom: transformCustom ?? this.transformCustom,
+      transformOrigin: transformOrigin ?? this.transformOrigin,
+      transformOriginCustom: transformOriginCustom ?? this.transformOriginCustom,
       backdropFilter: backdropFilter ?? this.backdropFilter,
       filterCustom: filterCustom ?? this.filterCustom,
       easing: easing ?? this.easing,
+      animation: animation ?? this.animation,
+      animationCustom: animationCustom ?? this.animationCustom,
+      animationDelay: animationDelay ?? this.animationDelay,
       objectFit: objectFit ?? this.objectFit,
       objectFitCustom: objectFitCustom ?? this.objectFitCustom,
       objectPosition: objectPosition ?? this.objectPosition,

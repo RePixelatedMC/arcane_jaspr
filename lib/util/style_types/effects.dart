@@ -239,3 +239,59 @@ enum Easing {
         Easing.bounce => 'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
       };
 }
+
+/// Transform origin presets
+enum TransformOrigin {
+  center,
+  top,
+  topRight,
+  right,
+  bottomRight,
+  bottom,
+  bottomLeft,
+  left,
+  topLeft;
+
+  String get css => switch (this) {
+        TransformOrigin.center => 'center',
+        TransformOrigin.top => 'top',
+        TransformOrigin.topRight => 'top right',
+        TransformOrigin.right => 'right',
+        TransformOrigin.bottomRight => 'bottom right',
+        TransformOrigin.bottom => 'bottom',
+        TransformOrigin.bottomLeft => 'bottom left',
+        TransformOrigin.left => 'left',
+        TransformOrigin.topLeft => 'top left',
+      };
+}
+
+/// Animation presets for common UI patterns
+enum AnimationPreset {
+  none,
+  fadeIn,
+  fadeOut,
+  slideInUp,
+  slideInDown,
+  slideInLeft,
+  slideInRight,
+  scaleIn,
+  scaleOut,
+  bounce,
+  pulse,
+  spin;
+
+  String get css => switch (this) {
+        AnimationPreset.none => 'none',
+        AnimationPreset.fadeIn => 'arcane-fade-in 0.2s ease forwards',
+        AnimationPreset.fadeOut => 'arcane-fade-out 0.2s ease forwards',
+        AnimationPreset.slideInUp => 'arcane-slide-in-up 0.3s ease forwards',
+        AnimationPreset.slideInDown => 'arcane-slide-in-down 0.3s ease forwards',
+        AnimationPreset.slideInLeft => 'arcane-slide-in-left 0.3s ease forwards',
+        AnimationPreset.slideInRight => 'arcane-slide-in-right 0.3s ease forwards',
+        AnimationPreset.scaleIn => 'arcane-scale-in 0.2s ease forwards',
+        AnimationPreset.scaleOut => 'arcane-scale-out 0.2s ease forwards',
+        AnimationPreset.bounce => 'arcane-bounce 0.5s ease',
+        AnimationPreset.pulse => 'arcane-pulse 2s ease-in-out infinite',
+        AnimationPreset.spin => 'arcane-spin 1s linear infinite',
+      };
+}

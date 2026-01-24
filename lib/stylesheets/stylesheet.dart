@@ -296,6 +296,61 @@ html.light body::-webkit-scrollbar-corner {
   to { transform: rotate(360deg); }
 }
 
+/* Fade Animations */
+@keyframes arcane-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes arcane-fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* Slide Animations */
+@keyframes arcane-slide-in-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes arcane-slide-in-down {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes arcane-slide-in-left {
+  from { opacity: 0; transform: translateX(-10px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes arcane-slide-in-right {
+  from { opacity: 0; transform: translateX(10px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Scale Animations */
+@keyframes arcane-scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes arcane-scale-out {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.95); }
+}
+
+/* Bounce Animation */
+@keyframes arcane-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Pulse Animation */
+@keyframes arcane-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
 /* Button Hover States */
 .arcane-button:hover:not([disabled]) {
   filter: brightness(0.95);
