@@ -278,7 +278,8 @@ enum AnimationPreset {
   scaleOut,
   bounce,
   pulse,
-  spin;
+  spin,
+  dropdownFade;
 
   String get css => switch (this) {
         AnimationPreset.none => 'none',
@@ -293,5 +294,6 @@ enum AnimationPreset {
         AnimationPreset.bounce => 'arcane-bounce 0.5s ease',
         AnimationPreset.pulse => 'arcane-pulse 2s ease-in-out infinite',
         AnimationPreset.spin => 'arcane-spin 1s linear infinite',
+        AnimationPreset.dropdownFade => 'arcane-dropdown-fade 0.15s cubic-bezier(0.16, 1, 0.3, 1) forwards',
       };
 }

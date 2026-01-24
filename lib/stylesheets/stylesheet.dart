@@ -351,6 +351,12 @@ html.light body::-webkit-scrollbar-corner {
   50% { opacity: 0.5; }
 }
 
+/* Dropdown Fade Animation */
+@keyframes arcane-dropdown-fade {
+  from { opacity: 0; transform: scale(0.95) translateY(-4px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
 /* Button Hover States */
 .arcane-button:hover:not([disabled]) {
   filter: brightness(0.95);

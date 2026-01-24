@@ -188,6 +188,7 @@ export 'component/navigation/mobile_menu.dart';
 export 'component/navigation/breadcrumbs.dart';
 export 'component/navigation/pagination.dart';
 export 'component/navigation/dot_indicator.dart';
+export 'component/navigation/nav_dropdown.dart';
 
 // Screen
 export 'component/screen/screen.dart';

@@ -1,5 +1,6 @@
 /// Font size presets using rem units
 enum FontSize {
+  xxs,
   xs,
   sm,
   md,
@@ -15,6 +16,7 @@ enum FontSize {
   inherit;
 
   String get css => switch (this) {
+        FontSize.xxs => '0.625rem',
         FontSize.xs => '0.75rem',
         FontSize.sm => '0.875rem',
         FontSize.md => '0.9375rem',

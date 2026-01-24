@@ -128,6 +128,7 @@ class ArcaneStyleData {
   final AnimationPreset? animation;
   final String? animationCustom;
   final String? animationDelay;
+  final String? textShadowCustom;
 
   final ObjectFit? objectFit;
   final String? objectFitCustom;
@@ -250,6 +251,7 @@ class ArcaneStyleData {
     this.animation,
     this.animationCustom,
     this.animationDelay,
+    this.textShadowCustom,
     this.objectFit,
     this.objectFitCustom,
     this.objectPosition,
@@ -392,6 +394,7 @@ class ArcaneStyleData {
     if (animation != null) css['animation'] = animation!.css;
     if (animationCustom != null) css['animation'] = animationCustom!;
     if (animationDelay != null) css['animation-delay'] = animationDelay!;
+    if (textShadowCustom != null) css['text-shadow'] = textShadowCustom!;
 
     if (objectFit != null) css['object-fit'] = objectFit!.css;
     if (objectFitCustom != null) css['object-fit'] = objectFitCustom!;
@@ -539,6 +542,7 @@ class ArcaneStyleData {
     if (animation != null) css['animation'] = animation!.css;
     if (animationCustom != null) css['animation'] = animationCustom!;
     if (animationDelay != null) css['animation-delay'] = animationDelay!;
+    if (textShadowCustom != null) css['text-shadow'] = textShadowCustom!;
 
     if (objectFit != null) css['object-fit'] = objectFit!.css;
     if (objectFitCustom != null) css['object-fit'] = objectFitCustom!;
@@ -664,6 +668,7 @@ class ArcaneStyleData {
       animation: other.animation ?? animation,
       animationCustom: other.animationCustom ?? animationCustom,
       animationDelay: other.animationDelay ?? animationDelay,
+      textShadowCustom: other.textShadowCustom ?? textShadowCustom,
       objectFit: other.objectFit ?? objectFit,
       objectFitCustom: other.objectFitCustom ?? objectFitCustom,
       objectPosition: other.objectPosition ?? objectPosition,
@@ -785,6 +790,7 @@ class ArcaneStyleData {
     AnimationPreset? animation,
     String? animationCustom,
     String? animationDelay,
+    String? textShadowCustom,
     ObjectFit? objectFit,
     String? objectFitCustom,
     ObjectPosition? objectPosition,
@@ -903,6 +909,7 @@ class ArcaneStyleData {
       animation: animation ?? this.animation,
       animationCustom: animationCustom ?? this.animationCustom,
       animationDelay: animationDelay ?? this.animationDelay,
+      textShadowCustom: textShadowCustom ?? this.textShadowCustom,
       objectFit: objectFit ?? this.objectFit,
       objectFitCustom: objectFitCustom ?? this.objectFitCustom,
       objectPosition: objectPosition ?? this.objectPosition,
