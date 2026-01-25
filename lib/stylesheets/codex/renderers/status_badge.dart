@@ -51,8 +51,8 @@ class CodexStatusBadge extends StatelessComponent {
           classes: 'codex-status-label',
           styles: dom.Styles(raw: {
             'font-size': fontSize,
-            'font-weight': props.size == StatusBadgeSize.sm ? '400' : '500',
-            'color': props.size == StatusBadgeSize.sm
+            'font-weight': props.size == ComponentSize.sm ? '400' : '500',
+            'color': props.size == ComponentSize.sm
                 ? (props.indicatorColor ?? color)
                 : 'var(--foreground)',
           }),
@@ -100,33 +100,33 @@ class CodexStatusBadge extends StatelessComponent {
 
   String _getIndicatorSize() {
     switch (props.size) {
-      case StatusBadgeSize.sm:
+      case ComponentSize.sm:
         return '8px';
-      case StatusBadgeSize.md:
+      case ComponentSize.md:
         return '10px';
-      case StatusBadgeSize.lg:
+      case ComponentSize.lg:
         return '12px';
     }
   }
 
   String _getPadding() {
     switch (props.size) {
-      case StatusBadgeSize.sm:
+      case ComponentSize.sm:
         return '0.375rem 0.75rem';
-      case StatusBadgeSize.md:
+      case ComponentSize.md:
         return '0.375rem 1.25rem';
-      case StatusBadgeSize.lg:
+      case ComponentSize.lg:
         return '0.625rem 1.75rem';
     }
   }
 
   String _getFontSize() {
     switch (props.size) {
-      case StatusBadgeSize.sm:
+      case ComponentSize.sm:
         return '0.75rem';
-      case StatusBadgeSize.md:
+      case ComponentSize.md:
         return '0.875rem';
-      case StatusBadgeSize.lg:
+      case ComponentSize.lg:
         return '1rem';
     }
   }

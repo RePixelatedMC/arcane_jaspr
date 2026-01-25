@@ -1,10 +1,8 @@
 import 'package:jaspr/jaspr.dart';
 
-enum SelectSize {
-  sm,
-  md,
-  lg,
-}
+import '../shared/shared.dart';
+
+export '../shared/shared.dart' show ComponentSize;
 
 enum SelectDropdownDirection {
   up,
@@ -45,7 +43,7 @@ class SelectProps<T> {
   final String? label;
   final String? helperText;
   final String? error;
-  final SelectSize size;
+  final ComponentSize size;
   final bool required;
   final String? maxDropdownHeight;
   final bool loading;
@@ -78,7 +76,7 @@ class SelectProps<T> {
     this.label,
     this.helperText,
     this.error,
-    this.size = SelectSize.md,
+    this.size = ComponentSize.md,
     this.required = false,
     this.maxDropdownHeight,
     this.loading = false,

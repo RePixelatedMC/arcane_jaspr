@@ -15,9 +15,9 @@ class ShadcnColorInput extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     final (swatchSize, fontSize, inputPadding) = switch (props.size) {
-      ColorInputSize.sm => ('28px', '0.875rem', '6px 10px'),
-      ColorInputSize.md => ('36px', '1rem', '8px 12px'),
-      ColorInputSize.lg => ('44px', '1.125rem', '10px 16px'),
+      ComponentSize.sm => ('28px', '0.875rem', '6px 10px'),
+      ComponentSize.md => ('36px', '1rem', '8px 12px'),
+      ComponentSize.lg => ('44px', '1.125rem', '10px 16px'),
     };
 
     final List<String> colorPresets = props.presets ?? ColorInputProps.defaultPresets;

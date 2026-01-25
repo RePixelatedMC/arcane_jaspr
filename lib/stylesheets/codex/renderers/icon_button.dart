@@ -21,54 +21,76 @@ class CodexIconButton extends StatelessComponent {
 
     // Codex Neon icon button sizes - larger with more presence
     final (String dimension, String iconSize) = switch (props.size) {
-      IconButtonSize.small => ('36px', '18px'),
-      IconButtonSize.medium => ('44px', '22px'),
-      IconButtonSize.large => ('52px', '26px'),
+      ComponentSize.sm => ('36px', '18px'),
+      ComponentSize.md => ('44px', '22px'),
+      ComponentSize.lg => ('52px', '26px'),
     };
 
-    // Codex Neon variant styles with intense glows
-    final Map<String, String> variantStyles = switch (props.variant) {
-      IconButtonVariant.primary => {
-        'background': 'linear-gradient(135deg, var(--primary) 0%, color-mix(in srgb, var(--primary) 70%, #ff00ff) 100%)',
-        'color': '#ffffff',
-        'border': '1px solid rgba(var(--primary-rgb), 0.5)',
-        'box-shadow': '0 0 20px rgba(var(--primary-rgb), 0.4), 0 0 40px rgba(var(--primary-rgb), 0.15)',
+    // Get color-specific values with Codex neon effects
+    final (String bgColor, String fgColor, String glowColor, String borderColor) = switch (props.color) {
+      ColorVariant.primary => (
+        'var(--primary)',
+        'var(--primary-foreground)',
+        '0 0 20px rgba(var(--primary-rgb), 0.4), 0 0 40px rgba(var(--primary-rgb), 0.15)',
+        'rgba(var(--primary-rgb), 0.5)',
+      ),
+      ColorVariant.secondary => (
+        'var(--secondary)',
+        'var(--secondary-foreground)',
+        '0 0 10px rgba(var(--secondary-rgb), 0.2)',
+        'rgba(var(--border-rgb), 0.3)',
+      ),
+      ColorVariant.destructive => (
+        'var(--destructive)',
+        'var(--destructive-foreground)',
+        '0 0 20px rgba(var(--destructive-rgb), 0.4), 0 0 40px rgba(var(--destructive-rgb), 0.15)',
+        'rgba(var(--destructive-rgb), 0.5)',
+      ),
+      ColorVariant.success => (
+        'var(--success, #22c55e)',
+        'var(--success-foreground, #ffffff)',
+        '0 0 20px rgba(var(--success-rgb), 0.4), 0 0 40px rgba(var(--success-rgb), 0.15)',
+        'rgba(var(--success-rgb), 0.5)',
+      ),
+      ColorVariant.warning => (
+        'var(--warning, #f59e0b)',
+        'var(--warning-foreground, #000000)',
+        '0 0 20px rgba(var(--warning-rgb), 0.4), 0 0 40px rgba(var(--warning-rgb), 0.15)',
+        'rgba(var(--warning-rgb), 0.5)',
+      ),
+      ColorVariant.info => (
+        'var(--info, #3b82f6)',
+        'var(--info-foreground, #ffffff)',
+        '0 0 20px rgba(var(--info-rgb), 0.4), 0 0 40px rgba(var(--info-rgb), 0.15)',
+        'rgba(var(--info-rgb), 0.5)',
+      ),
+    };
+
+    // Codex Neon style variant styles
+    final Map<String, String> variantStyles = switch (props.style) {
+      StyleVariant.solid => {
+        'background': 'linear-gradient(135deg, $bgColor 0%, color-mix(in srgb, $bgColor 70%, #ff00ff) 100%)',
+        'color': fgColor,
+        'border': '1px solid $borderColor',
+        'box-shadow': glowColor,
       },
-      IconButtonVariant.secondary => {
-        'background': 'linear-gradient(135deg, var(--secondary) 0%, color-mix(in srgb, var(--secondary) 80%, var(--primary)) 100%)',
-        'color': 'var(--secondary-foreground)',
-        'border': '1px solid rgba(var(--border-rgb), 0.3)',
-        'box-shadow': '0 0 10px rgba(var(--secondary-rgb), 0.2)',
-      },
-      IconButtonVariant.outline => {
+      StyleVariant.outline => {
         'background': 'transparent',
-        'color': 'var(--primary)',
-        'border': '1px solid var(--primary)',
+        'color': bgColor,
+        'border': '1px solid $bgColor',
         'box-shadow': '0 0 15px rgba(var(--primary-rgb), 0.2), inset 0 0 15px rgba(var(--primary-rgb), 0.05)',
       },
-      IconButtonVariant.ghost => {
+      StyleVariant.ghost => {
         'background': 'transparent',
-        'color': 'var(--foreground)',
+        'color': bgColor,
         'border': '1px solid transparent',
         'box-shadow': 'none',
       },
-      IconButtonVariant.destructive => {
-        'background': 'linear-gradient(135deg, var(--destructive) 0%, color-mix(in srgb, var(--destructive) 70%, #ff0066) 100%)',
-        'color': '#ffffff',
-        'border': '1px solid rgba(var(--destructive-rgb), 0.5)',
-        'box-shadow': '0 0 20px rgba(var(--destructive-rgb), 0.4), 0 0 40px rgba(var(--destructive-rgb), 0.15)',
-      },
-      IconButtonVariant.success => {
-        'background': 'linear-gradient(135deg, var(--success) 0%, color-mix(in srgb, var(--success) 70%, #00ffaa) 100%)',
-        'color': '#ffffff',
-        'border': '1px solid rgba(var(--success-rgb), 0.5)',
-        'box-shadow': '0 0 20px rgba(var(--success-rgb), 0.4), 0 0 40px rgba(var(--success-rgb), 0.15)',
-      },
-      IconButtonVariant.warning => {
-        'background': 'linear-gradient(135deg, var(--warning) 0%, color-mix(in srgb, var(--warning) 70%, #ffaa00) 100%)',
-        'color': '#000000',
-        'border': '1px solid rgba(var(--warning-rgb), 0.5)',
-        'box-shadow': '0 0 20px rgba(var(--warning-rgb), 0.4), 0 0 40px rgba(var(--warning-rgb), 0.15)',
+      StyleVariant.link => {
+        'background': 'transparent',
+        'color': bgColor,
+        'border': '1px solid transparent',
+        'box-shadow': 'none',
       },
     };
 

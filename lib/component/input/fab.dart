@@ -2,15 +2,15 @@ import 'package:jaspr/jaspr.dart';
 
 import '../../core/theme_provider.dart';
 
-export '../../core/props/fab_props.dart' show FABVariant, FABSize, FABPosition;
+export '../../core/props/fab_props.dart' show ColorVariant, ComponentSize, FABPosition;
 
 /// A floating action button component.
 class ArcaneFAB extends StatelessComponent {
   final Component icon;
   final String? label;
   final void Function()? onPressed;
-  final FABVariant variant;
-  final FABSize size;
+  final ColorVariant color;
+  final ComponentSize size;
   final bool disabled;
   final FABPosition position;
   final String? tooltip;
@@ -21,8 +21,8 @@ class ArcaneFAB extends StatelessComponent {
     required this.icon,
     this.label,
     this.onPressed,
-    this.variant = FABVariant.primary,
-    this.size = FABSize.regular,
+    this.color = ColorVariant.primary,
+    this.size = ComponentSize.md,
     this.disabled = false,
     this.position = FABPosition.bottomRight,
     this.tooltip,
@@ -35,66 +35,53 @@ class ArcaneFAB extends StatelessComponent {
     required this.icon,
     this.label,
     this.onPressed,
-    this.size = FABSize.regular,
+    this.size = ComponentSize.md,
     this.disabled = false,
     this.position = FABPosition.bottomRight,
     this.tooltip,
     this.id,
     this.attributes,
     super.key,
-  }) : variant = FABVariant.primary;
-
-  const ArcaneFAB.surface({
-    required this.icon,
-    this.label,
-    this.onPressed,
-    this.size = FABSize.regular,
-    this.disabled = false,
-    this.position = FABPosition.bottomRight,
-    this.tooltip,
-    this.id,
-    this.attributes,
-    super.key,
-  }) : variant = FABVariant.surface;
+  }) : color = ColorVariant.primary;
 
   const ArcaneFAB.secondary({
     required this.icon,
     this.label,
     this.onPressed,
-    this.size = FABSize.regular,
+    this.size = ComponentSize.md,
     this.disabled = false,
     this.position = FABPosition.bottomRight,
     this.tooltip,
     this.id,
     this.attributes,
     super.key,
-  }) : variant = FABVariant.secondary;
+  }) : color = ColorVariant.secondary;
 
   const ArcaneFAB.success({
     required this.icon,
     this.label,
     this.onPressed,
-    this.size = FABSize.regular,
+    this.size = ComponentSize.md,
     this.disabled = false,
     this.position = FABPosition.bottomRight,
     this.tooltip,
     this.id,
     this.attributes,
     super.key,
-  }) : variant = FABVariant.success;
+  }) : color = ColorVariant.success;
 
   const ArcaneFAB.destructive({
     required this.icon,
     this.label,
     this.onPressed,
-    this.size = FABSize.regular,
+    this.size = ComponentSize.md,
     this.disabled = false,
     this.position = FABPosition.bottomRight,
     this.tooltip,
     this.id,
     this.attributes,
     super.key,
-  }) : variant = FABVariant.destructive;
+  }) : color = ColorVariant.destructive;
 
   @override
   Component build(BuildContext context) {
@@ -102,7 +89,7 @@ class ArcaneFAB extends StatelessComponent {
       icon: icon,
       label: label,
       onPressed: onPressed,
-      variant: variant,
+      color: color,
       size: size,
       disabled: disabled,
       position: position,

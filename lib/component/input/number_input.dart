@@ -2,7 +2,7 @@ import 'package:jaspr/jaspr.dart';
 
 import '../../core/theme_provider.dart';
 
-export '../../core/props/number_input_props.dart' show NumberInputSize;
+export '../../core/props/number_input_props.dart' show ComponentSize;
 
 /// Numeric input with increment/decrement controls.
 class ArcaneNumberInput extends StatelessComponent {
@@ -11,7 +11,7 @@ class ArcaneNumberInput extends StatelessComponent {
   final num max;
   final num step;
   final void Function(num)? onChanged;
-  final NumberInputSize size;
+  final ComponentSize size;
   final bool disabled;
   final String? label;
   final String? prefix;
@@ -26,7 +26,7 @@ class ArcaneNumberInput extends StatelessComponent {
     this.max = 100,
     this.step = 1,
     this.onChanged,
-    this.size = NumberInputSize.md,
+    this.size = ComponentSize.md,
     this.disabled = false,
     this.label,
     this.prefix,

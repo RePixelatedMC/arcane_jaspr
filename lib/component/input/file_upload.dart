@@ -12,7 +12,7 @@ class ArcaneFileUpload extends StatefulComponent {
   final void Function(List<UploadedFile>)? onFilesSelected;
   final void Function(String error)? onError;
   final FileUploadStyle style;
-  final FileUploadSize size;
+  final ComponentSize size;
   final bool disabled;
   final String? dropzoneText;
   final String browseText;
@@ -26,7 +26,7 @@ class ArcaneFileUpload extends StatefulComponent {
     this.onFilesSelected,
     this.onError,
     this.style = FileUploadStyle.dropzone,
-    this.size = FileUploadSize.md,
+    this.size = ComponentSize.md,
     this.disabled = false,
     this.dropzoneText,
     this.browseText = 'Browse files',
@@ -40,7 +40,7 @@ class ArcaneFileUpload extends StatefulComponent {
     this.multiple = true,
     this.onFilesSelected,
     this.onError,
-    this.size = FileUploadSize.md,
+    this.size = ComponentSize.md,
     this.disabled = false,
     this.dropzoneText = 'Drag images here or click to browse',
     this.browseText = 'Select images',
@@ -55,7 +55,7 @@ class ArcaneFileUpload extends StatefulComponent {
     this.multiple = true,
     this.onFilesSelected,
     this.onError,
-    this.size = FileUploadSize.md,
+    this.size = ComponentSize.md,
     this.disabled = false,
     this.dropzoneText = 'Drag documents here or click to browse',
     this.browseText = 'Select documents',

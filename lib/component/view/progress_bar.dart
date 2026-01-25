@@ -2,10 +2,13 @@ import 'package:jaspr/jaspr.dart';
 
 import '../../core/theme_provider.dart';
 
+export '../../core/props/progress_props.dart'
+    show ComponentSize, ProgressVariant;
+
 /// Progress bar component with various styles.
 class ArcaneProgressBar extends StatelessComponent {
   final double value;
-  final ProgressSize size;
+  final ComponentSize size;
   final ProgressVariant variant;
   final bool indeterminate;
   final bool showValue;
@@ -14,7 +17,7 @@ class ArcaneProgressBar extends StatelessComponent {
 
   const ArcaneProgressBar({
     required this.value,
-    this.size = ProgressSize.medium,
+    this.size = ComponentSize.md,
     this.variant = ProgressVariant.primary,
     this.indeterminate = false,
     this.showValue = false,
@@ -25,7 +28,7 @@ class ArcaneProgressBar extends StatelessComponent {
 
   const ArcaneProgressBar.standard({
     required this.value,
-    this.size = ProgressSize.medium,
+    this.size = ComponentSize.md,
     this.showValue = false,
     super.key,
   })  : variant = ProgressVariant.primary,
@@ -35,7 +38,7 @@ class ArcaneProgressBar extends StatelessComponent {
 
   const ArcaneProgressBar.success({
     required this.value,
-    this.size = ProgressSize.medium,
+    this.size = ComponentSize.md,
     this.showValue = false,
     super.key,
   })  : variant = ProgressVariant.success,
@@ -45,7 +48,7 @@ class ArcaneProgressBar extends StatelessComponent {
 
   const ArcaneProgressBar.warning({
     required this.value,
-    this.size = ProgressSize.medium,
+    this.size = ComponentSize.md,
     this.showValue = false,
     super.key,
   })  : variant = ProgressVariant.warning,
@@ -55,7 +58,7 @@ class ArcaneProgressBar extends StatelessComponent {
 
   const ArcaneProgressBar.error({
     required this.value,
-    this.size = ProgressSize.medium,
+    this.size = ComponentSize.md,
     this.showValue = false,
     super.key,
   })  : variant = ProgressVariant.error,

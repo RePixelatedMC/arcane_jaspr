@@ -510,23 +510,23 @@ class _ContextMenuDemoState extends State<ContextMenuDemo> {
             ],
           ),
           items: [
-            ArcaneMenuItem(
+            MenuItemAction(
               label: 'Edit',
               shortcut: '⌘E',
               onSelect: () => setState(() => _lastAction = 'Edit clicked'),
             ),
-            ArcaneMenuItem(
+            MenuItemAction(
               label: 'Copy',
               shortcut: '⌘C',
               onSelect: () => setState(() => _lastAction = 'Copy clicked'),
             ),
-            ArcaneMenuItem(
+            MenuItemAction(
               label: 'Paste',
               shortcut: '⌘V',
               onSelect: () => setState(() => _lastAction = 'Paste clicked'),
             ),
-            ArcaneMenuItem.separator(),
-            ArcaneMenuItem(
+            MenuItemSeparator(),
+            MenuItemAction(
               label: 'Delete',
               destructive: true,
               shortcut: '⌫',
@@ -574,18 +574,18 @@ class _MenubarDemoState extends State<MenubarDemo> {
                 ArcaneMenubarMenu(
                   label: 'File',
                   items: [
-                    ArcaneMenuItem(
+                    MenuItemAction(
                       label: 'New',
                       shortcut: '⌘N',
                       onSelect: () => setState(() => _lastAction = 'New'),
                     ),
-                    ArcaneMenuItem(
+                    MenuItemAction(
                       label: 'Open',
                       shortcut: '⌘O',
                       onSelect: () => setState(() => _lastAction = 'Open'),
                     ),
-                    ArcaneMenuItem.separator(),
-                    ArcaneMenuItem(
+                    MenuItemSeparator(),
+                    MenuItemAction(
                       label: 'Save',
                       shortcut: '⌘S',
                       onSelect: () => setState(() => _lastAction = 'Save'),
@@ -595,28 +595,28 @@ class _MenubarDemoState extends State<MenubarDemo> {
                 ArcaneMenubarMenu(
                   label: 'Edit',
                   items: [
-                    ArcaneMenuItem(
+                    MenuItemAction(
                       label: 'Undo',
                       shortcut: '⌘Z',
                       onSelect: () => setState(() => _lastAction = 'Undo'),
                     ),
-                    ArcaneMenuItem(
+                    MenuItemAction(
                       label: 'Redo',
                       shortcut: '⇧⌘Z',
                       onSelect: () => setState(() => _lastAction = 'Redo'),
                     ),
-                    ArcaneMenuItem.separator(),
-                    ArcaneMenuItem(
+                    MenuItemSeparator(),
+                    MenuItemAction(
                       label: 'Cut',
                       shortcut: '⌘X',
                       onSelect: () => setState(() => _lastAction = 'Cut'),
                     ),
-                    ArcaneMenuItem(
+                    MenuItemAction(
                       label: 'Copy',
                       shortcut: '⌘C',
                       onSelect: () => setState(() => _lastAction = 'Copy'),
                     ),
-                    ArcaneMenuItem(
+                    MenuItemAction(
                       label: 'Paste',
                       shortcut: '⌘V',
                       onSelect: () => setState(() => _lastAction = 'Paste'),
@@ -626,12 +626,12 @@ class _MenubarDemoState extends State<MenubarDemo> {
                 ArcaneMenubarMenu(
                   label: 'View',
                   items: [
-                    ArcaneMenuItem(
+                    MenuItemAction(
                       label: 'Zoom In',
                       shortcut: '⌘+',
                       onSelect: () => setState(() => _lastAction = 'Zoom In'),
                     ),
-                    ArcaneMenuItem(
+                    MenuItemAction(
                       label: 'Zoom Out',
                       shortcut: '⌘-',
                       onSelect: () => setState(() => _lastAction = 'Zoom Out'),

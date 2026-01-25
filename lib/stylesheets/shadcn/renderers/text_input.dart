@@ -36,10 +36,10 @@ class ShadcnTextInput extends StatelessComponent {
     // Default: h-10 (40px), px-3, py-2, text-base/md:text-sm
     final (String height, String paddingX, String paddingY, String fontSize) =
         switch (props.size) {
-      TextInputSize.sm => ('32px', '0.5rem', '0.25rem', '0.75rem'),
-      TextInputSize.md =>
+      ComponentSize.sm => ('32px', '0.5rem', '0.25rem', '0.75rem'),
+      ComponentSize.md =>
         ('40px', '0.75rem', '0.5rem', '0.875rem'), // ShadCN default h-10
-      TextInputSize.lg => ('48px', '1rem', '0.75rem', '1rem'),
+      ComponentSize.lg => ('48px', '1rem', '0.75rem', '1rem'),
     };
 
     // Map TextInputType to HTML input type

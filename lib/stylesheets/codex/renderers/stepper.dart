@@ -18,9 +18,9 @@ class CodexStepper extends StatelessComponent {
   Component build(BuildContext context) {
     // Codex sizes
     final (String stepSize, String fontSize, String numSize) = switch (props.size) {
-      StepsSize.sm => ('28px', '0.8125rem', '0.75rem'),
-      StepsSize.md => ('36px', '0.9375rem', '0.875rem'), // Codex: larger
-      StepsSize.lg => ('44px', '1rem', '1rem'),
+      ComponentSize.sm => ('28px', '0.8125rem', '0.75rem'),
+      ComponentSize.md => ('36px', '0.9375rem', '0.875rem'), // Codex: larger
+      ComponentSize.lg => ('44px', '1rem', '1rem'),
     };
 
     // Determine status from currentStep if provided

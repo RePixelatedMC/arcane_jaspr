@@ -1,27 +1,15 @@
 import 'package:jaspr/jaspr.dart';
+import '../shared/shared.dart';
 
-enum ChipSize {
-  small,
-  medium,
-  large,
-}
-
-enum ChipVariant {
-  standard,
-  primary,
-  secondary,
-  success,
-  warning,
-  error,
-  outline,
-}
+export '../shared/shared.dart' show ComponentSize, ColorVariant, StyleVariant;
 
 /// Chip component properties.
 class ChipProps {
   final String label;
   final Component? icon;
-  final ChipVariant variant;
-  final ChipSize size;
+  final ColorVariant color;
+  final StyleVariant style;
+  final ComponentSize size;
   final bool removable;
   final void Function()? onRemove;
   final void Function()? onTap;
@@ -29,8 +17,9 @@ class ChipProps {
   const ChipProps({
     required this.label,
     this.icon,
-    this.variant = ChipVariant.standard,
-    this.size = ChipSize.medium,
+    this.color = ColorVariant.secondary,
+    this.style = StyleVariant.solid,
+    this.size = ComponentSize.md,
     this.removable = false,
     this.onRemove,
     this.onTap,

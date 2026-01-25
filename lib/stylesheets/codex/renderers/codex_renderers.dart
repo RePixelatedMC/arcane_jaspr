@@ -71,7 +71,7 @@ import 'marquee.dart';
 import 'menubar.dart';
 import 'meter.dart';
 import 'mobile_menu.dart';
-import 'newsletter_form.dart';
+import 'simple_form.dart';
 import 'number_input.dart';
 import 'otp_input.dart';
 import 'pagination.dart';
@@ -482,11 +482,7 @@ class CodexRenderers extends ShadcnRenderers {
   Component inputGroup(InputGroupProps props) => CodexInputGroup(props);
 
   @override
-  Component newsletterForm(NewsletterFormProps props) =>
-      CodexNewsletterForm(props);
-
-  @override
-  Component waitlistForm(WaitlistFormProps props) => CodexWaitlistForm(props);
+  Component simpleForm(SimpleFormProps props) => CodexSimpleForm(props);
 
   // ==========================================================================
   // AUTH COMPONENTS (Codex-specific implementations)

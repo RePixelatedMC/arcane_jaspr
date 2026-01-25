@@ -1,18 +1,7 @@
 import 'package:jaspr/jaspr.dart';
+import '../shared/shared.dart';
 
-enum FABVariant {
-  primary,
-  surface,
-  success,
-  destructive,
-  secondary,
-}
-
-enum FABSize {
-  small,
-  regular,
-  large,
-}
+export '../shared/shared.dart' show ComponentSize, ColorVariant;
 
 enum FABPosition {
   bottomRight,
@@ -28,8 +17,8 @@ class FABProps {
   final Component icon;
   final String? label;
   final void Function()? onPressed;
-  final FABVariant variant;
-  final FABSize size;
+  final ColorVariant color;
+  final ComponentSize size;
   final bool disabled;
   final FABPosition position;
   final String? tooltip;
@@ -40,8 +29,8 @@ class FABProps {
     required this.icon,
     this.label,
     this.onPressed,
-    this.variant = FABVariant.primary,
-    this.size = FABSize.regular,
+    this.color = ColorVariant.primary,
+    this.size = ComponentSize.md,
     this.disabled = false,
     this.position = FABPosition.bottomRight,
     this.tooltip,
@@ -53,8 +42,8 @@ class FABProps {
     Component? icon,
     String? label,
     void Function()? onPressed,
-    FABVariant? variant,
-    FABSize? size,
+    ColorVariant? color,
+    ComponentSize? size,
     bool? disabled,
     FABPosition? position,
     String? tooltip,
@@ -65,7 +54,7 @@ class FABProps {
       icon: icon ?? this.icon,
       label: label ?? this.label,
       onPressed: onPressed ?? this.onPressed,
-      variant: variant ?? this.variant,
+      color: color ?? this.color,
       size: size ?? this.size,
       disabled: disabled ?? this.disabled,
       position: position ?? this.position,

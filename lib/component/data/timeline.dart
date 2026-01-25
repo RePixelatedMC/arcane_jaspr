@@ -39,34 +39,34 @@ class ArcaneTimelineItem {
 class ArcaneTimeline extends StatelessComponent {
   final List<ArcaneTimelineItem> items;
   final TimelineLayout layout;
-  final TimelineSize size;
+  final ComponentSize size;
   final bool showConnectors;
 
   const ArcaneTimeline({
     required this.items,
     this.layout = TimelineLayout.vertical,
-    this.size = TimelineSize.md,
+    this.size = ComponentSize.md,
     this.showConnectors = true,
     super.key,
   });
 
   const ArcaneTimeline.vertical({
     required this.items,
-    this.size = TimelineSize.md,
+    this.size = ComponentSize.md,
     this.showConnectors = true,
     super.key,
   }) : layout = TimelineLayout.vertical;
 
   const ArcaneTimeline.horizontal({
     required this.items,
-    this.size = TimelineSize.md,
+    this.size = ComponentSize.md,
     this.showConnectors = true,
     super.key,
   }) : layout = TimelineLayout.horizontal;
 
   const ArcaneTimeline.alternating({
     required this.items,
-    this.size = TimelineSize.md,
+    this.size = ComponentSize.md,
     this.showConnectors = true,
     super.key,
   }) : layout = TimelineLayout.alternating;

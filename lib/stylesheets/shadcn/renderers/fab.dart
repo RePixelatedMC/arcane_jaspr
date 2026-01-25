@@ -15,9 +15,9 @@ class ShadcnFAB extends StatelessComponent {
 
     // Get size-specific dimensions
     final (double dimension, double iconSize) = switch (props.size) {
-      FABSize.small => (40.0, 18.0),
-      FABSize.regular => (56.0, 24.0),
-      FABSize.large => (72.0, 32.0),
+      ComponentSize.sm => (40.0, 18.0),
+      ComponentSize.md => (56.0, 24.0),
+      ComponentSize.lg => (72.0, 32.0),
     };
 
     // Get position styles
@@ -51,28 +51,31 @@ class ShadcnFAB extends StatelessComponent {
       FABPosition.relative => {},
     };
 
-    // Get variant styles
-    final Map<String, String> variantStyles = switch (props.variant) {
-      FABVariant.primary => {
-          'background-color': 'var(--accent)',
-          'color': 'var(--accent-foreground)',
+    // Get color variant styles
+    final Map<String, String> variantStyles = switch (props.color) {
+      ColorVariant.primary => {
+          'background-color': 'var(--primary)',
+          'color': 'var(--primary-foreground)',
         },
-      FABVariant.secondary => {
+      ColorVariant.secondary => {
           'background-color': 'var(--secondary)',
           'color': 'var(--secondary-foreground)',
         },
-      FABVariant.surface => {
-          'background-color': 'var(--card)',
-          'color': 'var(--foreground)',
-          'border': '1px solid var(--border)',
-        },
-      FABVariant.success => {
-          'background-color': 'var(--success)',
-          'color': 'var(--success-foreground)',
-        },
-      FABVariant.destructive => {
+      ColorVariant.destructive => {
           'background-color': 'var(--destructive)',
           'color': 'var(--destructive-foreground)',
+        },
+      ColorVariant.success => {
+          'background-color': 'var(--success, #22c55e)',
+          'color': 'var(--success-foreground, #ffffff)',
+        },
+      ColorVariant.warning => {
+          'background-color': 'var(--warning, #f59e0b)',
+          'color': 'var(--warning-foreground, #000000)',
+        },
+      ColorVariant.info => {
+          'background-color': 'var(--info, #3b82f6)',
+          'color': 'var(--info-foreground, #ffffff)',
         },
     };
 

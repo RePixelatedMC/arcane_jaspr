@@ -19,9 +19,9 @@ class CodexSelect<T> extends StatelessComponent {
   Component build(BuildContext context) {
     // Codex Neon sizes - larger with more presence
     final (String height, String fontSize, String padding) = switch (props.size) {
-      SelectSize.sm => ('40px', '0.8125rem', '0.625rem 1rem'),
-      SelectSize.md => ('48px', '0.875rem', '0.75rem 1.25rem'),
-      SelectSize.lg => ('56px', '1rem', '1rem 1.5rem'),
+      ComponentSize.sm => ('40px', '0.8125rem', '0.625rem 1rem'),
+      ComponentSize.md => ('48px', '0.875rem', '0.75rem 1.25rem'),
+      ComponentSize.lg => ('56px', '1rem', '1rem 1.5rem'),
     };
 
     // Get display text

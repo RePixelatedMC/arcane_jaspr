@@ -30,7 +30,7 @@ class ArcaneStepItem {
 class ArcaneSteps extends StatelessComponent {
   final List<ArcaneStepItem> items;
   final StepsLayout layout;
-  final StepsSize size;
+  final ComponentSize size;
   final bool showConnectors;
   final int? currentStep;
   final void Function(int index)? onStepTap;
@@ -38,7 +38,7 @@ class ArcaneSteps extends StatelessComponent {
   const ArcaneSteps({
     required this.items,
     this.layout = StepsLayout.horizontal,
-    this.size = StepsSize.md,
+    this.size = ComponentSize.md,
     this.showConnectors = true,
     this.currentStep,
     this.onStepTap,
@@ -47,7 +47,7 @@ class ArcaneSteps extends StatelessComponent {
 
   const ArcaneSteps.vertical({
     required this.items,
-    this.size = StepsSize.md,
+    this.size = ComponentSize.md,
     this.showConnectors = true,
     this.currentStep,
     this.onStepTap,
@@ -56,7 +56,7 @@ class ArcaneSteps extends StatelessComponent {
 
   const ArcaneSteps.horizontal({
     required this.items,
-    this.size = StepsSize.md,
+    this.size = ComponentSize.md,
     this.showConnectors = true,
     this.currentStep,
     this.onStepTap,

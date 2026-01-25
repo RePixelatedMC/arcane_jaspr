@@ -7,6 +7,53 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.9.1] - Unreleased
 
+### Changed
+
+**Props Consolidation - Shared Type System**
+- Created `lib/core/shared/size.dart` with unified `ComponentSize` enum supporting both naming conventions:
+  - `sm`, `md`, `lg` (preferred)
+  - `small`, `medium`, `large` (aliases pointing to same values)
+- Created `lib/core/shared/variants.dart` with standardized variant enums:
+  - `ColorVariant`: primary, secondary, destructive, success, warning, info
+  - `StyleVariant`: solid, outline, ghost, link
+- Updated 25+ props files to use shared types instead of component-specific enums
+- Standardized on "destructive" naming (not "error") across all components
+
+**ArcaneMenuItem Refactored to Sealed Classes**
+- Converted `ArcaneMenuItem` from single class with boolean flags to sealed class hierarchy
+- New type-safe menu item classes:
+  - `MenuItemAction` - Standard clickable menu item with label, icon, shortcut
+  - `MenuItemSeparator` - Visual divider between menu items
+  - `MenuItemCheckbox` - Toggleable checkbox menu item
+  - `MenuItemRadio` - Radio button menu item (mutually exclusive selection)
+  - `MenuItemSubmenu` - Nested submenu container
+  - `MenuItemLabel` - Non-interactive label/header
+- All menu renderers (DropdownMenu, ContextMenu, Menubar) updated to use pattern matching
+- Enables compile-time exhaustiveness checking for menu item handling
+
+**Form Components Unified into SimpleForm**
+- Merged `NewsletterForm` and `WaitlistForm` into unified `SimpleForm` component
+- New `SimpleFormProps` with factory constructors:
+  - `SimpleFormProps.newsletter()` - Email signup with inline layout
+  - `SimpleFormProps.waitlist()` - Waitlist form with optional name collection
+  - `SimpleFormProps.contact()` - Contact form with name, email, message
+- New `SimpleFormField` class for flexible field definitions:
+  - `SimpleFormFieldType`: text, email, password, phone, url, textarea
+  - Custom validation via `validator` callback
+  - Labels, placeholders, hints, and required field support
+- Convenience wrapper components:
+  - `ArcaneSimpleForm` - General purpose form
+  - `ArcaneNewsletterForm` - Email signup (uses SimpleForm internally)
+  - `ArcaneWaitlistForm` - Waitlist form (uses SimpleForm internally)
+  - `ArcaneContactForm` - Contact form (uses SimpleForm internally)
+
+### Removed
+
+**Form Component Files Deleted**
+- Removed `lib/core/props/newsletter_form_props.dart` (use `SimpleFormProps`)
+- Removed `lib/stylesheets/shadcn/renderers/newsletter_form.dart` (use `simple_form.dart`)
+- Removed `lib/component/form/newsletter_form.dart` (use `simple_form.dart`)
+
 ### Added
 
 **ArcaneIcon Semantic Aliases**

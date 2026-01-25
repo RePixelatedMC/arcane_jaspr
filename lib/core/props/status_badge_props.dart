@@ -1,20 +1,14 @@
-import 'package:jaspr/jaspr.dart';
-
+import '../shared/shared.dart';
 import 'status_indicator_props.dart' show StatusType;
 
+export '../shared/shared.dart' show ComponentSize;
 export 'status_indicator_props.dart' show StatusType;
-
-enum StatusBadgeSize {
-  sm,
-  md,
-  lg,
-}
 
 /// Status badge component properties.
 class StatusBadgeProps {
   final StatusType status;
   final String label;
-  final StatusBadgeSize size;
+  final ComponentSize size;
   final bool showGlow;
   final bool showPulse;
   final String? indicatorColor;
@@ -24,7 +18,7 @@ class StatusBadgeProps {
   const StatusBadgeProps({
     required this.status,
     required this.label,
-    this.size = StatusBadgeSize.md,
+    this.size = ComponentSize.md,
     this.showGlow = true,
     this.showPulse = true,
     this.indicatorColor,
@@ -33,11 +27,6 @@ class StatusBadgeProps {
   });
 }
 
-// ============================================================================
-// RENDERER CONTRACT
-// ============================================================================
-
-/// Mixin defining the renderer methods for status badge components.
-mixin StatusBadgeRendererContract {
-  Component statusBadge2(StatusBadgeProps props);
-}
+// Note: The statusBadge renderer method is defined in StatusIndicatorRendererContract
+// using SimpleStatusBadgeProps. The StatusBadgeProps class here can be used for
+// a more feature-rich status badge component in the future.

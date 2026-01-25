@@ -11,15 +11,15 @@ class CodexTimePicker extends StatelessComponent {
   const CodexTimePicker(this.props, {super.key});
 
   Map<String, String> get _sizeStyles => switch (props.size) {
-        TimePickerSize.sm => {
+        ComponentSize.sm => {
             'height': '36px',
             'fontSize': '0.875rem',
           },
-        TimePickerSize.md => {
+        ComponentSize.md => {
             'height': '44px',
             'fontSize': '0.875rem',
           },
-        TimePickerSize.lg => {
+        ComponentSize.lg => {
             'height': '52px',
             'fontSize': '1rem',
           },

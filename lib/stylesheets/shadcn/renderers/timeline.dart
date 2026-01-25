@@ -10,21 +10,21 @@ class ShadcnTimeline extends StatelessComponent {
   const ShadcnTimeline(this.props, {super.key});
 
   String get _indicatorSize => switch (props.size) {
-        TimelineSize.sm => '24px',
-        TimelineSize.md => '32px',
-        TimelineSize.lg => '40px',
+        ComponentSize.sm => '24px',
+        ComponentSize.md => '32px',
+        ComponentSize.lg => '40px',
       };
 
   String get _connectorWidth => switch (props.size) {
-        TimelineSize.sm => '2px',
-        TimelineSize.md => '2px',
-        TimelineSize.lg => '3px',
+        ComponentSize.sm => '2px',
+        ComponentSize.md => '2px',
+        ComponentSize.lg => '3px',
       };
 
   String get _iconSize => switch (props.size) {
-        TimelineSize.sm => '0.75rem',
-        TimelineSize.md => '0.875rem',
-        TimelineSize.lg => '1rem',
+        ComponentSize.sm => '0.75rem',
+        ComponentSize.md => '0.875rem',
+        ComponentSize.lg => '1rem',
       };
 
   @override

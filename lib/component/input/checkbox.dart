@@ -1,7 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
-export '../../core/props/checkbox_props.dart' show CheckboxSize, CheckboxVariant;
+export '../../core/props/checkbox_props.dart' show ComponentSize, ColorVariant;
 
 import '../../core/theme_provider.dart';
 
@@ -10,8 +10,8 @@ class ArcaneCheckbox extends StatelessComponent {
   final bool checked;
   final String? label;
   final String? description;
-  final CheckboxSize size;
-  final CheckboxVariant variant;
+  final ComponentSize size;
+  final ColorVariant color;
   final bool disabled;
   final void Function(bool)? _onChanged;
 
@@ -19,8 +19,8 @@ class ArcaneCheckbox extends StatelessComponent {
     required this.checked,
     this.label,
     this.description,
-    this.size = CheckboxSize.medium,
-    this.variant = CheckboxVariant.primary,
+    this.size = ComponentSize.md,
+    this.color = ColorVariant.primary,
     this.disabled = false,
     void Function(bool)? onChanged,
     void Function(bool)? onToggle,
@@ -31,49 +31,49 @@ class ArcaneCheckbox extends StatelessComponent {
     required this.checked,
     this.label,
     this.description,
-    this.size = CheckboxSize.medium,
+    this.size = ComponentSize.md,
     this.disabled = false,
     void Function(bool)? onChanged,
     void Function(bool)? onToggle,
     super.key,
   })  : _onChanged = onChanged ?? onToggle,
-        variant = CheckboxVariant.primary;
+        color = ColorVariant.primary;
 
   const ArcaneCheckbox.success({
     required this.checked,
     this.label,
     this.description,
-    this.size = CheckboxSize.medium,
+    this.size = ComponentSize.md,
     this.disabled = false,
     void Function(bool)? onChanged,
     void Function(bool)? onToggle,
     super.key,
   })  : _onChanged = onChanged ?? onToggle,
-        variant = CheckboxVariant.success;
+        color = ColorVariant.success;
 
   const ArcaneCheckbox.warning({
     required this.checked,
     this.label,
     this.description,
-    this.size = CheckboxSize.medium,
+    this.size = ComponentSize.md,
     this.disabled = false,
     void Function(bool)? onChanged,
     void Function(bool)? onToggle,
     super.key,
   })  : _onChanged = onChanged ?? onToggle,
-        variant = CheckboxVariant.warning;
+        color = ColorVariant.warning;
 
-  const ArcaneCheckbox.error({
+  const ArcaneCheckbox.destructive({
     required this.checked,
     this.label,
     this.description,
-    this.size = CheckboxSize.medium,
+    this.size = ComponentSize.md,
     this.disabled = false,
     void Function(bool)? onChanged,
     void Function(bool)? onToggle,
     super.key,
   })  : _onChanged = onChanged ?? onToggle,
-        variant = CheckboxVariant.error;
+        color = ColorVariant.destructive;
 
   @override
   Component build(BuildContext context) {
@@ -82,7 +82,7 @@ class ArcaneCheckbox extends StatelessComponent {
       label: label,
       description: description,
       size: size,
-      variant: variant,
+      color: color,
       disabled: disabled,
       onChanged: _onChanged,
     ));
@@ -94,8 +94,8 @@ class ArcaneRadio extends StatelessComponent {
   final bool selected;
   final String? label;
   final String? description;
-  final CheckboxSize size;
-  final CheckboxVariant variant;
+  final ComponentSize size;
+  final ColorVariant color;
   final bool disabled;
   final void Function()? _onSelected;
 
@@ -103,8 +103,8 @@ class ArcaneRadio extends StatelessComponent {
     required this.selected,
     this.label,
     this.description,
-    this.size = CheckboxSize.medium,
-    this.variant = CheckboxVariant.primary,
+    this.size = ComponentSize.md,
+    this.color = ColorVariant.primary,
     this.disabled = false,
     void Function()? onSelected,
     void Function()? onTap,
@@ -114,22 +114,24 @@ class ArcaneRadio extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     final radioSize = switch (size) {
-      CheckboxSize.small => '14px',
-      CheckboxSize.medium => '16px',
-      CheckboxSize.large => '20px',
+      ComponentSize.sm => '14px',
+      ComponentSize.md => '16px',
+      ComponentSize.lg => '20px',
     };
 
     final dotSize = switch (size) {
-      CheckboxSize.small => '8px',
-      CheckboxSize.medium => '10px',
-      CheckboxSize.large => '12px',
+      ComponentSize.sm => '8px',
+      ComponentSize.md => '10px',
+      ComponentSize.lg => '12px',
     };
 
-    final (borderColor, dotColor) = switch (variant) {
-      CheckboxVariant.primary => ('var(--primary)', 'var(--primary)'),
-      CheckboxVariant.success => ('var(--success)', 'var(--success)'),
-      CheckboxVariant.warning => ('var(--warning)', 'var(--warning)'),
-      CheckboxVariant.error => ('var(--destructive)', 'var(--destructive)'),
+    final (borderColor, dotColor) = switch (color) {
+      ColorVariant.primary => ('var(--primary)', 'var(--primary)'),
+      ColorVariant.secondary => ('var(--secondary)', 'var(--secondary)'),
+      ColorVariant.success => ('var(--success)', 'var(--success)'),
+      ColorVariant.warning => ('var(--warning)', 'var(--warning)'),
+      ColorVariant.destructive => ('var(--destructive)', 'var(--destructive)'),
+      ColorVariant.info => ('var(--info)', 'var(--info)'),
     };
 
     return dom.div(

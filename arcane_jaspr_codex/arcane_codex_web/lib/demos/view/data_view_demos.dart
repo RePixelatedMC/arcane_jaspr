@@ -83,10 +83,9 @@ class DataViewDemos {
         ArcaneDiv(
           styles: const ArcaneStyleData(widthCustom: '300px'),
           children: [
-            ArcaneAlert(
+            ArcaneAlert.success(
               title: 'Success',
               message: 'Your changes have been saved.',
-              severity: AlertSeverity.success,
             ),
           ],
         ),

@@ -12,11 +12,11 @@ class CodexDotIndicator extends StatelessComponent {
 
   String _getDotSize() {
     switch (props.size) {
-      case DotIndicatorSize.sm:
+      case ComponentSize.sm:
         return '6px';
-      case DotIndicatorSize.md:
+      case ComponentSize.md:
         return '8px';
-      case DotIndicatorSize.lg:
+      case ComponentSize.lg:
         return '10px';
     }
   }
@@ -68,11 +68,11 @@ class CodexStepIndicator extends StatelessComponent {
 
   String _getStepSize() {
     switch (props.size) {
-      case StepIndicatorSize.sm:
+      case ComponentSize.sm:
         return '24px';
-      case StepIndicatorSize.md:
+      case ComponentSize.md:
         return '32px';
-      case StepIndicatorSize.lg:
+      case ComponentSize.lg:
         return '40px';
     }
   }

@@ -1,27 +1,15 @@
 import 'package:jaspr/jaspr.dart';
+import '../shared/shared.dart';
 
-enum IconButtonSize {
-  small,
-  medium,
-  large,
-}
-
-enum IconButtonVariant {
-  primary,
-  secondary,
-  outline,
-  ghost,
-  destructive,
-  success,
-  warning,
-}
+export '../shared/shared.dart' show ComponentSize, ColorVariant, StyleVariant;
 
 /// Icon button component properties.
 class IconButtonProps {
   final Component icon;
   final void Function()? onPressed;
-  final IconButtonVariant variant;
-  final IconButtonSize size;
+  final ColorVariant color;
+  final StyleVariant style;
+  final ComponentSize size;
   final bool disabled;
   final bool loading;
   final String? tooltip;
@@ -29,8 +17,9 @@ class IconButtonProps {
   const IconButtonProps({
     required this.icon,
     this.onPressed,
-    this.variant = IconButtonVariant.ghost,
-    this.size = IconButtonSize.medium,
+    this.color = ColorVariant.secondary,
+    this.style = StyleVariant.ghost,
+    this.size = ComponentSize.md,
     this.disabled = false,
     this.loading = false,
     this.tooltip,
@@ -39,8 +28,9 @@ class IconButtonProps {
   IconButtonProps copyWith({
     Component? icon,
     void Function()? onPressed,
-    IconButtonVariant? variant,
-    IconButtonSize? size,
+    ColorVariant? color,
+    StyleVariant? style,
+    ComponentSize? size,
     bool? disabled,
     bool? loading,
     String? tooltip,
@@ -48,7 +38,8 @@ class IconButtonProps {
     return IconButtonProps(
       icon: icon ?? this.icon,
       onPressed: onPressed ?? this.onPressed,
-      variant: variant ?? this.variant,
+      color: color ?? this.color,
+      style: style ?? this.style,
       size: size ?? this.size,
       disabled: disabled ?? this.disabled,
       loading: loading ?? this.loading,

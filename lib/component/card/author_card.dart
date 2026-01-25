@@ -9,7 +9,7 @@ class ArcaneAuthorCard extends StatelessComponent {
   final String? avatarUrl;
   final String name;
   final String? role;
-  final AuthorCardSize size;
+  final ComponentSize size;
   final String? initials;
   final String? avatarBackground;
   final String? nameColor;
@@ -19,7 +19,7 @@ class ArcaneAuthorCard extends StatelessComponent {
     this.avatarUrl,
     required this.name,
     this.role,
-    this.size = AuthorCardSize.md,
+    this.size = ComponentSize.md,
     this.initials,
     this.avatarBackground,
     this.nameColor,
@@ -36,7 +36,7 @@ class ArcaneAuthorCard extends StatelessComponent {
     this.nameColor,
     this.roleColor,
     super.key,
-  }) : size = AuthorCardSize.sm;
+  }) : size = ComponentSize.sm;
 
   const ArcaneAuthorCard.lg({
     this.avatarUrl,
@@ -47,7 +47,7 @@ class ArcaneAuthorCard extends StatelessComponent {
     this.nameColor,
     this.roleColor,
     super.key,
-  }) : size = AuthorCardSize.lg;
+  }) : size = ComponentSize.lg;
 
   @override
   Component build(BuildContext context) {

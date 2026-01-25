@@ -210,7 +210,7 @@ export 'component/promo/promo.dart';
 export 'component/form/field.dart';
 export 'component/form/field_wrapper.dart';
 export 'component/form/provider.dart';
-export 'component/form/newsletter_form.dart';
+export 'component/form/simple_form.dart';
 
 // Feedback
 export 'component/feedback/alert_banner.dart';

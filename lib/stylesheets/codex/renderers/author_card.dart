@@ -12,21 +12,21 @@ class CodexAuthorCard extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     final int avatarSize = switch (props.size) {
-      AuthorCardSize.sm => 32,
-      AuthorCardSize.md => 40,
-      AuthorCardSize.lg => 48,
+      ComponentSize.sm => 32,
+      ComponentSize.md => 40,
+      ComponentSize.lg => 48,
     };
 
     final String nameFontSize = switch (props.size) {
-      AuthorCardSize.sm => '0.8125rem',
-      AuthorCardSize.md => '0.875rem',
-      AuthorCardSize.lg => '1rem',
+      ComponentSize.sm => '0.8125rem',
+      ComponentSize.md => '0.875rem',
+      ComponentSize.lg => '1rem',
     };
 
     final String roleFontSize = switch (props.size) {
-      AuthorCardSize.sm => '0.6875rem',
-      AuthorCardSize.md => '0.75rem',
-      AuthorCardSize.lg => '0.8125rem',
+      ComponentSize.sm => '0.6875rem',
+      ComponentSize.md => '0.75rem',
+      ComponentSize.lg => '0.8125rem',
     };
 
     return dom.div(

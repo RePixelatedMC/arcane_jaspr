@@ -11,9 +11,9 @@ class ShadcnKbd extends StatelessComponent {
 
   (String padding, String fontSize, String minWidth) get _sizeStyles =>
       switch (props.size) {
-        KbdSize.sm => ('2px 5px', '0.75rem', '20px'),
-        KbdSize.md => ('4px 8px', '0.875rem', '24px'),
-        KbdSize.lg => ('6px 12px', '1rem', '32px'),
+        ComponentSize.sm => ('2px 5px', '0.75rem', '20px'),
+        ComponentSize.md => ('4px 8px', '0.875rem', '24px'),
+        ComponentSize.lg => ('6px 12px', '1rem', '32px'),
       };
 
   Map<String, String> get _styleMap {

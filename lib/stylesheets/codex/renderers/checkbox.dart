@@ -19,41 +19,53 @@ class CodexCheckbox extends StatelessComponent {
   Component build(BuildContext context) {
     // Codex Neon size dimensions - larger with more presence
     final String boxSize = switch (props.size) {
-      CheckboxSize.small => '20px',
-      CheckboxSize.medium => '24px',
-      CheckboxSize.large => '28px',
+      ComponentSize.sm => '20px',
+      ComponentSize.md => '24px',
+      ComponentSize.lg => '28px',
     };
 
     final String checkSize = switch (props.size) {
-      CheckboxSize.small => '12px',
-      CheckboxSize.medium => '14px',
-      CheckboxSize.large => '18px',
+      ComponentSize.sm => '12px',
+      ComponentSize.md => '14px',
+      ComponentSize.lg => '18px',
     };
 
-    // Codex Neon variant colors with intense glows
-    final (String checkedBg, String borderColor, String glowColor, String checkColor) = switch (props.variant) {
-      CheckboxVariant.primary => (
+    // Codex Neon color variant with intense glows
+    final (String checkedBg, String borderColor, String glowColor, String checkColor) = switch (props.color) {
+      ColorVariant.primary => (
         'linear-gradient(135deg, var(--primary) 0%, color-mix(in srgb, var(--primary) 70%, #ff00ff) 100%)',
         'var(--primary)',
         '0 0 20px rgba(var(--primary-rgb), 0.4), 0 0 40px rgba(var(--primary-rgb), 0.15)',
         '#ffffff',
       ),
-      CheckboxVariant.success => (
+      ColorVariant.secondary => (
+        'linear-gradient(135deg, var(--secondary) 0%, color-mix(in srgb, var(--secondary) 70%, var(--primary)) 100%)',
+        'var(--secondary)',
+        '0 0 15px rgba(var(--secondary-rgb), 0.3)',
+        'var(--secondary-foreground)',
+      ),
+      ColorVariant.destructive => (
+        'linear-gradient(135deg, var(--destructive) 0%, color-mix(in srgb, var(--destructive) 70%, #ff0066) 100%)',
+        'var(--destructive)',
+        '0 0 20px rgba(var(--destructive-rgb), 0.4), 0 0 40px rgba(var(--destructive-rgb), 0.15)',
+        '#ffffff',
+      ),
+      ColorVariant.success => (
         'linear-gradient(135deg, var(--success) 0%, color-mix(in srgb, var(--success) 70%, #00ffaa) 100%)',
         'var(--success)',
         '0 0 20px rgba(var(--success-rgb), 0.4), 0 0 40px rgba(var(--success-rgb), 0.15)',
         '#ffffff',
       ),
-      CheckboxVariant.warning => (
+      ColorVariant.warning => (
         'linear-gradient(135deg, var(--warning) 0%, color-mix(in srgb, var(--warning) 70%, #ffaa00) 100%)',
         'var(--warning)',
         '0 0 20px rgba(var(--warning-rgb), 0.4), 0 0 40px rgba(var(--warning-rgb), 0.15)',
         '#000000',
       ),
-      CheckboxVariant.error => (
-        'linear-gradient(135deg, var(--destructive) 0%, color-mix(in srgb, var(--destructive) 70%, #ff0066) 100%)',
-        'var(--destructive)',
-        '0 0 20px rgba(var(--destructive-rgb), 0.4), 0 0 40px rgba(var(--destructive-rgb), 0.15)',
+      ColorVariant.info => (
+        'linear-gradient(135deg, var(--info) 0%, color-mix(in srgb, var(--info) 70%, #00aaff) 100%)',
+        'var(--info)',
+        '0 0 20px rgba(var(--info-rgb), 0.4), 0 0 40px rgba(var(--info-rgb), 0.15)',
         '#ffffff',
       ),
     };

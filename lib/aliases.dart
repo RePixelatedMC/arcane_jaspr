@@ -203,7 +203,6 @@ typedef AStatDisplay = ArcaneStatDisplay;
 typedef AStatDisplayLayout = StatDisplayLayout;
 typedef AStatRow = ArcaneStatRow;
 typedef AAuthorCard = ArcaneAuthorCard;
-typedef AAuthorCardSize = AuthorCardSize;
 typedef ACodeWindow = ArcaneCodeWindow;
 typedef ACodeWindowStyle = CodeWindowStyle;
 typedef ACheckList = ArcaneCheckList;
@@ -221,7 +220,6 @@ typedef ADialog = ArcaneDialog;
 
 typedef ALoader = ArcaneLoader;
 typedef AStatusBadge = ArcaneStatusBadge;
-typedef AStatusBadgeSize = StatusBadgeSize;
 
 typedef AField = ArcaneField;
 typedef AFieldDirectProvider = ArcaneFieldDirectProvider;

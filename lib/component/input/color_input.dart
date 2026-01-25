@@ -2,13 +2,13 @@ import 'package:jaspr/jaspr.dart';
 
 import '../../core/theme_provider.dart';
 
-export '../../core/props/color_input_props.dart' show ColorInputSize, ColorInputProps;
+export '../../core/props/color_input_props.dart' show ComponentSize, ColorInputProps;
 
 /// Color picker/input component with swatch preview and hex input.
 class ArcaneColorInput extends StatelessComponent {
   final String value;
   final void Function(String color)? onChanged;
-  final ColorInputSize size;
+  final ComponentSize size;
   final bool disabled;
   final String? label;
   final List<String>? presets;
@@ -19,7 +19,7 @@ class ArcaneColorInput extends StatelessComponent {
   const ArcaneColorInput({
     required this.value,
     this.onChanged,
-    this.size = ColorInputSize.md,
+    this.size = ComponentSize.md,
     this.disabled = false,
     this.label,
     this.presets,

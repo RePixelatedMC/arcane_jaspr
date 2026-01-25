@@ -1,11 +1,18 @@
 import 'package:jaspr/jaspr.dart';
 
+/// Avatar size with extended range for flexibility.
 enum AvatarSize {
   xs,
   sm,
   md,
   lg,
-  xl,
+  xl;
+
+  static const AvatarSize extraSmall = xs;
+  static const AvatarSize small = sm;
+  static const AvatarSize medium = md;
+  static const AvatarSize large = lg;
+  static const AvatarSize extraLarge = xl;
 }
 
 enum AvatarShape {

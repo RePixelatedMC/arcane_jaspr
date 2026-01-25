@@ -9,7 +9,7 @@ class ArcaneDotIndicator extends StatelessComponent {
   final int index;
   final int length;
   final void Function(int)? onChanged;
-  final DotIndicatorSize size;
+  final ComponentSize size;
   final String? activeColor;
   final String? inactiveColor;
   final String? spacing;
@@ -19,7 +19,7 @@ class ArcaneDotIndicator extends StatelessComponent {
     required this.index,
     required this.length,
     this.onChanged,
-    this.size = DotIndicatorSize.md,
+    this.size = ComponentSize.md,
     this.activeColor,
     this.inactiveColor,
     this.spacing,
@@ -48,14 +48,14 @@ class ArcaneStepIndicator extends StatelessComponent {
   final List<String> steps;
   final void Function(int)? onStepTap;
   final bool allowStepNavigation;
-  final StepIndicatorSize size;
+  final ComponentSize size;
 
   const ArcaneStepIndicator({
     required this.currentStep,
     required this.steps,
     this.onStepTap,
     this.allowStepNavigation = true,
-    this.size = StepIndicatorSize.md,
+    this.size = ComponentSize.md,
     super.key,
   });
 

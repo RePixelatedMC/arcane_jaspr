@@ -2,7 +2,7 @@ import 'package:jaspr/jaspr.dart';
 
 import '../../core/theme_provider.dart';
 
-export '../../core/props/search_props.dart' show SearchSize, SearchStyle, SearchResult;
+export '../../core/props/search_props.dart' show ComponentSize, SearchStyle, SearchResult;
 
 /// A search input component with optional icon, clear button, and results dropdown.
 class ArcaneSearch extends StatelessComponent {
@@ -16,7 +16,7 @@ class ArcaneSearch extends StatelessComponent {
   final Component? icon;
   final bool autofocus;
   final bool disabled;
-  final SearchSize size;
+  final ComponentSize size;
   final SearchStyle style;
   final String? id;
   final Map<String, String>? attributes;
@@ -37,7 +37,7 @@ class ArcaneSearch extends StatelessComponent {
     this.icon,
     this.autofocus = false,
     this.disabled = false,
-    this.size = SearchSize.md,
+    this.size = ComponentSize.md,
     this.style = SearchStyle.standard,
     this.id,
     this.attributes,
@@ -60,7 +60,7 @@ class ArcaneSearch extends StatelessComponent {
     this.icon,
     this.autofocus = false,
     this.disabled = false,
-    this.size = SearchSize.md,
+    this.size = ComponentSize.md,
     this.style = SearchStyle.standard,
     this.id,
     this.attributes,

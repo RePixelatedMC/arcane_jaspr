@@ -102,27 +102,50 @@ class ShadcnMenubar extends StatelessComponent {
   }
 
   Component _buildMenuItem(ArcaneMenuItem item) {
-    if (item.isSeparator) {
-      // ShadCN MenubarSeparator
-      return const dom.div(
-        classes: 'arcane-menubar-separator',
-        styles: dom.Styles(raw: {
-          'height': '1px',
-          'margin': '4px -4px',
-          'background-color': 'var(--muted)',
-        }),
-        [],
-      );
-    }
+    return switch (item) {
+      MenuItemSeparator() => _buildSeparator(),
+      MenuItemLabel(:final label) => _buildLabel(label),
+      MenuItemAction() => _buildAction(item),
+      MenuItemCheckbox() => _buildCheckbox(item),
+      MenuItemRadio() => _buildRadio(item),
+      MenuItemSubmenu() => _buildSubmenu(item),
+    };
+  }
 
+  Component _buildSeparator() {
+    // ShadCN MenubarSeparator
+    return const dom.div(
+      classes: 'arcane-menubar-separator',
+      styles: dom.Styles(raw: {
+        'height': '1px',
+        'margin': '4px -4px',
+        'background-color': 'var(--muted)',
+      }),
+      [],
+    );
+  }
+
+  Component _buildLabel(String label) {
+    return dom.div(
+      classes: 'arcane-menubar-label',
+      styles: const dom.Styles(raw: {
+        'padding': '6px 8px',
+        'font-size': 'var(--font-size-xs)',
+        'font-weight': 'var(--font-weight-semibold)',
+        'color': 'var(--muted-foreground)',
+        'user-select': 'none',
+      }),
+      [Component.text(label)],
+    );
+  }
+
+  Component _buildAction(MenuItemAction item) {
     // ShadCN MenubarItem
     return dom.div(
-      classes:
-          'arcane-menubar-item ${item.disabled ? 'disabled' : ''} ${item.isCheckbox ? 'checkbox' : ''}',
+      classes: 'arcane-menubar-item ${item.disabled ? 'disabled' : ''}',
       attributes: {
-        'role': item.isCheckbox ? 'menuitemcheckbox' : 'menuitem',
+        'role': 'menuitem',
         if (item.disabled) 'aria-disabled': 'true',
-        if (item.isCheckbox) 'aria-checked': '${item.checked}',
       },
       styles: dom.Styles(raw: {
         'position': 'relative',
@@ -133,7 +156,6 @@ class ShadcnMenubar extends StatelessComponent {
         'gap': 'var(--space-2)',
         'border-radius': 'var(--arcane-radius-xs)',
         'padding': '6px 8px',
-        'padding-left': item.isCheckbox ? '32px' : '8px',
         'font-size': 'var(--font-size-sm)',
         'outline': 'none',
         'transition': 'background-color var(--arcane-transition), color var(--arcane-transition)',
@@ -144,25 +166,11 @@ class ShadcnMenubar extends StatelessComponent {
           ? {'click': (_) => item.onSelect!()}
           : null,
       [
-        // Checkbox indicator
-        if (item.isCheckbox && item.checked)
-          const dom.span(
-            styles: dom.Styles(raw: {
-              'position': 'absolute',
-              'left': '8px',
-              'color': 'var(--foreground)',
-              'font-size': 'var(--font-size-xs)',
-            }),
-            [Component.text('\u{2713}')], // Checkmark
-          ),
-
         if (item.icon != null) item.icon!,
-
         dom.span(
           styles: const dom.Styles(raw: {'flex': '1'}),
           [Component.text(item.label)],
         ),
-
         if (item.shortcut != null)
           // ShadCN MenubarShortcut
           dom.span(
@@ -174,6 +182,169 @@ class ShadcnMenubar extends StatelessComponent {
             }),
             [Component.text(item.shortcut!)],
           ),
+      ],
+    );
+  }
+
+  Component _buildCheckbox(MenuItemCheckbox item) {
+    return dom.div(
+      classes: 'arcane-menubar-item checkbox ${item.disabled ? 'disabled' : ''}',
+      attributes: {
+        'role': 'menuitemcheckbox',
+        'aria-checked': '${item.checked}',
+        if (item.disabled) 'aria-disabled': 'true',
+      },
+      styles: dom.Styles(raw: {
+        'position': 'relative',
+        'display': 'flex',
+        'cursor': item.disabled ? 'not-allowed' : 'pointer',
+        'user-select': 'none',
+        'align-items': 'center',
+        'gap': 'var(--space-2)',
+        'border-radius': 'var(--arcane-radius-xs)',
+        'padding': '6px 8px',
+        'padding-left': '32px',
+        'font-size': 'var(--font-size-sm)',
+        'outline': 'none',
+        'transition': 'background-color var(--arcane-transition), color var(--arcane-transition)',
+        if (item.disabled) 'pointer-events': 'none',
+        if (item.disabled) 'opacity': '0.5',
+      }),
+      events: item.onChanged != null && !item.disabled
+          ? {'click': (_) => item.onChanged!(!item.checked)}
+          : null,
+      [
+        // Checkbox indicator
+        if (item.checked)
+          const dom.span(
+            styles: dom.Styles(raw: {
+              'position': 'absolute',
+              'left': '8px',
+              'color': 'var(--foreground)',
+              'font-size': 'var(--font-size-xs)',
+            }),
+            [Component.text('\u{2713}')], // Checkmark
+          ),
+        if (item.icon != null) item.icon!,
+        dom.span(
+          styles: const dom.Styles(raw: {'flex': '1'}),
+          [Component.text(item.label)],
+        ),
+        if (item.shortcut != null)
+          dom.span(
+            styles: const dom.Styles(raw: {
+              'margin-left': 'auto',
+              'font-size': 'var(--font-size-xs)',
+              'letter-spacing': '0.1em',
+              'color': 'var(--muted-foreground)',
+            }),
+            [Component.text(item.shortcut!)],
+          ),
+      ],
+    );
+  }
+
+  Component _buildRadio(MenuItemRadio item) {
+    return dom.div(
+      classes: 'arcane-menubar-item radio ${item.disabled ? 'disabled' : ''}',
+      attributes: {
+        'role': 'menuitemradio',
+        'aria-checked': '${item.selected}',
+        if (item.disabled) 'aria-disabled': 'true',
+      },
+      styles: dom.Styles(raw: {
+        'position': 'relative',
+        'display': 'flex',
+        'cursor': item.disabled ? 'not-allowed' : 'pointer',
+        'user-select': 'none',
+        'align-items': 'center',
+        'gap': 'var(--space-2)',
+        'border-radius': 'var(--arcane-radius-xs)',
+        'padding': '6px 8px',
+        'padding-left': '32px',
+        'font-size': 'var(--font-size-sm)',
+        'outline': 'none',
+        'transition': 'background-color var(--arcane-transition), color var(--arcane-transition)',
+        if (item.disabled) 'pointer-events': 'none',
+        if (item.disabled) 'opacity': '0.5',
+      }),
+      events: item.onChanged != null && !item.disabled
+          ? {'click': (_) => item.onChanged!(item.value)}
+          : null,
+      [
+        // Radio indicator
+        if (item.selected)
+          const dom.span(
+            styles: dom.Styles(raw: {
+              'position': 'absolute',
+              'left': '8px',
+              'color': 'var(--foreground)',
+              'font-size': 'var(--font-size-xs)',
+            }),
+            [Component.text('\u{2022}')], // Bullet
+          ),
+        if (item.icon != null) item.icon!,
+        dom.span(
+          styles: const dom.Styles(raw: {'flex': '1'}),
+          [Component.text(item.label)],
+        ),
+      ],
+    );
+  }
+
+  Component _buildSubmenu(MenuItemSubmenu item) {
+    return dom.div(
+      classes: 'arcane-menubar-item submenu-trigger ${item.disabled ? 'disabled' : ''}',
+      attributes: {
+        'role': 'menuitem',
+        'aria-haspopup': 'true',
+        if (item.disabled) 'aria-disabled': 'true',
+      },
+      styles: dom.Styles(raw: {
+        'position': 'relative',
+        'display': 'flex',
+        'cursor': item.disabled ? 'not-allowed' : 'default',
+        'user-select': 'none',
+        'align-items': 'center',
+        'gap': 'var(--space-2)',
+        'border-radius': 'var(--arcane-radius-xs)',
+        'padding': '6px 8px',
+        'font-size': 'var(--font-size-sm)',
+        'outline': 'none',
+        'transition': 'background-color var(--arcane-transition), color var(--arcane-transition)',
+        if (item.disabled) 'pointer-events': 'none',
+        if (item.disabled) 'opacity': '0.5',
+      }),
+      [
+        if (item.icon != null) item.icon!,
+        dom.span(
+          styles: const dom.Styles(raw: {'flex': '1'}),
+          [Component.text(item.label)],
+        ),
+        const dom.span(
+          styles: dom.Styles(raw: {
+            'color': 'var(--muted-foreground)',
+            'font-size': 'var(--font-size-xs)',
+          }),
+          [Component.text('\u{203A}')], // Right arrow
+        ),
+        // Submenu
+        dom.div(
+          classes: 'arcane-menubar-submenu',
+          styles: const dom.Styles(raw: {
+            'display': 'none',
+            'position': 'absolute',
+            'left': '100%',
+            'top': '0',
+            'min-width': '128px',
+            'padding': '4px',
+            'background-color': 'var(--popover)',
+            'border': '1px solid var(--border)',
+            'border-radius': 'var(--arcane-radius-sm)',
+            'box-shadow': '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
+          }),
+          [for (final child in item.children) _buildMenuItem(child)],
+        ),
       ],
     );
   }

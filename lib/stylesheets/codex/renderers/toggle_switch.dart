@@ -20,39 +20,51 @@ class CodexToggleSwitch extends StatelessComponent {
     // Codex Neon size-specific dimensions - larger with more presence
     final (double width, double height, double thumbSize, double thumbOffset) =
         switch (props.size) {
-      ToggleSwitchSize.small => (48.0, 26.0, 22.0, 2.0),
-      ToggleSwitchSize.medium => (56.0, 30.0, 26.0, 2.0),
-      ToggleSwitchSize.large => (68.0, 36.0, 32.0, 2.0),
+      ComponentSize.sm => (48.0, 26.0, 22.0, 2.0),
+      ComponentSize.md => (56.0, 30.0, 26.0, 2.0),
+      ComponentSize.lg => (68.0, 36.0, 32.0, 2.0),
     };
 
     final double thumbTranslate =
         props.value ? (width - thumbSize - thumbOffset * 2) : 0.0;
 
-    // Codex Neon variant colors with intense glows
-    final (String activeGradient, String inactiveGradient, String glowColor, String thumbGlow) = switch (props.variant) {
-      ToggleSwitchVariant.primary => (
+    // Codex Neon color variant with intense glows
+    final (String activeGradient, String inactiveGradient, String glowColor, String thumbGlow) = switch (props.color) {
+      ColorVariant.primary => (
         'linear-gradient(135deg, var(--primary) 0%, color-mix(in srgb, var(--primary) 70%, #ff00ff) 100%)',
         'linear-gradient(135deg, rgba(var(--muted-rgb), 0.8) 0%, rgba(var(--muted-rgb), 0.6) 100%)',
         '0 0 25px rgba(var(--primary-rgb), 0.4), 0 0 50px rgba(var(--primary-rgb), 0.15)',
         '0 0 15px rgba(var(--primary-rgb), 0.5)',
       ),
-      ToggleSwitchVariant.success => (
+      ColorVariant.secondary => (
+        'linear-gradient(135deg, var(--secondary) 0%, color-mix(in srgb, var(--secondary) 70%, var(--primary)) 100%)',
+        'linear-gradient(135deg, rgba(var(--muted-rgb), 0.8) 0%, rgba(var(--muted-rgb), 0.6) 100%)',
+        '0 0 20px rgba(var(--secondary-rgb), 0.3)',
+        '0 0 10px rgba(var(--secondary-rgb), 0.4)',
+      ),
+      ColorVariant.destructive => (
+        'linear-gradient(135deg, var(--destructive) 0%, color-mix(in srgb, var(--destructive) 70%, #ff0066) 100%)',
+        'linear-gradient(135deg, rgba(var(--muted-rgb), 0.8) 0%, rgba(var(--muted-rgb), 0.6) 100%)',
+        '0 0 25px rgba(var(--destructive-rgb), 0.4), 0 0 50px rgba(var(--destructive-rgb), 0.15)',
+        '0 0 15px rgba(var(--destructive-rgb), 0.5)',
+      ),
+      ColorVariant.success => (
         'linear-gradient(135deg, var(--success) 0%, color-mix(in srgb, var(--success) 70%, #00ffaa) 100%)',
         'linear-gradient(135deg, rgba(var(--muted-rgb), 0.8) 0%, rgba(var(--muted-rgb), 0.6) 100%)',
         '0 0 25px rgba(var(--success-rgb), 0.4), 0 0 50px rgba(var(--success-rgb), 0.15)',
         '0 0 15px rgba(var(--success-rgb), 0.5)',
       ),
-      ToggleSwitchVariant.warning => (
+      ColorVariant.warning => (
         'linear-gradient(135deg, var(--warning) 0%, color-mix(in srgb, var(--warning) 70%, #ffaa00) 100%)',
         'linear-gradient(135deg, rgba(var(--muted-rgb), 0.8) 0%, rgba(var(--muted-rgb), 0.6) 100%)',
         '0 0 25px rgba(var(--warning-rgb), 0.4), 0 0 50px rgba(var(--warning-rgb), 0.15)',
         '0 0 15px rgba(var(--warning-rgb), 0.5)',
       ),
-      ToggleSwitchVariant.error => (
-        'linear-gradient(135deg, var(--destructive) 0%, color-mix(in srgb, var(--destructive) 70%, #ff0066) 100%)',
+      ColorVariant.info => (
+        'linear-gradient(135deg, var(--info) 0%, color-mix(in srgb, var(--info) 70%, #00aaff) 100%)',
         'linear-gradient(135deg, rgba(var(--muted-rgb), 0.8) 0%, rgba(var(--muted-rgb), 0.6) 100%)',
-        '0 0 25px rgba(var(--destructive-rgb), 0.4), 0 0 50px rgba(var(--destructive-rgb), 0.15)',
-        '0 0 15px rgba(var(--destructive-rgb), 0.5)',
+        '0 0 25px rgba(var(--info-rgb), 0.4), 0 0 50px rgba(var(--info-rgb), 0.15)',
+        '0 0 15px rgba(var(--info-rgb), 0.5)',
       ),
     };
 

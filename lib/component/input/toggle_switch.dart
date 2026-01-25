@@ -2,7 +2,7 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
 export '../../core/props/toggle_switch_props.dart'
-    show ToggleSwitchSize, ToggleSwitchVariant;
+    show ComponentSize, ColorVariant;
 
 import '../../core/theme_provider.dart';
 
@@ -11,8 +11,8 @@ class ArcaneToggleSwitch extends StatelessComponent {
   final bool value;
   final void Function(bool)? onChanged;
   final bool disabled;
-  final ToggleSwitchSize size;
-  final ToggleSwitchVariant variant;
+  final ComponentSize size;
+  final ColorVariant color;
   final String? label;
   final bool labelLeft;
 
@@ -21,8 +21,8 @@ class ArcaneToggleSwitch extends StatelessComponent {
     void Function(bool)? onChanged,
     void Function(bool)? onToggle,
     this.disabled = false,
-    this.size = ToggleSwitchSize.medium,
-    this.variant = ToggleSwitchVariant.primary,
+    this.size = ComponentSize.md,
+    this.color = ColorVariant.primary,
     this.label,
     this.labelLeft = false,
     super.key,
@@ -33,48 +33,48 @@ class ArcaneToggleSwitch extends StatelessComponent {
     void Function(bool)? onChanged,
     void Function(bool)? onToggle,
     this.disabled = false,
-    this.size = ToggleSwitchSize.medium,
+    this.size = ComponentSize.md,
     this.label,
     this.labelLeft = false,
     super.key,
   })  : onChanged = onChanged ?? onToggle,
-        variant = ToggleSwitchVariant.primary;
+        color = ColorVariant.primary;
 
   const ArcaneToggleSwitch.success({
     required this.value,
     void Function(bool)? onChanged,
     void Function(bool)? onToggle,
     this.disabled = false,
-    this.size = ToggleSwitchSize.medium,
+    this.size = ComponentSize.md,
     this.label,
     this.labelLeft = false,
     super.key,
   })  : onChanged = onChanged ?? onToggle,
-        variant = ToggleSwitchVariant.success;
+        color = ColorVariant.success;
 
   const ArcaneToggleSwitch.warning({
     required this.value,
     void Function(bool)? onChanged,
     void Function(bool)? onToggle,
     this.disabled = false,
-    this.size = ToggleSwitchSize.medium,
+    this.size = ComponentSize.md,
     this.label,
     this.labelLeft = false,
     super.key,
   })  : onChanged = onChanged ?? onToggle,
-        variant = ToggleSwitchVariant.warning;
+        color = ColorVariant.warning;
 
-  const ArcaneToggleSwitch.error({
+  const ArcaneToggleSwitch.destructive({
     required this.value,
     void Function(bool)? onChanged,
     void Function(bool)? onToggle,
     this.disabled = false,
-    this.size = ToggleSwitchSize.medium,
+    this.size = ComponentSize.md,
     this.label,
     this.labelLeft = false,
     super.key,
   })  : onChanged = onChanged ?? onToggle,
-        variant = ToggleSwitchVariant.error;
+        color = ColorVariant.destructive;
 
   @override
   Component build(BuildContext context) {
@@ -83,7 +83,7 @@ class ArcaneToggleSwitch extends StatelessComponent {
       onChanged: onChanged,
       disabled: disabled,
       size: size,
-      variant: variant,
+      color: color,
       label: label,
       labelLeft: labelLeft,
     ));
@@ -95,22 +95,22 @@ class ArcaneToggleButtonGroup extends StatelessComponent {
   final List<String> options;
   final int selectedIndex;
   final void Function(int)? onChanged;
-  final ToggleSwitchSize size;
+  final ComponentSize size;
 
   const ArcaneToggleButtonGroup({
     required this.options,
     required this.selectedIndex,
     this.onChanged,
-    this.size = ToggleSwitchSize.medium,
+    this.size = ComponentSize.md,
     super.key,
   });
 
   @override
   Component build(BuildContext context) {
     final (height, paddingH, paddingV, fontSize) = switch (size) {
-      ToggleSwitchSize.small => ('36px', '10px', '6px', '14px'),
-      ToggleSwitchSize.medium => ('40px', '12px', '6px', '14px'),
-      ToggleSwitchSize.large => ('44px', '20px', '8px', '14px'),
+      ComponentSize.sm => ('36px', '10px', '6px', '14px'),
+      ComponentSize.md => ('40px', '12px', '6px', '14px'),
+      ComponentSize.lg => ('44px', '20px', '8px', '14px'),
     };
 
     return dom.div(

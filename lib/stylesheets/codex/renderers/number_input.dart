@@ -19,9 +19,9 @@ class CodexNumberInput extends StatelessComponent {
   Component build(BuildContext context) {
     // Codex Neon sizes - larger with more presence
     final (height, fontSize, buttonWidth) = switch (props.size) {
-      NumberInputSize.sm => ('44px', '0.875rem', '44px'),
-      NumberInputSize.md => ('52px', '1rem', '52px'),
-      NumberInputSize.lg => ('60px', '1.125rem', '60px'),
+      ComponentSize.sm => ('44px', '0.875rem', '44px'),
+      ComponentSize.md => ('52px', '1rem', '52px'),
+      ComponentSize.lg => ('60px', '1.125rem', '60px'),
     };
 
     final bool canDecrement = props.value > props.min;

@@ -13,13 +13,23 @@ enum ButtonVariant {
   accent,
 }
 
+/// Button size enum with icon variants.
+/// Supports both abbreviated (sm/md/lg) and spelled-out (small/medium/large) styles.
 enum ButtonSize {
-  small,
-  medium,
-  large,
-  icon,
-  iconSmall,
-  iconLarge,
+  sm,
+  md,
+  lg,
+  iconSm,
+  iconMd,
+  iconLg;
+
+  static const ButtonSize small = sm;
+  static const ButtonSize medium = md;
+  static const ButtonSize large = lg;
+  static const ButtonSize icon = iconMd;
+  static const ButtonSize iconSmall = iconSm;
+  static const ButtonSize iconMedium = iconMd;
+  static const ButtonSize iconLarge = iconLg;
 }
 
 /// Button component properties.
@@ -52,7 +62,7 @@ class ButtonProps {
     this.trailing,
     this.onPressed,
     this.variant = ButtonVariant.primary,
-    this.size = ButtonSize.medium,
+    this.size = ButtonSize.md,
     this.disabled = false,
     this.loading = false,
     this.fullWidth = false,

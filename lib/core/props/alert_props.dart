@@ -1,13 +1,10 @@
 import 'package:jaspr/jaspr.dart';
+import '../shared/shared.dart';
 
-enum AlertSeverity {
-  info,
-  success,
-  warning,
-  error,
-}
+export '../shared/shared.dart' show ColorVariant;
 
-enum AlertVariant {
+/// Alert visual style variant.
+enum AlertStyle {
   subtle,
   solid,
   outline,
@@ -16,11 +13,11 @@ enum AlertVariant {
 
 /// Alert component properties.
 class AlertProps {
-  final AlertSeverity severity;
+  final ColorVariant color;
   final String? title;
   final String? message;
   final Component? child;
-  final AlertVariant variant;
+  final AlertStyle style;
   final Component? icon;
   final bool showIcon;
   final bool dismissible;
@@ -28,11 +25,11 @@ class AlertProps {
   final Component? action;
 
   const AlertProps({
-    required this.severity,
+    required this.color,
     this.title,
     this.message,
     this.child,
-    this.variant = AlertVariant.subtle,
+    this.style = AlertStyle.subtle,
     this.icon,
     this.showIcon = true,
     this.dismissible = false,
@@ -41,11 +38,11 @@ class AlertProps {
   });
 
   AlertProps copyWith({
-    AlertSeverity? severity,
+    ColorVariant? color,
     String? title,
     String? message,
     Component? child,
-    AlertVariant? variant,
+    AlertStyle? style,
     Component? icon,
     bool? showIcon,
     bool? dismissible,
@@ -53,11 +50,11 @@ class AlertProps {
     Component? action,
   }) {
     return AlertProps(
-      severity: severity ?? this.severity,
+      color: color ?? this.color,
       title: title ?? this.title,
       message: message ?? this.message,
       child: child ?? this.child,
-      variant: variant ?? this.variant,
+      style: style ?? this.style,
       icon: icon ?? this.icon,
       showIcon: showIcon ?? this.showIcon,
       dismissible: dismissible ?? this.dismissible,

@@ -1,25 +1,15 @@
 import 'package:arcane_jaspr/aliases.dart';
 
 export '../../core/props/icon_button_props.dart'
-    show IconButtonSize, IconButtonVariant;
-
-/// Style presets for icon buttons.
-enum IconButtonStyle {
-  primary,
-  secondary,
-  outline,
-  ghost,
-  destructive,
-  success,
-  warning,
-}
+    show ComponentSize, ColorVariant, StyleVariant;
 
 /// An icon-only button component.
 class ArcaneIconButton extends StatelessComponent {
   final Component icon;
   final void Function()? onPressed;
-  final IconButtonStyle style;
-  final IconButtonSize size;
+  final ColorVariant color;
+  final StyleVariant style;
+  final ComponentSize size;
   final bool disabled;
   final bool loading;
   final String? tooltip;
@@ -27,8 +17,9 @@ class ArcaneIconButton extends StatelessComponent {
   const ArcaneIconButton({
     required this.icon,
     this.onPressed,
-    this.style = IconButtonStyle.ghost,
-    this.size = IconButtonSize.medium,
+    this.color = ColorVariant.secondary,
+    this.style = StyleVariant.ghost,
+    this.size = ComponentSize.md,
     this.disabled = false,
     this.loading = false,
     this.tooltip,
@@ -38,61 +29,54 @@ class ArcaneIconButton extends StatelessComponent {
   const ArcaneIconButton.primary({
     required this.icon,
     this.onPressed,
-    this.size = IconButtonSize.medium,
+    this.size = ComponentSize.md,
     this.disabled = false,
     this.loading = false,
     this.tooltip,
     super.key,
-  }) : style = IconButtonStyle.primary;
+  })  : color = ColorVariant.primary,
+        style = StyleVariant.solid;
 
   const ArcaneIconButton.ghost({
     required this.icon,
     this.onPressed,
-    this.size = IconButtonSize.medium,
+    this.size = ComponentSize.md,
     this.disabled = false,
     this.loading = false,
     this.tooltip,
     super.key,
-  }) : style = IconButtonStyle.ghost;
+  })  : color = ColorVariant.secondary,
+        style = StyleVariant.ghost;
 
   const ArcaneIconButton.outline({
     required this.icon,
     this.onPressed,
-    this.size = IconButtonSize.medium,
+    this.size = ComponentSize.md,
     this.disabled = false,
     this.loading = false,
     this.tooltip,
     super.key,
-  }) : style = IconButtonStyle.outline;
+  })  : color = ColorVariant.secondary,
+        style = StyleVariant.outline;
 
   const ArcaneIconButton.destructive({
     required this.icon,
     this.onPressed,
-    this.size = IconButtonSize.medium,
+    this.size = ComponentSize.md,
     this.disabled = false,
     this.loading = false,
     this.tooltip,
     super.key,
-  }) : style = IconButtonStyle.destructive;
-
-  IconButtonVariant _styleToVariant(IconButtonStyle s) {
-    return switch (s) {
-      IconButtonStyle.primary => IconButtonVariant.primary,
-      IconButtonStyle.secondary => IconButtonVariant.secondary,
-      IconButtonStyle.outline => IconButtonVariant.outline,
-      IconButtonStyle.ghost => IconButtonVariant.ghost,
-      IconButtonStyle.destructive => IconButtonVariant.destructive,
-      IconButtonStyle.success => IconButtonVariant.success,
-      IconButtonStyle.warning => IconButtonVariant.warning,
-    };
-  }
+  })  : color = ColorVariant.destructive,
+        style = StyleVariant.solid;
 
   @override
   Component build(BuildContext context) {
     return context.renderers.iconButton(IconButtonProps(
       icon: icon,
       onPressed: onPressed,
-      variant: _styleToVariant(style),
+      color: color,
+      style: style,
       size: size,
       disabled: disabled,
       loading: loading,

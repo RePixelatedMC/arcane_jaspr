@@ -1,4 +1,3 @@
-import 'package:jaspr/jaspr.dart';
 
 import 'props/accordion_props.dart';
 import 'props/alert_banner_props.dart';
@@ -70,7 +69,7 @@ import 'props/marquee_props.dart';
 import 'props/menubar_props.dart';
 import 'props/meter_props.dart';
 import 'props/mobile_menu_props.dart';
-import 'props/newsletter_form_props.dart';
+import 'props/simple_form_props.dart';
 import 'props/number_input_props.dart';
 import 'props/otp_input_props.dart';
 import 'props/pagination_props.dart';
@@ -98,7 +97,6 @@ import 'props/social_icons_props.dart';
 import 'props/stat_card_props.dart';
 import 'props/stat_display_props.dart';
 import 'props/static_table_props.dart';
-import 'props/status_badge_props.dart';
 import 'props/status_indicator_props.dart';
 import 'props/stepper_props.dart';
 import 'props/surface_card_props.dart';
@@ -116,6 +114,8 @@ import 'props/toggle_group_props.dart';
 import 'props/toggle_switch_props.dart';
 import 'props/tracker_props.dart';
 import 'props/tree_view_props.dart';
+
+export 'shared/shared.dart';
 
 export 'props/accordion_props.dart';
 export 'props/alert_banner_props.dart';
@@ -187,7 +187,7 @@ export 'props/marquee_props.dart';
 export 'props/menubar_props.dart';
 export 'props/meter_props.dart';
 export 'props/mobile_menu_props.dart';
-export 'props/newsletter_form_props.dart';
+export 'props/simple_form_props.dart';
 export 'props/number_input_props.dart';
 export 'props/otp_input_props.dart';
 export 'props/pagination_props.dart';
@@ -310,7 +310,7 @@ abstract class ComponentRenderers
         MenubarRendererContract,
         MeterRendererContract,
         MobileMenuRendererContract,
-        NewsletterFormRendererContract,
+        SimpleFormRendererContract,
         NumberInputRendererContract,
         OtpInputRendererContract,
         PaginationRendererContract,
@@ -338,7 +338,6 @@ abstract class ComponentRenderers
         StatCardRendererContract,
         StatDisplayRendererContract,
         StaticTableRendererContract,
-        StatusBadgeRendererContract,
         StatusIndicatorRendererContract,
         StepperRendererContract,
         SurfaceCardRendererContract,

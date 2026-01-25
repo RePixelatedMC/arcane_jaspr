@@ -4,11 +4,11 @@ import '../../core/theme_provider.dart';
 
 /// Inline alert component for important messages that need user attention.
 class ArcaneAlert extends StatelessComponent {
-  final AlertSeverity severity;
+  final ColorVariant color;
   final String? title;
   final String? message;
   final Component? child;
-  final AlertVariant variant;
+  final AlertStyle style;
   final Component? icon;
   final bool showIcon;
   final bool dismissible;
@@ -16,11 +16,11 @@ class ArcaneAlert extends StatelessComponent {
   final Component? action;
 
   const ArcaneAlert({
-    required this.severity,
+    required this.color,
     this.title,
     this.message,
     this.child,
-    this.variant = AlertVariant.subtle,
+    this.style = AlertStyle.subtle,
     this.icon,
     this.showIcon = true,
     this.dismissible = false,
@@ -33,62 +33,62 @@ class ArcaneAlert extends StatelessComponent {
     this.title,
     this.message,
     this.child,
-    this.variant = AlertVariant.subtle,
+    this.style = AlertStyle.subtle,
     this.icon,
     this.showIcon = true,
     this.dismissible = false,
     this.onDismiss,
     this.action,
     super.key,
-  }) : severity = AlertSeverity.info;
+  }) : color = ColorVariant.info;
 
   const ArcaneAlert.success({
     this.title,
     this.message,
     this.child,
-    this.variant = AlertVariant.subtle,
+    this.style = AlertStyle.subtle,
     this.icon,
     this.showIcon = true,
     this.dismissible = false,
     this.onDismiss,
     this.action,
     super.key,
-  }) : severity = AlertSeverity.success;
+  }) : color = ColorVariant.success;
 
   const ArcaneAlert.warning({
     this.title,
     this.message,
     this.child,
-    this.variant = AlertVariant.subtle,
+    this.style = AlertStyle.subtle,
     this.icon,
     this.showIcon = true,
     this.dismissible = false,
     this.onDismiss,
     this.action,
     super.key,
-  }) : severity = AlertSeverity.warning;
+  }) : color = ColorVariant.warning;
 
   const ArcaneAlert.error({
     this.title,
     this.message,
     this.child,
-    this.variant = AlertVariant.subtle,
+    this.style = AlertStyle.subtle,
     this.icon,
     this.showIcon = true,
     this.dismissible = false,
     this.onDismiss,
     this.action,
     super.key,
-  }) : severity = AlertSeverity.error;
+  }) : color = ColorVariant.destructive;
 
   @override
   Component build(BuildContext context) {
     return context.renderers.alert(AlertProps(
-      severity: severity,
+      color: color,
       title: title,
       message: message,
       child: child,
-      variant: variant,
+      style: style,
       icon: icon,
       showIcon: showIcon,
       dismissible: dismissible,

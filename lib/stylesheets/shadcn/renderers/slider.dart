@@ -23,9 +23,9 @@ class ShadcnSlider extends StatelessComponent {
     // Default track: h-2 (8px), thumb: h-5 w-5 (20px)
     final (String trackHeight, String thumbSize, String hitAreaHeight) =
         switch (props.size) {
-      SliderSize.sm => ('6px', '16px', '24px'),
-      SliderSize.md => ('8px', '20px', '32px'), // ShadCN default h-2 (8px)
-      SliderSize.lg => ('10px', '24px', '40px'),
+      ComponentSize.sm => ('6px', '16px', '24px'),
+      ComponentSize.md => ('8px', '20px', '32px'), // ShadCN default h-2 (8px)
+      ComponentSize.lg => ('10px', '24px', '40px'),
     };
 
     final int thumbSizeNum = int.parse(thumbSize.replaceAll('px', ''));

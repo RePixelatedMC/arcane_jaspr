@@ -20,9 +20,9 @@ class CodexSearch extends StatelessComponent {
     // Codex Neon sizes - larger with more presence
     final (String height, String fontSize, String padding, String iconSize) =
         switch (props.size) {
-      SearchSize.sm => ('40px', '0.8125rem', '0 1rem 0 2.75rem', '18px'),
-      SearchSize.md => ('48px', '0.875rem', '0 1.25rem 0 3.25rem', '20px'),
-      SearchSize.lg => ('56px', '1rem', '0 1.5rem 0 3.75rem', '22px'),
+      ComponentSize.sm => ('40px', '0.8125rem', '0 1rem 0 2.75rem', '18px'),
+      ComponentSize.md => ('48px', '0.875rem', '0 1.25rem 0 3.25rem', '20px'),
+      ComponentSize.lg => ('56px', '1rem', '0 1.5rem 0 3.75rem', '22px'),
     };
 
     // Codex Neon style variants

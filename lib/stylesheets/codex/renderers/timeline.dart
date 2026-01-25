@@ -18,9 +18,9 @@ class CodexTimeline extends StatelessComponent {
   Component build(BuildContext context) {
     // Codex sizes
     final (String dotSize, String fontSize, String gap) = switch (props.size) {
-      TimelineSize.sm => ('10px', '0.8125rem', '1rem'),
-      TimelineSize.md => ('14px', '0.9375rem', '1.5rem'), // Codex: larger
-      TimelineSize.lg => ('18px', '1rem', '2rem'),
+      ComponentSize.sm => ('10px', '0.8125rem', '1rem'),
+      ComponentSize.md => ('14px', '0.9375rem', '1.5rem'), // Codex: larger
+      ComponentSize.lg => ('18px', '1rem', '2rem'),
     };
 
     if (props.layout == TimelineLayout.horizontal) {

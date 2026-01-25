@@ -41,7 +41,7 @@ class ShadcnPricingCard extends StatelessComponent {
               'left': '50%',
               'transform': 'translateX(-50%)',
             }),
-            [ShadcnBadge(BadgeProps(label: 'Most Popular', variant: BadgeVariant.primary))],
+            [ShadcnBadge(BadgeProps(label: 'Most Popular', color: ColorVariant.primary))],
           ),
 
         // Tier name

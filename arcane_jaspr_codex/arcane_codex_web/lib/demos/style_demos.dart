@@ -1168,23 +1168,23 @@ class StyleDemos {
                 gapSize: Gap.lg,
                 children: [
                   ArcaneDiv(
-                    styles: ArcaneStyleData(colorCustom: ArcaneColor.neonPink.css),
+                    styles: ArcaneStyleData(textColorCustom: ArcaneColor.neonPink.css),
                     children: const [ArcaneText('Pink', size: FontSize.lg, weight: FontWeight.bold)],
                   ),
                   ArcaneDiv(
-                    styles: ArcaneStyleData(colorCustom: ArcaneColor.neonCyan.css),
+                    styles: ArcaneStyleData(textColorCustom: ArcaneColor.neonCyan.css),
                     children: const [ArcaneText('Cyan', size: FontSize.lg, weight: FontWeight.bold)],
                   ),
                   ArcaneDiv(
-                    styles: ArcaneStyleData(colorCustom: ArcaneColor.neonPurple.css),
+                    styles: ArcaneStyleData(textColorCustom: ArcaneColor.neonPurple.css),
                     children: const [ArcaneText('Purple', size: FontSize.lg, weight: FontWeight.bold)],
                   ),
                   ArcaneDiv(
-                    styles: ArcaneStyleData(colorCustom: ArcaneColor.neonGreen.css),
+                    styles: ArcaneStyleData(textColorCustom: ArcaneColor.neonGreen.css),
                     children: const [ArcaneText('Green', size: FontSize.lg, weight: FontWeight.bold)],
                   ),
                   ArcaneDiv(
-                    styles: ArcaneStyleData(colorCustom: ArcaneColor.neonBlue.css),
+                    styles: ArcaneStyleData(textColorCustom: ArcaneColor.neonBlue.css),
                     children: const [ArcaneText('Blue', size: FontSize.lg, weight: FontWeight.bold)],
                   ),
                 ],
@@ -1302,7 +1302,7 @@ class StyleDemos {
                             alignItems: AlignItems.center,
                             justifyContent: JustifyContent.center,
                           ),
-                          children: [ArcaneIcon.arrowUp(size: IconSize.sm, color: TextColor.onPrimary)],
+                          children: [ArcaneIcon.arrowUp(size: IconSize.sm)],
                         ),
                         ArcaneText(t.$1, size: FontSize.xs, color: TextColor.muted),
                       ],

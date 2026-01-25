@@ -11,9 +11,9 @@ class ShadcnAuthorCard extends StatelessComponent {
 
   (String avatarSize, String nameFontSize, String roleFontSize, String initialsFontSize) get _sizeStyles =>
       switch (props.size) {
-        AuthorCardSize.sm => ('32px', '0.75rem', '0.75rem', '0.75rem'),
-        AuthorCardSize.md => ('40px', '0.875rem', '0.75rem', '0.875rem'),
-        AuthorCardSize.lg => ('48px', '1rem', '0.875rem', '1rem'),
+        ComponentSize.sm => ('32px', '0.75rem', '0.75rem', '0.75rem'),
+        ComponentSize.md => ('40px', '0.875rem', '0.75rem', '0.875rem'),
+        ComponentSize.lg => ('48px', '1rem', '0.875rem', '1rem'),
       };
 
   @override

@@ -12,9 +12,9 @@ class ShadcnFileUpload extends StatelessComponent {
 
   (String padding, String fontSize, IconSize iconSize) get _sizeStyles =>
       switch (props.size) {
-        FileUploadSize.sm => ('1rem', '0.875rem', IconSize.lg),
-        FileUploadSize.md => ('1.5rem', '1rem', IconSize.xl),
-        FileUploadSize.lg => ('2rem', '1.125rem', IconSize.xl2),
+        ComponentSize.sm => ('1rem', '0.875rem', IconSize.lg),
+        ComponentSize.md => ('1.5rem', '1rem', IconSize.xl),
+        ComponentSize.lg => ('2rem', '1.125rem', IconSize.xl2),
       };
 
   @override

@@ -19,9 +19,9 @@ class CodexFileUpload extends StatelessComponent {
   // Codex Neon sizes - larger with more presence
   (String padding, String fontSize, IconSize iconSize) get _sizeStyles =>
       switch (props.size) {
-        FileUploadSize.sm => ('1.5rem', '0.875rem', IconSize.xl),
-        FileUploadSize.md => ('2rem', '1rem', IconSize.xl2),
-        FileUploadSize.lg => ('3rem', '1.125rem', IconSize.xl2),
+        ComponentSize.sm => ('1.5rem', '0.875rem', IconSize.xl),
+        ComponentSize.md => ('2rem', '1rem', IconSize.xl2),
+        ComponentSize.lg => ('3rem', '1.125rem', IconSize.xl2),
       };
 
   @override

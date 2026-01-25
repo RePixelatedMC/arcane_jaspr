@@ -19,9 +19,9 @@ class CodexColorInput extends StatelessComponent {
   Component build(BuildContext context) {
     // Codex Neon sizes - larger with more presence
     final (swatchSize, fontSize, inputPadding) = switch (props.size) {
-      ColorInputSize.sm => ('40px', '0.875rem', '10px 14px'),
-      ColorInputSize.md => ('48px', '1rem', '12px 16px'),
-      ColorInputSize.lg => ('56px', '1.125rem', '14px 20px'),
+      ComponentSize.sm => ('40px', '0.875rem', '10px 14px'),
+      ComponentSize.md => ('48px', '1rem', '12px 16px'),
+      ComponentSize.lg => ('56px', '1.125rem', '14px 20px'),
     };
 
     final List<String> colorPresets = props.presets ?? ColorInputProps.defaultPresets;

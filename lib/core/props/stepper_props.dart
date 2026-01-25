@@ -1,5 +1,9 @@
 import 'package:jaspr/jaspr.dart';
 
+import '../shared/shared.dart';
+
+export '../shared/shared.dart' show ComponentSize;
+
 enum StepsLayout {
   vertical,
   horizontal,
@@ -9,12 +13,6 @@ enum StepStatus {
   complete,
   current,
   pending,
-}
-
-enum StepsSize {
-  sm,
-  md,
-  lg,
 }
 
 /// Step item data.
@@ -36,7 +34,7 @@ class StepItemData {
 class StepperProps {
   final List<StepItemData> items;
   final StepsLayout layout;
-  final StepsSize size;
+  final ComponentSize size;
   final bool showConnectors;
   final int? currentStep;
   final void Function(int index)? onStepTap;
@@ -44,7 +42,7 @@ class StepperProps {
   const StepperProps({
     required this.items,
     this.layout = StepsLayout.horizontal,
-    this.size = StepsSize.md,
+    this.size = ComponentSize.md,
     this.showConnectors = true,
     this.currentStep,
     this.onStepTap,

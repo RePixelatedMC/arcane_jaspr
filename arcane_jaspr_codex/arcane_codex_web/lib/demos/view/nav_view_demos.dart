@@ -71,7 +71,7 @@ class NavViewDemos {
             ArcaneDotIndicator(
               index: 1,
               length: 4,
-              size: DotIndicatorSize.lg,
+              size: ComponentSize.lg,
               onChanged: (_) {},
             ),
           ],

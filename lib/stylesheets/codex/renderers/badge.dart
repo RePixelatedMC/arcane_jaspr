@@ -31,64 +31,74 @@ class CodexBadge extends StatelessComponent {
 
     // Codex size-specific styles - slightly more padding
     final Map<String, String> sizeStyles = switch (props.size) {
-      BadgeSize.small => {
+      ComponentSize.sm => {
         'padding': '0.25rem 0.625rem', // Codex: more padding
       },
-      BadgeSize.medium => {
+      ComponentSize.md => {
         'padding': '0.25rem 0.75rem', // Codex: more padding
       },
-      BadgeSize.large => {
+      ComponentSize.lg => {
         'padding': '0.375rem 1rem', // Codex: more padding
         'font-size': 'var(--font-size-sm)',
       },
     };
 
-    // Codex variant-specific styles with accent colors and glows
-    final Map<String, String> variantStyles = switch (props.variant) {
-      BadgeVariant.standard => {
-        'background-color': 'var(--primary)',
-        'color': '#ffffff',
+    // Get color-specific values with Codex glows
+    final (String bgColor, String fgColor, String? glowColor) = switch (props.color) {
+      ColorVariant.primary => (
+        'var(--primary)',
+        'var(--primary-foreground)',
+        '0 0 15px rgba(var(--primary-rgb), 0.2)',
+      ),
+      ColorVariant.secondary => (
+        'var(--secondary)',
+        'var(--secondary-foreground)',
+        null,
+      ),
+      ColorVariant.destructive => (
+        'var(--destructive)',
+        'var(--destructive-foreground)',
+        '0 0 10px rgba(var(--destructive-rgb), 0.25)',
+      ),
+      ColorVariant.success => (
+        'var(--success, #22c55e)',
+        'var(--success-foreground, #ffffff)',
+        '0 0 10px rgba(var(--success-rgb), 0.25)',
+      ),
+      ColorVariant.warning => (
+        'var(--warning, #f59e0b)',
+        'var(--warning-foreground, #000000)',
+        null,
+      ),
+      ColorVariant.info => (
+        'var(--info, #3b82f6)',
+        'var(--info-foreground, #ffffff)',
+        '0 0 10px rgba(var(--info-rgb), 0.25)',
+      ),
+    };
+
+    // Codex style-specific styles with glows
+    final Map<String, String> styleStyles = switch (props.style) {
+      StyleVariant.solid => {
+        'background-color': bgColor,
+        'color': fgColor,
         'border': '1px solid transparent',
-        'box-shadow': '0 0 15px rgba(var(--primary-rgb), 0.2)',
+        if (glowColor != null) 'box-shadow': glowColor,
       },
-      BadgeVariant.primary => {
-        'background-color': 'var(--primary)',
-        'color': '#ffffff',
-        'border': '1px solid transparent',
-        'box-shadow': '0 0 15px rgba(var(--primary-rgb), 0.2)',
-      },
-      BadgeVariant.secondary => {
-        'background-color': 'var(--secondary)',
-        'color': 'var(--secondary-foreground)',
-        'border': '1px solid var(--border)',
-      },
-      BadgeVariant.success => {
-        'background-color': 'var(--success)',
-        'color': 'var(--success-foreground)',
-        'border': '1px solid transparent',
-        'box-shadow': '0 0 10px rgba(var(--success-rgb), 0.25)',
-      },
-      BadgeVariant.warning => {
-        'background-color': 'var(--warning)',
-        'color': 'var(--warning-foreground)',
-        'border': '1px solid transparent',
-      },
-      BadgeVariant.error => {
-        'background-color': 'var(--destructive)',
-        'color': 'var(--destructive-foreground)',
-        'border': '1px solid transparent',
-        'box-shadow': '0 0 10px rgba(var(--destructive-rgb), 0.25)',
-      },
-      BadgeVariant.info => {
-        'background-color': 'var(--info)',
-        'color': 'var(--info-foreground)',
-        'border': '1px solid transparent',
-        'box-shadow': '0 0 10px rgba(var(--info-rgb), 0.25)',
-      },
-      BadgeVariant.outline => {
+      StyleVariant.outline => {
         'background-color': 'transparent',
-        'color': 'var(--primary)',
-        'border': '1px solid var(--primary)',
+        'color': bgColor,
+        'border': '1px solid $bgColor',
+      },
+      StyleVariant.ghost => {
+        'background-color': 'color-mix(in srgb, $bgColor 15%, transparent)',
+        'color': bgColor,
+        'border': '1px solid transparent',
+      },
+      StyleVariant.link => {
+        'background-color': 'transparent',
+        'color': bgColor,
+        'border': '1px solid transparent',
       },
     };
 
@@ -96,7 +106,7 @@ class CodexBadge extends StatelessComponent {
     final Map<String, String> allStyles = {
       ...baseStyles,
       ...sizeStyles,
-      ...variantStyles,
+      ...styleStyles,
     };
 
     return dom.span(

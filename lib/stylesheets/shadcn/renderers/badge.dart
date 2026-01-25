@@ -32,59 +32,49 @@ class ShadcnBadge extends StatelessComponent {
 
     // Size-specific styles
     final Map<String, String> sizeStyles = switch (props.size) {
-      BadgeSize.small => {
+      ComponentSize.sm => {
         'padding': '0.125rem 0.5rem', // py-0.5 px-2
       },
-      BadgeSize.medium => {
+      ComponentSize.md => {
         'padding': '0.125rem 0.625rem', // py-0.5 px-2.5 (ShadCN default)
       },
-      BadgeSize.large => {
+      ComponentSize.lg => {
         'padding': '0.25rem 0.75rem', // py-1 px-3
         'font-size': 'var(--font-size-sm)', // text-sm
       },
     };
 
-    // Variant-specific styles (matching ShadCN exactly)
-    final Map<String, String> variantStyles = switch (props.variant) {
-      BadgeVariant.standard => {
-        'background-color': 'var(--primary)',
-        'color': 'var(--primary-foreground)',
+    // Get color-specific values
+    final (String bgColor, String fgColor) = switch (props.color) {
+      ColorVariant.primary => ('var(--primary)', 'var(--primary-foreground)'),
+      ColorVariant.secondary => ('var(--secondary)', 'var(--secondary-foreground)'),
+      ColorVariant.destructive => ('var(--destructive)', 'var(--destructive-foreground)'),
+      ColorVariant.success => ('var(--success, #22c55e)', 'var(--success-foreground, #ffffff)'),
+      ColorVariant.warning => ('var(--warning, #f59e0b)', 'var(--warning-foreground, #000000)'),
+      ColorVariant.info => ('var(--info, #3b82f6)', 'var(--info-foreground, #ffffff)'),
+    };
+
+    // Style-specific styles
+    final Map<String, String> styleStyles = switch (props.style) {
+      StyleVariant.solid => {
+        'background-color': bgColor,
+        'color': fgColor,
         'border': '1px solid transparent',
       },
-      BadgeVariant.primary => {
-        'background-color': 'var(--primary)',
-        'color': 'var(--primary-foreground)',
-        'border': '1px solid transparent',
-      },
-      BadgeVariant.secondary => {
-        'background-color': 'var(--secondary)',
-        'color': 'var(--secondary-foreground)',
-        'border': '1px solid transparent',
-      },
-      BadgeVariant.success => {
-        'background-color': 'var(--success, #22c55e)',
-        'color': 'var(--success-foreground, #ffffff)',
-        'border': '1px solid transparent',
-      },
-      BadgeVariant.warning => {
-        'background-color': 'var(--warning, #f59e0b)',
-        'color': 'var(--warning-foreground, #000000)',
-        'border': '1px solid transparent',
-      },
-      BadgeVariant.error => {
-        'background-color': 'var(--destructive)',
-        'color': 'var(--destructive-foreground)',
-        'border': '1px solid transparent',
-      },
-      BadgeVariant.info => {
-        'background-color': 'var(--info, #3b82f6)',
-        'color': 'var(--info-foreground, #ffffff)',
-        'border': '1px solid transparent',
-      },
-      BadgeVariant.outline => {
+      StyleVariant.outline => {
         'background-color': 'transparent',
-        'color': 'var(--foreground)',
-        'border': '1px solid var(--border)',
+        'color': bgColor,
+        'border': '1px solid $bgColor',
+      },
+      StyleVariant.ghost => {
+        'background-color': 'color-mix(in srgb, $bgColor 10%, transparent)',
+        'color': bgColor,
+        'border': '1px solid transparent',
+      },
+      StyleVariant.link => {
+        'background-color': 'transparent',
+        'color': bgColor,
+        'border': '1px solid transparent',
       },
     };
 
@@ -92,7 +82,7 @@ class ShadcnBadge extends StatelessComponent {
     final Map<String, String> allStyles = {
       ...baseStyles,
       ...sizeStyles,
-      ...variantStyles,
+      ...styleStyles,
     };
 
     return dom.span(

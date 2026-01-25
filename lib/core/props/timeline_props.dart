@@ -1,5 +1,9 @@
 import 'package:jaspr/jaspr.dart';
 
+import '../shared/shared.dart';
+
+export '../shared/shared.dart' show ComponentSize;
+
 enum TimelineLayout {
   vertical,
   horizontal,
@@ -12,12 +16,6 @@ enum TimelineStatus {
   current,
   pending,
   error,
-}
-
-enum TimelineSize {
-  sm,
-  md,
-  lg,
 }
 
 /// Timeline item data.
@@ -45,13 +43,13 @@ class TimelineItemData {
 class TimelineProps {
   final List<TimelineItemData> items;
   final TimelineLayout layout;
-  final TimelineSize size;
+  final ComponentSize size;
   final bool showConnectors;
 
   const TimelineProps({
     required this.items,
     this.layout = TimelineLayout.vertical,
-    this.size = TimelineSize.md,
+    this.size = ComponentSize.md,
     this.showConnectors = true,
   });
 }

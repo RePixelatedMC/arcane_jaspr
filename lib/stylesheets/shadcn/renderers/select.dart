@@ -11,19 +11,19 @@ class ShadcnSelect<T> extends StatelessComponent {
   const ShadcnSelect(this.props, {super.key});
 
   Map<String, String> get _sizeConfig => switch (props.size) {
-        SelectSize.sm => {
+        ComponentSize.sm => {
             'height': '32px',
             'padding': '4px 8px',
             'fontSize': '13px',
             'iconSize': '12px',
           },
-        SelectSize.md => {
+        ComponentSize.md => {
             'height': '40px',
             'padding': '8px 12px',
             'fontSize': '14px',
             'iconSize': '14px',
           },
-        SelectSize.lg => {
+        ComponentSize.lg => {
             'height': '48px',
             'padding': '12px 16px',
             'fontSize': '16px',

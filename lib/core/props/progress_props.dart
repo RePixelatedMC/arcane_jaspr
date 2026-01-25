@@ -1,10 +1,8 @@
 import 'package:jaspr/jaspr.dart';
 
-enum ProgressSize {
-  small,
-  medium,
-  large,
-}
+import '../shared/shared.dart';
+
+export '../shared/shared.dart' show ComponentSize;
 
 enum ProgressVariant {
   primary,
@@ -17,7 +15,7 @@ enum ProgressVariant {
 /// Progress bar component properties.
 class ProgressProps {
   final double value;
-  final ProgressSize size;
+  final ComponentSize size;
   final ProgressVariant variant;
   final bool indeterminate;
   final bool showValue;
@@ -26,7 +24,7 @@ class ProgressProps {
 
   const ProgressProps({
     this.value = 0.0,
-    this.size = ProgressSize.medium,
+    this.size = ComponentSize.medium,
     this.variant = ProgressVariant.primary,
     this.indeterminate = false,
     this.showValue = false,
@@ -36,7 +34,7 @@ class ProgressProps {
 
   ProgressProps copyWith({
     double? value,
-    ProgressSize? size,
+    ComponentSize? size,
     ProgressVariant? variant,
     bool? indeterminate,
     bool? showValue,

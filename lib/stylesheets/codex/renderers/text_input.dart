@@ -28,9 +28,9 @@ class CodexTextInput extends StatelessComponent {
     // Codex Neon sizes - larger with more presence
     final (String height, String paddingX, String paddingY, String fontSize) =
         switch (props.size) {
-      TextInputSize.sm => ('40px', '1rem', '0.5rem', '0.8125rem'),
-      TextInputSize.md => ('48px', '1.25rem', '0.75rem', '0.875rem'),
-      TextInputSize.lg => ('56px', '1.5rem', '1rem', '1rem'),
+      ComponentSize.sm => ('40px', '1rem', '0.5rem', '0.8125rem'),
+      ComponentSize.md => ('48px', '1.25rem', '0.75rem', '0.875rem'),
+      ComponentSize.lg => ('56px', '1.5rem', '1rem', '1rem'),
     };
 
     // Map TextInputType to HTML input type

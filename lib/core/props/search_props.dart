@@ -1,5 +1,9 @@
 import 'package:jaspr/jaspr.dart';
 
+import '../shared/shared.dart';
+
+export '../shared/shared.dart' show ComponentSize;
+
 /// Search result item data.
 class SearchResult {
   final String title;
@@ -13,12 +17,6 @@ class SearchResult {
     this.href,
     this.onTap,
   });
-}
-
-enum SearchSize {
-  sm,
-  md,
-  lg,
 }
 
 enum SearchStyle {
@@ -39,7 +37,7 @@ class SearchProps {
   final Component? icon;
   final bool autofocus;
   final bool disabled;
-  final SearchSize size;
+  final ComponentSize size;
   final SearchStyle style;
   final String? id;
   final Map<String, String>? attributes;
@@ -60,7 +58,7 @@ class SearchProps {
     this.icon,
     this.autofocus = false,
     this.disabled = false,
-    this.size = SearchSize.md,
+    this.size = ComponentSize.md,
     this.style = SearchStyle.standard,
     this.id,
     this.attributes,
@@ -82,7 +80,7 @@ class SearchProps {
     Component? icon,
     bool? autofocus,
     bool? disabled,
-    SearchSize? size,
+    ComponentSize? size,
     SearchStyle? style,
     String? id,
     Map<String, String>? attributes,

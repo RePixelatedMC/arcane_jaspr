@@ -1,15 +1,13 @@
 import 'package:jaspr/jaspr.dart';
 
+import '../shared/shared.dart';
+
+export '../shared/shared.dart' show ComponentSize;
+
 enum FileUploadStyle {
   dropzone,
   button,
   inline,
-}
-
-enum FileUploadSize {
-  sm,
-  md,
-  lg,
 }
 
 /// Uploaded file data.
@@ -34,7 +32,7 @@ class UploadedFile {
 /// File upload component properties.
 class FileUploadProps {
   final FileUploadStyle style;
-  final FileUploadSize size;
+  final ComponentSize size;
   final bool isDragOver;
   final List<UploadedFile> selectedFiles;
   final bool disabled;

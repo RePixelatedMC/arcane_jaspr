@@ -57,9 +57,9 @@ class _ShadcnSearchState extends State<ShadcnSearch> {
     final SearchProps props = component.props;
 
     final (height, fontSize, padding) = switch (props.size) {
-      SearchSize.sm => ('36px', '0.875rem', '0.5rem 0.75rem'),
-      SearchSize.md => ('40px', '1rem', '0.5rem 1rem'),
-      SearchSize.lg => ('44px', '1.125rem', '0.75rem 1.25rem'),
+      ComponentSize.sm => ('36px', '0.875rem', '0.5rem 0.75rem'),
+      ComponentSize.md => ('40px', '1rem', '0.5rem 1rem'),
+      ComponentSize.lg => ('44px', '1.125rem', '0.75rem 1.25rem'),
     };
 
     final Map<String, String> styleBase = switch (props.style) {

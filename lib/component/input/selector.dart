@@ -5,7 +5,7 @@ import 'selector_types.dart';
 
 export 'selector_types.dart';
 export '../../core/props/select_props.dart'
-    show SelectSize, SelectDropdownDirection, SelectOptionProps, SelectProps;
+    show ComponentSize, SelectDropdownDirection, SelectOptionProps, SelectProps;
 
 /// A dropdown selector component with extensive customization options.
 class ArcaneSelector<T> extends StatefulComponent {
@@ -174,10 +174,10 @@ class _ArcaneSelectorState<T> extends State<ArcaneSelector<T>> {
     });
   }
 
-  SelectSize get _selectSize => switch (component.size) {
-        SelectorSize.sm => SelectSize.sm,
-        SelectorSize.md => SelectSize.md,
-        SelectorSize.lg => SelectSize.lg,
+  ComponentSize get _selectSize => switch (component.size) {
+        SelectorSize.sm => ComponentSize.sm,
+        SelectorSize.md => ComponentSize.md,
+        SelectorSize.lg => ComponentSize.lg,
       };
 
   SelectDropdownDirection get _dropdownDirection =>

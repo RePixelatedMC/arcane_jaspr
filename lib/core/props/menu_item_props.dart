@@ -1,119 +1,97 @@
 import 'package:jaspr/jaspr.dart';
 
-/// Unified menu item for dropdown menus, context menus, and menubars.
-class ArcaneMenuItem {
+/// Sealed class hierarchy for menu items.
+/// Use pattern matching to handle different item types in renderers.
+sealed class ArcaneMenuItem {
+  const ArcaneMenuItem();
+}
+
+/// Standard clickable menu item.
+class MenuItemAction extends ArcaneMenuItem {
   final String label;
   final Component? icon;
-  final void Function()? onSelect;
-  final String? href;
   final String? description;
+  final String? shortcut;
   final bool disabled;
   final bool destructive;
-  final String? shortcut;
-  final List<ArcaneMenuItem>? submenu;
-  final bool isSeparator;
-  final bool isCheckbox;
-  final bool checked;
-  final String? radioGroup;
-  final String? radioValue;
+  final void Function()? onSelect;
+  final String? href;
 
-  const ArcaneMenuItem({
+  const MenuItemAction({
     required this.label,
     this.icon,
-    this.onSelect,
-    this.href,
     this.description,
+    this.shortcut,
     this.disabled = false,
     this.destructive = false,
-    this.shortcut,
-    this.submenu,
-    this.isSeparator = false,
-    this.isCheckbox = false,
-    this.checked = false,
-    this.radioGroup,
-    this.radioValue,
+    this.onSelect,
+    this.href,
   });
+}
 
-  const ArcaneMenuItem.separator()
-      : label = '',
-        icon = null,
-        onSelect = null,
-        href = null,
-        description = null,
-        disabled = false,
-        destructive = false,
-        shortcut = null,
-        submenu = null,
-        isSeparator = true,
-        isCheckbox = false,
-        checked = false,
-        radioGroup = null,
-        radioValue = null;
+/// Visual separator between menu items.
+class MenuItemSeparator extends ArcaneMenuItem {
+  const MenuItemSeparator();
+}
 
-  const ArcaneMenuItem.divider()
-      : label = '',
-        icon = null,
-        onSelect = null,
-        href = null,
-        description = null,
-        disabled = false,
-        destructive = false,
-        shortcut = null,
-        submenu = null,
-        isSeparator = true,
-        isCheckbox = false,
-        checked = false,
-        radioGroup = null,
-        radioValue = null;
+/// Checkbox menu item.
+class MenuItemCheckbox extends ArcaneMenuItem {
+  final String label;
+  final Component? icon;
+  final bool checked;
+  final bool disabled;
+  final String? shortcut;
+  final void Function(bool)? onChanged;
 
-  const ArcaneMenuItem.checkbox({
+  const MenuItemCheckbox({
     required this.label,
-    required this.checked,
     this.icon,
-    this.onSelect,
+    required this.checked,
     this.disabled = false,
     this.shortcut,
-  })  : href = null,
-        description = null,
-        destructive = false,
-        submenu = null,
-        isSeparator = false,
-        isCheckbox = true,
-        radioGroup = null,
-        radioValue = null;
+    this.onChanged,
+  });
+}
 
-  const ArcaneMenuItem.radio({
-    required this.label,
-    required String group,
-    required String value,
-    required this.checked,
-    this.icon,
-    this.onSelect,
-    this.disabled = false,
-  })  : href = null,
-        description = null,
-        destructive = false,
-        shortcut = null,
-        submenu = null,
-        isSeparator = false,
-        isCheckbox = false,
-        radioGroup = group,
-        radioValue = value;
+/// Radio menu item (part of a group).
+class MenuItemRadio extends ArcaneMenuItem {
+  final String label;
+  final Component? icon;
+  final String group;
+  final String value;
+  final bool selected;
+  final bool disabled;
+  final void Function(String)? onChanged;
 
-  const ArcaneMenuItem.submenu({
+  const MenuItemRadio({
     required this.label,
-    required List<ArcaneMenuItem> items,
     this.icon,
+    required this.group,
+    required this.value,
+    required this.selected,
     this.disabled = false,
-  })  : onSelect = null,
-        href = null,
-        description = null,
-        destructive = false,
-        shortcut = null,
-        submenu = items,
-        isSeparator = false,
-        isCheckbox = false,
-        checked = false,
-        radioGroup = null,
-        radioValue = null;
+    this.onChanged,
+  });
+}
+
+/// Submenu with nested items.
+class MenuItemSubmenu extends ArcaneMenuItem {
+  final String label;
+  final Component? icon;
+  final List<ArcaneMenuItem> children;
+  final bool disabled;
+
+  const MenuItemSubmenu({
+    required this.label,
+    this.icon,
+    required this.children,
+    this.disabled = false,
+  });
+}
+
+/// Label/header for grouping items (non-interactive).
+class MenuItemLabel extends ArcaneMenuItem {
+  final String label;
+
+  const MenuItemLabel({required this.label});
 }

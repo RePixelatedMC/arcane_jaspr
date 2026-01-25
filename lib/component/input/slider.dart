@@ -1,7 +1,6 @@
 import 'package:jaspr/jaspr.dart';
-import 'package:jaspr/dom.dart' as dom;
 
-export '../../core/props/slider_props.dart' show SliderSize, SliderVariant;
+export '../../core/props/slider_props.dart' show ComponentSize, SliderVariant;
 
 import '../../core/theme_provider.dart';
 
@@ -17,7 +16,7 @@ class ArcaneSlider extends StatelessComponent {
   final String? valueSuffix;
   final int valueDecimals;
   final SliderVariant variant;
-  final SliderSize size;
+  final ComponentSize size;
   final bool showSteps;
   final bool disabled;
   final void Function(double)? onChanged;
@@ -37,7 +36,7 @@ class ArcaneSlider extends StatelessComponent {
     this.valueSuffix,
     this.valueDecimals = 0,
     this.variant = SliderVariant.primary,
-    this.size = SliderSize.md,
+    this.size = ComponentSize.md,
     this.showSteps = false,
     this.disabled = false,
     this.onChanged,
@@ -59,7 +58,7 @@ class ArcaneSlider extends StatelessComponent {
     this.valueSuffix,
     this.valueDecimals = 0,
     this.variant = SliderVariant.primary,
-    this.size = SliderSize.md,
+    this.size = ComponentSize.md,
     this.showSteps = false,
     this.disabled = false,
     this.onRangeChanged,
@@ -80,7 +79,7 @@ class ArcaneSlider extends StatelessComponent {
     this.valuePrefix,
     this.valueSuffix,
     this.valueDecimals = 0,
-    this.size = SliderSize.md,
+    this.size = ComponentSize.md,
     this.showSteps = false,
     this.disabled = false,
     this.onChanged,
@@ -101,7 +100,7 @@ class ArcaneSlider extends StatelessComponent {
     this.valuePrefix,
     this.valueSuffix,
     this.valueDecimals = 0,
-    this.size = SliderSize.md,
+    this.size = ComponentSize.md,
     this.showSteps = false,
     this.disabled = false,
     this.onChanged,
@@ -122,7 +121,7 @@ class ArcaneSlider extends StatelessComponent {
     this.valuePrefix,
     this.valueSuffix,
     this.valueDecimals = 0,
-    this.size = SliderSize.md,
+    this.size = ComponentSize.md,
     this.showSteps = false,
     this.disabled = false,
     this.onChanged,
@@ -143,7 +142,7 @@ class ArcaneSlider extends StatelessComponent {
     this.valuePrefix,
     this.valueSuffix,
     this.valueDecimals = 0,
-    this.size = SliderSize.md,
+    this.size = ComponentSize.md,
     this.showSteps = false,
     this.disabled = false,
     this.onChanged,
@@ -190,7 +189,7 @@ class _DeprecatedRangeSlider extends StatelessComponent {
   final String? label;
   final bool showValues;
   final SliderVariant variant;
-  final SliderSize size;
+  final ComponentSize size;
   final bool disabled;
   final void Function(double min, double max)? onChanged;
 
@@ -203,7 +202,7 @@ class _DeprecatedRangeSlider extends StatelessComponent {
     this.label,
     this.showValues = true,
     this.variant = SliderVariant.primary,
-    this.size = SliderSize.md,
+    this.size = ComponentSize.md,
     this.disabled = false,
     this.onChanged,
     super.key,

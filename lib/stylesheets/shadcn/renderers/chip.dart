@@ -9,44 +9,44 @@ class ShadcnChip extends StatelessComponent {
 
   const ShadcnChip(this.props, {super.key});
 
-  Map<String, String> get _variantStyles => switch (props.variant) {
-        ChipVariant.standard => {
-            'background-color': 'var(--arcane-muted)',
-            'color': 'var(--arcane-muted-foreground)',
-          },
-        ChipVariant.primary => {
-            'background-color': 'var(--arcane-primary)',
-            'color': 'var(--arcane-primary-foreground)',
-          },
-        ChipVariant.secondary => {
-            'background-color': 'var(--arcane-secondary)',
-            'color': 'var(--arcane-secondary-foreground)',
-          },
-        ChipVariant.success => {
-            'background-color': 'var(--arcane-success-container)',
-            'color': 'var(--arcane-success)',
-          },
-        ChipVariant.warning => {
-            'background-color': 'var(--arcane-warning-container)',
-            'color': 'var(--arcane-warning)',
-          },
-        ChipVariant.error => {
-            'background-color': 'var(--arcane-destructive-container)',
-            'color': 'var(--arcane-destructive)',
-          },
-        ChipVariant.outline => {
-            'background-color': 'transparent',
-            'color': 'var(--arcane-foreground)',
-            'border': '1px solid var(--arcane-border)',
-          },
-      };
+  Map<String, String> get _variantStyles {
+    // Get color-specific values
+    final (String bgColor, String fgColor) = switch (props.color) {
+      ColorVariant.primary => ('var(--primary)', 'var(--primary-foreground)'),
+      ColorVariant.secondary => ('var(--secondary)', 'var(--secondary-foreground)'),
+      ColorVariant.destructive => ('var(--destructive)', 'var(--destructive-foreground)'),
+      ColorVariant.success => ('var(--success, #22c55e)', 'var(--success-foreground, #ffffff)'),
+      ColorVariant.warning => ('var(--warning, #f59e0b)', 'var(--warning-foreground, #000000)'),
+      ColorVariant.info => ('var(--info, #3b82f6)', 'var(--info-foreground, #ffffff)'),
+    };
+
+    return switch (props.style) {
+      StyleVariant.solid => {
+          'background-color': bgColor,
+          'color': fgColor,
+        },
+      StyleVariant.outline => {
+          'background-color': 'transparent',
+          'color': bgColor,
+          'border': '1px solid $bgColor',
+        },
+      StyleVariant.ghost => {
+          'background-color': 'color-mix(in srgb, $bgColor 10%, transparent)',
+          'color': bgColor,
+        },
+      StyleVariant.link => {
+          'background-color': 'transparent',
+          'color': bgColor,
+        },
+    };
+  }
 
   @override
   Component build(BuildContext context) {
     final (padding, fontSize) = switch (props.size) {
-      ChipSize.small => ('0.25rem 0.5rem', '0.75rem'),
-      ChipSize.medium => ('0.375rem 0.625rem', '0.875rem'),
-      ChipSize.large => ('0.5rem 1rem', '1rem'),
+      ComponentSize.sm => ('0.25rem 0.5rem', '0.75rem'),
+      ComponentSize.md => ('0.375rem 0.625rem', '0.875rem'),
+      ComponentSize.lg => ('0.5rem 1rem', '1rem'),
     };
 
     return dom.span(

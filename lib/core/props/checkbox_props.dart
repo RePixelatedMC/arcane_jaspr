@@ -1,25 +1,15 @@
 import 'package:jaspr/jaspr.dart';
+import '../shared/shared.dart';
 
-enum CheckboxSize {
-  small,
-  medium,
-  large,
-}
-
-enum CheckboxVariant {
-  primary,
-  success,
-  warning,
-  error,
-}
+export '../shared/shared.dart' show ComponentSize, ColorVariant;
 
 /// Checkbox component properties.
 class CheckboxProps {
   final bool checked;
   final String? label;
   final String? description;
-  final CheckboxSize size;
-  final CheckboxVariant variant;
+  final ComponentSize size;
+  final ColorVariant color;
   final bool disabled;
   final void Function(bool)? onChanged;
 
@@ -27,8 +17,8 @@ class CheckboxProps {
     required this.checked,
     this.label,
     this.description,
-    this.size = CheckboxSize.medium,
-    this.variant = CheckboxVariant.primary,
+    this.size = ComponentSize.md,
+    this.color = ColorVariant.primary,
     this.disabled = false,
     this.onChanged,
   });
@@ -37,8 +27,8 @@ class CheckboxProps {
     bool? checked,
     String? label,
     String? description,
-    CheckboxSize? size,
-    CheckboxVariant? variant,
+    ComponentSize? size,
+    ColorVariant? color,
     bool? disabled,
     void Function(bool)? onChanged,
   }) {
@@ -47,7 +37,7 @@ class CheckboxProps {
       label: label ?? this.label,
       description: description ?? this.description,
       size: size ?? this.size,
-      variant: variant ?? this.variant,
+      color: color ?? this.color,
       disabled: disabled ?? this.disabled,
       onChanged: onChanged ?? this.onChanged,
     );

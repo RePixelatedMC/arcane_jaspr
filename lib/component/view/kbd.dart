@@ -2,7 +2,7 @@ import 'package:jaspr/jaspr.dart';
 
 import '../../core/theme_provider.dart';
 
-export '../../core/props/kbd_props.dart' show KbdStyle, KbdSize;
+export '../../core/props/kbd_props.dart' show KbdStyle, ComponentSize;
 
 /// Keyboard shortcut display component.
 class ArcaneKbd extends StatelessComponent {
@@ -10,12 +10,12 @@ class ArcaneKbd extends StatelessComponent {
   final List<String>? keys;
   final String separator;
   final KbdStyle style;
-  final KbdSize size;
+  final ComponentSize size;
 
   const ArcaneKbd(
     this.keyText, {
     this.style = KbdStyle.raised,
-    this.size = KbdSize.md,
+    this.size = ComponentSize.md,
     super.key,
   })  : keys = null,
         separator = '+';
@@ -24,14 +24,14 @@ class ArcaneKbd extends StatelessComponent {
     this.keys, {
     this.separator = '+',
     this.style = KbdStyle.raised,
-    this.size = KbdSize.md,
+    this.size = ComponentSize.md,
     super.key,
   }) : keyText = null;
 
   factory ArcaneKbd.shortcut(
     String shortcut, {
     KbdStyle style = KbdStyle.raised,
-    KbdSize size = KbdSize.md,
+    ComponentSize size = ComponentSize.md,
   }) {
     final parts = shortcut.split('+').map((s) => s.trim()).toList();
     return ArcaneKbd.combo(

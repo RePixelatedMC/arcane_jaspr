@@ -1,10 +1,8 @@
 import 'package:jaspr/jaspr.dart';
 
-enum NumberInputSize {
-  sm,
-  md,
-  lg,
-}
+import '../shared/shared.dart';
+
+export '../shared/shared.dart' show ComponentSize;
 
 /// Number input component properties.
 class NumberInputProps {
@@ -13,7 +11,7 @@ class NumberInputProps {
   final num max;
   final num step;
   final void Function(num)? onChanged;
-  final NumberInputSize size;
+  final ComponentSize size;
   final bool disabled;
   final String? label;
   final String? prefix;
@@ -28,7 +26,7 @@ class NumberInputProps {
     this.max = 100,
     this.step = 1,
     this.onChanged,
-    this.size = NumberInputSize.md,
+    this.size = ComponentSize.md,
     this.disabled = false,
     this.label,
     this.prefix,
@@ -44,7 +42,7 @@ class NumberInputProps {
     num? max,
     num? step,
     void Function(num)? onChanged,
-    NumberInputSize? size,
+    ComponentSize? size,
     bool? disabled,
     String? label,
     String? prefix,

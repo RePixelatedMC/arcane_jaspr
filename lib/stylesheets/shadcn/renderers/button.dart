@@ -100,29 +100,29 @@ class ShadcnButton extends StatelessComponent {
 
     // Size-specific styles
     final Map<String, String> sizeStyles = switch (props.size) {
-      ButtonSize.small => {
+      ButtonSize.sm => {
         'height': '2.25rem', // h-9 (36px)
         'padding': '0 0.75rem', // px-3
       },
-      ButtonSize.medium => {
+      ButtonSize.md => {
         'height': '2.5rem', // h-10 (40px)
         'padding': '0.5rem 1rem', // py-2 px-4
       },
-      ButtonSize.large => {
+      ButtonSize.lg => {
         'height': '2.75rem', // h-11 (44px)
         'padding': '0 2rem', // px-8
       },
-      ButtonSize.icon => {
-        'height': '2.5rem', // h-10
-        'width': '2.5rem', // w-10
-        'padding': '0',
-      },
-      ButtonSize.iconSmall => {
+      ButtonSize.iconSm => {
         'height': '2.25rem', // h-9
         'width': '2.25rem', // w-9
         'padding': '0',
       },
-      ButtonSize.iconLarge => {
+      ButtonSize.iconMd => {
+        'height': '2.5rem', // h-10
+        'width': '2.5rem', // w-10
+        'padding': '0',
+      },
+      ButtonSize.iconLg => {
         'height': '2.75rem', // h-11
         'width': '2.75rem', // w-11
         'padding': '0',

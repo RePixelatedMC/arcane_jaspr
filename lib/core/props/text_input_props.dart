@@ -1,10 +1,7 @@
 import 'package:jaspr/jaspr.dart';
+import '../shared/shared.dart';
 
-enum TextInputSize {
-  sm,
-  md,
-  lg,
-}
+export '../shared/shared.dart' show ComponentSize;
 
 enum TextInputVariant {
   outline,
@@ -29,7 +26,7 @@ class TextInputProps {
   final String? value;
   final String? name;
   final String? id;
-  final TextInputSize size;
+  final ComponentSize size;
   final TextInputVariant variant;
   final bool disabled;
   final bool required;
@@ -51,7 +48,7 @@ class TextInputProps {
     this.value,
     this.name,
     this.id,
-    this.size = TextInputSize.md,
+    this.size = ComponentSize.md,
     this.variant = TextInputVariant.outline,
     this.disabled = false,
     this.required = false,
@@ -74,7 +71,7 @@ class TextInputProps {
     String? value,
     String? name,
     String? id,
-    TextInputSize? size,
+    ComponentSize? size,
     TextInputVariant? variant,
     bool? disabled,
     bool? required,

@@ -94,7 +94,7 @@ import 'settings_section.dart';
 import 'slot_counter.dart';
 import 'field_wrapper.dart';
 import 'form.dart';
-import 'newsletter_form.dart';
+import 'simple_form.dart';
 import 'bottom_navigation.dart';
 import 'mobile_menu.dart';
 import 'dot_indicator.dart';
@@ -202,8 +202,10 @@ class ShadcnRenderers extends ComponentRenderers {
   @override
   Component alertBanner(AlertBannerProps props) => ShadcnAlertBanner(props);
 
-  @override
+  /// Extended status badge (not part of ComponentRenderers interface).
   Component statusBadge2(StatusBadgeProps props) => status_badge_renderer.ShadcnStatusBadge(props);
+
+  // Note: statusBadge method is defined below, using SimpleStatusBadgeProps
 
   @override
   Component separator(SeparatorProps props) => ShadcnSeparator(props);
@@ -700,10 +702,7 @@ class ShadcnRenderers extends ComponentRenderers {
   Component inputGroup(InputGroupProps props) => ShadcnInputGroup(props);
 
   @override
-  Component newsletterForm(NewsletterFormProps props) => ShadcnNewsletterForm(props);
-
-  @override
-  Component waitlistForm(WaitlistFormProps props) => ShadcnWaitlistForm(props);
+  Component simpleForm(SimpleFormProps props) => ShadcnSimpleForm(props);
 
   @override
   Component bottomNavigationBar(BottomNavigationBarProps props) => ShadcnBottomNavigationBar(props);

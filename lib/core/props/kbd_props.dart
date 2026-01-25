@@ -1,15 +1,13 @@
 import 'package:jaspr/jaspr.dart';
 
+import '../shared/shared.dart';
+
+export '../shared/shared.dart' show ComponentSize;
+
 enum KbdStyle {
   raised,
   flat,
   outline,
-}
-
-enum KbdSize {
-  sm,
-  md,
-  lg,
 }
 
 /// Keyboard shortcut display component properties.
@@ -18,21 +16,21 @@ class KbdProps {
   final List<String>? keys;
   final String separator;
   final KbdStyle style;
-  final KbdSize size;
+  final ComponentSize size;
 
   const KbdProps({
     this.keyText,
     this.keys,
     this.separator = '+',
     this.style = KbdStyle.raised,
-    this.size = KbdSize.md,
+    this.size = ComponentSize.md,
   }) : assert(keyText != null || keys != null,
             'Either keyText or keys must be provided');
 
   const KbdProps.key(
     String key, {
     this.style = KbdStyle.raised,
-    this.size = KbdSize.md,
+    this.size = ComponentSize.md,
   })  : keyText = key,
         keys = null,
         separator = '+';
@@ -41,7 +39,7 @@ class KbdProps {
     List<String> this.keys, {
     this.separator = '+',
     this.style = KbdStyle.raised,
-    this.size = KbdSize.md,
+    this.size = ComponentSize.md,
   }) : keyText = null;
 }
 

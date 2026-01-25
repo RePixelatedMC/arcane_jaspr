@@ -1,17 +1,15 @@
 import 'package:jaspr/jaspr.dart';
 
-enum DotIndicatorSize {
-  sm,
-  md,
-  lg,
-}
+import '../shared/shared.dart';
+
+export '../shared/shared.dart' show ComponentSize;
 
 /// Dot indicator component properties.
 class DotIndicatorProps {
   final int index;
   final int length;
   final void Function(int)? onChanged;
-  final DotIndicatorSize size;
+  final ComponentSize size;
   final String? activeColor;
   final String? inactiveColor;
   final String? spacing;
@@ -21,18 +19,12 @@ class DotIndicatorProps {
     required this.index,
     required this.length,
     this.onChanged,
-    this.size = DotIndicatorSize.md,
+    this.size = ComponentSize.md,
     this.activeColor,
     this.inactiveColor,
     this.spacing,
     this.interactive = true,
   });
-}
-
-enum StepIndicatorSize {
-  sm,
-  md,
-  lg,
 }
 
 /// Step indicator component properties.
@@ -41,14 +33,14 @@ class StepIndicatorProps {
   final List<String> steps;
   final void Function(int)? onStepTap;
   final bool allowStepNavigation;
-  final StepIndicatorSize size;
+  final ComponentSize size;
 
   const StepIndicatorProps({
     required this.currentStep,
     required this.steps,
     this.onStepTap,
     this.allowStepNavigation = true,
-    this.size = StepIndicatorSize.md,
+    this.size = ComponentSize.md,
   });
 }
 

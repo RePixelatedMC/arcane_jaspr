@@ -24,9 +24,9 @@ class CodexSlider extends StatelessComponent {
     // Codex Neon Slider sizes - larger with more presence
     final (String trackHeight, String thumbSize, String hitAreaHeight) =
         switch (props.size) {
-      SliderSize.sm => ('10px', '24px', '40px'),
-      SliderSize.md => ('12px', '28px', '48px'),
-      SliderSize.lg => ('14px', '32px', '56px'),
+      ComponentSize.sm => ('10px', '24px', '40px'),
+      ComponentSize.md => ('12px', '28px', '48px'),
+      ComponentSize.lg => ('14px', '32px', '56px'),
     };
 
     final int thumbSizeNum = int.parse(thumbSize.replaceAll('px', ''));

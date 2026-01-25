@@ -3,14 +3,16 @@ import 'package:jaspr/dom.dart' as dom;
 
 import '../../core/theme_provider.dart';
 
-export '../../core/props/chip_props.dart' show ChipSize, ChipVariant;
+export '../../core/props/chip_props.dart'
+    show ComponentSize, ColorVariant, StyleVariant;
 
 /// Chip/tag component for labels and filters.
 class ArcaneChip extends StatelessComponent {
   final String label;
   final Component? icon;
-  final ChipVariant variant;
-  final ChipSize size;
+  final ColorVariant color;
+  final StyleVariant style;
+  final ComponentSize size;
   final bool removable;
   final void Function()? onRemove;
   final void Function()? onTap;
@@ -18,8 +20,9 @@ class ArcaneChip extends StatelessComponent {
   const ArcaneChip({
     required this.label,
     this.icon,
-    this.variant = ChipVariant.standard,
-    this.size = ChipSize.medium,
+    this.color = ColorVariant.secondary,
+    this.style = StyleVariant.solid,
+    this.size = ComponentSize.md,
     this.removable = false,
     this.onRemove,
     this.onTap,
@@ -29,59 +32,65 @@ class ArcaneChip extends StatelessComponent {
   const ArcaneChip.primary({
     required this.label,
     this.icon,
-    this.size = ChipSize.medium,
+    this.style = StyleVariant.solid,
+    this.size = ComponentSize.md,
     this.removable = false,
     this.onRemove,
     this.onTap,
     super.key,
-  }) : variant = ChipVariant.primary;
+  }) : color = ColorVariant.primary;
 
   const ArcaneChip.success({
     required this.label,
     this.icon,
-    this.size = ChipSize.medium,
+    this.style = StyleVariant.solid,
+    this.size = ComponentSize.md,
     this.removable = false,
     this.onRemove,
     this.onTap,
     super.key,
-  }) : variant = ChipVariant.success;
+  }) : color = ColorVariant.success;
 
   const ArcaneChip.warning({
     required this.label,
     this.icon,
-    this.size = ChipSize.medium,
+    this.style = StyleVariant.solid,
+    this.size = ComponentSize.md,
     this.removable = false,
     this.onRemove,
     this.onTap,
     super.key,
-  }) : variant = ChipVariant.warning;
+  }) : color = ColorVariant.warning;
 
-  const ArcaneChip.error({
+  const ArcaneChip.destructive({
     required this.label,
     this.icon,
-    this.size = ChipSize.medium,
+    this.style = StyleVariant.solid,
+    this.size = ComponentSize.md,
     this.removable = false,
     this.onRemove,
     this.onTap,
     super.key,
-  }) : variant = ChipVariant.error;
+  }) : color = ColorVariant.destructive;
 
   const ArcaneChip.outline({
     required this.label,
     this.icon,
-    this.size = ChipSize.medium,
+    this.color = ColorVariant.secondary,
+    this.size = ComponentSize.md,
     this.removable = false,
     this.onRemove,
     this.onTap,
     super.key,
-  }) : variant = ChipVariant.outline;
+  }) : style = StyleVariant.outline;
 
   @override
   Component build(BuildContext context) {
     return context.renderers.chip(ChipProps(
       label: label,
       icon: icon,
-      variant: variant,
+      color: color,
+      style: style,
       size: size,
       removable: removable,
       onRemove: onRemove,

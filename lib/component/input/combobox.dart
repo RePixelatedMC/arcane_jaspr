@@ -3,7 +3,7 @@ import 'package:jaspr/jaspr.dart';
 import '../../core/theme_provider.dart';
 
 export '../../core/props/select_props.dart'
-    show SelectSize, SelectProps, SelectOptionProps;
+    show ComponentSize, SelectProps, SelectOptionProps;
 
 /// An autocomplete combobox with search filtering.
 class ArcaneCombobox<T> extends StatefulComponent {
@@ -84,10 +84,10 @@ class _ArcaneComboboxState<T> extends State<ArcaneCombobox<T>> {
     });
   }
 
-  SelectSize get _propsSize => switch (component.size) {
-        ComboboxSize.sm => SelectSize.sm,
-        ComboboxSize.md => SelectSize.md,
-        ComboboxSize.lg => SelectSize.lg,
+  ComponentSize get _propsSize => switch (component.size) {
+        ComboboxSize.sm => ComponentSize.sm,
+        ComboboxSize.md => ComponentSize.md,
+        ComboboxSize.lg => ComponentSize.lg,
       };
 
   @override

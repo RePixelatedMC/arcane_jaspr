@@ -11,9 +11,9 @@ class CodexKbd extends StatelessComponent {
 
   (String padding, String fontSize, String minWidth) get _sizeStyles =>
       switch (props.size) {
-        KbdSize.sm => ('3px 6px', '0.75rem', '22px'),
-        KbdSize.md => ('5px 10px', '0.875rem', '28px'),
-        KbdSize.lg => ('8px 14px', '1rem', '36px'),
+        ComponentSize.sm => ('3px 6px', '0.75rem', '22px'),
+        ComponentSize.md => ('5px 10px', '0.875rem', '28px'),
+        ComponentSize.lg => ('8px 14px', '1rem', '36px'),
       };
 
   Map<String, String> get _styleMap {

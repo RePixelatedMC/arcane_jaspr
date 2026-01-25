@@ -21,9 +21,9 @@ class CodexProgress extends StatelessComponent {
 
     // Codex track heights - 1.25x larger
     final String trackHeight = switch (props.size) {
-      ProgressSize.small => '4px', // vs ShadCN 2px
-      ProgressSize.medium => '6px', // vs ShadCN 4px
-      ProgressSize.large => '10px', // vs ShadCN 8px
+      ComponentSize.small => '4px', // vs ShadCN 2px
+      ComponentSize.medium => '6px', // vs ShadCN 4px
+      ComponentSize.large => '10px', // vs ShadCN 8px
     };
 
     // Codex variant colors with accent as primary

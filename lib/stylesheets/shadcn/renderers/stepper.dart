@@ -10,21 +10,21 @@ class ShadcnStepper extends StatelessComponent {
   const ShadcnStepper(this.props, {super.key});
 
   String get _indicatorSize => switch (props.size) {
-        StepsSize.sm => '28px',
-        StepsSize.md => '36px',
-        StepsSize.lg => '44px',
+        ComponentSize.sm => '28px',
+        ComponentSize.md => '36px',
+        ComponentSize.lg => '44px',
       };
 
   String get _connectorSize => switch (props.size) {
-        StepsSize.sm => '2px',
-        StepsSize.md => '2px',
-        StepsSize.lg => '3px',
+        ComponentSize.sm => '2px',
+        ComponentSize.md => '2px',
+        ComponentSize.lg => '3px',
       };
 
   String get _numberSize => switch (props.size) {
-        StepsSize.sm => '0.875rem',
-        StepsSize.md => '1rem',
-        StepsSize.lg => '1.125rem',
+        ComponentSize.sm => '0.875rem',
+        ComponentSize.md => '1rem',
+        ComponentSize.lg => '1.125rem',
       };
 
   StepStatus _getEffectiveStatus(int index) {

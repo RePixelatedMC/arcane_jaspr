@@ -1,25 +1,15 @@
 import 'package:jaspr/jaspr.dart';
+import '../shared/shared.dart';
 
-enum ToggleSwitchSize {
-  small,
-  medium,
-  large,
-}
-
-enum ToggleSwitchVariant {
-  primary,
-  success,
-  warning,
-  error,
-}
+export '../shared/shared.dart' show ComponentSize, ColorVariant;
 
 /// Toggle switch component properties.
 class ToggleSwitchProps {
   final bool value;
   final void Function(bool)? onChanged;
   final bool disabled;
-  final ToggleSwitchSize size;
-  final ToggleSwitchVariant variant;
+  final ComponentSize size;
+  final ColorVariant color;
   final String? label;
   final bool labelLeft;
 
@@ -27,8 +17,8 @@ class ToggleSwitchProps {
     required this.value,
     this.onChanged,
     this.disabled = false,
-    this.size = ToggleSwitchSize.medium,
-    this.variant = ToggleSwitchVariant.primary,
+    this.size = ComponentSize.md,
+    this.color = ColorVariant.primary,
     this.label,
     this.labelLeft = false,
   });
@@ -37,8 +27,8 @@ class ToggleSwitchProps {
     bool? value,
     void Function(bool)? onChanged,
     bool? disabled,
-    ToggleSwitchSize? size,
-    ToggleSwitchVariant? variant,
+    ComponentSize? size,
+    ColorVariant? color,
     String? label,
     bool? labelLeft,
   }) {
@@ -47,7 +37,7 @@ class ToggleSwitchProps {
       onChanged: onChanged ?? this.onChanged,
       disabled: disabled ?? this.disabled,
       size: size ?? this.size,
-      variant: variant ?? this.variant,
+      color: color ?? this.color,
       label: label ?? this.label,
       labelLeft: labelLeft ?? this.labelLeft,
     );

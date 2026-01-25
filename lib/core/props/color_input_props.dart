@@ -1,16 +1,14 @@
 import 'package:jaspr/jaspr.dart';
 
-enum ColorInputSize {
-  sm,
-  md,
-  lg,
-}
+import '../shared/shared.dart';
+
+export '../shared/shared.dart' show ComponentSize;
 
 /// Color input component properties.
 class ColorInputProps {
   final String value;
   final void Function(String color)? onChanged;
-  final ColorInputSize size;
+  final ComponentSize size;
   final bool disabled;
   final String? label;
   final List<String>? presets;
@@ -21,7 +19,7 @@ class ColorInputProps {
   const ColorInputProps({
     required this.value,
     this.onChanged,
-    this.size = ColorInputSize.md,
+    this.size = ComponentSize.md,
     this.disabled = false,
     this.label,
     this.presets,
@@ -46,7 +44,7 @@ class ColorInputProps {
   ColorInputProps copyWith({
     String? value,
     void Function(String color)? onChanged,
-    ColorInputSize? size,
+    ComponentSize? size,
     bool? disabled,
     String? label,
     List<String>? presets,

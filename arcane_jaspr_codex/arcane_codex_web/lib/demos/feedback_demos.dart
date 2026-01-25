@@ -30,9 +30,9 @@ class FeedbackDemos {
               gapSize: Gap.md,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                ArcaneStatusBadge.success('Small', size: StatusBadgeSize.sm),
-                ArcaneStatusBadge.success('Medium', size: StatusBadgeSize.md),
-                ArcaneStatusBadge.success('Large', size: StatusBadgeSize.lg),
+                ArcaneStatusBadge.success('Small'),
+                ArcaneStatusBadge.success('Medium'),
+                ArcaneStatusBadge.success('Large'),
               ],
             ),
           ],

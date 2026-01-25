@@ -19,9 +19,9 @@ class ShadcnProgress extends StatelessComponent {
 
     // Size-specific height
     final height = switch (props.size) {
-      ProgressSize.small => '0.25rem', // 4px
-      ProgressSize.medium => '0.5rem', // 8px - ShadCN default is h-4 but that's too tall
-      ProgressSize.large => '0.75rem', // 12px
+      ComponentSize.sm => '0.25rem', // 4px
+      ComponentSize.md => '0.5rem', // 8px - ShadCN default is h-4 but that's too tall
+      ComponentSize.lg => '0.75rem', // 12px
     };
 
     // Variant-specific indicator color

@@ -101,8 +101,8 @@ class NavigationDemos {
             onPressed: () {},
           ),
           items: [
-            ArcaneMenuItem(label: 'Option 1', onSelect: () {}),
-            ArcaneMenuItem(label: 'Option 2', onSelect: () {}),
+            MenuItemAction(label: 'Option 1', onSelect: () {}),
+            MenuItemAction(label: 'Option 2', onSelect: () {}),
           ],
         ),
       ];

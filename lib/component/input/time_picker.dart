@@ -16,7 +16,7 @@ class ArcaneTimePicker extends StatefulComponent {
   final String? error;
   final bool clearable;
   final bool showSeconds;
-  final TimePickerSize size;
+  final ComponentSize size;
 
   const ArcaneTimePicker({
     this.value,
@@ -29,7 +29,7 @@ class ArcaneTimePicker extends StatefulComponent {
     this.error,
     this.clearable = true,
     this.showSeconds = false,
-    this.size = TimePickerSize.md,
+    this.size = ComponentSize.md,
     super.key,
   });
 

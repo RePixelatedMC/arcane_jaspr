@@ -1,10 +1,8 @@
 import 'package:jaspr/jaspr.dart';
 
-enum SliderSize {
-  sm,
-  md,
-  lg,
-}
+import '../shared/shared.dart';
+
+export '../shared/shared.dart' show ComponentSize;
 
 enum SliderVariant {
   primary,
@@ -25,7 +23,7 @@ class SliderProps {
   final String? valueSuffix;
   final int valueDecimals;
   final SliderVariant variant;
-  final SliderSize size;
+  final ComponentSize size;
   final bool showSteps;
   final bool disabled;
   final void Function(double)? onChanged;
@@ -45,7 +43,7 @@ class SliderProps {
     this.valueSuffix,
     this.valueDecimals = 0,
     this.variant = SliderVariant.primary,
-    this.size = SliderSize.md,
+    this.size = ComponentSize.md,
     this.showSteps = false,
     this.disabled = false,
     this.onChanged,
@@ -67,7 +65,7 @@ class SliderProps {
     this.valueSuffix,
     this.valueDecimals = 0,
     this.variant = SliderVariant.primary,
-    this.size = SliderSize.md,
+    this.size = ComponentSize.md,
     this.showSteps = false,
     this.disabled = false,
     this.onRangeChanged,
@@ -88,7 +86,7 @@ class SliderProps {
     String? valueSuffix,
     int? valueDecimals,
     SliderVariant? variant,
-    SliderSize? size,
+    ComponentSize? size,
     bool? showSteps,
     bool? disabled,
     void Function(double)? onChanged,

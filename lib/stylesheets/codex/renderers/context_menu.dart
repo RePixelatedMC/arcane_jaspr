@@ -3,7 +3,7 @@ import 'package:jaspr/dom.dart' as dom;
 
 import '../../../core/props/context_menu_props.dart';
 
-/// Codex-style context menu component
+/// Codex-style context menu component with pattern matching on sealed ArcaneMenuItem types.
 class CodexContextMenu extends StatelessComponent {
   final ContextMenuProps props;
 
@@ -41,80 +41,43 @@ class CodexContextMenu extends StatelessComponent {
   }
 
   Component _buildMenuItem(ArcaneMenuItem item) {
-    if (item.isSeparator) {
-      return const dom.div(
-        classes: 'codex-context-menu-separator',
-        styles: dom.Styles(raw: {
-          'height': '1px',
-          'margin': '6px -6px',
-          'background-color': 'var(--border)',
-        }),
-        [],
-      );
-    }
+    return switch (item) {
+      MenuItemSeparator() => _buildSeparator(),
+      MenuItemLabel(:final label) => _buildLabel(label),
+      MenuItemAction() => _buildAction(item),
+      MenuItemCheckbox() => _buildCheckbox(item),
+      MenuItemRadio() => _buildRadio(item),
+      MenuItemSubmenu() => _buildSubmenu(item),
+    };
+  }
 
-    if (item.submenu != null && item.submenu!.isNotEmpty) {
-      return dom.div(
-        classes:
-            'codex-context-menu-item codex-context-menu-submenu-trigger ${item.disabled ? 'disabled' : ''}',
-        attributes: {
-          'role': 'menuitem',
-          'aria-haspopup': 'true',
-          if (item.disabled) 'aria-disabled': 'true',
-        },
-        styles: dom.Styles(raw: {
-          'position': 'relative',
-          'display': 'flex',
-          'align-items': 'center',
-          'gap': '10px',
-          'padding': '8px 12px',
-          'border-radius': 'var(--radius)',
-          'cursor': item.disabled ? 'not-allowed' : 'default',
-          'transition': 'color var(--arcane-transition), background-color var(--arcane-transition)',
-          'font-size': 'var(--font-size-sm)',
-          'user-select': 'none',
-          'outline': 'none',
-          if (item.disabled) 'pointer-events': 'none',
-          if (item.disabled) 'opacity': '0.5',
-        }),
-        [
-          if (item.icon != null) item.icon!,
-          dom.span(
-            styles: dom.Styles(raw: {
-              'flex': '1',
-              'color': item.destructive
-                  ? 'var(--destructive)'
-                  : 'var(--foreground)',
-            }),
-            [Component.text(item.label)],
-          ),
-          const dom.span(
-            styles: dom.Styles(raw: {
-              'color': 'var(--muted-foreground)',
-              'font-size': 'var(--font-size-xs)',
-            }),
-            [Component.text('\u{203A}')],
-          ),
-          dom.div(
-            classes: 'codex-context-menu-submenu',
-            styles: const dom.Styles(raw: {
-              'display': 'none',
-              'position': 'absolute',
-              'left': '100%',
-              'top': '0',
-              'min-width': '140px',
-              'padding': '6px',
-              'background-color': 'var(--card)',
-              'border': '1px solid var(--border)',
-              'border-radius': 'var(--radius)',
-              'box-shadow': '0 0 30px rgba(var(--primary-rgb), 0.1)',
-            }),
-            [for (final subitem in item.submenu!) _buildMenuItem(subitem)],
-          ),
-        ],
-      );
-    }
+  Component _buildSeparator() {
+    return const dom.div(
+      classes: 'codex-context-menu-separator',
+      styles: dom.Styles(raw: {
+        'height': '1px',
+        'margin': '6px -6px',
+        'background-color': 'var(--border)',
+      }),
+      [],
+    );
+  }
 
+  Component _buildLabel(String label) {
+    return dom.div(
+      classes: 'codex-context-menu-label',
+      styles: const dom.Styles(raw: {
+        'padding': '8px 12px',
+        'font-size': 'var(--font-size-xs)',
+        'font-weight': 'var(--font-weight-semibold)',
+        'color': 'var(--muted-foreground)',
+        'user-select': 'none',
+      }),
+      [Component.text(label)],
+    );
+  }
+
+  Component _buildAction(MenuItemAction item) {
     return dom.div(
       classes:
           'codex-context-menu-item ${item.disabled ? 'disabled' : ''} ${item.destructive ? 'destructive' : ''}',
@@ -162,6 +125,172 @@ class CodexContextMenu extends StatelessComponent {
             }),
             [Component.text(item.shortcut!)],
           ),
+      ],
+    );
+  }
+
+  Component _buildCheckbox(MenuItemCheckbox item) {
+    return dom.div(
+      classes: 'codex-context-menu-item checkbox',
+      attributes: {
+        'role': 'menuitemcheckbox',
+        'aria-checked': '${item.checked}',
+        if (item.disabled) 'aria-disabled': 'true',
+      },
+      styles: dom.Styles(raw: {
+        'position': 'relative',
+        'display': 'flex',
+        'align-items': 'center',
+        'gap': '10px',
+        'padding': '8px 12px',
+        'padding-left': '36px',
+        'font-size': 'var(--font-size-sm)',
+        'border-radius': 'var(--radius)',
+        'cursor': item.disabled ? 'not-allowed' : 'pointer',
+        'transition': 'background-color var(--arcane-transition), color var(--arcane-transition)',
+        'user-select': 'none',
+        'outline': 'none',
+        if (item.disabled) 'pointer-events': 'none',
+        if (item.disabled) 'opacity': '0.5',
+      }),
+      events: item.onChanged != null && !item.disabled
+          ? {'click': (_) => item.onChanged!(!item.checked)}
+          : null,
+      [
+        // Checkbox indicator
+        if (item.checked)
+          const dom.span(
+            styles: dom.Styles(raw: {
+              'position': 'absolute',
+              'left': '12px',
+              'color': 'var(--primary)',
+              'font-size': 'var(--font-size-xs)',
+            }),
+            [Component.text('\u{2713}')], // Checkmark
+          ),
+        if (item.icon != null) item.icon!,
+        dom.span(
+          styles: const dom.Styles(raw: {'flex': '1'}),
+          [Component.text(item.label)],
+        ),
+        if (item.shortcut != null)
+          dom.span(
+            styles: const dom.Styles(raw: {
+              'margin-left': 'auto',
+              'font-size': 'var(--font-size-xs)',
+              'letter-spacing': '0.1em',
+              'color': 'var(--muted-foreground)',
+            }),
+            [Component.text(item.shortcut!)],
+          ),
+      ],
+    );
+  }
+
+  Component _buildRadio(MenuItemRadio item) {
+    return dom.div(
+      classes: 'codex-context-menu-item radio',
+      attributes: {
+        'role': 'menuitemradio',
+        'aria-checked': '${item.selected}',
+        if (item.disabled) 'aria-disabled': 'true',
+      },
+      styles: dom.Styles(raw: {
+        'position': 'relative',
+        'display': 'flex',
+        'align-items': 'center',
+        'gap': '10px',
+        'padding': '8px 12px',
+        'padding-left': '36px',
+        'font-size': 'var(--font-size-sm)',
+        'border-radius': 'var(--radius)',
+        'cursor': item.disabled ? 'not-allowed' : 'pointer',
+        'transition': 'background-color var(--arcane-transition), color var(--arcane-transition)',
+        'user-select': 'none',
+        'outline': 'none',
+        if (item.disabled) 'pointer-events': 'none',
+        if (item.disabled) 'opacity': '0.5',
+      }),
+      events: item.onChanged != null && !item.disabled
+          ? {'click': (_) => item.onChanged!(item.value)}
+          : null,
+      [
+        // Radio indicator
+        if (item.selected)
+          const dom.span(
+            styles: dom.Styles(raw: {
+              'position': 'absolute',
+              'left': '12px',
+              'color': 'var(--primary)',
+              'font-size': 'var(--font-size-xs)',
+            }),
+            [Component.text('\u{2022}')], // Bullet
+          ),
+        if (item.icon != null) item.icon!,
+        dom.span(
+          styles: const dom.Styles(raw: {'flex': '1'}),
+          [Component.text(item.label)],
+        ),
+      ],
+    );
+  }
+
+  Component _buildSubmenu(MenuItemSubmenu item) {
+    return dom.div(
+      classes:
+          'codex-context-menu-item codex-context-menu-submenu-trigger ${item.disabled ? 'disabled' : ''}',
+      attributes: {
+        'role': 'menuitem',
+        'aria-haspopup': 'true',
+        if (item.disabled) 'aria-disabled': 'true',
+      },
+      styles: dom.Styles(raw: {
+        'position': 'relative',
+        'display': 'flex',
+        'align-items': 'center',
+        'gap': '10px',
+        'padding': '8px 12px',
+        'border-radius': 'var(--radius)',
+        'cursor': item.disabled ? 'not-allowed' : 'default',
+        'transition': 'color var(--arcane-transition), background-color var(--arcane-transition)',
+        'font-size': 'var(--font-size-sm)',
+        'user-select': 'none',
+        'outline': 'none',
+        if (item.disabled) 'pointer-events': 'none',
+        if (item.disabled) 'opacity': '0.5',
+      }),
+      [
+        if (item.icon != null) item.icon!,
+        dom.span(
+          styles: const dom.Styles(raw: {
+            'flex': '1',
+            'color': 'var(--foreground)',
+          }),
+          [Component.text(item.label)],
+        ),
+        const dom.span(
+          styles: dom.Styles(raw: {
+            'color': 'var(--muted-foreground)',
+            'font-size': 'var(--font-size-xs)',
+          }),
+          [Component.text('\u{203A}')], // Right arrow
+        ),
+        dom.div(
+          classes: 'codex-context-menu-submenu',
+          styles: const dom.Styles(raw: {
+            'display': 'none',
+            'position': 'absolute',
+            'left': '100%',
+            'top': '0',
+            'min-width': '140px',
+            'padding': '6px',
+            'background-color': 'var(--card)',
+            'border': '1px solid var(--border)',
+            'border-radius': 'var(--radius)',
+            'box-shadow': '0 0 30px rgba(var(--primary-rgb), 0.1)',
+          }),
+          [for (final child in item.children) _buildMenuItem(child)],
+        ),
       ],
     );
   }

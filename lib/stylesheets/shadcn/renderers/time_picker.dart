@@ -11,15 +11,15 @@ class ShadcnTimePicker extends StatelessComponent {
   const ShadcnTimePicker(this.props, {super.key});
 
   Map<String, String> get _sizeStyles => switch (props.size) {
-        TimePickerSize.sm => {
+        ComponentSize.sm => {
             'height': '32px',
             'fontSize': '0.875rem',
           },
-        TimePickerSize.md => {
+        ComponentSize.md => {
             'height': '40px',
             'fontSize': '0.875rem',
           },
-        TimePickerSize.lg => {
+        ComponentSize.lg => {
             'height': '48px',
             'fontSize': '1rem',
           },

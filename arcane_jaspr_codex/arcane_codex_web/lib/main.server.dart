@@ -35,7 +35,7 @@ void main() async {
         sidebarFooterUrl: 'https://github.com/ArcaneArts/arcane_inkwell',
       ),
       // stylesheet: const CodexStylesheet(theme: CodexTheme.green),
-      stylesheet: const ShadcnStylesheet(theme: ShadcnTheme.sky),
+      stylesheet: const ShadcnStylesheet(theme: ShadcnTheme.midnight),
       demoBuilder: (String componentType) => InteractiveDemo(componentType: componentType),
     ),
   );

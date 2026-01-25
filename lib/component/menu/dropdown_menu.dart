@@ -189,6 +189,34 @@ class _ArcaneMegaMenuState extends State<ArcaneMegaMenu> {
   }
 
   Component _buildMegaItem(ArcaneMenuItem item) {
+    // Handle different menu item types with pattern matching
+    return switch (item) {
+      final MenuItemAction action => _buildActionItem(action),
+      MenuItemSeparator() => const dom.div(
+          styles: dom.Styles(raw: {
+            'border': 'none',
+            'border-top': '1px solid var(--border)',
+            'margin': '0.5rem 0',
+            'height': '1px',
+          }),
+          [],
+        ),
+      final MenuItemLabel label => dom.div(
+          styles: const dom.Styles(raw: {
+            'font-size': '0.75rem',
+            'font-weight': '600',
+            'text-transform': 'uppercase',
+            'letter-spacing': '0.05em',
+            'color': 'var(--muted-foreground)',
+            'padding': '0.5rem',
+          }),
+          [Component.text(label.label)],
+        ),
+      _ => const Component.text(''),
+    };
+  }
+
+  Component _buildActionItem(MenuItemAction action) {
     final Component itemContent = dom.div(
       styles: const dom.Styles(raw: {
         'display': 'flex',
@@ -196,13 +224,13 @@ class _ArcaneMegaMenuState extends State<ArcaneMegaMenu> {
         'gap': '0.5rem',
       }),
       [
-        if (item.icon != null)
+        if (action.icon != null)
           dom.span(
             styles: const dom.Styles(raw: {
               'flex-shrink': '0',
               'margin-top': '2px',
             }),
-            [item.icon!],
+            [action.icon!],
           ),
         dom.div([
           dom.div(
@@ -211,24 +239,24 @@ class _ArcaneMegaMenuState extends State<ArcaneMegaMenu> {
               'font-weight': '500',
               'color': 'var(--foreground)',
             }),
-            [Component.text(item.label)],
+            [Component.text(action.label)],
           ),
-          if (item.description != null)
+          if (action.description != null)
             dom.div(
               styles: const dom.Styles(raw: {
                 'font-size': '0.75rem',
                 'color': 'var(--muted-foreground)',
                 'margin-top': '2px',
               }),
-              [Component.text(item.description!)],
+              [Component.text(action.description!)],
             ),
         ]),
       ],
     );
 
-    if (item.href != null) {
+    if (action.href != null) {
       return dom.a(
-        href: item.href!,
+        href: action.href!,
         classes: 'arcane-mega-menu-item',
         styles: const dom.Styles(raw: {
           'display': 'block',
@@ -256,7 +284,7 @@ class _ArcaneMegaMenuState extends State<ArcaneMegaMenu> {
         'transition': 'background-color 150ms ease',
       }),
       events: {
-        if (item.onSelect != null) 'click': (e) => item.onSelect!(),
+        if (action.onSelect != null) 'click': (e) => action.onSelect!(),
       },
       [itemContent],
     );

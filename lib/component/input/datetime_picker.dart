@@ -7,7 +7,7 @@ import '../layout/flow.dart';
 import 'time_picker.dart';
 import 'date_picker.dart';
 
-export '../../core/props/time_picker_props.dart' show TimeOfDay, TimePickerSize;
+export '../../core/props/time_picker_props.dart' show TimeOfDay, ComponentSize;
 export '../../core/props/date_picker_props.dart' show DatePickerSizeVariant;
 
 /// Mode for the datetime picker.
@@ -132,10 +132,10 @@ class _ArcaneDateTimePickerState extends State<ArcaneDateTimePicker> {
         DateTimePickerSize.lg => DatePickerSize.lg,
       };
 
-  TimePickerSize get _timePickerSize => switch (component.size) {
-        DateTimePickerSize.sm => TimePickerSize.sm,
-        DateTimePickerSize.md => TimePickerSize.md,
-        DateTimePickerSize.lg => TimePickerSize.lg,
+  ComponentSize get _timePickerSize => switch (component.size) {
+        DateTimePickerSize.sm => ComponentSize.sm,
+        DateTimePickerSize.md => ComponentSize.md,
+        DateTimePickerSize.lg => ComponentSize.lg,
       };
 
   Component _buildDatePicker() {

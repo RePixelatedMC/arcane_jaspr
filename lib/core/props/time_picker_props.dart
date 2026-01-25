@@ -1,5 +1,9 @@
 import 'package:jaspr/jaspr.dart';
 
+import '../shared/shared.dart';
+
+export '../shared/shared.dart' show ComponentSize;
+
 /// Represents a time of day with hour and minute.
 class TimeOfDay {
   final int hour;
@@ -47,12 +51,6 @@ class TimeOfDay {
   String toString() => format();
 }
 
-enum TimePickerSize {
-  sm,
-  md,
-  lg,
-}
-
 /// Time picker component properties.
 class TimePickerProps {
   final TimeOfDay? value;
@@ -61,7 +59,7 @@ class TimePickerProps {
   final bool disabled;
   final String? error;
   final bool clearable;
-  final TimePickerSize size;
+  final ComponentSize size;
   final bool isOpen;
   final bool use24Hour;
   final int selectedHour;

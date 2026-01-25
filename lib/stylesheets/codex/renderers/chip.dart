@@ -18,57 +18,74 @@ class CodexChip extends StatelessComponent {
   Component build(BuildContext context) {
     // Codex sizes - slightly larger
     final (String padding, String fontSize, String iconSize) = switch (props.size) {
-      ChipSize.small => ('0.25rem 0.625rem', '0.6875rem', '12px'),
-      ChipSize.medium => ('0.375rem 0.75rem', '0.75rem', '14px'), // Codex: more padding
-      ChipSize.large => ('0.5rem 1rem', '0.875rem', '16px'),
+      ComponentSize.sm => ('0.25rem 0.625rem', '0.6875rem', '12px'),
+      ComponentSize.md => ('0.375rem 0.75rem', '0.75rem', '14px'), // Codex: more padding
+      ComponentSize.lg => ('0.5rem 1rem', '0.875rem', '16px'),
     };
 
-    // Codex variant styles with accent colors
-    final Map<String, String> variantStyles = switch (props.variant) {
-      ChipVariant.standard => {
-          'background-color': 'var(--secondary)',
-          'color': 'var(--foreground)',
-          'border': '1px solid var(--border)',
-        },
-      ChipVariant.primary => {
-          'background-color': 'var(--primary)',
-          'color': '#ffffff',
+    // Get color-specific values with Codex glows
+    final (String bgColor, String fgColor, String? glowColor) = switch (props.color) {
+      ColorVariant.primary => (
+        'var(--primary)',
+        'var(--primary-foreground)',
+        '0 0 15px rgba(var(--primary-rgb), 0.2)',
+      ),
+      ColorVariant.secondary => (
+        'var(--secondary)',
+        'var(--secondary-foreground)',
+        null,
+      ),
+      ColorVariant.destructive => (
+        'var(--destructive)',
+        'var(--destructive-foreground)',
+        '0 0 10px rgba(var(--destructive-rgb), 0.25)',
+      ),
+      ColorVariant.success => (
+        'var(--success, #22c55e)',
+        'var(--success-foreground, #ffffff)',
+        '0 0 10px rgba(var(--success-rgb), 0.25)',
+      ),
+      ColorVariant.warning => (
+        'var(--warning, #f59e0b)',
+        'var(--warning-foreground, #000000)',
+        null,
+      ),
+      ColorVariant.info => (
+        'var(--info, #3b82f6)',
+        'var(--info-foreground, #ffffff)',
+        '0 0 10px rgba(var(--info-rgb), 0.25)',
+      ),
+    };
+
+    // Codex style-specific styles with glows
+    final Map<String, String> styleStyles = switch (props.style) {
+      StyleVariant.solid => {
+          'background-color': bgColor,
+          'color': fgColor,
           'border': '1px solid transparent',
-          'box-shadow': '0 0 15px rgba(var(--primary-rgb), 0.2)',
+          if (glowColor != null) 'box-shadow': glowColor,
         },
-      ChipVariant.secondary => {
-          'background-color': 'var(--secondary)',
-          'color': 'var(--secondary-foreground)',
-          'border': '1px solid var(--border)',
-        },
-      ChipVariant.success => {
-          'background-color': 'var(--success)',
-          'color': 'var(--success-foreground)',
-          'border': '1px solid transparent',
-          'box-shadow': '0 0 10px rgba(var(--success-rgb), 0.25)',
-        },
-      ChipVariant.warning => {
-          'background-color': 'var(--warning)',
-          'color': 'var(--warning-foreground)',
-          'border': '1px solid transparent',
-        },
-      ChipVariant.error => {
-          'background-color': 'var(--destructive)',
-          'color': 'var(--destructive-foreground)',
-          'border': '1px solid transparent',
-          'box-shadow': '0 0 10px rgba(var(--destructive-rgb), 0.25)',
-        },
-      ChipVariant.outline => {
+      StyleVariant.outline => {
           'background-color': 'transparent',
-          'color': 'var(--primary)',
-          'border': '1px solid var(--primary)',
+          'color': bgColor,
+          'border': '1px solid $bgColor',
+        },
+      StyleVariant.ghost => {
+          'background-color': 'color-mix(in srgb, $bgColor 15%, transparent)',
+          'color': bgColor,
+          'border': '1px solid transparent',
+        },
+      StyleVariant.link => {
+          'background-color': 'transparent',
+          'color': bgColor,
+          'border': '1px solid transparent',
         },
     };
 
     final bool isClickable = props.onTap != null;
 
     return dom.div(
-      classes: 'codex-chip ${props.variant.name}',
+      classes: 'codex-chip ${props.color.name}',
       styles: dom.Styles(raw: {
         'display': 'inline-flex',
         'align-items': 'center',
@@ -80,7 +97,7 @@ class CodexChip extends StatelessComponent {
         'line-height': '1',
         'white-space': 'nowrap',
         'transition': 'all var(--transition)',
-        ...variantStyles,
+        ...styleStyles,
         if (isClickable) 'cursor': 'pointer',
       }),
       events: props.onTap == null ? null : {'click': (_) => props.onTap!()},

@@ -12,9 +12,9 @@ class ShadcnDotIndicator extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     final dotSize = switch (props.size) {
-      DotIndicatorSize.sm => '6px',
-      DotIndicatorSize.md => '8px',
-      DotIndicatorSize.lg => '10px',
+      ComponentSize.sm => '6px',
+      ComponentSize.md => '8px',
+      ComponentSize.lg => '10px',
     };
 
     final effectiveSpacing = props.spacing ?? '0.5rem';
@@ -73,9 +73,9 @@ class ShadcnStepIndicator extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     final (circleSize, fontSize, lineHeight) = switch (props.size) {
-      StepIndicatorSize.sm => ('24px', '0.75rem', '2px'),
-      StepIndicatorSize.md => ('32px', '0.875rem', '3px'),
-      StepIndicatorSize.lg => ('40px', '1rem', '4px'),
+      ComponentSize.sm => ('24px', '0.75rem', '2px'),
+      ComponentSize.md => ('32px', '0.875rem', '3px'),
+      ComponentSize.lg => ('40px', '1rem', '4px'),
     };
 
     return dom.div(

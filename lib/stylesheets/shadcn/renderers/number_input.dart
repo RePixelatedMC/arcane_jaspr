@@ -15,9 +15,9 @@ class ShadcnNumberInput extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     final (height, fontSize, buttonWidth) = switch (props.size) {
-      NumberInputSize.sm => ('32px', '0.875rem', '32px'),
-      NumberInputSize.md => ('40px', '1rem', '40px'),
-      NumberInputSize.lg => ('48px', '1.125rem', '48px'),
+      ComponentSize.sm => ('32px', '0.875rem', '32px'),
+      ComponentSize.md => ('40px', '1rem', '40px'),
+      ComponentSize.lg => ('48px', '1.125rem', '48px'),
     };
 
     final bool canDecrement = props.value > props.min;

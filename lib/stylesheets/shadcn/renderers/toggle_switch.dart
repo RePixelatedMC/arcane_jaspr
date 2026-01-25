@@ -18,32 +18,40 @@ class ShadcnToggleSwitch extends StatelessComponent {
     // Default: w-11 h-6 (44px x 24px), thumb h-5 w-5 (20px)
     final (double width, double height, double thumbSize, double thumbOffset) =
         switch (props.size) {
-      ToggleSwitchSize.small => (36.0, 20.0, 16.0, 2.0), // w-9 h-5, thumb h-4
-      ToggleSwitchSize.medium =>
+      ComponentSize.sm => (36.0, 20.0, 16.0, 2.0), // w-9 h-5, thumb h-4
+      ComponentSize.md =>
         (44.0, 24.0, 20.0, 2.0), // w-11 h-6, thumb h-5 (shadcn)
-      ToggleSwitchSize.large => (56.0, 28.0, 24.0, 2.0), // w-14 h-7, thumb h-6
+      ComponentSize.lg => (56.0, 28.0, 24.0, 2.0), // w-14 h-7, thumb h-6
     };
 
     // ShadCN: translate-x-0 (off) / translate-x-5 (on)
     final double thumbTranslate =
         props.value ? (width - thumbSize - thumbOffset * 2) : 0.0;
 
-    // Get variant colors - inactive uses muted with border for better visibility
-    final (String activeColor, String inactiveColor) = switch (props.variant) {
-      ToggleSwitchVariant.primary => (
+    // Get color variant colors - inactive uses muted with border for better visibility
+    final (String activeColor, String inactiveColor) = switch (props.color) {
+      ColorVariant.primary => (
           'var(--primary)',
           'var(--muted)',
         ),
-      ToggleSwitchVariant.success => (
+      ColorVariant.secondary => (
+          'var(--secondary)',
+          'var(--muted)',
+        ),
+      ColorVariant.destructive => (
+          'var(--destructive)',
+          'var(--muted)',
+        ),
+      ColorVariant.success => (
           'var(--success, #22c55e)',
           'var(--muted)',
         ),
-      ToggleSwitchVariant.warning => (
+      ColorVariant.warning => (
           'var(--warning, #f59e0b)',
           'var(--muted)',
         ),
-      ToggleSwitchVariant.error => (
-          'var(--destructive)',
+      ColorVariant.info => (
+          'var(--info, #3b82f6)',
           'var(--muted)',
         ),
     };

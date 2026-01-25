@@ -17,43 +17,53 @@ class ShadcnCheckbox extends StatelessComponent {
     // ShadCN size dimensions
     // Default: h-4 w-4 (16px), rounded-sm (4px)
     final String boxSize = switch (props.size) {
-      CheckboxSize.small => '14px', // h-3.5
-      CheckboxSize.medium => '16px', // h-4 (shadcn default)
-      CheckboxSize.large => '20px', // h-5
+      ComponentSize.sm => '14px', // h-3.5
+      ComponentSize.md => '16px', // h-4 (shadcn default)
+      ComponentSize.lg => '20px', // h-5
     };
 
     final String checkSize = switch (props.size) {
-      CheckboxSize.small => '10px',
-      CheckboxSize.medium => '12px',
-      CheckboxSize.large => '14px',
+      ComponentSize.sm => '10px',
+      ComponentSize.md => '12px',
+      ComponentSize.lg => '14px',
     };
 
-    // Get variant colors - border is always the variant color (like radio)
-    final (String checkedBg, String borderColor) = switch (props.variant) {
-      CheckboxVariant.primary => (
+    // Get color variant colors - border is always the color value (like radio)
+    final (String checkedBg, String borderColor) = switch (props.color) {
+      ColorVariant.primary => (
           'var(--primary)',
           'var(--primary)',
         ),
-      CheckboxVariant.success => (
+      ColorVariant.secondary => (
+          'var(--secondary)',
+          'var(--secondary)',
+        ),
+      ColorVariant.destructive => (
+          'var(--destructive)',
+          'var(--destructive)',
+        ),
+      ColorVariant.success => (
           'var(--success, #22c55e)',
           'var(--success, #22c55e)',
         ),
-      CheckboxVariant.warning => (
+      ColorVariant.warning => (
           'var(--warning, #f59e0b)',
           'var(--warning, #f59e0b)',
         ),
-      CheckboxVariant.error => (
-          'var(--destructive)',
-          'var(--destructive)',
+      ColorVariant.info => (
+          'var(--info, #3b82f6)',
+          'var(--info, #3b82f6)',
         ),
     };
 
     // Checkmark foreground color
-    final String checkColor = switch (props.variant) {
-      CheckboxVariant.primary => 'var(--primary-foreground)',
-      CheckboxVariant.success => 'var(--success-foreground, #ffffff)',
-      CheckboxVariant.warning => 'var(--warning-foreground, #000000)',
-      CheckboxVariant.error => 'var(--destructive-foreground)',
+    final String checkColor = switch (props.color) {
+      ColorVariant.primary => 'var(--primary-foreground)',
+      ColorVariant.secondary => 'var(--secondary-foreground)',
+      ColorVariant.destructive => 'var(--destructive-foreground)',
+      ColorVariant.success => 'var(--success-foreground, #ffffff)',
+      ColorVariant.warning => 'var(--warning-foreground, #000000)',
+      ColorVariant.info => 'var(--info-foreground, #ffffff)',
     };
 
     return dom.div(

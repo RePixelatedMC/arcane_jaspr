@@ -21,9 +21,9 @@ class CodexFAB extends StatelessComponent {
 
     // Codex Neon sizes - larger with more commanding presence
     final (double dimension, double iconSize) = switch (props.size) {
-      FABSize.small => (48.0, 22.0),
-      FABSize.regular => (64.0, 28.0),
-      FABSize.large => (80.0, 36.0),
+      ComponentSize.sm => (48.0, 22.0),
+      ComponentSize.md => (64.0, 28.0),
+      ComponentSize.lg => (80.0, 36.0),
     };
 
     // Get position styles
@@ -57,37 +57,43 @@ class CodexFAB extends StatelessComponent {
       FABPosition.relative => {},
     };
 
-    // Codex Neon variant styles with intense cyberpunk glows
-    final Map<String, String> variantStyles = switch (props.variant) {
-      FABVariant.primary => {
+    // Codex Neon color variant styles with intense cyberpunk glows
+    final Map<String, String> variantStyles = switch (props.color) {
+      ColorVariant.primary => {
         'background': 'linear-gradient(135deg, var(--primary) 0%, color-mix(in srgb, var(--primary) 60%, #ff00ff) 100%)',
-        'color': '#ffffff',
+        'color': 'var(--primary-foreground)',
         'border': '1px solid rgba(var(--primary-rgb), 0.6)',
         'box-shadow': '0 0 30px rgba(var(--primary-rgb), 0.5), 0 0 60px rgba(var(--primary-rgb), 0.25), 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15)',
       },
-      FABVariant.secondary => {
+      ColorVariant.secondary => {
         'background': 'linear-gradient(135deg, var(--secondary) 0%, color-mix(in srgb, var(--secondary) 70%, var(--primary)) 100%)',
         'color': 'var(--secondary-foreground)',
         'border': '1px solid rgba(var(--border-rgb), 0.4)',
         'box-shadow': '0 0 20px rgba(var(--secondary-rgb), 0.3), 0 8px 32px rgba(0, 0, 0, 0.4)',
       },
-      FABVariant.surface => {
-        'background': 'linear-gradient(135deg, var(--card) 0%, color-mix(in srgb, var(--card) 80%, var(--primary)) 100%)',
-        'color': 'var(--foreground)',
-        'border': '1px solid rgba(var(--primary-rgb), 0.2)',
-        'box-shadow': '0 0 15px rgba(var(--primary-rgb), 0.15), 0 8px 32px rgba(0, 0, 0, 0.4)',
+      ColorVariant.destructive => {
+        'background': 'linear-gradient(135deg, var(--destructive) 0%, color-mix(in srgb, var(--destructive) 60%, #ff0066) 100%)',
+        'color': 'var(--destructive-foreground)',
+        'border': '1px solid rgba(var(--destructive-rgb), 0.6)',
+        'box-shadow': '0 0 30px rgba(var(--destructive-rgb), 0.5), 0 0 60px rgba(var(--destructive-rgb), 0.25), 0 8px 32px rgba(0, 0, 0, 0.4)',
       },
-      FABVariant.success => {
+      ColorVariant.success => {
         'background': 'linear-gradient(135deg, var(--success) 0%, color-mix(in srgb, var(--success) 60%, #00ffaa) 100%)',
-        'color': '#ffffff',
+        'color': 'var(--success-foreground, #ffffff)',
         'border': '1px solid rgba(var(--success-rgb), 0.6)',
         'box-shadow': '0 0 30px rgba(var(--success-rgb), 0.5), 0 0 60px rgba(var(--success-rgb), 0.25), 0 8px 32px rgba(0, 0, 0, 0.4)',
       },
-      FABVariant.destructive => {
-        'background': 'linear-gradient(135deg, var(--destructive) 0%, color-mix(in srgb, var(--destructive) 60%, #ff0066) 100%)',
-        'color': '#ffffff',
-        'border': '1px solid rgba(var(--destructive-rgb), 0.6)',
-        'box-shadow': '0 0 30px rgba(var(--destructive-rgb), 0.5), 0 0 60px rgba(var(--destructive-rgb), 0.25), 0 8px 32px rgba(0, 0, 0, 0.4)',
+      ColorVariant.warning => {
+        'background': 'linear-gradient(135deg, var(--warning) 0%, color-mix(in srgb, var(--warning) 60%, #ffaa00) 100%)',
+        'color': 'var(--warning-foreground, #000000)',
+        'border': '1px solid rgba(var(--warning-rgb), 0.6)',
+        'box-shadow': '0 0 30px rgba(var(--warning-rgb), 0.5), 0 0 60px rgba(var(--warning-rgb), 0.25), 0 8px 32px rgba(0, 0, 0, 0.4)',
+      },
+      ColorVariant.info => {
+        'background': 'linear-gradient(135deg, var(--info) 0%, color-mix(in srgb, var(--info) 60%, #00aaff) 100%)',
+        'color': 'var(--info-foreground, #ffffff)',
+        'border': '1px solid rgba(var(--info-rgb), 0.6)',
+        'box-shadow': '0 0 30px rgba(var(--info-rgb), 0.5), 0 0 60px rgba(var(--info-rgb), 0.25), 0 8px 32px rgba(0, 0, 0, 0.4)',
       },
     };
 

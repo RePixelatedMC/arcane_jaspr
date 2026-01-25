@@ -11,34 +11,46 @@ class ShadcnAlert extends StatelessComponent {
 
   const ShadcnAlert(this.props, {super.key});
 
-  String get _defaultIcon => switch (props.severity) {
-        AlertSeverity.info => '\u2139', // ℹ
-        AlertSeverity.success => '\u2713', // ✓
-        AlertSeverity.warning => '\u26A0', // ⚠
-        AlertSeverity.error => '\u2715', // ✕
+  String get _defaultIcon => switch (props.color) {
+        ColorVariant.info => '\u2139', // ℹ
+        ColorVariant.success => '\u2713', // ✓
+        ColorVariant.warning => '\u26A0', // ⚠
+        ColorVariant.destructive => '\u2715', // ✕
+        ColorVariant.primary => '\u2139', // ℹ
+        ColorVariant.secondary => '\u2139', // ℹ
       };
 
   (String primary, String background, String border) get _colors =>
-      switch (props.severity) {
-        AlertSeverity.info => (
+      switch (props.color) {
+        ColorVariant.info => (
             'var(--info, #3b82f6)',
             'color-mix(in srgb, var(--info, #3b82f6) 10%, transparent)',
             'color-mix(in srgb, var(--info, #3b82f6) 30%, transparent)',
           ),
-        AlertSeverity.success => (
+        ColorVariant.success => (
             'var(--success, #22c55e)',
             'color-mix(in srgb, var(--success, #22c55e) 10%, transparent)',
             'color-mix(in srgb, var(--success, #22c55e) 30%, transparent)',
           ),
-        AlertSeverity.warning => (
+        ColorVariant.warning => (
             'var(--warning, #f59e0b)',
             'color-mix(in srgb, var(--warning, #f59e0b) 10%, transparent)',
             'color-mix(in srgb, var(--warning, #f59e0b) 30%, transparent)',
           ),
-        AlertSeverity.error => (
+        ColorVariant.destructive => (
             'var(--destructive)',
             'color-mix(in srgb, var(--destructive) 10%, transparent)',
             'color-mix(in srgb, var(--destructive) 30%, transparent)',
+          ),
+        ColorVariant.primary => (
+            'var(--primary)',
+            'color-mix(in srgb, var(--primary) 10%, transparent)',
+            'color-mix(in srgb, var(--primary) 30%, transparent)',
+          ),
+        ColorVariant.secondary => (
+            'var(--secondary)',
+            'color-mix(in srgb, var(--secondary) 10%, transparent)',
+            'color-mix(in srgb, var(--secondary) 30%, transparent)',
           ),
       };
 
@@ -46,26 +58,26 @@ class ShadcnAlert extends StatelessComponent {
   Component build(BuildContext context) {
     final (primary, bgColor, borderColor) = _colors;
 
-    // ShadCN Alert styles vary by variant
-    final containerStyles = switch (props.variant) {
-      AlertVariant.subtle => <String, String>{
+    // ShadCN Alert styles vary by style
+    final containerStyles = switch (props.style) {
+      AlertStyle.subtle => <String, String>{
           'background-color': bgColor,
           'border': '1px solid $borderColor',
           'border-radius': 'var(--arcane-radius-md)', // rounded-lg
         },
-      AlertVariant.solid => <String, String>{
+      AlertStyle.solid => <String, String>{
           'background-color': primary,
           'border': '1px solid transparent',
           'border-radius': 'var(--arcane-radius-md)',
           'color': 'var(--primary-foreground)',
         },
-      AlertVariant.outline => <String, String>{
+      AlertStyle.outline => <String, String>{
           'background-color': 'var(--background)',
           'border': '1px solid $borderColor',
           'border-radius': 'var(--arcane-radius-md)',
           'color': 'var(--foreground)',
         },
-      AlertVariant.accent => <String, String>{
+      AlertStyle.accent => <String, String>{
           'background-color': bgColor,
           'border': '1px solid $borderColor',
           'border-left': '4px solid $primary',
@@ -73,7 +85,7 @@ class ShadcnAlert extends StatelessComponent {
         },
     };
 
-    final isSolid = props.variant == AlertVariant.solid;
+    final isSolid = props.style == AlertStyle.solid;
 
     return dom.div(
       classes: 'arcane-alert',

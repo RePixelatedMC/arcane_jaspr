@@ -2,7 +2,7 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
 export '../../core/props/text_input_props.dart'
-    show TextInputSize, TextInputVariant, TextInputType;
+    show ComponentSize, TextInputVariant, TextInputType;
 
 import '../../core/theme_provider.dart';
 
@@ -10,7 +10,7 @@ import '../../core/theme_provider.dart';
 class ArcaneTextInput extends StatelessComponent {
   final String? placeholder;
   final dom.InputType type;
-  final TextInputSize size;
+  final ComponentSize size;
   final bool disabled;
   final bool required;
   final bool readOnly;
@@ -31,7 +31,7 @@ class ArcaneTextInput extends StatelessComponent {
   const ArcaneTextInput({
     this.placeholder,
     this.type = dom.InputType.text,
-    this.size = TextInputSize.md,
+    this.size = ComponentSize.md,
     this.disabled = false,
     this.required = false,
     this.readOnly = false,
@@ -259,7 +259,7 @@ class ArcaneSelect extends StatelessComponent {
   final List<ArcaneSelectOption> options;
   final String? value;
   final String? placeholder;
-  final TextInputSize size;
+  final ComponentSize size;
   final bool disabled;
   final bool required;
   final String? name;
@@ -273,7 +273,7 @@ class ArcaneSelect extends StatelessComponent {
     required this.options,
     this.value,
     this.placeholder,
-    this.size = TextInputSize.md,
+    this.size = ComponentSize.md,
     this.disabled = false,
     this.required = false,
     this.name,
@@ -292,17 +292,17 @@ class ArcaneSelect extends StatelessComponent {
     final hasError = error != null;
 
     final Map<String, String> sizeStyles = switch (size) {
-      TextInputSize.sm => {
+      ComponentSize.sm => {
           'height': '36px',
           'padding': '0 12px',
           'font-size': '14px',
         },
-      TextInputSize.md => {
+      ComponentSize.md => {
           'height': '40px',
           'padding': '8px 12px',
           'font-size': '16px',
         },
-      TextInputSize.lg => {
+      ComponentSize.lg => {
           'height': '44px',
           'padding': '0 16px',
           'font-size': '16px',

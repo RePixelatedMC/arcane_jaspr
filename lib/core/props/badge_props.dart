@@ -1,46 +1,36 @@
 import 'package:jaspr/jaspr.dart';
+import '../shared/shared.dart';
 
-enum BadgeVariant {
-  standard,
-  primary,
-  secondary,
-  success,
-  warning,
-  error,
-  info,
-  outline,
-}
-
-enum BadgeSize {
-  small,
-  medium,
-  large,
-}
+export '../shared/shared.dart' show ComponentSize, ColorVariant, StyleVariant;
 
 /// Badge component properties.
 class BadgeProps {
   final String label;
   final Component? icon;
-  final BadgeVariant variant;
-  final BadgeSize size;
+  final ColorVariant color;
+  final StyleVariant style;
+  final ComponentSize size;
 
   const BadgeProps({
     required this.label,
     this.icon,
-    this.variant = BadgeVariant.standard,
-    this.size = BadgeSize.medium,
+    this.color = ColorVariant.secondary,
+    this.style = StyleVariant.solid,
+    this.size = ComponentSize.md,
   });
 
   BadgeProps copyWith({
     String? label,
     Component? icon,
-    BadgeVariant? variant,
-    BadgeSize? size,
+    ColorVariant? color,
+    StyleVariant? style,
+    ComponentSize? size,
   }) {
     return BadgeProps(
       label: label ?? this.label,
       icon: icon ?? this.icon,
-      variant: variant ?? this.variant,
+      color: color ?? this.color,
+      style: style ?? this.style,
       size: size ?? this.size,
     );
   }
