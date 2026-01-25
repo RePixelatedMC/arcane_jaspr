@@ -104,14 +104,14 @@ class ArcaneCodeBlock extends StatelessComponent {
           whiteSpace: WhiteSpace.pre,
           borderRadius: Radius.sm,
         ),
-      CodeBlockStyle.terminal => const ArcaneStyleData(
+      CodeBlockStyle.terminal => ArcaneStyleData(
           margin: MarginPreset.none,
           padding: PaddingPreset.md,
           background: Background.black,
           fontFamily: FontFamily.mono,
           fontSize: FontSize.sm,
           lineHeight: LineHeight.relaxed,
-          textColor: TextColor.neonGreen,
+          textColorCustom: ArcaneColor.neonGreen.css,
           whiteSpace: WhiteSpace.preWrap,
           wordBreak: WordBreak.breakWord,
           borderRadius: Radius.md,

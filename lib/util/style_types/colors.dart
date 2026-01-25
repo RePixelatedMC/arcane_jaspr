@@ -1,19 +1,6 @@
 const String _qnPrimary = 'var(--qn-primary, #059669)';
 const String _qnSecondary = 'var(--qn-secondary, #047857)';
 
-const String _neonPink = '#EC4899';
-const String _neonCyan = '#06B6D4';
-const String _neonPurple = '#8B5CF6';
-const String _neonGreen = '#10B981';
-const String _neonOrange = '#F97316';
-
-const String _minecraftGreen = '#62B247';
-const String _rustOrange = '#CE422B';
-const String _arkBlue = '#6EC8E4';
-const String _valheimGold = '#D4A843';
-const String _cs2Orange = '#DE9B35';
-const String _terrariaGreen = '#29A629';
-
 /// Background color presets
 enum Background {
   transparent,
@@ -119,11 +106,6 @@ enum TextColor {
   brandPrimary,
   brand,
   brandSecondary,
-  neonPink,
-  neonCyan,
-  neonPurple,
-  neonGreen,
-  neonOrange,
   star;
 
   String get css => switch (this) {
@@ -157,11 +139,6 @@ enum TextColor {
         TextColor.brandPrimary => _qnPrimary,
         TextColor.brand => _qnPrimary,
         TextColor.brandSecondary => _qnSecondary,
-        TextColor.neonPink => _neonPink,
-        TextColor.neonCyan => _neonCyan,
-        TextColor.neonPurple => _neonPurple,
-        TextColor.neonGreen => _neonGreen,
-        TextColor.neonOrange => _neonOrange,
         TextColor.star => 'var(--warning)',
       };
 }
@@ -196,41 +173,5 @@ enum BorderColor {
         BorderColor.transparent => 'transparent',
         BorderColor.outline => 'var(--border)',
         BorderColor.outlineVariant => 'var(--input)',
-      };
-}
-
-/// Neon/gaming accent colors
-enum NeonColor {
-  pink,
-  cyan,
-  purple,
-  green,
-  orange;
-
-  String get css => switch (this) {
-        NeonColor.pink => _neonPink,
-        NeonColor.cyan => _neonCyan,
-        NeonColor.purple => _neonPurple,
-        NeonColor.green => _neonGreen,
-        NeonColor.orange => _neonOrange,
-      };
-}
-
-/// Game-specific brand colors
-enum GameColor {
-  minecraft,
-  rust,
-  ark,
-  valheim,
-  cs2,
-  terraria;
-
-  String get css => switch (this) {
-        GameColor.minecraft => _minecraftGreen,
-        GameColor.rust => _rustOrange,
-        GameColor.ark => _arkBlue,
-        GameColor.valheim => _valheimGold,
-        GameColor.cs2 => _cs2Orange,
-        GameColor.terraria => _terrariaGreen,
       };
 }
