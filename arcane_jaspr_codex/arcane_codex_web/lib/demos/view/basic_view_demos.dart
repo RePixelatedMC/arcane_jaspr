@@ -8,10 +8,10 @@ class BasicViewDemos {
       ];
 
   static List<Component> badge() => [
-        ArcaneBadge('Default'),
-        ArcaneBadge.success('Success'),
-        ArcaneBadge.warning('Warning'),
-        ArcaneBadge.destructive('Error'),
+        ArcaneStatusBadge.secondary('Default'),
+        ArcaneStatusBadge.successSolid('Success'),
+        ArcaneStatusBadge.warningSolid('Warning'),
+        ArcaneStatusBadge.errorSolid('Error'),
       ];
 
   static List<Component> chip() => [

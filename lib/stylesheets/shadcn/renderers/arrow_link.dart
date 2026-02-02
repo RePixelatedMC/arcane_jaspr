@@ -5,13 +5,26 @@ import '../../../component/view/icon.dart';
 import '../../../core/props/arrow_link_props.dart';
 
 /// ShadCN Arrow Link renderer.
-class ShadcnArrowLink extends StatelessComponent {
+///
+/// Supports two variants:
+/// - `inline`: Simple text link with arrow
+/// - `pill`: Button-like link with background, border, and hover effects
+class ShadcnArrowLink extends StatefulComponent {
   final ArrowLinkProps props;
 
   const ShadcnArrowLink(this.props, {super.key});
 
   @override
+  State<ShadcnArrowLink> createState() => _ShadcnArrowLinkState();
+}
+
+class _ShadcnArrowLinkState extends State<ShadcnArrowLink> {
+  bool _isHovered = false;
+
+  @override
   Component build(BuildContext context) {
+    final ArrowLinkProps props = component.props;
+
     final String fontSize = switch (props.size) {
       ArrowLinkSize.xs => '0.75rem',
       ArrowLinkSize.sm => '0.875rem',
@@ -28,6 +41,21 @@ class ShadcnArrowLink extends StatelessComponent {
 
     final String color = props.accent ? 'var(--primary)' : 'var(--muted-foreground)';
 
+    // Build content based on variant
+    if (props.variant == ArrowLinkVariant.pill) {
+      return _buildPillVariant(props, fontSize, iconSize, color);
+    }
+
+    return _buildInlineVariant(props, fontSize, iconSize, color);
+  }
+
+  /// Builds the inline text link variant.
+  Component _buildInlineVariant(
+    ArrowLinkProps props,
+    String fontSize,
+    IconSize iconSize,
+    String color,
+  ) {
     final List<Component> content = [
       if (props.showArrow && props.arrowBefore) ArcaneIcon.arrowLeft(size: iconSize),
       Component.text(props.label),
@@ -57,7 +85,7 @@ class ShadcnArrowLink extends StatelessComponent {
     if (props.onTap != null) {
       return dom.button(
         classes: 'arcane-arrow-link',
-        attributes: {'type': 'button'},
+        attributes: const {'type': 'button'},
         styles: dom.Styles(raw: {
           ...styles,
           'background': 'none',
@@ -73,6 +101,109 @@ class ShadcnArrowLink extends StatelessComponent {
     return dom.span(
       classes: 'arcane-arrow-link',
       styles: dom.Styles(raw: styles),
+      content,
+    );
+  }
+
+  /// Builds the pill button variant with hover effects.
+  Component _buildPillVariant(
+    ArrowLinkProps props,
+    String fontSize,
+    IconSize iconSize,
+    String color,
+  ) {
+    final String padding = switch (props.size) {
+      ArrowLinkSize.xs => 'var(--space-2) var(--space-3)',
+      ArrowLinkSize.sm => 'var(--space-3) var(--space-4)',
+      ArrowLinkSize.md => 'var(--space-3) var(--space-5)',
+      ArrowLinkSize.lg => 'var(--space-4) var(--space-6)',
+    };
+
+    // Build arrow with animation wrapper if animateArrow is true
+    Component? arrowComponent;
+    if (props.showArrow) {
+      final Component arrow = props.arrowBefore
+          ? ArcaneIcon.arrowLeft(size: iconSize)
+          : ArcaneIcon.arrowRight(size: iconSize);
+
+      if (props.animateArrow) {
+        final String transform = _isHovered
+            ? (props.arrowBefore ? 'translateX(-4px)' : 'translateX(4px)')
+            : 'translateX(0)';
+
+        arrowComponent = dom.span(
+          styles: dom.Styles(raw: {
+            'display': 'inline-flex',
+            'transition': 'transform var(--arcane-transition)',
+            'transform': transform,
+          }),
+          [arrow],
+        );
+      } else {
+        arrowComponent = arrow;
+      }
+    }
+
+    final List<Component> content = [
+      if (props.showArrow && props.arrowBefore) arrowComponent!,
+      Component.text(props.label),
+      if (props.showArrow && !props.arrowBefore) arrowComponent!,
+    ];
+
+    final Map<String, String> styles = {
+      'display': 'inline-flex',
+      'align-items': 'center',
+      'justify-content': 'center',
+      'gap': 'var(--space-2)',
+      'padding': padding,
+      'font-size': fontSize,
+      'font-weight': 'var(--font-weight-medium)',
+      'color': color,
+      'text-decoration': 'none',
+      'cursor': 'pointer',
+      'border-radius': 'var(--radius-md)',
+      'background': _isHovered
+          ? 'color-mix(in srgb, $color 12%, transparent)'
+          : 'color-mix(in srgb, $color 6%, transparent)',
+      'border': _isHovered
+          ? '1px solid color-mix(in srgb, $color 25%, transparent)'
+          : '1px solid color-mix(in srgb, $color 12%, transparent)',
+      'transition': 'all var(--arcane-transition)',
+    };
+
+    final Map<String, void Function(Object)> hoverEvents = {
+      'mouseenter': (_) => setState(() => _isHovered = true),
+      'mouseleave': (_) => setState(() => _isHovered = false),
+    };
+
+    if (props.href != null) {
+      return dom.a(
+        classes: 'arcane-arrow-link arcane-arrow-link--pill',
+        href: props.href!,
+        styles: dom.Styles(raw: styles),
+        events: hoverEvents,
+        content,
+      );
+    }
+
+    if (props.onTap != null) {
+      return dom.button(
+        classes: 'arcane-arrow-link arcane-arrow-link--pill',
+        attributes: const {'type': 'button'},
+        styles: dom.Styles(raw: styles),
+        events: {
+          ...hoverEvents,
+          'click': (_) => props.onTap!(),
+        },
+        content,
+      );
+    }
+
+    // Fallback to span if no interaction
+    return dom.span(
+      classes: 'arcane-arrow-link arcane-arrow-link--pill',
+      styles: dom.Styles(raw: styles),
+      events: hoverEvents,
       content,
     );
   }

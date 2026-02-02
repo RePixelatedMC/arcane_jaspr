@@ -16,20 +16,22 @@ class CodexHeader extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
+    final String height = props.height != null ? '${props.height}px' : '64px';
+
     return dom.header(
       classes: 'codex-header ${props.sticky ? 'sticky' : ''} ${props.transparent ? 'transparent' : ''}',
       styles: dom.Styles(raw: {
-        'display': 'flex',
+        // Use CSS Grid for perfect 3-column centering
+        'display': 'grid',
+        'grid-template-columns': '1fr auto 1fr',
         'align-items': 'center',
-        'justify-content': 'space-between',
         'position': props.sticky ? 'sticky' : 'relative',
-        // Codex: larger height
-        'height': '72px',
-        'padding': '0 2rem', // Codex: more horizontal padding
-        // Frosted glass effect with semi-transparent background
+        'height': height,
+        'padding': '0 24px',
+        // Solid background with backdrop blur
         'background-color': props.transparent
             ? 'transparent'
-            : 'rgba(var(--arcane-card-rgb, 10, 10, 10), 0.75)',
+            : 'var(--background)',
         if (props.bordered) 'border-bottom': '1px solid var(--border)',
         'top': '0',
         'z-index': '50',
@@ -39,42 +41,43 @@ class CodexHeader extends StatelessComponent {
         'transition': 'all var(--transition)',
       }),
       [
-        // Left section: logo (fixed width to allow center nav to be truly centered)
+        // Left section: logo
         dom.div(
           classes: 'codex-header-logo',
           styles: const dom.Styles(raw: {
-            'flex-shrink': '0',
-            'min-width': '200px', // Fixed width to balance with actions
+            'display': 'flex',
+            'align-items': 'center',
+            'justify-content': 'flex-start',
           }),
           [props.logo],
         ),
 
-        // Center section: navigation (flex-grow to center)
-        dom.nav(
-          classes: 'codex-header-nav',
-          styles: const dom.Styles(raw: {
-            'display': 'flex',
-            'align-items': 'center',
-            'justify-content': 'center',
-            'gap': 'var(--space-2)', // Codex: more gap
-            'flex-grow': '1', // Allow nav to grow and center
-          }),
-          [
-            for (final item in props.navItems)
-              _buildNavItem(item),
-          ],
-        ),
+        // Center section: custom nav or generated nav items
+        if (props.customNav != null)
+          props.customNav!
+        else
+          dom.nav(
+            classes: 'codex-header-nav',
+            styles: const dom.Styles(raw: {
+              'display': 'flex',
+              'align-items': 'center',
+              'justify-content': 'center',
+              'gap': '4px',
+            }),
+            [
+              for (final NavItemProps item in props.navItems)
+                _buildNavItem(item),
+            ],
+          ),
 
-        // Right section: search and actions (fixed width to match logo)
+        // Right section: search and actions
         dom.div(
           classes: 'codex-header-actions',
           styles: const dom.Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
             'justify-content': 'flex-end',
-            'gap': '0.75rem', // Codex: more gap
-            'flex-shrink': '0',
-            'min-width': '200px', // Match logo width for balance
+            'gap': '0.75rem',
           }),
           [
             if (props.showSearch)

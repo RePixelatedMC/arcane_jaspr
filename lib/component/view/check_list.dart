@@ -115,19 +115,54 @@ class ArcaneCheckList extends StatelessComponent {
 }
 
 /// A feature/benefit row commonly used in pricing or comparison sections.
+///
+/// Displays a feature with check/x indicator for included/excluded states.
+/// Supports circular icon containers, strikethrough, and tooltips.
 class ArcaneFeatureRow extends StatelessComponent {
   final String feature;
   final bool included;
   final String? includedColor;
   final String? excludedColor;
+  final bool strikethrough;
+  final bool circularIcon;
+  final String? tooltip;
+  final String? iconSize;
 
   const ArcaneFeatureRow({
     required this.feature,
     this.included = true,
     this.includedColor,
     this.excludedColor,
+    this.strikethrough = true,
+    this.circularIcon = true,
+    this.tooltip,
+    this.iconSize,
     super.key,
   });
+
+  /// Creates a feature row for an included feature.
+  const ArcaneFeatureRow.included({
+    required this.feature,
+    this.includedColor,
+    this.strikethrough = true,
+    this.circularIcon = true,
+    this.tooltip,
+    this.iconSize,
+    super.key,
+  })  : included = true,
+        excludedColor = null;
+
+  /// Creates a feature row for an excluded feature.
+  const ArcaneFeatureRow.excluded({
+    required this.feature,
+    this.excludedColor,
+    this.strikethrough = true,
+    this.circularIcon = true,
+    this.tooltip,
+    this.iconSize,
+    super.key,
+  })  : included = false,
+        includedColor = null;
 
   @override
   Component build(BuildContext context) {
@@ -136,6 +171,10 @@ class ArcaneFeatureRow extends StatelessComponent {
       included: included,
       includedColor: includedColor,
       excludedColor: excludedColor,
+      strikethrough: strikethrough,
+      circularIcon: circularIcon,
+      tooltip: tooltip,
+      iconSize: iconSize,
     ));
   }
 }

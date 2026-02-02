@@ -234,9 +234,9 @@ class _ShadcnSimpleFormState extends State<ShadcnSimpleForm> {
             [
               Component.text(field.label!),
               if (field.required)
-                dom.span(
+                const dom.span(
                   [Component.text(' *')],
-                  styles: const dom.Styles(raw: {
+                  styles: dom.Styles(raw: {
                     'color': 'var(--destructive)',
                   }),
                 ),

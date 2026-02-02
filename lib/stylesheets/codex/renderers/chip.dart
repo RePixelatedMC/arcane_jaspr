@@ -80,6 +80,11 @@ class CodexChip extends StatelessComponent {
           'color': bgColor,
           'border': '1px solid transparent',
         },
+      StyleVariant.soft => {
+          'background-color': 'var(--card)',
+          'color': 'var(--muted-foreground)',
+          'border': '1px solid color-mix(in srgb, var(--foreground) 8%, transparent)',
+        },
     };
 
     final bool isClickable = props.onTap != null;

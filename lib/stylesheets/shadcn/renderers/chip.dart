@@ -38,6 +38,11 @@ class ShadcnChip extends StatelessComponent {
           'background-color': 'transparent',
           'color': bgColor,
         },
+      StyleVariant.soft => {
+          'background-color': 'var(--card)',
+          'color': 'var(--muted-foreground)',
+          'border': '1px solid color-mix(in srgb, var(--foreground) 8%, transparent)',
+        },
     };
   }
 

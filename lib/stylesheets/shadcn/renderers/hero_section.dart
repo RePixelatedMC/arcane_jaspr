@@ -36,11 +36,28 @@ class ShadcnHeroSection extends StatelessComponent {
             // Badge
             if (props.badge != null) props.badge!,
 
-            // Headline
-            ArcaneHeadline.h1(
-              props.headline,
-              align: props.centered ? 'center' : 'left',
-            ),
+            // Promo banner
+            if (props.promoBanner != null) props.promoBanner!,
+
+            // Headline (component or text)
+            if (props.headlineComponent != null)
+              dom.h1(
+                classes: 'arcane-hero-headline',
+                styles: dom.Styles(raw: {
+                  'font-size': 'clamp(2rem, 5vw, 3rem)',
+                  'font-weight': 'var(--font-weight-bold)',
+                  'line-height': '1.2',
+                  'color': 'var(--foreground)',
+                  'margin': '0',
+                  'text-align': props.centered ? 'center' : 'left',
+                }),
+                [props.headlineComponent!],
+              )
+            else if (props.headline != null)
+              ArcaneHeadline.h1(
+                props.headline!,
+                align: props.centered ? 'center' : 'left',
+              ),
 
             // Subheadline
             if (props.subheadline != null)
@@ -66,6 +83,23 @@ class ShadcnHeroSection extends StatelessComponent {
                   if (props.secondaryCta != null) props.secondaryCta!,
                 ],
               ),
+
+            // Stats row
+            if (props.stats != null && props.stats!.isNotEmpty)
+              dom.div(
+                classes: 'arcane-hero-stats',
+                styles: dom.Styles(raw: {
+                  'display': 'flex',
+                  'flex-wrap': 'wrap',
+                  'gap': '2rem',
+                  'margin-top': '1.5rem',
+                  if (props.centered) 'justify-content': 'center',
+                }),
+                [
+                  for (final HeroStatItem stat in props.stats!)
+                    _buildStatItem(stat),
+                ],
+              ),
           ],
         ),
 
@@ -80,6 +114,35 @@ class ShadcnHeroSection extends StatelessComponent {
             }),
             [props.media!],
           ),
+      ],
+    );
+  }
+
+  Component _buildStatItem(HeroStatItem stat) {
+    return dom.div(
+      classes: 'arcane-hero-stat',
+      styles: const dom.Styles(raw: {
+        'display': 'flex',
+        'flex-direction': 'column',
+        'align-items': 'center',
+        'gap': '0.25rem',
+      }),
+      [
+        dom.span(
+          styles: const dom.Styles(raw: {
+            'font-size': '1.25rem',
+            'font-weight': '600',
+            'color': 'var(--primary)',
+          }),
+          [Component.text(stat.value)],
+        ),
+        dom.span(
+          styles: const dom.Styles(raw: {
+            'font-size': '0.875rem',
+            'color': 'var(--muted-foreground)',
+          }),
+          [Component.text(stat.label)],
+        ),
       ],
     );
   }

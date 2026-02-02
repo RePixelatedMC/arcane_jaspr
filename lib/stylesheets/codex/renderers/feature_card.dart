@@ -1,6 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
+import '../../../component/view/icon.dart';
 import '../../../core/props/feature_card_props.dart';
 
 /// Codex Feature Card renderer.
@@ -9,6 +10,8 @@ import '../../../core/props/feature_card_props.dart';
 /// - Larger padding and icon size
 /// - Accent-colored hover state
 /// - Subtle glow on hover
+/// - Optional accent color styling with gradient border
+/// - Optional CTA button
 class CodexFeatureCard extends StatelessComponent {
   final FeatureCardProps props;
 
@@ -17,50 +20,62 @@ class CodexFeatureCard extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     final bool isInteractive = props.href != null || props.onTap != null;
+    final bool hasAccent = props.accentColor != null;
+    final String accent = props.accentColor ?? 'var(--primary)';
 
-    final Component content = dom.div(
-      classes: 'codex-feature-card-inner',
-      styles: dom.Styles(raw: {
-        'display': 'flex',
-        'flex-direction': props.horizontal ? 'row' : 'column',
-        'gap': props.horizontal ? '1.25rem' : '1rem',
-        'align-items': props.horizontal ? 'flex-start' : 'flex-start',
-      }),
-      [
-        // Icon
-        if (props.icon != null)
-          dom.div(
-            classes: 'codex-feature-card-icon',
-            styles: const dom.Styles(raw: {
-              'display': 'flex',
-              'align-items': 'center',
-              'justify-content': 'center',
-              'width': '56px', // Codex: larger
-              'height': '56px',
-              'border-radius': 'var(--radius)',
-              'background-color': 'rgba(var(--primary-rgb), 0.1)',
-              'color': 'var(--primary)',
-              'flex-shrink': '0',
-            }),
-            [props.icon!],
-          ),
-
-        // Content
+    final List<Component> cardChildren = [
+      // Top gradient border (when accent color is set)
+      if (hasAccent)
         dom.div(
-          classes: 'codex-feature-card-content',
-          styles: const dom.Styles(raw: {
-            'flex': '1',
+          styles: dom.Styles(raw: {
+            'position': 'absolute',
+            'top': '0',
+            'left': '0',
+            'right': '0',
+            'height': '3px',
+            'background': 'linear-gradient(90deg, $accent, ${accent}66)',
+            'border-radius': 'var(--radius-xl) var(--radius-xl) 0 0',
           }),
-          [
-            // Title row
+          [],
+        ),
+
+      // Main content
+      dom.div(
+        classes: 'codex-feature-card-inner',
+        styles: dom.Styles(raw: {
+          'display': 'flex',
+          'flex-direction': props.horizontal ? 'row' : 'column',
+          'gap': props.horizontal ? '1.25rem' : '1rem',
+          'align-items': props.horizontal ? 'flex-start' : 'flex-start',
+          if (props.showCta) 'flex': '1',
+        }),
+        [
+          // Icon row (with title if accent style)
+          if (hasAccent && props.icon != null)
             dom.div(
-              classes: 'codex-feature-card-title-row',
               styles: const dom.Styles(raw: {
                 'display': 'flex',
                 'align-items': 'center',
-                'gap': 'var(--space-2)',
+                'gap': 'var(--space-3)',
+                'margin-bottom': 'var(--space-4)',
               }),
               [
+                dom.div(
+                  classes: 'codex-feature-card-icon',
+                  styles: dom.Styles(raw: {
+                    'display': 'flex',
+                    'align-items': 'center',
+                    'justify-content': 'center',
+                    'width': '44px',
+                    'height': '44px',
+                    'border-radius': 'var(--radius-lg)',
+                    'background-color': '${accent}15',
+                    'border': '1px solid ${accent}30',
+                    'color': accent,
+                    'flex-shrink': '0',
+                  }),
+                  [props.icon!],
+                ),
                 dom.h3(
                   classes: 'codex-feature-card-title',
                   styles: const dom.Styles(raw: {
@@ -71,61 +86,154 @@ class CodexFeatureCard extends StatelessComponent {
                   }),
                   [Component.text(props.title)],
                 ),
-                if (props.showArrow && isInteractive)
-                  const dom.span(
-                    classes: 'codex-feature-card-arrow',
-                    styles: dom.Styles(raw: {
-                      'font-size': 'var(--font-size-base)',
-                      'color': 'var(--primary)',
-                      'transition': 'transform var(--transition)',
-                    }),
-                    [Component.text('->')],
-                  ),
               ],
-            ),
+            )
+          else ...[
+            // Icon (standard style)
+            if (props.icon != null)
+              dom.div(
+                classes: 'codex-feature-card-icon',
+                styles: const dom.Styles(raw: {
+                  'display': 'flex',
+                  'align-items': 'center',
+                  'justify-content': 'center',
+                  'width': '56px',
+                  'height': '56px',
+                  'border-radius': 'var(--radius)',
+                  'background-color': 'rgba(var(--primary-rgb), 0.1)',
+                  'color': 'var(--primary)',
+                  'flex-shrink': '0',
+                }),
+                [props.icon!],
+              ),
+          ],
 
-            // Description
+          // Content (title + description for non-accent style)
+          if (!hasAccent)
+            dom.div(
+              classes: 'codex-feature-card-content',
+              styles: const dom.Styles(raw: {
+                'flex': '1',
+              }),
+              [
+                // Title row
+                dom.div(
+                  classes: 'codex-feature-card-title-row',
+                  styles: const dom.Styles(raw: {
+                    'display': 'flex',
+                    'align-items': 'center',
+                    'gap': 'var(--space-2)',
+                  }),
+                  [
+                    dom.h3(
+                      classes: 'codex-feature-card-title',
+                      styles: const dom.Styles(raw: {
+                        'font-size': 'var(--font-size-lg)',
+                        'font-weight': 'var(--font-weight-semibold)',
+                        'color': 'var(--foreground)',
+                        'margin': '0',
+                      }),
+                      [Component.text(props.title)],
+                    ),
+                    if (props.showArrow && isInteractive)
+                      const dom.span(
+                        classes: 'codex-feature-card-arrow',
+                        styles: dom.Styles(raw: {
+                          'font-size': 'var(--font-size-base)',
+                          'color': 'var(--primary)',
+                          'transition': 'transform var(--transition)',
+                        }),
+                        [Component.text('->')],
+                      ),
+                  ],
+                ),
+
+                // Description
+                dom.p(
+                  classes: 'codex-feature-card-description',
+                  styles: const dom.Styles(raw: {
+                    'font-size': '0.9375rem',
+                    'color': 'var(--muted-foreground)',
+                    'line-height': '1.6',
+                    'margin': '0.5rem 0 0 0',
+                  }),
+                  [Component.text(props.description)],
+                ),
+              ],
+            )
+          else
+            // Description only (accent style - title is in icon row)
             dom.p(
               classes: 'codex-feature-card-description',
               styles: const dom.Styles(raw: {
-                'font-size': '0.9375rem', // Codex: larger
+                'font-size': 'var(--font-size-sm)',
                 'color': 'var(--muted-foreground)',
                 'line-height': '1.6',
-                'margin': '0.5rem 0 0 0',
+                'margin': '0',
               }),
               [Component.text(props.description)],
             ),
+        ],
+      ),
+
+      // CTA button (when showCta is true)
+      if (props.showCta && isInteractive)
+        dom.div(
+          styles: dom.Styles(raw: {
+            'display': 'flex',
+            'align-items': 'center',
+            'justify-content': 'center',
+            'gap': 'var(--space-2)',
+            'padding': 'var(--space-3) var(--space-4)',
+            'margin-top': 'var(--space-4)',
+            'background-color': hasAccent ? accent : 'var(--primary)',
+            'border-radius': 'var(--radius-md)',
+            'color': 'var(--foreground)',
+            'font-size': 'var(--font-size-sm)',
+            'font-weight': 'var(--font-weight-semibold)',
+            'transition': 'all var(--arcane-transition)',
+          }),
+          [
+            Component.text(props.ctaText ??
+                (props.isExternal ? 'View Docs' : 'Learn More')),
+            props.isExternal
+                ? ArcaneIcon.externalLink(size: IconSize.sm)
+                : ArcaneIcon.arrowRight(size: IconSize.sm),
           ],
         ),
-      ],
-    );
+    ];
 
     if (props.href != null) {
       return dom.a(
-        classes: 'codex-feature-card interactive',
+        classes: 'codex-feature-card interactive ${hasAccent ? 'accented' : ''}',
         href: props.href!,
-        styles: _cardStyles(isInteractive),
-        [content],
+        target: props.isExternal ? dom.Target.blank : null,
+        styles: _cardStyles(isInteractive, hasAccent),
+        cardChildren,
       );
     }
 
     return dom.div(
-      classes: 'codex-feature-card ${isInteractive ? 'interactive' : ''}',
-      styles: _cardStyles(isInteractive),
+      classes: 'codex-feature-card ${isInteractive ? 'interactive' : ''} ${hasAccent ? 'accented' : ''}',
+      styles: _cardStyles(isInteractive, hasAccent),
       events: props.onTap == null ? null : {'click': (_) => props.onTap!()},
-      [content],
+      cardChildren,
     );
   }
 
-  dom.Styles _cardStyles(bool isInteractive) {
+  dom.Styles _cardStyles(bool isInteractive, bool hasAccent) {
     return dom.Styles(raw: {
-      'display': 'block',
-      'padding': '2rem', // Codex: larger padding
+      'display': 'flex',
+      'flex-direction': 'column',
+      'position': 'relative',
+      'overflow': 'hidden',
+      'padding': hasAccent ? '1.5rem 2rem 2rem' : '2rem',
       'background-color': 'var(--card)',
-      'border': '1px solid var(--border)',
-      'border-radius': 'var(--radius)',
+      'border': '1px solid color-mix(in srgb, var(--foreground) 8%, transparent)',
+      'border-radius': 'var(--radius-xl)',
+      if (hasAccent) 'min-height': '260px',
       if (isInteractive) 'cursor': 'pointer',
-      'transition': 'all var(--transition)',
+      'transition': 'all var(--arcane-transition)',
       'text-decoration': 'none',
     });
   }

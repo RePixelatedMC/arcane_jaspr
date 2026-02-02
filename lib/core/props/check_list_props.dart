@@ -51,18 +51,60 @@ class CheckListProps {
 }
 
 /// Feature row component properties.
+///
+/// Displays a feature with an included/excluded indicator.
+/// Used in pricing cards and feature comparison lists.
 class FeatureRowProps {
   final String feature;
   final bool included;
   final String? includedColor;
   final String? excludedColor;
 
+  /// Whether to show strikethrough text for excluded features.
+  final bool strikethrough;
+
+  /// Whether to show the icon in a circular container.
+  /// When true, renders a circular background with the icon.
+  final bool circularIcon;
+
+  /// Optional tooltip text (shown on hover via title attribute).
+  final String? tooltip;
+
+  /// Custom icon container size. Defaults to '18px'.
+  final String? iconSize;
+
   const FeatureRowProps({
     required this.feature,
     this.included = true,
     this.includedColor,
     this.excludedColor,
+    this.strikethrough = true,
+    this.circularIcon = true,
+    this.tooltip,
+    this.iconSize,
   });
+
+  FeatureRowProps copyWith({
+    String? feature,
+    bool? included,
+    String? includedColor,
+    String? excludedColor,
+    bool? strikethrough,
+    bool? circularIcon,
+    String? tooltip,
+    String? iconSize,
+  }) {
+    return FeatureRowProps(
+      feature: feature ?? this.feature,
+      included: included ?? this.included,
+      includedColor: includedColor ?? this.includedColor,
+      excludedColor: excludedColor ?? this.excludedColor,
+      strikethrough: strikethrough ?? this.strikethrough,
+      circularIcon: circularIcon ?? this.circularIcon,
+      tooltip: tooltip ?? this.tooltip,
+      iconSize: iconSize ?? this.iconSize,
+    );
+  }
 }
 
 // ============================================================================

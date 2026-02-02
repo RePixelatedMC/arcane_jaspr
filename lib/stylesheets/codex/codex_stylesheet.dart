@@ -563,6 +563,85 @@ $arcaneSidebarTreeStyles
 $arcaneSidebarCodexStyles
 
 $arcaneTocTreeLinesCss
+
+/* ============================================
+   GAME TILES - Card animations and hover effects
+   ============================================ */
+
+/* Appear animation for game cards/tiles */
+@keyframes codex-card-appear {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Base styles for animated game tiles */
+.codex-game-tile--animated {
+  animation: codex-card-appear 0.3s ease-out forwards;
+  opacity: 0;
+}
+
+/* Hover effects for interactive game tiles */
+.codex-game-tile--interactive {
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.codex-game-tile--interactive:hover {
+  transform: scale(1.03);
+  border-color: color-mix(in srgb, var(--primary) 60%, transparent);
+  box-shadow:
+    0 8px 40px color-mix(in srgb, var(--primary) 40%, transparent),
+    0 0 20px color-mix(in srgb, var(--primary) 30%, transparent);
+}
+
+/* Platform icon tooltips */
+.codex-platform-icon {
+  position: relative;
+}
+
+.codex-platform-icon[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-4px);
+  padding: 6px 10px;
+  background: var(--card);
+  border: 1px solid color-mix(in srgb, var(--foreground) 15%, transparent);
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--foreground);
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s ease, visibility 0.15s ease, transform 0.15s ease;
+  pointer-events: none;
+  z-index: 100;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.codex-platform-icon[data-tooltip]:hover::after {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(-8px);
+}
+
+/* CTA card variant (dashed border, request style) */
+.codex-game-tile--cta {
+  border: 2px dashed color-mix(in srgb, var(--foreground) 15%, transparent);
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.codex-game-tile--cta:hover {
+  border-color: color-mix(in srgb, var(--primary) 40%, transparent);
+  background: color-mix(in srgb, var(--primary) 5%, var(--card));
+}
 ''';
 
   /// CSS for rainbow/RGB spin effect.

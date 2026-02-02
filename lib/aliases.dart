@@ -147,7 +147,7 @@ typedef AToggleButtonGroup = ArcaneToggleButtonGroup;
 typedef AToggleSwitch = ArcaneToggleSwitch;
 
 typedef AAvatar = ArcaneAvatar;
-typedef ABadge = ArcaneBadge;
+typedef ABadge = ArcaneStatusBadge;
 typedef ABar = ArcaneBar;
 typedef ACard = ArcaneCard;
 typedef ACardSection = ArcaneCardSection;

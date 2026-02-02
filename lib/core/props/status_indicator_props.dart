@@ -26,17 +26,6 @@ class StatusIndicatorProps {
   });
 }
 
-/// Simple status badge component properties.
-class SimpleStatusBadgeProps {
-  final StatusType status;
-  final String label;
-
-  const SimpleStatusBadgeProps({
-    required this.status,
-    required this.label,
-  });
-}
-
 // ============================================================================
 // RENDERER CONTRACT
 // ============================================================================
@@ -44,5 +33,4 @@ class SimpleStatusBadgeProps {
 /// Mixin defining the renderer methods for status indicator components.
 mixin StatusIndicatorRendererContract {
   Component statusIndicator(StatusIndicatorProps props);
-  Component statusBadge(SimpleStatusBadgeProps props);
 }

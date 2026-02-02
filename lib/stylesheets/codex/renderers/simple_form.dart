@@ -241,9 +241,9 @@ class _CodexSimpleFormState extends State<CodexSimpleForm> {
             [
               Component.text(field.label!),
               if (field.required)
-                dom.span(
+                const dom.span(
                   [Component.text(' *')],
-                  styles: const dom.Styles(raw: {
+                  styles: dom.Styles(raw: {
                     'color': 'var(--destructive)',
                   }),
                 ),

@@ -14,6 +14,19 @@ class ArcaneFeatureCard extends StatelessComponent {
   final bool showArrow;
   final bool horizontal;
 
+  /// Custom accent color for theming (CSS color value).
+  /// When set, applies accent styling to icon container and gradient border.
+  final String? accentColor;
+
+  /// Custom CTA button text. Defaults to 'Learn More' or 'View Docs' for external.
+  final String? ctaText;
+
+  /// Whether the link opens in a new tab (external link).
+  final bool isExternal;
+
+  /// Whether to show CTA button at the bottom.
+  final bool showCta;
+
   const ArcaneFeatureCard({
     required this.title,
     required this.description,
@@ -22,8 +35,28 @@ class ArcaneFeatureCard extends StatelessComponent {
     this.onTap,
     this.showArrow = false,
     this.horizontal = false,
+    this.accentColor,
+    this.ctaText,
+    this.isExternal = false,
+    this.showCta = false,
     super.key,
   });
+
+  /// Creates a feature card with accent color styling and CTA button.
+  /// This is the style used for InfoTile-like cards.
+  const ArcaneFeatureCard.accented({
+    required this.title,
+    required this.description,
+    required this.icon,
+    required String this.accentColor,
+    this.href,
+    this.onTap,
+    this.ctaText,
+    this.isExternal = false,
+    super.key,
+  })  : showArrow = false,
+        horizontal = false,
+        showCta = true;
 
   @override
   Component build(BuildContext context) {
@@ -35,6 +68,10 @@ class ArcaneFeatureCard extends StatelessComponent {
       onTap: onTap,
       showArrow: showArrow,
       horizontal: horizontal,
+      accentColor: accentColor,
+      ctaText: ctaText,
+      isExternal: isExternal,
+      showCta: showCta,
     ));
   }
 }

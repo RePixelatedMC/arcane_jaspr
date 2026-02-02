@@ -9,11 +9,19 @@ class ArcaneAccordionItem {
   final Component? customContent;
   final bool defaultOpen;
 
+  /// Optional category label (displayed as badge in FAQ variant).
+  final String? category;
+
+  /// Optional accent color for category badge and chevron (CSS color value).
+  final String? accentColor;
+
   const ArcaneAccordionItem({
     required this.title,
     this.content = '',
     this.customContent,
     this.defaultOpen = false,
+    this.category,
+    this.accentColor,
   });
 }
 
@@ -26,12 +34,29 @@ class ArcaneAccordion extends StatelessComponent {
   final bool allowMultiple;
   final bool bordered;
 
+  /// Visual variant of the accordion.
+  final AccordionVariant variant;
+
+  /// Default accent color for items without a specific accentColor.
+  final String? defaultAccentColor;
+
   const ArcaneAccordion({
     required this.items,
     this.allowMultiple = false,
     this.bordered = false,
+    this.variant = AccordionVariant.standard,
+    this.defaultAccentColor,
     super.key,
   });
+
+  /// Creates an FAQ-style accordion with category badges and accent colors.
+  const ArcaneAccordion.faq({
+    required this.items,
+    this.allowMultiple = true,
+    this.bordered = false,
+    this.defaultAccentColor,
+    super.key,
+  }) : variant = AccordionVariant.faq;
 
   @override
   Component build(BuildContext context) {
@@ -44,10 +69,12 @@ class ArcaneAccordion extends StatelessComponent {
     }
 
     final List<AccordionItemProps> itemProps = items
-        .map((item) => AccordionItemProps(
+        .map((ArcaneAccordionItem item) => AccordionItemProps(
               title: item.title,
               content: item.content,
               customContent: item.customContent,
+              category: item.category,
+              accentColor: item.accentColor,
             ))
         .toList();
 
@@ -56,11 +83,16 @@ class ArcaneAccordion extends StatelessComponent {
       openItems: defaultOpenItems,
       allowMultiple: allowMultiple,
       bordered: bordered,
+      variant: variant,
+      defaultAccentColor: defaultAccentColor,
     ));
   }
 }
 
 /// FAQ accordion with question/answer pairs.
+///
+/// Simple wrapper for basic FAQ lists without categories.
+/// For FAQ lists with categories and colors, use [ArcaneAccordion.faq].
 class ArcaneFaqAccordion extends StatelessComponent {
   final List<({String question, String answer})> faqs;
 

@@ -11,6 +11,8 @@ class ShadcnHeader extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
+    final String height = props.height != null ? '${props.height}px' : '64px';
+
     return dom.header(
       classes:
           'arcane-header ${props.sticky ? 'sticky' : ''} ${props.transparent ? 'transparent' : ''}',
@@ -19,7 +21,7 @@ class ShadcnHeader extends StatelessComponent {
         'align-items': 'center',
         'justify-content': 'space-between',
         'padding': '0 24px',
-        'height': '64px',
+        'height': height,
         'background-color':
             props.transparent ? 'transparent' : 'var(--background)',
         if (props.bordered) 'border-bottom': '1px solid var(--border)',
@@ -44,18 +46,21 @@ class ShadcnHeader extends StatelessComponent {
               [props.logo],
             ),
 
-            // Navigation
-            dom.nav(
-              classes: 'arcane-header-nav',
-              styles: const dom.Styles(raw: {
-                'display': 'flex',
-                'align-items': 'center',
-                'gap': 'var(--space-1)',
-              }),
-              [
-                for (final item in props.navItems) _buildNavItem(item),
-              ],
-            ),
+            // Navigation (custom or generated)
+            if (props.customNav != null)
+              props.customNav!
+            else
+              dom.nav(
+                classes: 'arcane-header-nav',
+                styles: const dom.Styles(raw: {
+                  'display': 'flex',
+                  'align-items': 'center',
+                  'gap': 'var(--space-1)',
+                }),
+                [
+                  for (final NavItemProps item in props.navItems) _buildNavItem(item),
+                ],
+              ),
           ],
         ),
 
@@ -95,9 +100,9 @@ class ShadcnHeader extends StatelessComponent {
                     events: props.onSearch != null
                         ? {
                             'input': (e) {
-                              final target = e.target;
+                              final dynamic target = e.target;
                               if (target != null) {
-                                final value =
+                                final String value =
                                     (target as dynamic).value as String? ?? '';
                                 props.onSearch!(value);
                               }

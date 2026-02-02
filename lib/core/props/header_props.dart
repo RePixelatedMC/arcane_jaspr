@@ -20,7 +20,14 @@ class NavItemProps {
 /// Header/navbar component properties.
 class HeaderProps {
   final Component logo;
+
+  /// Simple navigation items (rendered by the header renderer).
   final List<NavItemProps> navItems;
+
+  /// Custom navigation content (takes precedence over navItems if provided).
+  /// Use this to pass complex navigation components like dropdowns.
+  final Component? customNav;
+
   final List<Component>? actions;
   final bool showSearch;
   final String searchPlaceholder;
@@ -29,9 +36,13 @@ class HeaderProps {
   final bool transparent;
   final bool bordered;
 
+  /// Header height in pixels. Defaults to 72 for Codex, 64 for Shadcn.
+  final double? height;
+
   const HeaderProps({
     required this.logo,
-    required this.navItems,
+    this.navItems = const [],
+    this.customNav,
     this.actions,
     this.showSearch = false,
     this.searchPlaceholder = 'Search...',
@@ -39,6 +50,7 @@ class HeaderProps {
     this.sticky = true,
     this.transparent = false,
     this.bordered = true,
+    this.height,
   });
 }
 

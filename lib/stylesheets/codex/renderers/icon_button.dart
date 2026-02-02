@@ -92,6 +92,12 @@ class CodexIconButton extends StatelessComponent {
         'border': '1px solid transparent',
         'box-shadow': 'none',
       },
+      StyleVariant.soft => {
+        'background': 'var(--card)',
+        'color': 'var(--muted-foreground)',
+        'border': '1px solid color-mix(in srgb, var(--foreground) 8%, transparent)',
+        'box-shadow': 'none',
+      },
     };
 
     return dom.button(

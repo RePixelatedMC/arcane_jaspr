@@ -25,6 +25,7 @@ class ArcaneNavItem {
 class ArcaneHeader extends StatelessComponent {
   final Component logo;
   final List<ArcaneNavItem> navItems;
+  final Component? customNav;
   final List<Component>? actions;
   final bool showSearch;
   final String searchPlaceholder;
@@ -32,10 +33,12 @@ class ArcaneHeader extends StatelessComponent {
   final bool sticky;
   final bool transparent;
   final bool bordered;
+  final double? height;
 
   const ArcaneHeader({
     required this.logo,
-    required this.navItems,
+    this.navItems = const [],
+    this.customNav,
     this.actions,
     this.showSearch = false,
     this.searchPlaceholder = 'Search...',
@@ -43,13 +46,30 @@ class ArcaneHeader extends StatelessComponent {
     this.sticky = true,
     this.transparent = false,
     this.bordered = true,
+    this.height,
     super.key,
   });
+
+  /// Creates a header with custom navigation content.
+  /// Use this when you need complex dropdowns or custom nav components.
+  const ArcaneHeader.custom({
+    required this.logo,
+    required this.customNav,
+    this.actions,
+    this.showSearch = false,
+    this.searchPlaceholder = 'Search...',
+    this.onSearch,
+    this.sticky = true,
+    this.transparent = false,
+    this.bordered = true,
+    this.height,
+    super.key,
+  }) : navItems = const [];
 
   @override
   Component build(BuildContext context) {
     List<NavItemProps> convertNavItems(List<ArcaneNavItem> items) {
-      return items.map((item) => NavItemProps(
+      return items.map((ArcaneNavItem item) => NavItemProps(
         label: item.label,
         href: item.href,
         onTap: item.onTap,
@@ -61,6 +81,7 @@ class ArcaneHeader extends StatelessComponent {
     return context.renderers.header(HeaderProps(
       logo: logo,
       navItems: convertNavItems(navItems),
+      customNav: customNav,
       actions: actions,
       showSearch: showSearch,
       searchPlaceholder: searchPlaceholder,
@@ -68,6 +89,7 @@ class ArcaneHeader extends StatelessComponent {
       sticky: sticky,
       transparent: transparent,
       bordered: bordered,
+      height: height,
     ));
   }
 }

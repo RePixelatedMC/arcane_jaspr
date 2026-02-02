@@ -89,6 +89,9 @@ class CodexCheckList extends StatelessComponent {
 }
 
 /// Codex FeatureRow renderer.
+///
+/// Displays a feature with check/x indicator for included/excluded states.
+/// Supports circular icon containers, strikethrough, and tooltips.
 class CodexFeatureRow extends StatelessComponent {
   final FeatureRowProps props;
 
@@ -96,36 +99,80 @@ class CodexFeatureRow extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final String iconSymbol = props.included ? '[check]' : 'X';
     final String iconColor = props.included
         ? (props.includedColor ?? 'var(--primary)')
         : (props.excludedColor ?? 'var(--muted-foreground)');
+
+    final String iconSize = props.iconSize ?? '18px';
+    final bool showCircular = props.circularIcon;
+    final bool showStrikethrough = props.strikethrough && !props.included;
+
+    // Icon component - check for included, x for excluded
+    final Component iconWidget = props.included
+        ? const dom.span(
+            styles: dom.Styles(raw: {
+              'font-size': '0.625rem',
+              'font-weight': '600',
+            }),
+            [Component.text('\u2713')], // Check mark
+          )
+        : const dom.span(
+            styles: dom.Styles(raw: {
+              'font-size': '0.625rem',
+              'font-weight': '600',
+            }),
+            [Component.text('\u2715')], // X mark
+          );
+
+    // Build icon container - circular or inline
+    final Component iconContainer = showCircular
+        ? dom.div(
+            classes: 'codex-feature-row-icon',
+            styles: dom.Styles(raw: {
+              'display': 'flex',
+              'align-items': 'center',
+              'justify-content': 'center',
+              'width': iconSize,
+              'height': iconSize,
+              'border-radius': '50%',
+              'flex-shrink': '0',
+              'background-color': props.included
+                  ? 'color-mix(in srgb, var(--primary) 20%, transparent)'
+                  : 'color-mix(in srgb, var(--foreground) 8%, transparent)',
+              'color': iconColor,
+            }),
+            [iconWidget],
+          )
+        : dom.span(
+            classes: 'codex-feature-row-icon',
+            styles: dom.Styles(raw: {
+              'color': iconColor,
+              'font-size': 'var(--font-size-sm)',
+              'flex-shrink': '0',
+            }),
+            [iconWidget],
+          );
+
+    // Build text styles with optional strikethrough
+    final Map<String, String> textStyles = {
+      'color': props.included ? 'var(--foreground)' : 'var(--muted-foreground)',
+      'font-size': 'var(--font-size-sm)',
+      if (showStrikethrough) 'text-decoration': 'line-through',
+    };
 
     return dom.div(
       classes: 'codex-feature-row ${props.included ? 'included' : 'excluded'}',
       styles: const dom.Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
-        'gap': '0.75rem',
+        'gap': '0.5rem',
       }),
+      attributes: props.tooltip != null ? {'title': props.tooltip!} : null,
       [
-        dom.span(
-          classes: 'codex-feature-row-icon',
-          styles: dom.Styles(raw: {
-            'color': iconColor,
-            'font-size': 'var(--font-size-sm)',
-            'flex-shrink': '0',
-          }),
-          [Component.text(iconSymbol)],
-        ),
+        iconContainer,
         dom.span(
           classes: 'codex-feature-row-text',
-          styles: dom.Styles(raw: {
-            'color': props.included
-                ? 'var(--foreground)'
-                : 'var(--muted-foreground)',
-            'font-size': 'var(--font-size-sm)',
-          }),
+          styles: dom.Styles(raw: textStyles),
           [Component.text(props.feature)],
         ),
       ],

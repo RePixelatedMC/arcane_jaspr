@@ -10,7 +10,6 @@ import 'props/auth_layout_props.dart';
 import 'props/auth_split_layout_props.dart';
 import 'props/author_card_props.dart';
 import 'props/avatar_props.dart';
-import 'props/badge_props.dart';
 import 'props/bar_props.dart';
 import 'props/bottom_navigation_props.dart';
 import 'props/breadcrumbs_props.dart';
@@ -32,6 +31,7 @@ import 'props/command_props.dart';
 import 'props/confirm_dialog_props.dart';
 import 'props/context_menu_props.dart';
 import 'props/cta_banner_props.dart';
+import 'props/cta_card_props.dart';
 import 'props/cycle_button_props.dart';
 import 'props/dashboard_layout_props.dart';
 import 'props/data_table_props.dart';
@@ -65,6 +65,7 @@ import 'props/integration_card_props.dart';
 import 'props/kbd_props.dart';
 import 'props/loader_props.dart';
 import 'props/logo_carousel_props.dart';
+import 'props/map_section_props.dart';
 import 'props/marquee_props.dart';
 import 'props/menubar_props.dart';
 import 'props/meter_props.dart';
@@ -93,10 +94,12 @@ import 'props/sidebar_props.dart';
 import 'props/skeleton_props.dart';
 import 'props/slider_props.dart';
 import 'props/slot_counter_props.dart';
+import 'props/spec_row_props.dart';
 import 'props/social_icons_props.dart';
 import 'props/stat_card_props.dart';
 import 'props/stat_display_props.dart';
 import 'props/static_table_props.dart';
+import 'props/status_badge_props.dart';
 import 'props/status_indicator_props.dart';
 import 'props/stepper_props.dart';
 import 'props/surface_card_props.dart';
@@ -128,7 +131,6 @@ export 'props/auth_layout_props.dart';
 export 'props/auth_split_layout_props.dart';
 export 'props/author_card_props.dart';
 export 'props/avatar_props.dart';
-export 'props/badge_props.dart';
 export 'props/bar_props.dart';
 export 'props/bottom_navigation_props.dart';
 export 'props/breadcrumbs_props.dart';
@@ -150,6 +152,7 @@ export 'props/command_props.dart';
 export 'props/confirm_dialog_props.dart';
 export 'props/context_menu_props.dart';
 export 'props/cta_banner_props.dart';
+export 'props/cta_card_props.dart';
 export 'props/cycle_button_props.dart';
 export 'props/dashboard_layout_props.dart';
 export 'props/data_table_props.dart';
@@ -183,6 +186,7 @@ export 'props/integration_card_props.dart';
 export 'props/kbd_props.dart';
 export 'props/loader_props.dart';
 export 'props/logo_carousel_props.dart';
+export 'props/map_section_props.dart';
 export 'props/marquee_props.dart';
 export 'props/menubar_props.dart';
 export 'props/meter_props.dart';
@@ -211,6 +215,7 @@ export 'props/sidebar_props.dart';
 export 'props/skeleton_props.dart';
 export 'props/slider_props.dart';
 export 'props/slot_counter_props.dart';
+export 'props/spec_row_props.dart';
 export 'props/social_icons_props.dart';
 export 'props/stat_card_props.dart';
 export 'props/stat_display_props.dart';
@@ -251,7 +256,6 @@ abstract class ComponentRenderers
         AuthorCardRendererContract,
         AuthSplitLayoutRendererContract,
         AvatarRendererContract,
-        BadgeRendererContract,
         BarRendererContract,
         BottomNavigationRendererContract,
         BreadcrumbsRendererContract,
@@ -273,6 +277,7 @@ abstract class ComponentRenderers
         ConfirmDialogRendererContract,
         ContextMenuRendererContract,
         CtaBannerRendererContract,
+        CTACardRendererContract,
         CycleButtonRendererContract,
         DashboardLayoutRendererContract,
         DataTableRendererContract,
@@ -306,6 +311,7 @@ abstract class ComponentRenderers
         KbdRendererContract,
         LoaderRendererContract,
         LogoCarouselRendererContract,
+        MapSectionRendererContract,
         MarqueeRendererContract,
         MenubarRendererContract,
         MeterRendererContract,
@@ -334,10 +340,12 @@ abstract class ComponentRenderers
         SkeletonRendererContract,
         SliderRendererContract,
         SlotCounterRendererContract,
+        SpecRowRendererContract,
         SocialIconsRendererContract,
         StatCardRendererContract,
         StatDisplayRendererContract,
         StaticTableRendererContract,
+        StatusBadgeRendererContract,
         StatusIndicatorRendererContract,
         StepperRendererContract,
         SurfaceCardRendererContract,

@@ -10,6 +10,16 @@ class TestimonialCardProps {
   final int? rating;
   final bool showQuotes;
 
+  /// Whether to show the rating badge (e.g., "5/5") next to stars.
+  final bool showRatingBadge;
+
+  /// Whether to show a colored accent border at the top based on rating.
+  final bool showAccentBorder;
+
+  /// Custom accent color override (CSS color value).
+  /// If null and rating is provided, color is derived from rating.
+  final String? accentColor;
+
   const TestimonialCardProps({
     required this.quote,
     required this.authorName,
@@ -18,7 +28,24 @@ class TestimonialCardProps {
     this.avatarUrl,
     this.rating,
     this.showQuotes = true,
+    this.showRatingBadge = false,
+    this.showAccentBorder = false,
+    this.accentColor,
   });
+
+  /// Returns the accent color based on rating (5=green, 4=cyan, 3=yellow, 2=orange, 1=red).
+  /// Returns primary color if no rating or custom accent color is provided.
+  String get effectiveAccentColor {
+    if (accentColor != null) return accentColor!;
+    if (rating == null) return 'var(--primary)';
+    return switch (rating!) {
+      5 => 'var(--success, #22c55e)',
+      4 => 'var(--info, #06b6d4)',
+      3 => 'var(--warning, #eab308)',
+      2 => 'var(--orange, #f97316)',
+      _ => 'var(--destructive, #ef4444)',
+    };
+  }
 }
 
 /// Simple rating stars component properties.

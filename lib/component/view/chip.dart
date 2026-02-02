@@ -84,6 +84,19 @@ class ArcaneChip extends StatelessComponent {
     super.key,
   }) : style = StyleVariant.outline;
 
+  /// Creates a soft/subtle chip with muted background and border.
+  /// Ideal for display tags like "Pre-installed" or "Included".
+  const ArcaneChip.soft({
+    required this.label,
+    this.icon,
+    this.size = ComponentSize.md,
+    this.removable = false,
+    this.onRemove,
+    this.onTap,
+    super.key,
+  })  : style = StyleVariant.soft,
+        color = ColorVariant.secondary;
+
   @override
   Component build(BuildContext context) {
     return context.renderers.chip(ChipProps(

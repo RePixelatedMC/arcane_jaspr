@@ -15,7 +15,6 @@ import 'auth_layout.dart';
 import 'auth_split_layout.dart';
 import 'author_card.dart';
 import 'avatar.dart';
-import 'badge.dart';
 import 'bar.dart';
 import 'bottom_navigation.dart';
 import 'breadcrumbs.dart';
@@ -35,6 +34,7 @@ import 'color_input.dart';
 import 'command.dart';
 import 'confirm_dialog.dart';
 import 'context_menu.dart';
+import 'cta_card.dart';
 import 'cycle_button.dart';
 import 'dashboard_layout.dart';
 import 'data_table.dart';
@@ -67,6 +67,7 @@ import 'icon_button.dart';
 import 'integration_card.dart';
 import 'kbd.dart';
 import 'loader.dart';
+import 'map_section.dart';
 import 'marquee.dart';
 import 'menubar.dart';
 import 'meter.dart';
@@ -90,10 +91,12 @@ import 'sidebar.dart';
 import 'skeleton.dart';
 import 'slider.dart';
 import 'slot_counter.dart';
+import 'spec_row.dart';
 import 'social_icons.dart';
 import 'stat_card.dart';
 import 'stat_display.dart';
 import 'static_table.dart';
+import 'status_badge.dart';
 import 'status_indicator.dart';
 import 'stepper.dart';
 import 'surface_card.dart';
@@ -144,9 +147,6 @@ class CodexRenderers extends ShadcnRenderers {
 
   @override
   Component card(CardProps props) => CodexCard(props);
-
-  @override
-  Component badge(BadgeProps props) => CodexBadge(props);
 
   @override
   Component alert(AlertProps props) => CodexAlert(props);
@@ -327,8 +327,7 @@ class CodexRenderers extends ShadcnRenderers {
       CodexStatusIndicator(props);
 
   @override
-  Component statusBadge(SimpleStatusBadgeProps props) =>
-      CodexSimpleStatusBadge(props);
+  Component statusBadge(StatusBadgeProps props) => CodexStatusBadge(props);
 
   // ==========================================================================
   // GLASS & EFFECT COMPONENTS (Codex-specific implementations)
@@ -352,6 +351,9 @@ class CodexRenderers extends ShadcnRenderers {
 
   @override
   Component ctaGroup(CtaGroupProps props) => CodexCtaGroup(props);
+
+  @override
+  Component mapSection(MapSectionProps props) => CodexMapSection(props);
 
   @override
   Component footer(FooterProps props) => CodexFooter(props);
@@ -590,6 +592,12 @@ class CodexRenderers extends ShadcnRenderers {
   @override
   Component gameCard(GameCardProps props) => CodexGameCard(props);
 
+  @override
+  Component gameLink(GameLinkProps props) => CodexGameLink(props);
+
+  @override
+  Component ctaCard(CTACardProps props) => CodexCTACard(props);
+
   // ==========================================================================
   // MISC COMPONENTS (Codex-specific implementations)
   // ==========================================================================
@@ -609,6 +617,9 @@ class CodexRenderers extends ShadcnRenderers {
 
   @override
   Component featureRow(FeatureRowProps props) => CodexFeatureRow(props);
+
+  @override
+  Component specRow(SpecRowProps props) => CodexSpecRow(props);
 
   // ==========================================================================
   // NEWLY PORTED COMPONENTS

@@ -13,5 +13,9 @@ enum StyleVariant {
   solid,
   outline,
   ghost,
-  link;
+  link,
+
+  /// Soft/subtle variant with muted background and border.
+  /// Ideal for display tags like "Pre-installed" chips.
+  soft;
 }

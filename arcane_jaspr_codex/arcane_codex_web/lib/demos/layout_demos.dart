@@ -93,10 +93,10 @@ class LayoutDemos {
         ArcaneFlow(
           gap: 8,
           children: [
-            ArcaneBadge('Tag 1'),
-            ArcaneBadge('Tag 2'),
-            ArcaneBadge('Tag 3'),
-            ArcaneBadge('Tag 4'),
+            ArcaneStatusBadge.secondary('Tag 1'),
+            ArcaneStatusBadge.secondary('Tag 2'),
+            ArcaneStatusBadge.secondary('Tag 3'),
+            ArcaneStatusBadge.secondary('Tag 4'),
           ],
         ),
       ];
@@ -150,7 +150,7 @@ class LayoutDemos {
                 ArcanePositioned(
                   top: '8px',
                   right: '8px',
-                  child: ArcaneBadge('New'),
+                  child: ArcaneStatusBadge.secondary('New'),
                 ),
               ],
             ),

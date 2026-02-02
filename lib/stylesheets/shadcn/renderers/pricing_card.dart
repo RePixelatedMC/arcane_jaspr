@@ -1,9 +1,11 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
-import '../../../core/props/badge_props.dart';
+import '../../../component/feedback/status_badge.dart';
+import '../../../component/view/check_list.dart';
+import '../../../component/view/icon.dart';
+import '../../../component/view/spec_row.dart';
 import '../../../core/props/pricing_card_props.dart';
-import 'badge.dart';
 
 /// ShadCN Pricing Card renderer.
 class ShadcnPricingCard extends StatelessComponent {
@@ -13,172 +15,214 @@ class ShadcnPricingCard extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final tier = props.tier;
+    final bool isHighlighted = props.effectiveHighlighted;
+    final PricingCardVariant variant = props.variant;
+    final bool isCompact = variant == PricingCardVariant.compact;
 
     return dom.div(
-      classes: 'arcane-pricing-card ${tier.isHighlighted ? 'highlighted' : ''} ${tier.isPopular ? 'popular' : ''}',
+      classes: 'arcane-pricing-card ${variant.name} ${isHighlighted ? 'highlighted' : ''}',
       styles: dom.Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'padding': '2rem',
-        'background-color': tier.isHighlighted
+        'padding': isCompact ? '1.5rem' : '2rem',
+        'background-color': isHighlighted
             ? 'color-mix(in srgb, var(--accent) 5%, transparent)'
             : 'var(--card)',
-        'border': tier.isHighlighted
+        'border': isHighlighted
             ? '2px solid var(--accent)'
             : '1px solid var(--border)',
         'border-radius': 'var(--arcane-radius-lg)',
         'position': 'relative',
+        if (!isCompact) 'height': '100%',
         'transition': 'all var(--arcane-transition-slow)',
       }),
       [
-        // Popular badge
-        if (tier.isPopular)
-          const dom.div(
-            styles: dom.Styles(raw: {
-              'position': 'absolute',
-              'top': '-12px',
-              'left': '50%',
-              'transform': 'translateX(-50%)',
-            }),
-            [ShadcnBadge(BadgeProps(label: 'Most Popular', color: ColorVariant.primary))],
-          ),
+        // Badge
+        if (props.effectiveBadge != null) _buildBadge(),
 
-        // Tier name
+        // Title
         dom.div(
-          classes: 'arcane-pricing-name',
           styles: const dom.Styles(raw: {
             'font-size': 'var(--font-size-xl)',
             'font-weight': 'var(--font-weight-semibold)',
             'color': 'var(--foreground)',
             'margin-bottom': '0.5rem',
           }),
-          [Component.text(tier.name)],
+          [Component.text(props.effectiveTitle)],
         ),
+
+        // Subtitle
+        if (props.effectiveSubtitle != null)
+          dom.p(
+            styles: const dom.Styles(raw: {
+              'font-size': 'var(--font-size-base)',
+              'color': 'var(--muted-foreground)',
+              'margin': '0 0 1rem 0',
+              'line-height': '1.5',
+            }),
+            [Component.text(props.effectiveSubtitle!)],
+          ),
 
         // Price
         dom.div(
-          classes: 'arcane-pricing-price',
           styles: const dom.Styles(raw: {
             'display': 'flex',
             'align-items': 'baseline',
             'gap': 'var(--space-1)',
-            'margin-bottom': '0.5rem',
+            'margin-bottom': '1.5rem',
           }),
           [
-            if (tier.price != null) ...[
+            if (props.originalPrice != null)
               dom.span(
                 styles: const dom.Styles(raw: {
-                  'font-size': 'var(--font-size-sm)',
+                  'font-size': 'var(--font-size-lg)',
                   'color': 'var(--muted-foreground)',
+                  'text-decoration': 'line-through',
+                  'margin-right': 'var(--space-2)',
                 }),
-                [Component.text(tier.currency)],
+                [Component.text(props.originalPrice!)],
               ),
-              dom.span(
-                styles: const dom.Styles(raw: {
-                  'font-size': '2.5rem',
-                  'font-weight': 'var(--font-weight-bold)',
-                  'color': 'var(--foreground)',
-                  'line-height': '1',
-                  'letter-spacing': '-0.02em',
-                }),
-                [Component.text(tier.price!.toStringAsFixed(tier.price! % 1 == 0 ? 0 : 2))],
-              ),
-              dom.span(
-                styles: const dom.Styles(raw: {
-                  'font-size': 'var(--font-size-sm)',
-                  'color': 'var(--muted-foreground)',
-                }),
-                [Component.text('/${tier.period}')],
-              ),
-            ] else
-              const dom.span(
-                styles: dom.Styles(raw: {
-                  'font-size': 'var(--font-size-2xl)',
-                  'font-weight': 'var(--font-weight-semibold)',
-                  'color': 'var(--foreground)',
-                }),
-                [Component.text('Custom')],
-              ),
+            dom.span(
+              styles: const dom.Styles(raw: {
+                'font-size': '2.5rem',
+                'font-weight': 'var(--font-weight-bold)',
+                'color': 'var(--foreground)',
+                'line-height': '1',
+                'letter-spacing': '-0.02em',
+              }),
+              [Component.text(props.effectivePrice)],
+            ),
+            dom.span(
+              styles: const dom.Styles(raw: {
+                'font-size': 'var(--font-size-sm)',
+                'color': 'var(--muted-foreground)',
+              }),
+              [Component.text(props.effectivePeriod)],
+            ),
           ],
         ),
 
-        // Description
-        dom.p(
-          classes: 'arcane-pricing-description',
-          styles: const dom.Styles(raw: {
-            'font-size': 'var(--font-size-base)',
-            'color': 'var(--muted-foreground)',
-            'margin': '0 0 2rem 0',
-            'line-height': '1.5',
-          }),
-          [Component.text(tier.description)],
-        ),
+        // Specs section
+        if (props.specs != null && props.specs!.isNotEmpty) _buildSpecs(),
+
+        // Features
+        if (props.effectiveFeatures.isNotEmpty || props.excludedFeatures.isNotEmpty)
+          _buildFeatures(isCompact),
+
+        // Spacer
+        if (!isCompact)
+          const dom.div(
+            styles: dom.Styles(raw: {'flex': '1'}),
+            [],
+          ),
 
         // CTA Button
-        dom.button(
-          classes: 'arcane-pricing-cta',
-          type: dom.ButtonType.button,
-          styles: dom.Styles(raw: {
-            'width': '100%',
-            'padding': '1rem 1.5rem',
-            'font-size': 'var(--font-size-base)',
-            'font-weight': 'var(--font-weight-medium)',
-            'border-radius': 'var(--arcane-radius-sm)',
-            'border': tier.isHighlighted
-                ? 'none'
-                : '1px solid var(--border)',
-            'background-color': tier.isHighlighted
-                ? 'var(--accent)'
-                : 'transparent',
-            'color': tier.isHighlighted
-                ? 'var(--accent-foreground)'
-                : 'var(--foreground)',
-            'cursor': 'pointer',
-            'transition': 'all var(--arcane-transition)',
-            'margin-bottom': '2rem',
-          }),
-          events: {
-            'click': (e) => props.onCtaPressed?.call(),
-          },
-          [Component.text(tier.ctaText)],
-        ),
-
-        // Features list
-        dom.div(
-          classes: 'arcane-pricing-features',
-          styles: const dom.Styles(raw: {
-            'display': 'flex',
-            'flex-direction': 'column',
-            'gap': 'var(--space-4)',
-          }),
-          [
-            for (final feature in tier.features)
-              dom.div(
-                classes: 'arcane-pricing-feature',
-                styles: const dom.Styles(raw: {
-                  'display': 'flex',
-                  'align-items': 'flex-start',
-                  'gap': 'var(--space-4)',
-                  'font-size': 'var(--font-size-sm)',
-                  'color': 'var(--foreground)',
-                }),
-                [
-                  // Checkmark
-                  const dom.span(
-                    styles: dom.Styles(raw: {
-                      'color': 'var(--success)',
-                      'flex-shrink': '0',
-                      'font-size': 'var(--font-size-base)',
-                    }),
-                    [Component.text('\u2713')],
-                  ),
-                  dom.span([Component.text(feature)]),
-                ],
-              ),
-          ],
-        ),
+        _buildButton(isHighlighted),
       ],
+    );
+  }
+
+  Component _buildBadge() {
+    final String badgeText = props.effectiveBadge!;
+
+    return switch (props.badgeVariant) {
+      PricingBadgeVariant.popular => ArcaneStatusBadge.popular(label: badgeText),
+      PricingBadgeVariant.recommended => ArcaneStatusBadge.recommended(label: badgeText),
+      PricingBadgeVariant.isNew => ArcaneStatusBadge.isNew(label: badgeText),
+      PricingBadgeVariant.primary => ArcaneStatusBadge.primary(
+          badgeText,
+          position: const BadgePosition.topRight(),
+          showDefaultIcon: true,
+        ),
+    };
+  }
+
+  Component _buildSpecs() {
+    return dom.div(
+      styles: const dom.Styles(raw: {
+        'padding': 'var(--space-3)',
+        'margin-bottom': 'var(--space-4)',
+        'border-radius': 'var(--arcane-radius-sm)',
+        'background-color': 'var(--muted)',
+        'border': '1px solid var(--border)',
+      }),
+      [
+        for (int i = 0; i < props.specs!.length; i++) ...[
+          ArcaneSpecRow(
+            label: props.specs![i].label,
+            value: props.specs![i].value,
+            highlight: props.specs![i].highlight,
+          ),
+          if (i < props.specs!.length - 1)
+            const dom.div(
+              styles: dom.Styles(raw: {
+                'height': '1px',
+                'background-color': 'var(--border)',
+                'margin': 'var(--space-2) 0',
+              }),
+              [],
+            ),
+        ],
+      ],
+    );
+  }
+
+  Component _buildFeatures(bool isCompact) {
+    return dom.div(
+      styles: dom.Styles(raw: {
+        'display': 'flex',
+        'flex-direction': 'column',
+        'gap': isCompact ? 'var(--space-2)' : 'var(--space-3)',
+        'margin-bottom': isCompact ? 'var(--space-3)' : 'var(--space-4)',
+      }),
+      [
+        for (final String feature in props.effectiveFeatures)
+          ArcaneFeatureRow(feature: feature, included: true),
+        for (final String feature in props.excludedFeatures)
+          ArcaneFeatureRow(feature: feature, included: false),
+      ],
+    );
+  }
+
+  Component _buildButton(bool isHighlighted) {
+    final void Function()? onButtonClick = props.onButtonClick ?? props.onCtaPressed;
+
+    final Map<String, String> buttonStyles = {
+      'display': 'flex',
+      'align-items': 'center',
+      'justify-content': 'center',
+      'gap': 'var(--space-2)',
+      'width': '100%',
+      'padding': '1rem 1.5rem',
+      'font-size': 'var(--font-size-base)',
+      'font-weight': 'var(--font-weight-medium)',
+      'border-radius': 'var(--arcane-radius-sm)',
+      'border': isHighlighted ? 'none' : '1px solid var(--border)',
+      'background-color': isHighlighted ? 'var(--accent)' : 'transparent',
+      'color': isHighlighted ? 'var(--accent-foreground)' : 'var(--foreground)',
+      'cursor': 'pointer',
+      'transition': 'all var(--arcane-transition)',
+      'text-decoration': 'none',
+    };
+
+    final List<Component> buttonContent = [
+      Component.text(props.effectiveCtaText),
+      ArcaneIcon.arrowRight(size: IconSize.sm),
+    ];
+
+    if (onButtonClick != null) {
+      return dom.button(
+        type: dom.ButtonType.button,
+        styles: dom.Styles(raw: buttonStyles),
+        events: {'click': (_) => onButtonClick()},
+        buttonContent,
+      );
+    }
+
+    return dom.a(
+      href: props.buttonLink ?? '#',
+      styles: dom.Styles(raw: buttonStyles),
+      buttonContent,
     );
   }
 }
@@ -202,7 +246,7 @@ class ShadcnPricingGrid extends StatelessComponent {
         'align-items': 'start',
       }),
       [
-        for (final tier in props.tiers)
+        for (final PricingTier tier in props.tiers)
           ShadcnPricingCard(PricingCardProps(
             tier: tier,
             onCtaPressed: () => props.onTierSelected?.call(tier),

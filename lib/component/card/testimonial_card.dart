@@ -13,6 +13,9 @@ class ArcaneTestimonialCard extends StatelessComponent {
   final String? avatarUrl;
   final int? rating;
   final bool showQuotes;
+  final bool showRatingBadge;
+  final bool showAccentBorder;
+  final String? accentColor;
 
   const ArcaneTestimonialCard({
     required this.quote,
@@ -22,8 +25,25 @@ class ArcaneTestimonialCard extends StatelessComponent {
     this.avatarUrl,
     this.rating,
     this.showQuotes = true,
+    this.showRatingBadge = false,
+    this.showAccentBorder = false,
+    this.accentColor,
     super.key,
   });
+
+  /// Creates a rating-styled testimonial card with accent border and rating badge.
+  const ArcaneTestimonialCard.rated({
+    required this.quote,
+    required this.authorName,
+    required this.rating,
+    this.authorTitle,
+    this.authorCompany,
+    this.avatarUrl,
+    this.showQuotes = true,
+    this.accentColor,
+    super.key,
+  })  : showRatingBadge = true,
+        showAccentBorder = true;
 
   @override
   Component build(BuildContext context) {
@@ -35,6 +55,9 @@ class ArcaneTestimonialCard extends StatelessComponent {
       avatarUrl: avatarUrl,
       rating: rating,
       showQuotes: showQuotes,
+      showRatingBadge: showRatingBadge,
+      showAccentBorder: showAccentBorder,
+      accentColor: accentColor,
     ));
   }
 }

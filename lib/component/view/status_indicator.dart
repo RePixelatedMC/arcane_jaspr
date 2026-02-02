@@ -58,42 +58,5 @@ class ArcaneStatusIndicator extends StatelessComponent {
   }
 }
 
-/// Status badge combining status indicator with text.
-class ArcaneStatusBadge extends StatelessComponent {
-  final StatusType status;
-  final String label;
-
-  const ArcaneStatusBadge({
-    required this.status,
-    required this.label,
-    super.key,
-  });
-
-  const ArcaneStatusBadge.success({
-    required this.label,
-    super.key,
-  }) : status = StatusType.success;
-
-  const ArcaneStatusBadge.error({
-    required this.label,
-    super.key,
-  }) : status = StatusType.error;
-
-  const ArcaneStatusBadge.warning({
-    required this.label,
-    super.key,
-  }) : status = StatusType.warning;
-
-  const ArcaneStatusBadge.info({
-    required this.label,
-    super.key,
-  }) : status = StatusType.info;
-
-  @override
-  Component build(BuildContext context) {
-    return context.renderers.statusBadge(SimpleStatusBadgeProps(
-      status: status,
-      label: label,
-    ));
-  }
-}
+// ArcaneStatusBadge is now in component/feedback/status_badge.dart
+// This file only exports ArcaneStatusIndicator.

@@ -3,7 +3,6 @@ import 'package:jaspr/jaspr.dart';
 import '../../../core/renderers.dart';
 import 'alert.dart';
 import 'avatar.dart';
-import 'badge.dart';
 import 'button.dart';
 import 'calendar.dart';
 import 'card.dart';
@@ -63,6 +62,7 @@ import 'tree_view.dart';
 import 'rating_stars.dart';
 import 'status_indicator.dart';
 import 'check_list.dart';
+import 'spec_row.dart';
 import 'gradient_text.dart';
 import 'glass.dart';
 import 'bar.dart';
@@ -100,6 +100,7 @@ import 'mobile_menu.dart';
 import 'dot_indicator.dart';
 import 'auth_layout.dart';
 import 'hero_section.dart';
+import 'map_section.dart';
 import 'footer.dart';
 import 'dashboard_layout.dart';
 import 'feature_showcase.dart';
@@ -107,6 +108,7 @@ import 'footer_column.dart';
 import 'auth_split_layout.dart';
 import 'section_header.dart';
 import 'cta_banner.dart';
+import 'cta_card.dart';
 import 'logo_carousel.dart';
 import 'carpet.dart';
 import 'gutter.dart';
@@ -183,9 +185,6 @@ class ShadcnRenderers extends ComponentRenderers {
   @override
   Component placeholderImage(PlaceholderImageProps props) =>
       ShadcnPlaceholderImage(props);
-
-  @override
-  Component badge(BadgeProps props) => ShadcnBadge(props);
 
   @override
   Component card(CardProps props) => ShadcnCard(props);
@@ -283,7 +282,8 @@ class ShadcnRenderers extends ComponentRenderers {
   Component statusIndicator(StatusIndicatorProps props) => ShadcnStatusIndicator(props);
 
   @override
-  Component statusBadge(SimpleStatusBadgeProps props) => ShadcnStatusBadge(props);
+  Component statusBadge(StatusBadgeProps props) =>
+      status_badge_renderer.ShadcnStatusBadge(props);
 
   @override
   Component checkItem(CheckItemProps props) => ShadcnCheckItem(props);
@@ -293,6 +293,9 @@ class ShadcnRenderers extends ComponentRenderers {
 
   @override
   Component featureRow(FeatureRowProps props) => ShadcnFeatureRow(props);
+
+  @override
+  Component specRow(SpecRowProps props) => ShadcnSpecRow(props);
 
   @override
   Component gradientText(GradientTextProps props) => ShadcnGradientText(props);
@@ -390,6 +393,9 @@ class ShadcnRenderers extends ComponentRenderers {
 
   @override
   Component ctaGroup(CtaGroupProps props) => ShadcnCtaGroup(props);
+
+  @override
+  Component mapSection(MapSectionProps props) => ShadcnMapSection(props);
 
   @override
   Component footer(FooterProps props) => ShadcnFooter(props);
@@ -664,6 +670,12 @@ class ShadcnRenderers extends ComponentRenderers {
 
   @override
   Component gameCard(GameCardProps props) => ShadcnGameCard(props);
+
+  @override
+  Component gameLink(GameLinkProps props) => ShadcnGameLink(props);
+
+  @override
+  Component ctaCard(CTACardProps props) => ShadcnCTACard(props);
 
   @override
   Component settingsSection(SettingsSectionProps props) => ShadcnSettingsSection(props);
