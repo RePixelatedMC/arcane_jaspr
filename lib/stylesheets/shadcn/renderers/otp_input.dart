@@ -11,10 +11,10 @@ class ShadcnOtpInput extends StatelessComponent {
   const ShadcnOtpInput(this.props, {super.key});
 
   (String, String) get _sizeStyles => switch (props.size) {
-        OtpInputSizeVariant.sm => ('40px', '16px'),
-        OtpInputSizeVariant.md => ('48px', '18px'),
-        OtpInputSizeVariant.lg => ('56px', '20px'),
-      };
+    OtpInputSizeVariant.sm => ('40px', '16px'),
+    OtpInputSizeVariant.md => ('48px', '18px'),
+    OtpInputSizeVariant.lg => ('56px', '20px'),
+  };
 
   @override
   Component build(BuildContext context) {
@@ -27,47 +27,60 @@ class ShadcnOtpInput extends StatelessComponent {
 
     return dom.div(
       classes: 'arcane-otp-input',
-      styles: const dom.Styles(raw: {
-        'display': 'flex',
-        'flex-direction': 'column',
-        'gap': 'var(--space-2)',
-      }),
+      attributes: {
+        'data-state': hasError ? 'error' : 'default',
+        'data-disabled': '${props.disabled}',
+      },
+      styles: const dom.Styles(
+        raw: {
+          'display': 'flex',
+          'flex-direction': 'column',
+          'gap': 'var(--space-2)',
+        },
+      ),
       [
         // Label
         if (props.label != null)
           dom.span(
-            styles: const dom.Styles(raw: {
-              'font-size': 'var(--font-size-sm)',
-              'font-weight': 'var(--font-weight-medium)',
-              'color': 'var(--foreground)',
-            }),
+            styles: const dom.Styles(
+              raw: {
+                'font-size': 'var(--font-size-sm)',
+                'font-weight': 'var(--font-weight-medium)',
+                'color': 'var(--foreground)',
+              },
+            ),
             [Component.text(props.label!)],
           ),
 
         // Digit inputs row
         dom.div(
           classes: 'arcane-otp-digits',
-          styles: const dom.Styles(raw: {
-            'display': 'flex',
-            'align-items': 'center',
-            'gap': 'var(--space-2)',
-          }),
+          styles: const dom.Styles(
+            raw: {
+              'display': 'flex',
+              'align-items': 'center',
+              'gap': 'var(--space-2)',
+            },
+          ),
           [
             for (var i = 0; i < props.length; i++) ...[
               // Separator
               if (sepPos != null && i == sepPos && props.separator != null)
                 dom.span(
-                  styles: const dom.Styles(raw: {
-                    'color': 'var(--muted-foreground)',
-                    'font-size': '18px',
-                    'margin': '0 4px',
-                  }),
+                  styles: const dom.Styles(
+                    raw: {
+                      'color': 'var(--muted-foreground)',
+                      'font-size': '18px',
+                      'margin': '0 4px',
+                    },
+                  ),
                   [Component.text(props.separator!)],
                 ),
 
               // Digit input
               dom.input(
-                classes: 'arcane-otp-digit ${hasError ? 'error' : ''} ${digits.length > i && digits[i].isNotEmpty ? 'filled' : ''}',
+                classes:
+                    'arcane-otp-digit ${hasError ? 'error' : ''} ${digits.length > i && digits[i].isNotEmpty ? 'filled' : ''}',
                 type: props.obscure
                     ? dom.InputType.password
                     : dom.InputType.text,
@@ -81,22 +94,30 @@ class ShadcnOtpInput extends StatelessComponent {
                   'data-otp-length': '${props.length}',
                   if (props.disabled) 'disabled': 'true',
                   'value': digits.length > i ? digits[i] : '',
+                  'data-state': digits.length > i && digits[i].isNotEmpty
+                      ? 'filled'
+                      : 'empty',
+                  'data-disabled': '${props.disabled}',
                 },
-                styles: dom.Styles(raw: {
-                  'width': size,
-                  'height': size,
-                  'font-size': fontSize,
-                  'text-align': 'center',
-                  'font-weight': 'var(--font-weight-semibold)',
-                  'color': 'var(--foreground)',
-                  'background-color': 'var(--background)',
-                  'border': '2px solid ${hasError ? 'var(--destructive)' : 'var(--input)'}',
-                  'border-radius': 'var(--arcane-radius-sm)',
-                  'transition': 'border-color var(--arcane-transition), box-shadow var(--arcane-transition)',
-                  'caret-color': 'transparent',
-                  if (props.disabled) 'opacity': '0.5',
-                  if (props.disabled) 'cursor': 'not-allowed',
-                }),
+                styles: dom.Styles(
+                  raw: {
+                    'width': size,
+                    'height': size,
+                    'font-size': fontSize,
+                    'text-align': 'center',
+                    'font-weight': 'var(--font-weight-semibold)',
+                    'color': 'var(--foreground)',
+                    'background-color': 'var(--background)',
+                    'border':
+                        '2px solid ${hasError ? 'var(--destructive)' : 'var(--input)'}',
+                    'border-radius': 'var(--radius-sm)',
+                    'transition':
+                        'border-color var(--transition), box-shadow var(--transition)',
+                    'caret-color': 'transparent',
+                    if (props.disabled) 'opacity': '0.5',
+                    if (props.disabled) 'cursor': 'not-allowed',
+                  },
+                ),
                 events: props.onInput != null
                     ? {
                         'input': (e) {
@@ -113,10 +134,12 @@ class ShadcnOtpInput extends StatelessComponent {
         // Error message
         if (hasError)
           dom.span(
-            styles: const dom.Styles(raw: {
-              'font-size': 'var(--font-size-sm)',
-              'color': 'var(--destructive)',
-            }),
+            styles: const dom.Styles(
+              raw: {
+                'font-size': 'var(--font-size-sm)',
+                'color': 'var(--destructive)',
+              },
+            ),
             [Component.text(props.error!)],
           ),
       ],

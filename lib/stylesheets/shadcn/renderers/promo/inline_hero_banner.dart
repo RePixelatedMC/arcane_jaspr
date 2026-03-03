@@ -34,7 +34,7 @@ class _ShadcnInlineHeroBannerState extends State<ShadcnInlineHeroBanner> {
           'padding': '4px 12px',
           'background-color': 'var(--muted)',
           'border': '1px solid var(--border)',
-          'border-radius': 'var(--arcane-radius-full)',
+          'border-radius': 'var(--radius-full)',
         },
       PromoInlineHeroBannerStyle.ribbon => {
           'display': 'inline-flex',
@@ -53,7 +53,7 @@ class _ShadcnInlineHeroBannerState extends State<ShadcnInlineHeroBanner> {
           'background-color': 'var(--muted)',
           'color': 'var(--foreground)',
           'border': '1px solid var(--border)',
-          'border-radius': 'var(--arcane-radius-full)',
+          'border-radius': 'var(--radius-full)',
         },
       PromoInlineHeroBannerStyle.card => {
           'display': 'flex',
@@ -62,8 +62,8 @@ class _ShadcnInlineHeroBannerState extends State<ShadcnInlineHeroBanner> {
           'padding': '12px 16px',
           'background-color': 'var(--card)',
           'border': '1px solid var(--border)',
-          'border-radius': 'var(--arcane-radius-md)',
-          'box-shadow': 'var(--arcane-shadow-lg)',
+          'border-radius': 'var(--radius-md)',
+          'box-shadow': 'var(--shadow-lg)',
         },
     };
   }
@@ -120,7 +120,7 @@ class _ShadcnInlineHeroBannerState extends State<ShadcnInlineHeroBanner> {
                 ? 'rgba(255, 255, 255, 0.2)'
                 : 'var(--background)',
               'border': isRibbon ? 'none' : '1px solid var(--border)',
-              'border-radius': 'var(--arcane-radius-xs)',
+              'border-radius': 'var(--radius-xs)',
               'font-family':
                   'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
               'font-weight': 'var(--font-weight-semibold)',
@@ -141,7 +141,7 @@ class _ShadcnInlineHeroBannerState extends State<ShadcnInlineHeroBanner> {
               'font-weight': 'var(--font-weight-medium)',
               'text-decoration': 'none',
               'color': isRibbon ? 'inherit' : 'var(--primary)',
-              'transition': 'opacity var(--arcane-transition)',
+              'transition': 'opacity var(--transition)',
               if (isRibbon) 'text-decoration': 'underline',
             }),
             events: {
@@ -175,10 +175,10 @@ class _ShadcnInlineHeroBannerState extends State<ShadcnInlineHeroBanner> {
               'padding': '0',
               'background': 'transparent',
               'border': 'none',
-              'border-radius': 'var(--arcane-radius-xs)',
+              'border-radius': 'var(--radius-xs)',
               'color': isRibbon ? 'inherit' : 'var(--muted-foreground)',
               'cursor': 'pointer',
-              'transition': 'background-color var(--arcane-transition)',
+              'transition': 'background-color var(--transition)',
             }),
             events: {'click': (_) => _handleDismiss()},
             [const Component.text('\u00D7')],

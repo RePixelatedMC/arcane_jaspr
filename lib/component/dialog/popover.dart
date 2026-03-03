@@ -30,7 +30,7 @@ class ArcanePopover extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return ArcaneFloating.popover(
+    return ArcaneHoverCard.popover(
       trigger: trigger,
       content: content,
       position: position,

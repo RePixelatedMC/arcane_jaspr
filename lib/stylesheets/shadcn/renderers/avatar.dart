@@ -97,7 +97,7 @@ class ShadcnAvatar extends StatelessComponent {
             'right': '0',
             'width': statusSize,
             'height': statusSize,
-            'border-radius': 'var(--arcane-radius-full)',
+            'border-radius': 'var(--radius-full)',
             'background-color': props.statusColor ?? 'var(--success, #22c55e)',
             'border': '2px solid var(--background)',
           }),

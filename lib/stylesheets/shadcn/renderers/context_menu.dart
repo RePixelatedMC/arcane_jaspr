@@ -1,6 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
+import '../../../component/view/icon.dart';
 import '../../../core/props/context_menu_props.dart';
 
 /// ShadCN-style context menu component
@@ -22,20 +23,22 @@ class ShadcnContextMenu extends StatelessComponent {
         dom.div(
           classes: 'arcane-context-menu',
           attributes: {'role': 'menu', 'aria-hidden': 'true'},
-          styles: const dom.Styles(raw: {
-            'display': 'none',
-            'position': 'fixed',
-            'z-index': '50',
-            'min-width': '128px',
-            'overflow': 'hidden',
-            'padding': '4px',
-            'background-color': 'var(--popover)',
-            'border': '1px solid var(--border)',
-            'border-radius': 'var(--arcane-radius-sm)',
-            'box-shadow':
-                '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
-            'color': 'var(--popover-foreground)',
-          }),
+          styles: const dom.Styles(
+            raw: {
+              'display': 'none',
+              'position': 'fixed',
+              'z-index': '50',
+              'min-width': '128px',
+              'overflow': 'hidden',
+              'padding': '4px',
+              'background-color': 'var(--popover)',
+              'border': '1px solid var(--border)',
+              'border-radius': 'var(--radius-sm)',
+              'box-shadow':
+                  '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
+              'color': 'var(--popover-foreground)',
+            },
+          ),
           [for (final item in props.items) _buildMenuItem(item)],
         ),
       ],
@@ -57,11 +60,13 @@ class ShadcnContextMenu extends StatelessComponent {
     // ShadCN ContextMenuSeparator
     return const dom.div(
       classes: 'arcane-context-menu-separator',
-      styles: dom.Styles(raw: {
-        'height': '1px',
-        'margin': '4px -4px',
-        'background-color': 'var(--muted)',
-      }),
+      styles: dom.Styles(
+        raw: {
+          'height': '1px',
+          'margin': '4px -4px',
+          'background-color': 'var(--muted)',
+        },
+      ),
       [],
     );
   }
@@ -69,13 +74,15 @@ class ShadcnContextMenu extends StatelessComponent {
   Component _buildLabel(String label) {
     return dom.div(
       classes: 'arcane-context-menu-label',
-      styles: const dom.Styles(raw: {
-        'padding': '6px 8px',
-        'font-size': 'var(--font-size-xs)',
-        'font-weight': 'var(--font-weight-semibold)',
-        'color': 'var(--muted-foreground)',
-        'user-select': 'none',
-      }),
+      styles: const dom.Styles(
+        raw: {
+          'padding': '6px 8px',
+          'font-size': 'var(--font-size-xs)',
+          'font-weight': 'var(--font-weight-semibold)',
+          'color': 'var(--muted-foreground)',
+          'user-select': 'none',
+        },
+      ),
       [Component.text(label)],
     );
   }
@@ -89,45 +96,53 @@ class ShadcnContextMenu extends StatelessComponent {
         'role': 'menuitem',
         if (item.disabled) 'aria-disabled': 'true',
         if (item.shortcut != null) 'data-shortcut': item.shortcut!,
+        'data-disabled': '${item.disabled}',
       },
-      styles: dom.Styles(raw: {
-        'position': 'relative',
-        'display': 'flex',
-        'align-items': 'center',
-        'gap': 'var(--space-2)',
-        'padding': '6px 8px',
-        'border-radius': 'var(--arcane-radius-xs)',
-        'cursor': item.disabled ? 'not-allowed' : 'default',
-        'transition': 'color var(--arcane-transition), background-color var(--arcane-transition)',
-        'font-size': 'var(--font-size-sm)',
-        'user-select': 'none',
-        'outline': 'none',
-        if (item.disabled) 'pointer-events': 'none',
-        if (item.disabled) 'opacity': '0.5',
-      }),
+      styles: dom.Styles(
+        raw: {
+          'position': 'relative',
+          'display': 'flex',
+          'align-items': 'center',
+          'gap': 'var(--space-2)',
+          'padding': '6px 8px',
+          'border-radius': 'var(--radius-xs)',
+          'cursor': item.disabled ? 'not-allowed' : 'default',
+          'transition':
+              'color var(--transition), background-color var(--transition)',
+          'font-size': 'var(--font-size-sm)',
+          'user-select': 'none',
+          'outline': 'none',
+          if (item.disabled) 'pointer-events': 'none',
+          if (item.disabled) 'opacity': '0.5',
+        },
+      ),
       events: item.onSelect != null && !item.disabled
           ? {'click': (_) => item.onSelect!()}
           : null,
       [
         if (item.icon != null) item.icon!,
         dom.span(
-          styles: dom.Styles(raw: {
-            'flex': '1',
-            'color': item.destructive
-                ? 'var(--destructive)'
-                : 'var(--popover-foreground)',
-          }),
+          styles: dom.Styles(
+            raw: {
+              'flex': '1',
+              'color': item.destructive
+                  ? 'var(--destructive)'
+                  : 'var(--popover-foreground)',
+            },
+          ),
           [Component.text(item.label)],
         ),
         if (item.shortcut != null)
           // ShadCN ContextMenuShortcut
           dom.span(
-            styles: const dom.Styles(raw: {
-              'margin-left': 'auto',
-              'font-size': 'var(--font-size-xs)',
-              'letter-spacing': '0.1em',
-              'color': 'var(--muted-foreground)',
-            }),
+            styles: const dom.Styles(
+              raw: {
+                'margin-left': 'auto',
+                'font-size': 'var(--font-size-xs)',
+                'letter-spacing': '0.1em',
+                'color': 'var(--muted-foreground)',
+              },
+            ),
             [Component.text(item.shortcut!)],
           ),
       ],
@@ -141,51 +156,58 @@ class ShadcnContextMenu extends StatelessComponent {
         'role': 'menuitemcheckbox',
         'aria-checked': '${item.checked}',
         if (item.disabled) 'aria-disabled': 'true',
+        'data-state': item.checked ? 'checked' : 'unchecked',
+        'data-disabled': '${item.disabled}',
       },
-      styles: dom.Styles(raw: {
-        'position': 'relative',
-        'display': 'flex',
-        'align-items': 'center',
-        'gap': 'var(--space-2)',
-        'padding': '6px 8px',
-        'padding-left': '32px',
-        'font-size': 'var(--font-size-sm)',
-        'border-radius': 'var(--arcane-radius-xs)',
-        'cursor': item.disabled ? 'not-allowed' : 'pointer',
-        'transition': 'background-color var(--arcane-transition), color var(--arcane-transition)',
-        'user-select': 'none',
-        'outline': 'none',
-        if (item.disabled) 'pointer-events': 'none',
-        if (item.disabled) 'opacity': '0.5',
-      }),
+      styles: dom.Styles(
+        raw: {
+          'position': 'relative',
+          'display': 'flex',
+          'align-items': 'center',
+          'gap': 'var(--space-2)',
+          'padding': '6px 8px',
+          'padding-left': '32px',
+          'font-size': 'var(--font-size-sm)',
+          'border-radius': 'var(--radius-xs)',
+          'cursor': item.disabled ? 'not-allowed' : 'pointer',
+          'transition':
+              'background-color var(--transition), color var(--transition)',
+          'user-select': 'none',
+          'outline': 'none',
+          if (item.disabled) 'pointer-events': 'none',
+          if (item.disabled) 'opacity': '0.5',
+        },
+      ),
       events: item.onChanged != null && !item.disabled
           ? {'click': (_) => item.onChanged!(!item.checked)}
           : null,
       [
         // Checkbox indicator
         if (item.checked)
-          const dom.span(
-            styles: dom.Styles(raw: {
-              'position': 'absolute',
-              'left': '8px',
-              'color': 'var(--foreground)',
-              'font-size': 'var(--font-size-xs)',
-            }),
-            [Component.text('\u{2713}')], // Checkmark
+          dom.span(
+            styles: dom.Styles(
+              raw: {
+                'position': 'absolute',
+                'left': '8px',
+                'color': 'var(--foreground)',
+              },
+            ),
+            [ArcaneIcon.check(size: IconSize.xs)],
           ),
         if (item.icon != null) item.icon!,
-        dom.span(
-          styles: const dom.Styles(raw: {'flex': '1'}),
-          [Component.text(item.label)],
-        ),
+        dom.span(styles: const dom.Styles(raw: {'flex': '1'}), [
+          Component.text(item.label),
+        ]),
         if (item.shortcut != null)
           dom.span(
-            styles: const dom.Styles(raw: {
-              'margin-left': 'auto',
-              'font-size': 'var(--font-size-xs)',
-              'letter-spacing': '0.1em',
-              'color': 'var(--muted-foreground)',
-            }),
+            styles: const dom.Styles(
+              raw: {
+                'margin-left': 'auto',
+                'font-size': 'var(--font-size-xs)',
+                'letter-spacing': '0.1em',
+                'color': 'var(--muted-foreground)',
+              },
+            ),
             [Component.text(item.shortcut!)],
           ),
       ],
@@ -199,43 +221,48 @@ class ShadcnContextMenu extends StatelessComponent {
         'role': 'menuitemradio',
         'aria-checked': '${item.selected}',
         if (item.disabled) 'aria-disabled': 'true',
+        'data-state': item.selected ? 'checked' : 'unchecked',
+        'data-disabled': '${item.disabled}',
       },
-      styles: dom.Styles(raw: {
-        'position': 'relative',
-        'display': 'flex',
-        'align-items': 'center',
-        'gap': 'var(--space-2)',
-        'padding': '6px 8px',
-        'padding-left': '32px',
-        'font-size': 'var(--font-size-sm)',
-        'border-radius': 'var(--arcane-radius-xs)',
-        'cursor': item.disabled ? 'not-allowed' : 'pointer',
-        'transition': 'background-color var(--arcane-transition), color var(--arcane-transition)',
-        'user-select': 'none',
-        'outline': 'none',
-        if (item.disabled) 'pointer-events': 'none',
-        if (item.disabled) 'opacity': '0.5',
-      }),
+      styles: dom.Styles(
+        raw: {
+          'position': 'relative',
+          'display': 'flex',
+          'align-items': 'center',
+          'gap': 'var(--space-2)',
+          'padding': '6px 8px',
+          'padding-left': '32px',
+          'font-size': 'var(--font-size-sm)',
+          'border-radius': 'var(--radius-xs)',
+          'cursor': item.disabled ? 'not-allowed' : 'pointer',
+          'transition':
+              'background-color var(--transition), color var(--transition)',
+          'user-select': 'none',
+          'outline': 'none',
+          if (item.disabled) 'pointer-events': 'none',
+          if (item.disabled) 'opacity': '0.5',
+        },
+      ),
       events: item.onChanged != null && !item.disabled
           ? {'click': (_) => item.onChanged!(item.value)}
           : null,
       [
         // Radio indicator
         if (item.selected)
-          const dom.span(
-            styles: dom.Styles(raw: {
-              'position': 'absolute',
-              'left': '8px',
-              'color': 'var(--foreground)',
-              'font-size': 'var(--font-size-xs)',
-            }),
-            [Component.text('\u{2022}')], // Bullet
+          dom.span(
+            styles: dom.Styles(
+              raw: {
+                'position': 'absolute',
+                'left': '8px',
+                'color': 'var(--foreground)',
+              },
+            ),
+            [ArcaneIcon.dot(size: IconSize.sm)],
           ),
         if (item.icon != null) item.icon!,
-        dom.span(
-          styles: const dom.Styles(raw: {'flex': '1'}),
-          [Component.text(item.label)],
-        ),
+        dom.span(styles: const dom.Styles(raw: {'flex': '1'}), [
+          Component.text(item.label),
+        ]),
       ],
     );
   }
@@ -249,54 +276,56 @@ class ShadcnContextMenu extends StatelessComponent {
         'role': 'menuitem',
         'aria-haspopup': 'true',
         if (item.disabled) 'aria-disabled': 'true',
+        'data-disabled': '${item.disabled}',
       },
-      styles: dom.Styles(raw: {
-        'position': 'relative',
-        'display': 'flex',
-        'align-items': 'center',
-        'gap': 'var(--space-2)',
-        'padding': '6px 8px',
-        'border-radius': 'var(--arcane-radius-xs)',
-        'cursor': item.disabled ? 'not-allowed' : 'default',
-        'transition': 'color var(--arcane-transition), background-color var(--arcane-transition)',
-        'font-size': 'var(--font-size-sm)',
-        'user-select': 'none',
-        'outline': 'none',
-        if (item.disabled) 'pointer-events': 'none',
-        if (item.disabled) 'opacity': '0.5',
-      }),
+      styles: dom.Styles(
+        raw: {
+          'position': 'relative',
+          'display': 'flex',
+          'align-items': 'center',
+          'gap': 'var(--space-2)',
+          'padding': '6px 8px',
+          'border-radius': 'var(--radius-xs)',
+          'cursor': item.disabled ? 'not-allowed' : 'default',
+          'transition':
+              'color var(--transition), background-color var(--transition)',
+          'font-size': 'var(--font-size-sm)',
+          'user-select': 'none',
+          'outline': 'none',
+          if (item.disabled) 'pointer-events': 'none',
+          if (item.disabled) 'opacity': '0.5',
+        },
+      ),
       [
         if (item.icon != null) item.icon!,
         dom.span(
-          styles: const dom.Styles(raw: {
-            'flex': '1',
-            'color': 'var(--popover-foreground)',
-          }),
+          styles: const dom.Styles(
+            raw: {'flex': '1', 'color': 'var(--popover-foreground)'},
+          ),
           [Component.text(item.label)],
         ),
-        const dom.span(
-          styles: dom.Styles(raw: {
-            'color': 'var(--muted-foreground)',
-            'font-size': 'var(--font-size-xs)',
-          }),
-          [Component.text('\u{203A}')], // Right arrow
+        dom.span(
+          styles: dom.Styles(raw: {'color': 'var(--muted-foreground)'}),
+          [ArcaneIcon.chevronRight(size: IconSize.sm)],
         ),
         // Submenu - ShadCN ContextMenuSubContent
         dom.div(
           classes: 'arcane-context-menu-submenu',
-          styles: const dom.Styles(raw: {
-            'display': 'none',
-            'position': 'absolute',
-            'left': '100%',
-            'top': '0',
-            'min-width': '128px',
-            'padding': '4px',
-            'background-color': 'var(--popover)',
-            'border': '1px solid var(--border)',
-            'border-radius': 'var(--arcane-radius-sm)',
-            'box-shadow':
-                '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
-          }),
+          styles: const dom.Styles(
+            raw: {
+              'display': 'none',
+              'position': 'absolute',
+              'left': '100%',
+              'top': '0',
+              'min-width': '128px',
+              'padding': '4px',
+              'background-color': 'var(--popover)',
+              'border': '1px solid var(--border)',
+              'border-radius': 'var(--radius-sm)',
+              'box-shadow':
+                  '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
+            },
+          ),
           [for (final child in item.children) _buildMenuItem(child)],
         ),
       ],

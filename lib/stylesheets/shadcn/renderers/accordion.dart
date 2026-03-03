@@ -25,7 +25,7 @@ class ShadcnAccordion extends StatelessComponent {
           'gap': '0.75rem',
           'width': '100%',
           if (props.bordered) 'border': '1px solid var(--border)',
-          if (props.bordered) 'border-radius': 'var(--arcane-radius-md)',
+          if (props.bordered) 'border-radius': 'var(--radius-md)',
           if (props.bordered) 'overflow': 'hidden',
         },
       ),

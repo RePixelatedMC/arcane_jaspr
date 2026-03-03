@@ -32,7 +32,7 @@ class ShadcnDataTable<T> extends StatelessComponent {
         'overflow-x': 'auto',
         // ShadCN: rounded-md border
         'border': '1px solid var(--border)',
-        'border-radius': 'var(--arcane-radius-md)',
+        'border-radius': 'var(--radius-md)',
       }),
       [
         dom.table(
@@ -127,7 +127,7 @@ class ShadcnDataTable<T> extends StatelessComponent {
             isSelected ? 'var(--muted)' : 'var(--background)',
         if (props.showDividers) 'border-bottom': '1px solid var(--border)',
         if (isClickable) 'cursor': 'pointer',
-        'transition': 'background-color var(--arcane-transition)',
+        'transition': 'background-color var(--transition)',
       }),
       events: isClickable
           ? {

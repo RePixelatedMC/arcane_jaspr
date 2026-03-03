@@ -55,7 +55,7 @@ class _ShadcnFormState extends State<ShadcnForm> {
                     'font-size': 'var(--font-size-sm)',
                     'font-weight': 'var(--font-weight-medium)',
                     'cursor': 'pointer',
-                    'transition': 'all var(--arcane-transition)',
+                    'transition': 'all var(--transition)',
                   }),
                   events: {
                     'click': (_) => component.props.onCancel?.call(),
@@ -73,7 +73,7 @@ class _ShadcnFormState extends State<ShadcnForm> {
                   'font-size': 'var(--font-size-sm)',
                   'font-weight': 'var(--font-weight-medium)',
                   'cursor': 'pointer',
-                  'transition': 'all var(--arcane-transition)',
+                  'transition': 'all var(--transition)',
                 }),
                 [Component.text(component.props.submitText!)],
               ),

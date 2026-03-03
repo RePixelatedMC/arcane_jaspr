@@ -96,8 +96,8 @@ class _ShadcnProgressClaimBannerState extends State<ShadcnProgressClaimBanner> {
         'padding': '16px',
         'background-color': 'var(--card)',
         'border': '1px solid var(--border)',
-        'border-radius': 'var(--arcane-radius-md)',
-        'box-shadow': 'var(--arcane-shadow-lg)',
+        'border-radius': 'var(--radius-md)',
+        'box-shadow': 'var(--shadow-lg)',
         'transition': 'transform 400ms cubic-bezier(0.4, 0, 0.2, 1)',
         'max-width': '380px',
         'width': 'calc(100vw - 48px)',
@@ -155,7 +155,7 @@ class _ShadcnProgressClaimBannerState extends State<ShadcnProgressClaimBanner> {
                 'color': 'var(--muted-foreground)',
                 'cursor': 'pointer',
                 'opacity': '0.7',
-                'transition': 'opacity var(--arcane-transition)',
+                'transition': 'opacity var(--transition)',
                 'font-size': '20px',
                 'line-height': '1',
                 'flex-shrink': '0',
@@ -179,7 +179,7 @@ class _ShadcnProgressClaimBannerState extends State<ShadcnProgressClaimBanner> {
                 'width': '100%',
                 'height': '6px',
                 'background-color': 'var(--muted)',
-                'border-radius': 'var(--arcane-radius-full)',
+                'border-radius': 'var(--radius-full)',
                 'overflow': 'hidden',
               }),
               [
@@ -234,7 +234,7 @@ class _ShadcnProgressClaimBannerState extends State<ShadcnProgressClaimBanner> {
                   'padding': '8px 12px',
                   'background-color': 'var(--muted)',
                   'border': '1px solid var(--border)',
-                  'border-radius': 'var(--arcane-radius-sm)',
+                  'border-radius': 'var(--radius-sm)',
                   'font-family':
                       'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
                   'font-weight': 'var(--font-weight-semibold)',
@@ -259,8 +259,8 @@ class _ShadcnProgressClaimBannerState extends State<ShadcnProgressClaimBanner> {
                   'font-size': 'var(--font-size-sm)',
                   'font-weight': 'var(--font-weight-medium)',
                   'text-decoration': 'none',
-                  'border-radius': 'var(--arcane-radius-sm)',
-                  'transition': 'opacity var(--arcane-transition)',
+                  'border-radius': 'var(--radius-sm)',
+                  'transition': 'opacity var(--transition)',
                 }),
                 events: {
                   'click': (e) {

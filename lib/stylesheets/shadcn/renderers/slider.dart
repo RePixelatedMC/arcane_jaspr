@@ -112,7 +112,7 @@ class ShadcnSlider extends StatelessComponent {
                 // ShadCN: bg-secondary
                 'background-color': 'var(--secondary)',
                 // ShadCN: rounded-full
-                'border-radius': 'var(--arcane-radius-full)',
+                'border-radius': 'var(--radius-full)',
                 // ShadCN: overflow-hidden
                 'overflow': 'hidden',
               }),
@@ -158,10 +158,10 @@ class ShadcnSlider extends StatelessComponent {
                 // ShadCN: border-2 border-primary
                 'border': '2px solid $fillColor',
                 // ShadCN: rounded-full
-                'border-radius': 'var(--arcane-radius-full)',
+                'border-radius': 'var(--radius-full)',
                 // ShadCN: transition-colors
                 'transition':
-                    'color var(--arcane-transition), transform var(--arcane-transition), box-shadow var(--arcane-transition)',
+                    'color var(--transition), transform var(--transition), box-shadow var(--transition)',
                 'pointer-events': 'none',
                 'z-index': '2',
               }),
@@ -261,7 +261,7 @@ class ShadcnSlider extends StatelessComponent {
               'width': '2px',
               'height': '2px',
               'background': 'var(--muted-foreground)',
-              'border-radius': 'var(--arcane-radius-full)',
+              'border-radius': 'var(--radius-full)',
             }),
             [],
           ),

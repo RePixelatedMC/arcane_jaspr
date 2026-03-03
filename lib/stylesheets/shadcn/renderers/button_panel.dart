@@ -48,7 +48,7 @@ Component renderButtonGroup(ButtonGroupProps props) {
     styles: dom.Styles(raw: {
       'display': 'flex',
       'flex-direction': props.vertical ? 'column' : 'row',
-      if (props.gap > 0) 'gap': '${props.gap}px',
+      if (props.spacing > 0) 'gap': '${props.spacing}px',
     }),
     props.children,
   );

@@ -36,25 +36,25 @@ class ShadcnKbd extends StatelessComponent {
     return switch (props.style) {
       KbdStyle.raised => {
           ...baseStyles,
-          'background': 'linear-gradient(180deg, var(--arcane-muted) 0%, var(--arcane-card) 100%)',
-          'border': '1px solid var(--arcane-border)',
+          'background': 'linear-gradient(180deg, var(--muted) 0%, var(--card) 100%)',
+          'border': '1px solid var(--border)',
           'border-radius': 'var(--arcane-radius-xs, 0.25rem)',
-          'box-shadow': '0 2px 0 var(--arcane-border), inset 0 1px 0 rgba(var(--arcane-foreground-rgb), 0.1)',
-          'color': 'var(--arcane-foreground)',
+          'box-shadow': '0 2px 0 var(--border), inset 0 1px 0 rgba(var(--foreground-rgb), 0.1)',
+          'color': 'var(--foreground)',
         },
       KbdStyle.flat => {
           ...baseStyles,
-          'background': 'var(--arcane-muted)',
+          'background': 'var(--muted)',
           'border': 'none',
           'border-radius': 'var(--arcane-radius-xs, 0.25rem)',
-          'color': 'var(--arcane-foreground)',
+          'color': 'var(--foreground)',
         },
       KbdStyle.outline => {
           ...baseStyles,
           'background': 'transparent',
-          'border': '1px solid var(--arcane-border)',
+          'border': '1px solid var(--border)',
           'border-radius': 'var(--arcane-radius-xs, 0.25rem)',
-          'color': 'var(--arcane-muted-foreground)',
+          'color': 'var(--muted-foreground)',
         },
     };
   }
@@ -78,7 +78,7 @@ class ShadcnKbd extends StatelessComponent {
             if (i < props.keys!.length - 1)
               dom.span(
                 styles: const dom.Styles(raw: {
-                  'color': 'var(--arcane-muted-foreground)',
+                  'color': 'var(--muted-foreground)',
                   'font-size': 'var(--font-size-xs)',
                 }),
                 [Component.text(props.separator)],

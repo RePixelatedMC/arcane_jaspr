@@ -124,7 +124,7 @@ class _ShadcnBottomFloatingBannerState
         'padding': '12px 16px',
         'background-color': 'var(--card)',
         'border': '1px solid var(--border)',
-        'border-radius': 'var(--arcane-radius-md)',
+        'border-radius': 'var(--radius-md)',
         'box-shadow': '0 4px 12px rgba(0, 0, 0, 0.15)',
         'transition': 'transform 350ms cubic-bezier(0.4, 0, 0.2, 1)',
         'max-width': 'calc(100vw - 32px)',
@@ -170,7 +170,7 @@ class _ShadcnBottomFloatingBannerState
               'gap': '2px',
               'padding': '8px 10px',
               'background-color': 'var(--muted)',
-              'border-radius': 'var(--arcane-radius-sm)',
+              'border-radius': 'var(--radius-sm)',
             }),
             [
               const dom.div(
@@ -204,7 +204,7 @@ class _ShadcnBottomFloatingBannerState
               'padding': '6px 10px',
               'background-color': 'var(--muted)',
               'border': '1px solid var(--border)',
-              'border-radius': 'var(--arcane-radius-sm)',
+              'border-radius': 'var(--radius-sm)',
               'font-family':
                   'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
               'font-weight': 'var(--font-weight-semibold)',
@@ -229,8 +229,8 @@ class _ShadcnBottomFloatingBannerState
               'font-size': 'var(--font-size-sm)',
               'font-weight': 'var(--font-weight-medium)',
               'text-decoration': 'none',
-              'border-radius': 'var(--arcane-radius-sm)',
-              'transition': 'all var(--arcane-transition)',
+              'border-radius': 'var(--radius-sm)',
+              'transition': 'all var(--transition)',
               'white-space': 'nowrap',
             }),
             events: {
@@ -261,8 +261,8 @@ class _ShadcnBottomFloatingBannerState
             'border': 'none',
             'color': 'var(--muted-foreground)',
             'cursor': 'pointer',
-            'border-radius': 'var(--arcane-radius-xs)',
-            'transition': 'all var(--arcane-transition)',
+            'border-radius': 'var(--radius-xs)',
+            'transition': 'all var(--transition)',
             'opacity': '0.7',
           }),
           events: {'click': (_) => _handleDismiss()},

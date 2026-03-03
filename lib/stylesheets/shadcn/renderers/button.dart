@@ -1,6 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
+import '../../../component/view/icon.dart';
 import '../../../core/props/button_props.dart';
 
 /// ShadCN Button renderer.
@@ -32,7 +33,8 @@ class ShadcnButton extends StatelessComponent {
       'font-size': 'var(--font-size-sm)', // text-sm
       'font-weight': 'var(--font-weight-medium)', // font-medium
       'line-height': '1.25rem',
-      'transition': 'color 150ms, background-color 150ms, border-color 150ms',
+      'transition':
+          'color var(--transition), background-color var(--transition), border-color var(--transition), box-shadow var(--transition)',
       'outline': 'none',
       'cursor': isDisabled ? 'not-allowed' : 'pointer',
       'pointer-events': isDisabled ? 'none' : 'auto',
@@ -92,8 +94,8 @@ class ShadcnButton extends StatelessComponent {
         'border': 'none',
       },
       ButtonVariant.accent => {
-        'background': 'linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%)',
-        'color': 'var(--primary-foreground)',
+        'background-color': 'var(--accent)',
+        'color': 'var(--accent-foreground)',
         'border': 'none',
       },
     };
@@ -160,13 +162,17 @@ class ShadcnButton extends StatelessComponent {
 
     // Add arrow indicator if showArrow is true
     if (props.showArrow && !props.loading) {
-      children.add(const dom.span(
-        styles: dom.Styles(raw: {
-          'margin-left': '0.25rem',
-          'transition': 'transform var(--arcane-transition)',
-        }),
-        [Component.text('\u2192')],
-      ));
+      children.add(
+        dom.span(
+          styles: dom.Styles(
+            raw: {
+              'margin-left': '0.25rem',
+              'transition': 'transform var(--transition)',
+            },
+          ),
+          [ArcaneIcon.arrowRight(size: IconSize.sm)],
+        ),
+      );
     }
 
     // Render as anchor if href is provided, otherwise as button
@@ -177,12 +183,13 @@ class ShadcnButton extends StatelessComponent {
         href: props.href!,
         attributes: {
           if (isDisabled) 'aria-disabled': 'true',
+          'data-state': props.loading ? 'loading' : 'idle',
+          'data-disabled': '$isDisabled',
+          'data-variant': props.variant.name,
+          'data-size': props.size.name,
           ...?props.attributes,
         },
-        styles: dom.Styles(raw: {
-          ...allStyles,
-          'text-decoration': 'none',
-        }),
+        styles: dom.Styles(raw: {...allStyles, 'text-decoration': 'none'}),
         events: {
           if (props.onPressed != null)
             'click': (event) {
@@ -201,6 +208,10 @@ class ShadcnButton extends StatelessComponent {
       attributes: {
         if (isDisabled) 'disabled': 'true',
         'type': 'button',
+        'data-state': props.loading ? 'loading' : 'idle',
+        'data-disabled': '$isDisabled',
+        'data-variant': props.variant.name,
+        'data-size': props.size.name,
         ...?props.attributes,
       },
       styles: dom.Styles(raw: allStyles),
@@ -218,15 +229,17 @@ class ShadcnButton extends StatelessComponent {
   /// Build loading spinner matching ShadCN style
   Component _buildSpinner() {
     return const dom.span(
-      styles: dom.Styles(raw: {
-        'display': 'inline-block',
-        'width': '1rem',
-        'height': '1rem',
-        'border': '2px solid currentColor',
-        'border-right-color': 'transparent',
-        'border-radius': '50%',
-        'animation': 'arcane-spin 0.75s linear infinite',
-      }),
+      styles: dom.Styles(
+        raw: {
+          'display': 'inline-block',
+          'width': '1rem',
+          'height': '1rem',
+          'border': '2px solid currentColor',
+          'border-right-color': 'transparent',
+          'border-radius': '50%',
+          'animation': 'arcane-spin 0.75s linear infinite',
+        },
+      ),
       [],
     );
   }

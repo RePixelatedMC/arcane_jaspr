@@ -34,11 +34,19 @@ class ShadcnTextInput extends StatelessComponent {
 
     // ShadCN sizes
     // Default: h-10 (40px), px-3, py-2, text-base/md:text-sm
-    final (String height, String paddingX, String paddingY, String fontSize) =
-        switch (props.size) {
+    final (
+      String height,
+      String paddingX,
+      String paddingY,
+      String fontSize,
+    ) = switch (props.size) {
       ComponentSize.sm => ('32px', '0.5rem', '0.25rem', '0.75rem'),
-      ComponentSize.md =>
-        ('40px', '0.75rem', '0.5rem', '0.875rem'), // ShadCN default h-10
+      ComponentSize.md => (
+        '40px',
+        '0.75rem',
+        '0.5rem',
+        '0.875rem',
+      ), // ShadCN default h-10
       ComponentSize.lg => ('48px', '1rem', '0.75rem', '1rem'),
     };
 
@@ -67,36 +75,40 @@ class ShadcnTextInput extends StatelessComponent {
         if (props.disabled) 'disabled': 'true',
         if (props.required) 'required': 'true',
         if (props.readOnly) 'readonly': 'true',
+        'data-disabled': '${props.disabled}',
+        'data-error': '$hasError',
       },
-      styles: dom.Styles(raw: {
-        // ShadCN: flex h-10 w-full
-        'display': 'flex',
-        'height': height,
-        'width': '100%',
-        // ShadCN: rounded-md
-        'border-radius': 'var(--arcane-radius-sm)',
-        // ShadCN: border border-input
-        'border': hasError
-            ? '1px solid var(--destructive)'
-            : '1px solid var(--input)',
-        // ShadCN: bg-background
-        'background-color': 'var(--background)',
-        // ShadCN: px-3 py-2
-        'padding': '$paddingY $paddingX',
-        // ShadCN: text-base md:text-sm
-        'font-size': fontSize,
-        'font-family': 'inherit',
-        'line-height': '1.5',
-        'color': 'var(--foreground)',
-        // ShadCN: ring-offset-background (for focus ring offset)
-        'outline': 'none',
-        // ShadCN: disabled:cursor-not-allowed disabled:opacity-50
-        if (props.disabled) 'cursor': 'not-allowed',
-        if (props.disabled) 'opacity': '0.5',
-        // Transition for focus
-        'transition':
-            'border-color var(--arcane-transition), box-shadow var(--arcane-transition)',
-      }),
+      styles: dom.Styles(
+        raw: {
+          // ShadCN: flex h-10 w-full
+          'display': 'flex',
+          'height': height,
+          'width': '100%',
+          // ShadCN: rounded-md
+          'border-radius': 'var(--radius-sm)',
+          // ShadCN: border border-input
+          'border': hasError
+              ? '1px solid var(--destructive)'
+              : '1px solid var(--input)',
+          // ShadCN: bg-background
+          'background-color': 'var(--background)',
+          // ShadCN: px-3 py-2
+          'padding': '$paddingY $paddingX',
+          // ShadCN: text-base md:text-sm
+          'font-size': fontSize,
+          'font-family': 'inherit',
+          'line-height': '1.5',
+          'color': 'var(--foreground)',
+          // ShadCN: ring-offset-background (for focus ring offset)
+          'outline': 'none',
+          // ShadCN: disabled:cursor-not-allowed disabled:opacity-50
+          if (props.disabled) 'cursor': 'not-allowed',
+          if (props.disabled) 'opacity': '0.5',
+          // Transition for focus
+          'transition':
+              'border-color var(--transition), box-shadow var(--transition)',
+        },
+      ),
       events: {
         if (props.onChanged != null)
           'input': (e) {
@@ -125,9 +137,7 @@ class ShadcnTextInput extends StatelessComponent {
     // Without wrapper, return simple input
     if (!hasWrapper) {
       return dom.div(
-        styles: dom.Styles(raw: {
-          if (props.fullWidth) 'width': '100%',
-        }),
+        styles: dom.Styles(raw: {if (props.fullWidth) 'width': '100%'}),
         [inputElement],
       );
     }
@@ -135,12 +145,18 @@ class ShadcnTextInput extends StatelessComponent {
     // With wrapper (label, prefix/suffix, helper/error)
     return dom.div(
       classes: 'arcane-text-input-wrapper',
-      styles: dom.Styles(raw: {
-        'display': 'flex',
-        'flex-direction': 'column',
-        'gap': 'var(--space-2)', // ShadCN: space-y-2
-        if (props.fullWidth) 'width': '100%',
-      }),
+      attributes: {
+        'data-disabled': '${props.disabled}',
+        'data-error': '$hasError',
+      },
+      styles: dom.Styles(
+        raw: {
+          'display': 'flex',
+          'flex-direction': 'column',
+          'gap': 'var(--space-2)', // ShadCN: space-y-2
+          if (props.fullWidth) 'width': '100%',
+        },
+      ),
       [
         // Label
         // ShadCN: text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70
@@ -148,21 +164,25 @@ class ShadcnTextInput extends StatelessComponent {
           Component.element(
             tag: 'label',
             attributes: props.id != null ? {'for': props.id!} : null,
-            styles: const dom.Styles(raw: {
-              // ShadCN: text-sm font-medium leading-none
-              'font-size': 'var(--font-size-sm)',
-              'font-weight': 'var(--font-weight-medium)',
-              'line-height': '1',
-              'color': 'var(--foreground)',
-            }),
+            styles: const dom.Styles(
+              raw: {
+                // ShadCN: text-sm font-medium leading-none
+                'font-size': 'var(--font-size-sm)',
+                'font-weight': 'var(--font-weight-medium)',
+                'line-height': '1',
+                'color': 'var(--foreground)',
+              },
+            ),
             children: [
               Component.text(props.label!),
               if (props.required)
                 const dom.span(
-                  styles: dom.Styles(raw: {
-                    'color': 'var(--destructive)',
-                    'margin-left': '0.25rem',
-                  }),
+                  styles: dom.Styles(
+                    raw: {
+                      'color': 'var(--destructive)',
+                      'margin-left': '0.25rem',
+                    },
+                  ),
                   [Component.text('*')],
                 ),
             ],
@@ -172,27 +192,35 @@ class ShadcnTextInput extends StatelessComponent {
         if (props.prefix != null || props.suffix != null)
           dom.div(
             classes: 'arcane-text-input-container',
-            styles: dom.Styles(raw: {
-              'display': 'flex',
-              'align-items': 'center',
-              // ShadCN: rounded-md border border-input bg-background
-              'border-radius': 'var(--arcane-radius-sm)',
-              'border': hasError
-                  ? '1px solid var(--destructive)'
-                  : '1px solid var(--input)',
-              'background-color': 'var(--background)',
-              'overflow': 'hidden',
-            }),
+            attributes: {
+              'data-disabled': '${props.disabled}',
+              'data-error': '$hasError',
+            },
+            styles: dom.Styles(
+              raw: {
+                'display': 'flex',
+                'align-items': 'center',
+                // ShadCN: rounded-md border border-input bg-background
+                'border-radius': 'var(--radius-sm)',
+                'border': hasError
+                    ? '1px solid var(--destructive)'
+                    : '1px solid var(--input)',
+                'background-color': 'var(--background)',
+                'overflow': 'hidden',
+              },
+            ),
             [
               if (props.prefix != null)
                 dom.span(
                   classes: 'arcane-text-input-prefix',
-                  styles: const dom.Styles(raw: {
-                    'display': 'flex',
-                    'align-items': 'center',
-                    'padding-left': '0.75rem',
-                    'color': 'var(--muted-foreground)',
-                  }),
+                  styles: const dom.Styles(
+                    raw: {
+                      'display': 'flex',
+                      'align-items': 'center',
+                      'padding-left': '0.75rem',
+                      'color': 'var(--muted-foreground)',
+                    },
+                  ),
                   [props.prefix!],
                 ),
               // Borderless input inside container
@@ -208,20 +236,24 @@ class ShadcnTextInput extends StatelessComponent {
                   if (props.disabled) 'disabled': 'true',
                   if (props.required) 'required': 'true',
                   if (props.readOnly) 'readonly': 'true',
+                  'data-disabled': '${props.disabled}',
+                  'data-error': '$hasError',
                 },
-                styles: dom.Styles(raw: {
-                  'flex': '1',
-                  'height': height,
-                  'border': 'none',
-                  'background': 'transparent',
-                  'padding': '$paddingY $paddingX',
-                  'font-size': fontSize,
-                  'font-family': 'inherit',
-                  'color': 'var(--foreground)',
-                  'outline': 'none',
-                  if (props.disabled) 'cursor': 'not-allowed',
-                  if (props.disabled) 'opacity': '0.5',
-                }),
+                styles: dom.Styles(
+                  raw: {
+                    'flex': '1',
+                    'height': height,
+                    'border': 'none',
+                    'background': 'transparent',
+                    'padding': '$paddingY $paddingX',
+                    'font-size': fontSize,
+                    'font-family': 'inherit',
+                    'color': 'var(--foreground)',
+                    'outline': 'none',
+                    if (props.disabled) 'cursor': 'not-allowed',
+                    if (props.disabled) 'opacity': '0.5',
+                  },
+                ),
                 events: {
                   if (props.onChanged != null)
                     'input': (e) {
@@ -249,12 +281,14 @@ class ShadcnTextInput extends StatelessComponent {
               if (props.suffix != null)
                 dom.span(
                   classes: 'arcane-text-input-suffix',
-                  styles: const dom.Styles(raw: {
-                    'display': 'flex',
-                    'align-items': 'center',
-                    'padding-right': '0.75rem',
-                    'color': 'var(--muted-foreground)',
-                  }),
+                  styles: const dom.Styles(
+                    raw: {
+                      'display': 'flex',
+                      'align-items': 'center',
+                      'padding-right': '0.75rem',
+                      'color': 'var(--muted-foreground)',
+                    },
+                  ),
                   [props.suffix!],
                 ),
             ],
@@ -267,19 +301,23 @@ class ShadcnTextInput extends StatelessComponent {
         if (props.error != null)
           dom.span(
             classes: 'arcane-text-input-error',
-            styles: const dom.Styles(raw: {
-              'font-size': 'var(--font-size-sm)',
-              'color': 'var(--destructive)',
-            }),
+            styles: const dom.Styles(
+              raw: {
+                'font-size': 'var(--font-size-sm)',
+                'color': 'var(--destructive)',
+              },
+            ),
             [Component.text(props.error!)],
           )
         else if (props.helperText != null)
           dom.span(
             classes: 'arcane-text-input-helper',
-            styles: const dom.Styles(raw: {
-              'font-size': 'var(--font-size-sm)',
-              'color': 'var(--muted-foreground)',
-            }),
+            styles: const dom.Styles(
+              raw: {
+                'font-size': 'var(--font-size-sm)',
+                'color': 'var(--muted-foreground)',
+              },
+            ),
             [Component.text(props.helperText!)],
           ),
       ],

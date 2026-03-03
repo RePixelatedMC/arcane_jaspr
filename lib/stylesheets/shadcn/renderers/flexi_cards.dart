@@ -312,7 +312,7 @@ class ShadcnFlexiCardsSimple extends StatelessComponent {
         'padding': '1.5rem',
         'background-color': 'var(--card)',
         'border': '1px solid var(--border)',
-        'border-radius': 'var(--arcane-radius-lg)',
+        'border-radius': 'var(--radius-lg)',
       }),
       [
         // Icon
@@ -323,7 +323,7 @@ class ShadcnFlexiCardsSimple extends StatelessComponent {
             'justify-content': 'center',
             'width': '56px',
             'height': '56px',
-            'border-radius': 'var(--arcane-radius-md)',
+            'border-radius': 'var(--radius-md)',
             'background-color': 'var(--accent)',
             'color': 'var(--accent-foreground)',
             'margin-bottom': '1rem',

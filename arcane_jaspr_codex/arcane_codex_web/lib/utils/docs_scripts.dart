@@ -324,66 +324,62 @@ if (typeof hljs !== 'undefined') {
 // Highlights the current section in the "On this page" TOC based on scroll position
 var tocContainer = document.querySelector('.toc-content');
 if (tocContainer) {
-  var tocLinks = tocContainer.querySelectorAll('a');
-  var headings = [];
-
-  // Build array of headings that match TOC links
-  tocLinks.forEach(function(link) {
+  var tocLinks = Array.from(tocContainer.querySelectorAll('a'));
+  function getHeadingId(link) {
     var href = link.getAttribute('href');
-    if (href && href.startsWith('#')) {
-      var id = href.slice(1);
-      var heading = document.getElementById(id);
-      if (heading) {
-        headings.push({ id: id, element: heading, link: link });
-      }
-    }
+    if (!href) return '';
+    var hashIndex = href.indexOf('#');
+    if (hashIndex === -1) return '';
+    return decodeURIComponent(href.slice(hashIndex + 1));
+  }
+
+  var headings = tocLinks.map(function(link) {
+    var id = getHeadingId(link);
+    if (!id) return null;
+    var heading = document.getElementById(id);
+    if (!heading) return null;
+    return { id: id, element: heading, link: link };
+  }).filter(function(entry) {
+    return entry !== null;
   });
 
   if (headings.length > 0) {
-    // Track active heading
-    var currentActive = null;
+    var currentActive = '';
 
     function updateActiveLink(activeId) {
-      if (currentActive === activeId) return;
+      if (!activeId || currentActive === activeId) return;
       currentActive = activeId;
 
       tocLinks.forEach(function(link) {
-        var href = link.getAttribute('href');
-        var isActive = href === '#' + activeId;
-        link.classList.toggle('toc-active', isActive);
+        var id = getHeadingId(link);
+        link.classList.toggle('toc-active', id === activeId);
       });
     }
 
-    // Use Intersection Observer for efficient scroll tracking
-    var observerOptions = {
-      root: null,
-      rootMargin: '-80px 0px -70% 0px',
-      threshold: 0
-    };
+    function updateFromScroll() {
+      var scrollOffset = 140;
+      var activeId = headings[0].id;
 
-    var observer = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          updateActiveLink(entry.target.id);
+      headings.forEach(function(entry) {
+        var top = entry.element.getBoundingClientRect().top;
+        if (top <= scrollOffset) {
+          activeId = entry.id;
         }
       });
-    }, observerOptions);
 
-    headings.forEach(function(h) {
-      observer.observe(h.element);
-    });
-
-    // Also handle scroll to top - activate first heading
-    window.addEventListener('scroll', function() {
-      if (window.scrollY < 100 && headings.length > 0) {
-        updateActiveLink(headings[0].id);
-      }
-    });
-
-    // Initialize - activate first heading if at top
-    if (window.scrollY < 100 && headings.length > 0) {
-      updateActiveLink(headings[0].id);
+      updateActiveLink(activeId);
     }
+
+    window.addEventListener('scroll', updateFromScroll, { passive: true });
+    window.addEventListener('resize', updateFromScroll);
+    updateFromScroll();
+
+    tocLinks.forEach(function(link) {
+      link.addEventListener('click', function() {
+        var id = getHeadingId(link);
+        if (id) updateActiveLink(id);
+      });
+    });
   }
 }
 ''';

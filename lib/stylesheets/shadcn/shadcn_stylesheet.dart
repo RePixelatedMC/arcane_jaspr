@@ -37,30 +37,30 @@ class ShadcnStylesheet extends ArcaneStylesheet {
 
   @override
   ThemeSeed get lightSeed => ThemeSeed(
-        primary: theme.lightPrimary,
-        background: theme.lightBackground,
-        // Only pass secondary/accent if explicitly defined in theme
-        // Otherwise let PaletteGenerator derive them with primary tinting
-        secondary: theme.lightSecondary,
-        accent: theme.lightAccent,
-        destructive: 0xFFef4444,
-        success: 0xFF22c55e,
-        warning: 0xFFf59e0b,
-        info: 0xFF3b82f6,
-      );
+    primary: theme.lightPrimary,
+    background: theme.lightBackground,
+    // Only pass secondary/accent if explicitly defined in theme
+    // Otherwise let PaletteGenerator derive them with primary tinting
+    secondary: theme.lightSecondary,
+    accent: theme.lightAccent,
+    destructive: 0xFFef4444,
+    success: 0xFF22c55e,
+    warning: 0xFFf59e0b,
+    info: 0xFF3b82f6,
+  );
 
   @override
   ThemeSeed get darkSeed => ThemeSeed(
-        primary: theme.darkPrimary,
-        background: theme.darkBackground,
-        secondary: theme.darkSecondary,
-        accent: theme.darkAccent,
-        destructive: 0xFF7f1d1d,
-        success: 0xFF166534,
-        warning: 0xFF92400e,
-        info: 0xFF1e40af,
-        isDark: true,
-      );
+    primary: theme.darkPrimary,
+    background: theme.darkBackground,
+    secondary: theme.darkSecondary,
+    accent: theme.darkAccent,
+    destructive: 0xFF7f1d1d,
+    success: 0xFF166534,
+    warning: 0xFF92400e,
+    info: 0xFF1e40af,
+    isDark: true,
+  );
 
   // ============================================
   // Fonts
@@ -68,23 +68,190 @@ class ShadcnStylesheet extends ArcaneStylesheet {
 
   @override
   FontConfig get fonts => const FontConfig(
-        sans:
-            "'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-        mono:
-            "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
-      );
+    sans:
+        "'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+    mono: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+  );
 
   @override
   List<String> get externalCssUrls => const [
-        'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
-      ];
+    'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
+  ];
 
   // ============================================
   // Component-Specific CSS
   // ============================================
 
   @override
-  String get componentCss => '''
+  String get componentCss {
+    final String neutralOverrides = theme == ShadcnTheme.midnight
+        ? '''
+:root, html.light, .light {
+  --card: #ffffff;
+  --card-foreground: #09090b;
+  --popover: #ffffff;
+  --popover-foreground: #09090b;
+  --muted: #f4f4f5;
+  --muted-foreground: #71717a;
+  --accent: #f4f4f5;
+  --accent-foreground: #18181b;
+  --border: #e4e4e7;
+  --input: #e4e4e7;
+}
+
+html.dark, .dark {
+  --card: #09090b;
+  --card-foreground: #fafafa;
+  --popover: #09090b;
+  --popover-foreground: #fafafa;
+  --muted: #18181b;
+  --muted-foreground: #a1a1aa;
+  --accent: #18181b;
+  --accent-foreground: #fafafa;
+  --border: #27272a;
+  --input: #27272a;
+}
+'''
+        : '';
+
+    return '''
+$neutralOverrides
+
+.arcane-button,
+.arcane-text-input,
+.arcane-select,
+.arcane-select-option,
+.arcane-dropdown-item,
+.arcane-context-menu-item,
+.arcane-tab,
+.arcane-tab-bar-item,
+.arcane-menubar-trigger,
+.arcane-dialog-close,
+.arcane-sheet-close,
+.arcane-drawer-close,
+.arcane-checkbox,
+.arcane-radio-circle,
+.arcane-toggle-switch,
+.arcane-pagination-link,
+.arcane-date-picker-trigger,
+.arcane-otp-digit,
+.arcane-calendar-day,
+.arcane-calendar-nav-btn {
+  transition:
+    color var(--transition),
+    background-color var(--transition),
+    border-color var(--transition),
+    box-shadow var(--transition),
+    opacity var(--transition),
+    transform var(--transition);
+}
+
+.arcane-button:hover:not(:disabled):not(.disabled),
+.arcane-text-input:hover:not(:disabled),
+.arcane-select:hover:not(:disabled):not(.disabled),
+.arcane-select-option:hover:not(:disabled):not(.disabled),
+.arcane-dropdown-item:hover:not(.disabled),
+.arcane-context-menu-item:hover:not(.disabled),
+.arcane-tab:hover:not(.disabled),
+.arcane-tab-bar-item:hover:not(.disabled),
+.arcane-menubar-trigger:hover,
+.arcane-dialog-close:hover,
+.arcane-sheet-close:hover,
+.arcane-drawer-close:hover,
+.arcane-pagination-link:hover:not(:disabled):not(.disabled),
+.arcane-date-picker-trigger:hover:not(:disabled),
+.arcane-calendar-day:hover:not(:disabled),
+.arcane-calendar-nav-btn:hover:not(:disabled) {
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.arcane-button:focus-visible,
+.arcane-text-input:focus-visible,
+.arcane-select:focus-visible,
+.arcane-select-option:focus-visible,
+.arcane-dropdown-item:focus-visible,
+.arcane-context-menu-item:focus-visible,
+.arcane-tab:focus-visible,
+.arcane-tab-bar-item:focus-visible,
+.arcane-menubar-trigger:focus-visible,
+.arcane-dialog-close:focus-visible,
+.arcane-sheet-close:focus-visible,
+.arcane-drawer-close:focus-visible,
+.arcane-checkbox:focus-visible,
+.arcane-radio-input:focus-visible + .arcane-radio-circle,
+.arcane-toggle-switch:focus-visible,
+.arcane-pagination-link:focus-visible,
+.arcane-date-picker-trigger:focus-visible,
+.arcane-otp-digit:focus-visible,
+.arcane-calendar-day:focus-visible,
+.arcane-calendar-nav-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--background), 0 0 0 4px var(--ring);
+}
+
+.arcane-button:disabled,
+.arcane-button[data-disabled='true'],
+.arcane-button.disabled,
+.arcane-text-input:disabled,
+.arcane-text-input[data-disabled='true'],
+.arcane-select:disabled,
+.arcane-select[data-disabled='true'],
+.arcane-select.disabled,
+.arcane-select-option:disabled,
+.arcane-select-option[data-disabled='true'],
+.arcane-select-option.disabled,
+.arcane-dropdown-item[data-disabled='true'],
+.arcane-dropdown-item.disabled,
+.arcane-context-menu-item[data-disabled='true'],
+.arcane-context-menu-item.disabled,
+.arcane-tab[data-disabled='true'],
+.arcane-tab.disabled,
+.arcane-tab-bar-item[data-disabled='true'],
+.arcane-tab-bar-item.disabled,
+.arcane-menubar-trigger[data-disabled='true'],
+.arcane-checkbox[data-disabled='true'],
+.arcane-radio-item[data-disabled='true'],
+.arcane-toggle-switch[data-disabled='true'],
+.arcane-pagination-link:disabled,
+.arcane-pagination-link[data-disabled='true'],
+.arcane-pagination-link.disabled,
+.arcane-date-picker-trigger:disabled,
+.arcane-date-picker-trigger[data-disabled='true'],
+.arcane-otp-digit:disabled,
+.arcane-otp-digit[data-disabled='true'],
+.arcane-calendar-day:disabled,
+.arcane-calendar-day[data-disabled='true'],
+.arcane-calendar-nav-btn:disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.arcane-select[data-open='true'],
+.arcane-dropdown-menu[data-state='open'],
+.arcane-menubar-trigger[data-state='open'],
+.arcane-date-picker-trigger[data-state='open'],
+.arcane-tab[data-state='active'],
+.arcane-tab-bar-item[data-state='active'],
+.arcane-select-option[data-state='checked'],
+.arcane-dropdown-item[data-state='checked'],
+.arcane-context-menu-item[data-state='checked'],
+.arcane-menubar-item[data-state='checked'],
+.arcane-checkbox[data-state='checked'],
+.arcane-toggle-switch[data-state='checked'] {
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.arcane-select[data-open='true'],
+.arcane-date-picker-trigger[data-state='open'],
+.arcane-text-input[data-error='true'],
+.arcane-select[data-error='true'],
+.arcane-otp-digit.error,
+.arcane-calendar-day[data-state='selected'] {
+  border-color: var(--ring);
+}
+
 /* ============================================
    PROSE - ShadCN Clean Typography
    ============================================ */
@@ -293,6 +460,7 @@ $arcaneSidebarTreeStyles
 
 $arcaneTocTreeLinesCss
 ''';
+  }
 }
 
 /// Color themes for ShadCN stylesheet.

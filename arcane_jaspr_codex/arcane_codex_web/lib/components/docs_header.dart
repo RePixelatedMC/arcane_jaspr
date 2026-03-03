@@ -4,10 +4,7 @@ import '../utils/constants.dart';
 
 /// Documentation site header
 class DocsHeader extends StatelessComponent {
-  final bool isDark;
-  final VoidCallback? onThemeToggle;
-
-  const DocsHeader({super.key, this.isDark = true, this.onThemeToggle});
+  const DocsHeader({super.key});
 
   @override
   Component build(BuildContext context) {
@@ -38,7 +35,6 @@ class DocsHeader extends StatelessComponent {
           children: [
             _buildSearch(),
             if (AppConstants.githubUrl.isNotEmpty) _buildGitHubButton(),
-            _buildThemeButton(),
           ],
         ),
       ],
@@ -105,47 +101,6 @@ class DocsHeader extends StatelessComponent {
         transition: Transition.allFast,
       ),
       child: ArcaneIcon.github(size: IconSize.sm),
-    );
-  }
-
-  Component _buildThemeButton() {
-    return ArcaneDiv(
-      id: 'theme-toggle',
-      styles: const ArcaneStyleData(
-        display: Display.inlineFlex,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        widthCustom: '36px',
-        heightCustom: '36px',
-        border: BorderPreset.subtle,
-        borderRadius: Radius.md,
-        background: Background.transparent,
-        textColor: TextColor.mutedForeground,
-        cursor: Cursor.pointer,
-        transition: Transition.allFast,
-      ),
-      children: [
-        // Sun icon - shown in dark mode (to switch to light)
-        ArcaneDiv(
-          classes: 'theme-icon-sun',
-          styles: ArcaneStyleData(
-            display: isDark ? Display.flex : Display.none,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-          ),
-          children: [ArcaneIcon.sun(size: IconSize.sm)],
-        ),
-        // Moon icon - shown in light mode (to switch to dark)
-        ArcaneDiv(
-          classes: 'theme-icon-moon',
-          styles: ArcaneStyleData(
-            display: isDark ? Display.none : Display.flex,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-          ),
-          children: [ArcaneIcon.moon(size: IconSize.sm)],
-        ),
-      ],
     );
   }
 }

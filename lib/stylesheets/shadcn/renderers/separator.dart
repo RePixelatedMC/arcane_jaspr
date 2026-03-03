@@ -36,7 +36,11 @@ class ShadcnSeparator extends StatelessComponent {
 
     // Vertical separator
     if (!isHorizontal) {
-      return _buildVerticalSeparator(thickness, effectiveColor, effectiveMargin);
+      return _buildVerticalSeparator(
+        thickness,
+        effectiveColor,
+        effectiveMargin,
+      );
     }
 
     // Simple horizontal separator
@@ -46,12 +50,14 @@ class ShadcnSeparator extends StatelessComponent {
         'role': props.decorative ? 'none' : 'separator',
         if (!props.decorative) 'aria-orientation': 'horizontal',
       },
-      styles: dom.Styles(raw: {
-        'margin': '${effectiveMargin}px 0',
-        'border': 'none',
-        'height': thickness,
-        ..._getBackgroundStyle(effectiveColor),
-      }),
+      styles: dom.Styles(
+        raw: {
+          'margin': '${effectiveMargin}px 0',
+          'border': 'none',
+          'height': thickness,
+          ..._getBackgroundStyle(effectiveColor),
+        },
+      ),
     );
   }
 
@@ -62,51 +68,55 @@ class ShadcnSeparator extends StatelessComponent {
   ) {
     return dom.div(
       classes: 'arcane-separator arcane-separator-labeled',
-      attributes: {
-        'role': props.decorative ? 'none' : 'separator',
-      },
-      styles: dom.Styles(raw: {
-        'display': 'flex',
-        'align-items': 'center',
-        'gap': 'var(--arcane-space-4)',
-        'margin': '${margin}px 0',
-      }),
+      attributes: {'role': props.decorative ? 'none' : 'separator'},
+      styles: dom.Styles(
+        raw: {
+          'display': 'flex',
+          'align-items': 'center',
+          'gap': 'var(--space-4)',
+          'margin': '${margin}px 0',
+        },
+      ),
       [
         // Left line
         dom.div(
-          styles: dom.Styles(raw: {
-            'flex': '1',
-            'height': thickness,
-            ..._getBackgroundStyle(color),
-          }),
+          styles: dom.Styles(
+            raw: {
+              'flex': '1',
+              'height': thickness,
+              ..._getBackgroundStyle(color),
+            },
+          ),
           [],
         ),
 
         // Label or icon
         if (props.label != null)
           dom.span(
-            styles: const dom.Styles(raw: {
-              'font-size': 'var(--arcane-font-size-sm)',
-              'color': 'var(--muted-foreground)',
-              'white-space': 'nowrap',
-            }),
+            styles: const dom.Styles(
+              raw: {
+                'font-size': 'var(--font-size-sm)',
+                'color': 'var(--muted-foreground)',
+                'white-space': 'nowrap',
+              },
+            ),
             [Component.text(props.label!)],
           )
         else if (props.icon != null)
           dom.span(
-            styles: const dom.Styles(raw: {
-              'color': 'var(--muted-foreground)',
-            }),
+            styles: const dom.Styles(raw: {'color': 'var(--muted-foreground)'}),
             [props.icon!],
           ),
 
         // Right line
         dom.div(
-          styles: dom.Styles(raw: {
-            'flex': '1',
-            'height': thickness,
-            ..._getBackgroundStyle(color),
-          }),
+          styles: dom.Styles(
+            raw: {
+              'flex': '1',
+              'height': thickness,
+              ..._getBackgroundStyle(color),
+            },
+          ),
           [],
         ),
       ],
@@ -124,25 +134,26 @@ class ShadcnSeparator extends StatelessComponent {
         'role': props.decorative ? 'none' : 'separator',
         if (!props.decorative) 'aria-orientation': 'vertical',
       },
-      styles: dom.Styles(raw: {
-        'width': thickness,
-        'margin': '0 ${margin}px',
-        ..._getBackgroundStyle(color),
-        if (props.height != null)
-          'height': '${props.height}px'
-        else ...{
-          'align-self': 'stretch',
-          'min-height': '20px',
+      styles: dom.Styles(
+        raw: {
+          'width': thickness,
+          'margin': '0 ${margin}px',
+          ..._getBackgroundStyle(color),
+          if (props.height != null)
+            'height': '${props.height}px'
+          else ...{
+            'align-self': 'stretch',
+            'min-height': '20px',
+          },
         },
-      }),
+      ),
       [],
     );
   }
 
   Map<String, String> _getBackgroundStyle(String color) {
     if (props.dashed) {
-      final isVertical =
-          props.orientation == SeparatorOrientation.vertical;
+      final isVertical = props.orientation == SeparatorOrientation.vertical;
       return {
         'background': isVertical
             ? 'repeating-linear-gradient(to bottom, $color 0, $color 4px, transparent 4px, transparent 8px)'

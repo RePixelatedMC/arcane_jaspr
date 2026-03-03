@@ -58,7 +58,7 @@ class _ShadcnSlidingSidebarBannerState
           'transform': _isVisible
               ? 'translateY(-50%) translateX(0)'
               : 'translateY(-50%) translateX(-100%)',
-          'border-radius': '0 var(--arcane-radius-md) var(--arcane-radius-md) 0',
+          'border-radius': '0 var(--radius-md) var(--radius-md) 0',
         },
       PromoSidebarPosition.right => {
           'right': '0',
@@ -66,7 +66,7 @@ class _ShadcnSlidingSidebarBannerState
           'transform': _isVisible
               ? 'translateY(-50%) translateX(0)'
               : 'translateY(-50%) translateX(100%)',
-          'border-radius': 'var(--arcane-radius-md) 0 0 var(--arcane-radius-md)',
+          'border-radius': 'var(--radius-md) 0 0 var(--radius-md)',
         },
     };
   }
@@ -91,7 +91,7 @@ class _ShadcnSlidingSidebarBannerState
         'padding': '24px',
         'background-color': 'var(--card)',
         'border': '1px solid var(--border)',
-        'box-shadow': 'var(--arcane-shadow-lg)',
+        'box-shadow': 'var(--shadow-lg)',
         'transition': 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
         'max-width': '320px',
         'width': '320px',
@@ -116,10 +116,10 @@ class _ShadcnSlidingSidebarBannerState
             'padding': '0',
             'background': 'transparent',
             'border': 'none',
-            'border-radius': 'var(--arcane-radius-xs)',
+            'border-radius': 'var(--radius-xs)',
             'color': 'var(--muted-foreground)',
             'cursor': 'pointer',
-            'transition': 'background-color var(--arcane-transition)',
+            'transition': 'background-color var(--transition)',
           }),
           events: {'click': (_) => _handleDismiss()},
           [const Component.text('\u00D7')],
@@ -135,7 +135,7 @@ class _ShadcnSlidingSidebarBannerState
               'color': 'var(--primary-foreground)',
               'font-size': 'var(--font-size-lg)',
               'font-weight': 'var(--font-weight-bold)',
-              'border-radius': 'var(--arcane-radius-sm)',
+              'border-radius': 'var(--radius-sm)',
               'align-self': 'flex-start',
             }),
             [Component.text(component.props.discount!)],
@@ -239,7 +239,7 @@ class _ShadcnSlidingSidebarBannerState
                   'padding': '8px 12px',
                   'background-color': 'var(--muted)',
                   'border': '1px dashed var(--border)',
-                  'border-radius': 'var(--arcane-radius-sm)',
+                  'border-radius': 'var(--radius-sm)',
                   'font-family':
                       'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
                   'font-weight': 'var(--font-weight-bold)',
@@ -267,8 +267,8 @@ class _ShadcnSlidingSidebarBannerState
               'font-size': 'var(--font-size-sm)',
               'font-weight': 'var(--font-weight-semibold)',
               'text-decoration': 'none',
-              'border-radius': 'var(--arcane-radius-sm)',
-              'transition': 'opacity var(--arcane-transition)',
+              'border-radius': 'var(--radius-sm)',
+              'transition': 'opacity var(--transition)',
               'width': '100%',
             }),
             events: {

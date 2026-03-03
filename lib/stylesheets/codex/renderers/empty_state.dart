@@ -39,8 +39,7 @@ class CodexEmptyState extends StatelessComponent {
         if (props.style == EmptyStateStyleVariant.compact) 'text-align': 'left',
       }),
       [
-        // Icon or emoji
-        if (props.icon != null || props.emoji != null)
+        if (props.icon != null)
           dom.div(
             classes: 'codex-empty-state-icon',
             styles: dom.Styles(raw: {
@@ -52,16 +51,7 @@ class CodexEmptyState extends StatelessComponent {
               'color': 'var(--primary)',
               'flex-shrink': '0',
             }),
-            [
-              props.icon ??
-                  dom.span(
-                    styles: dom.Styles(raw: {
-                      'font-size': iconSize,
-                      'line-height': '1',
-                    }),
-                    [Component.text(props.emoji!)],
-                  ),
-            ],
+            [props.icon!],
           ),
 
         // Text content

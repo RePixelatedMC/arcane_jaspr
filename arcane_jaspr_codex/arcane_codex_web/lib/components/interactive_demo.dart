@@ -1,6 +1,5 @@
 import 'package:arcane_jaspr/arcane_jaspr.dart';
-import 'package:arcane_jaspr/component/view/empty_state.dart'
-    show ArcaneEmptyState;
+import 'package:jaspr/dom.dart' as dom;
 
 // Renderer stylesheet for client-side hydration
 const ArcaneStylesheet _clientStylesheet = ShadcnStylesheet();
@@ -18,10 +17,305 @@ class InteractiveDemo extends StatefulComponent {
 }
 
 class _InteractiveDemoState extends State<InteractiveDemo> {
-  bool _isDark = true;
-
-  void _toggleTheme() {
-    setState(() => _isDark = !_isDark);
+  String _buildExampleCode(String componentType) {
+    return switch (componentType) {
+      'accordion' =>
+        '''ArcaneAccordion(
+  items: const <ArcaneAccordionItem>[
+    ArcaneAccordionItem(title: 'What is Arcane Jaspr?', content: 'A Flutter-like DX for Jaspr.'),
+  ],
+)''',
+      'alert' =>
+        '''const ArcaneAlert.info(
+  title: 'Heads up',
+  message: 'This is a live alert preview rendered by the current theme.',
+)''',
+      'alert-dialog' =>
+        '''const ArcaneAlertDialog(
+  title: 'Delete Project?',
+  message: 'This action cannot be undone.',
+  buttonText: 'Understood',
+)''',
+      'aspect-ratio' =>
+        '''ArcaneAspectRatio.video(
+  child: const ArcaneCard(child: ArcaneText('16:9 container')),
+)''',
+      'avatar' =>
+        '''ArcaneAvatarGroup.toRight(
+  avatars: const <ArcaneAvatar>[
+    ArcaneAvatar(initials: 'AB'),
+    ArcaneAvatar(initials: 'CD'),
+  ],
+)''',
+      'badge' => '''const ArcaneStatusBadge.success('Online')''',
+      'breadcrumb' =>
+        '''ArcaneBreadcrumbs(
+  items: const <BreadcrumbItem>[
+    BreadcrumbItem(label: 'Docs', href: '/docs'),
+    BreadcrumbItem(label: 'Components'),
+  ],
+)''',
+      'button' =>
+        '''ArcaneButton.primary(label: 'Primary Action', onPressed: () {})''',
+      'button-group' =>
+        '''ArcaneButtonGroup(
+  children: <Component>[
+    ArcaneButton.secondary(label: 'Back', onPressed: () {}),
+    ArcaneButton.primary(label: 'Continue', onPressed: () {}),
+  ],
+)''',
+      'calendar' =>
+        '''ArcaneCalendar(
+  selected: DateTime.now(),
+  onSelect: (DateTime date) {},
+)''',
+      'card' =>
+        '''const ArcaneCard.elevated(child: ArcaneText('Card content'))''',
+      'carousel' =>
+        '''ArcaneCardCarousel(
+  children: const <Component>[
+    ArcaneCard(child: ArcaneText('Slide 1')),
+    ArcaneCard(child: ArcaneText('Slide 2')),
+  ],
+)''',
+      'chart' =>
+        '''ArcaneChart(
+  title: 'Revenue',
+  points: const <ArcaneChartPoint>[
+    ArcaneChartPoint(label: 'Jan', value: 12),
+    ArcaneChartPoint(label: 'Feb', value: 18),
+  ],
+)''',
+      'checkbox' =>
+        '''ArcaneCheckbox(
+  checked: true,
+  label: 'Enable notifications',
+  onChanged: (bool value) {},
+)''',
+      'collapsible' =>
+        '''const ArcaneDisclosure(
+  summary: ArcaneText('Toggle content'),
+  child: ArcaneText('This disclosure is rendered by the active theme.'),
+)''',
+      'combobox' =>
+        '''ArcaneCombobox<String>(
+  value: 'jaspr',
+  options: const <ComboboxOption<String>>[
+    ComboboxOption<String>(value: 'jaspr', label: 'Jaspr'),
+    ComboboxOption<String>(value: 'flutter', label: 'Flutter'),
+  ],
+  onChanged: (String? value) {},
+)''',
+      'command' =>
+        '''ArcaneCommand(
+  isOpen: true,
+  groups: const <CommandGroup>[
+    CommandGroup(heading: 'Navigation', items: <CommandItem>[CommandItem(label: 'Go to Dashboard')]),
+  ],
+)''',
+      'context-menu' =>
+        '''ArcaneContextMenu(
+  trigger: ArcaneButton.secondary(label: 'Right-click me', onPressed: () {}),
+  items: const <ArcaneMenuItem>[MenuItemAction(label: 'Copy')],
+)''',
+      'data-table' =>
+        '''ArcaneDataTable<_DemoUser>(
+  items: const <_DemoUser>[_DemoUser(name: 'Alex', role: 'Admin', status: 'Active')],
+  columns: <ArcaneDataColumn<_DemoUser>>[
+    ArcaneDataColumn<_DemoUser>(header: 'Name', builder: (_DemoUser user) => ArcaneText(user.name)),
+  ],
+)''',
+      'date-picker' =>
+        '''ArcaneDatePicker(
+  value: DateTime.now(),
+  onChanged: (DateTime? value) {},
+)''',
+      'dialog' =>
+        '''ArcaneDialog(
+  title: 'Confirm Settings',
+  child: const ArcaneText('Apply changes?'),
+  actions: <Component>[ArcaneButton.primary(label: 'Apply', onPressed: () {})],
+)''',
+      'direction' =>
+        '''const ArcaneDirection(
+  value: ArcaneDirectionValue.rtl,
+  children: <Component>[ArcaneText('Right-to-left direction preview')],
+)''',
+      'drawer' =>
+        '''ArcaneDrawer.left(
+  isOpen: true,
+  header: const ArcaneText('Navigation'),
+  child: const ArcaneText('Drawer content'),
+)''',
+      'dropdown-menu' =>
+        '''ArcaneDropdownMenu(
+  trigger: ArcaneButton.secondary(label: 'Open menu', onPressed: () {}),
+  items: const <ArcaneMenuItem>[MenuItemAction(label: 'Profile')],
+)''',
+      'empty' => '''ArcaneEmptyState.noResults()''',
+      'field' =>
+        '''ArcaneFieldWrapper(
+  labelText: 'Email',
+  field: ArcaneTextInput(placeholder: 'name@company.com', onChange: (String value) {}),
+)''',
+      'hover-card' =>
+        '''ArcaneHoverCard.hovercard(
+  trigger: ArcaneButton.secondary(label: 'Hover card', onPressed: () {}),
+  content: const ArcaneCard(child: ArcaneText('A lightweight profile or preview card.')),
+)''',
+      'input' =>
+        '''ArcaneTextInput(
+  label: 'Email',
+  placeholder: 'name@example.com',
+  onChange: (String value) {},
+)''',
+      'input-group' =>
+        '''ArcaneInputGroup(
+  children: <Component>[
+    ArcaneTextInput(placeholder: 'Search', onChange: (String value) {}),
+    ArcaneButton.primary(label: 'Go', onPressed: () {}),
+  ],
+)''',
+      'input-otp' =>
+        '''ArcaneOtpInput.sixDigit(
+  value: '123456',
+  onChange: (String value) {},
+)''',
+      'item' =>
+        '''const ArcaneItem(
+  child: ArcaneText('Clickable item row'),
+  href: '/docs',
+)''',
+      'kbd' => '''const ArcaneKbd.combo(<String>['Cmd', 'K'])''',
+      'label' =>
+        '''const ArcaneLabel(
+  htmlFor: 'demo-email',
+  child: ArcaneText('Email address'),
+)''',
+      'menubar' =>
+        '''ArcaneMenubar(
+  menus: const <ArcaneMenubarMenu>[
+    ArcaneMenubarMenu(label: 'File', items: <ArcaneMenuItem>[MenuItemAction(label: 'New')]),
+  ],
+)''',
+      'navigation-menu' =>
+        '''ArcaneNavDropdown(
+  label: 'Products',
+  content: const ArcaneDiv(children: <Component>[ArcaneText('Core UI')]),
+)''',
+      'pagination' =>
+        '''ArcanePagination(
+  currentPage: 2,
+  totalPages: 8,
+  onPageChange: (int page) {},
+)''',
+      'popover' =>
+        '''ArcanePopover(
+  trigger: ArcaneButton.secondary(label: 'Open popover', onPressed: () {}),
+  content: const ArcaneCard(child: ArcaneText('Popover content')),
+)''',
+      'progress' => '''const ArcaneProgressBar(value: 68, showValue: true)''',
+      'radio-group' =>
+        '''ArcaneRadioGroup<String>(
+  value: 'starter',
+  options: const <RadioOption<String>>[
+    RadioOption<String>(value: 'starter', label: 'Starter'),
+    RadioOption<String>(value: 'pro', label: 'Pro'),
+  ],
+  onChanged: (String value) {},
+)''',
+      'resizable' =>
+        '''ArcaneResizable.sidebarLayout(
+  sidebar: const ArcaneCard(child: ArcaneText('Sidebar')),
+  content: const ArcaneCard(child: ArcaneText('Main content')),
+)''',
+      'scroll-area' =>
+        '''ArcaneScrollArea.vertical(
+  height: '150px',
+  child: ArcaneDiv(children: const <Component>[ArcaneText('Row 1'), ArcaneText('Row 2')]),
+)''',
+      'select' =>
+        '''ArcaneSelect(
+  label: 'Plan',
+  value: 'pro',
+  options: const <ArcaneSelectOption>[
+    ArcaneSelectOption(label: 'Starter', value: 'starter'),
+    ArcaneSelectOption(label: 'Pro', value: 'pro'),
+  ],
+  onChange: (String value) {},
+)''',
+      'separator' => '''const ArcaneSeparator.withLabel(label: 'OR')''',
+      'sheet' =>
+        '''ArcaneSheet.bottom(
+  isOpen: true,
+  child: const ArcaneText('Sheet content'),
+)''',
+      'sidebar' =>
+        '''ArcaneSidebar(
+  width: 240,
+  children: const <Component>[ArcaneSidebarItem(label: 'Dashboard', selected: true)],
+)''',
+      'skeleton' => '''const ArcaneSkeletonCard()''',
+      'slider' =>
+        '''ArcaneSlider(
+  label: 'Volume',
+  value: 42,
+  onChanged: (double value) {},
+)''',
+      'sonner' =>
+        '''ArcaneSonner.success(
+  'Sonner-compatible toast stack',
+  title: 'Notification',
+)''',
+      'spinner' => '''const ArcaneSpinner()''',
+      'switch' =>
+        '''ArcaneToggleSwitch(
+  value: true,
+  label: 'Enable sync',
+  onChanged: (bool value) {},
+)''',
+      'table' =>
+        '''ArcaneStaticTable(
+  headers: const <String>['Name', 'Role'],
+  rows: const <List<Component>>[
+    <Component>[ArcaneText('Alex'), ArcaneText('Admin')],
+  ],
+)''',
+      'tabs' =>
+        '''ArcaneTabs(
+  tabs: const <ArcaneTabItem>[
+    ArcaneTabItem(label: 'Account', content: ArcaneText('Account tab content')),
+  ],
+)''',
+      'textarea' =>
+        '''ArcaneTextArea(
+  label: 'Message',
+  placeholder: 'Type your message',
+  onChange: (String value) {},
+)''',
+      'toggle' =>
+        '''ArcaneToggleButton(
+  value: true,
+  label: 'Bold',
+  onChanged: (bool value) {},
+)''',
+      'toggle-group' =>
+        '''ArcaneToggleGroup(
+  value: 'left',
+  items: <ToggleGroupItem>[
+    ToggleGroupItem.text('left', label: 'Left'),
+    ToggleGroupItem.text('center', label: 'Center'),
+  ],
+  onChanged: (String? value) {},
+)''',
+      'tooltip' =>
+        '''ArcaneTooltip(
+  text: 'This is a tooltip',
+  child: ArcaneButton.secondary(label: 'Hover target', onPressed: () {}),
+)''',
+      'typography' => '''const ArcaneHeadline.h2('Typography Preview')''',
+      _ => '''ArcaneComponent(/* configure props */)''',
+    };
   }
 
   Component _buildPreview(String componentType) {
@@ -282,7 +576,7 @@ class _InteractiveDemoState extends State<InteractiveDemo> {
           ),
         );
       case 'empty':
-        return _withSurface(const ArcaneEmptyState.noResults());
+        return _withSurface(ArcaneEmptyState.noResults());
       case 'field':
         return _withSurface(
           ArcaneFieldWrapper(
@@ -296,7 +590,7 @@ class _InteractiveDemoState extends State<InteractiveDemo> {
         );
       case 'hover-card':
         return _withSurface(
-          ArcaneFloating.hovercard(
+          ArcaneHoverCard.hovercard(
             trigger: ArcaneButton.secondary(
               label: 'Hover card',
               onPressed: () {},
@@ -369,19 +663,6 @@ class _InteractiveDemoState extends State<InteractiveDemo> {
                 ],
               ),
             ],
-          ),
-        );
-      case 'native-select':
-        return _withSurface(
-          ArcaneNativeSelect(
-            label: 'Framework',
-            value: 'jaspr',
-            options: const <ArcaneNativeSelectOption>[
-              ArcaneNativeSelectOption(label: 'Jaspr', value: 'jaspr'),
-              ArcaneNativeSelectOption(label: 'Flutter', value: 'flutter'),
-              ArcaneNativeSelectOption(label: 'React', value: 'react'),
-            ],
-            onChange: (String value) {},
           ),
         );
       case 'navigation-menu':
@@ -523,12 +804,21 @@ class _InteractiveDemoState extends State<InteractiveDemo> {
       case 'sonner':
         return _withSurface(
           ArcaneDiv(
-            children: const <Component>[
-              ArcaneSonner(position: ToastPosition.topRight),
-              ArcaneToast(
-                title: 'Notification',
-                message: 'Sonner-compatible toast stack',
-                duration: 0,
+            styles: const ArcaneStyleData(
+              display: Display.flex,
+              flexDirection: FlexDirection.column,
+              gap: Gap.sm,
+            ),
+            children: <Component>[
+              const ArcaneSonner(position: ToastPosition.topRight),
+              ArcaneButton.secondary(
+                label: 'Show toast',
+                onPressed: () {
+                  ArcaneSonner.success(
+                    'Sonner-compatible toast stack',
+                    title: 'Notification',
+                  );
+                },
               ),
             ],
           ),
@@ -579,15 +869,6 @@ class _InteractiveDemoState extends State<InteractiveDemo> {
             rows: 4,
             onChange: (String value) {},
           ),
-        );
-      case 'toast':
-        return _withSurface(
-          const ArcaneToast(
-            title: 'Saved',
-            message: 'Your settings have been updated.',
-            duration: 0,
-          ),
-          minHeight: '180px',
         );
       case 'toggle':
         return _withSurface(
@@ -662,11 +943,13 @@ class _InteractiveDemoState extends State<InteractiveDemo> {
   @override
   Component build(BuildContext context) {
     final Component preview = _buildPreview(component.componentType);
+    final String exampleCode = _buildExampleCode(component.componentType);
 
     return ArcaneThemeProvider(
       stylesheet: _clientStylesheet,
-      brightness: _isDark ? Brightness.dark : Brightness.light,
+      brightness: Brightness.dark,
       child: ArcaneDiv(
+        classes: 'arcane-demo-docs',
         styles: const ArcaneStyleData(
           margin: MarginPreset.bottomXl,
           padding: PaddingPreset.lg,
@@ -694,10 +977,6 @@ class _InteractiveDemoState extends State<InteractiveDemo> {
               margin: MarginPreset.bottomMd,
             ),
             children: [
-              ArcaneButton.secondary(
-                label: _isDark ? 'Switch to Light' : 'Switch to Dark',
-                onPressed: _toggleTheme,
-              ),
               ArcaneText(
                 'Component: ${component.componentType}',
                 size: FontSize.sm,
@@ -705,7 +984,45 @@ class _InteractiveDemoState extends State<InteractiveDemo> {
               ),
             ],
           ),
+          ArcaneDiv(
+            styles: const ArcaneStyleData(
+              margin: MarginPreset.bottomSm,
+              fontSize: FontSize.sm,
+              fontWeight: FontWeight.w600,
+              textColor: TextColor.primary,
+            ),
+            children: const <Component>[ArcaneText('Preview + Code')],
+          ),
           preview,
+          ArcaneDiv(
+            styles: const ArcaneStyleData(
+              margin: MarginPreset.topLg,
+              fontSize: FontSize.sm,
+              fontWeight: FontWeight.w600,
+              textColor: TextColor.mutedForeground,
+              raw: <String, String>{'margin-bottom': '12px'},
+            ),
+            children: const <Component>[ArcaneText('Code')],
+          ),
+          dom.pre(
+            styles: const dom.Styles(
+              raw: {
+                'margin': '0',
+                'padding': '16px',
+                'background': 'var(--card)',
+                'border': '1px solid var(--border)',
+                'border-radius': 'var(--radius)',
+                'overflow-x': 'auto',
+              },
+            ),
+            [
+              dom.code(
+                classes: 'language-dart',
+                styles: const dom.Styles(raw: {'display': 'block'}),
+                [Component.text(exampleCode)],
+              ),
+            ],
+          ),
         ],
       ),
     );

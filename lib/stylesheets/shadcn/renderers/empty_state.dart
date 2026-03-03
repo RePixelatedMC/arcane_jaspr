@@ -34,8 +34,7 @@ class ShadcnEmptyState extends StatelessComponent {
         'gap': gap,
       }),
       [
-        // Icon/Emoji
-        if (props.icon != null || props.emoji != null)
+        if (props.icon != null)
           dom.div(
             classes: 'arcane-empty-state-icon',
             styles: dom.Styles(raw: {
@@ -43,11 +42,7 @@ class ShadcnEmptyState extends StatelessComponent {
               'line-height': '1',
               'opacity': '0.6',
             }),
-            [
-              if (props.icon != null) props.icon!,
-              if (props.icon == null && props.emoji != null)
-                Component.text(props.emoji!),
-            ],
+            [props.icon!],
           ),
 
         // Title
@@ -96,7 +91,7 @@ class ShadcnEmptyState extends StatelessComponent {
         styles: const dom.Styles(raw: {
           'background-color': 'var(--card)',
           'border': '1px solid var(--border)',
-          'border-radius': 'var(--arcane-radius-md)',
+          'border-radius': 'var(--radius-md)',
         }),
         [content],
       );

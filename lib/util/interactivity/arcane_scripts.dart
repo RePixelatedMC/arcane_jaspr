@@ -14,7 +14,8 @@ import 'scripts/carousel/carousel_scripts.dart';
 class ArcaneScripts {
   ArcaneScripts._();
 
-  static String get all => '''
+  static String get all =>
+      '''
 (function() {
   'use strict';
 
@@ -72,6 +73,7 @@ class ArcaneScripts {
     bindTimelines();
     bindDotIndicators();
     bindTrackers();
+    bindDocsToc();
 
     // Dialogs & Overlays
     bindToasts();

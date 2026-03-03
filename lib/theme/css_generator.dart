@@ -59,7 +59,11 @@ abstract class CssGenerator {
 
     // Destructive
     _writeColor(buffer, 'destructive', palette.destructive);
-    _writeColor(buffer, 'destructive-foreground', palette.destructiveForeground);
+    _writeColor(
+      buffer,
+      'destructive-foreground',
+      palette.destructiveForeground,
+    );
     _writeColor(buffer, 'destructive-hover', palette.destructiveHover);
     _writeColor(buffer, 'destructive-container', palette.destructiveContainer);
     buffer.writeln();
@@ -188,6 +192,164 @@ abstract class CssGenerator {
       buffer.writeln('  --transition: 150ms ease;');
       buffer.writeln('  --transition-slow: 200ms ease;');
       buffer.writeln('  --transition-slower: 300ms ease;');
+      buffer.writeln();
+
+      buffer.writeln('  --arcane-background: var(--background);');
+      buffer.writeln('  --arcane-background-secondary: var(--muted);');
+      buffer.writeln('  --arcane-background-tertiary: var(--secondary);');
+      buffer.writeln('  --arcane-surface: var(--card);');
+      buffer.writeln('  --arcane-surface-variant: var(--secondary);');
+      buffer.writeln('  --arcane-card: var(--card);');
+      buffer.writeln('  --arcane-card-hover: var(--card-hover);');
+      buffer.writeln('  --arcane-card-alt: var(--secondary);');
+      buffer.writeln('  --arcane-input: var(--input);');
+      buffer.writeln('  --arcane-popover: var(--popover);');
+      buffer.writeln('  --arcane-navbar: var(--navbar);');
+      buffer.writeln();
+
+      buffer.writeln('  --arcane-primary: var(--primary);');
+      buffer.writeln('  --arcane-secondary: var(--secondary);');
+      buffer.writeln('  --arcane-accent: var(--accent);');
+      buffer.writeln('  --arcane-muted: var(--muted);');
+      buffer.writeln();
+
+      buffer.writeln('  --arcane-foreground: var(--foreground);');
+      buffer.writeln('  --arcane-on-background: var(--foreground);');
+      buffer.writeln('  --arcane-on-surface: var(--card-foreground);');
+      buffer.writeln('  --arcane-card-foreground: var(--card-foreground);');
+      buffer.writeln('  --arcane-muted-foreground: var(--muted-foreground);');
+      buffer.writeln('  --arcane-text-subtle: var(--muted-foreground);');
+      buffer.writeln(
+        '  --arcane-text-faint: color-mix(in srgb, var(--muted-foreground) 60%, transparent);',
+      );
+      buffer.writeln(
+        '  --arcane-primary-foreground: var(--primary-foreground);',
+      );
+      buffer.writeln(
+        '  --arcane-secondary-foreground: var(--secondary-foreground);',
+      );
+      buffer.writeln('  --arcane-accent-foreground: var(--accent-foreground);');
+      buffer.writeln();
+
+      buffer.writeln('  --arcane-border: var(--border);');
+      buffer.writeln('  --arcane-border-subtle: var(--input);');
+      buffer.writeln('  --arcane-border-medium: var(--border);');
+      buffer.writeln(
+        '  --arcane-border-light: color-mix(in srgb, var(--border) 50%, transparent);',
+      );
+      buffer.writeln('  --arcane-ring: var(--ring);');
+      buffer.writeln();
+
+      buffer.writeln('  --arcane-success: var(--success);');
+      buffer.writeln(
+        '  --arcane-success-foreground: var(--success-foreground);',
+      );
+      buffer.writeln('  --arcane-warning: var(--warning);');
+      buffer.writeln(
+        '  --arcane-warning-foreground: var(--warning-foreground);',
+      );
+      buffer.writeln('  --arcane-error: var(--destructive);');
+      buffer.writeln(
+        '  --arcane-error-foreground: var(--destructive-foreground);',
+      );
+      buffer.writeln('  --arcane-destructive: var(--destructive);');
+      buffer.writeln(
+        '  --arcane-destructive-foreground: var(--destructive-foreground);',
+      );
+      buffer.writeln('  --arcane-info: var(--info);');
+      buffer.writeln('  --arcane-info-foreground: var(--info-foreground);');
+      buffer.writeln();
+
+      buffer.writeln('  --arcane-tooltip: var(--popover);');
+      buffer.writeln(
+        '  --arcane-tooltip-foreground: var(--popover-foreground);',
+      );
+      buffer.writeln('  --arcane-code-background: var(--code-background);');
+      buffer.writeln();
+
+      buffer.writeln('  --arcane-background-rgb: var(--background-rgb);');
+      buffer.writeln('  --arcane-foreground-rgb: var(--foreground-rgb);');
+      buffer.writeln('  --arcane-primary-rgb: var(--primary-rgb);');
+      buffer.writeln('  --arcane-secondary-rgb: var(--secondary-rgb);');
+      buffer.writeln('  --arcane-accent-rgb: var(--accent-rgb);');
+      buffer.writeln('  --arcane-muted-rgb: var(--muted-rgb);');
+      buffer.writeln('  --arcane-destructive-rgb: var(--destructive-rgb);');
+      buffer.writeln('  --arcane-success-rgb: var(--success-rgb);');
+      buffer.writeln('  --arcane-warning-rgb: var(--warning-rgb);');
+      buffer.writeln('  --arcane-info-rgb: var(--info-rgb);');
+      buffer.writeln('  --arcane-card-rgb: var(--card-rgb);');
+      buffer.writeln('  --arcane-border-rgb: var(--border-rgb);');
+      buffer.writeln();
+
+      buffer.writeln('  --arcane-shadow-xs: var(--shadow-xs);');
+      buffer.writeln('  --arcane-shadow-sm: var(--shadow-sm);');
+      buffer.writeln('  --arcane-shadow-md: var(--shadow-md);');
+      buffer.writeln('  --arcane-shadow-lg: var(--shadow-lg);');
+      buffer.writeln('  --arcane-shadow-xl: var(--shadow-xl);');
+      buffer.writeln();
+
+      buffer.writeln('  --arcane-radius: var(--radius);');
+      buffer.writeln('  --arcane-radius-xs: var(--radius-xs);');
+      buffer.writeln('  --arcane-radius-sm: var(--radius-sm);');
+      buffer.writeln('  --arcane-radius-md: var(--radius-md);');
+      buffer.writeln('  --arcane-radius-lg: var(--radius-lg);');
+      buffer.writeln('  --arcane-radius-xl: var(--radius-xl);');
+      buffer.writeln('  --arcane-radius-2xl: var(--radius-2xl);');
+      buffer.writeln('  --arcane-radius-full: var(--radius-full);');
+      buffer.writeln();
+
+      buffer.writeln('  --arcane-font-sans: var(--font-sans);');
+      buffer.writeln('  --arcane-font-heading: var(--font-heading);');
+      buffer.writeln('  --arcane-font-mono: var(--font-mono);');
+      buffer.writeln('  --arcane-font-size-xs: var(--font-size-xs);');
+      buffer.writeln('  --arcane-font-size-sm: var(--font-size-sm);');
+      buffer.writeln('  --arcane-font-size-base: var(--font-size-base);');
+      buffer.writeln('  --arcane-font-size-lg: var(--font-size-lg);');
+      buffer.writeln('  --arcane-font-size-xl: var(--font-size-xl);');
+      buffer.writeln('  --arcane-font-size-2xl: var(--font-size-2xl);');
+      buffer.writeln('  --arcane-font-size-3xl: var(--font-size-3xl);');
+      buffer.writeln('  --arcane-font-size-4xl: var(--font-size-4xl);');
+      buffer.writeln('  --arcane-font-size-5xl: var(--font-size-5xl);');
+      buffer.writeln(
+        '  --arcane-font-weight-normal: var(--font-weight-normal);',
+      );
+      buffer.writeln(
+        '  --arcane-font-weight-medium: var(--font-weight-medium);',
+      );
+      buffer.writeln(
+        '  --arcane-font-weight-semibold: var(--font-weight-semibold);',
+      );
+      buffer.writeln('  --arcane-font-weight-bold: var(--font-weight-bold);');
+      buffer.writeln();
+
+      buffer.writeln('  --arcane-space-0: var(--space-0);');
+      buffer.writeln('  --arcane-space-px: var(--space-px);');
+      buffer.writeln('  --arcane-space-0-5: var(--space-0-5);');
+      buffer.writeln('  --arcane-space-1: var(--space-1);');
+      buffer.writeln('  --arcane-space-1-5: var(--space-1-5);');
+      buffer.writeln('  --arcane-space-2: var(--space-2);');
+      buffer.writeln('  --arcane-space-2-5: var(--space-2-5);');
+      buffer.writeln('  --arcane-space-3: var(--space-3);');
+      buffer.writeln('  --arcane-space-3-5: var(--space-3-5);');
+      buffer.writeln('  --arcane-space-4: var(--space-4);');
+      buffer.writeln('  --arcane-space-5: var(--space-5);');
+      buffer.writeln('  --arcane-space-6: var(--space-6);');
+      buffer.writeln('  --arcane-space-7: var(--space-7);');
+      buffer.writeln('  --arcane-space-8: var(--space-8);');
+      buffer.writeln('  --arcane-space-9: var(--space-9);');
+      buffer.writeln('  --arcane-space-10: var(--space-10);');
+      buffer.writeln('  --arcane-space-12: var(--space-12);');
+      buffer.writeln('  --arcane-space-14: var(--space-14);');
+      buffer.writeln('  --arcane-space-16: var(--space-16);');
+      buffer.writeln('  --arcane-space-20: var(--space-20);');
+      buffer.writeln('  --arcane-space-24: var(--space-24);');
+      buffer.writeln('  --arcane-space-32: var(--space-32);');
+      buffer.writeln();
+
+      buffer.writeln('  --arcane-transition-fast: var(--transition-fast);');
+      buffer.writeln('  --arcane-transition: var(--transition);');
+      buffer.writeln('  --arcane-transition-slow: var(--transition-slow);');
+      buffer.writeln('  --arcane-transition-slower: var(--transition-slower);');
     }
 
     buffer.writeln('}');
@@ -207,13 +369,15 @@ abstract class CssGenerator {
     // Use both :root and html.light so variables work for:
     // - Default/fallback (:root)
     // - Document-level scrollbars when light class is on html (html.light)
-    buffer.writeln(generate(
-      light,
-      selector: ':root, html.light, .light',
-      fonts: fonts,
-      radius: radius,
-      includeStatic: true,
-    ));
+    buffer.writeln(
+      generate(
+        light,
+        selector: ':root, html.light, .light',
+        fonts: fonts,
+        radius: radius,
+        includeStatic: true,
+      ),
+    );
 
     buffer.writeln();
 
@@ -221,13 +385,15 @@ abstract class CssGenerator {
     // Use both html.dark and .dark so variables work for:
     // - Document-level scrollbars (html.dark)
     // - Component-level styling (.dark on #arcane-root)
-    buffer.writeln(generate(
-      dark,
-      selector: 'html.dark, .dark',
-      fonts: fonts,
-      radius: radius,
-      includeStatic: false,
-    ));
+    buffer.writeln(
+      generate(
+        dark,
+        selector: 'html.dark, .dark',
+        fonts: fonts,
+        radius: radius,
+        includeStatic: false,
+      ),
+    );
 
     return buffer.toString();
   }

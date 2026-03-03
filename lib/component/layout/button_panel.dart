@@ -67,12 +67,12 @@ class ArcaneToolbar extends StatelessComponent {
 class ArcaneButtonGroup extends StatelessComponent {
   final List<Component> children;
   final bool vertical;
-  final double gap;
+  final double spacing;
 
   const ArcaneButtonGroup({
     required this.children,
     this.vertical = false,
-    this.gap = 0,
+    this.spacing = 8,
     super.key,
   });
 
@@ -81,7 +81,7 @@ class ArcaneButtonGroup extends StatelessComponent {
     return context.renderers.buttonGroup(ButtonGroupProps(
       children: children,
       vertical: vertical,
-      gap: gap,
+      spacing: spacing,
     ));
   }
 }

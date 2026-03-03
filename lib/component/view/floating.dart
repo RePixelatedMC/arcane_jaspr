@@ -18,7 +18,7 @@ export '../../core/props/floating_props.dart'
 ///
 /// Use the named constructors for common patterns or the default constructor
 /// for full control.
-class ArcaneFloating extends StatefulComponent {
+class ArcaneHoverCard extends StatefulComponent {
   final Component trigger;
   final Component? content;
   final String? textContent;
@@ -34,7 +34,7 @@ class ArcaneFloating extends StatefulComponent {
   final bool closeOnOutsideClick;
   final bool closeOnEscape;
 
-  const ArcaneFloating({
+  const ArcaneHoverCard({
     required this.trigger,
     this.content,
     this.textContent,
@@ -55,7 +55,7 @@ class ArcaneFloating extends StatefulComponent {
   /// Creates a simple text tooltip that appears on hover.
   ///
   /// Best for providing hints or descriptions for UI elements.
-  const ArcaneFloating.tooltip({
+  const ArcaneHoverCard.tooltip({
     required Component child,
     required String this.textContent,
     this.position = FloatingPosition.top,
@@ -74,7 +74,7 @@ class ArcaneFloating extends StatefulComponent {
         closeOnEscape = true;
 
   /// Creates a tooltip with custom component content.
-  const ArcaneFloating.tooltipCustom({
+  const ArcaneHoverCard.tooltipCustom({
     required Component child,
     required Component this.content,
     this.position = FloatingPosition.top,
@@ -96,7 +96,7 @@ class ArcaneFloating extends StatefulComponent {
   ///
   /// Best for menus, forms, or interactive content that should
   /// persist until dismissed.
-  const ArcaneFloating.popover({
+  const ArcaneHoverCard.popover({
     required this.trigger,
     required Component this.content,
     this.position = FloatingPosition.bottom,
@@ -117,7 +117,7 @@ class ArcaneFloating extends StatefulComponent {
   ///
   /// Best for preview cards that show additional info on hover,
   /// like user profile previews or link previews.
-  const ArcaneFloating.hovercard({
+  const ArcaneHoverCard.hovercard({
     required this.trigger,
     required Component this.content,
     this.position = FloatingPosition.top,
@@ -135,10 +135,10 @@ class ArcaneFloating extends StatefulComponent {
         closeOnEscape = true;
 
   @override
-  State<ArcaneFloating> createState() => _ArcaneFloatingState();
+  State<ArcaneHoverCard> createState() => _ArcaneHoverCardState();
 }
 
-class _ArcaneFloatingState extends State<ArcaneFloating> {
+class _ArcaneHoverCardState extends State<ArcaneHoverCard> {
   bool _internalIsOpen = false;
   Timer? _openTimer;
   Timer? _closeTimer;

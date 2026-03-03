@@ -83,7 +83,7 @@ class ShadcnDisclosure extends StatelessComponent {
             'padding': '0.5rem 1rem',
             'background-color': summaryBg,
             'cursor': 'pointer',
-            'transition': 'all var(--arcane-transition)',
+            'transition': 'all var(--transition)',
             'list-style': 'none',
             '-webkit-user-select': 'none',
             'user-select': 'none',
@@ -103,7 +103,7 @@ class ShadcnDisclosure extends StatelessComponent {
                 styles: dom.Styles(raw: {
                   'color': 'var(--muted-foreground)',
                   'font-size': 'var(--font-size-sm)',
-                  'transition': 'transform var(--arcane-transition)',
+                  'transition': 'transform var(--transition)',
                 }),
                 [Component.text('\u25BC')],
               ),

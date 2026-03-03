@@ -15,7 +15,6 @@ enum EmptyStateSizeVariant {
 /// Empty state component properties.
 class EmptyStateProps {
   final Component? icon;
-  final String? emoji;
   final String title;
   final String? description;
   final Component? action;
@@ -26,7 +25,6 @@ class EmptyStateProps {
   const EmptyStateProps({
     required this.title,
     this.icon,
-    this.emoji,
     this.description,
     this.action,
     this.secondaryAction,
@@ -36,7 +34,6 @@ class EmptyStateProps {
 
   EmptyStateProps copyWith({
     Component? icon,
-    String? emoji,
     String? title,
     String? description,
     Component? action,
@@ -46,7 +43,6 @@ class EmptyStateProps {
   }) {
     return EmptyStateProps(
       icon: icon ?? this.icon,
-      emoji: emoji ?? this.emoji,
       title: title ?? this.title,
       description: description ?? this.description,
       action: action ?? this.action,

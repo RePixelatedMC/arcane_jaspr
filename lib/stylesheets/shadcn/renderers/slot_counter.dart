@@ -184,7 +184,7 @@ class _ShadcnSlotCounterState extends State<ShadcnSlotCounter> {
                 'font-weight': component.props.valueBold ? '700' : '400',
                 'color': _getColor(component.props.valueColor),
                 'opacity': _isSpinning ? '0.7' : '1',
-                'transition': 'all var(--arcane-transition)',
+                'transition': 'all var(--transition)',
               }),
               [Component.text(displayValue)],
             ),

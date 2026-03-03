@@ -543,15 +543,18 @@ body {
    ============================================ */
 .toc-content a {
   display: block;
-  padding: 0.25rem 0;
+  padding: 0.3125rem 0.625rem;
+  margin-left: 0.125rem;
   font-size: 0.875rem;
   color: var(--muted-foreground);
   text-decoration: none;
-  transition: color 0.15s;
+  border-radius: var(--radius-sm, 4px);
+  transition: color 0.15s, background 0.15s;
 }
 
 .toc-content a:hover {
   color: var(--foreground);
+  background: var(--muted);
 }
 
 .toc-content a.toc-active {

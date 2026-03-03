@@ -1,6 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
+import '../../../component/view/icon.dart';
 import '../../../core/props/sidebar_props.dart';
 
 /// ShadCN-style sidebar component
@@ -12,55 +13,62 @@ class ShadcnSidebar extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final double currentWidth =
-        props.isCollapsed ? props.collapsedWidth : props.width;
+    final double currentWidth = props.isCollapsed
+        ? props.collapsedWidth
+        : props.width;
 
     // ShadCN Sidebar: flex h-full w-[--sidebar-width] flex-col bg-sidebar
     return dom.aside(
-      classes: 'arcane-sidebar ${props.isCollapsed ? 'collapsed' : ''} ${props.rightSide ? 'right' : 'left'}',
-      styles: dom.Styles(raw: {
-        'display': 'flex',
-        'flex-direction': 'column',
-        'width': '${currentWidth}px',
-        'height': '100%',
-        'background-color': 'var(--background)',
-        'border-${props.rightSide ? 'left' : 'right'}': '1px solid var(--border)',
-        'transition': 'width var(--arcane-transition-slow)',
-        'flex-shrink': '0',
-        'overflow': 'hidden',
-      }),
+      classes:
+          'arcane-sidebar ${props.isCollapsed ? 'collapsed' : ''} ${props.rightSide ? 'right' : 'left'}',
+      attributes: {'data-state': props.isCollapsed ? 'collapsed' : 'expanded'},
+      styles: dom.Styles(
+        raw: {
+          'display': 'flex',
+          'flex-direction': 'column',
+          'width': '${currentWidth}px',
+          'height': '100%',
+          'background-color': 'var(--background)',
+          'border-${props.rightSide ? 'left' : 'right'}':
+              '1px solid var(--border)',
+          'transition': 'width var(--transition-slow)',
+          'flex-shrink': '0',
+          'overflow': 'hidden',
+        },
+      ),
       [
         // ShadCN SidebarHeader
         if (props.header != null)
-          dom.div(
-            classes: 'sidebar-header',
-            [props.header!],
-          ),
+          dom.div(classes: 'sidebar-header', [props.header!]),
 
         // ShadCN SidebarContent with nav wrapper
         dom.nav(
           classes: 'sidebar-nav',
-          styles: const dom.Styles(raw: {
-            'flex': '1',
-            'min-height': '0',
-            'display': 'flex',
-            'flex-direction': 'column',
-            'gap': '0.5rem',
-            'overflow-y': 'auto',
-            'overflow-x': 'hidden',
-            'padding': '0.75rem',
-          }),
+          styles: const dom.Styles(
+            raw: {
+              'flex': '1',
+              'min-height': '0',
+              'display': 'flex',
+              'flex-direction': 'column',
+              'gap': '0.5rem',
+              'overflow-y': 'auto',
+              'overflow-x': 'hidden',
+              'padding': '0.75rem',
+            },
+          ),
           props.children,
         ),
 
         // ShadCN SidebarFooter
         dom.div(
           classes: 'arcane-sidebar-footer',
-          styles: const dom.Styles(raw: {
-            'padding': '8px',
-            'border-top': '1px solid var(--border)',
-            'flex-shrink': '0',
-          }),
+          styles: const dom.Styles(
+            raw: {
+              'padding': '8px',
+              'border-top': '1px solid var(--border)',
+              'flex-shrink': '0',
+            },
+          ),
           [
             if (props.footer != null && !props.isCollapsed) props.footer!,
             if (props.showCollapseToggle)
@@ -68,47 +76,59 @@ class ShadcnSidebar extends StatelessComponent {
                 classes: 'arcane-sidebar-toggle',
                 attributes: {
                   'type': 'button',
-                  'aria-label':
-                      props.isCollapsed ? 'Expand sidebar' : 'Collapse sidebar',
+                  'aria-label': props.isCollapsed
+                      ? 'Expand sidebar'
+                      : 'Collapse sidebar',
+                  'data-state': props.isCollapsed ? 'collapsed' : 'expanded',
                 },
-                styles: dom.Styles(raw: {
-                  'display': 'inline-flex',
-                  'align-items': 'center',
-                  'justify-content': 'center',
-                  'width': props.isCollapsed ? '32px' : '100%',
-                  'height': '32px',
-                  'margin': props.isCollapsed ? '0 auto' : '0',
-                  'margin-top':
-                      props.footer != null && !props.isCollapsed ? '8px' : '0',
-                  'border-radius': 'var(--arcane-radius-sm)',
-                  'background': 'transparent',
-                  'border': 'none',
-                  'color': 'var(--muted-foreground)',
-                  'cursor': 'pointer',
-                  'transition': 'color var(--arcane-transition), background-color var(--arcane-transition)',
-                  'font-size': 'var(--font-size-sm)',
-                }),
+                styles: dom.Styles(
+                  raw: {
+                    'display': 'inline-flex',
+                    'align-items': 'center',
+                    'justify-content': 'center',
+                    'width': props.isCollapsed ? '32px' : '100%',
+                    'height': '32px',
+                    'margin': props.isCollapsed ? '0 auto' : '0',
+                    'margin-top': props.footer != null && !props.isCollapsed
+                        ? '8px'
+                        : '0',
+                    'border-radius': 'var(--radius-sm)',
+                    'background': 'transparent',
+                    'border': 'none',
+                    'color': 'var(--muted-foreground)',
+                    'cursor': 'pointer',
+                    'transition':
+                        'color var(--transition), background-color var(--transition)',
+                    'font-size': 'var(--font-size-sm)',
+                  },
+                ),
                 events: props.onToggleCollapse != null
                     ? {'click': (_) => props.onToggleCollapse!()}
                     : null,
                 [
                   dom.span(
-                    styles: dom.Styles(raw: {
-                      'transition': 'transform var(--arcane-transition-slow)',
-                      'transform': props.rightSide
-                          ? (props.isCollapsed ? 'rotate(180deg)' : 'rotate(0)')
-                          : (props.isCollapsed
-                              ? 'rotate(0)'
-                              : 'rotate(180deg)'),
-                    }),
-                    [const Component.text('<')],
+                    styles: dom.Styles(
+                      raw: {
+                        'transition': 'transform var(--transition-slow)',
+                        'transform': props.rightSide
+                            ? (props.isCollapsed
+                                  ? 'rotate(180deg)'
+                                  : 'rotate(0)')
+                            : (props.isCollapsed
+                                  ? 'rotate(0)'
+                                  : 'rotate(180deg)'),
+                      },
+                    ),
+                    [ArcaneIcon.chevronLeft(size: IconSize.sm)],
                   ),
                   if (!props.isCollapsed)
                     const dom.span(
-                      styles: dom.Styles(raw: {
-                        'margin-left': '8px',
-                        'font-size': 'var(--font-size-sm)',
-                      }),
+                      styles: dom.Styles(
+                        raw: {
+                          'margin-left': '8px',
+                          'font-size': 'var(--font-size-sm)',
+                        },
+                      ),
                       [Component.text('Collapse')],
                     ),
                 ],
@@ -133,32 +153,22 @@ class ShadcnSidebarItem extends StatelessComponent {
 
     // Use anchor if href is provided
     if (props.href != null) {
-      return dom.div(
-        classes: 'sidebar-tree-item',
-        [
-          dom.a(
-            href: props.href!,
-            classes: linkClasses,
-            [Component.text(props.label)],
-          ),
-        ],
-      );
+      return dom.div(classes: 'sidebar-tree-item', [
+        dom.a(href: props.href!, classes: linkClasses, [
+          Component.text(props.label),
+        ]),
+      ]);
     }
 
     // Otherwise use button (for actions without navigation)
-    return dom.div(
-      classes: 'sidebar-tree-item',
-      [
-        dom.button(
-          classes: linkClasses,
-          attributes: {'type': 'button'},
-          events: props.onTap != null
-              ? {'click': (_) => props.onTap!()}
-              : null,
-          [Component.text(props.label)],
-        ),
-      ],
-    );
+    return dom.div(classes: 'sidebar-tree-item', [
+      dom.button(
+        classes: linkClasses,
+        attributes: {'type': 'button'},
+        events: props.onTap != null ? {'click': (_) => props.onTap!()} : null,
+        [Component.text(props.label)],
+      ),
+    ]);
   }
 }
 
@@ -173,42 +183,48 @@ class ShadcnSidebarGroup extends StatelessComponent {
     // ShadCN SidebarGroup
     return dom.div(
       classes: 'arcane-sidebar-group',
-      styles: const dom.Styles(raw: {
-        'position': 'relative',
-        'display': 'flex',
-        'width': '100%',
-        'min-width': '0',
-        'flex-direction': 'column',
-        'padding': '8px',
-      }),
+      styles: const dom.Styles(
+        raw: {
+          'position': 'relative',
+          'display': 'flex',
+          'width': '100%',
+          'min-width': '0',
+          'flex-direction': 'column',
+          'padding': '8px',
+        },
+      ),
       [
         // ShadCN SidebarGroupLabel
         if (props.label != null && !props.collapsed)
           dom.div(
             classes: 'arcane-sidebar-group-label',
-            styles: const dom.Styles(raw: {
-              'display': 'flex',
-              'height': '32px',
-              'flex-shrink': '0',
-              'align-items': 'center',
-              'border-radius': 'var(--arcane-radius-sm)',
-              'padding': '0 8px',
-              'font-size': 'var(--font-size-xs)',
-              'font-weight': 'var(--font-weight-medium)',
-              'color': 'var(--muted-foreground)',
-            }),
+            styles: const dom.Styles(
+              raw: {
+                'display': 'flex',
+                'height': '32px',
+                'flex-shrink': '0',
+                'align-items': 'center',
+                'border-radius': 'var(--radius-sm)',
+                'padding': '0 8px',
+                'font-size': 'var(--font-size-xs)',
+                'font-weight': 'var(--font-weight-medium)',
+                'color': 'var(--muted-foreground)',
+              },
+            ),
             [Component.text(props.label!)],
           ),
         // ShadCN SidebarGroupContent
         dom.div(
           classes: 'arcane-sidebar-group-items',
-          styles: const dom.Styles(raw: {
-            'width': '100%',
-            'display': 'flex',
-            'flex-direction': 'column',
-            'gap': 'var(--space-1)',
-            'font-size': 'var(--font-size-sm)',
-          }),
+          styles: const dom.Styles(
+            raw: {
+              'width': '100%',
+              'display': 'flex',
+              'flex-direction': 'column',
+              'gap': 'var(--space-1)',
+              'font-size': 'var(--font-size-sm)',
+            },
+          ),
           props.children,
         ),
       ],
@@ -225,31 +241,25 @@ class ShadcnSidebarSubMenu extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return dom.div(
-      classes: 'sidebar-section',
-      [
-        Component.element(
-          tag: 'details',
-          classes: 'sidebar-details',
-          attributes: props.defaultOpen ? {'open': ''} : {},
-          children: [
-            Component.element(
-              tag: 'summary',
-              classes: 'sidebar-summary',
-              children: [
-                if (props.icon != null) props.icon!,
-                dom.span([Component.text(props.label)]),
-                const dom.span(classes: 'sidebar-chevron', []),
-              ],
-            ),
-            dom.div(
-              classes: 'sidebar-tree',
-              props.children,
-            ),
-          ],
-        ),
-      ],
-    );
+    return dom.div(classes: 'sidebar-section', [
+      Component.element(
+        tag: 'details',
+        classes: 'sidebar-details',
+        attributes: props.defaultOpen ? {'open': ''} : {},
+        children: [
+          Component.element(
+            tag: 'summary',
+            classes: 'sidebar-summary',
+            children: [
+              if (props.icon != null) props.icon!,
+              dom.span([Component.text(props.label)]),
+              const dom.span(classes: 'sidebar-chevron', []),
+            ],
+          ),
+          dom.div(classes: 'sidebar-tree', props.children),
+        ],
+      ),
+    ]);
   }
 }
 
@@ -262,22 +272,13 @@ class ShadcnSidebarSection extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return dom.div(
-      classes: 'sidebar-section',
-      [
-        dom.div(
-          classes: 'sidebar-section-header',
-          [
-            if (props.icon != null) props.icon!,
-            dom.span([Component.text(props.label)]),
-          ],
-        ),
-        dom.div(
-          classes: 'sidebar-tree',
-          props.children,
-        ),
-      ],
-    );
+    return dom.div(classes: 'sidebar-section', [
+      dom.div(classes: 'sidebar-section-header', [
+        if (props.icon != null) props.icon!,
+        dom.span([Component.text(props.label)]),
+      ]),
+      dom.div(classes: 'sidebar-tree', props.children),
+    ]);
   }
 }
 
@@ -292,9 +293,9 @@ class ShadcnSidebarExpanded extends StatelessComponent {
     // The visibility is controlled by CSS class on parent
     return dom.div(
       classes: 'arcane-sidebar-expanded-only',
-      styles: const dom.Styles(raw: {
-        'display': 'var(--sidebar-expanded-display, block)',
-      }),
+      styles: const dom.Styles(
+        raw: {'display': 'var(--sidebar-expanded-display, block)'},
+      ),
       children,
     );
   }
@@ -311,9 +312,9 @@ class ShadcnSidebarCollapsed extends StatelessComponent {
     // The visibility is controlled by CSS class on parent
     return dom.div(
       classes: 'arcane-sidebar-collapsed-only',
-      styles: const dom.Styles(raw: {
-        'display': 'var(--sidebar-collapsed-display, none)',
-      }),
+      styles: const dom.Styles(
+        raw: {'display': 'var(--sidebar-collapsed-display, none)'},
+      ),
       children,
     );
   }
@@ -327,11 +328,13 @@ class ShadcnSidebarSeparator extends StatelessComponent {
   Component build(BuildContext context) {
     return const dom.div(
       classes: 'arcane-sidebar-separator',
-      styles: dom.Styles(raw: {
-        'height': '1px',
-        'background-color': 'var(--border)',
-        'margin': '8px 0',
-      }),
+      styles: dom.Styles(
+        raw: {
+          'height': '1px',
+          'background-color': 'var(--border)',
+          'margin': '8px 0',
+        },
+      ),
       [],
     );
   }

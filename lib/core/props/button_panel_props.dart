@@ -40,12 +40,12 @@ class ToolbarProps {
 class ButtonGroupProps {
   final List<Component> children;
   final bool vertical;
-  final double gap;
+  final double spacing;
 
   const ButtonGroupProps({
     required this.children,
     this.vertical = false,
-    this.gap = 0,
+    this.spacing = 8,
   });
 }
 

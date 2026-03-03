@@ -24,7 +24,7 @@ void main() async {
         githubUrl: 'https://github.com/ArcaneArts/arcane_jaspr',
         searchEnabled: true,
         tocEnabled: true,
-        themeToggleEnabled: true,
+        themeToggleEnabled: false,
         defaultTheme: KBThemeMode.dark,
         showEditLink: true,
         editBranch: 'master',

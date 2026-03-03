@@ -110,7 +110,7 @@ class _ShadcnMarqueeTickerBarState extends State<ShadcnMarqueeTickerBar> {
                     'padding': '4px 10px',
                     'background-color': 'var(--background)',
                     'border': '1px solid var(--border)',
-                    'border-radius': 'var(--arcane-radius-sm)',
+                    'border-radius': 'var(--radius-sm)',
                     'font-family':
                         'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
                     'font-weight': 'var(--font-weight-semibold)',
@@ -132,8 +132,8 @@ class _ShadcnMarqueeTickerBarState extends State<ShadcnMarqueeTickerBar> {
                     'font-size': 'var(--font-size-sm)',
                     'font-weight': 'var(--font-weight-semibold)',
                     'text-decoration': 'none',
-                    'border-radius': 'var(--arcane-radius-sm)',
-                    'transition': 'opacity var(--arcane-transition)',
+                    'border-radius': 'var(--radius-sm)',
+                    'transition': 'opacity var(--transition)',
                   }),
                   events: {
                     'click': (e) {
@@ -166,10 +166,10 @@ class _ShadcnMarqueeTickerBarState extends State<ShadcnMarqueeTickerBar> {
               'padding': '0',
               'background': 'transparent',
               'border': 'none',
-              'border-radius': 'var(--arcane-radius-sm)',
+              'border-radius': 'var(--radius-sm)',
               'color': 'var(--muted-foreground)',
               'cursor': 'pointer',
-              'transition': 'background-color var(--arcane-transition)',
+              'transition': 'background-color var(--transition)',
             }),
             events: {'click': (_) => _handleDismiss()},
             [const Component.text('\u00D7')],

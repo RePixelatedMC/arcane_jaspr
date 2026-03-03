@@ -10,11 +10,11 @@ This page is the source-of-truth snapshot of the current component surface as of
 
 ## Snapshot
 
-- **Shadcn-aligned functional components:** `59`
-- **Total exported component modules:** `81`
+- **Shadcn-aligned functional components:** `57`
+- **Total exported component modules:** `84`
 - **Foundation modules outside Shadcn cap:** `27`
 
-## Shadcn-Aligned Components (59)
+## Shadcn-Aligned Components (57)
 
 | Shadcn | Arcane Symbol | Source |
 |---|---|---|
@@ -44,7 +44,7 @@ This page is the source-of-truth snapshot of the current component surface as of
 | `dropdown-menu` | `ArcaneDropdownMenu` | `lib/component/menu/dropdown_menu.dart` |
 | `empty` | `ArcaneEmptyState` | `lib/component/view/empty_state.dart` |
 | `field` | `ArcaneField` | `lib/component/form/field.dart` |
-| `hover-card` | `ArcaneFloating` | `lib/component/view/floating.dart` |
+| `hover-card` | `ArcaneHoverCard` | `lib/component/view/floating.dart` |
 | `input` | `ArcaneTextInput` | `lib/component/input/text_input.dart` |
 | `input-group` | `ArcaneInputGroup` | `lib/component/form/field_wrapper.dart` |
 | `input-otp` | `ArcaneOtpInput` | `lib/component/input/otp_input.dart` |
@@ -52,7 +52,6 @@ This page is the source-of-truth snapshot of the current component surface as of
 | `kbd` | `ArcaneKbd` | `lib/component/view/kbd.dart` |
 | `label` | `ArcaneLabel` | `lib/component/html/arcane_label.dart` |
 | `menubar` | `ArcaneMenubar` | `lib/component/menu/menubar.dart` |
-| `native-select` | `ArcaneNativeSelect` | `lib/component/input/native_select.dart` |
 | `navigation-menu` | `ArcaneNavDropdown` | `lib/component/navigation/nav_dropdown.dart` |
 | `pagination` | `ArcanePagination` | `lib/component/navigation/pagination.dart` |
 | `popover` | `ArcanePopover` | `lib/component/dialog/popover.dart` |
@@ -72,7 +71,6 @@ This page is the source-of-truth snapshot of the current component surface as of
 | `table` | `ArcaneStaticTable` | `lib/component/data/static_table.dart` |
 | `tabs` | `ArcaneTabs` | `lib/component/layout/tabs.dart` |
 | `textarea` | `ArcaneTextArea` | `lib/component/input/text_input.dart` |
-| `toast` | `ArcaneToast` | `lib/component/dialog/toast.dart` |
 | `toggle` | `ArcaneToggleButton` | `lib/component/input/cycle_button.dart` |
 | `toggle-group` | `ArcaneToggleGroup` | `lib/component/input/toggle_group.dart` |
 | `tooltip` | `ArcaneTooltip` | `lib/component/dialog/tooltip.dart` |
@@ -132,4 +130,3 @@ These exports are kept as low-level primitives/support modules and are intention
 ### `view` (1)
 
 - `component/view/icon.dart`
-

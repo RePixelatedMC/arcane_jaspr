@@ -49,7 +49,7 @@ class ShadcnProgress extends StatelessComponent {
         'width': '100%',
         'height': height,
         'overflow': 'hidden',
-        'border-radius': 'var(--arcane-radius-full)', // rounded-full
+        'border-radius': 'var(--radius-full)', // rounded-full
         'background-color': trackColor,
       }),
       [
@@ -59,8 +59,8 @@ class ShadcnProgress extends StatelessComponent {
           styles: dom.Styles(raw: {
             'height': '100%',
             'background-color': indicatorColor,
-            'border-radius': 'var(--arcane-radius-full)',
-            'transition': 'width var(--arcane-transition-slow)',
+            'border-radius': 'var(--radius-full)',
+            'transition': 'width var(--transition-slow)',
             if (props.indeterminate) ...{
               'width': '50%',
               'animation': 'arcane-progress-indeterminate 1.5s ease-in-out infinite',
@@ -112,7 +112,7 @@ class ShadcnCircularProgress extends StatelessComponent {
             'position': 'absolute',
             'width': '100%',
             'height': '100%',
-            'border-radius': 'var(--arcane-radius-full)',
+            'border-radius': 'var(--radius-full)',
             'background':
                 'conic-gradient($fillColor 0deg ${props.value * 360}deg, $trackColor ${props.value * 360}deg 360deg)',
             'mask':
@@ -177,7 +177,7 @@ class ShadcnLoadingSpinner extends StatelessComponent {
         'height': actualSize,
         'border': '3px solid var(--border)',
         'border-top-color': spinnerColor,
-        'border-radius': 'var(--arcane-radius-full)',
+        'border-radius': 'var(--radius-full)',
         'animation': 'arcane-spin 0.75s linear infinite',
       }),
       [],

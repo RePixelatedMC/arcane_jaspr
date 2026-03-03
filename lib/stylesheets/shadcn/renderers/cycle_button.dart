@@ -116,11 +116,11 @@ class _ShadcnCycleButtonState<T> extends State<ShadcnCycleButton<T>> {
         'gap': 'var(--space-2)',
         ...sizeStyles,
         'font-weight': 'var(--font-weight-medium)',
-        'border-radius': 'var(--arcane-radius-sm)',
+        'border-radius': 'var(--radius-sm)',
         ...variantStyles,
         'cursor': props.disabled ? 'not-allowed' : 'pointer',
         'opacity': props.disabled ? '0.5' : '1',
-        'transition': 'all var(--arcane-transition)',
+        'transition': 'all var(--transition)',
         'white-space': 'nowrap',
       }),
       events: {
@@ -206,14 +206,14 @@ class ShadcnToggleButton extends StatelessComponent {
         'gap': 'var(--space-2)',
         ...sizeStyles,
         'font-weight': 'var(--font-weight-medium)',
-        'border-radius': 'var(--arcane-radius-sm)',
+        'border-radius': 'var(--radius-sm)',
         // Active: primary background, inactive: muted background with border
         'background-color': props.value ? 'var(--primary)' : 'var(--muted)',
         'color': props.value ? 'var(--primary-foreground)' : 'var(--foreground)',
         'border': props.value ? 'none' : '1px solid var(--border)',
         'cursor': props.disabled ? 'not-allowed' : 'pointer',
         'opacity': props.disabled ? '0.5' : '1',
-        'transition': 'all var(--arcane-transition)',
+        'transition': 'all var(--transition)',
       }),
       events: {
         'click': (event) {

@@ -129,7 +129,7 @@ class ShadcnBreadcrumbs extends StatelessComponent {
       styles: const dom.Styles(raw: {
         'color': 'var(--muted-foreground)',
         'text-decoration': 'none',
-        'transition': 'color var(--arcane-transition)',
+        'transition': 'color var(--transition)',
       }),
       events: props.onItemClick != null
           ? {

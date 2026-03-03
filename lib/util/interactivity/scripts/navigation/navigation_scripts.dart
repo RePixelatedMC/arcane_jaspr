@@ -14,6 +14,7 @@ import 'selector_scripts.dart';
 import 'steps_scripts.dart';
 import 'tabs_scripts.dart';
 import 'timeline_scripts.dart';
+import 'toc_scripts.dart';
 import 'tracker_scripts.dart';
 import 'tree_view_scripts.dart';
 
@@ -31,6 +32,7 @@ export 'selector_scripts.dart';
 export 'steps_scripts.dart';
 export 'tabs_scripts.dart';
 export 'timeline_scripts.dart';
+export 'toc_scripts.dart';
 export 'tracker_scripts.dart';
 export 'tree_view_scripts.dart';
 
@@ -38,7 +40,8 @@ export 'tree_view_scripts.dart';
 class NavigationScripts {
   NavigationScripts._();
 
-  static String get code => '''
+  static String get code =>
+      '''
 ${TabsScripts.code}
 ${AccordionScripts.code}
 ${DropdownScripts.code}
@@ -55,5 +58,6 @@ ${StepsScripts.code}
 ${TimelineScripts.code}
 ${DotIndicatorScripts.code}
 ${TrackerScripts.code}
+${TocScripts.code}
 ''';
 }

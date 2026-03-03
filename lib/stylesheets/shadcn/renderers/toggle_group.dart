@@ -19,7 +19,7 @@ class ShadcnToggleGroup extends StatelessComponent {
         'display': 'inline-flex',
         'align-items': 'center',
         'justify-content': 'center',
-        'border-radius': 'var(--arcane-radius-sm)',
+        'border-radius': 'var(--radius-sm)',
         'background-color': 'transparent',
         'gap': 'var(--space-1)',
       }),
@@ -67,7 +67,7 @@ class ShadcnToggleGroup extends StatelessComponent {
         'height': height,
         'padding': '0 $paddingH',
         'min-width': height,
-        'border-radius': 'var(--arcane-radius-sm)',
+        'border-radius': 'var(--radius-sm)',
         'font-size': 'var(--font-size-sm)',
         'font-weight': 'var(--font-weight-medium)',
         'background-color':
@@ -75,7 +75,7 @@ class ShadcnToggleGroup extends StatelessComponent {
         'color': isSelected
             ? 'var(--accent-foreground)'
             : 'var(--foreground)',
-        'transition': 'color var(--arcane-transition), background-color var(--arcane-transition)',
+        'transition': 'color var(--transition), background-color var(--transition)',
         'cursor': isDisabled ? 'not-allowed' : 'pointer',
         'pointer-events': isDisabled ? 'none' : 'auto',
         'opacity': isDisabled ? '0.5' : '1',

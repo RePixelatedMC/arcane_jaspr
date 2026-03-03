@@ -149,13 +149,28 @@ class CodexInputGroup extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
+    final List<Component> children = <Component>[];
+    for (final Component child in props.children) {
+      children.add(
+        dom.div(
+          classes: 'codex-input-group-item',
+          styles: const dom.Styles(raw: {
+            'display': 'flex',
+            'align-items': 'stretch',
+          }),
+          [child],
+        ),
+      );
+    }
+
     return dom.div(
       classes: 'codex-input-group',
       styles: dom.Styles(raw: {
         'display': 'flex',
+        'align-items': 'stretch',
         'gap': '${props.gap}px',
       }),
-      props.children,
+      children,
     );
   }
 }

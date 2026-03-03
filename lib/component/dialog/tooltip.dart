@@ -31,7 +31,7 @@ class ArcaneTooltip extends StatelessComponent {
   Component build(BuildContext context) {
     final Component? currentContent = content;
     if (currentContent != null) {
-      return ArcaneFloating.tooltipCustom(
+      return ArcaneHoverCard.tooltipCustom(
         child: child,
         content: currentContent,
         position: position,
@@ -39,7 +39,7 @@ class ArcaneTooltip extends StatelessComponent {
       );
     }
 
-    return ArcaneFloating.tooltip(
+    return ArcaneHoverCard.tooltip(
       child: child,
       textContent: text ?? '',
       position: position,

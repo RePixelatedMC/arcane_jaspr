@@ -1,6 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 
 import '../../core/theme_provider.dart';
+import 'icon.dart';
 
 export '../../core/props/empty_state_props.dart'
     show EmptyStateStyleVariant, EmptyStateSizeVariant, EmptyStateProps;
@@ -11,7 +12,6 @@ typedef EmptyStateSize = EmptyStateSizeVariant;
 /// Empty state placeholder component displaying a message when there's no content.
 class ArcaneEmptyState extends StatelessComponent {
   final Component? icon;
-  final String? emoji;
   final String title;
   final String? description;
   final Component? action;
@@ -22,7 +22,6 @@ class ArcaneEmptyState extends StatelessComponent {
   const ArcaneEmptyState({
     required this.title,
     this.icon,
-    this.emoji,
     this.description,
     this.action,
     this.secondaryAction,
@@ -31,7 +30,7 @@ class ArcaneEmptyState extends StatelessComponent {
     super.key,
   });
 
-  const ArcaneEmptyState.noResults({
+  ArcaneEmptyState.noResults({
     this.title = 'No results found',
     this.description = 'Try adjusting your search or filter criteria.',
     this.action,
@@ -39,10 +38,9 @@ class ArcaneEmptyState extends StatelessComponent {
     this.style = EmptyStateStyle.centered,
     this.size = EmptyStateSize.md,
     super.key,
-  })  : icon = null,
-        emoji = '🔍';
+  }) : icon = ArcaneIcon.search(size: IconSize.lg);
 
-  const ArcaneEmptyState.noData({
+  ArcaneEmptyState.noData({
     this.title = 'No data yet',
     this.description = 'Start by adding your first item.',
     this.action,
@@ -50,10 +48,9 @@ class ArcaneEmptyState extends StatelessComponent {
     this.style = EmptyStateStyle.centered,
     this.size = EmptyStateSize.md,
     super.key,
-  })  : icon = null,
-        emoji = '📊';
+  }) : icon = ArcaneIcon.database(size: IconSize.lg);
 
-  const ArcaneEmptyState.error({
+  ArcaneEmptyState.error({
     this.title = 'Something went wrong',
     this.description = 'An error occurred while loading the content.',
     this.action,
@@ -61,10 +58,9 @@ class ArcaneEmptyState extends StatelessComponent {
     this.style = EmptyStateStyle.centered,
     this.size = EmptyStateSize.md,
     super.key,
-  })  : icon = null,
-        emoji = '⚠️';
+  }) : icon = ArcaneIcon.triangleAlert(size: IconSize.lg);
 
-  const ArcaneEmptyState.offline({
+  ArcaneEmptyState.offline({
     this.title = 'You\'re offline',
     this.description = 'Check your internet connection and try again.',
     this.action,
@@ -72,8 +68,7 @@ class ArcaneEmptyState extends StatelessComponent {
     this.style = EmptyStateStyle.centered,
     this.size = EmptyStateSize.md,
     super.key,
-  })  : icon = null,
-        emoji = '📡';
+  }) : icon = ArcaneIcon.wifiOff(size: IconSize.lg);
 
   EmptyStateStyleVariant get _propsStyle => switch (style) {
         EmptyStateStyle.centered => EmptyStateStyleVariant.centered,
@@ -91,7 +86,6 @@ class ArcaneEmptyState extends StatelessComponent {
   Component build(BuildContext context) {
     return context.renderers.emptyState(EmptyStateProps(
       icon: icon,
-      emoji: emoji,
       title: title,
       description: description,
       action: action,

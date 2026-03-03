@@ -1,6 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
+import '../../../component/view/icon.dart';
 import '../../../core/props/calendar_props.dart';
 
 /// ShadCN-style calendar component
@@ -10,10 +11,28 @@ class ShadcnCalendar extends StatelessComponent {
 
   const ShadcnCalendar(this.props, {super.key});
 
-  static const List<String> _weekDays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+  static const List<String> _weekDays = [
+    'Su',
+    'Mo',
+    'Tu',
+    'We',
+    'Th',
+    'Fr',
+    'Sa',
+  ];
   static const List<String> _months = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
   ];
 
   bool _isSameDay(DateTime a, DateTime b) {
@@ -38,8 +57,10 @@ class ShadcnCalendar extends StatelessComponent {
 
   bool _isInRange(DateTime date) {
     if (props.selectedRange == null) return false;
-    return date.isAfter(props.selectedRange!.start.subtract(const Duration(days: 1))) &&
-           date.isBefore(props.selectedRange!.end.add(const Duration(days: 1)));
+    return date.isAfter(
+          props.selectedRange!.start.subtract(const Duration(days: 1)),
+        ) &&
+        date.isBefore(props.selectedRange!.end.add(const Duration(days: 1)));
   }
 
   List<DateTime> _getDaysInMonth() {
@@ -87,115 +108,121 @@ class ShadcnCalendar extends StatelessComponent {
 
     return dom.div(
       classes: 'arcane-calendar',
-      attributes: {
-        'role': 'application',
-        'aria-label': 'Calendar',
-      },
-      styles: const dom.Styles(raw: {
-        'display': 'flex',
-        'flex-direction': 'column',
-        'gap': 'var(--space-2)',
-        'padding': '12px',
-        'background-color': 'var(--card)',
-        'border': '1px solid var(--border)',
-        'border-radius': 'var(--arcane-radius-md)',
-        'width': 'fit-content',
-      }),
+      attributes: {'role': 'application', 'aria-label': 'Calendar'},
+      styles: const dom.Styles(
+        raw: {
+          'display': 'flex',
+          'flex-direction': 'column',
+          'gap': 'var(--space-2)',
+          'padding': '12px',
+          'background-color': 'var(--card)',
+          'border': '1px solid var(--border)',
+          'border-radius': 'var(--radius-md)',
+          'width': 'fit-content',
+        },
+      ),
       [
         // Header with navigation
         dom.div(
-          styles: const dom.Styles(raw: {
-            'display': 'flex',
-            'align-items': 'center',
-            'justify-content': 'space-between',
-            'gap': 'var(--space-2)',
-          }),
+          styles: const dom.Styles(
+            raw: {
+              'display': 'flex',
+              'align-items': 'center',
+              'justify-content': 'space-between',
+              'gap': 'var(--space-2)',
+            },
+          ),
           [
             dom.button(
               classes: 'arcane-calendar-nav-btn',
-              attributes: {
-                'type': 'button',
-                'aria-label': 'Previous month',
-              },
-              styles: const dom.Styles(raw: {
-                'display': 'flex',
-                'align-items': 'center',
-                'justify-content': 'center',
-                'width': '32px',
-                'height': '32px',
-                'background': 'transparent',
-                'border': 'none',
-                'border-radius': 'var(--arcane-radius-xs)',
-                'cursor': 'pointer',
-                'color': 'var(--foreground)',
-                'transition': 'background-color var(--arcane-transition)',
-              }),
+              attributes: {'type': 'button', 'aria-label': 'Previous month'},
+              styles: const dom.Styles(
+                raw: {
+                  'display': 'flex',
+                  'align-items': 'center',
+                  'justify-content': 'center',
+                  'width': '32px',
+                  'height': '32px',
+                  'background': 'transparent',
+                  'border': 'none',
+                  'border-radius': 'var(--radius-xs)',
+                  'cursor': 'pointer',
+                  'color': 'var(--foreground)',
+                  'transition': 'background-color var(--transition)',
+                },
+              ),
               events: props.onPreviousMonth != null
                   ? {'click': (_) => props.onPreviousMonth!()}
                   : null,
-              [const Component.text('<')],
+              [ArcaneIcon.chevronLeft(size: IconSize.sm)],
             ),
             dom.span(
-              styles: const dom.Styles(raw: {
-                'font-weight': 'var(--font-weight-semibold)',
-                'font-size': 'var(--font-size-sm)',
-                'color': 'var(--foreground)',
-              }),
-              [Component.text('${_months[displayMonth.month - 1]} ${displayMonth.year}')],
+              styles: const dom.Styles(
+                raw: {
+                  'font-weight': 'var(--font-weight-semibold)',
+                  'font-size': 'var(--font-size-sm)',
+                  'color': 'var(--foreground)',
+                },
+              ),
+              [
+                Component.text(
+                  '${_months[displayMonth.month - 1]} ${displayMonth.year}',
+                ),
+              ],
             ),
             dom.button(
               classes: 'arcane-calendar-nav-btn',
-              attributes: {
-                'type': 'button',
-                'aria-label': 'Next month',
-              },
-              styles: const dom.Styles(raw: {
-                'display': 'flex',
-                'align-items': 'center',
-                'justify-content': 'center',
-                'width': '32px',
-                'height': '32px',
-                'background': 'transparent',
-                'border': 'none',
-                'border-radius': 'var(--arcane-radius-xs)',
-                'cursor': 'pointer',
-                'color': 'var(--foreground)',
-                'transition': 'background-color var(--arcane-transition)',
-              }),
+              attributes: {'type': 'button', 'aria-label': 'Next month'},
+              styles: const dom.Styles(
+                raw: {
+                  'display': 'flex',
+                  'align-items': 'center',
+                  'justify-content': 'center',
+                  'width': '32px',
+                  'height': '32px',
+                  'background': 'transparent',
+                  'border': 'none',
+                  'border-radius': 'var(--radius-xs)',
+                  'cursor': 'pointer',
+                  'color': 'var(--foreground)',
+                  'transition': 'background-color var(--transition)',
+                },
+              ),
               events: props.onNextMonth != null
                   ? {'click': (_) => props.onNextMonth!()}
                   : null,
-              [const Component.text('>')],
+              [ArcaneIcon.chevronRight(size: IconSize.sm)],
             ),
           ],
         ),
 
         // Week day headers
         dom.div(
-          styles: dom.Styles(raw: {
-            'display': 'grid',
-            'grid-template-columns': props.showWeekNumbers
-                ? 'auto repeat(7, 1fr)'
-                : 'repeat(7, 1fr)',
-            'gap': '2px',
-          }),
+          styles: dom.Styles(
+            raw: {
+              'display': 'grid',
+              'grid-template-columns': props.showWeekNumbers
+                  ? 'auto repeat(7, 1fr)'
+                  : 'repeat(7, 1fr)',
+              'gap': '2px',
+            },
+          ),
           [
             if (props.showWeekNumbers)
-              const dom.div(
-                styles: dom.Styles(raw: {'width': '32px'}),
-                [],
-              ),
+              const dom.div(styles: dom.Styles(raw: {'width': '32px'}), []),
             for (final day in weekDays)
               dom.div(
-                styles: const dom.Styles(raw: {
-                  'display': 'flex',
-                  'align-items': 'center',
-                  'justify-content': 'center',
-                  'height': '32px',
-                  'font-size': 'var(--font-size-xs)',
-                  'font-weight': 'var(--font-weight-medium)',
-                  'color': 'var(--muted-foreground)',
-                }),
+                styles: const dom.Styles(
+                  raw: {
+                    'display': 'flex',
+                    'align-items': 'center',
+                    'justify-content': 'center',
+                    'height': '32px',
+                    'font-size': 'var(--font-size-xs)',
+                    'font-weight': 'var(--font-weight-medium)',
+                    'color': 'var(--muted-foreground)',
+                  },
+                ),
                 [Component.text(day)],
               ),
           ],
@@ -203,26 +230,30 @@ class ShadcnCalendar extends StatelessComponent {
 
         // Calendar grid
         dom.div(
-          styles: dom.Styles(raw: {
-            'display': 'grid',
-            'grid-template-columns': props.showWeekNumbers
-                ? 'auto repeat(7, 1fr)'
-                : 'repeat(7, 1fr)',
-            'gap': '2px',
-          }),
+          styles: dom.Styles(
+            raw: {
+              'display': 'grid',
+              'grid-template-columns': props.showWeekNumbers
+                  ? 'auto repeat(7, 1fr)'
+                  : 'repeat(7, 1fr)',
+              'gap': '2px',
+            },
+          ),
           [
             for (var i = 0; i < days.length; i++) ...[
               if (props.showWeekNumbers && i % 7 == 0)
                 dom.div(
-                  styles: const dom.Styles(raw: {
-                    'display': 'flex',
-                    'align-items': 'center',
-                    'justify-content': 'center',
-                    'width': '32px',
-                    'height': '32px',
-                    'font-size': 'var(--font-size-xs)',
-                    'color': 'var(--muted-foreground)',
-                  }),
+                  styles: const dom.Styles(
+                    raw: {
+                      'display': 'flex',
+                      'align-items': 'center',
+                      'justify-content': 'center',
+                      'width': '32px',
+                      'height': '32px',
+                      'font-size': 'var(--font-size-xs)',
+                      'color': 'var(--muted-foreground)',
+                    },
+                  ),
                   [Component.text('${_getWeekNumber(days[i])}')],
                 ),
               _buildDay(days[i]),
@@ -234,17 +265,19 @@ class ShadcnCalendar extends StatelessComponent {
         if (props.showToday)
           dom.button(
             attributes: {'type': 'button'},
-            styles: const dom.Styles(raw: {
-              'padding': '4px 8px',
-              'background': 'transparent',
-              'border': '1px solid var(--border)',
-              'border-radius': 'var(--arcane-radius-xs)',
-              'font-size': '13px',
-              'color': 'var(--muted-foreground)',
-              'cursor': 'pointer',
-              'transition': 'background-color var(--arcane-transition)',
-              'align-self': 'center',
-            }),
+            styles: const dom.Styles(
+              raw: {
+                'padding': '4px 8px',
+                'background': 'transparent',
+                'border': '1px solid var(--border)',
+                'border-radius': 'var(--radius-xs)',
+                'font-size': '13px',
+                'color': 'var(--muted-foreground)',
+                'cursor': 'pointer',
+                'transition': 'background-color var(--transition)',
+                'align-self': 'center',
+              },
+            ),
             events: props.onGoToToday != null
                 ? {'click': (_) => props.onGoToToday!()}
                 : null,
@@ -260,9 +293,11 @@ class ShadcnCalendar extends StatelessComponent {
     final isSelected = _isSelected(date);
     final isToday = _isToday(date);
     final isInRange = _isInRange(date);
-    final isRangeStart = props.selectedRange != null &&
+    final isRangeStart =
+        props.selectedRange != null &&
         _isSameDay(date, props.selectedRange!.start);
-    final isRangeEnd = props.selectedRange != null &&
+    final isRangeEnd =
+        props.selectedRange != null &&
         _isSameDay(date, props.selectedRange!.end);
 
     return dom.button(
@@ -272,36 +307,47 @@ class ShadcnCalendar extends StatelessComponent {
         'aria-label': '${date.day} ${_months[date.month - 1]} ${date.year}',
         'aria-selected': '$isSelected',
         if (isDisabled) 'disabled': 'true',
-      },
-      styles: dom.Styles(raw: {
-        'display': 'flex',
-        'align-items': 'center',
-        'justify-content': 'center',
-        'width': '32px',
-        'height': '32px',
-        'border': isToday && !isSelected
-            ? '1px solid var(--primary)'
-            : 'none',
-        'border-radius': 'var(--arcane-radius-xs)',
-        'background': isSelected
-            ? 'var(--primary)'
+        'data-state': isSelected
+            ? 'selected'
             : isInRange
-                ? 'var(--accent)'
-                : 'transparent',
-        'font-size': 'var(--font-size-sm)',
-        'color': isSelected
-            ? 'var(--primary-foreground)'
-            : isOutside
-                ? 'var(--muted)'
-                : 'var(--foreground)',
-        'cursor': isDisabled ? 'not-allowed' : 'pointer',
-        'transition': 'background-color var(--arcane-transition), color var(--arcane-transition)',
-        if (isDisabled) 'opacity': '0.5',
-        if (isRangeStart) 'border-top-left-radius': '6px',
-        if (isRangeStart) 'border-bottom-left-radius': '6px',
-        if (isRangeEnd) 'border-top-right-radius': '6px',
-        if (isRangeEnd) 'border-bottom-right-radius': '6px',
-      }),
+            ? 'in-range'
+            : isToday
+            ? 'today'
+            : 'default',
+        'data-disabled': '$isDisabled',
+      },
+      styles: dom.Styles(
+        raw: {
+          'display': 'flex',
+          'align-items': 'center',
+          'justify-content': 'center',
+          'width': '32px',
+          'height': '32px',
+          'border': isToday && !isSelected
+              ? '1px solid var(--primary)'
+              : 'none',
+          'border-radius': 'var(--radius-xs)',
+          'background': isSelected
+              ? 'var(--primary)'
+              : isInRange
+              ? 'var(--accent)'
+              : 'transparent',
+          'font-size': 'var(--font-size-sm)',
+          'color': isSelected
+              ? 'var(--primary-foreground)'
+              : isOutside
+              ? 'var(--muted)'
+              : 'var(--foreground)',
+          'cursor': isDisabled ? 'not-allowed' : 'pointer',
+          'transition':
+              'background-color var(--transition), color var(--transition)',
+          if (isDisabled) 'opacity': '0.5',
+          if (isRangeStart) 'border-top-left-radius': '6px',
+          if (isRangeStart) 'border-bottom-left-radius': '6px',
+          if (isRangeEnd) 'border-top-right-radius': '6px',
+          if (isRangeEnd) 'border-bottom-right-radius': '6px',
+        },
+      ),
       events: props.onSelectDate != null && !isDisabled
           ? {'click': (_) => props.onSelectDate!(date)}
           : null,
