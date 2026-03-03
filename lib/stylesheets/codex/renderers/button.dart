@@ -1,16 +1,9 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
+import '../../../component/view/icon.dart';
 import '../../../core/props/button_props.dart';
 
-/// Codex Button renderer.
-///
-/// Implements the Codex Neon Cyberpunk design language:
-/// - Intense neon glows with animated pulse
-/// - Gradient backgrounds with neon color shifts
-/// - Glowing borders and text shadows
-/// - Cyberpunk-inspired hover effects
-/// - OLED-optimized colors with high contrast
 class CodexButton extends StatelessComponent {
   final ButtonProps props;
 
@@ -20,65 +13,59 @@ class CodexButton extends StatelessComponent {
   Component build(BuildContext context) {
     final bool isDisabled = props.disabled || props.loading;
 
-    // Codex Neon base styles - cyberpunk aesthetic
     final Map<String, String> baseStyles = {
       'display': 'inline-flex',
       'align-items': 'center',
       'justify-content': 'center',
-      'gap': '0.75rem',
+      'gap': '0.625rem',
       'white-space': 'nowrap',
       'border-radius': 'var(--radius)',
       'font-size': 'var(--font-size-sm)',
       'font-weight': 'var(--font-weight-semibold)',
-      'letter-spacing': '0.025em',
-      'text-transform': 'uppercase',
       'line-height': '1.25rem',
       'outline': 'none',
       'cursor': isDisabled ? 'not-allowed' : 'pointer',
       'pointer-events': isDisabled ? 'none' : 'auto',
-      'opacity': isDisabled ? '0.4' : '1',
+      'opacity': isDisabled ? '0.45' : '1',
       'user-select': 'none',
       '-webkit-user-select': 'none',
       'position': 'relative',
-      'overflow': 'hidden',
-      // Neon transition with glow pulse
-      'transition': 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s ease-out',
+      'transition':
+          'color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease',
+      'box-shadow': '0 1px 0 rgba(255,255,255,0.02) inset',
     };
 
-    // Codex Neon variant styles - intense glows and gradients
     final Map<String, String> variantStyles = switch (props.variant) {
       ButtonVariant.primary => {
-        'background': 'linear-gradient(135deg, var(--primary) 0%, color-mix(in srgb, var(--primary) 70%, #ff00ff) 100%)',
+        'background':
+            'linear-gradient(135deg, var(--primary) 0%, color-mix(in srgb, var(--primary) 72%, #065f46) 100%)',
         'color': '#ffffff',
-        'border': '1px solid rgba(var(--primary-rgb), 0.5)',
-        'box-shadow': '0 0 20px rgba(var(--primary-rgb), 0.4), 0 0 40px rgba(var(--primary-rgb), 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
-        'text-shadow': '0 0 10px rgba(255, 255, 255, 0.5)',
+        'border': '1px solid color-mix(in srgb, var(--primary) 62%, #000000)',
+        'box-shadow':
+            '0 8px 24px color-mix(in srgb, var(--primary) 24%, transparent), inset 0 1px 0 rgba(255, 255, 255, 0.14)',
       },
       ButtonVariant.destructive => {
-        'background': 'linear-gradient(135deg, var(--destructive) 0%, color-mix(in srgb, var(--destructive) 70%, #ff0066) 100%)',
+        'background':
+            'linear-gradient(135deg, var(--destructive) 0%, color-mix(in srgb, var(--destructive) 70%, #7f1d1d) 100%)',
         'color': '#ffffff',
-        'border': '1px solid rgba(var(--destructive-rgb), 0.5)',
-        'box-shadow': '0 0 20px rgba(var(--destructive-rgb), 0.4), 0 0 40px rgba(var(--destructive-rgb), 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
-        'text-shadow': '0 0 10px rgba(255, 255, 255, 0.5)',
+        'border': '1px solid color-mix(in srgb, var(--destructive) 58%, #000000)',
+        'box-shadow':
+            '0 8px 22px color-mix(in srgb, var(--destructive) 20%, transparent), inset 0 1px 0 rgba(255, 255, 255, 0.12)',
       },
       ButtonVariant.outline => {
-        'background': 'transparent',
-        'color': 'var(--primary)',
-        'border': '1px solid var(--primary)',
-        'box-shadow': '0 0 15px rgba(var(--primary-rgb), 0.2), inset 0 0 20px rgba(var(--primary-rgb), 0.05)',
-        'text-shadow': '0 0 8px rgba(var(--primary-rgb), 0.5)',
+        'background': 'color-mix(in srgb, var(--primary) 4%, var(--background))',
+        'color': 'var(--foreground)',
+        'border': '1px solid var(--codex-accent-border)',
       },
       ButtonVariant.secondary => {
-        'background': 'linear-gradient(135deg, var(--secondary) 0%, color-mix(in srgb, var(--secondary) 80%, var(--primary)) 100%)',
+        'background': 'var(--secondary)',
         'color': 'var(--secondary-foreground)',
-        'border': '1px solid rgba(var(--border-rgb), 0.3)',
-        'box-shadow': '0 0 10px rgba(var(--secondary-rgb), 0.2)',
+        'border': '1px solid color-mix(in srgb, var(--border) 70%, transparent)',
       },
       ButtonVariant.ghost => {
         'background': 'transparent',
         'color': 'var(--foreground)',
         'border': '1px solid transparent',
-        'box-shadow': 'none',
       },
       ButtonVariant.link => {
         'background': 'transparent',
@@ -88,74 +75,71 @@ class CodexButton extends StatelessComponent {
         'text-underline-offset': '4px',
         'padding': '0',
         'height': 'auto',
-        'text-shadow': '0 0 10px rgba(var(--primary-rgb), 0.3)',
         'box-shadow': 'none',
       },
       ButtonVariant.success => {
-        'background': 'linear-gradient(135deg, var(--success) 0%, color-mix(in srgb, var(--success) 70%, #00ffaa) 100%)',
+        'background':
+            'linear-gradient(135deg, var(--success) 0%, color-mix(in srgb, var(--success) 68%, #14532d) 100%)',
         'color': '#ffffff',
-        'border': '1px solid rgba(var(--success-rgb), 0.5)',
-        'box-shadow': '0 0 20px rgba(var(--success-rgb), 0.4), 0 0 40px rgba(var(--success-rgb), 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
-        'text-shadow': '0 0 10px rgba(255, 255, 255, 0.5)',
+        'border': '1px solid color-mix(in srgb, var(--success) 55%, #000000)',
+        'box-shadow':
+            '0 8px 22px color-mix(in srgb, var(--success) 20%, transparent), inset 0 1px 0 rgba(255, 255, 255, 0.12)',
       },
       ButtonVariant.warning => {
-        'background': 'linear-gradient(135deg, var(--warning) 0%, color-mix(in srgb, var(--warning) 70%, #ffaa00) 100%)',
-        'color': '#000000',
-        'border': '1px solid rgba(var(--warning-rgb), 0.5)',
-        'box-shadow': '0 0 20px rgba(var(--warning-rgb), 0.4), 0 0 40px rgba(var(--warning-rgb), 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
-        'text-shadow': '0 0 5px rgba(0, 0, 0, 0.3)',
+        'background':
+            'linear-gradient(135deg, var(--warning) 0%, color-mix(in srgb, var(--warning) 68%, #78350f) 100%)',
+        'color': '#111827',
+        'border': '1px solid color-mix(in srgb, var(--warning) 58%, #000000)',
       },
       ButtonVariant.info => {
-        'background': 'linear-gradient(135deg, var(--info) 0%, color-mix(in srgb, var(--info) 70%, #00ffff) 100%)',
+        'background':
+            'linear-gradient(135deg, var(--info) 0%, color-mix(in srgb, var(--info) 68%, #1e3a8a) 100%)',
         'color': '#ffffff',
-        'border': '1px solid rgba(var(--info-rgb), 0.5)',
-        'box-shadow': '0 0 20px rgba(var(--info-rgb), 0.4), 0 0 40px rgba(var(--info-rgb), 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
-        'text-shadow': '0 0 10px rgba(255, 255, 255, 0.5)',
+        'border': '1px solid color-mix(in srgb, var(--info) 58%, #000000)',
+        'box-shadow':
+            '0 8px 22px color-mix(in srgb, var(--info) 20%, transparent), inset 0 1px 0 rgba(255, 255, 255, 0.12)',
       },
       ButtonVariant.accent => {
-        'background': 'linear-gradient(135deg, var(--primary) 0%, #ff00ff 50%, #00ffff 100%)',
+        'background': 'var(--codex-accent-gradient)',
         'color': '#ffffff',
-        'border': '1px solid rgba(255, 255, 255, 0.2)',
-        'box-shadow': '0 0 25px rgba(var(--primary-rgb), 0.5), 0 0 50px rgba(255, 0, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
-        'text-shadow': '0 0 15px rgba(255, 255, 255, 0.8)',
-        'animation': 'codex-neon-pulse 2s ease-in-out infinite',
+        'border': '1px solid var(--codex-accent-border)',
+        'box-shadow':
+            '0 10px 24px color-mix(in srgb, var(--primary) 24%, transparent), inset 0 1px 0 rgba(255,255,255,0.14)',
       },
     };
 
-    // Codex Neon size styles - larger with more presence
     final Map<String, String> sizeStyles = switch (props.size) {
-      ButtonSize.small => {
-        'height': '2.5rem',
-        'padding': '0 1.25rem',
-        'font-size': '0.75rem',
+      ButtonSize.sm => {
+        'height': '2.375rem',
+        'padding': '0 1rem',
+        'font-size': '0.8125rem',
       },
-      ButtonSize.medium => {
-        'height': '3rem',
-        'padding': '0.75rem 1.5rem',
+      ButtonSize.md => {
+        'height': '2.75rem',
+        'padding': '0.625rem 1.25rem',
       },
-      ButtonSize.large => {
-        'height': '3.5rem',
-        'padding': '0 2.5rem',
-        'font-size': '0.875rem',
+      ButtonSize.lg => {
+        'height': '3.125rem',
+        'padding': '0 1.75rem',
+        'font-size': '0.9375rem',
       },
-      ButtonSize.icon => {
-        'height': '3rem',
-        'width': '3rem',
+      ButtonSize.iconSm => {
+        'height': '2.375rem',
+        'width': '2.375rem',
         'padding': '0',
       },
-      ButtonSize.iconSmall => {
-        'height': '2.5rem',
-        'width': '2.5rem',
+      ButtonSize.iconMd => {
+        'height': '2.75rem',
+        'width': '2.75rem',
         'padding': '0',
       },
-      ButtonSize.iconLarge => {
-        'height': '3.5rem',
-        'width': '3.5rem',
+      ButtonSize.iconLg => {
+        'height': '3.125rem',
+        'width': '3.125rem',
         'padding': '0',
       },
     };
 
-    // Combine all styles
     final Map<String, String> allStyles = {
       ...baseStyles,
       ...variantStyles,
@@ -163,7 +147,6 @@ class CodexButton extends StatelessComponent {
       if (props.fullWidth) 'width': '100%',
     };
 
-    // Build button content
     final List<Component> children = [];
 
     if (props.loading) {
@@ -184,27 +167,34 @@ class CodexButton extends StatelessComponent {
       children.add(props.trailing!);
     }
 
-    // Add arrow indicator if showArrow is true
     if (props.showArrow && !props.loading) {
-      children.add(const dom.span(
-        styles: dom.Styles(raw: {
-          'margin-left': '0.5rem',
-          'transition': 'transform 0.3s ease',
-          'display': 'inline-block',
-        }),
-        [Component.text('\u2192')],
-      ));
+      children.add(
+        dom.span(
+          styles: const dom.Styles(raw: {
+            'margin-left': '0.25rem',
+            'transition': 'transform 0.2s ease',
+          }),
+          [ArcaneIcon.arrowRight(size: IconSize.sm)],
+        ),
+      );
     }
 
-    // Render as anchor if href is provided, otherwise as button
+    final Map<String, String> baseAttributes = {
+      'data-state': props.loading ? 'loading' : 'idle',
+      'data-disabled': '$isDisabled',
+      'data-variant': props.variant.name,
+      'data-size': props.size.name,
+      ...?props.attributes,
+    };
+
     if (props.href != null) {
       return dom.a(
         id: props.id,
-        classes: 'codex-button codex-neon',
+        classes: 'codex-button',
         href: props.href!,
         attributes: {
           if (isDisabled) 'aria-disabled': 'true',
-          ...?props.attributes,
+          ...baseAttributes,
         },
         styles: dom.Styles(raw: {
           ...allStyles,
@@ -224,11 +214,11 @@ class CodexButton extends StatelessComponent {
 
     return dom.button(
       id: props.id,
-      classes: 'codex-button codex-neon',
+      classes: 'codex-button',
       attributes: {
         if (isDisabled) 'disabled': 'true',
         'type': 'button',
-        ...?props.attributes,
+        ...baseAttributes,
       },
       styles: dom.Styles(raw: allStyles),
       events: {
@@ -242,18 +232,16 @@ class CodexButton extends StatelessComponent {
     );
   }
 
-  /// Build loading spinner with neon glow
   Component _buildSpinner() {
     return const dom.span(
       styles: dom.Styles(raw: {
         'display': 'inline-block',
-        'width': '1.25rem',
-        'height': '1.25rem',
+        'width': '1rem',
+        'height': '1rem',
         'border': '2px solid currentColor',
         'border-right-color': 'transparent',
         'border-radius': '50%',
-        'animation': 'arcane-spin 0.6s linear infinite',
-        'box-shadow': '0 0 10px currentColor',
+        'animation': 'arcane-spin 0.75s linear infinite',
       }),
       [],
     );

@@ -20,7 +20,7 @@ export '../../stylesheets/codex/codex_stylesheet.dart';
 /// The [stylesheet] parameter is required - there is no default stylesheet.
 /// You must explicitly choose a stylesheet for your app:
 /// - [ShadcnStylesheet] - Clean, minimal ShadCN-inspired design
-/// - [CodexStylesheet] - Gaming/cyberpunk aesthetic with neon glows
+/// - [CodexStylesheet] - Premium dark-first system with restrained accent atmosphere (rainbow is opt-in)
 class ArcaneApp extends StatefulComponent {
   final ArcaneStylesheet stylesheet;
   final Brightness brightness;

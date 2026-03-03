@@ -5,12 +5,6 @@ import '../../../component/view/icon.dart';
 import '../../../core/props/select_props.dart';
 
 /// Codex Select renderer.
-///
-/// Implements the Codex Neon Cyberpunk design language:
-/// - Glowing neon borders and focus states
-/// - Holographic-style dropdown with glass morphism
-/// - Cyberpunk-inspired selection animations
-/// - Neon accent colors on selected items
 class CodexSelect<T> extends StatelessComponent {
   final SelectProps<T> props;
 
@@ -18,7 +12,6 @@ class CodexSelect<T> extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    // Codex Neon sizes - larger with more presence
     final (
       String height,
       String fontSize,
@@ -32,28 +25,31 @@ class CodexSelect<T> extends StatelessComponent {
     // Get display text
     final String displayText = _getDisplayText();
 
-    // Determine border and glow based on state
     final bool hasError = props.error != null;
     final String borderColor = hasError
         ? 'var(--destructive)'
         : props.isOpen
         ? 'var(--primary)'
-        : 'rgba(var(--primary-rgb), 0.3)';
+        : 'var(--codex-accent-border)';
     final String glowColor = hasError
-        ? '0 0 20px rgba(var(--destructive-rgb), 0.3)'
+        ? '0 0 0 2px color-mix(in srgb, var(--destructive) 24%, transparent)'
         : props.isOpen
-        ? '0 0 20px rgba(var(--primary-rgb), 0.3)'
-        : '0 0 10px rgba(var(--primary-rgb), 0.1)';
+        ? '0 0 0 2px color-mix(in srgb, var(--primary) 20%, transparent)'
+        : 'none';
 
     return dom.div(
       classes:
-          'codex-select codex-neon ${props.disabled ? 'disabled' : ''} ${hasError ? 'error' : ''}',
+          'codex-select ${props.disabled ? 'disabled' : ''} ${hasError ? 'error' : ''}',
+      attributes: {
+        'data-state': props.isOpen ? 'open' : 'closed',
+        'data-disabled': '${props.disabled}',
+        'data-size': props.size.name,
+      },
       styles: const dom.Styles(raw: {'position': 'relative', 'width': '100%'}),
       [
-        // Label with neon accent
         if (props.label != null)
           dom.label(
-            classes: 'codex-select-label codex-neon',
+            classes: 'codex-select-label',
             styles: const dom.Styles(
               raw: {
                 'display': 'block',
@@ -69,24 +65,24 @@ class CodexSelect<T> extends StatelessComponent {
               Component.text(props.label!),
               if (props.required)
                 const dom.span(
-                  styles: dom.Styles(
-                    raw: {
-                      'color': 'var(--primary)',
-                      'margin-left': '0.375rem',
-                      'text-shadow': '0 0 8px rgba(var(--primary-rgb), 0.5)',
-                    },
-                  ),
+                  styles: const dom.Styles(raw: {
+                    'color': 'var(--primary)',
+                    'margin-left': '0.375rem',
+                  }),
                   [Component.text('*')],
                 ),
             ],
           ),
 
-        // Select trigger with neon styling
         dom.button(
           classes:
-              'codex-select-trigger codex-neon ${props.isOpen ? 'open' : ''}',
+              'codex-select-trigger ${props.isOpen ? 'open' : ''}',
           attributes: {
             'type': 'button',
+            'data-state': props.isOpen ? 'open' : 'closed',
+            'data-disabled': '${props.disabled}',
+            'data-variant': props.multiSelect ? 'multi' : 'single',
+            'data-size': props.size.name,
             if (props.disabled) 'disabled': 'true',
           },
           styles: dom.Styles(
@@ -98,7 +94,7 @@ class CodexSelect<T> extends StatelessComponent {
               'height': height,
               'padding': padding,
               'background':
-                  'linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(var(--card-rgb), 0.6) 100%)',
+                  'linear-gradient(180deg, color-mix(in srgb, var(--primary) 4%, var(--card)), var(--card))',
               'border': '1px solid $borderColor',
               'border-radius': 'var(--radius)',
               'font-size': fontSize,
@@ -110,7 +106,8 @@ class CodexSelect<T> extends StatelessComponent {
               'cursor': props.disabled ? 'not-allowed' : 'pointer',
               'outline': 'none',
               'box-shadow': glowColor,
-              'transition': 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+              'transition':
+                  'border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease',
               if (props.disabled) 'opacity': '0.4',
             },
           ),
@@ -118,14 +115,12 @@ class CodexSelect<T> extends StatelessComponent {
               ? null
               : {'click': (_) => props.onToggle!()},
           [
-            // Prefix with neon glow
             if (props.prefix != null)
               dom.span(
                 styles: const dom.Styles(
                   raw: {
                     'margin-right': '0.75rem',
-                    'color': 'var(--primary)',
-                    'filter': 'drop-shadow(0 0 4px currentColor)',
+                    'color': 'var(--muted-foreground)',
                   },
                 ),
                 [props.prefix!],
@@ -145,7 +140,6 @@ class CodexSelect<T> extends StatelessComponent {
               [Component.text(displayText)],
             ),
 
-            // Clear button with neon style
             if (props.clearable &&
                 (props.value != null ||
                     (props.values != null && props.values!.isNotEmpty)))
@@ -175,25 +169,20 @@ class CodexSelect<T> extends StatelessComponent {
                 [ArcaneIcon.x(size: IconSize.xs)],
               ),
 
-            // Chevron with neon glow
             dom.span(
-              styles: dom.Styles(
-                raw: {
-                  'display': 'flex',
-                  'align-items': 'center',
-                  'color': 'var(--primary)',
-                  'filter': 'drop-shadow(0 0 4px currentColor)',
-                },
-              ),
+              styles: const dom.Styles(raw: {
+                'display': 'flex',
+                'align-items': 'center',
+                'color': 'var(--muted-foreground)',
+              }),
               [ArcaneIcon.chevronsUpDown(size: IconSize.sm)],
             ),
           ],
         ),
 
-        // Neon glass dropdown
         if (props.isOpen)
           dom.div(
-            classes: 'codex-select-dropdown codex-neon',
+            classes: 'codex-select-dropdown',
             styles: dom.Styles(
               raw: {
                 'position': 'absolute',
@@ -207,19 +196,17 @@ class CodexSelect<T> extends StatelessComponent {
                 },
                 'max-height': props.maxDropdownHeight ?? '320px',
                 'overflow-y': 'auto',
-                // Neon glass effect
                 'background':
-                    'linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(var(--card-rgb), 0.9) 100%)',
-                'backdrop-filter': 'blur(16px)',
-                '-webkit-backdrop-filter': 'blur(16px)',
-                'border': '1px solid rgba(var(--primary-rgb), 0.3)',
+                    'linear-gradient(180deg, color-mix(in srgb, var(--primary) 5%, var(--card)), var(--card))',
+                'backdrop-filter': 'blur(10px)',
+                '-webkit-backdrop-filter': 'blur(10px)',
+                'border': '1px solid var(--codex-accent-border)',
                 'border-radius': 'var(--radius)',
                 'box-shadow':
-                    '0 0 30px rgba(var(--primary-rgb), 0.15), 0 20px 60px rgba(0, 0, 0, 0.5)',
+                    '0 16px 36px rgba(0, 0, 0, 0.42)',
               },
             ),
             [
-              // Search input with neon styling
               if (props.searchable)
                 dom.div(
                   classes: 'codex-select-search',
@@ -241,8 +228,8 @@ class CodexSelect<T> extends StatelessComponent {
                           'width': '100%',
                           'padding': '0.75rem 1rem',
                           'background':
-                              'linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0%, rgba(var(--card-rgb), 0.4) 100%)',
-                          'border': '1px solid rgba(var(--primary-rgb), 0.2)',
+                              'linear-gradient(180deg, color-mix(in srgb, var(--primary) 3%, var(--card)), var(--card))',
+                          'border': '1px solid var(--codex-accent-border)',
                           'border-radius': 'var(--radius)',
                           'font-size': 'var(--font-size-sm)',
                           'color': 'var(--foreground)',
@@ -263,7 +250,6 @@ class CodexSelect<T> extends StatelessComponent {
                   ],
                 ),
 
-              // Loading state
               if (props.loading)
                 dom.div(
                   classes: 'codex-select-loading',
@@ -276,7 +262,6 @@ class CodexSelect<T> extends StatelessComponent {
                   ),
                   [Component.text(props.loadingText)],
                 )
-              // Empty state
               else if (props.filteredOptions.isEmpty)
                 dom.div(
                   classes: 'codex-select-empty',
@@ -289,7 +274,6 @@ class CodexSelect<T> extends StatelessComponent {
                   ),
                   [Component.text(props.emptyMessage)],
                 )
-              // Options
               else
                 dom.div(
                   classes: 'codex-select-options',
@@ -302,7 +286,6 @@ class CodexSelect<T> extends StatelessComponent {
             ],
           ),
 
-        // Error with neon glow or helper text
         if (hasError)
           dom.div(
             classes: 'codex-select-error',
@@ -310,7 +293,6 @@ class CodexSelect<T> extends StatelessComponent {
               raw: {
                 'font-size': 'var(--font-size-sm)',
                 'color': 'var(--destructive)',
-                'text-shadow': '0 0 8px rgba(var(--destructive-rgb), 0.4)',
                 'margin-top': '0.75rem',
               },
             ),
@@ -364,8 +346,13 @@ class CodexSelect<T> extends StatelessComponent {
 
     return dom.button(
       classes:
-          'codex-select-option codex-neon ${isSelected ? 'selected' : ''} ${option.disabled ? 'disabled' : ''}',
-      attributes: {'type': 'button', if (option.disabled) 'disabled': 'true'},
+          'codex-select-option ${isSelected ? 'selected' : ''} ${option.disabled ? 'disabled' : ''}',
+      attributes: {
+        'type': 'button',
+        'data-state': isSelected ? 'selected' : 'idle',
+        'data-disabled': '${option.disabled}',
+        if (option.disabled) 'disabled': 'true',
+      },
       styles: dom.Styles(
         raw: {
           'display': 'flex',
@@ -374,7 +361,7 @@ class CodexSelect<T> extends StatelessComponent {
           'width': '100%',
           'padding': '0.875rem 1rem',
           'background': isSelected
-              ? 'linear-gradient(135deg, rgba(var(--primary-rgb), 0.2) 0%, rgba(var(--primary-rgb), 0.1) 100%)'
+              ? 'linear-gradient(180deg, color-mix(in srgb, var(--primary) 14%, transparent), color-mix(in srgb, var(--primary) 7%, transparent))'
               : 'transparent',
           'border': 'none',
           'border-radius': 'var(--radius)',
@@ -383,8 +370,7 @@ class CodexSelect<T> extends StatelessComponent {
           'text-align': 'left',
           'cursor': option.disabled ? 'not-allowed' : 'pointer',
           'transition': 'all 0.2s ease',
-          if (isSelected)
-            'box-shadow': '0 0 15px rgba(var(--primary-rgb), 0.15)',
+          if (isSelected) 'box-shadow': 'inset 0 0 0 1px color-mix(in srgb, var(--primary) 18%, transparent)',
           if (option.disabled) 'opacity': '0.4',
         },
       ),
@@ -392,7 +378,6 @@ class CodexSelect<T> extends StatelessComponent {
           ? null
           : {'click': (_) => props.onSelect!(option.value)},
       [
-        // Checkbox for multi-select with neon style
         if (props.multiSelect && props.showCheckboxes)
           dom.div(
             styles: dom.Styles(
@@ -404,45 +389,30 @@ class CodexSelect<T> extends StatelessComponent {
                     ? '2px solid var(--primary)'
                     : '2px solid rgba(var(--border-rgb), 0.5)',
                 'background': isSelected
-                    ? 'linear-gradient(135deg, var(--primary) 0%, color-mix(in srgb, var(--primary) 70%, #ff00ff) 100%)'
+                    ? 'linear-gradient(180deg, var(--primary), color-mix(in srgb, var(--primary) 70%, #065f46))'
                     : 'transparent',
                 'display': 'flex',
                 'align-items': 'center',
                 'justify-content': 'center',
                 'flex-shrink': '0',
-                'box-shadow': isSelected
-                    ? '0 0 15px rgba(var(--primary-rgb), 0.3)'
-                    : 'none',
+                'box-shadow': isSelected ? 'inset 0 0 0 1px color-mix(in srgb, #ffffff 15%, transparent)' : 'none',
                 'transition': 'all 0.2s ease',
               },
             ),
             [
               if (isSelected)
                 dom.span(
-                  styles: dom.Styles(
-                    raw: {
-                      'color': '#ffffff',
-                      'text-shadow': '0 0 6px currentColor',
-                    },
-                  ),
+                  styles: const dom.Styles(raw: {'color': '#ffffff'}),
                   [ArcaneIcon.check(size: IconSize.xs)],
                 ),
             ],
           ),
 
-        // Icon with neon glow
         if (option.icon != null)
           dom.div(
-            styles: dom.Styles(
-              raw: {
-                'color': isSelected
-                    ? 'var(--primary)'
-                    : 'var(--muted-foreground)',
-                'filter': isSelected
-                    ? 'drop-shadow(0 0 4px currentColor)'
-                    : 'none',
-              },
-            ),
+            styles: dom.Styles(raw: {
+              'color': isSelected ? 'var(--primary)' : 'var(--muted-foreground)',
+            }),
             [option.icon!],
           ),
 

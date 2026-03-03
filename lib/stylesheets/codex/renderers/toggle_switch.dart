@@ -1,15 +1,9 @@
-import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
+import 'package:jaspr/jaspr.dart';
 
 import '../../../core/props/toggle_switch_props.dart';
 
-/// Codex Toggle Switch renderer.
-///
-/// Implements the Codex Neon Cyberpunk design language:
-/// - Intense neon glows when active
-/// - Holographic gradient backgrounds
-/// - Glowing thumb with trail effect
-/// - Cyberpunk-style color variants
+/// Codex toggle switch renderer with restrained accent emphasis.
 class CodexToggleSwitch extends StatelessComponent {
   final ToggleSwitchProps props;
 
@@ -17,156 +11,115 @@ class CodexToggleSwitch extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    // Codex Neon size-specific dimensions - larger with more presence
-    final (double width, double height, double thumbSize, double thumbOffset) =
+    final (double width, double height, double thumbSize, double inset) =
         switch (props.size) {
-      ComponentSize.sm => (48.0, 26.0, 22.0, 2.0),
-      ComponentSize.md => (56.0, 30.0, 26.0, 2.0),
-      ComponentSize.lg => (68.0, 36.0, 32.0, 2.0),
+      ComponentSize.sm => (44.0, 24.0, 18.0, 3.0),
+      ComponentSize.md => (52.0, 28.0, 22.0, 3.0),
+      ComponentSize.lg => (60.0, 32.0, 26.0, 3.0),
     };
 
-    final double thumbTranslate =
-        props.value ? (width - thumbSize - thumbOffset * 2) : 0.0;
-
-    // Codex Neon color variant with intense glows
-    final (String activeGradient, String inactiveGradient, String glowColor, String thumbGlow) = switch (props.color) {
-      ColorVariant.primary => (
-        'linear-gradient(135deg, var(--primary) 0%, color-mix(in srgb, var(--primary) 70%, #ff00ff) 100%)',
-        'linear-gradient(135deg, rgba(var(--muted-rgb), 0.8) 0%, rgba(var(--muted-rgb), 0.6) 100%)',
-        '0 0 25px rgba(var(--primary-rgb), 0.4), 0 0 50px rgba(var(--primary-rgb), 0.15)',
-        '0 0 15px rgba(var(--primary-rgb), 0.5)',
-      ),
-      ColorVariant.secondary => (
-        'linear-gradient(135deg, var(--secondary) 0%, color-mix(in srgb, var(--secondary) 70%, var(--primary)) 100%)',
-        'linear-gradient(135deg, rgba(var(--muted-rgb), 0.8) 0%, rgba(var(--muted-rgb), 0.6) 100%)',
-        '0 0 20px rgba(var(--secondary-rgb), 0.3)',
-        '0 0 10px rgba(var(--secondary-rgb), 0.4)',
-      ),
-      ColorVariant.destructive => (
-        'linear-gradient(135deg, var(--destructive) 0%, color-mix(in srgb, var(--destructive) 70%, #ff0066) 100%)',
-        'linear-gradient(135deg, rgba(var(--muted-rgb), 0.8) 0%, rgba(var(--muted-rgb), 0.6) 100%)',
-        '0 0 25px rgba(var(--destructive-rgb), 0.4), 0 0 50px rgba(var(--destructive-rgb), 0.15)',
-        '0 0 15px rgba(var(--destructive-rgb), 0.5)',
-      ),
-      ColorVariant.success => (
-        'linear-gradient(135deg, var(--success) 0%, color-mix(in srgb, var(--success) 70%, #00ffaa) 100%)',
-        'linear-gradient(135deg, rgba(var(--muted-rgb), 0.8) 0%, rgba(var(--muted-rgb), 0.6) 100%)',
-        '0 0 25px rgba(var(--success-rgb), 0.4), 0 0 50px rgba(var(--success-rgb), 0.15)',
-        '0 0 15px rgba(var(--success-rgb), 0.5)',
-      ),
-      ColorVariant.warning => (
-        'linear-gradient(135deg, var(--warning) 0%, color-mix(in srgb, var(--warning) 70%, #ffaa00) 100%)',
-        'linear-gradient(135deg, rgba(var(--muted-rgb), 0.8) 0%, rgba(var(--muted-rgb), 0.6) 100%)',
-        '0 0 25px rgba(var(--warning-rgb), 0.4), 0 0 50px rgba(var(--warning-rgb), 0.15)',
-        '0 0 15px rgba(var(--warning-rgb), 0.5)',
-      ),
-      ColorVariant.info => (
-        'linear-gradient(135deg, var(--info) 0%, color-mix(in srgb, var(--info) 70%, #00aaff) 100%)',
-        'linear-gradient(135deg, rgba(var(--muted-rgb), 0.8) 0%, rgba(var(--muted-rgb), 0.6) 100%)',
-        '0 0 25px rgba(var(--info-rgb), 0.4), 0 0 50px rgba(var(--info-rgb), 0.15)',
-        '0 0 15px rgba(var(--info-rgb), 0.5)',
-      ),
+    final String tone = switch (props.color) {
+      ColorVariant.primary => 'var(--primary)',
+      ColorVariant.secondary => 'var(--secondary)',
+      ColorVariant.destructive => 'var(--destructive)',
+      ColorVariant.success => 'var(--success)',
+      ColorVariant.warning => 'var(--warning)',
+      ColorVariant.info => 'var(--info)',
     };
+
+    final double thumbTranslate = props.value ? (width - thumbSize - (inset * 2)) : 0;
 
     final Component switchWidget = dom.button(
-      classes:
-          'codex-toggle-switch codex-neon ${props.value ? 'active' : ''} ${props.disabled ? 'disabled' : ''}',
+      classes: 'codex-toggle-switch ${props.value ? 'active' : ''} ${props.disabled ? 'disabled' : ''}',
       attributes: {
         'type': 'button',
         'role': 'switch',
-        'aria-checked': props.value.toString(),
+        'aria-checked': '${props.value}',
+        'data-state': props.value ? 'checked' : 'unchecked',
+        'data-disabled': '${props.disabled}',
+        'data-variant': props.color.name,
+        'data-size': props.size.name,
         if (props.disabled) 'disabled': 'true',
       },
       styles: dom.Styles(raw: {
         'position': 'relative',
         'display': 'inline-flex',
         'align-items': 'center',
-        'flex-shrink': '0',
         'width': '${width}px',
         'height': '${height}px',
-        'padding': '${thumbOffset}px',
-        'border': props.value ? 'none' : '1px solid rgba(var(--border-rgb), 0.5)',
+        'padding': '${inset}px',
         'border-radius': '${height / 2}px',
-        'background': props.value ? activeGradient : inactiveGradient,
-        // Neon glow when active
-        'box-shadow': props.value ? glowColor : '0 0 10px rgba(var(--primary-rgb), 0.05)',
+        'border': props.value
+            ? '1px solid color-mix(in srgb, $tone 40%, var(--border))'
+            : '1px solid var(--border)',
+        'background': props.value
+            ? 'linear-gradient(180deg, color-mix(in srgb, $tone 72%, #0d1110), $tone)'
+            : 'var(--codex-surface-1)',
+        'box-shadow': props.value ? '0 10px 22px rgba(0, 0, 0, 0.3)' : 'none',
         'cursor': props.disabled ? 'not-allowed' : 'pointer',
-        'opacity': props.disabled ? '0.4' : '1',
+        'opacity': props.disabled ? '0.5' : '1',
         'pointer-events': props.disabled ? 'none' : 'auto',
-        'transition': 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+        'transition': 'background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease',
         'outline': 'none',
-        'box-sizing': 'border-box',
       }),
-      events: {
-        'click': (event) {
-          if (!props.disabled && props.onChanged != null) {
-            props.onChanged!(!props.value);
-          }
-        },
-      },
+      events: props.disabled || props.onChanged == null
+          ? null
+          : {
+              'click': (_) => props.onChanged!(!props.value),
+            },
       [
-        // Neon thumb with glow
         dom.span(
-          classes: 'codex-toggle-thumb codex-neon',
+          classes: 'codex-toggle-thumb',
           styles: dom.Styles(raw: {
             'display': 'block',
             'width': '${thumbSize}px',
             'height': '${thumbSize}px',
             'border-radius': '50%',
-            'background': props.value
-                ? 'linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.9) 100%)'
-                : 'linear-gradient(135deg, var(--foreground) 0%, rgba(var(--foreground-rgb), 0.8) 100%)',
-            'box-shadow': props.value
-                ? '$thumbGlow, 0 2px 8px rgba(0, 0, 0, 0.3)'
-                : '0 2px 4px rgba(0, 0, 0, 0.2)',
+            'background': '#ffffff',
+            'border': '1px solid color-mix(in srgb, var(--border) 60%, transparent)',
             'transform': 'translateX(${thumbTranslate}px)',
-            'transition': 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+            'transition': 'transform 0.2s ease',
+            'box-shadow': '0 2px 8px rgba(0, 0, 0, 0.3)',
             'pointer-events': 'none',
-            'flex-shrink': '0',
           }),
           [],
         ),
       ],
     );
 
-    // If no label, return just the switch
     if (props.label == null) {
       return switchWidget;
     }
 
-    // With label - Codex Neon styling
     final Component labelWidget = dom.span(
       classes: 'codex-toggle-label',
       styles: dom.Styles(raw: {
         'font-size': 'var(--font-size-sm)',
         'font-weight': 'var(--font-weight-medium)',
-        'color': props.disabled
-            ? 'var(--muted-foreground)'
-            : 'var(--foreground)',
+        'color': props.disabled ? 'var(--muted-foreground)' : 'var(--foreground)',
         'user-select': 'none',
-        'line-height': '1.4',
       }),
       [Component.text(props.label!)],
     );
 
     return dom.label(
-      classes: 'codex-toggle-wrapper codex-neon',
+      classes: 'codex-toggle-wrapper',
       styles: dom.Styles(raw: {
         'display': 'inline-flex',
         'align-items': 'center',
-        'gap': '1rem',
+        'gap': '0.75rem',
         'cursor': props.disabled ? 'not-allowed' : 'pointer',
       }),
-      events: {
-        'click': (event) {
-          if (!props.disabled && props.onChanged != null) {
-            props.onChanged!(!props.value);
-          }
-        },
-      },
-      props.labelLeft
-          ? [labelWidget, switchWidget]
-          : [switchWidget, labelWidget],
+      events: props.disabled || props.onChanged == null
+          ? null
+          : {
+              'click': (e) {
+                // Avoid double-toggle when the click originated on the button.
+                if ((e.target as dynamic)?.tagName == 'BUTTON') return;
+                props.onChanged!(!props.value);
+              },
+            },
+      props.labelLeft ? [labelWidget, switchWidget] : [switchWidget, labelWidget],
     );
   }
 }

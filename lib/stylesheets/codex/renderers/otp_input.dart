@@ -26,6 +26,11 @@ class CodexOtpInput extends StatelessComponent {
 
     return dom.div(
       classes: 'codex-otp-input',
+      attributes: {
+        'data-state': hasError ? 'error' : 'idle',
+        'data-disabled': '${props.disabled}',
+        'data-size': props.size.name,
+      },
       styles: const dom.Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
@@ -78,6 +83,8 @@ class CodexOtpInput extends StatelessComponent {
                   'aria-label': 'Digit ${i + 1} of ${props.length}',
                   'data-otp-index': '$i',
                   'data-otp-length': '${props.length}',
+                  'data-state': digits.length > i && digits[i].isNotEmpty ? 'filled' : 'empty',
+                  'data-disabled': '${props.disabled}',
                   if (props.disabled) 'disabled': 'true',
                   'value': digits.length > i ? digits[i] : '',
                 },

@@ -186,7 +186,7 @@ ArcaneNativeSelect(
 
 ## Features
 
-- **59 ShadCN-aligned Components** - Complete functional catalog parity plus foundational primitives
+- **59 Production Components** - Full catalog with distinct ShadCN and Codex systems (Codex rainbow mode is opt-in)
 - **One-Line Theming** - 20+ built-in themes with full customization
 - **Static Site Support** - Automatic JavaScript fallbacks when hydration is unavailable
 - **Type-Safe Styling** - `ArcaneStyleData` with enum-based CSS properties

@@ -1,15 +1,9 @@
-import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
+import 'package:jaspr/jaspr.dart';
 
 import '../../../core/props/radio_group_props.dart';
 
-/// Codex Radio Group renderer.
-///
-/// Implements the Codex Neon Cyberpunk design language:
-/// - Glowing neon radio buttons with pulse effect
-/// - Holographic card variants with glass morphism
-/// - Cyberpunk-style button and chip variants
-/// - Intense accent glows on selection
+/// Codex radio group renderer with restrained dark styling.
 class CodexRadioGroup<T> extends StatelessComponent {
   final RadioGroupProps<T> props;
 
@@ -17,7 +11,6 @@ class CodexRadioGroup<T> extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    // Layout styles
     final Map<String, String> layoutStyles = switch (props.layout) {
       RadioGroupLayout.vertical => {
         'display': 'flex',
@@ -26,69 +19,60 @@ class CodexRadioGroup<T> extends StatelessComponent {
       },
       RadioGroupLayout.horizontal => {
         'display': 'flex',
-        'flex-direction': 'row',
         'flex-wrap': 'wrap',
         'gap': props.gap,
       },
       RadioGroupLayout.grid => {
         'display': 'grid',
-        'grid-template-columns': 'repeat(${props.gridColumns}, 1fr)',
+        'grid-template-columns': 'repeat(${props.gridColumns}, minmax(0, 1fr))',
         'gap': props.gap,
       },
     };
 
     return dom.div(
-      classes: 'codex-radio-group codex-neon',
+      classes: 'codex-radio-group ${props.disabled ? 'disabled' : ''}',
+      attributes: {
+        'data-disabled': '${props.disabled}',
+        'data-layout': props.layout.name,
+        'data-variant': props.variant.name,
+      },
       styles: dom.Styles(raw: {
         'width': '100%',
-        'opacity': props.disabled ? '0.4' : '1',
+        'opacity': props.disabled ? '0.55' : '1',
       }),
       [
-        // Label with neon accent
         if (props.label != null)
           dom.div(
-            classes: 'codex-radio-group-label codex-neon',
+            classes: 'codex-radio-group-label',
             styles: const dom.Styles(raw: {
               'font-size': 'var(--font-size-sm)',
-              'font-weight': 'var(--font-weight-semibold)',
-              'letter-spacing': '0.025em',
-              'text-transform': 'uppercase',
+              'font-weight': 'var(--font-weight-medium)',
               'color': 'var(--foreground)',
-              'margin-bottom': '1rem',
+              'margin-bottom': '0.65rem',
             }),
             [
               Component.text(props.label!),
               if (props.required)
                 const dom.span(
-                  styles: dom.Styles(raw: {
-                    'color': 'var(--primary)',
-                    'margin-left': '0.375rem',
-                    'text-shadow': '0 0 8px rgba(var(--primary-rgb), 0.5)',
-                  }),
+                  styles: dom.Styles(raw: {'color': 'var(--destructive)', 'margin-left': '0.35rem'}),
                   [Component.text('*')],
                 ),
             ],
           ),
-
-        // Options
         dom.div(
           classes: 'codex-radio-group-options',
           styles: dom.Styles(raw: layoutStyles),
           [
-            for (final option in props.options)
-              _buildOption(option),
+            for (final RadioOptionProps<T> option in props.options) _buildOption(option),
           ],
         ),
-
-        // Error with neon glow or helper text
         if (props.error != null)
           dom.div(
             classes: 'codex-radio-group-error',
             styles: const dom.Styles(raw: {
               'font-size': 'var(--font-size-sm)',
               'color': 'var(--destructive)',
-              'text-shadow': '0 0 8px rgba(var(--destructive-rgb), 0.4)',
-              'margin-top': '0.75rem',
+              'margin-top': '0.6rem',
             }),
             [Component.text(props.error!)],
           )
@@ -98,7 +82,7 @@ class CodexRadioGroup<T> extends StatelessComponent {
             styles: const dom.Styles(raw: {
               'font-size': 'var(--font-size-sm)',
               'color': 'var(--muted-foreground)',
-              'margin-top': '0.75rem',
+              'margin-top': '0.6rem',
             }),
             [Component.text(props.helperText!)],
           ),
@@ -111,260 +95,170 @@ class CodexRadioGroup<T> extends StatelessComponent {
     final bool isDisabled = props.disabled || option.disabled;
 
     return switch (props.variant) {
-      RadioGroupVariant.standard => _buildStandardRadio(option, isSelected, isDisabled),
-      RadioGroupVariant.cards => _buildCardRadio(option, isSelected, isDisabled),
-      RadioGroupVariant.buttons => _buildButtonRadio(option, isSelected, isDisabled),
-      RadioGroupVariant.chips => _buildChipRadio(option, isSelected, isDisabled),
+      RadioGroupVariant.standard => _standardOption(option, isSelected, isDisabled),
+      RadioGroupVariant.cards => _cardOption(option, isSelected, isDisabled),
+      RadioGroupVariant.buttons => _buttonOption(option, isSelected, isDisabled),
+      RadioGroupVariant.chips => _chipOption(option, isSelected, isDisabled),
     };
   }
 
-  Component _buildStandardRadio(RadioOptionProps<T> option, bool isSelected, bool isDisabled) {
+  Component _standardOption(RadioOptionProps<T> option, bool isSelected, bool isDisabled) {
     return dom.label(
-      classes: 'codex-radio-option codex-neon ${isSelected ? 'selected' : ''} ${isDisabled ? 'disabled' : ''}',
+      classes: 'codex-radio-option ${isSelected ? 'selected' : ''} ${isDisabled ? 'disabled' : ''}',
+      attributes: {
+        'data-state': isSelected ? 'checked' : 'unchecked',
+        'data-disabled': '$isDisabled',
+      },
       styles: dom.Styles(raw: {
         'display': 'flex',
         'align-items': 'flex-start',
-        'gap': '1rem',
+        'gap': '0.7rem',
+        'padding': '0.25rem 0',
         'cursor': isDisabled ? 'not-allowed' : 'pointer',
-        'padding': '0.5rem 0',
       }),
-      events: isDisabled
-          ? null
-          : {'click': (_) => props.onChanged?.call(option.value)},
+      events: isDisabled ? null : {'click': (_) => props.onChanged?.call(option.value)},
       [
-        // Neon radio circle
         dom.div(
-          classes: 'codex-radio-circle codex-neon',
+          classes: 'codex-radio-circle',
           styles: dom.Styles(raw: {
-            'width': '24px',
-            'height': '24px',
+            'width': '18px',
+            'height': '18px',
             'border-radius': '50%',
-            'border': isSelected
-                ? '2px solid var(--primary)'
-                : '2px solid rgba(var(--border-rgb), 0.5)',
-            'background': isSelected
-                ? 'linear-gradient(135deg, rgba(var(--primary-rgb), 0.2) 0%, rgba(var(--primary-rgb), 0.1) 100%)'
-                : 'linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0%, rgba(var(--card-rgb), 0.4) 100%)',
+            'border': isSelected ? '2px solid var(--codex-accent)' : '2px solid var(--border)',
+            'background': 'var(--codex-surface-1)',
             'display': 'flex',
             'align-items': 'center',
             'justify-content': 'center',
-            'flex-shrink': '0',
-            'transition': 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-            // Neon glow when selected
-            'box-shadow': isSelected
-                ? '0 0 20px rgba(var(--primary-rgb), 0.4), 0 0 40px rgba(var(--primary-rgb), 0.15)'
-                : '0 0 10px rgba(var(--primary-rgb), 0.05)',
+            'margin-top': '2px',
           }),
           [
             if (isSelected)
               const dom.div(
                 styles: dom.Styles(raw: {
-                  'width': '10px',
-                  'height': '10px',
+                  'width': '8px',
+                  'height': '8px',
                   'border-radius': '50%',
-                  'background': 'linear-gradient(135deg, var(--primary) 0%, color-mix(in srgb, var(--primary) 70%, #ff00ff) 100%)',
-                  'box-shadow': '0 0 10px rgba(var(--primary-rgb), 0.5)',
-                  'animation': 'codex-pulse 2s ease-in-out infinite',
+                  'background': 'var(--codex-accent)',
                 }),
                 [],
               ),
           ],
         ),
-
-        // Label and description
-        dom.div(
-          styles: const dom.Styles(raw: {'flex': '1'}),
-          [
-            dom.div(
-              styles: const dom.Styles(raw: {
-                'display': 'flex',
-                'align-items': 'center',
-                'gap': '0.5rem',
-              }),
-              [
-                if (option.icon != null)
-                  dom.div(
-                    styles: dom.Styles(raw: {
-                      'color': isSelected ? 'var(--primary)' : 'var(--muted-foreground)',
-                      'filter': isSelected ? 'drop-shadow(0 0 4px currentColor)' : 'none',
-                    }),
-                    [option.icon!],
-                  ),
-                dom.span(
-                  styles: dom.Styles(raw: {
-                    'font-size': 'var(--font-size-sm)',
-                    'font-weight': 'var(--font-weight-medium)',
-                    'color': isSelected ? 'var(--primary)' : 'var(--foreground)',
-                  }),
-                  [Component.text(option.label)],
-                ),
-              ],
-            ),
-            if (option.description != null)
-              dom.span(
-                styles: const dom.Styles(raw: {
-                  'font-size': 'var(--font-size-sm)',
-                  'color': 'var(--muted-foreground)',
-                  'margin-top': '0.375rem',
-                  'display': 'block',
-                  'line-height': '1.4',
-                }),
-                [Component.text(option.description!)],
-              ),
-          ],
-        ),
+        _optionText(option, isSelected),
       ],
     );
   }
 
-  Component _buildCardRadio(RadioOptionProps<T> option, bool isSelected, bool isDisabled) {
+  Component _cardOption(RadioOptionProps<T> option, bool isSelected, bool isDisabled) {
     return dom.div(
-      classes: 'codex-radio-card codex-neon ${isSelected ? 'selected' : ''} ${isDisabled ? 'disabled' : ''}',
+      classes: 'codex-radio-card ${isSelected ? 'selected' : ''} ${isDisabled ? 'disabled' : ''}',
+      attributes: {
+        'data-state': isSelected ? 'checked' : 'unchecked',
+        'data-disabled': '$isDisabled',
+      },
       styles: dom.Styles(raw: {
         'display': 'flex',
         'align-items': 'flex-start',
-        'gap': '1rem',
-        'padding': '1.25rem 1.5rem',
-        'background': isSelected
-            ? 'linear-gradient(135deg, rgba(var(--primary-rgb), 0.15) 0%, rgba(var(--primary-rgb), 0.05) 100%)'
-            : 'linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(var(--card-rgb), 0.6) 100%)',
-        'border': isSelected
-            ? '1px solid var(--primary)'
-            : '1px solid rgba(var(--border-rgb), 0.3)',
+        'gap': '0.7rem',
+        'padding': '0.9rem 1rem',
         'border-radius': 'var(--radius)',
+        'border': isSelected ? '1px solid var(--codex-accent-border)' : '1px solid var(--border)',
+        'background': isSelected
+            ? 'color-mix(in srgb, var(--codex-accent) 12%, var(--codex-surface-2))'
+            : 'var(--codex-surface-1)',
         'cursor': isDisabled ? 'not-allowed' : 'pointer',
-        'transition': 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-        // Neon glow when selected
-        'box-shadow': isSelected
-            ? '0 0 25px rgba(var(--primary-rgb), 0.3), 0 0 50px rgba(var(--primary-rgb), 0.1)'
-            : '0 0 10px rgba(var(--primary-rgb), 0.05)',
       }),
-      events: isDisabled
-          ? null
-          : {'click': (_) => props.onChanged?.call(option.value)},
+      events: isDisabled ? null : {'click': (_) => props.onChanged?.call(option.value)},
       [
-        if (option.icon != null)
-          dom.div(
-            styles: dom.Styles(raw: {
-              'color': isSelected ? 'var(--primary)' : 'var(--muted-foreground)',
-              'filter': isSelected ? 'drop-shadow(0 0 6px currentColor)' : 'none',
-            }),
-            [option.icon!],
-          ),
-        dom.div(
-          styles: const dom.Styles(raw: {'flex': '1'}),
-          [
-            dom.div(
-              styles: dom.Styles(raw: {
-                'font-size': 'var(--font-size-sm)',
-                'font-weight': 'var(--font-weight-semibold)',
-                'color': isSelected ? 'var(--primary)' : 'var(--foreground)',
-                'text-shadow': isSelected ? '0 0 8px rgba(var(--primary-rgb), 0.3)' : 'none',
-              }),
-              [Component.text(option.label)],
-            ),
-            if (option.description != null)
-              dom.div(
-                styles: const dom.Styles(raw: {
-                  'font-size': 'var(--font-size-sm)',
-                  'color': 'var(--muted-foreground)',
-                  'margin-top': '0.375rem',
-                  'line-height': '1.4',
-                }),
-                [Component.text(option.description!)],
-              ),
-          ],
-        ),
+        if (option.icon != null) option.icon!,
+        _optionText(option, isSelected),
       ],
     );
   }
 
-  Component _buildButtonRadio(RadioOptionProps<T> option, bool isSelected, bool isDisabled) {
+  Component _buttonOption(RadioOptionProps<T> option, bool isSelected, bool isDisabled) {
     return dom.button(
-      classes: 'codex-radio-button codex-neon ${isSelected ? 'selected' : ''} ${isDisabled ? 'disabled' : ''}',
+      classes: 'codex-radio-button ${isSelected ? 'selected' : ''} ${isDisabled ? 'disabled' : ''}',
       attributes: {
         'type': 'button',
+        'data-state': isSelected ? 'checked' : 'unchecked',
+        'data-disabled': '$isDisabled',
         if (isDisabled) 'disabled': 'true',
       },
       styles: dom.Styles(raw: {
         'display': 'inline-flex',
         'align-items': 'center',
         'justify-content': 'center',
-        'gap': '0.5rem',
-        'padding': '0.75rem 1.25rem',
-        'background': isSelected
-            ? 'linear-gradient(135deg, var(--primary) 0%, color-mix(in srgb, var(--primary) 70%, #ff00ff) 100%)'
-            : 'linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0%, rgba(var(--card-rgb), 0.4) 100%)',
-        'color': isSelected ? '#ffffff' : 'var(--foreground)',
-        'border': isSelected ? 'none' : '1px solid rgba(var(--border-rgb), 0.5)',
+        'gap': '0.55rem',
+        'padding': '0.6rem 1rem',
         'border-radius': 'var(--radius)',
-        'font-size': 'var(--font-size-sm)',
-        'font-weight': 'var(--font-weight-semibold)',
-        'letter-spacing': '0.025em',
-        'text-transform': 'uppercase',
+        'border': isSelected ? '1px solid var(--codex-accent-border)' : '1px solid var(--border)',
+        'background': isSelected
+            ? 'linear-gradient(180deg, color-mix(in srgb, var(--codex-accent) 20%, var(--codex-surface-2)), var(--codex-surface-2))'
+            : 'var(--codex-surface-1)',
+        'color': isSelected ? 'var(--codex-accent)' : 'var(--foreground)',
         'cursor': isDisabled ? 'not-allowed' : 'pointer',
-        'transition': 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-        // Neon glow when selected
-        'box-shadow': isSelected
-            ? '0 0 20px rgba(var(--primary-rgb), 0.4), 0 0 40px rgba(var(--primary-rgb), 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
-            : '0 0 10px rgba(var(--primary-rgb), 0.05)',
-        'text-shadow': isSelected ? '0 0 10px rgba(255, 255, 255, 0.5)' : 'none',
       }),
-      events: isDisabled
-          ? null
-          : {'click': (_) => props.onChanged?.call(option.value)},
+      events: isDisabled ? null : {'click': (_) => props.onChanged?.call(option.value)},
       [
-        if (option.icon != null)
-          dom.div(
-            styles: dom.Styles(raw: {
-              'filter': isSelected ? 'drop-shadow(0 0 4px currentColor)' : 'none',
-            }),
-            [option.icon!],
-          ),
+        if (option.icon != null) option.icon!,
         Component.text(option.label),
       ],
     );
   }
 
-  Component _buildChipRadio(RadioOptionProps<T> option, bool isSelected, bool isDisabled) {
+  Component _chipOption(RadioOptionProps<T> option, bool isSelected, bool isDisabled) {
     return dom.button(
-      classes: 'codex-radio-chip codex-neon ${isSelected ? 'selected' : ''} ${isDisabled ? 'disabled' : ''}',
+      classes: 'codex-radio-chip ${isSelected ? 'selected' : ''} ${isDisabled ? 'disabled' : ''}',
       attributes: {
         'type': 'button',
+        'data-state': isSelected ? 'checked' : 'unchecked',
+        'data-disabled': '$isDisabled',
         if (isDisabled) 'disabled': 'true',
       },
       styles: dom.Styles(raw: {
         'display': 'inline-flex',
         'align-items': 'center',
-        'gap': '0.5rem',
-        'padding': '0.5rem 1rem',
+        'gap': '0.45rem',
+        'padding': '0.45rem 0.8rem',
+        'border-radius': '999px',
+        'border': isSelected ? '1px solid var(--codex-accent-border)' : '1px solid var(--border)',
         'background': isSelected
-            ? 'linear-gradient(135deg, var(--primary) 0%, color-mix(in srgb, var(--primary) 70%, #ff00ff) 100%)'
-            : 'linear-gradient(135deg, rgba(var(--secondary-rgb), 0.8) 0%, rgba(var(--secondary-rgb), 0.6) 100%)',
-        'color': isSelected ? '#ffffff' : 'var(--foreground)',
-        'border': 'none',
-        'border-radius': '9999px',
-        'font-size': 'var(--font-size-sm)',
-        'font-weight': 'var(--font-weight-medium)',
+            ? 'color-mix(in srgb, var(--codex-accent) 14%, var(--codex-surface-2))'
+            : 'var(--codex-surface-1)',
+        'color': isSelected ? 'var(--codex-accent)' : 'var(--foreground)',
         'cursor': isDisabled ? 'not-allowed' : 'pointer',
-        'transition': 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-        'box-shadow': isSelected
-            ? '0 0 15px rgba(var(--primary-rgb), 0.4), 0 0 30px rgba(var(--primary-rgb), 0.15)'
-            : '0 0 8px rgba(var(--primary-rgb), 0.05)',
-        'text-shadow': isSelected ? '0 0 8px rgba(255, 255, 255, 0.5)' : 'none',
       }),
-      events: isDisabled
-          ? null
-          : {'click': (_) => props.onChanged?.call(option.value)},
+      events: isDisabled ? null : {'click': (_) => props.onChanged?.call(option.value)},
       [
-        if (option.icon != null)
-          dom.div(
-            styles: dom.Styles(raw: {
-              'filter': isSelected ? 'drop-shadow(0 0 4px currentColor)' : 'none',
-            }),
-            [option.icon!],
-          ),
+        if (option.icon != null) option.icon!,
         Component.text(option.label),
+      ],
+    );
+  }
+
+  Component _optionText(RadioOptionProps<T> option, bool isSelected) {
+    return dom.div(
+      styles: const dom.Styles(raw: {'flex': '1'}),
+      [
+        dom.div(
+          styles: dom.Styles(raw: {
+            'font-size': 'var(--font-size-sm)',
+            'font-weight': 'var(--font-weight-medium)',
+            'color': isSelected ? 'var(--codex-accent)' : 'var(--foreground)',
+          }),
+          [Component.text(option.label)],
+        ),
+        if (option.description != null)
+          dom.div(
+            styles: const dom.Styles(raw: {
+              'font-size': 'var(--font-size-sm)',
+              'color': 'var(--muted-foreground)',
+              'margin-top': '0.2rem',
+              'line-height': '1.35',
+            }),
+            [Component.text(option.description!)],
+          ),
       ],
     );
   }

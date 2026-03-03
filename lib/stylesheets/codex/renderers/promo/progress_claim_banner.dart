@@ -180,7 +180,7 @@ class _CodexProgressClaimBannerState extends State<CodexProgressClaimBanner> {
                     'linear-gradient(90deg, var(--primary), rgba(var(--primary-rgb), 0.7))',
                 'border-radius': 'var(--arcane-radius-full)',
                 'transition': 'width 0.5s ease-out',
-                'box-shadow': '0 0 10px rgba(var(--primary-rgb), 0.4)',
+                'box-shadow': '0 14px 10px rgba(var(--primary-rgb), 0.4)',
               }),
               [],
             ),
@@ -259,7 +259,7 @@ class _CodexProgressClaimBannerState extends State<CodexProgressClaimBanner> {
                   'text-decoration': 'none',
                   'cursor': 'pointer',
                   'transition': 'all var(--transition)',
-                  'box-shadow': '0 0 15px rgba(var(--primary-rgb), 0.4)',
+                  'box-shadow': '0 14px 15px rgba(var(--primary-rgb), 0.4)',
                 }),
                 events: component.props.onCtaClick != null
                     ? {

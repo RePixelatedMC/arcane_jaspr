@@ -71,7 +71,7 @@ class CodexForm extends StatelessComponent {
                   'border-radius': 'var(--radius)',
                   'cursor': 'pointer',
                   'transition': 'all var(--arcane-transition)',
-                  'box-shadow': '0 0 20px rgba(var(--primary-rgb), 0.3)',
+                  'box-shadow': '0 14px 20px rgba(var(--primary-rgb), 0.3)',
                 }),
                 [Component.text(props.submitText ?? 'Submit')],
               ),

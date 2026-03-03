@@ -3,7 +3,7 @@ import 'package:jaspr/dom.dart' as dom;
 
 import '../../../core/props/flexi_cards_props.dart';
 
-/// Codex FlexiCards renderer with neon cyberpunk styling.
+/// Codex FlexiCards renderer with restrained dark styling.
 ///
 /// Uses CSS Grid with `grid-template-rows` for smooth height animations.
 class CodexFlexiCards extends StatefulComponent {
@@ -60,7 +60,7 @@ class _CodexFlexiCardsState extends State<CodexFlexiCards> {
           [item.header!],
         ),
 
-      // Icon with glow effect
+      // Icon treatment
       dom.div(
         classes: 'codex-flexi-card-icon',
         styles: dom.Styles(raw: {
@@ -70,12 +70,11 @@ class _CodexFlexiCardsState extends State<CodexFlexiCards> {
           'width': '56px',
           'height': '56px',
           'border-radius': 'var(--radius-md, 8px)',
-          'background': 'color-mix(in srgb, var(--primary) 15%, transparent)',
-          'color': 'var(--primary)',
+          'background': 'color-mix(in srgb, var(--codex-accent) 12%, var(--codex-surface-2))',
+          'border': '1px solid var(--codex-accent-border)',
+          'color': 'var(--codex-accent)',
           'margin-bottom': '1rem',
           'transition': 'all ${duration}ms ease',
-          if (isHovered)
-            'box-shadow': '0 0 20px color-mix(in srgb, var(--primary) 30%, transparent)',
         }),
         [item.icon],
       ),
@@ -86,11 +85,9 @@ class _CodexFlexiCardsState extends State<CodexFlexiCards> {
         styles: dom.Styles(raw: {
           'font-size': 'var(--font-size-lg, 1.125rem)',
           'font-weight': 'var(--font-weight-semibold, 600)',
-          'color': isHovered ? 'var(--primary)' : 'var(--foreground)',
+          'color': isHovered ? 'var(--codex-accent)' : 'var(--foreground)',
           'margin': '0 0 0.5rem 0',
           'transition': 'color ${duration}ms ease',
-          if (isHovered)
-            'text-shadow': '0 0 12px color-mix(in srgb, var(--primary) 50%, transparent)',
         }),
         [Component.text(item.shortText)],
       ),
@@ -184,10 +181,10 @@ class _CodexFlexiCardsState extends State<CodexFlexiCards> {
       'flex-direction': 'column',
       'padding': '1.5rem',
       'background': isHovered
-          ? 'color-mix(in srgb, var(--card) 90%, var(--primary) 10%)'
-          : 'var(--card)',
+          ? 'color-mix(in srgb, var(--codex-surface-2) 88%, var(--codex-accent) 12%)'
+          : 'var(--codex-surface-1)',
       'border': isHovered
-          ? '1px solid color-mix(in srgb, var(--primary) 50%, var(--border))'
+          ? '1px solid var(--codex-accent-border)'
           : '1px solid var(--border)',
       'border-radius': 'var(--radius, 8px)',
       'transition': 'flex ${duration}ms cubic-bezier(0.4, 0, 0.2, 1), '
@@ -197,8 +194,7 @@ class _CodexFlexiCardsState extends State<CodexFlexiCards> {
           'box-shadow ${duration}ms ease',
       'overflow': 'hidden',
       if (isHovered)
-        'box-shadow': 'inset 0 0 30px color-mix(in srgb, var(--primary) 8%, transparent), '
-            '0 0 25px color-mix(in srgb, var(--primary) 15%, transparent)',
+        'box-shadow': '0 14px 32px rgba(0, 0, 0, 0.38)',
       if (item.onTap != null || item.href != null) 'cursor': 'pointer',
     };
 

@@ -43,7 +43,7 @@ jobs:
         run: dart tool/generate_search_index.dart --base-url=/arcane_jaspr
 
       - name: Build static site
-        run: dart pub global run jaspr_cli:jaspr build --dart-define=BASE_URL=/arcane_jaspr 
+        run: dart pub global run jaspr_cli:jaspr build --dart-define=BASE_URL=/arcane_jaspr
 
       - name: Add .nojekyll
         run: touch build/jaspr/.nojekyll

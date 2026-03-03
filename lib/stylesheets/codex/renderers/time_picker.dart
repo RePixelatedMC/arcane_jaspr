@@ -33,6 +33,11 @@ class CodexTimePicker extends StatelessComponent {
 
     return dom.div(
       classes: 'codex-time-picker ${props.isOpen ? 'open' : ''} ${props.disabled ? 'disabled' : ''} ${hasError ? 'error' : ''}',
+      attributes: {
+        'data-state': props.isOpen ? 'open' : 'closed',
+        'data-disabled': '${props.disabled}',
+        'data-size': props.size.name,
+      },
       styles: const dom.Styles(raw: {
         'position': 'relative',
         'display': 'flex',
@@ -58,6 +63,8 @@ class CodexTimePicker extends StatelessComponent {
           attributes: {
             'aria-haspopup': 'dialog',
             'aria-expanded': '${props.isOpen}',
+            'data-state': props.isOpen ? 'open' : 'closed',
+            'data-disabled': '${props.disabled}',
             if (props.disabled) 'disabled': 'true',
           },
           styles: dom.Styles(raw: {
@@ -133,7 +140,7 @@ class CodexTimePicker extends StatelessComponent {
               'background': 'var(--card)',
               'border': '1px solid var(--border)',
               'border-radius': 'var(--radius)',
-              'box-shadow': '0 0 30px rgba(var(--primary-rgb), 0.1)',
+              'box-shadow': '0 16px 32px rgba(0, 0, 0, 0.4)',
               'padding': '1.25rem',
               'min-width': '300px',
             }),

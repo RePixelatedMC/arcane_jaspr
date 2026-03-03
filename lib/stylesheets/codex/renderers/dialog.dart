@@ -50,7 +50,7 @@ class CodexDialog extends StatelessComponent {
             'border': '1px solid var(--primary)',
             'border-radius': 'var(--radius-2xl)', // Codex: larger radius
             // Codex: subtle accent glow
-            'box-shadow': '0 0 40px rgba(var(--primary-rgb), 0.15), 0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+            'box-shadow': '0 14px 40px rgba(var(--primary-rgb), 0.15), 0 25px 50px -12px rgba(0, 0, 0, 0.25)',
             // Codex: more padding
             'padding': '2rem',
           }),
@@ -211,7 +211,7 @@ class CodexSheet extends StatelessComponent {
             'backdrop-filter': 'blur(12px)',
             '-webkit-backdrop-filter': 'blur(12px)',
             // Codex: subtle glow
-            'box-shadow': '0 0 30px rgba(var(--primary-rgb), 0.1)',
+            'box-shadow': '0 14px 30px rgba(var(--primary-rgb), 0.1)',
           }),
           events: {'click': (e) => e.stopPropagation()},
           [

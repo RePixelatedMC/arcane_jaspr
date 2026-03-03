@@ -94,7 +94,7 @@ class CodexDrawer extends StatelessComponent {
             'backdrop-filter': 'blur(12px)',
             '-webkit-backdrop-filter': 'blur(12px)',
             // Codex: subtle accent glow
-            'box-shadow': '0 0 30px rgba(var(--primary-rgb), 0.15)',
+            'box-shadow': '0 14px 30px rgba(var(--primary-rgb), 0.15)',
             'overflow': 'hidden',
           }),
           events: {'click': (e) => e.stopPropagation()},

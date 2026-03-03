@@ -117,7 +117,7 @@ class CodexPagination extends StatelessComponent {
           'border': isActive
               ? '1px solid var(--primary)'
               : '1px solid var(--border)',
-          if (isActive) 'box-shadow': '0 0 15px rgba(var(--primary-rgb), 0.2)',
+          if (isActive) 'box-shadow': '0 14px 15px rgba(var(--primary-rgb), 0.2)',
         },
       PaginationStyleVariant.filled => {
           'background-color': isActive
@@ -125,7 +125,7 @@ class CodexPagination extends StatelessComponent {
               : 'var(--secondary)',
           'color': isActive ? '#ffffff' : 'var(--foreground)',
           'border': 'none',
-          if (isActive) 'box-shadow': '0 0 15px rgba(var(--primary-rgb), 0.2)',
+          if (isActive) 'box-shadow': '0 14px 15px rgba(var(--primary-rgb), 0.2)',
         },
       PaginationStyleVariant.ghost => {
           'background-color': isActive

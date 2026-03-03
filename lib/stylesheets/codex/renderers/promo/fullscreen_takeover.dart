@@ -148,7 +148,6 @@ class _CodexFullscreenTakeoverState extends State<CodexFullscreenTakeover> {
                 'letter-spacing': '0.2em',
                 'margin-bottom': '1rem',
                 // Codex: text glow
-                'text-shadow': '0 0 20px rgba(var(--primary-rgb), 0.5)',
               }),
               [Component.text(component.props.subheadline)],
             ),
@@ -168,7 +167,7 @@ class _CodexFullscreenTakeoverState extends State<CodexFullscreenTakeover> {
                   'margin-bottom': '1.5rem',
                   // Codex: intense glow
                   'box-shadow':
-                      '0 0 60px rgba(var(--primary-rgb), 0.6), 0 0 120px rgba(var(--primary-rgb), 0.3)',
+                      '0 0 60px rgba(var(--primary-rgb), 0.6), 0 14px 120px rgba(var(--primary-rgb), 0.3)',
                 }),
                 [Component.text(component.props.discount!)],
               ),
@@ -226,7 +225,6 @@ class _CodexFullscreenTakeoverState extends State<CodexFullscreenTakeover> {
                       'font-weight': 'var(--font-weight-bold)',
                       'color': 'var(--primary)',
                       'letter-spacing': '0.1em',
-                      'text-shadow': '0 0 15px rgba(var(--primary-rgb), 0.5)',
                     }),
                     [Component.text(_formatCountdown(_remainingTime!))],
                   ),

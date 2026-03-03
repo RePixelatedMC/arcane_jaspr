@@ -5,10 +5,10 @@ import '../../../core/props/alert_props.dart';
 
 /// Codex Alert renderer.
 ///
-/// Implements the Codex Neon Cyberpunk design language:
-/// - Glowing borders with neon effects
-/// - Holographic-style gradients
-/// - Intense color variants with glows
+/// Implements the Codex accent dark design language:
+/// - Elevated borders with accent effects
+/// - layered-style gradients
+/// - Restrained color variants
 class CodexAlert extends StatelessComponent {
   final AlertProps props;
 
@@ -23,85 +23,89 @@ class CodexAlert extends StatelessComponent {
         ColorVariant.secondary => '\u2139', // i
       };
 
-  (String primary, String background, String border, String glow) get _colors =>
+  (String primary, String background, String border, String shadow) get _colors =>
       switch (props.color) {
         ColorVariant.info => (
             'var(--info, #3b82f6)',
             'color-mix(in srgb, var(--info, #3b82f6) 10%, var(--card))',
             'var(--info, #3b82f6)',
-            '0 0 20px rgba(var(--info-rgb), 0.2)',
+            '0 10px 24px rgba(0, 0, 0, 0.28)',
           ),
         ColorVariant.success => (
             'var(--success, #22c55e)',
             'color-mix(in srgb, var(--success, #22c55e) 10%, var(--card))',
             'var(--success, #22c55e)',
-            '0 0 20px rgba(var(--success-rgb), 0.2)',
+            '0 10px 24px rgba(0, 0, 0, 0.28)',
           ),
         ColorVariant.warning => (
             'var(--warning, #f59e0b)',
             'color-mix(in srgb, var(--warning, #f59e0b) 10%, var(--card))',
             'var(--warning, #f59e0b)',
-            '0 0 20px rgba(var(--warning-rgb), 0.2)',
+            '0 10px 24px rgba(0, 0, 0, 0.28)',
           ),
         ColorVariant.destructive => (
             'var(--destructive)',
             'color-mix(in srgb, var(--destructive) 10%, var(--card))',
             'var(--destructive)',
-            '0 0 20px rgba(var(--destructive-rgb), 0.2)',
+            '0 10px 24px rgba(0, 0, 0, 0.28)',
           ),
         ColorVariant.primary => (
             'var(--primary)',
             'color-mix(in srgb, var(--primary) 10%, var(--card))',
             'var(--primary)',
-            '0 0 20px rgba(var(--primary-rgb), 0.2)',
+            '0 10px 24px rgba(0, 0, 0, 0.28)',
           ),
         ColorVariant.secondary => (
             'var(--secondary)',
             'color-mix(in srgb, var(--secondary) 10%, var(--card))',
             'var(--secondary)',
-            '0 0 15px rgba(var(--secondary-rgb), 0.15)',
+            '0 10px 20px rgba(0, 0, 0, 0.24)',
           ),
       };
 
   @override
   Component build(BuildContext context) {
-    final (primary, bgColor, borderColor, glow) = _colors;
+    final (primary, bgColor, borderColor, shadow) = _colors;
 
-    // Codex Neon Alert styles vary by style variant
+    // Codex accent Alert styles vary by style variant
     final containerStyles = switch (props.style) {
       AlertStyle.solid => <String, String>{
-          'background': 'linear-gradient(135deg, $primary 0%, color-mix(in srgb, $primary 70%, #ff00ff) 100%)',
+          'background': 'linear-gradient(180deg, color-mix(in srgb, $primary 82%, #0d1110), $primary)',
           'border': '1px solid transparent',
           'border-radius': 'var(--arcane-radius-md)',
           'color': '#ffffff',
-          'box-shadow': glow,
+          'box-shadow': shadow,
         },
       AlertStyle.subtle => <String, String>{
           'background-color': bgColor,
           'border': '1px solid $borderColor',
           'border-radius': 'var(--arcane-radius-md)',
-          'box-shadow': glow,
+          'box-shadow': shadow,
         },
       AlertStyle.outline => <String, String>{
           'background-color': 'var(--card)',
           'border': '1px solid $borderColor',
           'border-radius': 'var(--arcane-radius-md)',
-          'box-shadow': glow,
+          'box-shadow': shadow,
         },
       AlertStyle.accent => <String, String>{
           'background-color': bgColor,
           'border': '1px solid $borderColor',
           'border-left': '4px solid $primary',
           'border-radius': 'var(--arcane-radius-md)',
-          'box-shadow': glow,
+          'box-shadow': shadow,
         },
     };
 
     final isSolid = props.style == AlertStyle.solid;
 
     return dom.div(
-      classes: 'codex-alert codex-neon',
-      attributes: const {'role': 'alert'},
+      classes: 'codex-alert ',
+      attributes: {
+        'role': 'alert',
+        'data-variant': props.color.name,
+        'data-style': props.style.name,
+      },
       styles: dom.Styles(raw: {
         'position': 'relative',
         'width': '100%',

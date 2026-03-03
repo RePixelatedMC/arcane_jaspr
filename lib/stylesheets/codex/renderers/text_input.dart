@@ -3,13 +3,6 @@ import 'package:jaspr/dom.dart' as dom;
 
 import '../../../core/props/text_input_props.dart';
 
-/// Codex Text Input renderer.
-///
-/// Implements the Codex Neon Cyberpunk design language:
-/// - Glowing focus rings with neon accent colors
-/// - Animated border effects on focus
-/// - Cyberpunk-style gradients and shadows
-/// - OLED-optimized dark backgrounds
 class CodexTextInput extends StatelessComponent {
   final TextInputProps props;
 
@@ -25,15 +18,13 @@ class CodexTextInput extends StatelessComponent {
         props.prefix != null ||
         props.suffix != null;
 
-    // Codex Neon sizes - larger with more presence
     final (String height, String paddingX, String paddingY, String fontSize) =
         switch (props.size) {
-      ComponentSize.sm => ('40px', '1rem', '0.5rem', '0.8125rem'),
-      ComponentSize.md => ('48px', '1.25rem', '0.75rem', '0.875rem'),
-      ComponentSize.lg => ('56px', '1.5rem', '1rem', '1rem'),
+      ComponentSize.sm => ('38px', '0.875rem', '0.5rem', '0.8125rem'),
+      ComponentSize.md => ('46px', '1rem', '0.675rem', '0.875rem'),
+      ComponentSize.lg => ('54px', '1.125rem', '0.875rem', '1rem'),
     };
 
-    // Map TextInputType to HTML input type
     final dom.InputType inputType = switch (props.type) {
       TextInputType.text => dom.InputType.text,
       TextInputType.email => dom.InputType.email,
@@ -44,47 +35,44 @@ class CodexTextInput extends StatelessComponent {
       TextInputType.search => dom.InputType.search,
     };
 
-    // Codex Neon border/glow based on state
-    final String borderColor = hasError ? 'var(--destructive)' : 'rgba(var(--primary-rgb), 0.3)';
-    final String glowColor = hasError
-        ? '0 0 15px rgba(var(--destructive-rgb), 0.2)'
-        : '0 0 15px rgba(var(--primary-rgb), 0.1)';
+    final String borderColor = hasError
+        ? 'var(--destructive)'
+        : 'var(--codex-accent-border)';
 
-    // Build input element with Codex Neon styling
+    final String surface =
+        'linear-gradient(180deg, color-mix(in srgb, var(--primary) 4%, var(--card)), var(--card))';
+
     final Component inputElement = dom.input(
       type: inputType,
       id: props.id,
       name: props.name,
-      classes: 'codex-text-input codex-neon',
+      classes: 'codex-text-input',
       attributes: {
         if (props.placeholder != null) 'placeholder': props.placeholder!,
         if (props.value != null) 'value': props.value!,
         if (props.disabled) 'disabled': 'true',
         if (props.required) 'required': 'true',
         if (props.readOnly) 'readonly': 'true',
+        'data-disabled': '${props.disabled}',
+        'data-error': '$hasError',
       },
       styles: dom.Styles(raw: {
         'display': 'flex',
         'height': height,
         'width': '100%',
-        // Codex Neon: larger radius
         'border-radius': 'var(--radius)',
-        // Neon border with glow
         'border': '1px solid $borderColor',
-        // Dark cyberpunk background
-        'background': 'linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(var(--card-rgb), 0.6) 100%)',
+        'background': surface,
         'padding': '$paddingY $paddingX',
         'font-size': fontSize,
         'font-family': 'inherit',
         'line-height': '1.5',
         'color': 'var(--foreground)',
         'outline': 'none',
-        // Neon glow effect
-        'box-shadow': glowColor,
         if (props.disabled) 'cursor': 'not-allowed',
-        if (props.disabled) 'opacity': '0.4',
-        // Smooth neon transition
-        'transition': 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+        if (props.disabled) 'opacity': '0.45',
+        'transition':
+            'border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease',
       }),
       events: {
         if (props.onChanged != null)
@@ -111,7 +99,6 @@ class CodexTextInput extends StatelessComponent {
       },
     );
 
-    // Without wrapper, return simple input
     if (!hasWrapper) {
       return dom.div(
         styles: dom.Styles(raw: {
@@ -121,26 +108,26 @@ class CodexTextInput extends StatelessComponent {
       );
     }
 
-    // With wrapper (label, prefix/suffix, helper/error)
     return dom.div(
-      classes: 'codex-text-input-wrapper codex-neon',
+      classes: 'codex-text-input-wrapper',
+      attributes: {
+        'data-disabled': '${props.disabled}',
+        'data-error': '$hasError',
+      },
       styles: dom.Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': '0.75rem',
+        'gap': '0.625rem',
         if (props.fullWidth) 'width': '100%',
       }),
       [
-        // Label with neon accent
         if (props.label != null)
           Component.element(
             tag: 'label',
             attributes: props.id != null ? {'for': props.id!} : null,
             styles: const dom.Styles(raw: {
               'font-size': 'var(--font-size-sm)',
-              'font-weight': 'var(--font-weight-semibold)',
-              'letter-spacing': '0.025em',
-              'text-transform': 'uppercase',
+              'font-weight': 'var(--font-weight-medium)',
               'line-height': '1',
               'color': 'var(--foreground)',
             }),
@@ -149,28 +136,27 @@ class CodexTextInput extends StatelessComponent {
               if (props.required)
                 const dom.span(
                   styles: dom.Styles(raw: {
-                    'color': 'var(--primary)',
-                    'margin-left': '0.375rem',
-                    'text-shadow': '0 0 8px rgba(var(--primary-rgb), 0.5)',
+                    'color': 'var(--destructive)',
+                    'margin-left': '0.25rem',
                   }),
-                  [dom.RawText('*')],
+                  [Component.text('*')],
                 ),
             ],
           ),
-
-        // Input with optional prefix/suffix - neon container
         if (props.prefix != null || props.suffix != null)
           dom.div(
-            classes: 'codex-text-input-container codex-neon',
+            classes: 'codex-text-input-container',
+            attributes: {
+              'data-disabled': '${props.disabled}',
+              'data-error': '$hasError',
+            },
             styles: dom.Styles(raw: {
               'display': 'flex',
               'align-items': 'center',
               'border-radius': 'var(--radius)',
               'border': '1px solid $borderColor',
-              'background': 'linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(var(--card-rgb), 0.6) 100%)',
+              'background': surface,
               'overflow': 'hidden',
-              'box-shadow': glowColor,
-              'transition': 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
             }),
             [
               if (props.prefix != null)
@@ -179,21 +165,18 @@ class CodexTextInput extends StatelessComponent {
                   styles: const dom.Styles(raw: {
                     'display': 'flex',
                     'align-items': 'center',
-                    'padding-left': '1.25rem',
-                    'color': 'var(--primary)',
-                    'filter': 'drop-shadow(0 0 4px currentColor)',
+                    'padding-left': '0.875rem',
+                    'color': 'var(--muted-foreground)',
                   }),
                   [props.prefix!],
                 ),
-              // Borderless input inside container
               dom.input(
                 type: inputType,
                 id: props.id,
                 name: props.name,
                 classes: 'codex-text-input',
                 attributes: {
-                  if (props.placeholder != null)
-                    'placeholder': props.placeholder!,
+                  if (props.placeholder != null) 'placeholder': props.placeholder!,
                   if (props.value != null) 'value': props.value!,
                   if (props.disabled) 'disabled': 'true',
                   if (props.required) 'required': 'true',
@@ -210,7 +193,7 @@ class CodexTextInput extends StatelessComponent {
                   'color': 'var(--foreground)',
                   'outline': 'none',
                   if (props.disabled) 'cursor': 'not-allowed',
-                  if (props.disabled) 'opacity': '0.4',
+                  if (props.disabled) 'opacity': '0.45',
                 }),
                 events: {
                   if (props.onChanged != null)
@@ -242,9 +225,8 @@ class CodexTextInput extends StatelessComponent {
                   styles: const dom.Styles(raw: {
                     'display': 'flex',
                     'align-items': 'center',
-                    'padding-right': '1.25rem',
-                    'color': 'var(--primary)',
-                    'filter': 'drop-shadow(0 0 4px currentColor)',
+                    'padding-right': '0.875rem',
+                    'color': 'var(--muted-foreground)',
                   }),
                   [props.suffix!],
                 ),
@@ -252,15 +234,12 @@ class CodexTextInput extends StatelessComponent {
           )
         else
           inputElement,
-
-        // Error with neon glow or helper text
         if (props.error != null)
           dom.span(
             classes: 'codex-text-input-error',
             styles: const dom.Styles(raw: {
               'font-size': 'var(--font-size-sm)',
               'color': 'var(--destructive)',
-              'text-shadow': '0 0 8px rgba(var(--destructive-rgb), 0.4)',
             }),
             [Component.text(props.error!)],
           )

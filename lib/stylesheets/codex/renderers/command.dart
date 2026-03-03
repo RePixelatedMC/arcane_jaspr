@@ -52,7 +52,7 @@ class CodexCommand extends StatelessComponent {
             'color': 'var(--foreground)',
             'border': '1px solid var(--border)',
             'border-radius': 'var(--radius)',
-            'box-shadow': '0 0 40px rgba(var(--primary-rgb), 0.15)',
+            'box-shadow': '0 14px 40px rgba(var(--primary-rgb), 0.15)',
             'overflow': 'hidden',
             'animation': 'arcane-scale-in var(--arcane-transition-slow)',
           }),

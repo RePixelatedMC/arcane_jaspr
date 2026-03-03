@@ -170,7 +170,6 @@ class CodexCircularProgress extends StatelessComponent {
             '-webkit-mask':
                 'radial-gradient(farthest-side, transparent calc(100% - $strokeWidth), #fff calc(100% - $strokeWidth))',
             // Codex: subtle glow
-            'filter': 'drop-shadow(0 0 6px $fillColor)',
             'transition': 'all 0.3s ease-out',
           }),
           [],
@@ -234,7 +233,7 @@ class CodexLoadingSpinner extends StatelessComponent {
         'border-radius': 'var(--arcane-radius-full)',
         'animation': 'arcane-spin 0.75s linear infinite',
         // Codex: subtle glow
-        'box-shadow': '0 0 8px $color',
+        'box-shadow': '0 14px 8px $color',
       }),
       [],
     );

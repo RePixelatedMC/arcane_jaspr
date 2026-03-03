@@ -171,7 +171,7 @@ class _CodexMarqueeTickerBarState extends State<CodexMarqueeTickerBar> {
                   'font-weight': 'var(--font-weight-medium)',
                   'text-decoration': 'none',
                   'cursor': 'pointer',
-                  'box-shadow': '0 0 10px rgba(var(--primary-rgb), 0.3)',
+                  'box-shadow': '0 14px 10px rgba(var(--primary-rgb), 0.3)',
                 }),
                 events: component.props.onCtaClick != null
                     ? {

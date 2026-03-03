@@ -8,7 +8,7 @@ import '../../../core/props/status_badge_props.dart';
 ///
 /// Unified renderer for both status indicators and card overlay badges.
 /// Supports:
-/// - Status badges: pill-shaped with dot/icon and optional pulse
+/// - Status badges: pill-shaped with dot/icon and optional emphasis
 /// - Card overlay badges: positioned absolutely with solid backgrounds
 /// - All size variants (sm, md, lg)
 class CodexStatusBadge extends StatelessComponent {
@@ -85,6 +85,10 @@ class CodexStatusBadge extends StatelessComponent {
 
     return dom.div(
       classes: 'codex-status-badge codex-promo-badge codex-badge-${props.variant.name}',
+      attributes: {
+        'data-variant': props.variant.name,
+        'data-size': props.size.name,
+      },
       styles: dom.Styles(raw: containerStyles),
       [
         // Dot indicator (always show for promo badges)
@@ -96,7 +100,7 @@ class CodexStatusBadge extends StatelessComponent {
             'border-radius': '50%',
             'background': color,
             'flex-shrink': '0',
-            'box-shadow': '0 0 8px $color',
+            'box-shadow': '0 2px 8px color-mix(in srgb, $color 28%, transparent)',
           }),
           [],
         ),
@@ -122,7 +126,7 @@ class CodexStatusBadge extends StatelessComponent {
     final String fontSize = _getCardFontSize();
 
     // Get colors based on variant
-    final (String bgColor, String fgColor, String? glowColor, String? borderStyle) =
+    final (String bgColor, String fgColor, String? shadowColor, String? borderStyle) =
         _getCardColors();
 
     final Map<String, String> styles = {
@@ -153,7 +157,7 @@ class CodexStatusBadge extends StatelessComponent {
       styles['background'] = props.gradient!;
       styles['color'] = fgColor;
       styles['border'] = borderStyle ?? '1px solid transparent';
-      if (glowColor != null) styles['box-shadow'] = glowColor;
+      if (shadowColor != null) styles['box-shadow'] = shadowColor;
     } else if (props.background != null) {
       styles['background-color'] = props.background!;
       styles['color'] = fgColor;
@@ -162,7 +166,7 @@ class CodexStatusBadge extends StatelessComponent {
       styles['background-color'] = bgColor;
       styles['color'] = fgColor;
       styles['border'] = borderStyle ?? '1px solid transparent';
-      if (glowColor != null) styles['box-shadow'] = glowColor;
+      if (shadowColor != null) styles['box-shadow'] = shadowColor;
     }
 
     // Determine icon to show
@@ -171,6 +175,10 @@ class CodexStatusBadge extends StatelessComponent {
 
     return dom.span(
       classes: 'codex-badge codex-badge-${props.variant.name}',
+      attributes: {
+        'data-variant': props.variant.name,
+        'data-size': props.size.name,
+      },
       styles: dom.Styles(raw: styles),
       [
         if (iconToShow != null) iconToShow,
@@ -195,6 +203,10 @@ class CodexStatusBadge extends StatelessComponent {
 
     return dom.div(
       classes: 'codex-status-badge codex-status-${props.status.name}',
+      attributes: {
+        'data-state': props.status.name,
+        'data-size': props.size.name,
+      },
       styles: dom.Styles(raw: {
         'display': 'inline-flex',
         'align-items': 'center',
@@ -227,9 +239,7 @@ class CodexStatusBadge extends StatelessComponent {
               'border-radius': '50%',
               'background': color,
               'flex-shrink': '0',
-              if (props.showGlow) 'box-shadow': '0 0 8px $color',
-              if (props.showPulse)
-                'animation': 'arcane-pulse 2s ease-in-out infinite',
+              if (props.showGlow) 'box-shadow': '0 2px 8px color-mix(in srgb, $color 28%, transparent)',
             }),
             [],
           ),
@@ -306,18 +316,18 @@ class CodexStatusBadge extends StatelessComponent {
   // Card Badge Helpers
   // ===========================================================================
 
-  (String bgColor, String fgColor, String? glow, String? border) _getCardColors() {
+  (String bgColor, String fgColor, String? shadow, String? border) _getCardColors() {
     return switch (props.variant) {
       BadgeVariant.popular || BadgeVariant.primary => (
           'var(--primary)',
           'var(--foreground)',
-          '0 0 15px rgba(var(--primary-rgb), 0.2)',
+          '0 10px 20px rgba(0, 0, 0, 0.25)',
           null,
         ),
       BadgeVariant.recommended => (
           'var(--primary)', // Gradient overrides this
           'var(--foreground)',
-          '0 0 15px rgba(var(--primary-rgb), 0.2)',
+          '0 10px 20px rgba(0, 0, 0, 0.25)',
           null,
         ),
       BadgeVariant.isNew || BadgeVariant.successSolid => (

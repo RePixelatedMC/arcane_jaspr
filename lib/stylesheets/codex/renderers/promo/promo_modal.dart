@@ -181,7 +181,7 @@ class _CodexPromoModalState extends State<CodexPromoModal> {
                   'font-weight': 'var(--font-weight-bold)',
                   'color': '#ffffff',
                   'margin-bottom': '1rem',
-                  'box-shadow': '0 0 30px rgba(var(--primary-rgb), 0.5)',
+                  'box-shadow': '0 14px 30px rgba(var(--primary-rgb), 0.5)',
                 }),
                 [Component.text(component.props.discount!)],
               ),
@@ -290,7 +290,7 @@ class _CodexPromoModalState extends State<CodexPromoModal> {
                   'text-decoration': 'none',
                   'cursor': 'pointer',
                   'transition': 'all var(--transition)',
-                  'box-shadow': '0 0 25px rgba(var(--primary-rgb), 0.5)',
+                  'box-shadow': '0 14px 25px rgba(var(--primary-rgb), 0.5)',
                 }),
                 events: component.props.onCtaClick != null
                     ? {

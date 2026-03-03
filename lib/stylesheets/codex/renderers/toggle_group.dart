@@ -1,15 +1,9 @@
-import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
+import 'package:jaspr/jaspr.dart';
 
 import '../../../core/props/toggle_group_props.dart';
 
-/// Codex Toggle Group renderer.
-///
-/// Implements the Codex Neon Cyberpunk design language:
-/// - Glowing neon selection states
-/// - Holographic gradient backgrounds
-/// - Cyberpunk-inspired borders and shadows
-/// - Animated state transitions with glow effects
+/// Codex toggle group renderer with restrained dark surfaces.
 class CodexToggleGroup extends StatelessComponent {
   final ToggleGroupProps props;
 
@@ -18,20 +12,26 @@ class CodexToggleGroup extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     return dom.div(
-      classes: 'codex-toggle-group codex-neon',
-      attributes: {'role': 'group'},
+      classes: 'codex-toggle-group',
+      attributes: {
+        'role': 'group',
+        'data-disabled': '${props.disabled}',
+        'data-variant': props.variant.name,
+        'data-size': props.size.name,
+      },
       styles: const dom.Styles(raw: {
         'display': 'inline-flex',
         'align-items': 'center',
         'justify-content': 'center',
-        'border-radius': 'var(--radius)',
-        'background': 'linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(var(--card-rgb), 0.3) 100%)',
-        'padding': '4px',
         'gap': '4px',
-        'border': '1px solid rgba(var(--border-rgb), 0.3)',
-        'box-shadow': '0 0 15px rgba(var(--primary-rgb), 0.05)',
+        'padding': '4px',
+        'border-radius': 'var(--radius)',
+        'background': 'var(--codex-surface-1)',
+        'border': '1px solid var(--border)',
       }),
-      [for (final item in props.items) _buildItem(item)],
+      [
+        for (final item in props.items) _buildItem(item),
+      ],
     );
   }
 
@@ -41,37 +41,30 @@ class CodexToggleGroup extends StatelessComponent {
         : (props.values?.contains(item.value) ?? false);
     final bool isDisabled = props.disabled || item.disabled;
 
-    // Codex Neon sizes - larger with more presence
-    final (height, paddingH) = switch (props.size) {
-      ToggleGroupSizeVariant.sm => ('44px', '16px'),
-      ToggleGroupSizeVariant.md => ('52px', '20px'),
-      ToggleGroupSizeVariant.lg => ('60px', '28px'),
+    final (String height, String paddingH) = switch (props.size) {
+      ToggleGroupSizeVariant.sm => ('36px', '12px'),
+      ToggleGroupSizeVariant.md => ('42px', '16px'),
+      ToggleGroupSizeVariant.lg => ('48px', '20px'),
     };
 
-    // Codex Neon variant styles
-    final variantStyles = switch (props.variant) {
-      ToggleGroupVariantStyle.defaultVariant => <String, String>{
-        'border': 'none',
-        'background': isSelected
-            ? 'linear-gradient(135deg, var(--primary) 0%, color-mix(in srgb, var(--primary) 70%, #ff00ff) 100%)'
-            : 'transparent',
+    final Map<String, String> variantStyles = switch (props.variant) {
+      ToggleGroupVariantStyle.defaultVariant => {
+        'border': '1px solid ${isSelected ? 'var(--codex-accent-border)' : 'transparent'}',
+        'background': isSelected ? 'color-mix(in srgb, var(--codex-accent) 14%, var(--codex-surface-2))' : 'transparent',
       },
-      ToggleGroupVariantStyle.outline => <String, String>{
-        'border': isSelected
-            ? '1px solid var(--primary)'
-            : '1px solid rgba(var(--border-rgb), 0.3)',
-        'background': isSelected
-            ? 'linear-gradient(135deg, rgba(var(--primary-rgb), 0.2) 0%, rgba(var(--primary-rgb), 0.1) 100%)'
-            : 'transparent',
+      ToggleGroupVariantStyle.outline => {
+        'border': isSelected ? '1px solid var(--codex-accent-border)' : '1px solid var(--border)',
+        'background': isSelected ? 'color-mix(in srgb, var(--codex-accent) 12%, var(--codex-surface-1))' : 'var(--codex-surface-1)',
       },
     };
 
     return dom.button(
-      classes:
-          'codex-toggle-group-item codex-neon ${isSelected ? 'selected' : ''} ${isDisabled ? 'disabled' : ''}',
+      classes: 'codex-toggle-group-item ${isSelected ? 'selected' : ''} ${isDisabled ? 'disabled' : ''}',
       attributes: {
         'type': 'button',
         'aria-pressed': '$isSelected',
+        'data-state': isSelected ? 'on' : 'off',
+        'data-disabled': '$isDisabled',
         if (isDisabled) 'disabled': 'true',
       },
       styles: dom.Styles(raw: {
@@ -79,52 +72,36 @@ class CodexToggleGroup extends StatelessComponent {
         'align-items': 'center',
         'justify-content': 'center',
         'height': height,
-        'padding': '0 $paddingH',
         'min-width': height,
-        'border-radius': 'var(--radius)',
+        'padding': '0 $paddingH',
+        'border-radius': 'calc(var(--radius) - 2px)',
         'font-size': 'var(--font-size-sm)',
-        'font-weight': 'var(--font-weight-semibold)',
-        'letter-spacing': '0.025em',
-        'color': isSelected ? '#ffffff' : 'var(--foreground)',
-        'transition': 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+        'font-weight': 'var(--font-weight-medium)',
+        'color': isSelected ? 'var(--codex-accent)' : 'var(--foreground)',
         'cursor': isDisabled ? 'not-allowed' : 'pointer',
         'pointer-events': isDisabled ? 'none' : 'auto',
-        'opacity': isDisabled ? '0.4' : '1',
-        // Neon glow when selected
-        'box-shadow': isSelected
-            ? '0 0 20px rgba(var(--primary-rgb), 0.4), 0 0 40px rgba(var(--primary-rgb), 0.15)'
-            : 'none',
-        'text-shadow': isSelected ? '0 0 10px rgba(255, 255, 255, 0.5)' : 'none',
+        'opacity': isDisabled ? '0.5' : '1',
+        'transition': 'background 0.2s ease, border-color 0.2s ease, color 0.2s ease',
         ...variantStyles,
       }),
-      events: {
-        'click': (_) {
-          if (isDisabled) return;
-
-          if (props.type == ToggleGroupSelectionType.single) {
-            props.onChanged?.call(isSelected ? null : item.value);
-          } else {
-            final newValues = Set<String>.from(props.values ?? {});
-            if (isSelected) {
-              newValues.remove(item.value);
-            } else {
-              newValues.add(item.value);
-            }
-            props.onMultiChanged?.call(newValues);
-          }
-        },
-      },
-      [
-        dom.div(
-          styles: dom.Styles(raw: {
-            'display': 'flex',
-            'align-items': 'center',
-            'justify-content': 'center',
-            'filter': isSelected ? 'drop-shadow(0 0 4px currentColor)' : 'none',
-          }),
-          [item.child],
-        ),
-      ],
+      events: isDisabled
+          ? null
+          : {
+              'click': (_) {
+                if (props.type == ToggleGroupSelectionType.single) {
+                  props.onChanged?.call(isSelected ? null : item.value);
+                  return;
+                }
+                final Set<String> next = Set<String>.from(props.values ?? <String>{});
+                if (isSelected) {
+                  next.remove(item.value);
+                } else {
+                  next.add(item.value);
+                }
+                props.onMultiChanged?.call(next);
+              },
+            },
+      [item.child],
     );
   }
 }

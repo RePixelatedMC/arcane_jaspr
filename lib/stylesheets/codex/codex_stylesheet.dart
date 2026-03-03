@@ -1,25 +1,19 @@
 import '../../component/navigation/toc.dart' show arcaneTocTreeLinesCss;
 import '../../theme/index.dart';
 import '../../util/content/prose_styles.dart';
-import '../../util/content/sidebar_styles.dart' show arcaneSidebarCodexStyles;
 import '../stylesheet.dart';
 import 'renderers/codex_renderers.dart';
 
-/// Codex stylesheet - Gamer-inspired theme with neon glows.
+/// Codex stylesheet - premium dark design language.
 ///
-/// Implements a neon, glowing gaming aesthetic:
-/// - OLED-optimized dark mode with pure black backgrounds
-/// - Vibrant neon accents (configurable: Green/Red/Blue/Purple/Rainbow)
-/// - Subtle glow effects via colored shadows
-/// - Larger radii and spacing for a modern feel
-/// - Clean, accessible light mode with soft contrasts
+/// Implements a dark-first visual system:
+/// - High-contrast surfaces with restrained accent emphasis
+/// - Configurable accent themes (Green/Red/Blue/Purple/Rainbow)
+/// - Premium typography with clear hierarchy
+/// - Focused interaction states and subtle atmosphere effects
 /// - ITCAvantGardeStd font for headings and titles
 /// - Akzidenz-GroteskPro font for body text
 /// - Hack font for code
-///
-/// The light mode uses soft whites and grays with vibrant accents.
-///
-/// Supports multiple color themes via [CodexTheme].
 class CodexStylesheet extends ArcaneStylesheet {
   /// The color theme to use. Defaults to green.
   final CodexTheme theme;
@@ -41,15 +35,11 @@ class CodexStylesheet extends ArcaneStylesheet {
 
   @override
   ThemeSeed get lightSeed => ThemeSeed(
-        // Codex uses the theme color as primary
         primary: theme.color,
-        // Clean white background - surfaces provide the color
         background: 0xFFffffff,
-        // Bold, gaming-inspired surfaces - clearly tinted with theme color
         secondary: theme.lightSecondary,
         accent: theme.lightAccent,
         border: theme.lightBorder,
-        // Semantic colors
         destructive: 0xFFef4444,
         success: 0xFF22c55e,
         warning: 0xFFf59e0b,
@@ -58,20 +48,17 @@ class CodexStylesheet extends ArcaneStylesheet {
 
   @override
   ThemeSeed get darkSeed => ThemeSeed(
-        // Same theme color in dark mode
         primary: theme.color,
-        background: 0xFF000000, // OLED black
-        // Neutral dark gray secondary/accent (no blue tint)
-        secondary: 0xFF1a1a1a,
-        accent: 0xFF1a1a1a,
-        // Darker semantic colors for dark mode
+        background: 0xFF000000,
+        secondary: 0xFF0A0D0B,
+        accent: 0xFF101614,
+        border: 0xFF1F2824,
         destructive: 0xFF7f1d1d,
         success: 0xFF166534,
         warning: 0xFF92400e,
         info: 0xFF1e40af,
         isDark: true,
-        // Enable neon glow on shadows
-        accentGlow: true,
+        accentGlow: false,
       );
 
   // ============================================
@@ -304,8 +291,70 @@ class CodexStylesheet extends ArcaneStylesheet {
 
   @override
   String get componentCss => '''
+/* Codex Root Tokens */
+#arcane-root[class*="codex-"] {
+  --codex-accent: var(--primary);
+  --codex-accent-rgb: var(--primary-rgb);
+  --codex-accent-secondary: color-mix(in srgb, var(--primary) 72%, #065f46);
+  --codex-accent-gradient: linear-gradient(135deg, var(--primary) 0%, color-mix(in srgb, var(--primary) 55%, #0891b2) 100%);
+  --codex-accent-border: color-mix(in srgb, var(--primary) 25%, var(--border));
+  --codex-surface-0: #000000;
+  --codex-surface-1: #050705;
+  --codex-surface-2: #0A0F0C;
+  --codex-grid-line: color-mix(in srgb, var(--primary) 13%, transparent);
+  --codex-glow-soft: color-mix(in srgb, var(--primary) 32%, transparent);
+  background: transparent !important;
+  isolation: isolate;
+}
+
+html.dark #arcane-root[class*="codex-"]::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background-color: var(--codex-surface-0);
+  background-image:
+    linear-gradient(var(--codex-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--codex-grid-line) 1px, transparent 1px);
+  background-size: 60px 60px;
+  background-attachment: fixed;
+}
+
+html.dark #arcane-root[class*="codex-"]::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.03;
+  mix-blend-mode: overlay;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
+#arcane-root[class*="codex-"] ::selection {
+  background: var(--codex-glow-soft);
+  color: var(--foreground);
+}
+
+#arcane-root[class*="codex-"] :focus-visible {
+  outline: 2px solid var(--codex-accent);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--codex-accent) 24%, transparent);
+}
+
+#arcane-root[class*="codex-"] a:hover {
+  color: var(--codex-accent-secondary);
+}
+
+#arcane-root[class*="codex-"] .codex-card:hover,
+#arcane-root[class*="codex-"] .arcane-card.clickable:hover {
+  border-color: var(--codex-accent-border);
+}
+
 /* ============================================
-   PROSE - Codex Gaming Typography
+   PROSE - Codex Typography
    ============================================ */
 .prose {
   max-width: 65ch;
@@ -344,15 +393,14 @@ class CodexStylesheet extends ArcaneStylesheet {
 }
 
 .prose a {
-  color: var(--primary);
+  color: var(--codex-accent);
   text-decoration: none;
-  border-bottom: 1px solid color-mix(in srgb, var(--primary) 50%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--codex-accent) 42%, transparent);
   transition: all 0.15s ease;
 }
 
 .prose a:hover {
-  border-bottom-color: var(--primary);
-  text-shadow: 0 0 8px color-mix(in srgb, var(--primary) 30%, transparent);
+  border-bottom-color: var(--codex-accent);
 }
 
 .prose strong, .prose b {
@@ -370,14 +418,14 @@ class CodexStylesheet extends ArcaneStylesheet {
 }
 
 .prose li::marker {
-  color: var(--primary);
+  color: var(--codex-accent);
 }
 
 .prose blockquote {
-  border-left: 3px solid var(--primary);
+  border-left: 3px solid var(--codex-accent);
   padding: 0.75rem 1rem;
   margin: 1rem 0;
-  background: color-mix(in srgb, var(--primary) 5%, transparent);
+  background: color-mix(in srgb, var(--codex-accent) 5%, transparent);
   border-radius: 0 var(--radius-md) var(--radius-md) 0;
 }
 
@@ -388,7 +436,7 @@ class CodexStylesheet extends ArcaneStylesheet {
 .prose hr {
   border: none;
   height: 2px;
-  background: linear-gradient(90deg, transparent, var(--primary), transparent);
+  background: linear-gradient(90deg, transparent, var(--codex-accent), transparent);
   margin: 1.75rem 0;
   opacity: 0.5;
 }
@@ -407,10 +455,10 @@ class CodexStylesheet extends ArcaneStylesheet {
 }
 
 .prose th {
-  background: color-mix(in srgb, var(--primary) 10%, var(--muted));
+  background: color-mix(in srgb, var(--codex-accent) 10%, var(--muted));
   font-family: var(--font-heading);
   font-weight: 600;
-  color: var(--primary);
+  color: var(--codex-accent);
 }
 
 .prose img {
@@ -421,15 +469,14 @@ class CodexStylesheet extends ArcaneStylesheet {
   border: 1px solid var(--border);
 }
 
-/* Code blocks - Codex terminal style */
 .prose pre {
-  background: #0a0a0a;
-  border: 1px solid color-mix(in srgb, var(--primary) 30%, var(--border));
+  background: var(--codex-surface-1);
+  border: 1px solid color-mix(in srgb, var(--codex-accent) 24%, var(--border));
   border-radius: var(--radius-lg);
   padding: 1rem 1.25rem;
   overflow-x: auto;
   margin: 1rem 0;
-  box-shadow: 0 0 20px color-mix(in srgb, var(--primary) 10%, transparent);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--codex-accent) 8%, transparent);
 }
 
 .prose code {
@@ -438,14 +485,14 @@ class CodexStylesheet extends ArcaneStylesheet {
 }
 
 .prose :not(pre) > code {
-  background: color-mix(in srgb, var(--primary) 15%, var(--muted));
+  background: color-mix(in srgb, var(--codex-accent) 12%, var(--muted));
   padding: 0.2rem 0.5rem;
   border-radius: var(--radius-sm);
   font-size: 0.875em;
-  color: var(--primary);
+  color: var(--codex-accent);
 }
 
-/* Syntax highlighting - Codex neon */
+/* Syntax highlighting */
 .prose .hljs-keyword { color: #ff7b72; }
 .prose .hljs-string { color: var(--primary); }
 .prose .hljs-number { color: #79c0ff; }
@@ -592,11 +639,11 @@ $arcaneTocTreeLinesCss
 }
 
 .codex-game-tile--interactive:hover {
-  transform: scale(1.03);
-  border-color: color-mix(in srgb, var(--primary) 60%, transparent);
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--codex-accent) 45%, transparent);
   box-shadow:
-    0 8px 40px color-mix(in srgb, var(--primary) 40%, transparent),
-    0 0 20px color-mix(in srgb, var(--primary) 30%, transparent);
+    0 10px 28px color-mix(in srgb, var(--codex-accent) 16%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--codex-accent) 18%, transparent);
 }
 
 /* Platform icon tooltips */
@@ -639,8 +686,8 @@ $arcaneTocTreeLinesCss
 }
 
 .codex-game-tile--cta:hover {
-  border-color: color-mix(in srgb, var(--primary) 40%, transparent);
-  background: color-mix(in srgb, var(--primary) 5%, var(--card));
+  border-color: color-mix(in srgb, var(--codex-accent) 32%, transparent);
+  background: color-mix(in srgb, var(--codex-accent) 5%, var(--card));
 }
 ''';
 
@@ -703,8 +750,7 @@ $arcaneTocTreeLinesCss
 
 /// Color themes for Codex stylesheet.
 ///
-/// Each theme defines a primary accent color and bold light mode surfaces.
-/// Light mode surfaces are intentionally more saturated for a gaming aesthetic.
+/// Each theme defines a primary accent color and supporting light-mode surfaces.
 enum CodexTheme {
   /// Emerald green - #10b981
   /// Light mode: Bold mint surfaces

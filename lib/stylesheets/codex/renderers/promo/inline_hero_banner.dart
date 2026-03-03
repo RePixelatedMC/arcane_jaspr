@@ -54,7 +54,7 @@ class _CodexInlineHeroBannerState extends State<CodexInlineHeroBanner> {
           'background': 'rgba(10, 10, 10, 0.9)',
           'border': '1px solid var(--primary)',
           'border-radius': 'var(--arcane-radius-full)',
-          'box-shadow': '0 0 20px rgba(var(--primary-rgb), 0.2)',
+          'box-shadow': '0 14px 20px rgba(var(--primary-rgb), 0.2)',
         },
       PromoInlineHeroBannerStyle.card => {
           'display': 'flex',

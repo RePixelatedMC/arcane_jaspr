@@ -137,7 +137,7 @@ class _CodexMinimizablePromoState extends State<CodexMinimizablePromo> {
                   'font-size': 'var(--font-size-lg)',
                   'font-weight': 'var(--font-weight-bold)',
                   'color': '#ffffff',
-                  'box-shadow': '0 0 15px rgba(var(--primary-rgb), 0.4)',
+                  'box-shadow': '0 14px 15px rgba(var(--primary-rgb), 0.4)',
                 }),
                 [Component.text(component.props.discount!)],
               )
@@ -263,7 +263,7 @@ class _CodexMinimizablePromoState extends State<CodexMinimizablePromo> {
               'text-decoration': 'none',
               'cursor': 'pointer',
               'transition': 'all var(--transition)',
-              'box-shadow': '0 0 15px rgba(var(--primary-rgb), 0.4)',
+              'box-shadow': '0 14px 15px rgba(var(--primary-rgb), 0.4)',
             }),
             events: component.props.onCtaClick != null
                 ? {

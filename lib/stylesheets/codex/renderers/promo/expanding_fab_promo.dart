@@ -60,7 +60,7 @@ class _CodexExpandingFabPromoState extends State<CodexExpandingFabPromo> {
           'cursor': 'pointer',
           // Codex: intense glow
           'box-shadow':
-              '0 0 30px rgba(var(--primary-rgb), 0.5), 0 0 60px rgba(var(--primary-rgb), 0.25), 0 8px 32px rgba(0, 0, 0, 0.4)',
+              '0 0 30px rgba(var(--primary-rgb), 0.5), 0 14px 60px rgba(var(--primary-rgb), 0.25), 0 8px 32px rgba(0, 0, 0, 0.4)',
           'transition': 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
         }),
         events: {'click': (_) => _toggle()},
@@ -69,7 +69,6 @@ class _CodexExpandingFabPromoState extends State<CodexExpandingFabPromo> {
               const dom.span(
                 styles: dom.Styles(raw: {
                   'font-size': '1.5rem',
-                  'filter': 'drop-shadow(0 0 6px currentColor)',
                 }),
                 [Component.text('%')],
               ),
@@ -118,7 +117,7 @@ class _CodexExpandingFabPromoState extends State<CodexExpandingFabPromo> {
                   'font-size': 'var(--font-size-lg)',
                   'font-weight': 'var(--font-weight-bold)',
                   'color': '#ffffff',
-                  'box-shadow': '0 0 15px rgba(var(--primary-rgb), 0.4)',
+                  'box-shadow': '0 14px 15px rgba(var(--primary-rgb), 0.4)',
                 }),
                 [Component.text(component.props.discount!)],
               )
@@ -245,7 +244,7 @@ class _CodexExpandingFabPromoState extends State<CodexExpandingFabPromo> {
               'text-decoration': 'none',
               'cursor': 'pointer',
               'transition': 'all var(--transition)',
-              'box-shadow': '0 0 15px rgba(var(--primary-rgb), 0.4)',
+              'box-shadow': '0 14px 15px rgba(var(--primary-rgb), 0.4)',
             }),
             events: component.props.onCtaClick != null
                 ? {

@@ -5,9 +5,6 @@ import '../../../component/view/icon.dart';
 import '../../../core/props/dropdown_menu_props.dart';
 
 /// Codex DropdownMenu renderer.
-///
-/// Implements the Codex Neon Cyberpunk design language with
-/// pattern matching on sealed ArcaneMenuItem types.
 class CodexDropdownMenu extends StatelessComponent {
   final DropdownMenuProps props;
 
@@ -57,7 +54,6 @@ class CodexDropdownMenu extends StatelessComponent {
             [],
           ),
 
-        // Menu - Codex Neon styling
         if (props.isOpen)
           dom.div(
             classes: 'codex-dropdown-menu',
@@ -75,14 +71,15 @@ class CodexDropdownMenu extends StatelessComponent {
                 else
                   'min-width': '140px',
                 'padding': '6px',
-                'background-color': 'var(--card)',
-                'border': '1px solid var(--border)',
+                'background':
+                    'linear-gradient(180deg, color-mix(in srgb, var(--primary) 5%, var(--card)), var(--card))',
+                'border': '1px solid var(--codex-accent-border)',
                 'border-radius': 'var(--radius)',
-                'box-shadow': '0 0 30px rgba(var(--primary-rgb), 0.1)',
+                'box-shadow':
+                    '0 14px 36px rgba(0, 0, 0, 0.45), 0 14px 0 1px color-mix(in srgb, var(--primary) 10%, transparent)',
                 'overflow': 'hidden',
                 'color': 'var(--foreground)',
-                'animation':
-                    'arcane-dropdown-fade var(--arcane-transition)-out',
+                'animation': 'arcane-dropdown-fade 0.16s ease-out',
               },
             ),
             [for (final item in props.items) _buildMenuItem(item)],
@@ -400,7 +397,7 @@ class CodexDropdownMenu extends StatelessComponent {
               'background-color': 'var(--card)',
               'border': '1px solid var(--border)',
               'border-radius': 'var(--radius)',
-              'box-shadow': '0 0 30px rgba(var(--primary-rgb), 0.1)',
+              'box-shadow': '0 14px 30px rgba(var(--primary-rgb), 0.1)',
             },
           ),
           [for (final child in item.children) _buildMenuItem(child)],

@@ -129,7 +129,7 @@ class CodexAvatar extends StatelessComponent {
               // Codex: ring with card background
               'border': '2px solid var(--card)',
               // Codex: subtle glow on status
-              'box-shadow': '0 0 8px ${props.statusColor ?? 'var(--success)'}',
+              'box-shadow': '0 14px 8px ${props.statusColor ?? 'var(--success)'}',
             }),
             [],
           ),

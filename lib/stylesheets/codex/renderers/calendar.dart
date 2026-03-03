@@ -1,15 +1,9 @@
-import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
+import 'package:jaspr/jaspr.dart';
 
 import '../../../core/props/calendar_props.dart';
 
-/// Codex-style calendar component.
-///
-/// Implements the Codex Neon Cyberpunk design language:
-/// - Holographic gradient backgrounds
-/// - Glowing neon day selection with pulse effects
-/// - Cyberpunk-style navigation with glow trails
-/// - Intense neon accents on today and selected dates
+/// Codex calendar component with restrained dark styling.
 class CodexCalendar extends StatelessComponent {
   final CalendarProps props;
 
@@ -17,13 +11,22 @@ class CodexCalendar extends StatelessComponent {
 
   static const List<String> _weekDays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
   static const List<String> _months = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
   ];
 
-  bool _isSameDay(DateTime a, DateTime b) {
-    return a.year == b.year && a.month == b.month && a.day == b.day;
-  }
+  bool _isSameDay(DateTime a, DateTime b) =>
+      a.year == b.year && a.month == b.month && a.day == b.day;
 
   bool _isDisabled(DateTime date) {
     if (props.isDisabled?.call(date) ?? false) return true;
@@ -32,43 +35,37 @@ class CodexCalendar extends StatelessComponent {
     return false;
   }
 
-  bool _isSelected(DateTime date) {
-    if (props.selected == null) return false;
-    return _isSameDay(date, props.selected!);
-  }
-
-  bool _isToday(DateTime date) {
-    return _isSameDay(date, DateTime.now());
-  }
+  bool _isSelected(DateTime date) => props.selected != null && _isSameDay(date, props.selected!);
+  bool _isToday(DateTime date) => _isSameDay(date, DateTime.now());
 
   bool _isInRange(DateTime date) {
     if (props.selectedRange == null) return false;
     return date.isAfter(props.selectedRange!.start.subtract(const Duration(days: 1))) &&
-           date.isBefore(props.selectedRange!.end.add(const Duration(days: 1)));
+        date.isBefore(props.selectedRange!.end.add(const Duration(days: 1)));
   }
 
   List<DateTime> _getDaysInMonth() {
-    final days = <DateTime>[];
-    final displayMonth = props.displayMonth;
-    final firstDay = DateTime(displayMonth.year, displayMonth.month, 1);
-    final lastDay = DateTime(displayMonth.year, displayMonth.month + 1, 0);
+    final List<DateTime> days = <DateTime>[];
+    final DateTime displayMonth = props.displayMonth;
+    final DateTime firstDay = DateTime(displayMonth.year, displayMonth.month, 1);
+    final DateTime lastDay = DateTime(displayMonth.year, displayMonth.month + 1, 0);
 
-    var startWeekday = firstDay.weekday % 7;
+    int startWeekday = firstDay.weekday % 7;
     if (props.firstDayOfWeek == 1) {
       startWeekday = (firstDay.weekday - 1) % 7;
     }
 
-    for (var i = startWeekday - 1; i >= 0; i--) {
+    for (int i = startWeekday - 1; i >= 0; i--) {
       days.add(firstDay.subtract(Duration(days: i + 1)));
     }
 
-    for (var i = 1; i <= lastDay.day; i++) {
+    for (int i = 1; i <= lastDay.day; i++) {
       days.add(DateTime(displayMonth.year, displayMonth.month, i));
     }
 
-    final remaining = 7 - (days.length % 7);
+    final int remaining = 7 - (days.length % 7);
     if (remaining < 7) {
-      for (var i = 1; i <= remaining; i++) {
+      for (int i = 1; i <= remaining; i++) {
         days.add(DateTime(displayMonth.year, displayMonth.month + 1, i));
       }
     }
@@ -77,120 +74,65 @@ class CodexCalendar extends StatelessComponent {
   }
 
   int _getWeekNumber(DateTime date) {
-    final firstDayOfYear = DateTime(date.year, 1, 1);
-    final dayOfYear = date.difference(firstDayOfYear).inDays + 1;
+    final DateTime firstDayOfYear = DateTime(date.year, 1, 1);
+    final int dayOfYear = date.difference(firstDayOfYear).inDays + 1;
     return ((dayOfYear - date.weekday + 10) / 7).floor();
   }
 
   @override
   Component build(BuildContext context) {
-    final days = _getDaysInMonth();
-    final weekDays = props.firstDayOfWeek == 1
-        ? [..._weekDays.sublist(1), _weekDays[0]]
+    final List<DateTime> days = _getDaysInMonth();
+    final List<String> weekDays = props.firstDayOfWeek == 1
+        ? <String>[..._weekDays.sublist(1), _weekDays[0]]
         : _weekDays;
-    final displayMonth = props.displayMonth;
+    final DateTime month = props.displayMonth;
 
     return dom.div(
-      classes: 'codex-calendar codex-neon',
+      classes: 'codex-calendar',
       attributes: {
         'role': 'application',
         'aria-label': 'Calendar',
+        'data-mode': props.mode.name,
       },
       styles: const dom.Styles(raw: {
         'display': 'flex',
         'flex-direction': 'column',
-        'gap': '12px',
-        'padding': '20px',
-        'background': 'linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(var(--card-rgb), 0.6) 100%)',
-        'border': '1px solid rgba(var(--primary-rgb), 0.3)',
+        'gap': '10px',
+        'padding': '14px',
+        'background': 'var(--codex-surface-1)',
+        'border': '1px solid var(--border)',
         'border-radius': 'var(--radius)',
         'width': 'fit-content',
-        // Subtle neon glow
-        'box-shadow': '0 0 30px rgba(var(--primary-rgb), 0.1)',
       }),
       [
-        // Header with neon navigation
         dom.div(
           styles: const dom.Styles(raw: {
             'display': 'flex',
             'align-items': 'center',
             'justify-content': 'space-between',
-            'gap': '12px',
+            'gap': '8px',
           }),
           [
-            // Previous month button
-            dom.button(
-              classes: 'codex-calendar-nav-btn codex-neon',
-              attributes: {
-                'type': 'button',
-                'aria-label': 'Previous month',
-              },
-              styles: const dom.Styles(raw: {
-                'display': 'flex',
-                'align-items': 'center',
-                'justify-content': 'center',
-                'width': '40px',
-                'height': '40px',
-                'background': 'linear-gradient(135deg, rgba(var(--primary-rgb), 0.15) 0%, rgba(var(--primary-rgb), 0.05) 100%)',
-                'border': '1px solid rgba(var(--primary-rgb), 0.3)',
-                'border-radius': 'var(--radius)',
-                'cursor': 'pointer',
-                'color': 'var(--primary)',
-                'font-weight': 'var(--font-weight-bold)',
-                'transition': 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                // Neon glow
-                'box-shadow': '0 0 10px rgba(var(--primary-rgb), 0.15)',
-                'text-shadow': '0 0 8px rgba(var(--primary-rgb), 0.5)',
-              }),
-              events: props.onPreviousMonth != null
-                  ? {'click': (_) => props.onPreviousMonth!()}
-                  : null,
-              [const Component.text('<')],
+            _navButton(
+              label: 'Previous month',
+              symbol: '<',
+              onClick: props.onPreviousMonth,
             ),
-            // Month/year display with neon text
             dom.span(
               styles: const dom.Styles(raw: {
-                'font-weight': 'var(--font-weight-semibold)',
-                'font-size': 'var(--font-size-base)',
-                'letter-spacing': '0.025em',
+                'font-weight': 'var(--font-weight-medium)',
+                'font-size': 'var(--font-size-sm)',
                 'color': 'var(--foreground)',
-                'text-shadow': '0 0 10px rgba(var(--primary-rgb), 0.3)',
               }),
-              [Component.text('${_months[displayMonth.month - 1]} ${displayMonth.year}')],
+              [Component.text('${_months[month.month - 1]} ${month.year}')],
             ),
-            // Next month button
-            dom.button(
-              classes: 'codex-calendar-nav-btn codex-neon',
-              attributes: {
-                'type': 'button',
-                'aria-label': 'Next month',
-              },
-              styles: const dom.Styles(raw: {
-                'display': 'flex',
-                'align-items': 'center',
-                'justify-content': 'center',
-                'width': '40px',
-                'height': '40px',
-                'background': 'linear-gradient(135deg, rgba(var(--primary-rgb), 0.15) 0%, rgba(var(--primary-rgb), 0.05) 100%)',
-                'border': '1px solid rgba(var(--primary-rgb), 0.3)',
-                'border-radius': 'var(--radius)',
-                'cursor': 'pointer',
-                'color': 'var(--primary)',
-                'font-weight': 'var(--font-weight-bold)',
-                'transition': 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                // Neon glow
-                'box-shadow': '0 0 10px rgba(var(--primary-rgb), 0.15)',
-                'text-shadow': '0 0 8px rgba(var(--primary-rgb), 0.5)',
-              }),
-              events: props.onNextMonth != null
-                  ? {'click': (_) => props.onNextMonth!()}
-                  : null,
-              [const Component.text('>')],
+            _navButton(
+              label: 'Next month',
+              symbol: '>',
+              onClick: props.onNextMonth,
             ),
           ],
         ),
-
-        // Week day headers with neon styling
         dom.div(
           styles: dom.Styles(raw: {
             'display': 'grid',
@@ -201,30 +143,23 @@ class CodexCalendar extends StatelessComponent {
           }),
           [
             if (props.showWeekNumbers)
-              const dom.div(
-                styles: dom.Styles(raw: {'width': '40px'}),
-                [],
-              ),
-            for (final day in weekDays)
+              const dom.div(styles: dom.Styles(raw: {'width': '34px'}), []),
+            for (final String day in weekDays)
               dom.div(
                 styles: const dom.Styles(raw: {
                   'display': 'flex',
                   'align-items': 'center',
                   'justify-content': 'center',
-                  'height': '40px',
-                  'font-size': 'var(--font-size-xs)',
-                  'font-weight': 'var(--font-weight-semibold)',
-                  'letter-spacing': '0.05em',
+                  'height': '30px',
+                  'font-size': '11px',
+                  'font-weight': '600',
+                  'color': 'var(--muted-foreground)',
                   'text-transform': 'uppercase',
-                  'color': 'var(--primary)',
-                  'text-shadow': '0 0 8px rgba(var(--primary-rgb), 0.4)',
                 }),
                 [Component.text(day)],
               ),
           ],
         ),
-
-        // Calendar grid with neon days
         dom.div(
           styles: dom.Styles(raw: {
             'display': 'grid',
@@ -234,16 +169,16 @@ class CodexCalendar extends StatelessComponent {
             'gap': '4px',
           }),
           [
-            for (var i = 0; i < days.length; i++) ...[
+            for (int i = 0; i < days.length; i++) ...[
               if (props.showWeekNumbers && i % 7 == 0)
                 dom.div(
                   styles: const dom.Styles(raw: {
                     'display': 'flex',
                     'align-items': 'center',
                     'justify-content': 'center',
-                    'width': '40px',
-                    'height': '40px',
-                    'font-size': 'var(--font-size-xs)',
+                    'width': '34px',
+                    'height': '32px',
+                    'font-size': '11px',
                     'color': 'var(--muted-foreground)',
                   }),
                   [Component.text('${_getWeekNumber(days[i])}')],
@@ -252,96 +187,96 @@ class CodexCalendar extends StatelessComponent {
             ],
           ],
         ),
-
-        // Today button with neon styling
         if (props.showToday)
           dom.button(
-            classes: 'codex-calendar-today-btn codex-neon',
-            attributes: {'type': 'button'},
+            classes: 'codex-calendar-today-btn',
+            attributes: {'type': 'button', 'data-state': 'today-action'},
             styles: const dom.Styles(raw: {
-              'padding': '10px 20px',
-              'background': 'linear-gradient(135deg, rgba(var(--primary-rgb), 0.15) 0%, rgba(var(--primary-rgb), 0.05) 100%)',
-              'border': '1px solid rgba(var(--primary-rgb), 0.3)',
+              'align-self': 'center',
+              'padding': '7px 12px',
+              'background': 'var(--codex-surface-2)',
+              'border': '1px solid var(--codex-accent-border)',
               'border-radius': 'var(--radius)',
               'font-size': 'var(--font-size-sm)',
-              'font-weight': 'var(--font-weight-semibold)',
-              'letter-spacing': '0.025em',
-              'color': 'var(--primary)',
+              'font-weight': 'var(--font-weight-medium)',
+              'color': 'var(--codex-accent)',
               'cursor': 'pointer',
-              'transition': 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-              'align-self': 'center',
-              // Neon glow
-              'box-shadow': '0 0 15px rgba(var(--primary-rgb), 0.2)',
-              'text-shadow': '0 0 8px rgba(var(--primary-rgb), 0.4)',
             }),
-            events: props.onGoToToday != null
-                ? {'click': (_) => props.onGoToToday!()}
-                : null,
+            events: props.onGoToToday == null ? null : {'click': (_) => props.onGoToToday!()},
             [const Component.text('Today')],
           ),
       ],
     );
   }
 
+  Component _navButton({
+    required String label,
+    required String symbol,
+    required void Function()? onClick,
+  }) {
+    return dom.button(
+      classes: 'codex-calendar-nav-btn',
+      attributes: {'type': 'button', 'aria-label': label},
+      styles: const dom.Styles(raw: {
+        'display': 'flex',
+        'align-items': 'center',
+        'justify-content': 'center',
+        'width': '30px',
+        'height': '30px',
+        'background': 'var(--codex-surface-2)',
+        'border': '1px solid var(--border)',
+        'border-radius': 'var(--radius-sm)',
+        'cursor': 'pointer',
+        'color': 'var(--foreground)',
+      }),
+      events: onClick == null ? null : {'click': (_) => onClick()},
+      [Component.text(symbol)],
+    );
+  }
+
   Component _buildDay(DateTime date) {
-    final isOutside = date.month != props.displayMonth.month;
-    final isDisabled = _isDisabled(date);
-    final isSelected = _isSelected(date);
-    final isToday = _isToday(date);
-    final isInRange = _isInRange(date);
-    final isRangeStart = props.selectedRange != null &&
-        _isSameDay(date, props.selectedRange!.start);
-    final isRangeEnd = props.selectedRange != null &&
-        _isSameDay(date, props.selectedRange!.end);
+    final bool isOutside = date.month != props.displayMonth.month;
+    final bool isDisabled = _isDisabled(date);
+    final bool isSelected = _isSelected(date);
+    final bool isToday = _isToday(date);
+    final bool isInRange = _isInRange(date);
+    final bool isRangeStart =
+        props.selectedRange != null && _isSameDay(date, props.selectedRange!.start);
+    final bool isRangeEnd =
+        props.selectedRange != null && _isSameDay(date, props.selectedRange!.end);
 
     return dom.button(
-      classes: 'codex-calendar-day codex-neon',
+      classes: 'codex-calendar-day',
       attributes: {
         'type': 'button',
         'aria-label': '${date.day} ${_months[date.month - 1]} ${date.year}',
         'aria-selected': '$isSelected',
+        'data-state': isSelected ? 'selected' : (isToday ? 'today' : 'idle'),
+        'data-disabled': '$isDisabled',
         if (isDisabled) 'disabled': 'true',
       },
       styles: dom.Styles(raw: {
         'display': 'flex',
         'align-items': 'center',
         'justify-content': 'center',
-        'width': '40px',
-        'height': '40px',
-        'border': isToday && !isSelected
-            ? '1px solid var(--primary)'
-            : '1px solid transparent',
-        'border-radius': 'var(--radius)',
+        'width': '32px',
+        'height': '32px',
+        'border-radius': 'var(--radius-sm)',
+        'border': isToday && !isSelected ? '1px solid var(--codex-accent-border)' : '1px solid transparent',
         'background': isSelected
-            ? 'linear-gradient(135deg, var(--primary) 0%, color-mix(in srgb, var(--primary) 70%, #ff00ff) 100%)'
+            ? 'color-mix(in srgb, var(--codex-accent) 18%, var(--codex-surface-2))'
             : isInRange
-                ? 'linear-gradient(135deg, rgba(var(--primary-rgb), 0.2) 0%, rgba(var(--primary-rgb), 0.1) 100%)'
+                ? 'color-mix(in srgb, var(--codex-accent) 8%, var(--codex-surface-1))'
                 : 'transparent',
-        'font-size': 'var(--font-size-sm)',
-        'font-weight': isSelected || isToday
-            ? 'var(--font-weight-semibold)'
-            : 'var(--font-weight-medium)',
+        'font-size': '13px',
+        'font-weight': isSelected || isToday ? '600' : '500',
         'color': isSelected
-            ? '#ffffff'
+            ? 'var(--codex-accent)'
             : isOutside
-                ? 'var(--muted)'
-                : isToday
-                    ? 'var(--primary)'
-                    : 'var(--foreground)',
+                ? 'var(--muted-foreground)'
+                : 'var(--foreground)',
         'cursor': isDisabled ? 'not-allowed' : 'pointer',
-        'transition': 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-        // Neon glow effects
-        'box-shadow': isSelected
-            ? '0 0 20px rgba(var(--primary-rgb), 0.5), 0 0 40px rgba(var(--primary-rgb), 0.2)'
-            : isToday
-                ? '0 0 10px rgba(var(--primary-rgb), 0.3)'
-                : 'none',
-        'text-shadow': isSelected
-            ? '0 0 10px rgba(255, 255, 255, 0.5)'
-            : isToday
-                ? '0 0 8px rgba(var(--primary-rgb), 0.5)'
-                : 'none',
-        if (isDisabled) 'opacity': '0.4',
+        'opacity': isDisabled ? '0.35' : '1',
         if (isRangeStart) 'border-top-left-radius': 'var(--radius)',
         if (isRangeStart) 'border-bottom-left-radius': 'var(--radius)',
         if (isRangeEnd) 'border-top-right-radius': 'var(--radius)',

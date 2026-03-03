@@ -33,10 +33,10 @@ class MapStyle {
   /// Pin size in SVG units.
   final double pinSize;
 
-  /// Pin glow intensity (0.0 to 1.0).
+  /// Pin highlight intensity (0.0 to 1.0).
   final double pinGlowIntensity;
 
-  /// Pin glow color.
+  /// Pin highlight color.
   final String pinGlowColor;
 
   /// Tooltip background color.
@@ -62,7 +62,7 @@ class MapStyle {
     this.pinHoverColor = 'var(--arcane-map-pin-hover, var(--primary))',
     this.pinActiveColor = 'var(--arcane-map-pin-active, var(--success, #22c55e))',
     this.pinSize = 6,
-    this.pinGlowIntensity = 0.3,
+    this.pinGlowIntensity = 0.18,
     this.pinGlowColor = 'var(--arcane-map-pin-glow, var(--primary))',
     this.tooltipBackground = 'var(--arcane-map-tooltip-bg, var(--popover))',
     this.tooltipBorder = 'var(--arcane-map-tooltip-border, var(--border))',
@@ -163,7 +163,7 @@ class MapStyle {
 /// CSS styles for ArcaneMap components.
 ///
 /// Include this in your stylesheet's baseCss for proper map styling.
-/// Provides ShadCN base styles and Codex neon overrides.
+/// Provides ShadCN base styles and Codex overrides.
 const String arcaneMapCss = '''
 /* ============================================
    ARCANE MAP - Base Styles (ShadCN)
@@ -243,64 +243,53 @@ const String arcaneMapCss = '''
 }
 
 /* ============================================
-   ARCANE MAP - Codex Style (Neon/Cyberpunk)
+   ARCANE MAP - Codex Style
    ============================================ */
 
 [class*="codex-"] .arcane-world-map,
 [class*="codex-"] .arcane-usa-map,
 .codex .arcane-world-map,
 .codex .arcane-usa-map {
-  background: color-mix(in srgb, var(--card) 80%, transparent);
-  border-color: color-mix(in srgb, var(--primary) 30%, var(--border));
-  box-shadow:
-    inset 0 0 30px color-mix(in srgb, var(--primary) 5%, transparent),
-    0 0 20px color-mix(in srgb, var(--primary) 10%, transparent);
+  background: color-mix(in srgb, var(--card) 92%, transparent);
+  border-color: var(--codex-accent-border, var(--border));
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.34);
 }
 
-/* Codex region paths - neon glow on hover */
 [class*="codex-"] .arcane-world-map path[data-region]:hover,
 [class*="codex-"] .arcane-usa-map path[data-region]:hover,
 .codex .arcane-world-map path[data-region]:hover,
 .codex .arcane-usa-map path[data-region]:hover {
   fill: var(--primary) !important;
-  opacity: 0.7;
-  filter: drop-shadow(0 0 4px var(--primary));
+  opacity: 0.72;
 }
 
-/* Codex active regions - bright glow */
 [class*="codex-"] .arcane-world-map path[data-region][data-active="true"],
 [class*="codex-"] .arcane-usa-map path[data-region][data-active="true"],
 .codex .arcane-world-map path[data-region][data-active="true"],
 .codex .arcane-usa-map path[data-region][data-active="true"] {
   fill: var(--primary) !important;
-  filter: drop-shadow(0 0 8px var(--primary));
+  opacity: 0.9;
 }
 
-/* Codex location pins - pulsing glow */
 [class*="codex-"] .arcane-world-map circle[data-location],
 [class*="codex-"] .arcane-usa-map circle[data-location],
 .codex .arcane-world-map circle[data-location],
 .codex .arcane-usa-map circle[data-location] {
-  filter: drop-shadow(0 0 4px var(--primary));
-  animation: arcane-map-pin-pulse 2s ease-in-out infinite;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
 }
 
 [class*="codex-"] .arcane-world-map circle[data-location]:hover,
 [class*="codex-"] .arcane-usa-map circle[data-location]:hover,
 .codex .arcane-world-map circle[data-location]:hover,
 .codex .arcane-usa-map circle[data-location]:hover {
-  filter: drop-shadow(0 0 8px var(--primary)) drop-shadow(0 0 12px var(--primary));
-  animation: none;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.45));
 }
 
-/* Codex debug tooltip - neon style */
 [class*="codex-"] .arcane-map-debug-tooltip > div,
 .codex .arcane-map-debug-tooltip > div {
-  background: color-mix(in srgb, var(--card) 95%, transparent);
-  border-color: color-mix(in srgb, var(--primary) 40%, var(--border));
-  box-shadow:
-    0 4px 12px rgba(0, 0, 0, 0.3),
-    0 0 20px color-mix(in srgb, var(--primary) 15%, transparent);
+  background: color-mix(in srgb, var(--card) 96%, transparent);
+  border-color: var(--codex-accent-border, var(--border));
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.42);
 }
 
 [class*="codex-"] .arcane-map-debug-tooltip .debug-lat,
@@ -308,24 +297,10 @@ const String arcaneMapCss = '''
 .codex .arcane-map-debug-tooltip .debug-lat,
 .codex .arcane-map-debug-tooltip .debug-lng {
   color: var(--primary);
-  text-shadow: 0 0 8px color-mix(in srgb, var(--primary) 50%, transparent);
 }
 
 [class*="codex-"] .arcane-map-debug-tooltip .debug-hint,
 .codex .arcane-map-debug-tooltip .debug-hint {
   color: var(--primary);
-  text-shadow: 0 0 6px color-mix(in srgb, var(--primary) 40%, transparent);
-}
-
-/* Pin pulse animation for Codex */
-@keyframes arcane-map-pin-pulse {
-  0%, 100% {
-    opacity: 1;
-    filter: drop-shadow(0 0 4px var(--primary));
-  }
-  50% {
-    opacity: 0.8;
-    filter: drop-shadow(0 0 8px var(--primary)) drop-shadow(0 0 12px var(--primary));
-  }
 }
 ''';

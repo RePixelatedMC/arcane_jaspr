@@ -1,15 +1,9 @@
-import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
+import 'package:jaspr/jaspr.dart';
 
 import '../../../core/props/slider_props.dart';
 
-/// Codex Slider renderer.
-///
-/// Implements the Codex Neon Cyberpunk design language:
-/// - Glowing neon track with gradient fill
-/// - Pulsing thumb with intense glow
-/// - Cyberpunk-style step markers
-/// - Holographic value display
+/// Codex slider renderer with restrained accent treatment.
 class CodexSlider extends StatelessComponent {
   final SliderProps props;
 
@@ -17,83 +11,70 @@ class CodexSlider extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final double percentage =
-        ((props.value - props.min) / (props.max - props.min) * 100)
-            .clamp(0.0, 100.0);
+    final double span = (props.max - props.min).abs();
+    final double percentage = span == 0
+        ? 0
+        : ((props.value - props.min) / (props.max - props.min) * 100).clamp(0.0, 100.0);
 
-    // Codex Neon Slider sizes - larger with more presence
-    final (String trackHeight, String thumbSize, String hitAreaHeight) =
-        switch (props.size) {
-      ComponentSize.sm => ('10px', '24px', '40px'),
-      ComponentSize.md => ('12px', '28px', '48px'),
-      ComponentSize.lg => ('14px', '32px', '56px'),
+    final (String trackHeight, String thumbSize, String hitAreaHeight) = switch (props.size) {
+      ComponentSize.sm => ('8px', '18px', '32px'),
+      ComponentSize.md => ('10px', '20px', '36px'),
+      ComponentSize.lg => ('12px', '24px', '40px'),
     };
 
     final int thumbSizeNum = int.parse(thumbSize.replaceAll('px', ''));
 
-    // Codex Neon variant colors with intense glows
-    final (String fillGradient, String glowColor, String thumbGlow) = switch (props.variant) {
-      SliderVariant.primary => (
-        'linear-gradient(90deg, var(--primary) 0%, color-mix(in srgb, var(--primary) 70%, #ff00ff) 100%)',
-        '0 0 20px rgba(var(--primary-rgb), 0.4)',
-        '0 0 15px rgba(var(--primary-rgb), 0.5), 0 0 30px rgba(var(--primary-rgb), 0.25)',
-      ),
-      SliderVariant.success => (
-        'linear-gradient(90deg, var(--success) 0%, color-mix(in srgb, var(--success) 70%, #00ffaa) 100%)',
-        '0 0 20px rgba(var(--success-rgb), 0.4)',
-        '0 0 15px rgba(var(--success-rgb), 0.5), 0 0 30px rgba(var(--success-rgb), 0.25)',
-      ),
-      SliderVariant.warning => (
-        'linear-gradient(90deg, var(--warning) 0%, color-mix(in srgb, var(--warning) 70%, #ffaa00) 100%)',
-        '0 0 20px rgba(var(--warning-rgb), 0.4)',
-        '0 0 15px rgba(var(--warning-rgb), 0.5), 0 0 30px rgba(var(--warning-rgb), 0.25)',
-      ),
-      SliderVariant.error => (
-        'linear-gradient(90deg, var(--destructive) 0%, color-mix(in srgb, var(--destructive) 70%, #ff0066) 100%)',
-        '0 0 20px rgba(var(--destructive-rgb), 0.4)',
-        '0 0 15px rgba(var(--destructive-rgb), 0.5), 0 0 30px rgba(var(--destructive-rgb), 0.25)',
-      ),
+    final String tone = switch (props.variant) {
+      SliderVariant.primary => 'var(--primary)',
+      SliderVariant.success => 'var(--success)',
+      SliderVariant.warning => 'var(--warning)',
+      SliderVariant.error => 'var(--destructive)',
     };
 
+    final String fillGradient =
+        'linear-gradient(90deg, color-mix(in srgb, $tone 84%, #0d1110), $tone)';
+
     return dom.div(
-      classes: 'codex-slider codex-neon ${props.disabled ? 'disabled' : ''}',
+      classes: 'codex-slider ${props.disabled ? 'disabled' : ''}',
+      attributes: {
+        'data-state': props.disabled ? 'disabled' : 'enabled',
+        'data-disabled': '${props.disabled}',
+        'data-variant': props.variant.name,
+        'data-size': props.size.name,
+      },
       styles: dom.Styles(raw: {
         'width': '100%',
-        'opacity': props.disabled ? '0.4' : '1',
+        'opacity': props.disabled ? '0.5' : '1',
         'pointer-events': props.disabled ? 'none' : 'auto',
       }),
       [
-        // Label row with neon styling
         if (props.label != null || props.showValue)
           dom.div(
             styles: const dom.Styles(raw: {
               'display': 'flex',
               'justify-content': 'space-between',
               'align-items': 'center',
-              'margin-bottom': '1rem',
+              'margin-bottom': '0.75rem',
             }),
             [
               if (props.label != null)
                 dom.span(
                   styles: const dom.Styles(raw: {
                     'font-size': 'var(--font-size-sm)',
-                    'font-weight': 'var(--font-weight-semibold)',
-                    'letter-spacing': '0.025em',
-                    'text-transform': 'uppercase',
+                    'font-weight': 'var(--font-weight-medium)',
                     'color': 'var(--foreground)',
                   }),
                   [Component.text(props.label!)],
                 ),
               if (props.showValue)
                 dom.span(
-                  classes: 'codex-slider-value codex-neon',
+                  classes: 'codex-slider-value',
                   styles: const dom.Styles(raw: {
                     'font-size': 'var(--font-size-sm)',
-                    'font-weight': 'var(--font-weight-bold)',
+                    'font-weight': 'var(--font-weight-semibold)',
                     'font-variant-numeric': 'tabular-nums',
-                    'color': 'var(--primary)',
-                    'text-shadow': '0 0 10px rgba(var(--primary-rgb), 0.4)',
-                    'min-width': '50px',
+                    'color': 'var(--codex-accent)',
+                    'min-width': '52px',
                     'text-align': 'right',
                   }),
                   [
@@ -104,8 +85,6 @@ class CodexSlider extends StatelessComponent {
                 ),
             ],
           ),
-
-        // Track container with hit area
         dom.div(
           classes: 'codex-slider-track-container',
           styles: dom.Styles(raw: {
@@ -119,23 +98,21 @@ class CodexSlider extends StatelessComponent {
             'user-select': 'none',
           }),
           [
-            // Track background with neon style
             dom.div(
-              classes: 'codex-slider-track codex-neon',
+              classes: 'codex-slider-track',
               styles: dom.Styles(raw: {
                 'position': 'absolute',
                 'left': '0',
                 'right': '0',
                 'height': trackHeight,
-                'background': 'linear-gradient(135deg, rgba(var(--muted-rgb), 0.6) 0%, rgba(var(--muted-rgb), 0.4) 100%)',
-                'border-radius': '9999px',
+                'background': 'var(--codex-surface-2)',
+                'border': '1px solid var(--border)',
+                'border-radius': '999px',
                 'overflow': 'hidden',
-                'box-shadow': '0 0 10px rgba(var(--primary-rgb), 0.05)',
               }),
               [
-                // Range/filled portion with neon gradient
                 dom.div(
-                  classes: 'codex-slider-track-fill codex-neon',
+                  classes: 'codex-slider-track-fill',
                   styles: dom.Styles(raw: {
                     'position': 'absolute',
                     'left': '0',
@@ -143,21 +120,17 @@ class CodexSlider extends StatelessComponent {
                     'width': '$percentage%',
                     'height': '100%',
                     'background': fillGradient,
-                    'box-shadow': glowColor,
                     'transition': 'width 0.1s ease-out',
                   }),
                   [],
                 ),
               ],
             ),
-
-            // Step markers (if enabled)
             if (props.showSteps && props.step != null)
-              _buildStepMarkers(trackHeight),
-
-            // Neon thumb with intense glow
+              _buildStepMarkers(trackHeight, tone),
             dom.div(
-              classes: 'codex-slider-thumb codex-neon',
+              classes: 'codex-slider-thumb',
+              attributes: {'data-state': props.disabled ? 'disabled' : 'active'},
               styles: dom.Styles(raw: {
                 'position': 'absolute',
                 'left': 'calc($percentage% - ${thumbSizeNum / 2}px)',
@@ -165,19 +138,16 @@ class CodexSlider extends StatelessComponent {
                 'transform': 'translateY(-50%)',
                 'width': thumbSize,
                 'height': thumbSize,
-                'background': 'linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.9) 100%)',
-                'border': '3px solid var(--primary)',
+                'background': '#f8f8f8',
+                'border': '2px solid $tone',
                 'border-radius': '50%',
-                // Intense neon glow on thumb
-                'box-shadow': '$thumbGlow, 0 4px 12px rgba(0, 0, 0, 0.3)',
-                'transition': 'all 0.15s ease-out',
+                'box-shadow': '0 4px 14px rgba(0, 0, 0, 0.28)',
+                'transition': 'left 0.1s ease-out',
                 'pointer-events': 'none',
                 'z-index': '2',
               }),
               [],
             ),
-
-            // Hidden native range input for interaction
             dom.input(
               type: dom.InputType.range,
               classes: 'codex-slider-input',
@@ -186,6 +156,7 @@ class CodexSlider extends StatelessComponent {
                 'max': props.max.toString(),
                 'value': props.value.toString(),
                 'step': props.step?.toString() ?? 'any',
+                'data-state': props.disabled ? 'disabled' : 'active',
                 if (props.disabled) 'disabled': 'true',
               },
               styles: const dom.Styles(raw: {
@@ -202,24 +173,21 @@ class CodexSlider extends StatelessComponent {
                   : {
                       'input': (e) {
                         final dynamic target = e.target;
-                        final String? valueStr = target?.value;
-                        final double? newValue = double.tryParse(valueStr ?? '');
-                        if (newValue != null) {
-                          props.onChanged!(newValue);
+                        final double? next = double.tryParse('${target?.value ?? ''}');
+                        if (next != null) {
+                          props.onChanged!(next);
                         }
                       },
                     },
             ),
           ],
         ),
-
-        // Min/Max labels with neon styling
         if (props.label == null && !props.showValue)
           dom.div(
             styles: const dom.Styles(raw: {
               'display': 'flex',
               'justify-content': 'space-between',
-              'margin-top': '0.5rem',
+              'margin-top': '0.4rem',
             }),
             [
               dom.span(
@@ -242,14 +210,14 @@ class CodexSlider extends StatelessComponent {
     );
   }
 
-  Component _buildStepMarkers(String trackHeight) {
+  Component _buildStepMarkers(String trackHeight, String tone) {
     if (props.step == null || props.step! <= 0) {
       return const dom.div([], styles: dom.Styles(raw: {}));
     }
 
     final int steps = ((props.max - props.min) / props.step!).floor();
-    if (steps > 20) {
-      return const dom.div([], styles: dom.Styles(raw: {})); // Too many steps
+    if (steps > 24) {
+      return const dom.div([], styles: dom.Styles(raw: {}));
     }
 
     return dom.div(
@@ -264,14 +232,13 @@ class CodexSlider extends StatelessComponent {
         'pointer-events': 'none',
       }),
       [
-        for (var i = 0; i <= steps; i++)
-          const dom.div(
+        for (int i = 0; i <= steps; i++)
+          dom.div(
             styles: dom.Styles(raw: {
-              'width': '4px',
-              'height': '4px',
-              'background': 'var(--primary)',
+              'width': '3px',
+              'height': '3px',
               'border-radius': '50%',
-              'box-shadow': '0 0 6px rgba(var(--primary-rgb), 0.4)',
+              'background': 'color-mix(in srgb, $tone 55%, var(--muted-foreground))',
             }),
             [],
           ),

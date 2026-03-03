@@ -1,15 +1,9 @@
-import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
+import 'package:jaspr/jaspr.dart';
 
 import '../../../core/props/checkbox_props.dart';
 
-/// Codex Checkbox renderer.
-///
-/// Implements the Codex Neon Cyberpunk design language:
-/// - Glowing neon checkboxes with pulsing effect
-/// - Holographic check animation
-/// - Cyberpunk-style variant colors with intense glows
-/// - Animated state transitions
+/// Codex checkbox renderer with restrained dark styling.
 class CodexCheckbox extends StatelessComponent {
   final CheckboxProps props;
 
@@ -17,126 +11,92 @@ class CodexCheckbox extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    // Codex Neon size dimensions - larger with more presence
     final String boxSize = switch (props.size) {
-      ComponentSize.sm => '20px',
-      ComponentSize.md => '24px',
-      ComponentSize.lg => '28px',
+      ComponentSize.sm => '18px',
+      ComponentSize.md => '22px',
+      ComponentSize.lg => '26px',
     };
 
-    final String checkSize = switch (props.size) {
-      ComponentSize.sm => '12px',
-      ComponentSize.md => '14px',
-      ComponentSize.lg => '18px',
-    };
-
-    // Codex Neon color variant with intense glows
-    final (String checkedBg, String borderColor, String glowColor, String checkColor) = switch (props.color) {
-      ColorVariant.primary => (
-        'linear-gradient(135deg, var(--primary) 0%, color-mix(in srgb, var(--primary) 70%, #ff00ff) 100%)',
-        'var(--primary)',
-        '0 0 20px rgba(var(--primary-rgb), 0.4), 0 0 40px rgba(var(--primary-rgb), 0.15)',
-        '#ffffff',
-      ),
-      ColorVariant.secondary => (
-        'linear-gradient(135deg, var(--secondary) 0%, color-mix(in srgb, var(--secondary) 70%, var(--primary)) 100%)',
-        'var(--secondary)',
-        '0 0 15px rgba(var(--secondary-rgb), 0.3)',
-        'var(--secondary-foreground)',
-      ),
-      ColorVariant.destructive => (
-        'linear-gradient(135deg, var(--destructive) 0%, color-mix(in srgb, var(--destructive) 70%, #ff0066) 100%)',
-        'var(--destructive)',
-        '0 0 20px rgba(var(--destructive-rgb), 0.4), 0 0 40px rgba(var(--destructive-rgb), 0.15)',
-        '#ffffff',
-      ),
-      ColorVariant.success => (
-        'linear-gradient(135deg, var(--success) 0%, color-mix(in srgb, var(--success) 70%, #00ffaa) 100%)',
-        'var(--success)',
-        '0 0 20px rgba(var(--success-rgb), 0.4), 0 0 40px rgba(var(--success-rgb), 0.15)',
-        '#ffffff',
-      ),
-      ColorVariant.warning => (
-        'linear-gradient(135deg, var(--warning) 0%, color-mix(in srgb, var(--warning) 70%, #ffaa00) 100%)',
-        'var(--warning)',
-        '0 0 20px rgba(var(--warning-rgb), 0.4), 0 0 40px rgba(var(--warning-rgb), 0.15)',
-        '#000000',
-      ),
-      ColorVariant.info => (
-        'linear-gradient(135deg, var(--info) 0%, color-mix(in srgb, var(--info) 70%, #00aaff) 100%)',
-        'var(--info)',
-        '0 0 20px rgba(var(--info-rgb), 0.4), 0 0 40px rgba(var(--info-rgb), 0.15)',
-        '#ffffff',
-      ),
+    final (String tone, String checkColor) = switch (props.color) {
+      ColorVariant.primary => ('var(--primary)', '#ffffff'),
+      ColorVariant.secondary => ('var(--secondary)', 'var(--secondary-foreground)'),
+      ColorVariant.destructive => ('var(--destructive)', '#ffffff'),
+      ColorVariant.success => ('var(--success)', '#ffffff'),
+      ColorVariant.warning => ('var(--warning)', '#111111'),
+      ColorVariant.info => ('var(--info)', '#ffffff'),
     };
 
     return dom.div(
-      classes: 'codex-checkbox-wrapper codex-neon',
+      classes: 'codex-checkbox-wrapper ${props.disabled ? 'disabled' : ''}',
+      attributes: {
+        'data-state': props.checked ? 'checked' : 'unchecked',
+        'data-disabled': '${props.disabled}',
+        'data-variant': props.color.name,
+        'data-size': props.size.name,
+      },
       styles: dom.Styles(raw: {
         'display': 'flex',
         'align-items': 'flex-start',
-        'gap': '1rem',
+        'gap': '0.875rem',
         'cursor': props.disabled ? 'not-allowed' : 'pointer',
-        'opacity': props.disabled ? '0.4' : '1',
+        'opacity': props.disabled ? '0.5' : '1',
         'pointer-events': props.disabled ? 'none' : 'auto',
       }),
       events: props.disabled || props.onChanged == null
           ? null
           : {
-              'click': (event) => props.onChanged!(!props.checked),
+              'click': (_) => props.onChanged!(!props.checked),
             },
       [
-        // Neon checkbox box
         dom.div(
-          classes: 'codex-checkbox codex-neon',
+          classes: 'codex-checkbox-box',
           styles: dom.Styles(raw: {
             'width': boxSize,
             'height': boxSize,
-            // Codex Neon: rounded corners
-            'border-radius': 'var(--radius-sm)',
+            'border-radius': 'calc(var(--radius-sm) - 1px)',
             'background': props.checked
-                ? checkedBg
-                : 'linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(var(--card-rgb), 0.6) 100%)',
+                ? 'linear-gradient(180deg, color-mix(in srgb, $tone 82%, #0d1110), $tone)'
+                : 'var(--codex-surface-1)',
             'border': props.checked
-                ? '1px solid $borderColor'
-                : '1px solid rgba(var(--border-rgb), 0.5)',
-            // Neon glow when checked
-            'box-shadow': props.checked ? glowColor : '0 0 10px rgba(var(--primary-rgb), 0.1)',
+                ? '1px solid color-mix(in srgb, $tone 42%, var(--border))'
+                : '1px solid var(--border)',
             'display': 'flex',
             'align-items': 'center',
             'justify-content': 'center',
             'flex-shrink': '0',
-            'transition': 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+            'transition': 'background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease',
+            'box-shadow': props.checked
+                ? '0 10px 20px rgba(0, 0, 0, 0.28)'
+                : 'none',
           }),
           [
             if (props.checked)
               dom.span(
                 styles: dom.Styles(raw: {
                   'color': checkColor,
-                  'font-size': checkSize,
-                  'font-weight': 'var(--font-weight-bold)',
+                  'font-size': switch (props.size) {
+                    ComponentSize.sm => '11px',
+                    ComponentSize.md => '13px',
+                    ComponentSize.lg => '15px',
+                  },
+                  'font-weight': '700',
                   'line-height': '1',
-                  'text-shadow': '0 0 8px currentColor',
-                  'animation': 'codex-check-pop 0.2s ease-out',
                 }),
                 [const Component.text('\u2713')],
               ),
           ],
         ),
-        // Label and description
         if (props.label != null || props.description != null)
           dom.div(
-            styles: const dom.Styles(raw: {
-              'flex': '1',
-            }),
+            styles: const dom.Styles(raw: {'flex': '1'}),
             [
               if (props.label != null)
                 dom.span(
                   styles: const dom.Styles(raw: {
+                    'display': 'block',
                     'font-size': 'var(--font-size-sm)',
                     'font-weight': 'var(--font-weight-medium)',
                     'color': 'var(--foreground)',
-                    'display': 'block',
                     'line-height': '1.4',
                   }),
                   [Component.text(props.label!)],
@@ -144,11 +104,11 @@ class CodexCheckbox extends StatelessComponent {
               if (props.description != null)
                 dom.span(
                   styles: const dom.Styles(raw: {
+                    'display': 'block',
                     'font-size': 'var(--font-size-sm)',
                     'color': 'var(--muted-foreground)',
-                    'display': 'block',
-                    'margin-top': '0.375rem',
                     'line-height': '1.4',
+                    'margin-top': '0.25rem',
                   }),
                   [Component.text(props.description!)],
                 ),

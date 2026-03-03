@@ -114,7 +114,7 @@ class CodexTabs extends StatelessComponent {
         'white-space': 'nowrap',
         if (props.fill) 'flex': '1',
         if (isSelected)
-          'box-shadow': '0 0 12px rgba(5, 150, 105, 0.2), inset 0 0 8px rgba(5, 150, 105, 0.05)',
+          'box-shadow': '0 14px 12px rgba(5, 150, 105, 0.2), inset 0 0 8px rgba(5, 150, 105, 0.05)',
       }),
       events: isDisabled || props.onChanged == null
           ? null

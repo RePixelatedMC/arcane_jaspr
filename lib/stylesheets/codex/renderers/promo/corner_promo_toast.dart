@@ -215,7 +215,7 @@ class _CodexCornerPromoToastState extends State<CodexCornerPromoToast> {
               'text-decoration': 'none',
               'cursor': 'pointer',
               'transition': 'all var(--transition)',
-              'box-shadow': '0 0 15px rgba(var(--primary-rgb), 0.3)',
+              'box-shadow': '0 14px 15px rgba(var(--primary-rgb), 0.3)',
             }),
             events: component.props.onCtaClick != null
                 ? {

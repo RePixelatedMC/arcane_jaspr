@@ -2,14 +2,15 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
 import '../../../core/renderers.dart';
-import '../../shadcn/renderers/shadcn_renderers.dart';
 
 // Codex-specific renderer imports
 import 'accordion.dart';
 import 'alert.dart';
+import 'aspect_ratio.dart';
 import 'avatar.dart';
 import 'breadcrumbs.dart';
 import 'button.dart';
+import 'button_panel.dart';
 import 'calendar.dart';
 import 'card.dart';
 import 'chart.dart';
@@ -42,7 +43,9 @@ import 'otp_input.dart';
 import 'pagination.dart';
 import 'progress.dart';
 import 'radio_group.dart';
+import 'resizable.dart';
 import 'scroll_area.dart';
+import 'scroll_rail.dart';
 import 'select.dart';
 import 'separator.dart';
 import 'sidebar.dart';
@@ -64,14 +67,11 @@ import 'promo/promo.dart';
 ///
 /// Implements all components according to the Codex design language:
 /// - OLED-first dark mode with pure black backgrounds
-/// - Subtle accent-colored glows
+/// - Restrained accent emphasis
 /// - 1.25x spacing compared to ShadCN
 /// - Larger border radius (14px default)
-/// - Gaming/tech aesthetic
-///
-/// Components are gradually being migrated from ShadcnRenderers.
-/// Non-overridden components fall back to ShadCN implementations.
-class CodexRenderers extends ShadcnRenderers {
+/// - Premium dark, high-contrast aesthetic
+class CodexRenderers extends ComponentRenderers {
   const CodexRenderers();
 
   @override
@@ -221,6 +221,18 @@ class CodexRenderers extends ShadcnRenderers {
   Component gap(GapProps props) => CodexGap(props);
 
   @override
+  Component buttonPanel(ButtonPanelProps props) => CodexButtonPanel(props);
+
+  @override
+  Component toolbar(ToolbarProps props) => CodexToolbar(props);
+
+  @override
+  Component buttonGroup(ButtonGroupProps props) => CodexButtonGroup(props);
+
+  @override
+  Component aspectRatio(AspectRatioProps props) => CodexAspectRatio(props);
+
+  @override
   Component gutter(GutterProps props) => CodexGutter(props);
 
   @override
@@ -238,6 +250,9 @@ class CodexRenderers extends ShadcnRenderers {
 
   @override
   Component inputGroup(InputGroupProps props) => CodexInputGroup(props);
+
+  @override
+  Component resizable(ResizableProps props) => CodexResizable(props);
 
   @override
   Component item(ItemProps props) => CodexItem(props);
@@ -317,6 +332,13 @@ class CodexRenderers extends ShadcnRenderers {
 
   @override
   Component scrollArea(ScrollAreaProps props) => CodexScrollArea(props);
+
+  @override
+  Component scrollRail(ScrollRailProps props) => CodexScrollRail(props);
+
+  @override
+  Component scrollRailLayout(ScrollRailLayoutProps props) =>
+      CodexScrollRailLayout(props);
 
   @override
   Component virtualScroll<T>(VirtualScrollProps<T> props) =>

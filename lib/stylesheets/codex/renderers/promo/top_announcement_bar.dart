@@ -66,7 +66,7 @@ class _CodexTopAnnouncementBarState extends State<CodexTopAnnouncementBar> {
         'backdrop-filter': 'blur(12px)',
         '-webkit-backdrop-filter': 'blur(12px)',
         'border-bottom': '1px solid var(--primary)',
-        'box-shadow': '0 0 20px rgba(var(--primary-rgb), 0.2)',
+        'box-shadow': '0 14px 20px rgba(var(--primary-rgb), 0.2)',
       }),
       [
         dom.span(
@@ -131,7 +131,7 @@ class _CodexTopAnnouncementBarState extends State<CodexTopAnnouncementBar> {
               'text-decoration': 'none',
               'cursor': 'pointer',
               'transition': 'all var(--transition)',
-              'box-shadow': '0 0 10px rgba(var(--primary-rgb), 0.3)',
+              'box-shadow': '0 14px 10px rgba(var(--primary-rgb), 0.3)',
             }),
             events: component.props.onCtaClick != null
                 ? {
