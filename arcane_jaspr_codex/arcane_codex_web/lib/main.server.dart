@@ -25,6 +25,8 @@ void main() async {
         searchEnabled: true,
         tocEnabled: true,
         themeToggleEnabled: false,
+        navigationBarEnabled: true,
+        navigationBarPosition: KBNavigationBarPosition.top,
         defaultTheme: KBThemeMode.dark,
         showEditLink: true,
         editBranch: 'master',
