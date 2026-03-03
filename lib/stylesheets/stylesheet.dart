@@ -172,8 +172,30 @@ $componentCss
 @font-face {
   font-family: 'lucide';
   src: url('/assets/fonts/lucide/lucide.woff2') format('woff2'),
+       url('/fonts/lucide/lucide.woff2') format('woff2'),
+       url('assets/fonts/lucide/lucide.woff2') format('woff2'),
+       url('fonts/lucide/lucide.woff2') format('woff2'),
+       url('../assets/fonts/lucide/lucide.woff2') format('woff2'),
+       url('../fonts/lucide/lucide.woff2') format('woff2'),
+       url('../../assets/fonts/lucide/lucide.woff2') format('woff2'),
+       url('../../fonts/lucide/lucide.woff2') format('woff2'),
+       url('https://cdn.jsdelivr.net/gh/ArcaneArts/arcane_jaspr@master/assets/fonts/lucide/lucide.woff2') format('woff2'),
        url('/assets/fonts/lucide/lucide.woff') format('woff'),
-       url('/assets/fonts/lucide/lucide.ttf') format('truetype');
+       url('/fonts/lucide/lucide.woff') format('woff'),
+       url('assets/fonts/lucide/lucide.woff') format('woff'),
+       url('fonts/lucide/lucide.woff') format('woff'),
+       url('../assets/fonts/lucide/lucide.woff') format('woff'),
+       url('../fonts/lucide/lucide.woff') format('woff'),
+       url('../../assets/fonts/lucide/lucide.woff') format('woff'),
+       url('../../fonts/lucide/lucide.woff') format('woff'),
+       url('/assets/fonts/lucide/lucide.ttf') format('truetype'),
+       url('/fonts/lucide/lucide.ttf') format('truetype'),
+       url('assets/fonts/lucide/lucide.ttf') format('truetype'),
+       url('fonts/lucide/lucide.ttf') format('truetype'),
+       url('../assets/fonts/lucide/lucide.ttf') format('truetype'),
+       url('../fonts/lucide/lucide.ttf') format('truetype'),
+       url('../../assets/fonts/lucide/lucide.ttf') format('truetype'),
+       url('../../fonts/lucide/lucide.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: block;

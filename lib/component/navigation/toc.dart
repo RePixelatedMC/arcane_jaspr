@@ -33,7 +33,8 @@ class TocEntry {
       id: json['id'] as String,
       text: json['text'] as String,
       depth: json['depth'] as int? ?? 2,
-      children: (json['children'] as List<dynamic>?)
+      children:
+          (json['children'] as List<dynamic>?)
               ?.map((dynamic e) => TocEntry.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
@@ -42,11 +43,11 @@ class TocEntry {
 
   /// Convert to JSON map.
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'text': text,
-        'depth': depth,
-        'children': children.map((TocEntry e) => e.toJson()).toList(),
-      };
+    'id': id,
+    'text': text,
+    'depth': depth,
+    'children': children.map((TocEntry e) => e.toJson()).toList(),
+  };
 }
 
 /// A table of contents component for documentation pages.
@@ -86,8 +87,8 @@ class ArcaneToc extends StatelessComponent {
     this.showTreeLines = true,
     this.classPrefix = 'toc',
     super.key,
-  })  : entries = const [],
-        customContent = content;
+  }) : entries = const [],
+       customContent = content;
 
   @override
   Component build(BuildContext context) {
@@ -118,7 +119,8 @@ class ArcaneToc extends StatelessComponent {
 
         // Content
         ArcaneDiv(
-          classes: '$classPrefix-content${showTreeLines ? ' sidebar-tree-nav' : ''}',
+          classes:
+              '$classPrefix-content${showTreeLines ? ' sidebar-tree-nav' : ''}',
           children: [
             if (customContent != null)
               customContent!
@@ -141,7 +143,9 @@ class ArcaneToc extends StatelessComponent {
         gap: Gap.xs,
         paddingStringCustom: depth > 0 ? '0 0 0 16px' : null,
       ),
-      children: items.map((TocEntry entry) => _buildEntry(entry, depth)).toList(),
+      children: items
+          .map((TocEntry entry) => _buildEntry(entry, depth))
+          .toList(),
     );
   }
 
@@ -315,9 +319,11 @@ const String arcaneTocTreeLinesCss = '''
 .toc-content a {
   color: var(--muted-foreground);
   text-decoration: none;
-  font-size: 12px;
+  font-size: 0.8125rem;
+  line-height: 1.3;
   display: block;
-  padding: 0.375rem 0.625rem;
+  margin-left: 0.125rem;
+  padding: 0.5rem 0.75rem 0.5rem 0.625rem !important;
   border-radius: var(--radius-sm);
   transition: color 0.15s ease, background 0.15s ease;
 }
@@ -336,8 +342,9 @@ const String arcaneTocTreeLinesCss = '''
 
 /* Nested link sizing */
 .toc-content ul ul a {
-  font-size: 11px;
-  padding: 0.25rem 0.5rem;
+  font-size: 0.8125rem;
+  line-height: 1.3;
+  padding: 0.5rem 0.75rem 0.5rem 0.625rem !important;
 }
 
 /* Fading tree lines at deeper nesting levels */
@@ -396,7 +403,10 @@ const String arcaneTocTreeLinesCss = '''
 /* Codex link styling */
 [class*="codex-"] .toc-content a,
 .codex .toc-content a {
-  padding: 0.5rem 0.75rem;
+  font-size: 0.8125rem;
+  line-height: 1.3;
+  margin: 0.125rem 0;
+  padding: 0.5rem 0.75rem 0.5rem 0.625rem !important;
   border-left: 3px solid transparent;
   border-radius: 0 var(--radius-md) var(--radius-md) 0;
   transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;

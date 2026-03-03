@@ -13,6 +13,8 @@ import 'package:arcane_jaspr/component/collection/infinite_carousel.dart'
     as _infinite_carousel;
 import 'package:arcane_jaspr/component/form/field.dart' as _field;
 import 'package:arcane_jaspr/component/view/avatar.dart' as _avatar;
+import 'package:jaspr_content/components/_internal/tab_bar.dart' as _tab_bar;
+import 'package:jaspr_content/components/tabs.dart' as _tabs;
 
 /// Default [ServerOptions] for use with your Jaspr project.
 ///
@@ -38,6 +40,10 @@ ServerOptions get defaultServerOptions => ServerOptions(
           'interactive_demo',
           params: __interactive_demoInteractiveDemo,
         ),
+    _tab_bar.TabBar: ClientTarget<_tab_bar.TabBar>(
+      'jaspr_content:tab_bar',
+      params: __tab_barTabBar,
+    ),
   },
   styles: () => [
     ..._card_carousel.ArcaneCardCarousel.styles,
@@ -46,9 +52,15 @@ ServerOptions get defaultServerOptions => ServerOptions(
     ..._infinite_carousel.ArcaneInfiniteCarousel.styles,
     ..._field.ArcaneFieldStyles.styles,
     ..._avatar.ArcaneAvatarBadge.styles,
+    ..._tab_bar.TabBar.styles,
+    ..._tabs.Tabs.styles,
   ],
 );
 
 Map<String, Object?> __interactive_demoInteractiveDemo(
   _interactive_demo.InteractiveDemo c,
 ) => {'componentType': c.componentType};
+Map<String, Object?> __tab_barTabBar(_tab_bar.TabBar c) => {
+  'initialValue': c.initialValue,
+  'items': c.items,
+};

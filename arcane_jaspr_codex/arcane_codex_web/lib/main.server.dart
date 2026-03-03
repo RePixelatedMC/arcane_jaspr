@@ -25,6 +25,7 @@ void main() async {
         searchEnabled: true,
         tocEnabled: true,
         themeToggleEnabled: false,
+        pageNavEnabled: true,
         navigationBarEnabled: true,
         navigationBarPosition: KBNavigationBarPosition.top,
         defaultTheme: KBThemeMode.dark,
