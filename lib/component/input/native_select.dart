@@ -1,0 +1,67 @@
+import 'package:jaspr/jaspr.dart';
+
+import 'text_input.dart';
+import '../../core/theme_provider.dart';
+
+typedef ArcaneNativeSelectOption = ArcaneSelectOption;
+
+class ArcaneNativeSelect extends StatelessComponent {
+  final List<ArcaneSelectOption> options;
+  final String? value;
+  final String? placeholder;
+  final ComponentSize size;
+  final bool disabled;
+  final bool required;
+  final String? name;
+  final String? id;
+  final String? label;
+  final String? error;
+  final bool fullWidth;
+  final void Function(String)? onChange;
+
+  const ArcaneNativeSelect({
+    required this.options,
+    this.value,
+    this.placeholder,
+    this.size = ComponentSize.md,
+    this.disabled = false,
+    this.required = false,
+    this.name,
+    this.id,
+    this.label,
+    this.error,
+    this.fullWidth = false,
+    this.onChange,
+    super.key,
+  });
+
+  @override
+  Component build(BuildContext context) {
+    final List<NativeSelectOptionProps> mappedOptions = options
+        .map(
+          (ArcaneSelectOption option) => NativeSelectOptionProps(
+            label: option.label,
+            value: option.value,
+            disabled: option.disabled,
+          ),
+        )
+        .toList();
+
+    return context.renderers.nativeSelect(
+      NativeSelectProps(
+        options: mappedOptions,
+        value: value,
+        placeholder: placeholder,
+        size: size,
+        disabled: disabled,
+        required: required,
+        name: name,
+        id: id,
+        label: label,
+        error: error,
+        fullWidth: fullWidth,
+        onChange: onChange,
+      ),
+    );
+  }
+}

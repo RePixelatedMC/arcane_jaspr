@@ -46,7 +46,8 @@ document.addEventListener('DOMContentLoaded', function() {
 ''';
   }
 
-  static String _themeUtilities() => '''
+  static String _themeUtilities() =>
+      '''
 // ===== THEME UTILITIES =====
 // Dark mode uses .dark class on root element
 // IMPORTANT: Must preserve stylesheet class (e.g., codex-orange) when toggling theme
@@ -70,13 +71,16 @@ function setMode(mode) {
 function updateModeToggleIcon(mode) {
   var themeToggle = document.getElementById('theme-toggle');
   if (!themeToggle) return;
-  // Toggle visibility of sun/moon icons (rendered by ArcaneIcon)
-  // Sun icon shown in dark mode (click to go light), moon icon shown in light mode (click to go dark)
-  var lightIcon = themeToggle.querySelector('.theme-icon-light');
-  var darkIcon = themeToggle.querySelector('.theme-icon-dark');
-  if (lightIcon && darkIcon) {
-    lightIcon.style.display = mode === 'dark' ? 'block' : 'none';
-    darkIcon.style.display = mode === 'dark' ? 'none' : 'block';
+  // Support both icon class pairs used across docs shells.
+  // Sun/light icon shown in dark mode (click to go light),
+  // moon/dark icon shown in light mode (click to go dark).
+  var sunIcon = themeToggle.querySelector('.theme-icon-sun') ||
+    themeToggle.querySelector('.theme-icon-light');
+  var moonIcon = themeToggle.querySelector('.theme-icon-moon') ||
+    themeToggle.querySelector('.theme-icon-dark');
+  if (sunIcon && moonIcon) {
+    sunIcon.style.display = mode === 'dark' ? 'block' : 'none';
+    moonIcon.style.display = mode === 'dark' ? 'none' : 'block';
   }
 }
 // Initialize on load
@@ -118,7 +122,8 @@ if (themeToggle) {
 }
 ''';
 
-  static String _searchFunctionality(String basePath) => '''
+  static String _searchFunctionality(String basePath) =>
+      '''
 // ===== SEARCH FUNCTIONALITY =====
 var searchInput = document.getElementById('docs-search');
 var searchResults = document.getElementById('search-results');
@@ -202,7 +207,8 @@ if (searchInput) {
 }
 ''';
 
-  static String _codeBlockCopyButtons() => '''
+  static String _codeBlockCopyButtons() =>
+      '''
 // ===== CODE BLOCK COPY BUTTONS =====
 // Lucide icons matching ArcaneIcon.copy() and ArcaneIcon.check()
 var copyIconSvg = '${DocsIcons.copy}';

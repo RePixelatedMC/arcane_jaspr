@@ -7,11 +7,7 @@ class DocsHeader extends StatelessComponent {
   final bool isDark;
   final VoidCallback? onThemeToggle;
 
-  const DocsHeader({
-    super.key,
-    this.isDark = true,
-    this.onThemeToggle,
-  });
+  const DocsHeader({super.key, this.isDark = true, this.onThemeToggle});
 
   @override
   Component build(BuildContext context) {
@@ -58,7 +54,7 @@ class DocsHeader extends StatelessComponent {
       ),
       children: [
         _navLink('Docs', '$base/docs'),
-        _navLink('Components', '$base/docs/inputs/arcane-button'),
+        _navLink('Components', '$base/docs/components-catalog'),
         _navLink('Guides', '$base/guides'),
       ],
     );
@@ -81,12 +77,15 @@ class DocsHeader extends StatelessComponent {
   }
 
   Component _buildSearch() {
-    return ArcaneSearch.withResults(
-      id: 'docs-search',
-      resultsId: 'search-results',
-      placeholder: 'Search documentation...',
-      width: '280px',
-      dropdownMaxHeight: '400px',
+    return ArcaneDiv(
+      styles: const ArcaneStyleData(widthCustom: '280px'),
+      children: const [
+        ArcaneTextInput(
+          id: 'docs-search',
+          placeholder: 'Search documentation...',
+          size: ComponentSize.sm,
+        ),
+      ],
     );
   }
 

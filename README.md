@@ -165,31 +165,32 @@ ArcaneSelector<String>(
 )
 ```
 
-### Inline Editable Text (ArcaneMutableText)
+### Native Select (ArcaneNativeSelect)
 
 **The old way:** Build a text display, build an input, manage edit state, handle keyboard events, style both states...
 
 **Arcane Jaspr:**
 
 ```dart
-ArcaneMutableText(
-  value: documentTitle,
-  placeholder: 'Untitled Document',
-  onSave: (newTitle) => updateTitle(newTitle),
-  trigger: MutableTextTrigger.click,       // or .doubleClick, .icon
-  inputType: MutableTextInputType.text,    // or .multiline, .number
-  displayStyle: MutableTextStyle.subtle,   // or .prominent, .minimal
-  selectAllOnEdit: true,
+ArcaneNativeSelect(
+  label: 'Plan',
+  options: const [
+    ArcaneSelectOption(label: 'Starter', value: 'starter'),
+    ArcaneSelectOption(label: 'Pro', value: 'pro'),
+    ArcaneSelectOption(label: 'Enterprise', value: 'enterprise'),
+  ],
+  value: selectedPlan,
+  onChange: (value) => setState(() => selectedPlan = value),
 )
 ```
 
 ## Features
 
-- **75+ Components** - Buttons, inputs, dialogs, navigation, data display, and more
+- **59 ShadCN-aligned Components** - Complete functional catalog parity plus foundational primitives
 - **One-Line Theming** - 20+ built-in themes with full customization
 - **Static Site Support** - Automatic JavaScript fallbacks when hydration is unavailable
 - **Type-Safe Styling** - `ArcaneStyleData` with enum-based CSS properties
-- **Firebase Auth** - Built-in authentication UI with OAuth support
+- **Auth Service Integration** - Firebase auth service and provider surfaces
 - **Accessible** - ARIA attributes, keyboard navigation, semantic HTML
 
 ## Installation
@@ -209,19 +210,25 @@ class App extends StatelessComponent {
   Component build(BuildContext context) {
     return ArcaneApp(
       theme: ArcaneTheme.green,
-      child: ArcaneScreen(
-        header: const ArcaneBar(titleText: 'My App'),
-        child: ArcaneContainer(
-          child: ArcaneColumn(
-            children: [
-              const ArcaneHeadline('Welcome'),
-              ArcaneButton.primary(
-                label: 'Get Started',
-                onPressed: () {},
-              ),
-            ],
-          ),
+      child: ArcaneDiv(
+        styles: const ArcaneStyleData(
+          padding: PaddingPreset.xl,
+          display: Display.flex,
+          flexDirection: FlexDirection.column,
+          gap: Gap.md,
         ),
+        children: [
+          const ArcaneHeadline('Welcome'),
+          const ArcaneTextInput(
+            label: 'Email',
+            placeholder: 'you@example.com',
+            fullWidth: true,
+          ),
+          ArcaneButton.primary(
+            label: 'Get Started',
+            onPressed: () {},
+          ),
+        ],
       ),
     );
   }
@@ -265,10 +272,10 @@ ArcaneApp(
 ### Inputs
 ```dart
 ArcaneTextInput(label: 'Email', placeholder: 'you@example.com')
-ArcaneSelector(options: [...], value: selected, searchable: true)
+ArcaneNativeSelect(options: [...], value: selected)
 ArcaneCheckbox(checked: true, onChanged: (_) {})
 ArcaneSlider(value: 50, min: 0, max: 100)
-ArcaneMutableText(value: 'Click to edit', onSave: (v) {})
+ArcaneCombobox(options: [...], value: selected, onChanged: (_) {})
 ```
 
 ### Layout
@@ -276,21 +283,21 @@ ArcaneMutableText(value: 'Click to edit', onSave: (v) {})
 ArcaneRow(children: [...])
 ArcaneColumn(children: [...])
 ArcaneCard(child: ...)
-ArcaneContainer(maxWidth: MaxWidth.lg, child: ...)
+ArcaneDiv(styles: const ArcaneStyleData(maxWidth: MaxWidth.content), children: [...])
 ```
 
 ### Navigation
 ```dart
-ArcaneBar(titleText: 'App', trailing: [...])
 ArcaneSidebar(children: [...])
 ArcaneTabs(tabs: [...])
 ArcaneDropdownMenu(trigger: ..., items: [...])
+ArcaneBreadcrumbs(items: [...])
 ```
 
 ### Display
 ```dart
 ArcaneAvatar(imageUrl: '...', size: 48)
-ArcaneBadge(label: 'New', variant: BadgeVariant.success)
+ArcaneStatusBadge.success('New')
 ArcaneProgressBar(value: 0.75)
 ArcaneDataTable(columns: [...], rows: [...])
 ```
@@ -299,7 +306,7 @@ ArcaneDataTable(columns: [...], rows: [...])
 ```dart
 ArcaneDialog(title: 'Confirm', child: ...)
 ArcaneToast(message: 'Saved!')
-ArcaneAlertBanner(message: 'Success!', variant: AlertVariant.success)
+ArcaneSonner.success('Saved successfully')
 ```
 
 ### Promotional Components

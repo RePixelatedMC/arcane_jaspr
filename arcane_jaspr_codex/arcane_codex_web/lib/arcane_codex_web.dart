@@ -1,5 +1,4 @@
-/// arcane_codex_web - Main library export
-library arcane_codex_web;
+// arcane_codex_web - Main library export
 
 // Export components
 export 'components/docs_header.dart';

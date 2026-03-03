@@ -2,17 +2,13 @@
 library;
 
 import 'package:arcane_inkwell/arcane_inkwell.dart' hide runApp;
-import 'package:arcane_jaspr/arcane_jaspr.dart' hide runApp;
 import 'package:jaspr/server.dart';
 
 import 'components/interactive_demo.dart';
 import 'main.server.options.dart';
 
 /// Base URL for the site (for GitHub Pages subdirectory hosting)
-const String baseUrl = String.fromEnvironment(
-  'BASE_URL',
-  defaultValue: '',
-);
+const String baseUrl = String.fromEnvironment('BASE_URL', defaultValue: '');
 
 void main() async {
   Jaspr.initializeApp(options: defaultServerOptions);
@@ -21,7 +17,8 @@ void main() async {
     await KnowledgeBaseApp.create(
       config: SiteConfig(
         name: 'ArcaneJaspr Codex',
-        description: 'Documentation for ArcaneJaspr - A dart package for building web ui with Jaspr.',
+        description:
+            'Documentation for ArcaneJaspr - A dart package for building web ui with Jaspr.',
         contentDirectory: 'content',
         baseUrl: baseUrl,
         githubUrl: 'https://github.com/ArcaneArts/arcane_jaspr',
@@ -36,7 +33,8 @@ void main() async {
       ),
       // stylesheet: const CodexStylesheet(theme: CodexTheme.green),
       stylesheet: const ShadcnStylesheet(theme: ShadcnTheme.midnight),
-      demoBuilder: (String componentType) => InteractiveDemo(componentType: componentType),
+      demoBuilder: (String componentType) =>
+          InteractiveDemo(componentType: componentType),
     ),
   );
 }
