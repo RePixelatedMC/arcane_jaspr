@@ -29,8 +29,6 @@ dev_dependencies:
 dependency_overrides:
   arcane_jaspr:
     path: ../../
-  arcane_inkwell:
-    path: ../../../arcane_inkwell
 
 jaspr:
   mode: static
