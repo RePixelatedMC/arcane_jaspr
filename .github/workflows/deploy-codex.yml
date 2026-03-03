@@ -3,10 +3,6 @@ name: Deploy Codex to GitHub Pages
 on:
   push:
     branches: [master]
-    paths:
-      - 'arcane_jaspr_codex/**'
-      - 'lib/**'
-      - '.github/workflows/deploy-codex.yml'
   workflow_dispatch:
 
 permissions:
