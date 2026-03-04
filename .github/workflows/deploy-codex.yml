@@ -29,9 +29,9 @@ jobs:
         with:
           sdk: stable
 
-      - name: Configure remote dependencies
+      - name: Checkout arcane_inkwell dependency
         working-directory: .
-        run: bash .github/scripts/use-remote-deps.sh
+        run: git clone --depth 1 https://github.com/ArcaneArts/arcane_inkwell.git ../arcane_inkwell
 
       - name: Install dependencies
         run: dart pub get
