@@ -29,6 +29,10 @@ jobs:
         with:
           sdk: stable
 
+      - name: Configure remote dependencies
+        working-directory: .
+        run: bash .github/scripts/use-remote-deps.sh
+
       - name: Install dependencies
         run: dart pub get
 

@@ -11,13 +11,9 @@ dependencies:
   jaspr: ^0.22.3
   jaspr_content: ^0.5.0
   arcane_jaspr:
-    git:
-      url: https://github.com/ArcaneArts/arcane_jaspr
-      ref: master
+    path: ../../
   arcane_inkwell:
-    git:
-      url: https://github.com/ArcaneArts/arcane_inkwell
-      ref: master
+    path: ../../../arcane_inkwell
   fast_log: ^1.0.7
 
 dev_dependencies:
@@ -26,11 +22,6 @@ dev_dependencies:
   jaspr_builder: ^0.22.3
   lints: ^6.1.0
 
-dependency_overrides:
-  arcane_jaspr:
-    path: ../../
-  arcane_inkwell:
-    path: ../../../arcane_inkwell
 
 jaspr:
   mode: static
