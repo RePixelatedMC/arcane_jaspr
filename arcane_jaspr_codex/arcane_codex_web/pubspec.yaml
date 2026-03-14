@@ -12,7 +12,7 @@ dependencies:
   jaspr_content: ^0.5.0
   arcane_jaspr:
     path: ../../
-  arcane_inkwell:
+  arcane_lexicon:
     path: ../../../arcane_inkwell
   fast_log: ^1.0.7
 

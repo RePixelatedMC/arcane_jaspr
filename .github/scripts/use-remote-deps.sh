@@ -9,7 +9,7 @@ dependency_overrides:
   arcane_jaspr:
     git:
       url: https://github.com/ArcaneArts/arcane_jaspr.git
-  arcane_inkwell:
+  arcane_lexicon:
     git:
-      url: https://github.com/ArcaneArts/arcane_inkwell.git
+      url: https://github.com/ArcaneArts/arcane_lexicon.git
 YAML

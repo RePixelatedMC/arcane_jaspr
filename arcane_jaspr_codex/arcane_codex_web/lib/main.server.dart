@@ -1,7 +1,7 @@
 /// The entrypoint for the **server** app (static generation).
 library;
 
-import 'package:arcane_inkwell/arcane_inkwell.dart' hide runApp;
+import 'package:arcane_lexicon/arcane_lexicon.dart' hide runApp;
 import 'package:jaspr/server.dart';
 
 import 'components/interactive_demo.dart';
@@ -31,8 +31,8 @@ void main() async {
         defaultTheme: KBThemeMode.dark,
         showEditLink: true,
         editBranch: 'master',
-        sidebarFooter: 'Built with Arcane Inkwell',
-        sidebarFooterUrl: 'https://github.com/ArcaneArts/arcane_inkwell',
+        sidebarFooter: 'Built with Arcane Lexicon',
+        sidebarFooterUrl: 'https://github.com/ArcaneArts/arcane_lexicon',
       ),
       // stylesheet: const CodexStylesheet(theme: CodexTheme.green),
       stylesheet: const ShadcnStylesheet(theme: ShadcnTheme.midnight),

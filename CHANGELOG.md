@@ -184,7 +184,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Documented favicon convention: Place `icon.png` in `web/assets/` directory
 - Updated `ArcaneDocsLayout` to use `assets/icon.png` for favicon with apple-touch-icon support
 
-**Documentation Components (migrated from arcane_inkwell)**
+**Documentation Components (migrated from arcane_lexicon)**
 - `ArcaneDocsLayout` - Documentation-style layout with fixed header, sidebar, main content, and optional TOC
 - `ArcaneToc` - Table of contents component with tree-line visual connectors
 - `ArcanePageNav` - Previous/Next page navigation component for documentation

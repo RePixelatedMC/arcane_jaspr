@@ -26,7 +26,7 @@ class MarkdownTableExample extends StatelessWidget {
                 '| Package | Status |\n'
                 '| --- | --- |\n'
                 '| arcane_jaspr | active |\n'
-                '| arcane_inkwell | active |',
+                '| arcane_lexicon | active |',
               ),
             ],
           ),

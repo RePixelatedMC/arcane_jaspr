@@ -45,7 +45,7 @@ class _MenuSearchDialogExampleState extends State<MenuSearchDialogExample> {
                     subtitle: 'Primary package',
                   ),
                   const SearchResult(
-                    title: 'Arcane Inkwell',
+                    title: 'Arcane Lexicon',
                     subtitle: 'Knowledge base renderer',
                   ),
                 ],
