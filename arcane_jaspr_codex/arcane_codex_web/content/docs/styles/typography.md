@@ -32,8 +32,8 @@ Font size scale from extra small to mega display.
 ### Usage
 
 ```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
+ArcaneBox(
+  style: const ArcaneStyleData(
     fontSize: FontSize.xl2,
   ),
   children: [ArcaneText('Section Heading')],
@@ -55,7 +55,7 @@ Font weight from normal to bold.
 
 ```dart
 ArcaneSpan(
-  styles: const ArcaneStyleData(
+  style: const ArcaneStyleData(
     fontWeight: FontWeight.w600,
   ),
   child: ArcaneText('Semi-bold text'),
@@ -77,7 +77,7 @@ Font family presets.
 
 ```dart
 ArcaneSpan(
-  styles: const ArcaneStyleData(
+  style: const ArcaneStyleData(
     fontFamily: FontFamily.mono,
     fontSize: FontSize.sm,
   ),
@@ -112,7 +112,7 @@ Line height scale.
 
 ```dart
 ArcaneParagraph(
-  styles: const ArcaneStyleData(
+  style: const ArcaneStyleData(
     lineHeight: LineHeight.relaxed,
   ),
   children: [ArcaneText('Long paragraph with comfortable reading spacing...')],
@@ -135,8 +135,8 @@ Letter spacing adjustments.
 ### Usage
 
 ```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
+ArcaneBox(
+  style: const ArcaneStyleData(
     fontSize: FontSize.xs,
     letterSpacing: LetterSpacing.wide,
     textTransform: TextTransform.uppercase,
@@ -161,7 +161,7 @@ Text decoration styles.
 ```dart
 ArcaneLink(
   href: '/docs',
-  styles: const ArcaneStyleData(
+  style: const ArcaneStyleData(
     textDecoration: TextDecoration.none,
   ),
   child: ArcaneText('Link without underline'),
@@ -182,8 +182,8 @@ Text case transformation.
 ### Usage
 
 ```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
+ArcaneBox(
+  style: const ArcaneStyleData(
     textTransform: TextTransform.uppercase,
   ),
   children: [ArcaneText('label')], // Renders as "LABEL"
@@ -207,7 +207,7 @@ White space handling.
 
 ```dart
 ArcanePre(
-  styles: const ArcaneStyleData(
+  style: const ArcaneStyleData(
     whiteSpace: WhiteSpace.pre,
     fontFamily: FontFamily.mono,
   ),
@@ -244,7 +244,7 @@ Common values:
 ```dart
 ArcaneText(
   'Important message',
-  styles: const ArcaneStyleData(
+  style: const ArcaneStyleData(
     textColor: TextColor.accent,
     fontWeight: FontWeight.w600,
   ),
@@ -256,8 +256,8 @@ ArcaneText(
 ### Page Heading
 
 ```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
+ArcaneBox(
+  style: const ArcaneStyleData(
     fontSize: FontSize.xl3,
     fontWeight: FontWeight.bold,
     lineHeight: LineHeight.tight,
@@ -271,8 +271,8 @@ ArcaneDiv(
 ### Section Label
 
 ```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
+ArcaneBox(
+  style: const ArcaneStyleData(
     fontSize: FontSize.xs,
     fontWeight: FontWeight.w600,
     textTransform: TextTransform.uppercase,
@@ -287,8 +287,8 @@ ArcaneDiv(
 ### Muted Caption
 
 ```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
+ArcaneBox(
+  style: const ArcaneStyleData(
     fontSize: FontSize.sm,
     textColor: TextColor.muted,
   ),
@@ -300,7 +300,7 @@ ArcaneDiv(
 
 ```dart
 ArcaneSpan(
-  styles: const ArcaneStyleData(
+  style: const ArcaneStyleData(
     fontFamily: FontFamily.mono,
     fontSize: FontSize.sm,
     raw: {

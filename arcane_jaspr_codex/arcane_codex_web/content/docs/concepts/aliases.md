@@ -1,167 +1,35 @@
 ---
-title: Component Aliases
-description: Use shorter A* names for all Arcane components
+title: Import Surfaces
+description: There is no alias layer; use the primary import first and advanced imports only by choice
 layout: kb
 component: aliases
 ---
 
-# Component Aliases
+# Import Surfaces
 
-Tired of typing `ArcaneButton`, `ArcaneCard`, `ArcaneText` everywhere? We get it. That's why we created short-hand aliases for every component.
+Arcane Jaspr does not ship a short-name alias layer.
+There is no `aliases.dart`, and the primary documentation path does not assume one.
 
-## Using Aliases
-
-Instead of importing the main library:
+## Primary Import
 
 ```dart
 import 'package:arcane_jaspr/arcane_jaspr.dart';
-
-// Long names
-ArcaneButton(label: 'Click me', onPressed: () {})
-ArcaneCard(child: ArcaneText('Hello'))
 ```
 
-Import the aliases file:
+Use this for normal app code.
+It exposes the Flutter-shaped base types and the Arcane widget surface.
+
+## Advanced Imports
 
 ```dart
-import 'package:arcane_jaspr/aliases.dart';
-
-// Short names - same components, less typing
-AButton(label: 'Click me', onPressed: () {})
-ACard(child: AText('Hello'))
+import 'package:arcane_jaspr/html.dart';
+import 'package:arcane_jaspr/web.dart';
 ```
 
-The `aliases.dart` file re-exports everything from the main library, so you don't lose access to anything. You just gain shorter names.
+Use `html.dart` only for low-level HTML wrapper components such as `ArcaneDiv`, `ArcaneLabel`, and `ArcaneLink`.
+Use `web.dart` only when you intentionally want raw Jaspr and DOM APIs.
 
-## The Pattern
+## Naming Rule
 
-Every `Arcane*` component has an `A*` alias:
-
-| Full Name | Alias |
-|-----------|-------|
-| `ArcaneButton` | `AButton` |
-| `ArcaneCard` | `ACard` |
-| `ArcaneText` | `AText` |
-| `ArcaneDiv` | `ADiv` |
-| `ArcaneRow` | `ARow` |
-| `ArcaneColumn` | `AColumn` |
-| `ArcaneContainer` | `AContainer` |
-| `ArcaneDialog` | `ADialog` |
-| `ArcaneForm` | `AForm` |
-| `ArcaneApp` | `AApp` |
-
-...and so on for all 100+ components.
-
-## Complete Alias List
-
-### Layout Components
-
-```dart
-ADiv          // ArcaneDiv
-ARow          // ArcaneRow
-AColumn       // ArcaneColumn
-AContainer    // ArcaneContainer
-ACenter       // ArcaneCenter
-AStack        // ArcaneStack
-ABox          // ArcaneBox
-APadding      // ArcanePadding
-AGutter       // ArcaneGutter
-ASpacer       // ArcaneSpacer
-AExpanded     // ArcaneExpanded
-ACard         // ArcaneCard
-ATabs         // ArcaneTabs
-AFlow         // ArcaneFlow
-```
-
-### Input Components
-
-```dart
-AButton       // ArcaneButton
-AIconButton   // ArcaneIconButton
-ATextInput    // ArcaneTextInput
-ATextArea     // ArcaneTextArea
-ACheckbox     // ArcaneCheckbox
-ARadio        // ArcaneRadio
-ASelect       // ArcaneSelect
-ASlider       // ArcaneSlider
-AToggleSwitch // ArcaneToggleSwitch
-ASearch       // ArcaneSearch
-AFAB          // ArcaneFAB
-```
-
-### Typography Components
-
-```dart
-AText         // ArcaneText
-AHeading      // ArcaneHeading
-AHeadline     // ArcaneHeadline
-ASubheadline  // ArcaneSubheadline
-AParagraph    // ArcaneParagraph
-ASpan         // ArcaneSpan
-ARichText     // ArcaneRichText
-ACodeSnippet  // ArcaneCodeSnippet
-```
-
-### View Components
-
-```dart
-AAvatar       // ArcaneAvatar
-ABadge        // ArcaneBadge
-AChip         // ArcaneChip
-ADivider      // ArcaneDivider
-AProgressBar  // ArcaneProgressBar
-ALoader       // ArcaneLoader
-ASkeleton     // ArcaneSkeleton
-ADataTable    // ArcaneDataTable
-ATimeline     // ArcaneTimeline
-ATooltip      // ArcaneTooltip
-```
-
-### Navigation Components
-
-```dart
-AHeader       // ArcaneHeader
-ASidebar      // ArcaneSidebar
-ABottomBar    // ArcaneBottomBar
-ADropdownMenu // ArcaneDropdownMenu
-AMobileMenu   // ArcaneMobileMenu
-AMegaMenu     // ArcaneMegaMenu
-```
-
-### Feedback & Dialog
-
-```dart
-ADialog       // ArcaneDialog
-ALoader       // ArcaneLoader
-AEmptyState   // ArcaneEmptyState
-AErrorState   // ArcaneErrorState
-```
-
-### Form Components
-
-```dart
-AForm         // ArcaneForm
-AField        // ArcaneField
-AFieldWrapper // ArcaneFieldWrapper
-```
-
-## Why Use Aliases?
-
-1. **Less typing** - `AButton` is 6 characters shorter than `ArcaneButton`
-2. **Cleaner code** - Your widget trees become more scannable
-3. **Familiar pattern** - Similar to how Flutter uses `Text` instead of `FlutterText`
-4. **No downsides** - Same components, same API, just shorter names
-
-## Mixing Both
-
-You can use both naming styles in the same file if you prefer:
-
-```dart
-import 'package:arcane_jaspr/aliases.dart';
-
-// Both work
-AButton(label: 'Short')
-ArcaneButton(label: 'Long')
-```
-
-The aliases are just Dart `typedef`s pointing to the original classes.
+The default authoring path keeps the explicit `Arcane*` names.
+That keeps package examples, generated docs, and Oracular templates aligned on one surface.

@@ -35,7 +35,7 @@ extension type _FirebaseUser._(JSObject _) implements JSObject {
 }
 
 extension type _ProfileUpdate._(JSObject _) implements JSObject {
-  external factory _ProfileUpdate({String? displayName, String? photoURL});
+  external factory _ProfileUpdate({String? displayName});
 }
 
 extension type _UserCredential._(JSObject _) implements JSObject {

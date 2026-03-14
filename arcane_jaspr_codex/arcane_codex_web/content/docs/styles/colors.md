@@ -84,8 +84,8 @@ Background color presets.
 ### Usage
 
 ```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
+ArcaneBox(
+  style: const ArcaneStyleData(
     background: Background.surface,
     padding: PaddingPreset.lg,
     borderRadius: Radius.lg,
@@ -174,7 +174,7 @@ Text color presets.
 ```dart
 ArcaneText(
   'Error message',
-  styles: const ArcaneStyleData(
+  style: const ArcaneStyleData(
     textColor: TextColor.error,
   ),
 )
@@ -182,7 +182,7 @@ ArcaneText(
 // Accent link
 ArcaneLink(
   href: '/docs',
-  styles: const ArcaneStyleData(
+  style: const ArcaneStyleData(
     textColor: TextColor.accent,
   ),
   child: ArcaneText('Learn more'),
@@ -315,8 +315,8 @@ Each has 50-950 variants:
 ### Usage
 
 ```dart
-ArcaneDiv(
-  styles: ArcaneStyleData(
+ArcaneBox(
+  style: ArcaneStyleData(
     raw: {
       'background': Colors.emerald500.css,
       'color': Colors.white.css,

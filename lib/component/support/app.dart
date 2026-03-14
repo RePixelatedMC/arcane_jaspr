@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' as jaspr;
 import 'package:jaspr/dom.dart' as dom;
 
 import '../../core/theme_provider.dart';
@@ -21,13 +22,13 @@ export '../../stylesheets/codex/codex_stylesheet.dart';
 /// You must explicitly choose a stylesheet for your app:
 /// - [ShadcnStylesheet] - Clean, minimal ShadCN-inspired design
 /// - [CodexStylesheet] - Premium dark-first system with restrained accent atmosphere (rainbow is opt-in)
-class ArcaneApp extends StatefulComponent {
+class ArcaneApp extends StatefulWidget {
   final ArcaneStylesheet stylesheet;
   final Brightness brightness;
-  final Component child;
+  final Widget child;
   final String? title;
   final String? description;
-  final List<Component>? head;
+  final List<Widget>? head;
   final bool includeFallbackScripts;
 
   const ArcaneApp({
@@ -47,7 +48,7 @@ class ArcaneApp extends StatefulComponent {
 
 class _ArcaneAppState extends State<ArcaneApp> {
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     final bool isDark = component.brightness == Brightness.dark;
     final ArcaneStylesheet stylesheet = component.stylesheet;
 
@@ -76,7 +77,7 @@ class _ArcaneAppState extends State<ArcaneApp> {
         ? '$brightnessClass $stylesheetClass'
         : brightnessClass;
 
-    final Component rootDiv = dom.div(
+    final Widget rootDiv = dom.div(
       id: 'arcane-root',
       classes: rootClasses,
       styles: const dom.Styles(raw: {
@@ -96,7 +97,7 @@ class _ArcaneAppState extends State<ArcaneApp> {
     return ArcaneThemeProvider(
       stylesheet: stylesheet,
       brightness: component.brightness,
-      child: Component.fragment([
+      child: jaspr.Component.fragment([
         // Add brightness class to html element for CSS variable scoping
         DocumentHelper.html(attributes: {'class': brightnessClass}),
         // Inject styles into the actual document <head>
@@ -110,10 +111,10 @@ class _ArcaneAppState extends State<ArcaneApp> {
 /// Web wrapper for ArcaneApp with optional background styling.
 ///
 /// The [stylesheet] parameter is required - there is no default stylesheet.
-class ArcaneWindow extends StatelessComponent {
+class ArcaneWindow extends StatelessWidget {
   final ArcaneStylesheet stylesheet;
   final Brightness brightness;
-  final Component child;
+  final Widget child;
 
   const ArcaneWindow({
     required this.stylesheet,
@@ -123,7 +124,7 @@ class ArcaneWindow extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return ArcaneApp(
       stylesheet: stylesheet,
       brightness: brightness,

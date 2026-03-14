@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' as jaspr;
 import 'package:jaspr/dom.dart' as dom;
 
 export '../../core/props/text_input_props.dart'
@@ -7,9 +8,9 @@ export '../../core/props/text_input_props.dart'
 import '../../core/theme_provider.dart';
 
 /// A styled text input component.
-class ArcaneTextInput extends StatelessComponent {
+class ArcaneTextInput extends StatelessWidget {
   final String? placeholder;
-  final dom.InputType type;
+  final TextInputType type;
   final ComponentSize size;
   final bool disabled;
   final bool required;
@@ -17,8 +18,8 @@ class ArcaneTextInput extends StatelessComponent {
   final String? value;
   final String? name;
   final String? id;
-  final Component? prefix;
-  final Component? suffix;
+  final Widget? prefix;
+  final Widget? suffix;
   final String? error;
   final String? helperText;
   final String? label;
@@ -30,7 +31,7 @@ class ArcaneTextInput extends StatelessComponent {
 
   const ArcaneTextInput({
     this.placeholder,
-    this.type = dom.InputType.text,
+    this.type = TextInputType.text,
     this.size = ComponentSize.md,
     this.disabled = false,
     this.required = false,
@@ -52,24 +53,11 @@ class ArcaneTextInput extends StatelessComponent {
     super.key,
   }) : _onChange = onChange ?? onInput;
 
-  TextInputType _mapInputType(dom.InputType t) {
-    return switch (t) {
-      dom.InputType.text => TextInputType.text,
-      dom.InputType.email => TextInputType.email,
-      dom.InputType.password => TextInputType.password,
-      dom.InputType.number => TextInputType.number,
-      dom.InputType.tel => TextInputType.tel,
-      dom.InputType.url => TextInputType.url,
-      dom.InputType.search => TextInputType.search,
-      _ => TextInputType.text,
-    };
-  }
-
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.textInput(TextInputProps(
       placeholder: placeholder,
-      type: _mapInputType(type),
+      type: type,
       value: value,
       name: name,
       id: id,
@@ -100,7 +88,7 @@ enum TextAreaResize {
 }
 
 /// A textarea component.
-class ArcaneTextArea extends StatelessComponent {
+class ArcaneTextArea extends StatelessWidget {
   final String? placeholder;
   final int rows;
   final int? cols;
@@ -144,7 +132,7 @@ class ArcaneTextArea extends StatelessComponent {
   }) : _onChange = onChange ?? onInput;
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     final hasError = error != null;
 
     final resizeValue = switch (resize) {
@@ -154,7 +142,7 @@ class ArcaneTextArea extends StatelessComponent {
       TextAreaResize.both => 'both',
     };
 
-    final textareaElement = Component.element(
+    final Widget textareaElement = jaspr.Component.element(
       tag: 'textarea',
       id: id,
       classes: 'arcane-textarea',
@@ -193,7 +181,7 @@ class ArcaneTextArea extends StatelessComponent {
             _onChange(target.value as String);
           },
       },
-      children: value != null ? [Component.text(value!)] : [],
+      children: value != null ? [jaspr.Component.text(value!)] : [],
     );
 
     if (label != null || error != null || helperText != null) {
@@ -207,7 +195,7 @@ class ArcaneTextArea extends StatelessComponent {
         }),
         [
           if (label != null)
-            Component.element(
+            jaspr.Component.element(
               tag: 'label',
               attributes: id != null ? {'for': id!} : null,
               styles: const dom.Styles(raw: {
@@ -216,14 +204,14 @@ class ArcaneTextArea extends StatelessComponent {
                 'color': 'var(--foreground)',
               }),
               children: [
-                Component.text(label!),
+                jaspr.Component.text(label!),
                 if (required)
                   const dom.span(
                     styles: dom.Styles(raw: {
                       'color': 'var(--destructive)',
                       'margin-left': '0.25rem',
                     }),
-                    [Component.text('*')],
+                    [jaspr.Component.text('*')],
                   ),
               ],
             ),
@@ -235,7 +223,7 @@ class ArcaneTextArea extends StatelessComponent {
                 'font-size': '0.875rem',
                 'color': 'var(--destructive)',
               }),
-              [Component.text(error!)],
+              [jaspr.Component.text(error!)],
             )
           else if (helperText != null)
             dom.span(
@@ -244,7 +232,7 @@ class ArcaneTextArea extends StatelessComponent {
                 'font-size': '0.875rem',
                 'color': 'var(--muted-foreground)',
               }),
-              [Component.text(helperText!)],
+              [jaspr.Component.text(helperText!)],
             ),
         ],
       );
@@ -255,7 +243,7 @@ class ArcaneTextArea extends StatelessComponent {
 }
 
 /// A select/dropdown input component.
-class ArcaneSelect extends StatelessComponent {
+class ArcaneSelect extends StatelessWidget {
   final List<ArcaneSelectOption> options;
   final String? value;
   final String? placeholder;
@@ -288,7 +276,7 @@ class ArcaneSelect extends StatelessComponent {
   }) : _onChange = onChange ?? onInput ?? onSelect;
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     final hasError = error != null;
 
     final Map<String, String> sizeStyles = switch (size) {
@@ -309,7 +297,7 @@ class ArcaneSelect extends StatelessComponent {
         },
     };
 
-    final selectElement = Component.element(
+    final Widget selectElement = jaspr.Component.element(
       tag: 'select',
       id: id,
       classes: 'arcane-select',
@@ -346,20 +334,20 @@ class ArcaneSelect extends StatelessComponent {
       },
       children: [
         if (placeholder != null)
-          Component.element(
+          jaspr.Component.element(
             tag: 'option',
             attributes: {'value': '', 'disabled': 'true', 'selected': 'true'},
-            children: [Component.text(placeholder!)],
+            children: [jaspr.Component.text(placeholder!)],
           ),
         for (final opt in options)
-          Component.element(
+          jaspr.Component.element(
             tag: 'option',
             attributes: {
               'value': opt.value,
               if (opt.disabled) 'disabled': 'true',
               if (value == opt.value) 'selected': 'true',
             },
-            children: [Component.text(opt.label)],
+            children: [jaspr.Component.text(opt.label)],
           ),
       ],
     );
@@ -375,7 +363,7 @@ class ArcaneSelect extends StatelessComponent {
         }),
         [
           if (label != null)
-            Component.element(
+            jaspr.Component.element(
               tag: 'label',
               attributes: id != null ? {'for': id!} : null,
               styles: const dom.Styles(raw: {
@@ -384,14 +372,14 @@ class ArcaneSelect extends StatelessComponent {
                 'color': 'var(--foreground)',
               }),
               children: [
-                Component.text(label!),
+                jaspr.Component.text(label!),
                 if (required)
                   const dom.span(
                     styles: dom.Styles(raw: {
                       'color': 'var(--destructive)',
                       'margin-left': '0.25rem',
                     }),
-                    [Component.text('*')],
+                    [jaspr.Component.text('*')],
                   ),
               ],
             ),
@@ -403,7 +391,7 @@ class ArcaneSelect extends StatelessComponent {
                 'font-size': '0.875rem',
                 'color': 'var(--destructive)',
               }),
-              [Component.text(error!)],
+              [jaspr.Component.text(error!)],
             ),
         ],
       );

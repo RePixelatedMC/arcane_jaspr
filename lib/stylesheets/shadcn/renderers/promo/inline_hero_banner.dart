@@ -77,7 +77,6 @@ class _ShadcnInlineHeroBannerState extends State<ShadcnInlineHeroBanner> {
       );
     }
 
-    final bool isCard = component.props.style == PromoInlineHeroBannerStyle.card;
     final bool isRibbon = component.props.style == PromoInlineHeroBannerStyle.ribbon;
 
     return dom.div(

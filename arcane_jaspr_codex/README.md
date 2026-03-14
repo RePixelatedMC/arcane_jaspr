@@ -2,21 +2,26 @@
 
 Documentation workspace for `arcane_jaspr`.
 
-## Project Layout
+## What Lives Here
 
-- `arcane_codex_web/`: static docs site
-- `arcane_codex_web/content/docs/components-catalog.md`: canonical current component surface
+- `arcane_codex_web/`: the static docs site
+- `arcane_codex_web/content/docs/components-catalog.md`: generated current-state catalog
+- `arcane_codex_web/lib/components/demo_registry.dart`: live demo snippets and preview registry
 
-## Quick Start
+## Development
 
 ```bash
 cd arcane_codex_web
 dart pub get
+dart run tool/generate_component_catalog.dart
 jaspr serve
 ```
 
-## Current Catalog Snapshot (March 3, 2026)
+## Build
 
-- `59` Shadcn-aligned functional components
-- `81` exported component modules total
-- `27` foundation modules outside Shadcn cap
+```bash
+cd arcane_codex_web
+dart run tool/build.dart --domain=https://arcanearts.github.io/arcane_jaspr --base-url=/arcane_jaspr
+```
+
+The build script regenerates the component catalog before the search index and static build.

@@ -278,16 +278,6 @@ abstract class PaletteGenerator {
     return blendColors(accent, darkened, tintAmount);
   }
 
-  /// Create a more saturated tint for light theme accents.
-  ///
-  /// Uses the accent color more prominently while keeping it light.
-  /// Good for hover states and interactive elements.
-  static int _accentTint(int background, int accent, double amount) {
-    // Lighten the accent significantly, then blend with background
-    final int lightenedAccent = lighten(accent, 0.7);
-    return blendColors(lightenedAccent, background, amount);
-  }
-
   // ============================================
   // Shadow Generation
   // ============================================

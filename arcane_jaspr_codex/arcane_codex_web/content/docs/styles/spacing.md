@@ -106,8 +106,8 @@ Preset padding configurations.
 ### Usage
 
 ```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
+ArcaneBox(
+  style: const ArcaneStyleData(
     padding: PaddingPreset.lg,
   ),
   children: [...],
@@ -115,7 +115,7 @@ ArcaneDiv(
 
 // Button padding
 ArcaneButton(
-  styles: const ArcaneStyleData(
+  style: const ArcaneStyleData(
     padding: PaddingPreset.buttonMd,
   ),
   label: 'Click Me',
@@ -204,8 +204,8 @@ Preset margin configurations.
 
 ```dart
 // Center a container
-ArcaneDiv(
-  styles: const ArcaneStyleData(
+ArcaneBox(
+  style: const ArcaneStyleData(
     maxWidth: MaxWidth.content,
     margin: MarginPreset.autoX,
   ),
@@ -214,7 +214,7 @@ ArcaneDiv(
 
 // Space between sections
 ArcaneSection(
-  styles: const ArcaneStyleData(
+  style: const ArcaneStyleData(
     margin: MarginPreset.bottomXl,
   ),
   children: [...],
@@ -246,8 +246,8 @@ Gap.md.value  // 16
 ### Usage
 
 ```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
+ArcaneBox(
+  style: const ArcaneStyleData(
     display: Display.flex,
     gap: Gap.md,
   ),
@@ -255,8 +255,8 @@ ArcaneDiv(
 )
 
 // Grid gap
-ArcaneDiv(
-  styles: const ArcaneStyleData(
+ArcaneBox(
+  style: const ArcaneStyleData(
     display: Display.grid,
     gap: Gap.lg,
   ),
@@ -270,7 +270,7 @@ ArcaneDiv(
 
 ```dart
 ArcaneCard(
-  styles: const ArcaneStyleData(
+  style: const ArcaneStyleData(
     padding: PaddingPreset.lg,
     margin: MarginPreset.bottomMd,
   ),
@@ -281,8 +281,8 @@ ArcaneCard(
 ### Button Group
 
 ```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
+ArcaneBox(
+  style: const ArcaneStyleData(
     display: Display.flex,
     gap: Gap.sm,
   ),
@@ -296,8 +296,8 @@ ArcaneDiv(
 ### Page Container
 
 ```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
+ArcaneBox(
+  style: const ArcaneStyleData(
     maxWidth: MaxWidth.container,
     margin: MarginPreset.autoX,
     padding: PaddingPreset.xl,
@@ -310,7 +310,7 @@ ArcaneDiv(
 
 ```dart
 ArcaneSection(
-  styles: const ArcaneStyleData(
+  style: const ArcaneStyleData(
     padding: PaddingPreset.sectionY,
   ),
   children: [...],

@@ -4,16 +4,14 @@ import 'package:arcane_jaspr/arcane_jaspr.dart';
 import 'package:fast_log/fast_log.dart';
 import 'package:web/web.dart' as web;
 
-class _AuthInheritedProvider extends InheritedComponent {
+class _AuthInheritedProvider extends InheritedWidget {
   final AuthState state;
 
-  const _AuthInheritedProvider({
-    required this.state,
-    required super.child,
-  });
+  const _AuthInheritedProvider({required this.state, required super.child});
 
   static _AuthInheritedProvider? of(BuildContext context) {
-    return context.dependOnInheritedComponentOfExactType<_AuthInheritedProvider>();
+    return context
+        .dependOnInheritedComponentOfExactType<_AuthInheritedProvider>();
   }
 
   @override
@@ -25,8 +23,8 @@ class _AuthInheritedProvider extends InheritedComponent {
 }
 
 /// Provides authentication state throughout the component tree.
-class ArcaneAuthProvider extends StatefulComponent {
-  final Component child;
+class ArcaneAuthProvider extends StatefulWidget {
+  final Widget child;
   final void Function(AuthState)? onAuthStateChanged;
   final String? redirectOnLogin;
   final String? redirectOnLogout;
@@ -57,7 +55,9 @@ class _ArcaneAuthProviderState extends State<ArcaneAuthProvider> {
 
     JasprAuthService.instance.initialize(serverApiUrl: component.serverApiUrl);
 
-    _subscription = JasprAuthService.instance.authStateStream.listen(_onAuthStateChanged);
+    _subscription = JasprAuthService.instance.authStateStream.listen(
+      _onAuthStateChanged,
+    );
 
     _state = JasprAuthService.instance.currentState;
   }
@@ -81,8 +81,8 @@ class _ArcaneAuthProviderState extends State<ArcaneAuthProvider> {
         _navigateTo(component.redirectOnLogin!);
       }
     } else if (!newState.isAuthenticated &&
-               !newState.isLoading &&
-               previousState.isAuthenticated) {
+        !newState.isLoading &&
+        previousState.isAuthenticated) {
       if (component.redirectOnLogout != null) {
         info('User logged out, redirecting to ${component.redirectOnLogout}');
         _navigateTo(component.redirectOnLogout!);
@@ -103,11 +103,8 @@ class _ArcaneAuthProviderState extends State<ArcaneAuthProvider> {
   }
 
   @override
-  Component build(BuildContext context) {
-    return _AuthInheritedProvider(
-      state: _state,
-      child: component.child,
-    );
+  Widget build(BuildContext context) {
+    return _AuthInheritedProvider(state: _state, child: component.child);
   }
 }
 
@@ -128,9 +125,11 @@ extension AuthContextExtension on BuildContext {
 
   String? get idToken => currentUser?.idToken;
 
-  Future<void> signInWithGitHub() => JasprAuthService.instance.signInWithGitHub();
+  Future<void> signInWithGitHub() =>
+      JasprAuthService.instance.signInWithGitHub();
 
-  Future<void> signInWithGoogle() => JasprAuthService.instance.signInWithGoogle();
+  Future<void> signInWithGoogle() =>
+      JasprAuthService.instance.signInWithGoogle();
 
   Future<void> signInWithApple() => JasprAuthService.instance.signInWithApple();
 
@@ -138,7 +137,10 @@ extension AuthContextExtension on BuildContext {
       JasprAuthService.instance.signInWithEmail(email, password);
 
   Future<void> registerWithEmail(
-          String email, String password, String displayName) =>
+    String email,
+    String password,
+    String displayName,
+  ) =>
       JasprAuthService.instance.registerWithEmail(email, password, displayName);
 
   Future<void> sendPasswordResetEmail(String email) =>
@@ -146,7 +148,8 @@ extension AuthContextExtension on BuildContext {
 
   Future<void> signOut() => JasprAuthService.instance.signOut();
 
-  Future<String?> refreshAuthToken() => JasprAuthService.instance.refreshToken();
+  Future<String?> refreshAuthToken() =>
+      JasprAuthService.instance.refreshToken();
 
   Future<bool> deleteAccount() => JasprAuthService.instance.deleteAccount();
 }

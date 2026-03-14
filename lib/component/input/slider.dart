@@ -178,9 +178,8 @@ class ArcaneSlider extends StatelessComponent {
   }
 }
 
-typedef ArcaneRangeSlider = _DeprecatedRangeSlider;
-
-class _DeprecatedRangeSlider extends StatelessComponent {
+@Deprecated('Use ArcaneSlider.range instead.')
+class ArcaneRangeSlider extends StatelessComponent {
   final double minValue;
   final double maxValue;
   final double min;
@@ -193,7 +192,7 @@ class _DeprecatedRangeSlider extends StatelessComponent {
   final bool disabled;
   final void Function(double min, double max)? onChanged;
 
-  const _DeprecatedRangeSlider({
+  const ArcaneRangeSlider({
     required this.minValue,
     required this.maxValue,
     this.min = 0,

@@ -44,7 +44,7 @@ Box shadow presets.
 ```dart
 // Card shadow
 ArcaneCard(
-  styles: const ArcaneStyleData(
+  style: const ArcaneStyleData(
     shadow: Shadow.md,
   ),
   children: [...],
@@ -52,7 +52,7 @@ ArcaneCard(
 
 // Glow effect
 ArcaneButton.primary(
-  styles: const ArcaneStyleData(
+  style: const ArcaneStyleData(
     shadow: Shadow.glowAccent,
   ),
   label: 'Glowing Button',
@@ -93,8 +93,8 @@ CSS transition presets.
 ### Usage
 
 ```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
+ArcaneBox(
+  style: const ArcaneStyleData(
     transition: Transition.allFast,
   ),
   children: [...],
@@ -102,7 +102,7 @@ ArcaneDiv(
 
 // Hover effect
 ArcaneButton(
-  styles: ArcaneStyleData(
+  style: ArcaneStyleData(
     background: isHovered ? Background.accentContainer : Background.surface,
     transition: Transition.colors,
   ),
@@ -134,7 +134,7 @@ CSS transform presets.
 ```dart
 // Hover lift effect
 ArcaneCard(
-  styles: ArcaneStyleData(
+  style: ArcaneStyleData(
     transform: isHovered ? Transform.hoverLift : Transform.none,
     transition: Transition.transform,
   ),
@@ -142,8 +142,8 @@ ArcaneCard(
 )
 
 // Centered modal
-ArcaneDiv(
-  styles: const ArcaneStyleData(
+ArcaneBox(
+  style: const ArcaneStyleData(
     position: Position.fixed,
     transform: Transform.center,
     raw: {
@@ -175,8 +175,8 @@ Opacity presets.
 ### Usage
 
 ```dart
-ArcaneDiv(
-  styles: ArcaneStyleData(
+ArcaneBox(
+  style: ArcaneStyleData(
     opacity: isDisabled ? Opacity.disabled : Opacity.full,
   ),
   children: [...],
@@ -215,7 +215,7 @@ Mouse cursor styles.
 
 ```dart
 ArcaneButton(
-  styles: ArcaneStyleData(
+  style: ArcaneStyleData(
     cursor: isDisabled ? Cursor.notAllowed : Cursor.pointer,
   ),
   label: 'Button',
@@ -236,8 +236,8 @@ Pointer event handling.
 
 ```dart
 // Overlay that passes clicks through
-ArcaneDiv(
-  styles: const ArcaneStyleData(
+ArcaneBox(
+  style: const ArcaneStyleData(
     pointerEvents: PointerEvents.none,
   ),
   children: [...],
@@ -260,7 +260,7 @@ Text selection behavior.
 
 ```dart
 ArcaneButton(
-  styles: const ArcaneStyleData(
+  style: const ArcaneStyleData(
     userSelect: UserSelect.none,
   ),
   label: 'Non-selectable',
@@ -281,8 +281,8 @@ Backdrop filter effects.
 ### Usage
 
 ```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
+ArcaneBox(
+  style: const ArcaneStyleData(
     backdropFilter: BackdropFilter.blur,
     raw: {
       'background': 'rgba(0, 0, 0, 0.5)',
@@ -311,7 +311,7 @@ Animation easing functions.
 
 ```dart
 ArcaneCard(
-  styles: ArcaneStyleData(
+  style: ArcaneStyleData(
     shadow: isHovered ? Shadow.lg : Shadow.sm,
     transform: isHovered ? Transform.hoverLift : Transform.none,
     transition: Transition.allFast,
@@ -323,8 +323,8 @@ ArcaneCard(
 ### Glassmorphism
 
 ```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
+ArcaneBox(
+  style: const ArcaneStyleData(
     backdropFilter: BackdropFilter.blur,
     borderRadius: Radius.lg,
     border: BorderPreset.subtle,
@@ -339,8 +339,8 @@ ArcaneDiv(
 ### Loading Overlay
 
 ```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
+ArcaneBox(
+  style: const ArcaneStyleData(
     position: Position.absolute,
     display: Display.flex,
     alignItems: AlignItems.center,
@@ -362,7 +362,7 @@ ArcaneDiv(
 
 ```dart
 ArcaneButton(
-  styles: ArcaneStyleData(
+  style: ArcaneStyleData(
     opacity: isDisabled ? Opacity.disabled : Opacity.full,
     cursor: isDisabled ? Cursor.notAllowed : Cursor.pointer,
     pointerEvents: isDisabled ? PointerEvents.none : PointerEvents.auto,
@@ -375,7 +375,7 @@ ArcaneButton(
 
 ```dart
 ArcaneButton.primary(
-  styles: ArcaneStyleData(
+  style: ArcaneStyleData(
     shadow: isHovered ? Shadow.glowAccent : Shadow.none,
     transition: Transition.shadow,
   ),

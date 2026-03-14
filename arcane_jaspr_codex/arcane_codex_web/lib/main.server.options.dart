@@ -5,8 +5,6 @@
 // Generated with jaspr_builder
 
 import 'package:jaspr/server.dart';
-import 'package:arcane_codex_web/components/interactive_demo.dart'
-    as _interactive_demo;
 import 'package:arcane_jaspr/component/collection/card_carousel.dart'
     as _card_carousel;
 import 'package:arcane_jaspr/component/collection/infinite_carousel.dart'
@@ -35,11 +33,6 @@ import 'package:jaspr_content/components/tabs.dart' as _tabs;
 ServerOptions get defaultServerOptions => ServerOptions(
   clientId: 'main.client.dart.js',
   clients: {
-    _interactive_demo.InteractiveDemo:
-        ClientTarget<_interactive_demo.InteractiveDemo>(
-          'interactive_demo',
-          params: __interactive_demoInteractiveDemo,
-        ),
     _tab_bar.TabBar: ClientTarget<_tab_bar.TabBar>(
       'jaspr_content:tab_bar',
       params: __tab_barTabBar,
@@ -57,9 +50,6 @@ ServerOptions get defaultServerOptions => ServerOptions(
   ],
 );
 
-Map<String, Object?> __interactive_demoInteractiveDemo(
-  _interactive_demo.InteractiveDemo c,
-) => {'componentType': c.componentType};
 Map<String, Object?> __tab_barTabBar(_tab_bar.TabBar c) => {
   'initialValue': c.initialValue,
   'items': c.items,

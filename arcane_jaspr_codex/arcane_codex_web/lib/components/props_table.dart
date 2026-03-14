@@ -1,24 +1,19 @@
 import 'package:arcane_jaspr/arcane_jaspr.dart';
+import 'package:arcane_jaspr/html.dart' hide ArcaneText;
 
 /// A table component for documenting component properties.
 ///
 /// Displays property names, types, defaults, and descriptions in a structured table format.
-class PropsTable extends StatelessComponent {
+class PropsTable extends StatelessWidget {
   final List<PropItem> props;
   final String? title;
 
-  const PropsTable({
-    super.key,
-    required this.props,
-    this.title,
-  });
+  const PropsTable({super.key, required this.props, this.title});
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return ArcaneDiv(
-      styles: const ArcaneStyleData(
-        margin: MarginPreset.bottomXl,
-      ),
+      styles: const ArcaneStyleData(margin: MarginPreset.bottomXl),
       children: [
         if (title != null)
           ArcaneDiv(
@@ -42,7 +37,7 @@ class PropsTable extends StatelessComponent {
               columns: [
                 ArcaneDataColumn<PropItem>(
                   header: 'Property',
-                  builder: (prop) => ArcaneDiv(
+                  builder: (PropItem prop) => ArcaneDiv(
                     styles: const ArcaneStyleData(
                       display: Display.flex,
                       alignItems: AlignItems.center,
@@ -66,7 +61,8 @@ class PropsTable extends StatelessComponent {
                             borderRadius: Radius.xs,
                             textColor: TextColor.error,
                             raw: {
-                              'background': 'rgba(var(--arcane-destructive-rgb), 0.15)',
+                              'background':
+                                  'rgba(var(--arcane-destructive-rgb), 0.15)',
                             },
                           ),
                           child: const ArcaneText('required'),
@@ -76,7 +72,7 @@ class PropsTable extends StatelessComponent {
                 ),
                 ArcaneDataColumn<PropItem>(
                   header: 'Type',
-                  builder: (prop) => ArcaneSpan(
+                  builder: (PropItem prop) => ArcaneSpan(
                     styles: const ArcaneStyleData(
                       fontFamily: FontFamily.mono,
                       fontSize: FontSize.sm,
@@ -87,7 +83,7 @@ class PropsTable extends StatelessComponent {
                 ),
                 ArcaneDataColumn<PropItem>(
                   header: 'Default',
-                  builder: (prop) => prop.defaultValue != null
+                  builder: (PropItem prop) => prop.defaultValue != null
                       ? ArcaneSpan(
                           styles: const ArcaneStyleData(
                             fontFamily: FontFamily.mono,
@@ -109,7 +105,7 @@ class PropsTable extends StatelessComponent {
                 ),
                 ArcaneDataColumn<PropItem>(
                   header: 'Description',
-                  builder: (prop) => ArcaneText(prop.description),
+                  builder: (PropItem prop) => ArcaneText(prop.description),
                 ),
               ],
             ),
@@ -138,7 +134,7 @@ class PropItem {
 }
 
 /// A compact enum table for showing enum values
-class EnumTable extends StatelessComponent {
+class EnumTable extends StatelessWidget {
   final String enumName;
   final List<EnumValue> values;
   final String? description;
@@ -151,13 +147,10 @@ class EnumTable extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return ArcaneDiv(
-      styles: const ArcaneStyleData(
-        margin: MarginPreset.bottomXl,
-      ),
+      styles: const ArcaneStyleData(margin: MarginPreset.bottomXl),
       children: [
-        // Enum name header
         ArcaneDiv(
           styles: const ArcaneStyleData(
             display: Display.flex,
@@ -177,7 +170,6 @@ class EnumTable extends StatelessComponent {
             ),
           ],
         ),
-
         if (description != null)
           ArcaneDiv(
             styles: const ArcaneStyleData(
@@ -187,8 +179,6 @@ class EnumTable extends StatelessComponent {
             ),
             children: [ArcaneText(description!)],
           ),
-
-        // Values table
         ArcaneDiv(
           styles: const ArcaneStyleData(
             borderRadius: Radius.lg,
@@ -201,7 +191,7 @@ class EnumTable extends StatelessComponent {
               columns: [
                 ArcaneDataColumn<EnumValue>(
                   header: 'Value',
-                  builder: (value) => ArcaneSpan(
+                  builder: (EnumValue value) => ArcaneSpan(
                     styles: const ArcaneStyleData(
                       fontFamily: FontFamily.mono,
                       fontSize: FontSize.sm,
@@ -212,7 +202,7 @@ class EnumTable extends StatelessComponent {
                 ),
                 ArcaneDataColumn<EnumValue>(
                   header: 'CSS Output',
-                  builder: (value) => ArcaneSpan(
+                  builder: (EnumValue value) => ArcaneSpan(
                     styles: const ArcaneStyleData(
                       fontFamily: FontFamily.mono,
                       fontSize: FontSize.sm,
@@ -223,7 +213,7 @@ class EnumTable extends StatelessComponent {
                 ),
                 ArcaneDataColumn<EnumValue>(
                   header: 'Description',
-                  builder: (value) => ArcaneText(value.description),
+                  builder: (EnumValue value) => ArcaneText(value.description),
                 ),
               ],
             ),

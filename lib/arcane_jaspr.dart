@@ -1,41 +1,4 @@
-library arcane_jaspr;
-
-export 'package:jaspr/jaspr.dart';
-
-export 'package:jaspr/dom.dart'
-    hide
-        Color,
-        ColorScheme,
-        Colors,
-        Selector,
-        Gap,
-        Padding,
-        TextAlign,
-        TextOverflow,
-        Border,
-        BorderRadius,
-        BoxShadow,
-        FontWeight,
-        FontStyle,
-        Visibility,
-        Display,
-        Position,
-        Overflow,
-        Cursor,
-        FlexDirection,
-        TextDecoration,
-        Transition,
-        FontFamily,
-        Radius,
-        JustifyContent,
-        AlignItems,
-        PointerEvents,
-        ZIndex,
-        Transform,
-        FlexWrap,
-        WhiteSpace,
-        Spacing,
-        TextTransform;
+export 'flutter.dart';
 
 export 'core/theme_provider.dart';
 export 'core/renderers.dart' hide SheetPosition;
@@ -131,29 +94,6 @@ export 'component/collection/card_carousel.dart';
 export 'component/collection/infinite_carousel.dart';
 
 export 'component/promo/promo.dart';
-
-export 'component/html/arcane_button.dart';
-export 'component/html/arcane_cat_image.dart';
-export 'component/html/arcane_image.dart';
-export 'component/html/arcane_input.dart';
-export 'component/html/arcane_label.dart';
-export 'component/html/arcane_link.dart';
-export 'component/html/arcane_text.dart' hide ArcaneText;
-export 'component/html/code_block.dart';
-export 'component/html/div.dart';
-export 'component/html/footer.dart' show ArcaneHtmlFooter;
-export 'component/html/header.dart' hide ArcaneHeader;
-export 'component/html/heading.dart';
-export 'component/html/lists.dart';
-export 'component/html/main_element.dart';
-export 'component/html/nav.dart';
-export 'component/html/paragraph.dart';
-export 'component/html/quote.dart';
-export 'component/html/section.dart';
-export 'component/html/side_content.dart';
-export 'component/html/table.dart';
-export 'component/html/arcane_span.dart';
-export 'component/html/svg.dart';
 
 export 'service/auth_state.dart';
 export 'service/auth_service_export.dart';

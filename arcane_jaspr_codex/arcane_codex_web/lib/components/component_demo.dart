@@ -1,9 +1,12 @@
 import 'package:arcane_jaspr/arcane_jaspr.dart';
+import 'package:arcane_jaspr/html.dart' hide ArcaneText;
+import 'package:jaspr/dom.dart' as dom;
+import 'package:jaspr/jaspr.dart' as jaspr;
 
 /// A wrapper component that displays a live component demo alongside its code.
 ///
 /// Use this to show users what a component looks like and how to implement it.
-class ComponentDemo extends StatelessComponent {
+class ComponentDemo extends StatelessWidget {
   /// The title of the demo (optional)
   final String? title;
 
@@ -11,7 +14,7 @@ class ComponentDemo extends StatelessComponent {
   final String? description;
 
   /// The live component to render
-  final Component child;
+  final Widget child;
 
   /// The code that produces the component
   final String code;
@@ -37,7 +40,7 @@ class ComponentDemo extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return ArcaneDiv(
       styles: const ArcaneStyleData(
         margin: MarginPreset.bottomXl,
@@ -46,7 +49,6 @@ class ComponentDemo extends StatelessComponent {
         border: BorderPreset.standard,
       ),
       children: [
-        // Title and description (if provided)
         if (title != null || description != null)
           ArcaneDiv(
             styles: const ArcaneStyleData(
@@ -75,8 +77,6 @@ class ComponentDemo extends StatelessComponent {
                 ),
             ],
           ),
-
-        // Preview area
         ArcaneDiv(
           styles: ArcaneStyleData(
             padding: padding,
@@ -84,21 +84,13 @@ class ComponentDemo extends StatelessComponent {
             alignItems: AlignItems.center,
             justifyContent: JustifyContent.center,
             minHeight: '120px',
-            raw: {
-              'background': background.css,
-            },
+            raw: <String, String>{'background': background.css},
           ),
           children: [child],
         ),
-
-        // Code block
         ArcaneDiv(
-          styles: const ArcaneStyleData(
-            borderTop: BorderPreset.standard,
-          ),
-          children: [
-            _DemoCodeBlock(code: code, language: language),
-          ],
+          styles: const ArcaneStyleData(borderTop: BorderPreset.standard),
+          children: [_DemoCodeBlock(code: code, language: language)],
         ),
       ],
     );
@@ -106,14 +98,11 @@ class ComponentDemo extends StatelessComponent {
 }
 
 /// Internal code block without margins for use in ComponentDemo
-class _DemoCodeBlock extends StatefulComponent {
+class _DemoCodeBlock extends StatefulWidget {
   final String code;
   final String language;
 
-  const _DemoCodeBlock({
-    required this.code,
-    required this.language,
-  });
+  const _DemoCodeBlock({required this.code, required this.language});
 
   @override
   State<_DemoCodeBlock> createState() => _DemoCodeBlockState();
@@ -140,45 +129,76 @@ class _DemoCodeBlockState extends State<_DemoCodeBlock> {
   }
 
   @override
-  Component build(BuildContext context) {
-    final lines = component.code.split('\n');
-    final isLong = lines.length > 10;
-    final displayCode = _expanded || !isLong ? component.code : '${lines.take(10).join('\n')}\n...';
+  Widget build(BuildContext context) {
+    List<String> lines = component.code.split('\n');
+    bool isLong = lines.length > 10;
+    String displayCode = _expanded || !isLong
+        ? component.code
+        : '${lines.take(10).join('\n')}\n...';
 
     // Use raw div() with explicit inline styles to ensure positioning works
-    return div(
-      styles: const Styles(raw: {
-        'position': 'relative',
-        'background': 'var(--arcane-code-background, var(--arcane-surface-variant))',
-      }),
-      [
-        // Actions overlay - positioned absolute top-right
-        div(
-          styles: const Styles(raw: {
-            'position': 'absolute',
-            'top': '8px',
-            'right': '8px',
-            'z-index': '10',
-            'display': 'flex',
-            'align-items': 'center',
-            'gap': '8px',
-          }),
-          [
-            // Language badge
-            span(
-              styles: const Styles(raw: {
-                'font-size': '11px',
-                'color': 'var(--arcane-muted)',
-                'padding': '2px 8px',
-                'background': 'rgba(255,255,255,0.1)',
-                'border-radius': '4px',
-              }),
-              [Component.text(component.language)],
+    return dom.div(
+      styles: const dom.Styles(
+        raw: {
+          'position': 'relative',
+          'background':
+              'var(--arcane-code-background, var(--arcane-surface-variant))',
+        },
+      ),
+      <jaspr.Component>[
+        dom.div(
+          styles: const dom.Styles(
+            raw: {
+              'position': 'absolute',
+              'top': '8px',
+              'right': '8px',
+              'z-index': '10',
+              'display': 'flex',
+              'align-items': 'center',
+              'gap': '8px',
+            },
+          ),
+          <jaspr.Component>[
+            dom.span(
+              styles: const dom.Styles(
+                raw: {
+                  'font-size': '11px',
+                  'color': 'var(--arcane-muted)',
+                  'padding': '2px 8px',
+                  'background': 'rgba(255,255,255,0.1)',
+                  'border-radius': '4px',
+                },
+              ),
+              <jaspr.Component>[jaspr.Component.text(component.language)],
             ),
-            // Expand/collapse button (if code is long)
             if (isLong)
-              button(
-                styles: Styles(raw: {
+              dom.button(
+                styles: dom.Styles(
+                  raw: {
+                    'display': 'flex',
+                    'align-items': 'center',
+                    'justify-content': 'center',
+                    'width': '28px',
+                    'height': '28px',
+                    'padding': '0',
+                    'border': 'none',
+                    'background': 'transparent',
+                    'color': 'var(--arcane-muted)',
+                    'cursor': 'pointer',
+                    'border-radius': '4px',
+                  },
+                ),
+                events: {'click': (_) => _toggleExpanded()},
+                <jaspr.Component>[
+                  _expanded
+                      ? ArcaneIcon.minimize2(size: IconSize.sm)
+                      : ArcaneIcon.maximize2(size: IconSize.sm),
+                ],
+              ),
+            dom.button(
+              attributes: {'data-code': component.code},
+              styles: dom.Styles(
+                raw: {
                   'display': 'flex',
                   'align-items': 'center',
                   'justify-content': 'center',
@@ -187,35 +207,15 @@ class _DemoCodeBlockState extends State<_DemoCodeBlock> {
                   'padding': '0',
                   'border': 'none',
                   'background': 'transparent',
-                  'color': 'var(--arcane-muted)',
+                  'color': _copied
+                      ? 'var(--arcane-success)'
+                      : 'var(--arcane-muted)',
                   'cursor': 'pointer',
                   'border-radius': '4px',
-                }),
-                events: {'click': (_) => _toggleExpanded()},
-                [
-                  _expanded
-                      ? ArcaneIcon.minimize2(size: IconSize.sm)
-                      : ArcaneIcon.maximize2(size: IconSize.sm),
-                ],
+                },
               ),
-            // Copy button
-            button(
-              attributes: {'data-code': component.code},
-              styles: Styles(raw: {
-                'display': 'flex',
-                'align-items': 'center',
-                'justify-content': 'center',
-                'width': '28px',
-                'height': '28px',
-                'padding': '0',
-                'border': 'none',
-                'background': 'transparent',
-                'color': _copied ? 'var(--arcane-success)' : 'var(--arcane-muted)',
-                'cursor': 'pointer',
-                'border-radius': '4px',
-              }),
               events: {'click': (_) => _copyToClipboard()},
-              [
+              <jaspr.Component>[
                 _copied
                     ? ArcaneIcon.check(size: IconSize.sm)
                     : ArcaneIcon.copy(size: IconSize.sm),
@@ -223,33 +223,39 @@ class _DemoCodeBlockState extends State<_DemoCodeBlock> {
             ),
           ],
         ),
-
-        // Code content with syntax highlighting
-        div(
-          styles: Styles(raw: {
-            'overflow': 'auto',
-            'max-height': _expanded ? 'none' : '300px',
-            'padding-top': '40px', // Space for overlay buttons
-          }),
-          [
-            Component.element(
+        dom.div(
+          styles: dom.Styles(
+            raw: {
+              'overflow': 'auto',
+              'max-height': _expanded ? 'none' : '300px',
+              'padding-top': '40px',
+            },
+          ),
+          <jaspr.Component>[
+            jaspr.Component.element(
               tag: 'pre',
-              styles: const Styles(raw: {
-                'margin': '0',
-                'padding': '16px',
-                'background': 'transparent',
-                'overflow': 'auto',
-              }),
-              children: [
-                Component.element(
+              styles: const dom.Styles(
+                raw: {
+                  'margin': '0',
+                  'padding': '16px',
+                  'background': 'transparent',
+                  'overflow': 'auto',
+                },
+              ),
+              children: <jaspr.Component>[
+                jaspr.Component.element(
                   tag: 'code',
                   classes: 'language-${component.language}',
-                  styles: const Styles(raw: {
-                    'font-family': 'var(--font-mono)',
-                    'font-size': '13px',
-                    'line-height': '1.6',
-                  }),
-                  children: [Component.text(displayCode)],
+                  styles: const dom.Styles(
+                    raw: {
+                      'font-family': 'var(--font-mono)',
+                      'font-size': '13px',
+                      'line-height': '1.6',
+                    },
+                  ),
+                  children: <jaspr.Component>[
+                    jaspr.Component.text(displayCode),
+                  ],
                 ),
               ],
             ),
@@ -266,16 +272,18 @@ enum DemoBackground {
   dark('var(--arcane-background)'),
   light('var(--arcane-surface)'),
   transparent('transparent'),
-  checkered('repeating-conic-gradient(var(--arcane-surface-variant) 0% 25%, var(--arcane-surface) 0% 50%) 50% / 20px 20px');
+  checkered(
+    'repeating-conic-gradient(var(--arcane-surface-variant) 0% 25%, var(--arcane-surface) 0% 50%) 50% / 20px 20px',
+  );
 
   final String css;
   const DemoBackground(this.css);
 }
 
 /// A simple demo component for showing multiple variants in a row
-class ComponentDemoRow extends StatelessComponent {
+class ComponentDemoRow extends StatelessWidget {
   final String? title;
-  final List<Component> children;
+  final List<Widget> children;
   final Gap gap;
 
   const ComponentDemoRow({
@@ -286,11 +294,9 @@ class ComponentDemoRow extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return ArcaneDiv(
-      styles: const ArcaneStyleData(
-        margin: MarginPreset.bottomLg,
-      ),
+      styles: const ArcaneStyleData(margin: MarginPreset.bottomLg),
       children: [
         if (title != null)
           ArcaneDiv(

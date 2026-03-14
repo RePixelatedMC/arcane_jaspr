@@ -16,8 +16,8 @@ The `ArcaneStyleData` class is the foundation of all styling in Arcane Jaspr. It
 ### Basic Usage
 
 ```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
+ArcaneBox(
+  style: const ArcaneStyleData(
     display: Display.flex,
     padding: PaddingPreset.lg,
     gap: Gap.md,
@@ -33,8 +33,8 @@ ArcaneDiv(
 For properties not covered by typed enums, use the `raw` parameter:
 
 ```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
+ArcaneBox(
+  style: const ArcaneStyleData(
     display: Display.flex,
     raw: {
       'grid-template-columns': 'repeat(3, 1fr)',
@@ -53,8 +53,8 @@ ArcaneStyleData provides static presets for common layouts:
 ### Row Layout
 
 ```dart
-ArcaneDiv(
-  styles: ArcaneStyleData.row,  // Flex row with center alignment
+ArcaneBox(
+  style: ArcaneStyleData.row,  // Flex row with center alignment
   children: [...],
 )
 ```
@@ -62,8 +62,8 @@ ArcaneDiv(
 ### Row with Space Between
 
 ```dart
-ArcaneDiv(
-  styles: ArcaneStyleData.rowSpaced,  // Flex row with space-between
+ArcaneBox(
+  style: ArcaneStyleData.rowSpaced,  // Flex row with space-between
   children: [...],
 )
 ```
@@ -71,8 +71,8 @@ ArcaneDiv(
 ### Column Layout
 
 ```dart
-ArcaneDiv(
-  styles: ArcaneStyleData.column,  // Flex column
+ArcaneBox(
+  style: ArcaneStyleData.column,  // Flex column
   children: [...],
 )
 ```
@@ -80,8 +80,8 @@ ArcaneDiv(
 ### Centered Content
 
 ```dart
-ArcaneDiv(
-  styles: ArcaneStyleData.flexCenter,  // Centered on both axes
+ArcaneBox(
+  style: ArcaneStyleData.flexCenter,  // Centered on both axes
   children: [...],
 )
 ```
@@ -89,8 +89,8 @@ ArcaneDiv(
 ### Full Size
 
 ```dart
-ArcaneDiv(
-  styles: ArcaneStyleData.fullSize,  // 100% width and height
+ArcaneBox(
+  style: ArcaneStyleData.fullSize,  // 100% width and height
   children: [...],
 )
 ```
@@ -98,8 +98,8 @@ ArcaneDiv(
 ### Absolute Fill
 
 ```dart
-ArcaneDiv(
-  styles: ArcaneStyleData.absoluteFill,  // Absolute position, inset 0
+ArcaneBox(
+  style: ArcaneStyleData.absoluteFill,  // Absolute position, inset 0
   children: [...],
 )
 ```
@@ -119,7 +119,7 @@ final activeStyles = const ArcaneStyleData(
   textColor: TextColor.onPrimary,
 );
 
-ArcaneDiv(
+ArcaneBox(
   styles: isActive ? baseStyles.merge(activeStyles) : baseStyles,
   children: [...],
 )
@@ -225,8 +225,8 @@ final cssMap = styleData.toMap();
 ## Example: Card Styling
 
 ```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
+ArcaneBox(
+  style: const ArcaneStyleData(
     display: Display.flex,
     flexDirection: FlexDirection.column,
     padding: PaddingPreset.lg,
@@ -247,8 +247,8 @@ ArcaneDiv(
 ## Example: Interactive Button
 
 ```dart
-ArcaneDiv(
-  styles: ArcaneStyleData(
+ArcaneBox(
+  style: ArcaneStyleData(
     display: Display.inlineFlex,
     alignItems: AlignItems.center,
     justifyContent: JustifyContent.center,
@@ -267,8 +267,8 @@ ArcaneDiv(
 ## Example: Responsive Layout
 
 ```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
+ArcaneBox(
+  style: const ArcaneStyleData(
     display: Display.grid,
     gap: Gap.lg,
     padding: PaddingPreset.xl,

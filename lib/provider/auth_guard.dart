@@ -1,10 +1,12 @@
 import 'package:arcane_jaspr/arcane_jaspr.dart';
+import 'package:jaspr/dom.dart' as dom;
+import 'package:jaspr/jaspr.dart' as jaspr;
 import 'package:web/web.dart' as web;
 
 /// Route protection for authenticated users.
-class AuthGuard extends StatelessComponent {
-  final Component child;
-  final Component? loadingIndicator;
+class AuthGuard extends StatelessWidget {
+  final Widget child;
+  final Widget? loadingIndicator;
   final String redirectTo;
   final bool requireAdmin;
   final bool Function(AuthUser user)? isAdmin;
@@ -19,7 +21,7 @@ class AuthGuard extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     final AuthState state = context.authState;
 
     if (state.isUnknown || state.isLoading) {
@@ -50,9 +52,9 @@ class AuthGuard extends StatelessComponent {
     });
   }
 
-  Component _buildDefaultLoader() {
-    return const ArcaneDiv(
-      styles: ArcaneStyleData(
+  Widget _buildDefaultLoader() {
+    return const ArcaneBox(
+      style: ArcaneStyleData(
         display: Display.flex,
         alignItems: AlignItems.center,
         justifyContent: JustifyContent.center,
@@ -60,17 +62,19 @@ class AuthGuard extends StatelessComponent {
         width: Size.full,
         background: Background.background,
       ),
-      children: <Component>[
-        div(
-          styles: Styles(raw: <String, String>{
-            'width': '40px',
-            'height': '40px',
-            'border': '3px solid var(--border)',
-            'border-top-color': 'var(--primary)',
-            'border-radius': '9999px',
-            'animation': 'arcane-spin 0.75s linear infinite',
-          }),
-          <Component>[],
+      children: <Widget>[
+        dom.div(
+          styles: dom.Styles(
+            raw: <String, String>{
+              'width': '40px',
+              'height': '40px',
+              'border': '3px solid var(--border)',
+              'border-top-color': 'var(--primary)',
+              'border-radius': '9999px',
+              'animation': 'arcane-spin 0.75s linear infinite',
+            },
+          ),
+          <jaspr.Component>[],
         ),
       ],
     );
@@ -78,9 +82,9 @@ class AuthGuard extends StatelessComponent {
 }
 
 /// Route protection for guests (unauthenticated users).
-class GuestGuard extends StatelessComponent {
-  final Component child;
-  final Component? loadingIndicator;
+class GuestGuard extends StatelessWidget {
+  final Widget child;
+  final Widget? loadingIndicator;
   final String redirectTo;
 
   const GuestGuard({
@@ -91,7 +95,7 @@ class GuestGuard extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     final AuthState state = context.authState;
 
     if (state.isUnknown || state.isLoading) {
@@ -108,9 +112,9 @@ class GuestGuard extends StatelessComponent {
     return child;
   }
 
-  Component _buildDefaultLoader() {
-    return const ArcaneDiv(
-      styles: ArcaneStyleData(
+  Widget _buildDefaultLoader() {
+    return const ArcaneBox(
+      style: ArcaneStyleData(
         display: Display.flex,
         alignItems: AlignItems.center,
         justifyContent: JustifyContent.center,
@@ -118,17 +122,19 @@ class GuestGuard extends StatelessComponent {
         width: Size.full,
         background: Background.background,
       ),
-      children: <Component>[
-        div(
-          styles: Styles(raw: <String, String>{
-            'width': '40px',
-            'height': '40px',
-            'border': '3px solid var(--border)',
-            'border-top-color': 'var(--primary)',
-            'border-radius': '9999px',
-            'animation': 'arcane-spin 0.75s linear infinite',
-          }),
-          <Component>[],
+      children: <Widget>[
+        dom.div(
+          styles: dom.Styles(
+            raw: <String, String>{
+              'width': '40px',
+              'height': '40px',
+              'border': '3px solid var(--border)',
+              'border-top-color': 'var(--primary)',
+              'border-radius': '9999px',
+              'animation': 'arcane-spin 0.75s linear infinite',
+            },
+          ),
+          <jaspr.Component>[],
         ),
       ],
     );

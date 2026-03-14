@@ -59,8 +59,8 @@ Complete border configurations combining width, style, and color.
 ### Usage
 
 ```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
+ArcaneBox(
+  style: const ArcaneStyleData(
     border: BorderPreset.subtle,
     borderRadius: Radius.lg,
   ),
@@ -68,8 +68,8 @@ ArcaneDiv(
 )
 
 // Bottom border separator
-ArcaneDiv(
-  styles: const ArcaneStyleData(
+ArcaneBox(
+  style: const ArcaneStyleData(
     padding: PaddingPreset.md,
     borderBottom: BorderPreset.subtle,
   ),
@@ -105,7 +105,7 @@ Radius.md.staticCss // "8px" (static value)
 ```dart
 // Card radius
 ArcaneCard(
-  styles: const ArcaneStyleData(
+  style: const ArcaneStyleData(
     borderRadius: Radius.lg,
   ),
   children: [...],
@@ -113,7 +113,7 @@ ArcaneCard(
 
 // Pill button
 ArcaneButton(
-  styles: const ArcaneStyleData(
+  style: const ArcaneStyleData(
     borderRadius: Radius.full,
   ),
   label: 'Pill Button',
@@ -121,7 +121,7 @@ ArcaneButton(
 
 // Avatar circle
 ArcaneAvatar(
-  styles: const ArcaneStyleData(
+  style: const ArcaneStyleData(
     borderRadius: Radius.circle,
   ),
   imageUrl: 'avatar.jpg',
@@ -144,8 +144,8 @@ Border width values.
 ### Usage
 
 ```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
+ArcaneBox(
+  style: const ArcaneStyleData(
     raw: {
       'border-width': BorderWidth.medium.css,
       'border-style': 'solid',
@@ -175,8 +175,8 @@ Border line styles.
 ### Usage
 
 ```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
+ArcaneBox(
+  style: const ArcaneStyleData(
     raw: {
       'border': '2px dashed var(--arcane-border)',
     },
@@ -201,7 +201,7 @@ Outline configurations for focus states.
 
 ```dart
 ArcaneButton(
-  styles: const ArcaneStyleData(
+  style: const ArcaneStyleData(
     outline: OutlinePreset.focus,
   ),
   label: 'Focused Button',
@@ -213,8 +213,8 @@ ArcaneButton(
 ### Card with Border
 
 ```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
+ArcaneBox(
+  style: const ArcaneStyleData(
     padding: PaddingPreset.lg,
     background: Background.card,
     border: BorderPreset.subtle,
@@ -227,8 +227,8 @@ ArcaneDiv(
 ### Input Field
 
 ```dart
-ArcaneDiv(
-  styles: ArcaneStyleData(
+ArcaneBox(
+  style: ArcaneStyleData(
     padding: PaddingPreset.smMd,
     background: Background.input,
     border: isFocused ? BorderPreset.accent : BorderPreset.subtle,
@@ -242,8 +242,8 @@ ArcaneDiv(
 ### Divider
 
 ```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
+ArcaneBox(
+  style: const ArcaneStyleData(
     height: Size.auto,
     borderBottom: BorderPreset.subtle,
     margin: MarginPreset.verticalLg,
@@ -255,8 +255,8 @@ ArcaneDiv(
 ### Avatar with Ring
 
 ```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
+ArcaneBox(
+  style: const ArcaneStyleData(
     borderRadius: Radius.circle,
     raw: {
       'border': '3px solid var(--arcane-accent)',
@@ -272,8 +272,8 @@ ArcaneDiv(
 ### Dashed Upload Area
 
 ```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
+ArcaneBox(
+  style: const ArcaneStyleData(
     padding: PaddingPreset.xl,
     border: BorderPreset.dashedSubtle,
     borderRadius: Radius.lg,
@@ -290,8 +290,8 @@ ArcaneDiv(
 ### Accent Left Border
 
 ```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
+ArcaneBox(
+  style: const ArcaneStyleData(
     padding: PaddingPreset.md,
     background: Background.surface,
     borderRadius: Radius.md,

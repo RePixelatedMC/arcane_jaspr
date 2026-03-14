@@ -1,44 +1,24 @@
-# ArcaneCodex Web
+# Arcane Jaspr Codex Web
 
 Static documentation site for `arcane_jaspr`.
 
-## Current Catalog Snapshot (March 3, 2026)
-
-- **Shadcn-aligned functional components:** `59`
-- **Total exported component modules:** `81`
-- **Foundation modules outside Shadcn cap:** `27`
-
-Canonical component index:
-- `content/docs/components-catalog.md`
-
-## Quick Start
+## Development
 
 ```bash
-# Install dependencies
 dart pub get
-
-# Development server (http://localhost:8080)
+dart run tool/generate_component_catalog.dart
 jaspr serve
-
-# Build static site
-jaspr build
 ```
 
-## Content Model
+## Build
 
-- `content/index.md`: site home
-- `content/docs/index.md`: docs landing
-- `content/docs/components-catalog.md`: authoritative component surface
-- `content/docs/**`: topic/component markdown pages
+```bash
+dart run tool/build.dart --domain=https://arcanearts.github.io/arcane_jaspr --base-url=/arcane_jaspr
+```
 
-## Runtime
+## Primary Documentation Rules
 
-The site is built with:
-- `jaspr`
-- `jaspr_content`
-- `arcane_inkwell` knowledge-base shell
-- local path dependency on `arcane_jaspr`
-
-## Notes
-
-The catalog page is generated from the live package exports and audit manifest, and should be treated as the source of truth when docs pages and implementation diverge.
+- Teach `package:arcane_jaspr/arcane_jaspr.dart` first
+- Keep HTML wrappers on `package:arcane_jaspr/html.dart`
+- Keep raw Jaspr escape hatches on `package:arcane_jaspr/web.dart`
+- Prefer Flutter-shaped examples with `Widget build(BuildContext context)` and no explicit type arguments in normal usage

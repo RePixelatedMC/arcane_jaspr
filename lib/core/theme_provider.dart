@@ -1,4 +1,4 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
 
 import '../stylesheets/stylesheet.dart';
 
@@ -18,7 +18,7 @@ enum ThemeMode {
 }
 
 /// Provides the current stylesheet and brightness to the component tree.
-class ArcaneThemeProvider extends InheritedComponent {
+class ArcaneThemeProvider extends InheritedWidget {
   final ArcaneStylesheet stylesheet;
   final Brightness brightness;
 

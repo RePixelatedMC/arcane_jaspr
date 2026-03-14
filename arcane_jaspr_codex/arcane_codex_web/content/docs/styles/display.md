@@ -29,8 +29,8 @@ Controls how an element is displayed.
 ### Usage
 
 ```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
+ArcaneBox(
+  style: const ArcaneStyleData(
     display: Display.flex,
   ),
   children: [...],
@@ -52,8 +52,8 @@ Controls element positioning.
 ### Usage
 
 ```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
+ArcaneBox(
+  style: const ArcaneStyleData(
     position: Position.absolute,
     raw: {
       'top': '0',
@@ -78,8 +78,8 @@ Controls the direction of flex items.
 ### Usage
 
 ```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
+ArcaneBox(
+  style: const ArcaneStyleData(
     display: Display.flex,
     flexDirection: FlexDirection.column,
   ),
@@ -112,8 +112,8 @@ Controls cross-axis alignment of flex/grid items.
 ### Usage
 
 ```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
+ArcaneBox(
+  style: const ArcaneStyleData(
     display: Display.flex,
     alignItems: AlignItems.center,
   ),
@@ -137,8 +137,8 @@ Controls main-axis alignment of flex/grid items.
 ### Usage
 
 ```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
+ArcaneBox(
+  style: const ArcaneStyleData(
     display: Display.flex,
     justifyContent: JustifyContent.spaceBetween,
   ),
@@ -191,8 +191,8 @@ Preset size values for width/height.
 ### Usage
 
 ```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
+ArcaneBox(
+  style: const ArcaneStyleData(
     width: Size.full,
     height: Size.screen,
   ),
@@ -219,8 +219,8 @@ Maximum width presets for containers.
 ### Usage
 
 ```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
+ArcaneBox(
+  style: const ArcaneStyleData(
     maxWidth: MaxWidth.content,
     margin: MarginPreset.autoX,
   ),

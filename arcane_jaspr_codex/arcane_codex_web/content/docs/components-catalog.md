@@ -1,22 +1,27 @@
 ---
 title: Component Catalog
-description: Current Arcane component export surface and Shadcn-aligned catalog snapshot
+description: Generated Arcane Jaspr surface catalog for the Flutter-first primary import and advanced HTML escape hatch
 layout: kb
 ---
 
 # Component Catalog
 
-This page is the source-of-truth snapshot of the current component surface as of **March 3, 2026**.
+This page is generated from the current `package:arcane_jaspr/arcane_jaspr.dart` and `package:arcane_jaspr/html.dart` exports.
 
 ## Snapshot
 
-- **Shadcn-aligned functional components:** `57`
-- **Total exported component modules:** `84`
-- **Foundation modules outside Shadcn cap:** `27`
+- Generated on `March 13, 2026`
+- Primary live component demos: `56`
+- Primary support component modules: `9`
+- Main-surface foundation exports: `20`
+- Total main-surface export modules: `83`
+- Advanced HTML modules: `22`
 
-## Shadcn-Aligned Components (57)
+Use `package:arcane_jaspr/arcane_jaspr.dart` for the Flutter-first surface. Use `package:arcane_jaspr/html.dart` and `package:arcane_jaspr/web.dart` only when you intentionally need lower-level HTML or raw Jaspr escape hatches.
 
-| Shadcn | Arcane Symbol | Source |
+## Primary Live Components (56)
+
+| Component | Symbol | Source |
 |---|---|---|
 | `accordion` | `ArcaneAccordion` | `lib/component/interactive/accordion.dart` |
 | `alert` | `ArcaneAlert` | `lib/component/view/alert.dart` |
@@ -50,7 +55,6 @@ This page is the source-of-truth snapshot of the current component surface as of
 | `input-otp` | `ArcaneOtpInput` | `lib/component/input/otp_input.dart` |
 | `item` | `ArcaneItem` | `lib/component/view/item.dart` |
 | `kbd` | `ArcaneKbd` | `lib/component/view/kbd.dart` |
-| `label` | `ArcaneLabel` | `lib/component/html/arcane_label.dart` |
 | `menubar` | `ArcaneMenubar` | `lib/component/menu/menubar.dart` |
 | `navigation-menu` | `ArcaneNavDropdown` | `lib/component/navigation/nav_dropdown.dart` |
 | `pagination` | `ArcanePagination` | `lib/component/navigation/pagination.dart` |
@@ -76,57 +80,69 @@ This page is the source-of-truth snapshot of the current component surface as of
 | `tooltip` | `ArcaneTooltip` | `lib/component/dialog/tooltip.dart` |
 | `typography` | `ArcaneTypography` | `lib/component/typography/headline.dart` |
 
-## Foundation Modules (Outside Shadcn Cap)
+## Primary Support Modules (9)
 
-These exports are kept as low-level primitives/support modules and are intentionally outside the Shadcn functional cap.
+| Symbol | Source |
+|---|---|
+| `ArcaneInfiniteCarousel` | `lib/component/collection/infinite_carousel.dart` |
+| `ArcaneFlow` | `lib/component/layout/flow.dart` |
+| `ArcaneGutter` | `lib/component/layout/gutter.dart` |
+| `ArcaneScrollRail` | `lib/component/layout/scroll_rail.dart` |
+| `TocEntry` | `lib/component/navigation/toc.dart` |
+| `promo` | `lib/component/promo/promo.dart` |
+| `ArcaneApp` | `lib/component/support/app.dart` |
+| `ArcaneText` | `lib/component/typography/text.dart` |
+| `ArcaneIcon` | `lib/component/view/icon.dart` |
 
-### `collection` (1)
+## Main-Surface Foundation Exports (20)
 
-- `component/collection/infinite_carousel.dart`
+| Symbol | Source |
+|---|---|
+| `ButtonProps` | `lib/core/props/button_props.dart` |
+| `ComponentRenderers` | `lib/core/renderers.dart` |
+| `ArcaneThemeProvider` | `lib/core/theme_provider.dart` |
+| `StatelessWidget` | `lib/flutter.dart` |
+| `auth_guard_export` | `lib/provider/auth_guard_export.dart` |
+| `auth_provider_export` | `lib/provider/auth_provider_export.dart` |
+| `auth_service_export` | `lib/service/auth_service_export.dart` |
+| `AuthUser` | `lib/service/auth_state.dart` |
+| `CodexStylesheet` | `lib/stylesheets/codex/codex_stylesheet.dart` |
+| `ShadcnStylesheet` | `lib/stylesheets/shadcn/shadcn_stylesheet.dart` |
+| `MyStylesheet` | `lib/stylesheets/stylesheet.dart` |
+| `index` | `lib/theme/index.dart` |
+| `Color` | `lib/util/appearance/colors.dart` |
+| `EdgeInsets` | `lib/util/arcane.dart` |
+| `PasswordPolicy` | `lib/util/auth/password_policy.dart` |
+| `prose_styles` | `lib/util/content/prose_styles.dart` |
+| `ReadingTimeResult` | `lib/util/content/reading_time.dart` |
+| `ArcaneColors` | `lib/util/design_tokens.dart` |
+| `ArcaneScripts` | `lib/util/interactivity/arcane_scripts.dart` |
+| `index` | `lib/util/style_types/index.dart` |
 
-### `html` (18)
+## Advanced HTML Modules (22)
 
-- `component/html/arcane_button.dart`
-- `component/html/arcane_cat_image.dart`
-- `component/html/arcane_image.dart`
-- `component/html/arcane_input.dart`
-- `component/html/arcane_link.dart`
-- `component/html/arcane_span.dart`
-- `component/html/code_block.dart`
-- `component/html/div.dart`
-- `component/html/heading.dart`
-- `component/html/lists.dart`
-- `component/html/main_element.dart`
-- `component/html/nav.dart`
-- `component/html/paragraph.dart`
-- `component/html/quote.dart`
-- `component/html/section.dart`
-- `component/html/side_content.dart`
-- `component/html/svg.dart`
-- `component/html/table.dart`
+| Symbol | Source |
+|---|---|
+| `ArcaneRawButton` | `lib/component/html/arcane_button.dart` |
+| `ArcaneCatImage` | `lib/component/html/arcane_cat_image.dart` |
+| `ArcaneImage` | `lib/component/html/arcane_image.dart` |
+| `ArcaneRawInput` | `lib/component/html/arcane_input.dart` |
+| `ArcaneLabel` | `lib/component/html/arcane_label.dart` |
+| `ArcaneLink` | `lib/component/html/arcane_link.dart` |
+| `ArcaneSpan` | `lib/component/html/arcane_span.dart` |
+| `ArcaneText` | `lib/component/html/arcane_text.dart` |
+| `ArcaneCodeBlock` | `lib/component/html/code_block.dart` |
+| `ArcaneDiv` | `lib/component/html/div.dart` |
+| `ArcaneHtmlFooter` | `lib/component/html/footer.dart` |
+| `ArcaneHeader` | `lib/component/html/header.dart` |
+| `ArcaneHeading` | `lib/component/html/heading.dart` |
+| `ArcaneBulletList` | `lib/component/html/lists.dart` |
+| `ArcaneMain` | `lib/component/html/main_element.dart` |
+| `ArcaneNav` | `lib/component/html/nav.dart` |
+| `ArcaneParagraph` | `lib/component/html/paragraph.dart` |
+| `ArcaneQuote` | `lib/component/html/quote.dart` |
+| `ArcaneHtmlSection` | `lib/component/html/section.dart` |
+| `ArcaneSideContent` | `lib/component/html/side_content.dart` |
+| `ArcaneSvg` | `lib/component/html/svg.dart` |
+| `ArcaneTable` | `lib/component/html/table.dart` |
 
-### `layout` (3)
-
-- `component/layout/flow.dart`
-- `component/layout/gutter.dart`
-- `component/layout/scroll_rail.dart`
-
-### `navigation` (1)
-
-- `component/navigation/toc.dart`
-
-### `promo` (1)
-
-- `component/promo/promo.dart`
-
-### `support` (1)
-
-- `component/support/app.dart`
-
-### `typography` (1)
-
-- `component/typography/text.dart`
-
-### `view` (1)
-
-- `component/view/icon.dart`

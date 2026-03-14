@@ -135,8 +135,8 @@ For compatibility, stylesheets also define `--arcane-*` prefixed aliases:
 Reference these variables in your `ArcaneStyleData`:
 
 ```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
+ArcaneBox(
+  style: const ArcaneStyleData(
     raw: {
       'background': 'var(--card)',
       'border': '1px solid var(--border)',
@@ -151,8 +151,8 @@ ArcaneDiv(
 Or use the type-safe presets which map to these variables:
 
 ```dart
-ArcaneDiv(
-  styles: const ArcaneStyleData(
+ArcaneBox(
+  style: const ArcaneStyleData(
     background: Background.card,
     textColor: TextColor.cardForeground,
     border: BorderPreset.standard,
@@ -168,7 +168,7 @@ Each stylesheet provides its own implementation of all components via the render
 
 ```dart
 @override
-Component build(BuildContext context) {
+Widget build(BuildContext context) {
   // Components automatically use the current stylesheet's renderers
   return ArcaneButton(
     label: 'Click me',
@@ -215,7 +215,7 @@ class MyStylesheet extends ArcaneStylesheet {
   ''';
 
   @override
-  List<String> get externalCssUrls => const [
+  get externalCssUrls => const [
     'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
   ];
 }

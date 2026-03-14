@@ -5,6 +5,37 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.1.0] - 2026-03-13
+
+### Changed
+
+- **Flutter-First Primary Surface**
+  - `package:arcane_jaspr/arcane_jaspr.dart` now exposes a curated Flutter-shaped surface instead of re-exporting raw Jaspr and DOM APIs
+  - Added `Widget`, `StatelessWidget`, `StatefulWidget`, `State`, `InheritedWidget`, `BuildContext`, `Key`, and the normal `runApp` path on the primary import
+  - Moved low-level HTML wrappers and raw Jaspr escape hatches onto explicit secondary imports
+
+- **Secondary Surface Split**
+  - Added `package:arcane_jaspr/flutter.dart`
+  - Added `package:arcane_jaspr/html.dart`
+  - Added `package:arcane_jaspr/web.dart`
+  - Updated package internals that still needed low-level access to import those surfaces explicitly
+
+- **Developer Experience Reset**
+  - Removed HTML-first wrappers from the primary docs path and rewrote the default documentation flow around the Flutter-first authoring model
+  - Added plain Jaspr versus Arcane Jaspr comparison examples in the docs intro to explain the intended Flutter-like goal directly
+  - Reworked the docs demo system around a central registry and generated component catalog output to keep examples and counts in sync
+  - Updated the repo-owned Oracular ArcaneJaspr templates to teach the new primary surface instead of old Jaspr component base classes
+
+### Added
+
+- **Primary Surface Guardrails**
+  - Added `tool/check_primary_surface.dart` to scan docs, demos, and templates for banned primary-surface examples such as old component base classes, `htmlFor`, and explicit generic angle-bracket usage
+
+### Removed
+
+- **Counter Smoke App**
+  - Removed the temporary counter smoke app fixture created during the parity reset work
+
 ## [2.9.1] - Unreleased
 
 ### Changed

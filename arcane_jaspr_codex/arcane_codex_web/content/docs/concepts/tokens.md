@@ -228,16 +228,16 @@ Semantic z-index layers for proper stacking.
 
 ```dart
 // Using spacing
-ArcaneDiv(
-  styles: const ArcaneStyleData(
+ArcaneBox(
+  style: const ArcaneStyleData(
     padding: PaddingPreset.lg,  // Uses ArcaneSpacing.lg
     gap: Gap.md,                // Uses ArcaneSpacing.md
   ),
 )
 
 // Using colors
-ArcaneDiv(
-  styles: const ArcaneStyleData(
+ArcaneBox(
+  style: const ArcaneStyleData(
     background: Background.surface,
     textColor: TextColor.primary,
   ),

@@ -1,6 +1,6 @@
 ---
 title: Installation
-description: How to add Arcane Jaspr to your project
+description: Add Arcane Jaspr to a Jaspr project or scaffold a project with Oracular
 layout: kb
 previous:
   url: /docs
@@ -12,145 +12,80 @@ next:
 
 # Installation
 
-There are two ways to get started with Arcane Jaspr: using Oracular (recommended) or manual setup.
+There are two supported starting points: scaffold a project with Oracular or add Arcane Jaspr to an existing Jaspr app.
 
-## Option 1: Using Oracular (Recommended)
-
-Oracular is the official scaffolding tool for Arcane projects. It creates production-ready projects with best practices built in.
-
-### Install Oracular
+## Option 1: Scaffold with Oracular
 
 ```bash
 dart pub global activate oracular
-```
-
-### Create a New Project
-
-```bash
-# Interactive wizard
-oracular
-
-# Or create directly:
-# Web application
 oracular create app --template arcane_jaspr_app --name my_app
-
-# Documentation site
 oracular create app --template arcane_jaspr_docs --name my_docs
 ```
 
-This creates a complete project structure with:
-- Arcane Jaspr 2.7.0 pre-configured
-- Theming setup with ArcaneApp
-- Sample screens and components
-- Proper routing configuration
-- Development and production build scripts
+The repo-owned templates already target the Flutter-first Arcane Jaspr surface.
 
-## Option 2: Manual Setup
+## Option 2: Add Arcane Jaspr to an Existing Jaspr App
 
 ### Prerequisites
 
-- **Dart SDK** >= 3.10.0
-- **Jaspr CLI** (optional but recommended)
+- Dart SDK `>=3.10.0`
+- Jaspr CLI
 
 ```bash
 dart pub global activate jaspr_cli
 ```
 
-### Create a Jaspr Project
-
-```bash
-jaspr create my_app
-cd my_app
-```
-
-### Add Arcane Jaspr
-
-Add to your `pubspec.yaml`:
+### Add the Package
 
 ```yaml
 dependencies:
-  arcane_jaspr: ^2.7.0
+  arcane_jaspr: ^3.0.0
 ```
-
-Then run:
 
 ```bash
 dart pub get
 ```
 
-### Configure Your App
+### Use the Primary Import
 
-Wrap your app with `ArcaneApp` for theming:
+```dart
+import 'package:arcane_jaspr/arcane_jaspr.dart';
+```
+
+Only add these if you intentionally need them:
+
+```dart
+import 'package:arcane_jaspr/html.dart';
+import 'package:arcane_jaspr/web.dart';
+```
+
+### Wrap the App Root
 
 ```dart
 import 'package:arcane_jaspr/arcane_jaspr.dart';
 
-class App extends StatelessComponent {
+class App extends StatelessWidget {
+  const App({super.key});
+
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return ArcaneApp(
-      stylesheet: ShadcnStylesheet(),
+      stylesheet: const ShadcnStylesheet(theme: ShadcnTheme.midnight),
       brightness: Brightness.dark,
-      child: MyHomePage(),
+      child: const ArcaneText('Ready'),
     );
   }
 }
 ```
 
-## Project Structure
-
-After setup, your project should look like:
-
-```
-my_app/
-├── lib/
-│   ├── main.server.dart      # Server entry (static generation)
-│   ├── main.client.dart      # Client entry (hydration)
-│   ├── app.dart              # App component with theming
-│   ├── screens/              # Page components
-│   └── components/           # Reusable components
-├── web/
-│   ├── index.html            # HTML shell
-│   └── styles.css            # Global styles
-├── content/                  # Markdown content (optional)
-└── pubspec.yaml
-```
-
-## Development Server
+## Run the App
 
 ```bash
 jaspr serve
 ```
 
-Visit `http://localhost:8080` to see your app.
-
-## Build for Production
+## Build Static Output
 
 ```bash
 jaspr build
 ```
-
-Static files are generated in `build/jaspr/` ready for deployment.
-
-## Choosing Between Templates
-
-| Use Case | Template |
-|----------|----------|
-| Interactive web app | arcane_jaspr_app |
-| Documentation site | arcane_jaspr_docs |
-| Marketing landing page | arcane_jaspr_app |
-| Technical docs with markdown | arcane_jaspr_docs |
-
-## Why Jaspr + Arcane Jaspr?
-
-Compared to Flutter web:
-
-| Feature | Flutter Web | Jaspr + Arcane Jaspr |
-|---------|-------------|----------------------|
-| SEO | Poor (canvas) | Excellent (HTML) |
-| Bundle Size | 2-5MB+ | 100-500KB |
-| Initial Load | Slower | Faster |
-| Browser DevTools | Limited | Full support |
-| Text Selection | Custom | Native |
-
-See the full [Platform Comparison](https://github.com/ArcaneArts/Oracular/blob/main/docs/PLATFORM_COMPARISON.md) for more details.

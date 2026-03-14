@@ -1,16 +1,18 @@
 import 'package:arcane_jaspr/arcane_jaspr.dart';
+import 'package:arcane_jaspr/html.dart' hide ArcaneText;
+import 'package:jaspr/dom.dart' as dom;
 
 import '../utils/constants.dart';
 
 /// Documentation site header
-class DocsHeader extends StatelessComponent {
+class DocsHeader extends StatelessWidget {
   const DocsHeader({super.key});
 
   @override
-  Component build(BuildContext context) {
-    final base = AppConstants.baseUrl;
+  Widget build(BuildContext context) {
+    String base = AppConstants.baseUrl;
 
-    return header(
+    return dom.header(
       styles: const ArcaneStyleData(
         display: Display.flex,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -41,7 +43,7 @@ class DocsHeader extends StatelessComponent {
     );
   }
 
-  Component _buildNavigation(String base) {
+  Widget _buildNavigation(String base) {
     return ArcaneNav(
       styles: const ArcaneStyleData(
         display: Display.flex,
@@ -56,7 +58,7 @@ class DocsHeader extends StatelessComponent {
     );
   }
 
-  Component _navLink(String label, String href) {
+  Widget _navLink(String label, String href) {
     return ArcaneLink(
       href: href,
       styles: const ArcaneStyleData(
@@ -72,7 +74,7 @@ class DocsHeader extends StatelessComponent {
     );
   }
 
-  Component _buildSearch() {
+  Widget _buildSearch() {
     return ArcaneDiv(
       styles: const ArcaneStyleData(widthCustom: '280px'),
       children: const [
@@ -85,7 +87,7 @@ class DocsHeader extends StatelessComponent {
     );
   }
 
-  Component _buildGitHubButton() {
+  Widget _buildGitHubButton() {
     return ArcaneLink(
       href: AppConstants.githubUrl,
       target: '_blank',

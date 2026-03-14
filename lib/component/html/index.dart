@@ -19,5 +19,6 @@ export 'quote.dart';
 export 'section.dart';
 export 'side_content.dart';
 export 'table.dart';
+export 'svg.dart';
 export 'arcane_span.dart';
 export 'arcane_text.dart';

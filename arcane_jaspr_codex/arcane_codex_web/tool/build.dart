@@ -1,4 +1,5 @@
 #!/usr/bin/env dart
+
 /// Build script for Arcane Jaspr sites.
 ///
 /// Automatically:
@@ -21,7 +22,9 @@ Future<void> main(List<String> args) async {
   final String? baseUrl = _getArg(args, 'base-url');
 
   if (domain == null) {
-    print('Usage: dart tool/build.dart --domain=https://example.com [--base-url=/path]');
+    print(
+      'Usage: dart tool/build.dart --domain=https://example.com [--base-url=/path]',
+    );
     print('');
     print('Options:');
     print('  --domain     Required. Domain for sitemap generation');
@@ -37,10 +40,13 @@ Future<void> main(List<String> args) async {
   // Step 2: Generate manifest
   await _generateManifest(baseUrl ?? '');
 
-  // Step 3: Generate search index
+  // Step 3: Generate component catalog
+  await _generateComponentCatalog();
+
+  // Step 4: Generate search index
   await _generateSearchIndex(baseUrl ?? '');
 
-  // Step 4: Build with jaspr
+  // Step 5: Build with jaspr
   await _runJasprBuild(domain, baseUrl);
 
   print('\nBuild complete!');
@@ -74,7 +80,9 @@ Future<void> _generateIcons() async {
 
   print('Generating icons from web/assets/icon.png...');
 
-  final ProcessResult result = await Process.run('python3', ['-c', '''
+  final ProcessResult result = await Process.run('python3', [
+    '-c',
+    '''
 from PIL import Image
 import os
 
@@ -118,7 +126,8 @@ ico_images[0].save(
     sizes=ico_sizes
 )
 print("  Generated: favicon.ico")
-''']);
+''',
+  ]);
 
   if (result.exitCode != 0) {
     print('Warning: Icon generation failed. Make sure Pillow is installed:');
@@ -145,7 +154,8 @@ Future<void> _generateManifest(String baseUrl) async {
 
   print('Generating manifest.json...');
 
-  final String manifest = '''{
+  final String manifest =
+      '''{
   "name": "$name",
   "short_name": "$shortName",
   "start_url": "./",
@@ -189,6 +199,21 @@ Future<void> _generateSearchIndex(String baseUrl) async {
   }
 }
 
+Future<void> _generateComponentCatalog() async {
+  print('Generating component catalog...');
+
+  final ProcessResult result = await Process.run('dart', [
+    'tool/generate_component_catalog.dart',
+  ]);
+
+  if (result.exitCode != 0) {
+    print('Warning: Component catalog generation failed');
+    print(result.stderr);
+  } else {
+    print(result.stdout);
+  }
+}
+
 Future<void> _runJasprBuild(String domain, String? baseUrl) async {
   print('\nRunning jaspr build...');
 
@@ -200,7 +225,11 @@ Future<void> _runJasprBuild(String domain, String? baseUrl) async {
 
   print('  jaspr ${args.join(' ')}\n');
 
-  final Process process = await Process.start('jaspr', args, mode: ProcessStartMode.inheritStdio);
+  final Process process = await Process.start(
+    'jaspr',
+    args,
+    mode: ProcessStartMode.inheritStdio,
+  );
   final int exitCode = await process.exitCode;
 
   if (exitCode != 0) {
