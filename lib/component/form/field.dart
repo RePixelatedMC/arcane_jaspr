@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
 import 'provider.dart';
@@ -26,10 +27,10 @@ class ArcaneFieldMetadata {
 }
 
 /// Generic form field component with provider-based state management.
-class ArcaneField<T> extends StatefulComponent {
+class ArcaneField<T> extends StatefulWidget {
   final ArcaneFieldMetadata meta;
   final ArcaneFieldProvider<T> provider;
-  final Component Function(BuildContext context, T value, void Function(T) onChanged) builder;
+  final Widget Function(BuildContext context, T value, void Function(T) onChanged) builder;
 
   Type get dataRuntimeType => T;
 
@@ -71,7 +72,7 @@ class _ArcaneFieldState<T> extends State<ArcaneField<T>> {
   }
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     if (_loading) {
       return const div(
         styles: Styles(raw: {
@@ -200,7 +201,7 @@ class ArcaneInput {
       );
 }
 
-class _StringFieldBuilder extends StatelessComponent {
+class _StringFieldBuilder extends StatelessWidget {
   final String value;
   final void Function(String) onChanged;
   final String? placeholder;
@@ -216,7 +217,7 @@ class _StringFieldBuilder extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     final bool isMultiline = (maxLines ?? 1) > 1;
 
     if (isMultiline) {
@@ -279,7 +280,7 @@ class _StringFieldBuilder extends StatelessComponent {
   }
 }
 
-class _BoolFieldBuilder extends StatelessComponent {
+class _BoolFieldBuilder extends StatelessWidget {
   final bool value;
   final void Function(bool) onChanged;
   final String? labelText;
@@ -291,7 +292,7 @@ class _BoolFieldBuilder extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return label(
       styles: const Styles(raw: {
         'display': 'flex',
@@ -333,7 +334,7 @@ class _BoolFieldBuilder extends StatelessComponent {
   }
 }
 
-class _SelectFieldBuilder<T> extends StatelessComponent {
+class _SelectFieldBuilder<T> extends StatelessWidget {
   final T value;
   final List<T> options;
   final void Function(T) onChanged;
@@ -347,7 +348,7 @@ class _SelectFieldBuilder<T> extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return select(
       classes: 'arcane-field-select',
       styles: const Styles(raw: {

@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 import 'calendar.dart';
@@ -14,7 +15,7 @@ enum DatePickerSize {
 }
 
 /// A date picker input with calendar dropdown.
-class ArcaneDatePicker extends StatefulComponent {
+class ArcaneDatePicker extends StatefulWidget {
   final DateTime? value;
   final void Function(DateTime?)? onChanged;
   final String? label;
@@ -157,7 +158,7 @@ class _ArcaneDatePickerState extends State<ArcaneDatePicker> {
   }
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.datePicker(DatePickerProps(
       value: component.value,
       label: component.label,

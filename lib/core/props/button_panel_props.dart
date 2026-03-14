@@ -1,10 +1,11 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../util/arcane.dart';
 
 /// Button panel component properties.
 class ButtonPanelProps {
-  final List<Component> children;
+  final List<Widget> children;
   final MainAxisAlignment mainAxisAlignment;
   final double gap;
   final bool responsive;
@@ -21,7 +22,7 @@ class ButtonPanelProps {
 
 /// Toolbar component properties.
 class ToolbarProps {
-  final List<Component> children;
+  final List<Widget> children;
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
   final double gap;
@@ -38,7 +39,7 @@ class ToolbarProps {
 
 /// Button group component properties.
 class ButtonGroupProps {
-  final List<Component> children;
+  final List<Widget> children;
   final bool vertical;
   final double spacing;
 
@@ -55,7 +56,7 @@ class ButtonGroupProps {
 
 /// Mixin defining the renderer methods for button panel components.
 mixin ButtonPanelRendererContract {
-  Component buttonPanel(ButtonPanelProps props);
-  Component toolbar(ToolbarProps props);
-  Component buttonGroup(ButtonGroupProps props);
+  Widget buttonPanel(ButtonPanelProps props);
+  Widget toolbar(ToolbarProps props);
+  Widget buttonGroup(ButtonGroupProps props);
 }

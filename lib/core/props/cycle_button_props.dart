@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 enum CycleButtonSize {
   small,
@@ -21,7 +22,7 @@ enum CycleButtonVariant {
 class CycleOption<T> {
   final T value;
   final String? label;
-  final Component? icon;
+  final Widget? icon;
 
   const CycleOption({
     required this.value,
@@ -80,7 +81,7 @@ class ToggleButtonProps {
   final bool value;
   final void Function(bool value)? onChanged;
   final String? label;
-  final Component? icon;
+  final Widget? icon;
   final CycleButtonSize size;
   final bool disabled;
   final String? id;
@@ -101,7 +102,7 @@ class ToggleButtonProps {
     bool? value,
     void Function(bool value)? onChanged,
     String? label,
-    Component? icon,
+    Widget? icon,
     CycleButtonSize? size,
     bool? disabled,
     String? id,
@@ -127,8 +128,8 @@ class ToggleButtonProps {
 /// Mixin defining the renderer methods for cycle button and toggle button components.
 mixin CycleButtonRendererContract {
   /// Render a cycle button component.
-  Component cycleButton<T>(CycleButtonProps<T> props);
+  Widget cycleButton<T>(CycleButtonProps<T> props);
 
   /// Render a toggle button component.
-  Component toggleButton(ToggleButtonProps props);
+  Widget toggleButton(ToggleButtonProps props);
 }

@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 /// Separator visual style variants.
 enum SeparatorVariant {
@@ -32,7 +33,7 @@ class SeparatorProps {
   final String? label;
 
   /// Optional icon to display in the middle (horizontal only).
-  final Component? icon;
+  final Widget? icon;
 
   /// Custom color override (CSS color value).
   final String? color;
@@ -65,7 +66,7 @@ class SeparatorProps {
     SeparatorOrientation? orientation,
     SeparatorVariant? variant,
     String? label,
-    Component? icon,
+    Widget? icon,
     String? color,
     bool? dashed,
     bool? decorative,
@@ -93,5 +94,5 @@ class SeparatorProps {
 /// Mixin defining the renderer methods for separator components.
 mixin SeparatorRendererContract {
   /// Renders a separator/divider component.
-  Component separator(SeparatorProps props);
+  Widget separator(SeparatorProps props);
 }

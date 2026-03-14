@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 enum StatDisplayLayout {
   vertical,
@@ -30,7 +31,7 @@ class StatDisplayProps {
 
 /// Stat row component properties.
 class StatRowProps {
-  final List<Component> stats;
+  final List<Widget> stats;
   final String? gap;
   final bool wrap;
   final String? justifyContent;
@@ -49,6 +50,6 @@ class StatRowProps {
 
 /// Mixin defining the renderer methods for stat display components.
 mixin StatDisplayRendererContract {
-  Component statDisplay(StatDisplayProps props);
-  Component statRow(StatRowProps props);
+  Widget statDisplay(StatDisplayProps props);
+  Widget statRow(StatRowProps props);
 }

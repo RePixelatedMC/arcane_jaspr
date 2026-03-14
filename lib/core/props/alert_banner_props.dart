@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 enum AlertBannerVariant {
   info,
@@ -13,8 +14,8 @@ class AlertBannerProps {
   final String message;
   final String? title;
   final AlertBannerVariant variant;
-  final Component? icon;
-  final Component? action;
+  final Widget? icon;
+  final Widget? action;
   final bool dismissible;
   final void Function()? onDismiss;
   final bool filled;
@@ -37,5 +38,5 @@ class AlertBannerProps {
 
 /// Mixin defining the renderer methods for alert banner components.
 mixin AlertBannerRendererContract {
-  Component alertBanner(AlertBannerProps props);
+  Widget alertBanner(AlertBannerProps props);
 }

@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 enum DisclosureVariant {
   default_,
@@ -9,8 +10,8 @@ enum DisclosureVariant {
 
 /// Disclosure component properties.
 class DisclosureProps {
-  final Component summary;
-  final Component child;
+  final Widget summary;
+  final Widget child;
   final bool open;
   final DisclosureVariant variant;
   final bool showChevron;
@@ -45,8 +46,8 @@ class DisclosureGroupProps {
 
 /// Disclosure item data.
 class DisclosureItemProps {
-  final Component summary;
-  final Component content;
+  final Widget summary;
+  final Widget content;
   final bool showChevron;
 
   const DisclosureItemProps({
@@ -62,6 +63,6 @@ class DisclosureItemProps {
 
 /// Mixin defining the renderer methods for disclosure components.
 mixin DisclosureRendererContract {
-  Component disclosure(DisclosureProps props);
-  Component disclosureGroup(DisclosureGroupProps props);
+  Widget disclosure(DisclosureProps props);
+  Widget disclosureGroup(DisclosureGroupProps props);
 }

@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 import '../shared/shared.dart';
 
 export '../shared/shared.dart' show ComponentSize, ColorVariant, StyleVariant;
@@ -6,7 +7,7 @@ export '../shared/shared.dart' show ComponentSize, ColorVariant, StyleVariant;
 /// Chip component properties.
 class ChipProps {
   final String label;
-  final Component? icon;
+  final Widget? icon;
   final ColorVariant color;
   final StyleVariant style;
   final ComponentSize size;
@@ -44,8 +45,8 @@ class ChipGroupProps {
 /// Mixin defining the renderer methods for chip components.
 mixin ChipRendererContract {
   /// Renders a chip component.
-  Component chip(ChipProps props);
+  Widget chip(ChipProps props);
 
   /// Renders a group of chips.
-  Component chipGroup(ChipGroupProps props);
+  Widget chipGroup(ChipGroupProps props);
 }

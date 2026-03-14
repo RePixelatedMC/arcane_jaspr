@@ -1,11 +1,11 @@
 ---
-title: ArcaneTypography
+title: Text
 description: Live preview for typography
 layout: kb
 component: typography
 ---
 
-# ArcaneTypography
+# Text
 
 Live preview for component 'typography' in the current Arcane catalog.
 

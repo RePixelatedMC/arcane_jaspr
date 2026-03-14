@@ -1,10 +1,11 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../util/arcane.dart';
 
 /// Carpet/surface container component properties.
 class CarpetProps {
-  final Component child;
+  final Widget child;
   final EdgeInsets? padding;
   final double? radius;
   final String? color;
@@ -21,7 +22,7 @@ class CarpetProps {
 
 /// Surface component properties.
 class SurfaceProps {
-  final Component child;
+  final Widget child;
   final EdgeInsets? padding;
   final double? radius;
   final int elevation;
@@ -61,7 +62,7 @@ class ArcaneDividerProps {
 
 /// Mixin defining the renderer methods for carpet/surface components.
 mixin CarpetRendererContract {
-  Component carpet(CarpetProps props);
-  Component surface(SurfaceProps props);
-  Component arcaneDivider(ArcaneDividerProps props);
+  Widget carpet(CarpetProps props);
+  Widget surface(SurfaceProps props);
+  Widget arcaneDivider(ArcaneDividerProps props);
 }

@@ -1,10 +1,11 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 /// Tree node data.
 class TreeNodeData {
   final String id;
   final String label;
-  final Component? icon;
+  final Widget? icon;
   final List<TreeNodeData> children;
   final bool disabled;
   final dynamic data;
@@ -62,5 +63,5 @@ class TreeViewProps {
 
 /// Mixin defining the renderer methods for tree view components.
 mixin TreeViewRendererContract {
-  Component treeView(TreeViewProps props);
+  Widget treeView(TreeViewProps props);
 }

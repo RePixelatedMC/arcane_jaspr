@@ -1,8 +1,9 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 /// Center body component properties.
 class CenterBodyProps {
-  final Component child;
+  final Widget child;
   final double? maxWidth;
   final String? padding;
   final bool fillHeight;
@@ -17,7 +18,7 @@ class CenterBodyProps {
 
 /// Page body component properties.
 class PageBodyProps {
-  final List<Component> children;
+  final List<Widget> children;
   final double maxWidth;
   final String? padding;
 
@@ -41,7 +42,7 @@ class LoadingStateProps {
 class ErrorStateProps {
   final String? title;
   final String? message;
-  final Component? action;
+  final Widget? action;
 
   const ErrorStateProps({
     this.title,
@@ -56,8 +57,8 @@ class ErrorStateProps {
 
 /// Mixin defining the renderer methods for center body components.
 mixin CenterBodyRendererContract {
-  Component centerBody(CenterBodyProps props);
-  Component pageBody(PageBodyProps props);
-  Component loadingState(LoadingStateProps props);
-  Component errorState(ErrorStateProps props);
+  Widget centerBody(CenterBodyProps props);
+  Widget pageBody(PageBodyProps props);
+  Widget loadingState(LoadingStateProps props);
+  Widget errorState(ErrorStateProps props);
 }

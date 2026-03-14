@@ -1,11 +1,11 @@
 ---
-title: ArcaneStaticTable
+title: StaticTable
 description: Live preview for table
 layout: kb
 component: table
 ---
 
-# ArcaneStaticTable
+# StaticTable
 
 Live preview for component 'table' in the current Arcane catalog.
 

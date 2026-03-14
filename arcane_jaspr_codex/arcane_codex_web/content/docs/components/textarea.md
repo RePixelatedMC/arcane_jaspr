@@ -1,11 +1,11 @@
 ---
-title: ArcaneTextArea
+title: TextArea
 description: Live preview for textarea
 layout: kb
 component: textarea
 ---
 
-# ArcaneTextArea
+# TextArea
 
 Live preview for component 'textarea' in the current Arcane catalog.
 

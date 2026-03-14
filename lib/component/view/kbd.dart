@@ -1,11 +1,12 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
 export '../../core/props/kbd_props.dart' show KbdStyle, ComponentSize;
 
 /// Keyboard shortcut display component.
-class ArcaneKbd extends StatelessComponent {
+class ArcaneKbd extends StatelessWidget {
   final String? keyText;
   final List<String>? keys;
   final String separator;
@@ -43,7 +44,7 @@ class ArcaneKbd extends StatelessComponent {
   }
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.kbd(KbdProps(
       keyText: keyText,
       keys: keys,

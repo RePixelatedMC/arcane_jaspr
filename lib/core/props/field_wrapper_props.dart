@@ -1,16 +1,17 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 /// Field wrapper component properties.
 class FieldWrapperProps {
-  final Component field;
+  final Widget field;
   final String? labelText;
   final String? description;
   final String? icon;
   final String? error;
   final bool required;
   final bool showValidation;
-  final Component? leading;
-  final Component? trailing;
+  final Widget? leading;
+  final Widget? trailing;
 
   const FieldWrapperProps({
     required this.field,
@@ -29,7 +30,7 @@ class FieldWrapperProps {
 class FormSectionProps {
   final String? title;
   final String? description;
-  final List<Component> children;
+  final List<Widget> children;
   final double spacing;
 
   const FormSectionProps({
@@ -42,7 +43,7 @@ class FormSectionProps {
 
 /// Form component properties.
 class FormProps {
-  final List<Component> children;
+  final List<Widget> children;
   final String? submitText;
   final String? cancelText;
   final void Function()? onSubmit;
@@ -63,7 +64,7 @@ class FormProps {
 
 /// Input group component properties.
 class InputGroupProps {
-  final List<Component> children;
+  final List<Widget> children;
   final double gap;
 
   const InputGroupProps({
@@ -78,8 +79,8 @@ class InputGroupProps {
 
 /// Mixin defining the renderer methods for field wrapper components.
 mixin FieldWrapperRendererContract {
-  Component fieldWrapper(FieldWrapperProps props);
-  Component formSection(FormSectionProps props);
-  Component form(FormProps props);
-  Component inputGroup(InputGroupProps props);
+  Widget fieldWrapper(FieldWrapperProps props);
+  Widget formSection(FormSectionProps props);
+  Widget form(FormProps props);
+  Widget inputGroup(InputGroupProps props);
 }

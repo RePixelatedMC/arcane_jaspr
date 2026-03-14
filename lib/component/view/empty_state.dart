@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 import 'icon.dart';
@@ -10,12 +11,12 @@ typedef EmptyStateStyle = EmptyStateStyleVariant;
 typedef EmptyStateSize = EmptyStateSizeVariant;
 
 /// Empty state placeholder component displaying a message when there's no content.
-class ArcaneEmptyState extends StatelessComponent {
-  final Component? icon;
+class ArcaneEmptyState extends StatelessWidget {
+  final Widget? icon;
   final String title;
   final String? description;
-  final Component? action;
-  final Component? secondaryAction;
+  final Widget? action;
+  final Widget? secondaryAction;
   final EmptyStateStyle style;
   final EmptyStateSize size;
 
@@ -83,7 +84,7 @@ class ArcaneEmptyState extends StatelessComponent {
       };
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.emptyState(EmptyStateProps(
       icon: icon,
       title: title,

@@ -1,12 +1,13 @@
 import 'package:jaspr/dom.dart' as dom;
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
 /// A scrolling marquee-style announcement bar.
 ///
 /// Great for creating urgency with continuous movement.
-class ArcaneMarqueeTickerBar extends StatefulComponent {
+class ArcaneMarqueeTickerBar extends StatefulWidget {
   final List<String> messages;
   final String? promoCode;
   final String? ctaText;
@@ -39,7 +40,7 @@ class _ArcaneMarqueeTickerBarState extends State<ArcaneMarqueeTickerBar> {
   }
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     if (_isDismissed) return const dom.div([]);
 
     return context.renderers.marqueeTickerBar(MarqueeTickerBarProps(

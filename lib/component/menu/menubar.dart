@@ -1,11 +1,12 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
 export '../../core/props/menubar_props.dart';
 
 /// Horizontal menu bar component.
-class ArcaneMenubar extends StatefulComponent {
+class ArcaneMenubar extends StatefulWidget {
   final List<ArcaneMenubarMenu> menus;
 
   const ArcaneMenubar({
@@ -27,7 +28,7 @@ class _ArcaneMenubarState extends State<ArcaneMenubar> {
   }
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.menubar(MenubarProps(
       menus: component.menus
           .map((menu) => MenubarMenuProps(

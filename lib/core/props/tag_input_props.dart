@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 enum TagInputStyleVariant {
   outline,
@@ -24,7 +25,7 @@ class TagInputProps {
   final void Function(String)? onKeyDown;
   final void Function(int)? onRemoveTag;
   final void Function(bool)? onFocusChange;
-  final Component Function(String tag, VoidCallback onRemove)? tagBuilder;
+  final Widget Function(String tag, VoidCallback onRemove)? tagBuilder;
 
   const TagInputProps({
     required this.tags,
@@ -63,7 +64,7 @@ class TagInputProps {
     void Function(String)? onKeyDown,
     void Function(int)? onRemoveTag,
     void Function(bool)? onFocusChange,
-    Component Function(String tag, VoidCallback onRemove)? tagBuilder,
+    Widget Function(String tag, VoidCallback onRemove)? tagBuilder,
   }) {
     return TagInputProps(
       tags: tags ?? this.tags,
@@ -94,5 +95,5 @@ class TagInputProps {
 /// Mixin defining the renderer method for tag input components.
 mixin TagInputRendererContract {
   /// Render a tag input component.
-  Component tagInput(TagInputProps props);
+  Widget tagInput(TagInputProps props);
 }

@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 enum ScrollRailPosition {
   left,
@@ -15,7 +16,7 @@ enum ScrollRailSize {
 
 /// Scroll rail component properties.
 class ScrollRailProps {
-  final List<Component> children;
+  final List<Widget> children;
   final ScrollRailPosition position;
   final ScrollRailSize size;
   final String? width;
@@ -44,8 +45,8 @@ class ScrollRailProps {
 
 /// Scroll rail layout component properties.
 class ScrollRailLayoutProps {
-  final Component rail;
-  final Component child;
+  final Widget rail;
+  final Widget child;
   final ScrollRailPosition railPosition;
   final ScrollRailSize railSize;
   final String? railWidth;
@@ -73,6 +74,6 @@ class ScrollRailLayoutProps {
 
 /// Mixin defining the renderer methods for scroll rail components.
 mixin ScrollRailRendererContract {
-  Component scrollRail(ScrollRailProps props);
-  Component scrollRailLayout(ScrollRailLayoutProps props);
+  Widget scrollRail(ScrollRailProps props);
+  Widget scrollRailLayout(ScrollRailLayoutProps props);
 }

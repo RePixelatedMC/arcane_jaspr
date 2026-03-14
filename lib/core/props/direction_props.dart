@@ -1,10 +1,11 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 enum DirectionValue { ltr, rtl, auto }
 
 class DirectionProps {
   final DirectionValue value;
-  final List<Component> children;
+  final List<Widget> children;
   final String? classes;
 
   const DirectionProps({
@@ -15,7 +16,7 @@ class DirectionProps {
 
   DirectionProps copyWith({
     DirectionValue? value,
-    List<Component>? children,
+    List<Widget>? children,
     String? classes,
   }) {
     return DirectionProps(
@@ -27,5 +28,5 @@ class DirectionProps {
 }
 
 mixin DirectionRendererContract {
-  Component direction(DirectionProps props);
+  Widget direction(DirectionProps props);
 }

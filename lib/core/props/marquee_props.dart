@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 enum MarqueeDirection {
   left,
@@ -7,7 +8,7 @@ enum MarqueeDirection {
 
 /// Marquee component properties.
 class MarqueeProps {
-  final List<Component> children;
+  final List<Widget> children;
   final String duration;
   final MarqueeDirection direction;
   final String? gap;
@@ -36,5 +37,5 @@ class MarqueeProps {
 
 /// Mixin defining the renderer methods for marquee components.
 mixin MarqueeRendererContract {
-  Component marquee(MarqueeProps props);
+  Widget marquee(MarqueeProps props);
 }

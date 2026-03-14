@@ -1,11 +1,11 @@
 ---
-title: ArcaneButton
+title: Button
 description: Live preview for button
 layout: kb
 component: button
 ---
 
-# ArcaneButton
+# Button
 
 Live preview for component 'button' in the current Arcane catalog.
 

@@ -1,11 +1,11 @@
 ---
-title: ArcaneTextInput
+title: TextInput
 description: Live preview for input
 layout: kb
 component: input
 ---
 
-# ArcaneTextInput
+# TextInput
 
 Live preview for component 'input' in the current Arcane catalog.
 

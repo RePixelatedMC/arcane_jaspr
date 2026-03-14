@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 enum ResizeDirection {
   horizontal,
@@ -7,7 +8,7 @@ enum ResizeDirection {
 
 /// Resizable panel data.
 class ResizablePanelData {
-  final Component child;
+  final Widget child;
   final double? defaultSize;
   final double? minSize;
   final double? maxSize;
@@ -43,5 +44,5 @@ class ResizableProps {
 
 /// Mixin defining the renderer methods for resizable components.
 mixin ResizableRendererContract {
-  Component resizable(ResizableProps props);
+  Widget resizable(ResizableProps props);
 }

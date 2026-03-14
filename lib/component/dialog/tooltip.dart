@@ -1,13 +1,14 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../view/floating.dart';
 
 export '../../core/props/floating_props.dart' show FloatingPosition;
 
-class ArcaneTooltip extends StatelessComponent {
-  final Component child;
+class ArcaneTooltip extends StatelessWidget {
+  final Widget child;
   final String? text;
-  final Component? content;
+  final Widget? content;
   final FloatingPosition position;
   final double? maxWidth;
 
@@ -28,8 +29,8 @@ class ArcaneTooltip extends StatelessComponent {
   }) : text = null;
 
   @override
-  Component build(BuildContext context) {
-    final Component? currentContent = content;
+  Widget build(BuildContext context) {
+    final Widget? currentContent = content;
     if (currentContent != null) {
       return ArcaneHoverCard.tooltipCustom(
         child: child,

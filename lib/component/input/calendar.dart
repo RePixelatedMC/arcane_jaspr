@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
@@ -23,7 +24,7 @@ class DateRange {
 }
 
 /// A calendar component for date selection.
-class ArcaneCalendar extends StatefulComponent {
+class ArcaneCalendar extends StatefulWidget {
   final DateTime? selected;
   final void Function(DateTime)? onSelect;
   final DateTime? month;
@@ -130,7 +131,7 @@ class _ArcaneCalendarState extends State<ArcaneCalendar> {
   }
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.calendar(CalendarProps(
       selected: component.selected,
       displayMonth: _displayMonth,

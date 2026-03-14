@@ -1,11 +1,12 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
 export '../../core/props/flexi_cards_props.dart';
 
 /// Interactive card group where hovering magnifies focused card while shrinking others.
-class ArcaneFlexiCards extends StatelessComponent {
+class ArcaneFlexiCards extends StatelessWidget {
   final List<FlexiCardItem> items;
   final double collapsedFlex;
   final double expandedFlex;
@@ -38,7 +39,7 @@ class ArcaneFlexiCards extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.flexiCards(FlexiCardsProps(
       items: items,
       collapsedFlex: collapsedFlex,
@@ -58,7 +59,7 @@ class ArcaneFlexiCards extends StatelessComponent {
 }
 
 /// Simpler flexi cards variant using CSS :hover without state management.
-class ArcaneFlexiCardsSimple extends StatelessComponent {
+class ArcaneFlexiCardsSimple extends StatelessWidget {
   final List<FlexiCardItem> items;
   final String gap;
 
@@ -69,7 +70,7 @@ class ArcaneFlexiCardsSimple extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.flexiCardsSimple(FlexiCardsSimpleProps(
       items: items,
       gap: gap,

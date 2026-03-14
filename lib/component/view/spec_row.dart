@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
@@ -8,7 +9,7 @@ export '../../core/props/spec_row_props.dart';
 ///
 /// Commonly used in pricing cards for displaying specifications
 /// like RAM, storage, CPU, etc.
-class ArcaneSpecRow extends StatelessComponent {
+class ArcaneSpecRow extends StatelessWidget {
   final String label;
   final String value;
   final bool highlight;
@@ -37,7 +38,7 @@ class ArcaneSpecRow extends StatelessComponent {
   }) : highlight = true;
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.specRow(SpecRowProps(
       label: label,
       value: value,

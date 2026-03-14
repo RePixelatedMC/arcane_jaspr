@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../shared/shared.dart';
 
@@ -20,7 +21,7 @@ class StepItemData {
   final String title;
   final String? description;
   final StepStatus status;
-  final Component? content;
+  final Widget? content;
 
   const StepItemData({
     required this.title,
@@ -55,5 +56,5 @@ class StepperProps {
 
 /// Mixin defining the renderer methods for stepper components.
 mixin StepperRendererContract {
-  Component stepper(StepperProps props);
+  Widget stepper(StepperProps props);
 }

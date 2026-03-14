@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 enum CardVariant {
   elevated,
@@ -11,8 +12,8 @@ enum CardVariant {
 
 /// Card component properties.
 class CardProps {
-  final Component? child;
-  final List<Component>? children;
+  final Widget? child;
+  final List<Widget>? children;
   final CardVariant variant;
   final String? padding;
   final String? borderRadius;
@@ -33,8 +34,8 @@ class CardProps {
             'Either child or children must be provided');
 
   CardProps copyWith({
-    Component? child,
-    List<Component>? children,
+    Widget? child,
+    List<Widget>? children,
     CardVariant? variant,
     String? padding,
     String? borderRadius,
@@ -62,5 +63,5 @@ class CardProps {
 /// Mixin defining the renderer methods for card components.
 mixin CardRendererContract {
   /// Renders a card container component.
-  Component card(CardProps props);
+  Widget card(CardProps props);
 }

@@ -1,12 +1,13 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../view/floating.dart';
 
 export '../../core/props/floating_props.dart' show FloatingPosition;
 
-class ArcanePopover extends StatelessComponent {
-  final Component trigger;
-  final Component content;
+class ArcanePopover extends StatelessWidget {
+  final Widget trigger;
+  final Widget content;
   final FloatingPosition position;
   final bool? isOpen;
   final void Function(bool isOpen)? onOpenChange;
@@ -29,7 +30,7 @@ class ArcanePopover extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return ArcaneHoverCard.popover(
       trigger: trigger,
       content: content,

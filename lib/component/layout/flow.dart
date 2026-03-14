@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight, FontStyle, StyleRule, Display, Position, Overflow, Cursor, Visibility, FlexWrap, WhiteSpace;
 
 import '../../core/theme_provider.dart';
@@ -7,8 +8,8 @@ import '../../util/appearance/colors.dart';
 import '../../util/style_types/index.dart';
 
 /// A flexible flow layout component that wraps children.
-class ArcaneFlow extends StatelessComponent {
-  final List<Component> children;
+class Wrap extends StatelessWidget {
+  final List<Widget> children;
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
   final WrapAlignment wrapAlignment;
@@ -17,7 +18,7 @@ class ArcaneFlow extends StatelessComponent {
   final double? columnGap;
   final bool reverse;
 
-  const ArcaneFlow({
+  const Wrap({
     required this.children,
     this.mainAxisAlignment = MainAxisAlignment.start,
     this.crossAxisAlignment = CrossAxisAlignment.start,
@@ -30,7 +31,7 @@ class ArcaneFlow extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.flow(FlowProps(
       children: children,
       mainAxisAlignment: mainAxisAlignment,
@@ -45,8 +46,8 @@ class ArcaneFlow extends StatelessComponent {
 }
 
 /// A row layout component (horizontal flex).
-class ArcaneRow extends StatelessComponent {
-  final List<Component> children;
+class Row extends StatelessWidget {
+  final List<Widget> children;
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
   final MainAxisSize mainAxisSize;
@@ -54,7 +55,7 @@ class ArcaneRow extends StatelessComponent {
   final Gap? gapSize;
   final ArcaneStyleData? style;
 
-  const ArcaneRow({
+  const Row({
     required this.children,
     this.mainAxisAlignment = MainAxisAlignment.start,
     this.crossAxisAlignment = CrossAxisAlignment.center,
@@ -66,7 +67,7 @@ class ArcaneRow extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     if (style == null && gapSize == null) {
       return context.renderers.row(RowProps(
         children: children,
@@ -104,8 +105,8 @@ class ArcaneRow extends StatelessComponent {
 }
 
 /// A column layout component (vertical flex).
-class ArcaneColumn extends StatelessComponent {
-  final List<Component> children;
+class Column extends StatelessWidget {
+  final List<Widget> children;
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
   final MainAxisSize mainAxisSize;
@@ -113,7 +114,7 @@ class ArcaneColumn extends StatelessComponent {
   final Gap? gapSize;
   final ArcaneStyleData? style;
 
-  const ArcaneColumn({
+  const Column({
     required this.children,
     this.mainAxisAlignment = MainAxisAlignment.start,
     this.crossAxisAlignment = CrossAxisAlignment.stretch,
@@ -125,7 +126,7 @@ class ArcaneColumn extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     if (style == null && gapSize == null) {
       return context.renderers.column(ColumnProps(
         children: children,
@@ -163,55 +164,55 @@ class ArcaneColumn extends StatelessComponent {
 }
 
 /// A flexible spacer component.
-class ArcaneSpacer extends StatelessComponent {
+class Spacer extends StatelessWidget {
   final int flex;
 
-  const ArcaneSpacer({this.flex = 1, super.key});
+  const Spacer({this.flex = 1, super.key});
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.spacer(SpacerProps(flex: flex));
   }
 }
 
 /// A center alignment component.
-class ArcaneCenter extends StatelessComponent {
-  final Component child;
+class Center extends StatelessWidget {
+  final Widget child;
 
-  const ArcaneCenter({required this.child, super.key});
+  const Center({required this.child, super.key});
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.center(CenterProps(child: child));
   }
 }
 
 /// An expanded component that fills available space.
-class ArcaneExpanded extends StatelessComponent {
-  final Component child;
+class Expanded extends StatelessWidget {
+  final Widget child;
   final int flex;
 
-  const ArcaneExpanded({required this.child, this.flex = 1, super.key});
+  const Expanded({required this.child, this.flex = 1, super.key});
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.expanded(ExpandedProps(child: child, flex: flex));
   }
 }
 
 /// A padding wrapper component.
-class ArcanePadding extends StatelessComponent {
+class Padding extends StatelessWidget {
   final EdgeInsets padding;
-  final Component child;
+  final Widget child;
 
-  const ArcanePadding({
+  const Padding({
     required this.padding,
     required this.child,
     super.key,
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.paddingWrapper(PaddingWrapperProps(
       padding: padding,
       child: child,
@@ -220,25 +221,25 @@ class ArcanePadding extends StatelessComponent {
 }
 
 /// A sized box component.
-class ArcaneSizedBox extends StatelessComponent {
+class SizedBox extends StatelessWidget {
   final double? width;
   final double? height;
-  final Component? child;
+  final Widget? child;
 
-  const ArcaneSizedBox({this.width, this.height, this.child, super.key});
+  const SizedBox({this.width, this.height, this.child, super.key});
 
-  const ArcaneSizedBox.shrink({super.key})
+  const SizedBox.shrink({super.key})
       : width = 0,
         height = 0,
         child = null;
 
-  const ArcaneSizedBox.expand({super.key})
+  const SizedBox.expand({super.key})
       : width = double.infinity,
         height = double.infinity,
         child = null;
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.sizedBox(SizedBoxProps(
       width: width,
       height: height,
@@ -248,17 +249,17 @@ class ArcaneSizedBox extends StatelessComponent {
 }
 
 /// A container component with styling options.
-class ArcaneContainer extends StatelessComponent {
-  final Component? child;
+class Container extends StatelessWidget {
+  final Widget? child;
   final EdgeInsets? padding;
   final EdgeInsets? margin;
   final double? width;
   final double? height;
   final Color? color;
-  final ArcaneBoxDecoration? decoration;
+  final BoxDecoration? decoration;
   final Alignment? alignment;
 
-  const ArcaneContainer({
+  const Container({
     this.child,
     this.padding,
     this.margin,
@@ -271,7 +272,7 @@ class ArcaneContainer extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     final Map<String, String> styles = {};
 
     if (padding != null) styles['padding'] = padding!.padding;
@@ -309,14 +310,14 @@ class ArcaneContainer extends StatelessComponent {
   }
 }
 
-/// Box decoration for ArcaneContainer.
-class ArcaneBoxDecoration {
+/// Box decoration for Container.
+class BoxDecoration {
   final Color? color;
   final BorderRadius? borderRadius;
-  final ArcaneBorder? border;
+  final Border? border;
   final List<BoxShadow>? boxShadow;
 
-  const ArcaneBoxDecoration({
+  const BoxDecoration({
     this.color,
     this.borderRadius,
     this.border,
@@ -324,19 +325,19 @@ class ArcaneBoxDecoration {
   });
 }
 
-/// Border for ArcaneBoxDecoration.
-class ArcaneBorder {
+/// Border for BoxDecoration.
+class Border {
   final Color color;
   final double width;
   final String style;
 
-  const ArcaneBorder({
+  const Border({
     required this.color,
     this.width = 1,
     this.style = 'solid',
   });
 
-  const ArcaneBorder.all({
+  const Border.all({
     required this.color,
     this.width = 1,
   }) : style = 'solid';

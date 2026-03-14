@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 import 'package:jaspr/dom.dart' as dom;
 
 import 'map_data.dart';
@@ -13,7 +14,7 @@ export 'map_style.dart';
 ///
 /// Renders an SVG map image with location pins overlaid on top.
 /// The SVG should be served from /assets/map/world.svg or /assets/map/us.svg.
-class ArcaneMap extends StatelessComponent {
+class ArcaneMap extends StatelessWidget {
   /// The type of map to display.
   final MapType type;
 
@@ -27,7 +28,7 @@ class ArcaneMap extends StatelessComponent {
   final MapLocationCallback? onLocationHover;
 
   /// Custom tooltip builder for location pins.
-  final Component Function(MapLocation)? tooltipBuilder;
+  final Widget Function(MapLocation)? tooltipBuilder;
 
   /// Style configuration for the map.
   final MapStyle style;
@@ -59,7 +60,7 @@ class ArcaneMap extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     final dims = MapProjection.dimensions(type);
     final className =
         type == MapType.world ? 'arcane-world-map' : 'arcane-usa-map';
@@ -149,7 +150,7 @@ class ArcaneMap extends StatelessComponent {
     );
   }
 
-  Component _buildPin(
+  Widget _buildPin(
     MapLocation location,
     ({double width, double height, String viewBox, double aspectRatio}) dims, {
     Key? key,
@@ -196,7 +197,7 @@ class ArcaneMap extends StatelessComponent {
     );
   }
 
-  Component _buildTooltipWrapper(
+  Widget _buildTooltipWrapper(
     MapLocation location,
     ({double width, double height, String viewBox, double aspectRatio}) dims, {
     Key? key,

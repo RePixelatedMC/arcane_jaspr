@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
@@ -6,7 +7,7 @@ export '../../core/props/command_props.dart'
     show CommandItemProps, CommandGroupProps;
 
 /// Command palette for quick actions and navigation.
-class ArcaneCommand extends StatefulComponent {
+class ArcaneCommand extends StatefulWidget {
   final bool isOpen;
   final void Function()? onClose;
   final List<CommandGroup> groups;
@@ -63,7 +64,7 @@ class _ArcaneCommandState extends State<ArcaneCommand> {
   }
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     final groupProps = component.groups
         .map((g) => CommandGroupProps(
               heading: g.heading,
@@ -123,7 +124,7 @@ class CommandGroup {
 /// A single command item.
 class CommandItem {
   final String label;
-  final Component? icon;
+  final Widget? icon;
   final String? shortcut;
   final void Function()? onSelect;
   final bool disabled;

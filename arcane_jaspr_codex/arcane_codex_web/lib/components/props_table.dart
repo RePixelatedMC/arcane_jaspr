@@ -1,5 +1,5 @@
 import 'package:arcane_jaspr/arcane_jaspr.dart';
-import 'package:arcane_jaspr/html.dart' hide ArcaneText;
+import 'package:arcane_jaspr/html.dart';
 
 /// A table component for documenting component properties.
 ///
@@ -23,7 +23,7 @@ class PropsTable extends StatelessWidget {
               textColor: TextColor.primary,
               margin: MarginPreset.bottomMd,
             ),
-            children: [ArcaneText(title!)],
+            children: [Text(title!)],
           ),
         ArcaneDiv(
           styles: const ArcaneStyleData(
@@ -32,10 +32,10 @@ class PropsTable extends StatelessWidget {
             border: BorderPreset.standard,
           ),
           children: [
-            ArcaneDataTable<PropItem>(
+            DataTable(
               items: props,
               columns: [
-                ArcaneDataColumn<PropItem>(
+                DataColumn(
                   header: 'Property',
                   builder: (PropItem prop) => ArcaneDiv(
                     styles: const ArcaneStyleData(
@@ -51,7 +51,7 @@ class PropsTable extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                           textColor: TextColor.accent,
                         ),
-                        child: ArcaneText(prop.name),
+                        child: Text(prop.name),
                       ),
                       if (prop.required)
                         ArcaneSpan(
@@ -65,12 +65,12 @@ class PropsTable extends StatelessWidget {
                                   'rgba(var(--arcane-destructive-rgb), 0.15)',
                             },
                           ),
-                          child: const ArcaneText('required'),
+                          child: const Text('required'),
                         ),
                     ],
                   ),
                 ),
-                ArcaneDataColumn<PropItem>(
+                DataColumn(
                   header: 'Type',
                   builder: (PropItem prop) => ArcaneSpan(
                     styles: const ArcaneStyleData(
@@ -78,10 +78,10 @@ class PropsTable extends StatelessWidget {
                       fontSize: FontSize.sm,
                       textColor: TextColor.mutedForeground,
                     ),
-                    child: ArcaneText(prop.type),
+                    child: Text(prop.type),
                   ),
                 ),
-                ArcaneDataColumn<PropItem>(
+                DataColumn(
                   header: 'Default',
                   builder: (PropItem prop) => prop.defaultValue != null
                       ? ArcaneSpan(
@@ -93,19 +93,19 @@ class PropsTable extends StatelessWidget {
                             borderRadius: Radius.xs,
                             textColor: TextColor.mutedForeground,
                           ),
-                          child: ArcaneText(prop.defaultValue!),
+                          child: Text(prop.defaultValue!),
                         )
                       : ArcaneSpan(
                           styles: const ArcaneStyleData(
                             fontSize: FontSize.sm,
                             textColor: TextColor.mutedForeground,
                           ),
-                          child: const ArcaneText('-'),
+                          child: const Text('-'),
                         ),
                 ),
-                ArcaneDataColumn<PropItem>(
+                DataColumn(
                   header: 'Description',
-                  builder: (PropItem prop) => ArcaneText(prop.description),
+                  builder: (PropItem prop) => Text(prop.description),
                 ),
               ],
             ),
@@ -166,7 +166,7 @@ class EnumTable extends StatelessWidget {
                 fontSize: FontSize.lg,
                 textColor: TextColor.accent,
               ),
-              child: ArcaneText(enumName),
+              child: Text(enumName),
             ),
           ],
         ),
@@ -177,7 +177,7 @@ class EnumTable extends StatelessWidget {
               textColor: TextColor.mutedForeground,
               margin: MarginPreset.bottomMd,
             ),
-            children: [ArcaneText(description!)],
+            children: [Text(description!)],
           ),
         ArcaneDiv(
           styles: const ArcaneStyleData(
@@ -186,10 +186,10 @@ class EnumTable extends StatelessWidget {
             border: BorderPreset.standard,
           ),
           children: [
-            ArcaneDataTable<EnumValue>(
+            DataTable(
               items: values,
               columns: [
-                ArcaneDataColumn<EnumValue>(
+                DataColumn(
                   header: 'Value',
                   builder: (EnumValue value) => ArcaneSpan(
                     styles: const ArcaneStyleData(
@@ -197,10 +197,10 @@ class EnumTable extends StatelessWidget {
                       fontSize: FontSize.sm,
                       textColor: TextColor.accent,
                     ),
-                    child: ArcaneText(value.name),
+                    child: Text(value.name),
                   ),
                 ),
-                ArcaneDataColumn<EnumValue>(
+                DataColumn(
                   header: 'CSS Output',
                   builder: (EnumValue value) => ArcaneSpan(
                     styles: const ArcaneStyleData(
@@ -208,12 +208,12 @@ class EnumTable extends StatelessWidget {
                       fontSize: FontSize.sm,
                       textColor: TextColor.mutedForeground,
                     ),
-                    child: ArcaneText(value.cssValue),
+                    child: Text(value.cssValue),
                   ),
                 ),
-                ArcaneDataColumn<EnumValue>(
+                DataColumn(
                   header: 'Description',
-                  builder: (EnumValue value) => ArcaneText(value.description),
+                  builder: (EnumValue value) => Text(value.description),
                 ),
               ],
             ),

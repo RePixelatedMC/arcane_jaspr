@@ -1,10 +1,11 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 /// Accordion item data.
 class AccordionItemProps {
   final String title;
   final String content;
-  final Component? customContent;
+  final Widget? customContent;
 
   /// Optional category label (displayed as badge).
   final String? category;
@@ -82,5 +83,5 @@ class AccordionProps {
 /// Mixin defining the renderer methods for accordion components.
 mixin AccordionRendererContract {
   /// Renders an accordion with collapsible sections.
-  Component accordion(AccordionProps props);
+  Widget accordion(AccordionProps props);
 }

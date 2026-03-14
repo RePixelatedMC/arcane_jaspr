@@ -1,18 +1,19 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
 export '../../core/props/drawer_props.dart' show DrawerPosition, DrawerSize;
 
 /// Slide-in drawer/sheet panel.
-class ArcaneDrawer extends StatelessComponent {
+class ArcaneDrawer extends StatelessWidget {
   final bool isOpen;
   final VoidCallback? onClose;
   final DrawerPosition position;
   final DrawerSize size;
-  final Component child;
-  final Component? header;
-  final Component? footer;
+  final Widget child;
+  final Widget? header;
+  final Widget? footer;
   final bool showBackdrop;
   final bool closeOnBackdropClick;
   final bool showCloseButton;
@@ -81,7 +82,7 @@ class ArcaneDrawer extends StatelessComponent {
   }) : position = DrawerPosition.bottom;
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.drawer(DrawerProps(
       isOpen: isOpen,
       onClose: onClose,

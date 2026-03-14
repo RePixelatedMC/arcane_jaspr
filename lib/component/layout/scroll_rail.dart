@@ -1,12 +1,13 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
 export '../../core/props/scroll_rail_props.dart' show ScrollRailPosition, ScrollRailSize;
 
 /// A scrollable sidebar rail that maintains position independently of page scroll.
-class ArcaneScrollRail extends StatelessComponent {
-  final List<Component> children;
+class ArcaneScrollRail extends StatelessWidget {
+  final List<Widget> children;
   final ScrollRailPosition position;
   final ScrollRailSize size;
   final String? width;
@@ -62,7 +63,7 @@ class ArcaneScrollRail extends StatelessComponent {
   }) : position = ScrollRailPosition.right;
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.scrollRail(ScrollRailProps(
       position: position,
       size: size,
@@ -80,9 +81,9 @@ class ArcaneScrollRail extends StatelessComponent {
 }
 
 /// A layout component that combines a scroll rail with main content.
-class ArcaneScrollRailLayout extends StatelessComponent {
-  final Component rail;
-  final Component child;
+class ArcaneScrollRailLayout extends StatelessWidget {
+  final Widget rail;
+  final Widget child;
   final ScrollRailPosition railPosition;
   final ScrollRailSize railSize;
   final String? railWidth;
@@ -105,7 +106,7 @@ class ArcaneScrollRailLayout extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.scrollRailLayout(ScrollRailLayoutProps(
       rail: rail,
       child: child,

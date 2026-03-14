@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
@@ -6,9 +7,9 @@ export '../../core/props/disclosure_props.dart'
     show DisclosureVariant, DisclosureItemProps;
 
 /// Disclosure widget using native HTML details/summary elements.
-class ArcaneDisclosure extends StatelessComponent {
-  final Component summary;
-  final Component child;
+class ArcaneDisclosure extends StatelessWidget {
+  final Widget summary;
+  final Widget child;
   final bool open;
   final DisclosureVariant variant;
   final bool showChevron;
@@ -57,7 +58,7 @@ class ArcaneDisclosure extends StatelessComponent {
   }) : variant = DisclosureVariant.filled;
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.disclosure(DisclosureProps(
       summary: summary,
       child: child,
@@ -71,7 +72,7 @@ class ArcaneDisclosure extends StatelessComponent {
 }
 
 /// Group of disclosure widgets.
-class ArcaneDisclosureGroup extends StatelessComponent {
+class ArcaneDisclosureGroup extends StatelessWidget {
   final List<ArcaneDisclosureItem> items;
   final String gap;
   final DisclosureVariant variant;
@@ -86,7 +87,7 @@ class ArcaneDisclosureGroup extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.disclosureGroup(DisclosureGroupProps(
       items: items
           .map((item) => DisclosureItemProps(
@@ -104,8 +105,8 @@ class ArcaneDisclosureGroup extends StatelessComponent {
 
 /// Item in an ArcaneDisclosureGroup.
 class ArcaneDisclosureItem {
-  final Component summary;
-  final Component content;
+  final Widget summary;
+  final Widget content;
   final bool showChevron;
 
   const ArcaneDisclosureItem({

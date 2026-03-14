@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
@@ -6,7 +7,7 @@ export '../../core/props/select_props.dart'
     show ComponentSize, SelectProps, SelectOptionProps;
 
 /// An autocomplete combobox with search filtering.
-class ArcaneCombobox<T> extends StatefulComponent {
+class ArcaneCombobox<T> extends StatefulWidget {
   final List<ComboboxOption<T>> options;
   final T? value;
   final void Function(T?)? onChanged;
@@ -91,7 +92,7 @@ class _ArcaneComboboxState<T> extends State<ArcaneCombobox<T>> {
       };
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     final selectOptions = component.options.map((opt) => SelectOptionProps<T>(
       value: opt.value,
       label: opt.label,
@@ -136,7 +137,7 @@ class ComboboxOption<T> {
   final T value;
   final String label;
   final String? description;
-  final Component? icon;
+  final Widget? icon;
   final bool disabled;
   final List<String>? keywords;
 

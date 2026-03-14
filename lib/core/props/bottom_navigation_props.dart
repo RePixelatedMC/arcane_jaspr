@@ -1,10 +1,11 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 /// Bottom navigation item data.
 class BottomNavItem {
   final String label;
-  final Component icon;
-  final Component? activeIcon;
+  final Widget icon;
+  final Widget? activeIcon;
   final String? badge;
 
   const BottomNavItem({
@@ -36,7 +37,7 @@ class BottomNavigationBarProps {
 
 /// Bottom bar container component properties.
 class BottomBarProps {
-  final Component child;
+  final Widget child;
   final bool safeArea;
 
   const BottomBarProps({
@@ -52,8 +53,8 @@ class BottomBarProps {
 /// Mixin defining the renderer methods for bottom navigation components.
 mixin BottomNavigationRendererContract {
   /// Renders a bottom navigation bar with items.
-  Component bottomNavigationBar(BottomNavigationBarProps props);
+  Widget bottomNavigationBar(BottomNavigationBarProps props);
 
   /// Renders a bottom bar container.
-  Component bottomBar(BottomBarProps props);
+  Widget bottomBar(BottomBarProps props);
 }

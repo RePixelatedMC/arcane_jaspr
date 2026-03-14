@@ -1,10 +1,11 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 /// Feature card component properties.
 class FeatureCardProps {
   final String title;
   final String description;
-  final Component? icon;
+  final Widget? icon;
   final String? href;
   final void Function()? onTap;
   final bool showArrow;
@@ -57,7 +58,7 @@ class FeatureCardProps {
 class IconCardProps {
   final String title;
   final String? subtitle;
-  final Component icon;
+  final Widget icon;
   final void Function()? onTap;
   final String? href;
 
@@ -76,6 +77,6 @@ class IconCardProps {
 
 /// Mixin defining the renderer methods for feature card components.
 mixin FeatureCardRendererContract {
-  Component featureCard(FeatureCardProps props);
-  Component iconCard(IconCardProps props);
+  Widget featureCard(FeatureCardProps props);
+  Widget iconCard(IconCardProps props);
 }

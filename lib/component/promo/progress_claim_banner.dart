@@ -1,12 +1,13 @@
 import 'package:jaspr/dom.dart' as dom;
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
 /// A banner showing how many people have claimed an offer.
 ///
 /// Creates urgency through social proof and scarcity.
-class ArcaneProgressClaimBanner extends StatefulComponent {
+class ArcaneProgressClaimBanner extends StatefulWidget {
   final String title;
   final String message;
   final String? promoCode;
@@ -66,7 +67,7 @@ class _ArcaneProgressClaimBannerState extends State<ArcaneProgressClaimBanner> {
   }
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     if (_isDismissed || !_isVisible) return const dom.div([]);
 
     return context.renderers.progressClaimBanner(ProgressClaimBannerProps(

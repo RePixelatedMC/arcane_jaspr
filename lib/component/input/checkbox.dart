@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 import 'package:jaspr/dom.dart' as dom;
 
 export '../../core/props/checkbox_props.dart' show ComponentSize, ColorVariant;
@@ -6,7 +7,7 @@ export '../../core/props/checkbox_props.dart' show ComponentSize, ColorVariant;
 import '../../core/theme_provider.dart';
 
 /// Checkbox input component.
-class ArcaneCheckbox extends StatelessComponent {
+class ArcaneCheckbox extends StatelessWidget {
   final bool checked;
   final String? label;
   final String? description;
@@ -76,7 +77,7 @@ class ArcaneCheckbox extends StatelessComponent {
         color = ColorVariant.destructive;
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.checkbox(CheckboxProps(
       checked: checked,
       label: label,
@@ -90,7 +91,7 @@ class ArcaneCheckbox extends StatelessComponent {
 }
 
 /// Radio button component.
-class ArcaneRadio extends StatelessComponent {
+class ArcaneRadio extends StatelessWidget {
   final bool selected;
   final String? label;
   final String? description;
@@ -112,7 +113,7 @@ class ArcaneRadio extends StatelessComponent {
   }) : _onSelected = onSelected ?? onTap;
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     final radioSize = switch (size) {
       ComponentSize.sm => '14px',
       ComponentSize.md => '16px',

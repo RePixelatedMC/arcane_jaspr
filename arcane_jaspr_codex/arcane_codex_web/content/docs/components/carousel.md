@@ -1,11 +1,11 @@
 ---
-title: ArcaneCardCarousel
+title: CardCarousel
 description: Live preview for carousel
 layout: kb
 component: carousel
 ---
 
-# ArcaneCardCarousel
+# CardCarousel
 
 Live preview for component 'carousel' in the current Arcane catalog.
 

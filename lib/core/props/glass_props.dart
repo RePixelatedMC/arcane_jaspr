@@ -1,8 +1,9 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 /// Glass container component properties.
 class GlassProps {
-  final Component child;
+  final Widget child;
   final double blur;
   final double opacity;
   final String? padding;
@@ -21,7 +22,7 @@ class GlassProps {
 
 /// Glass card component properties.
 class GlassCardProps {
-  final Component child;
+  final Widget child;
   final double blur;
   final double opacity;
   final String? padding;
@@ -42,7 +43,7 @@ class GlassCardProps {
 
 /// Gradient glass component properties.
 class GradientGlassProps {
-  final Component child;
+  final Widget child;
   final double blur;
   final String? gradientStart;
   final String? gradientEnd;
@@ -69,7 +70,7 @@ class GradientGlassProps {
 
 /// Mixin defining the renderer methods for glass components.
 mixin GlassRendererContract {
-  Component glass(GlassProps props);
-  Component glassCard(GlassCardProps props);
-  Component gradientGlass(GradientGlassProps props);
+  Widget glass(GlassProps props);
+  Widget glassCard(GlassCardProps props);
+  Widget gradientGlass(GradientGlassProps props);
 }

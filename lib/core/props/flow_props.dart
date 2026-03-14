@@ -1,10 +1,11 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../util/arcane.dart';
 
 /// Flow layout component properties.
 class FlowProps {
-  final List<Component> children;
+  final List<Widget> children;
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
   final WrapAlignment wrapAlignment;
@@ -27,7 +28,7 @@ class FlowProps {
 
 /// Row layout component properties.
 class RowProps {
-  final List<Component> children;
+  final List<Widget> children;
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
   final MainAxisSize mainAxisSize;
@@ -44,7 +45,7 @@ class RowProps {
 
 /// Column layout component properties.
 class ColumnProps {
-  final List<Component> children;
+  final List<Widget> children;
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
   final MainAxisSize mainAxisSize;
@@ -61,7 +62,7 @@ class ColumnProps {
 
 /// Center alignment component properties.
 class CenterProps {
-  final Component child;
+  final Widget child;
 
   const CenterProps({required this.child});
 }
@@ -75,7 +76,7 @@ class SpacerProps {
 
 /// Expanded component properties.
 class ExpandedProps {
-  final Component child;
+  final Widget child;
   final int flex;
 
   const ExpandedProps({required this.child, this.flex = 1});
@@ -85,7 +86,7 @@ class ExpandedProps {
 class SizedBoxProps {
   final double? width;
   final double? height;
-  final Component? child;
+  final Widget? child;
 
   const SizedBoxProps({this.width, this.height, this.child});
 }
@@ -93,7 +94,7 @@ class SizedBoxProps {
 /// Padding wrapper component properties.
 class PaddingWrapperProps {
   final EdgeInsets padding;
-  final Component child;
+  final Widget child;
 
   const PaddingWrapperProps({required this.padding, required this.child});
 }
@@ -104,12 +105,12 @@ class PaddingWrapperProps {
 
 /// Mixin defining the renderer methods for flow/layout components.
 mixin FlowRendererContract {
-  Component flow(FlowProps props);
-  Component row(RowProps props);
-  Component column(ColumnProps props);
-  Component center(CenterProps props);
-  Component spacer(SpacerProps props);
-  Component expanded(ExpandedProps props);
-  Component sizedBox(SizedBoxProps props);
-  Component paddingWrapper(PaddingWrapperProps props);
+  Widget flow(FlowProps props);
+  Widget row(RowProps props);
+  Widget column(ColumnProps props);
+  Widget center(CenterProps props);
+  Widget spacer(SpacerProps props);
+  Widget expanded(ExpandedProps props);
+  Widget sizedBox(SizedBoxProps props);
+  Widget paddingWrapper(PaddingWrapperProps props);
 }

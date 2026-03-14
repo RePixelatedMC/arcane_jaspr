@@ -1,12 +1,13 @@
 import 'package:jaspr/dom.dart' as dom;
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
 /// An inline promotional banner that integrates with the hero section.
 ///
 /// Can be displayed as a badge, ribbon, pill, or card style.
-class ArcaneInlineHeroBanner extends StatefulComponent {
+class ArcaneInlineHeroBanner extends StatefulWidget {
   final String message;
   final String? promoCode;
   final String? ctaText;
@@ -15,7 +16,7 @@ class ArcaneInlineHeroBanner extends StatefulComponent {
   final void Function()? onDismiss;
   final PromoInlineHeroBannerStyle style;
   final bool dismissible;
-  final Component? icon;
+  final Widget? icon;
 
   const ArcaneInlineHeroBanner({
     required this.message,
@@ -43,7 +44,7 @@ class _ArcaneInlineHeroBannerState extends State<ArcaneInlineHeroBanner> {
   }
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     if (_isDismissed) return const dom.div([]);
 
     return context.renderers.inlineHeroBanner(InlineHeroBannerProps(

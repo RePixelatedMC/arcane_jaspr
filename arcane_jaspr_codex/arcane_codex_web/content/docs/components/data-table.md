@@ -1,11 +1,11 @@
 ---
-title: ArcaneDataTable
+title: DataTable
 description: Live preview for data-table
 layout: kb
 component: data-table
 ---
 
-# ArcaneDataTable
+# DataTable
 
 Live preview for component 'data-table' in the current Arcane catalog.
 

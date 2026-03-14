@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 enum SurfaceEffect {
   none,
@@ -19,7 +20,7 @@ enum SurfaceShadow {
 
 /// Surface card component properties.
 class SurfaceCardProps {
-  final Component child;
+  final Widget child;
   final SurfaceEffect effect;
   final double blurAmount;
   final double backgroundOpacity;
@@ -49,7 +50,7 @@ class SurfaceCardProps {
 /// ThumbHash card component properties.
 class ThumbHashCardProps {
   final String hash;
-  final Component child;
+  final Widget child;
   final String? borderRadius;
   final String? padding;
   final double overlayOpacity;
@@ -69,6 +70,6 @@ class ThumbHashCardProps {
 
 /// Mixin defining the renderer methods for surface card components.
 mixin SurfaceCardRendererContract {
-  Component surfaceCard(SurfaceCardProps props);
-  Component thumbHashCard(ThumbHashCardProps props);
+  Widget surfaceCard(SurfaceCardProps props);
+  Widget thumbHashCard(ThumbHashCardProps props);
 }

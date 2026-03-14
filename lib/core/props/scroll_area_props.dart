@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 enum ScrollDirectionVariant {
   vertical,
@@ -22,7 +23,7 @@ enum ScrollbarStyleVariant {
 
 /// Scroll area component properties.
 class ScrollAreaProps {
-  final Component child;
+  final Widget child;
   final String? height;
   final String? width;
   final String? maxHeight;
@@ -57,7 +58,7 @@ class ScrollAreaProps {
   });
 
   ScrollAreaProps copyWith({
-    Component? child,
+    Widget? child,
     String? height,
     String? width,
     String? maxHeight,
@@ -96,7 +97,7 @@ class ScrollAreaProps {
 /// Virtual scroll component properties.
 class VirtualScrollProps<T> {
   final List<T> items;
-  final Component Function(BuildContext context, T item, int index) itemBuilder;
+  final Widget Function(BuildContext context, T item, int index) itemBuilder;
   final double itemHeight;
   final String height;
   final int overscan;
@@ -121,8 +122,8 @@ class VirtualScrollProps<T> {
 /// Mixin defining the renderer methods for scroll area components.
 mixin ScrollAreaRendererContract {
   /// Renders a scroll area component.
-  Component scrollArea(ScrollAreaProps props);
+  Widget scrollArea(ScrollAreaProps props);
 
   /// Renders a virtualized scroll list component.
-  Component virtualScroll<T>(VirtualScrollProps<T> props);
+  Widget virtualScroll<T>(VirtualScrollProps<T> props);
 }

@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../shared/shared.dart';
 import 'status_indicator_props.dart' show StatusType;
@@ -109,7 +110,7 @@ class StatusBadgeProps {
   /// Custom icon component to display.
   /// For status badges: replaces the dot indicator.
   /// For card badges: shown before the label.
-  final Component? icon;
+  final Widget? icon;
 
   /// Whether to show a default icon (star) when no icon is provided.
   /// Used by popular/recommended/new variants.
@@ -169,5 +170,5 @@ class StatusBadgeProps {
 
 /// Mixin defining the renderer methods for status badge components.
 mixin StatusBadgeRendererContract {
-  Component statusBadge(StatusBadgeProps props);
+  Widget statusBadge(StatusBadgeProps props);
 }

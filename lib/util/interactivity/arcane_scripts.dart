@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 import 'package:jaspr/dom.dart' as dom;
 
 import 'scripts/slider_scripts.dart';
@@ -112,12 +113,12 @@ class ArcaneScripts {
 ''';
 }
 
-/// Component that injects Arcane fallback scripts into the page.
-class ArcaneScriptsComponent extends StatelessComponent {
+/// Widget that injects Arcane fallback scripts into the page.
+class ArcaneScriptsComponent extends StatelessWidget {
   const ArcaneScriptsComponent({super.key});
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return dom.script(content: ArcaneScripts.all);
   }
 }

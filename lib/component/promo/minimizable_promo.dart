@@ -1,12 +1,13 @@
 import 'package:jaspr/dom.dart' as dom;
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
 /// A promo drawer that slides in from the right edge.
 ///
 /// When minimized, only a slim tab is visible. Click to expand the full panel.
-class ArcaneMinimizablePromo extends StatefulComponent {
+class ArcaneMinimizablePromo extends StatefulWidget {
   final String title;
   final String message;
   final String? promoCode;
@@ -63,7 +64,7 @@ class _ArcaneMinimizablePromoState extends State<ArcaneMinimizablePromo> {
   }
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     if (_isDismissed || !_isVisible) return const dom.div([]);
 
     return context.renderers.minimizablePromo(MinimizablePromoProps(

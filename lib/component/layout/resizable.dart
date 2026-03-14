@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
@@ -7,7 +8,7 @@ export '../../core/props/resizable_props.dart' show ResizeDirection, ResizablePa
 typedef ResizablePanel = ResizablePanelData;
 
 /// A resizable panel group with draggable dividers.
-class ArcaneResizable extends StatelessComponent {
+class ArcaneResizable extends StatelessWidget {
   final List<ResizablePanelData> panels;
   final ResizeDirection direction;
   final double handleSize;
@@ -22,8 +23,8 @@ class ArcaneResizable extends StatelessComponent {
   });
 
   factory ArcaneResizable.sidebarLayout({
-    required Component sidebar,
-    required Component content,
+    required Widget sidebar,
+    required Widget content,
     double sidebarSize = 25,
     double sidebarMinSize = 15,
     double sidebarMaxSize = 40,
@@ -45,8 +46,8 @@ class ArcaneResizable extends StatelessComponent {
   }
 
   factory ArcaneResizable.splitView({
-    required Component top,
-    required Component bottom,
+    required Widget top,
+    required Widget bottom,
     double topSize = 50,
     double topMinSize = 20,
     double topMaxSize = 80,
@@ -68,7 +69,7 @@ class ArcaneResizable extends StatelessComponent {
   }
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.resizable(ResizableProps(
       panels: panels,
       direction: direction,

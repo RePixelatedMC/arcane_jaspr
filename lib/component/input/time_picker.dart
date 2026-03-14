@@ -1,11 +1,12 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
 export '../../core/props/time_picker_props.dart';
 
 /// A time picker input with dropdown selection.
-class ArcaneTimePicker extends StatefulComponent {
+class ArcaneTimePicker extends StatefulWidget {
   final TimeOfDay? value;
   final void Function(TimeOfDay?)? onChanged;
   final String? label;
@@ -118,7 +119,7 @@ class _ArcaneTimePickerState extends State<ArcaneTimePicker> {
   }
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.timePicker(TimePickerProps(
       value: component.value,
       displayText: _displayText,

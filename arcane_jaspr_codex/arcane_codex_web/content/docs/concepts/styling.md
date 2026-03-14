@@ -238,8 +238,8 @@ ArcaneBox(
     transition: Transition.allFast,
   ),
   children: [
-    ArcaneHeadline(text: 'Card Title'),
-    ArcaneBodyText(text: 'Card content goes here.'),
+    Text.heading2('Card Title'),
+    Text.body('Card content goes here.'),
   ],
 )
 ```
@@ -260,7 +260,7 @@ ArcaneBox(
     transition: Transition.allFast,
     fontWeight: FontWeight.w500,
   ),
-  children: [ArcaneText('Click Me')],
+  children: [Text('Click Me')],
 )
 ```
 

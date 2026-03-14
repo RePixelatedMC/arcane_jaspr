@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 enum ButtonVariant {
   primary,
@@ -35,9 +36,9 @@ enum ButtonSize {
 /// Button component properties.
 class ButtonProps {
   final String? label;
-  final Component? child;
-  final Component? icon;
-  final Component? trailing;
+  final Widget? child;
+  final Widget? icon;
+  final Widget? trailing;
   final void Function()? onPressed;
   final ButtonVariant variant;
   final ButtonSize size;
@@ -74,9 +75,9 @@ class ButtonProps {
 
   ButtonProps copyWith({
     String? label,
-    Component? child,
-    Component? icon,
-    Component? trailing,
+    Widget? child,
+    Widget? icon,
+    Widget? trailing,
     void Function()? onPressed,
     ButtonVariant? variant,
     ButtonSize? size,
@@ -114,5 +115,5 @@ class ButtonProps {
 /// Mixin defining the renderer method for button components.
 mixin ButtonRendererContract {
   /// Render a button component.
-  Component button(ButtonProps props);
+  Widget button(ButtonProps props);
 }

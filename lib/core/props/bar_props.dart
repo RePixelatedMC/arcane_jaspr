@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 enum BarBackButtonMode {
   always,
@@ -9,11 +10,11 @@ enum BarBackButtonMode {
 /// Bar/app bar component properties.
 class BarProps {
   final String? titleText;
-  final Component? title;
+  final Widget? title;
   final String? subtitleText;
-  final Component? subtitle;
-  final List<Component>? leading;
-  final List<Component>? trailing;
+  final Widget? subtitle;
+  final List<Widget>? leading;
+  final List<Widget>? trailing;
   final BarBackButtonMode backButton;
   final void Function()? onBack;
   final bool transparent;
@@ -54,6 +55,6 @@ class DialogBarProps {
 
 /// Mixin defining the renderer methods for bar components.
 mixin BarRendererContract {
-  Component bar(BarProps props);
-  Component dialogBar(DialogBarProps props);
+  Widget bar(BarProps props);
+  Widget dialogBar(DialogBarProps props);
 }

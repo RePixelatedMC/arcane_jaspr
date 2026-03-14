@@ -49,8 +49,8 @@ class _AppState extends State<App> {
           gap: Gap.lg,
         ),
         children: [
-          ArcaneHeadline.h2('Count: $_count'),
-          ArcaneButton.primary(
+          Text.heading2('Count: $_count'),
+          Button.primary(
             label: 'Increment',
             onPressed: _increment,
           ),

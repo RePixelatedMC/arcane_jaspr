@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 /// Floating content trigger mode.
 enum FloatingTrigger {
@@ -30,10 +31,10 @@ enum FloatingPosition {
 /// flexible component that can render floating content in various ways.
 class FloatingProps {
   /// The trigger element that activates the floating content.
-  final Component trigger;
+  final Widget trigger;
 
   /// The floating content to display. Use for rich content.
-  final Component? content;
+  final Widget? content;
 
   /// Simple text content (for tooltip mode). Mutually exclusive with [content].
   final String? textContent;
@@ -104,8 +105,8 @@ class FloatingProps {
   bool get isTextTooltip => textContent != null && content == null;
 
   FloatingProps copyWith({
-    Component? trigger,
-    Component? content,
+    Widget? trigger,
+    Widget? content,
     String? textContent,
     bool? isOpen,
     FloatingTrigger? triggerType,
@@ -150,5 +151,5 @@ class FloatingProps {
 
 /// Mixin defining the renderer methods for floating components.
 mixin FloatingRendererContract {
-  Component floating(FloatingProps props);
+  Widget floating(FloatingProps props);
 }

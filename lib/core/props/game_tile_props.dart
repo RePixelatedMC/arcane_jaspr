@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 /// Supported game platforms for display icons.
 enum GamePlatform {
@@ -25,7 +26,7 @@ enum GameTileVariant {
 class GameTileProps {
   final String name;
   final String? iconUrl;
-  final Component? icon;
+  final Widget? icon;
   final bool selected;
   final void Function()? onTap;
   final bool popular;
@@ -122,7 +123,7 @@ class GameCardProps {
   final String name;
   final String? description;
   final String? iconUrl;
-  final Component? icon;
+  final Widget? icon;
   final String? backgroundUrl;
   final String? status;
   final List<String>? features;
@@ -161,7 +162,7 @@ class GameLinkProps {
   final String? iconUrl;
 
   /// Custom icon component (alternative to iconUrl).
-  final Component? icon;
+  final Widget? icon;
 
   /// Optional badge text (e.g., "NEW", "POPULAR").
   final String? badge;
@@ -196,8 +197,8 @@ class GameLinkProps {
 
 /// Mixin defining the renderer methods for game tile components.
 mixin GameTileRendererContract {
-  Component gameTile(GameTileProps props);
-  Component gameSelector(GameSelectorProps props);
-  Component gameCard(GameCardProps props);
-  Component gameLink(GameLinkProps props);
+  Widget gameTile(GameTileProps props);
+  Widget gameSelector(GameSelectorProps props);
+  Widget gameCard(GameCardProps props);
+  Widget gameLink(GameLinkProps props);
 }

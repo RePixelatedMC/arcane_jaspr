@@ -1,3 +1,4 @@
+import 'package:arcane_jaspr/flutter.dart';
 import 'package:jaspr/jaspr.dart' hide Document;
 import 'package:jaspr/dom.dart' as dom;
 import 'package:jaspr/server.dart' show Document;
@@ -41,17 +42,17 @@ class HeadElementData {
 /// Server-side document manipulation using jaspr's Document API
 class DocumentHelper {
   /// Set attributes on the html element
-  static Component html({Map<String, String>? attributes}) {
+  static Widget html({Map<String, String>? attributes}) {
     return Document.html(attributes: attributes);
   }
 
   /// Inject elements into the document head
-  static Component head({List<HeadElementData>? elements}) {
+  static Widget head({List<HeadElementData>? elements}) {
     if (elements == null || elements.isEmpty) {
       return const Document.head(children: []);
     }
 
-    final List<Component> children = [];
+    final List<Widget> children = [];
     for (final HeadElementData element in elements) {
       if (element.tag == 'link') {
         children.add(

@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 import 'package:jaspr/dom.dart' as dom;
 
 import '../../core/theme_provider.dart';
@@ -7,8 +8,8 @@ export '../../core/props/dropdown_menu_props.dart' show DropdownAlignment;
 export '../../core/props/menu_item_props.dart';
 
 /// Dropdown menu component.
-class ArcaneDropdownMenu extends StatefulComponent {
-  final Component trigger;
+class ArcaneDropdownMenu extends StatefulWidget {
+  final Widget trigger;
   final List<ArcaneMenuItem> items;
   final DropdownAlignment alignment;
   final double? width;
@@ -37,7 +38,7 @@ class _ArcaneDropdownMenuState extends State<ArcaneDropdownMenu> {
   }
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.dropdownMenu(DropdownMenuProps(
       trigger: component.trigger,
       items: component.items,
@@ -51,10 +52,10 @@ class _ArcaneDropdownMenuState extends State<ArcaneDropdownMenu> {
 }
 
 /// Navigation dropdown with mega-menu style.
-class ArcaneMegaMenu extends StatefulComponent {
+class ArcaneMegaMenu extends StatefulWidget {
   final String label;
   final List<ArcaneMegaMenuSection> sections;
-  final Component? footer;
+  final Widget? footer;
 
   const ArcaneMegaMenu({
     required this.label,
@@ -82,7 +83,7 @@ class _ArcaneMegaMenuState extends State<ArcaneMegaMenu> {
   bool _isOpen = false;
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return dom.div(
       classes: 'arcane-mega-menu ${_isOpen ? 'open' : ''}',
       styles: const dom.Styles(raw: {
@@ -188,7 +189,7 @@ class _ArcaneMegaMenuState extends State<ArcaneMegaMenu> {
     );
   }
 
-  Component _buildMegaItem(ArcaneMenuItem item) {
+  Widget _buildMegaItem(ArcaneMenuItem item) {
     // Handle different menu item types with pattern matching
     return switch (item) {
       final MenuItemAction action => _buildActionItem(action),
@@ -216,8 +217,8 @@ class _ArcaneMegaMenuState extends State<ArcaneMegaMenu> {
     };
   }
 
-  Component _buildActionItem(MenuItemAction action) {
-    final Component itemContent = dom.div(
+  Widget _buildActionItem(MenuItemAction action) {
+    final Widget itemContent = dom.div(
       styles: const dom.Styles(raw: {
         'display': 'flex',
         'align-items': 'flex-start',

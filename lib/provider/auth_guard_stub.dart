@@ -1,11 +1,12 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../service/auth_state.dart';
 
 /// Stub route protection for non-web platforms.
-class AuthGuard extends StatelessComponent {
-  final Component child;
-  final Component? loadingIndicator;
+class AuthGuard extends StatelessWidget {
+  final Widget child;
+  final Widget? loadingIndicator;
   final String redirectTo;
   final bool requireAdmin;
   final bool Function(AuthUser user)? isAdmin;
@@ -20,15 +21,15 @@ class AuthGuard extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return child;
   }
 }
 
 /// Stub guest route protection for non-web platforms.
-class GuestGuard extends StatelessComponent {
-  final Component child;
-  final Component? loadingIndicator;
+class GuestGuard extends StatelessWidget {
+  final Widget child;
+  final Widget? loadingIndicator;
   final String redirectTo;
 
   const GuestGuard({
@@ -39,7 +40,7 @@ class GuestGuard extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return child;
   }
 }

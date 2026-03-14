@@ -1,10 +1,11 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 /// Settings section component properties.
 class SettingsSectionProps {
   final String title;
   final String? description;
-  final List<Component> children;
+  final List<Widget> children;
   final bool danger;
 
   const SettingsSectionProps({
@@ -75,9 +76,9 @@ class SettingsNoteProps {
 
 /// Mixin defining the renderer methods for settings section components.
 mixin SettingsSectionRendererContract {
-  Component settingsSection(SettingsSectionProps props);
-  Component settingsInfoRow(SettingsInfoRowProps props);
-  Component settingsToggleRow(SettingsToggleRowProps props);
-  Component settingsSubheader(SettingsSubheaderProps props);
-  Component settingsNote(SettingsNoteProps props);
+  Widget settingsSection(SettingsSectionProps props);
+  Widget settingsInfoRow(SettingsInfoRowProps props);
+  Widget settingsToggleRow(SettingsToggleRowProps props);
+  Widget settingsSubheader(SettingsSubheaderProps props);
+  Widget settingsNote(SettingsNoteProps props);
 }

@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 /// Visual variant for pricing cards.
 enum PricingCardVariant {
@@ -125,7 +126,7 @@ class PricingCardProps {
   final String? accentColor;
 
   /// Custom icon component for header.
-  final Component? icon;
+  final Widget? icon;
 
   const PricingCardProps({
     this.tier,
@@ -243,6 +244,6 @@ class PricingGridProps {
 
 /// Mixin defining the renderer methods for pricing card components.
 mixin PricingCardRendererContract {
-  Component pricingCard(PricingCardProps props);
-  Component pricingGrid(PricingGridProps props);
+  Widget pricingCard(PricingCardProps props);
+  Widget pricingGrid(PricingGridProps props);
 }

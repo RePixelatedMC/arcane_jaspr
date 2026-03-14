@@ -1,9 +1,10 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 /// Aspect ratio container component properties.
 class AspectRatioProps {
   final double ratio;
-  final Component child;
+  final Widget child;
   final String? classes;
   final Map<String, String>? styles;
 
@@ -21,5 +22,5 @@ class AspectRatioProps {
 
 /// Mixin defining the renderer methods for aspect ratio components.
 mixin AspectRatioRendererContract {
-  Component aspectRatio(AspectRatioProps props);
+  Widget aspectRatio(AspectRatioProps props);
 }

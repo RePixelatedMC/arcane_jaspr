@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
@@ -6,7 +7,7 @@ export '../../core/props/progress_props.dart'
     show ComponentSize, ProgressVariant;
 
 /// Progress bar component with various styles.
-class ArcaneProgressBar extends StatelessComponent {
+class ArcaneProgressBar extends StatelessWidget {
   final double value;
   final ComponentSize size;
   final ProgressVariant variant;
@@ -67,7 +68,7 @@ class ArcaneProgressBar extends StatelessComponent {
         indicatorColor = null;
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.progress(ProgressProps(
       value: value,
       size: size,
@@ -81,7 +82,7 @@ class ArcaneProgressBar extends StatelessComponent {
 }
 
 /// Circular progress indicator.
-class ArcaneCircularProgress extends StatelessComponent {
+class ArcaneCircularProgress extends StatelessWidget {
   final double value;
   final String? size;
   final String? strokeWidth;
@@ -102,7 +103,7 @@ class ArcaneCircularProgress extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.circularProgress(CircularProgressProps(
       value: value,
       size: size,
@@ -116,7 +117,7 @@ class ArcaneCircularProgress extends StatelessComponent {
 }
 
 /// Indeterminate loading spinner.
-class ArcaneLoadingSpinner extends StatelessComponent {
+class ArcaneLoadingSpinner extends StatelessWidget {
   final String? size;
   final String? color;
 
@@ -127,7 +128,7 @@ class ArcaneLoadingSpinner extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.loadingSpinner(LoadingSpinnerProps(
       size: size,
       color: color,

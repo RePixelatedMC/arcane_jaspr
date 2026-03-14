@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
@@ -14,11 +15,11 @@ export '../../core/props/separator_props.dart'
 /// - Dashed line style
 /// - Labels and icons in the middle
 /// - Custom colors
-class ArcaneSeparator extends StatelessComponent {
+class ArcaneSeparator extends StatelessWidget {
   final SeparatorOrientation orientation;
   final SeparatorVariant variant;
   final String? label;
-  final Component? icon;
+  final Widget? icon;
   final String? color;
   final bool dashed;
   final bool decorative;
@@ -66,7 +67,7 @@ class ArcaneSeparator extends StatelessComponent {
 
   /// Creates a separator with an icon in the middle.
   const ArcaneSeparator.withIcon({
-    required Component this.icon,
+    required Widget this.icon,
     this.variant = SeparatorVariant.standard,
     this.color,
     this.dashed = false,
@@ -117,7 +118,7 @@ class ArcaneSeparator extends StatelessComponent {
         decorative = true;
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.separator(SeparatorProps(
       orientation: orientation,
       variant: variant,

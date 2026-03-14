@@ -1,26 +1,27 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
 /// Theme configuration for CardCarousel widgets.
-class ArcaneCardCarouselTheme {
+class CardCarouselTheme {
   final int sharpness;
 
-  const ArcaneCardCarouselTheme({this.sharpness = 9});
+  const CardCarouselTheme({this.sharpness = 9});
 
-  ArcaneCardCarouselTheme copyWith({int? sharpness}) =>
-      ArcaneCardCarouselTheme(sharpness: sharpness ?? this.sharpness);
+  CardCarouselTheme copyWith({int? sharpness}) =>
+      CardCarouselTheme(sharpness: sharpness ?? this.sharpness);
 }
 
 /// Horizontally scrollable widget container with edge fading.
-class ArcaneCardCarousel extends StatelessComponent {
-  final List<Component> children;
+class CardCarousel extends StatelessWidget {
+  final List<Widget> children;
   final int? sharpness;
   final String? featherColor;
   final double gap;
   final String? padding;
   final String? height;
 
-  const ArcaneCardCarousel({
+  const CardCarousel({
     super.key,
     this.children = const [],
     this.sharpness,
@@ -31,7 +32,7 @@ class ArcaneCardCarousel extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     final int effectiveSharpness = (sharpness ?? 9).clamp(1, 12);
     final String effectiveFeatherColor = featherColor ?? 'var(--background)';
 
@@ -106,8 +107,8 @@ class ArcaneCardCarousel extends StatelessComponent {
 }
 
 /// Carousel with navigation arrows.
-class ArcaneNavigableCarousel extends StatefulComponent {
-  final List<Component> children;
+class ArcaneNavigableCarousel extends StatefulWidget {
+  final List<Widget> children;
   final double gap;
   final bool showArrows;
   final bool showIndicators;
@@ -171,7 +172,7 @@ class _NavigableCarouselState extends State<ArcaneNavigableCarousel> {
   }
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     final int translatePercent = -_currentIndex * 100;
 
     return div(
@@ -320,8 +321,8 @@ class _NavigableCarouselState extends State<ArcaneNavigableCarousel> {
 }
 
 /// Hero carousel with full-width slides.
-class ArcaneHeroCarousel extends StatefulComponent {
-  final List<Component> children;
+class ArcaneHeroCarousel extends StatefulWidget {
+  final List<Widget> children;
   final int autoPlayInterval;
   final bool showArrows;
   final bool showIndicators;
@@ -373,7 +374,7 @@ class _HeroCarouselState extends State<ArcaneHeroCarousel> {
   }
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return div(
       classes: 'arcane-hero-carousel',
       styles: Styles(raw: {

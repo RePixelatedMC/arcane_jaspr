@@ -1,12 +1,13 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 /// Feature showcase item data.
 class FeatureShowcaseItem {
-  final Component icon;
+  final Widget icon;
   final String title;
   final String description;
-  final Component? header;
-  final Component? footer;
+  final Widget? header;
+  final Widget? footer;
   final void Function()? onTap;
   final String? href;
 
@@ -54,5 +55,5 @@ class FeatureShowcaseProps {
 
 /// Mixin defining the renderer methods for feature showcase components.
 mixin FeatureShowcaseRendererContract {
-  Component featureShowcase(FeatureShowcaseProps props);
+  Widget featureShowcase(FeatureShowcaseProps props);
 }

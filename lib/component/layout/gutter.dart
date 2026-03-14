@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 import 'package:jaspr/dom.dart'
     hide
         Color,
@@ -24,34 +25,30 @@ import 'package:jaspr/dom.dart'
 import '../../core/theme_provider.dart';
 import '../../util/style_types/index.dart';
 
-export '../../core/props/gutter_props.dart';
-
-typedef ArcaneGutterSize = GutterSize;
-
 /// A spacing component that provides consistent gaps between elements.
-class ArcaneGutter extends StatelessComponent {
+class Gutter extends StatelessWidget {
   final GutterSize size;
   final bool horizontal;
 
-  const ArcaneGutter({
+  const Gutter({
     this.size = GutterSize.medium,
     this.horizontal = false,
     super.key,
   });
 
-  const ArcaneGutter.xsmall({this.horizontal = false, super.key})
+  const Gutter.xsmall({this.horizontal = false, super.key})
       : size = GutterSize.xsmall;
-  const ArcaneGutter.small({this.horizontal = false, super.key})
+  const Gutter.small({this.horizontal = false, super.key})
       : size = GutterSize.small;
-  const ArcaneGutter.medium({this.horizontal = false, super.key})
+  const Gutter.medium({this.horizontal = false, super.key})
       : size = GutterSize.medium;
-  const ArcaneGutter.large({this.horizontal = false, super.key})
+  const Gutter.large({this.horizontal = false, super.key})
       : size = GutterSize.large;
-  const ArcaneGutter.xlarge({this.horizontal = false, super.key})
+  const Gutter.xlarge({this.horizontal = false, super.key})
       : size = GutterSize.xlarge;
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.gutter(GutterProps(
       size: size,
       horizontal: horizontal,
@@ -60,7 +57,7 @@ class ArcaneGutter extends StatelessComponent {
 }
 
 /// A flexible gap component.
-class ArcaneGap extends StatelessComponent {
+class ArcaneGap extends StatelessWidget {
   final double size;
   final bool horizontal;
 
@@ -83,15 +80,15 @@ class ArcaneGap extends StatelessComponent {
         horizontal = false;
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.gap(GapProps(size, horizontal: horizontal));
   }
 }
 
 /// A container component with enum-based styling.
-class ArcaneBox extends StatelessComponent {
-  final Component? child;
-  final List<Component>? children;
+class ArcaneBox extends StatelessWidget {
+  final Widget? child;
+  final List<Widget>? children;
   final PaddingPreset? padding;
   final MarginPreset? margin;
   final Background? background;
@@ -163,7 +160,7 @@ class ArcaneBox extends StatelessComponent {
         borderRadius = Radius.lg;
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     final baseStyle = ArcaneStyleData(
       padding: padding,
       margin: margin,
@@ -189,19 +186,19 @@ class ArcaneBox extends StatelessComponent {
   }
 }
 
-/// An ArcaneStack component for positioning children on top of each other.
-class ArcaneStack extends StatelessComponent {
-  final List<Component> children;
+/// An Stack component for positioning children on top of each other.
+class Stack extends StatelessWidget {
+  final List<Widget> children;
   final ArcaneStyleData? style;
 
-  const ArcaneStack({
+  const Stack({
     required this.children,
     this.style,
     super.key,
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     final baseStyle = const ArcaneStyleData(
       position: Position.relative,
     );
@@ -214,9 +211,9 @@ class ArcaneStack extends StatelessComponent {
   }
 }
 
-/// A positioned child for use within an ArcaneStack.
-class ArcanePositioned extends StatelessComponent {
-  final Component child;
+/// A positioned child for use within a Stack.
+class Positioned extends StatelessWidget {
+  final Widget child;
   final String? top;
   final String? right;
   final String? bottom;
@@ -224,7 +221,7 @@ class ArcanePositioned extends StatelessComponent {
   final String? inset;
   final ArcaneStyleData? style;
 
-  const ArcanePositioned({
+  const Positioned({
     required this.child,
     this.top,
     this.right,
@@ -235,7 +232,7 @@ class ArcanePositioned extends StatelessComponent {
     super.key,
   });
 
-  const ArcanePositioned.fill({
+  const Positioned.fill({
     required this.child,
     this.style,
     super.key,
@@ -246,7 +243,7 @@ class ArcanePositioned extends StatelessComponent {
         inset = null;
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     final baseStyle = ArcaneStyleData(
       position: Position.absolute,
       top: top,

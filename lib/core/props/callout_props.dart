@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 enum CalloutVariant {
   info,
@@ -14,9 +15,9 @@ enum CalloutVariant {
 class CalloutProps {
   final String? title;
   final String? content;
-  final Component? child;
+  final Widget? child;
   final CalloutVariant variant;
-  final Component? icon;
+  final Widget? icon;
   final bool showIcon;
   final bool dismissible;
   final void Function()? onDismiss;
@@ -40,5 +41,5 @@ class CalloutProps {
 /// Mixin defining the renderer methods for callout components.
 mixin CalloutRendererContract {
   /// Renders a callout component.
-  Component callout(CalloutProps props);
+  Widget callout(CalloutProps props);
 }

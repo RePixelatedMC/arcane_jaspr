@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 /// Footer link group data.
 class FooterLinkGroup {
@@ -30,10 +31,10 @@ class FooterLink {
 
 /// Footer component properties.
 class FooterProps {
-  final Component? logo;
+  final Widget? logo;
   final String? description;
   final List<FooterLinkGroup> linkGroups;
-  final List<Component>? socialLinks;
+  final List<Widget>? socialLinks;
   final String? copyright;
   final List<FooterLink>? bottomLinks;
   final bool showNewsletter;
@@ -57,7 +58,7 @@ class FooterProps {
 
 /// Footer social icon component properties.
 class FooterSocialIconProps {
-  final Component icon;
+  final Widget icon;
   final String? href;
   final void Function()? onTap;
   final String label;
@@ -76,6 +77,6 @@ class FooterSocialIconProps {
 
 /// Mixin defining the renderer methods for footer components.
 mixin FooterRendererContract {
-  Component footer(FooterProps props);
-  Component footerSocialIcon(FooterSocialIconProps props);
+  Widget footer(FooterProps props);
+  Widget footerSocialIcon(FooterSocialIconProps props);
 }

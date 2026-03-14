@@ -1,12 +1,13 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
 enum ArcaneDirectionValue { ltr, rtl, auto }
 
-class ArcaneDirection extends StatelessComponent {
+class ArcaneDirection extends StatelessWidget {
   final ArcaneDirectionValue value;
-  final List<Component> children;
+  final List<Widget> children;
   final String? classes;
 
   const ArcaneDirection({
@@ -17,7 +18,7 @@ class ArcaneDirection extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     final DirectionValue mappedValue = switch (value) {
       ArcaneDirectionValue.ltr => DirectionValue.ltr,
       ArcaneDirectionValue.rtl => DirectionValue.rtl,

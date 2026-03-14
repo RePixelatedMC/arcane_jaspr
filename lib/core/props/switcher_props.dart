@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 enum SwitcherDirection {
   up,
@@ -12,7 +13,7 @@ enum SwitcherDirection {
 class SwitcherProps {
   final int index;
   final SwitcherDirection direction;
-  final List<Component> children;
+  final List<Widget> children;
   final int duration;
 
   const SwitcherProps({
@@ -26,7 +27,7 @@ class SwitcherProps {
 /// Indexed stack component properties.
 class IndexedStackProps {
   final int index;
-  final List<Component> children;
+  final List<Widget> children;
 
   const IndexedStackProps({
     required this.index,
@@ -40,6 +41,6 @@ class IndexedStackProps {
 
 /// Mixin defining the renderer methods for switcher components.
 mixin SwitcherRendererContract {
-  Component switcher(SwitcherProps props);
-  Component indexedStack(IndexedStackProps props);
+  Widget switcher(SwitcherProps props);
+  Widget indexedStack(IndexedStackProps props);
 }

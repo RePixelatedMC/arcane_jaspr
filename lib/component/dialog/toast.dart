@@ -1,6 +1,7 @@
 import 'dart:async';
 
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 import 'toast_manager.dart';
@@ -9,7 +10,7 @@ export '../../core/props/toast_props.dart' show ToastVariant, ToastPosition, Toa
 export 'toast_manager.dart';
 
 /// Toast notification component with auto-dismiss and global API support.
-class ArcaneToast extends StatefulComponent {
+class ArcaneToast extends StatefulWidget {
   final String message;
   final String? title;
   final String? description;
@@ -18,7 +19,7 @@ class ArcaneToast extends StatefulComponent {
   final int duration;
   final bool dismissible;
   final ToastAction? action;
-  final Component? icon;
+  final Widget? icon;
   final void Function()? onClose;
   final String? id;
 
@@ -37,7 +38,7 @@ class ArcaneToast extends StatefulComponent {
     super.key,
   });
 
-  static Component container({
+  static Widget container({
     ToastPosition position = ToastPosition.bottomRight,
     int maxVisible = 3,
     double gap = 12,
@@ -126,7 +127,7 @@ class _ArcaneToastState extends State<ArcaneToast> {
   }
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.toast(ToastProps(
       message: component.message,
       title: component.title,
@@ -148,7 +149,7 @@ class _ArcaneToastState extends State<ArcaneToast> {
 }
 
 /// Toast container component that renders all active toasts.
-class _ToastContainer extends StatefulComponent {
+class _ToastContainer extends StatefulWidget {
   final ToastPosition position;
   final int maxVisible;
   final double gap;
@@ -185,7 +186,7 @@ class _ToastContainerState extends State<_ToastContainer> {
   }
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     final toasts = ToastManager.instance.toasts.take(component.maxVisible);
 
     final toastPropsList = toasts.map((data) => ToastProps(

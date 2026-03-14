@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 /// Stat card component properties.
 class StatCardProps {
@@ -23,7 +24,7 @@ class StatCardProps {
 
 /// Stat card row component properties.
 class StatCardRowProps {
-  final List<Component> cards;
+  final List<Widget> cards;
   final int columns;
   final String? gap;
 
@@ -40,6 +41,6 @@ class StatCardRowProps {
 
 /// Mixin defining the renderer methods for stat card components.
 mixin StatCardRendererContract {
-  Component statCard(StatCardProps props);
-  Component statCardRow(StatCardRowProps props);
+  Widget statCard(StatCardProps props);
+  Widget statCardRow(StatCardRowProps props);
 }

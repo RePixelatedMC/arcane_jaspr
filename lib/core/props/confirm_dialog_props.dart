@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 /// Confirm dialog component properties.
 class ConfirmDialogProps {
@@ -9,7 +10,7 @@ class ConfirmDialogProps {
   final void Function()? onConfirm;
   final void Function()? onCancel;
   final bool destructive;
-  final Component? icon;
+  final Widget? icon;
 
   const ConfirmDialogProps({
     required this.title,
@@ -29,7 +30,7 @@ class AlertDialogProps {
   final String message;
   final String buttonText;
   final void Function()? onDismiss;
-  final Component? icon;
+  final Widget? icon;
 
   const AlertDialogProps({
     required this.title,
@@ -46,6 +47,6 @@ class AlertDialogProps {
 
 /// Mixin defining the renderer methods for confirm and alert dialog components.
 mixin ConfirmDialogRendererContract {
-  Component confirmDialog(ConfirmDialogProps props);
-  Component alertDialog(AlertDialogProps props);
+  Widget confirmDialog(ConfirmDialogProps props);
+  Widget alertDialog(AlertDialogProps props);
 }

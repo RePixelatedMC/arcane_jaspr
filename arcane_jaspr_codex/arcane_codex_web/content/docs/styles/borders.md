@@ -104,7 +104,7 @@ Radius.md.staticCss // "8px" (static value)
 
 ```dart
 // Card radius
-ArcaneCard(
+Card(
   style: const ArcaneStyleData(
     borderRadius: Radius.lg,
   ),
@@ -112,7 +112,7 @@ ArcaneCard(
 )
 
 // Pill button
-ArcaneButton(
+Button(
   style: const ArcaneStyleData(
     borderRadius: Radius.full,
   ),
@@ -200,7 +200,7 @@ Outline configurations for focus states.
 ### Usage
 
 ```dart
-ArcaneButton(
+Button(
   style: const ArcaneStyleData(
     outline: OutlinePreset.focus,
   ),
@@ -282,7 +282,7 @@ ArcaneBox(
     },
   ),
   children: [
-    ArcaneText('Drop files here'),
+    Text('Drop files here'),
   ],
 )
 ```
@@ -300,7 +300,7 @@ ArcaneBox(
     },
   ),
   children: [
-    ArcaneText('Note: This is important information.'),
+    Text('Note: This is important information.'),
   ],
 )
 ```

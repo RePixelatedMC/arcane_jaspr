@@ -1,10 +1,11 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 /// Breadcrumb item data.
 class BreadcrumbItemProps {
   final String label;
   final String? href;
-  final Component? icon;
+  final Widget? icon;
 
   const BreadcrumbItemProps({
     required this.label,
@@ -32,7 +33,7 @@ class BreadcrumbsProps {
   final BreadcrumbSeparatorStyle separator;
   final BreadcrumbSizeVariant size;
   final bool showHomeIcon;
-  final Component? customSeparator;
+  final Widget? customSeparator;
   final void Function(BreadcrumbItemProps item, int index)? onItemClick;
 
   const BreadcrumbsProps({
@@ -52,5 +53,5 @@ class BreadcrumbsProps {
 /// Mixin defining the renderer methods for breadcrumb components.
 mixin BreadcrumbsRendererContract {
   /// Renders a breadcrumb navigation trail.
-  Component breadcrumbs(BreadcrumbsProps props);
+  Widget breadcrumbs(BreadcrumbsProps props);
 }

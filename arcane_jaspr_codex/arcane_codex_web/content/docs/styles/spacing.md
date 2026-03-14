@@ -114,7 +114,7 @@ ArcaneBox(
 )
 
 // Button padding
-ArcaneButton(
+Button(
   style: const ArcaneStyleData(
     padding: PaddingPreset.buttonMd,
   ),
@@ -269,7 +269,7 @@ ArcaneBox(
 ### Card Layout
 
 ```dart
-ArcaneCard(
+Card(
   style: const ArcaneStyleData(
     padding: PaddingPreset.lg,
     margin: MarginPreset.bottomMd,
@@ -287,8 +287,8 @@ ArcaneBox(
     gap: Gap.sm,
   ),
   children: [
-    ArcaneButton(label: 'Cancel'),
-    ArcaneButton.primary(label: 'Save'),
+    Button(label: 'Cancel'),
+    Button.primary(label: 'Save'),
   ],
 )
 ```

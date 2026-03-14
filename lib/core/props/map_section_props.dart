@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../component/view/map/map_data.dart';
 import '../../component/view/map/map_style.dart';
@@ -51,7 +52,7 @@ class MapSectionProps {
   final bool showMapTabs;
 
   /// Custom tooltip builder for location pins.
-  final Component Function(MapLocation)? tooltipBuilder;
+  final Widget Function(MapLocation)? tooltipBuilder;
 
   /// Callback when a location is selected.
   final void Function(MapLocation)? onLocationSelect;
@@ -80,5 +81,5 @@ class MapSectionProps {
 
 /// Mixin defining the renderer methods for map section components.
 mixin MapSectionRendererContract {
-  Component mapSection(MapSectionProps props);
+  Widget mapSection(MapSectionProps props);
 }

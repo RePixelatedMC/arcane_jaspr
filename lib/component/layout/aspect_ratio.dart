@@ -1,13 +1,14 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
 export '../../core/props/aspect_ratio_props.dart';
 
 /// A container that maintains a specific aspect ratio.
-class ArcaneAspectRatio extends StatelessComponent {
+class ArcaneAspectRatio extends StatelessWidget {
   final double ratio;
-  final Component child;
+  final Widget child;
   final String? classes;
   final Map<String, String>? styles;
 
@@ -62,7 +63,7 @@ class ArcaneAspectRatio extends StatelessComponent {
   }) : ratio = 1.618;
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.aspectRatio(AspectRatioProps(
       ratio: ratio,
       child: child,

@@ -1,10 +1,11 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 /// Dashboard navigation item data.
 class DashboardNavItem {
   final String label;
   final String href;
-  final Component? icon;
+  final Widget? icon;
   final String? badge;
 
   const DashboardNavItem({
@@ -28,12 +29,12 @@ class DashboardNavGroup {
 
 /// Dashboard layout component properties.
 class DashboardLayoutProps {
-  final Component child;
+  final Widget child;
   final String currentRoute;
   final List<DashboardNavGroup> navigation;
-  final Component? sidebarHeader;
-  final Component? sidebarFooter;
-  final Component? topBar;
+  final Widget? sidebarHeader;
+  final Widget? sidebarFooter;
+  final Widget? topBar;
   final String sidebarWidth;
   final String backgroundColor;
   final String sidebarBackgroundColor;
@@ -53,8 +54,8 @@ class DashboardLayoutProps {
 
 /// Dashboard top bar component properties.
 class DashboardTopBarProps {
-  final Component? leading;
-  final Component? trailing;
+  final Widget? leading;
+  final Widget? trailing;
   final String backgroundColor;
 
   const DashboardTopBarProps({
@@ -70,6 +71,6 @@ class DashboardTopBarProps {
 
 /// Mixin defining the renderer methods for dashboard layout components.
 mixin DashboardLayoutRendererContract {
-  Component dashboardLayout(DashboardLayoutProps props);
-  Component dashboardTopBar(DashboardTopBarProps props);
+  Widget dashboardLayout(DashboardLayoutProps props);
+  Widget dashboardTopBar(DashboardTopBarProps props);
 }

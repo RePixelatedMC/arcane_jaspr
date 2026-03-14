@@ -1,14 +1,15 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../util/arcane.dart';
 
 /// Expander component properties.
 class ExpanderProps {
-  final Component header;
-  final Component child;
+  final Widget header;
+  final Widget child;
   final bool initiallyExpanded;
   final void Function(bool expanded)? onExpansionChanged;
-  final Component? leading;
+  final Widget? leading;
   final bool showIcon;
   final EdgeInsets? contentPadding;
   final bool maintainState;
@@ -31,5 +32,5 @@ class ExpanderProps {
 
 /// Mixin defining the renderer methods for expander components.
 mixin ExpanderRendererContract {
-  Component expander(ExpanderProps props);
+  Widget expander(ExpanderProps props);
 }

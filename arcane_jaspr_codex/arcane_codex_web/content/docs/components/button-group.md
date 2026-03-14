@@ -1,11 +1,11 @@
 ---
-title: ArcaneButtonGroup
+title: ButtonGroup
 description: Live preview for button-group
 layout: kb
 component: button-group
 ---
 
-# ArcaneButtonGroup
+# ButtonGroup
 
 Live preview for component 'button-group' in the current Arcane catalog.
 

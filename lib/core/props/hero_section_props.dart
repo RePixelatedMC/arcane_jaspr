@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 /// Stat item for hero section stats row.
 class HeroStatItem {
@@ -18,17 +19,17 @@ class HeroSectionProps {
 
   /// Custom headline component (e.g., with gradient text).
   /// Takes precedence over `headline` if both are provided.
-  final Component? headlineComponent;
+  final Widget? headlineComponent;
 
   final String? subheadline;
-  final Component? primaryCta;
-  final Component? secondaryCta;
-  final Component? badge;
+  final Widget? primaryCta;
+  final Widget? secondaryCta;
+  final Widget? badge;
 
   /// Optional promo banner component displayed above the headline.
-  final Component? promoBanner;
+  final Widget? promoBanner;
 
-  final Component? media;
+  final Widget? media;
   final bool centered;
   final double verticalPadding;
   final double maxWidth;
@@ -63,8 +64,8 @@ class HeroSectionProps {
 
 /// CTA group component properties.
 class CtaGroupProps {
-  final Component primaryCta;
-  final Component? secondaryCta;
+  final Widget primaryCta;
+  final Widget? secondaryCta;
   final bool centered;
   final double gap;
 
@@ -82,6 +83,6 @@ class CtaGroupProps {
 
 /// Mixin defining the renderer methods for hero section components.
 mixin HeroSectionRendererContract {
-  Component heroSection(HeroSectionProps props);
-  Component ctaGroup(CtaGroupProps props);
+  Widget heroSection(HeroSectionProps props);
+  Widget ctaGroup(CtaGroupProps props);
 }

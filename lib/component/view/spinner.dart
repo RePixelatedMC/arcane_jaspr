@@ -1,8 +1,9 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import 'progress_bar.dart';
 
-class ArcaneSpinner extends StatelessComponent {
+class ArcaneSpinner extends StatelessWidget {
   final String? size;
   final String? color;
 
@@ -13,7 +14,7 @@ class ArcaneSpinner extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return ArcaneLoadingSpinner(
       size: size,
       color: color,

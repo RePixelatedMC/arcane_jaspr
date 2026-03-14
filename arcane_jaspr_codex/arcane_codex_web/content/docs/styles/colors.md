@@ -172,7 +172,7 @@ Text color presets.
 ### Usage
 
 ```dart
-ArcaneText(
+Text(
   'Error message',
   style: const ArcaneStyleData(
     textColor: TextColor.error,
@@ -185,7 +185,7 @@ ArcaneLink(
   style: const ArcaneStyleData(
     textColor: TextColor.accent,
   ),
-  child: ArcaneText('Learn more'),
+  child: Text('Learn more'),
 )
 ```
 

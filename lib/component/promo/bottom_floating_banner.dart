@@ -1,12 +1,13 @@
 import 'package:jaspr/dom.dart' as dom;
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
 /// Bottom floating banner that slides up with optional countdown timer.
 ///
 /// Great for limited-time offers and flash sales.
-class ArcaneBottomFloatingBanner extends StatefulComponent {
+class ArcaneBottomFloatingBanner extends StatefulWidget {
   final String title;
   final String message;
   final String? promoCode;
@@ -65,7 +66,7 @@ class _ArcaneBottomFloatingBannerState
   }
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     if (_isDismissed || !_isVisible) return const dom.div([]);
 
     return context.renderers.bottomFloatingBanner(BottomFloatingBannerProps(

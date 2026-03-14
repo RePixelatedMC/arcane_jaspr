@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
@@ -13,7 +14,7 @@ enum OtpInputSize {
 }
 
 /// One-time password input with separate digit fields.
-class ArcaneOtpInput extends StatefulComponent {
+class ArcaneOtpInput extends StatefulWidget {
   final int length;
   final void Function(String)? onComplete;
   final void Function(String)? onChange;
@@ -137,7 +138,7 @@ class _ArcaneOtpInputState extends State<ArcaneOtpInput> {
       };
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.otpInput(OtpInputProps(
       length: component.length,
       digits: _digits,

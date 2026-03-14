@@ -79,24 +79,24 @@ Arcane Jaspr targets the same outcome from a widget-first surface that reads clo
 ```dart
 import 'package:arcane_jaspr/arcane_jaspr.dart';
 
-ArcaneCard.outlined(
+Card.outlined(
   fillWidth: true,
-  child: ArcaneColumn(
+  child: Column(
     gap: 16,
     children: [
-      const ArcaneText.label('Pro workspace'),
-      const ArcaneText.heading2('Ship dashboards faster'),
-      const ArcaneText.body(
+      const Text.label('Pro workspace'),
+      const Text.heading2('Ship dashboards faster'),
+      const Text.body(
         'Invite teammates, share reports, and manage releases with one workspace.',
       ),
-      ArcaneButtonGroup(
+      ButtonGroup(
         children: [
-          ArcaneButton.primary(
+          Button.primary(
             label: 'Start trial',
             onPressed: () {},
             showArrow: true,
           ),
-          ArcaneButton.secondary(
+          Button.secondary(
             label: 'Preview plans',
             onPressed: () {},
           ),

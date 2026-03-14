@@ -1,5 +1,5 @@
 import 'package:arcane_jaspr/arcane_jaspr.dart';
-import 'package:arcane_jaspr/html.dart' hide ArcaneText;
+import 'package:arcane_jaspr/html.dart';
 import 'package:jaspr/dom.dart' as dom;
 
 import '../utils/constants.dart';
@@ -70,7 +70,7 @@ class DocsHeader extends StatelessWidget {
         borderRadius: Radius.md,
         transition: Transition.colors,
       ),
-      child: ArcaneText(label),
+      child: Text(label),
     );
   }
 
@@ -78,7 +78,7 @@ class DocsHeader extends StatelessWidget {
     return ArcaneDiv(
       styles: const ArcaneStyleData(widthCustom: '280px'),
       children: const [
-        ArcaneTextInput(
+        TextInput(
           id: 'docs-search',
           placeholder: 'Search documentation...',
           size: ComponentSize.sm,

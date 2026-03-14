@@ -1,6 +1,7 @@
 import 'dart:async';
 
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 /// Abstract base class for form field providers.
 abstract class ArcaneFieldProvider<T> {
@@ -127,11 +128,11 @@ class ArcaneFormContext {
 }
 
 /// Form provider component that manages form state.
-class ArcaneFormProvider extends StatefulComponent {
+class ArcaneFormProvider extends StatefulWidget {
   final Map<String, dynamic> initialValues;
   final void Function(Map<String, dynamic> values)? onSubmit;
   final Map<String, String?> Function(Map<String, dynamic> values)? validator;
-  final Component Function(ArcaneFormContext context) builder;
+  final Widget Function(ArcaneFormContext context) builder;
 
   const ArcaneFormProvider({
     this.initialValues = const {},
@@ -186,7 +187,7 @@ class _ArcaneFormProviderState extends State<ArcaneFormProvider> {
   }
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     final formContext = ArcaneFormContext(
       values: _values,
       errors: _errors,
@@ -201,7 +202,7 @@ class _ArcaneFormProviderState extends State<ArcaneFormProvider> {
 }
 
 /// Inherited component to provide form context to descendants.
-class ArcaneFormScope extends InheritedComponent {
+class ArcaneFormScope extends InheritedWidget {
   final ArcaneFormContext formContext;
 
   const ArcaneFormScope({

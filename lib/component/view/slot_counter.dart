@@ -1,11 +1,12 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
 export '../../core/props/slot_counter_props.dart';
 
 /// A slot-machine style animated counter that spins through random values.
-class ArcaneSlotCounter extends StatelessComponent {
+class ArcaneSlotCounter extends StatelessWidget {
   final int minValue;
   final int maxValue;
   final int? fixedValue;
@@ -117,7 +118,7 @@ class ArcaneSlotCounter extends StatelessComponent {
   }
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.slotCounter(SlotCounterProps(
       minValue: minValue,
       maxValue: maxValue,
@@ -145,7 +146,7 @@ class ArcaneSlotCounter extends StatelessComponent {
 }
 
 /// A row of slot counters for displaying multiple live values.
-class ArcaneSlotCounterRow extends StatelessComponent {
+class ArcaneSlotCounterRow extends StatelessWidget {
   final List<SlotCounterProps> counters;
   final String gap;
   final bool wrap;
@@ -160,7 +161,7 @@ class ArcaneSlotCounterRow extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.slotCounterRow(SlotCounterRowProps(
       counters: counters,
       gap: gap,
@@ -171,7 +172,7 @@ class ArcaneSlotCounterRow extends StatelessComponent {
 }
 
 /// A card containing a slot counter with optional styling.
-class ArcaneSlotCounterCard extends StatelessComponent {
+class ArcaneSlotCounterCard extends StatelessWidget {
   final SlotCounterProps counter;
   final String padding;
   final String borderRadius;
@@ -188,7 +189,7 @@ class ArcaneSlotCounterCard extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.slotCounterCard(SlotCounterCardProps(
       counter: counter,
       padding: padding,

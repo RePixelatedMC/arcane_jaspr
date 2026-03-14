@@ -1,11 +1,12 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
 export '../../core/props/check_list_props.dart';
 
 /// A single check item with icon and text.
-class ArcaneCheckItem extends StatelessComponent {
+class ArcaneCheckItem extends StatelessWidget {
   final String text;
   final CheckStyle icon;
   final String? iconColor;
@@ -42,7 +43,7 @@ class ArcaneCheckItem extends StatelessComponent {
   }) : iconColor = 'var(--success)';
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.checkItem(CheckItemProps(
       text: text,
       icon: icon,
@@ -55,7 +56,7 @@ class ArcaneCheckItem extends StatelessComponent {
 }
 
 /// A list of check items.
-class ArcaneCheckList extends StatelessComponent {
+class ArcaneCheckList extends StatelessWidget {
   final List<String> items;
   final CheckStyle icon;
   final String? iconColor;
@@ -100,7 +101,7 @@ class ArcaneCheckList extends StatelessComponent {
   }) : iconColor = 'var(--success)';
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.checkList(CheckListProps(
       items: items,
       icon: icon,
@@ -118,7 +119,7 @@ class ArcaneCheckList extends StatelessComponent {
 ///
 /// Displays a feature with check/x indicator for included/excluded states.
 /// Supports circular icon containers, strikethrough, and tooltips.
-class ArcaneFeatureRow extends StatelessComponent {
+class ArcaneFeatureRow extends StatelessWidget {
   final String feature;
   final bool included;
   final String? includedColor;
@@ -165,7 +166,7 @@ class ArcaneFeatureRow extends StatelessComponent {
         includedColor = null;
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.featureRow(FeatureRowProps(
       feature: feature,
       included: included,

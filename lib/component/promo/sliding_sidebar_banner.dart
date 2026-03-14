@@ -1,12 +1,13 @@
 import 'package:jaspr/dom.dart' as dom;
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
 /// A vertical sidebar banner that slides in from the edge of the screen.
 ///
 /// Great for detailed promotions with more content space.
-class ArcaneSlidingSidebarBanner extends StatefulComponent {
+class ArcaneSlidingSidebarBanner extends StatefulWidget {
   final String title;
   final String message;
   final String? subtitle;
@@ -69,7 +70,7 @@ class _ArcaneSlidingSidebarBannerState
   }
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     if (_isDismissed || !_isVisible) return const dom.div([]);
 
     return context.renderers.slidingSidebarBanner(SlidingSidebarBannerProps(

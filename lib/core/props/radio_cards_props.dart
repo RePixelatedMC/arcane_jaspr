@@ -1,12 +1,13 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 /// Radio card item data.
 class RadioCardItemData<T> {
   final T value;
   final String? title;
   final String? subtitle;
-  final Component? icon;
-  final Component? child;
+  final Widget? icon;
+  final Widget? child;
   final bool disabled;
 
   const RadioCardItemData({
@@ -40,7 +41,7 @@ class RadioCardsProps<T> {
 
 /// Selectable chip group component properties.
 class SelectableChipGroupProps {
-  final List<Component> children;
+  final List<Widget> children;
   final double gap;
   final bool wrap;
 
@@ -54,8 +55,8 @@ class SelectableChipGroupProps {
 /// Selectable chip component properties.
 class ArcaneChipProps {
   final String label;
-  final Component? avatar;
-  final Component? deleteIcon;
+  final Widget? avatar;
+  final Widget? deleteIcon;
   final void Function()? onDeleted;
   final void Function()? onTap;
   final bool selected;
@@ -78,7 +79,7 @@ class ArcaneChipProps {
 
 /// Mixin defining the renderer methods for radio cards components.
 mixin RadioCardsRendererContract {
-  Component radioCards<T>(RadioCardsProps<T> props);
-  Component selectableChipGroup(SelectableChipGroupProps props);
-  Component arcaneChip(ArcaneChipProps props);
+  Widget radioCards<T>(RadioCardsProps<T> props);
+  Widget selectableChipGroup(SelectableChipGroupProps props);
+  Widget arcaneChip(ArcaneChipProps props);
 }

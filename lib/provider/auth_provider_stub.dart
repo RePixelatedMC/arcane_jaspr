@@ -1,11 +1,12 @@
 import 'dart:async';
 
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../service/auth_service_stub.dart';
 import '../service/auth_state.dart';
 
-class _AuthInheritedProvider extends InheritedComponent {
+class _AuthInheritedProvider extends InheritedWidget {
   final AuthState state;
 
   const _AuthInheritedProvider({
@@ -26,8 +27,8 @@ class _AuthInheritedProvider extends InheritedComponent {
 }
 
 /// Stub auth provider for non-web platforms.
-class ArcaneAuthProvider extends StatefulComponent {
-  final Component child;
+class ArcaneAuthProvider extends StatefulWidget {
+  final Widget child;
   final void Function(AuthState)? onAuthStateChanged;
   final String? redirectOnLogin;
   final String? redirectOnLogout;
@@ -50,7 +51,7 @@ class _ArcaneAuthProviderState extends State<ArcaneAuthProvider> {
   final AuthState _state = const AuthState.unauthenticated();
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return _AuthInheritedProvider(
       state: _state,
       child: component.child,

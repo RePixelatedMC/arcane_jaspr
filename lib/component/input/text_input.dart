@@ -8,7 +8,7 @@ export '../../core/props/text_input_props.dart'
 import '../../core/theme_provider.dart';
 
 /// A styled text input component.
-class ArcaneTextInput extends StatelessWidget {
+class TextInput extends StatelessWidget {
   final String? placeholder;
   final TextInputType type;
   final ComponentSize size;
@@ -29,7 +29,7 @@ class ArcaneTextInput extends StatelessWidget {
   final void Function(String)? onSubmit;
   final bool fullWidth;
 
-  const ArcaneTextInput({
+  const TextInput({
     this.placeholder,
     this.type = TextInputType.text,
     this.size = ComponentSize.md,
@@ -88,7 +88,7 @@ enum TextAreaResize {
 }
 
 /// A textarea component.
-class ArcaneTextArea extends StatelessWidget {
+class TextArea extends StatelessWidget {
   final String? placeholder;
   final int rows;
   final int? cols;
@@ -108,7 +108,7 @@ class ArcaneTextArea extends StatelessWidget {
   final void Function(String)? _onChange;
   final bool fullWidth;
 
-  const ArcaneTextArea({
+  const TextArea({
     this.placeholder,
     this.rows = 4,
     this.cols,
@@ -414,6 +414,4 @@ class ArcaneSelectOption {
   });
 }
 
-typedef TextInput = ArcaneTextInput;
-typedef TextArea = ArcaneTextArea;
 typedef SelectInput = ArcaneSelect;

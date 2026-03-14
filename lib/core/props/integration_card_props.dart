@@ -1,11 +1,12 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 /// Integration card component properties.
 class IntegrationCardProps {
   final String name;
   final String? description;
   final String? logoUrl;
-  final Component? logo;
+  final Widget? logo;
   final String? href;
   final void Function()? onTap;
   final String? category;
@@ -46,6 +47,6 @@ class IntegrationGridProps {
 
 /// Mixin defining the renderer methods for integration card components.
 mixin IntegrationCardRendererContract {
-  Component integrationCard(IntegrationCardProps props);
-  Component integrationGrid(IntegrationGridProps props);
+  Widget integrationCard(IntegrationCardProps props);
+  Widget integrationGrid(IntegrationGridProps props);
 }

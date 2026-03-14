@@ -1,10 +1,11 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 import '../../util/style_types/arcane_style_data.dart';
 
-class ArcaneItem extends StatelessComponent {
-  final Component child;
+class ArcaneItem extends StatelessWidget {
+  final Widget child;
   final String? href;
   final bool external;
   final ArcaneStyleData? styles;
@@ -20,7 +21,7 @@ class ArcaneItem extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.item(
       ItemProps(
         child: child,

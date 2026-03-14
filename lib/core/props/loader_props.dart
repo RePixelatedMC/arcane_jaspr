@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 enum LoaderVariant {
   spinner,
@@ -46,7 +47,7 @@ class LoaderProps {
 
 /// Loading overlay component properties.
 class LoadingOverlayProps {
-  final Component? loader;
+  final Widget? loader;
   final String? message;
 
   const LoadingOverlayProps({
@@ -61,6 +62,6 @@ class LoadingOverlayProps {
 
 /// Mixin defining the renderer methods for loader components.
 mixin LoaderRendererContract {
-  Component loader(LoaderProps props);
-  Component loadingOverlay(LoadingOverlayProps props);
+  Widget loader(LoaderProps props);
+  Widget loadingOverlay(LoadingOverlayProps props);
 }

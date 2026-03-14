@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../shared/shared.dart';
 
@@ -15,7 +16,7 @@ class SelectOptionProps<T> {
   final String label;
   final String? subtitle;
   final String? description;
-  final Component? icon;
+  final Widget? icon;
   final bool disabled;
   final List<String>? searchKeywords;
 
@@ -53,7 +54,7 @@ class SelectProps<T> {
   final SelectDropdownDirection dropdownDirection;
   final bool closeOnSelect;
   final bool showSelectedCount;
-  final Component? prefix;
+  final Widget? prefix;
   final int? maxSelections;
   final bool showCheckboxes;
   final bool isOpen;
@@ -105,5 +106,5 @@ class SelectProps<T> {
 
 /// Mixin defining the renderer methods for select components.
 mixin SelectRendererContract {
-  Component select<T>(SelectProps<T> props);
+  Widget select<T>(SelectProps<T> props);
 }

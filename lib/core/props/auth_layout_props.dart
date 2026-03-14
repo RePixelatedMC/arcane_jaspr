@@ -1,10 +1,11 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 /// Auth layout component properties.
 class AuthLayoutProps {
-  final Component child;
-  final Component? header;
-  final Component? footer;
+  final Widget child;
+  final Widget? header;
+  final Widget? footer;
   final bool showGrid;
   final bool showGlows;
   final String primaryGlowColor;
@@ -44,6 +45,6 @@ class AuthBackLinkProps {
 
 /// Mixin defining the renderer methods for auth layout components.
 mixin AuthLayoutRendererContract {
-  Component authLayout(AuthLayoutProps props);
-  Component authBackLink(AuthBackLinkProps props);
+  Widget authLayout(AuthLayoutProps props);
+  Widget authBackLink(AuthBackLinkProps props);
 }

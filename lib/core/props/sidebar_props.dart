@@ -1,9 +1,10 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 /// Sidebar item component properties.
 class SidebarItemProps {
   final String label;
-  final Component? icon;
+  final Widget? icon;
   final void Function()? onTap;
   final String? href;
   final bool selected;
@@ -28,7 +29,7 @@ class SidebarItemProps {
 /// Sidebar group component properties.
 class SidebarGroupProps {
   final String? label;
-  final List<Component> children;
+  final List<Widget> children;
   final bool collapsed;
 
   const SidebarGroupProps({
@@ -43,8 +44,8 @@ class SidebarGroupProps {
 /// Uses native `<details>/<summary>` for static-site-friendly collapsibles.
 class SidebarSubMenuProps {
   final String label;
-  final Component? icon;
-  final List<Component> children;
+  final Widget? icon;
+  final List<Widget> children;
 
   /// Whether the section is open by default (sets `open` attribute on `<details>`).
   final bool defaultOpen;
@@ -66,8 +67,8 @@ class SidebarSubMenuProps {
 /// For sections that are always expanded with a header.
 class SidebarSectionProps {
   final String label;
-  final Component? icon;
-  final List<Component> children;
+  final Widget? icon;
+  final List<Widget> children;
 
   const SidebarSectionProps({
     required this.label,
@@ -78,9 +79,9 @@ class SidebarSectionProps {
 
 /// Sidebar component properties.
 class SidebarProps {
-  final List<Component> children;
-  final Component? header;
-  final Component? footer;
+  final List<Widget> children;
+  final Widget? header;
+  final Widget? footer;
   final bool isCollapsed;
   final void Function(bool collapsed)? onCollapseChanged;
   final double width;
@@ -110,26 +111,26 @@ class SidebarProps {
 /// Mixin defining the renderer methods for sidebar components.
 mixin SidebarRendererContract {
   /// Renders the main sidebar container.
-  Component sidebar(SidebarProps props);
+  Widget sidebar(SidebarProps props);
 
   /// Renders a sidebar navigation item.
-  Component sidebarItem(SidebarItemProps props);
+  Widget sidebarItem(SidebarItemProps props);
 
   /// Renders a sidebar group with optional label.
-  Component sidebarGroup(SidebarGroupProps props);
+  Widget sidebarGroup(SidebarGroupProps props);
 
   /// Renders a collapsible sidebar submenu.
-  Component sidebarSubMenu(SidebarSubMenuProps props);
+  Widget sidebarSubMenu(SidebarSubMenuProps props);
 
   /// Renders a fixed (non-collapsible) sidebar section.
-  Component sidebarSection(SidebarSectionProps props);
+  Widget sidebarSection(SidebarSectionProps props);
 
   /// Renders content shown when sidebar is expanded.
-  Component sidebarExpanded(List<Component> children);
+  Widget sidebarExpanded(List<Widget> children);
 
   /// Renders content shown when sidebar is collapsed.
-  Component sidebarCollapsed(List<Component> children);
+  Widget sidebarCollapsed(List<Widget> children);
 
   /// Renders a sidebar separator.
-  Component sidebarSeparator();
+  Widget sidebarSeparator();
 }

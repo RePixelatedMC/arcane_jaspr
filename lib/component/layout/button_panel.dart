@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 import '../../util/arcane.dart';
@@ -6,14 +7,14 @@ import '../../util/arcane.dart';
 export '../../core/props/button_panel_props.dart';
 
 /// A panel component for action buttons, typically used in dialogs or footers.
-class ArcaneButtonPanel extends StatelessComponent {
-  final List<Component> children;
+class ButtonPanel extends StatelessWidget {
+  final List<Widget> children;
   final MainAxisAlignment mainAxisAlignment;
   final double gap;
   final bool responsive;
   final EdgeInsets? padding;
 
-  const ArcaneButtonPanel({
+  const ButtonPanel({
     required this.children,
     this.mainAxisAlignment = MainAxisAlignment.end,
     this.gap = 8,
@@ -23,7 +24,7 @@ class ArcaneButtonPanel extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.buttonPanel(ButtonPanelProps(
       children: children,
       mainAxisAlignment: mainAxisAlignment,
@@ -35,8 +36,8 @@ class ArcaneButtonPanel extends StatelessComponent {
 }
 
 /// A toolbar component for a horizontal bar of actions.
-class ArcaneToolbar extends StatelessComponent {
-  final List<Component> children;
+class ArcaneToolbar extends StatelessWidget {
+  final List<Widget> children;
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
   final double gap;
@@ -52,7 +53,7 @@ class ArcaneToolbar extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.toolbar(ToolbarProps(
       children: children,
       mainAxisAlignment: mainAxisAlignment,
@@ -64,12 +65,12 @@ class ArcaneToolbar extends StatelessComponent {
 }
 
 /// A group of related buttons or controls.
-class ArcaneButtonGroup extends StatelessComponent {
-  final List<Component> children;
+class ButtonGroup extends StatelessWidget {
+  final List<Widget> children;
   final bool vertical;
   final double spacing;
 
-  const ArcaneButtonGroup({
+  const ButtonGroup({
     required this.children,
     this.vertical = false,
     this.spacing = 8,
@@ -77,7 +78,7 @@ class ArcaneButtonGroup extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.buttonGroup(ButtonGroupProps(
       children: children,
       vertical: vertical,

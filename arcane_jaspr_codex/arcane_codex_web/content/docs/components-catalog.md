@@ -10,11 +10,11 @@ This page is generated from the current `package:arcane_jaspr/arcane_jaspr.dart`
 
 ## Snapshot
 
-- Generated on `March 13, 2026`
+- Generated on `March 14, 2026`
 - Primary live component demos: `56`
-- Primary support component modules: `9`
-- Main-surface foundation exports: `20`
-- Total main-surface export modules: `83`
+- Primary support component modules: `53`
+- Main-surface foundation exports: `21`
+- Total main-surface export modules: `128`
 - Advanced HTML modules: `22`
 
 Use `package:arcane_jaspr/arcane_jaspr.dart` for the Flutter-first surface. Use `package:arcane_jaspr/html.dart` and `package:arcane_jaspr/web.dart` only when you intentionally need lower-level HTML or raw Jaspr escape hatches.
@@ -30,18 +30,18 @@ Use `package:arcane_jaspr/arcane_jaspr.dart` for the Flutter-first surface. Use 
 | `avatar` | `ArcaneAvatar` | `lib/component/view/avatar.dart` |
 | `badge` | `ArcaneStatusBadge` | `lib/component/feedback/status_badge.dart` |
 | `breadcrumb` | `ArcaneBreadcrumbs` | `lib/component/navigation/breadcrumbs.dart` |
-| `button` | `ArcaneButton` | `lib/component/input/button.dart` |
-| `button-group` | `ArcaneButtonGroup` | `lib/component/layout/button_panel.dart` |
+| `button` | `Button` | `lib/component/input/button.dart` |
+| `button-group` | `ButtonGroup` | `lib/component/layout/button_panel.dart` |
 | `calendar` | `ArcaneCalendar` | `lib/component/input/calendar.dart` |
-| `card` | `ArcaneCard` | `lib/component/card/card.dart` |
-| `carousel` | `ArcaneCardCarousel` | `lib/component/collection/card_carousel.dart` |
+| `card` | `Card` | `lib/component/card/card.dart` |
+| `carousel` | `CardCarousel` | `lib/component/collection/card_carousel.dart` |
 | `chart` | `ArcaneChart` | `lib/component/data/chart.dart` |
 | `checkbox` | `ArcaneCheckbox` | `lib/component/input/checkbox.dart` |
 | `collapsible` | `ArcaneDisclosure` | `lib/component/interactive/disclosure.dart` |
 | `combobox` | `ArcaneCombobox` | `lib/component/input/combobox.dart` |
 | `command` | `ArcaneCommand` | `lib/component/dialog/command.dart` |
 | `context-menu` | `ArcaneContextMenu` | `lib/component/menu/context_menu.dart` |
-| `data-table` | `ArcaneDataTable` | `lib/component/data/data_table.dart` |
+| `data-table` | `DataTable` | `lib/component/view/data_table.dart` |
 | `date-picker` | `ArcaneDatePicker` | `lib/component/input/date_picker.dart` |
 | `dialog` | `ArcaneDialog` | `lib/component/dialog/dialog.dart` |
 | `direction` | `ArcaneDirection` | `lib/component/layout/direction.dart` |
@@ -50,7 +50,7 @@ Use `package:arcane_jaspr/arcane_jaspr.dart` for the Flutter-first surface. Use 
 | `empty` | `ArcaneEmptyState` | `lib/component/view/empty_state.dart` |
 | `field` | `ArcaneField` | `lib/component/form/field.dart` |
 | `hover-card` | `ArcaneHoverCard` | `lib/component/view/floating.dart` |
-| `input` | `ArcaneTextInput` | `lib/component/input/text_input.dart` |
+| `input` | `TextInput` | `lib/component/input/text_input.dart` |
 | `input-group` | `ArcaneInputGroup` | `lib/component/form/field_wrapper.dart` |
 | `input-otp` | `ArcaneOtpInput` | `lib/component/input/otp_input.dart` |
 | `item` | `ArcaneItem` | `lib/component/view/item.dart` |
@@ -72,29 +72,73 @@ Use `package:arcane_jaspr/arcane_jaspr.dart` for the Flutter-first surface. Use 
 | `sonner` | `ArcaneSonner` | `lib/component/dialog/sonner.dart` |
 | `spinner` | `ArcaneSpinner` | `lib/component/view/spinner.dart` |
 | `switch` | `ArcaneToggleSwitch` | `lib/component/input/toggle_switch.dart` |
-| `table` | `ArcaneStaticTable` | `lib/component/data/static_table.dart` |
+| `table` | `StaticTable` | `lib/component/view/static_table.dart` |
 | `tabs` | `ArcaneTabs` | `lib/component/layout/tabs.dart` |
-| `textarea` | `ArcaneTextArea` | `lib/component/input/text_input.dart` |
+| `textarea` | `TextArea` | `lib/component/input/text_input.dart` |
 | `toggle` | `ArcaneToggleButton` | `lib/component/input/cycle_button.dart` |
 | `toggle-group` | `ArcaneToggleGroup` | `lib/component/input/toggle_group.dart` |
 | `tooltip` | `ArcaneTooltip` | `lib/component/dialog/tooltip.dart` |
-| `typography` | `ArcaneTypography` | `lib/component/typography/headline.dart` |
+| `typography` | `Text` | `lib/component/typography/text.dart` |
 
-## Primary Support Modules (9)
+## Primary Support Modules (53)
 
 | Symbol | Source |
 |---|---|
+| `Collection` | `lib/component/collection/collection.dart` |
 | `ArcaneInfiniteCarousel` | `lib/component/collection/infinite_carousel.dart` |
-| `ArcaneFlow` | `lib/component/layout/flow.dart` |
-| `ArcaneGutter` | `lib/component/layout/gutter.dart` |
+| `section` | `lib/component/collection/section.dart` |
+| `ConfirmText` | `lib/component/dialog/confirm_text.dart` |
+| `DialogDate` | `lib/component/dialog/date.dart` |
+| `DialogDateMulti` | `lib/component/dialog/date_multi.dart` |
+| `DialogDateRange` | `lib/component/dialog/date_range.dart` |
+| `DialogEmail` | `lib/component/dialog/email.dart` |
+| `DialogText` | `lib/component/dialog/text.dart` |
+| `DialogTime` | `lib/component/dialog/time.dart` |
+| `ArcaneToast` | `lib/component/dialog/toast.dart` |
+| `ArcaneBoolField` | `lib/component/form/node/bool.dart` |
+| `ArcaneColorField` | `lib/component/form/node/color.dart` |
+| `ArcaneDateField` | `lib/component/form/node/date.dart` |
+| `ArcaneEnumField` | `lib/component/form/node/enum.dart` |
+| `ArcaneStringField` | `lib/component/form/node/string.dart` |
+| `ArcaneTimeField` | `lib/component/form/node/time.dart` |
+| `ArcaneFieldProvider` | `lib/component/form/provider.dart` |
+| `FabSocket` | `lib/component/input/fab.dart` |
+| `IconButton` | `lib/component/input/icon_button.dart` |
+| `MutableText` | `lib/component/input/mutable_text.dart` |
+| `PopupMenu` | `lib/component/input/popup_menu.dart` |
+| `SearchResult` | `lib/component/input/search.dart` |
+| `Selector` | `lib/component/input/selector.dart` |
+| `Carpet` | `lib/component/layout/carpet.dart` |
+| `FancyIcon` | `lib/component/layout/fancy_icon.dart` |
+| `FancyProgressBar` | `lib/component/layout/fancy_progress.dart` |
+| `Wrap` | `lib/component/layout/flow.dart` |
+| `FormHeader` | `lib/component/layout/form_header.dart` |
+| `Gutter` | `lib/component/layout/gutter.dart` |
+| `RadioCards` | `lib/component/layout/radio_cards.dart` |
 | `ArcaneScrollRail` | `lib/component/layout/scroll_rail.dart` |
+| `Section` | `lib/component/layout/section.dart` |
 | `TocEntry` | `lib/component/navigation/toc.dart` |
 | `promo` | `lib/component/promo/promo.dart` |
+| `Screen` | `lib/component/screen/abstract_screen.dart` |
+| `FillScreen` | `lib/component/screen/fill_screen.dart` |
+| `SliverScreen` | `lib/component/screen/sliver_screen.dart` |
 | `ArcaneApp` | `lib/component/support/app.dart` |
-| `ArcaneText` | `lib/component/typography/text.dart` |
+| `DeleteIconButton` | `lib/component/support/delete_icon_button.dart` |
+| `DeleteMenuButton` | `lib/component/support/delete_menu_button.dart` |
+| `OnHover` | `lib/component/support/gesture.dart` |
+| `Icon` | `lib/component/support/icons.dart` |
+| `Bar` | `lib/component/view/bar.dart` |
+| `CardSection` | `lib/component/view/card_section.dart` |
+| `CenterBody` | `lib/component/view/center_body.dart` |
+| `Expander` | `lib/component/view/expander.dart` |
+| `Glass` | `lib/component/view/glass.dart` |
 | `ArcaneIcon` | `lib/component/view/icon.dart` |
+| `Image` | `lib/component/view/image.dart` |
+| `Logo` | `lib/component/view/logo.dart` |
+| `Markdown` | `lib/component/view/markdown.dart` |
+| `Tile` | `lib/component/view/tile.dart` |
 
-## Main-Surface Foundation Exports (20)
+## Main-Surface Foundation Exports (21)
 
 | Symbol | Source |
 |---|---|
@@ -102,6 +146,7 @@ Use `package:arcane_jaspr/arcane_jaspr.dart` for the Flutter-first surface. Use 
 | `ComponentRenderers` | `lib/core/renderers.dart` |
 | `ArcaneThemeProvider` | `lib/core/theme_provider.dart` |
 | `StatelessWidget` | `lib/flutter.dart` |
+| `card` | `lib/mods/card.dart` |
 | `auth_guard_export` | `lib/provider/auth_guard_export.dart` |
 | `auth_provider_export` | `lib/provider/auth_provider_export.dart` |
 | `auth_service_export` | `lib/service/auth_service_export.dart` |

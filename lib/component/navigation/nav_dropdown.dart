@@ -1,9 +1,10 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, Text, UniqueKey, ValueKey, runApp;
 
 import '../html/div.dart';
-import '../html/arcane_text.dart';
 import '../html/arcane_span.dart';
 import '../html/arcane_link.dart';
+import '../typography/text.dart';
 import '../view/icon.dart';
 import '../../util/style_types/index.dart';
 import '../../util/arcane.dart';
@@ -21,7 +22,7 @@ import '../../util/arcane.dart';
 ///   content: Column([...]),
 /// )
 /// ```
-class ArcaneNavDropdown extends StatefulComponent {
+class ArcaneNavDropdown extends StatefulWidget {
   /// The trigger label text.
   final String label;
 
@@ -29,7 +30,7 @@ class ArcaneNavDropdown extends StatefulComponent {
   final String width;
 
   /// Content to display in the dropdown panel.
-  final Component content;
+  final Widget content;
 
   /// Whether to align the dropdown to the right side.
   final bool alignRight;
@@ -50,7 +51,7 @@ class _ArcaneNavDropdownState extends State<ArcaneNavDropdown> {
   bool _isOpen = false;
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return ArcaneDiv(
       styles: const ArcaneStyleData(
         position: Position.relative,
@@ -82,7 +83,7 @@ class _ArcaneNavDropdownState extends State<ArcaneNavDropdown> {
                 : 'transparent',
           ),
           children: [
-            ArcaneText(component.label),
+            Text(component.label),
             ArcaneDiv(
               styles: ArcaneStyleData(
                 transition: Transition.allFast,
@@ -132,13 +133,13 @@ class _ArcaneNavDropdownState extends State<ArcaneNavDropdown> {
 }
 
 /// Section header for dropdown menus - compact uppercase label.
-class ArcaneDropdownSectionHeader extends StatelessComponent {
+class ArcaneDropdownSectionHeader extends StatelessWidget {
   final String title;
 
   const ArcaneDropdownSectionHeader({required this.title, super.key});
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return ArcaneDiv(
       styles: const ArcaneStyleData(
         padding: PaddingPreset.xs,
@@ -153,7 +154,7 @@ class ArcaneDropdownSectionHeader extends StatelessComponent {
             textTransform: TextTransform.uppercase,
             letterSpacing: LetterSpacing.wide,
           ),
-          child: ArcaneText(title),
+          child: Text(title),
         ),
       ],
     );
@@ -161,11 +162,11 @@ class ArcaneDropdownSectionHeader extends StatelessComponent {
 }
 
 /// Divider for dropdown menus - subtle horizontal line.
-class ArcaneDropdownDivider extends StatelessComponent {
+class ArcaneDropdownDivider extends StatelessWidget {
   const ArcaneDropdownDivider({super.key});
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return const ArcaneDiv(
       styles: ArcaneStyleData(
         heightCustom: '1px',
@@ -194,11 +195,11 @@ enum ArcaneDropdownItemStyle {
 ///
 /// Supports icon badge style with colored containers, simple style with
 /// inline icons, and compact style for dense lists.
-class ArcaneDropdownItem extends StatefulComponent {
+class ArcaneDropdownItem extends StatefulWidget {
   final String label;
   final String? description;
   final String href;
-  final Component icon;
+  final Widget icon;
   final String? accentColor;
   final bool isExternal;
   final ArcaneDropdownItemStyle style;
@@ -222,7 +223,7 @@ class _ArcaneDropdownItemState extends State<ArcaneDropdownItem> {
   bool _isHovered = false;
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return switch (component.style) {
       ArcaneDropdownItemStyle.iconBadge => _buildIconBadgeStyle(),
       ArcaneDropdownItemStyle.simple => _buildSimpleStyle(),
@@ -231,7 +232,7 @@ class _ArcaneDropdownItemState extends State<ArcaneDropdownItem> {
   }
 
   /// Icon badge style - compact icon in subtle colored container
-  Component _buildIconBadgeStyle() {
+  Widget _buildIconBadgeStyle() {
     final String accent = component.accentColor ?? 'var(--primary)';
 
     return ArcaneLink.children(
@@ -289,7 +290,7 @@ class _ArcaneDropdownItemState extends State<ArcaneDropdownItem> {
                 fontWeight: FontWeight.w500,
                 textColor: TextColor.primary,
               ),
-              child: ArcaneText(component.label),
+              child: Text(component.label),
             ),
             if (component.description != null)
               ArcaneSpan(
@@ -297,7 +298,7 @@ class _ArcaneDropdownItemState extends State<ArcaneDropdownItem> {
                   fontSize: FontSize.xs,
                   textColor: TextColor.muted,
                 ),
-                child: ArcaneText(component.description!),
+                child: Text(component.description!),
               ),
           ],
         ),
@@ -325,7 +326,7 @@ class _ArcaneDropdownItemState extends State<ArcaneDropdownItem> {
   }
 
   /// Simple style - compact minimal design with icon
-  Component _buildSimpleStyle() {
+  Widget _buildSimpleStyle() {
     return ArcaneLink.children(
       href: component.href,
       styles: ArcaneStyleData(
@@ -362,7 +363,7 @@ class _ArcaneDropdownItemState extends State<ArcaneDropdownItem> {
           styles: const ArcaneStyleData(
             flexGrow: 1,
           ),
-          child: ArcaneText(component.label),
+          child: Text(component.label),
         ),
         // External indicator
         if (component.isExternal)
@@ -379,7 +380,7 @@ class _ArcaneDropdownItemState extends State<ArcaneDropdownItem> {
   }
 
   /// Compact style - minimal padding and spacing
-  Component _buildCompactStyle() {
+  Widget _buildCompactStyle() {
     return ArcaneLink.children(
       href: component.href,
       styles: ArcaneStyleData(
@@ -410,7 +411,7 @@ class _ArcaneDropdownItemState extends State<ArcaneDropdownItem> {
           ),
           children: [component.icon],
         ),
-        ArcaneText(component.label),
+        Text(component.label),
       ],
     );
   }

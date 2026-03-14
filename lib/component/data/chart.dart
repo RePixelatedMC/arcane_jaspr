@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
@@ -9,7 +10,7 @@ class ArcaneChartPoint {
   const ArcaneChartPoint({required this.label, required this.value});
 }
 
-class ArcaneChart extends StatelessComponent {
+class ArcaneChart extends StatelessWidget {
   final List<ArcaneChartPoint> points;
   final String? title;
   final String? description;
@@ -24,7 +25,7 @@ class ArcaneChart extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     final List<ChartPointProps> mappedPoints = points
         .map(
           (ArcaneChartPoint point) =>

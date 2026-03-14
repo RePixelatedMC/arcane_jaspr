@@ -1,20 +1,21 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
 export '../../core/props/field_wrapper_props.dart';
 
 /// Wrapper for form fields providing consistent styling and layout.
-class ArcaneFieldWrapper extends StatelessComponent {
-  final Component field;
+class ArcaneFieldWrapper extends StatelessWidget {
+  final Widget field;
   final String? labelText;
   final String? description;
   final String? icon;
   final String? error;
   final bool required;
   final bool showValidation;
-  final Component? leading;
-  final Component? trailing;
+  final Widget? leading;
+  final Widget? trailing;
 
   const ArcaneFieldWrapper({
     required this.field,
@@ -30,7 +31,7 @@ class ArcaneFieldWrapper extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.fieldWrapper(FieldWrapperProps(
       field: field,
       labelText: labelText,
@@ -46,10 +47,10 @@ class ArcaneFieldWrapper extends StatelessComponent {
 }
 
 /// Form section that groups multiple fields together.
-class ArcaneFormSection extends StatelessComponent {
+class ArcaneFormSection extends StatelessWidget {
   final String? title;
   final String? description;
-  final List<Component> children;
+  final List<Widget> children;
   final double spacing;
 
   const ArcaneFormSection({
@@ -61,7 +62,7 @@ class ArcaneFormSection extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.formSection(FormSectionProps(
       title: title,
       description: description,
@@ -72,8 +73,8 @@ class ArcaneFormSection extends StatelessComponent {
 }
 
 /// Complete form component with built-in state management.
-class ArcaneForm extends StatelessComponent {
-  final List<Component> children;
+class ArcaneForm extends StatelessWidget {
+  final List<Widget> children;
   final String? submitText;
   final String? cancelText;
   final void Function()? onSubmit;
@@ -93,7 +94,7 @@ class ArcaneForm extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.form(FormProps(
       children: children,
       submitText: submitText,
@@ -107,8 +108,8 @@ class ArcaneForm extends StatelessComponent {
 }
 
 /// Input group that combines multiple inputs in a row.
-class ArcaneInputGroup extends StatelessComponent {
-  final List<Component> children;
+class ArcaneInputGroup extends StatelessWidget {
+  final List<Widget> children;
   final double gap;
 
   const ArcaneInputGroup({
@@ -118,7 +119,7 @@ class ArcaneInputGroup extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.inputGroup(InputGroupProps(
       children: children,
       gap: gap,

@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 import '../shared/shared.dart';
 
 export '../shared/shared.dart' show ColorVariant;
@@ -16,13 +17,13 @@ class AlertProps {
   final ColorVariant color;
   final String? title;
   final String? message;
-  final Component? child;
+  final Widget? child;
   final AlertStyle style;
-  final Component? icon;
+  final Widget? icon;
   final bool showIcon;
   final bool dismissible;
   final void Function()? onDismiss;
-  final Component? action;
+  final Widget? action;
 
   const AlertProps({
     required this.color,
@@ -41,13 +42,13 @@ class AlertProps {
     ColorVariant? color,
     String? title,
     String? message,
-    Component? child,
+    Widget? child,
     AlertStyle? style,
-    Component? icon,
+    Widget? icon,
     bool? showIcon,
     bool? dismissible,
     void Function()? onDismiss,
-    Component? action,
+    Widget? action,
   }) {
     return AlertProps(
       color: color ?? this.color,
@@ -71,5 +72,5 @@ class AlertProps {
 /// Mixin defining the renderer methods for alert components.
 mixin AlertRendererContract {
   /// Renders an alert notification component.
-  Component alert(AlertProps props);
+  Widget alert(AlertProps props);
 }

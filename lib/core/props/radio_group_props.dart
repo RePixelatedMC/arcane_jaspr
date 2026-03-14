@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 enum RadioGroupLayout {
   vertical,
@@ -19,7 +20,7 @@ class RadioOptionProps<T> {
   final String label;
   final String? description;
   final bool disabled;
-  final Component? icon;
+  final Widget? icon;
 
   const RadioOptionProps({
     required this.value,
@@ -102,5 +103,5 @@ class RadioGroupProps<T> {
 /// Mixin defining the renderer method for radio group components.
 mixin RadioGroupRendererContract {
   /// Render a radio group component.
-  Component radioGroup<T>(RadioGroupProps<T> props);
+  Widget radioGroup<T>(RadioGroupProps<T> props);
 }

@@ -1,13 +1,14 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
 /// Modal dialog component with title, content, and actions.
-class ArcaneDialog extends StatelessComponent {
+class ArcaneDialog extends StatelessWidget {
   final String? title;
-  final Component? _child;
-  final List<Component>? _children;
-  final List<Component>? actions;
+  final Widget? _child;
+  final List<Widget>? _children;
+  final List<Widget>? actions;
   final bool showCloseButton;
   final void Function()? onClose;
   final double maxWidth;
@@ -15,8 +16,8 @@ class ArcaneDialog extends StatelessComponent {
 
   const ArcaneDialog({
     this.title,
-    Component? child,
-    List<Component>? children,
+    Widget? child,
+    List<Widget>? children,
     this.actions,
     this.showCloseButton = true,
     this.onClose,
@@ -29,7 +30,7 @@ class ArcaneDialog extends StatelessComponent {
             'Either child or children must be provided');
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     final content = _children ?? [_child!];
 
     return context.renderers.dialog(DialogProps(

@@ -1,10 +1,11 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 /// Tab item data.
 class TabItemProps {
   final String label;
-  final Component content;
-  final Component? icon;
+  final Widget content;
+  final Widget? icon;
   final String? badge;
   final bool disabled;
 
@@ -20,7 +21,7 @@ class TabItemProps {
 /// Tab bar item data.
 class TabBarItemProps {
   final String label;
-  final Component? icon;
+  final Widget? icon;
 
   const TabBarItemProps({
     required this.label,
@@ -93,8 +94,8 @@ class TabBarProps {
 /// Mixin defining the renderer methods for tab components.
 mixin TabsRendererContract {
   /// Renders a tabbed interface with content panels.
-  Component tabs(TabsProps props);
+  Widget tabs(TabsProps props);
 
   /// Renders a standalone tab bar without content panels.
-  Component tabBar(TabBarProps props);
+  Widget tabBar(TabBarProps props);
 }

@@ -1,5 +1,5 @@
 import 'package:arcane_jaspr/arcane_jaspr.dart';
-import 'package:arcane_jaspr/html.dart' hide ArcaneText;
+import 'package:arcane_jaspr/html.dart';
 import 'package:jaspr/dom.dart' as dom;
 import 'package:jaspr/jaspr.dart' as jaspr;
 
@@ -184,7 +184,7 @@ class InlineCodeBlock extends StatelessWidget {
         borderRadius: Radius.xs,
         textColor: TextColor.accent,
       ),
-      child: ArcaneText(code),
+      child: Text(code),
     );
   }
 }

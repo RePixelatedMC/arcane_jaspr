@@ -1,9 +1,10 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 /// Command item data.
 class CommandItemProps {
   final String label;
-  final Component? icon;
+  final Widget? icon;
   final String? shortcut;
   final void Function()? onSelect;
   final bool disabled;
@@ -95,5 +96,5 @@ class CommandProps {
 
 /// Mixin defining the renderer methods for command palette components.
 mixin CommandRendererContract {
-  Component command(CommandProps props);
+  Widget command(CommandProps props);
 }

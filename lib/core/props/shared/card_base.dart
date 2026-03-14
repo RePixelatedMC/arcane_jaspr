@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 /// Mixin for components with tap/navigation actions.
 mixin CardActionProps {
@@ -9,7 +10,7 @@ mixin CardActionProps {
 /// Mixin for components with icon or image media.
 mixin CardMediaProps {
   String? get imageUrl;
-  Component? get icon;
+  Widget? get icon;
 }
 
 /// Mixin for components with title/description content.

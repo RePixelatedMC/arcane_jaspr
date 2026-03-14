@@ -99,25 +99,25 @@ Plan: Comprehensive arcane_jaspr Documentation Site
 
      Layout Components (35 components):
      - ArcaneDiv, ArcaneSection, ArcaneBox, ArcaneContainer, ArcaneCenter
-     - ArcaneRow, ArcaneColumn, ArcaneFlow, ArcaneSpacer, ArcaneExpanded
-     - ArcaneStack, ArcanePositioned, ArcanePadding
-     - ArcaneGutter, ArcaneHeroSection, ArcaneCarpet
-     - ArcaneTile, ArcaneCard (layout variant)
-     - ArcaneButtonPanel, ArcaneButtonGroup
+     - Row, Column, ArcaneFlow, ArcaneSpacer, ArcaneExpanded
+     - Stack, Positioned, ArcanePadding
+     - Gutter, ArcaneHeroSection, ArcaneCarpet
+     - ArcaneTile, Card (layout variant)
+     - ButtonPanel, ButtonGroup
      - ArcaneRadioCards, ArcaneLogoCarousel, ArcaneLogoGrid
      - ArcaneTabs, ArcaneTabItem, ArcaneTabBar
      - ArcaneAuthLayout, ArcaneFooter
      - ArcaneDashboardLayout, ArcanePageBody
 
      Typography (10+ components):
-     - ArcaneText, ArcaneSpan, ArcaneHeading, ArcaneParagraph
+     - Text, ArcaneSpan, ArcaneHeading, ArcaneParagraph
      - ArcaneHeadline, ArcaneSubheadline, ArcaneBodyText
-     - ArcaneGradientText, ArcaneGlowText, ArcaneRichText
+     - ArcaneGradientText, ArcaneGlowText, RichText
      - ArcaneCodeSnippet, ArcaneInlineCode, ArcanePre
 
      Phase 4: View Components (60+ components)
 
-     Cards: ArcaneCard, ArcaneGlassCard, ArcaneStructuredCard, ArcaneFeatureCard, ArcanePricingCard, ArcaneTestimonialCard, ArcaneIntegrationCard, 
+     Cards: Card, ArcaneGlassCard, ArcaneStructuredCard, ArcaneFeatureCard, ArcanePricingCard, ArcaneTestimonialCard, ArcaneIntegrationCard, 
      ArcaneGameTile
 
      Display: ArcaneAvatar, ArcaneAvatarGroup, ArcaneBadge, ArcaneBar, ArcaneGlass, ArcaneDivider, ArcaneVerticalDivider
@@ -143,7 +143,7 @@ Plan: Comprehensive arcane_jaspr Documentation Site
 
      Phase 6: Feedback & Dialogs (12+ components)
 
-     - ArcaneDialog, ArcaneAlertDialog, ArcaneConfirmDialog, ArcaneTextInputDialog
+     - ArcaneDialog, ArcaneAlertDialog, ArcaneConfirmDialog, TextInputDialog
      - ArcaneToast, ArcaneToastContainer
      - ArcaneAlertBanner, ArcaneTooltip, ArcaneTooltipCustom, ArcaneInfoTooltip
      - ArcaneAccordion, ArcaneAccordionItem, ArcaneFaqAccordion

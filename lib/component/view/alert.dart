@@ -1,19 +1,20 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
 /// Inline alert component for important messages that need user attention.
-class ArcaneAlert extends StatelessComponent {
+class ArcaneAlert extends StatelessWidget {
   final ColorVariant color;
   final String? title;
   final String? message;
-  final Component? child;
+  final Widget? child;
   final AlertStyle style;
-  final Component? icon;
+  final Widget? icon;
   final bool showIcon;
   final bool dismissible;
   final void Function()? onDismiss;
-  final Component? action;
+  final Widget? action;
 
   const ArcaneAlert({
     required this.color,
@@ -82,7 +83,7 @@ class ArcaneAlert extends StatelessComponent {
   }) : color = ColorVariant.destructive;
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.alert(AlertProps(
       color: color,
       title: title,

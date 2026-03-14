@@ -1,9 +1,10 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../util/style_types/arcane_style_data.dart';
 
 class ItemProps {
-  final Component child;
+  final Widget child;
   final String? href;
   final bool external;
   final ArcaneStyleData? styles;
@@ -18,7 +19,7 @@ class ItemProps {
   });
 
   ItemProps copyWith({
-    Component? child,
+    Widget? child,
     String? href,
     bool? external,
     ArcaneStyleData? styles,
@@ -35,5 +36,5 @@ class ItemProps {
 }
 
 mixin ItemRendererContract {
-  Component item(ItemProps props);
+  Widget item(ItemProps props);
 }

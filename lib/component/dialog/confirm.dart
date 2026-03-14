@@ -1,11 +1,12 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
 export '../../core/props/confirm_dialog_props.dart';
 
 /// Confirmation dialog with confirm/cancel actions.
-class ArcaneConfirmDialog extends StatelessComponent {
+class ArcaneConfirmDialog extends StatelessWidget {
   final String title;
   final String message;
   final String confirmText;
@@ -13,7 +14,7 @@ class ArcaneConfirmDialog extends StatelessComponent {
   final void Function()? onConfirm;
   final void Function()? onCancel;
   final bool destructive;
-  final Component? icon;
+  final Widget? icon;
 
   const ArcaneConfirmDialog({
     required this.title,
@@ -28,7 +29,7 @@ class ArcaneConfirmDialog extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.confirmDialog(ConfirmDialogProps(
       title: title,
       message: message,
@@ -43,12 +44,12 @@ class ArcaneConfirmDialog extends StatelessComponent {
 }
 
 /// Simple alert dialog with single dismiss action.
-class ArcaneAlertDialog extends StatelessComponent {
+class ArcaneAlertDialog extends StatelessWidget {
   final String title;
   final String message;
   final String buttonText;
   final void Function()? onDismiss;
-  final Component? icon;
+  final Widget? icon;
 
   const ArcaneAlertDialog({
     required this.title,
@@ -60,7 +61,7 @@ class ArcaneAlertDialog extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.alertDialog(AlertDialogProps(
       title: title,
       message: message,

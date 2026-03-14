@@ -1,11 +1,12 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 /// CTA banner component properties.
 class CtaBannerProps {
   final String title;
   final String? subtitle;
-  final Component? primaryAction;
-  final Component? secondaryAction;
+  final Widget? primaryAction;
+  final Widget? secondaryAction;
   final String? gradientStart;
   final String? gradientEnd;
   final String? backgroundImage;
@@ -27,5 +28,5 @@ class CtaBannerProps {
 
 /// Mixin defining the renderer methods for CTA banner components.
 mixin CtaBannerRendererContract {
-  Component ctaBanner(CtaBannerProps props);
+  Widget ctaBanner(CtaBannerProps props);
 }

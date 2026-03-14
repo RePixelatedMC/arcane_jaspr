@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 /// Mobile navigation item data.
 class MobileNavItem {
@@ -6,7 +7,7 @@ class MobileNavItem {
   final String? href;
   final void Function()? onTap;
   final List<MobileNavItem>? children;
-  final Component? icon;
+  final Widget? icon;
 
   const MobileNavItem({
     required this.label,
@@ -20,8 +21,8 @@ class MobileNavItem {
 /// Mobile menu component properties.
 class MobileMenuProps {
   final List<MobileNavItem> items;
-  final Component? logo;
-  final Component? cta;
+  final Widget? logo;
+  final Widget? cta;
   final void Function()? onClose;
   final bool isOpen;
 
@@ -54,8 +55,8 @@ class HamburgerButtonProps {
 /// Mixin defining the renderer methods for mobile menu components.
 mixin MobileMenuRendererContract {
   /// Renders a mobile navigation menu.
-  Component mobileMenu(MobileMenuProps props);
+  Widget mobileMenu(MobileMenuProps props);
 
   /// Renders a hamburger menu button.
-  Component hamburgerButton(HamburgerButtonProps props);
+  Widget hamburgerButton(HamburgerButtonProps props);
 }

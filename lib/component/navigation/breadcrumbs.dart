@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
@@ -9,7 +10,7 @@ export '../../core/props/breadcrumbs_props.dart'
 class BreadcrumbItem {
   final String label;
   final String? href;
-  final Component? icon;
+  final Widget? icon;
 
   const BreadcrumbItem({
     required this.label,
@@ -32,12 +33,12 @@ enum BreadcrumbSize {
 }
 
 /// Navigation breadcrumbs component.
-class ArcaneBreadcrumbs extends StatelessComponent {
+class ArcaneBreadcrumbs extends StatelessWidget {
   final List<BreadcrumbItem> items;
   final BreadcrumbSeparator separator;
   final BreadcrumbSize size;
   final bool showHomeIcon;
-  final Component? customSeparator;
+  final Widget? customSeparator;
   final void Function(BreadcrumbItem item, int index)? onItemClick;
 
   const ArcaneBreadcrumbs({
@@ -51,7 +52,7 @@ class ArcaneBreadcrumbs extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     final itemProps = items
         .map((item) => BreadcrumbItemProps(
               label: item.label,

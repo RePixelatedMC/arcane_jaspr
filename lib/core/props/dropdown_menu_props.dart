@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 import 'menu_item_props.dart';
 
 export 'menu_item_props.dart';
@@ -11,7 +12,7 @@ enum DropdownAlignment {
 
 /// Dropdown menu component properties.
 class DropdownMenuProps {
-  final Component trigger;
+  final Widget trigger;
   final List<ArcaneMenuItem> items;
   final bool isOpen;
   final void Function()? onToggle;
@@ -30,7 +31,7 @@ class DropdownMenuProps {
   });
 
   DropdownMenuProps copyWith({
-    Component? trigger,
+    Widget? trigger,
     List<ArcaneMenuItem>? items,
     bool? isOpen,
     void Function()? onToggle,
@@ -56,5 +57,5 @@ class DropdownMenuProps {
 
 /// Mixin defining the renderer methods for dropdown menu components.
 mixin DropdownMenuRendererContract {
-  Component dropdownMenu(DropdownMenuProps props);
+  Widget dropdownMenu(DropdownMenuProps props);
 }

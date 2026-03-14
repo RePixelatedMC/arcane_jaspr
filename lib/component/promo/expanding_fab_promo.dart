@@ -1,12 +1,13 @@
 import 'package:jaspr/dom.dart' as dom;
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
 /// A floating action button that expands to reveal a promo.
 ///
 /// Minimally intrusive - user initiates the interaction.
-class ArcaneExpandingFabPromo extends StatefulComponent {
+class ArcaneExpandingFabPromo extends StatefulWidget {
   final String title;
   final String message;
   final String? promoCode;
@@ -15,7 +16,7 @@ class ArcaneExpandingFabPromo extends StatefulComponent {
   final String? ctaHref;
   final void Function()? onCtaClick;
   final void Function()? onDismiss;
-  final Component? icon;
+  final Widget? icon;
 
   const ArcaneExpandingFabPromo({
     required this.title,
@@ -44,7 +45,7 @@ class _ArcaneExpandingFabPromoState extends State<ArcaneExpandingFabPromo> {
   }
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     if (_isDismissed) return const dom.div([]);
 
     return context.renderers.expandingFabPromo(ExpandingFabPromoProps(

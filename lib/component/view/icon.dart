@@ -3,7 +3,8 @@
 // Uses the Lucide icon font for efficient loading
 // Font files: assets/fonts/lucide/lucide.woff2 (245KB for all 1666 icons)
 
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 import 'package:jaspr/dom.dart' as dom;
 
 /// Icon size presets for consistent sizing.
@@ -30,7 +31,7 @@ extension IconSizeExtension on IconSize {
 
 /// Base component for font-based icons.
 /// Uses the Lucide icon font with Unicode codepoints.
-class _LucideIcon extends StatelessComponent {
+class _LucideIcon extends StatelessWidget {
   final String codepoint;
   final IconSize size;
 
@@ -40,7 +41,7 @@ class _LucideIcon extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     final double px = size.pixels;
     return dom.i(
       styles: dom.Styles(raw: <String, String>{
@@ -62,7 +63,7 @@ class _LucideIcon extends StatelessComponent {
 
 /// Custom SVG-based icon component for brand icons.
 /// Uses inline SVG paths for icons not available in the Lucide font.
-class _CustomSvgIcon extends StatelessComponent {
+class _CustomSvgIcon extends StatelessWidget {
   final String viewBox;
   final List<String> paths;
   final IconSize size;
@@ -74,7 +75,7 @@ class _CustomSvgIcon extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     final String px = size.pixels.toStringAsFixed(0);
     return Component.element(
       tag: 'svg',
@@ -115,6667 +116,6667 @@ class ArcaneIcon {
   ArcaneIcon._();
 
   /// AArrowDown icon
-  static Component aArrowDown({IconSize size = IconSize.md}) =>
+  static Widget aArrowDown({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e585', size: size);
 
   /// AArrowUp icon
-  static Component aArrowUp({IconSize size = IconSize.md}) =>
+  static Widget aArrowUp({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e586', size: size);
 
   /// ALargeSmall icon
-  static Component aLargeSmall({IconSize size = IconSize.md}) =>
+  static Widget aLargeSmall({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e587', size: size);
 
   /// Accessibility icon
-  static Component accessibility({IconSize size = IconSize.md}) =>
+  static Widget accessibility({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e297', size: size);
 
   /// Activity icon
-  static Component activity({IconSize size = IconSize.md}) =>
+  static Widget activity({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e038', size: size);
 
   /// AirVent icon
-  static Component airVent({IconSize size = IconSize.md}) =>
+  static Widget airVent({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e34d', size: size);
 
   /// Airplay icon
-  static Component airplay({IconSize size = IconSize.md}) =>
+  static Widget airplay({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e039', size: size);
 
   /// AlarmClock icon
-  static Component alarmClock({IconSize size = IconSize.md}) =>
+  static Widget alarmClock({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e03a', size: size);
 
   /// AlarmClockCheck icon
-  static Component alarmClockCheck({IconSize size = IconSize.md}) =>
+  static Widget alarmClockCheck({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1ec', size: size);
 
   /// AlarmClockMinus icon
-  static Component alarmClockMinus({IconSize size = IconSize.md}) =>
+  static Widget alarmClockMinus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1ed', size: size);
 
   /// AlarmClockOff icon
-  static Component alarmClockOff({IconSize size = IconSize.md}) =>
+  static Widget alarmClockOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e23b', size: size);
 
   /// AlarmClockPlus icon
-  static Component alarmClockPlus({IconSize size = IconSize.md}) =>
+  static Widget alarmClockPlus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1ee', size: size);
 
   /// AlarmSmoke icon
-  static Component alarmSmoke({IconSize size = IconSize.md}) =>
+  static Widget alarmSmoke({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e57b', size: size);
 
   /// Album icon
-  static Component album({IconSize size = IconSize.md}) =>
+  static Widget album({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e03b', size: size);
 
   /// AlignCenterHorizontal icon
-  static Component alignCenterHorizontal({IconSize size = IconSize.md}) =>
+  static Widget alignCenterHorizontal({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e26c', size: size);
 
   /// AlignCenterVertical icon
-  static Component alignCenterVertical({IconSize size = IconSize.md}) =>
+  static Widget alignCenterVertical({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e26d', size: size);
 
   /// AlignEndHorizontal icon
-  static Component alignEndHorizontal({IconSize size = IconSize.md}) =>
+  static Widget alignEndHorizontal({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e26e', size: size);
 
   /// AlignEndVertical icon
-  static Component alignEndVertical({IconSize size = IconSize.md}) =>
+  static Widget alignEndVertical({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e26f', size: size);
 
   /// AlignHorizontalDistributeCenter icon
-  static Component alignHorizontalDistributeCenter({IconSize size = IconSize.md}) =>
+  static Widget alignHorizontalDistributeCenter({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e03c', size: size);
 
   /// AlignHorizontalDistributeEnd icon
-  static Component alignHorizontalDistributeEnd({IconSize size = IconSize.md}) =>
+  static Widget alignHorizontalDistributeEnd({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e03d', size: size);
 
   /// AlignHorizontalDistributeStart icon
-  static Component alignHorizontalDistributeStart({IconSize size = IconSize.md}) =>
+  static Widget alignHorizontalDistributeStart({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e03e', size: size);
 
   /// AlignHorizontalJustifyCenter icon
-  static Component alignHorizontalJustifyCenter({IconSize size = IconSize.md}) =>
+  static Widget alignHorizontalJustifyCenter({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e272', size: size);
 
   /// AlignHorizontalJustifyEnd icon
-  static Component alignHorizontalJustifyEnd({IconSize size = IconSize.md}) =>
+  static Widget alignHorizontalJustifyEnd({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e273', size: size);
 
   /// AlignHorizontalJustifyStart icon
-  static Component alignHorizontalJustifyStart({IconSize size = IconSize.md}) =>
+  static Widget alignHorizontalJustifyStart({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e274', size: size);
 
   /// AlignHorizontalSpaceAround icon
-  static Component alignHorizontalSpaceAround({IconSize size = IconSize.md}) =>
+  static Widget alignHorizontalSpaceAround({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e275', size: size);
 
   /// AlignHorizontalSpaceBetween icon
-  static Component alignHorizontalSpaceBetween({IconSize size = IconSize.md}) =>
+  static Widget alignHorizontalSpaceBetween({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e276', size: size);
 
   /// AlignStartHorizontal icon
-  static Component alignStartHorizontal({IconSize size = IconSize.md}) =>
+  static Widget alignStartHorizontal({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e270', size: size);
 
   /// AlignStartVertical icon
-  static Component alignStartVertical({IconSize size = IconSize.md}) =>
+  static Widget alignStartVertical({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e271', size: size);
 
   /// AlignVerticalDistributeCenter icon
-  static Component alignVerticalDistributeCenter({IconSize size = IconSize.md}) =>
+  static Widget alignVerticalDistributeCenter({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e27e', size: size);
 
   /// AlignVerticalDistributeEnd icon
-  static Component alignVerticalDistributeEnd({IconSize size = IconSize.md}) =>
+  static Widget alignVerticalDistributeEnd({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e27f', size: size);
 
   /// AlignVerticalDistributeStart icon
-  static Component alignVerticalDistributeStart({IconSize size = IconSize.md}) =>
+  static Widget alignVerticalDistributeStart({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e280', size: size);
 
   /// AlignVerticalJustifyCenter icon
-  static Component alignVerticalJustifyCenter({IconSize size = IconSize.md}) =>
+  static Widget alignVerticalJustifyCenter({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e277', size: size);
 
   /// AlignVerticalJustifyEnd icon
-  static Component alignVerticalJustifyEnd({IconSize size = IconSize.md}) =>
+  static Widget alignVerticalJustifyEnd({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e278', size: size);
 
   /// AlignVerticalJustifyStart icon
-  static Component alignVerticalJustifyStart({IconSize size = IconSize.md}) =>
+  static Widget alignVerticalJustifyStart({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e279', size: size);
 
   /// AlignVerticalSpaceAround icon
-  static Component alignVerticalSpaceAround({IconSize size = IconSize.md}) =>
+  static Widget alignVerticalSpaceAround({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e27a', size: size);
 
   /// AlignVerticalSpaceBetween icon
-  static Component alignVerticalSpaceBetween({IconSize size = IconSize.md}) =>
+  static Widget alignVerticalSpaceBetween({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e27b', size: size);
 
   /// Ambulance icon
-  static Component ambulance({IconSize size = IconSize.md}) =>
+  static Widget ambulance({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5bb', size: size);
 
   /// Ampersand icon
-  static Component ampersand({IconSize size = IconSize.md}) =>
+  static Widget ampersand({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e49c', size: size);
 
   /// Ampersands icon
-  static Component ampersands({IconSize size = IconSize.md}) =>
+  static Widget ampersands({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e49d', size: size);
 
   /// Amphora icon
-  static Component amphora({IconSize size = IconSize.md}) =>
+  static Widget amphora({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e61b', size: size);
 
   /// Anchor icon
-  static Component anchor({IconSize size = IconSize.md}) =>
+  static Widget anchor({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e03f', size: size);
 
   /// Angry icon
-  static Component angry({IconSize size = IconSize.md}) =>
+  static Widget angry({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2fc', size: size);
 
   /// Annoyed icon
-  static Component annoyed({IconSize size = IconSize.md}) =>
+  static Widget annoyed({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2fd', size: size);
 
   /// Antenna icon
-  static Component antenna({IconSize size = IconSize.md}) =>
+  static Widget antenna({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4e2', size: size);
 
   /// Anvil icon
-  static Component anvil({IconSize size = IconSize.md}) =>
+  static Widget anvil({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e580', size: size);
 
   /// Aperture icon
-  static Component aperture({IconSize size = IconSize.md}) =>
+  static Widget aperture({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e040', size: size);
 
   /// AppWindow icon
-  static Component appWindow({IconSize size = IconSize.md}) =>
+  static Widget appWindow({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e426', size: size);
 
   /// AppWindowMac icon
-  static Component appWindowMac({IconSize size = IconSize.md}) =>
+  static Widget appWindowMac({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5d2', size: size);
 
   /// Apple icon
-  static Component apple({IconSize size = IconSize.md}) =>
+  static Widget apple({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e34e', size: size);
 
   /// Archive icon
-  static Component archive({IconSize size = IconSize.md}) =>
+  static Widget archive({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e041', size: size);
 
   /// ArchiveRestore icon
-  static Component archiveRestore({IconSize size = IconSize.md}) =>
+  static Widget archiveRestore({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2cd', size: size);
 
   /// ArchiveX icon
-  static Component archiveX({IconSize size = IconSize.md}) =>
+  static Widget archiveX({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e50c', size: size);
 
   /// Armchair icon
-  static Component armchair({IconSize size = IconSize.md}) =>
+  static Widget armchair({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2c0', size: size);
 
   /// ArrowBigDown icon
-  static Component arrowBigDown({IconSize size = IconSize.md}) =>
+  static Widget arrowBigDown({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1e1', size: size);
 
   /// ArrowBigDownDash icon
-  static Component arrowBigDownDash({IconSize size = IconSize.md}) =>
+  static Widget arrowBigDownDash({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e41d', size: size);
 
   /// ArrowBigLeft icon
-  static Component arrowBigLeft({IconSize size = IconSize.md}) =>
+  static Widget arrowBigLeft({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1e2', size: size);
 
   /// ArrowBigLeftDash icon
-  static Component arrowBigLeftDash({IconSize size = IconSize.md}) =>
+  static Widget arrowBigLeftDash({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e41e', size: size);
 
   /// ArrowBigRight icon
-  static Component arrowBigRight({IconSize size = IconSize.md}) =>
+  static Widget arrowBigRight({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1e3', size: size);
 
   /// ArrowBigRightDash icon
-  static Component arrowBigRightDash({IconSize size = IconSize.md}) =>
+  static Widget arrowBigRightDash({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e41f', size: size);
 
   /// ArrowBigUp icon
-  static Component arrowBigUp({IconSize size = IconSize.md}) =>
+  static Widget arrowBigUp({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1e4', size: size);
 
   /// ArrowBigUpDash icon
-  static Component arrowBigUpDash({IconSize size = IconSize.md}) =>
+  static Widget arrowBigUpDash({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e420', size: size);
 
   /// ArrowDown icon
-  static Component arrowDown({IconSize size = IconSize.md}) =>
+  static Widget arrowDown({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e042', size: size);
 
   /// ArrowDown01 icon
-  static Component arrowDown01({IconSize size = IconSize.md}) =>
+  static Widget arrowDown01({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e413', size: size);
 
   /// ArrowDown10 icon
-  static Component arrowDown10({IconSize size = IconSize.md}) =>
+  static Widget arrowDown10({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e414', size: size);
 
   /// ArrowDownAZ icon
-  static Component arrowDownAZ({IconSize size = IconSize.md}) =>
+  static Widget arrowDownAZ({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e415', size: size);
 
   /// ArrowDownFromLine icon
-  static Component arrowDownFromLine({IconSize size = IconSize.md}) =>
+  static Widget arrowDownFromLine({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e454', size: size);
 
   /// ArrowDownLeft icon
-  static Component arrowDownLeft({IconSize size = IconSize.md}) =>
+  static Widget arrowDownLeft({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e043', size: size);
 
   /// ArrowDownNarrowWide icon
-  static Component arrowDownNarrowWide({IconSize size = IconSize.md}) =>
+  static Widget arrowDownNarrowWide({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e044', size: size);
 
   /// ArrowDownRight icon
-  static Component arrowDownRight({IconSize size = IconSize.md}) =>
+  static Widget arrowDownRight({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e045', size: size);
 
   /// ArrowDownToDot icon
-  static Component arrowDownToDot({IconSize size = IconSize.md}) =>
+  static Widget arrowDownToDot({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e44d', size: size);
 
   /// ArrowDownToLine icon
-  static Component arrowDownToLine({IconSize size = IconSize.md}) =>
+  static Widget arrowDownToLine({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e455', size: size);
 
   /// ArrowDownUp icon
-  static Component arrowDownUp({IconSize size = IconSize.md}) =>
+  static Widget arrowDownUp({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e046', size: size);
 
   /// ArrowDownWideNarrow icon
-  static Component arrowDownWideNarrow({IconSize size = IconSize.md}) =>
+  static Widget arrowDownWideNarrow({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e047', size: size);
 
   /// ArrowDownZA icon
-  static Component arrowDownZA({IconSize size = IconSize.md}) =>
+  static Widget arrowDownZA({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e416', size: size);
 
   /// ArrowLeft icon
-  static Component arrowLeft({IconSize size = IconSize.md}) =>
+  static Widget arrowLeft({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e048', size: size);
 
   /// ArrowLeftFromLine icon
-  static Component arrowLeftFromLine({IconSize size = IconSize.md}) =>
+  static Widget arrowLeftFromLine({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e456', size: size);
 
   /// ArrowLeftRight icon
-  static Component arrowLeftRight({IconSize size = IconSize.md}) =>
+  static Widget arrowLeftRight({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e24a', size: size);
 
   /// ArrowLeftToLine icon
-  static Component arrowLeftToLine({IconSize size = IconSize.md}) =>
+  static Widget arrowLeftToLine({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e457', size: size);
 
   /// ArrowRight icon
-  static Component arrowRight({IconSize size = IconSize.md}) =>
+  static Widget arrowRight({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e049', size: size);
 
   /// ArrowRightFromLine icon
-  static Component arrowRightFromLine({IconSize size = IconSize.md}) =>
+  static Widget arrowRightFromLine({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e458', size: size);
 
   /// ArrowRightLeft icon
-  static Component arrowRightLeft({IconSize size = IconSize.md}) =>
+  static Widget arrowRightLeft({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e417', size: size);
 
   /// ArrowRightToLine icon
-  static Component arrowRightToLine({IconSize size = IconSize.md}) =>
+  static Widget arrowRightToLine({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e459', size: size);
 
   /// ArrowUp icon
-  static Component arrowUp({IconSize size = IconSize.md}) =>
+  static Widget arrowUp({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e04a', size: size);
 
   /// ArrowUp01 icon
-  static Component arrowUp01({IconSize size = IconSize.md}) =>
+  static Widget arrowUp01({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e418', size: size);
 
   /// ArrowUp10 icon
-  static Component arrowUp10({IconSize size = IconSize.md}) =>
+  static Widget arrowUp10({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e419', size: size);
 
   /// ArrowUpAZ icon
-  static Component arrowUpAZ({IconSize size = IconSize.md}) =>
+  static Widget arrowUpAZ({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e41a', size: size);
 
   /// ArrowUpDown icon
-  static Component arrowUpDown({IconSize size = IconSize.md}) =>
+  static Widget arrowUpDown({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e37d', size: size);
 
   /// ArrowUpFromDot icon
-  static Component arrowUpFromDot({IconSize size = IconSize.md}) =>
+  static Widget arrowUpFromDot({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e44e', size: size);
 
   /// ArrowUpFromLine icon
-  static Component arrowUpFromLine({IconSize size = IconSize.md}) =>
+  static Widget arrowUpFromLine({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e45a', size: size);
 
   /// ArrowUpLeft icon
-  static Component arrowUpLeft({IconSize size = IconSize.md}) =>
+  static Widget arrowUpLeft({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e04b', size: size);
 
   /// ArrowUpNarrowWide icon
-  static Component arrowUpNarrowWide({IconSize size = IconSize.md}) =>
+  static Widget arrowUpNarrowWide({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e04c', size: size);
 
   /// ArrowUpRight icon
-  static Component arrowUpRight({IconSize size = IconSize.md}) =>
+  static Widget arrowUpRight({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e04d', size: size);
 
   /// ArrowUpToLine icon
-  static Component arrowUpToLine({IconSize size = IconSize.md}) =>
+  static Widget arrowUpToLine({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e45b', size: size);
 
   /// ArrowUpWideNarrow icon
-  static Component arrowUpWideNarrow({IconSize size = IconSize.md}) =>
+  static Widget arrowUpWideNarrow({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e41b', size: size);
 
   /// ArrowUpZA icon
-  static Component arrowUpZA({IconSize size = IconSize.md}) =>
+  static Widget arrowUpZA({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e41c', size: size);
 
   /// ArrowsUpFromLine icon
-  static Component arrowsUpFromLine({IconSize size = IconSize.md}) =>
+  static Widget arrowsUpFromLine({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4d4', size: size);
 
   /// Asterisk icon
-  static Component asterisk({IconSize size = IconSize.md}) =>
+  static Widget asterisk({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1ef', size: size);
 
   /// AtSign icon
-  static Component atSign({IconSize size = IconSize.md}) =>
+  static Widget atSign({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e04e', size: size);
 
   /// Atom icon
-  static Component atom({IconSize size = IconSize.md}) =>
+  static Widget atom({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3d7', size: size);
 
   /// AudioLines icon
-  static Component audioLines({IconSize size = IconSize.md}) =>
+  static Widget audioLines({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e55a', size: size);
 
   /// AudioWaveform icon
-  static Component audioWaveform({IconSize size = IconSize.md}) =>
+  static Widget audioWaveform({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e55b', size: size);
 
   /// Award icon
-  static Component award({IconSize size = IconSize.md}) =>
+  static Widget award({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e04f', size: size);
 
   /// Axe icon
-  static Component axe({IconSize size = IconSize.md}) =>
+  static Widget axe({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e050', size: size);
 
   /// Axis3d icon
-  static Component axis3d({IconSize size = IconSize.md}) =>
+  static Widget axis3d({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2fe', size: size);
 
   /// Baby icon
-  static Component baby({IconSize size = IconSize.md}) =>
+  static Widget baby({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2ce', size: size);
 
   /// Backpack icon
-  static Component backpack({IconSize size = IconSize.md}) =>
+  static Widget backpack({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2c8', size: size);
 
   /// Badge icon
-  static Component badge({IconSize size = IconSize.md}) =>
+  static Widget badge({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e474', size: size);
 
   /// BadgeAlert icon
-  static Component badgeAlert({IconSize size = IconSize.md}) =>
+  static Widget badgeAlert({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e475', size: size);
 
   /// BadgeCent icon
-  static Component badgeCent({IconSize size = IconSize.md}) =>
+  static Widget badgeCent({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e50f', size: size);
 
   /// BadgeCheck icon
-  static Component badgeCheck({IconSize size = IconSize.md}) =>
+  static Widget badgeCheck({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e241', size: size);
 
   /// BadgeDollarSign icon
-  static Component badgeDollarSign({IconSize size = IconSize.md}) =>
+  static Widget badgeDollarSign({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e476', size: size);
 
   /// BadgeEuro icon
-  static Component badgeEuro({IconSize size = IconSize.md}) =>
+  static Widget badgeEuro({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e510', size: size);
 
   /// BadgeIndianRupee icon
-  static Component badgeIndianRupee({IconSize size = IconSize.md}) =>
+  static Widget badgeIndianRupee({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e511', size: size);
 
   /// BadgeInfo icon
-  static Component badgeInfo({IconSize size = IconSize.md}) =>
+  static Widget badgeInfo({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e477', size: size);
 
   /// BadgeJapaneseYen icon
-  static Component badgeJapaneseYen({IconSize size = IconSize.md}) =>
+  static Widget badgeJapaneseYen({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e512', size: size);
 
   /// BadgeMinus icon
-  static Component badgeMinus({IconSize size = IconSize.md}) =>
+  static Widget badgeMinus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e478', size: size);
 
   /// BadgePercent icon
-  static Component badgePercent({IconSize size = IconSize.md}) =>
+  static Widget badgePercent({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e479', size: size);
 
   /// BadgePlus icon
-  static Component badgePlus({IconSize size = IconSize.md}) =>
+  static Widget badgePlus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e47a', size: size);
 
   /// BadgePoundSterling icon
-  static Component badgePoundSterling({IconSize size = IconSize.md}) =>
+  static Widget badgePoundSterling({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e513', size: size);
 
   /// BadgeQuestionMark icon
-  static Component badgeQuestionMark({IconSize size = IconSize.md}) =>
+  static Widget badgeQuestionMark({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e47b', size: size);
 
   /// BadgeRussianRuble icon
-  static Component badgeRussianRuble({IconSize size = IconSize.md}) =>
+  static Widget badgeRussianRuble({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e514', size: size);
 
   /// BadgeSwissFranc icon
-  static Component badgeSwissFranc({IconSize size = IconSize.md}) =>
+  static Widget badgeSwissFranc({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e515', size: size);
 
   /// BadgeTurkishLira icon
-  static Component badgeTurkishLira({IconSize size = IconSize.md}) =>
+  static Widget badgeTurkishLira({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e67e', size: size);
 
   /// BadgeX icon
-  static Component badgeX({IconSize size = IconSize.md}) =>
+  static Widget badgeX({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e47c', size: size);
 
   /// BaggageClaim icon
-  static Component baggageClaim({IconSize size = IconSize.md}) =>
+  static Widget baggageClaim({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2c9', size: size);
 
   /// Balloon icon
-  static Component balloon({IconSize size = IconSize.md}) =>
+  static Widget balloon({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e6af', size: size);
 
   /// Ban icon
-  static Component ban({IconSize size = IconSize.md}) =>
+  static Widget ban({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e051', size: size);
 
   /// Banana icon
-  static Component banana({IconSize size = IconSize.md}) =>
+  static Widget banana({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e34f', size: size);
 
   /// Bandage icon
-  static Component bandage({IconSize size = IconSize.md}) =>
+  static Widget bandage({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e61d', size: size);
 
   /// Banknote icon
-  static Component banknote({IconSize size = IconSize.md}) =>
+  static Widget banknote({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e052', size: size);
 
   /// BanknoteArrowDown icon
-  static Component banknoteArrowDown({IconSize size = IconSize.md}) =>
+  static Widget banknoteArrowDown({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e64c', size: size);
 
   /// BanknoteArrowUp icon
-  static Component banknoteArrowUp({IconSize size = IconSize.md}) =>
+  static Widget banknoteArrowUp({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e64d', size: size);
 
   /// BanknoteX icon
-  static Component banknoteX({IconSize size = IconSize.md}) =>
+  static Widget banknoteX({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e64e', size: size);
 
   /// Barcode icon
-  static Component barcode({IconSize size = IconSize.md}) =>
+  static Widget barcode({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e533', size: size);
 
   /// Barrel icon
-  static Component barrel({IconSize size = IconSize.md}) =>
+  static Widget barrel({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e675', size: size);
 
   /// Baseline icon
-  static Component baseline({IconSize size = IconSize.md}) =>
+  static Widget baseline({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e285', size: size);
 
   /// Bath icon
-  static Component bath({IconSize size = IconSize.md}) =>
+  static Widget bath({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2ab', size: size);
 
   /// Battery icon
-  static Component battery({IconSize size = IconSize.md}) =>
+  static Widget battery({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e053', size: size);
 
   /// BatteryCharging icon
-  static Component batteryCharging({IconSize size = IconSize.md}) =>
+  static Widget batteryCharging({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e054', size: size);
 
   /// BatteryFull icon
-  static Component batteryFull({IconSize size = IconSize.md}) =>
+  static Widget batteryFull({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e055', size: size);
 
   /// BatteryLow icon
-  static Component batteryLow({IconSize size = IconSize.md}) =>
+  static Widget batteryLow({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e056', size: size);
 
   /// BatteryMedium icon
-  static Component batteryMedium({IconSize size = IconSize.md}) =>
+  static Widget batteryMedium({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e057', size: size);
 
   /// BatteryPlus icon
-  static Component batteryPlus({IconSize size = IconSize.md}) =>
+  static Widget batteryPlus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e63e', size: size);
 
   /// BatteryWarning icon
-  static Component batteryWarning({IconSize size = IconSize.md}) =>
+  static Widget batteryWarning({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3ac', size: size);
 
   /// Beaker icon
-  static Component beaker({IconSize size = IconSize.md}) =>
+  static Widget beaker({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e058', size: size);
 
   /// Bean icon
-  static Component bean({IconSize size = IconSize.md}) =>
+  static Widget bean({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e38f', size: size);
 
   /// BeanOff icon
-  static Component beanOff({IconSize size = IconSize.md}) =>
+  static Widget beanOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e390', size: size);
 
   /// Bed icon
-  static Component bed({IconSize size = IconSize.md}) =>
+  static Widget bed({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2c1', size: size);
 
   /// BedDouble icon
-  static Component bedDouble({IconSize size = IconSize.md}) =>
+  static Widget bedDouble({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2c2', size: size);
 
   /// BedSingle icon
-  static Component bedSingle({IconSize size = IconSize.md}) =>
+  static Widget bedSingle({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2c3', size: size);
 
   /// Beef icon
-  static Component beef({IconSize size = IconSize.md}) =>
+  static Widget beef({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3a5', size: size);
 
   /// Beer icon
-  static Component beer({IconSize size = IconSize.md}) =>
+  static Widget beer({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2cf', size: size);
 
   /// BeerOff icon
-  static Component beerOff({IconSize size = IconSize.md}) =>
+  static Widget beerOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5d9', size: size);
 
   /// Bell icon
-  static Component bell({IconSize size = IconSize.md}) =>
+  static Widget bell({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e059', size: size);
 
   /// BellDot icon
-  static Component bellDot({IconSize size = IconSize.md}) =>
+  static Widget bellDot({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e42b', size: size);
 
   /// BellElectric icon
-  static Component bellElectric({IconSize size = IconSize.md}) =>
+  static Widget bellElectric({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e57c', size: size);
 
   /// BellMinus icon
-  static Component bellMinus({IconSize size = IconSize.md}) =>
+  static Widget bellMinus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1f0', size: size);
 
   /// BellOff icon
-  static Component bellOff({IconSize size = IconSize.md}) =>
+  static Widget bellOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e05a', size: size);
 
   /// BellPlus icon
-  static Component bellPlus({IconSize size = IconSize.md}) =>
+  static Widget bellPlus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1f1', size: size);
 
   /// BellRing icon
-  static Component bellRing({IconSize size = IconSize.md}) =>
+  static Widget bellRing({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e224', size: size);
 
   /// BetweenHorizontalEnd icon
-  static Component betweenHorizontalEnd({IconSize size = IconSize.md}) =>
+  static Widget betweenHorizontalEnd({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e591', size: size);
 
   /// BetweenHorizontalStart icon
-  static Component betweenHorizontalStart({IconSize size = IconSize.md}) =>
+  static Widget betweenHorizontalStart({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e592', size: size);
 
   /// BetweenVerticalEnd icon
-  static Component betweenVerticalEnd({IconSize size = IconSize.md}) =>
+  static Widget betweenVerticalEnd({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e593', size: size);
 
   /// BetweenVerticalStart icon
-  static Component betweenVerticalStart({IconSize size = IconSize.md}) =>
+  static Widget betweenVerticalStart({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e594', size: size);
 
   /// BicepsFlexed icon
-  static Component bicepsFlexed({IconSize size = IconSize.md}) =>
+  static Widget bicepsFlexed({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5eb', size: size);
 
   /// Bike icon
-  static Component bike({IconSize size = IconSize.md}) =>
+  static Widget bike({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1d2', size: size);
 
   /// Binary icon
-  static Component binary({IconSize size = IconSize.md}) =>
+  static Widget binary({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1f2', size: size);
 
   /// Binoculars icon
-  static Component binoculars({IconSize size = IconSize.md}) =>
+  static Widget binoculars({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e621', size: size);
 
   /// Biohazard icon
-  static Component biohazard({IconSize size = IconSize.md}) =>
+  static Widget biohazard({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e441', size: size);
 
   /// Bird icon
-  static Component bird({IconSize size = IconSize.md}) =>
+  static Widget bird({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3c5', size: size);
 
   /// Birdhouse icon
-  static Component birdhouse({IconSize size = IconSize.md}) =>
+  static Widget birdhouse({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e69a', size: size);
 
   /// Bitcoin icon
-  static Component bitcoin({IconSize size = IconSize.md}) =>
+  static Widget bitcoin({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e05b', size: size);
 
   /// Blend icon
-  static Component blend({IconSize size = IconSize.md}) =>
+  static Widget blend({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e59c', size: size);
 
   /// Blinds icon
-  static Component blinds({IconSize size = IconSize.md}) =>
+  static Widget blinds({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3c0', size: size);
 
   /// Blocks icon
-  static Component blocks({IconSize size = IconSize.md}) =>
+  static Widget blocks({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4fa', size: size);
 
   /// Bluetooth icon
-  static Component bluetooth({IconSize size = IconSize.md}) =>
+  static Widget bluetooth({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e05c', size: size);
 
   /// BluetoothConnected icon
-  static Component bluetoothConnected({IconSize size = IconSize.md}) =>
+  static Widget bluetoothConnected({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1b8', size: size);
 
   /// BluetoothOff icon
-  static Component bluetoothOff({IconSize size = IconSize.md}) =>
+  static Widget bluetoothOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1b9', size: size);
 
   /// BluetoothSearching icon
-  static Component bluetoothSearching({IconSize size = IconSize.md}) =>
+  static Widget bluetoothSearching({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1ba', size: size);
 
   /// Bold icon
-  static Component bold({IconSize size = IconSize.md}) =>
+  static Widget bold({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e05d', size: size);
 
   /// Bolt icon
-  static Component bolt({IconSize size = IconSize.md}) =>
+  static Widget bolt({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e58c', size: size);
 
   /// Bomb icon
-  static Component bomb({IconSize size = IconSize.md}) =>
+  static Widget bomb({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2ff', size: size);
 
   /// Bone icon
-  static Component bone({IconSize size = IconSize.md}) =>
+  static Widget bone({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e358', size: size);
 
   /// Book icon
-  static Component book({IconSize size = IconSize.md}) =>
+  static Widget book({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e05e', size: size);
 
   /// BookA icon
-  static Component bookA({IconSize size = IconSize.md}) =>
+  static Widget bookA({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e544', size: size);
 
   /// BookAlert icon
-  static Component bookAlert({IconSize size = IconSize.md}) =>
+  static Widget bookAlert({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e672', size: size);
 
   /// BookAudio icon
-  static Component bookAudio({IconSize size = IconSize.md}) =>
+  static Widget bookAudio({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e545', size: size);
 
   /// BookCheck icon
-  static Component bookCheck({IconSize size = IconSize.md}) =>
+  static Widget bookCheck({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e546', size: size);
 
   /// BookCopy icon
-  static Component bookCopy({IconSize size = IconSize.md}) =>
+  static Widget bookCopy({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3ec', size: size);
 
   /// BookDashed icon
-  static Component bookDashed({IconSize size = IconSize.md}) =>
+  static Widget bookDashed({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3ed', size: size);
 
   /// BookDown icon
-  static Component bookDown({IconSize size = IconSize.md}) =>
+  static Widget bookDown({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3ee', size: size);
 
   /// BookHeadphones icon
-  static Component bookHeadphones({IconSize size = IconSize.md}) =>
+  static Widget bookHeadphones({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e547', size: size);
 
   /// BookHeart icon
-  static Component bookHeart({IconSize size = IconSize.md}) =>
+  static Widget bookHeart({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e548', size: size);
 
   /// BookImage icon
-  static Component bookImage({IconSize size = IconSize.md}) =>
+  static Widget bookImage({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e549', size: size);
 
   /// BookKey icon
-  static Component bookKey({IconSize size = IconSize.md}) =>
+  static Widget bookKey({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3ef', size: size);
 
   /// BookLock icon
-  static Component bookLock({IconSize size = IconSize.md}) =>
+  static Widget bookLock({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3f0', size: size);
 
   /// BookMarked icon
-  static Component bookMarked({IconSize size = IconSize.md}) =>
+  static Widget bookMarked({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3f1', size: size);
 
   /// BookMinus icon
-  static Component bookMinus({IconSize size = IconSize.md}) =>
+  static Widget bookMinus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3f2', size: size);
 
   /// BookOpen icon
-  static Component bookOpen({IconSize size = IconSize.md}) =>
+  static Widget bookOpen({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e05f', size: size);
 
   /// BookOpenCheck icon
-  static Component bookOpenCheck({IconSize size = IconSize.md}) =>
+  static Widget bookOpenCheck({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e381', size: size);
 
   /// BookOpenText icon
-  static Component bookOpenText({IconSize size = IconSize.md}) =>
+  static Widget bookOpenText({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e54a', size: size);
 
   /// BookPlus icon
-  static Component bookPlus({IconSize size = IconSize.md}) =>
+  static Widget bookPlus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3f3', size: size);
 
   /// BookSearch icon
-  static Component bookSearch({IconSize size = IconSize.md}) =>
+  static Widget bookSearch({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e6ab', size: size);
 
   /// BookText icon
-  static Component bookText({IconSize size = IconSize.md}) =>
+  static Widget bookText({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e54b', size: size);
 
   /// BookType icon
-  static Component bookType({IconSize size = IconSize.md}) =>
+  static Widget bookType({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e54c', size: size);
 
   /// BookUp icon
-  static Component bookUp({IconSize size = IconSize.md}) =>
+  static Widget bookUp({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3f4', size: size);
 
   /// BookUp2 icon
-  static Component bookUp2({IconSize size = IconSize.md}) =>
+  static Widget bookUp2({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4a6', size: size);
 
   /// BookUser icon
-  static Component bookUser({IconSize size = IconSize.md}) =>
+  static Widget bookUser({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e54d', size: size);
 
   /// BookX icon
-  static Component bookX({IconSize size = IconSize.md}) =>
+  static Widget bookX({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3f5', size: size);
 
   /// Bookmark icon
-  static Component bookmark({IconSize size = IconSize.md}) =>
+  static Widget bookmark({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e060', size: size);
 
   /// BookmarkCheck icon
-  static Component bookmarkCheck({IconSize size = IconSize.md}) =>
+  static Widget bookmarkCheck({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e51f', size: size);
 
   /// BookmarkMinus icon
-  static Component bookmarkMinus({IconSize size = IconSize.md}) =>
+  static Widget bookmarkMinus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e23c', size: size);
 
   /// BookmarkPlus icon
-  static Component bookmarkPlus({IconSize size = IconSize.md}) =>
+  static Widget bookmarkPlus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e23d', size: size);
 
   /// BookmarkX icon
-  static Component bookmarkX({IconSize size = IconSize.md}) =>
+  static Widget bookmarkX({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e520', size: size);
 
   /// BoomBox icon
-  static Component boomBox({IconSize size = IconSize.md}) =>
+  static Widget boomBox({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4ee', size: size);
 
   /// Bot icon
-  static Component bot({IconSize size = IconSize.md}) =>
+  static Widget bot({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1bb', size: size);
 
   /// BotMessageSquare icon
-  static Component botMessageSquare({IconSize size = IconSize.md}) =>
+  static Widget botMessageSquare({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5ce', size: size);
 
   /// BotOff icon
-  static Component botOff({IconSize size = IconSize.md}) =>
+  static Widget botOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5e0', size: size);
 
   /// BottleWine icon
-  static Component bottleWine({IconSize size = IconSize.md}) =>
+  static Widget bottleWine({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e67b', size: size);
 
   /// BowArrow icon
-  static Component bowArrow({IconSize size = IconSize.md}) =>
+  static Widget bowArrow({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e65e', size: size);
 
   /// Box icon
-  static Component box({IconSize size = IconSize.md}) =>
+  static Widget box({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e061', size: size);
 
   /// Boxes icon
-  static Component boxes({IconSize size = IconSize.md}) =>
+  static Widget boxes({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2d0', size: size);
 
   /// Braces icon
-  static Component braces({IconSize size = IconSize.md}) =>
+  static Widget braces({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e36a', size: size);
 
   /// Brackets icon
-  static Component brackets({IconSize size = IconSize.md}) =>
+  static Widget brackets({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e443', size: size);
 
   /// Brain icon
-  static Component brain({IconSize size = IconSize.md}) =>
+  static Widget brain({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3c6', size: size);
 
   /// BrainCircuit icon
-  static Component brainCircuit({IconSize size = IconSize.md}) =>
+  static Widget brainCircuit({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3c7', size: size);
 
   /// BrainCog icon
-  static Component brainCog({IconSize size = IconSize.md}) =>
+  static Widget brainCog({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3c8', size: size);
 
   /// BrickWall icon
-  static Component brickWall({IconSize size = IconSize.md}) =>
+  static Widget brickWall({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e581', size: size);
 
   /// BrickWallFire icon
-  static Component brickWallFire({IconSize size = IconSize.md}) =>
+  static Widget brickWallFire({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e653', size: size);
 
   /// BrickWallShield icon
-  static Component brickWallShield({IconSize size = IconSize.md}) =>
+  static Widget brickWallShield({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e690', size: size);
 
   /// Briefcase icon
-  static Component briefcase({IconSize size = IconSize.md}) =>
+  static Widget briefcase({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e062', size: size);
 
   /// BriefcaseBusiness icon
-  static Component briefcaseBusiness({IconSize size = IconSize.md}) =>
+  static Widget briefcaseBusiness({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5d5', size: size);
 
   /// BriefcaseConveyorBelt icon
-  static Component briefcaseConveyorBelt({IconSize size = IconSize.md}) =>
+  static Widget briefcaseConveyorBelt({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e62b', size: size);
 
   /// BriefcaseMedical icon
-  static Component briefcaseMedical({IconSize size = IconSize.md}) =>
+  static Widget briefcaseMedical({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5d6', size: size);
 
   /// BringToFront icon
-  static Component bringToFront({IconSize size = IconSize.md}) =>
+  static Widget bringToFront({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4ef', size: size);
 
   /// Brush icon
-  static Component brush({IconSize size = IconSize.md}) =>
+  static Widget brush({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1d3', size: size);
 
   /// BrushCleaning icon
-  static Component brushCleaning({IconSize size = IconSize.md}) =>
+  static Widget brushCleaning({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e666', size: size);
 
   /// Bubbles icon
-  static Component bubbles({IconSize size = IconSize.md}) =>
+  static Widget bubbles({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e654', size: size);
 
   /// Bug icon
-  static Component bug({IconSize size = IconSize.md}) =>
+  static Widget bug({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e20c', size: size);
 
   /// BugOff icon
-  static Component bugOff({IconSize size = IconSize.md}) =>
+  static Widget bugOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e50d', size: size);
 
   /// BugPlay icon
-  static Component bugPlay({IconSize size = IconSize.md}) =>
+  static Widget bugPlay({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e50e', size: size);
 
   /// Building icon
-  static Component building({IconSize size = IconSize.md}) =>
+  static Widget building({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1cc', size: size);
 
   /// Building2 icon
-  static Component building2({IconSize size = IconSize.md}) =>
+  static Widget building2({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e290', size: size);
 
   /// Bus icon
-  static Component bus({IconSize size = IconSize.md}) =>
+  static Widget bus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1d4', size: size);
 
   /// BusFront icon
-  static Component busFront({IconSize size = IconSize.md}) =>
+  static Widget busFront({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4fb', size: size);
 
   /// Cable icon
-  static Component cable({IconSize size = IconSize.md}) =>
+  static Widget cable({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4e3', size: size);
 
   /// CableCar icon
-  static Component cableCar({IconSize size = IconSize.md}) =>
+  static Widget cableCar({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4fc', size: size);
 
   /// Cake icon
-  static Component cake({IconSize size = IconSize.md}) =>
+  static Widget cake({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e344', size: size);
 
   /// CakeSlice icon
-  static Component cakeSlice({IconSize size = IconSize.md}) =>
+  static Widget cakeSlice({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4b9', size: size);
 
   /// Calculator icon
-  static Component calculator({IconSize size = IconSize.md}) =>
+  static Widget calculator({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1bc', size: size);
 
   /// Calendar icon
-  static Component calendar({IconSize size = IconSize.md}) =>
+  static Widget calendar({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e063', size: size);
 
   /// Calendar1 icon
-  static Component calendar1({IconSize size = IconSize.md}) =>
+  static Widget calendar1({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e630', size: size);
 
   /// CalendarArrowDown icon
-  static Component calendarArrowDown({IconSize size = IconSize.md}) =>
+  static Widget calendarArrowDown({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5fe', size: size);
 
   /// CalendarArrowUp icon
-  static Component calendarArrowUp({IconSize size = IconSize.md}) =>
+  static Widget calendarArrowUp({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5ff', size: size);
 
   /// CalendarCheck icon
-  static Component calendarCheck({IconSize size = IconSize.md}) =>
+  static Widget calendarCheck({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2b7', size: size);
 
   /// CalendarCheck2 icon
-  static Component calendarCheck2({IconSize size = IconSize.md}) =>
+  static Widget calendarCheck2({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2b8', size: size);
 
   /// CalendarClock icon
-  static Component calendarClock({IconSize size = IconSize.md}) =>
+  static Widget calendarClock({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e304', size: size);
 
   /// CalendarCog icon
-  static Component calendarCog({IconSize size = IconSize.md}) =>
+  static Widget calendarCog({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5ed', size: size);
 
   /// CalendarDays icon
-  static Component calendarDays({IconSize size = IconSize.md}) =>
+  static Widget calendarDays({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2b9', size: size);
 
   /// CalendarFold icon
-  static Component calendarFold({IconSize size = IconSize.md}) =>
+  static Widget calendarFold({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5b4', size: size);
 
   /// CalendarHeart icon
-  static Component calendarHeart({IconSize size = IconSize.md}) =>
+  static Widget calendarHeart({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e305', size: size);
 
   /// CalendarMinus icon
-  static Component calendarMinus({IconSize size = IconSize.md}) =>
+  static Widget calendarMinus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2ba', size: size);
 
   /// CalendarMinus2 icon
-  static Component calendarMinus2({IconSize size = IconSize.md}) =>
+  static Widget calendarMinus2({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5b5', size: size);
 
   /// CalendarOff icon
-  static Component calendarOff({IconSize size = IconSize.md}) =>
+  static Widget calendarOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2bb', size: size);
 
   /// CalendarPlus icon
-  static Component calendarPlus({IconSize size = IconSize.md}) =>
+  static Widget calendarPlus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2bc', size: size);
 
   /// CalendarPlus2 icon
-  static Component calendarPlus2({IconSize size = IconSize.md}) =>
+  static Widget calendarPlus2({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5b6', size: size);
 
   /// CalendarRange icon
-  static Component calendarRange({IconSize size = IconSize.md}) =>
+  static Widget calendarRange({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2bd', size: size);
 
   /// CalendarSearch icon
-  static Component calendarSearch({IconSize size = IconSize.md}) =>
+  static Widget calendarSearch({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e306', size: size);
 
   /// CalendarSync icon
-  static Component calendarSync({IconSize size = IconSize.md}) =>
+  static Widget calendarSync({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e636', size: size);
 
   /// CalendarX icon
-  static Component calendarX({IconSize size = IconSize.md}) =>
+  static Widget calendarX({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2be', size: size);
 
   /// CalendarX2 icon
-  static Component calendarX2({IconSize size = IconSize.md}) =>
+  static Widget calendarX2({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2bf', size: size);
 
   /// Calendars icon
-  static Component calendars({IconSize size = IconSize.md}) =>
+  static Widget calendars({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e6a7', size: size);
 
   /// Camera icon
-  static Component camera({IconSize size = IconSize.md}) =>
+  static Widget camera({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e064', size: size);
 
   /// CameraOff icon
-  static Component cameraOff({IconSize size = IconSize.md}) =>
+  static Widget cameraOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e065', size: size);
 
   /// Candy icon
-  static Component candy({IconSize size = IconSize.md}) =>
+  static Widget candy({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e391', size: size);
 
   /// CandyCane icon
-  static Component candyCane({IconSize size = IconSize.md}) =>
+  static Widget candyCane({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4ba', size: size);
 
   /// CandyOff icon
-  static Component candyOff({IconSize size = IconSize.md}) =>
+  static Widget candyOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e392', size: size);
 
   /// Cannabis icon
-  static Component cannabis({IconSize size = IconSize.md}) =>
+  static Widget cannabis({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5d4', size: size);
 
   /// CannabisOff icon
-  static Component cannabisOff({IconSize size = IconSize.md}) =>
+  static Widget cannabisOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e6b7', size: size);
 
   /// Captions icon
-  static Component captions({IconSize size = IconSize.md}) =>
+  static Widget captions({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3a4', size: size);
 
   /// CaptionsOff icon
-  static Component captionsOff({IconSize size = IconSize.md}) =>
+  static Widget captionsOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5c1', size: size);
 
   /// Car icon
-  static Component car({IconSize size = IconSize.md}) =>
+  static Widget car({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1d5', size: size);
 
   /// CarFront icon
-  static Component carFront({IconSize size = IconSize.md}) =>
+  static Widget carFront({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4fd', size: size);
 
   /// CarTaxiFront icon
-  static Component carTaxiFront({IconSize size = IconSize.md}) =>
+  static Widget carTaxiFront({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4fe', size: size);
 
   /// Caravan icon
-  static Component caravan({IconSize size = IconSize.md}) =>
+  static Widget caravan({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e539', size: size);
 
   /// CardSim icon
-  static Component cardSim({IconSize size = IconSize.md}) =>
+  static Widget cardSim({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e671', size: size);
 
   /// Carrot icon
-  static Component carrot({IconSize size = IconSize.md}) =>
+  static Widget carrot({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e25a', size: size);
 
   /// CaseLower icon
-  static Component caseLower({IconSize size = IconSize.md}) =>
+  static Widget caseLower({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3d8', size: size);
 
   /// CaseSensitive icon
-  static Component caseSensitive({IconSize size = IconSize.md}) =>
+  static Widget caseSensitive({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3d9', size: size);
 
   /// CaseUpper icon
-  static Component caseUpper({IconSize size = IconSize.md}) =>
+  static Widget caseUpper({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3da', size: size);
 
   /// CassetteTape icon
-  static Component cassetteTape({IconSize size = IconSize.md}) =>
+  static Widget cassetteTape({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4ca', size: size);
 
   /// Cast icon
-  static Component cast({IconSize size = IconSize.md}) =>
+  static Widget cast({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e066', size: size);
 
   /// Castle icon
-  static Component castle({IconSize size = IconSize.md}) =>
+  static Widget castle({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3e0', size: size);
 
   /// Cat icon
-  static Component cat({IconSize size = IconSize.md}) =>
+  static Widget cat({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e38c', size: size);
 
   /// Cctv icon
-  static Component cctv({IconSize size = IconSize.md}) =>
+  static Widget cctv({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e57d', size: size);
 
   /// ChartArea icon
-  static Component chartArea({IconSize size = IconSize.md}) =>
+  static Widget chartArea({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4d3', size: size);
 
   /// ChartBar icon
-  static Component chartBar({IconSize size = IconSize.md}) =>
+  static Widget chartBar({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2a2', size: size);
 
   /// ChartBarBig icon
-  static Component chartBarBig({IconSize size = IconSize.md}) =>
+  static Widget chartBarBig({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4a7', size: size);
 
   /// ChartBarDecreasing icon
-  static Component chartBarDecreasing({IconSize size = IconSize.md}) =>
+  static Widget chartBarDecreasing({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e607', size: size);
 
   /// ChartBarIncreasing icon
-  static Component chartBarIncreasing({IconSize size = IconSize.md}) =>
+  static Widget chartBarIncreasing({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e608', size: size);
 
   /// ChartBarStacked icon
-  static Component chartBarStacked({IconSize size = IconSize.md}) =>
+  static Widget chartBarStacked({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e609', size: size);
 
   /// ChartCandlestick icon
-  static Component chartCandlestick({IconSize size = IconSize.md}) =>
+  static Widget chartCandlestick({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4a8', size: size);
 
   /// ChartColumn icon
-  static Component chartColumn({IconSize size = IconSize.md}) =>
+  static Widget chartColumn({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2a3', size: size);
 
   /// ChartColumnBig icon
-  static Component chartColumnBig({IconSize size = IconSize.md}) =>
+  static Widget chartColumnBig({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4a9', size: size);
 
   /// ChartColumnDecreasing icon
-  static Component chartColumnDecreasing({IconSize size = IconSize.md}) =>
+  static Widget chartColumnDecreasing({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e067', size: size);
 
   /// ChartColumnIncreasing icon
-  static Component chartColumnIncreasing({IconSize size = IconSize.md}) =>
+  static Widget chartColumnIncreasing({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2a4', size: size);
 
   /// ChartColumnStacked icon
-  static Component chartColumnStacked({IconSize size = IconSize.md}) =>
+  static Widget chartColumnStacked({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e60a', size: size);
 
   /// ChartGantt icon
-  static Component chartGantt({IconSize size = IconSize.md}) =>
+  static Widget chartGantt({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e624', size: size);
 
   /// ChartLine icon
-  static Component chartLine({IconSize size = IconSize.md}) =>
+  static Widget chartLine({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2a5', size: size);
 
   /// ChartNetwork icon
-  static Component chartNetwork({IconSize size = IconSize.md}) =>
+  static Widget chartNetwork({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e60b', size: size);
 
   /// ChartNoAxesColumn icon
-  static Component chartNoAxesColumn({IconSize size = IconSize.md}) =>
+  static Widget chartNoAxesColumn({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e068', size: size);
 
   /// ChartNoAxesColumnDecreasing icon
-  static Component chartNoAxesColumnDecreasing({IconSize size = IconSize.md}) =>
+  static Widget chartNoAxesColumnDecreasing({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e069', size: size);
 
   /// ChartNoAxesColumnIncreasing icon
-  static Component chartNoAxesColumnIncreasing({IconSize size = IconSize.md}) =>
+  static Widget chartNoAxesColumnIncreasing({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e06a', size: size);
 
   /// ChartNoAxesCombined icon
-  static Component chartNoAxesCombined({IconSize size = IconSize.md}) =>
+  static Widget chartNoAxesCombined({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e60c', size: size);
 
   /// ChartNoAxesGantt icon
-  static Component chartNoAxesGantt({IconSize size = IconSize.md}) =>
+  static Widget chartNoAxesGantt({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4c4', size: size);
 
   /// ChartPie icon
-  static Component chartPie({IconSize size = IconSize.md}) =>
+  static Widget chartPie({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e06b', size: size);
 
   /// ChartScatter icon
-  static Component chartScatter({IconSize size = IconSize.md}) =>
+  static Widget chartScatter({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e48a', size: size);
 
   /// ChartSpline icon
-  static Component chartSpline({IconSize size = IconSize.md}) =>
+  static Widget chartSpline({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e60d', size: size);
 
   /// Check icon
-  static Component check({IconSize size = IconSize.md}) =>
+  static Widget check({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e06c', size: size);
 
   /// CheckCheck icon
-  static Component checkCheck({IconSize size = IconSize.md}) =>
+  static Widget checkCheck({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e38e', size: size);
 
   /// CheckLine icon
-  static Component checkLine({IconSize size = IconSize.md}) =>
+  static Widget checkLine({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e66b', size: size);
 
   /// ChefHat icon
-  static Component chefHat({IconSize size = IconSize.md}) =>
+  static Widget chefHat({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2ac', size: size);
 
   /// Cherry icon
-  static Component cherry({IconSize size = IconSize.md}) =>
+  static Widget cherry({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e350', size: size);
 
   /// ChessBishop icon
-  static Component chessBishop({IconSize size = IconSize.md}) =>
+  static Widget chessBishop({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e6a0', size: size);
 
   /// ChessKing icon
-  static Component chessKing({IconSize size = IconSize.md}) =>
+  static Widget chessKing({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e6a1', size: size);
 
   /// ChessKnight icon
-  static Component chessKnight({IconSize size = IconSize.md}) =>
+  static Widget chessKnight({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e6a2', size: size);
 
   /// ChessPawn icon
-  static Component chessPawn({IconSize size = IconSize.md}) =>
+  static Widget chessPawn({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e6a3', size: size);
 
   /// ChessQueen icon
-  static Component chessQueen({IconSize size = IconSize.md}) =>
+  static Widget chessQueen({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e6a4', size: size);
 
   /// ChessRook icon
-  static Component chessRook({IconSize size = IconSize.md}) =>
+  static Widget chessRook({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e6a5', size: size);
 
   /// ChevronDown icon
-  static Component chevronDown({IconSize size = IconSize.md}) =>
+  static Widget chevronDown({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e06d', size: size);
 
   /// ChevronFirst icon
-  static Component chevronFirst({IconSize size = IconSize.md}) =>
+  static Widget chevronFirst({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e243', size: size);
 
   /// ChevronLast icon
-  static Component chevronLast({IconSize size = IconSize.md}) =>
+  static Widget chevronLast({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e244', size: size);
 
   /// ChevronLeft icon
-  static Component chevronLeft({IconSize size = IconSize.md}) =>
+  static Widget chevronLeft({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e06e', size: size);
 
   /// ChevronRight icon
-  static Component chevronRight({IconSize size = IconSize.md}) =>
+  static Widget chevronRight({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e06f', size: size);
 
   /// ChevronUp icon
-  static Component chevronUp({IconSize size = IconSize.md}) =>
+  static Widget chevronUp({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e070', size: size);
 
   /// ChevronsDown icon
-  static Component chevronsDown({IconSize size = IconSize.md}) =>
+  static Widget chevronsDown({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e071', size: size);
 
   /// ChevronsDownUp icon
-  static Component chevronsDownUp({IconSize size = IconSize.md}) =>
+  static Widget chevronsDownUp({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e228', size: size);
 
   /// ChevronsLeft icon
-  static Component chevronsLeft({IconSize size = IconSize.md}) =>
+  static Widget chevronsLeft({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e072', size: size);
 
   /// ChevronsLeftRight icon
-  static Component chevronsLeftRight({IconSize size = IconSize.md}) =>
+  static Widget chevronsLeftRight({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e293', size: size);
 
   /// ChevronsLeftRightEllipsis icon
-  static Component chevronsLeftRightEllipsis({IconSize size = IconSize.md}) =>
+  static Widget chevronsLeftRightEllipsis({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e61f', size: size);
 
   /// ChevronsRight icon
-  static Component chevronsRight({IconSize size = IconSize.md}) =>
+  static Widget chevronsRight({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e073', size: size);
 
   /// ChevronsRightLeft icon
-  static Component chevronsRightLeft({IconSize size = IconSize.md}) =>
+  static Widget chevronsRightLeft({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e294', size: size);
 
   /// ChevronsUp icon
-  static Component chevronsUp({IconSize size = IconSize.md}) =>
+  static Widget chevronsUp({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e074', size: size);
 
   /// ChevronsUpDown icon
-  static Component chevronsUpDown({IconSize size = IconSize.md}) =>
+  static Widget chevronsUpDown({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e211', size: size);
 
   /// Chromium icon
-  static Component chromium({IconSize size = IconSize.md}) =>
+  static Widget chromium({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e075', size: size);
 
   /// Church icon
-  static Component church({IconSize size = IconSize.md}) =>
+  static Widget church({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3e1', size: size);
 
   /// Cigarette icon
-  static Component cigarette({IconSize size = IconSize.md}) =>
+  static Widget cigarette({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2c6', size: size);
 
   /// CigaretteOff icon
-  static Component cigaretteOff({IconSize size = IconSize.md}) =>
+  static Widget cigaretteOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2c7', size: size);
 
   /// Circle icon
-  static Component circle({IconSize size = IconSize.md}) =>
+  static Widget circle({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e076', size: size);
 
   /// CircleAlert icon
-  static Component circleAlert({IconSize size = IconSize.md}) =>
+  static Widget circleAlert({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e077', size: size);
 
   /// CircleArrowDown icon
-  static Component circleArrowDown({IconSize size = IconSize.md}) =>
+  static Widget circleArrowDown({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e078', size: size);
 
   /// CircleArrowLeft icon
-  static Component circleArrowLeft({IconSize size = IconSize.md}) =>
+  static Widget circleArrowLeft({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e079', size: size);
 
   /// CircleArrowOutDownLeft icon
-  static Component circleArrowOutDownLeft({IconSize size = IconSize.md}) =>
+  static Widget circleArrowOutDownLeft({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3f7', size: size);
 
   /// CircleArrowOutDownRight icon
-  static Component circleArrowOutDownRight({IconSize size = IconSize.md}) =>
+  static Widget circleArrowOutDownRight({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3f8', size: size);
 
   /// CircleArrowOutUpLeft icon
-  static Component circleArrowOutUpLeft({IconSize size = IconSize.md}) =>
+  static Widget circleArrowOutUpLeft({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3f9', size: size);
 
   /// CircleArrowOutUpRight icon
-  static Component circleArrowOutUpRight({IconSize size = IconSize.md}) =>
+  static Widget circleArrowOutUpRight({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3fa', size: size);
 
   /// CircleArrowRight icon
-  static Component circleArrowRight({IconSize size = IconSize.md}) =>
+  static Widget circleArrowRight({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e07a', size: size);
 
   /// CircleArrowUp icon
-  static Component circleArrowUp({IconSize size = IconSize.md}) =>
+  static Widget circleArrowUp({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e07b', size: size);
 
   /// CircleCheck icon
-  static Component circleCheck({IconSize size = IconSize.md}) =>
+  static Widget circleCheck({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e226', size: size);
 
   /// CircleCheckBig icon
-  static Component circleCheckBig({IconSize size = IconSize.md}) =>
+  static Widget circleCheckBig({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e07c', size: size);
 
   /// CircleChevronDown icon
-  static Component circleChevronDown({IconSize size = IconSize.md}) =>
+  static Widget circleChevronDown({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4dd', size: size);
 
   /// CircleChevronLeft icon
-  static Component circleChevronLeft({IconSize size = IconSize.md}) =>
+  static Widget circleChevronLeft({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4de', size: size);
 
   /// CircleChevronRight icon
-  static Component circleChevronRight({IconSize size = IconSize.md}) =>
+  static Widget circleChevronRight({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4df', size: size);
 
   /// CircleChevronUp icon
-  static Component circleChevronUp({IconSize size = IconSize.md}) =>
+  static Widget circleChevronUp({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4e0', size: size);
 
   /// CircleDashed icon
-  static Component circleDashed({IconSize size = IconSize.md}) =>
+  static Widget circleDashed({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4b0', size: size);
 
   /// CircleDivide icon
-  static Component circleDivide({IconSize size = IconSize.md}) =>
+  static Widget circleDivide({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e07d', size: size);
 
   /// CircleDollarSign icon
-  static Component circleDollarSign({IconSize size = IconSize.md}) =>
+  static Widget circleDollarSign({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e47d', size: size);
 
   /// CircleDot icon
-  static Component circleDot({IconSize size = IconSize.md}) =>
+  static Widget circleDot({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e345', size: size);
 
   /// CircleDotDashed icon
-  static Component circleDotDashed({IconSize size = IconSize.md}) =>
+  static Widget circleDotDashed({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4b1', size: size);
 
   /// CircleEllipsis icon
-  static Component circleEllipsis({IconSize size = IconSize.md}) =>
+  static Widget circleEllipsis({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e346', size: size);
 
   /// CircleEqual icon
-  static Component circleEqual({IconSize size = IconSize.md}) =>
+  static Widget circleEqual({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e400', size: size);
 
   /// CircleFadingArrowUp icon
-  static Component circleFadingArrowUp({IconSize size = IconSize.md}) =>
+  static Widget circleFadingArrowUp({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e618', size: size);
 
   /// CircleFadingPlus icon
-  static Component circleFadingPlus({IconSize size = IconSize.md}) =>
+  static Widget circleFadingPlus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5bc', size: size);
 
   /// CircleGauge icon
-  static Component circleGauge({IconSize size = IconSize.md}) =>
+  static Widget circleGauge({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4e1', size: size);
 
   /// CircleMinus icon
-  static Component circleMinus({IconSize size = IconSize.md}) =>
+  static Widget circleMinus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e07e', size: size);
 
   /// CircleOff icon
-  static Component circleOff({IconSize size = IconSize.md}) =>
+  static Widget circleOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e401', size: size);
 
   /// CircleParking icon
-  static Component circleParking({IconSize size = IconSize.md}) =>
+  static Widget circleParking({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3c9', size: size);
 
   /// CircleParkingOff icon
-  static Component circleParkingOff({IconSize size = IconSize.md}) =>
+  static Widget circleParkingOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3ca', size: size);
 
   /// CirclePause icon
-  static Component circlePause({IconSize size = IconSize.md}) =>
+  static Widget circlePause({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e07f', size: size);
 
   /// CirclePercent icon
-  static Component circlePercent({IconSize size = IconSize.md}) =>
+  static Widget circlePercent({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e51a', size: size);
 
   /// CirclePile icon
-  static Component circlePile({IconSize size = IconSize.md}) =>
+  static Widget circlePile({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e6b0', size: size);
 
   /// CirclePlay icon
-  static Component circlePlay({IconSize size = IconSize.md}) =>
+  static Widget circlePlay({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e080', size: size);
 
   /// CirclePlus icon
-  static Component circlePlus({IconSize size = IconSize.md}) =>
+  static Widget circlePlus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e081', size: size);
 
   /// CirclePoundSterling icon
-  static Component circlePoundSterling({IconSize size = IconSize.md}) =>
+  static Widget circlePoundSterling({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e66d', size: size);
 
   /// CirclePower icon
-  static Component circlePower({IconSize size = IconSize.md}) =>
+  static Widget circlePower({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e550', size: size);
 
   /// CircleQuestionMark icon
-  static Component circleQuestionMark({IconSize size = IconSize.md}) =>
+  static Widget circleQuestionMark({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e082', size: size);
 
   /// CircleSlash icon
-  static Component circleSlash({IconSize size = IconSize.md}) =>
+  static Widget circleSlash({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e402', size: size);
 
   /// CircleSlash2 icon
-  static Component circleSlash2({IconSize size = IconSize.md}) =>
+  static Widget circleSlash2({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e213', size: size);
 
   /// CircleSmall icon
-  static Component circleSmall({IconSize size = IconSize.md}) =>
+  static Widget circleSmall({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e640', size: size);
 
   /// CircleStar icon
-  static Component circleStar({IconSize size = IconSize.md}) =>
+  static Widget circleStar({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e68d', size: size);
 
   /// CircleStop icon
-  static Component circleStop({IconSize size = IconSize.md}) =>
+  static Widget circleStop({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e083', size: size);
 
   /// CircleUser icon
-  static Component circleUser({IconSize size = IconSize.md}) =>
+  static Widget circleUser({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e461', size: size);
 
   /// CircleUserRound icon
-  static Component circleUserRound({IconSize size = IconSize.md}) =>
+  static Widget circleUserRound({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e462', size: size);
 
   /// CircleX icon
-  static Component circleX({IconSize size = IconSize.md}) =>
+  static Widget circleX({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e084', size: size);
 
   /// CircuitBoard icon
-  static Component circuitBoard({IconSize size = IconSize.md}) =>
+  static Widget circuitBoard({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e403', size: size);
 
   /// Citrus icon
-  static Component citrus({IconSize size = IconSize.md}) =>
+  static Widget citrus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e375', size: size);
 
   /// Clapperboard icon
-  static Component clapperboard({IconSize size = IconSize.md}) =>
+  static Widget clapperboard({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e29b', size: size);
 
   /// Clipboard icon
-  static Component clipboard({IconSize size = IconSize.md}) =>
+  static Widget clipboard({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e085', size: size);
 
   /// ClipboardCheck icon
-  static Component clipboardCheck({IconSize size = IconSize.md}) =>
+  static Widget clipboardCheck({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e219', size: size);
 
   /// ClipboardClock icon
-  static Component clipboardClock({IconSize size = IconSize.md}) =>
+  static Widget clipboardClock({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e688', size: size);
 
   /// ClipboardCopy icon
-  static Component clipboardCopy({IconSize size = IconSize.md}) =>
+  static Widget clipboardCopy({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e225', size: size);
 
   /// ClipboardList icon
-  static Component clipboardList({IconSize size = IconSize.md}) =>
+  static Widget clipboardList({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e086', size: size);
 
   /// ClipboardMinus icon
-  static Component clipboardMinus({IconSize size = IconSize.md}) =>
+  static Widget clipboardMinus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5be', size: size);
 
   /// ClipboardPaste icon
-  static Component clipboardPaste({IconSize size = IconSize.md}) =>
+  static Widget clipboardPaste({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3e8', size: size);
 
   /// ClipboardPen icon
-  static Component clipboardPen({IconSize size = IconSize.md}) =>
+  static Widget clipboardPen({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e307', size: size);
 
   /// ClipboardPenLine icon
-  static Component clipboardPenLine({IconSize size = IconSize.md}) =>
+  static Widget clipboardPenLine({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e308', size: size);
 
   /// ClipboardPlus icon
-  static Component clipboardPlus({IconSize size = IconSize.md}) =>
+  static Widget clipboardPlus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5bf', size: size);
 
   /// ClipboardType icon
-  static Component clipboardType({IconSize size = IconSize.md}) =>
+  static Widget clipboardType({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e309', size: size);
 
   /// ClipboardX icon
-  static Component clipboardX({IconSize size = IconSize.md}) =>
+  static Widget clipboardX({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e222', size: size);
 
   /// Clock icon
-  static Component clock({IconSize size = IconSize.md}) =>
+  static Widget clock({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e087', size: size);
 
   /// Clock1 icon
-  static Component clock1({IconSize size = IconSize.md}) =>
+  static Widget clock1({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e24b', size: size);
 
   /// Clock10 icon
-  static Component clock10({IconSize size = IconSize.md}) =>
+  static Widget clock10({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e24c', size: size);
 
   /// Clock11 icon
-  static Component clock11({IconSize size = IconSize.md}) =>
+  static Widget clock11({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e24d', size: size);
 
   /// Clock12 icon
-  static Component clock12({IconSize size = IconSize.md}) =>
+  static Widget clock12({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e24e', size: size);
 
   /// Clock2 icon
-  static Component clock2({IconSize size = IconSize.md}) =>
+  static Widget clock2({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e24f', size: size);
 
   /// Clock3 icon
-  static Component clock3({IconSize size = IconSize.md}) =>
+  static Widget clock3({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e250', size: size);
 
   /// Clock4 icon
-  static Component clock4({IconSize size = IconSize.md}) =>
+  static Widget clock4({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e251', size: size);
 
   /// Clock5 icon
-  static Component clock5({IconSize size = IconSize.md}) =>
+  static Widget clock5({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e252', size: size);
 
   /// Clock6 icon
-  static Component clock6({IconSize size = IconSize.md}) =>
+  static Widget clock6({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e253', size: size);
 
   /// Clock7 icon
-  static Component clock7({IconSize size = IconSize.md}) =>
+  static Widget clock7({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e254', size: size);
 
   /// Clock8 icon
-  static Component clock8({IconSize size = IconSize.md}) =>
+  static Widget clock8({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e255', size: size);
 
   /// Clock9 icon
-  static Component clock9({IconSize size = IconSize.md}) =>
+  static Widget clock9({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e256', size: size);
 
   /// ClockAlert icon
-  static Component clockAlert({IconSize size = IconSize.md}) =>
+  static Widget clockAlert({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e62a', size: size);
 
   /// ClockArrowDown icon
-  static Component clockArrowDown({IconSize size = IconSize.md}) =>
+  static Widget clockArrowDown({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e600', size: size);
 
   /// ClockArrowUp icon
-  static Component clockArrowUp({IconSize size = IconSize.md}) =>
+  static Widget clockArrowUp({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e601', size: size);
 
   /// ClockCheck icon
-  static Component clockCheck({IconSize size = IconSize.md}) =>
+  static Widget clockCheck({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e69e', size: size);
 
   /// ClockFading icon
-  static Component clockFading({IconSize size = IconSize.md}) =>
+  static Widget clockFading({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e64a', size: size);
 
   /// ClockPlus icon
-  static Component clockPlus({IconSize size = IconSize.md}) =>
+  static Widget clockPlus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e667', size: size);
 
   /// ClosedCaption icon
-  static Component closedCaption({IconSize size = IconSize.md}) =>
+  static Widget closedCaption({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e68a', size: size);
 
   /// Cloud icon
-  static Component cloud({IconSize size = IconSize.md}) =>
+  static Widget cloud({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e088', size: size);
 
   /// CloudAlert icon
-  static Component cloudAlert({IconSize size = IconSize.md}) =>
+  static Widget cloudAlert({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e633', size: size);
 
   /// CloudBackup icon
-  static Component cloudBackup({IconSize size = IconSize.md}) =>
+  static Widget cloudBackup({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e6b1', size: size);
 
   /// CloudCheck icon
-  static Component cloudCheck({IconSize size = IconSize.md}) =>
+  static Widget cloudCheck({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e66e', size: size);
 
   /// CloudCog icon
-  static Component cloudCog({IconSize size = IconSize.md}) =>
+  static Widget cloudCog({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e30a', size: size);
 
   /// CloudDownload icon
-  static Component cloudDownload({IconSize size = IconSize.md}) =>
+  static Widget cloudDownload({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e089', size: size);
 
   /// CloudDrizzle icon
-  static Component cloudDrizzle({IconSize size = IconSize.md}) =>
+  static Widget cloudDrizzle({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e08a', size: size);
 
   /// CloudFog icon
-  static Component cloudFog({IconSize size = IconSize.md}) =>
+  static Widget cloudFog({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e214', size: size);
 
   /// CloudHail icon
-  static Component cloudHail({IconSize size = IconSize.md}) =>
+  static Widget cloudHail({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e08b', size: size);
 
   /// CloudLightning icon
-  static Component cloudLightning({IconSize size = IconSize.md}) =>
+  static Widget cloudLightning({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e08c', size: size);
 
   /// CloudMoon icon
-  static Component cloudMoon({IconSize size = IconSize.md}) =>
+  static Widget cloudMoon({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e215', size: size);
 
   /// CloudMoonRain icon
-  static Component cloudMoonRain({IconSize size = IconSize.md}) =>
+  static Widget cloudMoonRain({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2fa', size: size);
 
   /// CloudOff icon
-  static Component cloudOff({IconSize size = IconSize.md}) =>
+  static Widget cloudOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e08d', size: size);
 
   /// CloudRain icon
-  static Component cloudRain({IconSize size = IconSize.md}) =>
+  static Widget cloudRain({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e08e', size: size);
 
   /// CloudRainWind icon
-  static Component cloudRainWind({IconSize size = IconSize.md}) =>
+  static Widget cloudRainWind({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e08f', size: size);
 
   /// CloudSnow icon
-  static Component cloudSnow({IconSize size = IconSize.md}) =>
+  static Widget cloudSnow({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e090', size: size);
 
   /// CloudSun icon
-  static Component cloudSun({IconSize size = IconSize.md}) =>
+  static Widget cloudSun({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e216', size: size);
 
   /// CloudSunRain icon
-  static Component cloudSunRain({IconSize size = IconSize.md}) =>
+  static Widget cloudSunRain({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2fb', size: size);
 
   /// CloudSync icon
-  static Component cloudSync({IconSize size = IconSize.md}) =>
+  static Widget cloudSync({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e6b2', size: size);
 
   /// CloudUpload icon
-  static Component cloudUpload({IconSize size = IconSize.md}) =>
+  static Widget cloudUpload({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e091', size: size);
 
   /// Cloudy icon
-  static Component cloudy({IconSize size = IconSize.md}) =>
+  static Widget cloudy({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e217', size: size);
 
   /// Clover icon
-  static Component clover({IconSize size = IconSize.md}) =>
+  static Widget clover({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e092', size: size);
 
   /// Club icon
-  static Component club({IconSize size = IconSize.md}) =>
+  static Widget club({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e496', size: size);
 
   /// Code icon
-  static Component code({IconSize size = IconSize.md}) =>
+  static Widget code({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e093', size: size);
 
   /// CodeXml icon
-  static Component codeXml({IconSize size = IconSize.md}) =>
+  static Widget codeXml({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e206', size: size);
 
   /// Codepen icon
-  static Component codepen({IconSize size = IconSize.md}) =>
+  static Widget codepen({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e094', size: size);
 
   /// Codesandbox icon
-  static Component codesandbox({IconSize size = IconSize.md}) =>
+  static Widget codesandbox({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e095', size: size);
 
   /// Coffee icon
-  static Component coffee({IconSize size = IconSize.md}) =>
+  static Widget coffee({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e096', size: size);
 
   /// Cog icon
-  static Component cog({IconSize size = IconSize.md}) =>
+  static Widget cog({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e30b', size: size);
 
   /// Coins icon
-  static Component coins({IconSize size = IconSize.md}) =>
+  static Widget coins({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e097', size: size);
 
   /// Columns2 icon
-  static Component columns2({IconSize size = IconSize.md}) =>
+  static Widget columns2({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e098', size: size);
 
   /// Columns3 icon
-  static Component columns3({IconSize size = IconSize.md}) =>
+  static Widget columns3({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e099', size: size);
 
   /// Columns3Cog icon
-  static Component columns3Cog({IconSize size = IconSize.md}) =>
+  static Widget columns3Cog({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e661', size: size);
 
   /// Columns4 icon
-  static Component columns4({IconSize size = IconSize.md}) =>
+  static Widget columns4({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e589', size: size);
 
   /// Combine icon
-  static Component combine({IconSize size = IconSize.md}) =>
+  static Widget combine({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e44c', size: size);
 
   /// Command icon
-  static Component command({IconSize size = IconSize.md}) =>
+  static Widget command({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e09a', size: size);
 
   /// Compass icon
-  static Component compass({IconSize size = IconSize.md}) =>
+  static Widget compass({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e09b', size: size);
 
-  /// Component icon
-  static Component componentIcon({IconSize size = IconSize.md}) =>
+  /// Widget icon
+  static Widget componentIcon({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2ad', size: size);
 
   /// Computer icon
-  static Component computer({IconSize size = IconSize.md}) =>
+  static Widget computer({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4e4', size: size);
 
   /// ConciergeBell icon
-  static Component conciergeBell({IconSize size = IconSize.md}) =>
+  static Widget conciergeBell({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e378', size: size);
 
   /// Cone icon
-  static Component cone({IconSize size = IconSize.md}) =>
+  static Widget cone({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e523', size: size);
 
   /// Construction icon
-  static Component construction({IconSize size = IconSize.md}) =>
+  static Widget construction({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3b4', size: size);
 
   /// Contact icon
-  static Component contact({IconSize size = IconSize.md}) =>
+  static Widget contact({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e09c', size: size);
 
   /// ContactRound icon
-  static Component contactRound({IconSize size = IconSize.md}) =>
+  static Widget contactRound({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e463', size: size);
 
   /// Container icon
-  static Component container({IconSize size = IconSize.md}) =>
+  static Widget container({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4d5', size: size);
 
   /// Contrast icon
-  static Component contrastIcon({IconSize size = IconSize.md}) =>
+  static Widget contrastIcon({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e09d', size: size);
 
   /// Cookie icon
-  static Component cookie({IconSize size = IconSize.md}) =>
+  static Widget cookie({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e26b', size: size);
 
   /// CookingPot icon
-  static Component cookingPot({IconSize size = IconSize.md}) =>
+  static Widget cookingPot({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e584', size: size);
 
   /// Copy icon
-  static Component copy({IconSize size = IconSize.md}) =>
+  static Widget copy({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e09e', size: size);
 
   /// CopyCheck icon
-  static Component copyCheck({IconSize size = IconSize.md}) =>
+  static Widget copyCheck({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3fb', size: size);
 
   /// CopyMinus icon
-  static Component copyMinus({IconSize size = IconSize.md}) =>
+  static Widget copyMinus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3fc', size: size);
 
   /// CopyPlus icon
-  static Component copyPlus({IconSize size = IconSize.md}) =>
+  static Widget copyPlus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3fd', size: size);
 
   /// CopySlash icon
-  static Component copySlash({IconSize size = IconSize.md}) =>
+  static Widget copySlash({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3fe', size: size);
 
   /// CopyX icon
-  static Component copyX({IconSize size = IconSize.md}) =>
+  static Widget copyX({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3ff', size: size);
 
   /// Copyleft icon
-  static Component copyleft({IconSize size = IconSize.md}) =>
+  static Widget copyleft({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e09f', size: size);
 
   /// Copyright icon
-  static Component copyright({IconSize size = IconSize.md}) =>
+  static Widget copyright({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0a0', size: size);
 
   /// CornerDownLeft icon
-  static Component cornerDownLeft({IconSize size = IconSize.md}) =>
+  static Widget cornerDownLeft({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0a1', size: size);
 
   /// CornerDownRight icon
-  static Component cornerDownRight({IconSize size = IconSize.md}) =>
+  static Widget cornerDownRight({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0a2', size: size);
 
   /// CornerLeftDown icon
-  static Component cornerLeftDown({IconSize size = IconSize.md}) =>
+  static Widget cornerLeftDown({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0a3', size: size);
 
   /// CornerLeftUp icon
-  static Component cornerLeftUp({IconSize size = IconSize.md}) =>
+  static Widget cornerLeftUp({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0a4', size: size);
 
   /// CornerRightDown icon
-  static Component cornerRightDown({IconSize size = IconSize.md}) =>
+  static Widget cornerRightDown({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0a5', size: size);
 
   /// CornerRightUp icon
-  static Component cornerRightUp({IconSize size = IconSize.md}) =>
+  static Widget cornerRightUp({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0a6', size: size);
 
   /// CornerUpLeft icon
-  static Component cornerUpLeft({IconSize size = IconSize.md}) =>
+  static Widget cornerUpLeft({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0a7', size: size);
 
   /// CornerUpRight icon
-  static Component cornerUpRight({IconSize size = IconSize.md}) =>
+  static Widget cornerUpRight({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0a8', size: size);
 
   /// Cpu icon
-  static Component cpu({IconSize size = IconSize.md}) =>
+  static Widget cpu({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0a9', size: size);
 
   /// CreativeCommons icon
-  static Component creativeCommons({IconSize size = IconSize.md}) =>
+  static Widget creativeCommons({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3b2', size: size);
 
   /// CreditCard icon
-  static Component creditCard({IconSize size = IconSize.md}) =>
+  static Widget creditCard({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0aa', size: size);
 
   /// Croissant icon
-  static Component croissant({IconSize size = IconSize.md}) =>
+  static Widget croissant({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2ae', size: size);
 
   /// Crop icon
-  static Component crop({IconSize size = IconSize.md}) =>
+  static Widget crop({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0ab', size: size);
 
   /// Cross icon
-  static Component cross({IconSize size = IconSize.md}) =>
+  static Widget cross({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1e5', size: size);
 
   /// Crosshair icon
-  static Component crosshair({IconSize size = IconSize.md}) =>
+  static Widget crosshair({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0ac', size: size);
 
   /// Crown icon
-  static Component crown({IconSize size = IconSize.md}) =>
+  static Widget crown({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1d6', size: size);
 
   /// Cuboid icon
-  static Component cuboid({IconSize size = IconSize.md}) =>
+  static Widget cuboid({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e524', size: size);
 
   /// CupSoda icon
-  static Component cupSoda({IconSize size = IconSize.md}) =>
+  static Widget cupSoda({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2d1', size: size);
 
   /// Currency icon
-  static Component currency({IconSize size = IconSize.md}) =>
+  static Widget currency({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e230', size: size);
 
   /// Cylinder icon
-  static Component cylinder({IconSize size = IconSize.md}) =>
+  static Widget cylinder({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e525', size: size);
 
   /// Dam icon
-  static Component dam({IconSize size = IconSize.md}) =>
+  static Widget dam({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e606', size: size);
 
   /// Database icon
-  static Component database({IconSize size = IconSize.md}) =>
+  static Widget database({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0ad', size: size);
 
   /// DatabaseBackup icon
-  static Component databaseBackup({IconSize size = IconSize.md}) =>
+  static Widget databaseBackup({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3ab', size: size);
 
   /// DatabaseZap icon
-  static Component databaseZap({IconSize size = IconSize.md}) =>
+  static Widget databaseZap({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e50b', size: size);
 
   /// DecimalsArrowLeft icon
-  static Component decimalsArrowLeft({IconSize size = IconSize.md}) =>
+  static Widget decimalsArrowLeft({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e65c', size: size);
 
   /// DecimalsArrowRight icon
-  static Component decimalsArrowRight({IconSize size = IconSize.md}) =>
+  static Widget decimalsArrowRight({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e65d', size: size);
 
   /// Delete icon
-  static Component delete({IconSize size = IconSize.md}) =>
+  static Widget delete({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0ae', size: size);
 
   /// Dessert icon
-  static Component dessert({IconSize size = IconSize.md}) =>
+  static Widget dessert({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4bb', size: size);
 
   /// Diameter icon
-  static Component diameter({IconSize size = IconSize.md}) =>
+  static Widget diameter({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e526', size: size);
 
   /// Diamond icon
-  static Component diamond({IconSize size = IconSize.md}) =>
+  static Widget diamond({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2d2', size: size);
 
   /// DiamondMinus icon
-  static Component diamondMinus({IconSize size = IconSize.md}) =>
+  static Widget diamondMinus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5e1', size: size);
 
   /// DiamondPercent icon
-  static Component diamondPercent({IconSize size = IconSize.md}) =>
+  static Widget diamondPercent({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e51b', size: size);
 
   /// DiamondPlus icon
-  static Component diamondPlus({IconSize size = IconSize.md}) =>
+  static Widget diamondPlus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5e2', size: size);
 
   /// Dice1 icon
-  static Component dice1({IconSize size = IconSize.md}) =>
+  static Widget dice1({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e287', size: size);
 
   /// Dice2 icon
-  static Component dice2({IconSize size = IconSize.md}) =>
+  static Widget dice2({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e288', size: size);
 
   /// Dice3 icon
-  static Component dice3({IconSize size = IconSize.md}) =>
+  static Widget dice3({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e289', size: size);
 
   /// Dice4 icon
-  static Component dice4({IconSize size = IconSize.md}) =>
+  static Widget dice4({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e28a', size: size);
 
   /// Dice5 icon
-  static Component dice5({IconSize size = IconSize.md}) =>
+  static Widget dice5({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e28b', size: size);
 
   /// Dice6 icon
-  static Component dice6({IconSize size = IconSize.md}) =>
+  static Widget dice6({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e28c', size: size);
 
   /// Dices icon
-  static Component dices({IconSize size = IconSize.md}) =>
+  static Widget dices({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2c5', size: size);
 
   /// Diff icon
-  static Component diff({IconSize size = IconSize.md}) =>
+  static Widget diff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e30c', size: size);
 
   /// Disc icon
-  static Component disc({IconSize size = IconSize.md}) =>
+  static Widget disc({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0af', size: size);
 
   /// Disc2 icon
-  static Component disc2({IconSize size = IconSize.md}) =>
+  static Widget disc2({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3f6', size: size);
 
   /// Disc3 icon
-  static Component disc3({IconSize size = IconSize.md}) =>
+  static Widget disc3({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e494', size: size);
 
   /// DiscAlbum icon
-  static Component discAlbum({IconSize size = IconSize.md}) =>
+  static Widget discAlbum({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e55c', size: size);
 
   /// Divide icon
-  static Component divide({IconSize size = IconSize.md}) =>
+  static Widget divide({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0b0', size: size);
 
   /// Dna icon
-  static Component dna({IconSize size = IconSize.md}) =>
+  static Widget dna({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e393', size: size);
 
   /// DnaOff icon
-  static Component dnaOff({IconSize size = IconSize.md}) =>
+  static Widget dnaOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e394', size: size);
 
   /// Dock icon
-  static Component dock({IconSize size = IconSize.md}) =>
+  static Widget dock({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5d3', size: size);
 
   /// Dog icon
-  static Component dog({IconSize size = IconSize.md}) =>
+  static Widget dog({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e38d', size: size);
 
   /// DollarSign icon
-  static Component dollarSign({IconSize size = IconSize.md}) =>
+  static Widget dollarSign({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0b1', size: size);
 
   /// Donut icon
-  static Component donut({IconSize size = IconSize.md}) =>
+  static Widget donut({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4bc', size: size);
 
   /// DoorClosed icon
-  static Component doorClosed({IconSize size = IconSize.md}) =>
+  static Widget doorClosed({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3d5', size: size);
 
   /// DoorClosedLocked icon
-  static Component doorClosedLocked({IconSize size = IconSize.md}) =>
+  static Widget doorClosedLocked({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e664', size: size);
 
   /// DoorOpen icon
-  static Component doorOpen({IconSize size = IconSize.md}) =>
+  static Widget doorOpen({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3d6', size: size);
 
   /// Dot icon
-  static Component dot({IconSize size = IconSize.md}) =>
+  static Widget dot({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e44f', size: size);
 
   /// Download icon
-  static Component download({IconSize size = IconSize.md}) =>
+  static Widget download({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0b2', size: size);
 
   /// DraftingCompass icon
-  static Component draftingCompass({IconSize size = IconSize.md}) =>
+  static Widget draftingCompass({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e527', size: size);
 
   /// Drama icon
-  static Component drama({IconSize size = IconSize.md}) =>
+  static Widget drama({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e521', size: size);
 
   /// Dribbble icon
-  static Component dribbble({IconSize size = IconSize.md}) =>
+  static Widget dribbble({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0b3', size: size);
 
   /// Drill icon
-  static Component drill({IconSize size = IconSize.md}) =>
+  static Widget drill({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e58d', size: size);
 
   /// Drone icon
-  static Component drone({IconSize size = IconSize.md}) =>
+  static Widget drone({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e676', size: size);
 
   /// Droplet icon
-  static Component droplet({IconSize size = IconSize.md}) =>
+  static Widget droplet({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0b4', size: size);
 
   /// DropletOff icon
-  static Component dropletOff({IconSize size = IconSize.md}) =>
+  static Widget dropletOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e638', size: size);
 
   /// Droplets icon
-  static Component droplets({IconSize size = IconSize.md}) =>
+  static Widget droplets({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0b5', size: size);
 
   /// Drum icon
-  static Component drum({IconSize size = IconSize.md}) =>
+  static Widget drum({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e55d', size: size);
 
   /// Drumstick icon
-  static Component drumstick({IconSize size = IconSize.md}) =>
+  static Widget drumstick({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e25b', size: size);
 
   /// Dumbbell icon
-  static Component dumbbell({IconSize size = IconSize.md}) =>
+  static Widget dumbbell({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3a1', size: size);
 
   /// Ear icon
-  static Component ear({IconSize size = IconSize.md}) =>
+  static Widget ear({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e382', size: size);
 
   /// EarOff icon
-  static Component earOff({IconSize size = IconSize.md}) =>
+  static Widget earOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e383', size: size);
 
   /// Earth icon
-  static Component earth({IconSize size = IconSize.md}) =>
+  static Widget earth({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1f3', size: size);
 
   /// EarthLock icon
-  static Component earthLock({IconSize size = IconSize.md}) =>
+  static Widget earthLock({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5cc', size: size);
 
   /// Eclipse icon
-  static Component eclipse({IconSize size = IconSize.md}) =>
+  static Widget eclipse({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e59d', size: size);
 
   /// Egg icon
-  static Component egg({IconSize size = IconSize.md}) =>
+  static Widget egg({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e25d', size: size);
 
   /// EggFried icon
-  static Component eggFried({IconSize size = IconSize.md}) =>
+  static Widget eggFried({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e351', size: size);
 
   /// EggOff icon
-  static Component eggOff({IconSize size = IconSize.md}) =>
+  static Widget eggOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e395', size: size);
 
   /// Ellipsis icon
-  static Component ellipsis({IconSize size = IconSize.md}) =>
+  static Widget ellipsis({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0b6', size: size);
 
   /// EllipsisVertical icon
-  static Component ellipsisVertical({IconSize size = IconSize.md}) =>
+  static Widget ellipsisVertical({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0b7', size: size);
 
   /// Equal icon
-  static Component equal({IconSize size = IconSize.md}) =>
+  static Widget equal({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1bd', size: size);
 
   /// EqualApproximately icon
-  static Component equalApproximately({IconSize size = IconSize.md}) =>
+  static Widget equalApproximately({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e634', size: size);
 
   /// EqualNot icon
-  static Component equalNot({IconSize size = IconSize.md}) =>
+  static Widget equalNot({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1be', size: size);
 
   /// Eraser icon
-  static Component eraser({IconSize size = IconSize.md}) =>
+  static Widget eraser({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e28f', size: size);
 
   /// EthernetPort icon
-  static Component ethernetPort({IconSize size = IconSize.md}) =>
+  static Widget ethernetPort({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e620', size: size);
 
   /// Euro icon
-  static Component euro({IconSize size = IconSize.md}) =>
+  static Widget euro({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0b8', size: size);
 
   /// EvCharger icon
-  static Component evCharger({IconSize size = IconSize.md}) =>
+  static Widget evCharger({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e697', size: size);
 
   /// Expand icon
-  static Component expand({IconSize size = IconSize.md}) =>
+  static Widget expand({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e21a', size: size);
 
   /// ExternalLink icon
-  static Component externalLink({IconSize size = IconSize.md}) =>
+  static Widget externalLink({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0b9', size: size);
 
   /// Eye icon
-  static Component eye({IconSize size = IconSize.md}) =>
+  static Widget eye({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0ba', size: size);
 
   /// EyeClosed icon
-  static Component eyeClosed({IconSize size = IconSize.md}) =>
+  static Widget eyeClosed({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e62e', size: size);
 
   /// EyeOff icon
-  static Component eyeOff({IconSize size = IconSize.md}) =>
+  static Widget eyeOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0bb', size: size);
 
   /// Facebook icon
-  static Component facebook({IconSize size = IconSize.md}) =>
+  static Widget facebook({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0bc', size: size);
 
   /// Factory icon
-  static Component factoryIcon({IconSize size = IconSize.md}) =>
+  static Widget factoryIcon({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e29f', size: size);
 
   /// Fan icon
-  static Component fan({IconSize size = IconSize.md}) =>
+  static Widget fan({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e379', size: size);
 
   /// FastForward icon
-  static Component fastForward({IconSize size = IconSize.md}) =>
+  static Widget fastForward({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0bd', size: size);
 
   /// Feather icon
-  static Component feather({IconSize size = IconSize.md}) =>
+  static Widget feather({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0be', size: size);
 
   /// Fence icon
-  static Component fence({IconSize size = IconSize.md}) =>
+  static Widget fence({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e582', size: size);
 
   /// FerrisWheel icon
-  static Component ferrisWheel({IconSize size = IconSize.md}) =>
+  static Widget ferrisWheel({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e47f', size: size);
 
   /// Figma icon
-  static Component figma({IconSize size = IconSize.md}) =>
+  static Widget figma({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0bf', size: size);
 
   /// File icon
-  static Component file({IconSize size = IconSize.md}) =>
+  static Widget file({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0c0', size: size);
 
   /// FileArchive icon
-  static Component fileArchive({IconSize size = IconSize.md}) =>
+  static Widget fileArchive({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e30d', size: size);
 
   /// FileAxis3d icon
-  static Component fileAxis3d({IconSize size = IconSize.md}) =>
+  static Widget fileAxis3d({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e30e', size: size);
 
   /// FileBadge icon
-  static Component fileBadge({IconSize size = IconSize.md}) =>
+  static Widget fileBadge({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e30f', size: size);
 
   /// FileBox icon
-  static Component fileBox({IconSize size = IconSize.md}) =>
+  static Widget fileBox({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e310', size: size);
 
   /// FileBraces icon
-  static Component fileBraces({IconSize size = IconSize.md}) =>
+  static Widget fileBraces({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e36b', size: size);
 
   /// FileBracesCorner icon
-  static Component fileBracesCorner({IconSize size = IconSize.md}) =>
+  static Widget fileBracesCorner({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e36c', size: size);
 
   /// FileChartColumn icon
-  static Component fileChartColumn({IconSize size = IconSize.md}) =>
+  static Widget fileChartColumn({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e311', size: size);
 
   /// FileChartColumnIncreasing icon
-  static Component fileChartColumnIncreasing({IconSize size = IconSize.md}) =>
+  static Widget fileChartColumnIncreasing({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e312', size: size);
 
   /// FileChartLine icon
-  static Component fileChartLine({IconSize size = IconSize.md}) =>
+  static Widget fileChartLine({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e313', size: size);
 
   /// FileChartPie icon
-  static Component fileChartPie({IconSize size = IconSize.md}) =>
+  static Widget fileChartPie({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e314', size: size);
 
   /// FileCheck icon
-  static Component fileCheck({IconSize size = IconSize.md}) =>
+  static Widget fileCheck({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0c1', size: size);
 
   /// FileCheckCorner icon
-  static Component fileCheckCorner({IconSize size = IconSize.md}) =>
+  static Widget fileCheckCorner({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0c2', size: size);
 
   /// FileClock icon
-  static Component fileClock({IconSize size = IconSize.md}) =>
+  static Widget fileClock({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e315', size: size);
 
   /// FileCode icon
-  static Component fileCode({IconSize size = IconSize.md}) =>
+  static Widget fileCode({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0c3', size: size);
 
   /// FileCodeCorner icon
-  static Component fileCodeCorner({IconSize size = IconSize.md}) =>
+  static Widget fileCodeCorner({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e45e', size: size);
 
   /// FileCog icon
-  static Component fileCog({IconSize size = IconSize.md}) =>
+  static Widget fileCog({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e316', size: size);
 
   /// FileDiff icon
-  static Component fileDiff({IconSize size = IconSize.md}) =>
+  static Widget fileDiff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e317', size: size);
 
   /// FileDigit icon
-  static Component fileDigit({IconSize size = IconSize.md}) =>
+  static Widget fileDigit({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0c4', size: size);
 
   /// FileDown icon
-  static Component fileDown({IconSize size = IconSize.md}) =>
+  static Widget fileDown({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e318', size: size);
 
   /// FileExclamationPoint icon
-  static Component fileExclamationPoint({IconSize size = IconSize.md}) =>
+  static Widget fileExclamationPoint({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e319', size: size);
 
   /// FileHeadphone icon
-  static Component fileHeadphone({IconSize size = IconSize.md}) =>
+  static Widget fileHeadphone({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e31a', size: size);
 
   /// FileHeart icon
-  static Component fileHeart({IconSize size = IconSize.md}) =>
+  static Widget fileHeart({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e31b', size: size);
 
   /// FileImage icon
-  static Component fileImage({IconSize size = IconSize.md}) =>
+  static Widget fileImage({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e31c', size: size);
 
   /// FileInput icon
-  static Component fileInput({IconSize size = IconSize.md}) =>
+  static Widget fileInput({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0c5', size: size);
 
   /// FileKey icon
-  static Component fileKey({IconSize size = IconSize.md}) =>
+  static Widget fileKey({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e31d', size: size);
 
   /// FileLock icon
-  static Component fileLock({IconSize size = IconSize.md}) =>
+  static Widget fileLock({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e31e', size: size);
 
   /// FileMinus icon
-  static Component fileMinus({IconSize size = IconSize.md}) =>
+  static Widget fileMinus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0c6', size: size);
 
   /// FileMinusCorner icon
-  static Component fileMinusCorner({IconSize size = IconSize.md}) =>
+  static Widget fileMinusCorner({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0c7', size: size);
 
   /// FileMusic icon
-  static Component fileMusic({IconSize size = IconSize.md}) =>
+  static Widget fileMusic({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e55e', size: size);
 
   /// FileOutput icon
-  static Component fileOutput({IconSize size = IconSize.md}) =>
+  static Widget fileOutput({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0c8', size: size);
 
   /// FilePen icon
-  static Component filePen({IconSize size = IconSize.md}) =>
+  static Widget filePen({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e31f', size: size);
 
   /// FilePenLine icon
-  static Component filePenLine({IconSize size = IconSize.md}) =>
+  static Widget filePenLine({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e320', size: size);
 
   /// FilePlay icon
-  static Component filePlay({IconSize size = IconSize.md}) =>
+  static Widget filePlay({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e321', size: size);
 
   /// FilePlus icon
-  static Component filePlus({IconSize size = IconSize.md}) =>
+  static Widget filePlus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0c9', size: size);
 
   /// FilePlusCorner icon
-  static Component filePlusCorner({IconSize size = IconSize.md}) =>
+  static Widget filePlusCorner({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0ca', size: size);
 
   /// FileQuestionMark icon
-  static Component fileQuestionMark({IconSize size = IconSize.md}) =>
+  static Widget fileQuestionMark({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e322', size: size);
 
   /// FileScan icon
-  static Component fileScan({IconSize size = IconSize.md}) =>
+  static Widget fileScan({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e323', size: size);
 
   /// FileSearch icon
-  static Component fileSearch({IconSize size = IconSize.md}) =>
+  static Widget fileSearch({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0cb', size: size);
 
   /// FileSearchCorner icon
-  static Component fileSearchCorner({IconSize size = IconSize.md}) =>
+  static Widget fileSearchCorner({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e324', size: size);
 
   /// FileSignal icon
-  static Component fileSignal({IconSize size = IconSize.md}) =>
+  static Widget fileSignal({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e325', size: size);
 
   /// FileSliders icon
-  static Component fileSliders({IconSize size = IconSize.md}) =>
+  static Widget fileSliders({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5a0', size: size);
 
   /// FileSpreadsheet icon
-  static Component fileSpreadsheet({IconSize size = IconSize.md}) =>
+  static Widget fileSpreadsheet({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e326', size: size);
 
   /// FileStack icon
-  static Component fileStack({IconSize size = IconSize.md}) =>
+  static Widget fileStack({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4a1', size: size);
 
   /// FileSymlink icon
-  static Component fileSymlink({IconSize size = IconSize.md}) =>
+  static Widget fileSymlink({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e327', size: size);
 
   /// FileTerminal icon
-  static Component fileTerminal({IconSize size = IconSize.md}) =>
+  static Widget fileTerminal({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e328', size: size);
 
   /// FileText icon
-  static Component fileText({IconSize size = IconSize.md}) =>
+  static Widget fileText({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0cc', size: size);
 
   /// FileType icon
-  static Component fileType({IconSize size = IconSize.md}) =>
+  static Widget fileType({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e329', size: size);
 
   /// FileTypeCorner icon
-  static Component fileTypeCorner({IconSize size = IconSize.md}) =>
+  static Widget fileTypeCorner({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e36d', size: size);
 
   /// FileUp icon
-  static Component fileUp({IconSize size = IconSize.md}) =>
+  static Widget fileUp({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e32a', size: size);
 
   /// FileUser icon
-  static Component fileUser({IconSize size = IconSize.md}) =>
+  static Widget fileUser({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e62d', size: size);
 
   /// FileVideoCamera icon
-  static Component fileVideoCamera({IconSize size = IconSize.md}) =>
+  static Widget fileVideoCamera({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e32b', size: size);
 
   /// FileVolume icon
-  static Component fileVolume({IconSize size = IconSize.md}) =>
+  static Widget fileVolume({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e32c', size: size);
 
   /// FileX icon
-  static Component fileX({IconSize size = IconSize.md}) =>
+  static Widget fileX({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0cd', size: size);
 
   /// FileXCorner icon
-  static Component fileXCorner({IconSize size = IconSize.md}) =>
+  static Widget fileXCorner({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0ce', size: size);
 
   /// Files icon
-  static Component files({IconSize size = IconSize.md}) =>
+  static Widget files({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0cf', size: size);
 
   /// Film icon
-  static Component film({IconSize size = IconSize.md}) =>
+  static Widget film({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0d0', size: size);
 
   /// FingerprintPattern icon
-  static Component fingerprintPattern({IconSize size = IconSize.md}) =>
+  static Widget fingerprintPattern({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2cb', size: size);
 
   /// FireExtinguisher icon
-  static Component fireExtinguisher({IconSize size = IconSize.md}) =>
+  static Widget fireExtinguisher({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e57e', size: size);
 
   /// Fish icon
-  static Component fish({IconSize size = IconSize.md}) =>
+  static Widget fish({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3a6', size: size);
 
   /// FishOff icon
-  static Component fishOff({IconSize size = IconSize.md}) =>
+  static Widget fishOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3b0', size: size);
 
   /// FishSymbol icon
-  static Component fishSymbol({IconSize size = IconSize.md}) =>
+  static Widget fishSymbol({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4f4', size: size);
 
   /// FishingHook icon
-  static Component fishingHook({IconSize size = IconSize.md}) =>
+  static Widget fishingHook({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e6b6', size: size);
 
   /// Flag icon
-  static Component flag({IconSize size = IconSize.md}) =>
+  static Widget flag({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0d1', size: size);
 
   /// FlagOff icon
-  static Component flagOff({IconSize size = IconSize.md}) =>
+  static Widget flagOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e292', size: size);
 
   /// FlagTriangleLeft icon
-  static Component flagTriangleLeft({IconSize size = IconSize.md}) =>
+  static Widget flagTriangleLeft({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e237', size: size);
 
   /// FlagTriangleRight icon
-  static Component flagTriangleRight({IconSize size = IconSize.md}) =>
+  static Widget flagTriangleRight({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e238', size: size);
 
   /// Flame icon
-  static Component flame({IconSize size = IconSize.md}) =>
+  static Widget flame({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0d2', size: size);
 
   /// FlameKindling icon
-  static Component flameKindling({IconSize size = IconSize.md}) =>
+  static Widget flameKindling({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e53a', size: size);
 
   /// Flashlight icon
-  static Component flashlight({IconSize size = IconSize.md}) =>
+  static Widget flashlight({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0d3', size: size);
 
   /// FlashlightOff icon
-  static Component flashlightOff({IconSize size = IconSize.md}) =>
+  static Widget flashlightOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0d4', size: size);
 
   /// FlaskConical icon
-  static Component flaskConical({IconSize size = IconSize.md}) =>
+  static Widget flaskConical({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0d5', size: size);
 
   /// FlaskConicalOff icon
-  static Component flaskConicalOff({IconSize size = IconSize.md}) =>
+  static Widget flaskConicalOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e396', size: size);
 
   /// FlaskRound icon
-  static Component flaskRound({IconSize size = IconSize.md}) =>
+  static Widget flaskRound({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0d6', size: size);
 
   /// FlipHorizontal icon
-  static Component flipHorizontal({IconSize size = IconSize.md}) =>
+  static Widget flipHorizontal({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e35d', size: size);
 
   /// FlipHorizontal2 icon
-  static Component flipHorizontal2({IconSize size = IconSize.md}) =>
+  static Widget flipHorizontal2({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e35e', size: size);
 
   /// FlipVertical icon
-  static Component flipVertical({IconSize size = IconSize.md}) =>
+  static Widget flipVertical({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e35f', size: size);
 
   /// FlipVertical2 icon
-  static Component flipVertical2({IconSize size = IconSize.md}) =>
+  static Widget flipVertical2({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e360', size: size);
 
   /// Flower icon
-  static Component flower({IconSize size = IconSize.md}) =>
+  static Widget flower({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2d3', size: size);
 
   /// Flower2 icon
-  static Component flower2({IconSize size = IconSize.md}) =>
+  static Widget flower2({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2d4', size: size);
 
   /// Focus icon
-  static Component focus({IconSize size = IconSize.md}) =>
+  static Widget focus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e29e', size: size);
 
   /// FoldHorizontal icon
-  static Component foldHorizontal({IconSize size = IconSize.md}) =>
+  static Widget foldHorizontal({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e43b', size: size);
 
   /// FoldVertical icon
-  static Component foldVertical({IconSize size = IconSize.md}) =>
+  static Widget foldVertical({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e43c', size: size);
 
   /// Folder icon
-  static Component folder({IconSize size = IconSize.md}) =>
+  static Widget folder({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0d7', size: size);
 
   /// FolderArchive icon
-  static Component folderArchive({IconSize size = IconSize.md}) =>
+  static Widget folderArchive({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e32d', size: size);
 
   /// FolderCheck icon
-  static Component folderCheck({IconSize size = IconSize.md}) =>
+  static Widget folderCheck({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e32e', size: size);
 
   /// FolderClock icon
-  static Component folderClock({IconSize size = IconSize.md}) =>
+  static Widget folderClock({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e32f', size: size);
 
   /// FolderClosed icon
-  static Component folderClosed({IconSize size = IconSize.md}) =>
+  static Widget folderClosed({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e330', size: size);
 
   /// FolderCode icon
-  static Component folderCode({IconSize size = IconSize.md}) =>
+  static Widget folderCode({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5fb', size: size);
 
   /// FolderCog icon
-  static Component folderCog({IconSize size = IconSize.md}) =>
+  static Widget folderCog({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e331', size: size);
 
   /// FolderDot icon
-  static Component folderDot({IconSize size = IconSize.md}) =>
+  static Widget folderDot({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4c5', size: size);
 
   /// FolderDown icon
-  static Component folderDown({IconSize size = IconSize.md}) =>
+  static Widget folderDown({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e332', size: size);
 
   /// FolderGit icon
-  static Component folderGit({IconSize size = IconSize.md}) =>
+  static Widget folderGit({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e409', size: size);
 
   /// FolderGit2 icon
-  static Component folderGit2({IconSize size = IconSize.md}) =>
+  static Widget folderGit2({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e40a', size: size);
 
   /// FolderHeart icon
-  static Component folderHeart({IconSize size = IconSize.md}) =>
+  static Widget folderHeart({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e333', size: size);
 
   /// FolderInput icon
-  static Component folderInput({IconSize size = IconSize.md}) =>
+  static Widget folderInput({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e334', size: size);
 
   /// FolderKanban icon
-  static Component folderKanban({IconSize size = IconSize.md}) =>
+  static Widget folderKanban({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4c6', size: size);
 
   /// FolderKey icon
-  static Component folderKey({IconSize size = IconSize.md}) =>
+  static Widget folderKey({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e335', size: size);
 
   /// FolderLock icon
-  static Component folderLock({IconSize size = IconSize.md}) =>
+  static Widget folderLock({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e336', size: size);
 
   /// FolderMinus icon
-  static Component folderMinus({IconSize size = IconSize.md}) =>
+  static Widget folderMinus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0d8', size: size);
 
   /// FolderOpen icon
-  static Component folderOpen({IconSize size = IconSize.md}) =>
+  static Widget folderOpen({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e247', size: size);
 
   /// FolderOpenDot icon
-  static Component folderOpenDot({IconSize size = IconSize.md}) =>
+  static Widget folderOpenDot({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4c7', size: size);
 
   /// FolderOutput icon
-  static Component folderOutput({IconSize size = IconSize.md}) =>
+  static Widget folderOutput({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e337', size: size);
 
   /// FolderPen icon
-  static Component folderPen({IconSize size = IconSize.md}) =>
+  static Widget folderPen({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e338', size: size);
 
   /// FolderPlus icon
-  static Component folderPlus({IconSize size = IconSize.md}) =>
+  static Widget folderPlus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0d9', size: size);
 
   /// FolderRoot icon
-  static Component folderRoot({IconSize size = IconSize.md}) =>
+  static Widget folderRoot({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4c8', size: size);
 
   /// FolderSearch icon
-  static Component folderSearch({IconSize size = IconSize.md}) =>
+  static Widget folderSearch({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e339', size: size);
 
   /// FolderSearch2 icon
-  static Component folderSearch2({IconSize size = IconSize.md}) =>
+  static Widget folderSearch2({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e33a', size: size);
 
   /// FolderSymlink icon
-  static Component folderSymlink({IconSize size = IconSize.md}) =>
+  static Widget folderSymlink({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e33b', size: size);
 
   /// FolderSync icon
-  static Component folderSync({IconSize size = IconSize.md}) =>
+  static Widget folderSync({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4c9', size: size);
 
   /// FolderTree icon
-  static Component folderTree({IconSize size = IconSize.md}) =>
+  static Widget folderTree({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e33c', size: size);
 
   /// FolderUp icon
-  static Component folderUp({IconSize size = IconSize.md}) =>
+  static Widget folderUp({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e33d', size: size);
 
   /// FolderX icon
-  static Component folderX({IconSize size = IconSize.md}) =>
+  static Widget folderX({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e33e', size: size);
 
   /// Folders icon
-  static Component folders({IconSize size = IconSize.md}) =>
+  static Widget folders({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e33f', size: size);
 
   /// Footprints icon
-  static Component footprints({IconSize size = IconSize.md}) =>
+  static Widget footprints({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3b9', size: size);
 
   /// Forklift icon
-  static Component forklift({IconSize size = IconSize.md}) =>
+  static Widget forklift({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3c1', size: size);
 
   /// Form icon
-  static Component form({IconSize size = IconSize.md}) =>
+  static Widget form({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e6a8', size: size);
 
   /// Forward icon
-  static Component forward({IconSize size = IconSize.md}) =>
+  static Widget forward({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e229', size: size);
 
   /// Frame icon
-  static Component frame({IconSize size = IconSize.md}) =>
+  static Widget frame({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e291', size: size);
 
   /// Framer icon
-  static Component framer({IconSize size = IconSize.md}) =>
+  static Widget framer({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0da', size: size);
 
   /// Frown icon
-  static Component frown({IconSize size = IconSize.md}) =>
+  static Widget frown({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0db', size: size);
 
   /// Fuel icon
-  static Component fuel({IconSize size = IconSize.md}) =>
+  static Widget fuel({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2af', size: size);
 
   /// Fullscreen icon
-  static Component fullscreen({IconSize size = IconSize.md}) =>
+  static Widget fullscreen({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e534', size: size);
 
   /// Funnel icon
-  static Component funnel({IconSize size = IconSize.md}) =>
+  static Widget funnel({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0dc', size: size);
 
   /// FunnelPlus icon
-  static Component funnelPlus({IconSize size = IconSize.md}) =>
+  static Widget funnelPlus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0dd', size: size);
 
   /// FunnelX icon
-  static Component funnelX({IconSize size = IconSize.md}) =>
+  static Widget funnelX({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3b5', size: size);
 
   /// GalleryHorizontal icon
-  static Component galleryHorizontal({IconSize size = IconSize.md}) =>
+  static Widget galleryHorizontal({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4ce', size: size);
 
   /// GalleryHorizontalEnd icon
-  static Component galleryHorizontalEnd({IconSize size = IconSize.md}) =>
+  static Widget galleryHorizontalEnd({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4cf', size: size);
 
   /// GalleryThumbnails icon
-  static Component galleryThumbnails({IconSize size = IconSize.md}) =>
+  static Widget galleryThumbnails({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4d0', size: size);
 
   /// GalleryVertical icon
-  static Component galleryVertical({IconSize size = IconSize.md}) =>
+  static Widget galleryVertical({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4d1', size: size);
 
   /// GalleryVerticalEnd icon
-  static Component galleryVerticalEnd({IconSize size = IconSize.md}) =>
+  static Widget galleryVerticalEnd({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4d2', size: size);
 
   /// Gamepad icon
-  static Component gamepad({IconSize size = IconSize.md}) =>
+  static Widget gamepad({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0de', size: size);
 
   /// Gamepad2 icon
-  static Component gamepad2({IconSize size = IconSize.md}) =>
+  static Widget gamepad2({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0df', size: size);
 
   /// GamepadDirectional icon
-  static Component gamepadDirectional({IconSize size = IconSize.md}) =>
+  static Widget gamepadDirectional({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e69b', size: size);
 
   /// Gauge icon
-  static Component gauge({IconSize size = IconSize.md}) =>
+  static Widget gauge({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1bf', size: size);
 
   /// Gavel icon
-  static Component gavel({IconSize size = IconSize.md}) =>
+  static Widget gavel({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0e0', size: size);
 
   /// Gem icon
-  static Component gem({IconSize size = IconSize.md}) =>
+  static Widget gem({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e242', size: size);
 
   /// GeorgianLari icon
-  static Component georgianLari({IconSize size = IconSize.md}) =>
+  static Widget georgianLari({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e678', size: size);
 
   /// Ghost icon
-  static Component ghost({IconSize size = IconSize.md}) =>
+  static Widget ghost({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e20e', size: size);
 
   /// Gift icon
-  static Component gift({IconSize size = IconSize.md}) =>
+  static Widget gift({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0e1', size: size);
 
   /// GitBranch icon
-  static Component gitBranch({IconSize size = IconSize.md}) =>
+  static Widget gitBranch({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0e2', size: size);
 
   /// GitBranchMinus icon
-  static Component gitBranchMinus({IconSize size = IconSize.md}) =>
+  static Widget gitBranchMinus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e69c', size: size);
 
   /// GitBranchPlus icon
-  static Component gitBranchPlus({IconSize size = IconSize.md}) =>
+  static Widget gitBranchPlus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1f4', size: size);
 
   /// GitCommitHorizontal icon
-  static Component gitCommitHorizontal({IconSize size = IconSize.md}) =>
+  static Widget gitCommitHorizontal({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0e3', size: size);
 
   /// GitCommitVertical icon
-  static Component gitCommitVertical({IconSize size = IconSize.md}) =>
+  static Widget gitCommitVertical({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e552', size: size);
 
   /// GitCompare icon
-  static Component gitCompare({IconSize size = IconSize.md}) =>
+  static Widget gitCompare({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e359', size: size);
 
   /// GitCompareArrows icon
-  static Component gitCompareArrows({IconSize size = IconSize.md}) =>
+  static Widget gitCompareArrows({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e553', size: size);
 
   /// GitFork icon
-  static Component gitFork({IconSize size = IconSize.md}) =>
+  static Widget gitFork({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e28d', size: size);
 
   /// GitGraph icon
-  static Component gitGraph({IconSize size = IconSize.md}) =>
+  static Widget gitGraph({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e554', size: size);
 
   /// GitMerge icon
-  static Component gitMerge({IconSize size = IconSize.md}) =>
+  static Widget gitMerge({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0e4', size: size);
 
   /// GitPullRequest icon
-  static Component gitPullRequest({IconSize size = IconSize.md}) =>
+  static Widget gitPullRequest({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0e5', size: size);
 
   /// GitPullRequestArrow icon
-  static Component gitPullRequestArrow({IconSize size = IconSize.md}) =>
+  static Widget gitPullRequestArrow({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e555', size: size);
 
   /// GitPullRequestClosed icon
-  static Component gitPullRequestClosed({IconSize size = IconSize.md}) =>
+  static Widget gitPullRequestClosed({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e35a', size: size);
 
   /// GitPullRequestCreate icon
-  static Component gitPullRequestCreate({IconSize size = IconSize.md}) =>
+  static Widget gitPullRequestCreate({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e556', size: size);
 
   /// GitPullRequestCreateArrow icon
-  static Component gitPullRequestCreateArrow({IconSize size = IconSize.md}) =>
+  static Widget gitPullRequestCreateArrow({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e557', size: size);
 
   /// GitPullRequestDraft icon
-  static Component gitPullRequestDraft({IconSize size = IconSize.md}) =>
+  static Widget gitPullRequestDraft({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e35b', size: size);
 
   /// Github icon
-  static Component github({IconSize size = IconSize.md}) =>
+  static Widget github({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0e6', size: size);
 
   /// Gitlab icon
-  static Component gitlab({IconSize size = IconSize.md}) =>
+  static Widget gitlab({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0e7', size: size);
 
   /// GlassWater icon
-  static Component glassWater({IconSize size = IconSize.md}) =>
+  static Widget glassWater({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2d5', size: size);
 
   /// Glasses icon
-  static Component glasses({IconSize size = IconSize.md}) =>
+  static Widget glasses({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e20d', size: size);
 
   /// Globe icon
-  static Component globe({IconSize size = IconSize.md}) =>
+  static Widget globe({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0e8', size: size);
 
   /// GlobeLock icon
-  static Component globeLock({IconSize size = IconSize.md}) =>
+  static Widget globeLock({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5cd', size: size);
 
   /// Goal icon
-  static Component goal({IconSize size = IconSize.md}) =>
+  static Widget goal({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4a5', size: size);
 
   /// Gpu icon
-  static Component gpu({IconSize size = IconSize.md}) =>
+  static Widget gpu({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e66a', size: size);
 
   /// GraduationCap icon
-  static Component graduationCap({IconSize size = IconSize.md}) =>
+  static Widget graduationCap({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e234', size: size);
 
   /// Grape icon
-  static Component grape({IconSize size = IconSize.md}) =>
+  static Widget grape({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e352', size: size);
 
   /// Grid2x2 icon
-  static Component grid2x2({IconSize size = IconSize.md}) =>
+  static Widget grid2x2({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4ff', size: size);
 
   /// Grid2x2Check icon
-  static Component grid2x2Check({IconSize size = IconSize.md}) =>
+  static Widget grid2x2Check({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5e4', size: size);
 
   /// Grid2x2Plus icon
-  static Component grid2x2Plus({IconSize size = IconSize.md}) =>
+  static Widget grid2x2Plus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e628', size: size);
 
   /// Grid2x2X icon
-  static Component grid2x2X({IconSize size = IconSize.md}) =>
+  static Widget grid2x2X({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5e5', size: size);
 
   /// Grid3x2 icon
-  static Component grid3x2({IconSize size = IconSize.md}) =>
+  static Widget grid3x2({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e66f', size: size);
 
   /// Grid3x3 icon
-  static Component grid3x3({IconSize size = IconSize.md}) =>
+  static Widget grid3x3({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0e9', size: size);
 
   /// Grip icon
-  static Component grip({IconSize size = IconSize.md}) =>
+  static Widget grip({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3b1', size: size);
 
   /// GripHorizontal icon
-  static Component gripHorizontal({IconSize size = IconSize.md}) =>
+  static Widget gripHorizontal({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0ea', size: size);
 
   /// GripVertical icon
-  static Component gripVertical({IconSize size = IconSize.md}) =>
+  static Widget gripVertical({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0eb', size: size);
 
   /// Group icon
-  static Component group({IconSize size = IconSize.md}) =>
+  static Widget group({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e464', size: size);
 
   /// Guitar icon
-  static Component guitar({IconSize size = IconSize.md}) =>
+  static Widget guitar({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e55f', size: size);
 
   /// Ham icon
-  static Component ham({IconSize size = IconSize.md}) =>
+  static Widget ham({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5d7', size: size);
 
   /// Hamburger icon
-  static Component hamburger({IconSize size = IconSize.md}) =>
+  static Widget hamburger({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e665', size: size);
 
   /// Hammer icon
-  static Component hammer({IconSize size = IconSize.md}) =>
+  static Widget hammer({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0ec', size: size);
 
   /// Hand icon
-  static Component hand({IconSize size = IconSize.md}) =>
+  static Widget hand({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1d7', size: size);
 
   /// HandCoins icon
-  static Component handCoins({IconSize size = IconSize.md}) =>
+  static Widget handCoins({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5b8', size: size);
 
   /// HandFist icon
-  static Component handFist({IconSize size = IconSize.md}) =>
+  static Widget handFist({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e68b', size: size);
 
   /// HandGrab icon
-  static Component handGrab({IconSize size = IconSize.md}) =>
+  static Widget handGrab({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1e6', size: size);
 
   /// HandHeart icon
-  static Component handHeart({IconSize size = IconSize.md}) =>
+  static Widget handHeart({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5b9', size: size);
 
   /// HandHelping icon
-  static Component handHelping({IconSize size = IconSize.md}) =>
+  static Widget handHelping({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3b8', size: size);
 
   /// HandMetal icon
-  static Component handMetal({IconSize size = IconSize.md}) =>
+  static Widget handMetal({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e22c', size: size);
 
   /// HandPlatter icon
-  static Component handPlatter({IconSize size = IconSize.md}) =>
+  static Widget handPlatter({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5ba', size: size);
 
   /// Handbag icon
-  static Component handbag({IconSize size = IconSize.md}) =>
+  static Widget handbag({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e689', size: size);
 
   /// Handshake icon
-  static Component handshake({IconSize size = IconSize.md}) =>
+  static Widget handshake({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5c0', size: size);
 
   /// HardDrive icon
-  static Component hardDrive({IconSize size = IconSize.md}) =>
+  static Widget hardDrive({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0ed', size: size);
 
   /// HardDriveDownload icon
-  static Component hardDriveDownload({IconSize size = IconSize.md}) =>
+  static Widget hardDriveDownload({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4e5', size: size);
 
   /// HardDriveUpload icon
-  static Component hardDriveUpload({IconSize size = IconSize.md}) =>
+  static Widget hardDriveUpload({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4e6', size: size);
 
   /// HardHat icon
-  static Component hardHat({IconSize size = IconSize.md}) =>
+  static Widget hardHat({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0ee', size: size);
 
   /// Hash icon
-  static Component hash({IconSize size = IconSize.md}) =>
+  static Widget hash({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0ef', size: size);
 
   /// HatGlasses icon
-  static Component hatGlasses({IconSize size = IconSize.md}) =>
+  static Widget hatGlasses({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e683', size: size);
 
   /// Haze icon
-  static Component haze({IconSize size = IconSize.md}) =>
+  static Widget haze({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0f0', size: size);
 
   /// Hd icon
-  static Component hd({IconSize size = IconSize.md}) =>
+  static Widget hd({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e6b5', size: size);
 
   /// HdmiPort icon
-  static Component hdmiPort({IconSize size = IconSize.md}) =>
+  static Widget hdmiPort({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4e7', size: size);
 
   /// Heading icon
-  static Component heading({IconSize size = IconSize.md}) =>
+  static Widget heading({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e384', size: size);
 
   /// Heading1 icon
-  static Component heading1({IconSize size = IconSize.md}) =>
+  static Widget heading1({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e385', size: size);
 
   /// Heading2 icon
-  static Component heading2({IconSize size = IconSize.md}) =>
+  static Widget heading2({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e386', size: size);
 
   /// Heading3 icon
-  static Component heading3({IconSize size = IconSize.md}) =>
+  static Widget heading3({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e387', size: size);
 
   /// Heading4 icon
-  static Component heading4({IconSize size = IconSize.md}) =>
+  static Widget heading4({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e388', size: size);
 
   /// Heading5 icon
-  static Component heading5({IconSize size = IconSize.md}) =>
+  static Widget heading5({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e389', size: size);
 
   /// Heading6 icon
-  static Component heading6({IconSize size = IconSize.md}) =>
+  static Widget heading6({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e38a', size: size);
 
   /// HeadphoneOff icon
-  static Component headphoneOff({IconSize size = IconSize.md}) =>
+  static Widget headphoneOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e629', size: size);
 
   /// Headphones icon
-  static Component headphones({IconSize size = IconSize.md}) =>
+  static Widget headphones({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0f1', size: size);
 
   /// Headset icon
-  static Component headset({IconSize size = IconSize.md}) =>
+  static Widget headset({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5bd', size: size);
 
   /// Heart icon
-  static Component heart({IconSize size = IconSize.md}) =>
+  static Widget heart({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0f2', size: size);
 
   /// HeartCrack icon
-  static Component heartCrack({IconSize size = IconSize.md}) =>
+  static Widget heartCrack({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2d6', size: size);
 
   /// HeartHandshake icon
-  static Component heartHandshake({IconSize size = IconSize.md}) =>
+  static Widget heartHandshake({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2d7', size: size);
 
   /// HeartMinus icon
-  static Component heartMinus({IconSize size = IconSize.md}) =>
+  static Widget heartMinus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e651', size: size);
 
   /// HeartOff icon
-  static Component heartOff({IconSize size = IconSize.md}) =>
+  static Widget heartOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e295', size: size);
 
   /// HeartPlus icon
-  static Component heartPlus({IconSize size = IconSize.md}) =>
+  static Widget heartPlus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e652', size: size);
 
   /// HeartPulse icon
-  static Component heartPulse({IconSize size = IconSize.md}) =>
+  static Widget heartPulse({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e36e', size: size);
 
   /// Heater icon
-  static Component heater({IconSize size = IconSize.md}) =>
+  static Widget heater({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e58e', size: size);
 
   /// Helicopter icon
-  static Component helicopter({IconSize size = IconSize.md}) =>
+  static Widget helicopter({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e69d', size: size);
 
   /// Hexagon icon
-  static Component hexagon({IconSize size = IconSize.md}) =>
+  static Widget hexagon({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0f3', size: size);
 
   /// Highlighter icon
-  static Component highlighter({IconSize size = IconSize.md}) =>
+  static Widget highlighter({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0f4', size: size);
 
   /// History icon
-  static Component history({IconSize size = IconSize.md}) =>
+  static Widget history({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1f5', size: size);
 
   /// Hop icon
-  static Component hop({IconSize size = IconSize.md}) =>
+  static Widget hop({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e397', size: size);
 
   /// HopOff icon
-  static Component hopOff({IconSize size = IconSize.md}) =>
+  static Widget hopOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e398', size: size);
 
   /// Hospital icon
-  static Component hospital({IconSize size = IconSize.md}) =>
+  static Widget hospital({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5d8', size: size);
 
   /// Hotel icon
-  static Component hotel({IconSize size = IconSize.md}) =>
+  static Widget hotel({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3e2', size: size);
 
   /// Hourglass icon
-  static Component hourglass({IconSize size = IconSize.md}) =>
+  static Widget hourglass({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e296', size: size);
 
   /// House icon
-  static Component house({IconSize size = IconSize.md}) =>
+  static Widget house({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0f5', size: size);
 
   /// HouseHeart icon
-  static Component houseHeart({IconSize size = IconSize.md}) =>
+  static Widget houseHeart({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e695', size: size);
 
   /// HousePlug icon
-  static Component housePlug({IconSize size = IconSize.md}) =>
+  static Widget housePlug({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5f0', size: size);
 
   /// HousePlus icon
-  static Component housePlus({IconSize size = IconSize.md}) =>
+  static Widget housePlus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5f1', size: size);
 
   /// HouseWifi icon
-  static Component houseWifi({IconSize size = IconSize.md}) =>
+  static Widget houseWifi({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e63c', size: size);
 
   /// IceCreamBowl icon
-  static Component iceCreamBowl({IconSize size = IconSize.md}) =>
+  static Widget iceCreamBowl({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3a7', size: size);
 
   /// IceCreamCone icon
-  static Component iceCreamCone({IconSize size = IconSize.md}) =>
+  static Widget iceCreamCone({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e353', size: size);
 
   /// IdCard icon
-  static Component idCard({IconSize size = IconSize.md}) =>
+  static Widget idCard({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e617', size: size);
 
   /// IdCardLanyard icon
-  static Component idCardLanyard({IconSize size = IconSize.md}) =>
+  static Widget idCardLanyard({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e670', size: size);
 
   /// Image icon
-  static Component image({IconSize size = IconSize.md}) =>
+  static Widget image({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0f6', size: size);
 
   /// ImageDown icon
-  static Component imageDown({IconSize size = IconSize.md}) =>
+  static Widget imageDown({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e53c', size: size);
 
   /// ImageMinus icon
-  static Component imageMinus({IconSize size = IconSize.md}) =>
+  static Widget imageMinus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1f6', size: size);
 
   /// ImageOff icon
-  static Component imageOff({IconSize size = IconSize.md}) =>
+  static Widget imageOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1c0', size: size);
 
   /// ImagePlay icon
-  static Component imagePlay({IconSize size = IconSize.md}) =>
+  static Widget imagePlay({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5df', size: size);
 
   /// ImagePlus icon
-  static Component imagePlus({IconSize size = IconSize.md}) =>
+  static Widget imagePlus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1f7', size: size);
 
   /// ImageUp icon
-  static Component imageUp({IconSize size = IconSize.md}) =>
+  static Widget imageUp({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5cb', size: size);
 
   /// ImageUpscale icon
-  static Component imageUpscale({IconSize size = IconSize.md}) =>
+  static Widget imageUpscale({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e637', size: size);
 
   /// Images icon
-  static Component images({IconSize size = IconSize.md}) =>
+  static Widget images({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5c4', size: size);
 
   /// Import icon
-  static Component importIcon({IconSize size = IconSize.md}) =>
+  static Widget importIcon({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e22f', size: size);
 
   /// Inbox icon
-  static Component inbox({IconSize size = IconSize.md}) =>
+  static Widget inbox({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0f7', size: size);
 
   /// IndianRupee icon
-  static Component indianRupee({IconSize size = IconSize.md}) =>
+  static Widget indianRupee({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0f8', size: size);
 
   /// Infinity icon
-  static Component infinity({IconSize size = IconSize.md}) =>
+  static Widget infinity({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1e7', size: size);
 
   /// Info icon
-  static Component info({IconSize size = IconSize.md}) =>
+  static Widget info({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0f9', size: size);
 
   /// InspectionPanel icon
-  static Component inspectionPanel({IconSize size = IconSize.md}) =>
+  static Widget inspectionPanel({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e583', size: size);
 
   /// Instagram icon
-  static Component instagram({IconSize size = IconSize.md}) =>
+  static Widget instagram({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0fa', size: size);
 
   /// Italic icon
-  static Component italic({IconSize size = IconSize.md}) =>
+  static Widget italic({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0fb', size: size);
 
   /// IterationCcw icon
-  static Component iterationCcw({IconSize size = IconSize.md}) =>
+  static Widget iterationCcw({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e423', size: size);
 
   /// IterationCw icon
-  static Component iterationCw({IconSize size = IconSize.md}) =>
+  static Widget iterationCw({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e424', size: size);
 
   /// JapaneseYen icon
-  static Component japaneseYen({IconSize size = IconSize.md}) =>
+  static Widget japaneseYen({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0fc', size: size);
 
   /// Joystick icon
-  static Component joystick({IconSize size = IconSize.md}) =>
+  static Widget joystick({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e355', size: size);
 
   /// Kanban icon
-  static Component kanban({IconSize size = IconSize.md}) =>
+  static Widget kanban({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4dc', size: size);
 
   /// Kayak icon
-  static Component kayak({IconSize size = IconSize.md}) =>
+  static Widget kayak({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e68f', size: size);
 
   /// Key icon
-  static Component keyIcon({IconSize size = IconSize.md}) =>
+  static Widget keyIcon({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0fd', size: size);
 
   /// KeyRound icon
-  static Component keyRound({IconSize size = IconSize.md}) =>
+  static Widget keyRound({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4a3', size: size);
 
   /// KeySquare icon
-  static Component keySquare({IconSize size = IconSize.md}) =>
+  static Widget keySquare({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4a4', size: size);
 
   /// Keyboard icon
-  static Component keyboard({IconSize size = IconSize.md}) =>
+  static Widget keyboard({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e284', size: size);
 
   /// KeyboardMusic icon
-  static Component keyboardMusic({IconSize size = IconSize.md}) =>
+  static Widget keyboardMusic({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e560', size: size);
 
   /// KeyboardOff icon
-  static Component keyboardOff({IconSize size = IconSize.md}) =>
+  static Widget keyboardOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5de', size: size);
 
   /// Lamp icon
-  static Component lamp({IconSize size = IconSize.md}) =>
+  static Widget lamp({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2d8', size: size);
 
   /// LampCeiling icon
-  static Component lampCeiling({IconSize size = IconSize.md}) =>
+  static Widget lampCeiling({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2d9', size: size);
 
   /// LampDesk icon
-  static Component lampDesk({IconSize size = IconSize.md}) =>
+  static Widget lampDesk({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2da', size: size);
 
   /// LampFloor icon
-  static Component lampFloor({IconSize size = IconSize.md}) =>
+  static Widget lampFloor({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2db', size: size);
 
   /// LampWallDown icon
-  static Component lampWallDown({IconSize size = IconSize.md}) =>
+  static Widget lampWallDown({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2dc', size: size);
 
   /// LampWallUp icon
-  static Component lampWallUp({IconSize size = IconSize.md}) =>
+  static Widget lampWallUp({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2dd', size: size);
 
   /// LandPlot icon
-  static Component landPlot({IconSize size = IconSize.md}) =>
+  static Widget landPlot({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e528', size: size);
 
   /// Landmark icon
-  static Component landmark({IconSize size = IconSize.md}) =>
+  static Widget landmark({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e23a', size: size);
 
   /// Languages icon
-  static Component languages({IconSize size = IconSize.md}) =>
+  static Widget languages({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0fe', size: size);
 
   /// Laptop icon
-  static Component laptop({IconSize size = IconSize.md}) =>
+  static Widget laptop({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1cd', size: size);
 
   /// LaptopMinimal icon
-  static Component laptopMinimal({IconSize size = IconSize.md}) =>
+  static Widget laptopMinimal({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1d8', size: size);
 
   /// LaptopMinimalCheck icon
-  static Component laptopMinimalCheck({IconSize size = IconSize.md}) =>
+  static Widget laptopMinimalCheck({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e632', size: size);
 
   /// Lasso icon
-  static Component lasso({IconSize size = IconSize.md}) =>
+  static Widget lasso({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1ce', size: size);
 
   /// LassoSelect icon
-  static Component lassoSelect({IconSize size = IconSize.md}) =>
+  static Widget lassoSelect({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1cf', size: size);
 
   /// Laugh icon
-  static Component laugh({IconSize size = IconSize.md}) =>
+  static Widget laugh({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e300', size: size);
 
   /// Layers icon
-  static Component layers({IconSize size = IconSize.md}) =>
+  static Widget layers({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e529', size: size);
 
   /// Layers2 icon
-  static Component layers2({IconSize size = IconSize.md}) =>
+  static Widget layers2({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e52a', size: size);
 
   /// LayersPlus icon
-  static Component layersPlus({IconSize size = IconSize.md}) =>
+  static Widget layersPlus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e6b3', size: size);
 
   /// LayoutDashboard icon
-  static Component layoutDashboard({IconSize size = IconSize.md}) =>
+  static Widget layoutDashboard({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1c1', size: size);
 
   /// LayoutGrid icon
-  static Component layoutGrid({IconSize size = IconSize.md}) =>
+  static Widget layoutGrid({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0ff', size: size);
 
   /// LayoutList icon
-  static Component layoutList({IconSize size = IconSize.md}) =>
+  static Widget layoutList({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1d9', size: size);
 
   /// LayoutPanelLeft icon
-  static Component layoutPanelLeft({IconSize size = IconSize.md}) =>
+  static Widget layoutPanelLeft({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e470', size: size);
 
   /// LayoutPanelTop icon
-  static Component layoutPanelTop({IconSize size = IconSize.md}) =>
+  static Widget layoutPanelTop({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e471', size: size);
 
   /// LayoutTemplate icon
-  static Component layoutTemplate({IconSize size = IconSize.md}) =>
+  static Widget layoutTemplate({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e207', size: size);
 
   /// Leaf icon
-  static Component leaf({IconSize size = IconSize.md}) =>
+  static Widget leaf({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2de', size: size);
 
   /// LeafyGreen icon
-  static Component leafyGreen({IconSize size = IconSize.md}) =>
+  static Widget leafyGreen({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e46f', size: size);
 
   /// Lectern icon
-  static Component lectern({IconSize size = IconSize.md}) =>
+  static Widget lectern({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5e9', size: size);
 
   /// Library icon
-  static Component libraryIcon({IconSize size = IconSize.md}) =>
+  static Widget libraryIcon({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e100', size: size);
 
   /// LibraryBig icon
-  static Component libraryBig({IconSize size = IconSize.md}) =>
+  static Widget libraryBig({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e54e', size: size);
 
   /// LifeBuoy icon
-  static Component lifeBuoy({IconSize size = IconSize.md}) =>
+  static Widget lifeBuoy({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e101', size: size);
 
   /// Ligature icon
-  static Component ligature({IconSize size = IconSize.md}) =>
+  static Widget ligature({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e43a', size: size);
 
   /// Lightbulb icon
-  static Component lightbulb({IconSize size = IconSize.md}) =>
+  static Widget lightbulb({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1c2', size: size);
 
   /// LightbulbOff icon
-  static Component lightbulbOff({IconSize size = IconSize.md}) =>
+  static Widget lightbulbOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e208', size: size);
 
   /// LineSquiggle icon
-  static Component lineSquiggle({IconSize size = IconSize.md}) =>
+  static Widget lineSquiggle({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e67a', size: size);
 
   /// Link icon
-  static Component link({IconSize size = IconSize.md}) =>
+  static Widget link({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e102', size: size);
 
   /// Link2 icon
-  static Component link2({IconSize size = IconSize.md}) =>
+  static Widget link2({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e103', size: size);
 
   /// Link2Off icon
-  static Component link2Off({IconSize size = IconSize.md}) =>
+  static Widget link2Off({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e104', size: size);
 
   /// Linkedin icon
-  static Component linkedin({IconSize size = IconSize.md}) =>
+  static Widget linkedin({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e105', size: size);
 
   /// List icon
-  static Component listIcon({IconSize size = IconSize.md}) =>
+  static Widget listIcon({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e106', size: size);
 
   /// ListCheck icon
-  static Component listCheck({IconSize size = IconSize.md}) =>
+  static Widget listCheck({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5fa', size: size);
 
   /// ListChecks icon
-  static Component listChecks({IconSize size = IconSize.md}) =>
+  static Widget listChecks({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1d0', size: size);
 
   /// ListChevronsDownUp icon
-  static Component listChevronsDownUp({IconSize size = IconSize.md}) =>
+  static Widget listChevronsDownUp({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e694', size: size);
 
   /// ListChevronsUpDown icon
-  static Component listChevronsUpDown({IconSize size = IconSize.md}) =>
+  static Widget listChevronsUpDown({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e696', size: size);
 
   /// ListCollapse icon
-  static Component listCollapse({IconSize size = IconSize.md}) =>
+  static Widget listCollapse({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e59b', size: size);
 
   /// ListEnd icon
-  static Component listEnd({IconSize size = IconSize.md}) =>
+  static Widget listEnd({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2df', size: size);
 
   /// ListFilter icon
-  static Component listFilter({IconSize size = IconSize.md}) =>
+  static Widget listFilter({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e460', size: size);
 
   /// ListFilterPlus icon
-  static Component listFilterPlus({IconSize size = IconSize.md}) =>
+  static Widget listFilterPlus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e639', size: size);
 
   /// ListIndentDecrease icon
-  static Component listIndentDecrease({IconSize size = IconSize.md}) =>
+  static Widget listIndentDecrease({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e107', size: size);
 
   /// ListIndentIncrease icon
-  static Component listIndentIncrease({IconSize size = IconSize.md}) =>
+  static Widget listIndentIncrease({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e108', size: size);
 
   /// ListMinus icon
-  static Component listMinus({IconSize size = IconSize.md}) =>
+  static Widget listMinus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e23e', size: size);
 
   /// ListMusic icon
-  static Component listMusic({IconSize size = IconSize.md}) =>
+  static Widget listMusic({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2e0', size: size);
 
   /// ListOrdered icon
-  static Component listOrdered({IconSize size = IconSize.md}) =>
+  static Widget listOrdered({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1d1', size: size);
 
   /// ListPlus icon
-  static Component listPlus({IconSize size = IconSize.md}) =>
+  static Widget listPlus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e23f', size: size);
 
   /// ListRestart icon
-  static Component listRestart({IconSize size = IconSize.md}) =>
+  static Widget listRestart({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e452', size: size);
 
   /// ListStart icon
-  static Component listStart({IconSize size = IconSize.md}) =>
+  static Widget listStart({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2e1', size: size);
 
   /// ListTodo icon
-  static Component listTodo({IconSize size = IconSize.md}) =>
+  static Widget listTodo({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4c3', size: size);
 
   /// ListTree icon
-  static Component listTree({IconSize size = IconSize.md}) =>
+  static Widget listTree({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e408', size: size);
 
   /// ListVideo icon
-  static Component listVideo({IconSize size = IconSize.md}) =>
+  static Widget listVideo({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2e2', size: size);
 
   /// ListX icon
-  static Component listX({IconSize size = IconSize.md}) =>
+  static Widget listX({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e240', size: size);
 
   /// Loader icon
-  static Component loader({IconSize size = IconSize.md}) =>
+  static Widget loader({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e109', size: size);
 
   /// LoaderCircle icon
-  static Component loaderCircle({IconSize size = IconSize.md}) =>
+  static Widget loaderCircle({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e10a', size: size);
 
   /// LoaderPinwheel icon
-  static Component loaderPinwheel({IconSize size = IconSize.md}) =>
+  static Widget loaderPinwheel({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5e6', size: size);
 
   /// Locate icon
-  static Component locate({IconSize size = IconSize.md}) =>
+  static Widget locate({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1da', size: size);
 
   /// LocateFixed icon
-  static Component locateFixed({IconSize size = IconSize.md}) =>
+  static Widget locateFixed({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1db', size: size);
 
   /// LocateOff icon
-  static Component locateOff({IconSize size = IconSize.md}) =>
+  static Widget locateOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e282', size: size);
 
   /// Lock icon
-  static Component lock({IconSize size = IconSize.md}) =>
+  static Widget lock({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e10b', size: size);
 
   /// LockKeyhole icon
-  static Component lockKeyhole({IconSize size = IconSize.md}) =>
+  static Widget lockKeyhole({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e531', size: size);
 
   /// LockKeyholeOpen icon
-  static Component lockKeyholeOpen({IconSize size = IconSize.md}) =>
+  static Widget lockKeyholeOpen({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e532', size: size);
 
   /// LockOpen icon
-  static Component lockOpen({IconSize size = IconSize.md}) =>
+  static Widget lockOpen({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e10c', size: size);
 
   /// LogIn icon
-  static Component logIn({IconSize size = IconSize.md}) =>
+  static Widget logIn({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e10d', size: size);
 
   /// LogOut icon
-  static Component logOut({IconSize size = IconSize.md}) =>
+  static Widget logOut({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e10e', size: size);
 
   /// Logs icon
-  static Component logs({IconSize size = IconSize.md}) =>
+  static Widget logs({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5f4', size: size);
 
   /// Lollipop icon
-  static Component lollipop({IconSize size = IconSize.md}) =>
+  static Widget lollipop({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4bd', size: size);
 
   /// Luggage icon
-  static Component luggage({IconSize size = IconSize.md}) =>
+  static Widget luggage({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2ca', size: size);
 
   /// Magnet icon
-  static Component magnet({IconSize size = IconSize.md}) =>
+  static Widget magnet({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2b5', size: size);
 
   /// Mail icon
-  static Component mail({IconSize size = IconSize.md}) =>
+  static Widget mail({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e10f', size: size);
 
   /// MailCheck icon
-  static Component mailCheck({IconSize size = IconSize.md}) =>
+  static Widget mailCheck({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e361', size: size);
 
   /// MailMinus icon
-  static Component mailMinus({IconSize size = IconSize.md}) =>
+  static Widget mailMinus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e362', size: size);
 
   /// MailOpen icon
-  static Component mailOpen({IconSize size = IconSize.md}) =>
+  static Widget mailOpen({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e363', size: size);
 
   /// MailPlus icon
-  static Component mailPlus({IconSize size = IconSize.md}) =>
+  static Widget mailPlus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e364', size: size);
 
   /// MailQuestionMark icon
-  static Component mailQuestionMark({IconSize size = IconSize.md}) =>
+  static Widget mailQuestionMark({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e365', size: size);
 
   /// MailSearch icon
-  static Component mailSearch({IconSize size = IconSize.md}) =>
+  static Widget mailSearch({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e366', size: size);
 
   /// MailWarning icon
-  static Component mailWarning({IconSize size = IconSize.md}) =>
+  static Widget mailWarning({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e367', size: size);
 
   /// MailX icon
-  static Component mailX({IconSize size = IconSize.md}) =>
+  static Widget mailX({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e368', size: size);
 
   /// Mailbox icon
-  static Component mailbox({IconSize size = IconSize.md}) =>
+  static Widget mailbox({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3d4', size: size);
 
   /// Mails icon
-  static Component mails({IconSize size = IconSize.md}) =>
+  static Widget mails({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e369', size: size);
 
   /// Map icon
-  static Component mapIcon({IconSize size = IconSize.md}) =>
+  static Widget mapIcon({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e110', size: size);
 
   /// MapMinus icon
-  static Component mapMinus({IconSize size = IconSize.md}) =>
+  static Widget mapMinus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e686', size: size);
 
   /// MapPin icon
-  static Component mapPin({IconSize size = IconSize.md}) =>
+  static Widget mapPin({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e111', size: size);
 
   /// MapPinCheck icon
-  static Component mapPinCheck({IconSize size = IconSize.md}) =>
+  static Widget mapPinCheck({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e60f', size: size);
 
   /// MapPinCheckInside icon
-  static Component mapPinCheckInside({IconSize size = IconSize.md}) =>
+  static Widget mapPinCheckInside({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e610', size: size);
 
   /// MapPinHouse icon
-  static Component mapPinHouse({IconSize size = IconSize.md}) =>
+  static Widget mapPinHouse({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e61c', size: size);
 
   /// MapPinMinus icon
-  static Component mapPinMinus({IconSize size = IconSize.md}) =>
+  static Widget mapPinMinus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e611', size: size);
 
   /// MapPinMinusInside icon
-  static Component mapPinMinusInside({IconSize size = IconSize.md}) =>
+  static Widget mapPinMinusInside({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e612', size: size);
 
   /// MapPinOff icon
-  static Component mapPinOff({IconSize size = IconSize.md}) =>
+  static Widget mapPinOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2a6', size: size);
 
   /// MapPinPen icon
-  static Component mapPinPen({IconSize size = IconSize.md}) =>
+  static Widget mapPinPen({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e655', size: size);
 
   /// MapPinPlus icon
-  static Component mapPinPlus({IconSize size = IconSize.md}) =>
+  static Widget mapPinPlus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e613', size: size);
 
   /// MapPinPlusInside icon
-  static Component mapPinPlusInside({IconSize size = IconSize.md}) =>
+  static Widget mapPinPlusInside({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e614', size: size);
 
   /// MapPinX icon
-  static Component mapPinX({IconSize size = IconSize.md}) =>
+  static Widget mapPinX({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e615', size: size);
 
   /// MapPinXInside icon
-  static Component mapPinXInside({IconSize size = IconSize.md}) =>
+  static Widget mapPinXInside({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e616', size: size);
 
   /// MapPinned icon
-  static Component mapPinned({IconSize size = IconSize.md}) =>
+  static Widget mapPinned({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e53d', size: size);
 
   /// MapPlus icon
-  static Component mapPlus({IconSize size = IconSize.md}) =>
+  static Widget mapPlus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e63f', size: size);
 
   /// Mars icon
-  static Component mars({IconSize size = IconSize.md}) =>
+  static Widget mars({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e641', size: size);
 
   /// MarsStroke icon
-  static Component marsStroke({IconSize size = IconSize.md}) =>
+  static Widget marsStroke({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e642', size: size);
 
   /// Martini icon
-  static Component martini({IconSize size = IconSize.md}) =>
+  static Widget martini({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2e3', size: size);
 
   /// Maximize icon
-  static Component maximize({IconSize size = IconSize.md}) =>
+  static Widget maximize({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e112', size: size);
 
   /// Maximize2 icon
-  static Component maximize2({IconSize size = IconSize.md}) =>
+  static Widget maximize2({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e113', size: size);
 
   /// Medal icon
-  static Component medal({IconSize size = IconSize.md}) =>
+  static Widget medal({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e36f', size: size);
 
   /// Megaphone icon
-  static Component megaphone({IconSize size = IconSize.md}) =>
+  static Widget megaphone({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e235', size: size);
 
   /// MegaphoneOff icon
-  static Component megaphoneOff({IconSize size = IconSize.md}) =>
+  static Widget megaphoneOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e370', size: size);
 
   /// Meh icon
-  static Component meh({IconSize size = IconSize.md}) =>
+  static Widget meh({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e114', size: size);
 
   /// MemoryStick icon
-  static Component memoryStick({IconSize size = IconSize.md}) =>
+  static Widget memoryStick({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e445', size: size);
 
   /// Menu icon
-  static Component menu({IconSize size = IconSize.md}) =>
+  static Widget menu({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e115', size: size);
 
   /// Merge icon
-  static Component merge({IconSize size = IconSize.md}) =>
+  static Widget merge({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e43f', size: size);
 
   /// MessageCircle icon
-  static Component messageCircle({IconSize size = IconSize.md}) =>
+  static Widget messageCircle({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e116', size: size);
 
   /// MessageCircleCode icon
-  static Component messageCircleCode({IconSize size = IconSize.md}) =>
+  static Widget messageCircleCode({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e562', size: size);
 
   /// MessageCircleDashed icon
-  static Component messageCircleDashed({IconSize size = IconSize.md}) =>
+  static Widget messageCircleDashed({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e563', size: size);
 
   /// MessageCircleHeart icon
-  static Component messageCircleHeart({IconSize size = IconSize.md}) =>
+  static Widget messageCircleHeart({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e564', size: size);
 
   /// MessageCircleMore icon
-  static Component messageCircleMore({IconSize size = IconSize.md}) =>
+  static Widget messageCircleMore({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e565', size: size);
 
   /// MessageCircleOff icon
-  static Component messageCircleOff({IconSize size = IconSize.md}) =>
+  static Widget messageCircleOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e566', size: size);
 
   /// MessageCirclePlus icon
-  static Component messageCirclePlus({IconSize size = IconSize.md}) =>
+  static Widget messageCirclePlus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e567', size: size);
 
   /// MessageCircleQuestionMark icon
-  static Component messageCircleQuestionMark({IconSize size = IconSize.md}) =>
+  static Widget messageCircleQuestionMark({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e568', size: size);
 
   /// MessageCircleReply icon
-  static Component messageCircleReply({IconSize size = IconSize.md}) =>
+  static Widget messageCircleReply({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e569', size: size);
 
   /// MessageCircleWarning icon
-  static Component messageCircleWarning({IconSize size = IconSize.md}) =>
+  static Widget messageCircleWarning({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e56a', size: size);
 
   /// MessageCircleX icon
-  static Component messageCircleX({IconSize size = IconSize.md}) =>
+  static Widget messageCircleX({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e56b', size: size);
 
   /// MessageSquare icon
-  static Component messageSquare({IconSize size = IconSize.md}) =>
+  static Widget messageSquare({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e117', size: size);
 
   /// MessageSquareCode icon
-  static Component messageSquareCode({IconSize size = IconSize.md}) =>
+  static Widget messageSquareCode({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e56c', size: size);
 
   /// MessageSquareDashed icon
-  static Component messageSquareDashed({IconSize size = IconSize.md}) =>
+  static Widget messageSquareDashed({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e40b', size: size);
 
   /// MessageSquareDiff icon
-  static Component messageSquareDiff({IconSize size = IconSize.md}) =>
+  static Widget messageSquareDiff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e56d', size: size);
 
   /// MessageSquareDot icon
-  static Component messageSquareDot({IconSize size = IconSize.md}) =>
+  static Widget messageSquareDot({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e56e', size: size);
 
   /// MessageSquareHeart icon
-  static Component messageSquareHeart({IconSize size = IconSize.md}) =>
+  static Widget messageSquareHeart({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e56f', size: size);
 
   /// MessageSquareLock icon
-  static Component messageSquareLock({IconSize size = IconSize.md}) =>
+  static Widget messageSquareLock({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e62c', size: size);
 
   /// MessageSquareMore icon
-  static Component messageSquareMore({IconSize size = IconSize.md}) =>
+  static Widget messageSquareMore({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e570', size: size);
 
   /// MessageSquareOff icon
-  static Component messageSquareOff({IconSize size = IconSize.md}) =>
+  static Widget messageSquareOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e571', size: size);
 
   /// MessageSquarePlus icon
-  static Component messageSquarePlus({IconSize size = IconSize.md}) =>
+  static Widget messageSquarePlus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e40c', size: size);
 
   /// MessageSquareQuote icon
-  static Component messageSquareQuote({IconSize size = IconSize.md}) =>
+  static Widget messageSquareQuote({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e572', size: size);
 
   /// MessageSquareReply icon
-  static Component messageSquareReply({IconSize size = IconSize.md}) =>
+  static Widget messageSquareReply({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e573', size: size);
 
   /// MessageSquareShare icon
-  static Component messageSquareShare({IconSize size = IconSize.md}) =>
+  static Widget messageSquareShare({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e574', size: size);
 
   /// MessageSquareText icon
-  static Component messageSquareText({IconSize size = IconSize.md}) =>
+  static Widget messageSquareText({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e575', size: size);
 
   /// MessageSquareWarning icon
-  static Component messageSquareWarning({IconSize size = IconSize.md}) =>
+  static Widget messageSquareWarning({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e576', size: size);
 
   /// MessageSquareX icon
-  static Component messageSquareX({IconSize size = IconSize.md}) =>
+  static Widget messageSquareX({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e577', size: size);
 
   /// MessagesSquare icon
-  static Component messagesSquare({IconSize size = IconSize.md}) =>
+  static Widget messagesSquare({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e40d', size: size);
 
   /// Mic icon
-  static Component mic({IconSize size = IconSize.md}) =>
+  static Widget mic({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e118', size: size);
 
   /// MicOff icon
-  static Component micOff({IconSize size = IconSize.md}) =>
+  static Widget micOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e119', size: size);
 
   /// MicVocal icon
-  static Component micVocal({IconSize size = IconSize.md}) =>
+  static Widget micVocal({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e349', size: size);
 
   /// Microchip icon
-  static Component microchip({IconSize size = IconSize.md}) =>
+  static Widget microchip({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e61a', size: size);
 
   /// Microscope icon
-  static Component microscope({IconSize size = IconSize.md}) =>
+  static Widget microscope({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2e4', size: size);
 
   /// Microwave icon
-  static Component microwave({IconSize size = IconSize.md}) =>
+  static Widget microwave({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e37a', size: size);
 
   /// Milestone icon
-  static Component milestone({IconSize size = IconSize.md}) =>
+  static Widget milestone({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e298', size: size);
 
   /// Milk icon
-  static Component milk({IconSize size = IconSize.md}) =>
+  static Widget milk({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e399', size: size);
 
   /// MilkOff icon
-  static Component milkOff({IconSize size = IconSize.md}) =>
+  static Widget milkOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e39a', size: size);
 
   /// Minimize icon
-  static Component minimize({IconSize size = IconSize.md}) =>
+  static Widget minimize({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e11a', size: size);
 
   /// Minimize2 icon
-  static Component minimize2({IconSize size = IconSize.md}) =>
+  static Widget minimize2({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e11b', size: size);
 
   /// Minus icon
-  static Component minus({IconSize size = IconSize.md}) =>
+  static Widget minus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e11c', size: size);
 
   /// Monitor icon
-  static Component monitor({IconSize size = IconSize.md}) =>
+  static Widget monitor({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e11d', size: size);
 
   /// MonitorCheck icon
-  static Component monitorCheck({IconSize size = IconSize.md}) =>
+  static Widget monitorCheck({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e482', size: size);
 
   /// MonitorCloud icon
-  static Component monitorCloud({IconSize size = IconSize.md}) =>
+  static Widget monitorCloud({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e699', size: size);
 
   /// MonitorCog icon
-  static Component monitorCog({IconSize size = IconSize.md}) =>
+  static Widget monitorCog({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e603', size: size);
 
   /// MonitorDot icon
-  static Component monitorDot({IconSize size = IconSize.md}) =>
+  static Widget monitorDot({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e483', size: size);
 
   /// MonitorDown icon
-  static Component monitorDown({IconSize size = IconSize.md}) =>
+  static Widget monitorDown({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e421', size: size);
 
   /// MonitorOff icon
-  static Component monitorOff({IconSize size = IconSize.md}) =>
+  static Widget monitorOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1dc', size: size);
 
   /// MonitorPause icon
-  static Component monitorPause({IconSize size = IconSize.md}) =>
+  static Widget monitorPause({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e484', size: size);
 
   /// MonitorPlay icon
-  static Component monitorPlay({IconSize size = IconSize.md}) =>
+  static Widget monitorPlay({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e485', size: size);
 
   /// MonitorSmartphone icon
-  static Component monitorSmartphone({IconSize size = IconSize.md}) =>
+  static Widget monitorSmartphone({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3a2', size: size);
 
   /// MonitorSpeaker icon
-  static Component monitorSpeaker({IconSize size = IconSize.md}) =>
+  static Widget monitorSpeaker({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e210', size: size);
 
   /// MonitorStop icon
-  static Component monitorStop({IconSize size = IconSize.md}) =>
+  static Widget monitorStop({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e486', size: size);
 
   /// MonitorUp icon
-  static Component monitorUp({IconSize size = IconSize.md}) =>
+  static Widget monitorUp({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e422', size: size);
 
   /// MonitorX icon
-  static Component monitorX({IconSize size = IconSize.md}) =>
+  static Widget monitorX({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e487', size: size);
 
   /// Moon icon
-  static Component moon({IconSize size = IconSize.md}) =>
+  static Widget moon({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e11e', size: size);
 
   /// MoonStar icon
-  static Component moonStar({IconSize size = IconSize.md}) =>
+  static Widget moonStar({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e410', size: size);
 
   /// Motorbike icon
-  static Component motorbike({IconSize size = IconSize.md}) =>
+  static Widget motorbike({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e698', size: size);
 
   /// Mountain icon
-  static Component mountain({IconSize size = IconSize.md}) =>
+  static Widget mountain({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e231', size: size);
 
   /// MountainSnow icon
-  static Component mountainSnow({IconSize size = IconSize.md}) =>
+  static Widget mountainSnow({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e232', size: size);
 
   /// Mouse icon
-  static Component mouse({IconSize size = IconSize.md}) =>
+  static Widget mouse({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e28e', size: size);
 
   /// MouseOff icon
-  static Component mouseOff({IconSize size = IconSize.md}) =>
+  static Widget mouseOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5db', size: size);
 
   /// MousePointer icon
-  static Component mousePointer({IconSize size = IconSize.md}) =>
+  static Widget mousePointer({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e11f', size: size);
 
   /// MousePointer2 icon
-  static Component mousePointer2({IconSize size = IconSize.md}) =>
+  static Widget mousePointer2({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1c3', size: size);
 
   /// MousePointer2Off icon
-  static Component mousePointer2Off({IconSize size = IconSize.md}) =>
+  static Widget mousePointer2Off({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e6a6', size: size);
 
   /// MousePointerBan icon
-  static Component mousePointerBan({IconSize size = IconSize.md}) =>
+  static Widget mousePointerBan({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5e7', size: size);
 
   /// MousePointerClick icon
-  static Component mousePointerClick({IconSize size = IconSize.md}) =>
+  static Widget mousePointerClick({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e120', size: size);
 
   /// Move icon
-  static Component move({IconSize size = IconSize.md}) =>
+  static Widget move({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e121', size: size);
 
   /// Move3d icon
-  static Component move3d({IconSize size = IconSize.md}) =>
+  static Widget move3d({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2e5', size: size);
 
   /// MoveDiagonal icon
-  static Component moveDiagonal({IconSize size = IconSize.md}) =>
+  static Widget moveDiagonal({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1c4', size: size);
 
   /// MoveDiagonal2 icon
-  static Component moveDiagonal2({IconSize size = IconSize.md}) =>
+  static Widget moveDiagonal2({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1c5', size: size);
 
   /// MoveDown icon
-  static Component moveDown({IconSize size = IconSize.md}) =>
+  static Widget moveDown({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e48c', size: size);
 
   /// MoveDownLeft icon
-  static Component moveDownLeft({IconSize size = IconSize.md}) =>
+  static Widget moveDownLeft({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e48d', size: size);
 
   /// MoveDownRight icon
-  static Component moveDownRight({IconSize size = IconSize.md}) =>
+  static Widget moveDownRight({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e48e', size: size);
 
   /// MoveHorizontal icon
-  static Component moveHorizontal({IconSize size = IconSize.md}) =>
+  static Widget moveHorizontal({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1c6', size: size);
 
   /// MoveLeft icon
-  static Component moveLeft({IconSize size = IconSize.md}) =>
+  static Widget moveLeft({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e48f', size: size);
 
   /// MoveRight icon
-  static Component moveRight({IconSize size = IconSize.md}) =>
+  static Widget moveRight({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e490', size: size);
 
   /// MoveUp icon
-  static Component moveUp({IconSize size = IconSize.md}) =>
+  static Widget moveUp({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e491', size: size);
 
   /// MoveUpLeft icon
-  static Component moveUpLeft({IconSize size = IconSize.md}) =>
+  static Widget moveUpLeft({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e492', size: size);
 
   /// MoveUpRight icon
-  static Component moveUpRight({IconSize size = IconSize.md}) =>
+  static Widget moveUpRight({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e493', size: size);
 
   /// MoveVertical icon
-  static Component moveVertical({IconSize size = IconSize.md}) =>
+  static Widget moveVertical({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1c7', size: size);
 
   /// Music icon
-  static Component music({IconSize size = IconSize.md}) =>
+  static Widget music({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e122', size: size);
 
   /// Music2 icon
-  static Component music2({IconSize size = IconSize.md}) =>
+  static Widget music2({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e34a', size: size);
 
   /// Music3 icon
-  static Component music3({IconSize size = IconSize.md}) =>
+  static Widget music3({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e34b', size: size);
 
   /// Music4 icon
-  static Component music4({IconSize size = IconSize.md}) =>
+  static Widget music4({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e34c', size: size);
 
   /// Navigation icon
-  static Component navigation({IconSize size = IconSize.md}) =>
+  static Widget navigation({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e123', size: size);
 
   /// Navigation2 icon
-  static Component navigation2({IconSize size = IconSize.md}) =>
+  static Widget navigation2({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e124', size: size);
 
   /// Navigation2Off icon
-  static Component navigation2Off({IconSize size = IconSize.md}) =>
+  static Widget navigation2Off({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2a7', size: size);
 
   /// NavigationOff icon
-  static Component navigationOff({IconSize size = IconSize.md}) =>
+  static Widget navigationOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2a8', size: size);
 
   /// Network icon
-  static Component network({IconSize size = IconSize.md}) =>
+  static Widget network({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e125', size: size);
 
   /// Newspaper icon
-  static Component newspaper({IconSize size = IconSize.md}) =>
+  static Widget newspaper({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e348', size: size);
 
   /// Nfc icon
-  static Component nfc({IconSize size = IconSize.md}) =>
+  static Widget nfc({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3c3', size: size);
 
   /// NonBinary icon
-  static Component nonBinary({IconSize size = IconSize.md}) =>
+  static Widget nonBinary({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e643', size: size);
 
   /// Notebook icon
-  static Component notebook({IconSize size = IconSize.md}) =>
+  static Widget notebook({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e595', size: size);
 
   /// NotebookPen icon
-  static Component notebookPen({IconSize size = IconSize.md}) =>
+  static Widget notebookPen({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e596', size: size);
 
   /// NotebookTabs icon
-  static Component notebookTabs({IconSize size = IconSize.md}) =>
+  static Widget notebookTabs({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e597', size: size);
 
   /// NotebookText icon
-  static Component notebookText({IconSize size = IconSize.md}) =>
+  static Widget notebookText({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e598', size: size);
 
   /// NotepadText icon
-  static Component notepadText({IconSize size = IconSize.md}) =>
+  static Widget notepadText({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e599', size: size);
 
   /// NotepadTextDashed icon
-  static Component notepadTextDashed({IconSize size = IconSize.md}) =>
+  static Widget notepadTextDashed({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e59a', size: size);
 
   /// Nut icon
-  static Component nut({IconSize size = IconSize.md}) =>
+  static Widget nut({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e39b', size: size);
 
   /// NutOff icon
-  static Component nutOff({IconSize size = IconSize.md}) =>
+  static Widget nutOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e39c', size: size);
 
   /// Octagon icon
-  static Component octagon({IconSize size = IconSize.md}) =>
+  static Widget octagon({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e126', size: size);
 
   /// OctagonAlert icon
-  static Component octagonAlert({IconSize size = IconSize.md}) =>
+  static Widget octagonAlert({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e127', size: size);
 
   /// OctagonMinus icon
-  static Component octagonMinus({IconSize size = IconSize.md}) =>
+  static Widget octagonMinus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e627', size: size);
 
   /// OctagonPause icon
-  static Component octagonPause({IconSize size = IconSize.md}) =>
+  static Widget octagonPause({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e21b', size: size);
 
   /// OctagonX icon
-  static Component octagonX({IconSize size = IconSize.md}) =>
+  static Widget octagonX({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e128', size: size);
 
   /// Omega icon
-  static Component omega({IconSize size = IconSize.md}) =>
+  static Widget omega({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e619', size: size);
 
   /// Option icon
-  static Component option({IconSize size = IconSize.md}) =>
+  static Widget option({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1f8', size: size);
 
   /// Orbit icon
-  static Component orbit({IconSize size = IconSize.md}) =>
+  static Widget orbit({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3e7', size: size);
 
   /// Origami icon
-  static Component origami({IconSize size = IconSize.md}) =>
+  static Widget origami({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5e3', size: size);
 
   /// Package icon
-  static Component package({IconSize size = IconSize.md}) =>
+  static Widget package({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e129', size: size);
 
   /// Package2 icon
-  static Component package2({IconSize size = IconSize.md}) =>
+  static Widget package2({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e340', size: size);
 
   /// PackageCheck icon
-  static Component packageCheck({IconSize size = IconSize.md}) =>
+  static Widget packageCheck({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e266', size: size);
 
   /// PackageMinus icon
-  static Component packageMinus({IconSize size = IconSize.md}) =>
+  static Widget packageMinus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e267', size: size);
 
   /// PackageOpen icon
-  static Component packageOpen({IconSize size = IconSize.md}) =>
+  static Widget packageOpen({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2cc', size: size);
 
   /// PackagePlus icon
-  static Component packagePlus({IconSize size = IconSize.md}) =>
+  static Widget packagePlus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e268', size: size);
 
   /// PackageSearch icon
-  static Component packageSearch({IconSize size = IconSize.md}) =>
+  static Widget packageSearch({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e269', size: size);
 
   /// PackageX icon
-  static Component packageX({IconSize size = IconSize.md}) =>
+  static Widget packageX({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e26a', size: size);
 
   /// PaintBucket icon
-  static Component paintBucket({IconSize size = IconSize.md}) =>
+  static Widget paintBucket({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2e6', size: size);
 
   /// PaintRoller icon
-  static Component paintRoller({IconSize size = IconSize.md}) =>
+  static Widget paintRoller({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e59e', size: size);
 
   /// Paintbrush icon
-  static Component paintbrush({IconSize size = IconSize.md}) =>
+  static Widget paintbrush({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2e7', size: size);
 
   /// PaintbrushVertical icon
-  static Component paintbrushVertical({IconSize size = IconSize.md}) =>
+  static Widget paintbrushVertical({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2e8', size: size);
 
   /// Palette icon
-  static Component palette({IconSize size = IconSize.md}) =>
+  static Widget palette({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1dd', size: size);
 
   /// Panda icon
-  static Component panda({IconSize size = IconSize.md}) =>
+  static Widget panda({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e668', size: size);
 
   /// PanelBottom icon
-  static Component panelBottom({IconSize size = IconSize.md}) =>
+  static Widget panelBottom({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e42c', size: size);
 
   /// PanelBottomClose icon
-  static Component panelBottomClose({IconSize size = IconSize.md}) =>
+  static Widget panelBottomClose({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e42d', size: size);
 
   /// PanelBottomDashed icon
-  static Component panelBottomDashed({IconSize size = IconSize.md}) =>
+  static Widget panelBottomDashed({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e42e', size: size);
 
   /// PanelBottomOpen icon
-  static Component panelBottomOpen({IconSize size = IconSize.md}) =>
+  static Widget panelBottomOpen({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e42f', size: size);
 
   /// PanelLeft icon
-  static Component panelLeft({IconSize size = IconSize.md}) =>
+  static Widget panelLeft({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e12a', size: size);
 
   /// PanelLeftClose icon
-  static Component panelLeftClose({IconSize size = IconSize.md}) =>
+  static Widget panelLeftClose({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e21c', size: size);
 
   /// PanelLeftDashed icon
-  static Component panelLeftDashed({IconSize size = IconSize.md}) =>
+  static Widget panelLeftDashed({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e430', size: size);
 
   /// PanelLeftOpen icon
-  static Component panelLeftOpen({IconSize size = IconSize.md}) =>
+  static Widget panelLeftOpen({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e21d', size: size);
 
   /// PanelLeftRightDashed icon
-  static Component panelLeftRightDashed({IconSize size = IconSize.md}) =>
+  static Widget panelLeftRightDashed({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e692', size: size);
 
   /// PanelRight icon
-  static Component panelRight({IconSize size = IconSize.md}) =>
+  static Widget panelRight({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e431', size: size);
 
   /// PanelRightClose icon
-  static Component panelRightClose({IconSize size = IconSize.md}) =>
+  static Widget panelRightClose({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e432', size: size);
 
   /// PanelRightDashed icon
-  static Component panelRightDashed({IconSize size = IconSize.md}) =>
+  static Widget panelRightDashed({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e433', size: size);
 
   /// PanelRightOpen icon
-  static Component panelRightOpen({IconSize size = IconSize.md}) =>
+  static Widget panelRightOpen({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e434', size: size);
 
   /// PanelTop icon
-  static Component panelTop({IconSize size = IconSize.md}) =>
+  static Widget panelTop({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e435', size: size);
 
   /// PanelTopBottomDashed icon
-  static Component panelTopBottomDashed({IconSize size = IconSize.md}) =>
+  static Widget panelTopBottomDashed({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e693', size: size);
 
   /// PanelTopClose icon
-  static Component panelTopClose({IconSize size = IconSize.md}) =>
+  static Widget panelTopClose({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e436', size: size);
 
   /// PanelTopDashed icon
-  static Component panelTopDashed({IconSize size = IconSize.md}) =>
+  static Widget panelTopDashed({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e437', size: size);
 
   /// PanelTopOpen icon
-  static Component panelTopOpen({IconSize size = IconSize.md}) =>
+  static Widget panelTopOpen({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e438', size: size);
 
   /// PanelsLeftBottom icon
-  static Component panelsLeftBottom({IconSize size = IconSize.md}) =>
+  static Widget panelsLeftBottom({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e12b', size: size);
 
   /// PanelsRightBottom icon
-  static Component panelsRightBottom({IconSize size = IconSize.md}) =>
+  static Widget panelsRightBottom({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e588', size: size);
 
   /// PanelsTopLeft icon
-  static Component panelsTopLeft({IconSize size = IconSize.md}) =>
+  static Widget panelsTopLeft({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e12c', size: size);
 
   /// Paperclip icon
-  static Component paperclip({IconSize size = IconSize.md}) =>
+  static Widget paperclip({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e12d', size: size);
 
   /// Parentheses icon
-  static Component parentheses({IconSize size = IconSize.md}) =>
+  static Widget parentheses({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e444', size: size);
 
   /// ParkingMeter icon
-  static Component parkingMeter({IconSize size = IconSize.md}) =>
+  static Widget parkingMeter({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e500', size: size);
 
   /// PartyPopper icon
-  static Component partyPopper({IconSize size = IconSize.md}) =>
+  static Widget partyPopper({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e343', size: size);
 
   /// Pause icon
-  static Component pause({IconSize size = IconSize.md}) =>
+  static Widget pause({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e12e', size: size);
 
   /// PawPrint icon
-  static Component pawPrint({IconSize size = IconSize.md}) =>
+  static Widget pawPrint({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4f5', size: size);
 
   /// PcCase icon
-  static Component pcCase({IconSize size = IconSize.md}) =>
+  static Widget pcCase({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e446', size: size);
 
   /// Pen icon
-  static Component pen({IconSize size = IconSize.md}) =>
+  static Widget pen({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e12f', size: size);
 
   /// PenLine icon
-  static Component penLine({IconSize size = IconSize.md}) =>
+  static Widget penLine({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e130', size: size);
 
   /// PenOff icon
-  static Component penOff({IconSize size = IconSize.md}) =>
+  static Widget penOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5ee', size: size);
 
   /// PenTool icon
-  static Component penTool({IconSize size = IconSize.md}) =>
+  static Widget penTool({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e131', size: size);
 
   /// Pencil icon
-  static Component pencil({IconSize size = IconSize.md}) =>
+  static Widget pencil({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1f9', size: size);
 
   /// PencilLine icon
-  static Component pencilLine({IconSize size = IconSize.md}) =>
+  static Widget pencilLine({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4f0', size: size);
 
   /// PencilOff icon
-  static Component pencilOff({IconSize size = IconSize.md}) =>
+  static Widget pencilOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5ef', size: size);
 
   /// PencilRuler icon
-  static Component pencilRuler({IconSize size = IconSize.md}) =>
+  static Widget pencilRuler({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4f1', size: size);
 
   /// Pentagon icon
-  static Component pentagon({IconSize size = IconSize.md}) =>
+  static Widget pentagon({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e52b', size: size);
 
   /// Percent icon
-  static Component percent({IconSize size = IconSize.md}) =>
+  static Widget percent({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e132', size: size);
 
   /// PersonStanding icon
-  static Component personStanding({IconSize size = IconSize.md}) =>
+  static Widget personStanding({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e21e', size: size);
 
   /// PhilippinePeso icon
-  static Component philippinePeso({IconSize size = IconSize.md}) =>
+  static Widget philippinePeso({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e604', size: size);
 
   /// Phone icon
-  static Component phone({IconSize size = IconSize.md}) =>
+  static Widget phone({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e133', size: size);
 
   /// PhoneCall icon
-  static Component phoneCall({IconSize size = IconSize.md}) =>
+  static Widget phoneCall({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e134', size: size);
 
   /// PhoneForwarded icon
-  static Component phoneForwarded({IconSize size = IconSize.md}) =>
+  static Widget phoneForwarded({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e135', size: size);
 
   /// PhoneIncoming icon
-  static Component phoneIncoming({IconSize size = IconSize.md}) =>
+  static Widget phoneIncoming({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e136', size: size);
 
   /// PhoneMissed icon
-  static Component phoneMissed({IconSize size = IconSize.md}) =>
+  static Widget phoneMissed({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e137', size: size);
 
   /// PhoneOff icon
-  static Component phoneOff({IconSize size = IconSize.md}) =>
+  static Widget phoneOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e138', size: size);
 
   /// PhoneOutgoing icon
-  static Component phoneOutgoing({IconSize size = IconSize.md}) =>
+  static Widget phoneOutgoing({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e139', size: size);
 
   /// Pi icon
-  static Component pi({IconSize size = IconSize.md}) =>
+  static Widget pi({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e472', size: size);
 
   /// Piano icon
-  static Component piano({IconSize size = IconSize.md}) =>
+  static Widget piano({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e561', size: size);
 
   /// Pickaxe icon
-  static Component pickaxe({IconSize size = IconSize.md}) =>
+  static Widget pickaxe({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5c6', size: size);
 
   /// PictureInPicture icon
-  static Component pictureInPicture({IconSize size = IconSize.md}) =>
+  static Widget pictureInPicture({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3ae', size: size);
 
   /// PictureInPicture2 icon
-  static Component pictureInPicture2({IconSize size = IconSize.md}) =>
+  static Widget pictureInPicture2({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3af', size: size);
 
   /// PiggyBank icon
-  static Component piggyBank({IconSize size = IconSize.md}) =>
+  static Widget piggyBank({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e13a', size: size);
 
   /// Pilcrow icon
-  static Component pilcrow({IconSize size = IconSize.md}) =>
+  static Widget pilcrow({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3a3', size: size);
 
   /// PilcrowLeft icon
-  static Component pilcrowLeft({IconSize size = IconSize.md}) =>
+  static Widget pilcrowLeft({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5dc', size: size);
 
   /// PilcrowRight icon
-  static Component pilcrowRight({IconSize size = IconSize.md}) =>
+  static Widget pilcrowRight({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5dd', size: size);
 
   /// Pill icon
-  static Component pill({IconSize size = IconSize.md}) =>
+  static Widget pill({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3bd', size: size);
 
   /// PillBottle icon
-  static Component pillBottle({IconSize size = IconSize.md}) =>
+  static Widget pillBottle({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5ea', size: size);
 
   /// Pin icon
-  static Component pin({IconSize size = IconSize.md}) =>
+  static Widget pin({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e259', size: size);
 
   /// PinOff icon
-  static Component pinOff({IconSize size = IconSize.md}) =>
+  static Widget pinOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2b6', size: size);
 
   /// Pipette icon
-  static Component pipette({IconSize size = IconSize.md}) =>
+  static Widget pipette({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e13b', size: size);
 
   /// Pizza icon
-  static Component pizza({IconSize size = IconSize.md}) =>
+  static Widget pizza({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e354', size: size);
 
   /// Plane icon
-  static Component plane({IconSize size = IconSize.md}) =>
+  static Widget plane({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1de', size: size);
 
   /// PlaneLanding icon
-  static Component planeLanding({IconSize size = IconSize.md}) =>
+  static Widget planeLanding({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3cd', size: size);
 
   /// PlaneTakeoff icon
-  static Component planeTakeoff({IconSize size = IconSize.md}) =>
+  static Widget planeTakeoff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3ce', size: size);
 
   /// Play icon
-  static Component play({IconSize size = IconSize.md}) =>
+  static Widget play({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e13c', size: size);
 
   /// Plug icon
-  static Component plug({IconSize size = IconSize.md}) =>
+  static Widget plug({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e37f', size: size);
 
   /// Plug2 icon
-  static Component plug2({IconSize size = IconSize.md}) =>
+  static Widget plug2({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e380', size: size);
 
   /// PlugZap icon
-  static Component plugZap({IconSize size = IconSize.md}) =>
+  static Widget plugZap({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e45c', size: size);
 
   /// Plus icon
-  static Component plus({IconSize size = IconSize.md}) =>
+  static Widget plus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e13d', size: size);
 
   /// Pocket icon
-  static Component pocket({IconSize size = IconSize.md}) =>
+  static Widget pocket({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e13e', size: size);
 
   /// PocketKnife icon
-  static Component pocketKnife({IconSize size = IconSize.md}) =>
+  static Widget pocketKnife({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4a0', size: size);
 
   /// Podcast icon
-  static Component podcast({IconSize size = IconSize.md}) =>
+  static Widget podcast({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1fa', size: size);
 
   /// Pointer icon
-  static Component pointer({IconSize size = IconSize.md}) =>
+  static Widget pointer({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1e8', size: size);
 
   /// PointerOff icon
-  static Component pointerOff({IconSize size = IconSize.md}) =>
+  static Widget pointerOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e57f', size: size);
 
   /// Popcorn icon
-  static Component popcorn({IconSize size = IconSize.md}) =>
+  static Widget popcorn({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4be', size: size);
 
   /// Popsicle icon
-  static Component popsicle({IconSize size = IconSize.md}) =>
+  static Widget popsicle({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4bf', size: size);
 
   /// PoundSterling icon
-  static Component poundSterling({IconSize size = IconSize.md}) =>
+  static Widget poundSterling({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e13f', size: size);
 
   /// Power icon
-  static Component power({IconSize size = IconSize.md}) =>
+  static Widget power({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e140', size: size);
 
   /// PowerOff icon
-  static Component powerOff({IconSize size = IconSize.md}) =>
+  static Widget powerOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e209', size: size);
 
   /// Presentation icon
-  static Component presentation({IconSize size = IconSize.md}) =>
+  static Widget presentation({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4ae', size: size);
 
   /// Printer icon
-  static Component printer({IconSize size = IconSize.md}) =>
+  static Widget printer({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e141', size: size);
 
   /// PrinterCheck icon
-  static Component printerCheck({IconSize size = IconSize.md}) =>
+  static Widget printerCheck({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5f5', size: size);
 
   /// Projector icon
-  static Component projector({IconSize size = IconSize.md}) =>
+  static Widget projector({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4af', size: size);
 
   /// Proportions icon
-  static Component proportions({IconSize size = IconSize.md}) =>
+  static Widget proportions({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5cf', size: size);
 
   /// Puzzle icon
-  static Component puzzle({IconSize size = IconSize.md}) =>
+  static Widget puzzle({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e29c', size: size);
 
   /// Pyramid icon
-  static Component pyramid({IconSize size = IconSize.md}) =>
+  static Widget pyramid({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e52c', size: size);
 
   /// QrCode icon
-  static Component qrCode({IconSize size = IconSize.md}) =>
+  static Widget qrCode({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1df', size: size);
 
   /// Quote icon
-  static Component quote({IconSize size = IconSize.md}) =>
+  static Widget quote({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e239', size: size);
 
   /// Rabbit icon
-  static Component rabbit({IconSize size = IconSize.md}) =>
+  static Widget rabbit({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4f6', size: size);
 
   /// Radar icon
-  static Component radar({IconSize size = IconSize.md}) =>
+  static Widget radar({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e497', size: size);
 
   /// Radiation icon
-  static Component radiation({IconSize size = IconSize.md}) =>
+  static Widget radiation({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e442', size: size);
 
   /// Radical icon
-  static Component radical({IconSize size = IconSize.md}) =>
+  static Widget radical({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5c2', size: size);
 
   /// Radio icon
-  static Component radio({IconSize size = IconSize.md}) =>
+  static Widget radio({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e142', size: size);
 
   /// RadioReceiver icon
-  static Component radioReceiver({IconSize size = IconSize.md}) =>
+  static Widget radioReceiver({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1fb', size: size);
 
   /// RadioTower icon
-  static Component radioTower({IconSize size = IconSize.md}) =>
+  static Widget radioTower({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e404', size: size);
 
   /// Radius icon
-  static Component radiusIcon({IconSize size = IconSize.md}) =>
+  static Widget radiusIcon({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e52d', size: size);
 
   /// RailSymbol icon
-  static Component railSymbol({IconSize size = IconSize.md}) =>
+  static Widget railSymbol({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e501', size: size);
 
   /// Rainbow icon
-  static Component rainbow({IconSize size = IconSize.md}) =>
+  static Widget rainbow({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4c2', size: size);
 
   /// Rat icon
-  static Component rat({IconSize size = IconSize.md}) =>
+  static Widget rat({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3eb', size: size);
 
   /// Ratio icon
-  static Component ratio({IconSize size = IconSize.md}) =>
+  static Widget ratio({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4e8', size: size);
 
   /// Receipt icon
-  static Component receipt({IconSize size = IconSize.md}) =>
+  static Widget receipt({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3d3', size: size);
 
   /// ReceiptCent icon
-  static Component receiptCent({IconSize size = IconSize.md}) =>
+  static Widget receiptCent({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5a5', size: size);
 
   /// ReceiptEuro icon
-  static Component receiptEuro({IconSize size = IconSize.md}) =>
+  static Widget receiptEuro({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5a6', size: size);
 
   /// ReceiptIndianRupee icon
-  static Component receiptIndianRupee({IconSize size = IconSize.md}) =>
+  static Widget receiptIndianRupee({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5a7', size: size);
 
   /// ReceiptJapaneseYen icon
-  static Component receiptJapaneseYen({IconSize size = IconSize.md}) =>
+  static Widget receiptJapaneseYen({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5a8', size: size);
 
   /// ReceiptPoundSterling icon
-  static Component receiptPoundSterling({IconSize size = IconSize.md}) =>
+  static Widget receiptPoundSterling({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5a9', size: size);
 
   /// ReceiptRussianRuble icon
-  static Component receiptRussianRuble({IconSize size = IconSize.md}) =>
+  static Widget receiptRussianRuble({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5aa', size: size);
 
   /// ReceiptSwissFranc icon
-  static Component receiptSwissFranc({IconSize size = IconSize.md}) =>
+  static Widget receiptSwissFranc({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5ab', size: size);
 
   /// ReceiptText icon
-  static Component receiptText({IconSize size = IconSize.md}) =>
+  static Widget receiptText({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5ac', size: size);
 
   /// ReceiptTurkishLira icon
-  static Component receiptTurkishLira({IconSize size = IconSize.md}) =>
+  static Widget receiptTurkishLira({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e67f', size: size);
 
   /// RectangleCircle icon
-  static Component rectangleCircle({IconSize size = IconSize.md}) =>
+  static Widget rectangleCircle({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e673', size: size);
 
   /// RectangleEllipsis icon
-  static Component rectangleEllipsis({IconSize size = IconSize.md}) =>
+  static Widget rectangleEllipsis({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e21f', size: size);
 
   /// RectangleGoggles icon
-  static Component rectangleGoggles({IconSize size = IconSize.md}) =>
+  static Widget rectangleGoggles({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e656', size: size);
 
   /// RectangleHorizontal icon
-  static Component rectangleHorizontal({IconSize size = IconSize.md}) =>
+  static Widget rectangleHorizontal({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e376', size: size);
 
   /// RectangleVertical icon
-  static Component rectangleVertical({IconSize size = IconSize.md}) =>
+  static Widget rectangleVertical({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e377', size: size);
 
   /// Recycle icon
-  static Component recycle({IconSize size = IconSize.md}) =>
+  static Widget recycle({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2e9', size: size);
 
   /// Redo icon
-  static Component redo({IconSize size = IconSize.md}) =>
+  static Widget redo({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e143', size: size);
 
   /// Redo2 icon
-  static Component redo2({IconSize size = IconSize.md}) =>
+  static Widget redo2({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2a0', size: size);
 
   /// RedoDot icon
-  static Component redoDot({IconSize size = IconSize.md}) =>
+  static Widget redoDot({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e450', size: size);
 
   /// RefreshCcw icon
-  static Component refreshCcw({IconSize size = IconSize.md}) =>
+  static Widget refreshCcw({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e144', size: size);
 
   /// RefreshCcwDot icon
-  static Component refreshCcwDot({IconSize size = IconSize.md}) =>
+  static Widget refreshCcwDot({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4b2', size: size);
 
   /// RefreshCw icon
-  static Component refreshCw({IconSize size = IconSize.md}) =>
+  static Widget refreshCw({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e145', size: size);
 
   /// RefreshCwOff icon
-  static Component refreshCwOff({IconSize size = IconSize.md}) =>
+  static Widget refreshCwOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e498', size: size);
 
   /// Refrigerator icon
-  static Component refrigerator({IconSize size = IconSize.md}) =>
+  static Widget refrigerator({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e37b', size: size);
 
   /// Regex icon
-  static Component regex({IconSize size = IconSize.md}) =>
+  static Widget regex({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1fc', size: size);
 
   /// RemoveFormatting icon
-  static Component removeFormatting({IconSize size = IconSize.md}) =>
+  static Widget removeFormatting({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3b3', size: size);
 
   /// Repeat icon
-  static Component repeat({IconSize size = IconSize.md}) =>
+  static Widget repeat({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e146', size: size);
 
   /// Repeat1 icon
-  static Component repeat1({IconSize size = IconSize.md}) =>
+  static Widget repeat1({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1fd', size: size);
 
   /// Repeat2 icon
-  static Component repeat2({IconSize size = IconSize.md}) =>
+  static Widget repeat2({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e411', size: size);
 
   /// Replace icon
-  static Component replace({IconSize size = IconSize.md}) =>
+  static Widget replace({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3db', size: size);
 
   /// ReplaceAll icon
-  static Component replaceAll({IconSize size = IconSize.md}) =>
+  static Widget replaceAll({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3dc', size: size);
 
   /// Reply icon
-  static Component reply({IconSize size = IconSize.md}) =>
+  static Widget reply({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e22a', size: size);
 
   /// ReplyAll icon
-  static Component replyAll({IconSize size = IconSize.md}) =>
+  static Widget replyAll({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e22b', size: size);
 
   /// Rewind icon
-  static Component rewind({IconSize size = IconSize.md}) =>
+  static Widget rewind({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e147', size: size);
 
   /// Ribbon icon
-  static Component ribbon({IconSize size = IconSize.md}) =>
+  static Widget ribbon({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e558', size: size);
 
   /// Rocket icon
-  static Component rocket({IconSize size = IconSize.md}) =>
+  static Widget rocket({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e286', size: size);
 
   /// RockingChair icon
-  static Component rockingChair({IconSize size = IconSize.md}) =>
+  static Widget rockingChair({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e233', size: size);
 
   /// RollerCoaster icon
-  static Component rollerCoaster({IconSize size = IconSize.md}) =>
+  static Widget rollerCoaster({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e480', size: size);
 
   /// Rose icon
-  static Component rose({IconSize size = IconSize.md}) =>
+  static Widget rose({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e691', size: size);
 
   /// Rotate3d icon
-  static Component rotate3d({IconSize size = IconSize.md}) =>
+  static Widget rotate3d({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2ea', size: size);
 
   /// RotateCcw icon
-  static Component rotateCcw({IconSize size = IconSize.md}) =>
+  static Widget rotateCcw({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e148', size: size);
 
   /// RotateCcwKey icon
-  static Component rotateCcwKey({IconSize size = IconSize.md}) =>
+  static Widget rotateCcwKey({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e650', size: size);
 
   /// RotateCcwSquare icon
-  static Component rotateCcwSquare({IconSize size = IconSize.md}) =>
+  static Widget rotateCcwSquare({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5d0', size: size);
 
   /// RotateCw icon
-  static Component rotateCw({IconSize size = IconSize.md}) =>
+  static Widget rotateCw({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e149', size: size);
 
   /// RotateCwSquare icon
-  static Component rotateCwSquare({IconSize size = IconSize.md}) =>
+  static Widget rotateCwSquare({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5d1', size: size);
 
   /// Route icon
-  static Component route({IconSize size = IconSize.md}) =>
+  static Widget route({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e53e', size: size);
 
   /// RouteOff icon
-  static Component routeOff({IconSize size = IconSize.md}) =>
+  static Widget routeOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e53f', size: size);
 
   /// Router icon
-  static Component router({IconSize size = IconSize.md}) =>
+  static Widget router({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3bf', size: size);
 
   /// Rows2 icon
-  static Component rows2({IconSize size = IconSize.md}) =>
+  static Widget rows2({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e439', size: size);
 
   /// Rows3 icon
-  static Component rows3({IconSize size = IconSize.md}) =>
+  static Widget rows3({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e58a', size: size);
 
   /// Rows4 icon
-  static Component rows4({IconSize size = IconSize.md}) =>
+  static Widget rows4({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e58b', size: size);
 
   /// Rss icon
-  static Component rss({IconSize size = IconSize.md}) =>
+  static Widget rss({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e14a', size: size);
 
   /// Ruler icon
-  static Component ruler({IconSize size = IconSize.md}) =>
+  static Widget ruler({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e14b', size: size);
 
   /// RulerDimensionLine icon
-  static Component rulerDimensionLine({IconSize size = IconSize.md}) =>
+  static Widget rulerDimensionLine({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e662', size: size);
 
   /// RussianRuble icon
-  static Component russianRuble({IconSize size = IconSize.md}) =>
+  static Widget russianRuble({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e14c', size: size);
 
   /// Sailboat icon
-  static Component sailboat({IconSize size = IconSize.md}) =>
+  static Widget sailboat({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e37e', size: size);
 
   /// Salad icon
-  static Component salad({IconSize size = IconSize.md}) =>
+  static Widget salad({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3a8', size: size);
 
   /// Sandwich icon
-  static Component sandwich({IconSize size = IconSize.md}) =>
+  static Widget sandwich({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3a9', size: size);
 
   /// Satellite icon
-  static Component satellite({IconSize size = IconSize.md}) =>
+  static Widget satellite({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e447', size: size);
 
   /// SatelliteDish icon
-  static Component satelliteDish({IconSize size = IconSize.md}) =>
+  static Widget satelliteDish({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e448', size: size);
 
   /// SaudiRiyal icon
-  static Component saudiRiyal({IconSize size = IconSize.md}) =>
+  static Widget saudiRiyal({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e64b', size: size);
 
   /// Save icon
-  static Component save({IconSize size = IconSize.md}) =>
+  static Widget save({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e14d', size: size);
 
   /// SaveAll icon
-  static Component saveAll({IconSize size = IconSize.md}) =>
+  static Widget saveAll({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e40f', size: size);
 
   /// SaveOff icon
-  static Component saveOff({IconSize size = IconSize.md}) =>
+  static Widget saveOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5f3', size: size);
 
   /// Scale icon
-  static Component scale({IconSize size = IconSize.md}) =>
+  static Widget scale({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e212', size: size);
 
   /// Scale3d icon
-  static Component scale3d({IconSize size = IconSize.md}) =>
+  static Widget scale3d({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2eb', size: size);
 
   /// Scaling icon
-  static Component scaling({IconSize size = IconSize.md}) =>
+  static Widget scaling({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2ec', size: size);
 
   /// Scan icon
-  static Component scan({IconSize size = IconSize.md}) =>
+  static Widget scan({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e257', size: size);
 
   /// ScanBarcode icon
-  static Component scanBarcode({IconSize size = IconSize.md}) =>
+  static Widget scanBarcode({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e535', size: size);
 
   /// ScanEye icon
-  static Component scanEye({IconSize size = IconSize.md}) =>
+  static Widget scanEye({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e536', size: size);
 
   /// ScanFace icon
-  static Component scanFace({IconSize size = IconSize.md}) =>
+  static Widget scanFace({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e371', size: size);
 
   /// ScanHeart icon
-  static Component scanHeart({IconSize size = IconSize.md}) =>
+  static Widget scanHeart({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e63a', size: size);
 
   /// ScanLine icon
-  static Component scanLine({IconSize size = IconSize.md}) =>
+  static Widget scanLine({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e258', size: size);
 
   /// ScanQrCode icon
-  static Component scanQrCode({IconSize size = IconSize.md}) =>
+  static Widget scanQrCode({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5f6', size: size);
 
   /// ScanSearch icon
-  static Component scanSearch({IconSize size = IconSize.md}) =>
+  static Widget scanSearch({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e537', size: size);
 
   /// ScanText icon
-  static Component scanText({IconSize size = IconSize.md}) =>
+  static Widget scanText({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e538', size: size);
 
   /// School icon
-  static Component school({IconSize size = IconSize.md}) =>
+  static Widget school({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3e3', size: size);
 
   /// Scissors icon
-  static Component scissors({IconSize size = IconSize.md}) =>
+  static Widget scissors({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e14e', size: size);
 
   /// ScissorsLineDashed icon
-  static Component scissorsLineDashed({IconSize size = IconSize.md}) =>
+  static Widget scissorsLineDashed({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4e9', size: size);
 
   /// Scooter icon
-  static Component scooter({IconSize size = IconSize.md}) =>
+  static Widget scooter({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e6ac', size: size);
 
   /// ScreenShare icon
-  static Component screenShare({IconSize size = IconSize.md}) =>
+  static Widget screenShare({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e14f', size: size);
 
   /// ScreenShareOff icon
-  static Component screenShareOff({IconSize size = IconSize.md}) =>
+  static Widget screenShareOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e150', size: size);
 
   /// Scroll icon
-  static Component scroll({IconSize size = IconSize.md}) =>
+  static Widget scroll({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2ed', size: size);
 
   /// ScrollText icon
-  static Component scrollText({IconSize size = IconSize.md}) =>
+  static Widget scrollText({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e45f', size: size);
 
   /// Search icon
-  static Component search({IconSize size = IconSize.md}) =>
+  static Widget search({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e151', size: size);
 
   /// SearchAlert icon
-  static Component searchAlert({IconSize size = IconSize.md}) =>
+  static Widget searchAlert({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e6b4', size: size);
 
   /// SearchCheck icon
-  static Component searchCheck({IconSize size = IconSize.md}) =>
+  static Widget searchCheck({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4aa', size: size);
 
   /// SearchCode icon
-  static Component searchCode({IconSize size = IconSize.md}) =>
+  static Widget searchCode({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4ab', size: size);
 
   /// SearchSlash icon
-  static Component searchSlash({IconSize size = IconSize.md}) =>
+  static Widget searchSlash({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4ac', size: size);
 
   /// SearchX icon
-  static Component searchX({IconSize size = IconSize.md}) =>
+  static Widget searchX({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4ad', size: size);
 
   /// Section icon
-  static Component section({IconSize size = IconSize.md}) =>
+  static Widget section({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5e8', size: size);
 
   /// Send icon
-  static Component send({IconSize size = IconSize.md}) =>
+  static Widget send({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e152', size: size);
 
   /// SendHorizontal icon
-  static Component sendHorizontal({IconSize size = IconSize.md}) =>
+  static Widget sendHorizontal({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4f2', size: size);
 
   /// SendToBack icon
-  static Component sendToBack({IconSize size = IconSize.md}) =>
+  static Widget sendToBack({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4f3', size: size);
 
   /// SeparatorHorizontal icon
-  static Component separatorHorizontal({IconSize size = IconSize.md}) =>
+  static Widget separatorHorizontal({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1c8', size: size);
 
   /// SeparatorVertical icon
-  static Component separatorVertical({IconSize size = IconSize.md}) =>
+  static Widget separatorVertical({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1c9', size: size);
 
   /// Server icon
-  static Component server({IconSize size = IconSize.md}) =>
+  static Widget server({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e153', size: size);
 
   /// ServerCog icon
-  static Component serverCog({IconSize size = IconSize.md}) =>
+  static Widget serverCog({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e341', size: size);
 
   /// ServerCrash icon
-  static Component serverCrash({IconSize size = IconSize.md}) =>
+  static Widget serverCrash({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1e9', size: size);
 
   /// ServerOff icon
-  static Component serverOff({IconSize size = IconSize.md}) =>
+  static Widget serverOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1ea', size: size);
 
   /// Settings icon
-  static Component settings({IconSize size = IconSize.md}) =>
+  static Widget settings({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e154', size: size);
 
   /// Settings2 icon
-  static Component settings2({IconSize size = IconSize.md}) =>
+  static Widget settings2({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e245', size: size);
 
   /// Shapes icon
-  static Component shapes({IconSize size = IconSize.md}) =>
+  static Widget shapes({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4b3', size: size);
 
   /// Share icon
-  static Component share({IconSize size = IconSize.md}) =>
+  static Widget share({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e155', size: size);
 
   /// Share2 icon
-  static Component share2({IconSize size = IconSize.md}) =>
+  static Widget share2({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e156', size: size);
 
   /// Sheet icon
-  static Component sheet({IconSize size = IconSize.md}) =>
+  static Widget sheet({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e157', size: size);
 
   /// Shell icon
-  static Component shell({IconSize size = IconSize.md}) =>
+  static Widget shell({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4f7', size: size);
 
   /// Shield icon
-  static Component shield({IconSize size = IconSize.md}) =>
+  static Widget shield({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e158', size: size);
 
   /// ShieldAlert icon
-  static Component shieldAlert({IconSize size = IconSize.md}) =>
+  static Widget shieldAlert({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1fe', size: size);
 
   /// ShieldBan icon
-  static Component shieldBan({IconSize size = IconSize.md}) =>
+  static Widget shieldBan({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e159', size: size);
 
   /// ShieldCheck icon
-  static Component shieldCheck({IconSize size = IconSize.md}) =>
+  static Widget shieldCheck({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1ff', size: size);
 
   /// ShieldEllipsis icon
-  static Component shieldEllipsis({IconSize size = IconSize.md}) =>
+  static Widget shieldEllipsis({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e516', size: size);
 
   /// ShieldHalf icon
-  static Component shieldHalf({IconSize size = IconSize.md}) =>
+  static Widget shieldHalf({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e517', size: size);
 
   /// ShieldMinus icon
-  static Component shieldMinus({IconSize size = IconSize.md}) =>
+  static Widget shieldMinus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e518', size: size);
 
   /// ShieldOff icon
-  static Component shieldOff({IconSize size = IconSize.md}) =>
+  static Widget shieldOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e15a', size: size);
 
   /// ShieldPlus icon
-  static Component shieldPlus({IconSize size = IconSize.md}) =>
+  static Widget shieldPlus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e519', size: size);
 
   /// ShieldQuestionMark icon
-  static Component shieldQuestionMark({IconSize size = IconSize.md}) =>
+  static Widget shieldQuestionMark({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e40e', size: size);
 
   /// ShieldUser icon
-  static Component shieldUser({IconSize size = IconSize.md}) =>
+  static Widget shieldUser({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e647', size: size);
 
   /// ShieldX icon
-  static Component shieldX({IconSize size = IconSize.md}) =>
+  static Widget shieldX({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e200', size: size);
 
   /// Ship icon
-  static Component ship({IconSize size = IconSize.md}) =>
+  static Widget ship({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3ba', size: size);
 
   /// ShipWheel icon
-  static Component shipWheel({IconSize size = IconSize.md}) =>
+  static Widget shipWheel({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e502', size: size);
 
   /// Shirt icon
-  static Component shirt({IconSize size = IconSize.md}) =>
+  static Widget shirt({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1ca', size: size);
 
   /// ShoppingBag icon
-  static Component shoppingBag({IconSize size = IconSize.md}) =>
+  static Widget shoppingBag({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e15b', size: size);
 
   /// ShoppingBasket icon
-  static Component shoppingBasket({IconSize size = IconSize.md}) =>
+  static Widget shoppingBasket({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4ea', size: size);
 
   /// ShoppingCart icon
-  static Component shoppingCart({IconSize size = IconSize.md}) =>
+  static Widget shoppingCart({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e15c', size: size);
 
   /// Shovel icon
-  static Component shovel({IconSize size = IconSize.md}) =>
+  static Widget shovel({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e15d', size: size);
 
   /// ShowerHead icon
-  static Component showerHead({IconSize size = IconSize.md}) =>
+  static Widget showerHead({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e37c', size: size);
 
   /// Shredder icon
-  static Component shredder({IconSize size = IconSize.md}) =>
+  static Widget shredder({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e65b', size: size);
 
   /// Shrimp icon
-  static Component shrimp({IconSize size = IconSize.md}) =>
+  static Widget shrimp({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e649', size: size);
 
   /// Shrink icon
-  static Component shrink({IconSize size = IconSize.md}) =>
+  static Widget shrink({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e220', size: size);
 
   /// Shrub icon
-  static Component shrub({IconSize size = IconSize.md}) =>
+  static Widget shrub({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2ee', size: size);
 
   /// Shuffle icon
-  static Component shuffle({IconSize size = IconSize.md}) =>
+  static Widget shuffle({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e15e', size: size);
 
   /// Sigma icon
-  static Component sigma({IconSize size = IconSize.md}) =>
+  static Widget sigma({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e201', size: size);
 
   /// Signal icon
-  static Component signal({IconSize size = IconSize.md}) =>
+  static Widget signal({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e25f', size: size);
 
   /// SignalHigh icon
-  static Component signalHigh({IconSize size = IconSize.md}) =>
+  static Widget signalHigh({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e260', size: size);
 
   /// SignalLow icon
-  static Component signalLow({IconSize size = IconSize.md}) =>
+  static Widget signalLow({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e261', size: size);
 
   /// SignalMedium icon
-  static Component signalMedium({IconSize size = IconSize.md}) =>
+  static Widget signalMedium({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e262', size: size);
 
   /// SignalZero icon
-  static Component signalZero({IconSize size = IconSize.md}) =>
+  static Widget signalZero({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e263', size: size);
 
   /// Signature icon
-  static Component signature({IconSize size = IconSize.md}) =>
+  static Widget signature({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5f2', size: size);
 
   /// Signpost icon
-  static Component signpost({IconSize size = IconSize.md}) =>
+  static Widget signpost({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e540', size: size);
 
   /// SignpostBig icon
-  static Component signpostBig({IconSize size = IconSize.md}) =>
+  static Widget signpostBig({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e541', size: size);
 
   /// Siren icon
-  static Component siren({IconSize size = IconSize.md}) =>
+  static Widget siren({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2ef', size: size);
 
   /// SkipBack icon
-  static Component skipBack({IconSize size = IconSize.md}) =>
+  static Widget skipBack({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e15f', size: size);
 
   /// SkipForward icon
-  static Component skipForward({IconSize size = IconSize.md}) =>
+  static Widget skipForward({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e160', size: size);
 
   /// Skull icon
-  static Component skull({IconSize size = IconSize.md}) =>
+  static Widget skull({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e221', size: size);
 
   /// Slack icon
-  static Component slack({IconSize size = IconSize.md}) =>
+  static Widget slack({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e161', size: size);
 
   /// Slash icon
-  static Component slash({IconSize size = IconSize.md}) =>
+  static Widget slash({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e51d', size: size);
 
   /// Slice icon
-  static Component slice({IconSize size = IconSize.md}) =>
+  static Widget slice({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2f0', size: size);
 
   /// SlidersHorizontal icon
-  static Component slidersHorizontal({IconSize size = IconSize.md}) =>
+  static Widget slidersHorizontal({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e29a', size: size);
 
   /// SlidersVertical icon
-  static Component slidersVertical({IconSize size = IconSize.md}) =>
+  static Widget slidersVertical({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e162', size: size);
 
   /// Smartphone icon
-  static Component smartphone({IconSize size = IconSize.md}) =>
+  static Widget smartphone({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e163', size: size);
 
   /// SmartphoneCharging icon
-  static Component smartphoneCharging({IconSize size = IconSize.md}) =>
+  static Widget smartphoneCharging({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e22e', size: size);
 
   /// SmartphoneNfc icon
-  static Component smartphoneNfc({IconSize size = IconSize.md}) =>
+  static Widget smartphoneNfc({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3c4', size: size);
 
   /// Smile icon
-  static Component smile({IconSize size = IconSize.md}) =>
+  static Widget smile({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e164', size: size);
 
   /// SmilePlus icon
-  static Component smilePlus({IconSize size = IconSize.md}) =>
+  static Widget smilePlus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e301', size: size);
 
   /// Snail icon
-  static Component snail({IconSize size = IconSize.md}) =>
+  static Widget snail({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4f8', size: size);
 
   /// Snowflake icon
-  static Component snowflake({IconSize size = IconSize.md}) =>
+  static Widget snowflake({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e165', size: size);
 
   /// SoapDispenserDroplet icon
-  static Component soapDispenserDroplet({IconSize size = IconSize.md}) =>
+  static Widget soapDispenserDroplet({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e669', size: size);
 
   /// Sofa icon
-  static Component sofa({IconSize size = IconSize.md}) =>
+  static Widget sofa({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2c4', size: size);
 
   /// SolarPanel icon
-  static Component solarPanel({IconSize size = IconSize.md}) =>
+  static Widget solarPanel({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e69f', size: size);
 
   /// Soup icon
-  static Component soup({IconSize size = IconSize.md}) =>
+  static Widget soup({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3aa', size: size);
 
   /// Space icon
-  static Component space({IconSize size = IconSize.md}) =>
+  static Widget space({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3dd', size: size);
 
   /// Spade icon
-  static Component spade({IconSize size = IconSize.md}) =>
+  static Widget spade({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e499', size: size);
 
   /// Sparkle icon
-  static Component sparkle({IconSize size = IconSize.md}) =>
+  static Widget sparkle({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e47e', size: size);
 
   /// Sparkles icon
-  static Component sparkles({IconSize size = IconSize.md}) =>
+  static Widget sparkles({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e412', size: size);
 
   /// Speaker icon
-  static Component speaker({IconSize size = IconSize.md}) =>
+  static Widget speaker({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e166', size: size);
 
   /// Speech icon
-  static Component speech({IconSize size = IconSize.md}) =>
+  static Widget speech({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e51e', size: size);
 
   /// SpellCheck icon
-  static Component spellCheck({IconSize size = IconSize.md}) =>
+  static Widget spellCheck({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e49a', size: size);
 
   /// SpellCheck2 icon
-  static Component spellCheck2({IconSize size = IconSize.md}) =>
+  static Widget spellCheck2({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e49b', size: size);
 
   /// Spline icon
-  static Component spline({IconSize size = IconSize.md}) =>
+  static Widget spline({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e38b', size: size);
 
   /// SplinePointer icon
-  static Component splinePointer({IconSize size = IconSize.md}) =>
+  static Widget splinePointer({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e64f', size: size);
 
   /// Split icon
-  static Component split({IconSize size = IconSize.md}) =>
+  static Widget split({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e440', size: size);
 
   /// Spool icon
-  static Component spool({IconSize size = IconSize.md}) =>
+  static Widget spool({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e677', size: size);
 
   /// Spotlight icon
-  static Component spotlight({IconSize size = IconSize.md}) =>
+  static Widget spotlight({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e682', size: size);
 
   /// SprayCan icon
-  static Component sprayCan({IconSize size = IconSize.md}) =>
+  static Widget sprayCan({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e495', size: size);
 
   /// Sprout icon
-  static Component sprout({IconSize size = IconSize.md}) =>
+  static Widget sprout({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1eb', size: size);
 
   /// Square icon
-  static Component square({IconSize size = IconSize.md}) =>
+  static Widget square({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e167', size: size);
 
   /// SquareActivity icon
-  static Component squareActivity({IconSize size = IconSize.md}) =>
+  static Widget squareActivity({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4b4', size: size);
 
   /// SquareArrowDown icon
-  static Component squareArrowDown({IconSize size = IconSize.md}) =>
+  static Widget squareArrowDown({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e427', size: size);
 
   /// SquareArrowDownLeft icon
-  static Component squareArrowDownLeft({IconSize size = IconSize.md}) =>
+  static Widget squareArrowDownLeft({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4b5', size: size);
 
   /// SquareArrowDownRight icon
-  static Component squareArrowDownRight({IconSize size = IconSize.md}) =>
+  static Widget squareArrowDownRight({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4b6', size: size);
 
   /// SquareArrowLeft icon
-  static Component squareArrowLeft({IconSize size = IconSize.md}) =>
+  static Widget squareArrowLeft({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e428', size: size);
 
   /// SquareArrowOutDownLeft icon
-  static Component squareArrowOutDownLeft({IconSize size = IconSize.md}) =>
+  static Widget squareArrowOutDownLeft({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5a1', size: size);
 
   /// SquareArrowOutDownRight icon
-  static Component squareArrowOutDownRight({IconSize size = IconSize.md}) =>
+  static Widget squareArrowOutDownRight({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5a2', size: size);
 
   /// SquareArrowOutUpLeft icon
-  static Component squareArrowOutUpLeft({IconSize size = IconSize.md}) =>
+  static Widget squareArrowOutUpLeft({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5a3', size: size);
 
   /// SquareArrowOutUpRight icon
-  static Component squareArrowOutUpRight({IconSize size = IconSize.md}) =>
+  static Widget squareArrowOutUpRight({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5a4', size: size);
 
   /// SquareArrowRight icon
-  static Component squareArrowRight({IconSize size = IconSize.md}) =>
+  static Widget squareArrowRight({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e429', size: size);
 
   /// SquareArrowUp icon
-  static Component squareArrowUp({IconSize size = IconSize.md}) =>
+  static Widget squareArrowUp({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e42a', size: size);
 
   /// SquareArrowUpLeft icon
-  static Component squareArrowUpLeft({IconSize size = IconSize.md}) =>
+  static Widget squareArrowUpLeft({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4b7', size: size);
 
   /// SquareArrowUpRight icon
-  static Component squareArrowUpRight({IconSize size = IconSize.md}) =>
+  static Widget squareArrowUpRight({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4b8', size: size);
 
   /// SquareAsterisk icon
-  static Component squareAsterisk({IconSize size = IconSize.md}) =>
+  static Widget squareAsterisk({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e168', size: size);
 
   /// SquareBottomDashedScissors icon
-  static Component squareBottomDashedScissors({IconSize size = IconSize.md}) =>
+  static Widget squareBottomDashedScissors({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4eb', size: size);
 
   /// SquareChartGantt icon
-  static Component squareChartGantt({IconSize size = IconSize.md}) =>
+  static Widget squareChartGantt({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e169', size: size);
 
   /// SquareCheck icon
-  static Component squareCheck({IconSize size = IconSize.md}) =>
+  static Widget squareCheck({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e559', size: size);
 
   /// SquareCheckBig icon
-  static Component squareCheckBig({IconSize size = IconSize.md}) =>
+  static Widget squareCheckBig({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e16a', size: size);
 
   /// SquareChevronDown icon
-  static Component squareChevronDown({IconSize size = IconSize.md}) =>
+  static Widget squareChevronDown({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3cf', size: size);
 
   /// SquareChevronLeft icon
-  static Component squareChevronLeft({IconSize size = IconSize.md}) =>
+  static Widget squareChevronLeft({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3d0', size: size);
 
   /// SquareChevronRight icon
-  static Component squareChevronRight({IconSize size = IconSize.md}) =>
+  static Widget squareChevronRight({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3d1', size: size);
 
   /// SquareChevronUp icon
-  static Component squareChevronUp({IconSize size = IconSize.md}) =>
+  static Widget squareChevronUp({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3d2', size: size);
 
   /// SquareCode icon
-  static Component squareCode({IconSize size = IconSize.md}) =>
+  static Widget squareCode({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e16b', size: size);
 
   /// SquareDashed icon
-  static Component squareDashed({IconSize size = IconSize.md}) =>
+  static Widget squareDashed({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1cb', size: size);
 
   /// SquareDashedBottom icon
-  static Component squareDashedBottom({IconSize size = IconSize.md}) =>
+  static Widget squareDashedBottom({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4c0', size: size);
 
   /// SquareDashedBottomCode icon
-  static Component squareDashedBottomCode({IconSize size = IconSize.md}) =>
+  static Widget squareDashedBottomCode({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4c1', size: size);
 
   /// SquareDashedKanban icon
-  static Component squareDashedKanban({IconSize size = IconSize.md}) =>
+  static Widget squareDashedKanban({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e16c', size: size);
 
   /// SquareDashedMousePointer icon
-  static Component squareDashedMousePointer({IconSize size = IconSize.md}) =>
+  static Widget squareDashedMousePointer({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e509', size: size);
 
   /// SquareDashedTopSolid icon
-  static Component squareDashedTopSolid({IconSize size = IconSize.md}) =>
+  static Widget squareDashedTopSolid({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e66c', size: size);
 
   /// SquareDivide icon
-  static Component squareDivide({IconSize size = IconSize.md}) =>
+  static Widget squareDivide({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e16d', size: size);
 
   /// SquareDot icon
-  static Component squareDot({IconSize size = IconSize.md}) =>
+  static Widget squareDot({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e16e', size: size);
 
   /// SquareEqual icon
-  static Component squareEqual({IconSize size = IconSize.md}) =>
+  static Widget squareEqual({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e16f', size: size);
 
   /// SquareFunction icon
-  static Component squareFunction({IconSize size = IconSize.md}) =>
+  static Widget squareFunction({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e22d', size: size);
 
   /// SquareKanban icon
-  static Component squareKanban({IconSize size = IconSize.md}) =>
+  static Widget squareKanban({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e170', size: size);
 
   /// SquareLibrary icon
-  static Component squareLibrary({IconSize size = IconSize.md}) =>
+  static Widget squareLibrary({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e54f', size: size);
 
   /// SquareM icon
-  static Component squareM({IconSize size = IconSize.md}) =>
+  static Widget squareM({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e503', size: size);
 
   /// SquareMenu icon
-  static Component squareMenu({IconSize size = IconSize.md}) =>
+  static Widget squareMenu({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e453', size: size);
 
   /// SquareMinus icon
-  static Component squareMinus({IconSize size = IconSize.md}) =>
+  static Widget squareMinus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e171', size: size);
 
   /// SquareMousePointer icon
-  static Component squareMousePointer({IconSize size = IconSize.md}) =>
+  static Widget squareMousePointer({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e202', size: size);
 
   /// SquareParking icon
-  static Component squareParking({IconSize size = IconSize.md}) =>
+  static Widget squareParking({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3cb', size: size);
 
   /// SquareParkingOff icon
-  static Component squareParkingOff({IconSize size = IconSize.md}) =>
+  static Widget squareParkingOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3cc', size: size);
 
   /// SquarePause icon
-  static Component squarePause({IconSize size = IconSize.md}) =>
+  static Widget squarePause({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e684', size: size);
 
   /// SquarePen icon
-  static Component squarePen({IconSize size = IconSize.md}) =>
+  static Widget squarePen({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e172', size: size);
 
   /// SquarePercent icon
-  static Component squarePercent({IconSize size = IconSize.md}) =>
+  static Widget squarePercent({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e51c', size: size);
 
   /// SquarePi icon
-  static Component squarePi({IconSize size = IconSize.md}) =>
+  static Widget squarePi({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e488', size: size);
 
   /// SquarePilcrow icon
-  static Component squarePilcrow({IconSize size = IconSize.md}) =>
+  static Widget squarePilcrow({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e48b', size: size);
 
   /// SquarePlay icon
-  static Component squarePlay({IconSize size = IconSize.md}) =>
+  static Widget squarePlay({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e481', size: size);
 
   /// SquarePlus icon
-  static Component squarePlus({IconSize size = IconSize.md}) =>
+  static Widget squarePlus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e173', size: size);
 
   /// SquarePower icon
-  static Component squarePower({IconSize size = IconSize.md}) =>
+  static Widget squarePower({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e551', size: size);
 
   /// SquareRadical icon
-  static Component squareRadical({IconSize size = IconSize.md}) =>
+  static Widget squareRadical({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5c3', size: size);
 
   /// SquareRoundCorner icon
-  static Component squareRoundCorner({IconSize size = IconSize.md}) =>
+  static Widget squareRoundCorner({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e648', size: size);
 
   /// SquareScissors icon
-  static Component squareScissors({IconSize size = IconSize.md}) =>
+  static Widget squareScissors({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4ec', size: size);
 
   /// SquareSigma icon
-  static Component squareSigma({IconSize size = IconSize.md}) =>
+  static Widget squareSigma({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e489', size: size);
 
   /// SquareSlash icon
-  static Component squareSlash({IconSize size = IconSize.md}) =>
+  static Widget squareSlash({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e174', size: size);
 
   /// SquareSplitHorizontal icon
-  static Component squareSplitHorizontal({IconSize size = IconSize.md}) =>
+  static Widget squareSplitHorizontal({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3b6', size: size);
 
   /// SquareSplitVertical icon
-  static Component squareSplitVertical({IconSize size = IconSize.md}) =>
+  static Widget squareSplitVertical({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3b7', size: size);
 
   /// SquareSquare icon
-  static Component squareSquare({IconSize size = IconSize.md}) =>
+  static Widget squareSquare({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e60e', size: size);
 
   /// SquareStack icon
-  static Component squareStack({IconSize size = IconSize.md}) =>
+  static Widget squareStack({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4a2', size: size);
 
   /// SquareStar icon
-  static Component squareStar({IconSize size = IconSize.md}) =>
+  static Widget squareStar({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e68e', size: size);
 
   /// SquareStop icon
-  static Component squareStop({IconSize size = IconSize.md}) =>
+  static Widget squareStop({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e685', size: size);
 
   /// SquareTerminal icon
-  static Component squareTerminal({IconSize size = IconSize.md}) =>
+  static Widget squareTerminal({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e20a', size: size);
 
   /// SquareUser icon
-  static Component squareUser({IconSize size = IconSize.md}) =>
+  static Widget squareUser({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e465', size: size);
 
   /// SquareUserRound icon
-  static Component squareUserRound({IconSize size = IconSize.md}) =>
+  static Widget squareUserRound({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e466', size: size);
 
   /// SquareX icon
-  static Component squareX({IconSize size = IconSize.md}) =>
+  static Widget squareX({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e175', size: size);
 
   /// SquaresExclude icon
-  static Component squaresExclude({IconSize size = IconSize.md}) =>
+  static Widget squaresExclude({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e657', size: size);
 
   /// SquaresIntersect icon
-  static Component squaresIntersect({IconSize size = IconSize.md}) =>
+  static Widget squaresIntersect({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e658', size: size);
 
   /// SquaresSubtract icon
-  static Component squaresSubtract({IconSize size = IconSize.md}) =>
+  static Widget squaresSubtract({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e659', size: size);
 
   /// SquaresUnite icon
-  static Component squaresUnite({IconSize size = IconSize.md}) =>
+  static Widget squaresUnite({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e65a', size: size);
 
   /// Squircle icon
-  static Component squircle({IconSize size = IconSize.md}) =>
+  static Widget squircle({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e57a', size: size);
 
   /// SquircleDashed icon
-  static Component squircleDashed({IconSize size = IconSize.md}) =>
+  static Widget squircleDashed({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e679', size: size);
 
   /// Squirrel icon
-  static Component squirrel({IconSize size = IconSize.md}) =>
+  static Widget squirrel({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e49f', size: size);
 
   /// Stamp icon
-  static Component stamp({IconSize size = IconSize.md}) =>
+  static Widget stamp({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3bb', size: size);
 
   /// Star icon
-  static Component star({IconSize size = IconSize.md}) =>
+  static Widget star({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e176', size: size);
 
   /// StarHalf icon
-  static Component starHalf({IconSize size = IconSize.md}) =>
+  static Widget starHalf({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e20b', size: size);
 
   /// StarOff icon
-  static Component starOff({IconSize size = IconSize.md}) =>
+  static Widget starOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2b0', size: size);
 
   /// StepBack icon
-  static Component stepBack({IconSize size = IconSize.md}) =>
+  static Widget stepBack({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3e9', size: size);
 
   /// StepForward icon
-  static Component stepForward({IconSize size = IconSize.md}) =>
+  static Widget stepForward({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3ea', size: size);
 
   /// Stethoscope icon
-  static Component stethoscope({IconSize size = IconSize.md}) =>
+  static Widget stethoscope({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2f1', size: size);
 
   /// Sticker icon
-  static Component sticker({IconSize size = IconSize.md}) =>
+  static Widget sticker({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e302', size: size);
 
   /// StickyNote icon
-  static Component stickyNote({IconSize size = IconSize.md}) =>
+  static Widget stickyNote({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e303', size: size);
 
   /// Stone icon
-  static Component stone({IconSize size = IconSize.md}) =>
+  static Widget stone({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e6b8', size: size);
 
   /// Store icon
-  static Component store({IconSize size = IconSize.md}) =>
+  static Widget store({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3e4', size: size);
 
   /// StretchHorizontal icon
-  static Component stretchHorizontal({IconSize size = IconSize.md}) =>
+  static Widget stretchHorizontal({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e27c', size: size);
 
   /// StretchVertical icon
-  static Component stretchVertical({IconSize size = IconSize.md}) =>
+  static Widget stretchVertical({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e27d', size: size);
 
   /// Strikethrough icon
-  static Component strikethrough({IconSize size = IconSize.md}) =>
+  static Widget strikethrough({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e177', size: size);
 
   /// Subscript icon
-  static Component subscript({IconSize size = IconSize.md}) =>
+  static Widget subscript({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e25c', size: size);
 
   /// Sun icon
-  static Component sun({IconSize size = IconSize.md}) =>
+  static Widget sun({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e178', size: size);
 
   /// SunDim icon
-  static Component sunDim({IconSize size = IconSize.md}) =>
+  static Widget sunDim({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e299', size: size);
 
   /// SunMedium icon
-  static Component sunMedium({IconSize size = IconSize.md}) =>
+  static Widget sunMedium({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2b1', size: size);
 
   /// SunMoon icon
-  static Component sunMoon({IconSize size = IconSize.md}) =>
+  static Widget sunMoon({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2b2', size: size);
 
   /// SunSnow icon
-  static Component sunSnow({IconSize size = IconSize.md}) =>
+  static Widget sunSnow({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e372', size: size);
 
   /// Sunrise icon
-  static Component sunrise({IconSize size = IconSize.md}) =>
+  static Widget sunrise({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e179', size: size);
 
   /// Sunset icon
-  static Component sunset({IconSize size = IconSize.md}) =>
+  static Widget sunset({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e17a', size: size);
 
   /// Superscript icon
-  static Component superscript({IconSize size = IconSize.md}) =>
+  static Widget superscript({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e25e', size: size);
 
   /// SwatchBook icon
-  static Component swatchBook({IconSize size = IconSize.md}) =>
+  static Widget swatchBook({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e59f', size: size);
 
   /// SwissFranc icon
-  static Component swissFranc({IconSize size = IconSize.md}) =>
+  static Widget swissFranc({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e17b', size: size);
 
   /// SwitchCamera icon
-  static Component switchCamera({IconSize size = IconSize.md}) =>
+  static Widget switchCamera({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e17c', size: size);
 
   /// Sword icon
-  static Component sword({IconSize size = IconSize.md}) =>
+  static Widget sword({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2b3', size: size);
 
   /// Swords icon
-  static Component swords({IconSize size = IconSize.md}) =>
+  static Widget swords({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2b4', size: size);
 
   /// Syringe icon
-  static Component syringe({IconSize size = IconSize.md}) =>
+  static Widget syringe({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2f2', size: size);
 
   /// Table icon
-  static Component table({IconSize size = IconSize.md}) =>
+  static Widget table({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e17d', size: size);
 
   /// Table2 icon
-  static Component table2({IconSize size = IconSize.md}) =>
+  static Widget table2({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2f9', size: size);
 
   /// TableCellsMerge icon
-  static Component tableCellsMerge({IconSize size = IconSize.md}) =>
+  static Widget tableCellsMerge({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5c7', size: size);
 
   /// TableCellsSplit icon
-  static Component tableCellsSplit({IconSize size = IconSize.md}) =>
+  static Widget tableCellsSplit({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5c8', size: size);
 
   /// TableColumnsSplit icon
-  static Component tableColumnsSplit({IconSize size = IconSize.md}) =>
+  static Widget tableColumnsSplit({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5c9', size: size);
 
   /// TableOfContents icon
-  static Component tableOfContents({IconSize size = IconSize.md}) =>
+  static Widget tableOfContents({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e61e', size: size);
 
   /// TableProperties icon
-  static Component tableProperties({IconSize size = IconSize.md}) =>
+  static Widget tableProperties({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4db', size: size);
 
   /// TableRowsSplit icon
-  static Component tableRowsSplit({IconSize size = IconSize.md}) =>
+  static Widget tableRowsSplit({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5ca', size: size);
 
   /// Tablet icon
-  static Component tablet({IconSize size = IconSize.md}) =>
+  static Widget tablet({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e17e', size: size);
 
   /// TabletSmartphone icon
-  static Component tabletSmartphone({IconSize size = IconSize.md}) =>
+  static Widget tabletSmartphone({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e50a', size: size);
 
   /// Tablets icon
-  static Component tablets({IconSize size = IconSize.md}) =>
+  static Widget tablets({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3be', size: size);
 
   /// Tag icon
-  static Component tag({IconSize size = IconSize.md}) =>
+  static Widget tag({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e17f', size: size);
 
   /// Tags icon
-  static Component tags({IconSize size = IconSize.md}) =>
+  static Widget tags({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e35c', size: size);
 
   /// Tally1 icon
-  static Component tally1({IconSize size = IconSize.md}) =>
+  static Widget tally1({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4d6', size: size);
 
   /// Tally2 icon
-  static Component tally2({IconSize size = IconSize.md}) =>
+  static Widget tally2({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4d7', size: size);
 
   /// Tally3 icon
-  static Component tally3({IconSize size = IconSize.md}) =>
+  static Widget tally3({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4d8', size: size);
 
   /// Tally4 icon
-  static Component tally4({IconSize size = IconSize.md}) =>
+  static Widget tally4({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4d9', size: size);
 
   /// Tally5 icon
-  static Component tally5({IconSize size = IconSize.md}) =>
+  static Widget tally5({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4da', size: size);
 
   /// Tangent icon
-  static Component tangent({IconSize size = IconSize.md}) =>
+  static Widget tangent({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e52e', size: size);
 
   /// Target icon
-  static Component targetIcon({IconSize size = IconSize.md}) =>
+  static Widget targetIcon({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e180', size: size);
 
   /// Telescope icon
-  static Component telescope({IconSize size = IconSize.md}) =>
+  static Widget telescope({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5c5', size: size);
 
   /// Tent icon
-  static Component tent({IconSize size = IconSize.md}) =>
+  static Widget tent({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e227', size: size);
 
   /// TentTree icon
-  static Component tentTree({IconSize size = IconSize.md}) =>
+  static Widget tentTree({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e53b', size: size);
 
   /// Terminal icon
-  static Component terminal({IconSize size = IconSize.md}) =>
+  static Widget terminal({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e181', size: size);
 
   /// TestTube icon
-  static Component testTube({IconSize size = IconSize.md}) =>
+  static Widget testTube({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e405', size: size);
 
   /// TestTubeDiagonal icon
-  static Component testTubeDiagonal({IconSize size = IconSize.md}) =>
+  static Widget testTubeDiagonal({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e406', size: size);
 
   /// TestTubes icon
-  static Component testTubes({IconSize size = IconSize.md}) =>
+  static Widget testTubes({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e407', size: size);
 
   /// TextAlignCenter icon
-  static Component textAlignCenter({IconSize size = IconSize.md}) =>
+  static Widget textAlignCenter({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e182', size: size);
 
   /// TextAlignEnd icon
-  static Component textAlignEnd({IconSize size = IconSize.md}) =>
+  static Widget textAlignEnd({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e183', size: size);
 
   /// TextAlignJustify icon
-  static Component textAlignJustify({IconSize size = IconSize.md}) =>
+  static Widget textAlignJustify({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e184', size: size);
 
   /// TextAlignStart icon
-  static Component textAlignStart({IconSize size = IconSize.md}) =>
+  static Widget textAlignStart({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e185', size: size);
 
   /// TextCursor icon
-  static Component textCursor({IconSize size = IconSize.md}) =>
+  static Widget textCursor({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e264', size: size);
 
   /// TextCursorInput icon
-  static Component textCursorInput({IconSize size = IconSize.md}) =>
+  static Widget textCursorInput({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e265', size: size);
 
   /// TextInitial icon
-  static Component textInitial({IconSize size = IconSize.md}) =>
+  static Widget textInitial({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e605', size: size);
 
   /// TextQuote icon
-  static Component textQuote({IconSize size = IconSize.md}) =>
+  static Widget textQuote({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e49e', size: size);
 
   /// TextSearch icon
-  static Component textSearch({IconSize size = IconSize.md}) =>
+  static Widget textSearch({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5ad', size: size);
 
   /// TextSelect icon
-  static Component textSelect({IconSize size = IconSize.md}) =>
+  static Widget textSelect({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3de', size: size);
 
   /// TextWrap icon
-  static Component textWrap({IconSize size = IconSize.md}) =>
+  static Widget textWrap({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e248', size: size);
 
   /// Theater icon
-  static Component theater({IconSize size = IconSize.md}) =>
+  static Widget theater({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e522', size: size);
 
   /// Thermometer icon
-  static Component thermometer({IconSize size = IconSize.md}) =>
+  static Widget thermometer({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e186', size: size);
 
   /// ThermometerSnowflake icon
-  static Component thermometerSnowflake({IconSize size = IconSize.md}) =>
+  static Widget thermometerSnowflake({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e187', size: size);
 
   /// ThermometerSun icon
-  static Component thermometerSun({IconSize size = IconSize.md}) =>
+  static Widget thermometerSun({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e188', size: size);
 
   /// ThumbsDown icon
-  static Component thumbsDown({IconSize size = IconSize.md}) =>
+  static Widget thumbsDown({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e189', size: size);
 
   /// ThumbsUp icon
-  static Component thumbsUp({IconSize size = IconSize.md}) =>
+  static Widget thumbsUp({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e18a', size: size);
 
   /// Ticket icon
-  static Component ticket({IconSize size = IconSize.md}) =>
+  static Widget ticket({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e20f', size: size);
 
   /// TicketCheck icon
-  static Component ticketCheck({IconSize size = IconSize.md}) =>
+  static Widget ticketCheck({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5ae', size: size);
 
   /// TicketMinus icon
-  static Component ticketMinus({IconSize size = IconSize.md}) =>
+  static Widget ticketMinus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5af', size: size);
 
   /// TicketPercent icon
-  static Component ticketPercent({IconSize size = IconSize.md}) =>
+  static Widget ticketPercent({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5b0', size: size);
 
   /// TicketPlus icon
-  static Component ticketPlus({IconSize size = IconSize.md}) =>
+  static Widget ticketPlus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5b1', size: size);
 
   /// TicketSlash icon
-  static Component ticketSlash({IconSize size = IconSize.md}) =>
+  static Widget ticketSlash({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5b2', size: size);
 
   /// TicketX icon
-  static Component ticketX({IconSize size = IconSize.md}) =>
+  static Widget ticketX({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5b3', size: size);
 
   /// Tickets icon
-  static Component tickets({IconSize size = IconSize.md}) =>
+  static Widget tickets({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e622', size: size);
 
   /// TicketsPlane icon
-  static Component ticketsPlane({IconSize size = IconSize.md}) =>
+  static Widget ticketsPlane({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e623', size: size);
 
   /// Timer icon
-  static Component timerIcon({IconSize size = IconSize.md}) =>
+  static Widget timerIcon({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1e0', size: size);
 
   /// TimerOff icon
-  static Component timerOff({IconSize size = IconSize.md}) =>
+  static Widget timerOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e249', size: size);
 
   /// TimerReset icon
-  static Component timerReset({IconSize size = IconSize.md}) =>
+  static Widget timerReset({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e236', size: size);
 
   /// ToggleLeft icon
-  static Component toggleLeft({IconSize size = IconSize.md}) =>
+  static Widget toggleLeft({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e18b', size: size);
 
   /// ToggleRight icon
-  static Component toggleRight({IconSize size = IconSize.md}) =>
+  static Widget toggleRight({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e18c', size: size);
 
   /// Toilet icon
-  static Component toilet({IconSize size = IconSize.md}) =>
+  static Widget toilet({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e635', size: size);
 
   /// ToolCase icon
-  static Component toolCase({IconSize size = IconSize.md}) =>
+  static Widget toolCase({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e67d', size: size);
 
   /// Toolbox icon
-  static Component toolbox({IconSize size = IconSize.md}) =>
+  static Widget toolbox({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e6b9', size: size);
 
   /// Tornado icon
-  static Component tornado({IconSize size = IconSize.md}) =>
+  static Widget tornado({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e218', size: size);
 
   /// Torus icon
-  static Component torus({IconSize size = IconSize.md}) =>
+  static Widget torus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e52f', size: size);
 
   /// Touchpad icon
-  static Component touchpad({IconSize size = IconSize.md}) =>
+  static Widget touchpad({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e449', size: size);
 
   /// TouchpadOff icon
-  static Component touchpadOff({IconSize size = IconSize.md}) =>
+  static Widget touchpadOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e44a', size: size);
 
   /// TowerControl icon
-  static Component towerControl({IconSize size = IconSize.md}) =>
+  static Widget towerControl({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3bc', size: size);
 
   /// ToyBrick icon
-  static Component toyBrick({IconSize size = IconSize.md}) =>
+  static Widget toyBrick({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e347', size: size);
 
   /// Tractor icon
-  static Component tractor({IconSize size = IconSize.md}) =>
+  static Widget tractor({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e504', size: size);
 
   /// TrafficCone icon
-  static Component trafficCone({IconSize size = IconSize.md}) =>
+  static Widget trafficCone({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e505', size: size);
 
   /// TrainFront icon
-  static Component trainFront({IconSize size = IconSize.md}) =>
+  static Widget trainFront({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e506', size: size);
 
   /// TrainFrontTunnel icon
-  static Component trainFrontTunnel({IconSize size = IconSize.md}) =>
+  static Widget trainFrontTunnel({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e507', size: size);
 
   /// TrainTrack icon
-  static Component trainTrack({IconSize size = IconSize.md}) =>
+  static Widget trainTrack({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e508', size: size);
 
   /// TramFront icon
-  static Component tramFront({IconSize size = IconSize.md}) =>
+  static Widget tramFront({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2a9', size: size);
 
   /// Transgender icon
-  static Component transgender({IconSize size = IconSize.md}) =>
+  static Widget transgender({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e644', size: size);
 
   /// Trash icon
-  static Component trash({IconSize size = IconSize.md}) =>
+  static Widget trash({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e18d', size: size);
 
   /// Trash2 icon
-  static Component trash2({IconSize size = IconSize.md}) =>
+  static Widget trash2({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e18e', size: size);
 
   /// TreeDeciduous icon
-  static Component treeDeciduous({IconSize size = IconSize.md}) =>
+  static Widget treeDeciduous({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2f3', size: size);
 
   /// TreePalm icon
-  static Component treePalm({IconSize size = IconSize.md}) =>
+  static Widget treePalm({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e281', size: size);
 
   /// TreePine icon
-  static Component treePine({IconSize size = IconSize.md}) =>
+  static Widget treePine({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2f4', size: size);
 
   /// Trees icon
-  static Component trees({IconSize size = IconSize.md}) =>
+  static Widget trees({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2f5', size: size);
 
   /// Trello icon
-  static Component trello({IconSize size = IconSize.md}) =>
+  static Widget trello({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e18f', size: size);
 
   /// TrendingDown icon
-  static Component trendingDown({IconSize size = IconSize.md}) =>
+  static Widget trendingDown({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e190', size: size);
 
   /// TrendingUp icon
-  static Component trendingUp({IconSize size = IconSize.md}) =>
+  static Widget trendingUp({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e191', size: size);
 
   /// TrendingUpDown icon
-  static Component trendingUpDown({IconSize size = IconSize.md}) =>
+  static Widget trendingUpDown({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e625', size: size);
 
   /// Triangle icon
-  static Component triangle({IconSize size = IconSize.md}) =>
+  static Widget triangle({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e192', size: size);
 
   /// TriangleAlert icon
-  static Component triangleAlert({IconSize size = IconSize.md}) =>
+  static Widget triangleAlert({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e193', size: size);
 
   /// TriangleDashed icon
-  static Component triangleDashed({IconSize size = IconSize.md}) =>
+  static Widget triangleDashed({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e63d', size: size);
 
   /// TriangleRight icon
-  static Component triangleRight({IconSize size = IconSize.md}) =>
+  static Widget triangleRight({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4ed', size: size);
 
   /// Trophy icon
-  static Component trophy({IconSize size = IconSize.md}) =>
+  static Widget trophy({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e373', size: size);
 
   /// Truck icon
-  static Component truck({IconSize size = IconSize.md}) =>
+  static Widget truck({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e194', size: size);
 
   /// TruckElectric icon
-  static Component truckElectric({IconSize size = IconSize.md}) =>
+  static Widget truckElectric({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e65f', size: size);
 
   /// TurkishLira icon
-  static Component turkishLira({IconSize size = IconSize.md}) =>
+  static Widget turkishLira({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e680', size: size);
 
   /// Turntable icon
-  static Component turntable({IconSize size = IconSize.md}) =>
+  static Widget turntable({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e68c', size: size);
 
   /// Turtle icon
-  static Component turtle({IconSize size = IconSize.md}) =>
+  static Widget turtle({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4f9', size: size);
 
   /// Tv icon
-  static Component tv({IconSize size = IconSize.md}) =>
+  static Widget tv({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e195', size: size);
 
   /// TvMinimal icon
-  static Component tvMinimal({IconSize size = IconSize.md}) =>
+  static Widget tvMinimal({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e203', size: size);
 
   /// TvMinimalPlay icon
-  static Component tvMinimalPlay({IconSize size = IconSize.md}) =>
+  static Widget tvMinimalPlay({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5ec', size: size);
 
   /// Twitch icon
-  static Component twitch({IconSize size = IconSize.md}) =>
+  static Widget twitch({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e196', size: size);
 
   /// Twitter icon
-  static Component twitter({IconSize size = IconSize.md}) =>
+  static Widget twitter({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e197', size: size);
 
   /// Type icon
-  static Component typeIcon({IconSize size = IconSize.md}) =>
+  static Widget typeIcon({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e198', size: size);
 
   /// TypeOutline icon
-  static Component typeOutline({IconSize size = IconSize.md}) =>
+  static Widget typeOutline({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e602', size: size);
 
   /// Umbrella icon
-  static Component umbrella({IconSize size = IconSize.md}) =>
+  static Widget umbrella({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e199', size: size);
 
   /// UmbrellaOff icon
-  static Component umbrellaOff({IconSize size = IconSize.md}) =>
+  static Widget umbrellaOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e543', size: size);
 
   /// Underline icon
-  static Component underline({IconSize size = IconSize.md}) =>
+  static Widget underline({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e19a', size: size);
 
   /// Undo icon
-  static Component undo({IconSize size = IconSize.md}) =>
+  static Widget undo({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e19b', size: size);
 
   /// Undo2 icon
-  static Component undo2({IconSize size = IconSize.md}) =>
+  static Widget undo2({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2a1', size: size);
 
   /// UndoDot icon
-  static Component undoDot({IconSize size = IconSize.md}) =>
+  static Widget undoDot({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e451', size: size);
 
   /// UnfoldHorizontal icon
-  static Component unfoldHorizontal({IconSize size = IconSize.md}) =>
+  static Widget unfoldHorizontal({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e43d', size: size);
 
   /// UnfoldVertical icon
-  static Component unfoldVertical({IconSize size = IconSize.md}) =>
+  static Widget unfoldVertical({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e43e', size: size);
 
   /// Ungroup icon
-  static Component ungroup({IconSize size = IconSize.md}) =>
+  static Widget ungroup({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e467', size: size);
 
   /// University icon
-  static Component university({IconSize size = IconSize.md}) =>
+  static Widget university({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3e5', size: size);
 
   /// Unlink icon
-  static Component unlink({IconSize size = IconSize.md}) =>
+  static Widget unlink({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e19c', size: size);
 
   /// Unlink2 icon
-  static Component unlink2({IconSize size = IconSize.md}) =>
+  static Widget unlink2({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e19d', size: size);
 
   /// Unplug icon
-  static Component unplug({IconSize size = IconSize.md}) =>
+  static Widget unplug({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e45d', size: size);
 
   /// Upload icon
-  static Component upload({IconSize size = IconSize.md}) =>
+  static Widget upload({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e19e', size: size);
 
   /// Usb icon
-  static Component usb({IconSize size = IconSize.md}) =>
+  static Widget usb({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e356', size: size);
 
   /// User icon
-  static Component user({IconSize size = IconSize.md}) =>
+  static Widget user({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e19f', size: size);
 
   /// UserCheck icon
-  static Component userCheck({IconSize size = IconSize.md}) =>
+  static Widget userCheck({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1a0', size: size);
 
   /// UserCog icon
-  static Component userCog({IconSize size = IconSize.md}) =>
+  static Widget userCog({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e342', size: size);
 
   /// UserLock icon
-  static Component userLock({IconSize size = IconSize.md}) =>
+  static Widget userLock({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e660', size: size);
 
   /// UserMinus icon
-  static Component userMinus({IconSize size = IconSize.md}) =>
+  static Widget userMinus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1a1', size: size);
 
   /// UserPen icon
-  static Component userPen({IconSize size = IconSize.md}) =>
+  static Widget userPen({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5fc', size: size);
 
   /// UserPlus icon
-  static Component userPlus({IconSize size = IconSize.md}) =>
+  static Widget userPlus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1a2', size: size);
 
   /// UserRound icon
-  static Component userRound({IconSize size = IconSize.md}) =>
+  static Widget userRound({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e468', size: size);
 
   /// UserRoundCheck icon
-  static Component userRoundCheck({IconSize size = IconSize.md}) =>
+  static Widget userRoundCheck({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e469', size: size);
 
   /// UserRoundCog icon
-  static Component userRoundCog({IconSize size = IconSize.md}) =>
+  static Widget userRoundCog({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e46a', size: size);
 
   /// UserRoundMinus icon
-  static Component userRoundMinus({IconSize size = IconSize.md}) =>
+  static Widget userRoundMinus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e46b', size: size);
 
   /// UserRoundPen icon
-  static Component userRoundPen({IconSize size = IconSize.md}) =>
+  static Widget userRoundPen({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5fd', size: size);
 
   /// UserRoundPlus icon
-  static Component userRoundPlus({IconSize size = IconSize.md}) =>
+  static Widget userRoundPlus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e46c', size: size);
 
   /// UserRoundSearch icon
-  static Component userRoundSearch({IconSize size = IconSize.md}) =>
+  static Widget userRoundSearch({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e578', size: size);
 
   /// UserRoundX icon
-  static Component userRoundX({IconSize size = IconSize.md}) =>
+  static Widget userRoundX({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e46d', size: size);
 
   /// UserSearch icon
-  static Component userSearch({IconSize size = IconSize.md}) =>
+  static Widget userSearch({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e579', size: size);
 
   /// UserStar icon
-  static Component userStar({IconSize size = IconSize.md}) =>
+  static Widget userStar({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e687', size: size);
 
   /// UserX icon
-  static Component userX({IconSize size = IconSize.md}) =>
+  static Widget userX({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1a3', size: size);
 
   /// Users icon
-  static Component users({IconSize size = IconSize.md}) =>
+  static Widget users({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1a4', size: size);
 
   /// UsersRound icon
-  static Component usersRound({IconSize size = IconSize.md}) =>
+  static Widget usersRound({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e46e', size: size);
 
   /// Utensils icon
-  static Component utensils({IconSize size = IconSize.md}) =>
+  static Widget utensils({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2f6', size: size);
 
   /// UtensilsCrossed icon
-  static Component utensilsCrossed({IconSize size = IconSize.md}) =>
+  static Widget utensilsCrossed({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2f7', size: size);
 
   /// UtilityPole icon
-  static Component utilityPole({IconSize size = IconSize.md}) =>
+  static Widget utilityPole({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3c2', size: size);
 
   /// Van icon
-  static Component van({IconSize size = IconSize.md}) =>
+  static Widget van({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e6ad', size: size);
 
   /// Variable icon
-  static Component variable({IconSize size = IconSize.md}) =>
+  static Widget variable({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e473', size: size);
 
   /// Vault icon
-  static Component vault({IconSize size = IconSize.md}) =>
+  static Widget vault({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e58f', size: size);
 
   /// VectorSquare icon
-  static Component vectorSquare({IconSize size = IconSize.md}) =>
+  static Widget vectorSquare({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e67c', size: size);
 
   /// Vegan icon
-  static Component vegan({IconSize size = IconSize.md}) =>
+  static Widget vegan({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e39d', size: size);
 
   /// VenetianMask icon
-  static Component venetianMask({IconSize size = IconSize.md}) =>
+  static Widget venetianMask({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2aa', size: size);
 
   /// Venus icon
-  static Component venus({IconSize size = IconSize.md}) =>
+  static Widget venus({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e645', size: size);
 
   /// VenusAndMars icon
-  static Component venusAndMars({IconSize size = IconSize.md}) =>
+  static Widget venusAndMars({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e646', size: size);
 
   /// Vibrate icon
-  static Component vibrate({IconSize size = IconSize.md}) =>
+  static Widget vibrate({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e223', size: size);
 
   /// VibrateOff icon
-  static Component vibrateOff({IconSize size = IconSize.md}) =>
+  static Widget vibrateOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e29d', size: size);
 
   /// Video icon
-  static Component video({IconSize size = IconSize.md}) =>
+  static Widget video({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1a5', size: size);
 
   /// VideoOff icon
-  static Component videoOff({IconSize size = IconSize.md}) =>
+  static Widget videoOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1a6', size: size);
 
   /// Videotape icon
-  static Component videotape({IconSize size = IconSize.md}) =>
+  static Widget videotape({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4cb', size: size);
 
   /// View icon
-  static Component viewIcon({IconSize size = IconSize.md}) =>
+  static Widget viewIcon({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1a7', size: size);
 
   /// Voicemail icon
-  static Component voicemail({IconSize size = IconSize.md}) =>
+  static Widget voicemail({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1a8', size: size);
 
   /// Volleyball icon
-  static Component volleyball({IconSize size = IconSize.md}) =>
+  static Widget volleyball({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e62f', size: size);
 
   /// Volume icon
-  static Component volume({IconSize size = IconSize.md}) =>
+  static Widget volume({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1a9', size: size);
 
   /// Volume1 icon
-  static Component volume1({IconSize size = IconSize.md}) =>
+  static Widget volume1({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1aa', size: size);
 
   /// Volume2 icon
-  static Component volume2({IconSize size = IconSize.md}) =>
+  static Widget volume2({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1ab', size: size);
 
   /// VolumeOff icon
-  static Component volumeOff({IconSize size = IconSize.md}) =>
+  static Widget volumeOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e626', size: size);
 
   /// VolumeX icon
-  static Component volumeX({IconSize size = IconSize.md}) =>
+  static Widget volumeX({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1ac', size: size);
 
   /// Vote icon
-  static Component vote({IconSize size = IconSize.md}) =>
+  static Widget vote({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3ad', size: size);
 
   /// Wallet icon
-  static Component wallet({IconSize size = IconSize.md}) =>
+  static Widget wallet({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e204', size: size);
 
   /// WalletCards icon
-  static Component walletCards({IconSize size = IconSize.md}) =>
+  static Widget walletCards({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4cc', size: size);
 
   /// WalletMinimal icon
-  static Component walletMinimal({IconSize size = IconSize.md}) =>
+  static Widget walletMinimal({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4cd', size: size);
 
   /// Wallpaper icon
-  static Component wallpaper({IconSize size = IconSize.md}) =>
+  static Widget wallpaper({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e44b', size: size);
 
   /// Wand icon
-  static Component wand({IconSize size = IconSize.md}) =>
+  static Widget wand({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e246', size: size);
 
   /// WandSparkles icon
-  static Component wandSparkles({IconSize size = IconSize.md}) =>
+  static Widget wandSparkles({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e357', size: size);
 
   /// Warehouse icon
-  static Component warehouse({IconSize size = IconSize.md}) =>
+  static Widget warehouse({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3e6', size: size);
 
   /// WashingMachine icon
-  static Component washingMachine({IconSize size = IconSize.md}) =>
+  static Widget washingMachine({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e590', size: size);
 
   /// Watch icon
-  static Component watch({IconSize size = IconSize.md}) =>
+  static Widget watch({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1ad', size: size);
 
   /// Waves icon
-  static Component waves({IconSize size = IconSize.md}) =>
+  static Widget waves({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e283', size: size);
 
   /// WavesArrowDown icon
-  static Component wavesArrowDown({IconSize size = IconSize.md}) =>
+  static Widget wavesArrowDown({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e6a9', size: size);
 
   /// WavesArrowUp icon
-  static Component wavesArrowUp({IconSize size = IconSize.md}) =>
+  static Widget wavesArrowUp({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e6aa', size: size);
 
   /// WavesLadder icon
-  static Component wavesLadder({IconSize size = IconSize.md}) =>
+  static Widget wavesLadder({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e63b', size: size);
 
   /// Waypoints icon
-  static Component waypoints({IconSize size = IconSize.md}) =>
+  static Widget waypoints({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e542', size: size);
 
   /// Webcam icon
-  static Component webcam({IconSize size = IconSize.md}) =>
+  static Widget webcam({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e205', size: size);
 
   /// Webhook icon
-  static Component webhook({IconSize size = IconSize.md}) =>
+  static Widget webhook({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e374', size: size);
 
   /// WebhookOff icon
-  static Component webhookOff({IconSize size = IconSize.md}) =>
+  static Widget webhookOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5b7', size: size);
 
   /// Weight icon
-  static Component weight({IconSize size = IconSize.md}) =>
+  static Widget weight({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e530', size: size);
 
   /// WeightTilde icon
-  static Component weightTilde({IconSize size = IconSize.md}) =>
+  static Widget weightTilde({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e6ae', size: size);
 
   /// Wheat icon
-  static Component wheat({IconSize size = IconSize.md}) =>
+  static Widget wheat({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e39e', size: size);
 
   /// WheatOff icon
-  static Component wheatOff({IconSize size = IconSize.md}) =>
+  static Widget wheatOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e39f', size: size);
 
   /// WholeWord icon
-  static Component wholeWord({IconSize size = IconSize.md}) =>
+  static Widget wholeWord({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3df', size: size);
 
   /// Wifi icon
-  static Component wifi({IconSize size = IconSize.md}) =>
+  static Widget wifi({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1ae', size: size);
 
   /// WifiCog icon
-  static Component wifiCog({IconSize size = IconSize.md}) =>
+  static Widget wifiCog({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e674', size: size);
 
   /// WifiHigh icon
-  static Component wifiHigh({IconSize size = IconSize.md}) =>
+  static Widget wifiHigh({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5f7', size: size);
 
   /// WifiLow icon
-  static Component wifiLow({IconSize size = IconSize.md}) =>
+  static Widget wifiLow({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5f8', size: size);
 
   /// WifiOff icon
-  static Component wifiOff({IconSize size = IconSize.md}) =>
+  static Widget wifiOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1af', size: size);
 
   /// WifiPen icon
-  static Component wifiPen({IconSize size = IconSize.md}) =>
+  static Widget wifiPen({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e663', size: size);
 
   /// WifiSync icon
-  static Component wifiSync({IconSize size = IconSize.md}) =>
+  static Widget wifiSync({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e681', size: size);
 
   /// WifiZero icon
-  static Component wifiZero({IconSize size = IconSize.md}) =>
+  static Widget wifiZero({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5f9', size: size);
 
   /// Wind icon
-  static Component wind({IconSize size = IconSize.md}) =>
+  static Widget wind({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1b0', size: size);
 
   /// WindArrowDown icon
-  static Component windArrowDown({IconSize size = IconSize.md}) =>
+  static Widget windArrowDown({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e631', size: size);
 
   /// Wine icon
-  static Component wine({IconSize size = IconSize.md}) =>
+  static Widget wine({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e2f8', size: size);
 
   /// WineOff icon
-  static Component wineOff({IconSize size = IconSize.md}) =>
+  static Widget wineOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e3a0', size: size);
 
   /// Workflow icon
-  static Component workflow({IconSize size = IconSize.md}) =>
+  static Widget workflow({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e425', size: size);
 
   /// Worm icon
-  static Component worm({IconSize size = IconSize.md}) =>
+  static Widget worm({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5da', size: size);
 
   /// Wrench icon
-  static Component wrench({IconSize size = IconSize.md}) =>
+  static Widget wrench({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1b1', size: size);
 
   /// X icon
-  static Component x({IconSize size = IconSize.md}) =>
+  static Widget x({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1b2', size: size);
 
   /// Youtube icon
-  static Component youtube({IconSize size = IconSize.md}) =>
+  static Widget youtube({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1b3', size: size);
 
   /// Zap icon
-  static Component zap({IconSize size = IconSize.md}) =>
+  static Widget zap({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1b4', size: size);
 
   /// ZapOff icon
-  static Component zapOff({IconSize size = IconSize.md}) =>
+  static Widget zapOff({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1b5', size: size);
 
   /// ZoomIn icon
-  static Component zoomIn({IconSize size = IconSize.md}) =>
+  static Widget zoomIn({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1b6', size: size);
 
   /// ZoomOut icon
-  static Component zoomOut({IconSize size = IconSize.md}) =>
+  static Widget zoomOut({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1b7', size: size);
 
   // ============================================================================
@@ -6785,291 +6786,291 @@ class ArcaneIcon {
   // ============================================================================
 
   /// Alias for house - semantic name for common use case
-  static Component home({IconSize size = IconSize.md}) =>
+  static Widget home({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0f5', size: size);
 
   /// Alias for x - semantic name for common use case
-  static Component close({IconSize size = IconSize.md}) =>
+  static Widget close({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1b2', size: size);
 
   /// Alias for arrow-left - semantic name for common use case
-  static Component back({IconSize size = IconSize.md}) =>
+  static Widget back({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e048', size: size);
 
   /// Alias for arrow-up - semantic name for common use case
-  static Component up({IconSize size = IconSize.md}) =>
+  static Widget up({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e04a', size: size);
 
   /// Alias for arrow-down - semantic name for common use case
-  static Component down({IconSize size = IconSize.md}) =>
+  static Widget down({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e042', size: size);
 
   /// Alias for pencil - semantic name for common use case
-  static Component edit({IconSize size = IconSize.md}) =>
+  static Widget edit({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1f9', size: size);
 
   /// Alias for trash - semantic name for common use case
-  static Component remove({IconSize size = IconSize.md}) =>
+  static Widget remove({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e18d', size: size);
 
   /// Alias for plus - semantic name for common use case
-  static Component add({IconSize size = IconSize.md}) =>
+  static Widget add({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e13d', size: size);
 
   /// Alias for plus - semantic name for common use case
-  static Component create({IconSize size = IconSize.md}) =>
+  static Widget create({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e13d', size: size);
 
   /// Alias for x - semantic name for common use case
-  static Component cancel({IconSize size = IconSize.md}) =>
+  static Widget cancel({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1b2', size: size);
 
   /// Alias for check - semantic name for common use case
-  static Component confirm({IconSize size = IconSize.md}) =>
+  static Widget confirm({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e06c', size: size);
 
   /// Alias for chevron-down - semantic name for common use case
-  static Component dropdown({IconSize size = IconSize.md}) =>
+  static Widget dropdown({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e06d', size: size);
 
   /// Alias for chevron-up - semantic name for common use case
-  static Component collapse({IconSize size = IconSize.md}) =>
+  static Widget collapse({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e070', size: size);
 
   /// Alias for chevron-right - semantic name for common use case
-  static Component next({IconSize size = IconSize.md}) =>
+  static Widget next({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e06f', size: size);
 
   /// Alias for chevron-left - semantic name for common use case
-  static Component prev({IconSize size = IconSize.md}) =>
+  static Widget prev({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e06e', size: size);
 
   /// Alias for chevron-left - semantic name for common use case
-  static Component previous({IconSize size = IconSize.md}) =>
+  static Widget previous({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e06e', size: size);
 
   /// Alias for grid-3x3 - semantic name for common use case
-  static Component grid({IconSize size = IconSize.md}) =>
+  static Widget grid({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0e9', size: size);
 
   /// Alias for layout-dashboard - semantic name for common use case
-  static Component dashboard({IconSize size = IconSize.md}) =>
+  static Widget dashboard({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1c1', size: size);
 
   /// Alias for panel-left - semantic name for common use case
-  static Component sidebar({IconSize size = IconSize.md}) =>
+  static Widget sidebar({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e12a', size: size);
 
   /// Alias for circle-check - semantic name for common use case
-  static Component success({IconSize size = IconSize.md}) =>
+  static Widget success({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e226', size: size);
 
   /// Alias for circle-x - semantic name for common use case
-  static Component error({IconSize size = IconSize.md}) =>
+  static Widget error({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e084', size: size);
 
   /// Alias for triangle-alert - semantic name for common use case
-  static Component warning({IconSize size = IconSize.md}) =>
+  static Widget warning({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e193', size: size);
 
   /// Alias for triangle-alert - semantic name for common use case
-  static Component danger({IconSize size = IconSize.md}) =>
+  static Widget danger({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e193', size: size);
 
   /// Alias for circle-question-mark - semantic name for common use case
-  static Component help({IconSize size = IconSize.md}) =>
+  static Widget help({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e082', size: size);
 
   /// Alias for user - semantic name for common use case
-  static Component profile({IconSize size = IconSize.md}) =>
+  static Widget profile({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e19f', size: size);
 
   /// Alias for user - semantic name for common use case
-  static Component account({IconSize size = IconSize.md}) =>
+  static Widget account({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e19f', size: size);
 
   /// Alias for circle-user-round - semantic name for common use case
-  static Component avatar({IconSize size = IconSize.md}) =>
+  static Widget avatar({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e462', size: size);
 
   /// Alias for settings - semantic name for common use case
-  static Component options({IconSize size = IconSize.md}) =>
+  static Widget options({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e154', size: size);
 
   /// Alias for settings - semantic name for common use case
-  static Component preferences({IconSize size = IconSize.md}) =>
+  static Widget preferences({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e154', size: size);
 
   /// Alias for settings - semantic name for common use case
-  static Component config({IconSize size = IconSize.md}) =>
+  static Widget config({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e154', size: size);
 
   /// Alias for bell - semantic name for common use case
-  static Component notifications({IconSize size = IconSize.md}) =>
+  static Widget notifications({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e059', size: size);
 
   /// Alias for bell - semantic name for common use case
-  static Component alerts({IconSize size = IconSize.md}) =>
+  static Widget alerts({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e059', size: size);
 
   /// Alias for mail - semantic name for common use case
-  static Component email({IconSize size = IconSize.md}) =>
+  static Widget email({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e10f', size: size);
 
   /// Alias for message-square - semantic name for common use case
-  static Component message({IconSize size = IconSize.md}) =>
+  static Widget message({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e117', size: size);
 
   /// Alias for message-circle - semantic name for common use case
-  static Component chat({IconSize size = IconSize.md}) =>
+  static Widget chat({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e116', size: size);
 
   /// Alias for message-square - semantic name for common use case
-  static Component comment({IconSize size = IconSize.md}) =>
+  static Widget comment({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e117', size: size);
 
   /// Alias for paperclip - semantic name for common use case
-  static Component attachment({IconSize size = IconSize.md}) =>
+  static Widget attachment({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e12d', size: size);
 
   /// Alias for clipboard - semantic name for common use case
-  static Component paste({IconSize size = IconSize.md}) =>
+  static Widget paste({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e085', size: size);
 
   /// Alias for scissors - semantic name for common use case
-  static Component cut({IconSize size = IconSize.md}) =>
+  static Widget cut({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e14e', size: size);
 
   /// Alias for refresh-cw - semantic name for common use case
-  static Component refresh({IconSize size = IconSize.md}) =>
+  static Widget refresh({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e145', size: size);
 
   /// Alias for refresh-cw - semantic name for common use case
-  static Component reload({IconSize size = IconSize.md}) =>
+  static Widget reload({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e145', size: size);
 
   /// Alias for refresh-cw - semantic name for common use case
-  static Component sync({IconSize size = IconSize.md}) =>
+  static Widget sync({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e145', size: size);
 
   /// Alias for loader-circle - semantic name for common use case
-  static Component loading({IconSize size = IconSize.md}) =>
+  static Widget loading({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e10a', size: size);
 
   /// Alias for loader-circle - semantic name for common use case
-  static Component spinner({IconSize size = IconSize.md}) =>
+  static Widget spinner({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e10a', size: size);
 
   /// Alias for lock-open - semantic name for common use case
-  static Component unlock({IconSize size = IconSize.md}) =>
+  static Widget unlock({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e10c', size: size);
 
   /// Alias for eye - semantic name for common use case
-  static Component visible({IconSize size = IconSize.md}) =>
+  static Widget visible({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0ba', size: size);
 
   /// Alias for eye-off - semantic name for common use case
-  static Component hidden({IconSize size = IconSize.md}) =>
+  static Widget hidden({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0bb', size: size);
 
   /// Alias for eye - semantic name for common use case
-  static Component show({IconSize size = IconSize.md}) =>
+  static Widget show({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0ba', size: size);
 
   /// Alias for eye-off - semantic name for common use case
-  static Component hide({IconSize size = IconSize.md}) =>
+  static Widget hide({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0bb', size: size);
 
   /// Alias for square - semantic name for common use case
-  static Component stop({IconSize size = IconSize.md}) =>
+  static Widget stop({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e167', size: size);
 
   /// Alias for circle - semantic name for common use case
-  static Component record({IconSize size = IconSize.md}) =>
+  static Widget record({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e076', size: size);
 
   /// Alias for volume-x - semantic name for common use case
-  static Component mute({IconSize size = IconSize.md}) =>
+  static Widget mute({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1ac', size: size);
 
   /// Alias for minimize - semantic name for common use case
-  static Component exitFullscreen({IconSize size = IconSize.md}) =>
+  static Widget exitFullscreen({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e11a', size: size);
 
   /// Alias for calendar - semantic name for common use case
-  static Component date({IconSize size = IconSize.md}) =>
+  static Widget date({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e063', size: size);
 
   /// Alias for clock - semantic name for common use case
-  static Component time({IconSize size = IconSize.md}) =>
+  static Widget time({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e087', size: size);
 
   /// Alias for timer - semantic name for common use case
-  static Component timer({IconSize size = IconSize.md}) =>
+  static Widget timer({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e1e0', size: size);
 
   /// Alias for alarm-clock - semantic name for common use case
-  static Component alarm({IconSize size = IconSize.md}) =>
+  static Widget alarm({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e03a', size: size);
 
   /// Alias for map-pin - semantic name for common use case
-  static Component location({IconSize size = IconSize.md}) =>
+  static Widget location({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e111', size: size);
 
   /// Alias for phone - semantic name for common use case
-  static Component call({IconSize size = IconSize.md}) =>
+  static Widget call({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e133', size: size);
 
   /// Alias for image - semantic name for common use case
-  static Component photo({IconSize size = IconSize.md}) =>
+  static Widget photo({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0f6', size: size);
 
   /// Alias for images - semantic name for common use case
-  static Component gallery({IconSize size = IconSize.md}) =>
+  static Widget gallery({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e5c4', size: size);
 
   /// Alias for music - semantic name for common use case
-  static Component audio({IconSize size = IconSize.md}) =>
+  static Widget audio({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e122', size: size);
 
   /// Alias for file-text - semantic name for common use case
-  static Component document({IconSize size = IconSize.md}) =>
+  static Widget document({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0cc', size: size);
 
   /// Alias for folder - semantic name for common use case
-  static Component directory({IconSize size = IconSize.md}) =>
+  static Widget directory({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0d7', size: size);
 
   /// Alias for printer - semantic name for common use case
-  static Component print({IconSize size = IconSize.md}) =>
+  static Widget print({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e141', size: size);
 
   /// Alias for file-output - semantic name for common use case
-  static Component export({IconSize size = IconSize.md}) =>
+  static Widget export({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0c8', size: size);
 
   /// Alias for ellipsis - semantic name for common use case
-  static Component moreHorizontal({IconSize size = IconSize.md}) =>
+  static Widget moreHorizontal({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0b6', size: size);
 
   /// Alias for ellipsis-vertical - semantic name for common use case
-  static Component moreVertical({IconSize size = IconSize.md}) =>
+  static Widget moreVertical({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0b7', size: size);
 
   /// Alias for funnel - semantic name for common use case
-  static Component filter({IconSize size = IconSize.md}) =>
+  static Widget filter({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e0dc', size: size);
 
   /// Alias for arrow-up-down - semantic name for common use case
-  static Component sort({IconSize size = IconSize.md}) =>
+  static Widget sort({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e37d', size: size);
 
   /// Alias for key-round - semantic name for common use case
-  static Component key({IconSize size = IconSize.md}) =>
+  static Widget key({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e4a3', size: size);
 
   /// Alias for map - semantic name for common use case
-  static Component map({IconSize size = IconSize.md}) =>
+  static Widget map({IconSize size = IconSize.md}) =>
       _LucideIcon(codepoint: 'e110', size: size);
 
   // ============================================================================
@@ -7078,15 +7079,15 @@ class ArcaneIcon {
   // ============================================================================
 
   /// Xbox brand icon (SVG-based)
-  static Component xbox({IconSize size = IconSize.md}) =>
+  static Widget xbox({IconSize size = IconSize.md}) =>
       _CustomSvgIcon(viewBox: '0 0 50 50', paths: <String>['M 25 2 C 20.709 2 16.618563 3.2007813 13.226562 5.3007812 C 13.007563 5.3737813 12.629156 5.6617969 12.285156 5.9667969 C 15.330156 3.5477969 22.371734 8.3929375 24.427734 9.8359375 C 24.773734 10.078938 25.228219 10.078938 25.574219 9.8359375 C 27.630219 8.3929375 34.671797 3.5467969 37.716797 5.9667969 C 37.372797 5.6617969 36.993391 5.3737813 36.775391 5.3007812 C 33.382391 3.2007813 29.291 2 25 2 z M 11 8 C 9.403 8 8.2363281 9.3007812 8.2363281 9.3007812 C 4.4443281 13.400781 2.0507812 18.9 2.0507812 25 C 2.0507812 37.7 12.328 48 25 48 C 31.685 48 37.771891 45.1 41.962891 40.5 C 41.962891 40.5 41.464094 37.499609 38.371094 33.099609 C 34.912094 27.882609 27.905109 21.311922 25.662109 19.294922 C 25.279109 18.950922 24.708125 18.952781 24.328125 19.300781 C 22.638125 20.847781 18.277406 25.177781 17.316406 26.300781 C 15.021406 28.700781 8.6353281 36.299609 8.2363281 40.599609 C 8.2363281 40.599609 6.8386406 37.200391 9.9316406 29.400391 C 11.856641 24.714391 17.835375 17.747984 20.734375 14.708984 C 21.119375 14.305984 21.110125 13.669109 20.703125 13.287109 C 19.743125 12.388109 17.505281 10.812609 15.488281 9.5996094 C 14.092281 8.6996094 12.497 8.1 11 8 z M 38.689453 8 C 38.036453 8 33.794078 9.3428281 29.330078 13.298828 C 28.908078 13.672828 28.891203 14.325469 29.283203 14.730469 C 30.900203 16.401469 35.322656 20.681391 37.972656 24.900391 C 41.265656 30.300391 43.2605 34.6 42.0625 40.5 C 45.7545 36.4 48.050781 31 48.050781 25 C 47.950781 19 45.655281 13.500391 41.863281 9.4003906 C 41.763281 9.3003906 41.663453 9.1996094 41.564453 9.0996094 C 40.766453 8.1996094 39.587453 8 38.689453 8 z'], size: size);
 
   /// Playstation brand icon (SVG-based)
-  static Component playstation({IconSize size = IconSize.md}) =>
+  static Widget playstation({IconSize size = IconSize.md}) =>
       _CustomSvgIcon(viewBox: '0 0 30 30', paths: <String>['M 11.181641 3.7421875 L 11.181641 24.857422 L 15.761719 26.257812 L 15.761719 8.5761719 C 15.761719 8.0671719 15.761625 7.8135937 16.015625 7.5585938 C 16.142625 7.3045937 16.396391 7.3046406 16.650391 7.4316406 C 17.286391 7.6856406 17.669922 8.1948906 17.669922 9.2128906 L 17.669922 16.207031 C 19.195922 16.970031 20.466375 16.970031 21.484375 16.207031 C 22.502375 15.444031 23.011719 14.300578 23.011719 12.392578 C 23.012719 10.357578 22.630234 9.0853594 21.740234 8.0683594 C 20.977234 7.0503594 19.578969 6.1594375 17.542969 5.5234375 C 14.998969 4.7604375 12.835641 4.1241875 11.181641 3.7421875 z M 9.9101562 16.972656 L 4.0585938 19.007812 L 3.1699219 19.388672 C 1.7709219 20.024672 1.0078125 20.660875 1.0078125 21.296875 C 1.1348125 22.059875 1.388875 23.078844 3.296875 23.714844 C 5.077875 24.350844 6.4770625 24.604891 10.039062 23.587891 L 10.039062 21.296875 C 6.6030625 22.440875 6.0949375 22.314547 5.5859375 22.060547 C 5.0769375 21.806547 5.076125 21.550828 5.203125 21.423828 C 5.585125 21.169828 6.984375 20.660156 6.984375 20.660156 L 9.9101562 19.642578 L 9.9101562 16.972656 z M 22.853516 17.962891 C 22.440109 17.948984 22.026781 17.956531 21.613281 17.988281 C 20.214281 17.988281 18.941063 18.243 17.414062 18.625 L 17.414062 21.296875 L 20.212891 20.277344 L 21.738281 19.769531 C 21.738281 19.769531 22.375812 19.642625 22.757812 19.515625 C 23.393812 19.388625 24.15625 19.642578 24.15625 19.642578 C 24.53825 19.642578 24.792969 19.768438 24.792969 20.023438 C 24.919969 20.277438 24.665297 20.406156 24.029297 20.660156 L 22.630859 21.169922 L 17.542969 23.076172 L 17.542969 25.748047 L 19.832031 24.984375 L 26.191406 22.695312 L 26.955078 22.3125 C 28.481078 21.8035 29.117234 21.167297 28.990234 20.404297 C 28.990234 19.642297 28.100219 19.134 26.574219 18.625 C 25.333719 18.24325 24.093734 18.004609 22.853516 17.962891 z'], size: size);
 
   /// Crossplay brand icon (SVG-based)
-  static Component crossplay({IconSize size = IconSize.md}) =>
+  static Widget crossplay({IconSize size = IconSize.md}) =>
       _CustomSvgIcon(viewBox: '0 0 1200 1200', paths: <String>['m381.76 840.01h-57.758v60h179.98v-120h-101.95c0 25.082-8.0859 47.113-20.266 60z', 'm743.98 1020h240v-360h-240zm60-300h120v240h-120z', 'm563.98 480.01v420h120v-60h-60v-300h420v360h60v-420z', 'm144 239.99h659.98v180.02h60v-240.02h-779.98v540.02h419.98v-120h-359.98z'], size: size);
 
 }

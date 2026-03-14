@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
@@ -15,8 +16,8 @@ typedef ScrollbarVisibility = ScrollbarVisibilityVariant;
 typedef ScrollbarStyle = ScrollbarStyleVariant;
 
 /// A scrollable area with custom styled scrollbars.
-class ArcaneScrollArea extends StatelessComponent {
-  final Component child;
+class ArcaneScrollArea extends StatelessWidget {
+  final Widget child;
   final String? height;
   final String? width;
   final String? maxHeight;
@@ -104,7 +105,7 @@ class ArcaneScrollArea extends StatelessComponent {
       };
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.scrollArea(ScrollAreaProps(
       child: child,
       height: height,
@@ -126,9 +127,9 @@ class ArcaneScrollArea extends StatelessComponent {
 }
 
 /// A virtualized scroll list for large datasets.
-class ArcaneVirtualScroll<T> extends StatefulComponent {
+class ArcaneVirtualScroll<T> extends StatefulWidget {
   final List<T> items;
-  final Component Function(BuildContext context, T item, int index) itemBuilder;
+  final Widget Function(BuildContext context, T item, int index) itemBuilder;
   final double itemHeight;
   final String height;
   final int overscan;
@@ -150,7 +151,7 @@ class _ArcaneVirtualScrollState<T> extends State<ArcaneVirtualScroll<T>> {
   double _scrollTop = 0;
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.virtualScroll<T>(VirtualScrollProps<T>(
       items: component.items,
       itemBuilder: component.itemBuilder,

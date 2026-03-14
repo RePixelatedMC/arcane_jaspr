@@ -1,10 +1,11 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 /// Logo item data.
 class LogoItem {
   final String name;
   final String? imageUrl;
-  final Component? customLogo;
+  final Widget? customLogo;
   final String? href;
 
   const LogoItem({
@@ -63,6 +64,6 @@ class LogoGridProps {
 
 /// Mixin defining the renderer methods for logo carousel components.
 mixin LogoCarouselRendererContract {
-  Component logoCarousel(LogoCarouselProps props);
-  Component logoGrid(LogoGridProps props);
+  Widget logoCarousel(LogoCarouselProps props);
+  Widget logoGrid(LogoGridProps props);
 }

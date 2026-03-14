@@ -1,9 +1,10 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
 /// A tab component for switching between views.
-class ArcaneTabs extends StatefulComponent {
+class ArcaneTabs extends StatefulWidget {
   final List<ArcaneTabItem> tabs;
   final int initialIndex;
   final void Function(int index)? onChanged;
@@ -40,7 +41,7 @@ class _ArcaneTabsState extends State<ArcaneTabs> {
   }
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     final List<TabItemProps> tabProps = component.tabs
         .map((tab) => TabItemProps(
               label: tab.label,
@@ -63,8 +64,8 @@ class _ArcaneTabsState extends State<ArcaneTabs> {
 /// A tab item for ArcaneTabs.
 class ArcaneTabItem {
   final String label;
-  final Component content;
-  final Component? icon;
+  final Widget content;
+  final Widget? icon;
   final String? badge;
   final bool disabled;
 
@@ -78,7 +79,7 @@ class ArcaneTabItem {
 }
 
 /// A simple tab bar without content for custom tab handling.
-class ArcaneTabBar extends StatelessComponent {
+class ArcaneTabBar extends StatelessWidget {
   final List<ArcaneTabBarItem> tabs;
   final int selectedIndex;
   final void Function(int index) onChanged;
@@ -93,7 +94,7 @@ class ArcaneTabBar extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     final List<TabBarItemProps> tabProps = tabs
         .map((tab) => TabBarItemProps(
               label: tab.label,
@@ -113,7 +114,7 @@ class ArcaneTabBar extends StatelessComponent {
 /// A tab bar item.
 class ArcaneTabBarItem {
   final String label;
-  final Component? icon;
+  final Widget? icon;
 
   const ArcaneTabBarItem({
     required this.label,

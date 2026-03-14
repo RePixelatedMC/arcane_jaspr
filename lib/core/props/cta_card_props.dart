@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 /// CTA (Call-to-Action) card component properties.
 ///
@@ -6,7 +7,7 @@ import 'package:jaspr/jaspr.dart';
 /// Used for "request" cards, "suggest" cards, or any action-oriented card.
 class CTACardProps {
   /// Icon to display at the top of the card.
-  final Component? icon;
+  final Widget? icon;
 
   /// Main title/heading text.
   final String title;
@@ -51,5 +52,5 @@ class CTACardProps {
 
 /// Mixin defining the renderer method for CTA card component.
 mixin CTACardRendererContract {
-  Component ctaCard(CTACardProps props);
+  Widget ctaCard(CTACardProps props);
 }

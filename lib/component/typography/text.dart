@@ -1,11 +1,12 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight, FontStyle, StyleRule, Display, Position, Overflow, Cursor, Visibility, TextDecoration, TextTransform, FontFamily, WhiteSpace;
 
 import '../../util/arcane.dart';
 import '../../util/style_types/index.dart';
 
 /// Text component with enum-based styling.
-class ArcaneText extends StatelessComponent {
+class Text extends StatelessWidget {
   final String text;
   final FontSize? size;
   final FontWeight? weight;
@@ -25,7 +26,7 @@ class ArcaneText extends StatelessComponent {
   final ArcaneStyleData? style;
   final String element;
 
-  const ArcaneText(
+  const Text(
     this.text, {
     this.size,
     this.weight,
@@ -47,7 +48,7 @@ class ArcaneText extends StatelessComponent {
     super.key,
   });
 
-  const ArcaneText.pageTitle(
+  const Text.pageTitle(
     this.text, {
     this.color = TextColor.primary,
     this.align,
@@ -68,7 +69,7 @@ class ArcaneText extends StatelessComponent {
         selectable = true,
         element = 'h1';
 
-  const ArcaneText.sectionTitle(
+  const Text.sectionTitle(
     this.text, {
     this.color = TextColor.primary,
     this.align,
@@ -89,7 +90,7 @@ class ArcaneText extends StatelessComponent {
         selectable = true,
         element = 'h2';
 
-  const ArcaneText.heading(
+  const Text.heading(
     this.text, {
     this.color = TextColor.primary,
     this.align,
@@ -110,7 +111,7 @@ class ArcaneText extends StatelessComponent {
         selectable = true,
         element = 'h2';
 
-  const ArcaneText.heading2(
+  const Text.heading2(
     this.text, {
     this.color = TextColor.primary,
     this.align,
@@ -131,7 +132,7 @@ class ArcaneText extends StatelessComponent {
         selectable = true,
         element = 'h3';
 
-  const ArcaneText.heading3(
+  const Text.heading3(
     this.text, {
     this.color = TextColor.primary,
     this.align,
@@ -152,7 +153,7 @@ class ArcaneText extends StatelessComponent {
         selectable = true,
         element = 'h4';
 
-  const ArcaneText.subheading(
+  const Text.subheading(
     this.text, {
     this.color = TextColor.secondary,
     this.align,
@@ -173,7 +174,7 @@ class ArcaneText extends StatelessComponent {
         selectable = true,
         element = 'p';
 
-  const ArcaneText.body(
+  const Text.body(
     this.text, {
     this.color = TextColor.muted,
     this.align,
@@ -194,7 +195,7 @@ class ArcaneText extends StatelessComponent {
         selectable = true,
         element = 'p';
 
-  const ArcaneText.bodyLarge(
+  const Text.bodyLarge(
     this.text, {
     this.color = TextColor.muted,
     this.align,
@@ -215,7 +216,7 @@ class ArcaneText extends StatelessComponent {
         selectable = true,
         element = 'p';
 
-  const ArcaneText.bodySmall(
+  const Text.bodySmall(
     this.text, {
     this.color = TextColor.muted,
     this.align,
@@ -236,7 +237,7 @@ class ArcaneText extends StatelessComponent {
         selectable = true,
         element = 'p';
 
-  const ArcaneText.label(
+  const Text.label(
     this.text, {
     this.color = TextColor.primary,
     this.align,
@@ -257,7 +258,7 @@ class ArcaneText extends StatelessComponent {
         selectable = true,
         element = 'span';
 
-  const ArcaneText.caption(
+  const Text.caption(
     this.text, {
     this.color = TextColor.subtle,
     this.align,
@@ -278,7 +279,7 @@ class ArcaneText extends StatelessComponent {
         selectable = true,
         element = 'span';
 
-  const ArcaneText.code(
+  const Text.code(
     this.text, {
     this.color = TextColor.accent,
     this.align,
@@ -299,7 +300,7 @@ class ArcaneText extends StatelessComponent {
         selectable = true,
         element = 'code';
 
-  const ArcaneText.link(
+  const Text.link(
     this.text, {
     this.color = TextColor.accent,
     this.align,
@@ -320,7 +321,7 @@ class ArcaneText extends StatelessComponent {
         selectable = true,
         element = 'span';
 
-  const ArcaneText.truncated(
+  const Text.truncated(
     this.text, {
     this.size,
     this.weight,
@@ -342,7 +343,7 @@ class ArcaneText extends StatelessComponent {
         element = 'span';
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     final Map<String, String> textStyles = {};
 
     if (size != null) textStyles['font-size'] = size!.css;
@@ -378,7 +379,7 @@ class ArcaneText extends StatelessComponent {
     return _buildElement(textStyles);
   }
 
-  Component _buildElement(Map<String, String> styles) {
+  Widget _buildElement(Map<String, String> styles) {
     final content = [Component.text(text)];
 
     switch (element) {
@@ -413,18 +414,18 @@ class ArcaneText extends StatelessComponent {
 }
 
 /// Rich text component supporting mixed styling.
-class ArcaneRichText extends StatelessComponent {
-  final List<Component> children;
+class RichText extends StatelessWidget {
+  final List<Widget> children;
   final ArcaneStyleData? style;
 
-  const ArcaneRichText({
+  const RichText({
     required this.children,
     this.style,
     super.key,
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return span(
       classes: 'arcane-rich-text',
       styles: style?.toStyles() ?? const Styles(raw: {}),
@@ -433,8 +434,8 @@ class ArcaneRichText extends StatelessComponent {
   }
 }
 
-/// Text span for use within ArcaneRichText.
-class ArcaneTextSpan extends StatelessComponent {
+/// Text span for use within RichText.
+class TextSpan extends StatelessWidget {
   final String text;
   final FontSize? size;
   final FontWeight? weight;
@@ -445,7 +446,7 @@ class ArcaneTextSpan extends StatelessComponent {
   final FontStyle? fontStyle;
   final ArcaneStyleData? style;
 
-  const ArcaneTextSpan(
+  const TextSpan(
     this.text, {
     this.size,
     this.weight,
@@ -459,7 +460,7 @@ class ArcaneTextSpan extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     final Map<String, String> spanStyles = {};
 
     if (size != null) spanStyles['font-size'] = size!.css;

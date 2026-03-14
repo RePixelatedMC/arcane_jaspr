@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../shared/shared.dart';
 
@@ -24,9 +25,9 @@ class TimelineItemData {
   final String? subtitle;
   final String? description;
   final String? date;
-  final Component? icon;
+  final Widget? icon;
   final TimelineStatus status;
-  final Component? content;
+  final Widget? content;
 
   const TimelineItemData({
     required this.title,
@@ -60,5 +61,5 @@ class TimelineProps {
 
 /// Mixin defining the renderer methods for timeline components.
 mixin TimelineRendererContract {
-  Component timeline(TimelineProps props);
+  Widget timeline(TimelineProps props);
 }

@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
@@ -19,7 +20,7 @@ enum PaginationSize {
 }
 
 /// Page navigation component.
-class ArcanePagination extends StatelessComponent {
+class ArcanePagination extends StatelessWidget {
   final int currentPage;
   final int totalPages;
   final void Function(int page)? onPageChange;
@@ -99,7 +100,7 @@ class ArcanePagination extends StatelessComponent {
   }
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     final styleVariant = switch (style) {
       PaginationStyle.outline => PaginationStyleVariant.outline,
       PaginationStyle.filled => PaginationStyleVariant.filled,

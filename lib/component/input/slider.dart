@@ -1,11 +1,12 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 export '../../core/props/slider_props.dart' show ComponentSize, SliderVariant;
 
 import '../../core/theme_provider.dart';
 
 /// Slider input component with single value or range mode.
-class ArcaneSlider extends StatelessComponent {
+class ArcaneSlider extends StatelessWidget {
   final double value;
   final double min;
   final double max;
@@ -154,7 +155,7 @@ class ArcaneSlider extends StatelessComponent {
         onRangeChanged = null;
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.slider(SliderProps(
       value: value,
       min: min,
@@ -179,7 +180,7 @@ class ArcaneSlider extends StatelessComponent {
 }
 
 @Deprecated('Use ArcaneSlider.range instead.')
-class ArcaneRangeSlider extends StatelessComponent {
+class ArcaneRangeSlider extends StatelessWidget {
   final double minValue;
   final double maxValue;
   final double min;
@@ -208,7 +209,7 @@ class ArcaneRangeSlider extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return ArcaneSlider.range(
       minValue: minValue,
       maxValue: maxValue,

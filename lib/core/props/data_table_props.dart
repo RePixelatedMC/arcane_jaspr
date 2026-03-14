@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 enum DataTableTextAlign {
   left,
@@ -15,7 +16,7 @@ enum DataTableTextAlign {
 /// Data column definition.
 class DataColumnProps<T> {
   final String header;
-  final Component Function(T item) builder;
+  final Widget Function(T item) builder;
   final DataTableTextAlign align;
   final double? width;
   final bool sortable;
@@ -64,5 +65,5 @@ class DataTableProps<T> {
 
 /// Mixin defining the renderer methods for data table components.
 mixin DataTableRendererContract {
-  Component dataTable<T>(DataTableProps<T> props);
+  Widget dataTable<T>(DataTableProps<T> props);
 }

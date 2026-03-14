@@ -1,13 +1,14 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 import 'package:jaspr/dom.dart' as dom;
 
 import '../../core/theme_provider.dart';
 import '../../util/arcane.dart';
 
 /// Card component with consistent styling and multiple variants.
-class ArcaneCard extends StatelessComponent {
-  final Component? _child;
-  final List<Component>? _children;
+class Card extends StatelessWidget {
+  final Widget? _child;
+  final List<Widget>? _children;
   final CardVariant variant;
   final String? padding;
   final String? borderRadius;
@@ -15,9 +16,9 @@ class ArcaneCard extends StatelessComponent {
   final String? backgroundColor;
   final bool fillWidth;
 
-  const ArcaneCard({
-    Component? child,
-    List<Component>? children,
+  const Card({
+    Widget? child,
+    List<Widget>? children,
     this.variant = CardVariant.elevated,
     this.padding,
     this.borderRadius,
@@ -32,9 +33,9 @@ class ArcaneCard extends StatelessComponent {
         assert(child != null || children != null,
             'Either child or children must be provided');
 
-  const ArcaneCard.elevated({
-    Component? child,
-    List<Component>? children,
+  const Card.elevated({
+    Widget? child,
+    List<Widget>? children,
     this.padding,
     this.borderRadius,
     void Function()? onTap,
@@ -49,9 +50,9 @@ class ArcaneCard extends StatelessComponent {
         assert(child != null || children != null,
             'Either child or children must be provided');
 
-  const ArcaneCard.flat({
-    Component? child,
-    List<Component>? children,
+  const Card.flat({
+    Widget? child,
+    List<Widget>? children,
     this.padding,
     this.borderRadius,
     void Function()? onTap,
@@ -66,9 +67,9 @@ class ArcaneCard extends StatelessComponent {
         assert(child != null || children != null,
             'Either child or children must be provided');
 
-  const ArcaneCard.outlined({
-    Component? child,
-    List<Component>? children,
+  const Card.outlined({
+    Widget? child,
+    List<Widget>? children,
     this.padding,
     this.borderRadius,
     void Function()? onTap,
@@ -83,9 +84,9 @@ class ArcaneCard extends StatelessComponent {
         assert(child != null || children != null,
             'Either child or children must be provided');
 
-  const ArcaneCard.ghost({
-    Component? child,
-    List<Component>? children,
+  const Card.ghost({
+    Widget? child,
+    List<Widget>? children,
     this.padding,
     this.borderRadius,
     void Function()? onTap,
@@ -100,9 +101,9 @@ class ArcaneCard extends StatelessComponent {
         assert(child != null || children != null,
             'Either child or children must be provided');
 
-  const ArcaneCard.glass({
-    Component? child,
-    List<Component>? children,
+  const Card.glass({
+    Widget? child,
+    List<Widget>? children,
     this.padding,
     this.borderRadius,
     void Function()? onTap,
@@ -117,9 +118,9 @@ class ArcaneCard extends StatelessComponent {
         assert(child != null || children != null,
             'Either child or children must be provided');
 
-  const ArcaneCard.interactive({
-    Component? child,
-    List<Component>? children,
+  const Card.interactive({
+    Widget? child,
+    List<Widget>? children,
     this.padding,
     this.borderRadius,
     void Function()? onTap,
@@ -135,7 +136,7 @@ class ArcaneCard extends StatelessComponent {
             'Either child or children must be provided');
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.card(CardProps(
       child: _child,
       children: _children,
@@ -150,10 +151,10 @@ class ArcaneCard extends StatelessComponent {
 }
 
 /// Card with header, body, and footer sections.
-class ArcaneStructuredCard extends StatelessComponent {
-  final Component? header;
-  final Component body;
-  final Component? footer;
+class ArcaneStructuredCard extends StatelessWidget {
+  final Widget? header;
+  final Widget body;
+  final Widget? footer;
   final EdgeInsets? padding;
   final double? radius;
   final bool border;
@@ -174,7 +175,7 @@ class ArcaneStructuredCard extends StatelessComponent {
   }) : _onTap = onTap ?? onClick;
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     final boxShadow = switch (elevation) {
       0 => 'none',
       1 => '0 1px 2px 0 rgb(0 0 0 / 0.05)',
@@ -232,11 +233,11 @@ class ArcaneStructuredCard extends StatelessComponent {
 }
 
 /// Image card with overlay text.
-class ArcaneImageCard extends StatelessComponent {
+class ArcaneImageCard extends StatelessWidget {
   final String imageUrl;
   final String? title;
   final String? subtitle;
-  final Component? overlay;
+  final Widget? overlay;
   final double? height;
   final double? radius;
   final void Function()? _onTap;
@@ -256,7 +257,7 @@ class ArcaneImageCard extends StatelessComponent {
   }) : _onTap = onTap ?? onClick;
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return dom.div(
       classes: 'arcane-image-card ${_onTap != null ? 'clickable' : ''}',
       styles: dom.Styles(raw: {

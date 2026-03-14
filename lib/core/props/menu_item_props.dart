@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 /// Sealed class hierarchy for menu items.
 /// Use pattern matching to handle different item types in renderers.
@@ -9,7 +10,7 @@ sealed class ArcaneMenuItem {
 /// Standard clickable menu item.
 class MenuItemAction extends ArcaneMenuItem {
   final String label;
-  final Component? icon;
+  final Widget? icon;
   final String? description;
   final String? shortcut;
   final bool disabled;
@@ -37,7 +38,7 @@ class MenuItemSeparator extends ArcaneMenuItem {
 /// Checkbox menu item.
 class MenuItemCheckbox extends ArcaneMenuItem {
   final String label;
-  final Component? icon;
+  final Widget? icon;
   final bool checked;
   final bool disabled;
   final String? shortcut;
@@ -56,7 +57,7 @@ class MenuItemCheckbox extends ArcaneMenuItem {
 /// Radio menu item (part of a group).
 class MenuItemRadio extends ArcaneMenuItem {
   final String label;
-  final Component? icon;
+  final Widget? icon;
   final String group;
   final String value;
   final bool selected;
@@ -77,7 +78,7 @@ class MenuItemRadio extends ArcaneMenuItem {
 /// Submenu with nested items.
 class MenuItemSubmenu extends ArcaneMenuItem {
   final String label;
-  final Component? icon;
+  final Widget? icon;
   final List<ArcaneMenuItem> children;
   final bool disabled;
 

@@ -1,11 +1,12 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import 'text_input.dart';
 import '../../core/theme_provider.dart';
 
 typedef ArcaneNativeSelectOption = ArcaneSelectOption;
 
-class ArcaneNativeSelect extends StatelessComponent {
+class ArcaneNativeSelect extends StatelessWidget {
   final List<ArcaneSelectOption> options;
   final String? value;
   final String? placeholder;
@@ -36,7 +37,7 @@ class ArcaneNativeSelect extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     final List<NativeSelectOptionProps> mappedOptions = options
         .map(
           (ArcaneSelectOption option) => NativeSelectOptionProps(

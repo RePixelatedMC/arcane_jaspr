@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 /// Navigation item data.
 class NavItemProps {
@@ -19,16 +20,16 @@ class NavItemProps {
 
 /// Header/navbar component properties.
 class HeaderProps {
-  final Component logo;
+  final Widget logo;
 
   /// Simple navigation items (rendered by the header renderer).
   final List<NavItemProps> navItems;
 
   /// Custom navigation content (takes precedence over navItems if provided).
   /// Use this to pass complex navigation components like dropdowns.
-  final Component? customNav;
+  final Widget? customNav;
 
-  final List<Component>? actions;
+  final List<Widget>? actions;
   final bool showSearch;
   final String searchPlaceholder;
   final void Function(String)? onSearch;
@@ -78,8 +79,8 @@ class NavLinkProps {
 /// Mixin defining the renderer methods for header components.
 mixin HeaderRendererContract {
   /// Renders the main header/navbar component.
-  Component header(HeaderProps props);
+  Widget header(HeaderProps props);
 
   /// Renders a navigation link.
-  Component navLink(NavLinkProps props);
+  Widget navLink(NavLinkProps props);
 }

@@ -1,11 +1,12 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 import 'menu_item_props.dart';
 
 export 'menu_item_props.dart';
 
 /// Context menu component properties.
 class ContextMenuProps {
-  final Component trigger;
+  final Widget trigger;
   final List<ArcaneMenuItem> items;
 
   const ContextMenuProps({
@@ -20,5 +21,5 @@ class ContextMenuProps {
 
 /// Mixin defining the renderer methods for context menu components.
 mixin ContextMenuRendererContract {
-  Component contextMenu(ContextMenuProps props);
+  Widget contextMenu(ContextMenuProps props);
 }

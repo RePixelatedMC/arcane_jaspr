@@ -58,7 +58,7 @@ List<DemoDefinition> demoDefinitions = <DemoDefinition>[
     symbolName: 'ArcaneAspectRatio',
     sourcePath: 'lib/component/layout/aspect_ratio.dart',
     code: '''ArcaneAspectRatio.video(
-  child: const ArcaneCard(child: ArcaneText('16:9 container')),
+  child: const Card(child: Text('16:9 container')),
 )''',
     previewBuilder: _buildAspectRatioDemo,
   ),
@@ -95,19 +95,19 @@ List<DemoDefinition> demoDefinitions = <DemoDefinition>[
   ),
   DemoDefinition(
     componentType: 'button',
-    symbolName: 'ArcaneButton',
+    symbolName: 'Button',
     sourcePath: 'lib/component/input/button.dart',
-    code: '''ArcaneButton.primary(label: 'Primary Action', onPressed: () {})''',
+    code: '''Button.primary(label: 'Primary Action', onPressed: () {})''',
     previewBuilder: _buildButtonDemo,
   ),
   DemoDefinition(
     componentType: 'button-group',
-    symbolName: 'ArcaneButtonGroup',
+    symbolName: 'ButtonGroup',
     sourcePath: 'lib/component/layout/button_panel.dart',
-    code: '''ArcaneButtonGroup(
+    code: '''ButtonGroup(
   children: [
-    ArcaneButton.secondary(label: 'Back', onPressed: () {}),
-    ArcaneButton.primary(label: 'Continue', onPressed: () {}),
+    Button.secondary(label: 'Back', onPressed: () {}),
+    Button.primary(label: 'Continue', onPressed: () {}),
   ],
 )''',
     previewBuilder: _buildButtonGroupDemo,
@@ -124,19 +124,19 @@ List<DemoDefinition> demoDefinitions = <DemoDefinition>[
   ),
   DemoDefinition(
     componentType: 'card',
-    symbolName: 'ArcaneCard',
+    symbolName: 'Card',
     sourcePath: 'lib/component/card/card.dart',
-    code: '''const ArcaneCard.elevated(child: ArcaneText('Card content'))''',
+    code: '''const Card.elevated(child: Text('Card content'))''',
     previewBuilder: _buildCardDemo,
   ),
   DemoDefinition(
     componentType: 'carousel',
-    symbolName: 'ArcaneCardCarousel',
+    symbolName: 'CardCarousel',
     sourcePath: 'lib/component/collection/card_carousel.dart',
-    code: '''ArcaneCardCarousel(
+    code: '''CardCarousel(
   children: const [
-    ArcaneCard(child: ArcaneText('Slide 1')),
-    ArcaneCard(child: ArcaneText('Slide 2')),
+    Card(child: Text('Slide 1')),
+    Card(child: Text('Slide 2')),
   ],
 )''',
     previewBuilder: _buildCarouselDemo,
@@ -170,8 +170,8 @@ List<DemoDefinition> demoDefinitions = <DemoDefinition>[
     symbolName: 'ArcaneDisclosure',
     sourcePath: 'lib/component/interactive/disclosure.dart',
     code: '''const ArcaneDisclosure(
-  summary: ArcaneText('Toggle content'),
-  child: ArcaneText('This disclosure is rendered by the active theme.'),
+  summary: Text('Toggle content'),
+  child: Text('This disclosure is rendered by the active theme.'),
 )''',
     previewBuilder: _buildCollapsibleDemo,
   ),
@@ -206,19 +206,19 @@ List<DemoDefinition> demoDefinitions = <DemoDefinition>[
     symbolName: 'ArcaneContextMenu',
     sourcePath: 'lib/component/menu/context_menu.dart',
     code: '''ArcaneContextMenu(
-  trigger: ArcaneButton.secondary(label: 'Right-click me', onPressed: () {}),
+  trigger: Button.secondary(label: 'Right-click me', onPressed: () {}),
   items: const [MenuItemAction(label: 'Copy')],
 )''',
     previewBuilder: _buildContextMenuDemo,
   ),
   DemoDefinition(
     componentType: 'data-table',
-    symbolName: 'ArcaneDataTable',
-    sourcePath: 'lib/component/data/data_table.dart',
-    code: '''ArcaneDataTable(
+    symbolName: 'DataTable',
+    sourcePath: 'lib/component/view/data_table.dart',
+    code: '''DataTable(
   items: const [_DemoUser(name: 'Alex', role: 'Admin', status: 'Active')],
   columns: [
-    ArcaneDataColumn(header: 'Name', builder: (_DemoUser user) => ArcaneText(user.name)),
+    DataColumn(header: 'Name', builder: (_DemoUser user) => Text(user.name)),
   ],
 )''',
     previewBuilder: _buildDataTableDemo,
@@ -239,8 +239,8 @@ List<DemoDefinition> demoDefinitions = <DemoDefinition>[
     sourcePath: 'lib/component/dialog/dialog.dart',
     code: '''ArcaneDialog(
   title: 'Confirm Settings',
-  child: const ArcaneText('Apply changes?'),
-  actions: [ArcaneButton.primary(label: 'Apply', onPressed: () {})],
+  child: const Text('Apply changes?'),
+  actions: [Button.primary(label: 'Apply', onPressed: () {})],
 )''',
     previewBuilder: _buildDialogDemo,
   ),
@@ -250,7 +250,7 @@ List<DemoDefinition> demoDefinitions = <DemoDefinition>[
     sourcePath: 'lib/component/layout/direction.dart',
     code: '''const ArcaneDirection(
   value: ArcaneDirectionValue.rtl,
-  children: [ArcaneText('Right-to-left direction preview')],
+  children: [Text('Right-to-left direction preview')],
 )''',
     previewBuilder: _buildDirectionDemo,
   ),
@@ -260,8 +260,8 @@ List<DemoDefinition> demoDefinitions = <DemoDefinition>[
     sourcePath: 'lib/component/layout/drawer.dart',
     code: '''ArcaneDrawer.left(
   isOpen: true,
-  header: const ArcaneText('Navigation'),
-  child: const ArcaneText('Drawer content'),
+  header: const Text('Navigation'),
+  child: const Text('Drawer content'),
 )''',
     previewBuilder: _buildDrawerDemo,
   ),
@@ -270,7 +270,7 @@ List<DemoDefinition> demoDefinitions = <DemoDefinition>[
     symbolName: 'ArcaneDropdownMenu',
     sourcePath: 'lib/component/menu/dropdown_menu.dart',
     code: '''ArcaneDropdownMenu(
-  trigger: ArcaneButton.secondary(label: 'Open menu', onPressed: () {}),
+  trigger: Button.secondary(label: 'Open menu', onPressed: () {}),
   items: const [MenuItemAction(label: 'Profile')],
 )''',
     previewBuilder: _buildDropdownMenuDemo,
@@ -288,7 +288,7 @@ List<DemoDefinition> demoDefinitions = <DemoDefinition>[
     sourcePath: 'lib/component/form/field.dart',
     code: '''ArcaneFieldWrapper(
   labelText: 'Email',
-  field: ArcaneTextInput(placeholder: 'name@company.com', onChange: (String value) {}),
+  field: TextInput(placeholder: 'name@company.com', onChange: (String value) {}),
 )''',
     previewBuilder: _buildFieldDemo,
   ),
@@ -297,16 +297,16 @@ List<DemoDefinition> demoDefinitions = <DemoDefinition>[
     symbolName: 'ArcaneHoverCard',
     sourcePath: 'lib/component/view/floating.dart',
     code: '''ArcaneHoverCard.hovercard(
-  trigger: ArcaneButton.secondary(label: 'Hover card', onPressed: () {}),
-  content: const ArcaneCard(child: ArcaneText('A lightweight profile or preview card.')),
+  trigger: Button.secondary(label: 'Hover card', onPressed: () {}),
+  content: const Card(child: Text('A lightweight profile or preview card.')),
 )''',
     previewBuilder: _buildHoverCardDemo,
   ),
   DemoDefinition(
     componentType: 'input',
-    symbolName: 'ArcaneTextInput',
+    symbolName: 'TextInput',
     sourcePath: 'lib/component/input/text_input.dart',
-    code: '''ArcaneTextInput(
+    code: '''TextInput(
   label: 'Email',
   placeholder: 'name@example.com',
   onChange: (String value) {},
@@ -319,8 +319,8 @@ List<DemoDefinition> demoDefinitions = <DemoDefinition>[
     sourcePath: 'lib/component/form/field_wrapper.dart',
     code: '''ArcaneInputGroup(
   children: [
-    ArcaneTextInput(placeholder: 'Search', onChange: (String value) {}),
-    ArcaneButton.primary(label: 'Go', onPressed: () {}),
+    TextInput(placeholder: 'Search', onChange: (String value) {}),
+    Button.primary(label: 'Go', onPressed: () {}),
   ],
 )''',
     previewBuilder: _buildInputGroupDemo,
@@ -340,7 +340,7 @@ List<DemoDefinition> demoDefinitions = <DemoDefinition>[
     symbolName: 'ArcaneItem',
     sourcePath: 'lib/component/view/item.dart',
     code: '''const ArcaneItem(
-  child: ArcaneText('Clickable item row'),
+  child: Text('Clickable item row'),
   href: '/docs',
 )''',
     previewBuilder: _buildItemDemo,
@@ -369,7 +369,7 @@ List<DemoDefinition> demoDefinitions = <DemoDefinition>[
     sourcePath: 'lib/component/navigation/nav_dropdown.dart',
     code: '''ArcaneNavDropdown(
   label: 'Products',
-  content: const ArcaneBox(children: [ArcaneText('Core UI')]),
+  content: const ArcaneBox(children: [Text('Core UI')]),
 )''',
     previewBuilder: _buildNavigationMenuDemo,
   ),
@@ -389,8 +389,8 @@ List<DemoDefinition> demoDefinitions = <DemoDefinition>[
     symbolName: 'ArcanePopover',
     sourcePath: 'lib/component/dialog/popover.dart',
     code: '''ArcanePopover(
-  trigger: ArcaneButton.secondary(label: 'Open popover', onPressed: () {}),
-  content: const ArcaneCard(child: ArcaneText('Popover content')),
+  trigger: Button.secondary(label: 'Open popover', onPressed: () {}),
+  content: const Card(child: Text('Popover content')),
 )''',
     previewBuilder: _buildPopoverDemo,
   ),
@@ -420,8 +420,8 @@ List<DemoDefinition> demoDefinitions = <DemoDefinition>[
     symbolName: 'ArcaneResizable',
     sourcePath: 'lib/component/layout/resizable.dart',
     code: '''ArcaneResizable.sidebarLayout(
-  sidebar: const ArcaneCard(child: ArcaneText('Sidebar')),
-  content: const ArcaneCard(child: ArcaneText('Main content')),
+  sidebar: const Card(child: Text('Sidebar')),
+  content: const Card(child: Text('Main content')),
 )''',
     previewBuilder: _buildResizableDemo,
   ),
@@ -431,7 +431,7 @@ List<DemoDefinition> demoDefinitions = <DemoDefinition>[
     sourcePath: 'lib/component/layout/scroll_area.dart',
     code: '''ArcaneScrollArea.vertical(
   height: '150px',
-  child: ArcaneBox(children: const [ArcaneText('Row 1'), ArcaneText('Row 2')]),
+  child: ArcaneBox(children: const [Text('Row 1'), Text('Row 2')]),
 )''',
     previewBuilder: _buildScrollAreaDemo,
   ),
@@ -463,7 +463,7 @@ List<DemoDefinition> demoDefinitions = <DemoDefinition>[
     sourcePath: 'lib/component/layout/sheet.dart',
     code: '''ArcaneSheet.bottom(
   isOpen: true,
-  child: const ArcaneText('Sheet content'),
+  child: const Text('Sheet content'),
 )''',
     previewBuilder: _buildSheetDemo,
   ),
@@ -525,12 +525,12 @@ List<DemoDefinition> demoDefinitions = <DemoDefinition>[
   ),
   DemoDefinition(
     componentType: 'table',
-    symbolName: 'ArcaneStaticTable',
-    sourcePath: 'lib/component/data/static_table.dart',
-    code: '''ArcaneStaticTable(
+    symbolName: 'StaticTable',
+    sourcePath: 'lib/component/view/static_table.dart',
+    code: '''StaticTable(
   headers: const ['Name', 'Role'],
   rows: const [
-    [ArcaneText('Alex'), ArcaneText('Admin')],
+    [Text('Alex'), Text('Admin')],
   ],
 )''',
     previewBuilder: _buildTableDemo,
@@ -541,16 +541,16 @@ List<DemoDefinition> demoDefinitions = <DemoDefinition>[
     sourcePath: 'lib/component/layout/tabs.dart',
     code: '''ArcaneTabs(
   tabs: const [
-    ArcaneTabItem(label: 'Account', content: ArcaneText('Account tab content')),
+    ArcaneTabItem(label: 'Account', content: Text('Account tab content')),
   ],
 )''',
     previewBuilder: _buildTabsDemo,
   ),
   DemoDefinition(
     componentType: 'textarea',
-    symbolName: 'ArcaneTextArea',
+    symbolName: 'TextArea',
     sourcePath: 'lib/component/input/text_input.dart',
-    code: '''ArcaneTextArea(
+    code: '''TextArea(
   label: 'Message',
   placeholder: 'Type your message',
   onChange: (String value) {},
@@ -588,15 +588,15 @@ List<DemoDefinition> demoDefinitions = <DemoDefinition>[
     sourcePath: 'lib/component/dialog/tooltip.dart',
     code: '''ArcaneTooltip(
   text: 'This is a tooltip',
-  child: ArcaneButton.secondary(label: 'Hover target', onPressed: () {}),
+  child: Button.secondary(label: 'Hover target', onPressed: () {}),
 )''',
     previewBuilder: _buildTooltipDemo,
   ),
   DemoDefinition(
     componentType: 'typography',
-    symbolName: 'ArcaneTypography',
-    sourcePath: 'lib/component/typography/headline.dart',
-    code: '''const ArcaneHeadline.h2('Typography Preview')''',
+    symbolName: 'Text',
+    sourcePath: 'lib/component/typography/text.dart',
+    code: '''const Text.heading2('Typography Preview')''',
     previewBuilder: _buildTypographyDemo,
   ),
 ];
@@ -646,7 +646,7 @@ Widget _buildAlertDialogDemo() {
 Widget _buildAspectRatioDemo() {
   return _surface(
     ArcaneAspectRatio.video(
-      child: const ArcaneCard(child: ArcaneText('16:9 container')),
+      child: const Card(child: Text('16:9 container')),
     ),
   );
 }
@@ -682,16 +682,16 @@ Widget _buildBreadcrumbDemo() {
 
 Widget _buildButtonDemo() {
   return _surface(
-    ArcaneButton.primary(label: 'Primary Action', onPressed: () {}),
+    Button.primary(label: 'Primary Action', onPressed: () {}),
   );
 }
 
 Widget _buildButtonGroupDemo() {
   return _surface(
-    ArcaneButtonGroup(
+    ButtonGroup(
       children: [
-        ArcaneButton.secondary(label: 'Back', onPressed: () {}),
-        ArcaneButton.primary(label: 'Continue', onPressed: () {}),
+        Button.secondary(label: 'Back', onPressed: () {}),
+        Button.primary(label: 'Continue', onPressed: () {}),
       ],
     ),
   );
@@ -704,17 +704,17 @@ Widget _buildCalendarDemo() {
 }
 
 Widget _buildCardDemo() {
-  return _surface(const ArcaneCard.elevated(child: ArcaneText('Card content')));
+  return _surface(const Card.elevated(child: Text('Card content')));
 }
 
 Widget _buildCarouselDemo() {
   return _surface(
-    ArcaneCardCarousel(
+    CardCarousel(
       gap: 12,
       children: const [
-        ArcaneCard(child: ArcaneText('Slide 1')),
-        ArcaneCard(child: ArcaneText('Slide 2')),
-        ArcaneCard(child: ArcaneText('Slide 3')),
+        Card(child: Text('Slide 1')),
+        Card(child: Text('Slide 2')),
+        Card(child: Text('Slide 3')),
       ],
     ),
   );
@@ -747,8 +747,8 @@ Widget _buildCheckboxDemo() {
 Widget _buildCollapsibleDemo() {
   return _surface(
     const ArcaneDisclosure(
-      summary: ArcaneText('Toggle content'),
-      child: ArcaneText('This disclosure is rendered by the active theme.'),
+      summary: Text('Toggle content'),
+      child: Text('This disclosure is rendered by the active theme.'),
       open: true,
     ),
   );
@@ -790,7 +790,7 @@ Widget _buildCommandDemo() {
 Widget _buildContextMenuDemo() {
   return _surface(
     ArcaneContextMenu(
-      trigger: ArcaneButton.secondary(
+      trigger: Button.secondary(
         label: 'Right-click me',
         onPressed: () {},
       ),
@@ -806,24 +806,24 @@ Widget _buildContextMenuDemo() {
 
 Widget _buildDataTableDemo() {
   return _surface(
-    ArcaneDataTable(
+    DataTable(
       items: const [
         _DemoUser(name: 'Alex', role: 'Admin', status: 'Active'),
         _DemoUser(name: 'Sam', role: 'Editor', status: 'Pending'),
         _DemoUser(name: 'Rae', role: 'Viewer', status: 'Active'),
       ],
       columns: [
-        ArcaneDataColumn(
+        DataColumn(
           header: 'Name',
-          builder: (_DemoUser user) => ArcaneText(user.name),
+          builder: (_DemoUser user) => Text(user.name),
         ),
-        ArcaneDataColumn(
+        DataColumn(
           header: 'Role',
-          builder: (_DemoUser user) => ArcaneText(user.role),
+          builder: (_DemoUser user) => Text(user.role),
         ),
-        ArcaneDataColumn(
+        DataColumn(
           header: 'Status',
-          builder: (_DemoUser user) => ArcaneText(user.status),
+          builder: (_DemoUser user) => Text(user.status),
         ),
       ],
     ),
@@ -845,10 +845,10 @@ Widget _buildDialogDemo() {
   return _surface(
     ArcaneDialog(
       title: 'Confirm Settings',
-      child: const ArcaneText('Apply changes to your current workspace?'),
+      child: const Text('Apply changes to your current workspace?'),
       actions: [
-        ArcaneButton.secondary(label: 'Cancel', onPressed: () {}),
-        ArcaneButton.primary(label: 'Apply', onPressed: () {}),
+        Button.secondary(label: 'Cancel', onPressed: () {}),
+        Button.primary(label: 'Apply', onPressed: () {}),
       ],
     ),
     minHeight: '220px',
@@ -859,7 +859,7 @@ Widget _buildDirectionDemo() {
   return _surface(
     const ArcaneDirection(
       value: ArcaneDirectionValue.rtl,
-      children: [ArcaneText('Right-to-left direction preview')],
+      children: [Text('Right-to-left direction preview')],
     ),
   );
 }
@@ -870,8 +870,8 @@ Widget _buildDrawerDemo() {
       isOpen: true,
       showBackdrop: false,
       closeOnBackdropClick: false,
-      header: const ArcaneText('Navigation'),
-      child: const ArcaneText('Drawer content'),
+      header: const Text('Navigation'),
+      child: const Text('Drawer content'),
     ),
     minHeight: '220px',
   );
@@ -880,7 +880,7 @@ Widget _buildDrawerDemo() {
 Widget _buildDropdownMenuDemo() {
   return _surface(
     ArcaneDropdownMenu(
-      trigger: ArcaneButton.secondary(label: 'Open menu', onPressed: () {}),
+      trigger: Button.secondary(label: 'Open menu', onPressed: () {}),
       items: const [
         MenuItemAction(label: 'Profile'),
         MenuItemAction(label: 'Billing'),
@@ -900,7 +900,7 @@ Widget _buildFieldDemo() {
     ArcaneFieldWrapper(
       labelText: 'Email',
       description: 'We only use this for account notices.',
-      field: ArcaneTextInput(
+      field: TextInput(
         placeholder: 'name@company.com',
         onChange: (String value) {},
       ),
@@ -911,9 +911,9 @@ Widget _buildFieldDemo() {
 Widget _buildHoverCardDemo() {
   return _surface(
     ArcaneHoverCard.hovercard(
-      trigger: ArcaneButton.secondary(label: 'Hover card', onPressed: () {}),
-      content: const ArcaneCard(
-        child: ArcaneText('A lightweight profile or preview card.'),
+      trigger: Button.secondary(label: 'Hover card', onPressed: () {}),
+      content: const Card(
+        child: Text('A lightweight profile or preview card.'),
       ),
       isOpen: true,
     ),
@@ -923,7 +923,7 @@ Widget _buildHoverCardDemo() {
 
 Widget _buildInputDemo() {
   return _surface(
-    ArcaneTextInput(
+    TextInput(
       label: 'Email',
       placeholder: 'name@example.com',
       onChange: (String value) {},
@@ -935,8 +935,8 @@ Widget _buildInputGroupDemo() {
   return _surface(
     ArcaneInputGroup(
       children: [
-        ArcaneTextInput(placeholder: 'Search', onChange: (String value) {}),
-        ArcaneButton.primary(label: 'Go', onPressed: () {}),
+        TextInput(placeholder: 'Search', onChange: (String value) {}),
+        Button.primary(label: 'Go', onPressed: () {}),
       ],
     ),
   );
@@ -950,7 +950,7 @@ Widget _buildInputOtpDemo() {
 
 Widget _buildItemDemo() {
   return _surface(
-    const ArcaneItem(child: ArcaneText('Clickable item row'), href: '/docs'),
+    const ArcaneItem(child: Text('Clickable item row'), href: '/docs'),
   );
 }
 
@@ -996,9 +996,9 @@ Widget _buildNavigationMenuDemo() {
           gap: Gap.sm,
         ),
         children: [
-          ArcaneText('Core UI'),
-          ArcaneText('Documentation'),
-          ArcaneText('Templates'),
+          Text('Core UI'),
+          Text('Documentation'),
+          Text('Templates'),
         ],
       ),
     ),
@@ -1019,8 +1019,8 @@ Widget _buildPopoverDemo() {
   return _surface(
     ArcanePopover(
       isOpen: true,
-      trigger: ArcaneButton.secondary(label: 'Open popover', onPressed: () {}),
-      content: const ArcaneCard(child: ArcaneText('Popover content')),
+      trigger: Button.secondary(label: 'Open popover', onPressed: () {}),
+      content: const Card(child: Text('Popover content')),
     ),
     minHeight: '180px',
   );
@@ -1047,8 +1047,8 @@ Widget _buildRadioGroupDemo() {
 Widget _buildResizableDemo() {
   return _surface(
     ArcaneResizable.sidebarLayout(
-      sidebar: const ArcaneCard(child: ArcaneText('Sidebar')),
-      content: const ArcaneCard(child: ArcaneText('Main content')),
+      sidebar: const Card(child: Text('Sidebar')),
+      content: const Card(child: Text('Main content')),
     ),
     minHeight: '220px',
   );
@@ -1065,13 +1065,13 @@ Widget _buildScrollAreaDemo() {
           gap: Gap.sm,
         ),
         children: const [
-          ArcaneText('Row 1'),
-          ArcaneText('Row 2'),
-          ArcaneText('Row 3'),
-          ArcaneText('Row 4'),
-          ArcaneText('Row 5'),
-          ArcaneText('Row 6'),
-          ArcaneText('Row 7'),
+          Text('Row 1'),
+          Text('Row 2'),
+          Text('Row 3'),
+          Text('Row 4'),
+          Text('Row 5'),
+          Text('Row 6'),
+          Text('Row 7'),
         ],
       ),
     ),
@@ -1103,7 +1103,7 @@ Widget _buildSheetDemo() {
       isOpen: true,
       showBackdrop: false,
       showCloseButton: false,
-      child: const ArcaneText('Sheet content'),
+      child: const Text('Sheet content'),
     ),
     minHeight: '220px',
   );
@@ -1114,8 +1114,8 @@ Widget _buildSidebarDemo() {
     ArcaneSidebar(
       width: 240,
       showCollapseToggle: false,
-      header: const ArcaneText('Workspace'),
-      footer: const ArcaneText('v2.9'),
+      header: const Text('Workspace'),
+      footer: const Text('v2.9'),
       children: const [
         ArcaneSidebarItem(label: 'Dashboard', selected: true),
         ArcaneSidebarItem(label: 'Projects'),
@@ -1146,7 +1146,7 @@ Widget _buildSonnerDemo() {
       ),
       children: [
         const ArcaneSonner(position: ToastPosition.topRight),
-        ArcaneButton.secondary(
+        Button.secondary(
           label: 'Show toast',
           onPressed: () {
             ArcaneSonner.success(
@@ -1177,12 +1177,12 @@ Widget _buildSwitchDemo() {
 
 Widget _buildTableDemo() {
   return _surface(
-    ArcaneStaticTable(
+    StaticTable(
       headers: const ['Name', 'Role'],
       rows: const [
-        [ArcaneText('Alex'), ArcaneText('Admin')],
-        [ArcaneText('Sam'), ArcaneText('Editor')],
-        [ArcaneText('Rae'), ArcaneText('Viewer')],
+        [Text('Alex'), Text('Admin')],
+        [Text('Sam'), Text('Editor')],
+        [Text('Rae'), Text('Viewer')],
       ],
     ),
     minHeight: '220px',
@@ -1195,11 +1195,11 @@ Widget _buildTabsDemo() {
       tabs: const [
         ArcaneTabItem(
           label: 'Account',
-          content: ArcaneText('Account tab content'),
+          content: Text('Account tab content'),
         ),
         ArcaneTabItem(
           label: 'Billing',
-          content: ArcaneText('Billing tab content'),
+          content: Text('Billing tab content'),
         ),
       ],
     ),
@@ -1208,7 +1208,7 @@ Widget _buildTabsDemo() {
 
 Widget _buildTextareaDemo() {
   return _surface(
-    ArcaneTextArea(
+    TextArea(
       label: 'Message',
       placeholder: 'Type your message',
       rows: 4,
@@ -1241,22 +1241,22 @@ Widget _buildTooltipDemo() {
   return _surface(
     ArcaneTooltip(
       text: 'This is a tooltip',
-      child: ArcaneButton.secondary(label: 'Hover target', onPressed: () {}),
+      child: Button.secondary(label: 'Hover target', onPressed: () {}),
     ),
   );
 }
 
 Widget _buildTypographyDemo() {
   return _surface(
-    const ArcaneBox(
-      style: ArcaneStyleData(
+    ArcaneBox(
+      style: const ArcaneStyleData(
         display: Display.flex,
         flexDirection: FlexDirection.column,
         gap: Gap.sm,
       ),
       children: [
-        ArcaneHeadline.h2('Typography Preview'),
-        ArcaneSubheadline('Readable hierarchy and spacing.'),
+        const Text.heading2('Typography Preview'),
+        const Text.body('Readable hierarchy and spacing.'),
       ],
     ),
   );
@@ -1274,7 +1274,7 @@ Widget _surface(Widget child, {String minHeight = '140px'}) {
       alignItems: AlignItems.center,
       justifyContent: JustifyContent.center,
     ),
-    children: <Widget>[child],
+    children: [child],
   );
 }
 

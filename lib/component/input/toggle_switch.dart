@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 import 'package:jaspr/dom.dart' as dom;
 
 export '../../core/props/toggle_switch_props.dart'
@@ -7,7 +8,7 @@ export '../../core/props/toggle_switch_props.dart'
 import '../../core/theme_provider.dart';
 
 /// A toggle switch component.
-class ArcaneToggleSwitch extends StatelessComponent {
+class ArcaneToggleSwitch extends StatelessWidget {
   final bool value;
   final void Function(bool)? onChanged;
   final bool disabled;
@@ -77,7 +78,7 @@ class ArcaneToggleSwitch extends StatelessComponent {
         color = ColorVariant.destructive;
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.toggleSwitch(ToggleSwitchProps(
       value: value,
       onChanged: onChanged,
@@ -91,7 +92,7 @@ class ArcaneToggleSwitch extends StatelessComponent {
 }
 
 /// A toggle button group for switching between options.
-class ArcaneToggleButtonGroup extends StatelessComponent {
+class ArcaneToggleButtonGroup extends StatelessWidget {
   final List<String> options;
   final int selectedIndex;
   final void Function(int)? onChanged;
@@ -106,7 +107,7 @@ class ArcaneToggleButtonGroup extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     final (height, paddingH, paddingV, fontSize) = switch (size) {
       ComponentSize.sm => ('36px', '10px', '6px', '14px'),
       ComponentSize.md => ('40px', '12px', '6px', '14px'),

@@ -1,6 +1,7 @@
 import 'dart:async';
 
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
@@ -18,9 +19,9 @@ export '../../core/props/floating_props.dart'
 ///
 /// Use the named constructors for common patterns or the default constructor
 /// for full control.
-class ArcaneHoverCard extends StatefulComponent {
-  final Component trigger;
-  final Component? content;
+class ArcaneHoverCard extends StatefulWidget {
+  final Widget trigger;
+  final Widget? content;
   final String? textContent;
   final FloatingTrigger triggerType;
   final FloatingPosition position;
@@ -56,7 +57,7 @@ class ArcaneHoverCard extends StatefulComponent {
   ///
   /// Best for providing hints or descriptions for UI elements.
   const ArcaneHoverCard.tooltip({
-    required Component child,
+    required Widget child,
     required String this.textContent,
     this.position = FloatingPosition.top,
     this.maxWidth = 250,
@@ -75,8 +76,8 @@ class ArcaneHoverCard extends StatefulComponent {
 
   /// Creates a tooltip with custom component content.
   const ArcaneHoverCard.tooltipCustom({
-    required Component child,
-    required Component this.content,
+    required Widget child,
+    required Widget this.content,
     this.position = FloatingPosition.top,
     this.maxWidth,
     super.key,
@@ -98,7 +99,7 @@ class ArcaneHoverCard extends StatefulComponent {
   /// persist until dismissed.
   const ArcaneHoverCard.popover({
     required this.trigger,
-    required Component this.content,
+    required Widget this.content,
     this.position = FloatingPosition.bottom,
     this.isOpen,
     this.onOpenChange,
@@ -119,7 +120,7 @@ class ArcaneHoverCard extends StatefulComponent {
   /// like user profile previews or link previews.
   const ArcaneHoverCard.hovercard({
     required this.trigger,
-    required Component this.content,
+    required Widget this.content,
     this.position = FloatingPosition.top,
     this.showArrow = true,
     this.offset = 8,
@@ -208,7 +209,7 @@ class _ArcaneHoverCardState extends State<ArcaneHoverCard> {
   }
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     final bool isTextTooltip =
         component.textContent != null && component.content == null;
 

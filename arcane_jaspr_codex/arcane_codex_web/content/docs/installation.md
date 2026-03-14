@@ -72,7 +72,7 @@ class App extends StatelessWidget {
     return ArcaneApp(
       stylesheet: const ShadcnStylesheet(theme: ShadcnTheme.midnight),
       brightness: Brightness.dark,
-      child: const ArcaneText('Ready'),
+      child: const Text('Ready'),
     );
   }
 }

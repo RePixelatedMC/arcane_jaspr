@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../shared/shared.dart';
 
@@ -34,7 +35,7 @@ class SearchProps {
   final bool showClear;
   final bool showIcon;
   final bool loading;
-  final Component? icon;
+  final Widget? icon;
   final bool autofocus;
   final bool disabled;
   final ComponentSize size;
@@ -77,7 +78,7 @@ class SearchProps {
     bool? showClear,
     bool? showIcon,
     bool? loading,
-    Component? icon,
+    Widget? icon,
     bool? autofocus,
     bool? disabled,
     ComponentSize? size,
@@ -121,5 +122,5 @@ class SearchProps {
 /// Mixin defining the renderer method for search input components.
 mixin SearchRendererContract {
   /// Render a search input component.
-  Component search(SearchProps props);
+  Widget search(SearchProps props);
 }

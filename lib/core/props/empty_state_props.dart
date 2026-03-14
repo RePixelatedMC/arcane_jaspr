@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 enum EmptyStateStyleVariant {
   centered,
@@ -14,11 +15,11 @@ enum EmptyStateSizeVariant {
 
 /// Empty state component properties.
 class EmptyStateProps {
-  final Component? icon;
+  final Widget? icon;
   final String title;
   final String? description;
-  final Component? action;
-  final Component? secondaryAction;
+  final Widget? action;
+  final Widget? secondaryAction;
   final EmptyStateStyleVariant style;
   final EmptyStateSizeVariant size;
 
@@ -33,11 +34,11 @@ class EmptyStateProps {
   });
 
   EmptyStateProps copyWith({
-    Component? icon,
+    Widget? icon,
     String? title,
     String? description,
-    Component? action,
-    Component? secondaryAction,
+    Widget? action,
+    Widget? secondaryAction,
     EmptyStateStyleVariant? style,
     EmptyStateSizeVariant? size,
   }) {
@@ -60,5 +61,5 @@ class EmptyStateProps {
 /// Mixin defining the renderer methods for empty state components.
 mixin EmptyStateRendererContract {
   /// Renders an empty state placeholder component.
-  Component emptyState(EmptyStateProps props);
+  Widget emptyState(EmptyStateProps props);
 }

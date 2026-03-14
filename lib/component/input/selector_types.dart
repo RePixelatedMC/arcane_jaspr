@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 /// Size variants for the selector.
 enum SelectorSize {
@@ -20,7 +21,7 @@ class ArcaneSelectorOption<T> {
   final String label;
   final String? subtitle;
   final String? description;
-  final Component? icon;
+  final Widget? icon;
   final bool disabled;
   final String? group;
   final List<String>? searchKeywords;
@@ -41,7 +42,7 @@ class ArcaneSelectorOption<T> {
 class ArcaneSelectorGroup<T> {
   final String label;
   final List<ArcaneSelectorOption<T>> options;
-  final Component? icon;
+  final Widget? icon;
 
   const ArcaneSelectorGroup({
     required this.label,

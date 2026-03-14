@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
@@ -6,10 +7,10 @@ export '../../core/props/sidebar_props.dart'
     show SidebarItemProps, SidebarGroupProps, SidebarSubMenuProps, SidebarSectionProps;
 
 /// Sidebar navigation component.
-class ArcaneSidebar extends StatefulComponent {
-  final List<Component> children;
-  final Component? header;
-  final Component? footer;
+class ArcaneSidebar extends StatefulWidget {
+  final List<Widget> children;
+  final Widget? header;
+  final Widget? footer;
   final bool collapsed;
   final void Function(bool collapsed)? onCollapseChanged;
   final double width;
@@ -59,7 +60,7 @@ class _ArcaneSidebarState extends State<ArcaneSidebar> {
   }
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.sidebar(SidebarProps(
       children: component.children,
       header: component.header,
@@ -76,9 +77,9 @@ class _ArcaneSidebarState extends State<ArcaneSidebar> {
 }
 
 /// Sidebar item group with optional label.
-class ArcaneSidebarGroup extends StatelessComponent {
+class ArcaneSidebarGroup extends StatelessWidget {
   final String? label;
-  final List<Component> children;
+  final List<Widget> children;
   final bool collapsed;
 
   const ArcaneSidebarGroup({
@@ -89,7 +90,7 @@ class ArcaneSidebarGroup extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.sidebarGroup(SidebarGroupProps(
       label: label,
       children: children,
@@ -99,9 +100,9 @@ class ArcaneSidebarGroup extends StatelessComponent {
 }
 
 /// Sidebar navigation item.
-class ArcaneSidebarItem extends StatelessComponent {
+class ArcaneSidebarItem extends StatelessWidget {
   final String label;
-  final Component? icon;
+  final Widget? icon;
   final void Function()? onTap;
   final String? href;
   final bool selected;
@@ -124,7 +125,7 @@ class ArcaneSidebarItem extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.sidebarItem(SidebarItemProps(
       label: label,
       icon: icon,
@@ -140,8 +141,8 @@ class ArcaneSidebarItem extends StatelessComponent {
 }
 
 /// Content that only displays when sidebar is expanded.
-class ArcaneSidebarExpanded extends StatelessComponent {
-  final List<Component> children;
+class ArcaneSidebarExpanded extends StatelessWidget {
+  final List<Widget> children;
 
   const ArcaneSidebarExpanded({
     required this.children,
@@ -149,14 +150,14 @@ class ArcaneSidebarExpanded extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.sidebarExpanded(children);
   }
 }
 
 /// Content that only displays when sidebar is collapsed.
-class ArcaneSidebarCollapsed extends StatelessComponent {
-  final List<Component> children;
+class ArcaneSidebarCollapsed extends StatelessWidget {
+  final List<Widget> children;
 
   const ArcaneSidebarCollapsed({
     required this.children,
@@ -164,17 +165,17 @@ class ArcaneSidebarCollapsed extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.sidebarCollapsed(children);
   }
 }
 
 /// Visual separator between sidebar groups or items.
-class ArcaneSidebarSeparator extends StatelessComponent {
+class ArcaneSidebarSeparator extends StatelessWidget {
   const ArcaneSidebarSeparator({super.key});
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.sidebarSeparator();
   }
 }
@@ -183,10 +184,10 @@ class ArcaneSidebarSeparator extends StatelessComponent {
 ///
 /// Works on static sites without hydration. The `defaultOpen` prop
 /// controls whether the section starts expanded.
-class ArcaneSidebarSubMenu extends StatelessComponent {
+class ArcaneSidebarSubMenu extends StatelessWidget {
   final String label;
-  final Component? icon;
-  final List<Component> children;
+  final Widget? icon;
+  final List<Widget> children;
   final bool defaultOpen;
   final bool collapsed;
   final String? badge;
@@ -202,7 +203,7 @@ class ArcaneSidebarSubMenu extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.sidebarSubMenu(SidebarSubMenuProps(
       label: label,
       icon: icon,
@@ -217,10 +218,10 @@ class ArcaneSidebarSubMenu extends StatelessComponent {
 /// Fixed sidebar section that is always expanded.
 ///
 /// For sections with a header that don't need collapsing behavior.
-class ArcaneSidebarSection extends StatelessComponent {
+class ArcaneSidebarSection extends StatelessWidget {
   final String label;
-  final Component? icon;
-  final List<Component> children;
+  final Widget? icon;
+  final List<Widget> children;
 
   const ArcaneSidebarSection({
     required this.label,
@@ -230,7 +231,7 @@ class ArcaneSidebarSection extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.sidebarSection(SidebarSectionProps(
       label: label,
       icon: icon,

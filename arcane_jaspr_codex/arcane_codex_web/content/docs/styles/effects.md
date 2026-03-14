@@ -43,7 +43,7 @@ Box shadow presets.
 
 ```dart
 // Card shadow
-ArcaneCard(
+Card(
   style: const ArcaneStyleData(
     shadow: Shadow.md,
   ),
@@ -51,7 +51,7 @@ ArcaneCard(
 )
 
 // Glow effect
-ArcaneButton.primary(
+Button.primary(
   style: const ArcaneStyleData(
     shadow: Shadow.glowAccent,
   ),
@@ -101,7 +101,7 @@ ArcaneBox(
 )
 
 // Hover effect
-ArcaneButton(
+Button(
   style: ArcaneStyleData(
     background: isHovered ? Background.accentContainer : Background.surface,
     transition: Transition.colors,
@@ -133,7 +133,7 @@ CSS transform presets.
 
 ```dart
 // Hover lift effect
-ArcaneCard(
+Card(
   style: ArcaneStyleData(
     transform: isHovered ? Transform.hoverLift : Transform.none,
     transition: Transition.transform,
@@ -214,7 +214,7 @@ Mouse cursor styles.
 ### Usage
 
 ```dart
-ArcaneButton(
+Button(
   style: ArcaneStyleData(
     cursor: isDisabled ? Cursor.notAllowed : Cursor.pointer,
   ),
@@ -259,7 +259,7 @@ Text selection behavior.
 ### Usage
 
 ```dart
-ArcaneButton(
+Button(
   style: const ArcaneStyleData(
     userSelect: UserSelect.none,
   ),
@@ -310,7 +310,7 @@ Animation easing functions.
 ### Card Hover Effect
 
 ```dart
-ArcaneCard(
+Card(
   style: ArcaneStyleData(
     shadow: isHovered ? Shadow.lg : Shadow.sm,
     transform: isHovered ? Transform.hoverLift : Transform.none,
@@ -361,7 +361,7 @@ ArcaneBox(
 ### Disabled State
 
 ```dart
-ArcaneButton(
+Button(
   style: ArcaneStyleData(
     opacity: isDisabled ? Opacity.disabled : Opacity.full,
     cursor: isDisabled ? Cursor.notAllowed : Cursor.pointer,
@@ -374,7 +374,7 @@ ArcaneButton(
 ### Glowing Accent Button
 
 ```dart
-ArcaneButton.primary(
+Button.primary(
   style: ArcaneStyleData(
     shadow: isHovered ? Shadow.glowAccent : Shadow.none,
     transition: Transition.shadow,

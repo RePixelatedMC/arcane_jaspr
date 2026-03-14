@@ -10,72 +10,70 @@ class SelectionExamples extends StatefulWidget {
 class _SelectionExamplesState extends State<SelectionExamples> {
   String _framework = 'jaspr';
   String _tier = 'starter';
-  String _role = 'admin';
 
   @override
-  Widget build(BuildContext context) {
-    return ArcaneApp(
-      stylesheet: const ShadcnStylesheet(theme: ShadcnTheme.midnight),
-      brightness: Brightness.dark,
-      child: ArcaneBox(
-        style: const ArcaneStyleData(
-          display: Display.flex,
-          flexDirection: FlexDirection.column,
-          gap: Gap.lg,
-        ),
+  Widget build(BuildContext context) => ArcaneApp(
+    stylesheet: const ShadcnStylesheet(theme: ShadcnTheme.midnight),
+    brightness: Brightness.dark,
+    child: Screen(
+      title: 'Selection',
+      subtitle: 'Selector, radio cards, and data table',
+      child: Collection(
         children: [
-          ArcaneCombobox(
-            value: _framework,
-            options: const [
-              ComboboxOption(value: 'jaspr', label: 'Jaspr'),
-              ComboboxOption(value: 'flutter', label: 'Flutter'),
-            ],
-            onChanged: (String? value) {
-              if (value != null) {
-                setState(() => _framework = value);
-              }
-            },
-          ),
-          ArcaneRadioGroup(
-            value: _role,
-            options: const [
-              RadioOption(value: 'admin', label: 'Admin'),
-              RadioOption(value: 'editor', label: 'Editor'),
-            ],
-            onChanged: (String value) {
-              setState(() => _role = value);
-            },
-          ),
-          ArcaneSelect(
-            value: _tier,
-            options: const [
-              ArcaneSelectOption(label: 'Starter', value: 'starter'),
-              ArcaneSelectOption(label: 'Pro', value: 'pro'),
-            ],
-            onChange: (String value) {
-              setState(() => _tier = value);
-            },
-          ),
-          ArcaneDataTable(
-            items: const [
-              _SmokeUser(name: 'Alex', role: 'Admin'),
-              _SmokeUser(name: 'Sam', role: 'Editor'),
-            ],
-            columns: [
-              ArcaneDataColumn(
-                header: 'Name',
-                builder: (_SmokeUser user) => ArcaneText(user.name),
+          Section(
+            titleText: 'Framework',
+            card: true,
+            children: [
+              Selector(
+                value: _framework,
+                values: const ['jaspr', 'flutter'],
+                onChanged: (String? value) {
+                  if (value != null) {
+                    setState(() {
+                      _framework = value;
+                    });
+                  }
+                },
+                labelBuilder: (String entry) => entry,
               ),
-              ArcaneDataColumn(
-                header: 'Role',
-                builder: (_SmokeUser user) => ArcaneText(user.role),
+              RadioCards(
+                value: _tier,
+                values: const ['starter', 'pro'],
+                onChanged: (String value) {
+                  setState(() {
+                    _tier = value;
+                  });
+                },
+                labelBuilder: (String entry) => entry,
+              ),
+            ],
+          ),
+          Section(
+            titleText: 'Accounts',
+            card: true,
+            children: [
+              DataTable(
+                items: const [
+                  _SmokeUser(name: 'Alex', role: 'Admin'),
+                  _SmokeUser(name: 'Sam', role: 'Editor'),
+                ],
+                columns: [
+                  DataColumn(
+                    header: 'Name',
+                    builder: (_SmokeUser user) => Text(user.name),
+                  ),
+                  DataColumn(
+                    header: 'Role',
+                    builder: (_SmokeUser user) => Text(user.role),
+                  ),
+                ],
               ),
             ],
           ),
         ],
       ),
-    );
-  }
+    ),
+  );
 }
 
 class _SmokeUser {

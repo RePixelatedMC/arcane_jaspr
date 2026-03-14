@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 // ============================================================================
 // ENUMS
@@ -157,7 +158,7 @@ class CornerPromoToastProps {
   final int delayMs;
 
   /// Optional icon to display.
-  final Component? icon;
+  final Widget? icon;
 
   const CornerPromoToastProps({
     required this.title,
@@ -216,7 +217,7 @@ class PromoModalProps {
   final Duration? countdownDuration;
 
   /// Optional hero image component.
-  final Component? heroImage;
+  final Widget? heroImage;
 
   const PromoModalProps({
     required this.title,
@@ -268,7 +269,7 @@ class InlineHeroBannerProps {
   final bool dismissible;
 
   /// Optional icon to display.
-  final Component? icon;
+  final Widget? icon;
 
   const InlineHeroBannerProps({
     required this.message,
@@ -419,7 +420,7 @@ class ExpandingFabPromoProps {
   final void Function()? onDismiss;
 
   /// Optional icon to display on the FAB.
-  final Component? icon;
+  final Widget? icon;
 
   const ExpandingFabPromoProps({
     required this.title,
@@ -612,35 +613,35 @@ class FullscreenTakeoverProps {
 /// Mixin defining the renderer methods for promo components.
 mixin PromoRendererContract {
   /// Render a top announcement bar component.
-  Component topAnnouncementBar(TopAnnouncementBarProps props);
+  Widget topAnnouncementBar(TopAnnouncementBarProps props);
 
   /// Render a bottom floating banner component.
-  Component bottomFloatingBanner(BottomFloatingBannerProps props);
+  Widget bottomFloatingBanner(BottomFloatingBannerProps props);
 
   /// Render a corner promo toast component.
-  Component cornerPromoToast(CornerPromoToastProps props);
+  Widget cornerPromoToast(CornerPromoToastProps props);
 
   /// Render a promo modal component.
-  Component promoModal(PromoModalProps props);
+  Widget promoModal(PromoModalProps props);
 
   /// Render an inline hero banner component.
-  Component inlineHeroBanner(InlineHeroBannerProps props);
+  Widget inlineHeroBanner(InlineHeroBannerProps props);
 
   /// Render a sliding sidebar banner component.
-  Component slidingSidebarBanner(SlidingSidebarBannerProps props);
+  Widget slidingSidebarBanner(SlidingSidebarBannerProps props);
 
   /// Render a marquee ticker bar component.
-  Component marqueeTickerBar(MarqueeTickerBarProps props);
+  Widget marqueeTickerBar(MarqueeTickerBarProps props);
 
   /// Render an expanding FAB promo component.
-  Component expandingFabPromo(ExpandingFabPromoProps props);
+  Widget expandingFabPromo(ExpandingFabPromoProps props);
 
   /// Render a progress claim banner component.
-  Component progressClaimBanner(ProgressClaimBannerProps props);
+  Widget progressClaimBanner(ProgressClaimBannerProps props);
 
   /// Render a minimizable promo component.
-  Component minimizablePromo(MinimizablePromoProps props);
+  Widget minimizablePromo(MinimizablePromoProps props);
 
   /// Render a fullscreen takeover component.
-  Component fullscreenTakeover(FullscreenTakeoverProps props);
+  Widget fullscreenTakeover(FullscreenTakeoverProps props);
 }

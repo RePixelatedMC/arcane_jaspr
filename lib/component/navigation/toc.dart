@@ -1,8 +1,9 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, Text, UniqueKey, ValueKey, runApp;
 
 import '../html/div.dart';
 import '../html/arcane_link.dart';
-import '../html/arcane_text.dart';
+import '../typography/text.dart';
 import '../../util/arcane.dart';
 import '../../util/style_types/index.dart';
 
@@ -54,7 +55,7 @@ class TocEntry {
 ///
 /// Displays a hierarchical list of headings with anchor links.
 /// Supports tree-line visual connectors and active state highlighting.
-class ArcaneToc extends StatelessComponent {
+class ArcaneToc extends StatelessWidget {
   /// The list of TOC entries to display.
   final List<TocEntry> entries;
 
@@ -69,7 +70,7 @@ class ArcaneToc extends StatelessComponent {
 
   /// Optional component to wrap around the TOC content.
   /// Useful for integrating with jaspr_content's TableOfContents.
-  final Component? customContent;
+  final Widget? customContent;
 
   const ArcaneToc({
     this.entries = const [],
@@ -82,7 +83,7 @@ class ArcaneToc extends StatelessComponent {
 
   /// Create a TOC that wraps custom content (e.g., from jaspr_content).
   const ArcaneToc.custom({
-    required Component content,
+    required Widget content,
     this.title = 'On this page',
     this.showTreeLines = true,
     this.classPrefix = 'toc',
@@ -91,7 +92,7 @@ class ArcaneToc extends StatelessComponent {
        customContent = content;
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return ArcaneDiv(
       classes: classPrefix,
       styles: const ArcaneStyleData(
@@ -114,7 +115,7 @@ class ArcaneToc extends StatelessComponent {
             padding: PaddingPreset.bottomMd,
             borderBottom: BorderPreset.subtle,
           ),
-          children: [ArcaneText(title)],
+          children: [Text(title)],
         ),
 
         // Content
@@ -132,7 +133,7 @@ class ArcaneToc extends StatelessComponent {
     );
   }
 
-  Component _buildEntries(List<TocEntry> items, int depth) {
+  Widget _buildEntries(List<TocEntry> items, int depth) {
     if (items.isEmpty) return const ArcaneDiv(children: []);
 
     return ArcaneDiv(
@@ -149,7 +150,7 @@ class ArcaneToc extends StatelessComponent {
     );
   }
 
-  Component _buildEntry(TocEntry entry, int depth) {
+  Widget _buildEntry(TocEntry entry, int depth) {
     final bool hasChildren = entry.children.isNotEmpty;
 
     return ArcaneDiv(
@@ -169,7 +170,7 @@ class ArcaneToc extends StatelessComponent {
             borderRadius: Radius.sm,
             transition: Transition.allFast,
           ),
-          child: ArcaneText(entry.text),
+          child: Text(entry.text),
         ),
         if (hasChildren) _buildEntries(entry.children, depth + 1),
       ],

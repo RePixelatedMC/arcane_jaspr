@@ -1,11 +1,12 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 import '../shared/shared.dart';
 
 export '../shared/shared.dart' show ComponentSize, ColorVariant, StyleVariant;
 
 /// Icon button component properties.
 class IconButtonProps {
-  final Component icon;
+  final Widget icon;
   final void Function()? onPressed;
   final ColorVariant color;
   final StyleVariant style;
@@ -26,7 +27,7 @@ class IconButtonProps {
   });
 
   IconButtonProps copyWith({
-    Component? icon,
+    Widget? icon,
     void Function()? onPressed,
     ColorVariant? color,
     StyleVariant? style,
@@ -55,5 +56,5 @@ class IconButtonProps {
 /// Mixin defining the renderer method for icon button components.
 mixin IconButtonRendererContract {
   /// Render an icon button component.
-  Component iconButton(IconButtonProps props);
+  Widget iconButton(IconButtonProps props);
 }

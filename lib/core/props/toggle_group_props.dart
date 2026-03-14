@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 enum ToggleGroupVariantStyle {
   defaultVariant,
@@ -19,7 +20,7 @@ enum ToggleGroupSelectionType {
 /// Toggle group item data.
 class ToggleGroupItemProps {
   final String value;
-  final Component child;
+  final Widget child;
   final bool disabled;
 
   const ToggleGroupItemProps({
@@ -60,5 +61,5 @@ class ToggleGroupProps {
 
 /// Mixin defining the renderer methods for toggle group components.
 mixin ToggleGroupRendererContract {
-  Component toggleGroup(ToggleGroupProps props);
+  Widget toggleGroup(ToggleGroupProps props);
 }

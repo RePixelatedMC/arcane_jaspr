@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 export '../../core/props/radio_group_props.dart'
     show RadioGroupLayout, RadioGroupVariant, RadioOptionProps;
@@ -11,7 +12,7 @@ class RadioOption<T> {
   final String label;
   final String? description;
   final bool disabled;
-  final Component? icon;
+  final Widget? icon;
 
   const RadioOption({
     required this.value,
@@ -23,7 +24,7 @@ class RadioOption<T> {
 }
 
 /// A radio button group component.
-class ArcaneRadioGroup<T> extends StatelessComponent {
+class ArcaneRadioGroup<T> extends StatelessWidget {
   final T? value;
   final List<RadioOption<T>> options;
   final void Function(T value)? onChanged;
@@ -56,7 +57,7 @@ class ArcaneRadioGroup<T> extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     final List<RadioOptionProps<T>> optionProps = options
         .map((opt) => RadioOptionProps<T>(
               value: opt.value,

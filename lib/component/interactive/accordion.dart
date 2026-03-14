@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
@@ -6,7 +7,7 @@ import '../../core/theme_provider.dart';
 class ArcaneAccordionItem {
   final String title;
   final String content;
-  final Component? customContent;
+  final Widget? customContent;
   final bool defaultOpen;
 
   /// Optional category label (displayed as badge in FAQ variant).
@@ -29,7 +30,7 @@ class ArcaneAccordionItem {
 ///
 /// This is a StatelessComponent that delegates state management to the renderer,
 /// ensuring proper event handling in SSR environments.
-class ArcaneAccordion extends StatelessComponent {
+class ArcaneAccordion extends StatelessWidget {
   final List<ArcaneAccordionItem> items;
   final bool allowMultiple;
   final bool bordered;
@@ -59,7 +60,7 @@ class ArcaneAccordion extends StatelessComponent {
   }) : variant = AccordionVariant.faq;
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     // Determine which items should be open by default
     final Set<int> defaultOpenItems = {};
     for (int i = 0; i < items.length; i++) {
@@ -93,7 +94,7 @@ class ArcaneAccordion extends StatelessComponent {
 ///
 /// Simple wrapper for basic FAQ lists without categories.
 /// For FAQ lists with categories and colors, use [ArcaneAccordion.faq].
-class ArcaneFaqAccordion extends StatelessComponent {
+class ArcaneFaqAccordion extends StatelessWidget {
   final List<({String question, String answer})> faqs;
 
   const ArcaneFaqAccordion({
@@ -102,7 +103,7 @@ class ArcaneFaqAccordion extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return ArcaneAccordion(
       items: faqs
           .map((faq) => ArcaneAccordionItem(

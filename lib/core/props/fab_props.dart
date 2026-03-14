@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 import '../shared/shared.dart';
 
 export '../shared/shared.dart' show ComponentSize, ColorVariant;
@@ -14,7 +15,7 @@ enum FABPosition {
 
 /// FAB (Floating Action Button) component properties.
 class FABProps {
-  final Component icon;
+  final Widget icon;
   final String? label;
   final void Function()? onPressed;
   final ColorVariant color;
@@ -39,7 +40,7 @@ class FABProps {
   });
 
   FABProps copyWith({
-    Component? icon,
+    Widget? icon,
     String? label,
     void Function()? onPressed,
     ColorVariant? color,
@@ -72,5 +73,5 @@ class FABProps {
 /// Mixin defining the renderer method for floating action button components.
 mixin FabRendererContract {
   /// Render a floating action button component.
-  Component fab(FABProps props);
+  Widget fab(FABProps props);
 }

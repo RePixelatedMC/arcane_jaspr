@@ -1,10 +1,11 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 import 'package:jaspr/dom.dart' as dom;
 
 import '../../core/theme_provider.dart';
 
 /// Skeleton loading placeholder component.
-class ArcaneSkeleton extends StatelessComponent {
+class ArcaneSkeleton extends StatelessWidget {
   final SkeletonShape shape;
   final String? width;
   final String? height;
@@ -37,7 +38,7 @@ class ArcaneSkeleton extends StatelessComponent {
         borderRadius = null;
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.skeleton(SkeletonProps(
       shape: shape,
       width: width,
@@ -49,7 +50,7 @@ class ArcaneSkeleton extends StatelessComponent {
 }
 
 /// Skeleton card placeholder.
-class ArcaneSkeletonCard extends StatelessComponent {
+class ArcaneSkeletonCard extends StatelessWidget {
   final bool showAvatar;
   final int lines;
 
@@ -60,7 +61,7 @@ class ArcaneSkeletonCard extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return dom.div(
       classes: 'arcane-skeleton-card',
       styles: const dom.Styles(raw: {
@@ -116,7 +117,7 @@ class ArcaneSkeletonCard extends StatelessComponent {
 }
 
 /// Skeleton text block with multiple lines.
-class ArcaneSkeletonText extends StatelessComponent {
+class ArcaneSkeletonText extends StatelessWidget {
   final int lines;
   final String? lineHeight;
 
@@ -127,7 +128,7 @@ class ArcaneSkeletonText extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return dom.div(
       classes: 'arcane-skeleton-text',
       styles: const dom.Styles(raw: {

@@ -1,5 +1,5 @@
 import 'package:arcane_jaspr/arcane_jaspr.dart';
-import 'package:arcane_jaspr/html.dart' hide ArcaneText;
+import 'package:arcane_jaspr/html.dart';
 import 'package:jaspr/dom.dart' as dom;
 import 'package:jaspr/jaspr.dart' as jaspr;
 
@@ -65,7 +65,7 @@ class ComponentDemo extends StatelessWidget {
                     textColor: TextColor.primary,
                     margin: MarginPreset.bottomXs,
                   ),
-                  children: [ArcaneText(title!)],
+                  children: [Text(title!)],
                 ),
               if (description != null)
                 ArcaneDiv(
@@ -73,7 +73,7 @@ class ComponentDemo extends StatelessWidget {
                     fontSize: FontSize.sm,
                     textColor: TextColor.mutedForeground,
                   ),
-                  children: [ArcaneText(description!)],
+                  children: [Text(description!)],
                 ),
             ],
           ),
@@ -306,7 +306,7 @@ class ComponentDemoRow extends StatelessWidget {
               textColor: TextColor.mutedForeground,
               margin: MarginPreset.bottomSm,
             ),
-            children: [ArcaneText(title!)],
+            children: [Text(title!)],
           ),
         ArcaneDiv(
           styles: ArcaneStyleData(

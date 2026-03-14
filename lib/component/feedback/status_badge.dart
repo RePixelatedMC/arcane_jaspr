@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/props/status_badge_props.dart';
 import '../../core/theme_provider.dart';
@@ -14,7 +15,7 @@ export '../../core/props/status_badge_props.dart';
 /// 3. **Card overlay badges**: `.popular()`, `.recommended()`, `.isNew()`
 ///    - Solid background, positioned absolutely on cards
 /// 4. **Generic badges**: `.primary()`, `.secondary()`
-class ArcaneStatusBadge extends StatelessComponent {
+class ArcaneStatusBadge extends StatelessWidget {
   final String label;
   final ComponentSize size;
   final BadgeVariant variant;
@@ -23,7 +24,7 @@ class ArcaneStatusBadge extends StatelessComponent {
   final bool showPulse;
   final bool showDot;
   final String? accentColor;
-  final Component? icon;
+  final Widget? icon;
   final bool showDefaultIcon;
   final BadgePosition? position;
   final String? gradient;
@@ -392,7 +393,7 @@ class ArcaneStatusBadge extends StatelessComponent {
         labelColor = null;
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.statusBadge(StatusBadgeProps(
       label: label,
       size: size,

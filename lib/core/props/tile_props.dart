@@ -1,13 +1,14 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 /// Tile component properties.
 class TileProps {
   final String? title;
-  final Component? titleWidget;
+  final Widget? titleWidget;
   final String? subtitle;
-  final Component? subtitleWidget;
-  final Component? leading;
-  final Component? trailing;
+  final Widget? subtitleWidget;
+  final Widget? leading;
+  final Widget? trailing;
   final bool selected;
   final bool disabled;
   final bool dense;
@@ -32,7 +33,7 @@ class TileProps {
 /// Navigation tile component properties.
 class NavTileProps {
   final String label;
-  final Component? icon;
+  final Widget? icon;
   final bool selected;
   final bool disabled;
   final String? badge;
@@ -54,6 +55,6 @@ class NavTileProps {
 
 /// Mixin defining the renderer methods for tile components.
 mixin TileRendererContract {
-  Component tile(TileProps props);
-  Component navTile(NavTileProps props);
+  Widget tile(TileProps props);
+  Widget navTile(NavTileProps props);
 }

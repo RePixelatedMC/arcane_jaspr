@@ -1,12 +1,13 @@
 import 'package:jaspr/dom.dart' as dom;
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
 /// A dramatic full-screen takeover for major promotions.
 ///
 /// Use very sparingly - only for major sales events or first-time visitors.
-class ArcaneFullscreenTakeover extends StatefulComponent {
+class ArcaneFullscreenTakeover extends StatefulWidget {
   final String headline;
   final String subheadline;
   final String? description;
@@ -68,7 +69,7 @@ class _ArcaneFullscreenTakeoverState extends State<ArcaneFullscreenTakeover> {
   }
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     if (_isDismissed || !_isVisible) return const dom.div([]);
 
     return context.renderers.fullscreenTakeover(FullscreenTakeoverProps(

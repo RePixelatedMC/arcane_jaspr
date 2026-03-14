@@ -1,11 +1,11 @@
 ---
-title: ArcaneCard
+title: Card
 description: Live preview for card
 layout: kb
 component: card
 ---
 
-# ArcaneCard
+# Card
 
 Live preview for component 'card' in the current Arcane catalog.
 

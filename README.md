@@ -7,7 +7,7 @@ Use familiar Dart widget structure, keep semantic HTML output, and only drop to 
 
 ```yaml
 dependencies:
-  arcane_jaspr: ^3.0.0
+  arcane_jaspr: ^3.1.0
 ```
 
 ## Import Surfaces
@@ -59,8 +59,8 @@ class _AppState extends State<App> {
           gap: Gap.lg,
         ),
         children: [
-          ArcaneHeadline.h2('Count: $_count'),
-          ArcaneButton.primary(
+          Text.heading2('Count: $_count'),
+          Button.primary(
             label: 'Increment',
             onPressed: _increment,
           ),
@@ -74,7 +74,7 @@ class _AppState extends State<App> {
 ## Common Examples
 
 ```dart
-ArcaneTextInput(
+TextInput(
   label: 'Email',
   placeholder: 'you@example.com',
   type: TextInputType.email,

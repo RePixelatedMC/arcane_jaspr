@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import 'social_icons.dart';
 
@@ -23,7 +24,7 @@ class SocialProviderConfig {
   final String foregroundColor;
   final String borderColor;
   final String hoverBackgroundColor;
-  final Component Function() buildIcon;
+  final Widget Function() buildIcon;
 
   const SocialProviderConfig({
     required this.defaultLabel,

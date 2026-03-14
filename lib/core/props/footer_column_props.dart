@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import 'footer_props.dart';
 
@@ -21,9 +22,9 @@ class FooterColumnProps {
 
 /// Footer brand column component properties.
 class FooterBrandColumnProps {
-  final Component logo;
+  final Widget logo;
   final String? description;
-  final Component? bottomContent;
+  final Widget? bottomContent;
   final String? descriptionMaxWidth;
 
   const FooterBrandColumnProps({
@@ -40,6 +41,6 @@ class FooterBrandColumnProps {
 
 /// Mixin defining the renderer methods for footer column components.
 mixin FooterColumnRendererContract {
-  Component footerColumn(FooterColumnProps props);
-  Component footerBrandColumn(FooterBrandColumnProps props);
+  Widget footerColumn(FooterColumnProps props);
+  Widget footerBrandColumn(FooterBrandColumnProps props);
 }

@@ -1,10 +1,11 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 /// Dialog component properties.
 class DialogProps {
   final String? title;
-  final List<Component> content;
-  final List<Component>? actions;
+  final List<Widget> content;
+  final List<Widget>? actions;
   final bool showCloseButton;
   final void Function()? onClose;
   final double maxWidth;
@@ -22,8 +23,8 @@ class DialogProps {
 
   DialogProps copyWith({
     String? title,
-    List<Component>? content,
-    List<Component>? actions,
+    List<Widget>? content,
+    List<Widget>? actions,
     bool? showCloseButton,
     void Function()? onClose,
     double? maxWidth,
@@ -60,15 +61,15 @@ enum SheetSizeVariant {
 /// Sheet/drawer component properties.
 class SheetProps {
   final bool isOpen;
-  final Component child;
+  final Widget child;
   final SheetPosition position;
   final SheetSizeVariant size;
   final void Function()? onClose;
   final bool showCloseButton;
   final String? title;
   final String? description;
-  final Component? header;
-  final Component? footer;
+  final Widget? header;
+  final Widget? footer;
   final bool showBackdrop;
   final bool closeOnBackdropClick;
   final bool showDragHandle;
@@ -93,15 +94,15 @@ class SheetProps {
 
   SheetProps copyWith({
     bool? isOpen,
-    Component? child,
+    Widget? child,
     SheetPosition? position,
     SheetSizeVariant? size,
     void Function()? onClose,
     bool? showCloseButton,
     String? title,
     String? description,
-    Component? header,
-    Component? footer,
+    Widget? header,
+    Widget? footer,
     bool? showBackdrop,
     bool? closeOnBackdropClick,
     bool? showDragHandle,
@@ -132,6 +133,6 @@ class SheetProps {
 
 /// Mixin defining the renderer methods for dialog components.
 mixin DialogRendererContract {
-  Component dialog(DialogProps props);
-  Component sheet(SheetProps props);
+  Widget dialog(DialogProps props);
+  Widget sheet(SheetProps props);
 }

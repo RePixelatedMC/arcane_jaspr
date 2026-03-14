@@ -170,7 +170,7 @@ Each stylesheet provides its own implementation of all components via the render
 @override
 Widget build(BuildContext context) {
   // Components automatically use the current stylesheet's renderers
-  return ArcaneButton(
+  return Button(
     label: 'Click me',
     onPressed: () {},
   );

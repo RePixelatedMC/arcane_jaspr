@@ -1,12 +1,13 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 /// Flexi card item data.
 class FlexiCardItem {
-  final Component icon;
+  final Widget icon;
   final String shortText;
   final String longText;
-  final Component? header;
-  final Component? footer;
+  final Widget? header;
+  final Widget? footer;
   final void Function()? onTap;
   final String? href;
 
@@ -71,6 +72,6 @@ class FlexiCardsSimpleProps {
 
 /// Mixin defining the renderer methods for flexi cards components.
 mixin FlexiCardsRendererContract {
-  Component flexiCards(FlexiCardsProps props);
-  Component flexiCardsSimple(FlexiCardsSimpleProps props);
+  Widget flexiCards(FlexiCardsProps props);
+  Widget flexiCardsSimple(FlexiCardsSimpleProps props);
 }

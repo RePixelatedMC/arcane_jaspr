@@ -1,12 +1,13 @@
 import 'package:jaspr/dom.dart' as dom;
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
 /// Full-screen modal popup for high-priority promotions.
 ///
 /// Use sparingly - best for first-time visitors or major sales events.
-class ArcanePromoModal extends StatefulComponent {
+class ArcanePromoModal extends StatefulWidget {
   final String title;
   final String subtitle;
   final String? description;
@@ -18,7 +19,7 @@ class ArcanePromoModal extends StatefulComponent {
   final void Function()? onDismiss;
   final int delayMs;
   final Duration? countdownDuration;
-  final Component? heroImage;
+  final Widget? heroImage;
 
   const ArcanePromoModal({
     required this.title,
@@ -67,7 +68,7 @@ class _ArcanePromoModalState extends State<ArcanePromoModal> {
   }
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     if (_isDismissed || !_isVisible) return const dom.div([]);
 
     return context.renderers.promoModal(PromoModalProps(

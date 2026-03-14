@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/props/toast_props.dart';
 
@@ -12,7 +13,7 @@ class ToastData {
   final int duration;
   final bool dismissible;
   final ToastAction? action;
-  final Component? icon;
+  final Widget? icon;
   final ToastPosition position;
 
   ToastData({
@@ -36,7 +37,7 @@ class ToastData {
     int? duration,
     bool? dismissible,
     ToastAction? action,
-    Component? icon,
+    Widget? icon,
   }) {
     return ToastData(
       id: id,
@@ -110,7 +111,7 @@ class ToastManager {
     String? description,
     int duration = 4000,
     ToastAction? action,
-    Component? icon,
+    Widget? icon,
     ToastPosition? position,
   }) {
     return _show(ToastData(
@@ -132,7 +133,7 @@ class ToastManager {
     String? description,
     int duration = 4000,
     ToastAction? action,
-    Component? icon,
+    Widget? icon,
     ToastPosition? position,
   }) {
     return _show(ToastData(
@@ -154,7 +155,7 @@ class ToastManager {
     String? description,
     int duration = 5000,
     ToastAction? action,
-    Component? icon,
+    Widget? icon,
     ToastPosition? position,
   }) {
     return _show(ToastData(
@@ -176,7 +177,7 @@ class ToastManager {
     String? description,
     int duration = 6000,
     ToastAction? action,
-    Component? icon,
+    Widget? icon,
     ToastPosition? position,
   }) {
     return _show(ToastData(

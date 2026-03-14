@@ -45,7 +45,7 @@ class _InteractiveDemoState extends State<InteractiveDemo> {
               textTransform: TextTransform.uppercase,
               letterSpacing: LetterSpacing.wide,
             ),
-            children: const <Widget>[ArcaneText('Live Demo')],
+            children: const <Widget>[Text('Live Demo')],
           ),
           ArcaneBox(
             style: const ArcaneStyleData(
@@ -62,7 +62,7 @@ class _InteractiveDemoState extends State<InteractiveDemo> {
                   background: Background.backgroundSecondary,
                 ),
                 children: <Widget>[
-                  ArcaneText(
+                  Text(
                     'Component: ${component.componentType}',
                     size: FontSize.sm,
                     color: TextColor.mutedForeground,
@@ -78,7 +78,7 @@ class _InteractiveDemoState extends State<InteractiveDemo> {
               fontWeight: FontWeight.w600,
               textColor: TextColor.primary,
             ),
-            children: const <Widget>[ArcaneText('Preview + Code')],
+            children: const <Widget>[Text('Preview + Code')],
           ),
           preview,
           ArcaneBox(
@@ -89,7 +89,7 @@ class _InteractiveDemoState extends State<InteractiveDemo> {
               textColor: TextColor.mutedForeground,
               raw: <String, String>{'margin-bottom': '12px'},
             ),
-            children: const <Widget>[ArcaneText('Code')],
+            children: const <Widget>[Text('Code')],
           ),
           dom.pre(
             styles: const dom.Styles(

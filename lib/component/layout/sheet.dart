@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 import 'package:jaspr/dom.dart' as dom;
 
 import '../../core/theme_provider.dart';
@@ -10,16 +11,16 @@ export 'sheet_types.dart';
 export '../../core/props/dialog_props.dart' show SheetSizeVariant, SheetProps;
 
 /// A modal sheet that slides in from screen edges.
-class ArcaneSheet extends StatelessComponent {
+class ArcaneSheet extends StatelessWidget {
   final bool isOpen;
   final VoidCallback? onClose;
   final SheetPosition position;
   final SheetSize size;
-  final Component child;
+  final Widget child;
   final String? title;
   final String? description;
-  final Component? header;
-  final Component? footer;
+  final Widget? header;
+  final Widget? footer;
   final bool showBackdrop;
   final bool closeOnBackdropClick;
   final bool showCloseButton;
@@ -112,7 +113,7 @@ class ArcaneSheet extends StatelessComponent {
       };
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.sheet(props.SheetProps(
       isOpen: isOpen,
       child: child,
@@ -133,7 +134,7 @@ class ArcaneSheet extends StatelessComponent {
 }
 
 /// Action sheet with a list of actions (mobile-style).
-class ArcaneActionSheet extends StatelessComponent {
+class ArcaneActionSheet extends StatelessWidget {
   final bool isOpen;
   final VoidCallback? onClose;
   final String? title;
@@ -154,7 +155,7 @@ class ArcaneActionSheet extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return ArcaneSheet.bottom(
       isOpen: isOpen,
       onClose: onClose,
@@ -226,7 +227,7 @@ class ArcaneActionSheet extends StatelessComponent {
     );
   }
 
-  Component _buildActionItem(ActionSheetItem action) {
+  Widget _buildActionItem(ActionSheetItem action) {
     return dom.button(
       classes: 'arcane-action-sheet-item ${action.destructive ? 'destructive' : ''}',
       styles: dom.Styles(raw: {
@@ -281,7 +282,7 @@ class ActionSheetItem {
   final bool disabled;
   final VoidCallback? onTap;
   final bool closeOnTap;
-  final Component? trailing;
+  final Widget? trailing;
 
   const ActionSheetItem({
     required this.label,

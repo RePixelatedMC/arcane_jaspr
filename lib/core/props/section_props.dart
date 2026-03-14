@@ -1,10 +1,11 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 /// Section component properties.
 class SectionProps {
   final String? header;
-  final Component? headerComponent;
-  final List<Component> children;
+  final Widget? headerComponent;
+  final List<Widget> children;
   final bool showDivider;
   final String? padding;
   final String? gap;
@@ -27,5 +28,5 @@ class SectionProps {
 
 /// Mixin defining the renderer methods for section components.
 mixin SectionRendererContract {
-  Component section(SectionProps props);
+  Widget section(SectionProps props);
 }

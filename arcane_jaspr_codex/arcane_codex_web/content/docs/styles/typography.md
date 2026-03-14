@@ -36,7 +36,7 @@ ArcaneBox(
   style: const ArcaneStyleData(
     fontSize: FontSize.xl2,
   ),
-  children: [ArcaneText('Section Heading')],
+  children: [Text('Section Heading')],
 )
 ```
 
@@ -58,7 +58,7 @@ ArcaneSpan(
   style: const ArcaneStyleData(
     fontWeight: FontWeight.w600,
   ),
-  child: ArcaneText('Semi-bold text'),
+  child: Text('Semi-bold text'),
 )
 ```
 
@@ -81,7 +81,7 @@ ArcaneSpan(
     fontFamily: FontFamily.mono,
     fontSize: FontSize.sm,
   ),
-  child: ArcaneText('const value = 42;'),
+  child: Text('const value = 42;'),
 )
 ```
 
@@ -115,7 +115,7 @@ ArcaneParagraph(
   style: const ArcaneStyleData(
     lineHeight: LineHeight.relaxed,
   ),
-  children: [ArcaneText('Long paragraph with comfortable reading spacing...')],
+  children: [Text('Long paragraph with comfortable reading spacing...')],
 )
 ```
 
@@ -141,7 +141,7 @@ ArcaneBox(
     letterSpacing: LetterSpacing.wide,
     textTransform: TextTransform.uppercase,
   ),
-  children: [ArcaneText('SECTION LABEL')],
+  children: [Text('SECTION LABEL')],
 )
 ```
 
@@ -164,7 +164,7 @@ ArcaneLink(
   style: const ArcaneStyleData(
     textDecoration: TextDecoration.none,
   ),
-  child: ArcaneText('Link without underline'),
+  child: Text('Link without underline'),
 )
 ```
 
@@ -186,7 +186,7 @@ ArcaneBox(
   style: const ArcaneStyleData(
     textTransform: TextTransform.uppercase,
   ),
-  children: [ArcaneText('label')], // Renders as "LABEL"
+  children: [Text('label')], // Renders as "LABEL"
 )
 ```
 
@@ -211,7 +211,7 @@ ArcanePre(
     whiteSpace: WhiteSpace.pre,
     fontFamily: FontFamily.mono,
   ),
-  children: [ArcaneText(codeContent)],
+  children: [Text(codeContent)],
 )
 ```
 
@@ -242,7 +242,7 @@ Common values:
 ### Usage
 
 ```dart
-ArcaneText(
+Text(
   'Important message',
   style: const ArcaneStyleData(
     textColor: TextColor.accent,
@@ -264,7 +264,7 @@ ArcaneBox(
     textColor: TextColor.primary,
     margin: MarginPreset.bottomLg,
   ),
-  children: [ArcaneText('Page Title')],
+  children: [Text('Page Title')],
 )
 ```
 
@@ -280,7 +280,7 @@ ArcaneBox(
     textColor: TextColor.muted,
     margin: MarginPreset.bottomSm,
   ),
-  children: [ArcaneText('Section')],
+  children: [Text('Section')],
 )
 ```
 
@@ -292,7 +292,7 @@ ArcaneBox(
     fontSize: FontSize.sm,
     textColor: TextColor.muted,
   ),
-  children: [ArcaneText('Last updated 2 hours ago')],
+  children: [Text('Last updated 2 hours ago')],
 )
 ```
 
@@ -309,6 +309,6 @@ ArcaneSpan(
       'border-radius': '4px',
     },
   ),
-  child: ArcaneText('npm install'),
+  child: Text('npm install'),
 )
 ```

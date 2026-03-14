@@ -1,0 +1,50 @@
+import 'package:arcane_jaspr/component/dialog/dialog.dart';
+import 'package:arcane_jaspr/component/input/button.dart';
+import 'package:arcane_jaspr/component/input/date_picker.dart';
+import 'package:arcane_jaspr/component/layout/flow.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:arcane_jaspr/component/input/calendar.dart';
+import 'package:arcane_jaspr/component/typography/text.dart';
+import 'package:arcane_jaspr/util/arcane.dart';
+
+class DialogDateRange extends StatefulWidget {
+  final String title;
+  final DateRange? value;
+  final void Function(DateRange?) onConfirm;
+
+  const DialogDateRange({
+    required this.title,
+    required this.onConfirm,
+    this.value,
+    super.key,
+  });
+
+  @override
+  State<DialogDateRange> createState() => _DialogDateRangeState();
+}
+
+class _DialogDateRangeState extends State<DialogDateRange> {
+  DateRange? _value;
+
+  @override
+  void initState() {
+    super.initState();
+    _value = component.value;
+  }
+
+  @override
+  Widget build(BuildContext context) => ArcaneDialog(
+    title: component.title,
+    child: ArcaneDatePicker.range(
+      rangeValue: _value,
+      onRangeChanged: (DateRange? value) {
+        setState(() {
+          _value = value;
+        });
+      },
+    ),
+    actions: <Widget>[
+      Button.primary(onPressed: () => component.onConfirm(_value), child: const Text('Done')),
+    ],
+  );
+}

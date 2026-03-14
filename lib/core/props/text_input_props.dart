@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 import '../shared/shared.dart';
 
 export '../shared/shared.dart' show ComponentSize;
@@ -35,8 +36,8 @@ class TextInputProps {
   final String? label;
   final String? helperText;
   final String? error;
-  final Component? prefix;
-  final Component? suffix;
+  final Widget? prefix;
+  final Widget? suffix;
   final void Function(String)? onChanged;
   final void Function()? onFocus;
   final void Function()? onBlur;
@@ -80,8 +81,8 @@ class TextInputProps {
     String? label,
     String? helperText,
     String? error,
-    Component? prefix,
-    Component? suffix,
+    Widget? prefix,
+    Widget? suffix,
     void Function(String)? onChanged,
     void Function()? onFocus,
     void Function()? onBlur,
@@ -119,5 +120,5 @@ class TextInputProps {
 /// Mixin defining the renderer method for text input components.
 mixin TextInputRendererContract {
   /// Render a text input component.
-  Component textInput(TextInputProps props);
+  Widget textInput(TextInputProps props);
 }

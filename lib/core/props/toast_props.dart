@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 enum ToastVariant {
   info,
@@ -40,7 +41,7 @@ class ToastProps {
   final int duration;
   final bool dismissible;
   final ToastAction? action;
-  final Component? icon;
+  final Widget? icon;
   final String? id;
   final bool isExiting;
   final bool isHovered;
@@ -75,7 +76,7 @@ class ToastProps {
     int? duration,
     bool? dismissible,
     ToastAction? action,
-    Component? icon,
+    Widget? icon,
     String? id,
     bool? isExiting,
     bool? isHovered,
@@ -126,6 +127,6 @@ class ToastContainerProps {
 
 /// Mixin defining the renderer methods for toast components.
 mixin ToastRendererContract {
-  Component toast(ToastProps props);
-  Component toastContainer(ToastContainerProps props);
+  Widget toast(ToastProps props);
+  Widget toastContainer(ToastContainerProps props);
 }

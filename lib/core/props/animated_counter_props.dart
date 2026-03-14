@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 /// Animated counter component properties.
 class AnimatedCounterProps {
@@ -25,7 +26,7 @@ class AnimatedCounterProps {
 
 /// Counter row component properties.
 class CounterRowProps {
-  final List<Component> counters;
+  final List<Widget> counters;
   final String gap;
 
   const CounterRowProps({
@@ -57,7 +58,7 @@ class MetricDisplayProps {
 
 /// Mixin defining the renderer methods for animated counter components.
 mixin AnimatedCounterRendererContract {
-  Component animatedCounter(AnimatedCounterProps props);
-  Component counterRow(CounterRowProps props);
-  Component metricDisplay(MetricDisplayProps props);
+  Widget animatedCounter(AnimatedCounterProps props);
+  Widget counterRow(CounterRowProps props);
+  Widget metricDisplay(MetricDisplayProps props);
 }

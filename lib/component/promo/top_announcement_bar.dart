@@ -1,12 +1,13 @@
 import 'package:jaspr/dom.dart' as dom;
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
 /// A thin sticky announcement bar at the top of the page.
 ///
 /// Shows promo message with optional CTA button and dismiss functionality.
-class ArcaneTopAnnouncementBar extends StatefulComponent {
+class ArcaneTopAnnouncementBar extends StatefulWidget {
   final String message;
   final String? promoCode;
   final String? ctaText;
@@ -40,7 +41,7 @@ class _ArcaneTopAnnouncementBarState extends State<ArcaneTopAnnouncementBar> {
   }
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     if (_isDismissed) return const dom.div([]);
 
     return context.renderers.topAnnouncementBar(TopAnnouncementBarProps(

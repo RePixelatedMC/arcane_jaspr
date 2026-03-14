@@ -1,12 +1,13 @@
 import 'package:jaspr/dom.dart' as dom;
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
 /// A corner toast-style promo notification that slides in from a corner.
 ///
 /// Less intrusive than a modal, great for subtle promotions.
-class ArcaneCornerPromoToast extends StatefulComponent {
+class ArcaneCornerPromoToast extends StatefulWidget {
   final String title;
   final String message;
   final String? promoCode;
@@ -16,7 +17,7 @@ class ArcaneCornerPromoToast extends StatefulComponent {
   final void Function()? onDismiss;
   final PromoCornerPosition position;
   final int delayMs;
-  final Component? icon;
+  final Widget? icon;
 
   const ArcaneCornerPromoToast({
     required this.title,
@@ -63,7 +64,7 @@ class _ArcaneCornerPromoToastState extends State<ArcaneCornerPromoToast> {
   }
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     if (_isDismissed || !_isVisible) return const dom.div([]);
 
     return context.renderers.cornerPromoToast(CornerPromoToastProps(

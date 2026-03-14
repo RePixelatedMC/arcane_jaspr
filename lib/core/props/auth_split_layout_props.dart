@@ -1,10 +1,11 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 /// Auth split layout component properties.
 class AuthSplitLayoutProps {
-  final Component brandingContent;
-  final Component formContent;
-  final Component? mobileHeader;
+  final Widget brandingContent;
+  final Widget formContent;
+  final Widget? mobileHeader;
   final bool reverseSides;
 
   const AuthSplitLayoutProps({
@@ -21,5 +22,5 @@ class AuthSplitLayoutProps {
 
 /// Mixin defining the renderer methods for auth split layout components.
 mixin AuthSplitLayoutRendererContract {
-  Component authSplitLayout(AuthSplitLayoutProps props);
+  Widget authSplitLayout(AuthSplitLayoutProps props);
 }

@@ -1,11 +1,12 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
 export '../../core/props/fade_edge_props.dart';
 
 /// An overlay that creates a fade-to-transparent effect at an edge.
-class ArcaneFadeEdge extends StatelessComponent {
+class ArcaneFadeEdge extends StatelessWidget {
   final FadeDirection direction;
   final String? color;
   final String? width;
@@ -54,7 +55,7 @@ class ArcaneFadeEdge extends StatelessComponent {
   }) : direction = FadeDirection.bottom;
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.fadeEdge(FadeEdgeProps(
       direction: direction,
       color: color,

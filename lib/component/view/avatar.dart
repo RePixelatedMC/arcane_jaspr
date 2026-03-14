@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 import 'package:jaspr/dom.dart' hide Color, Colors, ColorScheme, Gap, Padding, TextAlign, TextOverflow, Border, BorderRadius, BoxShadow, FontWeight;
 
 import '../../core/theme_provider.dart';
@@ -6,7 +7,7 @@ import '../../core/theme_provider.dart';
 export '../../core/props/avatar_props.dart' show AvatarSize, AvatarShape;
 
 /// Avatar component for displaying user images or initials.
-class ArcaneAvatar extends StatelessComponent {
+class ArcaneAvatar extends StatelessWidget {
   final String? imageUrl;
   final String? initials;
   final AvatarSize size;
@@ -62,7 +63,7 @@ class ArcaneAvatar extends StatelessComponent {
   }) : shape = AvatarShape.square;
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.avatar(AvatarProps(
       imageUrl: imageUrl,
       initials: initials,
@@ -85,7 +86,7 @@ enum AvatarGroupDirection {
 }
 
 /// Avatar group for stacking multiple avatars with overlap.
-class ArcaneAvatarGroup extends StatelessComponent {
+class ArcaneAvatarGroup extends StatelessWidget {
   final List<ArcaneAvatar> avatars;
   final int maxVisible;
   final AvatarSize size;
@@ -138,7 +139,7 @@ class ArcaneAvatarGroup extends StatelessComponent {
       direction == AvatarGroupDirection.toRight;
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     final visible = avatars.take(maxVisible).toList();
     final overflow = avatars.length - maxVisible;
 
@@ -207,7 +208,7 @@ enum AvatarBadgePosition {
 }
 
 /// Badge displayed on an avatar.
-class ArcaneAvatarBadge extends StatelessComponent {
+class ArcaneAvatarBadge extends StatelessWidget {
   final int size;
   final String color;
   final String? content;
@@ -275,7 +276,7 @@ class ArcaneAvatarBadge extends StatelessComponent {
       };
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return div(
       classes: 'arcane-avatar-badge ${pulse ? 'pulse' : ''}',
       styles: Styles(raw: {

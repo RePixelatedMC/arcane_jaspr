@@ -1,8 +1,9 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import 'toast.dart';
 
-class ArcaneSonner extends StatelessComponent {
+class ArcaneSonner extends StatelessWidget {
   final ToastPosition position;
   final int maxVisible;
   final double gap;
@@ -22,7 +23,7 @@ class ArcaneSonner extends StatelessComponent {
     String? description,
     int duration = 4000,
     ToastAction? action,
-    Component? icon,
+    Widget? icon,
     ToastPosition? position,
   }) {
     return toast.info(
@@ -42,7 +43,7 @@ class ArcaneSonner extends StatelessComponent {
     String? description,
     int duration = 4000,
     ToastAction? action,
-    Component? icon,
+    Widget? icon,
     ToastPosition? position,
   }) {
     return toast.success(
@@ -62,7 +63,7 @@ class ArcaneSonner extends StatelessComponent {
     String? description,
     int duration = 5000,
     ToastAction? action,
-    Component? icon,
+    Widget? icon,
     ToastPosition? position,
   }) {
     return toast.warning(
@@ -82,7 +83,7 @@ class ArcaneSonner extends StatelessComponent {
     String? description,
     int duration = 6000,
     ToastAction? action,
-    Component? icon,
+    Widget? icon,
     ToastPosition? position,
   }) {
     return toast.error(
@@ -119,7 +120,7 @@ class ArcaneSonner extends StatelessComponent {
   }
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return ArcaneToast.container(
       position: position,
       maxVisible: maxVisible,

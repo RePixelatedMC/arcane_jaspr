@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
@@ -8,11 +9,11 @@ export '../../core/props/button_props.dart' show ButtonVariant, ButtonSize;
 ///
 /// Can render as either a `<button>` or `<a>` element depending on whether
 /// [href] is provided. Use [href] for CTA buttons that navigate to other pages.
-class ArcaneButton extends StatelessComponent {
+class Button extends StatelessWidget {
   final String? label;
-  final Component? child;
-  final Component? icon;
-  final Component? trailing;
+  final Widget? child;
+  final Widget? icon;
+  final Widget? trailing;
   final void Function()? onPressed;
   final ButtonVariant variant;
   final ButtonSize size;
@@ -30,7 +31,7 @@ class ArcaneButton extends StatelessComponent {
   /// Useful for CTA buttons to indicate navigation.
   final bool showArrow;
 
-  const ArcaneButton({
+  const Button({
     this.label,
     this.child,
     this.icon,
@@ -48,7 +49,7 @@ class ArcaneButton extends StatelessComponent {
     super.key,
   });
 
-  const ArcaneButton.primary({
+  const Button.primary({
     this.label,
     this.child,
     this.icon,
@@ -65,7 +66,7 @@ class ArcaneButton extends StatelessComponent {
     super.key,
   }) : variant = ButtonVariant.primary;
 
-  const ArcaneButton.secondary({
+  const Button.secondary({
     this.label,
     this.child,
     this.icon,
@@ -82,7 +83,7 @@ class ArcaneButton extends StatelessComponent {
     super.key,
   }) : variant = ButtonVariant.secondary;
 
-  const ArcaneButton.outline({
+  const Button.outline({
     this.label,
     this.child,
     this.icon,
@@ -99,7 +100,7 @@ class ArcaneButton extends StatelessComponent {
     super.key,
   }) : variant = ButtonVariant.outline;
 
-  const ArcaneButton.ghost({
+  const Button.ghost({
     this.label,
     this.child,
     this.icon,
@@ -116,7 +117,7 @@ class ArcaneButton extends StatelessComponent {
     super.key,
   }) : variant = ButtonVariant.ghost;
 
-  const ArcaneButton.destructive({
+  const Button.destructive({
     this.label,
     this.child,
     this.icon,
@@ -133,7 +134,7 @@ class ArcaneButton extends StatelessComponent {
     super.key,
   }) : variant = ButtonVariant.destructive;
 
-  const ArcaneButton.warning({
+  const Button.warning({
     this.label,
     this.child,
     this.icon,
@@ -150,7 +151,7 @@ class ArcaneButton extends StatelessComponent {
     super.key,
   }) : variant = ButtonVariant.warning;
 
-  const ArcaneButton.success({
+  const Button.success({
     this.label,
     this.child,
     this.icon,
@@ -167,7 +168,7 @@ class ArcaneButton extends StatelessComponent {
     super.key,
   }) : variant = ButtonVariant.success;
 
-  const ArcaneButton.link({
+  const Button.link({
     this.label,
     this.child,
     this.icon,
@@ -184,7 +185,7 @@ class ArcaneButton extends StatelessComponent {
     super.key,
   }) : variant = ButtonVariant.link;
 
-  const ArcaneButton.info({
+  const Button.info({
     this.label,
     this.child,
     this.icon,
@@ -203,7 +204,7 @@ class ArcaneButton extends StatelessComponent {
 
   /// Accent variant with gradient background.
   /// Useful for prominent CTA buttons.
-  const ArcaneButton.accent({
+  const Button.accent({
     this.label,
     this.child,
     this.icon,
@@ -221,7 +222,7 @@ class ArcaneButton extends StatelessComponent {
   }) : variant = ButtonVariant.accent;
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.button(ButtonProps(
       label: label,
       child: child,

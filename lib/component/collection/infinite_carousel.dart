@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 import 'package:jaspr/dom.dart'
     hide
         Color,
@@ -21,8 +22,8 @@ import 'package:jaspr/dom.dart'
 /// - Auto-resume scrolling after inactivity
 /// - Touch support for mobile devices
 /// - Pauses on hover
-class ArcaneInfiniteCarousel extends StatelessComponent {
-  final List<Component> children;
+class ArcaneInfiniteCarousel extends StatelessWidget {
+  final List<Widget> children;
   final String gap;
   final int animationDuration;
   final bool showFadeEdges;
@@ -58,7 +59,7 @@ class ArcaneInfiniteCarousel extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return div(
       classes: 'arcane-carousel',
       attributes: {
@@ -146,11 +147,11 @@ class ArcaneInfiniteCarousel extends StatelessComponent {
 }
 
 /// Marketing section with an infinite carousel.
-class ArcaneCarouselSection extends StatelessComponent {
+class ArcaneCarouselSection extends StatelessWidget {
   final String? label;
   final String title;
   final String? subtitle;
-  final Component carousel;
+  final Widget carousel;
   final String backgroundColor;
   final String padding;
 
@@ -165,7 +166,7 @@ class ArcaneCarouselSection extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return section(
       classes: 'arcane-carousel-section',
       styles: Styles(raw: {

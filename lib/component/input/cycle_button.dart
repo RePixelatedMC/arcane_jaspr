@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
@@ -6,7 +7,7 @@ export '../../core/props/cycle_button_props.dart'
     show CycleButtonSize, CycleButtonVariant, CycleOption;
 
 /// A button that cycles through a list of values on each click.
-class ArcaneCycleButton<T> extends StatelessComponent {
+class ArcaneCycleButton<T> extends StatelessWidget {
   final List<CycleOption<T>> options;
   final T value;
   final void Function(T value)? onChanged;
@@ -29,7 +30,7 @@ class ArcaneCycleButton<T> extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.cycleButton<T>(CycleButtonProps<T>(
       options: options,
       value: value,
@@ -44,11 +45,11 @@ class ArcaneCycleButton<T> extends StatelessComponent {
 }
 
 /// A toggle button (on/off state).
-class ArcaneToggleButton extends StatelessComponent {
+class ArcaneToggleButton extends StatelessWidget {
   final bool value;
   final void Function(bool value)? onChanged;
   final String? label;
-  final Component? icon;
+  final Widget? icon;
   final CycleButtonSize size;
   final bool disabled;
   final String? id;
@@ -67,7 +68,7 @@ class ArcaneToggleButton extends StatelessComponent {
   });
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.toggleButton(ToggleButtonProps(
       value: value,
       onChanged: onChanged,

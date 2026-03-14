@@ -1,11 +1,12 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../util/arcane.dart';
 
 /// Static table component properties.
 class StaticTableProps {
   final List<String> headers;
-  final List<List<Component>> rows;
+  final List<List<Widget>> rows;
   final bool showDividers;
   final bool striped;
   final bool stickyHeader;
@@ -39,7 +40,7 @@ class KeyValueTableProps {
 /// Key-value row data.
 class KeyValueRowData {
   final String key;
-  final Component value;
+  final Widget value;
 
   const KeyValueRowData({required this.key, required this.value});
 }
@@ -50,6 +51,6 @@ class KeyValueRowData {
 
 /// Mixin defining the renderer methods for static table components.
 mixin StaticTableRendererContract {
-  Component staticTable(StaticTableProps props);
-  Component keyValueTable(KeyValueTableProps props);
+  Widget staticTable(StaticTableProps props);
+  Widget keyValueTable(KeyValueTableProps props);
 }

@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 import '../../core/theme_provider.dart';
 
@@ -30,7 +31,7 @@ enum ToggleGroupType {
 }
 
 /// A toggle group component for selecting one or multiple options.
-class ArcaneToggleGroup extends StatelessComponent {
+class ArcaneToggleGroup extends StatelessWidget {
   final List<ToggleGroupItem> items;
   final String? value;
   final Set<String>? values;
@@ -83,7 +84,7 @@ class ArcaneToggleGroup extends StatelessComponent {
       };
 
   @override
-  Component build(BuildContext context) {
+  Widget build(BuildContext context) {
     return context.renderers.toggleGroup(ToggleGroupProps(
       items: items
           .map((item) => ToggleGroupItemProps(
@@ -107,7 +108,7 @@ class ArcaneToggleGroup extends StatelessComponent {
 /// A toggle group item.
 class ToggleGroupItem {
   final String value;
-  final Component child;
+  final Widget child;
   final bool disabled;
 
   const ToggleGroupItem({

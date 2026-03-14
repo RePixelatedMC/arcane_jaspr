@@ -1,4 +1,5 @@
-import 'package:jaspr/jaspr.dart';
+import 'package:arcane_jaspr/flutter.dart';
+import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 enum DrawerPosition {
   left,
@@ -21,9 +22,9 @@ class DrawerProps {
   final void Function()? onClose;
   final DrawerPosition position;
   final DrawerSize size;
-  final Component child;
-  final Component? header;
-  final Component? footer;
+  final Widget child;
+  final Widget? header;
+  final Widget? footer;
   final bool showBackdrop;
   final bool closeOnBackdropClick;
   final bool showCloseButton;
@@ -50,9 +51,9 @@ class DrawerProps {
     void Function()? onClose,
     DrawerPosition? position,
     DrawerSize? size,
-    Component? child,
-    Component? header,
-    Component? footer,
+    Widget? child,
+    Widget? header,
+    Widget? footer,
     bool? showBackdrop,
     bool? closeOnBackdropClick,
     bool? showCloseButton,
@@ -82,5 +83,5 @@ class DrawerProps {
 
 /// Mixin defining the renderer methods for drawer components.
 mixin DrawerRendererContract {
-  Component drawer(DrawerProps props);
+  Widget drawer(DrawerProps props);
 }
