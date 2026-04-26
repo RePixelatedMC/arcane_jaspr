@@ -5,17 +5,10 @@ import '../stylesheets/stylesheet.dart';
 export '../stylesheets/stylesheet.dart';
 
 /// Brightness mode for the application.
-enum Brightness {
-  light,
-  dark,
-}
+enum Brightness { light, dark }
 
 /// Theme mode selection.
-enum ThemeMode {
-  system,
-  light,
-  dark,
-}
+enum ThemeMode { system, light, dark }
 
 /// Provides the current stylesheet and brightness to the component tree.
 class ArcaneThemeProvider extends InheritedWidget {
@@ -34,6 +27,8 @@ class ArcaneThemeProvider extends InheritedWidget {
   }
 
   ComponentRenderers get renderers => stylesheet.renderers;
+
+  LayoutRenderers get layouts => stylesheet.layouts;
 
   @override
   bool updateShouldNotify(ArcaneThemeProvider oldComponent) {
@@ -60,6 +55,8 @@ extension ArcaneThemeContext on BuildContext {
   }
 
   ComponentRenderers get renderers => stylesheet.renderers;
+
+  LayoutRenderers get layouts => stylesheet.layouts;
 
   Brightness get brightness {
     return ArcaneThemeProvider.of(this)?.brightness ?? Brightness.dark;

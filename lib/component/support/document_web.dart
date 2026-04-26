@@ -9,17 +9,10 @@ class HeadElementData {
   final Map<String, String>? attributes;
   final String? textContent;
 
-  const HeadElementData({
-    required this.tag,
-    this.attributes,
-    this.textContent,
-  });
+  const HeadElementData({required this.tag, this.attributes, this.textContent});
 
   factory HeadElementData.link(String href, {String rel = 'stylesheet'}) {
-    return HeadElementData(
-      tag: 'link',
-      attributes: {'href': href, 'rel': rel},
-    );
+    return HeadElementData(tag: 'link', attributes: {'href': href, 'rel': rel});
   }
 
   factory HeadElementData.preconnect(String href, {bool crossorigin = false}) {
@@ -31,11 +24,22 @@ class HeadElementData {
     );
   }
 
-  factory HeadElementData.style(String css) {
+  factory HeadElementData.meta({
+    required String name,
+    required String content,
+  }) {
     return HeadElementData(
-      tag: 'style',
-      textContent: css,
+      tag: 'meta',
+      attributes: {'name': name, 'content': content},
     );
+  }
+
+  factory HeadElementData.style(String css) {
+    return HeadElementData(tag: 'style', textContent: css);
+  }
+
+  factory HeadElementData.title(String title) {
+    return HeadElementData(tag: 'title', textContent: title);
   }
 }
 
@@ -48,7 +52,8 @@ class DocumentHelper {
   static Component html({Map<String, String>? attributes}) {
     if (!_htmlInitialized && attributes != null) {
       _htmlInitialized = true;
-      final web.HTMLElement htmlEl = web.document.documentElement as web.HTMLElement;
+      final web.HTMLElement htmlEl =
+          web.document.documentElement as web.HTMLElement;
       for (final MapEntry<String, String> entry in attributes.entries) {
         htmlEl.setAttribute(entry.key, entry.value);
       }
@@ -67,19 +72,33 @@ class DocumentHelper {
 
     for (final HeadElementData element in elements) {
       if (element.tag == 'link') {
-        final web.HTMLLinkElement link =
+        web.HTMLLinkElement link =
             web.document.createElement('link') as web.HTMLLinkElement;
         if (element.attributes != null) {
-          for (final MapEntry<String, String> attr in element.attributes!.entries) {
+          for (MapEntry<String, String> attr in element.attributes!.entries) {
             link.setAttribute(attr.key, attr.value);
           }
         }
         head.appendChild(link);
+      } else if (element.tag == 'meta') {
+        web.HTMLMetaElement meta =
+            web.document.createElement('meta') as web.HTMLMetaElement;
+        if (element.attributes != null) {
+          for (MapEntry<String, String> attr in element.attributes!.entries) {
+            meta.setAttribute(attr.key, attr.value);
+          }
+        }
+        head.appendChild(meta);
       } else if (element.tag == 'style' && element.textContent != null) {
-        final web.HTMLStyleElement style =
+        web.HTMLStyleElement style =
             web.document.createElement('style') as web.HTMLStyleElement;
         style.textContent = element.textContent!;
         head.appendChild(style);
+      } else if (element.tag == 'title' && element.textContent != null) {
+        web.HTMLTitleElement title =
+            web.document.createElement('title') as web.HTMLTitleElement;
+        title.textContent = element.textContent!;
+        head.appendChild(title);
       }
     }
 

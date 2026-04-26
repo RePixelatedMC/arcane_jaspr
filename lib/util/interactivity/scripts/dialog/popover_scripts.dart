@@ -9,7 +9,7 @@ class PopoverScripts {
 
   function bindPopovers() {
     // Only target actual floating containers, not generic position:relative elements
-    document.querySelectorAll('.arcane-floating-container, .codex-floating-container').forEach(function(container) {
+    document.querySelectorAll('.arcane-floating-container, .neon-floating-container').forEach(function(container) {
       // Use the trigger class to find the trigger, not firstElementChild
       var trigger = container.querySelector('.arcane-floating-trigger') || container.firstElementChild;
       var popup = container.querySelector('.arcane-floating-content, .arcane-floating-tooltip, [style*="position: absolute"][style*="z-index"]');

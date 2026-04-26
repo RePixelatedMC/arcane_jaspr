@@ -9,17 +9,10 @@ class HeadElementData {
   final Map<String, String>? attributes;
   final String? textContent;
 
-  const HeadElementData({
-    required this.tag,
-    this.attributes,
-    this.textContent,
-  });
+  const HeadElementData({required this.tag, this.attributes, this.textContent});
 
   factory HeadElementData.link(String href, {String rel = 'stylesheet'}) {
-    return HeadElementData(
-      tag: 'link',
-      attributes: {'href': href, 'rel': rel},
-    );
+    return HeadElementData(tag: 'link', attributes: {'href': href, 'rel': rel});
   }
 
   factory HeadElementData.preconnect(String href, {bool crossorigin = false}) {
@@ -31,11 +24,22 @@ class HeadElementData {
     );
   }
 
-  factory HeadElementData.style(String css) {
+  factory HeadElementData.meta({
+    required String name,
+    required String content,
+  }) {
     return HeadElementData(
-      tag: 'style',
-      textContent: css,
+      tag: 'meta',
+      attributes: {'name': name, 'content': content},
     );
+  }
+
+  factory HeadElementData.style(String css) {
+    return HeadElementData(tag: 'style', textContent: css);
+  }
+
+  factory HeadElementData.title(String title) {
+    return HeadElementData(tag: 'title', textContent: title);
   }
 }
 
@@ -62,10 +66,25 @@ class DocumentHelper {
             children: const [],
           ),
         );
+      } else if (element.tag == 'meta') {
+        children.add(
+          Component.element(
+            tag: 'meta',
+            attributes: element.attributes ?? {},
+            children: const [],
+          ),
+        );
       } else if (element.tag == 'style' && element.textContent != null) {
         children.add(
           Component.element(
             tag: 'style',
+            children: [dom.RawText(element.textContent!)],
+          ),
+        );
+      } else if (element.tag == 'title' && element.textContent != null) {
+        children.add(
+          Component.element(
+            tag: 'title',
             children: [dom.RawText(element.textContent!)],
           ),
         );

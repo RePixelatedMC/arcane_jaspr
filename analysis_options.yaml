@@ -2,7 +2,7 @@ include: package:lints/recommended.yaml
 
 analyzer:
   exclude:
-    - arcane_jaspr_codex/**
+    - arcane_jaspr_neon/**
 
 linter:
   rules:

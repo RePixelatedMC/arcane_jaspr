@@ -1,5 +1,4 @@
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, Text, UniqueKey, ValueKey, runApp;
 
 import '../html/div.dart';
 import '../html/arcane_link.dart';
@@ -360,74 +359,60 @@ const String arcaneTocTreeLinesCss = '''
 }
 
 /* ============================================
-   TABLE OF CONTENTS - Codex Gaming Style
+   TABLE OF CONTENTS - Neon Gaming Style
    Cyberpunk with glowing tree lines
    ============================================ */
-[class*="codex-"] .toc-wrapper,
-.codex .toc-wrapper {
-  background: color-mix(in srgb, var(--card) 80%, transparent);
+[class*="neon-"] .toc,
+.neon .toc {
+  background: color-mix(in srgb, var(--card) 82%, transparent);
   border-color: color-mix(in srgb, var(--primary) 20%, var(--border));
   box-shadow: 0 0 20px color-mix(in srgb, var(--primary) 5%, transparent);
 }
 
-[class*="codex-"] .toc-header,
-.codex .toc-header {
+[class*="neon-"] .toc-title,
+.neon .toc-title {
   font-family: var(--font-mono);
   color: var(--primary);
-  border-bottom-color: color-mix(in srgb, var(--primary) 25%, transparent);
+  border-bottom-color: color-mix(in srgb, var(--primary) 22%, transparent);
+  letter-spacing: 0;
 }
 
-/* Codex horizontal branches - glowing */
-[class*="codex-"] .toc-content > ul > li::before,
-[class*="codex-"] .toc-content ul ul li::before,
-.codex .toc-content > ul > li::before,
-.codex .toc-content ul ul li::before {
-  background: var(--primary);
-  opacity: 0.5;
-  height: 2px;
+[class*="neon-"] .toc-content > ul > li::before,
+[class*="neon-"] .toc-content > ul > li::after,
+[class*="neon-"] .toc-content ul ul li::before,
+[class*="neon-"] .toc-content ul ul li::after,
+.neon .toc-content > ul > li::before,
+.neon .toc-content > ul > li::after,
+.neon .toc-content ul ul li::before,
+.neon .toc-content ul ul li::after {
+  background: color-mix(in srgb, var(--primary) 36%, var(--border));
+  box-shadow: none;
 }
 
-/* Codex vertical lines - glowing */
-[class*="codex-"] .toc-content > ul > li:not(:last-child)::after,
-[class*="codex-"] .toc-content > ul > li:last-child::after,
-[class*="codex-"] .toc-content ul ul li:not(:last-child)::after,
-[class*="codex-"] .toc-content ul ul li:last-child::after,
-.codex .toc-content > ul > li:not(:last-child)::after,
-.codex .toc-content > ul > li:last-child::after,
-.codex .toc-content ul ul li:not(:last-child)::after,
-.codex .toc-content ul ul li:last-child::after {
-  background: var(--primary);
-  width: 2px;
-  box-shadow: 0 0 4px color-mix(in srgb, var(--primary) 20%, transparent);
-}
-
-/* Codex link styling */
-[class*="codex-"] .toc-content a,
-.codex .toc-content a {
+[class*="neon-"] .toc-content a,
+.neon .toc-content a {
   font-size: 0.8125rem;
   line-height: 1.3;
   margin: 0.125rem 0;
-  padding: 0.5rem 0.75rem 0.5rem 0.625rem !important;
-  border-left: 3px solid transparent;
-  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  padding: 0.5rem 0.625rem !important;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
   transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-[class*="codex-"] .toc-content a:hover,
-.codex .toc-content a:hover {
+[class*="neon-"] .toc-content a:hover,
+.neon .toc-content a:hover {
   color: var(--primary);
-  background: color-mix(in srgb, var(--primary) 10%, transparent);
-  border-left-color: color-mix(in srgb, var(--primary) 50%, transparent);
+  background: color-mix(in srgb, var(--primary) 8%, transparent);
+  border-color: color-mix(in srgb, var(--primary) 18%, transparent);
 }
 
-[class*="codex-"] .toc-content a.toc-active,
-.codex .toc-content a.toc-active {
+[class*="neon-"] .toc-content a.toc-active,
+.neon .toc-content a.toc-active {
   color: var(--primary);
   font-weight: 600;
-  background: color-mix(in srgb, var(--primary) 15%, transparent);
-  border-left-color: var(--primary);
-  box-shadow:
-    inset 0 0 16px color-mix(in srgb, var(--primary) 12%, transparent),
-    0 0 8px color-mix(in srgb, var(--primary) 6%, transparent);
+  background: color-mix(in srgb, var(--primary) 12%, transparent);
+  border-color: color-mix(in srgb, var(--primary) 24%, transparent);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--primary) 6%, transparent);
 }
 ''';

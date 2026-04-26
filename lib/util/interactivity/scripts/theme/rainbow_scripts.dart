@@ -1,18 +1,18 @@
-/// JavaScript for Codex rainbow theme animation.
+/// JavaScript for Neon rainbow theme animation.
 ///
 /// This script animates the --primary and --ring CSS variables
-/// through a rainbow color cycle when the .codex-rainbow class is present.
-/// IMPORTANT: Only activates if .codex-rainbow class is already on the root element.
+/// through a rainbow color cycle when the .neon-rainbow class is present.
+/// IMPORTANT: Only activates if .neon-rainbow class is already on the root element.
 class RainbowScripts {
   RainbowScripts._();
 
   static const String code = '''
   // Rainbow theme animation - smooth hue rotation
-  // ONLY activates if .codex-rainbow class is already present
+  // ONLY activates if .neon-rainbow class is already present
   function bindRainbowTheme() {
-    let root = document.querySelector('.codex-rainbow');
+    let root = document.querySelector('.neon-rainbow');
 
-    // Only proceed if .codex-rainbow class is explicitly set
+    // Only proceed if .neon-rainbow class is explicitly set
     if (!root) {
       return; // Do nothing if rainbow theme is not enabled
     }

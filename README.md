@@ -8,6 +8,24 @@ Use familiar Dart widget structure, keep semantic HTML output, and only drop to 
 ```yaml
 dependencies:
   arcane_jaspr: ^3.1.0
+  arcane_jaspr_neon: ^3.1.0
+  arcane_jaspr_shadcn: ^3.1.0
+```
+
+## Demo
+
+From the `arcane_jaspr` package root, serve the demo/docs app with:
+
+```bash
+dart run arcane_jaspr:serve
+```
+
+It serves at `http://localhost:8080` and replaces any previous Arcane Jaspr demo process using that port.
+
+Build the same demo with:
+
+```bash
+dart run arcane_jaspr:serve build
 ```
 
 ## Import Surfaces
@@ -16,6 +34,16 @@ Use the primary import for normal app code:
 
 ```dart
 import 'package:arcane_jaspr/arcane_jaspr.dart';
+import 'package:arcane_jaspr_neon/arcane_jaspr_neon.dart';
+import 'package:arcane_jaspr_shadcn/arcane_jaspr_shadcn.dart';
+
+const ArcaneStylesheet shadcnStylesheet = ShadcnStylesheet(
+  theme: ShadcnTheme.midnight,
+);
+const ArcaneStylesheet neonStylesheet = NeonStylesheet(
+  theme: NeonTheme.green,
+);
+const ArcaneStylesheet selectedStylesheet = shadcnStylesheet;
 ```
 
 Only reach for the advanced layers when you need them:
@@ -29,6 +57,8 @@ import 'package:arcane_jaspr/web.dart';
 
 ```dart
 import 'package:arcane_jaspr/arcane_jaspr.dart';
+import 'package:arcane_jaspr_neon/arcane_jaspr_neon.dart';
+import 'package:arcane_jaspr_shadcn/arcane_jaspr_shadcn.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -47,24 +77,23 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return ArcaneApp(
-      stylesheet: const ShadcnStylesheet(theme: ShadcnTheme.midnight),
+      stylesheet: selectedStylesheet,
       brightness: Brightness.dark,
-      child: ArcaneBox(
-        style: const ArcaneStyleData(
-          minHeight: '100vh',
-          display: Display.flex,
-          flexDirection: FlexDirection.column,
-          alignItems: AlignItems.center,
-          justifyContent: JustifyContent.center,
-          gap: Gap.lg,
-        ),
-        children: [
-          Text.heading2('Count: $_count'),
-          Button.primary(
-            label: 'Increment',
-            onPressed: _increment,
+      home: ArcaneScaffold(
+        title: 'Counter',
+        body: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            gap: 16,
+            children: [
+              Text.heading2('Count: $_count'),
+              Button.primary(
+                label: 'Increment',
+                onPressed: _increment,
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
@@ -102,8 +131,8 @@ ArcaneMenubar(
 ## What The Primary Surface Includes
 
 - `Widget`, `StatelessWidget`, `StatefulWidget`, `State`, `BuildContext`, and `runApp`
-- `ArcaneApp`, `ShadcnStylesheet`, and `CodexStylesheet`
-- Arcane widgets for layout, input, menus, dialogs, data display, and theming
+- `ArcaneApp`, neutral renderer contracts, adaptive layout contracts, and theme provider access
+- Arcane widgets for layout, input, menus, dialogs, data display, adaptive scaffolds, and theming
 - Type-safe styling through `ArcaneStyleData`
 
 ## Advanced Imports
@@ -114,8 +143,8 @@ ArcaneMenubar(
 ## Docs
 
 - Package docs: [arcanearts.github.io/arcane_jaspr](https://arcanearts.github.io/arcane_jaspr/)
-- Codex workspace: `arcane_jaspr_codex/arcane_codex_web`
-- Generated component catalog: `arcane_jaspr_codex/arcane_codex_web/content/docs/components-catalog.md`
+- Neon workspace: `arcane_jaspr_neon/arcane_neon_web`
+- Generated component catalog: `arcane_jaspr_neon/arcane_neon_web/content/docs/components-catalog.md`
 
 ## License
 

@@ -1,7 +1,7 @@
 /// Style configuration for ArcaneMap.
 ///
 /// Supports both CSS variables (for theme integration) and explicit hex colors.
-/// By default, uses CSS variables that work with ShadCN and Codex stylesheets.
+/// By default, uses CSS variables that work with ShadCN and Neon stylesheets.
 class MapStyle {
   /// Background/ocean color.
   final String backgroundColor;
@@ -163,7 +163,7 @@ class MapStyle {
 /// CSS styles for ArcaneMap components.
 ///
 /// Include this in your stylesheet's baseCss for proper map styling.
-/// Provides ShadCN base styles and Codex overrides.
+/// Provides ShadCN base styles and Neon overrides.
 const String arcaneMapCss = '''
 /* ============================================
    ARCANE MAP - Base Styles (ShadCN)
@@ -243,64 +243,64 @@ const String arcaneMapCss = '''
 }
 
 /* ============================================
-   ARCANE MAP - Codex Style
+   ARCANE MAP - Neon Style
    ============================================ */
 
-[class*="codex-"] .arcane-world-map,
-[class*="codex-"] .arcane-usa-map,
-.codex .arcane-world-map,
-.codex .arcane-usa-map {
+[class*="neon-"] .arcane-world-map,
+[class*="neon-"] .arcane-usa-map,
+.neon .arcane-world-map,
+.neon .arcane-usa-map {
   background: color-mix(in srgb, var(--card) 92%, transparent);
-  border-color: var(--codex-accent-border, var(--border));
+  border-color: var(--neon-accent-border, var(--border));
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.34);
 }
 
-[class*="codex-"] .arcane-world-map path[data-region]:hover,
-[class*="codex-"] .arcane-usa-map path[data-region]:hover,
-.codex .arcane-world-map path[data-region]:hover,
-.codex .arcane-usa-map path[data-region]:hover {
+[class*="neon-"] .arcane-world-map path[data-region]:hover,
+[class*="neon-"] .arcane-usa-map path[data-region]:hover,
+.neon .arcane-world-map path[data-region]:hover,
+.neon .arcane-usa-map path[data-region]:hover {
   fill: var(--primary) !important;
   opacity: 0.72;
 }
 
-[class*="codex-"] .arcane-world-map path[data-region][data-active="true"],
-[class*="codex-"] .arcane-usa-map path[data-region][data-active="true"],
-.codex .arcane-world-map path[data-region][data-active="true"],
-.codex .arcane-usa-map path[data-region][data-active="true"] {
+[class*="neon-"] .arcane-world-map path[data-region][data-active="true"],
+[class*="neon-"] .arcane-usa-map path[data-region][data-active="true"],
+.neon .arcane-world-map path[data-region][data-active="true"],
+.neon .arcane-usa-map path[data-region][data-active="true"] {
   fill: var(--primary) !important;
   opacity: 0.9;
 }
 
-[class*="codex-"] .arcane-world-map circle[data-location],
-[class*="codex-"] .arcane-usa-map circle[data-location],
-.codex .arcane-world-map circle[data-location],
-.codex .arcane-usa-map circle[data-location] {
+[class*="neon-"] .arcane-world-map circle[data-location],
+[class*="neon-"] .arcane-usa-map circle[data-location],
+.neon .arcane-world-map circle[data-location],
+.neon .arcane-usa-map circle[data-location] {
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
 }
 
-[class*="codex-"] .arcane-world-map circle[data-location]:hover,
-[class*="codex-"] .arcane-usa-map circle[data-location]:hover,
-.codex .arcane-world-map circle[data-location]:hover,
-.codex .arcane-usa-map circle[data-location]:hover {
+[class*="neon-"] .arcane-world-map circle[data-location]:hover,
+[class*="neon-"] .arcane-usa-map circle[data-location]:hover,
+.neon .arcane-world-map circle[data-location]:hover,
+.neon .arcane-usa-map circle[data-location]:hover {
   filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.45));
 }
 
-[class*="codex-"] .arcane-map-debug-tooltip > div,
-.codex .arcane-map-debug-tooltip > div {
+[class*="neon-"] .arcane-map-debug-tooltip > div,
+.neon .arcane-map-debug-tooltip > div {
   background: color-mix(in srgb, var(--card) 96%, transparent);
-  border-color: var(--codex-accent-border, var(--border));
+  border-color: var(--neon-accent-border, var(--border));
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.42);
 }
 
-[class*="codex-"] .arcane-map-debug-tooltip .debug-lat,
-[class*="codex-"] .arcane-map-debug-tooltip .debug-lng,
-.codex .arcane-map-debug-tooltip .debug-lat,
-.codex .arcane-map-debug-tooltip .debug-lng {
+[class*="neon-"] .arcane-map-debug-tooltip .debug-lat,
+[class*="neon-"] .arcane-map-debug-tooltip .debug-lng,
+.neon .arcane-map-debug-tooltip .debug-lat,
+.neon .arcane-map-debug-tooltip .debug-lng {
   color: var(--primary);
 }
 
-[class*="codex-"] .arcane-map-debug-tooltip .debug-hint,
-.codex .arcane-map-debug-tooltip .debug-hint {
+[class*="neon-"] .arcane-map-debug-tooltip .debug-hint,
+.neon .arcane-map-debug-tooltip .debug-hint {
   color: var(--primary);
 }
 ''';

@@ -33,6 +33,7 @@ const List<String> _requiredMainExports = <String>[
   'component/layout/fancy_progress.dart',
   'component/layout/form_header.dart',
   'component/layout/radio_cards.dart',
+  'component/layout/scaffold.dart',
   'component/layout/section.dart',
   'component/screen/abstract_screen.dart',
   'component/screen/fill_screen.dart',
@@ -97,7 +98,10 @@ const List<_BannedToken> _publicApiBannedTokens = <_BannedToken>[
   ),
   _BannedToken(label: 'Component build', pattern: r'\bComponent build\s*\('),
   _BannedToken(label: 'List<Component>', pattern: r'\bList<Component>\b'),
-  _BannedToken(label: 'Component? parameter or field', pattern: r'\bComponent\?\s+[A-Za-z_]'),
+  _BannedToken(
+    label: 'Component? parameter or field',
+    pattern: r'\bComponent\?\s+[A-Za-z_]',
+  ),
   _BannedToken(
     label: 'Component field or parameter',
     pattern: r'\b(?:final|const|late|required|static)\s+Component\s+[A-Za-z_]',
@@ -113,7 +117,9 @@ void main(List<String> args) {
     exit(1);
   }
 
-  File mainSurfaceFile = File('${packageRootDirectory.path}/lib/arcane_jaspr.dart');
+  File mainSurfaceFile = File(
+    '${packageRootDirectory.path}/lib/arcane_jaspr.dart',
+  );
   List<String> exportPaths = _readExportPaths(mainSurfaceFile);
   List<String> failures = <String>[];
 
@@ -148,7 +154,8 @@ void _checkPublicApi(
   List<String> failures,
 ) {
   for (String exportPath in exportPaths) {
-    if (!exportPath.startsWith('component/') && exportPath != 'mods/card.dart') {
+    if (!exportPath.startsWith('component/') &&
+        exportPath != 'mods/card.dart') {
       continue;
     }
 
@@ -174,22 +181,25 @@ void _checkPublicApi(
   }
 }
 
-void _checkDocsAndExamples(Directory packageRootDirectory, List<String> failures) {
+void _checkDocsAndExamples(
+  Directory packageRootDirectory,
+  List<String> failures,
+) {
   List<File> filesToScan = <File>[
     File('${packageRootDirectory.path}/README.md'),
-    File('${packageRootDirectory.path}/arcane_jaspr_codex/README.md'),
+    File('${packageRootDirectory.path}/arcane_jaspr_neon/README.md'),
     File(
-      '${packageRootDirectory.path}/arcane_jaspr_codex/arcane_codex_web/README.md',
+      '${packageRootDirectory.path}/arcane_jaspr_neon/arcane_neon_web/README.md',
     ),
     File(
-      '${packageRootDirectory.path}/arcane_jaspr_codex/arcane_codex_web/lib/components/demo_registry.dart',
+      '${packageRootDirectory.path}/arcane_jaspr_neon/arcane_neon_web/lib/components/demo_registry.dart',
     ),
   ];
 
   filesToScan.addAll(
     _collectFiles(
       Directory(
-        '${packageRootDirectory.path}/arcane_jaspr_codex/arcane_codex_web/content',
+        '${packageRootDirectory.path}/arcane_jaspr_neon/arcane_neon_web/content',
       ),
       '.md',
     ),
@@ -202,13 +212,17 @@ void _checkDocsAndExamples(Directory packageRootDirectory, List<String> failures
   );
   filesToScan.addAll(
     _collectFiles(
-      Directory('${packageRootDirectory.path}/../Oracular/templates/arcane_jaspr_docs'),
+      Directory(
+        '${packageRootDirectory.path}/../Oracular/templates/arcane_jaspr_docs',
+      ),
       '.md',
     ),
   );
   filesToScan.addAll(
     _collectFiles(
-      Directory('${packageRootDirectory.path}/../Oracular/templates/arcane_jaspr_app/lib'),
+      Directory(
+        '${packageRootDirectory.path}/../Oracular/templates/arcane_jaspr_app/lib',
+      ),
       '.dart',
     ),
   );
@@ -219,9 +233,8 @@ void _checkDocsAndExamples(Directory packageRootDirectory, List<String> failures
     }
 
     String content = file.readAsStringSync();
-    List<_BannedToken> bannedTokens = file.path.endsWith(
-          '/content/docs/components-catalog.md',
-        )
+    List<_BannedToken> bannedTokens =
+        file.path.endsWith('/content/docs/components-catalog.md')
         ? _catalogBannedTokens
         : _docBannedTokens;
 

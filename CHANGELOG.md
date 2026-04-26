@@ -112,11 +112,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - All pastel themes changed from tinted backgrounds to clean white (`0xFFffffff`)
   - Explicit secondary/accent colors provide visible contrast against white
   - Professional aesthetic with clearly distinguishable surface layers
-- `CodexTheme` now includes bold, gaming-inspired light surface colors:
+- `NeonTheme` now includes bold, gaming-inspired light surface colors:
   - Each theme (green, red, blue, purple, cyan, pink, orange, rainbow) defines explicit `lightSecondary`, `lightAccent`, and `lightBorder`
   - Light surfaces are intentionally more saturated for gaming aesthetic
   - Example: green theme uses mint surfaces (`0xFFd1fae5`, `0xFFa7f3d0`, `0xFF6ee7b7`)
-- `CodexStylesheet.lightSeed` updated to use explicit theme colors instead of auto-derivation
+- `NeonStylesheet.lightSeed` updated to use explicit theme colors instead of auto-derivation
 
 **ArcaneMap Theme Integration**
 - `MapStyle` now uses CSS variables by default for theme-aware styling:
@@ -127,7 +127,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - **ShadCN (base)**: Clean map styling with theme variable integration
   - Hover effects on regions and location pins
   - Debug tooltip styling using theme colors
-  - **Codex (overrides)**: Neon cyberpunk map effects
+  - **Neon (overrides)**: Cyberpunk map effects
   - Glowing region hover effects with `drop-shadow`
   - Pulsing pin animation (`arcane-map-pin-pulse`)
   - Neon-styled debug tooltips with text shadows
@@ -144,7 +144,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Improved transition timing with `cubic-bezier(0.4, 0, 0.2, 1)` easing
 - Non-hovered cards now shrink to `0.8x` when another card is hovered
 - Added `.hovered` CSS class for additional styling hooks
-- **Codex renderer enhancements**:
+- **Neon renderer enhancements**:
   - Icon glows on hover with `box-shadow`
   - Title changes to primary color with text shadow on hover
   - Card background tints toward primary on hover
@@ -159,11 +159,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Fading tree lines at deeper nesting levels
   - Single-child detection to hide unnecessary tree lines
   - Smaller, more subtle link styling (12px font, refined padding)
-  - **Codex (overrides)**: Glowing neon tree lines with `var(--primary)` color
+  - **Neon (overrides)**: Glowing tree lines with `var(--primary)` color
   - Thicker 2px lines with `box-shadow` glow effects
   - Border-left accent on links with glowing active states
   - Monospace font for headers
-- `arcaneSidebarTreeStyles` - Complete rewrite matching Codex website patterns:
+- `arcaneSidebarTreeStyles` - Complete rewrite matching Neon website patterns:
   - **ShadCN (base)**: Clean tree lines with subtle borders
   - Added `.sidebar-tree` container class support
   - Consistent tree line implementation using `::before`/`::after` pseudo-elements
@@ -171,7 +171,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Added animated chevron icon for expand/collapse
   - Proper `.sidebar-link` styling with hover and active states
   - Fading tree lines at deeper nesting levels
-  - **Codex (overrides)**: Cyberpunk glowing tree lines
+  - **Neon (overrides)**: Cyberpunk glowing tree lines
   - Thicker 2px primary-colored lines with glow effects
   - Border-left accent styling with straight left edges
   - Prominent glow on active states with inset box-shadow
@@ -228,16 +228,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added `GradientTextProps.buildGradient()` method for unified gradient building
 
 **ArcaneButton CTA Enhancements**
-- Added `ButtonVariant.accent` for gradient background buttons (green-to-cyan in Codex, primary-to-secondary in ShadCN)
+- Added `ButtonVariant.accent` for gradient background buttons (green-to-cyan in Neon, primary-to-secondary in ShadCN)
 - Added `href` property to render button as anchor tag (`<a>`) for navigation CTAs
 - Added `showArrow` property to display arrow indicator after label
 - Added `ArcaneButton.accent()` named constructor
-- Updated both Codex and ShadCN renderers
+- Updated both Neon and ShadCN renderers
 
-**CodexStylesheet Accent Variables**
-- Added `--codex-accent-gradient` CSS variable for gradient backgrounds
-- Added `--codex-accent-glow-medium` CSS variable for button glows
-- Added `--codex-accent-border` CSS variable for accent-colored borders
+**NeonStylesheet Accent Variables**
+- Added `--neon-accent-gradient` CSS variable for gradient backgrounds
+- Added `--neon-accent-glow-medium` CSS variable for button glows
+- Added `--neon-accent-border` CSS variable for accent-colored borders
 - Variables defined for all accent presets (green, red, blue, purple)
 
 **ArcaneCatImage Component**
@@ -266,10 +266,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-**CodexStylesheet API Consistency**
-- Renamed `CodexAccent` enum to `CodexTheme` for consistency with `ShadcnTheme`
-- Renamed `accent` parameter to `theme` in `CodexStylesheet` constructor
-- Migration: `CodexStylesheet(accent: CodexAccent.orange)` -> `CodexStylesheet(theme: CodexTheme.orange)`
+**NeonStylesheet API Consistency**
+- Renamed `NeonAccent` enum to `NeonTheme` for consistency with `ShadcnTheme`
+- Renamed `accent` parameter to `theme` in `NeonStylesheet` constructor
+- Migration: `NeonStylesheet(accent: NeonAccent.orange)` -> `NeonStylesheet(theme: NeonTheme.orange)`
 
 **Renderer CSS Variable Migration**
 - Migrated 800+ hardcoded style values across 60+ renderer files to use CSS variables
@@ -278,7 +278,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - All `gap` values now use `var(--arcane-space-*)` variables
 - All `font-size` values now use `var(--arcane-font-size-*)` variables
 - All `font-weight` values now use `var(--arcane-font-weight-*)` variables
-- Updated both ShadCN and Codex stylesheets and renderers
+- Updated both ShadCN and Neon stylesheets and renderers
 
 ### Breaking Changes
 
@@ -294,7 +294,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Removed `ArcaneItemPicker` component - use `ArcaneDialog` with custom list content
 - Removed `InputDialogProps` and `ItemPickerProps` classes
 - Removed `inputDialog()` and `itemPicker()` methods from `ComponentRenderers`
-- Removed ShadCN and Codex renderer implementations for `inputDialog` and `itemPicker`
+- Removed ShadCN and Neon renderer implementations for `inputDialog` and `itemPicker`
 - The unified `ArcaneDialog` now handles all dialog use cases through composition
 
 **Divider Component Consolidation**
@@ -302,7 +302,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Removed `ArcaneVerticalDivider` - use `ArcaneSeparator.vertical()`
 - Removed `DividerProps` and `DividerVariant`/`DividerOrientation` enums
 - Removed `divider()` method from `ComponentRenderers`
-- Removed ShadCN and Codex renderer implementations for `divider`
+- Removed ShadCN and Neon renderer implementations for `divider`
 - The unified `ArcaneSeparator` now handles all divider/separator use cases
 
 **Floating Component Consolidation**
@@ -313,7 +313,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Removed `ArcaneHovercard` component - use `ArcaneFloating.hovercard()`
 - Removed `TooltipProps`, `PopoverProps`, `HovercardProps` classes
 - Removed `tooltip()`, `popover()`, `hovercard()` methods from `ComponentRenderers`
-- Removed ShadCN and Codex renderer implementations for `tooltip`, `popover`, `hovercard`
+- Removed ShadCN and Neon renderer implementations for `tooltip`, `popover`, `hovercard`
 - The unified `ArcaneFloating` now handles all floating UI patterns
 
 ### Fixed
@@ -448,7 +448,7 @@ All layout components now delegate to the renderer system:
 
 ### Fixed
 
-#### Codex Demo API Corrections
+#### Neon Demo API Corrections
 - `ArcaneFlexiCardItem` corrected to `FlexiCardItem` (class was renamed)
 - `ArcanePre` corrected to `ArcaneCodeBlock` (legacy name removed)
 - `CalloutStyle` corrected to `CalloutVariant` (enum renamed)

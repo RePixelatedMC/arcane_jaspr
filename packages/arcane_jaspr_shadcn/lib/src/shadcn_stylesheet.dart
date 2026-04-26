@@ -1,0 +1,88 @@
+import 'package:arcane_jaspr/theme/index.dart';
+import 'package:arcane_jaspr/stylesheets/stylesheet.dart';
+
+import 'renderers/shadcn_renderers.dart';
+import 'shadcn_css.dart';
+import 'shadcn_layout_renderers.dart';
+import 'shadcn_theme.dart';
+
+/// ShadCN UI stylesheet.
+///
+/// Implements the ShadCN/ui design language:
+/// - Rounded corners (0.5rem default radius)
+/// - Minimal shadows
+/// - Border-focused design
+/// - Inter font (via Google Fonts)
+/// - Accessible, clean aesthetic
+///
+/// Supports multiple color themes via [ShadcnTheme].
+///
+/// Reference: https://ui.shadcn.com
+class ShadcnStylesheet extends ArcaneStylesheet {
+  /// The color theme to use. Defaults to midnight (OLED black).
+  final ShadcnTheme theme;
+
+  const ShadcnStylesheet({this.theme = ShadcnTheme.midnight});
+
+  @override
+  String get id => 'shadcn';
+
+  @override
+  String get name => 'ShadCN UI';
+
+  @override
+  ComponentRenderers get renderers => const ShadcnRenderers();
+
+  @override
+  LayoutRenderers get layouts => const ShadcnLayoutRenderers();
+
+  // ============================================
+  // Theme Seeds
+  // ============================================
+
+  @override
+  ThemeSeed get lightSeed => ThemeSeed(
+    primary: theme.lightPrimary,
+    background: theme.lightBackground,
+    // Only pass secondary/accent if explicitly defined in theme
+    // Otherwise let PaletteGenerator derive them with primary tinting
+    secondary: theme.lightSecondary,
+    accent: theme.lightAccent,
+    destructive: 0xFFef4444,
+    success: 0xFF22c55e,
+    warning: 0xFFf59e0b,
+    info: 0xFF3b82f6,
+  );
+
+  @override
+  ThemeSeed get darkSeed => ThemeSeed(
+    primary: theme.darkPrimary,
+    background: theme.darkBackground,
+    secondary: theme.darkSecondary,
+    accent: theme.darkAccent,
+    destructive: 0xFF7f1d1d,
+    success: 0xFF166534,
+    warning: 0xFF92400e,
+    info: 0xFF1e40af,
+    isDark: true,
+  );
+
+  // ============================================
+  // Fonts
+  // ============================================
+
+  @override
+  FontConfig get fonts => const FontConfig(
+    sans:
+        "'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+    mono: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+  );
+
+  @override
+  List<String> get externalCssUrls => const [
+    'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
+  ];
+
+  @override
+  String get componentCss => ShadcnCss.componentCss(theme);
+}

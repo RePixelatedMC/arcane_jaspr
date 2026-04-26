@@ -17,19 +17,19 @@ class CommandPaletteScripts {
       style.id = 'arcane-command-styles';
       style.textContent = '\
         .arcane-command-item:hover:not(.disabled),\
-        .codex-command-item:hover:not(.disabled) {\
+        .neon-command-item:hover:not(.disabled) {\
           background-color: var(--accent, var(--secondary, rgba(255,255,255,0.1)));\
         }\
         .arcane-command-item.selected:not(.disabled),\
-        .codex-command-item.selected:not(.disabled) {\
+        .neon-command-item.selected:not(.disabled) {\
           background-color: var(--accent, var(--secondary, rgba(255,255,255,0.1)));\
           outline: 2px solid var(--ring, var(--primary, #3b82f6));\
           outline-offset: -2px;\
         }\
         .arcane-command-item.js-hidden,\
-        .codex-command-item.js-hidden,\
+        .neon-command-item.js-hidden,\
         .arcane-command-group-heading.js-hidden,\
-        .codex-command-group-heading.js-hidden {\
+        .neon-command-group-heading.js-hidden {\
           display: none !important;\
         }\
       ';
@@ -38,12 +38,12 @@ class CommandPaletteScripts {
 
     // Helper to find the overlay from any target
     function findOverlay(target) {
-      return target.closest('.arcane-command-overlay, .codex-command-overlay');
+      return target.closest('.arcane-command-overlay, .neon-command-overlay');
     }
 
     // Helper to get current visible items in an overlay
     function getVisibleItems(overlay) {
-      var allItems = overlay.querySelectorAll('.arcane-command-item:not(.disabled):not(.js-hidden), .codex-command-item:not(.disabled):not(.js-hidden)');
+      var allItems = overlay.querySelectorAll('.arcane-command-item:not(.disabled):not(.js-hidden), .neon-command-item:not(.disabled):not(.js-hidden)');
       return Array.from(allItems).filter(function(item) {
         return item.offsetParent !== null;
       });
@@ -59,7 +59,7 @@ class CommandPaletteScripts {
 
     function updateSelection(overlay, items) {
       var selectedIndex = getSelectedIndex(overlay);
-      overlay.querySelectorAll('.arcane-command-item, .codex-command-item').forEach(function(item) {
+      overlay.querySelectorAll('.arcane-command-item, .neon-command-item').forEach(function(item) {
         item.classList.remove('selected');
       });
       if (selectedIndex >= 0 && items[selectedIndex]) {
@@ -93,7 +93,7 @@ class CommandPaletteScripts {
 
     // Filter items based on search query
     function filterItems(overlay, query) {
-      var list = overlay.querySelector('.arcane-command-list, .codex-command-list');
+      var list = overlay.querySelector('.arcane-command-list, .neon-command-list');
       if (!list) return;
 
       var q = query.toLowerCase().trim();
@@ -103,7 +103,7 @@ class CommandPaletteScripts {
 
       // First pass: filter all items
       children.forEach(function(child) {
-        if (child.classList.contains('arcane-command-item') || child.classList.contains('codex-command-item')) {
+        if (child.classList.contains('arcane-command-item') || child.classList.contains('neon-command-item')) {
           if (!q) {
             child.classList.remove('js-hidden');
             return;
@@ -121,9 +121,9 @@ class CommandPaletteScripts {
 
       children.forEach(function(child, index) {
         var isHeading = child.classList.contains('arcane-command-group-heading') ||
-                        child.classList.contains('codex-command-group-heading');
+                        child.classList.contains('neon-command-group-heading');
         var isItem = child.classList.contains('arcane-command-item') ||
-                     child.classList.contains('codex-command-item');
+                     child.classList.contains('neon-command-item');
 
         if (isHeading) {
           // Before processing new heading, finalize the previous one
@@ -158,7 +158,7 @@ class CommandPaletteScripts {
     // Auto-focus input when overlay appears
     function focusCommandInput(overlay) {
       if (!overlay) return;
-      var input = overlay.querySelector('.arcane-command-input, .codex-command-input');
+      var input = overlay.querySelector('.arcane-command-input, .neon-command-input');
       if (input) {
         setTimeout(function() {
           input.focus();
@@ -173,10 +173,10 @@ class CommandPaletteScripts {
           if (node.nodeType === 1) {
             // Check if the added node is an overlay or contains one
             if (node.classList && (node.classList.contains('arcane-command-overlay') ||
-                                   node.classList.contains('codex-command-overlay'))) {
+                                   node.classList.contains('neon-command-overlay'))) {
               focusCommandInput(node);
             } else if (node.querySelector) {
-              var overlay = node.querySelector('.arcane-command-overlay, .codex-command-overlay');
+              var overlay = node.querySelector('.arcane-command-overlay, .neon-command-overlay');
               if (overlay) {
                 focusCommandInput(overlay);
               }
@@ -189,7 +189,7 @@ class CommandPaletteScripts {
     observer.observe(document.body, { childList: true, subtree: true });
 
     // Also focus any existing overlay on page load
-    var existingOverlay = document.querySelector('.arcane-command-overlay, .codex-command-overlay');
+    var existingOverlay = document.querySelector('.arcane-command-overlay, .neon-command-overlay');
     if (existingOverlay && existingOverlay.style.display !== 'none') {
       focusCommandInput(existingOverlay);
     }
@@ -199,7 +199,7 @@ class CommandPaletteScripts {
       var overlay = findOverlay(e.target);
 
       // Handle item clicks
-      var item = e.target.closest('.arcane-command-item, .codex-command-item');
+      var item = e.target.closest('.arcane-command-item, .neon-command-item');
       if (item && overlay && !item.classList.contains('disabled')) {
         e.preventDefault();
         e.stopPropagation();
@@ -208,9 +208,9 @@ class CommandPaletteScripts {
       }
 
       // Handle click-outside to close
-      var anyOverlay = document.querySelector('.arcane-command-overlay, .codex-command-overlay');
+      var anyOverlay = document.querySelector('.arcane-command-overlay, .neon-command-overlay');
       if (anyOverlay && anyOverlay.style.display !== 'none') {
-        var dialog = anyOverlay.querySelector('.arcane-command-dialog, .codex-command-dialog');
+        var dialog = anyOverlay.querySelector('.arcane-command-dialog, .neon-command-dialog');
         if (anyOverlay.dataset.commandClosable === 'true') {
           if (!dialog || !dialog.contains(e.target)) {
             closeOverlay(anyOverlay);
@@ -221,7 +221,7 @@ class CommandPaletteScripts {
 
     // Document-level mouseover for hover selection
     document.addEventListener('mouseover', function(e) {
-      var item = e.target.closest('.arcane-command-item, .codex-command-item');
+      var item = e.target.closest('.arcane-command-item, .neon-command-item');
       if (!item) return;
       var overlay = findOverlay(item);
       if (!overlay) return;
@@ -237,7 +237,7 @@ class CommandPaletteScripts {
 
     // Document-level keyboard handler (works for dynamically rendered overlays)
     document.addEventListener('keydown', function(e) {
-      var overlay = document.querySelector('.arcane-command-overlay, .codex-command-overlay');
+      var overlay = document.querySelector('.arcane-command-overlay, .neon-command-overlay');
       if (!overlay || overlay.style.display === 'none') {
         // Only handle Ctrl+K when no overlay is open
         if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
@@ -288,7 +288,7 @@ class CommandPaletteScripts {
     // Document-level input handler for search filtering
     document.addEventListener('input', function(e) {
       var input = e.target;
-      if (!input.classList.contains('arcane-command-input') && !input.classList.contains('codex-command-input')) return;
+      if (!input.classList.contains('arcane-command-input') && !input.classList.contains('neon-command-input')) return;
       var overlay = findOverlay(input);
       if (!overlay) return;
 

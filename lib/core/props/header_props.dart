@@ -37,7 +37,7 @@ class HeaderProps {
   final bool transparent;
   final bool bordered;
 
-  /// Header height in pixels. Defaults to 72 for Codex, 64 for Shadcn.
+  /// Header height in pixels. Defaults to 72 for Neon, 64 for Shadcn.
   final double? height;
 
   const HeaderProps({

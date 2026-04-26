@@ -6,17 +6,10 @@ class HeadElementData {
   final Map<String, String>? attributes;
   final String? textContent;
 
-  const HeadElementData({
-    required this.tag,
-    this.attributes,
-    this.textContent,
-  });
+  const HeadElementData({required this.tag, this.attributes, this.textContent});
 
   factory HeadElementData.link(String href, {String rel = 'stylesheet'}) {
-    return HeadElementData(
-      tag: 'link',
-      attributes: {'href': href, 'rel': rel},
-    );
+    return HeadElementData(tag: 'link', attributes: {'href': href, 'rel': rel});
   }
 
   factory HeadElementData.preconnect(String href, {bool crossorigin = false}) {
@@ -28,11 +21,22 @@ class HeadElementData {
     );
   }
 
-  factory HeadElementData.style(String css) {
+  factory HeadElementData.meta({
+    required String name,
+    required String content,
+  }) {
     return HeadElementData(
-      tag: 'style',
-      textContent: css,
+      tag: 'meta',
+      attributes: {'name': name, 'content': content},
     );
+  }
+
+  factory HeadElementData.style(String css) {
+    return HeadElementData(tag: 'style', textContent: css);
+  }
+
+  factory HeadElementData.title(String title) {
+    return HeadElementData(tag: 'title', textContent: title);
   }
 }
 
@@ -40,11 +44,15 @@ class HeadElementData {
 class DocumentHelper {
   /// Set attributes on the html element
   static Component html({Map<String, String>? attributes}) {
-    throw UnsupportedError('Cannot use DocumentHelper without a platform implementation');
+    throw UnsupportedError(
+      'Cannot use DocumentHelper without a platform implementation',
+    );
   }
 
   /// Inject elements into the document head using data objects
   static Component head({List<HeadElementData>? elements}) {
-    throw UnsupportedError('Cannot use DocumentHelper without a platform implementation');
+    throw UnsupportedError(
+      'Cannot use DocumentHelper without a platform implementation',
+    );
   }
 }

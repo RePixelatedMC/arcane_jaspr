@@ -3,7 +3,6 @@ import 'package:jaspr/jaspr.dart' as jaspr;
 import 'package:jaspr/dom.dart' as dom;
 
 import '../../core/theme_provider.dart';
-import '../../stylesheets/shadcn/shadcn_stylesheet.dart';
 import '../../util/interactivity/arcane_scripts.dart';
 
 // Conditional import for Document handling - server vs client
@@ -13,19 +12,15 @@ import 'document_stub.dart'
 
 export '../../core/theme_provider.dart';
 export '../../stylesheets/stylesheet.dart';
-export '../../stylesheets/shadcn/shadcn_stylesheet.dart';
-export '../../stylesheets/codex/codex_stylesheet.dart';
 
 /// Root application component for Arcane Jaspr apps.
 ///
 /// The [stylesheet] parameter is required - there is no default stylesheet.
-/// You must explicitly choose a stylesheet for your app:
-/// - [ShadcnStylesheet] - Clean, minimal ShadCN-inspired design
-/// - [CodexStylesheet] - Premium dark-first system with restrained accent atmosphere (rainbow is opt-in)
+/// Import a concrete renderer package and pass its stylesheet here.
 class ArcaneApp extends StatefulWidget {
   final ArcaneStylesheet stylesheet;
   final Brightness brightness;
-  final Widget child;
+  final Widget home;
   final String? title;
   final String? description;
   final List<Widget>? head;
@@ -34,7 +29,7 @@ class ArcaneApp extends StatefulWidget {
   const ArcaneApp({
     required this.stylesheet,
     this.brightness = Brightness.dark,
-    required this.child,
+    required this.home,
     this.title,
     this.description,
     this.head,
@@ -49,47 +44,65 @@ class ArcaneApp extends StatefulWidget {
 class _ArcaneAppState extends State<ArcaneApp> {
   @override
   Widget build(BuildContext context) {
-    final bool isDark = component.brightness == Brightness.dark;
-    final ArcaneStylesheet stylesheet = component.stylesheet;
+    bool isDark = component.brightness == Brightness.dark;
+    ArcaneStylesheet stylesheet = component.stylesheet;
 
     // Build head elements data for injection
-    final List<HeadElementData> headElements = [];
+    List<HeadElementData> headElements = [];
 
-    for (final String url in stylesheet.externalCssUrls) {
+    if (component.title != null && component.title!.isNotEmpty) {
+      headElements.add(HeadElementData.title(component.title!));
+    }
+
+    if (component.description != null && component.description!.isNotEmpty) {
+      headElements.add(
+        HeadElementData.meta(
+          name: 'description',
+          content: component.description!,
+        ),
+      );
+    }
+
+    for (String url in stylesheet.externalCssUrls) {
       if (url.contains('fonts.googleapis.com')) {
         headElements.addAll([
           HeadElementData.preconnect('https://fonts.googleapis.com'),
-          HeadElementData.preconnect('https://fonts.gstatic.com', crossorigin: true),
+          HeadElementData.preconnect(
+            'https://fonts.gstatic.com',
+            crossorigin: true,
+          ),
         ]);
       }
       headElements.add(HeadElementData.link(url));
     }
 
-    final String baseCss = stylesheet.baseCss;
+    String baseCss = stylesheet.baseCss;
     if (baseCss.isNotEmpty) {
       headElements.add(HeadElementData.style(baseCss));
     }
 
     // Build CSS classes: brightness + any stylesheet-specific classes
-    final String brightnessClass = isDark ? 'dark' : 'light';
-    final String? stylesheetClass = stylesheet.bodyClass;
-    final String rootClasses = stylesheetClass != null && stylesheetClass.isNotEmpty
+    String brightnessClass = isDark ? 'dark' : 'light';
+    String? stylesheetClass = stylesheet.bodyClass;
+    String rootClasses = stylesheetClass != null && stylesheetClass.isNotEmpty
         ? '$brightnessClass $stylesheetClass'
         : brightnessClass;
 
-    final Widget rootDiv = dom.div(
+    Widget rootDiv = dom.div(
       id: 'arcane-root',
       classes: rootClasses,
-      styles: const dom.Styles(raw: {
-        'min-height': '100vh',
-        'background-color': 'var(--background)',
-        'color': 'var(--foreground)',
-        'font-family': 'var(--font-sans)',
-        '-webkit-font-smoothing': 'antialiased',
-        '-moz-osx-font-smoothing': 'grayscale',
-      }),
+      styles: const dom.Styles(
+        raw: {
+          'min-height': '100vh',
+          'background-color': 'var(--background)',
+          'color': 'var(--foreground)',
+          'font-family': 'var(--font-sans)',
+          '-webkit-font-smoothing': 'antialiased',
+          '-moz-osx-font-smoothing': 'grayscale',
+        },
+      ),
       [
-        component.child,
+        component.home,
         if (component.includeFallbackScripts) const ArcaneScriptsComponent(),
       ],
     );
@@ -114,12 +127,12 @@ class _ArcaneAppState extends State<ArcaneApp> {
 class ArcaneWindow extends StatelessWidget {
   final ArcaneStylesheet stylesheet;
   final Brightness brightness;
-  final Widget child;
+  final Widget home;
 
   const ArcaneWindow({
     required this.stylesheet,
     this.brightness = Brightness.dark,
-    required this.child,
+    required this.home,
     super.key,
   });
 
@@ -128,7 +141,7 @@ class ArcaneWindow extends StatelessWidget {
     return ArcaneApp(
       stylesheet: stylesheet,
       brightness: brightness,
-      child: child,
+      home: home,
     );
   }
 }

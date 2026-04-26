@@ -1,0 +1,52 @@
+name: arcane_neon_web
+description: "ArcaneNeon static documentation site"
+version: 1.0.0
+publish_to: 'none'
+
+environment:
+  sdk: ^3.10.0
+
+dependencies:
+  web: ^1.1.1
+  jaspr: ^0.23.0
+  jaspr_content: ^0.5.0
+  arcane_jaspr:
+    path: ../../
+  arcane_jaspr_shadcn:
+    path: ../../packages/arcane_jaspr_shadcn
+  arcane_jaspr_neon:
+    path: ../../packages/arcane_jaspr_neon
+  arcane_lexicon:
+    path: ../../../arcane_lexicon
+  fast_log: ^1.0.7
+
+dev_dependencies:
+  build_runner: ^2.11.1
+  build_web_compilers: ^4.4.14
+  jaspr_builder: ^0.23.0
+  lints: ^6.1.0
+
+dependency_overrides:
+  arcane_jaspr:
+    path: ../../
+
+
+jaspr:
+  mode: static
+
+scripts:
+  # Development
+  serve: dart ../../tool/arcane_jaspr_demo.dart
+  serve_release: dart ../../tool/arcane_jaspr_demo.dart serve --release
+
+  # Build
+  build: dart ../../tool/arcane_jaspr_demo.dart build
+
+  # Clean
+  clean: jaspr clean
+
+  # Kill running servers
+  killall: dart ../../tool/arcane_jaspr_demo.dart killall
+
+  # Firebase Deployment (run from parent directory)
+  firebase_deploy: jaspr build && cd .. && firebase deploy --only hosting --project FIREBASE_PROJECT_ID
