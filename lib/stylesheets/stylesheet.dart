@@ -15,7 +15,7 @@ abstract class ArcaneStylesheet {
 
   ComponentRenderers get renderers;
 
-  LayoutRenderers get layouts;
+  LayoutRenderers get layouts => const DefaultLayoutRenderers();
 
   ThemeSeed get lightSeed;
 

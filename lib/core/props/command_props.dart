@@ -43,6 +43,7 @@ class CommandGroupProps {
 
 /// Command palette component properties.
 class CommandProps {
+  final String? id;
   final bool isOpen;
   final void Function()? onClose;
   final List<CommandGroupProps> groups;
@@ -52,10 +53,15 @@ class CommandProps {
   final List<CommandItemProps> filteredItems;
   final void Function(String)? onSearch;
   final void Function(CommandItemProps)? onSelectItem;
+  final bool escapeCloses;
+  final bool scrimCloses;
+  final bool focusTrap;
+  final bool restoreFocus;
 
   const CommandProps({
     required this.isOpen,
     required this.groups,
+    this.id,
     this.onClose,
     this.placeholder = 'Type a command or search...',
     this.emptyMessage = 'No results found.',
@@ -63,9 +69,14 @@ class CommandProps {
     this.filteredItems = const [],
     this.onSearch,
     this.onSelectItem,
+    this.escapeCloses = true,
+    this.scrimCloses = true,
+    this.focusTrap = true,
+    this.restoreFocus = true,
   });
 
   CommandProps copyWith({
+    String? id,
     bool? isOpen,
     void Function()? onClose,
     List<CommandGroupProps>? groups,
@@ -75,8 +86,13 @@ class CommandProps {
     List<CommandItemProps>? filteredItems,
     void Function(String)? onSearch,
     void Function(CommandItemProps)? onSelectItem,
+    bool? escapeCloses,
+    bool? scrimCloses,
+    bool? focusTrap,
+    bool? restoreFocus,
   }) {
     return CommandProps(
+      id: id ?? this.id,
       isOpen: isOpen ?? this.isOpen,
       onClose: onClose ?? this.onClose,
       groups: groups ?? this.groups,
@@ -86,6 +102,10 @@ class CommandProps {
       filteredItems: filteredItems ?? this.filteredItems,
       onSearch: onSearch ?? this.onSearch,
       onSelectItem: onSelectItem ?? this.onSelectItem,
+      escapeCloses: escapeCloses ?? this.escapeCloses,
+      scrimCloses: scrimCloses ?? this.scrimCloses,
+      focusTrap: focusTrap ?? this.focusTrap,
+      restoreFocus: restoreFocus ?? this.restoreFocus,
     );
   }
 }

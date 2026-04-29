@@ -1,6 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
+import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/floating_props.dart';
 
 /// ShadCN Floating renderer.
@@ -76,46 +77,92 @@ class ShadcnFloating extends StatelessComponent {
 
   /// Builds a state-controlled floating panel for rich content.
   Component _buildStatefulFloating() {
-    final isOpen = props.isOpen ?? false;
-    final useHoverEvents = props.triggerType == FloatingTrigger.hover;
-    final useClickEvents = props.triggerType == FloatingTrigger.click;
+    final bool isOpen = props.isOpen ?? false;
+    final bool useHoverEvents = props.triggerType == FloatingTrigger.hover;
+    final bool useClickEvents = props.triggerType == FloatingTrigger.click;
+    final String surfaceId = props.id ?? _autoId();
+    final String anchorId = '$surfaceId-trigger';
+    final String surfaceKind = useHoverEvents ? 'hovercard' : 'popover';
+
+    final String triggerAction = useClickEvents
+        ? 'surface.toggle:$surfaceId'
+        : 'surface.hoverOpen:$surfaceId';
+
+    final Map<String, String> triggerWrapperAttrs = <String, String>{
+      'data-arcane-anchor-id': anchorId,
+      if (useClickEvents) 'data-arcane-action': triggerAction,
+      if (useHoverEvents) ...<String, String>{
+        'data-arcane-mouseenter': 'surface.hoverOpen:$surfaceId',
+        'data-arcane-mouseleave': 'surface.hoverClose:$surfaceId',
+      },
+      if (useHoverEvents && props.openDelay > 0)
+        'data-arcane-hover-open-delay': props.openDelay.toString(),
+      if (useHoverEvents && props.closeDelay > 0)
+        'data-arcane-hover-close-delay': props.closeDelay.toString(),
+    };
 
     return dom.div(
       classes: 'arcane-floating-container',
       styles: const dom.Styles(
         raw: {'position': 'relative', 'display': 'inline-block'},
       ),
-      events: useHoverEvents
-          ? {
-              'mouseenter': (_) => props.onMouseEnter?.call(),
-              'mouseleave': (_) => props.onMouseLeave?.call(),
-            }
-          : null,
+      events: <String, EventCallback>{
+        if (useHoverEvents)
+          'mouseenter': (_) => props.onMouseEnter?.call(),
+        if (useHoverEvents)
+          'mouseleave': (_) => props.onMouseLeave?.call(),
+      },
       [
-        // Trigger wrapper
-        if (useClickEvents)
-          dom.div(
-            styles: const dom.Styles(raw: {'display': 'inline-block'}),
-            events: {'click': (_) => props.onToggle?.call()},
-            [props.trigger],
-          )
-        else
-          props.trigger,
+        dom.div(
+          attributes: triggerWrapperAttrs,
+          styles: const dom.Styles(raw: {'display': 'inline-block'}),
+          events: <String, EventCallback>{
+            if (useClickEvents) 'click': (_) => props.onToggle?.call(),
+          },
+          [props.trigger],
+        ),
 
-        // Floating content
-        if (isOpen) _buildFloatingContent(),
+        _buildFloatingContent(
+          surfaceId: surfaceId,
+          anchorId: anchorId,
+          surfaceKind: surfaceKind,
+          initiallyOpen: isOpen,
+        ),
       ],
     );
   }
 
-  Component _buildFloatingContent() {
+  Component _buildFloatingContent({
+    required String surfaceId,
+    required String anchorId,
+    required String surfaceKind,
+    required bool initiallyOpen,
+  }) {
     final (positionProp, positionValue, alignment) =
         _getPositionStylesForPanel();
-    final hasRichContent = props.content != null;
-    final maxWidth = props.maxWidth;
+    final bool hasRichContent = props.content != null;
+    final double? maxWidth = props.maxWidth;
+
+    final Map<String, String> surfAttrs = surfaceAttrs(
+      surface: surfaceKind,
+      id: surfaceId,
+      initiallyOpen: initiallyOpen,
+      dismissible: props.closeOnOutsideClick,
+      escapeCloses: props.closeOnEscape,
+      focusTrap: false,
+      scrimCloses: false,
+      restoreFocus: true,
+      anchorId: anchorId,
+      anchorPlacement: props.position.name,
+      anchorOffset: props.offset.toString(),
+    );
 
     return dom.div(
       classes: 'arcane-floating-content',
+      attributes: <String, String>{
+        'role': surfaceKind == 'hovercard' ? 'tooltip' : 'dialog',
+        ...surfAttrs,
+      },
       styles: dom.Styles(
         raw: {
           'position': 'absolute',
@@ -214,7 +261,7 @@ class ShadcnFloating extends StatelessComponent {
   }
 
   (String, String, Map<String, String>) _getPositionStylesForPanel() {
-    final offsetPx = '${props.offset}px';
+    final String offsetPx = '${props.offset}px';
 
     return switch (props.position) {
       FloatingPosition.top => (
@@ -287,5 +334,11 @@ class ShadcnFloating extends StatelessComponent {
         'transform': 'translateY(-50%) rotate(-45deg)',
       },
     };
+  }
+
+  static int _autoCounter = 0;
+  static String _autoId() {
+    _autoCounter++;
+    return 'arcane-floating-$_autoCounter';
   }
 }

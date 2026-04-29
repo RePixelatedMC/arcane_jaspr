@@ -1,6 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
+import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/floating_props.dart';
 
 /// Neon Floating renderer.
@@ -23,7 +24,6 @@ class NeonFloating extends StatelessComponent {
     return _buildStatefulFloating();
   }
 
-  /// Builds a CSS-only tooltip for simple text hints.
   Component _buildCssTooltip() {
     return dom.div(
       classes: 'neon-floating-trigger',
@@ -36,31 +36,26 @@ class NeonFloating extends StatelessComponent {
       ),
       [
         props.trigger,
-        // Tooltip content (CSS-controlled visibility)
         dom.div(
-          classes: 'neon-floating neon-floating-tooltip',
+          classes: 'neon-floating neon-floating-tooltip neon-tooltip',
           attributes: {'role': 'tooltip'},
           styles: dom.Styles(
             raw: {
               'position': 'absolute',
               'z-index': '50',
-              'padding': '8px 12px',
+              'padding': '6px 10px',
               'max-width': '${props.maxWidth ?? 250}px',
               'font-size': 'var(--arcane-font-size-sm)',
-              'font-weight': 'var(--arcane-font-weight-medium)',
+              'font-weight': '500',
               'line-height': '1.4',
               'color': 'var(--popover-foreground)',
-              'background-color': 'var(--popover)',
-              'border': '1px solid var(--border)',
-              'border-radius': 'var(--arcane-radius-sm)',
-              'box-shadow': '0 4px 12px rgba(0, 0, 0, 0.4)',
               'overflow': 'hidden',
               'white-space': 'nowrap',
               'pointer-events': 'none',
               'opacity': '0',
               'visibility': 'hidden',
               'transition':
-                  'opacity var(--arcane-transition), visibility var(--arcane-transition), transform var(--arcane-transition)',
+                  'opacity 0.15s ease, visibility 0.15s ease, transform 0.15s ease',
               ..._getPositionStyles(props.position),
             },
           ),
@@ -72,46 +67,92 @@ class NeonFloating extends StatelessComponent {
 
   /// Builds a state-controlled floating panel for rich content.
   Component _buildStatefulFloating() {
-    final isOpen = props.isOpen ?? false;
-    final useHoverEvents = props.triggerType == FloatingTrigger.hover;
-    final useClickEvents = props.triggerType == FloatingTrigger.click;
+    final bool isOpen = props.isOpen ?? false;
+    final bool useHoverEvents = props.triggerType == FloatingTrigger.hover;
+    final bool useClickEvents = props.triggerType == FloatingTrigger.click;
+    final String surfaceId = props.id ?? _autoId();
+    final String anchorId = '$surfaceId-trigger';
+    final String surfaceKind = useHoverEvents ? 'hovercard' : 'popover';
+
+    final Map<String, String> triggerWrapperAttrs = <String, String>{
+      'data-arcane-anchor-id': anchorId,
+      if (useClickEvents) 'data-arcane-action': 'surface.toggle:$surfaceId',
+      if (useHoverEvents) ...<String, String>{
+        'data-arcane-mouseenter': 'surface.hoverOpen:$surfaceId',
+        'data-arcane-mouseleave': 'surface.hoverClose:$surfaceId',
+      },
+      if (useHoverEvents && props.openDelay > 0)
+        'data-arcane-hover-open-delay': props.openDelay.toString(),
+      if (useHoverEvents && props.closeDelay > 0)
+        'data-arcane-hover-close-delay': props.closeDelay.toString(),
+    };
 
     return dom.div(
       classes: 'neon-floating-container',
       styles: const dom.Styles(
         raw: {'position': 'relative', 'display': 'inline-block'},
       ),
-      events: useHoverEvents
-          ? {
-              'mouseenter': (_) => props.onMouseEnter?.call(),
-              'mouseleave': (_) => props.onMouseLeave?.call(),
-            }
-          : null,
+      events: <String, EventCallback>{
+        if (useHoverEvents)
+          'mouseenter': (_) => props.onMouseEnter?.call(),
+        if (useHoverEvents)
+          'mouseleave': (_) => props.onMouseLeave?.call(),
+      },
       [
         // Trigger wrapper
-        if (useClickEvents)
-          dom.div(
-            styles: const dom.Styles(raw: {'display': 'inline-block'}),
-            events: {'click': (_) => props.onToggle?.call()},
-            [props.trigger],
-          )
-        else
-          props.trigger,
+        dom.div(
+          attributes: triggerWrapperAttrs,
+          styles: const dom.Styles(raw: {'display': 'inline-block'}),
+          events: <String, EventCallback>{
+            if (useClickEvents) 'click': (_) => props.onToggle?.call(),
+          },
+          [props.trigger],
+        ),
 
         // Floating content
-        if (isOpen) _buildFloatingContent(),
+        _buildFloatingContent(
+          surfaceId: surfaceId,
+          anchorId: anchorId,
+          surfaceKind: surfaceKind,
+          initiallyOpen: isOpen,
+        ),
       ],
     );
   }
 
-  Component _buildFloatingContent() {
+  Component _buildFloatingContent({
+    required String surfaceId,
+    required String anchorId,
+    required String surfaceKind,
+    required bool initiallyOpen,
+  }) {
     final (positionProp, positionValue, alignment) =
         _getPositionStylesForPanel();
-    final hasRichContent = props.content != null;
-    final maxWidth = props.maxWidth;
+    final bool hasRichContent = props.content != null;
+    final double? maxWidth = props.maxWidth;
+
+    final Map<String, String> surfAttrs = surfaceAttrs(
+      surface: surfaceKind,
+      id: surfaceId,
+      initiallyOpen: initiallyOpen,
+      dismissible: props.closeOnOutsideClick,
+      escapeCloses: props.closeOnEscape,
+      focusTrap: false,
+      scrimCloses: false,
+      restoreFocus: true,
+      anchorId: anchorId,
+      anchorPlacement: props.position.name,
+      anchorOffset: props.offset.toString(),
+    );
 
     return dom.div(
-      classes: 'neon-floating-content',
+      classes: hasRichContent
+          ? 'neon-floating-content neon-popover'
+          : 'neon-floating-content neon-tooltip',
+      attributes: <String, String>{
+        'role': surfaceKind == 'hovercard' ? 'tooltip' : 'dialog',
+        ...surfAttrs,
+      },
       styles: dom.Styles(
         raw: {
           'position': 'absolute',
@@ -120,20 +161,13 @@ class NeonFloating extends StatelessComponent {
           'z-index': '50',
           if (maxWidth != null) 'max-width': '${maxWidth}px',
           if (hasRichContent) 'min-width': '200px',
-          'background-color': 'var(--popover)',
-          'border': '1px solid var(--border)',
-          'border-radius': 'var(--arcane-radius-sm)',
-          'box-shadow': '0 4px 16px rgba(0, 0, 0, 0.5)',
-          'padding': hasRichContent ? '16px' : '8px 12px',
+          'padding': hasRichContent ? '14px 16px' : '6px 10px',
           'color': 'var(--popover-foreground)',
           'outline': 'none',
         },
       ),
       [
-        // Arrow (optional)
         if (props.showArrow) _buildArrow(),
-
-        // Content
         if (props.content != null)
           props.content!
         else if (props.textContent != null)
@@ -148,11 +182,11 @@ class NeonFloating extends StatelessComponent {
       styles: dom.Styles(
         raw: {
           'position': 'absolute',
-          'width': '12px',
-          'height': '12px',
-          'background-color': 'var(--popover)',
-          'border-left': '1px solid var(--border)',
-          'border-top': '1px solid var(--border)',
+          'width': '10px',
+          'height': '10px',
+          'background': 'var(--neon-panel-tint)',
+          'border-left': '1px solid var(--neon-panel-border)',
+          'border-top': '1px solid var(--neon-panel-border)',
           ..._getArrowStyles(),
         },
       ),
@@ -210,7 +244,7 @@ class NeonFloating extends StatelessComponent {
   }
 
   (String, String, Map<String, String>) _getPositionStylesForPanel() {
-    final offsetPx = '${props.offset}px';
+    final String offsetPx = '${props.offset}px';
 
     return switch (props.position) {
       FloatingPosition.top => (
@@ -283,5 +317,11 @@ class NeonFloating extends StatelessComponent {
         'transform': 'translateY(-50%) rotate(-45deg)',
       },
     };
+  }
+
+  static int _autoCounter = 0;
+  static String _autoId() {
+    _autoCounter++;
+    return 'neon-floating-$_autoCounter';
   }
 }

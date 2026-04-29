@@ -4,6 +4,7 @@ import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, St
 export '../../core/props/radio_group_props.dart'
     show RadioGroupLayout, RadioGroupVariant, RadioOptionProps;
 
+import '../../core/interaction/interaction.dart';
 import '../../core/theme_provider.dart';
 
 /// Radio button option model.
@@ -13,6 +14,7 @@ class RadioOption<T> {
   final String? description;
   final bool disabled;
   final Widget? icon;
+  final String? id;
 
   const RadioOption({
     required this.value,
@@ -20,14 +22,17 @@ class RadioOption<T> {
     this.description,
     this.disabled = false,
     this.icon,
+    this.id,
   });
 }
 
 /// A radio button group component.
 class ArcaneRadioGroup<T> extends StatelessWidget {
+  final String? id;
   final T? value;
   final List<RadioOption<T>> options;
   final void Function(T value)? onChanged;
+  final ArcaneInteraction? onChangeAction;
   final String? name;
   final RadioGroupLayout layout;
   final RadioGroupVariant variant;
@@ -41,8 +46,10 @@ class ArcaneRadioGroup<T> extends StatelessWidget {
 
   const ArcaneRadioGroup({
     required this.options,
+    this.id,
     this.value,
     this.onChanged,
+    this.onChangeAction,
     this.name,
     this.layout = RadioGroupLayout.vertical,
     this.variant = RadioGroupVariant.standard,
@@ -65,13 +72,16 @@ class ArcaneRadioGroup<T> extends StatelessWidget {
               description: opt.description,
               disabled: opt.disabled,
               icon: opt.icon,
+              id: opt.id,
             ))
         .toList();
 
     return context.renderers.radioGroup<T>(RadioGroupProps<T>(
+      id: id,
       value: value,
       options: optionProps,
       onChanged: onChanged,
+      onChangeAction: onChangeAction,
       name: name,
       layout: layout,
       variant: variant,

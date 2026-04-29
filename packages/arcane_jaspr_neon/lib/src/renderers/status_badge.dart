@@ -58,24 +58,21 @@ class NeonStatusBadge extends StatelessComponent {
     final String padding = _getStatusPadding();
     final String fontSize = _getStatusFontSize();
 
-    // Use color-mix for transparent background like status badges
     final String effectiveBackground =
-        props.background ?? 'color-mix(in srgb, $color 15%, transparent)';
+        props.background ?? 'color-mix(in srgb, $color 8%, transparent)';
     final String effectiveBorder =
-        props.borderColor ?? 'color-mix(in srgb, $color 35%, transparent)';
+        props.borderColor ?? 'color-mix(in srgb, $color 22%, transparent)';
     final String effectiveLabelColor = props.labelColor ?? color;
 
     final Map<String, String> containerStyles = {
       'display': 'inline-flex',
       'align-items': 'center',
-      'gap': 'var(--space-2)',
+      'gap': '0.4375rem',
       'padding': padding,
       'background': effectiveBackground,
       'border': '1px solid $effectiveBorder',
-      'border-radius': '9999px', // Pill shape
     };
 
-    // Add positioning if needed
     if (isPositioned) {
       containerStyles['position'] = 'absolute';
       if (position.top != null) containerStyles['top'] = position.top!;
@@ -94,7 +91,6 @@ class NeonStatusBadge extends StatelessComponent {
       },
       styles: dom.Styles(raw: containerStyles),
       [
-        // Dot indicator (always show for promo badges)
         dom.span(
           classes: 'neon-status-indicator',
           styles: dom.Styles(
@@ -105,18 +101,17 @@ class NeonStatusBadge extends StatelessComponent {
               'background': color,
               'flex-shrink': '0',
               'box-shadow':
-                  '0 2px 8px color-mix(in srgb, $color 28%, transparent)',
+                  '0 0 8px color-mix(in srgb, $color 45%, transparent)',
             },
           ),
           [],
         ),
-        // Label
         dom.span(
           classes: 'neon-status-label',
           styles: dom.Styles(
             raw: {
               'font-size': fontSize,
-              'font-weight': '500',
+              'font-weight': '600',
               'color': effectiveLabelColor,
               'white-space': 'nowrap',
             },
@@ -127,13 +122,11 @@ class NeonStatusBadge extends StatelessComponent {
     );
   }
 
-  /// Builds a card overlay badge (solid background, positioned).
   Component _buildCardBadge(BadgePosition? position) {
     final bool isPositioned = position != null;
     final String padding = _getCardPadding();
     final String fontSize = _getCardFontSize();
 
-    // Get colors based on variant
     final (
       String bgColor,
       String fgColor,
@@ -145,16 +138,15 @@ class NeonStatusBadge extends StatelessComponent {
       'display': 'inline-flex',
       'align-items': 'center',
       'gap': '0.375rem',
-      'border-radius': 'var(--arcane-radius-full)',
       'font-size': fontSize,
       'font-weight': 'var(--font-weight-semibold)',
       'line-height': '1',
       'white-space': 'nowrap',
       'transition': 'all var(--transition)',
       'padding': padding,
+      'letter-spacing': '0.04em',
     };
 
-    // Position styles for absolute positioning
     if (isPositioned) {
       styles['position'] = 'absolute';
       if (position.top != null) styles['top'] = position.top!;
@@ -164,7 +156,6 @@ class NeonStatusBadge extends StatelessComponent {
       styles['z-index'] = '1';
     }
 
-    // Background and colors
     if (props.gradient != null) {
       styles['background'] = props.gradient!;
       styles['color'] = fgColor;
@@ -181,7 +172,6 @@ class NeonStatusBadge extends StatelessComponent {
       if (shadowColor != null) styles['box-shadow'] = shadowColor;
     }
 
-    // Determine icon to show
     final Component? iconToShow =
         props.icon ??
         (props.showDefaultIcon ? ArcaneIcon.star(size: IconSize.xs) : null);
@@ -197,18 +187,16 @@ class NeonStatusBadge extends StatelessComponent {
     );
   }
 
-  /// Builds a status badge (pill with dot indicator).
   Component _buildStatusBadge() {
     final String color = _getStatusColor();
     final String indicatorSize = _getIndicatorSize();
     final String padding = _getStatusPadding();
     final String fontSize = _getStatusFontSize();
 
-    // Use color-mix for consistent appearance
     final String effectiveBackground =
-        props.background ?? 'color-mix(in srgb, $color 10%, transparent)';
+        props.background ?? 'color-mix(in srgb, $color 6%, transparent)';
     final String effectiveBorder =
-        props.borderColor ?? 'color-mix(in srgb, $color 30%, transparent)';
+        props.borderColor ?? 'color-mix(in srgb, $color 20%, transparent)';
     final String effectiveLabelColor = props.labelColor ?? color;
 
     return dom.div(
@@ -221,15 +209,13 @@ class NeonStatusBadge extends StatelessComponent {
         raw: {
           'display': 'inline-flex',
           'align-items': 'center',
-          'gap': 'var(--space-2)',
+          'gap': '0.4375rem',
           'padding': padding,
           'background': effectiveBackground,
           'border': '1px solid $effectiveBorder',
-          'border-radius': '9999px', // Pill shape
         },
       ),
       [
-        // Indicator (dot or custom icon)
         if (props.icon != null)
           dom.span(
             classes: 'neon-status-indicator neon-status-icon',
@@ -256,18 +242,17 @@ class NeonStatusBadge extends StatelessComponent {
                 'flex-shrink': '0',
                 if (props.showGlow)
                   'box-shadow':
-                      '0 2px 8px color-mix(in srgb, $color 28%, transparent)',
+                      '0 0 8px color-mix(in srgb, $color 45%, transparent)',
               },
             ),
             [],
           ),
-        // Label
         dom.span(
           classes: 'neon-status-label',
           styles: dom.Styles(
             raw: {
               'font-size': fontSize,
-              'font-weight': '500',
+              'font-weight': '600',
               'color': effectiveLabelColor,
               'white-space': 'nowrap',
             },
@@ -301,10 +286,10 @@ class NeonStatusBadge extends StatelessComponent {
       return props.accentColor!;
     }
     return switch (props.variant) {
-      BadgeVariant.popular => 'var(--primary)',
-      BadgeVariant.recommended => 'var(--primary)',
+      BadgeVariant.popular => 'var(--neon-accent)',
+      BadgeVariant.recommended => 'var(--neon-accent)',
       BadgeVariant.isNew => 'var(--success)',
-      _ => 'var(--primary)',
+      _ => 'var(--neon-accent)',
     };
   }
 
@@ -340,58 +325,58 @@ class NeonStatusBadge extends StatelessComponent {
   _getCardColors() {
     return switch (props.variant) {
       BadgeVariant.popular || BadgeVariant.primary => (
-        'var(--primary)',
-        'var(--foreground)',
-        '0 10px 20px rgba(0, 0, 0, 0.25)',
-        null,
+        'var(--neon-accent)',
+        'var(--neon-on-accent)',
+        '0 4px 14px color-mix(in srgb, var(--neon-accent) 26%, transparent)',
+        '1px solid color-mix(in srgb, var(--neon-accent) 60%, #12151C)',
       ),
       BadgeVariant.recommended => (
-        'var(--primary)', // Gradient overrides this
-        'var(--foreground)',
-        '0 10px 20px rgba(0, 0, 0, 0.25)',
-        null,
+        'var(--neon-accent)',
+        'var(--neon-on-accent)',
+        '0 4px 14px color-mix(in srgb, var(--neon-accent) 26%, transparent)',
+        '1px solid color-mix(in srgb, var(--neon-accent) 60%, #12151C)',
       ),
       BadgeVariant.isNew || BadgeVariant.successSolid => (
         'var(--success, #22c55e)',
         'var(--success-foreground, #ffffff)',
-        null,
-        null,
+        '0 4px 14px color-mix(in srgb, var(--success) 24%, transparent)',
+        '1px solid color-mix(in srgb, var(--success) 55%, #12151C)',
       ),
       BadgeVariant.warningSolid => (
         'var(--warning, #f59e0b)',
-        'var(--warning-foreground, #000000)',
-        null,
-        null,
+        'var(--warning-foreground, #0b0b0b)',
+        '0 4px 14px color-mix(in srgb, var(--warning) 24%, transparent)',
+        '1px solid color-mix(in srgb, var(--warning) 58%, #12151C)',
       ),
       BadgeVariant.errorSolid => (
         'var(--destructive)',
         'var(--destructive-foreground)',
-        null,
-        null,
+        '0 4px 14px color-mix(in srgb, var(--destructive) 24%, transparent)',
+        '1px solid color-mix(in srgb, var(--destructive) 55%, #12151C)',
       ),
       BadgeVariant.infoSolid => (
         'var(--info, #3b82f6)',
         'var(--info-foreground, #ffffff)',
-        null,
-        null,
+        '0 4px 14px color-mix(in srgb, var(--info) 24%, transparent)',
+        '1px solid color-mix(in srgb, var(--info) 58%, #12151C)',
       ),
       BadgeVariant.outline => (
         'transparent',
         'var(--foreground)',
         null,
-        '1px solid var(--border)',
+        '1px solid var(--neon-control-border)',
       ),
       BadgeVariant.secondary => (
-        'var(--secondary)',
+        'color-mix(in srgb, var(--neon-accent-cool) 6%, var(--neon-surface-2))',
         'var(--secondary-foreground)',
         null,
-        null,
+        '1px solid color-mix(in srgb, var(--neon-accent-cool) 18%, var(--neon-control-border))',
       ),
       BadgeVariant.status => (
-        'var(--secondary)',
+        'color-mix(in srgb, var(--neon-accent-cool) 6%, var(--neon-surface-2))',
         'var(--secondary-foreground)',
         null,
-        null,
+        '1px solid color-mix(in srgb, var(--neon-accent-cool) 18%, var(--neon-control-border))',
       ),
     };
   }

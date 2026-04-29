@@ -1,6 +1,8 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
+import 'package:arcane_jaspr/core/interaction/interaction.dart';
+import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/toggle_group_props.dart';
 
 /// ShadCN-style toggle group component
@@ -12,9 +14,29 @@ class ShadcnToggleGroup extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
+    final String groupId = props.id ?? 'toggle-${identityHashCode(props)}';
+    final bool multi = props.type == ToggleGroupSelectionType.multiple;
+    final String mode = multi ? 'multi' : 'single';
+    final String? value = multi
+        ? (props.values == null ? null : props.values!.join(','))
+        : props.value;
+
+    final Map<String, String> rootAttrs = <String, String>{
+      ...groupAttrs(
+        groupId: groupId,
+        mode: mode,
+        value: value,
+        disabled: props.disabled,
+        changeAction: props.onChangeAction == null
+            ? null
+            : encodeArcaneAction(props.onChangeAction!),
+      ),
+      'role': 'group',
+    };
+
     return dom.div(
       classes: 'arcane-toggle-group',
-      attributes: {'role': 'group'},
+      attributes: rootAttrs,
       styles: const dom.Styles(
         raw: {
           'display': 'inline-flex',
@@ -25,11 +47,11 @@ class ShadcnToggleGroup extends StatelessComponent {
           'gap': 'var(--space-1)',
         },
       ),
-      [for (final item in props.items) _buildItem(item)],
+      [for (final item in props.items) _buildItem(groupId, item)],
     );
   }
 
-  Component _buildItem(ToggleGroupItemProps item) {
+  Component _buildItem(String groupId, ToggleGroupItemProps item) {
     final bool isSelected = props.type == ToggleGroupSelectionType.single
         ? props.value == item.value
         : (props.values?.contains(item.value) ?? false);
@@ -53,14 +75,27 @@ class ShadcnToggleGroup extends StatelessComponent {
       },
     };
 
+    final ArcaneInteraction action = props.type == ToggleGroupSelectionType.single
+        ? ArcaneInteraction.selectValue(groupId, item.value)
+        : ArcaneInteraction.toggleValue(groupId, item.value);
+
+    final Map<String, String> attrs = <String, String>{
+      ...groupItemAttrs(
+        groupId: groupId,
+        value: item.value,
+        selected: isSelected,
+        disabled: isDisabled,
+      ),
+      ...interactionAttrs(action),
+      'type': 'button',
+      'aria-pressed': '$isSelected',
+      if (isDisabled) 'disabled': 'true',
+    };
+
     return dom.button(
       classes:
           'arcane-toggle-group-item ${isSelected ? 'selected' : ''} ${isDisabled ? 'disabled' : ''}',
-      attributes: {
-        'type': 'button',
-        'aria-pressed': '$isSelected',
-        if (isDisabled) 'disabled': 'true',
-      },
+      attributes: attrs,
       styles: dom.Styles(
         raw: {
           'display': 'inline-flex',

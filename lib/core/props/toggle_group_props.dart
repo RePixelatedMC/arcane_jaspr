@@ -1,6 +1,8 @@
 import 'package:arcane_jaspr/flutter.dart';
 import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
+import '../interaction/interaction.dart';
+
 enum ToggleGroupVariantStyle {
   defaultVariant,
   outline,
@@ -32,6 +34,7 @@ class ToggleGroupItemProps {
 
 /// Toggle group component properties.
 class ToggleGroupProps {
+  final String? id;
   final List<ToggleGroupItemProps> items;
   final String? value;
   final Set<String>? values;
@@ -41,8 +44,10 @@ class ToggleGroupProps {
   final bool disabled;
   final void Function(String?)? onChanged;
   final void Function(Set<String>)? onMultiChanged;
+  final ArcaneInteraction? onChangeAction;
 
   const ToggleGroupProps({
+    this.id,
     required this.items,
     this.value,
     this.values,
@@ -52,6 +57,7 @@ class ToggleGroupProps {
     this.disabled = false,
     this.onChanged,
     this.onMultiChanged,
+    this.onChangeAction,
   });
 }
 

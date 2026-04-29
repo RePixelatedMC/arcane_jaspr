@@ -18,6 +18,7 @@ enum DrawerSize {
 
 /// Drawer component properties.
 class DrawerProps {
+  final String? id;
   final bool isOpen;
   final void Function()? onClose;
   final DrawerPosition position;
@@ -30,8 +31,12 @@ class DrawerProps {
   final bool showCloseButton;
   final String? width;
   final String? height;
+  final bool escapeCloses;
+  final bool focusTrap;
+  final bool restoreFocus;
 
   const DrawerProps({
+    this.id,
     required this.isOpen,
     required this.child,
     this.onClose,
@@ -44,9 +49,13 @@ class DrawerProps {
     this.showCloseButton = true,
     this.width,
     this.height,
+    this.escapeCloses = true,
+    this.focusTrap = true,
+    this.restoreFocus = true,
   });
 
   DrawerProps copyWith({
+    String? id,
     bool? isOpen,
     void Function()? onClose,
     DrawerPosition? position,
@@ -59,8 +68,12 @@ class DrawerProps {
     bool? showCloseButton,
     String? width,
     String? height,
+    bool? escapeCloses,
+    bool? focusTrap,
+    bool? restoreFocus,
   }) {
     return DrawerProps(
+      id: id ?? this.id,
       isOpen: isOpen ?? this.isOpen,
       onClose: onClose ?? this.onClose,
       position: position ?? this.position,
@@ -73,6 +86,9 @@ class DrawerProps {
       showCloseButton: showCloseButton ?? this.showCloseButton,
       width: width ?? this.width,
       height: height ?? this.height,
+      escapeCloses: escapeCloses ?? this.escapeCloses,
+      focusTrap: focusTrap ?? this.focusTrap,
+      restoreFocus: restoreFocus ?? this.restoreFocus,
     );
   }
 }

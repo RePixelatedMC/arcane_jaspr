@@ -12,41 +12,41 @@ enum DropdownAlignment {
 
 /// Dropdown menu component properties.
 class DropdownMenuProps {
+  final String id;
   final Widget trigger;
   final List<ArcaneMenuItem> items;
-  final bool isOpen;
-  final void Function()? onToggle;
-  final void Function()? onClose;
   final DropdownAlignment alignment;
   final double? width;
+  final bool keepOpenOnAction;
+  final bool initiallyOpen;
 
   const DropdownMenuProps({
+    required this.id,
     required this.trigger,
     required this.items,
-    required this.isOpen,
-    this.onToggle,
-    this.onClose,
     this.alignment = DropdownAlignment.left,
     this.width,
+    this.keepOpenOnAction = false,
+    this.initiallyOpen = false,
   });
 
   DropdownMenuProps copyWith({
+    String? id,
     Widget? trigger,
     List<ArcaneMenuItem>? items,
-    bool? isOpen,
-    void Function()? onToggle,
-    void Function()? onClose,
     DropdownAlignment? alignment,
     double? width,
+    bool? keepOpenOnAction,
+    bool? initiallyOpen,
   }) {
     return DropdownMenuProps(
+      id: id ?? this.id,
       trigger: trigger ?? this.trigger,
       items: items ?? this.items,
-      isOpen: isOpen ?? this.isOpen,
-      onToggle: onToggle ?? this.onToggle,
-      onClose: onClose ?? this.onClose,
       alignment: alignment ?? this.alignment,
       width: width ?? this.width,
+      keepOpenOnAction: keepOpenOnAction ?? this.keepOpenOnAction,
+      initiallyOpen: initiallyOpen ?? this.initiallyOpen,
     );
   }
 }

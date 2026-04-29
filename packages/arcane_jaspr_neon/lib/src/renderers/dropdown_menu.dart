@@ -2,6 +2,8 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/component/view/icon.dart';
+import 'package:arcane_jaspr/core/interaction/interaction.dart';
+import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/dropdown_menu_props.dart';
 
 /// Neon DropdownMenu renderer.
@@ -12,18 +14,44 @@ class NeonDropdownMenu extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final (
-      String left,
-      String right,
-      String transform,
-    ) = switch (props.alignment) {
-      DropdownAlignment.left => ('0', 'auto', 'none'),
-      DropdownAlignment.right => ('auto', '0', 'none'),
-      DropdownAlignment.center => ('50%', 'auto', 'translateX(-50%)'),
+    final String surfaceId = props.id;
+    final String anchorId = '$surfaceId-trigger';
+    final String alignName = switch (props.alignment) {
+      DropdownAlignment.left => 'start',
+      DropdownAlignment.right => 'end',
+      DropdownAlignment.center => 'center',
     };
 
+    final Map<String, String> menuAttrs = mergeAttrs(<Map<String, String>>[
+      surfaceAttrs(
+        surface: 'menu',
+        id: surfaceId,
+        initiallyOpen: props.initiallyOpen,
+        focusTrap: false,
+        scrimCloses: true,
+        anchorId: anchorId,
+        anchorPlacement: 'bottom',
+        anchorAlign: alignName,
+        anchorOffset: '8',
+      ),
+      <String, String>{'role': 'menu'},
+      if (props.keepOpenOnAction)
+        <String, String>{'data-arcane-keep-open-on-action': 'true'},
+    ]);
+
+    final Map<String, String> triggerAttrs = mergeAttrs(<Map<String, String>>[
+      anchorAttrs(anchorId),
+      interactionAttrs(ArcaneInteraction.toggleMenu(surfaceId)),
+      <String, String>{
+        'aria-haspopup': 'menu',
+        'aria-controls': surfaceId,
+        'aria-expanded': props.initiallyOpen ? 'true' : 'false',
+      },
+    ]);
+
     return dom.div(
-      classes: 'neon-dropdown ${props.isOpen ? 'open' : ''}',
+      classes: 'neon-dropdown',
+      attributes: <String, String>{'data-arcane-dropdown-root': surfaceId},
       styles: const dom.Styles(
         raw: {'position': 'relative', 'display': 'inline-block'},
       ),
@@ -31,71 +59,41 @@ class NeonDropdownMenu extends StatelessComponent {
         // Trigger
         dom.div(
           classes: 'neon-dropdown-trigger',
-          events: {
-            'click': (e) {
-              if (props.onToggle != null) props.onToggle!();
-            },
-          },
+          attributes: triggerAttrs,
+          styles: const dom.Styles(raw: {'display': 'inline-block'}),
           [props.trigger],
         ),
 
-        // Backdrop to close on click outside
-        if (props.isOpen)
-          dom.div(
-            classes: 'neon-dropdown-backdrop',
-            styles: const dom.Styles(
-              raw: {'position': 'fixed', 'inset': '0', 'z-index': '99'},
-            ),
-            events: {
-              'click': (e) {
-                if (props.onClose != null) props.onClose!();
-              },
+        dom.div(
+          classes: 'neon-dropdown-menu neon-popover',
+          attributes: menuAttrs,
+          styles: dom.Styles(
+            raw: {
+              'z-index': '100',
+              if (props.width != null)
+                'width': '${props.width}px'
+              else
+                'min-width': '160px',
+              'padding': '6px',
+              'overflow': 'hidden',
+              'color': 'var(--popover-foreground)',
+              'animation': 'arcane-dropdown-fade 0.16s ease-out',
             },
-            [],
           ),
-
-        if (props.isOpen)
-          dom.div(
-            classes: 'neon-dropdown-menu',
-            styles: dom.Styles(
-              raw: {
-                'position': 'absolute',
-                'top': '100%',
-                'left': left,
-                'right': right,
-                'transform': transform,
-                'z-index': '100',
-                'margin-top': '6px',
-                if (props.width != null)
-                  'width': '${props.width}px'
-                else
-                  'min-width': '140px',
-                'padding': '6px',
-                'background':
-                    'linear-gradient(180deg, color-mix(in srgb, var(--primary) 5%, var(--card)), var(--card))',
-                'border': '1px solid var(--neon-accent-border)',
-                'border-radius': 'var(--radius)',
-                'box-shadow':
-                    '0 14px 36px rgba(0, 0, 0, 0.45), 0 14px 0 1px color-mix(in srgb, var(--primary) 10%, transparent)',
-                'overflow': 'hidden',
-                'color': 'var(--foreground)',
-                'animation': 'arcane-dropdown-fade 0.16s ease-out',
-              },
-            ),
-            [for (final item in props.items) _buildMenuItem(item)],
-          ),
+          [for (final item in props.items) _buildMenuItem(item, surfaceId)],
+        ),
       ],
     );
   }
 
-  Component _buildMenuItem(ArcaneMenuItem item) {
+  Component _buildMenuItem(ArcaneMenuItem item, String surfaceId) {
     return switch (item) {
       MenuItemSeparator() => _buildSeparator(),
       MenuItemLabel(:final label) => _buildLabel(label),
-      MenuItemAction() => _buildAction(item),
-      MenuItemCheckbox() => _buildCheckbox(item),
-      MenuItemRadio() => _buildRadio(item),
-      MenuItemSubmenu() => _buildSubmenu(item),
+      MenuItemAction() => _buildAction(item, surfaceId),
+      MenuItemCheckbox() => _buildCheckbox(item, surfaceId),
+      MenuItemRadio() => _buildRadio(item, surfaceId),
+      MenuItemSubmenu() => _buildSubmenu(item, surfaceId),
     };
   }
 
@@ -106,7 +104,8 @@ class NeonDropdownMenu extends StatelessComponent {
         raw: {
           'height': '1px',
           'margin': '6px -6px',
-          'background-color': 'var(--border)',
+          'background': 'var(--neon-panel-border)',
+          'opacity': '0.6',
         },
       ),
       [],
@@ -118,9 +117,12 @@ class NeonDropdownMenu extends StatelessComponent {
       classes: 'neon-dropdown-label',
       styles: const dom.Styles(
         raw: {
-          'padding': '8px 12px',
-          'font-size': 'var(--font-size-xs)',
-          'font-weight': 'var(--font-weight-semibold)',
+          'padding': '8px 10px 4px',
+          'font-family': 'var(--font-heading)',
+          'font-size': '0.6875rem',
+          'font-weight': '600',
+          'letter-spacing': '0.12em',
+          'text-transform': 'uppercase',
           'color': 'var(--muted-foreground)',
           'user-select': 'none',
         },
@@ -129,7 +131,7 @@ class NeonDropdownMenu extends StatelessComponent {
     );
   }
 
-  Component _buildAction(MenuItemAction item) {
+  Component _buildAction(MenuItemAction item, String surfaceId) {
     final dom.Styles itemStyles = dom.Styles(
       raw: {
         'position': 'relative',
@@ -159,7 +161,7 @@ class NeonDropdownMenu extends StatelessComponent {
       },
     );
 
-    final List<Component> content = [
+    final List<Component> content = <Component>[
       if (item.icon != null)
         dom.span(
           styles: dom.Styles(
@@ -204,43 +206,74 @@ class NeonDropdownMenu extends StatelessComponent {
         ),
     ];
 
+    final ArcaneInteraction? itemAction = item.action;
+    final Map<String, String> baseItemAttrs = <String, String>{
+      'role': 'menuitem',
+      'data-state': 'unchecked',
+      'data-disabled': '${item.disabled}',
+      if (item.disabled) 'data-arcane-disabled': 'true',
+    };
+    final Map<String, String> actionAttrs = item.disabled
+        ? const <String, String>{}
+        : itemAction != null
+            ? interactionAttrs(itemAction)
+            : const <String, String>{};
+
     if (item.href != null && !item.disabled) {
       return dom.a(
         href: item.href!,
         classes: 'neon-dropdown-item',
+        attributes: mergeAttrs(<Map<String, String>>[baseItemAttrs, actionAttrs]),
         styles: itemStyles,
-        events: {
-          'click': (e) {
-            if (props.onClose != null) props.onClose!();
-          },
-        },
+        events: item.onSelect != null && itemAction == null
+            ? <String, EventCallback>{'click': (e) => item.onSelect!()}
+            : null,
         content,
       );
     }
 
     return dom.button(
       classes: 'neon-dropdown-item',
-      attributes: {'type': 'button', if (item.disabled) 'disabled': 'true'},
+      attributes: mergeAttrs(<Map<String, String>>[
+        baseItemAttrs,
+        <String, String>{
+          'type': 'button',
+          if (item.disabled) 'disabled': 'true',
+        },
+        actionAttrs,
+      ]),
       styles: itemStyles,
-      events: {
-        if (!item.disabled && item.onSelect != null)
-          'click': (e) {
-            if (props.onClose != null) props.onClose!();
-            item.onSelect!();
-          },
-      },
+      events: !item.disabled && item.onSelect != null && itemAction == null
+          ? <String, EventCallback>{'click': (e) => item.onSelect!()}
+          : null,
       content,
     );
   }
 
-  Component _buildCheckbox(MenuItemCheckbox item) {
+  Component _buildCheckbox(MenuItemCheckbox item, String surfaceId) {
+    final ArcaneInteraction? itemAction = item.action;
+    final Map<String, String> actionAttrs = item.disabled
+        ? const <String, String>{}
+        : itemAction != null
+            ? mergeAttrs(<Map<String, String>>[
+                interactionAttrs(itemAction),
+                <String, String>{'data-arcane-keep-open': 'true'},
+              ])
+            : const <String, String>{};
     return dom.div(
       classes: 'neon-dropdown-item checkbox',
-      attributes: {
-        'role': 'menuitemcheckbox',
-        'aria-checked': '${item.checked}',
-        if (item.disabled) 'aria-disabled': 'true',
-      },
+      attributes: mergeAttrs(<Map<String, String>>[
+        <String, String>{
+          'role': 'menuitemcheckbox',
+          'aria-checked': '${item.checked}',
+          if (item.disabled) 'aria-disabled': 'true',
+          'data-state': item.checked ? 'checked' : 'unchecked',
+          'data-disabled': '${item.disabled}',
+          if (item.disabled) 'data-arcane-disabled': 'true',
+          'tabindex': '0',
+        },
+        actionAttrs,
+      ]),
       styles: dom.Styles(
         raw: {
           'position': 'relative',
@@ -260,8 +293,8 @@ class NeonDropdownMenu extends StatelessComponent {
           if (item.disabled) 'opacity': '0.5',
         },
       ),
-      events: item.onChanged != null && !item.disabled
-          ? {'click': (_) => item.onChanged!(!item.checked)}
+      events: item.onChanged != null && !item.disabled && itemAction == null
+          ? <String, EventCallback>{'click': (_) => item.onChanged!(!item.checked)}
           : null,
       [
         // Checkbox indicator
@@ -271,7 +304,7 @@ class NeonDropdownMenu extends StatelessComponent {
               raw: {
                 'position': 'absolute',
                 'left': '12px',
-                'color': 'var(--primary)',
+                'color': 'var(--neon-accent)',
               },
             ),
             [ArcaneIcon.check(size: IconSize.xs)],
@@ -296,14 +329,32 @@ class NeonDropdownMenu extends StatelessComponent {
     );
   }
 
-  Component _buildRadio(MenuItemRadio item) {
+  Component _buildRadio(MenuItemRadio item, String surfaceId) {
+    final ArcaneInteraction? itemAction = item.action;
+    final Map<String, String> actionAttrs = item.disabled
+        ? const <String, String>{}
+        : itemAction != null
+            ? interactionAttrs(itemAction)
+            : const <String, String>{};
+    final Map<String, String> groupItem = groupItemAttrs(
+      groupId: item.group,
+      value: item.value,
+      selected: item.selected,
+      disabled: item.disabled,
+    );
     return dom.div(
       classes: 'neon-dropdown-item radio',
-      attributes: {
-        'role': 'menuitemradio',
-        'aria-checked': '${item.selected}',
-        if (item.disabled) 'aria-disabled': 'true',
-      },
+      attributes: mergeAttrs(<Map<String, String>>[
+        groupItem,
+        <String, String>{
+          'role': 'menuitemradio',
+          'aria-checked': '${item.selected}',
+          if (item.disabled) 'aria-disabled': 'true',
+          'data-disabled': '${item.disabled}',
+          'tabindex': '0',
+        },
+        actionAttrs,
+      ]),
       styles: dom.Styles(
         raw: {
           'position': 'relative',
@@ -323,8 +374,8 @@ class NeonDropdownMenu extends StatelessComponent {
           if (item.disabled) 'opacity': '0.5',
         },
       ),
-      events: item.onChanged != null && !item.disabled
-          ? {'click': (_) => item.onChanged!(item.value)}
+      events: item.onChanged != null && !item.disabled && itemAction == null
+          ? <String, EventCallback>{'click': (_) => item.onChanged!(item.value)}
           : null,
       [
         // Radio indicator
@@ -334,7 +385,7 @@ class NeonDropdownMenu extends StatelessComponent {
               raw: {
                 'position': 'absolute',
                 'left': '12px',
-                'color': 'var(--primary)',
+                'color': 'var(--neon-accent)',
               },
             ),
             [ArcaneIcon.dot(size: IconSize.sm)],
@@ -347,15 +398,31 @@ class NeonDropdownMenu extends StatelessComponent {
     );
   }
 
-  Component _buildSubmenu(MenuItemSubmenu item) {
+  Component _buildSubmenu(MenuItemSubmenu item, String parentSurfaceId) {
+    final String submenuId = item.id ?? '$parentSurfaceId-sub-${item.label.hashCode}';
+    final String submenuAnchorId = '$submenuId-trigger';
+
+    final Map<String, String> triggerAttrs = mergeAttrs(<Map<String, String>>[
+      anchorAttrs(submenuAnchorId),
+      if (!item.disabled)
+        interactionAttrs(ArcaneInteraction.toggleMenu(submenuId)),
+      <String, String>{
+        'role': 'menuitem',
+        'aria-haspopup': 'menu',
+        'aria-expanded': 'false',
+        'aria-controls': submenuId,
+        if (item.disabled) 'aria-disabled': 'true',
+        'data-disabled': '${item.disabled}',
+        if (item.disabled) 'data-arcane-disabled': 'true',
+        'data-arcane-keep-open': 'true',
+        'tabindex': '0',
+      },
+    ]);
+
     return dom.div(
       classes:
           'neon-dropdown-item submenu-trigger ${item.disabled ? 'disabled' : ''}',
-      attributes: {
-        'role': 'menuitem',
-        'aria-haspopup': 'true',
-        if (item.disabled) 'aria-disabled': 'true',
-      },
+      attributes: triggerAttrs,
       styles: dom.Styles(
         raw: {
           'position': 'relative',
@@ -383,24 +450,26 @@ class NeonDropdownMenu extends StatelessComponent {
           styles: dom.Styles(raw: {'color': 'var(--muted-foreground)'}),
           [ArcaneIcon.chevronRight(size: IconSize.sm)],
         ),
-        // Submenu
         dom.div(
-          classes: 'neon-dropdown-submenu',
+          classes: 'neon-dropdown-submenu neon-popover',
+          attributes: surfaceAttrs(
+            surface: 'menu',
+            id: submenuId,
+            focusTrap: false,
+            scrimCloses: true,
+            anchorId: submenuAnchorId,
+            anchorPlacement: 'right',
+            anchorAlign: 'start',
+            anchorOffset: '4',
+          ),
           styles: const dom.Styles(
             raw: {
-              'display': 'none',
-              'position': 'absolute',
-              'left': '100%',
-              'top': '0',
-              'min-width': '140px',
+              'min-width': '160px',
               'padding': '6px',
-              'background-color': 'var(--card)',
-              'border': '1px solid var(--border)',
-              'border-radius': 'var(--radius)',
-              'box-shadow': '0 14px 30px rgba(var(--primary-rgb), 0.1)',
+              'z-index': '101',
             },
           ),
-          [for (final child in item.children) _buildMenuItem(child)],
+          [for (final child in item.children) _buildMenuItem(child, submenuId)],
         ),
       ],
     );

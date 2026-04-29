@@ -3,10 +3,6 @@ import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/core/props/sidebar_props.dart';
 
-/// Neon Sidebar renderer.
-///
-/// Uses the same HTML structure as ShadCN for consistency.
-/// CSS handles visual differences via [class*="neon-"] selectors.
 class NeonSidebar extends StatelessComponent {
   final SidebarProps props;
 
@@ -14,11 +10,13 @@ class NeonSidebar extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final double width = props.isCollapsed ? props.collapsedWidth : props.width;
+    double width = props.isCollapsed ? props.collapsedWidth : props.width;
+    String sideClass = props.rightSide ? 'right' : 'left';
+    String stateClass = props.isCollapsed ? 'collapsed' : '';
+    String classes = 'neon-sidebar $stateClass $sideClass';
 
     return dom.aside(
-      classes:
-          'arcane-sidebar ${props.isCollapsed ? 'collapsed' : ''} ${props.rightSide ? 'right' : 'left'}',
+      classes: classes,
       styles: dom.Styles(
         raw: {
           'display': 'flex',
@@ -26,20 +24,14 @@ class NeonSidebar extends StatelessComponent {
           'width': '${width}px',
           'min-width': '${width}px',
           'height': '100%',
-          'background-color': 'var(--card)',
-          'border-right': props.rightSide ? 'none' : '1px solid var(--border)',
-          'border-left': props.rightSide ? '1px solid var(--border)' : 'none',
           'overflow': 'hidden',
           'transition': 'width 0.2s ease, min-width 0.2s ease',
           'flex-shrink': '0',
         },
       ),
       [
-        // Header (uses .sidebar-header for CSS targeting)
         if (props.header != null)
           dom.div(classes: 'sidebar-header', [props.header!]),
-
-        // Main content with nav wrapper (matches neon structure)
         dom.nav(
           classes: 'sidebar-nav',
           styles: const dom.Styles(
@@ -52,26 +44,32 @@ class NeonSidebar extends StatelessComponent {
               'overflow-y': 'auto',
               'overflow-x': 'hidden',
               'padding': '0.75rem',
+              'position': 'relative',
+              'z-index': '2',
             },
           ),
           props.children,
         ),
-
-        // Footer/collapse toggle
         if (props.showCollapseToggle || props.footer != null)
           dom.div(
-            classes: 'arcane-sidebar-footer',
+            classes: 'neon-sidebar-footer',
             styles: const dom.Styles(
               raw: {
                 'flex-shrink': '0',
-                'padding': '0.75rem',
-                'border-top': '1px solid var(--border)',
+                'padding': '0.625rem 0.75rem',
+                'display': 'flex',
+                'flex-direction': 'column',
+                'gap': '0.5rem',
+                'position': 'relative',
+                'z-index': '2',
               },
             ),
             [
               if (props.footer != null && !props.isCollapsed) props.footer!,
               if (props.showCollapseToggle)
                 dom.button(
+                  classes: 'neon-button neon-sidebar-collapse',
+                  attributes: const {'type': 'button'},
                   styles: dom.Styles(
                     raw: {
                       'width': '100%',
@@ -79,15 +77,12 @@ class NeonSidebar extends StatelessComponent {
                       'align-items': 'center',
                       'justify-content': props.isCollapsed
                           ? 'center'
-                          : 'flex-end',
-                      'gap': 'var(--space-2)',
-                      'padding': '0.625rem',
-                      'background': 'transparent',
-                      'border': '1px solid var(--border)',
-                      'border-radius': 'var(--radius-md)',
-                      'color': 'var(--muted-foreground)',
-                      'cursor': 'pointer',
-                      'transition': 'all var(--transition)',
+                          : 'space-between',
+                      'gap': '0.5rem',
+                      'padding': '0.5rem 0.75rem',
+                      'font-size': '0.6875rem',
+                      'text-transform': 'uppercase',
+                      'letter-spacing': '0.08em',
                     },
                   ),
                   events: {
@@ -100,9 +95,10 @@ class NeonSidebar extends StatelessComponent {
                     },
                   },
                   [
+                    if (!props.isCollapsed) const Component.text('Collapse'),
                     dom.span(
                       styles: const dom.Styles(
-                        raw: {'font-size': 'var(--font-size-sm)'},
+                        raw: {'font-size': '0.875rem', 'opacity': '0.85'},
                       ),
                       [
                         Component.text(
@@ -112,7 +108,6 @@ class NeonSidebar extends StatelessComponent {
                         ),
                       ],
                     ),
-                    if (!props.isCollapsed) const Component.text('Collapse'),
                   ],
                 ),
             ],
@@ -122,8 +117,6 @@ class NeonSidebar extends StatelessComponent {
   }
 }
 
-/// Neon Sidebar Item using same structure as ShadCN.
-/// Renders as: <div class="sidebar-tree-item"><a class="sidebar-link">...</a></div>
 class NeonSidebarItem extends StatelessComponent {
   final SidebarItemProps props;
 
@@ -131,9 +124,8 @@ class NeonSidebarItem extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final linkClasses = 'sidebar-link${props.selected ? ' active' : ''}';
+    String linkClasses = 'sidebar-link${props.selected ? ' active' : ''}';
 
-    // Use anchor if href is provided
     if (props.href != null) {
       return dom.div(classes: 'sidebar-tree-item', [
         dom.a(href: props.href!, classes: linkClasses, [
@@ -142,11 +134,10 @@ class NeonSidebarItem extends StatelessComponent {
       ]);
     }
 
-    // Otherwise use button
     return dom.div(classes: 'sidebar-tree-item', [
       dom.button(
         classes: linkClasses,
-        attributes: {'type': 'button'},
+        attributes: const {'type': 'button'},
         events: props.onTap != null ? {'click': (_) => props.onTap!()} : null,
         [Component.text(props.label)],
       ),
@@ -154,7 +145,6 @@ class NeonSidebarItem extends StatelessComponent {
   }
 }
 
-/// Neon Sidebar Group renderer.
 class NeonSidebarGroup extends StatelessComponent {
   final SidebarGroupProps props;
 
@@ -178,13 +168,14 @@ class NeonSidebarGroup extends StatelessComponent {
             classes: 'neon-sidebar-group-label',
             styles: const dom.Styles(
               raw: {
-                'padding': '0.375rem 1rem',
-                'font-size': 'var(--font-size-xs)',
-                'font-weight': 'var(--font-weight-semibold)',
+                'padding': '0.375rem 1rem 0.375rem 1.25rem',
+                'font-size': '0.6875rem',
+                'font-weight': '600',
                 'text-transform': 'uppercase',
-                'letter-spacing': '0',
-                'color': 'var(--muted-foreground)',
-                'opacity': '0.7',
+                'letter-spacing': '0.12em',
+                'color': 'var(--neon-accent)',
+                'opacity': '0.78',
+                'font-family': 'var(--font-heading)',
               },
             ),
             [Component.text(props.label!)],
@@ -195,8 +186,6 @@ class NeonSidebarGroup extends StatelessComponent {
   }
 }
 
-/// Neon Sidebar SubMenu using native details/summary.
-/// Same HTML structure as ShadCN for CSS consistency.
 class NeonSidebarSubMenu extends StatelessComponent {
   final SidebarSubMenuProps props;
 
@@ -226,8 +215,6 @@ class NeonSidebarSubMenu extends StatelessComponent {
   }
 }
 
-/// Neon Sidebar Section (fixed, non-collapsible).
-/// Same HTML structure as ShadCN.
 class NeonSidebarSection extends StatelessComponent {
   final SidebarSectionProps props;
 
@@ -245,7 +232,6 @@ class NeonSidebarSection extends StatelessComponent {
   }
 }
 
-/// Neon Sidebar Separator renderer.
 class NeonSidebarSeparator extends StatelessComponent {
   const NeonSidebarSeparator({super.key});
 
@@ -256,7 +242,8 @@ class NeonSidebarSeparator extends StatelessComponent {
       styles: dom.Styles(
         raw: {
           'height': '1px',
-          'background-color': 'var(--border)',
+          'background':
+              'linear-gradient(90deg, transparent, var(--neon-panel-border-hot), transparent)',
           'margin': '0.75rem 0',
         },
       ),

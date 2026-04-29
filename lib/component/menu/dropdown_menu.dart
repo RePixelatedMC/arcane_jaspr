@@ -8,45 +8,43 @@ export '../../core/props/dropdown_menu_props.dart' show DropdownAlignment;
 export '../../core/props/menu_item_props.dart';
 
 /// Dropdown menu component.
-class ArcaneDropdownMenu extends StatefulWidget {
+class ArcaneDropdownMenu extends StatelessWidget {
+  final String? id;
   final Widget trigger;
   final List<ArcaneMenuItem> items;
   final DropdownAlignment alignment;
   final double? width;
+  final bool keepOpenOnAction;
+  final bool initiallyOpen;
 
   const ArcaneDropdownMenu({
+    this.id,
     required this.trigger,
     required this.items,
     this.alignment = DropdownAlignment.left,
     this.width,
+    this.keepOpenOnAction = false,
+    this.initiallyOpen = false,
     super.key,
   });
 
-  @override
-  State<ArcaneDropdownMenu> createState() => _ArcaneDropdownMenuState();
-}
-
-class _ArcaneDropdownMenuState extends State<ArcaneDropdownMenu> {
-  bool _isOpen = false;
-
-  void _toggle() {
-    setState(() => _isOpen = !_isOpen);
-  }
-
-  void _close() {
-    setState(() => _isOpen = false);
+  static int _autoCounter = 0;
+  static String _autoId() {
+    _autoCounter++;
+    return 'arcane-dropdown-$_autoCounter';
   }
 
   @override
   Widget build(BuildContext context) {
+    final String resolvedId = id ?? _autoId();
     return context.renderers.dropdownMenu(DropdownMenuProps(
-      trigger: component.trigger,
-      items: component.items,
-      isOpen: _isOpen,
-      onToggle: _toggle,
-      onClose: _close,
-      alignment: component.alignment,
-      width: component.width,
+      id: resolvedId,
+      trigger: trigger,
+      items: items,
+      alignment: alignment,
+      width: width,
+      keepOpenOnAction: keepOpenOnAction,
+      initiallyOpen: initiallyOpen,
     ));
   }
 }

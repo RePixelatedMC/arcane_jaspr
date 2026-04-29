@@ -1,6 +1,8 @@
 import 'package:arcane_jaspr/component/input/combobox.dart';
 import 'package:arcane_jaspr/flutter.dart';
 
+import '../../core/interaction/interaction.dart';
+
 class Selector<T> extends StatelessWidget {
   final T? value;
   final void Function(T?)? onChanged;
@@ -8,6 +10,9 @@ class Selector<T> extends StatelessWidget {
   final String Function(T) labelBuilder;
   final bool canUnselect;
   final String? placeholder;
+  final String? id;
+  final String? group;
+  final ArcaneInteraction? onChangedAction;
 
   const Selector({
     required this.values,
@@ -16,6 +21,9 @@ class Selector<T> extends StatelessWidget {
     this.onChanged,
     this.canUnselect = false,
     this.placeholder,
+    this.id,
+    this.group,
+    this.onChangedAction,
     super.key,
   });
 
@@ -24,6 +32,9 @@ class Selector<T> extends StatelessWidget {
     value: value,
     onChanged: onChanged,
     placeholder: placeholder,
+    id: id,
+    group: group,
+    onChangedAction: onChangedAction,
     options: values
         .map(
           (T entry) => ComboboxOption<T>(

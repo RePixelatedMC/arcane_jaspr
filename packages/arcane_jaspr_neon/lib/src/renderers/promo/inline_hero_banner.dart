@@ -32,8 +32,8 @@ class _NeonInlineHeroBannerState extends State<NeonInlineHeroBanner> {
         'align-items': 'center',
         'gap': '0.75rem',
         'padding': '0.5rem 1rem',
-        'background': 'rgba(var(--primary-rgb), 0.15)',
-        'border': '1px solid rgba(var(--primary-rgb), 0.3)',
+        'background': 'color-mix(in srgb, var(--neon-accent) 15%, transparent)',
+        'border': '1px solid color-mix(in srgb, var(--neon-accent) 30%, transparent)',
         'border-radius': 'var(--arcane-radius-full)',
       },
       PromoInlineHeroBannerStyle.ribbon => {
@@ -42,7 +42,7 @@ class _NeonInlineHeroBannerState extends State<NeonInlineHeroBanner> {
         'gap': '1rem',
         'padding': '0.75rem 1.5rem',
         'background':
-            'linear-gradient(90deg, var(--primary), rgba(var(--primary-rgb), 0.7))',
+            'linear-gradient(90deg, var(--neon-accent), color-mix(in srgb, var(--neon-accent) 70%, transparent))',
         'border-radius': '0',
         'color': '#ffffff',
       },
@@ -52,9 +52,9 @@ class _NeonInlineHeroBannerState extends State<NeonInlineHeroBanner> {
         'gap': '0.875rem',
         'padding': '0.875rem 1.5rem',
         'background': 'rgba(10, 10, 10, 0.9)',
-        'border': '1px solid var(--primary)',
+        'border': '1px solid var(--neon-accent)',
         'border-radius': 'var(--arcane-radius-full)',
-        'box-shadow': '0 14px 20px rgba(var(--primary-rgb), 0.2)',
+        'box-shadow': '0 14px 20px color-mix(in srgb, var(--neon-accent) 20%, transparent)',
       },
       PromoInlineHeroBannerStyle.card => {
         'display': 'flex',
@@ -64,10 +64,10 @@ class _NeonInlineHeroBannerState extends State<NeonInlineHeroBanner> {
         'background': 'rgba(10, 10, 10, 0.95)',
         'backdrop-filter': 'blur(12px)',
         '-webkit-backdrop-filter': 'blur(12px)',
-        'border': '1px solid var(--primary)',
+        'border': '1px solid var(--neon-accent)',
         'border-radius': 'var(--radius-lg)',
         'box-shadow':
-            '0 0 30px rgba(var(--primary-rgb), 0.2), 0 10px 30px -10px rgba(0, 0, 0, 0.4)',
+            '0 0 30px color-mix(in srgb, var(--neon-accent) 20%, transparent), 0 10px 30px -10px rgba(0, 0, 0, 0.4)',
       },
     };
   }
@@ -92,7 +92,7 @@ class _NeonInlineHeroBannerState extends State<NeonInlineHeroBanner> {
             styles: dom.Styles(
               raw: {
                 'flex-shrink': '0',
-                'color': isRibbon ? '#ffffff' : 'var(--primary)',
+                'color': isRibbon ? '#ffffff' : 'var(--neon-accent)',
               },
             ),
             [component.props.icon!],
@@ -118,13 +118,13 @@ class _NeonInlineHeroBannerState extends State<NeonInlineHeroBanner> {
                 'padding': '0.25rem 0.625rem',
                 'background': isRibbon
                     ? 'rgba(255, 255, 255, 0.2)'
-                    : 'rgba(var(--primary-rgb), 0.15)',
+                    : 'color-mix(in srgb, var(--neon-accent) 15%, transparent)',
                 'border-radius': 'var(--radius-sm)',
                 'font-family':
                     'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
                 'font-size': 'var(--font-size-sm)',
                 'font-weight': 'var(--font-weight-bold)',
-                'color': isRibbon ? '#ffffff' : 'var(--primary)',
+                'color': isRibbon ? '#ffffff' : 'var(--neon-accent)',
               },
             ),
             [Component.text(component.props.promoCode!)],
@@ -139,7 +139,7 @@ class _NeonInlineHeroBannerState extends State<NeonInlineHeroBanner> {
                 'padding': '0.5rem 1rem',
                 'background': isRibbon
                     ? 'rgba(255, 255, 255, 0.15)'
-                    : 'var(--primary)',
+                    : 'var(--neon-accent)',
                 'border': isRibbon
                     ? '1px solid rgba(255, 255, 255, 0.3)'
                     : 'none',

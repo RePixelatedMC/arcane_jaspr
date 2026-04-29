@@ -3,7 +3,7 @@ class AppConstants {
   AppConstants._();
 
   /// Site name displayed in header and title
-  static const String siteName = 'ArcaneJaspr Neon';
+  static const String siteName = 'ArcaneJaspr';
 
   /// Site description for meta tags
   static const String siteDescription =

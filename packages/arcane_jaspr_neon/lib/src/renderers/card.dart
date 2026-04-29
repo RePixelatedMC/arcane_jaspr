@@ -31,27 +31,23 @@ class NeonCard extends StatelessComponent {
 
     Map<String, String> variantStyles = switch (props.variant) {
       CardVariant.elevated => <String, String>{
-        'background':
-            props.backgroundColor ?? 'radial-gradient(circle at 12% 0%, color-mix(in srgb, var(--neon-cyan) 12%, transparent), transparent 14rem), linear-gradient(135deg, color-mix(in srgb, var(--primary) 6%, transparent), color-mix(in srgb, var(--card) 78%, transparent)), linear-gradient(90deg, color-mix(in srgb, var(--neon-cyan) 4%, transparent) 1px, transparent 1px)',
-        'background-size': 'auto, auto, 20px 20px',
+        'background': props.backgroundColor ??
+            'linear-gradient(160deg, color-mix(in srgb, var(--neon-accent-cool) 5%, transparent), color-mix(in srgb, var(--card) 86%, transparent))',
         'border': '1px solid var(--neon-panel-border)',
-        'box-shadow':
-            'var(--neon-panel-shadow), var(--neon-inset-highlight)',
-        'backdrop-filter': 'blur(14px)',
-        '-webkit-backdrop-filter': 'blur(14px)',
+        'box-shadow': 'var(--neon-shadow-md), var(--neon-inset)',
       },
       CardVariant.flat => <String, String>{
-        'background':
-            props.backgroundColor ?? 'linear-gradient(135deg, color-mix(in srgb, var(--foreground) 3%, transparent), color-mix(in srgb, var(--card) 72%, transparent))',
+        'background': props.backgroundColor ??
+            'color-mix(in srgb, var(--card) 78%, transparent)',
         'border': '1px solid var(--neon-panel-border)',
-        'box-shadow': 'var(--neon-inset-highlight)',
+        'box-shadow': 'var(--neon-inset)',
       },
       CardVariant.outlined => <String, String>{
         'background':
-            props.backgroundColor ?? 'linear-gradient(135deg, color-mix(in srgb, var(--neon-cyan) 4%, transparent), color-mix(in srgb, var(--background) 48%, transparent))',
-        'border': '1px solid var(--neon-accent-border)',
-        'box-shadow':
-            '0 0 0 1px color-mix(in srgb, var(--neon-cyan) 7%, transparent), var(--neon-inset-highlight)',
+            props.backgroundColor ?? 'transparent',
+        'border':
+            '1px solid color-mix(in srgb, var(--neon-accent-cool) 30%, var(--neon-panel-border))',
+        'box-shadow': 'var(--neon-inset)',
       },
       CardVariant.ghost => <String, String>{
         'background-color': 'transparent',
@@ -60,20 +56,18 @@ class NeonCard extends StatelessComponent {
       },
       CardVariant.glass => <String, String>{
         'background':
-            'radial-gradient(circle at 15% 0%, color-mix(in srgb, var(--neon-cyan) 18%, transparent), transparent 12rem), linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.03) 34%, rgba(5,12,16,0.76)), color-mix(in srgb, var(--card) 62%, transparent)',
+            'linear-gradient(160deg, color-mix(in srgb, var(--neon-accent-cool) 8%, transparent), color-mix(in srgb, var(--card) 60%, transparent))',
         'border': '1px solid var(--neon-panel-border)',
         'box-shadow':
-            '0 22px 60px rgba(0, 0, 0, 0.36), 0 0 34px color-mix(in srgb, var(--neon-cyan) 18%, transparent), inset 0 1px 0 rgba(255,255,255,0.18)',
-        'backdrop-filter': 'blur(22px) saturate(1.28)',
-        '-webkit-backdrop-filter': 'blur(22px) saturate(1.28)',
+            'var(--neon-shadow-lg), inset 0 1px 0 color-mix(in srgb, var(--foreground) 8%, transparent)',
+        'backdrop-filter': 'blur(16px) saturate(1.18)',
+        '-webkit-backdrop-filter': 'blur(16px) saturate(1.18)',
       },
       CardVariant.interactive => <String, String>{
-        'background':
-            props.backgroundColor ?? 'radial-gradient(circle at top right, color-mix(in srgb, var(--neon-magenta) 10%, transparent), transparent 12rem), linear-gradient(135deg, color-mix(in srgb, var(--primary) 8%, transparent), color-mix(in srgb, var(--card) 74%, transparent)), linear-gradient(color-mix(in srgb, var(--primary) 4%, transparent) 1px, transparent 1px)',
-        'background-size': 'auto, auto, 18px 18px',
+        'background': props.backgroundColor ??
+            'linear-gradient(160deg, color-mix(in srgb, var(--neon-accent) 6%, transparent), color-mix(in srgb, var(--card) 82%, transparent))',
         'border': '1px solid var(--neon-panel-border)',
-        'box-shadow':
-            '0 12px 34px rgba(0, 0, 0, 0.22), var(--neon-inset-highlight)',
+        'box-shadow': 'var(--neon-shadow-md), var(--neon-inset)',
       },
     };
 

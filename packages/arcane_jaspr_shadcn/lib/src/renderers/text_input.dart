@@ -2,6 +2,7 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/core/props/text_input_props.dart';
+import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 
 /// ShadCN Text Input renderer.
 ///
@@ -61,6 +62,13 @@ class ShadcnTextInput extends StatelessComponent {
       TextInputType.search => dom.InputType.search,
     };
 
+    final Map<String, String> runtimeAttrs = textInputAttrs(
+      onChange: props.onChangeAction,
+      onSubmit: props.onSubmitAction,
+      formId: props.formId,
+      fieldName: props.fieldName,
+    );
+
     // Build input element
     // ShadCN: flex h-10 w-full rounded-md border border-input bg-background
     //         px-3 py-2 text-base ring-offset-background
@@ -77,6 +85,8 @@ class ShadcnTextInput extends StatelessComponent {
         if (props.readOnly) 'readonly': 'true',
         'data-disabled': '${props.disabled}',
         'data-error': '$hasError',
+        ...runtimeAttrs,
+        ...?props.attributes,
       },
       styles: dom.Styles(
         raw: {
@@ -238,6 +248,8 @@ class ShadcnTextInput extends StatelessComponent {
                   if (props.readOnly) 'readonly': 'true',
                   'data-disabled': '${props.disabled}',
                   'data-error': '$hasError',
+                  ...runtimeAttrs,
+                  ...?props.attributes,
                 },
                 styles: dom.Styles(
                   raw: {

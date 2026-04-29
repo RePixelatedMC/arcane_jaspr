@@ -57,14 +57,14 @@ class _NeonMarqueeTickerBarState extends State<NeonMarqueeTickerBar> {
           '-webkit-backdrop-filter': 'blur(12px)',
           'border-bottom': component.props.showAtBottom
               ? 'none'
-              : '1px solid var(--primary)',
+              : '1px solid var(--neon-accent)',
           'border-top': component.props.showAtBottom
-              ? '1px solid var(--primary)'
+              ? '1px solid var(--neon-accent)'
               : 'none',
           // Neon: accent glow
           'box-shadow': component.props.showAtBottom
-              ? '0 -4px 20px rgba(var(--primary-rgb), 0.15)'
-              : '0 4px 20px rgba(var(--primary-rgb), 0.15)',
+              ? '0 -4px 20px color-mix(in srgb, var(--neon-accent) 15%, transparent)'
+              : '0 4px 20px color-mix(in srgb, var(--neon-accent) 15%, transparent)',
         },
       ),
       [
@@ -106,14 +106,14 @@ class _NeonMarqueeTickerBarState extends State<NeonMarqueeTickerBar> {
                     styles: const dom.Styles(
                       raw: {
                         'padding': '0.25rem 0.75rem',
-                        'background': 'rgba(var(--primary-rgb), 0.15)',
-                        'border': '1px solid rgba(var(--primary-rgb), 0.3)',
+                        'background': 'color-mix(in srgb, var(--neon-accent) 15%, transparent)',
+                        'border': '1px solid color-mix(in srgb, var(--neon-accent) 30%, transparent)',
                         'border-radius': 'var(--radius-sm)',
                         'font-family':
                             'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
                         'font-size': 'var(--font-size-sm)',
                         'font-weight': 'var(--font-weight-bold)',
-                        'color': 'var(--primary)',
+                        'color': 'var(--neon-accent)',
                       },
                     ),
                     [Component.text(component.props.promoCode!)],
@@ -147,14 +147,14 @@ class _NeonMarqueeTickerBarState extends State<NeonMarqueeTickerBar> {
                     styles: const dom.Styles(
                       raw: {
                         'padding': '0.25rem 0.75rem',
-                        'background': 'rgba(var(--primary-rgb), 0.15)',
-                        'border': '1px solid rgba(var(--primary-rgb), 0.3)',
+                        'background': 'color-mix(in srgb, var(--neon-accent) 15%, transparent)',
+                        'border': '1px solid color-mix(in srgb, var(--neon-accent) 30%, transparent)',
                         'border-radius': 'var(--radius-sm)',
                         'font-family':
                             'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
                         'font-size': 'var(--font-size-sm)',
                         'font-weight': 'var(--font-weight-bold)',
-                        'color': 'var(--primary)',
+                        'color': 'var(--neon-accent)',
                       },
                     ),
                     [Component.text(component.props.promoCode!)],
@@ -185,7 +185,7 @@ class _NeonMarqueeTickerBarState extends State<NeonMarqueeTickerBar> {
                 styles: const dom.Styles(
                   raw: {
                     'padding': '0.5rem 1rem',
-                    'background': 'var(--primary)',
+                    'background': 'var(--neon-accent)',
                     'border': 'none',
                     'border-radius': 'var(--radius-sm)',
                     'color': '#ffffff',
@@ -193,7 +193,7 @@ class _NeonMarqueeTickerBarState extends State<NeonMarqueeTickerBar> {
                     'font-weight': 'var(--font-weight-medium)',
                     'text-decoration': 'none',
                     'cursor': 'pointer',
-                    'box-shadow': '0 14px 10px rgba(var(--primary-rgb), 0.3)',
+                    'box-shadow': '0 14px 10px color-mix(in srgb, var(--neon-accent) 30%, transparent)',
                   },
                 ),
                 events: component.props.onCtaClick != null

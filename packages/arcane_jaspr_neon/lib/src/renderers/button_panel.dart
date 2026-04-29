@@ -47,10 +47,11 @@ class NeonToolbar extends StatelessComponent {
           'align-items': _crossAlign(props.crossAxisAlignment),
           'gap': '${props.gap}px',
           'padding': padding,
-          'border': '1px solid var(--neon-accent-border)',
-          'border-radius': 'var(--radius-lg)',
-          'background':
-              'linear-gradient(180deg, color-mix(in srgb, var(--neon-accent) 8%, transparent), var(--neon-surface-1))',
+          'border': '1px solid var(--neon-panel-border)',
+          'clip-path': 'var(--neon-clip-md)',
+          'background': 'var(--neon-panel-surface)',
+          'box-shadow':
+              'var(--neon-shadow-sm), inset 0 1px 0 var(--neon-inset)',
         },
       ),
       props.children,

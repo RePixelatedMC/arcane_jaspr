@@ -131,5 +131,5 @@ String _border(bool showBorder) {
   if (!showBorder) {
     return 'none';
   }
-  return '1px solid var(--neon-accent-border)';
+  return '1px solid var(--neon-control-border)';
 }

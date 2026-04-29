@@ -1,5 +1,6 @@
 import 'package:arcane_jaspr/flutter.dart';
 import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
+import '../interaction/interaction.dart';
 import '../shared/shared.dart';
 
 export '../shared/shared.dart' show ComponentSize;
@@ -42,6 +43,11 @@ class TextInputProps {
   final void Function()? onFocus;
   final void Function()? onBlur;
   final void Function(String)? onSubmit;
+  final ArcaneInteraction? onChangeAction;
+  final ArcaneInteraction? onSubmitAction;
+  final String? formId;
+  final String? fieldName;
+  final Map<String, String>? attributes;
 
   const TextInputProps({
     this.placeholder,
@@ -64,6 +70,11 @@ class TextInputProps {
     this.onFocus,
     this.onBlur,
     this.onSubmit,
+    this.onChangeAction,
+    this.onSubmitAction,
+    this.formId,
+    this.fieldName,
+    this.attributes,
   });
 
   TextInputProps copyWith({
@@ -87,6 +98,11 @@ class TextInputProps {
     void Function()? onFocus,
     void Function()? onBlur,
     void Function(String)? onSubmit,
+    ArcaneInteraction? onChangeAction,
+    ArcaneInteraction? onSubmitAction,
+    String? formId,
+    String? fieldName,
+    Map<String, String>? attributes,
   }) {
     return TextInputProps(
       placeholder: placeholder ?? this.placeholder,
@@ -109,6 +125,11 @@ class TextInputProps {
       onFocus: onFocus ?? this.onFocus,
       onBlur: onBlur ?? this.onBlur,
       onSubmit: onSubmit ?? this.onSubmit,
+      onChangeAction: onChangeAction ?? this.onChangeAction,
+      onSubmitAction: onSubmitAction ?? this.onSubmitAction,
+      formId: formId ?? this.formId,
+      fieldName: fieldName ?? this.fieldName,
+      attributes: attributes ?? this.attributes,
     );
   }
 }

@@ -150,7 +150,7 @@ class _NeonFullscreenTakeoverState extends State<NeonFullscreenTakeover> {
                 raw: {
                   'font-size': 'var(--font-size-lg)',
                   'font-weight': 'var(--font-weight-semibold)',
-                  'color': 'var(--primary)',
+                  'color': 'var(--neon-accent)',
                   'text-transform': 'uppercase',
                   'letter-spacing': '0',
                   'margin-bottom': '1rem',
@@ -168,7 +168,7 @@ class _NeonFullscreenTakeoverState extends State<NeonFullscreenTakeover> {
                     'display': 'inline-block',
                     'padding': '1rem 2.5rem',
                     'background':
-                        'linear-gradient(135deg, var(--primary) 0%, rgba(var(--primary-rgb), 0.6) 100%)',
+                        'linear-gradient(135deg, var(--neon-accent) 0%, color-mix(in srgb, var(--neon-accent) 60%, transparent) 100%)',
                     'border-radius': 'var(--radius-xl)',
                     'font-size': '4rem',
                     'font-weight': 'var(--font-weight-bold)',
@@ -176,7 +176,7 @@ class _NeonFullscreenTakeoverState extends State<NeonFullscreenTakeover> {
                     'margin-bottom': '1.5rem',
                     // Neon: intense glow
                     'box-shadow':
-                        '0 0 60px rgba(var(--primary-rgb), 0.6), 0 14px 120px rgba(var(--primary-rgb), 0.3)',
+                        '0 0 60px color-mix(in srgb, var(--neon-accent) 60%, transparent), 0 14px 120px color-mix(in srgb, var(--neon-accent) 30%, transparent)',
                   },
                 ),
                 [Component.text(component.props.discount!)],
@@ -242,7 +242,7 @@ class _NeonFullscreenTakeoverState extends State<NeonFullscreenTakeover> {
                             'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
                         'font-size': 'var(--font-size-3xl)',
                         'font-weight': 'var(--font-weight-bold)',
-                        'color': 'var(--primary)',
+                        'color': 'var(--neon-accent)',
                         'letter-spacing': '0',
                       },
                     ),
@@ -257,8 +257,8 @@ class _NeonFullscreenTakeoverState extends State<NeonFullscreenTakeover> {
                 styles: const dom.Styles(
                   raw: {
                     'padding': '1.25rem 2rem',
-                    'background': 'rgba(var(--primary-rgb), 0.1)',
-                    'border': '2px dashed var(--primary)',
+                    'background': 'color-mix(in srgb, var(--neon-accent) 10%, transparent)',
+                    'border': '2px dashed var(--neon-accent)',
                     'border-radius': 'var(--radius-lg)',
                     'margin-bottom': '2rem',
                   },
@@ -283,7 +283,7 @@ class _NeonFullscreenTakeoverState extends State<NeonFullscreenTakeover> {
                             'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
                         'font-size': 'var(--font-size-2xl)',
                         'font-weight': 'var(--font-weight-bold)',
-                        'color': 'var(--primary)',
+                        'color': 'var(--neon-accent)',
                         'letter-spacing': '0',
                       },
                     ),
@@ -311,7 +311,7 @@ class _NeonFullscreenTakeoverState extends State<NeonFullscreenTakeover> {
                       raw: {
                         'display': 'inline-block',
                         'padding': '1.25rem 3rem',
-                        'background': 'var(--primary)',
+                        'background': 'var(--neon-accent)',
                         'border': 'none',
                         'border-radius': 'var(--radius-lg)',
                         'color': '#ffffff',
@@ -322,7 +322,7 @@ class _NeonFullscreenTakeoverState extends State<NeonFullscreenTakeover> {
                         'transition': 'all var(--transition)',
                         // Neon: intense glow
                         'box-shadow':
-                            '0 0 40px rgba(var(--primary-rgb), 0.5), 0 10px 40px -10px rgba(var(--primary-rgb), 0.4)',
+                            '0 0 40px color-mix(in srgb, var(--neon-accent) 50%, transparent), 0 10px 40px -10px color-mix(in srgb, var(--neon-accent) 40%, transparent)',
                       },
                     ),
                     events: component.props.onCtaClick != null
@@ -370,7 +370,7 @@ class _NeonFullscreenTakeoverState extends State<NeonFullscreenTakeover> {
               'width': '300px',
               'height': '300px',
               'background':
-                  'radial-gradient(circle, rgba(var(--primary-rgb), 0.15) 0%, transparent 70%)',
+                  'radial-gradient(circle, color-mix(in srgb, var(--neon-accent) 15%, transparent) 0%, transparent 70%)',
               'pointer-events': 'none',
             },
           ),
@@ -385,7 +385,7 @@ class _NeonFullscreenTakeoverState extends State<NeonFullscreenTakeover> {
               'width': '400px',
               'height': '400px',
               'background':
-                  'radial-gradient(circle, rgba(var(--primary-rgb), 0.1) 0%, transparent 70%)',
+                  'radial-gradient(circle, color-mix(in srgb, var(--neon-accent) 10%, transparent) 0%, transparent 70%)',
               'pointer-events': 'none',
             },
           ),

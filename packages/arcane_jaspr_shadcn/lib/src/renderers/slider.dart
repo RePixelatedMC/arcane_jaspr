@@ -1,6 +1,8 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
+import 'package:arcane_jaspr/core/interaction/interaction.dart';
+import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/slider_props.dart';
 
 /// ShadCN Slider renderer.
@@ -14,15 +16,22 @@ class ShadcnSlider extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
+    final String sliderId = props.id ?? 'slider-${identityHashCode(props)}';
+    final double effectiveValue = props.isRange ? (props.rangeMin ?? props.min) : props.value;
+    final double loValue = props.rangeMin ?? props.min;
+    final double hiValue = props.rangeMax ?? props.max;
+    final double singleValue = effectiveValue;
+
     final double percentage =
-        ((props.value - props.min) / (props.max - props.min) * 100).clamp(
+        ((singleValue - props.min) / (props.max - props.min) * 100).clamp(
           0.0,
           100.0,
         );
+    final double loPct =
+        ((loValue - props.min) / (props.max - props.min) * 100).clamp(0.0, 100.0);
+    final double hiPct =
+        ((hiValue - props.min) / (props.max - props.min) * 100).clamp(0.0, 100.0);
 
-    // ShadCN Slider sizes
-    // Reference: https://ui.shadcn.com/docs/components/slider
-    // Default track: h-2 (8px), thumb: h-5 w-5 (20px)
     final (
       String trackHeight,
       String thumbSize,
@@ -43,8 +52,24 @@ class ShadcnSlider extends StatelessComponent {
       SliderVariant.error => 'var(--destructive)',
     };
 
+    final Map<String, String> rootAttrs = sliderAttrs(
+      sliderId: sliderId,
+      min: props.min,
+      max: props.max,
+      value: props.isRange ? null : props.value,
+      lo: props.isRange ? loValue : null,
+      hi: props.isRange ? hiValue : null,
+      step: props.step,
+      range: props.isRange,
+      disabled: props.disabled,
+      changeAction: props.onChangeAction == null
+          ? null
+          : encodeArcaneAction(props.onChangeAction!),
+    );
+
     return dom.div(
       classes: 'arcane-slider ${props.disabled ? 'disabled' : ''}',
+      attributes: rootAttrs,
       styles: dom.Styles(
         raw: {
           'width': '100%',
@@ -61,7 +86,7 @@ class ShadcnSlider extends StatelessComponent {
                 'display': 'flex',
                 'justify-content': 'space-between',
                 'align-items': 'center',
-                'margin-bottom': '0.5rem', // spacing-sm
+                'margin-bottom': '0.5rem',
               },
             ),
             [
@@ -69,8 +94,8 @@ class ShadcnSlider extends StatelessComponent {
                 dom.span(
                   styles: const dom.Styles(
                     raw: {
-                      'font-size': 'var(--font-size-sm)', // text-sm
-                      'font-weight': 'var(--font-weight-medium)', // font-medium
+                      'font-size': 'var(--font-size-sm)',
+                      'font-weight': 'var(--font-weight-medium)',
                       'color': 'var(--foreground)',
                     },
                   ),
@@ -81,8 +106,8 @@ class ShadcnSlider extends StatelessComponent {
                   classes: 'arcane-slider-value',
                   styles: const dom.Styles(
                     raw: {
-                      'font-size': 'var(--font-size-sm)', // text-sm
-                      'font-weight': 'var(--font-weight-medium)', // font-medium
+                      'font-size': 'var(--font-size-sm)',
+                      'font-weight': 'var(--font-weight-medium)',
                       'font-variant-numeric': 'tabular-nums',
                       'color': 'var(--muted-foreground)',
                       'min-width': '40px',
@@ -91,17 +116,17 @@ class ShadcnSlider extends StatelessComponent {
                   ),
                   [
                     Component.text(
-                      '${props.valuePrefix ?? ''}${props.value.toStringAsFixed(props.valueDecimals)}${props.valueSuffix ?? ''}',
+                      '${props.valuePrefix ?? ''}${(props.isRange ? loValue : props.value).toStringAsFixed(props.valueDecimals)}${props.valueSuffix ?? ''}',
                     ),
                   ],
                 ),
             ],
           ),
-
         // Track container with hit area
         // ShadCN: relative flex w-full touch-none select-none items-center
         dom.div(
           classes: 'arcane-slider-track-container',
+          attributes: const <String, String>{'data-arcane-slider-track': ''},
           styles: dom.Styles(
             raw: {
               'position': 'relative',
@@ -115,8 +140,6 @@ class ShadcnSlider extends StatelessComponent {
             },
           ),
           [
-            // Track background
-            // ShadCN: relative h-2 w-full grow overflow-hidden rounded-full bg-secondary
             dom.div(
               classes: 'arcane-slider-track',
               styles: dom.Styles(
@@ -125,111 +148,149 @@ class ShadcnSlider extends StatelessComponent {
                   'left': '0',
                   'right': '0',
                   'height': trackHeight,
-                  // ShadCN: bg-secondary
                   'background-color': 'var(--secondary)',
-                  // ShadCN: rounded-full
                   'border-radius': 'var(--radius-full)',
-                  // ShadCN: overflow-hidden
                   'overflow': 'hidden',
                 },
               ),
               [
-                // Range/filled portion
-                // ShadCN: absolute h-full bg-primary
-                dom.div(
-                  classes: 'arcane-slider-track-fill',
-                  styles: dom.Styles(
-                    raw: {
-                      'position': 'absolute',
-                      'left': '0',
-                      'top': '0',
-                      'width': '$percentage%',
-                      'height': '100%',
-                      'background-color': fillColor,
-                      'transition': 'width 0.1s ease-out',
+                if (!props.isRange)
+                  dom.div(
+                    classes: 'arcane-slider-track-fill',
+                    attributes: const <String, String>{
+                      'data-arcane-slider-fill': '',
                     },
+                    styles: dom.Styles(
+                      raw: {
+                        'position': 'absolute',
+                        'left': '0',
+                        'top': '0',
+                        'width': '$percentage%',
+                        'height': '100%',
+                        'background-color': fillColor,
+                        'transition': 'width 0.1s ease-out',
+                      },
+                    ),
+                    [],
+                  )
+                else
+                  dom.div(
+                    classes: 'arcane-slider-track-fill',
+                    attributes: const <String, String>{
+                      'data-arcane-slider-fill': '',
+                    },
+                    styles: dom.Styles(
+                      raw: {
+                        'position': 'absolute',
+                        'left': '$loPct%',
+                        'right': '${100 - hiPct}%',
+                        'top': '0',
+                        'height': '100%',
+                        'background-color': fillColor,
+                        'transition': 'left 0.1s ease-out, right 0.1s ease-out',
+                      },
+                    ),
+                    [],
                   ),
-                  [],
-                ),
               ],
             ),
-
-            // Step markers (if enabled)
             if (props.showSteps && props.step != null)
               _buildStepMarkers(trackHeight),
-
-            // Thumb
-            // ShadCN: block h-5 w-5 rounded-full border-2 border-primary bg-background
-            // ring-offset-background transition-colors focus-visible:outline-none
-            // focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
-            // disabled:pointer-events-none disabled:opacity-50
-            dom.div(
-              classes: 'arcane-slider-thumb',
-              styles: dom.Styles(
-                raw: {
-                  'position': 'absolute',
-                  'left': 'calc($percentage% - ${thumbSizeNum / 2}px)',
-                  'top': '50%',
-                  'transform': 'translateY(-50%)',
-                  'width': thumbSize,
-                  'height': thumbSize,
-                  // ShadCN: bg-background
-                  'background-color': 'var(--background)',
-                  // ShadCN: border-2 border-primary
-                  'border': '2px solid $fillColor',
-                  // ShadCN: rounded-full
-                  'border-radius': 'var(--radius-full)',
-                  // ShadCN: transition-colors
-                  'transition':
-                      'color var(--transition), transform var(--transition), box-shadow var(--transition)',
-                  'pointer-events': 'none',
-                  'z-index': '2',
+            if (!props.isRange)
+              dom.div(
+                classes: 'arcane-slider-thumb',
+                attributes: <String, String>{
+                  'data-arcane-slider-thumb': 'value',
+                  'role': 'slider',
+                  'tabindex': props.disabled ? '-1' : '0',
+                  'aria-valuemin': props.min.toString(),
+                  'aria-valuemax': props.max.toString(),
+                  'aria-valuenow': props.value.toString(),
+                  if (props.label != null) 'aria-label': props.label!,
                 },
-              ),
-              [],
-            ),
-
-            // Hidden native range input for interaction
-            dom.input(
-              type: dom.InputType.range,
-              classes: 'arcane-slider-input',
-              attributes: {
-                'min': props.min.toString(),
-                'max': props.max.toString(),
-                'value': props.value.toString(),
-                'step': props.step?.toString() ?? 'any',
-                if (props.disabled) 'disabled': 'true',
-              },
-              styles: const dom.Styles(
-                raw: {
-                  'position': 'absolute',
-                  'width': '100%',
-                  'height': '100%',
-                  'opacity': '0',
-                  'cursor': 'pointer',
-                  'margin': '0',
-                  'z-index': '3',
+                styles: dom.Styles(
+                  raw: {
+                    'position': 'absolute',
+                    'left': 'calc($percentage% - ${thumbSizeNum / 2}px)',
+                    'top': '50%',
+                    'transform': 'translateY(-50%)',
+                    'width': thumbSize,
+                    'height': thumbSize,
+                    'background-color': 'var(--background)',
+                    'border': '2px solid $fillColor',
+                    'border-radius': 'var(--radius-full)',
+                    'transition':
+                        'left 0.1s ease-out, color var(--transition), transform var(--transition), box-shadow var(--transition)',
+                    'z-index': '2',
+                    'cursor': props.disabled ? 'not-allowed' : 'grab',
+                  },
+                ),
+                [],
+              )
+            else ...[
+              dom.div(
+                classes: 'arcane-slider-thumb',
+                attributes: <String, String>{
+                  'data-arcane-slider-thumb': 'lo',
+                  'role': 'slider',
+                  'tabindex': props.disabled ? '-1' : '0',
+                  'aria-valuemin': props.min.toString(),
+                  'aria-valuemax': props.max.toString(),
+                  'aria-valuenow': loValue.toString(),
+                  'aria-label': props.label != null ? '${props.label} minimum' : 'Minimum',
                 },
+                styles: dom.Styles(
+                  raw: {
+                    'position': 'absolute',
+                    'left': 'calc($loPct% - ${thumbSizeNum / 2}px)',
+                    'top': '50%',
+                    'transform': 'translateY(-50%)',
+                    'width': thumbSize,
+                    'height': thumbSize,
+                    'background-color': 'var(--background)',
+                    'border': '2px solid $fillColor',
+                    'border-radius': 'var(--radius-full)',
+                    'transition':
+                        'left 0.1s ease-out, color var(--transition), transform var(--transition), box-shadow var(--transition)',
+                    'z-index': '2',
+                    'cursor': props.disabled ? 'not-allowed' : 'grab',
+                  },
+                ),
+                [],
               ),
-              events: props.onChanged == null
-                  ? null
-                  : {
-                      'input': (e) {
-                        final dynamic target = e.target;
-                        final String? valueStr = target?.value;
-                        final double? newValue = double.tryParse(
-                          valueStr ?? '',
-                        );
-                        if (newValue != null) {
-                          props.onChanged!(newValue);
-                        }
-                      },
-                    },
-            ),
+              dom.div(
+                classes: 'arcane-slider-thumb',
+                attributes: <String, String>{
+                  'data-arcane-slider-thumb': 'hi',
+                  'role': 'slider',
+                  'tabindex': props.disabled ? '-1' : '0',
+                  'aria-valuemin': props.min.toString(),
+                  'aria-valuemax': props.max.toString(),
+                  'aria-valuenow': hiValue.toString(),
+                  'aria-label': props.label != null ? '${props.label} maximum' : 'Maximum',
+                },
+                styles: dom.Styles(
+                  raw: {
+                    'position': 'absolute',
+                    'left': 'calc($hiPct% - ${thumbSizeNum / 2}px)',
+                    'top': '50%',
+                    'transform': 'translateY(-50%)',
+                    'width': thumbSize,
+                    'height': thumbSize,
+                    'background-color': 'var(--background)',
+                    'border': '2px solid $fillColor',
+                    'border-radius': 'var(--radius-full)',
+                    'transition':
+                        'left 0.1s ease-out, color var(--transition), transform var(--transition), box-shadow var(--transition)',
+                    'z-index': '2',
+                    'cursor': props.disabled ? 'not-allowed' : 'grab',
+                  },
+                ),
+                [],
+              ),
+            ],
           ],
         ),
-
-        // Min/Max labels (optional, shown when no label is provided)
         if (props.label == null && !props.showValue)
           dom.div(
             styles: const dom.Styles(
@@ -243,7 +304,7 @@ class ShadcnSlider extends StatelessComponent {
               dom.span(
                 styles: const dom.Styles(
                   raw: {
-                    'font-size': 'var(--font-size-xs)', // text-xs
+                    'font-size': 'var(--font-size-xs)',
                     'color': 'var(--muted-foreground)',
                   },
                 ),
@@ -252,7 +313,7 @@ class ShadcnSlider extends StatelessComponent {
               dom.span(
                 styles: const dom.Styles(
                   raw: {
-                    'font-size': 'var(--font-size-xs)', // text-xs
+                    'font-size': 'var(--font-size-xs)',
                     'color': 'var(--muted-foreground)',
                   },
                 ),

@@ -2,6 +2,8 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/component/view/icon.dart';
+import 'package:arcane_jaspr/core/interaction/interaction.dart';
+import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/calendar_props.dart';
 import 'package:arcane_jaspr/core/props/date_picker_props.dart';
 import 'calendar.dart';
@@ -21,54 +23,74 @@ class ShadcnDatePicker extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final hasError = props.error != null;
-    final hasValue = props.mode == CalendarModeVariant.range
+    final bool hasError = props.error != null;
+    final bool hasValue = props.mode == CalendarModeVariant.range
         ? props.rangeValue != null
         : props.value != null;
-    final (height, fontSize) = _sizeStyles;
+    final (String height, String fontSize) = _sizeStyles;
+    final String pickerId = props.id ?? 'datepicker-${identityHashCode(props)}';
+    final String popoverId = '$pickerId-pop';
+    final String calendarId = props.calendarProps?.id ?? '$pickerId-cal';
+    final String triggerAnchorId = '$pickerId-anchor';
+
+    final Map<String, String> triggerAttrs = mergeAttrs(<Map<String, String>>[
+      anchorAttrs(triggerAnchorId),
+      calendarTriggerAttrs(calendarId),
+      interactionAttrs(ArcaneInteraction.togglePopover(popoverId)),
+      <String, String>{
+        'type': 'button',
+        'aria-haspopup': 'dialog',
+        'aria-controls': popoverId,
+        'data-arcane-placeholder': props.placeholder ?? '',
+      },
+    ]);
+
+    final Map<String, String> popoverAttrs = mergeAttrs(<Map<String, String>>[
+      surfaceAttrs(
+        surface: 'popover',
+        id: popoverId,
+        anchorId: triggerAnchorId,
+        anchorPlacement: 'bottom-start',
+        anchorOffset: '4',
+        focusTrap: false,
+      ),
+      calendarPickerAttrs(calendarId),
+    ]);
 
     return dom.div(
       classes: 'arcane-date-picker',
-      attributes: {
-        'data-state': props.isOpen ? 'open' : 'closed',
+      attributes: <String, String>{
         'data-disabled': '${props.disabled}',
       },
       styles: const dom.Styles(
-        raw: {
+        raw: <String, String>{
           'position': 'relative',
           'display': 'flex',
           'flex-direction': 'column',
           'gap': 'var(--space-1)',
         },
       ),
-      [
-        // Label
+      <Component>[
         if (props.label != null)
           dom.span(
             styles: const dom.Styles(
-              raw: {
+              raw: <String, String>{
                 'font-size': 'var(--font-size-sm)',
                 'font-weight': 'var(--font-weight-medium)',
                 'color': 'var(--foreground)',
               },
             ),
-            [Component.text(props.label!)],
+            <Component>[Component.text(props.label!)],
           ),
-
-        // Trigger button
         dom.button(
           classes: 'arcane-date-picker-trigger',
-          attributes: {
-            'type': 'button',
-            'aria-haspopup': 'dialog',
-            'aria-expanded': '${props.isOpen}',
+          attributes: <String, String>{
+            ...triggerAttrs,
             if (props.disabled) 'disabled': 'true',
-            'data-state': props.isOpen ? 'open' : 'closed',
-            'data-disabled': '${props.disabled}',
             'data-error': '$hasError',
           },
           styles: dom.Styles(
-            raw: {
+            raw: <String, String>{
               'display': 'flex',
               'align-items': 'center',
               'gap': 'var(--space-2)',
@@ -90,76 +112,72 @@ class ShadcnDatePicker extends StatelessComponent {
               if (props.disabled) 'opacity': '0.5',
             },
           ),
-          events: props.onToggle != null
-              ? {'click': (_) => props.onToggle!()}
-              : null,
-          [
-            dom.span(
-              styles: dom.Styles(raw: {'color': 'var(--muted-foreground)'}),
-              [ArcaneIcon.calendar(size: IconSize.sm)],
-            ),
+          <Component>[
             dom.span(
               styles: const dom.Styles(
-                raw: {
+                raw: <String, String>{'color': 'var(--muted-foreground)'},
+              ),
+              <Component>[ArcaneIcon.calendar(size: IconSize.sm)],
+            ),
+            dom.span(
+              attributes: const <String, String>{
+                'data-arcane-calendar-display': '',
+              },
+              styles: const dom.Styles(
+                raw: <String, String>{
                   'flex': '1',
                   'overflow': 'hidden',
                   'text-overflow': 'ellipsis',
                   'white-space': 'nowrap',
                 },
               ),
-              [Component.text(props.displayText)],
+              <Component>[Component.text(props.displayText)],
             ),
             if (hasValue && props.clearable)
               dom.span(
                 classes: 'arcane-date-picker-clear',
-                attributes: {'role': 'button', 'aria-label': 'Clear date'},
+                attributes: <String, String>{
+                  'role': 'button',
+                  'aria-label': 'Clear date',
+                  ...interactionAttrs(ArcaneInteraction.calendarToday(calendarId)),
+                },
                 styles: const dom.Styles(
-                  raw: {
+                  raw: <String, String>{
                     'color': 'var(--muted-foreground)',
                     'cursor': 'pointer',
                     'transition': 'color var(--transition)',
                   },
                 ),
-                events: props.onClear != null
-                    ? {
-                        'click': (e) {
-                          e.stopPropagation();
-                          props.onClear!();
-                        },
-                      }
-                    : null,
-                [ArcaneIcon.x(size: IconSize.xs)],
+                <Component>[ArcaneIcon.x(size: IconSize.xs)],
               ),
           ],
         ),
-
-        // Calendar dropdown
-        if (props.isOpen && props.calendarProps != null)
-          dom.div(
-            classes: 'arcane-date-picker-dropdown',
-            styles: const dom.Styles(
-              raw: {
-                'position': 'absolute',
-                'top': '100%',
-                'left': '0',
-                'margin-top': '4px',
-                'z-index': '50',
-                'box-shadow': 'var(--shadow-lg)',
-              },
-            ),
-            [ShadcnCalendar(props.calendarProps!)],
+        dom.div(
+          classes: 'arcane-date-picker-dropdown',
+          attributes: popoverAttrs,
+          styles: const dom.Styles(
+            raw: <String, String>{
+              'position': 'absolute',
+              'top': '100%',
+              'left': '0',
+              'margin-top': '4px',
+              'z-index': '50',
+              'box-shadow': 'var(--shadow-lg)',
+            },
           ),
-
-        // Error message
+          <Component>[
+            if (props.calendarProps != null) ShadcnCalendar(props.calendarProps!),
+          ],
+        ),
         if (hasError)
           dom.span(
             styles: const dom.Styles(
-              raw: {
+              raw: <String, String>{
                 'font-size': 'var(--font-size-sm)',
                 'color': 'var(--destructive)',
               },
             ),
-            [Component.text(props.error!)],
+            <Component>[Component.text(props.error!)],
           ),
       ],
     );

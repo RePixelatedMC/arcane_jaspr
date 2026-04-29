@@ -4,6 +4,8 @@ export 'core/theme_provider.dart';
 export 'core/renderers.dart' hide SheetPosition;
 export 'core/layout_renderers.dart';
 export 'core/props/button_props.dart';
+export 'core/interaction/interaction.dart';
+export 'core/interaction/interaction_attrs.dart';
 
 export 'theme/index.dart';
 

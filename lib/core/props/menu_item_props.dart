@@ -1,6 +1,8 @@
 import 'package:arcane_jaspr/flutter.dart';
 import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
+import '../interaction/interaction.dart';
+
 /// Sealed class hierarchy for menu items.
 /// Use pattern matching to handle different item types in renderers.
 sealed class ArcaneMenuItem {
@@ -16,6 +18,7 @@ class MenuItemAction extends ArcaneMenuItem {
   final bool disabled;
   final bool destructive;
   final void Function()? onSelect;
+  final ArcaneInteraction? action;
   final String? href;
 
   const MenuItemAction({
@@ -26,6 +29,7 @@ class MenuItemAction extends ArcaneMenuItem {
     this.disabled = false,
     this.destructive = false,
     this.onSelect,
+    this.action,
     this.href,
   });
 }
@@ -43,6 +47,7 @@ class MenuItemCheckbox extends ArcaneMenuItem {
   final bool disabled;
   final String? shortcut;
   final void Function(bool)? onChanged;
+  final ArcaneInteraction? action;
 
   const MenuItemCheckbox({
     required this.label,
@@ -51,6 +56,7 @@ class MenuItemCheckbox extends ArcaneMenuItem {
     this.disabled = false,
     this.shortcut,
     this.onChanged,
+    this.action,
   });
 }
 
@@ -63,6 +69,7 @@ class MenuItemRadio extends ArcaneMenuItem {
   final bool selected;
   final bool disabled;
   final void Function(String)? onChanged;
+  final ArcaneInteraction? action;
 
   const MenuItemRadio({
     required this.label,
@@ -72,6 +79,7 @@ class MenuItemRadio extends ArcaneMenuItem {
     required this.selected,
     this.disabled = false,
     this.onChanged,
+    this.action,
   });
 }
 
@@ -81,12 +89,14 @@ class MenuItemSubmenu extends ArcaneMenuItem {
   final Widget? icon;
   final List<ArcaneMenuItem> children;
   final bool disabled;
+  final String? id;
 
   const MenuItemSubmenu({
     required this.label,
     this.icon,
     required this.children,
     this.disabled = false,
+    this.id,
   });
 }
 

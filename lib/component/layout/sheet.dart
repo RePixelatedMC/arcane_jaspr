@@ -12,6 +12,7 @@ export '../../core/props/dialog_props.dart' show SheetSizeVariant, SheetProps;
 
 /// A modal sheet that slides in from screen edges.
 class ArcaneSheet extends StatelessWidget {
+  final String? id;
   final bool isOpen;
   final VoidCallback? onClose;
   final SheetPosition position;
@@ -26,8 +27,12 @@ class ArcaneSheet extends StatelessWidget {
   final bool showCloseButton;
   final bool showDragHandle;
   final String? maxWidth;
+  final bool escapeCloses;
+  final bool focusTrap;
+  final bool restoreFocus;
 
   const ArcaneSheet({
+    this.id,
     required this.isOpen,
     required this.child,
     this.onClose,
@@ -42,10 +47,14 @@ class ArcaneSheet extends StatelessWidget {
     this.showCloseButton = true,
     this.showDragHandle = true,
     this.maxWidth,
+    this.escapeCloses = true,
+    this.focusTrap = true,
+    this.restoreFocus = true,
     super.key,
   });
 
   const ArcaneSheet.bottom({
+    this.id,
     required this.isOpen,
     required this.child,
     this.onClose,
@@ -59,10 +68,14 @@ class ArcaneSheet extends StatelessWidget {
     this.showCloseButton = false,
     this.showDragHandle = true,
     this.maxWidth,
+    this.escapeCloses = true,
+    this.focusTrap = true,
+    this.restoreFocus = true,
     super.key,
   }) : position = SheetPosition.bottom;
 
   const ArcaneSheet.top({
+    this.id,
     required this.isOpen,
     required this.child,
     this.onClose,
@@ -76,10 +89,14 @@ class ArcaneSheet extends StatelessWidget {
     this.showCloseButton = true,
     this.showDragHandle = false,
     this.maxWidth,
+    this.escapeCloses = true,
+    this.focusTrap = true,
+    this.restoreFocus = true,
     super.key,
   }) : position = SheetPosition.top;
 
   const ArcaneSheet.end({
+    this.id,
     required this.isOpen,
     required this.child,
     this.onClose,
@@ -93,6 +110,9 @@ class ArcaneSheet extends StatelessWidget {
     this.showCloseButton = true,
     this.showDragHandle = false,
     this.maxWidth,
+    this.escapeCloses = true,
+    this.focusTrap = true,
+    this.restoreFocus = true,
     super.key,
   }) : position = SheetPosition.end;
 
@@ -115,6 +135,7 @@ class ArcaneSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return context.renderers.sheet(props.SheetProps(
+      id: id,
       isOpen: isOpen,
       child: child,
       position: _propsPosition,
@@ -129,6 +150,9 @@ class ArcaneSheet extends StatelessWidget {
       closeOnBackdropClick: closeOnBackdropClick,
       showDragHandle: showDragHandle,
       maxWidth: maxWidth,
+      escapeCloses: escapeCloses,
+      focusTrap: focusTrap,
+      restoreFocus: restoreFocus,
     ));
   }
 }

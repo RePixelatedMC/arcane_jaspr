@@ -30,8 +30,11 @@ class NeonDataTable<T> extends StatelessComponent {
       styles: const dom.Styles(
         raw: {
           'overflow-x': 'auto',
-          'border': '1px solid var(--border)',
-          'border-radius': 'var(--radius)',
+          'border': '1px solid var(--neon-panel-border)',
+          'clip-path': 'var(--neon-clip-md)',
+          'background': 'var(--neon-panel-surface)',
+          'box-shadow':
+              'var(--neon-shadow-md), inset 0 1px 0 var(--neon-inset)',
         },
       ),
       [
@@ -42,6 +45,7 @@ class NeonDataTable<T> extends StatelessComponent {
               'width': '100%',
               'border-collapse': 'collapse',
               'font-size': 'var(--font-size-sm)',
+              'font-variant-numeric': 'tabular-nums',
             },
           ),
           [
@@ -51,7 +55,9 @@ class NeonDataTable<T> extends StatelessComponent {
                 classes: 'neon-data-table-header',
                 styles: dom.Styles(
                   raw: {
-                    'background-color': 'var(--muted)',
+                    'background': 'var(--neon-panel-tint)',
+                    'border-bottom':
+                        '1px solid var(--neon-control-border-strong)',
                     if (props.stickyHeader) 'position': 'sticky',
                     if (props.stickyHeader) 'top': '0',
                     if (props.stickyHeader) 'z-index': '1',
@@ -63,7 +69,7 @@ class NeonDataTable<T> extends StatelessComponent {
                       dom.th(
                         styles: const dom.Styles(
                           raw: {
-                            'padding': '16px 20px',
+                            'padding': '14px 20px',
                             'text-align': 'center',
                             'width': '56px',
                           },
@@ -77,7 +83,7 @@ class NeonDataTable<T> extends StatelessComponent {
                                 'checked': 'true',
                             },
                             styles: const dom.Styles(
-                              raw: {'accent-color': 'var(--primary)'},
+                              raw: {'accent-color': 'var(--neon-accent)'},
                             ),
                             events: {
                               if (props.onToggleSelectAll != null)
@@ -90,9 +96,13 @@ class NeonDataTable<T> extends StatelessComponent {
                       dom.th(
                         styles: dom.Styles(
                           raw: {
-                            'padding': '16px 20px',
+                            'padding': '14px 20px',
                             'text-align': column.align.css,
-                            'font-weight': 'var(--font-weight-medium)',
+                            'font-family': 'var(--font-heading)',
+                            'font-size': 'var(--font-size-xs)',
+                            'font-weight': 'var(--font-weight-semibold)',
+                            'letter-spacing': '0.12em',
+                            'text-transform': 'uppercase',
                             'color': 'var(--muted-foreground)',
                             'white-space': 'nowrap',
                             if (column.width != null)
@@ -125,12 +135,14 @@ class NeonDataTable<T> extends StatelessComponent {
           'neon-data-table-row ${isSelected ? 'selected' : ''} ${isClickable ? 'clickable' : ''}',
       styles: dom.Styles(
         raw: {
-          'background-color': isSelected
-              ? 'rgba(var(--primary-rgb), 0.1)'
-              : 'var(--background)',
-          if (props.showDividers) 'border-bottom': '1px solid var(--border)',
+          'background': isSelected
+              ? 'color-mix(in srgb, var(--neon-accent) 12%, transparent)'
+              : 'transparent',
+          if (props.showDividers)
+            'border-bottom':
+                '1px solid color-mix(in srgb, var(--neon-panel-border) 60%, transparent)',
           if (isClickable) 'cursor': 'pointer',
-          'transition': 'background-color var(--arcane-transition)',
+          'transition': 'background-color 140ms ease',
         },
       ),
       events: isClickable ? {'click': (event) => props.onRowTap!(item)} : null,
@@ -138,14 +150,14 @@ class NeonDataTable<T> extends StatelessComponent {
         if (props.selectable)
           dom.td(
             styles: const dom.Styles(
-              raw: {'padding': '16px 20px', 'text-align': 'center'},
+              raw: {'padding': '14px 20px', 'text-align': 'center'},
             ),
             [
               dom.input(
                 type: dom.InputType.checkbox,
                 attributes: {if (isSelected) 'checked': 'true'},
                 styles: const dom.Styles(
-                  raw: {'accent-color': 'var(--primary)'},
+                  raw: {'accent-color': 'var(--neon-accent)'},
                 ),
                 events: {
                   if (props.onToggleSelection != null)
@@ -162,7 +174,7 @@ class NeonDataTable<T> extends StatelessComponent {
           dom.td(
             styles: dom.Styles(
               raw: {
-                'padding': '16px 20px',
+                'padding': '14px 20px',
                 'text-align': column.align.css,
                 'color': 'var(--foreground)',
               },

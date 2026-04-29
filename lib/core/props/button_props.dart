@@ -1,6 +1,8 @@
 import 'package:arcane_jaspr/flutter.dart';
 import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
+import '../interaction/interaction.dart';
+
 enum ButtonVariant {
   primary,
   secondary,
@@ -33,13 +35,13 @@ enum ButtonSize {
   static const ButtonSize iconLarge = iconLg;
 }
 
-/// Button component properties.
 class ButtonProps {
   final String? label;
   final Widget? child;
   final Widget? icon;
   final Widget? trailing;
   final void Function()? onPressed;
+  final ArcaneInteraction? action;
   final ButtonVariant variant;
   final ButtonSize size;
   final bool disabled;
@@ -47,13 +49,7 @@ class ButtonProps {
   final bool fullWidth;
   final String? id;
   final Map<String, String>? attributes;
-
-  /// If provided, renders the button as an anchor tag (`<a>`) instead of `<button>`.
-  /// Useful for CTA buttons that navigate to other pages.
   final String? href;
-
-  /// Whether to show an arrow indicator after the label.
-  /// Useful for CTA buttons to indicate navigation.
   final bool showArrow;
 
   const ButtonProps({
@@ -62,6 +58,7 @@ class ButtonProps {
     this.icon,
     this.trailing,
     this.onPressed,
+    this.action,
     this.variant = ButtonVariant.primary,
     this.size = ButtonSize.md,
     this.disabled = false,
@@ -79,6 +76,7 @@ class ButtonProps {
     Widget? icon,
     Widget? trailing,
     void Function()? onPressed,
+    ArcaneInteraction? action,
     ButtonVariant? variant,
     ButtonSize? size,
     bool? disabled,
@@ -95,6 +93,7 @@ class ButtonProps {
       icon: icon ?? this.icon,
       trailing: trailing ?? this.trailing,
       onPressed: onPressed ?? this.onPressed,
+      action: action ?? this.action,
       variant: variant ?? this.variant,
       size: size ?? this.size,
       disabled: disabled ?? this.disabled,

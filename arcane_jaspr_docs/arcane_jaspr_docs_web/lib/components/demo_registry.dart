@@ -936,6 +936,29 @@ ArcaneToggleGroup(
 )''',
     previewBuilder: _buildTypographyDemo,
   ),
+  DemoDefinition(
+    componentType: 'styling',
+    symbolName: 'ArcaneStyleData',
+    sourcePath: 'lib/util/style_types/arcane_style_data.dart',
+    code: '''ArcaneBox(
+  style: const ArcaneStyleData(
+    padding: PaddingPreset.lg,
+    display: Display.flex,
+    flexDirection: FlexDirection.column,
+    gap: Gap.md,
+    background: Background.surface,
+    border: BorderPreset.standard,
+    borderRadius: Radius.lg,
+    shadow: Shadow.md,
+  ),
+  children: const [
+    ArcaneStatusBadge.info('Live stylesheet'),
+    Text.heading3('Renderer-owned styling'),
+    Text.body('Swap stylesheet, palette, or theme without changing this widget.'),
+  ],
+)''',
+    previewBuilder: _buildStylingDemo,
+  ),
 ];
 
 Map<String, DemoDefinition> demoRegistry =
@@ -1759,6 +1782,42 @@ Widget _buildTypographyDemo(DemoStateController state) {
         const Text.body('Readable hierarchy and spacing.'),
       ],
     ),
+  );
+}
+
+Widget _buildStylingDemo(DemoStateController state) {
+  bool elevated = state.boolValue('styling-elevated', initial: true);
+  return _surface(
+    ArcaneBox(
+      style: ArcaneStyleData(
+        width: Size.full,
+        maxWidthCustom: '520px',
+        padding: PaddingPreset.lg,
+        display: Display.flex,
+        flexDirection: FlexDirection.column,
+        gap: Gap.md,
+        background: Background.surface,
+        border: BorderPreset.standard,
+        borderRadius: Radius.lg,
+        shadow: elevated ? Shadow.md : Shadow.none,
+      ),
+      children: [
+        const ArcaneStatusBadge.info('Live stylesheet'),
+        const Text.heading3('Renderer-owned styling'),
+        const Text.body(
+          'Swap stylesheet, palette, or theme without changing this widget.',
+        ),
+        _demoRow(
+          Button.primary(label: 'Primary action', onPressed: () {}),
+          Button.secondary(
+            label: elevated ? 'Flatten' : 'Raise',
+            onPressed: () =>
+                state.toggleBool('styling-elevated', initial: true),
+          ),
+        ),
+      ],
+    ),
+    minHeight: '300px',
   );
 }
 

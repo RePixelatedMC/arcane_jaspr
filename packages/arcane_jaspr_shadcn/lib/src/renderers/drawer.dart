@@ -2,6 +2,7 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/component/view/icon.dart';
+import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/drawer_props.dart';
 
 /// ShadCN Drawer renderer.
@@ -45,7 +46,6 @@ class ShadcnDrawer extends StatelessComponent {
       'top': '0',
       'bottom': '0',
       'width': _sizeValue,
-      'transform': props.isOpen ? 'translateX(0)' : 'translateX(-100%)',
       'border-right': '1px solid var(--border)',
     },
     DrawerPosition.right => {
@@ -53,7 +53,6 @@ class ShadcnDrawer extends StatelessComponent {
       'top': '0',
       'bottom': '0',
       'width': _sizeValue,
-      'transform': props.isOpen ? 'translateX(0)' : 'translateX(100%)',
       'border-left': '1px solid var(--border)',
     },
     DrawerPosition.top => {
@@ -61,7 +60,6 @@ class ShadcnDrawer extends StatelessComponent {
       'left': '0',
       'right': '0',
       'height': _sizeValue,
-      'transform': props.isOpen ? 'translateY(0)' : 'translateY(-100%)',
       'border-bottom': '1px solid var(--border)',
     },
     DrawerPosition.bottom => {
@@ -69,7 +67,6 @@ class ShadcnDrawer extends StatelessComponent {
       'left': '0',
       'right': '0',
       'height': _sizeValue,
-      'transform': props.isOpen ? 'translateY(0)' : 'translateY(100%)',
       'border-top': '1px solid var(--border)',
     },
   };
@@ -85,13 +82,24 @@ class ShadcnDrawer extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    if (!props.isOpen && !props.showBackdrop) {
-      return const dom.span(styles: dom.Styles(raw: {'display': 'none'}), []);
-    }
+    final String surfaceId = props.id ?? _autoId();
+    final Map<String, String> surfAttrs = surfaceAttrs(
+      surface: 'drawer',
+      id: surfaceId,
+      initiallyOpen: props.isOpen,
+      dismissible: props.closeOnBackdropClick,
+      escapeCloses: props.escapeCloses,
+      focusTrap: props.focusTrap,
+      scrimCloses: props.closeOnBackdropClick,
+      restoreFocus: props.restoreFocus,
+    );
 
     return dom.div(
       classes: 'arcane-drawer-container',
-      attributes: {'data-state': props.isOpen ? 'open' : 'closed'},
+      attributes: <String, String>{
+        ...surfAttrs,
+        'data-position': props.position.name,
+      },
       styles: dom.Styles(
         raw: {
           'position': 'fixed',
@@ -109,8 +117,10 @@ class ShadcnDrawer extends StatelessComponent {
         if (props.showBackdrop)
           dom.div(
             classes: 'arcane-drawer-backdrop',
-            attributes: {'data-state': props.isOpen ? 'open' : 'closed'},
-            styles: dom.Styles(
+            attributes: const <String, String>{
+              'data-arcane-scrim': '',
+            },
+            styles: const dom.Styles(
               raw: {
                 'position': 'absolute',
                 'top': '0',
@@ -118,8 +128,6 @@ class ShadcnDrawer extends StatelessComponent {
                 'right': '0',
                 'bottom': '0',
                 'background-color': 'rgba(0, 0, 0, 0.8)',
-                'opacity': props.isOpen ? '1' : '0',
-                // ShadCN: transition-opacity
                 'transition': 'opacity var(--transition-slower)',
               },
             ),
@@ -132,7 +140,11 @@ class ShadcnDrawer extends StatelessComponent {
         // Drawer panel - ShadCN Sheet styles
         dom.div(
           classes: 'arcane-drawer arcane-drawer-${props.position.name}',
-          attributes: {'data-state': props.isOpen ? 'open' : 'closed'},
+          attributes: const <String, String>{
+            'role': 'dialog',
+            'aria-modal': 'true',
+            'data-arcane-autofocus': '',
+          },
           styles: dom.Styles(
             raw: {
               'position': 'absolute',
@@ -173,10 +185,10 @@ class ShadcnDrawer extends StatelessComponent {
                   if (props.showCloseButton)
                     dom.button(
                       classes: 'arcane-drawer-close',
-                      attributes: {
+                      attributes: <String, String>{
                         'type': 'button',
                         'aria-label': 'Close drawer',
-                        'data-state': props.isOpen ? 'open' : 'closed',
+                        ...dismissAttrs(),
                       },
                       styles: const dom.Styles(
                         raw: {
@@ -231,5 +243,11 @@ class ShadcnDrawer extends StatelessComponent {
         ),
       ],
     );
+  }
+
+  static int _autoCounter = 0;
+  static String _autoId() {
+    _autoCounter++;
+    return 'arcane-drawer-$_autoCounter';
   }
 }

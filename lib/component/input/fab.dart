@@ -1,5 +1,6 @@
 import 'package:arcane_jaspr/component/input/button.dart';
 import 'package:arcane_jaspr/component/layout/flow.dart';
+import 'package:arcane_jaspr/core/interaction/interaction.dart';
 import 'package:arcane_jaspr/flutter.dart';
 import 'package:arcane_jaspr/util/arcane.dart';
 
@@ -22,12 +23,14 @@ class Fab extends StatelessWidget {
   final Widget child;
   final Widget? leading;
   final void Function()? onPressed;
+  final ArcaneInteraction? action;
   final String? href;
 
   const Fab({
     required this.child,
     this.leading,
     this.onPressed,
+    this.action,
     this.href,
     super.key,
   });
@@ -35,6 +38,7 @@ class Fab extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Button.primary(
     onPressed: onPressed,
+    action: action,
     href: href,
     icon: leading,
     child: child,

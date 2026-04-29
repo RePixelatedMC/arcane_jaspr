@@ -2,6 +2,8 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/component/view/icon.dart';
+import 'package:arcane_jaspr/core/interaction/interaction.dart';
+import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/select_props.dart';
 
 /// Neon Select renderer.
@@ -9,6 +11,11 @@ class NeonSelect<T> extends StatelessComponent {
   final SelectProps<T> props;
 
   const NeonSelect(this.props, {super.key});
+
+  String _serializeValue(T? value) {
+    if (value == null) return '';
+    return value.toString();
+  }
 
   @override
   Component build(BuildContext context) {
@@ -28,63 +35,82 @@ class NeonSelect<T> extends StatelessComponent {
     final bool hasError = props.error != null;
     final String borderColor = hasError
         ? 'var(--destructive)'
-        : props.isOpen
-        ? 'var(--primary)'
-        : 'var(--neon-accent-border)';
+        : 'var(--neon-control-border)';
     final String glowColor = hasError
         ? '0 0 0 2px color-mix(in srgb, var(--destructive) 24%, transparent)'
-        : props.isOpen
-        ? '0 0 0 2px color-mix(in srgb, var(--primary) 20%, transparent)'
         : 'none';
+
+    final String surfaceId = props.id ?? 'neon-select-${identityHashCode(props)}';
+    final String triggerId = '$surfaceId-trigger';
+    final String groupId = props.group ?? '$surfaceId-group';
+    final String groupMode = props.multiSelect ? 'multi' : 'single';
+    final String? groupValue = props.multiSelect
+        ? (props.values ?? <T>[])
+            .map(_serializeValue)
+            .where((String s) => s.isNotEmpty)
+            .join('\u001f')
+        : _serializeValue(props.value);
+    final String? changeActionEncoded = props.onSelectAction != null
+        ? encodeArcaneAction(props.onSelectAction!)
+        : null;
+
+    final ArcaneInteraction toggleAction =
+        ArcaneInteraction.togglePopover(surfaceId);
+    final ArcaneInteraction dismissAction =
+        ArcaneInteraction.closePopover(surfaceId);
 
     return dom.div(
       classes:
           'neon-select ${props.disabled ? 'disabled' : ''} ${hasError ? 'error' : ''}',
-      attributes: {
-        'data-state': props.isOpen ? 'open' : 'closed',
+      attributes: <String, String>{
         'data-disabled': '${props.disabled}',
         'data-size': props.size.name,
       },
-      styles: const dom.Styles(raw: {'position': 'relative', 'width': '100%'}),
-      [
+      styles: const dom.Styles(raw: <String, String>{'position': 'relative', 'width': '100%'}),
+      <Component>[
         if (props.label != null)
           dom.label(
             classes: 'neon-select-label',
             styles: const dom.Styles(
-              raw: {
+              raw: <String, String>{
                 'display': 'block',
-                'font-size': 'var(--font-size-sm)',
-                'font-weight': 'var(--font-weight-semibold)',
-                'letter-spacing': '0',
+                'font-family': 'var(--font-heading)',
+                'font-size': '0.75rem',
+                'font-weight': '600',
+                'letter-spacing': '0.08em',
                 'text-transform': 'uppercase',
-                'color': 'var(--foreground)',
-                'margin-bottom': '0.75rem',
+                'color': 'var(--muted-foreground)',
+                'margin-bottom': '0.625rem',
               },
             ),
-            [
+            <Component>[
               Component.text(props.label!),
               if (props.required)
                 const dom.span(
-                  styles: const dom.Styles(
-                    raw: {'color': 'var(--primary)', 'margin-left': '0.375rem'},
+                  styles: dom.Styles(
+                    raw: <String, String>{'color': 'var(--neon-accent)', 'margin-left': '0.375rem'},
                   ),
-                  [Component.text('*')],
+                  <Component>[Component.text('*')],
                 ),
             ],
           ),
 
         dom.button(
-          classes: 'neon-select-trigger ${props.isOpen ? 'open' : ''}',
-          attributes: {
+          classes: 'neon-select-trigger',
+          attributes: <String, String>{
             'type': 'button',
-            'data-state': props.isOpen ? 'open' : 'closed',
+            'aria-haspopup': 'listbox',
+            'aria-controls': surfaceId,
+            'aria-expanded': 'false',
             'data-disabled': '${props.disabled}',
             'data-variant': props.multiSelect ? 'multi' : 'single',
             'data-size': props.size.name,
             if (props.disabled) 'disabled': 'true',
+            ...anchorAttrs(triggerId),
+            ...interactionAttrs(toggleAction),
           },
           styles: dom.Styles(
-            raw: {
+            raw: <String, String>{
               'display': 'flex',
               'align-items': 'center',
               'justify-content': 'space-between',
@@ -92,9 +118,9 @@ class NeonSelect<T> extends StatelessComponent {
               'height': height,
               'padding': padding,
               'background':
-                  'linear-gradient(180deg, color-mix(in srgb, var(--primary) 4%, var(--card)), var(--card))',
+                  'linear-gradient(135deg, color-mix(in srgb, var(--neon-accent) 5%, transparent), color-mix(in srgb, var(--card) 86%, transparent))',
               'border': '1px solid $borderColor',
-              'border-radius': 'var(--radius)',
+              'clip-path': 'var(--neon-control-clip)',
               'font-size': fontSize,
               'color':
                   props.value != null ||
@@ -105,29 +131,31 @@ class NeonSelect<T> extends StatelessComponent {
               'outline': 'none',
               'box-shadow': glowColor,
               'transition':
-                  'border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease',
+                  'border-color 0.18s ease, box-shadow 0.18s ease',
               if (props.disabled) 'opacity': '0.4',
             },
           ),
           events: props.disabled || props.onToggle == null
               ? null
-              : {'click': (_) => props.onToggle!()},
-          [
+              : <String, void Function(dynamic)>{
+                  'click': (_) => props.onToggle!(),
+                },
+          <Component>[
             if (props.prefix != null)
               dom.span(
                 styles: const dom.Styles(
-                  raw: {
+                  raw: <String, String>{
                     'margin-right': '0.75rem',
                     'color': 'var(--muted-foreground)',
                   },
                 ),
-                [props.prefix!],
+                <Component>[props.prefix!],
               ),
 
             // Display text
             dom.span(
               styles: const dom.Styles(
-                raw: {
+                raw: <String, String>{
                   'flex': '1',
                   'text-align': 'left',
                   'overflow': 'hidden',
@@ -135,7 +163,7 @@ class NeonSelect<T> extends StatelessComponent {
                   'white-space': 'nowrap',
                 },
               ),
-              [Component.text(displayText)],
+              <Component>[Component.text(displayText)],
             ),
 
             if (props.clearable &&
@@ -143,8 +171,11 @@ class NeonSelect<T> extends StatelessComponent {
                     (props.values != null && props.values!.isNotEmpty)))
               dom.span(
                 classes: 'neon-select-clear',
+                attributes: interactionAttrs(
+                  ArcaneInteraction.clearValue(groupId),
+                ),
                 styles: const dom.Styles(
-                  raw: {
+                  raw: <String, String>{
                     'display': 'flex',
                     'align-items': 'center',
                     'justify-content': 'center',
@@ -158,156 +189,200 @@ class NeonSelect<T> extends StatelessComponent {
                 ),
                 events: props.onClear == null
                     ? null
-                    : {
-                        'click': (e) {
-                          e.stopPropagation();
+                    : <String, void Function(dynamic)>{
+                        'click': (dynamic e) {
+                          (e as dynamic).stopPropagation();
                           props.onClear!();
                         },
                       },
-                [ArcaneIcon.x(size: IconSize.xs)],
+                <Component>[ArcaneIcon.x(size: IconSize.xs)],
               ),
 
             dom.span(
               styles: const dom.Styles(
-                raw: {
+                raw: <String, String>{
                   'display': 'flex',
                   'align-items': 'center',
                   'color': 'var(--muted-foreground)',
                 },
               ),
-              [ArcaneIcon.chevronsUpDown(size: IconSize.sm)],
+              <Component>[ArcaneIcon.chevronsUpDown(size: IconSize.sm)],
             ),
           ],
         ),
 
-        if (props.isOpen)
-          dom.div(
-            classes: 'neon-select-dropdown',
-            styles: dom.Styles(
-              raw: {
-                'position': 'absolute',
-                'z-index': '50',
-                'width': '100%',
-                'margin-top': '0.75rem',
-                if (props.dropdownDirection == SelectDropdownDirection.up) ...{
-                  'bottom': '100%',
-                  'margin-bottom': '0.75rem',
-                  'margin-top': '0',
-                },
-                'max-height': props.maxDropdownHeight ?? '320px',
-                'overflow-y': 'auto',
-                'background':
-                    'linear-gradient(180deg, color-mix(in srgb, var(--primary) 5%, var(--card)), var(--card))',
-                'backdrop-filter': 'blur(10px)',
-                '-webkit-backdrop-filter': 'blur(10px)',
-                'border': '1px solid var(--neon-accent-border)',
-                'border-radius': 'var(--radius)',
-                'box-shadow': '0 16px 36px rgba(0, 0, 0, 0.42)',
-              },
+        dom.div(
+          classes: 'neon-select-dropdown neon-select-content',
+          attributes: <String, String>{
+            'role': 'listbox',
+            ...surfaceAttrs(
+              surface: 'popover',
+              id: surfaceId,
+              initiallyOpen: props.isOpen,
+              dismissible: true,
+              escapeCloses: true,
+              focusTrap: false,
+              scrimCloses: true,
+              restoreFocus: true,
+              anchorId: triggerId,
+              anchorPlacement: props.dropdownDirection ==
+                      SelectDropdownDirection.up
+                  ? 'top'
+                  : 'bottom',
+              anchorAlign: 'start',
+              anchorOffset: '8',
             ),
-            [
-              if (props.searchable)
-                dom.div(
-                  classes: 'neon-select-search',
-                  styles: const dom.Styles(
-                    raw: {
-                      'padding': '0.75rem',
-                      'border-bottom': '1px solid rgba(var(--border-rgb), 0.3)',
+            ...groupAttrs(
+              groupId: groupId,
+              mode: groupMode,
+              value: groupValue,
+              required: props.required,
+              disabled: props.disabled,
+              maxSelections: props.maxSelections?.toString(),
+              changeAction: changeActionEncoded,
+            ),
+            'data-arcane-command': surfaceId,
+          },
+          styles: dom.Styles(
+            raw: <String, String>{
+              'z-index': '50',
+              'min-width': '100%',
+              'max-height': props.maxDropdownHeight ?? '320px',
+              'overflow-y': 'auto',
+              'background':
+                  'color-mix(in srgb, var(--card) 92%, transparent)',
+              'border': '1px solid var(--neon-panel-border)',
+              'clip-path': 'var(--neon-clip-sm)',
+              'box-shadow': 'var(--neon-glow-md)',
+            },
+          ),
+          <Component>[
+            if (props.searchable)
+              dom.div(
+                classes: 'neon-select-search',
+                styles: const dom.Styles(
+                  raw: <String, String>{
+                    'padding': '0.625rem',
+                    'border-bottom': '1px solid var(--neon-panel-border)',
+                  },
+                ),
+                <Component>[
+                  dom.input(
+                    type: dom.InputType.text,
+                    attributes: <String, String>{
+                      'placeholder': props.searchPlaceholder,
+                      'autocomplete': 'off',
+                      'data-arcane-command-input': surfaceId,
+                      'data-arcane-autofocus': 'true',
                     },
-                  ),
-                  [
-                    dom.input(
-                      type: dom.InputType.text,
-                      attributes: {
-                        'placeholder': props.searchPlaceholder,
-                        'value': props.searchQuery,
+                    styles: const dom.Styles(
+                      raw: <String, String>{
+                        'width': '100%',
+                        'padding': '0.5rem 0.75rem',
+                        'background':
+                            'color-mix(in srgb, var(--card) 70%, transparent)',
+                        'border': '1px solid var(--neon-control-border)',
+                        'clip-path': 'var(--neon-clip-xs)',
+                        'font-size': 'var(--font-size-sm)',
+                        'color': 'var(--foreground)',
+                        'outline': 'none',
+                        'transition': 'border-color 0.18s ease',
                       },
+                    ),
+                    events: props.onSearchChange == null
+                        ? null
+                        : <String, void Function(dynamic)>{
+                            'input': (dynamic e) {
+                              final dynamic target = (e as dynamic).target;
+                              final String? value = target?.value;
+                              if (value != null) props.onSearchChange!(value);
+                            },
+                          },
+                  ),
+                ],
+              ),
+
+            if (props.loading)
+              dom.div(
+                classes: 'neon-select-loading',
+                styles: const dom.Styles(
+                  raw: <String, String>{
+                    'padding': '1.5rem',
+                    'text-align': 'center',
+                    'color': 'var(--muted-foreground)',
+                  },
+                ),
+                <Component>[Component.text(props.loadingText)],
+              )
+            else
+              dom.div(
+                classes: 'neon-select-options',
+                styles: const dom.Styles(raw: <String, String>{'padding': '0.5rem'}),
+                <Component>[
+                  dom.div(
+                    attributes: const <String, String>{
+                      'data-arcane-command-empty': '',
+                      'hidden': '',
+                    },
+                    classes: 'neon-select-empty',
+                    styles: const dom.Styles(
+                      raw: <String, String>{
+                        'padding': '1.5rem',
+                        'text-align': 'center',
+                        'color': 'var(--muted-foreground)',
+                      },
+                    ),
+                    <Component>[Component.text(props.emptyMessage)],
+                  ),
+                  if (props.options.isEmpty)
+                    dom.div(
+                      classes: 'neon-select-empty',
                       styles: const dom.Styles(
-                        raw: {
-                          'width': '100%',
-                          'padding': '0.75rem 1rem',
-                          'background':
-                              'linear-gradient(180deg, color-mix(in srgb, var(--primary) 3%, var(--card)), var(--card))',
-                          'border': '1px solid var(--neon-accent-border)',
-                          'border-radius': 'var(--radius)',
-                          'font-size': 'var(--font-size-sm)',
-                          'color': 'var(--foreground)',
-                          'outline': 'none',
-                          'transition': 'all 0.2s ease',
+                        raw: <String, String>{
+                          'padding': '1.5rem',
+                          'text-align': 'center',
+                          'color': 'var(--muted-foreground)',
                         },
                       ),
-                      events: props.onSearchChange == null
-                          ? null
-                          : {
-                              'input': (e) {
-                                final dynamic target = e.target;
-                                final String? value = target?.value;
-                                if (value != null) props.onSearchChange!(value);
-                              },
-                            },
-                    ),
-                  ],
-                ),
-
-              if (props.loading)
-                dom.div(
-                  classes: 'neon-select-loading',
-                  styles: const dom.Styles(
-                    raw: {
-                      'padding': '1.5rem',
-                      'text-align': 'center',
-                      'color': 'var(--muted-foreground)',
-                    },
-                  ),
-                  [Component.text(props.loadingText)],
-                )
-              else if (props.filteredOptions.isEmpty)
-                dom.div(
-                  classes: 'neon-select-empty',
-                  styles: const dom.Styles(
-                    raw: {
-                      'padding': '1.5rem',
-                      'text-align': 'center',
-                      'color': 'var(--muted-foreground)',
-                    },
-                  ),
-                  [Component.text(props.emptyMessage)],
-                )
-              else
-                dom.div(
-                  classes: 'neon-select-options',
-                  styles: const dom.Styles(raw: {'padding': '0.5rem'}),
-                  [
-                    for (final option in props.filteredOptions)
-                      _buildOption(option),
-                  ],
-                ),
-            ],
-          ),
+                      <Component>[Component.text(props.emptyMessage)],
+                    )
+                  else
+                    for (final SelectOptionProps<T> option in props.options)
+                      _buildOption(
+                        option,
+                        groupId: groupId,
+                        groupMode: groupMode,
+                        surfaceId: surfaceId,
+                        dismissAction: dismissAction,
+                      ),
+                ],
+              ),
+          ],
+        ),
 
         if (hasError)
           dom.div(
             classes: 'neon-select-error',
             styles: const dom.Styles(
-              raw: {
+              raw: <String, String>{
                 'font-size': 'var(--font-size-sm)',
                 'color': 'var(--destructive)',
                 'margin-top': '0.75rem',
               },
             ),
-            [Component.text(props.error!)],
+            <Component>[Component.text(props.error!)],
           )
         else if (props.helperText != null)
           dom.div(
             classes: 'neon-select-helper',
             styles: const dom.Styles(
-              raw: {
+              raw: <String, String>{
                 'font-size': 'var(--font-size-sm)',
                 'color': 'var(--muted-foreground)',
                 'margin-top': '0.75rem',
               },
             ),
-            [Component.text(props.helperText!)],
+            <Component>[Component.text(props.helperText!)],
           ),
       ],
     );
@@ -322,7 +397,7 @@ class NeonSelect<T> extends StatelessComponent {
         return '${props.values!.length} selected';
       }
       final List<String> labels = props.values!
-          .map((v) => props.options.firstWhere((o) => o.value == v).label)
+          .map((T v) => props.options.firstWhere((SelectOptionProps<T> o) => o.value == v).label)
           .toList();
       return labels.join(', ');
     }
@@ -332,120 +407,149 @@ class NeonSelect<T> extends StatelessComponent {
     }
 
     final SelectOptionProps<T>? selectedOption = props.options
-        .where((o) => o.value == props.value)
+        .where((SelectOptionProps<T> o) => o.value == props.value)
         .firstOrNull;
 
     return selectedOption?.label ?? props.placeholder;
   }
 
-  Component _buildOption(SelectOptionProps<T> option) {
+  Component _buildOption(
+    SelectOptionProps<T> option, {
+    required String groupId,
+    required String groupMode,
+    required String surfaceId,
+    required ArcaneInteraction dismissAction,
+  }) {
     final bool isSelected = props.multiSelect
         ? props.values?.contains(option.value) ?? false
         : props.value == option.value;
+    final String value = _serializeValue(option.value);
+
+    final ArcaneInteraction selectAction = groupMode == 'multi'
+        ? ArcaneInteraction.toggleValue(groupId, value)
+        : ArcaneInteraction.selectValue(groupId, value);
+    final ArcaneInteraction itemAction = props.closeOnSelect && !props.multiSelect
+        ? ArcaneInteraction.compose(<ArcaneInteraction>[selectAction, dismissAction])
+        : selectAction;
+
+    final List<String> keywords = <String>[
+      option.label,
+      if (option.description != null) option.description!,
+      if (option.subtitle != null) option.subtitle!,
+      if (option.searchKeywords != null) ...option.searchKeywords!,
+    ];
 
     return dom.button(
       classes:
           'neon-select-option ${isSelected ? 'selected' : ''} ${option.disabled ? 'disabled' : ''}',
-      attributes: {
+      attributes: <String, String>{
         'type': 'button',
-        'data-state': isSelected ? 'selected' : 'idle',
-        'data-disabled': '${option.disabled}',
         if (option.disabled) 'disabled': 'true',
+        'data-arcane-command-item': '',
+        'data-arcane-command-group-id': '$surfaceId-default',
+        'data-label': option.label,
+        'data-keywords': keywords.join(' '),
+        ...groupItemAttrs(
+          groupId: groupId,
+          value: value,
+          selected: isSelected,
+          disabled: option.disabled,
+        ),
+        if (!option.disabled) ...interactionAttrs(itemAction),
       },
       styles: dom.Styles(
-        raw: {
+        raw: <String, String>{
           'display': 'flex',
           'align-items': 'center',
-          'gap': '0.875rem',
+          'gap': '0.75rem',
           'width': '100%',
-          'padding': '0.875rem 1rem',
+          'padding': '0.625rem 0.875rem',
           'background': isSelected
-              ? 'linear-gradient(180deg, color-mix(in srgb, var(--primary) 14%, transparent), color-mix(in srgb, var(--primary) 7%, transparent))'
+              ? 'var(--neon-accent-soft)'
               : 'transparent',
           'border': 'none',
-          'border-radius': 'var(--radius)',
+          'clip-path': 'var(--neon-clip-xs)',
           'font-size': 'var(--font-size-sm)',
-          'color': isSelected ? 'var(--primary)' : 'var(--foreground)',
+          'color': isSelected ? 'var(--neon-accent)' : 'var(--foreground)',
           'text-align': 'left',
           'cursor': option.disabled ? 'not-allowed' : 'pointer',
-          'transition': 'all 0.2s ease',
-          if (isSelected)
-            'box-shadow':
-                'inset 0 0 0 1px color-mix(in srgb, var(--primary) 18%, transparent)',
+          'transition': 'background 0.15s ease, color 0.15s ease',
           if (option.disabled) 'opacity': '0.4',
         },
       ),
       events: option.disabled || props.onSelect == null
           ? null
-          : {'click': (_) => props.onSelect!(option.value)},
-      [
+          : <String, void Function(dynamic)>{
+              'click': (_) => props.onSelect!(option.value),
+            },
+      <Component>[
         if (props.multiSelect && props.showCheckboxes)
           dom.div(
             styles: dom.Styles(
-              raw: {
-                'width': '20px',
-                'height': '20px',
-                'border-radius': 'var(--radius-sm)',
+              raw: <String, String>{
+                'width': '18px',
+                'height': '18px',
+                'clip-path': 'var(--neon-clip-xs)',
                 'border': isSelected
-                    ? '2px solid var(--primary)'
-                    : '2px solid rgba(var(--border-rgb), 0.5)',
+                    ? '1px solid var(--neon-accent)'
+                    : '1px solid var(--neon-control-border)',
                 'background': isSelected
-                    ? 'linear-gradient(180deg, var(--primary), color-mix(in srgb, var(--primary) 70%, #065f46))'
+                    ? 'var(--neon-accent)'
                     : 'transparent',
                 'display': 'flex',
                 'align-items': 'center',
                 'justify-content': 'center',
                 'flex-shrink': '0',
-                'box-shadow': isSelected
-                    ? 'inset 0 0 0 1px color-mix(in srgb, #ffffff 15%, transparent)'
-                    : 'none',
-                'transition': 'all 0.2s ease',
+                'transition': 'background 0.15s ease, border-color 0.15s ease',
               },
             ),
-            [
+            <Component>[
               if (isSelected)
-                dom.span(styles: const dom.Styles(raw: {'color': '#ffffff'}), [
-                  ArcaneIcon.check(size: IconSize.xs),
-                ]),
+                dom.span(
+                  styles: const dom.Styles(
+                    raw: <String, String>{'color': 'var(--neon-on-accent)'},
+                  ),
+                  <Component>[ArcaneIcon.check(size: IconSize.xs)],
+                ),
             ],
           ),
 
         if (option.icon != null)
           dom.div(
             styles: dom.Styles(
-              raw: {
+              raw: <String, String>{
                 'color': isSelected
-                    ? 'var(--primary)'
+                    ? 'var(--neon-accent)'
                     : 'var(--muted-foreground)',
               },
             ),
-            [option.icon!],
+            <Component>[option.icon!],
           ),
 
         // Label and subtitle
         dom.div(
-          styles: const dom.Styles(raw: {'flex': '1', 'min-width': '0'}),
-          [
+          styles: const dom.Styles(raw: <String, String>{'flex': '1', 'min-width': '0'}),
+          <Component>[
             dom.div(
               styles: const dom.Styles(
-                raw: {
+                raw: <String, String>{
                   'overflow': 'hidden',
                   'text-overflow': 'ellipsis',
                   'white-space': 'nowrap',
                 },
               ),
-              [Component.text(option.label)],
+              <Component>[Component.text(option.label)],
             ),
             if (option.subtitle != null)
               dom.div(
                 styles: const dom.Styles(
-                  raw: {
+                  raw: <String, String>{
                     'font-size': 'var(--font-size-xs)',
                     'color': 'var(--muted-foreground)',
                     'margin-top': '0.25rem',
                   },
                 ),
-                [Component.text(option.subtitle!)],
+                <Component>[Component.text(option.subtitle!)],
               ),
           ],
         ),
@@ -454,13 +558,13 @@ class NeonSelect<T> extends StatelessComponent {
         if (option.description != null)
           dom.span(
             styles: const dom.Styles(
-              raw: {
+              raw: <String, String>{
                 'font-size': 'var(--font-size-xs)',
                 'color': 'var(--muted-foreground)',
                 'flex-shrink': '0',
               },
             ),
-            [Component.text(option.description!)],
+            <Component>[Component.text(option.description!)],
           ),
       ],
     );

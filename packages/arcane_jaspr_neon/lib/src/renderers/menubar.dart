@@ -15,16 +15,16 @@ class NeonMenubar extends StatelessComponent {
     return dom.div(
       classes: 'neon-menubar',
       attributes: {'role': 'menubar'},
-      styles: const dom.Styles(
+      styles: dom.Styles(
         raw: {
           'display': 'flex',
-          'height': '48px',
+          'height': '44px',
           'align-items': 'center',
-          'gap': '6px',
-          'border-radius': 'var(--radius)',
-          'border': '1px solid var(--border)',
-          'background-color': 'var(--card)',
-          'padding': '6px',
+          'gap': '4px',
+          'border': '1px solid var(--neon-panel-border)',
+          'background': 'var(--neon-panel-tint)',
+          'padding': '4px',
+          'clip-path': 'var(--neon-clip-sm)',
         },
       ),
       [
@@ -41,7 +41,6 @@ class NeonMenubar extends StatelessComponent {
       classes: 'neon-menubar-menu ${isOpen ? 'open' : ''}',
       styles: const dom.Styles(raw: {'position': 'relative'}),
       [
-        // Trigger
         dom.button(
           classes: 'neon-menubar-trigger',
           attributes: {
@@ -55,18 +54,19 @@ class NeonMenubar extends StatelessComponent {
               'cursor': 'default',
               'user-select': 'none',
               'align-items': 'center',
-              'border-radius': 'var(--radius-sm)',
-              'padding': '8px 14px',
+              'padding': '6px 12px',
               'font-size': 'var(--font-size-sm)',
-              'font-weight': 'var(--font-weight-medium)',
+              'font-weight': '500',
+              'letter-spacing': '0.04em',
               'outline': 'none',
               'border': 'none',
-              'background-color': isOpen
-                  ? 'rgba(var(--primary-rgb), 0.15)'
+              'background': isOpen
+                  ? 'var(--neon-accent-soft)'
                   : 'transparent',
-              'color': isOpen ? 'var(--primary)' : 'var(--foreground)',
+              'color': isOpen ? 'var(--neon-accent)' : 'var(--foreground)',
+              'clip-path': 'var(--neon-clip-xs)',
               'transition':
-                  'background-color var(--arcane-transition), color var(--arcane-transition)',
+                  'background-color 140ms ease, color 140ms ease',
             },
           ),
           events: {
@@ -75,10 +75,9 @@ class NeonMenubar extends StatelessComponent {
           [Component.text(menu.label)],
         ),
 
-        // Content
         if (isOpen)
           dom.div(
-            classes: 'neon-menubar-content',
+            classes: 'neon-menubar-content neon-popover',
             attributes: {'role': 'menu'},
             styles: const dom.Styles(
               raw: {
@@ -89,12 +88,8 @@ class NeonMenubar extends StatelessComponent {
                 'min-width': '200px',
                 'overflow': 'hidden',
                 'padding': '6px',
-                'margin-top': '6px',
-                'background-color': 'var(--card)',
-                'border': '1px solid var(--border)',
-                'border-radius': 'var(--radius)',
-                'box-shadow': '0 14px 30px rgba(var(--primary-rgb), 0.1)',
-                'color': 'var(--foreground)',
+                'margin-top': '8px',
+                'color': 'var(--popover-foreground)',
               },
             ),
             [for (final item in menu.items) _buildMenuItem(item)],
@@ -121,7 +116,8 @@ class NeonMenubar extends StatelessComponent {
         raw: {
           'height': '1px',
           'margin': '6px -6px',
-          'background-color': 'var(--border)',
+          'background': 'var(--neon-panel-border)',
+          'opacity': '0.6',
         },
       ),
       [],
@@ -133,9 +129,12 @@ class NeonMenubar extends StatelessComponent {
       classes: 'neon-menubar-label',
       styles: const dom.Styles(
         raw: {
-          'padding': '8px 10px',
-          'font-size': 'var(--font-size-xs)',
-          'font-weight': 'var(--font-weight-semibold)',
+          'padding': '8px 10px 4px',
+          'font-family': 'var(--font-heading)',
+          'font-size': '0.6875rem',
+          'font-weight': '600',
+          'letter-spacing': '0.12em',
+          'text-transform': 'uppercase',
           'color': 'var(--muted-foreground)',
           'user-select': 'none',
         },
@@ -230,7 +229,7 @@ class NeonMenubar extends StatelessComponent {
               raw: {
                 'position': 'absolute',
                 'left': '10px',
-                'color': 'var(--primary)',
+                'color': 'var(--neon-accent)',
               },
             ),
             [ArcaneIcon.check(size: IconSize.xs)],
@@ -292,7 +291,7 @@ class NeonMenubar extends StatelessComponent {
               raw: {
                 'position': 'absolute',
                 'left': '10px',
-                'color': 'var(--primary)',
+                'color': 'var(--neon-accent)',
               },
             ),
             [ArcaneIcon.dot(size: IconSize.sm)],
@@ -341,9 +340,8 @@ class NeonMenubar extends StatelessComponent {
           styles: dom.Styles(raw: {'color': 'var(--muted-foreground)'}),
           [ArcaneIcon.chevronRight(size: IconSize.sm)],
         ),
-        // Submenu
         dom.div(
-          classes: 'neon-menubar-submenu',
+          classes: 'neon-menubar-submenu neon-popover',
           styles: const dom.Styles(
             raw: {
               'display': 'none',
@@ -352,10 +350,6 @@ class NeonMenubar extends StatelessComponent {
               'top': '0',
               'min-width': '200px',
               'padding': '6px',
-              'background-color': 'var(--card)',
-              'border': '1px solid var(--border)',
-              'border-radius': 'var(--radius)',
-              'box-shadow': '0 14px 30px rgba(var(--primary-rgb), 0.1)',
             },
           ),
           [for (final child in item.children) _buildMenuItem(child)],

@@ -16,43 +16,15 @@ class NeonToast extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    // Neon variant colors with glows
     final (
-      String bgColor,
-      String borderColor,
+      String accentVar,
       String iconColor,
-      String? glowColor,
     ) = switch (props.variant) {
-      ToastVariant.info => (
-        'rgba(30, 64, 175, 0.15)',
-        'var(--info)',
-        'var(--info)',
-        '0 0 20px rgba(var(--info-rgb), 0.25)',
-      ),
-      ToastVariant.success => (
-        'rgba(22, 101, 52, 0.15)',
-        'var(--success)',
-        'var(--success)',
-        '0 0 20px rgba(var(--success-rgb), 0.25)',
-      ),
-      ToastVariant.warning => (
-        'rgba(146, 64, 14, 0.15)',
-        'var(--warning)',
-        'var(--warning)',
-        null,
-      ),
-      ToastVariant.error => (
-        'rgba(153, 27, 27, 0.15)',
-        'var(--destructive)',
-        'var(--destructive)',
-        '0 0 20px rgba(var(--destructive-rgb), 0.25)',
-      ),
-      ToastVariant.loading => (
-        'rgba(var(--primary-rgb), 0.1)',
-        'var(--primary)',
-        'var(--primary)',
-        '0 0 15px rgba(var(--primary-rgb), 0.2)',
-      ),
+      ToastVariant.info => ('var(--info)', 'var(--info)'),
+      ToastVariant.success => ('var(--success)', 'var(--success)'),
+      ToastVariant.warning => ('var(--warning)', 'var(--warning)'),
+      ToastVariant.error => ('var(--destructive)', 'var(--destructive)'),
+      ToastVariant.loading => ('var(--neon-accent)', 'var(--neon-accent)'),
     };
 
     return dom.div(
@@ -62,20 +34,22 @@ class NeonToast extends StatelessComponent {
         raw: {
           'display': 'flex',
           'align-items': 'flex-start',
-          'gap': '0.75rem', // Neon: more gap
+          'gap': '0.75rem',
           'width': '360px',
           'max-width': '100%',
-          // Neon: larger padding
           'padding': '1rem 1.25rem',
-          // Neon: glass effect
-          'background-color': 'rgba(10, 10, 10, 0.9)',
-          'backdrop-filter': 'blur(12px)',
-          '-webkit-backdrop-filter': 'blur(12px)',
-          'border': '1px solid $borderColor',
-          'border-radius': 'var(--radius)', // Neon: larger radius
-          // Neon: accent glow
-          if (glowColor != null) 'box-shadow': glowColor,
-          'transition': 'all var(--transition)',
+          'background':
+              'linear-gradient(140deg, color-mix(in srgb, $accentVar 9%, transparent), transparent 60%), color-mix(in srgb, var(--neon-panel-surface) 94%, transparent)',
+          'backdrop-filter': 'blur(18px) saturate(1.18)',
+          '-webkit-backdrop-filter': 'blur(18px) saturate(1.18)',
+          'border':
+              '1px solid color-mix(in srgb, $accentVar 38%, var(--neon-panel-border))',
+          'border-radius': 'var(--neon-radius-panel)',
+          'clip-path': 'var(--neon-clip-sm)',
+          'box-shadow':
+              'var(--neon-shadow-md), 0 0 22px color-mix(in srgb, $accentVar 22%, transparent), var(--neon-inset)',
+          'transition':
+              'opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease',
           if (props.isExiting) 'opacity': '0',
           if (props.isExiting) 'transform': 'translateX(100%)',
         },
@@ -87,14 +61,12 @@ class NeonToast extends StatelessComponent {
           'mouseleave': (_) => props.onMouseLeave!(),
       },
       [
-        // Icon
         dom.div(
           classes: 'neon-toast-icon',
           styles: dom.Styles(raw: {'flex-shrink': '0', 'color': iconColor}),
           [props.icon ?? _buildDefaultIcon()],
         ),
 
-        // Content
         dom.div(
           classes: 'neon-toast-content',
           styles: const dom.Styles(raw: {'flex': '1', 'min-width': '0'}),
@@ -104,8 +76,10 @@ class NeonToast extends StatelessComponent {
                 classes: 'neon-toast-title',
                 styles: const dom.Styles(
                   raw: {
+                    'font-family': 'var(--font-heading)',
                     'font-size': 'var(--font-size-sm)',
-                    'font-weight': 'var(--font-weight-semibold)',
+                    'font-weight': '600',
+                    'letter-spacing': '0.04em',
                     'color': 'var(--foreground)',
                     'margin-bottom': '0.25rem',
                   },
@@ -141,16 +115,22 @@ class NeonToast extends StatelessComponent {
                   raw: {
                     'margin-top': '0.5rem',
                     'padding': '0.375rem 0.75rem',
+                    'font-family': 'var(--font-heading)',
                     'font-size': 'var(--font-size-xs)',
-                    'font-weight': 'var(--font-weight-medium)',
+                    'font-weight': '600',
+                    'letter-spacing': '0.06em',
+                    'text-transform': 'uppercase',
                     'background': props.action!.destructive
                         ? 'var(--destructive)'
-                        : 'var(--primary)',
-                    'color': '#ffffff',
+                        : 'var(--neon-accent)',
+                    'color': props.action!.destructive
+                        ? '#ffffff'
+                        : 'var(--neon-on-accent)',
                     'border': 'none',
-                    'border-radius': 'var(--radius-sm)',
+                    'border-radius': 'var(--neon-radius-control)',
+                    'clip-path': 'var(--neon-clip-xs)',
                     'cursor': 'pointer',
-                    'transition': 'all var(--transition)',
+                    'transition': 'filter 0.15s ease',
                   },
                 ),
                 events: {'click': (_) => props.action!.onPressed()},
@@ -159,7 +139,6 @@ class NeonToast extends StatelessComponent {
           ],
         ),
 
-        // Dismiss button
         if (props.dismissible)
           dom.button(
             classes: 'neon-toast-dismiss',
@@ -173,11 +152,11 @@ class NeonToast extends StatelessComponent {
                 'justify-content': 'center',
                 'background': 'transparent',
                 'border': 'none',
-                'border-radius': 'var(--radius-sm)',
+                'border-radius': 'var(--neon-radius-control)',
                 'color': 'var(--muted-foreground)',
                 'cursor': 'pointer',
                 'opacity': '0.7',
-                'transition': 'all var(--transition)',
+                'transition': 'opacity 0.15s ease, color 0.15s ease',
               },
             ),
             events: props.onDismiss == null
@@ -198,8 +177,9 @@ class NeonToast extends StatelessComponent {
             'display': 'inline-block',
             'width': '18px',
             'height': '18px',
-            'border': '2px solid var(--muted)',
-            'border-top-color': 'var(--primary)',
+            'border':
+                '2px solid color-mix(in srgb, var(--neon-accent) 12%, transparent)',
+            'border-top-color': 'var(--neon-accent)',
             'border-radius': 'var(--arcane-radius-full)',
             'animation': 'arcane-spin 0.75s linear infinite',
           },
@@ -225,7 +205,7 @@ class NeonToast extends StatelessComponent {
           'width': '20px',
           'height': '20px',
           'font-size': 'var(--font-size-sm)',
-          'font-weight': 'var(--font-weight-bold)',
+          'font-weight': '700',
         },
       ),
       [Component.text(icon)],

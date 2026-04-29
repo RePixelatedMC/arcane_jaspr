@@ -8,32 +8,41 @@ import '../../core/theme_provider.dart';
 
 /// Checkbox input component.
 class ArcaneCheckbox extends StatelessWidget {
+  final String? id;
   final bool checked;
   final String? label;
   final String? description;
   final ComponentSize size;
   final ColorVariant color;
   final bool disabled;
+  final String? group;
+  final String? value;
   final void Function(bool)? _onChanged;
 
   const ArcaneCheckbox({
+    this.id,
     required this.checked,
     this.label,
     this.description,
     this.size = ComponentSize.md,
     this.color = ColorVariant.primary,
     this.disabled = false,
+    this.group,
+    this.value,
     void Function(bool)? onChanged,
     void Function(bool)? onToggle,
     super.key,
   }) : _onChanged = onChanged ?? onToggle;
 
   const ArcaneCheckbox.primary({
+    this.id,
     required this.checked,
     this.label,
     this.description,
     this.size = ComponentSize.md,
     this.disabled = false,
+    this.group,
+    this.value,
     void Function(bool)? onChanged,
     void Function(bool)? onToggle,
     super.key,
@@ -41,11 +50,14 @@ class ArcaneCheckbox extends StatelessWidget {
         color = ColorVariant.primary;
 
   const ArcaneCheckbox.success({
+    this.id,
     required this.checked,
     this.label,
     this.description,
     this.size = ComponentSize.md,
     this.disabled = false,
+    this.group,
+    this.value,
     void Function(bool)? onChanged,
     void Function(bool)? onToggle,
     super.key,
@@ -53,11 +65,14 @@ class ArcaneCheckbox extends StatelessWidget {
         color = ColorVariant.success;
 
   const ArcaneCheckbox.warning({
+    this.id,
     required this.checked,
     this.label,
     this.description,
     this.size = ComponentSize.md,
     this.disabled = false,
+    this.group,
+    this.value,
     void Function(bool)? onChanged,
     void Function(bool)? onToggle,
     super.key,
@@ -65,20 +80,31 @@ class ArcaneCheckbox extends StatelessWidget {
         color = ColorVariant.warning;
 
   const ArcaneCheckbox.destructive({
+    this.id,
     required this.checked,
     this.label,
     this.description,
     this.size = ComponentSize.md,
     this.disabled = false,
+    this.group,
+    this.value,
     void Function(bool)? onChanged,
     void Function(bool)? onToggle,
     super.key,
   })  : _onChanged = onChanged ?? onToggle,
         color = ColorVariant.destructive;
 
+  static int _autoCounter = 0;
+  static String _autoId() {
+    _autoCounter++;
+    return 'arcane-checkbox-$_autoCounter';
+  }
+
   @override
   Widget build(BuildContext context) {
+    final String resolvedId = id ?? _autoId();
     return context.renderers.checkbox(CheckboxProps(
+      id: resolvedId,
       checked: checked,
       label: label,
       description: description,
@@ -86,6 +112,8 @@ class ArcaneCheckbox extends StatelessWidget {
       color: color,
       disabled: disabled,
       onChanged: _onChanged,
+      group: group,
+      value: value,
     ));
   }
 }

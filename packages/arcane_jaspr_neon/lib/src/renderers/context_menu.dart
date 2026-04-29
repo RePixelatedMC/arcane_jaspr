@@ -2,6 +2,8 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/component/view/icon.dart';
+import 'package:arcane_jaspr/core/interaction/interaction.dart';
+import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/context_menu_props.dart';
 
 /// Neon-style context menu component with pattern matching on sealed ArcaneMenuItem types.
@@ -12,45 +14,54 @@ class NeonContextMenu extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
+    final String surfaceId = props.id;
+
+    final Map<String, String> menuAttrs = mergeAttrs(<Map<String, String>>[
+      surfaceAttrs(
+        surface: 'context-menu',
+        id: surfaceId,
+        focusTrap: false,
+        scrimCloses: true,
+      ),
+      <String, String>{'role': 'menu'},
+      if (props.keepOpenOnAction)
+        <String, String>{'data-arcane-keep-open-on-action': 'true'},
+    ]);
+
     return dom.div(
       classes: 'neon-context-menu-trigger',
-      attributes: {'data-context-menu': 'true'},
+      attributes: <String, String>{
+        'data-arcane-context-trigger': surfaceId,
+      },
       styles: const dom.Styles(raw: {'display': 'contents'}),
       [
         props.trigger,
-        // Hidden menu template
         dom.div(
-          classes: 'neon-context-menu',
-          attributes: {'role': 'menu', 'aria-hidden': 'true'},
+          classes: 'neon-context-menu neon-popover',
+          attributes: menuAttrs,
           styles: const dom.Styles(
             raw: {
-              'display': 'none',
-              'position': 'fixed',
               'z-index': '50',
-              'min-width': '140px',
+              'min-width': '160px',
               'overflow': 'hidden',
               'padding': '6px',
-              'background-color': 'var(--card)',
-              'border': '1px solid var(--border)',
-              'border-radius': 'var(--radius)',
-              'box-shadow': '0 14px 30px rgba(var(--primary-rgb), 0.1)',
-              'color': 'var(--foreground)',
+              'color': 'var(--popover-foreground)',
             },
           ),
-          [for (final item in props.items) _buildMenuItem(item)],
+          [for (final item in props.items) _buildMenuItem(item, surfaceId)],
         ),
       ],
     );
   }
 
-  Component _buildMenuItem(ArcaneMenuItem item) {
+  Component _buildMenuItem(ArcaneMenuItem item, String surfaceId) {
     return switch (item) {
       MenuItemSeparator() => _buildSeparator(),
       MenuItemLabel(:final label) => _buildLabel(label),
       MenuItemAction() => _buildAction(item),
       MenuItemCheckbox() => _buildCheckbox(item),
       MenuItemRadio() => _buildRadio(item),
-      MenuItemSubmenu() => _buildSubmenu(item),
+      MenuItemSubmenu() => _buildSubmenu(item, surfaceId),
     };
   }
 
@@ -61,7 +72,8 @@ class NeonContextMenu extends StatelessComponent {
         raw: {
           'height': '1px',
           'margin': '6px -6px',
-          'background-color': 'var(--border)',
+          'background': 'var(--neon-panel-border)',
+          'opacity': '0.6',
         },
       ),
       [],
@@ -73,9 +85,12 @@ class NeonContextMenu extends StatelessComponent {
       classes: 'neon-context-menu-label',
       styles: const dom.Styles(
         raw: {
-          'padding': '8px 12px',
-          'font-size': 'var(--font-size-xs)',
-          'font-weight': 'var(--font-weight-semibold)',
+          'padding': '8px 10px 4px',
+          'font-family': 'var(--font-heading)',
+          'font-size': '0.6875rem',
+          'font-weight': '600',
+          'letter-spacing': '0.12em',
+          'text-transform': 'uppercase',
           'color': 'var(--muted-foreground)',
           'user-select': 'none',
         },
@@ -85,14 +100,27 @@ class NeonContextMenu extends StatelessComponent {
   }
 
   Component _buildAction(MenuItemAction item) {
+    final ArcaneInteraction? itemAction = item.action;
+    final Map<String, String> actionAttrs = item.disabled
+        ? const <String, String>{}
+        : itemAction != null
+            ? interactionAttrs(itemAction)
+            : const <String, String>{};
+
     return dom.div(
       classes:
           'neon-context-menu-item ${item.disabled ? 'disabled' : ''} ${item.destructive ? 'destructive' : ''}',
-      attributes: {
-        'role': 'menuitem',
-        if (item.disabled) 'aria-disabled': 'true',
-        if (item.shortcut != null) 'data-shortcut': item.shortcut!,
-      },
+      attributes: mergeAttrs(<Map<String, String>>[
+        <String, String>{
+          'role': 'menuitem',
+          if (item.disabled) 'aria-disabled': 'true',
+          if (item.shortcut != null) 'data-shortcut': item.shortcut!,
+          'data-disabled': '${item.disabled}',
+          if (item.disabled) 'data-arcane-disabled': 'true',
+          'tabindex': '0',
+        },
+        actionAttrs,
+      ]),
       styles: dom.Styles(
         raw: {
           'position': 'relative',
@@ -101,7 +129,7 @@ class NeonContextMenu extends StatelessComponent {
           'gap': '10px',
           'padding': '8px 12px',
           'border-radius': 'var(--radius)',
-          'cursor': item.disabled ? 'not-allowed' : 'default',
+          'cursor': item.disabled ? 'not-allowed' : 'pointer',
           'transition':
               'color var(--arcane-transition), background-color var(--arcane-transition)',
           'font-size': 'var(--font-size-sm)',
@@ -111,8 +139,8 @@ class NeonContextMenu extends StatelessComponent {
           if (item.disabled) 'opacity': '0.5',
         },
       ),
-      events: item.onSelect != null && !item.disabled
-          ? {'click': (_) => item.onSelect!()}
+      events: item.onSelect != null && !item.disabled && itemAction == null
+          ? <String, EventCallback>{'click': (_) => item.onSelect!()}
           : null,
       [
         if (item.icon != null) item.icon!,
@@ -144,13 +172,29 @@ class NeonContextMenu extends StatelessComponent {
   }
 
   Component _buildCheckbox(MenuItemCheckbox item) {
+    final ArcaneInteraction? itemAction = item.action;
+    final Map<String, String> actionAttrs = item.disabled
+        ? const <String, String>{}
+        : itemAction != null
+            ? mergeAttrs(<Map<String, String>>[
+                interactionAttrs(itemAction),
+                <String, String>{'data-arcane-keep-open': 'true'},
+              ])
+            : const <String, String>{};
     return dom.div(
       classes: 'neon-context-menu-item checkbox',
-      attributes: {
-        'role': 'menuitemcheckbox',
-        'aria-checked': '${item.checked}',
-        if (item.disabled) 'aria-disabled': 'true',
-      },
+      attributes: mergeAttrs(<Map<String, String>>[
+        <String, String>{
+          'role': 'menuitemcheckbox',
+          'aria-checked': '${item.checked}',
+          if (item.disabled) 'aria-disabled': 'true',
+          'data-state': item.checked ? 'checked' : 'unchecked',
+          'data-disabled': '${item.disabled}',
+          if (item.disabled) 'data-arcane-disabled': 'true',
+          'tabindex': '0',
+        },
+        actionAttrs,
+      ]),
       styles: dom.Styles(
         raw: {
           'position': 'relative',
@@ -170,8 +214,8 @@ class NeonContextMenu extends StatelessComponent {
           if (item.disabled) 'opacity': '0.5',
         },
       ),
-      events: item.onChanged != null && !item.disabled
-          ? {'click': (_) => item.onChanged!(!item.checked)}
+      events: item.onChanged != null && !item.disabled && itemAction == null
+          ? <String, EventCallback>{'click': (_) => item.onChanged!(!item.checked)}
           : null,
       [
         // Checkbox indicator
@@ -181,7 +225,7 @@ class NeonContextMenu extends StatelessComponent {
               raw: {
                 'position': 'absolute',
                 'left': '12px',
-                'color': 'var(--primary)',
+                'color': 'var(--neon-accent)',
               },
             ),
             [ArcaneIcon.check(size: IconSize.xs)],
@@ -207,13 +251,31 @@ class NeonContextMenu extends StatelessComponent {
   }
 
   Component _buildRadio(MenuItemRadio item) {
+    final ArcaneInteraction? itemAction = item.action;
+    final Map<String, String> actionAttrs = item.disabled
+        ? const <String, String>{}
+        : itemAction != null
+            ? interactionAttrs(itemAction)
+            : const <String, String>{};
+    final Map<String, String> groupItem = groupItemAttrs(
+      groupId: item.group,
+      value: item.value,
+      selected: item.selected,
+      disabled: item.disabled,
+    );
     return dom.div(
       classes: 'neon-context-menu-item radio',
-      attributes: {
-        'role': 'menuitemradio',
-        'aria-checked': '${item.selected}',
-        if (item.disabled) 'aria-disabled': 'true',
-      },
+      attributes: mergeAttrs(<Map<String, String>>[
+        groupItem,
+        <String, String>{
+          'role': 'menuitemradio',
+          'aria-checked': '${item.selected}',
+          if (item.disabled) 'aria-disabled': 'true',
+          'data-disabled': '${item.disabled}',
+          'tabindex': '0',
+        },
+        actionAttrs,
+      ]),
       styles: dom.Styles(
         raw: {
           'position': 'relative',
@@ -233,8 +295,8 @@ class NeonContextMenu extends StatelessComponent {
           if (item.disabled) 'opacity': '0.5',
         },
       ),
-      events: item.onChanged != null && !item.disabled
-          ? {'click': (_) => item.onChanged!(item.value)}
+      events: item.onChanged != null && !item.disabled && itemAction == null
+          ? <String, EventCallback>{'click': (_) => item.onChanged!(item.value)}
           : null,
       [
         // Radio indicator
@@ -244,7 +306,7 @@ class NeonContextMenu extends StatelessComponent {
               raw: {
                 'position': 'absolute',
                 'left': '12px',
-                'color': 'var(--primary)',
+                'color': 'var(--neon-accent)',
               },
             ),
             [ArcaneIcon.dot(size: IconSize.sm)],
@@ -257,15 +319,31 @@ class NeonContextMenu extends StatelessComponent {
     );
   }
 
-  Component _buildSubmenu(MenuItemSubmenu item) {
+  Component _buildSubmenu(MenuItemSubmenu item, String parentSurfaceId) {
+    final String submenuId = item.id ?? '$parentSurfaceId-sub-${item.label.hashCode}';
+    final String submenuAnchorId = '$submenuId-trigger';
+
+    final Map<String, String> triggerAttrs = mergeAttrs(<Map<String, String>>[
+      anchorAttrs(submenuAnchorId),
+      if (!item.disabled)
+        interactionAttrs(ArcaneInteraction.toggleMenu(submenuId)),
+      <String, String>{
+        'role': 'menuitem',
+        'aria-haspopup': 'menu',
+        'aria-expanded': 'false',
+        'aria-controls': submenuId,
+        if (item.disabled) 'aria-disabled': 'true',
+        'data-disabled': '${item.disabled}',
+        if (item.disabled) 'data-arcane-disabled': 'true',
+        'data-arcane-keep-open': 'true',
+        'tabindex': '0',
+      },
+    ]);
+
     return dom.div(
       classes:
           'neon-context-menu-item neon-context-menu-submenu-trigger ${item.disabled ? 'disabled' : ''}',
-      attributes: {
-        'role': 'menuitem',
-        'aria-haspopup': 'true',
-        if (item.disabled) 'aria-disabled': 'true',
-      },
+      attributes: triggerAttrs,
       styles: dom.Styles(
         raw: {
           'position': 'relative',
@@ -297,22 +375,25 @@ class NeonContextMenu extends StatelessComponent {
           [ArcaneIcon.chevronRight(size: IconSize.sm)],
         ),
         dom.div(
-          classes: 'neon-context-menu-submenu',
+          classes: 'neon-context-menu-submenu neon-popover',
+          attributes: surfaceAttrs(
+            surface: 'menu',
+            id: submenuId,
+            focusTrap: false,
+            scrimCloses: true,
+            anchorId: submenuAnchorId,
+            anchorPlacement: 'right',
+            anchorAlign: 'start',
+            anchorOffset: '4',
+          ),
           styles: const dom.Styles(
             raw: {
-              'display': 'none',
-              'position': 'absolute',
-              'left': '100%',
-              'top': '0',
-              'min-width': '140px',
+              'min-width': '160px',
               'padding': '6px',
-              'background-color': 'var(--card)',
-              'border': '1px solid var(--border)',
-              'border-radius': 'var(--radius)',
-              'box-shadow': '0 14px 30px rgba(var(--primary-rgb), 0.1)',
+              'z-index': '101',
             },
           ),
-          [for (final child in item.children) _buildMenuItem(child)],
+          [for (final child in item.children) _buildMenuItem(child, submenuId)],
         ),
       ],
     );

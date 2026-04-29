@@ -16,6 +16,7 @@ Every Arcane application must be wrapped in an `ArcaneApp` component which provi
 ```dart
 import 'package:arcane_jaspr/arcane_jaspr.dart';
 import 'package:arcane_jaspr_neon/arcane_jaspr_neon.dart';
+import 'package:arcane_jaspr_neubrutalism/arcane_jaspr_neubrutalism.dart';
 import 'package:arcane_jaspr_shadcn/arcane_jaspr_shadcn.dart';
 
 ArcaneApp(
@@ -33,6 +34,7 @@ Arcane Jaspr keeps the Flutter-like authoring surface in `package:arcane_jaspr` 
 |------------|-------------|
 | `arcane_jaspr_shadcn` / `ShadcnStylesheet` | Quiet document/app chrome with compact spacing, subtle borders, and shadcn-style controls |
 | `arcane_jaspr_neon` / `NeonStylesheet` | Command/workbench chrome with stronger contrast, denser shell treatment, larger controls, and bolder radius |
+| `arcane_jaspr_neubrutalism` / `NeubrutalismStylesheet` | Comic-book pop-art chrome with thick black borders, hard-offset shadows, flat saturated colors, and press-down click feedback |
 
 ```dart
 import 'package:arcane_jaspr_shadcn/arcane_jaspr_shadcn.dart';
@@ -48,6 +50,15 @@ import 'package:arcane_jaspr_neon/arcane_jaspr_neon.dart';
 
 ArcaneApp(
   stylesheet: const NeonStylesheet(),
+  home: MyApp(),
+)
+```
+
+```dart
+import 'package:arcane_jaspr_neubrutalism/arcane_jaspr_neubrutalism.dart';
+
+ArcaneApp(
+  stylesheet: const NeubrutalismStylesheet(theme: NeubrutalismTheme.yellow),
   home: MyApp(),
 )
 ```

@@ -2,6 +2,8 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/component/view/icon.dart';
+import 'package:arcane_jaspr/core/interaction/interaction.dart';
+import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/select_props.dart';
 
 /// ShadCN-style select component
@@ -41,22 +43,22 @@ class ShadcnSelect<T> extends StatelessComponent {
 
   String _getDisplayText() {
     if (props.multiSelect) {
-      final values = props.values ?? [];
+      final List<T> values = props.values ?? <T>[];
       if (values.isEmpty) return props.placeholder;
 
       if (props.showSelectedCount && values.length > 1) {
         return '${values.length} selected';
       }
 
-      final selectedLabels = props.options
-          .where((opt) => values.contains(opt.value))
-          .map((opt) => opt.label)
+      final List<String> selectedLabels = props.options
+          .where((SelectOptionProps<T> opt) => values.contains(opt.value))
+          .map((SelectOptionProps<T> opt) => opt.label)
           .toList();
       return selectedLabels.join(', ');
     } else {
-      final selectedOption = props.value != null
+      final SelectOptionProps<T>? selectedOption = props.value != null
           ? props.options.cast<SelectOptionProps<T>?>().firstWhere(
-              (opt) => opt?.value == props.value,
+              (SelectOptionProps<T>? opt) => opt?.value == props.value,
               orElse: () => null,
             )
           : null;
@@ -64,40 +66,58 @@ class ShadcnSelect<T> extends StatelessComponent {
     }
   }
 
+  String _serializeValue(T? value) {
+    if (value == null) return '';
+    return value.toString();
+  }
+
   @override
   Component build(BuildContext context) {
-    final size = _sizeConfig;
-    final hasError = props.error != null;
-    final displayText = _getDisplayText();
-    final dropdownMaxHeight = props.maxDropdownHeight ?? '300px';
+    final Map<String, String> size = _sizeConfig;
+    final bool hasError = props.error != null;
+    final String displayText = _getDisplayText();
+    final String dropdownMaxHeight = props.maxDropdownHeight ?? '300px';
 
-    final dropdownPositionStyles =
-        props.dropdownDirection == SelectDropdownDirection.up
-        ? {'bottom': '100%', 'top': 'auto', 'margin-bottom': '4px'}
-        : {'top': '100%', 'margin-top': '4px'};
+    final String surfaceId = props.id ?? 'arcane-select-${identityHashCode(props)}';
+    final String triggerId = '$surfaceId-trigger';
+    final String groupId = props.group ?? '$surfaceId-group';
+    final String groupMode = props.multiSelect ? 'multi' : 'single';
+    final String? groupValue = props.multiSelect
+        ? (props.values ?? <T>[])
+            .map(_serializeValue)
+            .where((String s) => s.isNotEmpty)
+            .join('\u001f')
+        : _serializeValue(props.value);
+    final String? changeActionEncoded = props.onSelectAction != null
+        ? encodeArcaneAction(props.onSelectAction!)
+        : null;
+
+    final ArcaneInteraction toggleAction =
+        ArcaneInteraction.togglePopover(surfaceId);
+    final ArcaneInteraction dismissAction =
+        ArcaneInteraction.closePopover(surfaceId);
 
     return dom.div(
       classes: 'arcane-select-wrapper',
-      attributes: {
-        'data-open': '${props.isOpen}',
+      attributes: <String, String>{
         'data-disabled': '${props.disabled}',
         'data-error': '$hasError',
       },
       styles: const dom.Styles(
-        raw: {
+        raw: <String, String>{
           'display': 'flex',
           'flex-direction': 'column',
           'gap': 'var(--space-1)',
           'position': 'relative',
         },
       ),
-      [
+      <Component>[
         // Label
         if (props.label != null)
           dom.label(
             classes: 'arcane-select-label',
             styles: const dom.Styles(
-              raw: {
+              raw: <String, String>{
                 'font-size': 'var(--font-size-sm)',
                 'font-weight': 'var(--font-weight-medium)',
                 'color': 'var(--foreground)',
@@ -106,12 +126,12 @@ class ShadcnSelect<T> extends StatelessComponent {
                 'gap': 'var(--space-1)',
               },
             ),
-            [
+            <Component>[
               Component.text(props.label!),
               if (props.required)
                 const dom.span(
-                  styles: dom.Styles(raw: {'color': 'var(--destructive)'}),
-                  [Component.text('*')],
+                  styles: dom.Styles(raw: <String, String>{'color': 'var(--destructive)'}),
+                  <Component>[Component.text('*')],
                 ),
             ],
           ),
@@ -119,17 +139,20 @@ class ShadcnSelect<T> extends StatelessComponent {
         // Trigger button - ShadCN SelectTrigger
         dom.button(
           classes:
-              'arcane-select ${hasError ? 'error' : ''} ${props.disabled ? 'disabled' : ''} ${props.isOpen ? 'open' : ''}',
-          attributes: {
+              'arcane-select ${hasError ? 'error' : ''} ${props.disabled ? 'disabled' : ''}',
+          attributes: <String, String>{
             'type': 'button',
+            'aria-haspopup': 'listbox',
+            'aria-controls': surfaceId,
+            'aria-expanded': 'false',
             if (props.disabled) 'disabled': 'true',
-            'data-state': props.isOpen ? 'open' : 'closed',
-            'data-open': '${props.isOpen}',
             'data-disabled': '${props.disabled || props.loading}',
             'data-error': '$hasError',
+            ...anchorAttrs(triggerId),
+            ...interactionAttrs(toggleAction),
           },
           styles: dom.Styles(
-            raw: {
+            raw: <String, String>{
               'display': 'flex',
               'align-items': 'center',
               'justify-content': 'space-between',
@@ -153,26 +176,28 @@ class ShadcnSelect<T> extends StatelessComponent {
             },
           ),
           events: props.onToggle != null
-              ? {'click': (_) => props.onToggle!()}
+              ? <String, void Function(dynamic)>{
+                  'click': (_) => props.onToggle!(),
+                }
               : null,
-          [
+          <Component>[
             // Prefix
             if (props.prefix != null)
               dom.span(
                 styles: const dom.Styles(
-                  raw: {
+                  raw: <String, String>{
                     'display': 'flex',
                     'align-items': 'center',
                     'color': 'var(--muted-foreground)',
                   },
                 ),
-                [props.prefix!],
+                <Component>[props.prefix!],
               ),
 
             // Display text
             dom.span(
               styles: dom.Styles(
-                raw: {
+                raw: <String, String>{
                   'flex': '1',
                   'color': _hasSelection
                       ? 'var(--foreground)'
@@ -182,14 +207,14 @@ class ShadcnSelect<T> extends StatelessComponent {
                   'white-space': 'nowrap',
                 },
               ),
-              [Component.text(displayText)],
+              <Component>[Component.text(displayText)],
             ),
 
             // Loading spinner
             if (props.loading)
               const dom.span(
                 styles: dom.Styles(
-                  raw: {
+                  raw: <String, String>{
                     'display': 'inline-block',
                     'width': '16px',
                     'height': '16px',
@@ -199,15 +224,18 @@ class ShadcnSelect<T> extends StatelessComponent {
                     'animation': 'spin 0.8s linear infinite',
                   },
                 ),
-                [],
+                <Component>[],
               ),
 
             // Clear button
             if (!props.loading && props.clearable && _hasSelection)
               dom.span(
                 classes: 'arcane-select-clear',
+                attributes: interactionAttrs(
+                  ArcaneInteraction.clearValue(groupId),
+                ),
                 styles: const dom.Styles(
-                  raw: {
+                  raw: <String, String>{
                     'display': 'flex',
                     'align-items': 'center',
                     'padding': '2px',
@@ -217,188 +245,267 @@ class ShadcnSelect<T> extends StatelessComponent {
                   },
                 ),
                 events: props.onClear != null
-                    ? {
-                        'click': (event) {
-                          event.stopPropagation();
+                    ? <String, void Function(dynamic)>{
+                        'click': (dynamic event) {
+                          (event as dynamic).stopPropagation();
                           props.onClear!();
                         },
                       }
                     : null,
-                [ArcaneIcon.x(size: IconSize.xs)],
+                <Component>[ArcaneIcon.x(size: IconSize.xs)],
               ),
 
             // Arrow - ShadCN SelectIcon
             if (!props.loading)
               dom.span(
                 classes: 'arcane-select-chevron',
-                styles: dom.Styles(raw: {'color': 'var(--muted-foreground)'}),
-                [ArcaneIcon.chevronsUpDown(size: IconSize.sm)],
+                styles: const dom.Styles(raw: <String, String>{'color': 'var(--muted-foreground)'}),
+                <Component>[ArcaneIcon.chevronsUpDown(size: IconSize.sm)],
               ),
           ],
         ),
 
         // Dropdown - ShadCN SelectContent
-        if (props.isOpen)
-          dom.div(
-            classes: 'arcane-select-dropdown',
-            attributes: {'role': 'listbox', 'data-state': 'open'},
-            styles: dom.Styles(
-              raw: {
-                'position': 'absolute',
-                'left': '0',
-                'right': '0',
-                'z-index': '50',
-                'background-color': 'var(--popover)',
-                'border': '1px solid var(--border)',
-                'border-radius': 'var(--radius-sm)',
-                'box-shadow':
-                    '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
-                'max-height': dropdownMaxHeight,
-                'overflow-y': 'auto',
-                ...dropdownPositionStyles,
-              },
+        dom.div(
+          classes: 'arcane-select-dropdown',
+          attributes: <String, String>{
+            'role': 'listbox',
+            ...surfaceAttrs(
+              surface: 'popover',
+              id: surfaceId,
+              initiallyOpen: props.isOpen,
+              dismissible: true,
+              escapeCloses: true,
+              focusTrap: false,
+              scrimCloses: true,
+              restoreFocus: true,
+              anchorId: triggerId,
+              anchorPlacement: props.dropdownDirection ==
+                      SelectDropdownDirection.up
+                  ? 'top'
+                  : 'bottom',
+              anchorAlign: 'start',
+              anchorOffset: '4',
             ),
-            [
-              // Search input
-              if (props.searchable)
-                dom.div(
-                  styles: const dom.Styles(
-                    raw: {
-                      'padding': '8px',
-                      'border-bottom': '1px solid var(--border)',
-                      'position': 'sticky',
-                      'top': '0',
-                      'background': 'var(--popover)',
-                      'z-index': '1',
+            ...groupAttrs(
+              groupId: groupId,
+              mode: groupMode,
+              value: groupValue,
+              required: props.required,
+              disabled: props.disabled,
+              maxSelections: props.maxSelections?.toString(),
+              changeAction: changeActionEncoded,
+            ),
+            'data-arcane-command': surfaceId,
+          },
+          styles: dom.Styles(
+            raw: <String, String>{
+              'background-color': 'var(--popover)',
+              'border': '1px solid var(--border)',
+              'border-radius': 'var(--radius-sm)',
+              'box-shadow':
+                  '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
+              'max-height': dropdownMaxHeight,
+              'min-width': '200px',
+              'overflow-y': 'auto',
+              'z-index': '50',
+            },
+          ),
+          <Component>[
+            // Search input
+            if (props.searchable)
+              dom.div(
+                styles: const dom.Styles(
+                  raw: <String, String>{
+                    'padding': '8px',
+                    'border-bottom': '1px solid var(--border)',
+                    'position': 'sticky',
+                    'top': '0',
+                    'background': 'var(--popover)',
+                    'z-index': '1',
+                  },
+                ),
+                <Component>[
+                  dom.input(
+                    type: dom.InputType.text,
+                    attributes: <String, String>{
+                      'placeholder': props.searchPlaceholder,
+                      'autocomplete': 'off',
+                      'data-arcane-command-input': surfaceId,
+                      'data-arcane-autofocus': 'true',
                     },
-                  ),
-                  [
-                    dom.input(
-                      type: dom.InputType.text,
-                      attributes: {
-                        'placeholder': props.searchPlaceholder,
-                        'autofocus': 'true',
+                    styles: const dom.Styles(
+                      raw: <String, String>{
+                        'width': '100%',
+                        'padding': '4px 8px',
+                        'border': '1px solid var(--border)',
+                        'border-radius': 'var(--radius-xs)',
+                        'background': 'transparent',
+                        'color': 'var(--foreground)',
+                        'font-size': 'var(--font-size-sm)',
+                        'outline': 'none',
                       },
+                    ),
+                    events: props.onSearchChange != null
+                        ? <String, void Function(dynamic)>{
+                            'input': (dynamic event) {
+                              final dynamic target = (event as dynamic).target;
+                              if (target != null) {
+                                props.onSearchChange!(
+                                  (target as dynamic).value ?? '',
+                                );
+                              }
+                            },
+                            'click': (dynamic event) =>
+                                (event as dynamic).stopPropagation(),
+                          }
+                        : null,
+                  ),
+                ],
+              ),
+
+            // Loading state
+            if (props.loading)
+              dom.div(
+                styles: const dom.Styles(
+                  raw: <String, String>{
+                    'padding': '24px 16px',
+                    'color': 'var(--muted-foreground)',
+                    'font-size': 'var(--font-size-sm)',
+                    'text-align': 'center',
+                  },
+                ),
+                <Component>[Component.text(props.loadingText)],
+              )
+            // Options - ShadCN SelectItem
+            else
+              dom.div(
+                classes: 'arcane-select-options',
+                styles: const dom.Styles(raw: <String, String>{'padding': '4px'}),
+                <Component>[
+                  dom.div(
+                    attributes: const <String, String>{
+                      'data-arcane-command-empty': '',
+                      'hidden': '',
+                    },
+                    styles: const dom.Styles(
+                      raw: <String, String>{
+                        'padding': '8px 16px',
+                        'color': 'var(--muted-foreground)',
+                        'font-size': 'var(--font-size-sm)',
+                        'text-align': 'center',
+                      },
+                    ),
+                    <Component>[Component.text(props.emptyMessage)],
+                  ),
+                  if (props.options.isEmpty)
+                    dom.div(
                       styles: const dom.Styles(
-                        raw: {
-                          'width': '100%',
-                          'padding': '4px 8px',
-                          'border': '1px solid var(--border)',
-                          'border-radius': 'var(--radius-xs)',
-                          'background': 'transparent',
-                          'color': 'var(--foreground)',
+                        raw: <String, String>{
+                          'padding': '8px 16px',
+                          'color': 'var(--muted-foreground)',
                           'font-size': 'var(--font-size-sm)',
-                          'outline': 'none',
+                          'text-align': 'center',
                         },
                       ),
-                      events: props.onSearchChange != null
-                          ? {
-                              'input': (event) {
-                                final target = event.target;
-                                if (target != null) {
-                                  props.onSearchChange!(
-                                    (target as dynamic).value ?? '',
-                                  );
-                                }
-                              },
-                              'click': (event) => event.stopPropagation(),
-                            }
-                          : null,
-                    ),
-                  ],
-                ),
-
-              // Loading state
-              if (props.loading)
-                dom.div(
-                  styles: const dom.Styles(
-                    raw: {
-                      'padding': '24px 16px',
-                      'color': 'var(--muted-foreground)',
-                      'font-size': 'var(--font-size-sm)',
-                      'text-align': 'center',
-                    },
-                  ),
-                  [Component.text(props.loadingText)],
-                )
-              // Options - ShadCN SelectItem
-              else
-                dom.div(
-                  classes: 'arcane-select-options',
-                  styles: const dom.Styles(raw: {'padding': '4px'}),
-                  [
-                    if (props.filteredOptions.isEmpty)
-                      dom.div(
-                        styles: const dom.Styles(
-                          raw: {
-                            'padding': '8px 16px',
-                            'color': 'var(--muted-foreground)',
-                            'font-size': 'var(--font-size-sm)',
-                            'text-align': 'center',
-                          },
-                        ),
-                        [Component.text(props.emptyMessage)],
-                      )
-                    else
-                      for (final option in props.filteredOptions)
-                        _buildOption(option),
-                  ],
-                ),
-            ],
-          ),
+                      <Component>[Component.text(props.emptyMessage)],
+                    )
+                  else
+                    for (final SelectOptionProps<T> option in props.options)
+                      _buildOption(
+                        option,
+                        groupId: groupId,
+                        groupMode: groupMode,
+                        surfaceId: surfaceId,
+                        dismissAction: dismissAction,
+                      ),
+                ],
+              ),
+          ],
+        ),
 
         // Helper text
         if (props.helperText != null && props.error == null)
           dom.span(
             styles: const dom.Styles(
-              raw: {
+              raw: <String, String>{
                 'font-size': 'var(--font-size-xs)',
                 'color': 'var(--muted-foreground)',
               },
             ),
-            [Component.text(props.helperText!)],
+            <Component>[Component.text(props.helperText!)],
           ),
 
         // Error message
         if (props.error != null)
           dom.span(
             styles: const dom.Styles(
-              raw: {
+              raw: <String, String>{
                 'font-size': 'var(--font-size-xs)',
                 'color': 'var(--destructive)',
               },
             ),
-            [Component.text(props.error!)],
+            <Component>[Component.text(props.error!)],
           ),
       ],
     );
   }
 
-  Component _buildOption(SelectOptionProps<T> option) {
-    final isSelected = props.multiSelect
+  Component _buildOption(
+    SelectOptionProps<T> option, {
+    required String groupId,
+    required String groupMode,
+    required String surfaceId,
+    required ArcaneInteraction dismissAction,
+  }) {
+    final bool isSelected = props.multiSelect
         ? (props.values?.contains(option.value) ?? false)
         : props.value == option.value;
-    final isDisabled = option.disabled;
+    final bool isDisabled = option.disabled;
 
-    final maxReached =
+    final bool maxReached =
         props.multiSelect &&
         props.maxSelections != null &&
         !isSelected &&
         (props.values?.length ?? 0) >= props.maxSelections!;
 
+    final String value = _serializeValue(option.value);
+    final ArcaneInteraction selectAction = groupMode == 'multi'
+        ? ArcaneInteraction.toggleValue(groupId, value)
+        : ArcaneInteraction.selectValue(groupId, value);
+    final ArcaneInteraction itemAction = props.closeOnSelect && !props.multiSelect
+        ? ArcaneInteraction.compose(<ArcaneInteraction>[selectAction, dismissAction])
+        : selectAction;
+
+    final List<String> keywords = <String>[
+      option.label,
+      if (option.description != null) option.description!,
+      if (option.subtitle != null) option.subtitle!,
+      if (option.searchKeywords != null) ...option.searchKeywords!,
+    ];
+
     return dom.button(
       classes:
           'arcane-select-option ${isSelected ? 'selected' : ''} ${isDisabled || maxReached ? 'disabled' : ''}',
-      attributes: {
+      attributes: <String, String>{
         'type': 'button',
         'role': 'option',
         'aria-selected': '$isSelected',
         if (isDisabled || maxReached) 'disabled': 'true',
-        'data-state': isSelected ? 'checked' : 'unchecked',
-        'data-disabled': '${isDisabled || maxReached}',
+        'data-arcane-command-item': '',
+        'data-arcane-command-group-id': '$surfaceId-default',
+        'data-label': option.label,
+        'data-keywords': keywords.join(' '),
+        ...groupItemAttrs(
+          groupId: groupId,
+          value: value,
+          selected: isSelected,
+          disabled: isDisabled || maxReached,
+        ),
+        if (!isDisabled && !maxReached) ...interactionAttrs(itemAction),
       },
       styles: dom.Styles(
-        raw: {
+        raw: <String, String>{
           'display': 'flex',
           'align-items': 'center',
           'gap': 'var(--space-2)',
@@ -419,14 +526,16 @@ class ShadcnSelect<T> extends StatelessComponent {
         },
       ),
       events: props.onSelect != null && !isDisabled && !maxReached
-          ? {'click': (_) => props.onSelect!(option.value)}
+          ? <String, void Function(dynamic)>{
+              'click': (_) => props.onSelect!(option.value),
+            }
           : null,
-      [
+      <Component>[
         // Checkbox for multi-select
         if (props.multiSelect && props.showCheckboxes)
           dom.div(
             styles: dom.Styles(
-              raw: {
+              raw: <String, String>{
                 'width': '16px',
                 'height': '16px',
                 'border': isSelected
@@ -440,13 +549,13 @@ class ShadcnSelect<T> extends StatelessComponent {
                 'flex-shrink': '0',
               },
             ),
-            [
+            <Component>[
               if (isSelected)
                 dom.span(
-                  styles: dom.Styles(
-                    raw: {'color': 'var(--primary-foreground)'},
+                  styles: const dom.Styles(
+                    raw: <String, String>{'color': 'var(--primary-foreground)'},
                   ),
-                  [ArcaneIcon.check(size: IconSize.xs)],
+                  <Component>[ArcaneIcon.check(size: IconSize.xs)],
                 ),
             ],
           ),
@@ -457,7 +566,7 @@ class ShadcnSelect<T> extends StatelessComponent {
         // Label and subtitle
         dom.div(
           styles: const dom.Styles(
-            raw: {
+            raw: <String, String>{
               'flex': '1',
               'display': 'flex',
               'flex-direction': 'column',
@@ -465,21 +574,21 @@ class ShadcnSelect<T> extends StatelessComponent {
               'overflow': 'hidden',
             },
           ),
-          [
+          <Component>[
             dom.span(
               styles: const dom.Styles(
-                raw: {
+                raw: <String, String>{
                   'overflow': 'hidden',
                   'text-overflow': 'ellipsis',
                   'white-space': 'nowrap',
                 },
               ),
-              [Component.text(option.label)],
+              <Component>[Component.text(option.label)],
             ),
             if (option.subtitle != null)
               dom.span(
                 styles: const dom.Styles(
-                  raw: {
+                  raw: <String, String>{
                     'font-size': 'var(--font-size-xs)',
                     'color': 'var(--muted-foreground)',
                     'overflow': 'hidden',
@@ -487,7 +596,7 @@ class ShadcnSelect<T> extends StatelessComponent {
                     'white-space': 'nowrap',
                   },
                 ),
-                [Component.text(option.subtitle!)],
+                <Component>[Component.text(option.subtitle!)],
               ),
           ],
         ),
@@ -496,22 +605,22 @@ class ShadcnSelect<T> extends StatelessComponent {
         if (option.description != null)
           dom.span(
             styles: const dom.Styles(
-              raw: {
+              raw: <String, String>{
                 'font-size': 'var(--font-size-xs)',
                 'color': 'var(--muted-foreground)',
                 'flex-shrink': '0',
               },
             ),
-            [Component.text(option.description!)],
+            <Component>[Component.text(option.description!)],
           ),
 
         // Checkmark for single select
         if (!props.multiSelect && isSelected)
           dom.span(
-            styles: dom.Styles(
-              raw: {'color': 'var(--primary)', 'flex-shrink': '0'},
+            styles: const dom.Styles(
+              raw: <String, String>{'color': 'var(--primary)', 'flex-shrink': '0'},
             ),
-            [ArcaneIcon.check(size: IconSize.xs)],
+            <Component>[ArcaneIcon.check(size: IconSize.xs)],
           ),
       ],
     );

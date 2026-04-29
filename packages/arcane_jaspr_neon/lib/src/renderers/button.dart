@@ -2,6 +2,7 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/component/view/icon.dart';
+import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/button_props.dart';
 
 import 'control_styles.dart';
@@ -22,46 +23,47 @@ class NeonButton extends StatelessComponent {
     Map<String, String> variantStyles = switch (props.variant) {
       ButtonVariant.primary => {
         'background':
-            'linear-gradient(135deg, var(--primary) 0%, var(--neon-cyan) 58%, var(--neon-magenta) 140%)',
-        'color': '#03110f',
+            'linear-gradient(150deg, var(--neon-accent) 0%, color-mix(in srgb, var(--neon-accent) 78%, var(--neon-accent-cool)) 100%)',
+        'color': 'var(--neon-on-accent)',
         'border':
-            '1px solid color-mix(in srgb, var(--neon-cyan) 64%, #000000)',
+            '1px solid color-mix(in srgb, var(--neon-accent) 70%, #12151C)',
         'box-shadow':
-            '0 0 0 1px color-mix(in srgb, var(--primary) 24%, transparent), 0 10px 28px color-mix(in srgb, var(--primary) 30%, transparent), 0 0 28px color-mix(in srgb, var(--neon-cyan) 18%, transparent), inset 0 1px 0 rgba(255, 255, 255, 0.24)',
+            '0 6px 18px color-mix(in srgb, var(--neon-accent) 28%, transparent), inset 0 1px 0 color-mix(in srgb, var(--neon-on-accent) 22%, transparent)',
       },
       ButtonVariant.destructive => {
         'background':
-            'linear-gradient(135deg, var(--destructive) 0%, color-mix(in srgb, var(--destructive) 70%, #7f1d1d) 100%)',
+            'linear-gradient(150deg, var(--destructive) 0%, color-mix(in srgb, var(--destructive) 80%, #12151C) 100%)',
         'color': '#ffffff',
         'border':
-            '1px solid color-mix(in srgb, var(--destructive) 58%, #000000)',
+            '1px solid color-mix(in srgb, var(--destructive) 60%, #12151C)',
         'box-shadow':
-            '0 8px 22px color-mix(in srgb, var(--destructive) 20%, transparent), inset 0 1px 0 rgba(255, 255, 255, 0.12)',
+            '0 6px 18px color-mix(in srgb, var(--destructive) 26%, transparent), inset 0 1px 0 color-mix(in srgb, #ffffff 14%, transparent)',
       },
       ButtonVariant.outline => {
         'background':
-            'linear-gradient(135deg, color-mix(in srgb, var(--neon-cyan) 8%, transparent), color-mix(in srgb, var(--background) 78%, transparent))',
-        'color': 'var(--neon-cyan)',
-        'border': '1px solid var(--neon-accent-border)',
-        'box-shadow':
-            '0 0 0 1px color-mix(in srgb, var(--neon-cyan) 8%, transparent), 0 0 18px color-mix(in srgb, var(--primary) 10%, transparent)',
+            'color-mix(in srgb, var(--neon-accent) 4%, transparent)',
+        'color': 'var(--foreground)',
+        'border':
+            '1px solid color-mix(in srgb, var(--neon-accent-cool) 32%, var(--neon-control-border))',
+        'box-shadow': 'var(--neon-inset)',
       },
       ButtonVariant.secondary => {
         'background':
-            'linear-gradient(135deg, color-mix(in srgb, var(--neon-cyan) 7%, transparent), var(--neon-surface-2))',
+            'color-mix(in srgb, var(--neon-accent-cool) 6%, var(--neon-surface-2))',
         'color': 'var(--secondary-foreground)',
         'border':
-            '1px solid color-mix(in srgb, var(--neon-cyan) 24%, var(--border))',
+            '1px solid color-mix(in srgb, var(--neon-accent-cool) 18%, var(--neon-control-border))',
+        'box-shadow': 'var(--neon-inset)',
       },
       ButtonVariant.ghost => {
-        'background':
-            'linear-gradient(135deg, color-mix(in srgb, var(--foreground) 4%, transparent), transparent)',
+        'background': 'transparent',
         'color': 'var(--foreground)',
-        'border': '1px solid color-mix(in srgb, var(--foreground) 9%, transparent)',
+        'border':
+            '1px solid color-mix(in srgb, var(--foreground) 6%, transparent)',
       },
       ButtonVariant.link => {
         'background': 'transparent',
-        'color': 'var(--primary)',
+        'color': 'var(--neon-accent)',
         'border': 'none',
         'text-decoration': 'none',
         'text-underline-offset': '4px',
@@ -71,33 +73,36 @@ class NeonButton extends StatelessComponent {
       },
       ButtonVariant.success => {
         'background':
-            'linear-gradient(135deg, var(--success) 0%, color-mix(in srgb, var(--success) 68%, #14532d) 100%)',
+            'linear-gradient(150deg, var(--success) 0%, color-mix(in srgb, var(--success) 78%, #12151C) 100%)',
         'color': '#ffffff',
-        'border': '1px solid color-mix(in srgb, var(--success) 55%, #000000)',
+        'border': '1px solid color-mix(in srgb, var(--success) 58%, #12151C)',
         'box-shadow':
-            '0 8px 22px color-mix(in srgb, var(--success) 20%, transparent), inset 0 1px 0 rgba(255, 255, 255, 0.12)',
+            '0 6px 18px color-mix(in srgb, var(--success) 24%, transparent), inset 0 1px 0 color-mix(in srgb, #ffffff 14%, transparent)',
       },
       ButtonVariant.warning => {
         'background':
-            'linear-gradient(135deg, var(--warning) 0%, color-mix(in srgb, var(--warning) 68%, #78350f) 100%)',
-        'color': '#111827',
-        'border': '1px solid color-mix(in srgb, var(--warning) 58%, #000000)',
+            'linear-gradient(150deg, var(--warning) 0%, color-mix(in srgb, var(--warning) 78%, #12151C) 100%)',
+        'color': '#0b0b0b',
+        'border': '1px solid color-mix(in srgb, var(--warning) 60%, #12151C)',
+        'box-shadow':
+            '0 6px 18px color-mix(in srgb, var(--warning) 24%, transparent), inset 0 1px 0 color-mix(in srgb, #ffffff 22%, transparent)',
       },
       ButtonVariant.info => {
         'background':
-            'linear-gradient(135deg, var(--info) 0%, color-mix(in srgb, var(--info) 68%, #1e3a8a) 100%)',
+            'linear-gradient(150deg, var(--info) 0%, color-mix(in srgb, var(--info) 78%, #12151C) 100%)',
         'color': '#ffffff',
-        'border': '1px solid color-mix(in srgb, var(--info) 58%, #000000)',
+        'border': '1px solid color-mix(in srgb, var(--info) 60%, #12151C)',
         'box-shadow':
-            '0 8px 22px color-mix(in srgb, var(--info) 20%, transparent), inset 0 1px 0 rgba(255, 255, 255, 0.12)',
+            '0 6px 18px color-mix(in srgb, var(--info) 24%, transparent), inset 0 1px 0 color-mix(in srgb, #ffffff 14%, transparent)',
       },
       ButtonVariant.accent => {
         'background':
-            'linear-gradient(135deg, var(--neon-magenta) 0%, var(--primary) 46%, var(--neon-cyan) 100%)',
-        'color': '#03110f',
-        'border': '1px solid var(--neon-accent-border)',
+            'linear-gradient(150deg, var(--neon-accent-hot) 0%, var(--neon-accent) 100%)',
+        'color': 'var(--neon-on-accent)',
+        'border':
+            '1px solid color-mix(in srgb, var(--neon-accent-hot) 62%, #12151C)',
         'box-shadow':
-            '0 12px 30px color-mix(in srgb, var(--neon-cyan) 28%, transparent), 0 0 24px color-mix(in srgb, var(--neon-magenta) 18%, transparent), inset 0 1px 0 rgba(255,255,255,0.22)',
+            '0 6px 20px color-mix(in srgb, var(--neon-accent-hot) 28%, transparent), inset 0 1px 0 color-mix(in srgb, var(--neon-on-accent) 22%, transparent)',
       },
     };
 
@@ -148,6 +153,7 @@ class NeonButton extends StatelessComponent {
 
     Map<String, String> baseAttributes =
         NeonControlStyles.buttonAttributes(props, isDisabled);
+    final Map<String, String> actionAttrs = interactionAttrs(props.action);
 
     if (props.href != null) {
       return dom.a(
@@ -157,6 +163,7 @@ class NeonButton extends StatelessComponent {
         attributes: {
           if (isDisabled) 'aria-disabled': 'true',
           ...baseAttributes,
+          ...actionAttrs,
         },
         styles: dom.Styles(raw: {...allStyles, 'text-decoration': 'none'}),
         events: {
@@ -178,6 +185,7 @@ class NeonButton extends StatelessComponent {
         if (isDisabled) 'disabled': 'true',
         'type': 'button',
         ...baseAttributes,
+        ...actionAttrs,
       },
       styles: dom.Styles(raw: allStyles),
       events: {

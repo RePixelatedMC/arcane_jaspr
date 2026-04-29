@@ -60,10 +60,10 @@ class ShadcnStylesheet extends ArcaneStylesheet {
     background: theme.darkBackground,
     secondary: theme.darkSecondary,
     accent: theme.darkAccent,
-    destructive: 0xFF7f1d1d,
-    success: 0xFF166534,
-    warning: 0xFF92400e,
-    info: 0xFF1e40af,
+    destructive: 0xFF661B1C,
+    success: 0xFF2E7D55,
+    warning: 0xFFA06022,
+    info: 0xFF007ACC,
     isDark: true,
   );
 
@@ -82,6 +82,9 @@ class ShadcnStylesheet extends ArcaneStylesheet {
   List<String> get externalCssUrls => const [
     'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
   ];
+
+  @override
+  String get bodyClass => 'shadcn-${theme.name}';
 
   @override
   String get componentCss => ShadcnCss.componentCss(theme);

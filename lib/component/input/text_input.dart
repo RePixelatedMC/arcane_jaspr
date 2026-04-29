@@ -5,6 +5,7 @@ import 'package:jaspr/dom.dart' as dom;
 export '../../core/props/text_input_props.dart'
     show ComponentSize, TextInputVariant, TextInputType;
 
+import '../../core/interaction/interaction.dart';
 import '../../core/theme_provider.dart';
 
 /// A styled text input component.
@@ -27,6 +28,11 @@ class TextInput extends StatelessWidget {
   final void Function()? onFocus;
   final void Function()? onBlur;
   final void Function(String)? onSubmit;
+  final ArcaneInteraction? onChangeAction;
+  final ArcaneInteraction? onSubmitAction;
+  final String? formId;
+  final String? fieldName;
+  final Map<String, String>? attributes;
   final bool fullWidth;
 
   const TextInput({
@@ -49,6 +55,11 @@ class TextInput extends StatelessWidget {
     this.onFocus,
     this.onBlur,
     this.onSubmit,
+    this.onChangeAction,
+    this.onSubmitAction,
+    this.formId,
+    this.fieldName,
+    this.attributes,
     this.fullWidth = false,
     super.key,
   }) : _onChange = onChange ?? onInput;
@@ -75,6 +86,11 @@ class TextInput extends StatelessWidget {
       onFocus: onFocus,
       onBlur: onBlur,
       onSubmit: onSubmit,
+      onChangeAction: onChangeAction,
+      onSubmitAction: onSubmitAction,
+      formId: formId,
+      fieldName: fieldName,
+      attributes: attributes,
     ));
   }
 }

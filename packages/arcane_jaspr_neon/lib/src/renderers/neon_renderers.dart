@@ -142,12 +142,26 @@ class NeonRenderers extends ComponentRenderers {
       NeonSidebarSection(props);
 
   @override
-  Component sidebarExpanded(List<Component> children) =>
-      dom.div(classes: 'arcane-sidebar-expanded-only', children);
+  Component sidebarExpanded(List<Component> children) => dom.div(
+    classes: 'neon-sidebar-expanded-only',
+    styles: const dom.Styles(
+      raw: <String, String>{
+        'display': 'var(--sidebar-expanded-display, block)',
+      },
+    ),
+    children,
+  );
 
   @override
-  Component sidebarCollapsed(List<Component> children) =>
-      dom.div(classes: 'arcane-sidebar-collapsed-only', children);
+  Component sidebarCollapsed(List<Component> children) => dom.div(
+    classes: 'neon-sidebar-collapsed-only',
+    styles: const dom.Styles(
+      raw: <String, String>{
+        'display': 'var(--sidebar-collapsed-display, none)',
+      },
+    ),
+    children,
+  );
 
   @override
   Component sidebarSeparator() => const NeonSidebarSeparator();
@@ -172,8 +186,7 @@ class NeonRenderers extends ComponentRenderers {
   Component floating(FloatingProps props) => NeonFloating(props);
 
   @override
-  Component radioGroup<T>(RadioGroupProps<T> props) =>
-      NeonRadioGroup<T>(props);
+  Component radioGroup<T>(RadioGroupProps<T> props) => NeonRadioGroup<T>(props);
 
   @override
   Component select<T>(SelectProps<T> props) => NeonSelect<T>(props);
@@ -283,8 +296,7 @@ class NeonRenderers extends ComponentRenderers {
   Component command(CommandProps props) => NeonCommand(props);
 
   @override
-  Component confirmDialog(ConfirmDialogProps props) =>
-      NeonConfirmDialog(props);
+  Component confirmDialog(ConfirmDialogProps props) => NeonConfirmDialog(props);
 
   @override
   Component alertDialog(AlertDialogProps props) => NeonAlertDialog(props);
@@ -359,8 +371,7 @@ class NeonRenderers extends ComponentRenderers {
   Component staticTable(StaticTableProps props) => NeonStaticTable(props);
 
   @override
-  Component keyValueTable(KeyValueTableProps props) =>
-      NeonKeyValueTable(props);
+  Component keyValueTable(KeyValueTableProps props) => NeonKeyValueTable(props);
 
   @override
   Component timePicker(TimePickerProps props) => NeonTimePicker(props);

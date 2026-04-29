@@ -50,9 +50,9 @@ class NeonAlert extends StatelessComponent {
       '0 10px 24px rgba(0, 0, 0, 0.28)',
     ),
     ColorVariant.primary => (
-      'var(--primary)',
-      'color-mix(in srgb, var(--primary) 10%, var(--card))',
-      'var(--primary)',
+      'var(--neon-accent)',
+      'color-mix(in srgb, var(--neon-accent) 10%, var(--card))',
+      'var(--neon-accent)',
       '0 10px 24px rgba(0, 0, 0, 0.28)',
     ),
     ColorVariant.secondary => (
@@ -74,7 +74,7 @@ class NeonAlert extends StatelessComponent {
     Map<String, String> containerStyles = switch (props.style) {
       AlertStyle.solid => <String, String>{
         'background':
-            'linear-gradient(135deg, color-mix(in srgb, $primary 82%, #0d1110), $primary 68%, color-mix(in srgb, var(--neon-cyan) 44%, $primary))',
+            'linear-gradient(135deg, color-mix(in srgb, $primary 82%, #0d1110), $primary 68%, color-mix(in srgb, var(--neon-accent-cool) 44%, $primary))',
         'border': '1px solid transparent',
         'border-radius': 'var(--neon-radius-panel)',
         'color': '#ffffff',
@@ -159,9 +159,10 @@ class NeonAlert extends StatelessComponent {
                 classes: 'neon-alert-title',
                 styles: dom.Styles(
                   raw: {
-                    'font-weight': 'var(--font-weight-medium)',
-                    'line-height': '1',
-                    'letter-spacing': '0',
+                    'font-family': 'var(--font-heading)',
+                    'font-weight': 'var(--font-weight-semibold)',
+                    'line-height': '1.1',
+                    'letter-spacing': '0.08em',
                     'text-transform': 'uppercase',
                     'color': isSolid ? '#ffffff' : 'var(--foreground)',
                     if (props.message != null || props.child != null)

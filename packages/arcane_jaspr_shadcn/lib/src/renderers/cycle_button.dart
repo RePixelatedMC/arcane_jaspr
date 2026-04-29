@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart'
     hide
@@ -14,37 +16,25 @@ import 'package:jaspr/dom.dart'
         FontWeight;
 
 import 'package:arcane_jaspr/core/props/cycle_button_props.dart';
+import 'package:arcane_jaspr/core/interaction/interaction.dart';
+import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 
 /// ShadCN Cycle Button renderer.
-class ShadcnCycleButton<T> extends StatefulComponent {
+class ShadcnCycleButton<T> extends StatelessComponent {
   final CycleButtonProps<T> props;
 
   const ShadcnCycleButton(this.props);
 
   @override
-  State<ShadcnCycleButton<T>> createState() => _ShadcnCycleButtonState<T>();
-}
-
-class _ShadcnCycleButtonState<T> extends State<ShadcnCycleButton<T>> {
-  void _cycle() {
-    if (component.props.disabled || component.props.onChanged == null) return;
-
-    final currentIndex = component.props.options.indexWhere(
-      (opt) => opt.value == component.props.value,
-    );
-    final nextIndex = (currentIndex + 1) % component.props.options.length;
-    component.props.onChanged!(component.props.options[nextIndex].value);
-  }
-
-  @override
   Component build(BuildContext context) {
-    final props = component.props;
-    final currentIndex = props.options.indexWhere(
-      (opt) => opt.value == props.value,
-    );
-    final currentOption = currentIndex >= 0
-        ? props.options[currentIndex]
-        : props.options.first;
+    final List<CycleOption<T>> options = props.options;
+    final int currentIndex = options.indexWhere((o) => o.value == props.value);
+    final int safeIndex = currentIndex >= 0 ? currentIndex : 0;
+    final CycleOption<T> currentOption = options[safeIndex];
+    final String cycleId = props.id ?? 'cycle-${identityHashCode(props).toRadixString(36)}';
+
+    final List<String> values = options.map((o) => o.value.toString()).toList();
+    final List<String> labels = options.map((o) => o.label ?? o.value.toString()).toList();
 
     // Get size-specific styles
     final Map<String, String> sizeStyles = switch (props.size) {
@@ -109,24 +99,27 @@ class _ShadcnCycleButtonState<T> extends State<ShadcnCycleButton<T>> {
       },
     };
 
-    // Encode options as JSON for static site JavaScript
-    final optionsJson = props.options
-        .map((opt) => opt.label ?? opt.value.toString())
-        .toList()
-        .join('|');
+    final ArcaneInteraction action = ArcaneInteraction.cycleNext(cycleId);
+
+    final Map<String, String> attrs = <String, String>{
+      'type': 'button',
+      'data-arcane-cycle': cycleId,
+      'data-arcane-cycle-active': safeIndex.toString(),
+      'data-arcane-cycle-values': jsonEncode(values),
+      'data-arcane-cycle-labels': jsonEncode(labels),
+      'data-arcane-value': values[safeIndex],
+      if (props.disabled) 'disabled': 'true',
+      if (props.disabled) 'data-arcane-disabled': 'true',
+      ...interactionAttrs(action),
+      ...?props.attributes,
+    };
 
     return button(
       id: props.id,
       classes: 'arcane-cycle-button ${props.disabled ? 'disabled' : ''}',
-      attributes: {
-        if (props.disabled) 'disabled': 'true',
-        'type': 'button',
-        'data-options': optionsJson,
-        'data-index': '${currentIndex >= 0 ? currentIndex : 0}',
-        ...?props.attributes,
-      },
+      attributes: attrs,
       styles: Styles(
-        raw: {
+        raw: <String, String>{
           'display': 'inline-flex',
           'align-items': 'center',
           'justify-content': 'center',
@@ -141,24 +134,21 @@ class _ShadcnCycleButtonState<T> extends State<ShadcnCycleButton<T>> {
           'white-space': 'nowrap',
         },
       ),
-      events: {'click': (event) => _cycle()},
-      [
-        if (currentOption.icon != null) currentOption.icon!,
-        if (currentOption.label != null)
-          span(classes: 'arcane-cycle-button-label', [
-            Component.text(currentOption.label!),
-          ]),
-        // Cycle indicator
-        const span(
-          classes: 'arcane-cycle-button-indicator',
-          styles: Styles(
-            raw: {
-              'font-size': '0.75em',
-              'opacity': '0.7',
-              'display': 'inline-block',
+      events: props.onChanged == null
+          ? null
+          : <String, EventCallback>{
+              'click': (event) {
+                if (props.disabled) return;
+                final int next = (safeIndex + 1) % options.length;
+                props.onChanged!(options[next].value);
+              },
             },
-          ),
-          [Component.text('[cycle]')],
+      <Component>[
+        if (currentOption.icon != null) currentOption.icon!,
+        span(
+          classes: 'arcane-cycle-button-label',
+          attributes: const <String, String>{'data-arcane-cycle-label': ''},
+          [Component.text(currentOption.label ?? currentOption.value.toString())],
         ),
       ],
     );
@@ -173,6 +163,9 @@ class ShadcnToggleButton extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
+    final String groupId = props.id ?? 'toggle-${identityHashCode(props).toRadixString(36)}';
+    final ArcaneInteraction action = ArcaneInteraction.toggleValue(groupId, 'on');
+
     // Get size-specific styles
     final Map<String, String> sizeStyles = switch (props.size) {
       CycleButtonSize.small => {
@@ -207,18 +200,27 @@ class ShadcnToggleButton extends StatelessComponent {
       },
     };
 
+    final Map<String, String> attrs = <String, String>{
+      'type': 'button',
+      'aria-pressed': '${props.value}',
+      'data-arcane-group': groupId,
+      'data-arcane-group-mode': 'multi',
+      'data-arcane-value': 'on',
+      'data-arcane-state': props.value ? 'on' : 'off',
+      if (props.value) 'data-arcane-selected': 'true',
+      if (props.disabled) 'disabled': 'true',
+      if (props.disabled) 'data-arcane-disabled': 'true',
+      ...interactionAttrs(action),
+      ...?props.attributes,
+    };
+
     return button(
       id: props.id,
       classes:
           'arcane-toggle-button ${props.value ? 'active' : ''} ${props.disabled ? 'disabled' : ''}',
-      attributes: {
-        if (props.disabled) 'disabled': 'true',
-        'type': 'button',
-        'aria-pressed': '${props.value}',
-        ...?props.attributes,
-      },
+      attributes: attrs,
       styles: Styles(
-        raw: {
+        raw: <String, String>{
           'display': 'inline-flex',
           'align-items': 'center',
           'justify-content': 'center',
@@ -228,23 +230,23 @@ class ShadcnToggleButton extends StatelessComponent {
           'border-radius': 'var(--radius-sm)',
           // Active: primary background, inactive: muted background with border
           'background-color': props.value ? 'var(--primary)' : 'var(--muted)',
-          'color': props.value
-              ? 'var(--primary-foreground)'
-              : 'var(--foreground)',
+          'color': props.value ? 'var(--primary-foreground)' : 'var(--foreground)',
           'border': props.value ? 'none' : '1px solid var(--border)',
           'cursor': props.disabled ? 'not-allowed' : 'pointer',
           'opacity': props.disabled ? '0.5' : '1',
           'transition': 'all var(--transition)',
         },
       ),
-      events: {
-        'click': (event) {
-          if (!props.disabled && props.onChanged != null) {
-            props.onChanged!(!props.value);
-          }
-        },
-      },
-      [
+      events: props.onChanged == null
+          ? null
+          : <String, EventCallback>{
+              'click': (event) {
+                if (!props.disabled) {
+                  props.onChanged!(!props.value);
+                }
+              },
+            },
+      <Component>[
         if (props.icon != null) props.icon!,
         if (props.label != null) Component.text(props.label!),
       ],

@@ -11,15 +11,15 @@ class NeonKbd extends StatelessComponent {
 
   (String padding, String fontSize, String minWidth) get _sizeStyles =>
       switch (props.size) {
-        ComponentSize.sm => ('3px 6px', '0.75rem', '22px'),
-        ComponentSize.md => ('5px 10px', '0.875rem', '28px'),
-        ComponentSize.lg => ('8px 14px', '1rem', '36px'),
+        ComponentSize.sm => ('2px 6px', '0.6875rem', '20px'),
+        ComponentSize.md => ('3px 8px', '0.8125rem', '26px'),
+        ComponentSize.lg => ('5px 12px', '0.9375rem', '34px'),
       };
 
   Map<String, String> get _styleMap {
     final (padding, fontSize, minWidth) = _sizeStyles;
 
-    final baseStyles = {
+    final Map<String, String> baseStyles = <String, String>{
       'display': 'inline-flex',
       'align-items': 'center',
       'justify-content': 'center',
@@ -28,36 +28,29 @@ class NeonKbd extends StatelessComponent {
       'font-size': fontSize,
       'font-family':
           'var(--font-mono, ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace)',
-      'font-weight': 'var(--font-weight-medium)',
+      'font-weight': '600',
       'line-height': '1',
+      'letter-spacing': '0.04em',
       'white-space': 'nowrap',
       'user-select': 'none',
+      'color': 'var(--neon-accent-cool)',
     };
 
     return switch (props.style) {
-      KbdStyle.raised => {
+      KbdStyle.raised => <String, String>{
         ...baseStyles,
-        'background':
-            'linear-gradient(180deg, var(--secondary) 0%, var(--card) 100%)',
-        'border': '1px solid var(--border)',
-        'border-radius': 'var(--radius-sm)',
         'box-shadow':
-            '0 2px 0 var(--border), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
-        'color': 'var(--foreground)',
+            'var(--neon-shadow-sm), inset 0 1px 0 color-mix(in srgb, var(--foreground) 6%, transparent)',
       },
-      KbdStyle.flat => {
+      KbdStyle.flat => <String, String>{
         ...baseStyles,
-        'background': 'var(--secondary)',
-        'border': 'none',
-        'border-radius': 'var(--radius-sm)',
-        'color': 'var(--foreground)',
+        'box-shadow': 'none',
       },
-      KbdStyle.outline => {
+      KbdStyle.outline => <String, String>{
         ...baseStyles,
-        'background': 'transparent',
-        'border': '1px solid var(--border)',
-        'border-radius': 'var(--radius-sm)',
+        'background': 'transparent !important',
         'color': 'var(--muted-foreground)',
+        'box-shadow': 'none',
       },
     };
   }
@@ -77,6 +70,7 @@ class NeonKbd extends StatelessComponent {
           for (var i = 0; i < props.keys!.length; i++) ...[
             Component.element(
               tag: 'kbd',
+              classes: 'neon-kbd',
               styles: dom.Styles(raw: _styleMap),
               children: [Component.text(props.keys![i])],
             ),
@@ -97,6 +91,7 @@ class NeonKbd extends StatelessComponent {
 
     return Component.element(
       tag: 'kbd',
+      classes: 'neon-kbd',
       styles: dom.Styles(raw: _styleMap),
       children: [Component.text(props.keyText ?? '')],
     );

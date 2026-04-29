@@ -33,7 +33,7 @@ class NeonCheckItem extends StatelessComponent {
           classes: 'neon-check-item-icon',
           styles: dom.Styles(
             raw: {
-              'color': props.iconColor ?? 'var(--primary)',
+              'color': props.iconColor ?? 'var(--neon-accent)',
               'font-size': props.fontSize ?? '0.9375rem',
               'flex-shrink': '0',
             },
@@ -108,7 +108,7 @@ class NeonFeatureRow extends StatelessComponent {
   @override
   Component build(BuildContext context) {
     final String iconColor = props.included
-        ? (props.includedColor ?? 'var(--primary)')
+        ? (props.includedColor ?? 'var(--neon-accent)')
         : (props.excludedColor ?? 'var(--muted-foreground)');
 
     final String iconSize = props.iconSize ?? '18px';
@@ -144,7 +144,7 @@ class NeonFeatureRow extends StatelessComponent {
                 'border-radius': '50%',
                 'flex-shrink': '0',
                 'background-color': props.included
-                    ? 'color-mix(in srgb, var(--primary) 20%, transparent)'
+                    ? 'color-mix(in srgb, var(--neon-accent) 18%, transparent)'
                     : 'color-mix(in srgb, var(--foreground) 8%, transparent)',
                 'color': iconColor,
               },

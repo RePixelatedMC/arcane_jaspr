@@ -1,7 +1,7 @@
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 import 'package:jaspr/dom.dart' as dom;
 
+import '../../core/interaction/runtime/runtime.dart';
 import 'scripts/slider_scripts.dart';
 import 'scripts/input/input_scripts.dart';
 import 'scripts/button/button_scripts.dart';
@@ -11,30 +11,26 @@ import 'scripts/view/view_scripts.dart';
 import 'scripts/theme/rainbow_scripts.dart';
 import 'scripts/carousel/carousel_scripts.dart';
 
-/// Fallback JavaScript for Arcane components on static sites.
 class ArcaneScripts {
   ArcaneScripts._();
 
-  static String get all =>
+  static String get runtime => arcaneInteractivityRuntimeJs;
+
+  static String get runtimeCss => arcaneInteractivityRuntimeCss;
+
+  static String get legacy =>
       '''
 (function() {
   'use strict';
 
-  // Wait for DOM to be ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', bindAllComponents);
   } else {
-    // Small delay to ensure DOM is fully rendered
     setTimeout(bindAllComponents, 100);
   }
 
   function bindAllComponents() {
-    console.log('[Arcane] Initializing component interactivity...');
-
-    // Sliders
     bindSliders();
-
-    // Inputs
     bindColorInputs();
     bindCheckboxes();
     bindToggleSwitches();
@@ -49,15 +45,11 @@ class ArcaneScripts {
     bindDatePickers();
     bindTimePickers();
     bindFormattedInputs();
-
-    // Buttons
     bindToggleButtonGroups();
     bindCycleButtons();
     bindToggleButtons();
     bindButtons();
     bindCopyButtons();
-
-    // Navigation
     bindTabs();
     bindExpandersAccordions();
     bindDropdowns();
@@ -75,8 +67,6 @@ class ArcaneScripts {
     bindDotIndicators();
     bindTrackers();
     bindDocsToc();
-
-    // Dialogs & Overlays
     bindToasts();
     bindPopovers();
     bindTooltips();
@@ -88,16 +78,10 @@ class ArcaneScripts {
     bindTimeDialogs();
     bindItemPickers();
     bindChatScreens();
-
-    // Views
     bindMapDebugMode();
     bindMapPinTooltips();
     bindLocationListHover();
-
-    // Theme
     bindRainbowTheme();
-
-    // Carousels
     bindCarousels();
   }
 
@@ -111,9 +95,10 @@ class ArcaneScripts {
   ${CarouselScripts.code}
 })();
 ''';
+
+  static String get all => '$runtime\n$legacy';
 }
 
-/// Widget that injects Arcane fallback scripts into the page.
 class ArcaneScriptsComponent extends StatelessWidget {
   const ArcaneScriptsComponent({super.key});
 

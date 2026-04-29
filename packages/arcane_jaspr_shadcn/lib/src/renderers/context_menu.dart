@@ -2,6 +2,8 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/component/view/icon.dart';
+import 'package:arcane_jaspr/core/interaction/interaction.dart';
+import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/context_menu_props.dart';
 
 /// ShadCN-style context menu component
@@ -13,20 +15,34 @@ class ShadcnContextMenu extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
+    final String surfaceId = props.id;
+
+    final Map<String, String> menuAttrs = mergeAttrs(<Map<String, String>>[
+      surfaceAttrs(
+        surface: 'context-menu',
+        id: surfaceId,
+        focusTrap: false,
+        scrimCloses: true,
+      ),
+      <String, String>{'role': 'menu'},
+      if (props.keepOpenOnAction)
+        <String, String>{'data-arcane-keep-open-on-action': 'true'},
+    ]);
+
     return dom.div(
       classes: 'arcane-context-menu-trigger',
-      attributes: {'data-context-menu': 'true'},
+      attributes: <String, String>{
+        'data-arcane-context-trigger': surfaceId,
+      },
       styles: const dom.Styles(raw: {'display': 'contents'}),
       [
         props.trigger,
-        // Hidden menu template - ShadCN ContextMenuContent
+        // Hidden menu - ShadCN ContextMenuContent
         dom.div(
           classes: 'arcane-context-menu',
-          attributes: {'role': 'menu', 'aria-hidden': 'true'},
+          attributes: menuAttrs,
           styles: const dom.Styles(
             raw: {
-              'display': 'none',
-              'position': 'fixed',
               'z-index': '50',
               'min-width': '128px',
               'overflow': 'hidden',
@@ -39,20 +55,20 @@ class ShadcnContextMenu extends StatelessComponent {
               'color': 'var(--popover-foreground)',
             },
           ),
-          [for (final item in props.items) _buildMenuItem(item)],
+          [for (final item in props.items) _buildMenuItem(item, surfaceId)],
         ),
       ],
     );
   }
 
-  Component _buildMenuItem(ArcaneMenuItem item) {
+  Component _buildMenuItem(ArcaneMenuItem item, String surfaceId) {
     return switch (item) {
       MenuItemSeparator() => _buildSeparator(),
       MenuItemLabel(:final label) => _buildLabel(label),
       MenuItemAction() => _buildAction(item),
       MenuItemCheckbox() => _buildCheckbox(item),
       MenuItemRadio() => _buildRadio(item),
-      MenuItemSubmenu() => _buildSubmenu(item),
+      MenuItemSubmenu() => _buildSubmenu(item, surfaceId),
     };
   }
 
@@ -88,16 +104,28 @@ class ShadcnContextMenu extends StatelessComponent {
   }
 
   Component _buildAction(MenuItemAction item) {
+    final ArcaneInteraction? itemAction = item.action;
+    final Map<String, String> actionAttrs = item.disabled
+        ? const <String, String>{}
+        : itemAction != null
+            ? interactionAttrs(itemAction)
+            : const <String, String>{};
+
     // ShadCN ContextMenuItem
     return dom.div(
       classes:
           'arcane-context-menu-item ${item.disabled ? 'disabled' : ''} ${item.destructive ? 'destructive' : ''}',
-      attributes: {
-        'role': 'menuitem',
-        if (item.disabled) 'aria-disabled': 'true',
-        if (item.shortcut != null) 'data-shortcut': item.shortcut!,
-        'data-disabled': '${item.disabled}',
-      },
+      attributes: mergeAttrs(<Map<String, String>>[
+        <String, String>{
+          'role': 'menuitem',
+          if (item.disabled) 'aria-disabled': 'true',
+          if (item.shortcut != null) 'data-shortcut': item.shortcut!,
+          'data-disabled': '${item.disabled}',
+          if (item.disabled) 'data-arcane-disabled': 'true',
+          'tabindex': '0',
+        },
+        actionAttrs,
+      ]),
       styles: dom.Styles(
         raw: {
           'position': 'relative',
@@ -106,7 +134,7 @@ class ShadcnContextMenu extends StatelessComponent {
           'gap': 'var(--space-2)',
           'padding': '6px 8px',
           'border-radius': 'var(--radius-xs)',
-          'cursor': item.disabled ? 'not-allowed' : 'default',
+          'cursor': item.disabled ? 'not-allowed' : 'pointer',
           'transition':
               'color var(--transition), background-color var(--transition)',
           'font-size': 'var(--font-size-sm)',
@@ -116,8 +144,8 @@ class ShadcnContextMenu extends StatelessComponent {
           if (item.disabled) 'opacity': '0.5',
         },
       ),
-      events: item.onSelect != null && !item.disabled
-          ? {'click': (_) => item.onSelect!()}
+      events: item.onSelect != null && !item.disabled && itemAction == null
+          ? <String, EventCallback>{'click': (_) => item.onSelect!()}
           : null,
       [
         if (item.icon != null) item.icon!,
@@ -150,15 +178,29 @@ class ShadcnContextMenu extends StatelessComponent {
   }
 
   Component _buildCheckbox(MenuItemCheckbox item) {
+    final ArcaneInteraction? itemAction = item.action;
+    final Map<String, String> actionAttrs = item.disabled
+        ? const <String, String>{}
+        : itemAction != null
+            ? mergeAttrs(<Map<String, String>>[
+                interactionAttrs(itemAction),
+                <String, String>{'data-arcane-keep-open': 'true'},
+              ])
+            : const <String, String>{};
     return dom.div(
       classes: 'arcane-context-menu-item checkbox',
-      attributes: {
-        'role': 'menuitemcheckbox',
-        'aria-checked': '${item.checked}',
-        if (item.disabled) 'aria-disabled': 'true',
-        'data-state': item.checked ? 'checked' : 'unchecked',
-        'data-disabled': '${item.disabled}',
-      },
+      attributes: mergeAttrs(<Map<String, String>>[
+        <String, String>{
+          'role': 'menuitemcheckbox',
+          'aria-checked': '${item.checked}',
+          if (item.disabled) 'aria-disabled': 'true',
+          'data-state': item.checked ? 'checked' : 'unchecked',
+          'data-disabled': '${item.disabled}',
+          if (item.disabled) 'data-arcane-disabled': 'true',
+          'tabindex': '0',
+        },
+        actionAttrs,
+      ]),
       styles: dom.Styles(
         raw: {
           'position': 'relative',
@@ -178,8 +220,8 @@ class ShadcnContextMenu extends StatelessComponent {
           if (item.disabled) 'opacity': '0.5',
         },
       ),
-      events: item.onChanged != null && !item.disabled
-          ? {'click': (_) => item.onChanged!(!item.checked)}
+      events: item.onChanged != null && !item.disabled && itemAction == null
+          ? <String, EventCallback>{'click': (_) => item.onChanged!(!item.checked)}
           : null,
       [
         // Checkbox indicator
@@ -215,15 +257,31 @@ class ShadcnContextMenu extends StatelessComponent {
   }
 
   Component _buildRadio(MenuItemRadio item) {
+    final ArcaneInteraction? itemAction = item.action;
+    final Map<String, String> actionAttrs = item.disabled
+        ? const <String, String>{}
+        : itemAction != null
+            ? interactionAttrs(itemAction)
+            : const <String, String>{};
+    final Map<String, String> groupItem = groupItemAttrs(
+      groupId: item.group,
+      value: item.value,
+      selected: item.selected,
+      disabled: item.disabled,
+    );
     return dom.div(
       classes: 'arcane-context-menu-item radio',
-      attributes: {
-        'role': 'menuitemradio',
-        'aria-checked': '${item.selected}',
-        if (item.disabled) 'aria-disabled': 'true',
-        'data-state': item.selected ? 'checked' : 'unchecked',
-        'data-disabled': '${item.disabled}',
-      },
+      attributes: mergeAttrs(<Map<String, String>>[
+        groupItem,
+        <String, String>{
+          'role': 'menuitemradio',
+          'aria-checked': '${item.selected}',
+          if (item.disabled) 'aria-disabled': 'true',
+          'data-disabled': '${item.disabled}',
+          'tabindex': '0',
+        },
+        actionAttrs,
+      ]),
       styles: dom.Styles(
         raw: {
           'position': 'relative',
@@ -243,8 +301,8 @@ class ShadcnContextMenu extends StatelessComponent {
           if (item.disabled) 'opacity': '0.5',
         },
       ),
-      events: item.onChanged != null && !item.disabled
-          ? {'click': (_) => item.onChanged!(item.value)}
+      events: item.onChanged != null && !item.disabled && itemAction == null
+          ? <String, EventCallback>{'click': (_) => item.onChanged!(item.value)}
           : null,
       [
         // Radio indicator
@@ -267,17 +325,32 @@ class ShadcnContextMenu extends StatelessComponent {
     );
   }
 
-  Component _buildSubmenu(MenuItemSubmenu item) {
+  Component _buildSubmenu(MenuItemSubmenu item, String parentSurfaceId) {
+    final String submenuId = item.id ?? '$parentSurfaceId-sub-${item.label.hashCode}';
+    final String submenuAnchorId = '$submenuId-trigger';
+
+    final Map<String, String> triggerAttrs = mergeAttrs(<Map<String, String>>[
+      anchorAttrs(submenuAnchorId),
+      if (!item.disabled)
+        interactionAttrs(ArcaneInteraction.toggleMenu(submenuId)),
+      <String, String>{
+        'role': 'menuitem',
+        'aria-haspopup': 'menu',
+        'aria-expanded': 'false',
+        'aria-controls': submenuId,
+        if (item.disabled) 'aria-disabled': 'true',
+        'data-disabled': '${item.disabled}',
+        if (item.disabled) 'data-arcane-disabled': 'true',
+        'data-arcane-keep-open': 'true',
+        'tabindex': '0',
+      },
+    ]);
+
     // ShadCN ContextMenuSubTrigger
     return dom.div(
       classes:
           'arcane-context-menu-item arcane-context-menu-submenu-trigger ${item.disabled ? 'disabled' : ''}',
-      attributes: {
-        'role': 'menuitem',
-        'aria-haspopup': 'true',
-        if (item.disabled) 'aria-disabled': 'true',
-        'data-disabled': '${item.disabled}',
-      },
+      attributes: triggerAttrs,
       styles: dom.Styles(
         raw: {
           'position': 'relative',
@@ -311,12 +384,18 @@ class ShadcnContextMenu extends StatelessComponent {
         // Submenu - ShadCN ContextMenuSubContent
         dom.div(
           classes: 'arcane-context-menu-submenu',
+          attributes: surfaceAttrs(
+            surface: 'menu',
+            id: submenuId,
+            focusTrap: false,
+            scrimCloses: true,
+            anchorId: submenuAnchorId,
+            anchorPlacement: 'right',
+            anchorAlign: 'start',
+            anchorOffset: '4',
+          ),
           styles: const dom.Styles(
             raw: {
-              'display': 'none',
-              'position': 'absolute',
-              'left': '100%',
-              'top': '0',
               'min-width': '128px',
               'padding': '4px',
               'background-color': 'var(--popover)',
@@ -324,9 +403,10 @@ class ShadcnContextMenu extends StatelessComponent {
               'border-radius': 'var(--radius-sm)',
               'box-shadow':
                   '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
+              'z-index': '101',
             },
           ),
-          [for (final child in item.children) _buildMenuItem(child)],
+          [for (final child in item.children) _buildMenuItem(child, submenuId)],
         ),
       ],
     );

@@ -1,6 +1,7 @@
 import 'package:arcane_jaspr/flutter.dart';
 import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
+import '../../core/interaction/interaction.dart';
 import '../../core/theme_provider.dart';
 
 export '../../core/props/select_props.dart'
@@ -21,6 +22,9 @@ class ArcaneCombobox<T> extends StatefulWidget {
   final String? error;
   final String? label;
   final ComboboxSize size;
+  final String? id;
+  final String? group;
+  final ArcaneInteraction? onChangedAction;
 
   const ArcaneCombobox({
     required this.options,
@@ -36,6 +40,9 @@ class ArcaneCombobox<T> extends StatefulWidget {
     this.error,
     this.label,
     this.size = ComboboxSize.md,
+    this.id,
+    this.group,
+    this.onChangedAction,
     super.key,
   });
 
@@ -128,6 +135,9 @@ class _ArcaneComboboxState<T> extends State<ArcaneCombobox<T>> {
       onToggle: _toggleOpen,
       onSelect: _selectOption,
       onSearchChange: _handleSearch,
+      id: component.id,
+      group: component.group,
+      onSelectAction: component.onChangedAction,
     ));
   }
 }

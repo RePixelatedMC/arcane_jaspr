@@ -3,6 +3,8 @@ import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, St
 
 /// Dialog component properties.
 class DialogProps {
+  final String? id;
+  final bool isOpen;
   final String? title;
   final List<Widget> content;
   final List<Widget>? actions;
@@ -10,8 +12,13 @@ class DialogProps {
   final void Function()? onClose;
   final double maxWidth;
   final bool barrierDismissible;
+  final bool escapeCloses;
+  final bool focusTrap;
+  final bool restoreFocus;
 
   const DialogProps({
+    this.id,
+    this.isOpen = false,
     this.title,
     required this.content,
     this.actions,
@@ -19,9 +26,14 @@ class DialogProps {
     this.onClose,
     this.maxWidth = 500,
     this.barrierDismissible = true,
+    this.escapeCloses = true,
+    this.focusTrap = true,
+    this.restoreFocus = true,
   });
 
   DialogProps copyWith({
+    String? id,
+    bool? isOpen,
     String? title,
     List<Widget>? content,
     List<Widget>? actions,
@@ -29,8 +41,13 @@ class DialogProps {
     void Function()? onClose,
     double? maxWidth,
     bool? barrierDismissible,
+    bool? escapeCloses,
+    bool? focusTrap,
+    bool? restoreFocus,
   }) {
     return DialogProps(
+      id: id ?? this.id,
+      isOpen: isOpen ?? this.isOpen,
       title: title ?? this.title,
       content: content ?? this.content,
       actions: actions ?? this.actions,
@@ -38,6 +55,9 @@ class DialogProps {
       onClose: onClose ?? this.onClose,
       maxWidth: maxWidth ?? this.maxWidth,
       barrierDismissible: barrierDismissible ?? this.barrierDismissible,
+      escapeCloses: escapeCloses ?? this.escapeCloses,
+      focusTrap: focusTrap ?? this.focusTrap,
+      restoreFocus: restoreFocus ?? this.restoreFocus,
     );
   }
 }
@@ -60,6 +80,7 @@ enum SheetSizeVariant {
 
 /// Sheet/drawer component properties.
 class SheetProps {
+  final String? id;
   final bool isOpen;
   final Widget child;
   final SheetPosition position;
@@ -74,8 +95,12 @@ class SheetProps {
   final bool closeOnBackdropClick;
   final bool showDragHandle;
   final String? maxWidth;
+  final bool escapeCloses;
+  final bool focusTrap;
+  final bool restoreFocus;
 
   const SheetProps({
+    this.id,
     required this.isOpen,
     required this.child,
     this.position = SheetPosition.right,
@@ -90,9 +115,13 @@ class SheetProps {
     this.closeOnBackdropClick = true,
     this.showDragHandle = true,
     this.maxWidth,
+    this.escapeCloses = true,
+    this.focusTrap = true,
+    this.restoreFocus = true,
   });
 
   SheetProps copyWith({
+    String? id,
     bool? isOpen,
     Widget? child,
     SheetPosition? position,
@@ -107,8 +136,12 @@ class SheetProps {
     bool? closeOnBackdropClick,
     bool? showDragHandle,
     String? maxWidth,
+    bool? escapeCloses,
+    bool? focusTrap,
+    bool? restoreFocus,
   }) {
     return SheetProps(
+      id: id ?? this.id,
       isOpen: isOpen ?? this.isOpen,
       child: child ?? this.child,
       position: position ?? this.position,
@@ -123,6 +156,9 @@ class SheetProps {
       closeOnBackdropClick: closeOnBackdropClick ?? this.closeOnBackdropClick,
       showDragHandle: showDragHandle ?? this.showDragHandle,
       maxWidth: maxWidth ?? this.maxWidth,
+      escapeCloses: escapeCloses ?? this.escapeCloses,
+      focusTrap: focusTrap ?? this.focusTrap,
+      restoreFocus: restoreFocus ?? this.restoreFocus,
     );
   }
 }

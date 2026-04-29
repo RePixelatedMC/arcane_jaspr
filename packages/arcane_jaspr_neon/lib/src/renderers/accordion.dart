@@ -42,15 +42,24 @@ class NeonAccordion extends StatelessComponent {
   }
 
   Component _buildItem(AccordionItemProps item, int index, bool defaultOpen) {
-    // Use item's accent color, fallback to default, or fallback to primary
     final String accentColor =
-        item.accentColor ?? props.defaultAccentColor ?? 'var(--primary)';
+        item.accentColor ?? props.defaultAccentColor ?? 'var(--neon-accent)';
     final bool showCategory =
         props.variant == AccordionVariant.faq && item.category != null;
 
     return Component.element(
       tag: 'details',
       attributes: {if (defaultOpen) 'open': ''},
+      styles: const dom.Styles(
+        raw: {
+          'background': 'var(--neon-panel-surface)',
+          'border': '1px solid var(--neon-panel-border)',
+          'clip-path': 'var(--neon-clip-md)',
+          'box-shadow':
+              'var(--neon-shadow-sm), inset 0 1px 0 var(--neon-inset)',
+          'overflow': 'hidden',
+        },
+      ),
       children: [
         // Summary (clickable header)
         Component.element(
@@ -61,11 +70,12 @@ class NeonAccordion extends StatelessComponent {
               'align-items': 'center',
               'justify-content': 'space-between',
               'gap': '1rem',
-              'padding': '1.25rem',
+              'padding': '1.125rem 1.25rem',
               'cursor': 'pointer',
               'list-style': 'none',
               '-webkit-user-select': 'none',
               'user-select': 'none',
+              'transition': 'background 140ms ease',
             },
           ),
           children: [
@@ -74,8 +84,10 @@ class NeonAccordion extends StatelessComponent {
               styles: const dom.Styles(
                 raw: {
                   'flex-grow': '1',
+                  'font-family': 'var(--font-heading)',
                   'font-size': '0.9375rem',
-                  'font-weight': '500',
+                  'font-weight': 'var(--font-weight-semibold)',
+                  'letter-spacing': '0.02em',
                   'color': 'var(--foreground)',
                   'line-height': '1.5',
                 },
@@ -93,24 +105,28 @@ class NeonAccordion extends StatelessComponent {
                 },
               ),
               [
-                // Category badge (FAQ variant only)
+                // Category badge (FAQ variant only) — chamfered
                 if (showCategory)
                   dom.span(
                     styles: dom.Styles(
                       raw: {
-                        'font-size': '0.6875rem',
-                        'font-weight': '500',
+                        'font-family': 'var(--font-heading)',
+                        'font-size': '0.625rem',
+                        'font-weight': 'var(--font-weight-semibold)',
                         'color': accentColor,
-                        'background': '${accentColor}12',
-                        'border-radius': '9999px',
+                        'background':
+                            'color-mix(in srgb, $accentColor 14%, transparent)',
+                        'border':
+                            '1px solid color-mix(in srgb, $accentColor 38%, transparent)',
+                        'clip-path': 'var(--neon-clip-xs)',
                         'padding': '0.25rem 0.625rem',
                         'text-transform': 'uppercase',
-                        'letter-spacing': '0',
+                        'letter-spacing': '0.08em',
                       },
                     ),
                     [Component.text(item.category!)],
                   ),
-                // Chevron button
+                // Chevron button — chamfered
                 dom.div(
                   classes: 'faq-chevron',
                   styles: dom.Styles(
@@ -120,11 +136,14 @@ class NeonAccordion extends StatelessComponent {
                       'justify-content': 'center',
                       'width': '28px',
                       'height': '28px',
-                      'border-radius': '6px',
-                      'background': '${accentColor}10',
+                      'clip-path': 'var(--neon-clip-xs)',
+                      'background':
+                          'color-mix(in srgb, $accentColor 12%, transparent)',
+                      'border':
+                          '1px solid color-mix(in srgb, $accentColor 28%, transparent)',
                       'color': accentColor,
                       'flex-shrink': '0',
-                      'transition': 'transform 0.2s ease, background 0.2s ease',
+                      'transition': 'transform 200ms ease, background 200ms ease',
                     },
                   ),
                   [ArcaneIcon.chevronDown(size: IconSize.sm)],
@@ -139,7 +158,7 @@ class NeonAccordion extends StatelessComponent {
             raw: {
               'padding': '0 1.25rem 1.25rem 1.25rem',
               'border-top':
-                  '1px solid color-mix(in srgb, var(--foreground) 6%, transparent)',
+                  '1px solid color-mix(in srgb, var(--neon-panel-border) 60%, transparent)',
             },
           ),
           [

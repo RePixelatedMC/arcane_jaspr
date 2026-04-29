@@ -2,6 +2,7 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/component/view/icon.dart';
+import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/button_props.dart';
 
 import 'control_styles.dart';
@@ -138,6 +139,7 @@ class ShadcnButton extends StatelessComponent {
     // Render as anchor if href is provided, otherwise as button
     final Map<String, String> baseAttributes =
         ShadcnControlStyles.buttonAttributes(props, isDisabled);
+    final Map<String, String> actionAttrs = interactionAttrs(props.action);
 
     if (props.href != null) {
       return dom.a(
@@ -147,6 +149,7 @@ class ShadcnButton extends StatelessComponent {
         attributes: {
           if (isDisabled) 'aria-disabled': 'true',
           ...baseAttributes,
+          ...actionAttrs,
         },
         styles: dom.Styles(raw: {...allStyles, 'text-decoration': 'none'}),
         events: {
@@ -168,6 +171,7 @@ class ShadcnButton extends StatelessComponent {
         if (isDisabled) 'disabled': 'true',
         'type': 'button',
         ...baseAttributes,
+        ...actionAttrs,
       },
       styles: dom.Styles(raw: allStyles),
       events: {

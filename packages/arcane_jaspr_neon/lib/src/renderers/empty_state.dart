@@ -61,8 +61,10 @@ class NeonEmptyState extends StatelessComponent {
                 'justify-content': 'center',
                 'width': iconSize,
                 'height': iconSize,
-                'color': 'var(--primary)',
+                'color': 'var(--neon-accent)',
                 'flex-shrink': '0',
+                'filter':
+                    'drop-shadow(0 0 18px color-mix(in srgb, var(--neon-accent) 32%, transparent))',
               },
             ),
             [props.icon!],
@@ -84,8 +86,10 @@ class NeonEmptyState extends StatelessComponent {
               classes: 'neon-empty-state-title',
               styles: dom.Styles(
                 raw: {
+                  'font-family': 'var(--font-heading)',
                   'font-size': titleSize,
                   'font-weight': 'var(--font-weight-semibold)',
+                  'letter-spacing': '0.04em',
                   'color': 'var(--foreground)',
                   'margin': '0',
                 },
@@ -140,10 +144,12 @@ class NeonEmptyState extends StatelessComponent {
         classes: 'neon-empty-state neon-empty-state-card',
         styles: const dom.Styles(
           raw: {
-            'padding': '2.5rem', // Neon: more padding
-            'background-color': 'var(--card)',
-            'border': '1px solid var(--border)',
-            'border-radius': 'var(--radius)',
+            'padding': '2.5rem',
+            'background': 'var(--neon-panel-surface)',
+            'border': '1px solid var(--neon-panel-border)',
+            'clip-path': 'var(--neon-clip-md)',
+            'box-shadow':
+                'var(--neon-shadow-md), inset 0 1px 0 var(--neon-inset)',
           },
         ),
         [content],

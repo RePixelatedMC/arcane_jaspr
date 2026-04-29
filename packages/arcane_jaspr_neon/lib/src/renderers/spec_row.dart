@@ -18,7 +18,7 @@ class NeonSpecRow extends StatelessComponent {
     final String labelColor = props.labelColor ?? 'var(--muted-foreground)';
     final String valueColor =
         props.valueColor ??
-        (props.highlight ? 'var(--primary)' : 'var(--foreground)');
+        (props.highlight ? 'var(--neon-accent)' : 'var(--foreground)');
 
     return dom.div(
       classes: 'neon-spec-row',

@@ -1,6 +1,8 @@
 import 'package:jaspr/dom.dart' as dom;
 import 'package:jaspr/jaspr.dart';
 
+import 'package:arcane_jaspr/core/interaction/interaction.dart';
+import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/checkbox_props.dart';
 
 /// Neon checkbox renderer with restrained dark styling.
@@ -18,7 +20,7 @@ class NeonCheckbox extends StatelessComponent {
     };
 
     final (String tone, String checkColor) = switch (props.color) {
-      ColorVariant.primary => ('var(--primary)', '#ffffff'),
+      ColorVariant.primary => ('var(--neon-accent)', 'var(--neon-on-accent)'),
       ColorVariant.secondary => (
         'var(--secondary)',
         'var(--secondary-foreground)',
@@ -29,14 +31,54 @@ class NeonCheckbox extends StatelessComponent {
       ColorVariant.info => ('var(--info)', '#ffffff'),
     };
 
-    return dom.div(
-      classes: 'neon-checkbox-wrapper ${props.disabled ? 'disabled' : ''}',
-      attributes: {
+    final bool inExternalGroup =
+        props.group != null && props.group!.isNotEmpty && props.value != null;
+    final String groupId = inExternalGroup ? props.group! : props.id;
+    final String itemValue = inExternalGroup ? props.value! : 'on';
+    final String currentGroupValue = props.checked ? itemValue : '';
+
+    final Map<String, String> rootAttrs = inExternalGroup
+        ? const <String, String>{}
+        : groupAttrs(
+            groupId: groupId,
+            mode: 'multi',
+            value: currentGroupValue,
+            disabled: props.disabled,
+          );
+
+    final Map<String, String> itemAttrs = mergeAttrs(<Map<String, String>>[
+      groupItemAttrs(
+        groupId: groupId,
+        value: itemValue,
+        selected: props.checked,
+        disabled: props.disabled,
+      ),
+      <String, String>{
+        'role': 'checkbox',
+        'aria-checked': '${props.checked}',
+        'tabindex': props.disabled ? '-1' : '0',
+        'data-state': props.checked ? 'checked' : 'unchecked',
+        'data-disabled': '${props.disabled}',
+      },
+      if (!props.disabled)
+        interactionAttrs(
+          ArcaneInteraction.toggleValue(groupId, itemValue),
+        ),
+    ]);
+
+    final Map<String, String> wrapperAttrs = mergeAttrs(<Map<String, String>>[
+      rootAttrs,
+      <String, String>{
         'data-state': props.checked ? 'checked' : 'unchecked',
         'data-disabled': '${props.disabled}',
         'data-variant': props.color.name,
         'data-size': props.size.name,
       },
+    ]);
+
+    return dom.div(
+      classes: 'neon-checkbox-wrapper ${props.disabled ? 'disabled' : ''}',
+      attributes: wrapperAttrs,
       styles: dom.Styles(
         raw: {
           'display': 'flex',
@@ -49,10 +91,11 @@ class NeonCheckbox extends StatelessComponent {
       ),
       events: props.disabled || props.onChanged == null
           ? null
-          : {'click': (_) => props.onChanged!(!props.checked)},
+          : <String, EventCallback>{'click': (_) => props.onChanged!(!props.checked)},
       [
         dom.div(
           classes: 'neon-checkbox-box',
+          attributes: itemAttrs,
           styles: dom.Styles(
             raw: {
               'width': boxSize,

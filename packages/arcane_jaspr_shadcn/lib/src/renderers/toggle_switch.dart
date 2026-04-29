@@ -1,6 +1,8 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
+import 'package:arcane_jaspr/core/interaction/interaction.dart';
+import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/toggle_switch_props.dart';
 
 /// ShadCN Toggle Switch renderer.
@@ -14,6 +16,38 @@ class ShadcnToggleSwitch extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
+    final bool inExternalGroup =
+        props.group != null && props.group!.isNotEmpty && props.itemValue != null;
+    final String groupId = inExternalGroup ? props.group! : props.id;
+    final String optionValue = inExternalGroup ? props.itemValue! : 'on';
+    final String groupMode = inExternalGroup ? 'multi' : 'single';
+    final String currentGroupValue = props.value ? optionValue : '';
+
+    final Map<String, String> rootAttrs = inExternalGroup
+        ? const <String, String>{}
+        : groupAttrs(
+            groupId: groupId,
+            mode: groupMode,
+            value: currentGroupValue,
+            disabled: props.disabled,
+            changeAction: props.onChangeAction != null
+                ? encodeArcaneAction(props.onChangeAction!)
+                : null,
+          );
+
+    final Map<String, String> itemAttrs = mergeAttrs(<Map<String, String>>[
+      groupItemAttrs(
+        groupId: groupId,
+        value: optionValue,
+        selected: props.value,
+        disabled: props.disabled,
+      ),
+      if (!props.disabled)
+        interactionAttrs(
+          ArcaneInteraction.toggleValue(groupId, optionValue),
+        ),
+    ]);
+
     // ShadCN size-specific dimensions
     // Default: w-11 h-6 (44px x 24px), thumb h-5 w-5 (20px)
     final (
@@ -50,16 +84,19 @@ class ShadcnToggleSwitch extends StatelessComponent {
     final Component switchWidget = dom.button(
       classes:
           'arcane-toggle-switch ${props.value ? 'active' : ''} ${props.disabled ? 'disabled' : ''}',
-      attributes: {
-        'type': 'button',
-        'role': 'switch',
-        'aria-checked': props.value.toString(),
-        if (props.disabled) 'disabled': 'true',
-        'data-state': props.value ? 'checked' : 'unchecked',
-        'data-disabled': '${props.disabled}',
-      },
+      attributes: mergeAttrs(<Map<String, String>>[
+        <String, String>{
+          'type': 'button',
+          'role': 'switch',
+          'aria-checked': props.value.toString(),
+          if (props.disabled) 'disabled': 'true',
+          'data-state': props.value ? 'checked' : 'unchecked',
+          'data-disabled': '${props.disabled}',
+        },
+        itemAttrs,
+      ]),
       styles: dom.Styles(
-        raw: {
+        raw: <String, String>{
           'position': 'relative',
           'display': 'inline-flex',
           'align-items': 'center',
@@ -83,23 +120,25 @@ class ShadcnToggleSwitch extends StatelessComponent {
           'box-sizing': 'border-box',
         },
       ),
-      events: {
+      events: <String, EventCallback>{
         'click': (event) {
           if (!props.disabled && props.onChanged != null) {
             props.onChanged!(!props.value);
           }
         },
       },
-      [
+      <Component>[
         // Thumb - ShadCN styling
         // ShadCN: pointer-events-none block h-5 w-5 rounded-full
         // bg-background shadow-lg ring-0 transition-transform
         // data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0
         dom.span(
           classes: 'arcane-toggle-thumb',
-          attributes: {'data-state': props.value ? 'checked' : 'unchecked'},
+          attributes: <String, String>{
+            'data-state': props.value ? 'checked' : 'unchecked',
+          },
           styles: dom.Styles(
-            raw: {
+            raw: <String, String>{
               'display': 'block',
               'width': '${thumbSize}px',
               'height': '${thumbSize}px',
@@ -117,7 +156,7 @@ class ShadcnToggleSwitch extends StatelessComponent {
               'flex-shrink': '0',
             },
           ),
-          [],
+          <Component>[],
         ),
       ],
     );
@@ -131,7 +170,7 @@ class ShadcnToggleSwitch extends StatelessComponent {
     final Component labelWidget = dom.span(
       classes: 'arcane-toggle-label',
       styles: dom.Styles(
-        raw: {
+        raw: <String, String>{
           // ShadCN: text-sm font-medium leading-none
           // peer-disabled:cursor-not-allowed peer-disabled:opacity-70
           'font-size': 'var(--font-size-sm)', // 14px
@@ -143,33 +182,29 @@ class ShadcnToggleSwitch extends StatelessComponent {
           'line-height': '1',
         },
       ),
-      [Component.text(props.label!)],
+      <Component>[Component.text(props.label!)],
     );
 
     return dom.label(
       classes: 'arcane-toggle-wrapper',
-      attributes: {
-        'data-state': props.value ? 'checked' : 'unchecked',
-        'data-disabled': '${props.disabled}',
-      },
+      attributes: mergeAttrs(<Map<String, String>>[
+        rootAttrs,
+        <String, String>{
+          'data-state': props.value ? 'checked' : 'unchecked',
+          'data-disabled': '${props.disabled}',
+        },
+      ]),
       styles: dom.Styles(
-        raw: {
+        raw: <String, String>{
           'display': 'inline-flex',
           'align-items': 'center',
           'gap': 'var(--space-2)', // gap-2
           'cursor': props.disabled ? 'not-allowed' : 'pointer',
         },
       ),
-      events: {
-        'click': (event) {
-          if (!props.disabled && props.onChanged != null) {
-            props.onChanged!(!props.value);
-          }
-        },
-      },
       props.labelLeft
-          ? [labelWidget, switchWidget]
-          : [switchWidget, labelWidget],
+          ? <Component>[labelWidget, switchWidget]
+          : <Component>[switchWidget, labelWidget],
     );
   }
 }

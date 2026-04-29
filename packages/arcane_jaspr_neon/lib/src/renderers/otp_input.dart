@@ -35,14 +35,16 @@ class NeonOtpInput extends StatelessComponent {
         raw: {'display': 'flex', 'flex-direction': 'column', 'gap': '10px'},
       ),
       [
-        // Label
         if (props.label != null)
           dom.span(
             styles: const dom.Styles(
               raw: {
-                'font-size': 'var(--font-size-sm)',
-                'font-weight': 'var(--font-weight-medium)',
-                'color': 'var(--foreground)',
+                'font-family': 'var(--font-heading)',
+                'font-size': '0.75rem',
+                'font-weight': '600',
+                'letter-spacing': '0.08em',
+                'text-transform': 'uppercase',
+                'color': 'var(--muted-foreground)',
               },
             ),
             [Component.text(props.label!)],
@@ -56,20 +58,19 @@ class NeonOtpInput extends StatelessComponent {
           ),
           [
             for (var i = 0; i < props.length; i++) ...[
-              // Separator
               if (sepPos != null && i == sepPos && props.separator != null)
                 dom.span(
                   styles: const dom.Styles(
                     raw: {
-                      'color': 'var(--muted-foreground)',
+                      'color': 'var(--neon-accent)',
                       'font-size': 'var(--font-size-lg)',
-                      'margin': '0 6px',
+                      'font-weight': '700',
+                      'margin': '0 4px',
                     },
                   ),
                   [Component.text(props.separator!)],
                 ),
 
-              // Digit input
               dom.input(
                 classes:
                     'neon-otp-digit ${hasError ? 'error' : ''} ${digits.length > i && digits[i].isNotEmpty ? 'filled' : ''}',
@@ -95,17 +96,24 @@ class NeonOtpInput extends StatelessComponent {
                   raw: {
                     'width': size,
                     'height': size,
+                    'font-family': 'var(--font-heading)',
                     'font-size': fontSize,
                     'text-align': 'center',
-                    'font-weight': 'var(--font-weight-semibold)',
+                    'font-weight': '600',
+                    'font-variant-numeric': 'tabular-nums',
                     'color': 'var(--foreground)',
-                    'background-color': 'var(--input)',
+                    'background':
+                        'linear-gradient(135deg, color-mix(in srgb, var(--neon-accent) 5%, transparent), color-mix(in srgb, var(--card) 86%, transparent))',
                     'border':
-                        '2px solid ${hasError ? 'var(--destructive)' : 'var(--border)'}',
-                    'border-radius': 'var(--radius)',
+                        '1px solid ${hasError ? 'var(--destructive)' : 'var(--neon-control-border)'}',
+                    'clip-path': 'var(--neon-control-clip)',
                     'transition':
-                        'border-color var(--arcane-transition), box-shadow var(--arcane-transition)',
-                    'caret-color': 'transparent',
+                        'border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease',
+                    'caret-color': 'var(--neon-accent)',
+                    'box-shadow':
+                        digits.length > i && digits[i].isNotEmpty
+                            ? 'var(--neon-glow-md)'
+                            : 'var(--neon-inset)',
                     if (props.disabled) 'opacity': '0.5',
                     if (props.disabled) 'cursor': 'not-allowed',
                   },

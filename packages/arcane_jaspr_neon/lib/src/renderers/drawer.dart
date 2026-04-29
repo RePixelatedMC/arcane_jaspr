@@ -1,6 +1,7 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
+import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/drawer_props.dart';
 
 /// Neon Drawer renderer.
@@ -16,15 +17,11 @@ class NeonDrawer extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    if (!props.isOpen) {
-      return const dom.div([], styles: dom.Styles(raw: {'display': 'none'}));
-    }
-
+    final String surfaceId = props.id ?? _autoId();
     final bool isHorizontal =
         props.position == DrawerPosition.left ||
         props.position == DrawerPosition.right;
 
-    // Neon sizes - 1.25x larger
     final String sizeValue = switch (props.size) {
       DrawerSize.sm => isHorizontal ? '320px' : '30vh',
       DrawerSize.md => isHorizontal ? '400px' : '50vh',
@@ -33,77 +30,98 @@ class NeonDrawer extends StatelessComponent {
       DrawerSize.full => '100%',
     };
 
-    // Position-specific styles
     final Map<String, String> positionStyles = switch (props.position) {
       DrawerPosition.left => {
         'left': '0',
         'top': '0',
         'bottom': '0',
         'width': props.width ?? sizeValue,
-        'border-right': '1px solid var(--primary)',
+        'border-right': '1px solid var(--neon-panel-border-hot)',
       },
       DrawerPosition.right => {
         'right': '0',
         'top': '0',
         'bottom': '0',
         'width': props.width ?? sizeValue,
-        'border-left': '1px solid var(--primary)',
+        'border-left': '1px solid var(--neon-panel-border-hot)',
       },
       DrawerPosition.top => {
         'left': '0',
         'right': '0',
         'top': '0',
         'height': props.height ?? sizeValue,
-        'border-bottom': '1px solid var(--primary)',
+        'border-bottom': '1px solid var(--neon-panel-border-hot)',
       },
       DrawerPosition.bottom => {
         'left': '0',
         'right': '0',
         'bottom': '0',
         'height': props.height ?? sizeValue,
-        'border-top': '1px solid var(--primary)',
+        'border-top': '1px solid var(--neon-panel-border-hot)',
       },
     };
 
     return dom.div(
       classes: 'neon-drawer-overlay',
+      attributes: <String, String>{
+        ...surfaceAttrs(
+          surface: 'drawer',
+          id: surfaceId,
+          initiallyOpen: props.isOpen,
+          dismissible: props.closeOnBackdropClick,
+          escapeCloses: props.escapeCloses,
+          focusTrap: props.focusTrap,
+          scrimCloses: props.closeOnBackdropClick,
+          restoreFocus: props.restoreFocus,
+        ),
+        'data-arcane-scrim': '',
+        'data-position': props.position.name,
+      },
       styles: dom.Styles(
         raw: {
           'position': 'fixed',
           'inset': '0',
           'z-index': '50',
           if (props.showBackdrop) ...{
-            'background-color': 'rgba(0, 0, 0, 0.85)',
-            'backdrop-filter': 'blur(4px)',
-            '-webkit-backdrop-filter': 'blur(4px)',
+            'background-color':
+                'color-mix(in srgb, var(--neon-surface-0) 78%, transparent)',
+            'backdrop-filter': 'blur(8px) saturate(1.1)',
+            '-webkit-backdrop-filter': 'blur(8px) saturate(1.1)',
           },
         },
       ),
-      events: props.closeOnBackdropClick && props.onClose != null
-          ? {'click': (_) => props.onClose!()}
-          : null,
+      events: <String, EventCallback>{
+        if (props.closeOnBackdropClick && props.onClose != null)
+          'click': (dynamic e) {
+            if ((e as dynamic).target == (e as dynamic).currentTarget) {
+              props.onClose!();
+            }
+          },
+      },
       [
-        // Drawer panel
         dom.div(
           classes: 'neon-drawer',
+          attributes: const <String, String>{
+            'role': 'dialog',
+            'aria-modal': 'true',
+            'data-arcane-autofocus': '',
+          },
           styles: dom.Styles(
             raw: {
               'position': 'fixed',
               ...positionStyles,
               'display': 'flex',
               'flex-direction': 'column',
-              // Neon: glass effect
-              'background-color': 'rgba(10, 10, 10, 0.95)',
-              'backdrop-filter': 'blur(12px)',
-              '-webkit-backdrop-filter': 'blur(12px)',
-              // Neon: subtle accent glow
-              'box-shadow': '0 14px 30px rgba(var(--primary-rgb), 0.15)',
+              'background':
+                  'var(--neon-panel-tint), color-mix(in srgb, var(--neon-panel-surface) 94%, transparent)',
+              'backdrop-filter': 'blur(20px) saturate(1.2)',
+              '-webkit-backdrop-filter': 'blur(20px) saturate(1.2)',
+              'box-shadow': 'var(--neon-shadow-lg), var(--neon-glow-md)',
               'overflow': 'hidden',
             },
           ),
           events: {'click': (e) => e.stopPropagation()},
           [
-            // Header
             if (props.header != null || props.showCloseButton)
               dom.div(
                 classes: 'neon-drawer-header',
@@ -113,8 +131,8 @@ class NeonDrawer extends StatelessComponent {
                     'align-items': 'center',
                     'justify-content': 'space-between',
                     'flex-shrink': '0',
-                    'padding': '1.25rem 1.5rem', // Neon: more padding
-                    'border-bottom': '1px solid var(--border)',
+                    'padding': '1.25rem 1.5rem',
+                    'border-bottom': '1px solid var(--neon-panel-border)',
                   },
                 ),
                 [
@@ -127,6 +145,11 @@ class NeonDrawer extends StatelessComponent {
                   if (props.showCloseButton)
                     dom.button(
                       classes: 'neon-drawer-close',
+                      attributes: <String, String>{
+                        'type': 'button',
+                        'aria-label': 'Close drawer',
+                        ...dismissAttrs(),
+                      },
                       styles: const dom.Styles(
                         raw: {
                           'width': '32px',
@@ -136,10 +159,11 @@ class NeonDrawer extends StatelessComponent {
                           'justify-content': 'center',
                           'background': 'transparent',
                           'border': 'none',
-                          'border-radius': 'var(--radius-md)',
+                          'border-radius': 'var(--neon-radius-control)',
                           'color': 'var(--muted-foreground)',
                           'cursor': 'pointer',
-                          'transition': 'all var(--transition)',
+                          'transition':
+                              'color 0.15s ease, background 0.15s ease',
                         },
                       ),
                       events: props.onClose == null
@@ -150,20 +174,18 @@ class NeonDrawer extends StatelessComponent {
                 ],
               ),
 
-            // Content
             dom.div(
               classes: 'neon-drawer-content',
               styles: const dom.Styles(
                 raw: {
                   'flex': '1',
                   'overflow-y': 'auto',
-                  'padding': '1.5rem', // Neon: more padding
+                  'padding': '1.5rem',
                 },
               ),
               [props.child],
             ),
 
-            // Footer
             if (props.footer != null)
               dom.div(
                 classes: 'neon-drawer-footer',
@@ -171,7 +193,7 @@ class NeonDrawer extends StatelessComponent {
                   raw: {
                     'flex-shrink': '0',
                     'padding': '1.25rem 1.5rem',
-                    'border-top': '1px solid var(--border)',
+                    'border-top': '1px solid var(--neon-panel-border)',
                   },
                 ),
                 [props.footer!],
@@ -180,5 +202,11 @@ class NeonDrawer extends StatelessComponent {
         ),
       ],
     );
+  }
+
+  static int _autoCounter = 0;
+  static String _autoId() {
+    _autoCounter++;
+    return 'neon-drawer-$_autoCounter';
   }
 }

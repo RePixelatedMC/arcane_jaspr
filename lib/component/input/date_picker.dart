@@ -16,6 +16,7 @@ enum DatePickerSize {
 
 /// A date picker input with calendar dropdown.
 class ArcaneDatePicker extends StatefulWidget {
+  final String? id;
   final DateTime? value;
   final void Function(DateTime?)? onChanged;
   final String? label;
@@ -33,6 +34,7 @@ class ArcaneDatePicker extends StatefulWidget {
   final void Function(DateRange?)? onRangeChanged;
 
   const ArcaneDatePicker({
+    this.id,
     this.value,
     this.onChanged,
     this.label,
@@ -52,6 +54,7 @@ class ArcaneDatePicker extends StatefulWidget {
   });
 
   const ArcaneDatePicker.range({
+    this.id,
     this.rangeValue,
     this.onRangeChanged,
     this.label,
@@ -159,7 +162,10 @@ class _ArcaneDatePickerState extends State<ArcaneDatePicker> {
 
   @override
   Widget build(BuildContext context) {
+    final String resolvedId = component.id ?? 'datepicker-${identityHashCode(component)}';
+    final String calendarId = '$resolvedId-cal';
     return context.renderers.datePicker(DatePickerProps(
+      id: resolvedId,
       value: component.value,
       label: component.label,
       placeholder: component.placeholder,
@@ -177,34 +183,33 @@ class _ArcaneDatePickerState extends State<ArcaneDatePicker> {
       onSelect: _selectDate,
       onRangeSelect: (range) => _selectRange(DateRange(start: range.start, end: range.end)),
       onClear: _clear,
-      calendarProps: _isOpen
-          ? CalendarProps(
-              selected: component.value,
-              displayMonth: _displayMonth,
-              minDate: component.minDate,
-              maxDate: component.maxDate,
-              mode: _propsMode,
-              selectedRange: _propsRangeValue,
-              isDisabled: _isDisabled,
-              onPreviousMonth: () {
-                setState(() {
-                  _displayMonth = DateTime(_displayMonth.year, _displayMonth.month - 1, 1);
-                });
-              },
-              onNextMonth: () {
-                setState(() {
-                  _displayMonth = DateTime(_displayMonth.year, _displayMonth.month + 1, 1);
-                });
-              },
-              onGoToToday: () {
-                final now = DateTime.now();
-                setState(() {
-                  _displayMonth = DateTime(now.year, now.month, 1);
-                });
-              },
-              onSelectDate: _selectDate,
-            )
-          : null,
+      calendarProps: CalendarProps(
+        id: calendarId,
+        selected: component.value,
+        displayMonth: _displayMonth,
+        minDate: component.minDate,
+        maxDate: component.maxDate,
+        mode: _propsMode,
+        selectedRange: _propsRangeValue,
+        isDisabled: _isDisabled,
+        onPreviousMonth: () {
+          setState(() {
+            _displayMonth = DateTime(_displayMonth.year, _displayMonth.month - 1, 1);
+          });
+        },
+        onNextMonth: () {
+          setState(() {
+            _displayMonth = DateTime(_displayMonth.year, _displayMonth.month + 1, 1);
+          });
+        },
+        onGoToToday: () {
+          final DateTime now = DateTime.now();
+          setState(() {
+            _displayMonth = DateTime(now.year, now.month, 1);
+          });
+        },
+        onSelectDate: _selectDate,
+      ),
     ));
   }
 }

@@ -119,34 +119,36 @@ class NeonPagination extends StatelessComponent {
     required String buttonSize,
     required String fontSize,
   }) {
-    // Neon style variants
     final Map<String, String> styleVariant = switch (props.style) {
       PaginationStyleVariant.outline => {
-        'background-color': isActive ? 'var(--primary)' : 'transparent',
-        'color': isActive ? '#ffffff' : 'var(--foreground)',
+        'background': isActive ? 'var(--neon-accent)' : 'transparent',
+        'color': isActive ? 'var(--neon-on-accent)' : 'var(--foreground)',
         'border': isActive
-            ? '1px solid var(--primary)'
-            : '1px solid var(--border)',
-        if (isActive) 'box-shadow': '0 14px 15px rgba(var(--primary-rgb), 0.2)',
+            ? '1px solid var(--neon-accent)'
+            : '1px solid var(--neon-control-border)',
+        'clip-path': 'var(--neon-control-clip)',
+        if (isActive) 'box-shadow': 'var(--neon-glow-md)',
       },
       PaginationStyleVariant.filled => {
-        'background-color': isActive ? 'var(--primary)' : 'var(--secondary)',
-        'color': isActive ? '#ffffff' : 'var(--foreground)',
+        'background':
+            isActive ? 'var(--neon-accent)' : 'var(--neon-panel-tint)',
+        'color': isActive ? 'var(--neon-on-accent)' : 'var(--foreground)',
         'border': 'none',
-        if (isActive) 'box-shadow': '0 14px 15px rgba(var(--primary-rgb), 0.2)',
+        'clip-path': 'var(--neon-control-clip)',
+        if (isActive) 'box-shadow': 'var(--neon-glow-md)',
       },
       PaginationStyleVariant.ghost => {
-        'background-color': isActive
-            ? 'rgba(var(--primary-rgb), 0.15)'
-            : 'transparent',
-        'color': isActive ? 'var(--primary)' : 'var(--foreground)',
+        'background': isActive ? 'var(--neon-accent-soft)' : 'transparent',
+        'color': isActive ? 'var(--neon-accent)' : 'var(--foreground)',
         'border': 'none',
+        'clip-path': 'var(--neon-clip-xs)',
       },
       PaginationStyleVariant.simple => {
-        'background-color': 'transparent',
-        'color': isActive ? 'var(--primary)' : 'var(--muted-foreground)',
+        'background': 'transparent',
+        'color':
+            isActive ? 'var(--neon-accent)' : 'var(--muted-foreground)',
         'border': 'none',
-        'font-weight': isActive ? '600' : '400',
+        'font-weight': isActive ? '700' : '500',
       },
     };
 
@@ -167,11 +169,12 @@ class NeonPagination extends StatelessComponent {
           'height': buttonSize,
           'padding': '0 0.75rem',
           'font-size': fontSize,
-          'font-weight': 'var(--font-weight-medium)',
-          'border-radius': 'var(--radius-md)',
+          'font-weight': '600',
+          'font-variant-numeric': 'tabular-nums',
           'cursor': disabled ? 'not-allowed' : 'pointer',
-          'transition': 'all var(--transition)',
-          'opacity': disabled ? '0.5' : '1',
+          'transition':
+              'background 0.18s ease, color 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease',
+          'opacity': disabled ? '0.45' : '1',
           ...styleVariant,
         },
       ),

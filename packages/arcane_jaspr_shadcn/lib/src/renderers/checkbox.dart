@@ -2,6 +2,8 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/component/view/icon.dart';
+import 'package:arcane_jaspr/core/interaction/interaction.dart';
+import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/checkbox_props.dart';
 
 /// ShadCN Checkbox renderer.
@@ -49,12 +51,53 @@ class ShadcnCheckbox extends StatelessComponent {
       ColorVariant.info => 'var(--info-foreground, #ffffff)',
     };
 
-    return dom.div(
-      classes: 'arcane-checkbox-wrapper',
-      attributes: {
+    final bool inExternalGroup =
+        props.group != null && props.group!.isNotEmpty && props.value != null;
+    final String groupId = inExternalGroup ? props.group! : props.id;
+    final String itemValue = inExternalGroup ? props.value! : 'on';
+    final String groupMode = inExternalGroup ? 'multi' : 'multi';
+    final String currentGroupValue = props.checked ? itemValue : '';
+
+    final Map<String, String> rootAttrs = inExternalGroup
+        ? const <String, String>{}
+        : groupAttrs(
+            groupId: groupId,
+            mode: groupMode,
+            value: currentGroupValue,
+            disabled: props.disabled,
+          );
+
+    final Map<String, String> itemAttrs = mergeAttrs(<Map<String, String>>[
+      groupItemAttrs(
+        groupId: groupId,
+        value: itemValue,
+        selected: props.checked,
+        disabled: props.disabled,
+      ),
+      <String, String>{
+        'role': 'checkbox',
+        'aria-checked': '${props.checked}',
+        'tabindex': props.disabled ? '-1' : '0',
         'data-state': props.checked ? 'checked' : 'unchecked',
         'data-disabled': '${props.disabled}',
       },
+      if (!props.disabled)
+        interactionAttrs(
+          ArcaneInteraction.toggleValue(groupId, itemValue),
+        ),
+    ]);
+
+    final Map<String, String> wrapperAttrs = mergeAttrs(<Map<String, String>>[
+      rootAttrs,
+      <String, String>{
+        'data-state': props.checked ? 'checked' : 'unchecked',
+        'data-disabled': '${props.disabled}',
+      },
+    ]);
+
+    return dom.div(
+      classes: 'arcane-checkbox-wrapper',
+      attributes: wrapperAttrs,
       styles: dom.Styles(
         raw: {
           'display': 'flex',
@@ -68,7 +111,9 @@ class ShadcnCheckbox extends StatelessComponent {
       ),
       events: props.disabled || props.onChanged == null
           ? null
-          : {'click': (event) => props.onChanged!(!props.checked)},
+          : <String, EventCallback>{
+              'click': (event) => props.onChanged!(!props.checked),
+            },
       [
         // Checkbox box - ShadCN styling
         // peer h-4 w-4 shrink-0 rounded-sm border border-primary
@@ -78,10 +123,7 @@ class ShadcnCheckbox extends StatelessComponent {
         // data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground
         dom.div(
           classes: 'arcane-checkbox',
-          attributes: {
-            'data-state': props.checked ? 'checked' : 'unchecked',
-            'data-disabled': '${props.disabled}',
-          },
+          attributes: itemAttrs,
           styles: dom.Styles(
             raw: {
               'width': boxSize,

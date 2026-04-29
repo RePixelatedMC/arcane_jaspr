@@ -92,15 +92,15 @@ class NeonSeparator extends StatelessComponent {
           [],
         ),
 
-        // Label or icon
         if (props.label != null)
           dom.span(
             styles: const dom.Styles(
               raw: {
+                'font-family': 'var(--font-heading)',
                 'font-size': 'var(--arcane-font-size-xs)',
                 'font-weight': 'var(--arcane-font-weight-medium)',
                 'text-transform': 'uppercase',
-                'letter-spacing': '0',
+                'letter-spacing': '0.08em',
                 'color': 'var(--muted-foreground)',
                 'flex-shrink': '0',
               },

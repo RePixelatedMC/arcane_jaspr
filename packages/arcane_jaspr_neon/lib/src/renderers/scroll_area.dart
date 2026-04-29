@@ -46,12 +46,10 @@ class NeonScrollArea extends StatelessComponent {
           'overflow-y': overflowY,
           if (props.padding != null) 'padding': props.padding!,
           ...scrollbarVisibilityStyles,
-          // Smooth scrolling
           'scroll-behavior': 'smooth',
-          // Touch scrolling
           '-webkit-overflow-scrolling': 'touch',
-          // Thin scrollbar with accent color
-          'scrollbar-color': 'rgba(var(--primary-rgb), 0.3) transparent',
+          'scrollbar-color':
+              'color-mix(in srgb, var(--neon-accent) 38%, transparent) transparent',
           'scrollbar-width': 'thin',
         },
       ),
@@ -159,7 +157,8 @@ class NeonVirtualScroll<T> extends StatelessComponent {
           'height': props.height,
           'overflow-y': 'auto',
           'position': 'relative',
-          'scrollbar-color': 'rgba(var(--primary-rgb), 0.3) transparent',
+          'scrollbar-color':
+              'color-mix(in srgb, var(--neon-accent) 38%, transparent) transparent',
           'scrollbar-width': 'thin',
         },
       ),

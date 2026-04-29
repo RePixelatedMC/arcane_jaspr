@@ -16,6 +16,7 @@ This is the baseline Arcane Jaspr example. If you can write this app, you are on
 ```dart
 import 'package:arcane_jaspr/arcane_jaspr.dart';
 import 'package:arcane_jaspr_neon/arcane_jaspr_neon.dart';
+import 'package:arcane_jaspr_neubrutalism/arcane_jaspr_neubrutalism.dart';
 import 'package:arcane_jaspr_shadcn/arcane_jaspr_shadcn.dart';
 
 const ArcaneStylesheet shadcnStylesheet = ShadcnStylesheet(
@@ -23,6 +24,9 @@ const ArcaneStylesheet shadcnStylesheet = ShadcnStylesheet(
 );
 const ArcaneStylesheet neonStylesheet = NeonStylesheet(
   theme: NeonTheme.green,
+);
+const ArcaneStylesheet neubrutalismStylesheet = NeubrutalismStylesheet(
+  theme: NeubrutalismTheme.yellow,
 );
 const ArcaneStylesheet selectedStylesheet = shadcnStylesheet;
 

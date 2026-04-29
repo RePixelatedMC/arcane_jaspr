@@ -1,8 +1,16 @@
-name: Deploy Codex to GitHub Pages
+name: Deploy Docs to GitHub Pages
 
 on:
   push:
     branches: [master]
+    paths:
+      - 'arcane_jaspr_docs/**'
+      - 'lib/**'
+      - 'packages/**'
+      - 'tool/**'
+      - 'pubspec.yaml'
+      - '.github/workflows/deploy.yml'
+      - '.github/scripts/**'
   workflow_dispatch:
 
 permissions:
@@ -19,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: arcane_jaspr_codex/arcane_codex_web
+        working-directory: arcane_jaspr_docs/arcane_jaspr_docs_web
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -31,7 +39,7 @@ jobs:
 
       - name: Checkout arcane_lexicon dependency
         working-directory: .
-        run: git clone --depth 1 https://github.com/ArcaneArts/arcane_lexicon.git ../arcane_inkwell
+        run: git clone --depth 1 https://github.com/ArcaneArts/arcane_lexicon.git ../arcane_lexicon
 
       - name: Install dependencies
         run: dart pub get
@@ -57,7 +65,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: arcane_jaspr_codex/arcane_codex_web/build/jaspr
+          path: arcane_jaspr_docs/arcane_jaspr_docs_web/build/jaspr
 
   deploy:
     environment:

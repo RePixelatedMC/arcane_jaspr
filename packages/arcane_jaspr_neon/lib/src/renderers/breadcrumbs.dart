@@ -51,9 +51,32 @@ class NeonBreadcrumbs extends StatelessComponent {
 
     final List<Component> children = [
       if (index == 0 && props.showHomeIcon)
-        const dom.span(
-          styles: dom.Styles(raw: {'margin-right': '0.375rem'}),
-          [Component.text('\u{1F3E0}')], // Home icon
+        Component.element(
+          tag: 'svg',
+          attributes: {
+            'width': '14',
+            'height': '14',
+            'viewBox': '0 0 24 24',
+            'fill': 'none',
+            'stroke': 'currentColor',
+            'stroke-width': '2',
+            'stroke-linecap': 'round',
+            'stroke-linejoin': 'round',
+            'aria-hidden': 'true',
+          },
+          styles: const dom.Styles(raw: {'margin-right': '0.4rem'}),
+          children: [
+            Component.element(
+              tag: 'path',
+              attributes: {'d': 'M3 12l9-9 9 9'},
+              children: const [],
+            ),
+            Component.element(
+              tag: 'path',
+              attributes: {'d': 'M5 10v10h14V10'},
+              children: const [],
+            ),
+          ],
         )
       else if (item.icon != null) ...[
         item.icon!,
@@ -72,7 +95,7 @@ class NeonBreadcrumbs extends StatelessComponent {
             'align-items': 'center',
             'color': 'var(--muted-foreground)',
             'text-decoration': 'none',
-            'transition': 'color var(--transition)',
+            'transition': 'color 200ms ease',
           },
         ),
         children,
@@ -91,7 +114,8 @@ class NeonBreadcrumbs extends StatelessComponent {
             'padding': '0',
             'color': 'var(--muted-foreground)',
             'cursor': 'pointer',
-            'transition': 'color var(--transition)',
+            'font': 'inherit',
+            'transition': 'color 200ms ease',
           },
         ),
         events: {'click': (_) => props.onItemClick!(item, index)},
@@ -106,8 +130,8 @@ class NeonBreadcrumbs extends StatelessComponent {
         raw: {
           'display': 'inline-flex',
           'align-items': 'center',
-          'color': isLast ? 'var(--foreground)' : 'var(--muted-foreground)',
-          'font-weight': isLast ? '500' : '400',
+          'color': isLast ? 'var(--neon-accent)' : 'var(--muted-foreground)',
+          'font-weight': isLast ? 'var(--font-weight-semibold)' : '400',
           if (!isClickable && !isLast) 'cursor': 'default',
         },
       ),
@@ -123,17 +147,18 @@ class NeonBreadcrumbs extends StatelessComponent {
     final String separator = switch (props.separator) {
       BreadcrumbSeparatorStyle.slash => '/',
       BreadcrumbSeparatorStyle.chevron =>
-        '\u203A', // Single right-pointing angle
-      BreadcrumbSeparatorStyle.arrow => '\u2192', // Right arrow
-      BreadcrumbSeparatorStyle.dot => '\u2022', // Bullet
+        '\u203A',
+      BreadcrumbSeparatorStyle.arrow => '\u2192',
+      BreadcrumbSeparatorStyle.dot => '\u2022',
     };
 
     return dom.span(
       classes: 'neon-breadcrumb-separator',
       styles: const dom.Styles(
         raw: {
-          'color': 'var(--muted-foreground)',
-          'opacity': '0.5',
+          'color':
+              'color-mix(in srgb, var(--neon-accent) 38%, var(--muted-foreground))',
+          'opacity': '0.7',
           'user-select': 'none',
         },
       ),

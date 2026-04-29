@@ -1,5 +1,6 @@
 import 'package:arcane_jaspr/flutter.dart';
 import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
+import '../interaction/interaction.dart';
 import '../shared/shared.dart';
 
 export '../shared/shared.dart' show ComponentSize, ColorVariant;
@@ -13,11 +14,11 @@ enum FABPosition {
   relative,
 }
 
-/// FAB (Floating Action Button) component properties.
 class FABProps {
   final Widget icon;
   final String? label;
   final void Function()? onPressed;
+  final ArcaneInteraction? action;
   final ColorVariant color;
   final ComponentSize size;
   final bool disabled;
@@ -30,6 +31,7 @@ class FABProps {
     required this.icon,
     this.label,
     this.onPressed,
+    this.action,
     this.color = ColorVariant.primary,
     this.size = ComponentSize.md,
     this.disabled = false,
@@ -43,6 +45,7 @@ class FABProps {
     Widget? icon,
     String? label,
     void Function()? onPressed,
+    ArcaneInteraction? action,
     ColorVariant? color,
     ComponentSize? size,
     bool? disabled,
@@ -55,6 +58,7 @@ class FABProps {
       icon: icon ?? this.icon,
       label: label ?? this.label,
       onPressed: onPressed ?? this.onPressed,
+      action: action ?? this.action,
       color: color ?? this.color,
       size: size ?? this.size,
       disabled: disabled ?? this.disabled,

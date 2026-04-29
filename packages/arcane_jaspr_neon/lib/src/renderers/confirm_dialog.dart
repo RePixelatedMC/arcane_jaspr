@@ -35,12 +35,26 @@ class NeonConfirmDialog extends StatelessComponent {
             [
               if (props.icon != null)
                 dom.div(
+                  classes: 'neon-confirm-dialog-icon',
                   styles: dom.Styles(
                     raw: {
-                      'font-size': '3rem',
+                      'display': 'inline-flex',
+                      'align-items': 'center',
+                      'justify-content': 'center',
+                      'width': '3rem',
+                      'height': '3rem',
+                      'font-size': '1.5rem',
                       'color': props.destructive
                           ? 'var(--destructive)'
-                          : 'var(--primary)',
+                          : 'var(--neon-accent)',
+                      'background':
+                          'color-mix(in srgb, ${props.destructive ? 'var(--destructive)' : 'var(--neon-accent)'} 8%, transparent)',
+                      'border':
+                          '1px solid color-mix(in srgb, ${props.destructive ? 'var(--destructive)' : 'var(--neon-accent)'} 32%, transparent)',
+                      'border-radius': 'var(--neon-radius-control)',
+                      'clip-path': 'var(--neon-clip-xs)',
+                      'box-shadow':
+                          '0 0 18px color-mix(in srgb, ${props.destructive ? 'var(--destructive)' : 'var(--neon-accent)'} 22%, transparent)',
                     },
                   ),
                   [props.icon!],
@@ -114,8 +128,25 @@ class NeonAlertDialog extends StatelessComponent {
             [
               if (props.icon != null)
                 dom.div(
+                  classes: 'neon-confirm-dialog-icon',
                   styles: const dom.Styles(
-                    raw: {'font-size': '3rem', 'color': 'var(--primary)'},
+                    raw: {
+                      'display': 'inline-flex',
+                      'align-items': 'center',
+                      'justify-content': 'center',
+                      'width': '3rem',
+                      'height': '3rem',
+                      'font-size': '1.5rem',
+                      'color': 'var(--neon-accent)',
+                      'background':
+                          'color-mix(in srgb, var(--neon-accent) 8%, transparent)',
+                      'border':
+                          '1px solid color-mix(in srgb, var(--neon-accent) 32%, transparent)',
+                      'border-radius': 'var(--neon-radius-control)',
+                      'clip-path': 'var(--neon-clip-xs)',
+                      'box-shadow':
+                          '0 0 18px color-mix(in srgb, var(--neon-accent) 22%, transparent)',
+                    },
                   ),
                   [props.icon!],
                 ),

@@ -61,7 +61,7 @@ class _NeonFlexiCardsState extends State<NeonFlexiCards> {
             raw: {
               'margin': '-1.5rem -1.5rem 1rem -1.5rem',
               'padding': '0.75rem 1rem',
-              'border-bottom': '1px solid var(--border)',
+              'border-bottom': '1px solid var(--neon-panel-border)',
             },
           ),
           [item.header!],
@@ -75,14 +75,14 @@ class _NeonFlexiCardsState extends State<NeonFlexiCards> {
             'display': 'flex',
             'align-items': 'center',
             'justify-content': 'center',
-            'width': '56px',
-            'height': '56px',
-            'border-radius': 'var(--radius-md, 8px)',
+            'width': '52px',
+            'height': '52px',
+            'clip-path': 'var(--neon-clip-sm)',
             'background':
-                'color-mix(in srgb, var(--neon-accent) 12%, var(--neon-surface-2))',
-            'border': '1px solid var(--neon-accent-border)',
+                'color-mix(in srgb, var(--neon-accent) 14%, var(--neon-surface-2))',
+            'border': '1px solid var(--neon-panel-border)',
             'color': 'var(--neon-accent)',
-            'margin-bottom': '1rem',
+            'margin-bottom': '1.125rem',
             'transition': 'all ${duration}ms ease',
           },
         ),
@@ -169,7 +169,7 @@ class _NeonFlexiCardsState extends State<NeonFlexiCards> {
                   styles: dom.Styles(
                     raw: {
                       'padding-top': '1rem',
-                      'border-top': '1px solid var(--border)',
+                      'border-top': '1px solid var(--neon-panel-border)',
                       'opacity': showLongText ? '1' : '0.5',
                       'transition': 'opacity ${duration}ms ease',
                     },
@@ -210,11 +210,11 @@ class _NeonFlexiCardsState extends State<NeonFlexiCards> {
       'padding': '1.5rem',
       'background': isHovered
           ? 'color-mix(in srgb, var(--neon-surface-2) 88%, var(--neon-accent) 12%)'
-          : 'var(--neon-surface-1)',
+          : 'var(--neon-panel-surface)',
       'border': isHovered
-          ? '1px solid var(--neon-accent-border)'
-          : '1px solid var(--border)',
-      'border-radius': 'var(--radius, 8px)',
+          ? '1px solid color-mix(in srgb, var(--neon-accent) 38%, var(--neon-panel-border))'
+          : '1px solid var(--neon-panel-border)',
+      'clip-path': 'var(--neon-panel-clip)',
       'transition':
           'flex ${duration}ms cubic-bezier(0.4, 0, 0.2, 1), '
           'width ${duration}ms cubic-bezier(0.4, 0, 0.2, 1), '
@@ -222,7 +222,9 @@ class _NeonFlexiCardsState extends State<NeonFlexiCards> {
           'border-color ${duration}ms ease, '
           'box-shadow ${duration}ms ease',
       'overflow': 'hidden',
-      if (isHovered) 'box-shadow': '0 14px 32px rgba(0, 0, 0, 0.38)',
+      if (isHovered)
+        'box-shadow':
+            'var(--neon-shadow-lg), 0 0 22px color-mix(in srgb, var(--neon-accent) 18%, transparent)',
       if (item.onTap != null || item.href != null) 'cursor': 'pointer',
     };
 
@@ -284,9 +286,9 @@ class NeonFlexiCardsSimple extends StatelessComponent {
           'display': 'flex',
           'flex-direction': 'column',
           'padding': '1.5rem',
-          'background-color': 'var(--card)',
-          'border': '1px solid var(--border)',
-          'border-radius': 'var(--radius)',
+          'background-color': 'var(--neon-panel-surface)',
+          'border': '1px solid var(--neon-panel-border)',
+          'clip-path': 'var(--neon-panel-clip)',
           'transition': 'all var(--arcane-transition)',
           if (item.onTap != null || item.href != null) 'cursor': 'pointer',
         },

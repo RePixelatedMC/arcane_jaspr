@@ -7,16 +7,6 @@ import 'neon_layout_renderers.dart';
 import 'neon_theme.dart';
 import 'renderers/neon_renderers.dart';
 
-/// Neon stylesheet - premium dark design language.
-///
-/// Implements a dark-first visual system:
-/// - High-contrast surfaces with restrained accent emphasis
-/// - Configurable accent themes (Green/Red/Blue/Purple/Rainbow)
-/// - Premium typography with clear hierarchy
-/// - Focused interaction states and subtle atmosphere effects
-/// - ITCAvantGardeStd font for headings and titles
-/// - Akzidenz-GroteskPro font for body text
-/// - Hack font for code
 class NeonStylesheet extends ArcaneStylesheet {
   final NeonTheme theme;
 
@@ -34,14 +24,10 @@ class NeonStylesheet extends ArcaneStylesheet {
   @override
   LayoutRenderers get layouts => const NeonLayoutRenderers();
 
-  // ============================================
-  // Theme Seeds
-  // ============================================
-
   @override
   ThemeSeed get lightSeed => ThemeSeed(
     primary: theme.color,
-    background: 0xFFeef2f5,
+    background: theme.lightSurface,
     secondary: theme.lightSecondary,
     accent: theme.lightAccent,
     border: theme.lightBorder,
@@ -49,26 +35,24 @@ class NeonStylesheet extends ArcaneStylesheet {
     success: 0xFF087f5b,
     warning: 0xFF9a5b00,
     info: 0xFF075985,
+    accentGlow: false,
   );
 
   @override
   ThemeSeed get darkSeed => ThemeSeed(
     primary: theme.color,
-    background: 0xFF020204,
-    secondary: 0xFF07110f,
-    accent: 0xFF0b1d1a,
-    border: 0xFF17352f,
-    destructive: 0xFF8f1238,
-    success: 0xFF087a55,
-    warning: 0xFF9b5a05,
-    info: 0xFF075985,
+    background: 0xFF12151C,
+    secondary: 0xFF191D26,
+    accent: 0xFF1B222C,
+    border: 0xFF3E3E42,
+    destructive: 0xFF661B1C,
+    success: 0xFF1F8A65,
+    warning: 0xFFB86B16,
+    info: 0xFF007ACC,
     isDark: true,
-    accentGlow: false,
+    accentGlow: true,
+    glowColor: theme.color,
   );
-
-  // ============================================
-  // Fonts
-  // ============================================
 
   @override
   FontConfig get fonts => const FontConfig(
@@ -79,10 +63,6 @@ class NeonStylesheet extends ArcaneStylesheet {
     mono:
         "'Hack', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
   );
-
-  // ============================================
-  // Border Radius
-  // ============================================
 
   @override
   RadiusConfig get radius => const RadiusConfig.compact();

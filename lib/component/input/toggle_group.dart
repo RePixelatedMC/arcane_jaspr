@@ -1,6 +1,7 @@
 import 'package:arcane_jaspr/flutter.dart';
 import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
+import '../../core/interaction/interaction.dart';
 import '../../core/theme_provider.dart';
 
 export '../../core/props/toggle_group_props.dart'
@@ -32,20 +33,24 @@ enum ToggleGroupType {
 
 /// A toggle group component for selecting one or multiple options.
 class ArcaneToggleGroup extends StatelessWidget {
+  final String? id;
   final List<ToggleGroupItem> items;
   final String? value;
   final Set<String>? values;
   final void Function(String?)? onChanged;
   final void Function(Set<String>)? onMultiChanged;
+  final ArcaneInteraction? onChangeAction;
   final ToggleGroupType type;
   final ToggleGroupVariant variant;
   final ToggleGroupSize size;
   final bool disabled;
 
   const ArcaneToggleGroup({
+    this.id,
     required this.items,
     this.value,
     this.onChanged,
+    this.onChangeAction,
     this.variant = ToggleGroupVariant.defaultVariant,
     this.size = ToggleGroupSize.md,
     this.disabled = false,
@@ -55,9 +60,11 @@ class ArcaneToggleGroup extends StatelessWidget {
         onMultiChanged = null;
 
   const ArcaneToggleGroup.multiple({
+    this.id,
     required this.items,
     this.values,
     this.onMultiChanged,
+    this.onChangeAction,
     this.variant = ToggleGroupVariant.defaultVariant,
     this.size = ToggleGroupSize.md,
     this.disabled = false,
@@ -86,6 +93,7 @@ class ArcaneToggleGroup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return context.renderers.toggleGroup(ToggleGroupProps(
+      id: id,
       items: items
           .map((item) => ToggleGroupItemProps(
                 value: item.value,
@@ -101,6 +109,7 @@ class ArcaneToggleGroup extends StatelessWidget {
       disabled: disabled,
       onChanged: onChanged,
       onMultiChanged: onMultiChanged,
+      onChangeAction: onChangeAction,
     ));
   }
 }

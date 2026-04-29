@@ -29,8 +29,8 @@ class NeonProgress extends StatelessComponent {
     // Neon variant colors with accent as primary
     final (String indicatorColor, String? glowColor) = switch (props.variant) {
       ProgressVariant.primary => (
-        props.indicatorColor ?? 'var(--primary)',
-        '0 0 15px rgba(var(--primary-rgb), 0.2)',
+        props.indicatorColor ?? 'var(--neon-accent)',
+        '0 0 15px color-mix(in srgb, var(--neon-accent) 24%, transparent)',
       ),
       ProgressVariant.success => (
         props.indicatorColor ?? 'var(--success)',
@@ -144,7 +144,7 @@ class NeonCircularProgress extends StatelessComponent {
     final String size = props.size ?? '64px'; // Neon: slightly larger default
     final String strokeWidth =
         props.strokeWidth ?? '6px'; // Neon: thicker stroke
-    final String fillColor = props.fillColor ?? 'var(--primary)';
+    final String fillColor = props.fillColor ?? 'var(--neon-accent)';
     final String trackColor = props.trackColor ?? 'var(--muted)';
 
     return dom.div(
@@ -237,8 +237,8 @@ class NeonLoadingSpinner extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final String size = props.size ?? '24px'; // Neon: slightly larger
-    final String color = props.color ?? 'var(--primary)';
+    final String size = props.size ?? '24px';
+    final String color = props.color ?? 'var(--neon-accent)';
 
     return dom.span(
       classes: 'neon-loading-spinner',
@@ -247,12 +247,13 @@ class NeonLoadingSpinner extends StatelessComponent {
           'display': 'inline-block',
           'width': size,
           'height': size,
-          'border': '3px solid var(--muted)',
+          'border':
+              '2px solid color-mix(in srgb, $color 12%, transparent)',
           'border-top-color': color,
           'border-radius': 'var(--arcane-radius-full)',
           'animation': 'arcane-spin 0.75s linear infinite',
-          // Neon: subtle glow
-          'box-shadow': '0 14px 8px $color',
+          'box-shadow':
+              '0 0 14px color-mix(in srgb, $color 35%, transparent)',
         },
       ),
       [],

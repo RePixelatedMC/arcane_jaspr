@@ -1,6 +1,7 @@
 import 'package:arcane_jaspr/flutter.dart';
 import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
+import '../../core/interaction/interaction.dart';
 import '../../core/theme_provider.dart';
 
 export '../../core/props/cycle_button_props.dart'
@@ -11,6 +12,7 @@ class ArcaneCycleButton<T> extends StatelessWidget {
   final List<CycleOption<T>> options;
   final T value;
   final void Function(T value)? onChanged;
+  final ArcaneInteraction? onChangeAction;
   final CycleButtonVariant variant;
   final CycleButtonSize size;
   final bool disabled;
@@ -21,6 +23,7 @@ class ArcaneCycleButton<T> extends StatelessWidget {
     required this.options,
     required this.value,
     this.onChanged,
+    this.onChangeAction,
     this.variant = CycleButtonVariant.outline,
     this.size = CycleButtonSize.medium,
     this.disabled = false,
@@ -35,6 +38,7 @@ class ArcaneCycleButton<T> extends StatelessWidget {
       options: options,
       value: value,
       onChanged: onChanged,
+      onChangeAction: onChangeAction,
       variant: variant,
       size: size,
       disabled: disabled,
@@ -48,6 +52,7 @@ class ArcaneCycleButton<T> extends StatelessWidget {
 class ArcaneToggleButton extends StatelessWidget {
   final bool value;
   final void Function(bool value)? onChanged;
+  final ArcaneInteraction? onChangeAction;
   final String? label;
   final Widget? icon;
   final CycleButtonSize size;
@@ -58,6 +63,7 @@ class ArcaneToggleButton extends StatelessWidget {
   const ArcaneToggleButton({
     required this.value,
     this.onChanged,
+    this.onChangeAction,
     this.label,
     this.icon,
     this.size = CycleButtonSize.medium,
@@ -72,6 +78,7 @@ class ArcaneToggleButton extends StatelessWidget {
     return context.renderers.toggleButton(ToggleButtonProps(
       value: value,
       onChanged: onChanged,
+      onChangeAction: onChangeAction,
       label: label,
       icon: icon,
       size: size,

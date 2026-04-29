@@ -1,5 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 
+import '../interaction/interaction.dart';
 import '../shared/shared.dart';
 
 export '../shared/shared.dart' show ComponentSize;
@@ -13,6 +14,7 @@ enum SliderVariant {
 
 /// Slider component properties.
 class SliderProps {
+  final String? id;
   final double value;
   final double min;
   final double max;
@@ -31,8 +33,10 @@ class SliderProps {
   final double? rangeMin;
   final double? rangeMax;
   final void Function(double min, double max)? onRangeChanged;
+  final ArcaneInteraction? onChangeAction;
 
   const SliderProps({
+    this.id,
     this.value = 0,
     this.min = 0,
     this.max = 100,
@@ -51,9 +55,11 @@ class SliderProps {
     this.rangeMin,
     this.rangeMax,
     this.onRangeChanged,
+    this.onChangeAction,
   });
 
   const SliderProps.range({
+    this.id,
     required double minValue,
     required double maxValue,
     this.min = 0,
@@ -69,6 +75,7 @@ class SliderProps {
     this.showSteps = false,
     this.disabled = false,
     this.onRangeChanged,
+    this.onChangeAction,
   })  : value = 0,
         onChanged = null,
         isRange = true,
@@ -76,6 +83,7 @@ class SliderProps {
         rangeMax = maxValue;
 
   SliderProps copyWith({
+    String? id,
     double? value,
     double? min,
     double? max,
@@ -94,8 +102,10 @@ class SliderProps {
     double? rangeMin,
     double? rangeMax,
     void Function(double min, double max)? onRangeChanged,
+    ArcaneInteraction? onChangeAction,
   }) {
     return SliderProps(
+      id: id ?? this.id,
       value: value ?? this.value,
       min: min ?? this.min,
       max: max ?? this.max,
@@ -114,6 +124,7 @@ class SliderProps {
       rangeMin: rangeMin ?? this.rangeMin,
       rangeMax: rangeMax ?? this.rangeMax,
       onRangeChanged: onRangeChanged ?? this.onRangeChanged,
+      onChangeAction: onChangeAction ?? this.onChangeAction,
     );
   }
 }

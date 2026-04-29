@@ -16,8 +16,11 @@ class NeonStaticTable extends StatelessComponent {
       styles: const dom.Styles(
         raw: {
           'overflow-x': 'auto',
-          'border': '1px solid var(--border)',
-          'border-radius': 'var(--radius)',
+          'border': '1px solid var(--neon-panel-border)',
+          'clip-path': 'var(--neon-clip-md)',
+          'background': 'var(--neon-panel-surface)',
+          'box-shadow':
+              'var(--neon-shadow-md), inset 0 1px 0 var(--neon-inset)',
         },
       ),
       [
@@ -28,6 +31,7 @@ class NeonStaticTable extends StatelessComponent {
               'width': '100%',
               'border-collapse': 'collapse',
               'font-size': 'var(--font-size-sm)',
+              'font-variant-numeric': 'tabular-nums',
             },
           ),
           [
@@ -36,7 +40,9 @@ class NeonStaticTable extends StatelessComponent {
               dom.thead(
                 styles: dom.Styles(
                   raw: {
-                    'background-color': 'var(--secondary)',
+                    'background': 'var(--neon-panel-tint)',
+                    'border-bottom':
+                        '1px solid var(--neon-control-border-strong)',
                     if (props.stickyHeader) 'position': 'sticky',
                     if (props.stickyHeader) 'top': '0',
                     if (props.stickyHeader) 'z-index': '1',
@@ -48,14 +54,18 @@ class NeonStaticTable extends StatelessComponent {
                       dom.th(
                         styles: dom.Styles(
                           raw: {
-                            'padding': '1.25rem 1.75rem',
+                            'padding': '1rem 1.5rem',
                             'text-align':
                                 (props.alignments != null &&
                                     i < props.alignments!.length)
                                 ? props.alignments![i].css
                                 : 'left',
+                            'font-family': 'var(--font-heading)',
+                            'font-size': 'var(--font-size-xs)',
                             'font-weight': 'var(--font-weight-semibold)',
-                            'color': 'var(--foreground)',
+                            'letter-spacing': '0.12em',
+                            'text-transform': 'uppercase',
+                            'color': 'var(--muted-foreground)',
                             'white-space': 'nowrap',
                           },
                         ),
@@ -71,12 +81,13 @@ class NeonStaticTable extends StatelessComponent {
                 dom.tr(
                   styles: dom.Styles(
                     raw: {
-                      'background-color': props.striped && rowIndex.isOdd
-                          ? 'var(--secondary)'
-                          : 'var(--card)',
+                      'background': props.striped && rowIndex.isOdd
+                          ? 'color-mix(in srgb, var(--neon-accent) 4%, transparent)'
+                          : 'transparent',
                       if (props.showDividers &&
                           rowIndex < props.rows.length - 1)
-                        'border-bottom': '1px solid var(--border)',
+                        'border-bottom':
+                            '1px solid color-mix(in srgb, var(--neon-panel-border) 60%, transparent)',
                     },
                   ),
                   [
@@ -88,7 +99,7 @@ class NeonStaticTable extends StatelessComponent {
                       dom.td(
                         styles: dom.Styles(
                           raw: {
-                            'padding': '1.25rem 1.75rem',
+                            'padding': '1rem 1.5rem',
                             'text-align':
                                 (props.alignments != null &&
                                     colIndex < props.alignments!.length)
@@ -121,8 +132,11 @@ class NeonKeyValueTable extends StatelessComponent {
       classes: 'neon-kv-table',
       styles: const dom.Styles(
         raw: {
-          'border': '1px solid var(--border)',
-          'border-radius': 'var(--radius)',
+          'border': '1px solid var(--neon-panel-border)',
+          'clip-path': 'var(--neon-clip-md)',
+          'background': 'var(--neon-panel-surface)',
+          'box-shadow':
+              'var(--neon-shadow-md), inset 0 1px 0 var(--neon-inset)',
           'overflow': 'hidden',
         },
       ),
@@ -134,7 +148,8 @@ class NeonKeyValueTable extends StatelessComponent {
               raw: {
                 'display': 'flex',
                 if (props.showDividers && i < props.rows.length - 1)
-                  'border-bottom': '1px solid var(--border)',
+                  'border-bottom':
+                      '1px solid color-mix(in srgb, var(--neon-panel-border) 60%, transparent)',
               },
             ),
             [
@@ -143,15 +158,19 @@ class NeonKeyValueTable extends StatelessComponent {
                 classes: 'neon-kv-table-key',
                 styles: dom.Styles(
                   raw: {
-                    'padding': '1.25rem 1.75rem',
-                    'background-color': 'var(--secondary)',
-                    'font-weight': 'var(--font-weight-medium)',
-                    'color': 'var(--foreground)',
-                    'font-size': 'var(--font-size-sm)',
+                    'padding': '1rem 1.5rem',
+                    'background': 'var(--neon-panel-tint)',
+                    'font-family': 'var(--font-heading)',
+                    'font-size': 'var(--font-size-xs)',
+                    'font-weight': 'var(--font-weight-semibold)',
+                    'letter-spacing': '0.08em',
+                    'text-transform': 'uppercase',
+                    'color': 'var(--muted-foreground)',
                     if (props.keyWidth != null) 'width': '${props.keyWidth}px',
                     if (props.keyWidth != null) 'flex-shrink': '0',
                     if (props.keyWidth == null) 'flex': '0 0 30%',
-                    'border-right': '1px solid var(--border)',
+                    'border-right':
+                        '1px solid color-mix(in srgb, var(--neon-panel-border) 60%, transparent)',
                   },
                 ),
                 [Component.text(props.rows[i].key)],
@@ -163,8 +182,8 @@ class NeonKeyValueTable extends StatelessComponent {
                 styles: const dom.Styles(
                   raw: {
                     'flex': '1',
-                    'padding': '1.25rem 1.75rem',
-                    'background-color': 'var(--card)',
+                    'padding': '1rem 1.5rem',
+                    'background': 'transparent',
                     'color': 'var(--foreground)',
                     'font-size': 'var(--font-size-sm)',
                   },

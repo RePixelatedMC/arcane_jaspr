@@ -1,12 +1,15 @@
 import 'package:arcane_jaspr/flutter.dart';
 import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
+import '../../core/interaction/interaction.dart';
+
 export '../../core/props/slider_props.dart' show ComponentSize, SliderVariant;
 
 import '../../core/theme_provider.dart';
 
 /// Slider input component with single value or range mode.
 class ArcaneSlider extends StatelessWidget {
+  final String? id;
   final double value;
   final double min;
   final double max;
@@ -25,8 +28,10 @@ class ArcaneSlider extends StatelessWidget {
   final double? rangeMin;
   final double? rangeMax;
   final void Function(double min, double max)? onRangeChanged;
+  final ArcaneInteraction? onChangeAction;
 
   const ArcaneSlider({
+    this.id,
     required this.value,
     this.min = 0,
     this.max = 100,
@@ -41,6 +46,7 @@ class ArcaneSlider extends StatelessWidget {
     this.showSteps = false,
     this.disabled = false,
     this.onChanged,
+    this.onChangeAction,
     super.key,
   })  : isRange = false,
         rangeMin = null,
@@ -48,6 +54,7 @@ class ArcaneSlider extends StatelessWidget {
         onRangeChanged = null;
 
   const ArcaneSlider.range({
+    this.id,
     required double minValue,
     required double maxValue,
     this.min = 0,
@@ -63,6 +70,7 @@ class ArcaneSlider extends StatelessWidget {
     this.showSteps = false,
     this.disabled = false,
     this.onRangeChanged,
+    this.onChangeAction,
     super.key,
   })  : value = 0,
         onChanged = null,
@@ -71,6 +79,7 @@ class ArcaneSlider extends StatelessWidget {
         rangeMax = maxValue;
 
   const ArcaneSlider.primary({
+    this.id,
     required this.value,
     this.min = 0,
     this.max = 100,
@@ -84,6 +93,7 @@ class ArcaneSlider extends StatelessWidget {
     this.showSteps = false,
     this.disabled = false,
     this.onChanged,
+    this.onChangeAction,
     super.key,
   })  : variant = SliderVariant.primary,
         isRange = false,
@@ -92,6 +102,7 @@ class ArcaneSlider extends StatelessWidget {
         onRangeChanged = null;
 
   const ArcaneSlider.success({
+    this.id,
     required this.value,
     this.min = 0,
     this.max = 100,
@@ -105,6 +116,7 @@ class ArcaneSlider extends StatelessWidget {
     this.showSteps = false,
     this.disabled = false,
     this.onChanged,
+    this.onChangeAction,
     super.key,
   })  : variant = SliderVariant.success,
         isRange = false,
@@ -113,6 +125,7 @@ class ArcaneSlider extends StatelessWidget {
         onRangeChanged = null;
 
   const ArcaneSlider.warning({
+    this.id,
     required this.value,
     this.min = 0,
     this.max = 100,
@@ -126,6 +139,7 @@ class ArcaneSlider extends StatelessWidget {
     this.showSteps = false,
     this.disabled = false,
     this.onChanged,
+    this.onChangeAction,
     super.key,
   })  : variant = SliderVariant.warning,
         isRange = false,
@@ -134,6 +148,7 @@ class ArcaneSlider extends StatelessWidget {
         onRangeChanged = null;
 
   const ArcaneSlider.error({
+    this.id,
     required this.value,
     this.min = 0,
     this.max = 100,
@@ -147,6 +162,7 @@ class ArcaneSlider extends StatelessWidget {
     this.showSteps = false,
     this.disabled = false,
     this.onChanged,
+    this.onChangeAction,
     super.key,
   })  : variant = SliderVariant.error,
         isRange = false,
@@ -157,6 +173,7 @@ class ArcaneSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return context.renderers.slider(SliderProps(
+      id: id,
       value: value,
       min: min,
       max: max,
@@ -175,6 +192,7 @@ class ArcaneSlider extends StatelessWidget {
       rangeMin: rangeMin,
       rangeMax: rangeMax,
       onRangeChanged: onRangeChanged,
+      onChangeAction: onChangeAction,
     ));
   }
 }

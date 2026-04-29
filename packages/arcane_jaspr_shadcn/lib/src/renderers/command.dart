@@ -2,6 +2,7 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/component/view/icon.dart';
+import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/command_props.dart';
 
 /// ShadCN Command renderer.
@@ -15,16 +16,24 @@ class ShadcnCommand extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    if (!props.isOpen) {
-      return const dom.div(styles: dom.Styles(raw: {'display': 'none'}), []);
-    }
+    final String surfaceId = props.id ?? _autoId();
+
+    final Map<String, String> surfAttrs = surfaceAttrs(
+      surface: 'command',
+      id: surfaceId,
+      initiallyOpen: props.isOpen,
+      dismissible: true,
+      escapeCloses: props.escapeCloses,
+      focusTrap: props.focusTrap,
+      scrimCloses: props.scrimCloses,
+      restoreFocus: props.restoreFocus,
+    );
 
     return dom.div(
-      classes: 'arcane-command-overlay',
-      attributes: {
-        'data-command': 'true',
-        'data-command-closable': 'true', // JavaScript handles close
-        'data-state': 'open',
+      classes: 'arcane-command-overlay arcane-overlay-scrim',
+      attributes: <String, String>{
+        ...surfAttrs,
+        'data-arcane-command': surfaceId,
       },
       styles: const dom.Styles(
         raw: {
@@ -41,11 +50,10 @@ class ShadcnCommand extends StatelessComponent {
           'animation': 'arcane-fade-in var(--transition-slow)',
         },
       ),
-      // Note: No Dart event handlers - JavaScript handles all interactions
       [
         dom.div(
           classes: 'arcane-command-dialog',
-          attributes: {
+          attributes: const <String, String>{
             'role': 'dialog',
             'aria-modal': 'true',
             'aria-label': 'Command palette',
@@ -98,6 +106,9 @@ class ShadcnCommand extends StatelessComponent {
                   '<input class="arcane-command-input" type="text" '
                   'placeholder="${props.placeholder}" '
                   'autofocus autocomplete="off" spellcheck="false" '
+                  'data-arcane-command-input="$surfaceId" '
+                  'data-arcane-input="command.filter:$surfaceId" '
+                  'value="${props.searchQuery}" '
                   'style="flex:1;background:transparent;border:none;'
                   'font-size:var(--font-size-sm);color:var(--foreground);outline:none;">',
                 ),
@@ -107,7 +118,7 @@ class ShadcnCommand extends StatelessComponent {
             // Results - ShadCN: max-h-[300px] overflow-y-auto overflow-x-hidden
             dom.div(
               classes: 'arcane-command-list',
-              attributes: {'role': 'listbox'},
+              attributes: const <String, String>{'role': 'listbox'},
               styles: const dom.Styles(
                 raw: {
                   'max-height': '400px',
@@ -116,45 +127,25 @@ class ShadcnCommand extends StatelessComponent {
                 },
               ),
               [
-                if (props.filteredItems.isEmpty)
-                  // ShadCN: py-6 text-center text-sm
-                  dom.div(
-                    styles: const dom.Styles(
-                      raw: {
-                        'padding': '24px',
-                        'text-align': 'center',
-                        'color': 'var(--muted-foreground)',
-                        'font-size': 'var(--font-size-sm)',
-                      },
-                    ),
-                    [Component.text(props.emptyMessage)],
-                  )
-                else if (props.searchQuery.isEmpty)
-                  // Show groups when not searching
-                  for (final group in props.groups) ...[
-                    if (group.heading != null)
-                      // ShadCN: px-2 py-1.5 text-xs font-medium text-muted-foreground
-                      dom.div(
-                        classes: 'arcane-command-group-heading',
-                        styles: const dom.Styles(
-                          raw: {
-                            'padding': '8px 12px',
-                            'font-size': 'var(--font-size-xs)',
-                            'font-weight': 'var(--font-weight-semibold)',
-                            'color': 'var(--muted-foreground)',
-                            'text-transform': 'uppercase',
-                            'letter-spacing': '0.05em',
-                          },
-                        ),
-                        [Component.text(group.heading!)],
-                      ),
-                    for (final item in group.items)
-                      _buildItem(item, group.heading),
-                  ]
-                else
-                  // Show flat list when searching
-                  for (final item in props.filteredItems)
-                    _buildItem(item, null),
+                // ShadCN: py-6 text-center text-sm
+                dom.div(
+                  attributes: <String, String>{
+                    'data-arcane-command-empty': 'true',
+                    if (props.filteredItems.isNotEmpty) 'hidden': '',
+                  },
+                  styles: const dom.Styles(
+                    raw: {
+                      'padding': '24px',
+                      'text-align': 'center',
+                      'color': 'var(--muted-foreground)',
+                      'font-size': 'var(--font-size-sm)',
+                    },
+                  ),
+                  [Component.text(props.emptyMessage)],
+                ),
+
+                for (final group in props.groups)
+                  _buildGroup(group, surfaceId),
               ],
             ),
 
@@ -183,15 +174,66 @@ class ShadcnCommand extends StatelessComponent {
     );
   }
 
-  Component _buildItem(CommandItemProps item, String? groupName) {
+  Component _buildGroup(CommandGroupProps group, String surfaceId) {
+    final String groupId = (group.heading ?? 'group').toLowerCase().replaceAll(
+          RegExp(r'[^a-z0-9]+'),
+          '-',
+        );
+    return dom.div(
+      attributes: <String, String>{
+        'data-arcane-command-group': groupId,
+      },
+      [
+        if (group.heading != null)
+          // ShadCN: px-2 py-1.5 text-xs font-medium text-muted-foreground
+          dom.div(
+            classes: 'arcane-command-group-heading',
+            styles: const dom.Styles(
+              raw: {
+                'padding': '8px 12px',
+                'font-size': 'var(--font-size-xs)',
+                'font-weight': 'var(--font-weight-semibold)',
+                'color': 'var(--muted-foreground)',
+                'text-transform': 'uppercase',
+                'letter-spacing': '0.05em',
+              },
+            ),
+            [Component.text(group.heading!)],
+          ),
+        for (final item in group.items)
+          _buildItem(item, group.heading, surfaceId, groupId),
+      ],
+    );
+  }
+
+  Component _buildItem(
+    CommandItemProps item,
+    String? groupName,
+    String surfaceId,
+    String groupId,
+  ) {
+    final List<String> actions = <String>[];
+    if (item.href != null && item.href!.isNotEmpty) {
+      final String target = item.hrefTarget ?? '_self';
+      if (target == '_blank') {
+        actions.add('nav.external:${item.href}');
+      } else {
+        actions.add('nav.go:${item.href}');
+      }
+    }
+    actions.add('surface.close:command:$surfaceId');
+    final String actionStr = actions.join(' ; ');
+
     // ShadCN: relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none
     return dom.div(
       classes: 'arcane-command-item ${item.disabled ? 'disabled' : ''}',
-      attributes: {
+      attributes: <String, String>{
         'role': 'option',
         'aria-selected': 'false',
         if (item.disabled) 'aria-disabled': 'true',
-        // Data attributes for JavaScript navigation
+        // Data attributes for JavaScript navigation and filtering
+        'data-arcane-command-item': 'true',
+        'data-arcane-command-group-id': groupId,
         if (item.href != null) 'data-href': item.href!,
         if (item.hrefTarget != null) 'data-target': item.hrefTarget!,
         // Store keywords for JS filtering
@@ -199,7 +241,9 @@ class ShadcnCommand extends StatelessComponent {
           'data-keywords': item.keywords!.join(','),
         'data-label': item.label,
         if (groupName != null) 'data-group': groupName,
-        'data-disabled': '${item.disabled}',
+        if (item.disabled) 'data-arcane-disabled': 'true',
+        if (!item.disabled) 'data-arcane-action': actionStr,
+        'tabindex': item.disabled ? '-1' : '0',
       },
       styles: dom.Styles(
         raw: {
@@ -214,7 +258,6 @@ class ShadcnCommand extends StatelessComponent {
           if (item.disabled) 'opacity': '0.5',
         },
       ),
-      // Note: No Dart event handlers - JavaScript handles clicks via data-href
       [
         if (item.icon != null) item.icon!,
         dom.span(
@@ -273,5 +316,11 @@ class ShadcnCommand extends StatelessComponent {
         dom.span([Component.text(label)]),
       ],
     );
+  }
+
+  static int _autoCounter = 0;
+  static String _autoId() {
+    _autoCounter++;
+    return 'arcane-command-$_autoCounter';
   }
 }

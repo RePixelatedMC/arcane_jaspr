@@ -2,6 +2,7 @@ import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
 import 'package:arcane_jaspr/core/props/text_input_props.dart';
+import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 
 class NeonTextInput extends StatelessComponent {
   final TextInputProps props;
@@ -40,10 +41,17 @@ class NeonTextInput extends StatelessComponent {
 
     String borderColor = hasError
         ? 'var(--destructive)'
-        : 'var(--neon-accent-border)';
+        : 'var(--neon-control-border)';
 
     String surface =
-        'linear-gradient(135deg, color-mix(in srgb, var(--neon-cyan) 7%, transparent), color-mix(in srgb, var(--card) 82%, transparent)), linear-gradient(90deg, color-mix(in srgb, var(--primary) 4%, transparent) 1px, transparent 1px)';
+        'linear-gradient(135deg, color-mix(in srgb, var(--neon-accent) 5%, transparent), color-mix(in srgb, var(--card) 86%, transparent))';
+
+    Map<String, String> runtimeAttrs = textInputAttrs(
+      onChange: props.onChangeAction,
+      onSubmit: props.onSubmitAction,
+      formId: props.formId,
+      fieldName: props.fieldName,
+    );
 
     Component inputElement = dom.input(
       type: inputType,
@@ -58,6 +66,8 @@ class NeonTextInput extends StatelessComponent {
         if (props.readOnly) 'readonly': 'true',
         'data-disabled': '${props.disabled}',
         'data-error': '$hasError',
+        ...runtimeAttrs,
+        ...?props.attributes,
       },
       styles: dom.Styles(
         raw: {
@@ -68,19 +78,17 @@ class NeonTextInput extends StatelessComponent {
           'clip-path': 'var(--neon-control-clip)',
           'border': '1px solid $borderColor',
           'background': surface,
-          'background-size': 'auto, 18px 18px',
           'padding': '$paddingY $paddingX',
           'font-size': fontSize,
           'font-family': 'inherit',
           'line-height': '1.5',
           'color': 'var(--foreground)',
           'outline': 'none',
-          'box-shadow':
-              'inset 0 1px 0 rgba(255,255,255,0.08), 0 0 18px color-mix(in srgb, var(--primary) 7%, transparent)',
+          'box-shadow': 'var(--neon-inset)',
           if (props.disabled) 'cursor': 'not-allowed',
           if (props.disabled) 'opacity': '0.45',
           'transition':
-              'border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease',
+              'border-color 0.18s ease, box-shadow 0.18s ease',
         },
       ),
       events: {
@@ -171,10 +179,10 @@ class NeonTextInput extends StatelessComponent {
                 'clip-path': 'var(--neon-control-clip)',
                 'border': '1px solid $borderColor',
                 'background': surface,
-                'background-size': 'auto, 18px 18px',
                 'overflow': 'hidden',
-                'box-shadow':
-                    'inset 0 1px 0 rgba(255,255,255,0.08), 0 0 18px color-mix(in srgb, var(--primary) 7%, transparent)',
+                'box-shadow': 'var(--neon-inset)',
+                'transition':
+                    'border-color 0.18s ease, box-shadow 0.18s ease',
               },
             ),
             [
@@ -203,6 +211,8 @@ class NeonTextInput extends StatelessComponent {
                   if (props.disabled) 'disabled': 'true',
                   if (props.required) 'required': 'true',
                   if (props.readOnly) 'readonly': 'true',
+                  ...runtimeAttrs,
+                  ...?props.attributes,
                 },
                 styles: dom.Styles(
                   raw: {

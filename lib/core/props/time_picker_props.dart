@@ -53,26 +53,17 @@ class TimeOfDay {
 
 /// Time picker component properties.
 class TimePickerProps {
+  final String? id;
   final TimeOfDay? value;
   final String displayText;
+  final String? placeholder;
   final String? label;
   final bool disabled;
   final String? error;
   final bool clearable;
   final ComponentSize size;
-  final bool isOpen;
   final bool use24Hour;
-  final int selectedHour;
-  final int selectedMinute;
-  final bool isPM;
   final int minuteInterval;
-  final void Function()? onToggle;
-  final void Function()? onClear;
-  final void Function(int hour)? onSelectHour;
-  final void Function(int minute)? onSelectMinute;
-  final void Function()? onTogglePeriod;
-  final void Function()? onConfirm;
-  final void Function()? onCancel;
 
   const TimePickerProps({
     required this.value,
@@ -80,21 +71,12 @@ class TimePickerProps {
     required this.disabled,
     required this.clearable,
     required this.size,
-    required this.isOpen,
     required this.use24Hour,
-    required this.selectedHour,
-    required this.selectedMinute,
-    required this.isPM,
     required this.minuteInterval,
+    this.id,
+    this.placeholder,
     this.label,
     this.error,
-    this.onToggle,
-    this.onClear,
-    this.onSelectHour,
-    this.onSelectMinute,
-    this.onTogglePeriod,
-    this.onConfirm,
-    this.onCancel,
   });
 }
 

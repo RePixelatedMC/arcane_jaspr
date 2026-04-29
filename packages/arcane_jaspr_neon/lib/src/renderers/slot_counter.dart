@@ -139,7 +139,7 @@ class _NeonSlotCounterState extends State<NeonSlotCounter> {
       case SlotCounterColor.primary:
         return 'var(--foreground)';
       case SlotCounterColor.accent:
-        return 'var(--primary)';
+        return 'var(--neon-accent)';
       case SlotCounterColor.muted:
         return 'var(--muted-foreground)';
       case SlotCounterColor.success:
@@ -196,9 +196,13 @@ class _NeonSlotCounterState extends State<NeonSlotCounter> {
                 raw: {
                   'font-size': _getFontSize(component.props.valueSize),
                   'font-weight': component.props.valueBold ? '700' : '400',
+                  'font-variant-numeric': 'tabular-nums',
                   'color': _getColor(component.props.valueColor),
                   'opacity': _isSpinning ? '0.7' : '1',
-                  'transition': 'all var(--arcane-transition)',
+                  'text-shadow': component.props.valueColor == SlotCounterColor.accent
+                      ? '0 0 18px color-mix(in srgb, var(--neon-accent) 38%, transparent)'
+                      : 'none',
+                  'transition': 'opacity 200ms ease',
                 },
               ),
               [Component.text(displayValue)],
@@ -221,10 +225,12 @@ class _NeonSlotCounterState extends State<NeonSlotCounter> {
           dom.div(
             styles: dom.Styles(
               raw: {
+                'font-family': 'var(--font-heading)',
                 'font-size': _getFontSize(component.props.labelSize),
+                'font-weight': 'var(--font-weight-semibold)',
                 'color': _getColor(component.props.labelColor),
                 'text-transform': 'uppercase',
-                'letter-spacing': '0',
+                'letter-spacing': '0.12em',
               },
             ),
             [Component.text(component.props.label!)],
@@ -274,9 +280,16 @@ class NeonSlotCounterCard extends StatelessComponent {
           'flex-direction': 'column',
           'align-items': 'center',
           'padding': props.padding,
-          'border-radius': props.borderRadius,
-          if (props.showBackground) 'background-color': 'var(--card)',
-          if (props.showBorder) 'border': '1px solid var(--border)',
+          if (props.showBackground) ...{
+            'background': 'var(--neon-panel-surface)',
+            'clip-path': 'var(--neon-clip-md)',
+            'box-shadow':
+                'var(--neon-shadow-sm), inset 0 1px 0 var(--neon-inset)',
+          } else ...{
+            'border-radius': props.borderRadius,
+          },
+          if (props.showBorder)
+            'border': '1px solid var(--neon-panel-border)',
         },
       ),
       [NeonSlotCounter(props.counter)],

@@ -1,6 +1,7 @@
 import 'package:arcane_jaspr/flutter.dart';
 import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
+import '../../core/interaction/interaction.dart';
 import '../../core/theme_provider.dart';
 
 export '../../core/props/button_props.dart' show ButtonVariant, ButtonSize;
@@ -15,6 +16,7 @@ class Button extends StatelessWidget {
   final Widget? icon;
   final Widget? trailing;
   final void Function()? onPressed;
+  final ArcaneInteraction? action;
   final ButtonVariant variant;
   final ButtonSize size;
   final bool disabled;
@@ -37,6 +39,7 @@ class Button extends StatelessWidget {
     this.icon,
     this.trailing,
     this.onPressed,
+    this.action,
     this.variant = ButtonVariant.primary,
     this.size = ButtonSize.medium,
     this.disabled = false,
@@ -55,6 +58,7 @@ class Button extends StatelessWidget {
     this.icon,
     this.trailing,
     this.onPressed,
+    this.action,
     this.size = ButtonSize.medium,
     this.disabled = false,
     this.loading = false,
@@ -72,6 +76,7 @@ class Button extends StatelessWidget {
     this.icon,
     this.trailing,
     this.onPressed,
+    this.action,
     this.size = ButtonSize.medium,
     this.disabled = false,
     this.loading = false,
@@ -89,6 +94,7 @@ class Button extends StatelessWidget {
     this.icon,
     this.trailing,
     this.onPressed,
+    this.action,
     this.size = ButtonSize.medium,
     this.disabled = false,
     this.loading = false,
@@ -106,6 +112,7 @@ class Button extends StatelessWidget {
     this.icon,
     this.trailing,
     this.onPressed,
+    this.action,
     this.size = ButtonSize.medium,
     this.disabled = false,
     this.loading = false,
@@ -123,6 +130,7 @@ class Button extends StatelessWidget {
     this.icon,
     this.trailing,
     this.onPressed,
+    this.action,
     this.size = ButtonSize.medium,
     this.disabled = false,
     this.loading = false,
@@ -140,6 +148,7 @@ class Button extends StatelessWidget {
     this.icon,
     this.trailing,
     this.onPressed,
+    this.action,
     this.size = ButtonSize.medium,
     this.disabled = false,
     this.loading = false,
@@ -157,6 +166,7 @@ class Button extends StatelessWidget {
     this.icon,
     this.trailing,
     this.onPressed,
+    this.action,
     this.size = ButtonSize.medium,
     this.disabled = false,
     this.loading = false,
@@ -174,6 +184,7 @@ class Button extends StatelessWidget {
     this.icon,
     this.trailing,
     this.onPressed,
+    this.action,
     this.size = ButtonSize.medium,
     this.disabled = false,
     this.loading = false,
@@ -191,6 +202,7 @@ class Button extends StatelessWidget {
     this.icon,
     this.trailing,
     this.onPressed,
+    this.action,
     this.size = ButtonSize.medium,
     this.disabled = false,
     this.loading = false,
@@ -210,6 +222,7 @@ class Button extends StatelessWidget {
     this.icon,
     this.trailing,
     this.onPressed,
+    this.action,
     this.size = ButtonSize.medium,
     this.disabled = false,
     this.loading = false,
@@ -229,6 +242,7 @@ class Button extends StatelessWidget {
       icon: icon,
       trailing: trailing,
       onPressed: onPressed,
+      action: action,
       variant: variant,
       size: size,
       disabled: disabled,

@@ -6,6 +6,7 @@ import '../view/floating.dart';
 export '../../core/props/floating_props.dart' show FloatingPosition;
 
 class ArcanePopover extends StatelessWidget {
+  final String? id;
   final Widget trigger;
   final Widget content;
   final FloatingPosition position;
@@ -17,6 +18,7 @@ class ArcanePopover extends StatelessWidget {
   final bool closeOnEscape;
 
   const ArcanePopover({
+    this.id,
     required this.trigger,
     required this.content,
     this.position = FloatingPosition.bottom,
@@ -32,6 +34,7 @@ class ArcanePopover extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ArcaneHoverCard.popover(
+      id: id,
       trigger: trigger,
       content: content,
       position: position,

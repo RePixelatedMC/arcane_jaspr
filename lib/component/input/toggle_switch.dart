@@ -9,6 +9,7 @@ import '../../core/theme_provider.dart';
 
 /// A toggle switch component.
 class ArcaneToggleSwitch extends StatelessWidget {
+  final String? id;
   final bool value;
   final void Function(bool)? onChanged;
   final bool disabled;
@@ -16,8 +17,11 @@ class ArcaneToggleSwitch extends StatelessWidget {
   final ColorVariant color;
   final String? label;
   final bool labelLeft;
+  final String? group;
+  final String? itemValue;
 
   const ArcaneToggleSwitch({
+    this.id,
     required this.value,
     void Function(bool)? onChanged,
     void Function(bool)? onToggle,
@@ -26,10 +30,13 @@ class ArcaneToggleSwitch extends StatelessWidget {
     this.color = ColorVariant.primary,
     this.label,
     this.labelLeft = false,
+    this.group,
+    this.itemValue,
     super.key,
   }) : onChanged = onChanged ?? onToggle;
 
   const ArcaneToggleSwitch.primary({
+    this.id,
     required this.value,
     void Function(bool)? onChanged,
     void Function(bool)? onToggle,
@@ -37,11 +44,14 @@ class ArcaneToggleSwitch extends StatelessWidget {
     this.size = ComponentSize.md,
     this.label,
     this.labelLeft = false,
+    this.group,
+    this.itemValue,
     super.key,
   })  : onChanged = onChanged ?? onToggle,
         color = ColorVariant.primary;
 
   const ArcaneToggleSwitch.success({
+    this.id,
     required this.value,
     void Function(bool)? onChanged,
     void Function(bool)? onToggle,
@@ -49,11 +59,14 @@ class ArcaneToggleSwitch extends StatelessWidget {
     this.size = ComponentSize.md,
     this.label,
     this.labelLeft = false,
+    this.group,
+    this.itemValue,
     super.key,
   })  : onChanged = onChanged ?? onToggle,
         color = ColorVariant.success;
 
   const ArcaneToggleSwitch.warning({
+    this.id,
     required this.value,
     void Function(bool)? onChanged,
     void Function(bool)? onToggle,
@@ -61,11 +74,14 @@ class ArcaneToggleSwitch extends StatelessWidget {
     this.size = ComponentSize.md,
     this.label,
     this.labelLeft = false,
+    this.group,
+    this.itemValue,
     super.key,
   })  : onChanged = onChanged ?? onToggle,
         color = ColorVariant.warning;
 
   const ArcaneToggleSwitch.destructive({
+    this.id,
     required this.value,
     void Function(bool)? onChanged,
     void Function(bool)? onToggle,
@@ -73,13 +89,23 @@ class ArcaneToggleSwitch extends StatelessWidget {
     this.size = ComponentSize.md,
     this.label,
     this.labelLeft = false,
+    this.group,
+    this.itemValue,
     super.key,
   })  : onChanged = onChanged ?? onToggle,
         color = ColorVariant.destructive;
 
+  static int _autoCounter = 0;
+  static String _autoId() {
+    _autoCounter++;
+    return 'arcane-toggle-switch-$_autoCounter';
+  }
+
   @override
   Widget build(BuildContext context) {
+    final String resolvedId = id ?? _autoId();
     return context.renderers.toggleSwitch(ToggleSwitchProps(
+      id: resolvedId,
       value: value,
       onChanged: onChanged,
       disabled: disabled,
@@ -87,6 +113,8 @@ class ArcaneToggleSwitch extends StatelessWidget {
       color: color,
       label: label,
       labelLeft: labelLeft,
+      group: group,
+      itemValue: itemValue,
     ));
   }
 }

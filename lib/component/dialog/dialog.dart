@@ -3,8 +3,9 @@ import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, St
 
 import '../../core/theme_provider.dart';
 
-/// Modal dialog component with title, content, and actions.
 class ArcaneDialog extends StatelessWidget {
+  final String? id;
+  final bool isOpen;
   final String? title;
   final Widget? _child;
   final List<Widget>? _children;
@@ -13,8 +14,13 @@ class ArcaneDialog extends StatelessWidget {
   final void Function()? onClose;
   final double maxWidth;
   final bool barrierDismissible;
+  final bool escapeCloses;
+  final bool focusTrap;
+  final bool restoreFocus;
 
   const ArcaneDialog({
+    this.id,
+    this.isOpen = false,
     this.title,
     Widget? child,
     List<Widget>? children,
@@ -23,6 +29,9 @@ class ArcaneDialog extends StatelessWidget {
     this.onClose,
     this.maxWidth = 500,
     this.barrierDismissible = true,
+    this.escapeCloses = true,
+    this.focusTrap = true,
+    this.restoreFocus = true,
     super.key,
   })  : _child = child,
         _children = children,
@@ -31,9 +40,11 @@ class ArcaneDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final content = _children ?? [_child!];
+    final List<Widget> content = _children ?? <Widget>[_child!];
 
     return context.renderers.dialog(DialogProps(
+      id: id,
+      isOpen: isOpen,
       title: title,
       content: content,
       actions: actions,
@@ -41,6 +52,9 @@ class ArcaneDialog extends StatelessWidget {
       onClose: onClose,
       maxWidth: maxWidth,
       barrierDismissible: barrierDismissible,
+      escapeCloses: escapeCloses,
+      focusTrap: focusTrap,
+      restoreFocus: restoreFocus,
     ));
   }
 }

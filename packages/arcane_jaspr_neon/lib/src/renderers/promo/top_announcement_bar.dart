@@ -66,8 +66,8 @@ class _NeonTopAnnouncementBarState extends State<NeonTopAnnouncementBar> {
           'background-color': 'rgba(10, 10, 10, 0.95)',
           'backdrop-filter': 'blur(12px)',
           '-webkit-backdrop-filter': 'blur(12px)',
-          'border-bottom': '1px solid var(--primary)',
-          'box-shadow': '0 14px 20px rgba(var(--primary-rgb), 0.2)',
+          'border-bottom': '1px solid var(--neon-accent)',
+          'box-shadow': '0 14px 20px color-mix(in srgb, var(--neon-accent) 20%, transparent)',
         },
       ),
       [
@@ -94,14 +94,14 @@ class _NeonTopAnnouncementBarState extends State<NeonTopAnnouncementBar> {
                 styles: const dom.Styles(
                   raw: {
                     'padding': '0.375rem 0.75rem',
-                    'background': 'rgba(var(--primary-rgb), 0.15)',
-                    'border': '1px solid rgba(var(--primary-rgb), 0.3)',
+                    'background': 'color-mix(in srgb, var(--neon-accent) 15%, transparent)',
+                    'border': '1px solid color-mix(in srgb, var(--neon-accent) 30%, transparent)',
                     'border-radius': 'var(--radius-sm)',
                     'font-family':
                         'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
                     'font-size': 'var(--font-size-sm)',
                     'font-weight': 'var(--font-weight-semibold)',
-                    'color': 'var(--primary)',
+                    'color': 'var(--neon-accent)',
                     'letter-spacing': '0',
                   },
                 ),
@@ -134,7 +134,7 @@ class _NeonTopAnnouncementBarState extends State<NeonTopAnnouncementBar> {
             styles: const dom.Styles(
               raw: {
                 'padding': '0.5rem 1rem',
-                'background': 'var(--primary)',
+                'background': 'var(--neon-accent)',
                 'border': 'none',
                 'border-radius': 'var(--radius-sm)',
                 'color': '#ffffff',
@@ -143,7 +143,7 @@ class _NeonTopAnnouncementBarState extends State<NeonTopAnnouncementBar> {
                 'text-decoration': 'none',
                 'cursor': 'pointer',
                 'transition': 'all var(--transition)',
-                'box-shadow': '0 14px 10px rgba(var(--primary-rgb), 0.3)',
+                'box-shadow': '0 14px 10px color-mix(in srgb, var(--neon-accent) 30%, transparent)',
               },
             ),
             events: component.props.onCtaClick != null

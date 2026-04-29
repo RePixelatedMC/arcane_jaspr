@@ -1,12 +1,54 @@
 import 'package:arcane_jaspr/arcane_jaspr.dart';
 import 'package:arcane_jaspr_neon/arcane_jaspr_neon.dart';
+import 'package:arcane_jaspr_neubrutalism/arcane_jaspr_neubrutalism.dart';
+import 'package:arcane_jaspr_shadcn/arcane_jaspr_shadcn.dart';
+import 'package:arcane_neon_web/components/demo_registry.dart';
+import 'package:arcane_neon_web/components/interactive_demo_events_stub.dart'
+    if (dart.library.js_interop) 'package:arcane_neon_web/components/interactive_demo_events_web.dart';
+import 'package:arcane_neon_web/components/interactive_demo_stylesheet_stub.dart'
+    if (dart.library.js_interop) 'package:arcane_neon_web/components/interactive_demo_stylesheet_web.dart';
 import 'package:jaspr/dom.dart' as dom;
 import 'package:jaspr/jaspr.dart' as jaspr;
 
-import 'demo_registry.dart';
-
-const ArcaneStylesheet clientNeonStylesheet = NeonStylesheet();
-const ArcaneStylesheet selectedClientStylesheet = clientNeonStylesheet;
+const Map<String, ArcaneStylesheet> clientShadcnStylesheets =
+    <String, ArcaneStylesheet>{
+      'midnight': ShadcnStylesheet(theme: ShadcnTheme.midnight),
+      'charcoal': ShadcnStylesheet(theme: ShadcnTheme.charcoal),
+      'cream': ShadcnStylesheet(theme: ShadcnTheme.cream),
+      'slate': ShadcnStylesheet(theme: ShadcnTheme.slate),
+      'rose': ShadcnStylesheet(theme: ShadcnTheme.rose),
+      'lavender': ShadcnStylesheet(theme: ShadcnTheme.lavender),
+      'mint': ShadcnStylesheet(theme: ShadcnTheme.mint),
+      'sky': ShadcnStylesheet(theme: ShadcnTheme.sky),
+      'peach': ShadcnStylesheet(theme: ShadcnTheme.peach),
+      'teal': ShadcnStylesheet(theme: ShadcnTheme.teal),
+    };
+const Map<String, ArcaneStylesheet> clientNeonStylesheets =
+    <String, ArcaneStylesheet>{
+      'green': NeonStylesheet(theme: NeonTheme.green),
+      'red': NeonStylesheet(theme: NeonTheme.red),
+      'blue': NeonStylesheet(theme: NeonTheme.blue),
+      'purple': NeonStylesheet(theme: NeonTheme.purple),
+      'cyan': NeonStylesheet(theme: NeonTheme.cyan),
+      'pink': NeonStylesheet(theme: NeonTheme.pink),
+      'orange': NeonStylesheet(theme: NeonTheme.orange),
+      'rainbow': NeonStylesheet(theme: NeonTheme.rainbow),
+    };
+const Map<String, ArcaneStylesheet> clientNeubrutalismStylesheets =
+    <String, ArcaneStylesheet>{
+      'yellow': NeubrutalismStylesheet(theme: NeubrutalismTheme.yellow),
+      'pink': NeubrutalismStylesheet(theme: NeubrutalismTheme.pink),
+      'mint': NeubrutalismStylesheet(theme: NeubrutalismTheme.mint),
+      'orange': NeubrutalismStylesheet(theme: NeubrutalismTheme.orange),
+      'sky': NeubrutalismStylesheet(theme: NeubrutalismTheme.sky),
+      'lavender': NeubrutalismStylesheet(theme: NeubrutalismTheme.lavender),
+      'lime': NeubrutalismStylesheet(theme: NeubrutalismTheme.lime),
+      'red': NeubrutalismStylesheet(theme: NeubrutalismTheme.red),
+      'greyscale': NeubrutalismStylesheet(theme: NeubrutalismTheme.greyscale),
+    };
+const ArcaneStylesheet selectedClientStylesheet = ShadcnStylesheet(
+  theme: ShadcnTheme.midnight,
+);
 
 @jaspr.client
 class InteractiveDemo extends StatefulWidget {
@@ -23,6 +65,25 @@ class _InteractiveDemoState extends State<InteractiveDemo> {
   final Map<String, String> _stringValues = <String, String>{};
   final Map<String, double> _doubleValues = <String, double>{};
   final Map<String, int> _intValues = <String, int>{};
+  DemoStyleListenerDisposer? _styleListenerDisposer;
+
+  @override
+  void initState() {
+    super.initState();
+    _styleListenerDisposer = registerDemoStyleListener(_handleStyleChanged);
+  }
+
+  @override
+  void dispose() {
+    _styleListenerDisposer?.call();
+    super.dispose();
+  }
+
+  void _handleStyleChanged() {
+    if (mounted) {
+      setState(() {});
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,172 +100,152 @@ class _InteractiveDemoState extends State<InteractiveDemo> {
         demo?.previewBuilder(demoState) ??
         _buildMissingPreview(component.componentType);
     ArcaneThemeProvider? parentTheme = ArcaneThemeProvider.of(context);
-    ArcaneStylesheet stylesheet =
-        parentTheme?.stylesheet ?? selectedClientStylesheet;
-    Brightness brightness = parentTheme?.brightness ?? Brightness.dark;
+    ArcaneStylesheet stylesheet = resolveDemoStylesheet(
+      parentTheme?.stylesheet,
+      shadcnStylesheets: clientShadcnStylesheets,
+      neonStylesheets: clientNeonStylesheets,
+      neubrutalismStylesheets: clientNeubrutalismStylesheets,
+      fallbackStylesheet: selectedClientStylesheet,
+    );
+    Brightness brightness = resolveDemoBrightness(
+      parentTheme?.brightness ?? Brightness.dark,
+    );
 
     return ArcaneThemeProvider(
       stylesheet: stylesheet,
       brightness: brightness,
-      child: dom.div(classes: 'arcane-demo-panel', [
-        ArcaneBox(
-          style: const ArcaneStyleData(
-            margin: MarginPreset.bottomXl,
-            padding: PaddingPreset.lg,
-            borderRadius: Radius.lg,
-            background: Background.transparent,
-            border: BorderPreset.subtle,
-          ),
-          children: <Widget>[
-            jaspr.Component.element(
-              tag: 'style',
-              children: const <jaspr.Component>[dom.RawText(_previewScopeCss)],
-            ),
-            ArcaneBox(
-              style: const ArcaneStyleData(
-                fontSize: FontSize.sm,
-                fontWeight: FontWeight.w600,
-                textColor: TextColor.mutedForeground,
-                margin: MarginPreset.bottomMd,
-                textTransform: TextTransform.uppercase,
-                letterSpacing: LetterSpacing.wide,
-              ),
-              children: const <Widget>[Text('Live Demo')],
-            ),
-            ArcaneBox(
-              style: const ArcaneStyleData(
-                display: Display.flex,
-                alignItems: AlignItems.center,
-                gap: Gap.md,
-                margin: MarginPreset.bottomMd,
-              ),
-              children: <Widget>[
-                ArcaneBox(
-                  style: const ArcaneStyleData(
-                    padding: PaddingPreset.badge,
-                    borderRadius: Radius.full,
-                    background: Background.backgroundSecondary,
-                  ),
-                  children: <Widget>[
-                    Text(
-                      'Component: ${component.componentType}',
-                      size: FontSize.sm,
-                      color: TextColor.mutedForeground,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            ArcaneBox(
-              style: const ArcaneStyleData(
-                margin: MarginPreset.bottomSm,
-                fontSize: FontSize.sm,
-                fontWeight: FontWeight.w600,
-                textColor: TextColor.primary,
-              ),
-              children: const <Widget>[Text('Preview + Code')],
-            ),
-            dom.div(classes: 'arcane-demo-preview-scope', [preview]),
-            ArcaneBox(
-              style: const ArcaneStyleData(
-                margin: MarginPreset.topLg,
-                fontSize: FontSize.sm,
-                fontWeight: FontWeight.w600,
-                textColor: TextColor.mutedForeground,
-                raw: <String, String>{'margin-bottom': '12px'},
-              ),
-              children: const <Widget>[Text('Code')],
-            ),
-            dom.pre(
-              classes: 'arcane-demo-code',
+      child: dom.div(<Widget>[
+        jaspr.Component.element(
+          tag: 'style',
+          children: const <jaspr.Component>[dom.RawText(_previewScopeCss)],
+        ),
+        dom.div(const <Widget>[
+          Text('Live Demo'),
+        ], classes: 'arcane-demo-kicker'),
+        dom.div(<Widget>[
+          dom.span(<Widget>[
+            Text('Component: ${component.componentType}'),
+          ], classes: 'arcane-demo-component-chip'),
+        ], classes: 'arcane-demo-meta'),
+        dom.div(const <Widget>[
+          Text('Preview + Code'),
+        ], classes: 'arcane-demo-section-title'),
+        dom.div(<Widget>[preview], classes: 'arcane-demo-preview-scope'),
+        dom.div(const <Widget>[
+          Text('Code'),
+        ], classes: 'arcane-demo-code-label'),
+        dom.pre(
+          <jaspr.Component>[
+            dom.code(
+              <jaspr.Component>[jaspr.Component.text(exampleCode)],
+              classes: 'language-dart',
               styles: const dom.Styles(
-                raw: <String, String>{
-                  'margin': '0',
-                  'padding': '16px',
-                  'background': 'var(--card)',
-                  'border': '1px solid var(--border)',
-                  'border-radius': 'var(--radius)',
-                  'overflow-x': 'auto',
-                },
+                raw: <String, String>{'display': 'block'},
               ),
-              <jaspr.Component>[
-                dom.code(
-                  classes: 'language-dart',
-                  styles: const dom.Styles(
-                    raw: <String, String>{'display': 'block'},
-                  ),
-                  <jaspr.Component>[jaspr.Component.text(exampleCode)],
-                ),
-              ],
             ),
           ],
+          classes: 'arcane-demo-code',
+          styles: const dom.Styles(
+            raw: <String, String>{
+              'margin': '0',
+              'padding': '16px',
+              'background': 'var(--card)',
+              'border': '1px solid var(--border)',
+              'border-radius': 'var(--radius)',
+              'overflow-x': 'auto',
+            },
+          ),
         ),
-      ]),
+      ], classes: 'arcane-demo-panel'),
     );
   }
 
   Widget _buildMissingPreview(String componentType) {
-    return ArcaneBox(
-      style: const ArcaneStyleData(
-        padding: PaddingPreset.lg,
-        borderRadius: Radius.lg,
-        border: BorderPreset.subtle,
-        background: Background.backgroundSecondary,
-      ),
-      children: <Widget>[
-        ArcaneAlert.warning(
-          title: 'No Demo Found',
-          message: 'No live preview is registered for "$componentType".',
-        ),
+    return dom.div(
+      <Widget>[
+        dom.div(const <Widget>[Text('!')], classes: 'arcane-demo-missing-icon'),
+        dom.div(<Widget>[
+          dom.div(const <Widget>[
+            Text('No Demo Found'),
+          ], classes: 'arcane-demo-missing-title'),
+          dom.div(<Widget>[
+            Text('No live preview is registered for "$componentType".'),
+          ], classes: 'arcane-demo-missing-body'),
+        ], classes: 'arcane-demo-missing-copy'),
       ],
+      classes: 'arcane-demo-missing',
+      attributes: const <String, String>{'role': 'status'},
     );
   }
 }
 
 const String _previewScopeCss = '''
+.arcane-demo-panel {
+  width: 100%;
+  margin: 0 0 1.5rem;
+  box-sizing: border-box;
+}
+
+.arcane-demo-kicker,
+.arcane-demo-section-title,
+.arcane-demo-code-label,
+.arcane-demo-component-chip,
+.arcane-demo-missing-title,
+.arcane-demo-missing-body {
+  box-sizing: border-box;
+}
+
+.arcane-demo-kicker {
+  margin: 0 0 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+.arcane-demo-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 0 1rem;
+}
+
+.arcane-demo-component-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.75rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: 999px;
+  background: var(--secondary);
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.arcane-demo-section-title {
+  margin: 0 0 0.5rem;
+  color: var(--foreground);
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
 .arcane-demo-preview-scope {
   position: relative;
   overflow: hidden;
   isolation: isolate;
   min-height: 180px;
-  border-radius: var(--neon-radius-panel, var(--radius));
-  clip-path: var(--neon-panel-clip, none);
-  border: 1px solid var(--neon-panel-border, var(--border));
-  background:
-    radial-gradient(circle at 12% 0%, color-mix(in srgb, var(--neon-cyan, var(--primary)) 12%, transparent), transparent 16rem),
-    radial-gradient(circle at 88% 100%, color-mix(in srgb, var(--neon-magenta, var(--primary)) 9%, transparent), transparent 14rem),
-    linear-gradient(90deg, color-mix(in srgb, var(--neon-cyan, var(--primary)) 6%, transparent) 1px, transparent 1px),
-    linear-gradient(color-mix(in srgb, var(--neon-cyan, var(--primary)) 5%, transparent) 1px, transparent 1px),
-    color-mix(in srgb, var(--card) 70%, transparent);
-  background-size: auto, auto, 28px 28px, 28px 28px, auto;
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.12),
-    0 18px 42px rgba(0,0,0,0.28),
-    0 0 30px color-mix(in srgb, var(--primary) 10%, transparent);
+  border-radius: var(--radius);
+  clip-path: none;
+  border: 1px solid var(--border);
+  background: var(--card);
+  box-shadow: none;
 }
 
-.arcane-demo-preview-scope::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    linear-gradient(90deg, var(--neon-accent, var(--primary)), transparent 26%) top left / 42% 1px no-repeat,
-    linear-gradient(180deg, var(--neon-accent, var(--primary)), transparent 42%) top left / 1px 46% no-repeat,
-    linear-gradient(270deg, var(--neon-cyan, var(--primary)), transparent 28%) bottom right / 46% 1px no-repeat,
-    linear-gradient(0deg, var(--neon-cyan, var(--primary)), transparent 42%) bottom right / 1px 46% no-repeat;
-  opacity: 0.72;
-  z-index: 1;
-}
-
+.arcane-demo-preview-scope::before,
 .arcane-demo-preview-scope::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: repeating-linear-gradient(0deg, transparent 0 6px, color-mix(in srgb, var(--neon-cyan, var(--primary)) 8%, transparent) 6px 7px);
-  opacity: 0.2;
-  z-index: 1;
+  content: none;
+  display: none;
 }
 
 .arcane-demo-preview-scope > .arcane-box {
@@ -219,15 +260,10 @@ const String _previewScopeCss = '''
 }
 
 .arcane-demo-preview-scope .arcane-dialog-overlay,
-.arcane-demo-preview-scope .neon-dialog-overlay,
 .arcane-demo-preview-scope .arcane-command-overlay,
-.arcane-demo-preview-scope .neon-command-overlay,
 .arcane-demo-preview-scope .arcane-sheet,
-.arcane-demo-preview-scope .neon-sheet-overlay,
 .arcane-demo-preview-scope .arcane-drawer-container,
-.arcane-demo-preview-scope .neon-drawer-overlay,
-.arcane-demo-preview-scope .arcane-dropdown-backdrop,
-.arcane-demo-preview-scope .neon-dropdown-backdrop {
+.arcane-demo-preview-scope .arcane-dropdown-backdrop {
   position: absolute !important;
   inset: 0 !important;
   z-index: 25 !important;
@@ -235,53 +271,85 @@ const String _previewScopeCss = '''
   overflow: hidden;
 }
 
-.arcane-demo-preview-scope .arcane-dialog-overlay,
-.arcane-demo-preview-scope .neon-dialog-overlay {
+.arcane-demo-preview-scope .arcane-dialog-overlay {
   padding: 1rem !important;
 }
 
-.arcane-demo-preview-scope .arcane-command-overlay,
-.arcane-demo-preview-scope .neon-command-overlay {
+.arcane-demo-preview-scope .arcane-command-overlay {
   padding: 1rem !important;
   padding-top: 1rem !important;
 }
 
 .arcane-demo-preview-scope .arcane-sheet-panel,
-.arcane-demo-preview-scope .neon-sheet,
-.arcane-demo-preview-scope .arcane-drawer,
-.arcane-demo-preview-scope .neon-drawer {
+.arcane-demo-preview-scope .arcane-drawer {
   position: absolute !important;
   max-width: 100% !important;
   max-height: 100% !important;
 }
 
-.arcane-demo-preview-scope .arcane-command-dialog,
-.arcane-demo-preview-scope .neon-command-dialog {
+.arcane-demo-preview-scope .arcane-command-dialog {
   max-width: min(640px, calc(100% - 2rem)) !important;
   max-height: calc(100% - 2rem) !important;
 }
 
-.arcane-demo-preview-scope .arcane-context-menu,
-.arcane-demo-preview-scope .neon-context-menu {
+.arcane-demo-preview-scope .arcane-context-menu {
   position: absolute !important;
 }
 
 .arcane-demo-code {
   position: relative;
-  clip-path: var(--neon-panel-clip, none);
-  border-color: var(--neon-panel-border, var(--border)) !important;
-  background:
-    linear-gradient(90deg, color-mix(in srgb, var(--neon-cyan, var(--primary)) 7%, transparent) 1px, transparent 1px),
-    color-mix(in srgb, var(--card) 78%, transparent) !important;
-  background-size: 24px 24px, auto !important;
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.1),
-    0 14px 34px color-mix(in srgb, var(--primary) 10%, transparent);
+  margin-top: 1rem !important;
+  clip-path: none;
+  border-color: var(--border) !important;
+  border-radius: var(--radius);
+  background: var(--card) !important;
+  box-shadow: none;
 }
 
 .arcane-demo-code code {
   color: var(--foreground);
   font-size: 0.8125rem;
   line-height: 1.65;
+}
+
+.arcane-demo-code-label {
+  margin: 1rem 0 0.75rem;
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.arcane-demo-missing {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+  width: min(100%, 44rem);
+  margin: 0 auto;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+  color: var(--foreground);
+}
+
+.arcane-demo-missing-icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 1.625rem;
+  height: 1.625rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.arcane-demo-missing-title {
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.arcane-demo-missing-body {
+  margin-top: 0.125rem;
+  color: var(--muted-foreground);
+  line-height: 1.45;
 }
 ''';

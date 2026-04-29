@@ -1,5 +1,6 @@
 import 'package:arcane_jaspr/flutter.dart';
 import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
+import '../interaction/interaction.dart';
 
 enum RadioGroupLayout {
   vertical,
@@ -21,6 +22,7 @@ class RadioOptionProps<T> {
   final String? description;
   final bool disabled;
   final Widget? icon;
+  final String? id;
 
   const RadioOptionProps({
     required this.value,
@@ -28,14 +30,17 @@ class RadioOptionProps<T> {
     this.description,
     this.disabled = false,
     this.icon,
+    this.id,
   });
 }
 
 /// Radio group component properties.
 class RadioGroupProps<T> {
+  final String? id;
   final T? value;
   final List<RadioOptionProps<T>> options;
   final void Function(T value)? onChanged;
+  final ArcaneInteraction? onChangeAction;
   final String? name;
   final RadioGroupLayout layout;
   final RadioGroupVariant variant;
@@ -49,8 +54,10 @@ class RadioGroupProps<T> {
 
   const RadioGroupProps({
     required this.options,
+    this.id,
     this.value,
     this.onChanged,
+    this.onChangeAction,
     this.name,
     this.layout = RadioGroupLayout.vertical,
     this.variant = RadioGroupVariant.standard,
@@ -64,9 +71,11 @@ class RadioGroupProps<T> {
   });
 
   RadioGroupProps<T> copyWith({
+    String? id,
     T? value,
     List<RadioOptionProps<T>>? options,
     void Function(T value)? onChanged,
+    ArcaneInteraction? onChangeAction,
     String? name,
     RadioGroupLayout? layout,
     RadioGroupVariant? variant,
@@ -79,9 +88,11 @@ class RadioGroupProps<T> {
     int? gridColumns,
   }) {
     return RadioGroupProps<T>(
+      id: id ?? this.id,
       value: value ?? this.value,
       options: options ?? this.options,
       onChanged: onChanged ?? this.onChanged,
+      onChangeAction: onChangeAction ?? this.onChangeAction,
       name: name ?? this.name,
       layout: layout ?? this.layout,
       variant: variant ?? this.variant,

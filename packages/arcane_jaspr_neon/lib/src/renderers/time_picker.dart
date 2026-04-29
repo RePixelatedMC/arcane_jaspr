@@ -39,20 +39,21 @@ class NeonTimePicker extends StatelessComponent {
         },
       ),
       [
-        // Label
         if (props.label != null)
           dom.span(
             styles: const dom.Styles(
               raw: {
-                'font-size': 'var(--font-size-sm)',
-                'font-weight': 'var(--font-weight-medium)',
-                'color': 'var(--foreground)',
+                'font-family': 'var(--font-heading)',
+                'font-size': '0.75rem',
+                'font-weight': '600',
+                'letter-spacing': '0.08em',
+                'text-transform': 'uppercase',
+                'color': 'var(--muted-foreground)',
               },
             ),
             [Component.text(props.label!)],
           ),
 
-        // Trigger button
         dom.button(
           classes:
               'neon-time-picker-trigger ${props.disabled ? 'disabled' : ''}',
@@ -72,26 +73,34 @@ class NeonTimePicker extends StatelessComponent {
               'width': '100%',
               'height': sizeStyles['height']!,
               'padding': '0 1rem',
-              'background': 'var(--input)',
+              'background':
+                  'linear-gradient(135deg, color-mix(in srgb, var(--neon-accent) 5%, transparent), color-mix(in srgb, var(--card) 86%, transparent))',
               'border':
-                  '1px solid ${hasError ? 'var(--destructive)' : 'var(--border)'}',
-              'border-radius': 'var(--radius)',
+                  '1px solid ${hasError ? 'var(--destructive)' : 'var(--neon-control-border)'}',
+              'clip-path': 'var(--neon-control-clip)',
               'font-size': sizeStyles['fontSize']!,
               'color': hasValue
                   ? 'var(--foreground)'
                   : 'var(--muted-foreground)',
               'cursor': props.disabled ? 'not-allowed' : 'pointer',
-              'transition': 'all var(--arcane-transition)',
+              'transition':
+                  'border-color 0.18s ease, box-shadow 0.18s ease',
+              'box-shadow':
+                  props.isOpen ? 'var(--neon-glow-md)' : 'var(--neon-inset)',
               'text-align': 'left',
               if (props.disabled) 'opacity': '0.5',
             },
           ),
           events: {'click': (_) => props.onToggle?.call()},
           [
-            // Clock icon
             dom.span(
-              styles: const dom.Styles(
-                raw: {'color': 'var(--muted-foreground)'},
+              styles: dom.Styles(
+                raw: {
+                  'color': props.isOpen
+                      ? 'var(--neon-accent)'
+                      : 'var(--muted-foreground)',
+                  'display': 'flex',
+                },
               ),
               [ArcaneIcon.clock(size: IconSize.sm)],
             ),
@@ -128,10 +137,9 @@ class NeonTimePicker extends StatelessComponent {
           ],
         ),
 
-        // Time picker dropdown
         if (props.isOpen)
           dom.div(
-            classes: 'neon-time-picker-dropdown',
+            classes: 'neon-time-picker-dropdown neon-time-picker',
             styles: const dom.Styles(
               raw: {
                 'position': 'absolute',
@@ -139,10 +147,6 @@ class NeonTimePicker extends StatelessComponent {
                 'left': '0',
                 'margin-top': '0.5rem',
                 'z-index': '50',
-                'background': 'var(--card)',
-                'border': '1px solid var(--border)',
-                'border-radius': 'var(--radius)',
-                'box-shadow': '0 16px 32px rgba(0, 0, 0, 0.4)',
                 'padding': '1.25rem',
                 'min-width': '300px',
               },
@@ -190,8 +194,10 @@ class NeonTimePicker extends StatelessComponent {
                         const dom.span(
                           styles: dom.Styles(
                             raw: {
-                              'font-size': 'var(--font-size-xs)',
-                              'font-weight': 'var(--font-weight-medium)',
+                              'font-family': 'var(--font-heading)',
+                              'font-size': '0.6875rem',
+                              'font-weight': '600',
+                              'letter-spacing': '0.12em',
                               'color': 'var(--muted-foreground)',
                               'text-transform': 'uppercase',
                               'margin-bottom': '0.5rem',
@@ -205,18 +211,23 @@ class NeonTimePicker extends StatelessComponent {
                           type: dom.ButtonType.button,
                           styles: dom.Styles(
                             raw: {
-                              'padding': '0.625rem 1.25rem',
-                              'border': 'none',
-                              'border-radius': 'var(--radius)',
+                              'padding': '0.5rem 1rem',
+                              'border': !props.isPM
+                                  ? '1px solid var(--neon-accent)'
+                                  : '1px solid transparent',
+                              'clip-path': 'var(--neon-clip-xs)',
                               'background': !props.isPM
-                                  ? 'var(--primary)'
+                                  ? 'var(--neon-accent)'
                                   : 'transparent',
                               'color': !props.isPM
-                                  ? '#ffffff'
+                                  ? 'var(--neon-on-accent)'
                                   : 'var(--foreground)',
                               'cursor': 'pointer',
                               'font-size': 'var(--font-size-sm)',
-                              'transition': 'all var(--arcane-transition)',
+                              'font-weight': '600',
+                              'letter-spacing': '0.04em',
+                              'transition':
+                                  'background 0.15s ease, color 0.15s ease',
                             },
                           ),
                           events: {
@@ -232,18 +243,23 @@ class NeonTimePicker extends StatelessComponent {
                           type: dom.ButtonType.button,
                           styles: dom.Styles(
                             raw: {
-                              'padding': '0.625rem 1.25rem',
-                              'border': 'none',
-                              'border-radius': 'var(--radius)',
+                              'padding': '0.5rem 1rem',
+                              'border': props.isPM
+                                  ? '1px solid var(--neon-accent)'
+                                  : '1px solid transparent',
+                              'clip-path': 'var(--neon-clip-xs)',
                               'background': props.isPM
-                                  ? 'var(--primary)'
+                                  ? 'var(--neon-accent)'
                                   : 'transparent',
                               'color': props.isPM
-                                  ? '#ffffff'
+                                  ? 'var(--neon-on-accent)'
                                   : 'var(--foreground)',
                               'cursor': 'pointer',
                               'font-size': 'var(--font-size-sm)',
-                              'transition': 'all var(--arcane-transition)',
+                              'font-weight': '600',
+                              'letter-spacing': '0.04em',
+                              'transition':
+                                  'background 0.15s ease, color 0.15s ease',
                             },
                           ),
                           events: {
@@ -258,7 +274,6 @@ class NeonTimePicker extends StatelessComponent {
                 ],
               ),
 
-              // Action buttons
               dom.div(
                 styles: const dom.Styles(
                   raw: {
@@ -267,17 +282,17 @@ class NeonTimePicker extends StatelessComponent {
                     'gap': '0.75rem',
                     'margin-top': '1.25rem',
                     'padding-top': '1.25rem',
-                    'border-top': '1px solid var(--border)',
+                    'border-top': '1px solid var(--neon-panel-border)',
                   },
                 ),
                 [
                   dom.button(
                     type: dom.ButtonType.button,
+                    classes: 'neon-button',
+                    attributes: {'data-variant': 'ghost'},
                     styles: const dom.Styles(
                       raw: {
-                        'padding': '0.625rem 1.25rem',
-                        'border': '1px solid var(--border)',
-                        'border-radius': 'var(--radius)',
+                        'padding': '0.5rem 1rem',
                         'background': 'transparent',
                         'color': 'var(--foreground)',
                         'cursor': 'pointer',
@@ -289,13 +304,11 @@ class NeonTimePicker extends StatelessComponent {
                   ),
                   dom.button(
                     type: dom.ButtonType.button,
+                    classes: 'neon-button',
+                    attributes: {'data-variant': 'primary'},
                     styles: const dom.Styles(
                       raw: {
-                        'padding': '0.625rem 1.25rem',
-                        'border': 'none',
-                        'border-radius': 'var(--radius)',
-                        'background': 'var(--primary)',
-                        'color': '#ffffff',
+                        'padding': '0.5rem 1rem',
                         'cursor': 'pointer',
                         'font-size': 'var(--font-size-sm)',
                       },
@@ -342,8 +355,10 @@ class NeonTimePicker extends StatelessComponent {
         dom.span(
           styles: const dom.Styles(
             raw: {
-              'font-size': 'var(--font-size-xs)',
-              'font-weight': 'var(--font-weight-medium)',
+              'font-family': 'var(--font-heading)',
+              'font-size': '0.6875rem',
+              'font-weight': '600',
+              'letter-spacing': '0.12em',
               'color': 'var(--muted-foreground)',
               'text-transform': 'uppercase',
               'margin-bottom': '0.5rem',
@@ -369,20 +384,24 @@ class NeonTimePicker extends StatelessComponent {
                 type: dom.ButtonType.button,
                 styles: dom.Styles(
                   raw: {
-                    'padding': '0.375rem 1.25rem',
-                    'border': 'none',
-                    'border-radius': 'var(--radius)',
+                    'padding': '0.375rem 0.875rem',
+                    'border': value == selectedValue
+                        ? '1px solid var(--neon-accent)'
+                        : '1px solid transparent',
+                    'clip-path': 'var(--neon-clip-xs)',
                     'background': value == selectedValue
-                        ? 'var(--primary)'
+                        ? 'var(--neon-accent)'
                         : 'transparent',
                     'color': value == selectedValue
-                        ? '#ffffff'
+                        ? 'var(--neon-on-accent)'
                         : 'var(--foreground)',
                     'cursor': 'pointer',
                     'font-size': 'var(--font-size-sm)',
+                    'font-variant-numeric': 'tabular-nums',
                     'text-align': 'center',
                     'min-width': '52px',
-                    'transition': 'all var(--arcane-transition)',
+                    'transition':
+                        'background 0.15s ease, color 0.15s ease',
                   },
                 ),
                 events: {'click': (_) => onSelect?.call(value)},

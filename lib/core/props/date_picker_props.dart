@@ -10,6 +10,7 @@ enum DatePickerSizeVariant {
 
 /// Date picker component properties.
 class DatePickerProps {
+  final String? id;
   final DateTime? value;
   final String? label;
   final String? placeholder;
@@ -30,6 +31,7 @@ class DatePickerProps {
   final CalendarProps? calendarProps;
 
   const DatePickerProps({
+    this.id,
     this.value,
     this.label,
     this.placeholder,

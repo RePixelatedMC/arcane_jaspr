@@ -2,6 +2,8 @@ import 'package:jaspr/dom.dart' as dom;
 import 'package:jaspr/jaspr.dart';
 
 import 'package:arcane_jaspr/component/view/icon.dart';
+import 'package:arcane_jaspr/core/interaction/interaction.dart';
+import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/calendar_props.dart';
 import 'package:arcane_jaspr/core/props/date_picker_props.dart';
 import 'calendar.dart';
@@ -25,89 +27,110 @@ class NeonDatePicker extends StatelessComponent {
         ? props.rangeValue != null
         : props.value != null;
     final (String height, String fontSize) = _sizeStyles;
+    final String pickerId = props.id ?? 'datepicker-${identityHashCode(props)}';
+    final String popoverId = '$pickerId-pop';
+    final String calendarId = props.calendarProps?.id ?? '$pickerId-cal';
+    final String triggerAnchorId = '$pickerId-anchor';
+
+    final Map<String, String> triggerAttrs = mergeAttrs(<Map<String, String>>[
+      anchorAttrs(triggerAnchorId),
+      calendarTriggerAttrs(calendarId),
+      interactionAttrs(ArcaneInteraction.togglePopover(popoverId)),
+      <String, String>{
+        'type': 'button',
+        'aria-haspopup': 'dialog',
+        'aria-controls': popoverId,
+        'data-arcane-placeholder': props.placeholder ?? '',
+      },
+    ]);
+
+    final Map<String, String> popoverAttrs = mergeAttrs(<Map<String, String>>[
+      surfaceAttrs(
+        surface: 'popover',
+        id: popoverId,
+        anchorId: triggerAnchorId,
+        anchorPlacement: 'bottom-start',
+        anchorOffset: '8',
+        focusTrap: false,
+      ),
+      calendarPickerAttrs(calendarId),
+    ]);
 
     return dom.div(
-      classes:
-          'neon-date-picker ${props.disabled ? 'disabled' : ''} ${props.isOpen ? 'open' : ''}',
-      attributes: {
-        'data-state': props.isOpen ? 'open' : 'closed',
+      classes: 'neon-date-picker ${props.disabled ? 'disabled' : ''}',
+      attributes: <String, String>{
         'data-disabled': '${props.disabled}',
         'data-size': props.size.name,
       },
       styles: const dom.Styles(
-        raw: {
+        raw: <String, String>{
           'position': 'relative',
           'display': 'flex',
           'flex-direction': 'column',
           'gap': 'var(--space-2)',
         },
       ),
-      [
+      <Component>[
         if (props.label != null)
           dom.span(
             styles: const dom.Styles(
-              raw: {
-                'font-size': 'var(--font-size-sm)',
-                'font-weight': 'var(--font-weight-medium)',
-                'color': 'var(--foreground)',
+              raw: <String, String>{
+                'font-family': 'var(--font-heading)',
+                'font-size': '0.75rem',
+                'font-weight': '600',
+                'letter-spacing': '0.08em',
+                'text-transform': 'uppercase',
+                'color': 'var(--muted-foreground)',
               },
             ),
-            [Component.text(props.label!)],
+            <Component>[Component.text(props.label!)],
           ),
         dom.button(
           classes: 'neon-date-picker-trigger',
-          attributes: {
-            'type': 'button',
-            'aria-haspopup': 'dialog',
-            'aria-expanded': '${props.isOpen}',
-            'data-state': props.isOpen ? 'open' : 'closed',
+          attributes: <String, String>{
+            ...triggerAttrs,
             if (props.disabled) 'disabled': 'true',
           },
           styles: dom.Styles(
-            raw: {
+            raw: <String, String>{
               'display': 'flex',
               'align-items': 'center',
               'gap': '0.75rem',
               'width': '100%',
               'height': height,
               'padding': '0 1rem',
-              'background': 'var(--neon-surface-1)',
+              'background':
+                  'linear-gradient(135deg, color-mix(in srgb, var(--neon-accent) 5%, transparent), color-mix(in srgb, var(--card) 86%, transparent))',
               'border': hasError
                   ? '1px solid var(--destructive)'
-                  : props.isOpen
-                  ? '1px solid var(--neon-accent-border)'
-                  : '1px solid var(--border)',
-              'border-radius': 'var(--radius)',
+                  : '1px solid var(--neon-control-border)',
+              'clip-path': 'var(--neon-control-clip)',
               'font-size': fontSize,
               'color': hasValue
                   ? 'var(--foreground)'
                   : 'var(--muted-foreground)',
               'cursor': props.disabled ? 'not-allowed' : 'pointer',
-              'transition': 'border-color 0.2s ease, box-shadow 0.2s ease',
-              'box-shadow': props.isOpen
-                  ? '0 10px 24px rgba(0, 0, 0, 0.3)'
-                  : 'none',
+              'transition': 'border-color 0.18s ease, box-shadow 0.18s ease',
+              'box-shadow': 'var(--neon-inset)',
               if (props.disabled) 'opacity': '0.5',
             },
           ),
-          events: props.disabled || props.onToggle == null
-              ? null
-              : {'click': (_) => props.onToggle!()},
-          [
-            dom.span(
-              styles: dom.Styles(
-                raw: {
-                  'display': 'flex',
-                  'color': props.isOpen
-                      ? 'var(--neon-accent)'
-                      : 'var(--muted-foreground)',
-                },
-              ),
-              [ArcaneIcon.calendar(size: IconSize.sm)],
-            ),
+          <Component>[
             dom.span(
               styles: const dom.Styles(
-                raw: {
+                raw: <String, String>{
+                  'display': 'flex',
+                  'color': 'var(--muted-foreground)',
+                },
+              ),
+              <Component>[ArcaneIcon.calendar(size: IconSize.sm)],
+            ),
+            dom.span(
+              attributes: const <String, String>{
+                'data-arcane-calendar-display': '',
+              },
+              styles: const dom.Styles(
+                raw: <String, String>{
                   'flex': '1',
                   'overflow': 'hidden',
                   'text-overflow': 'ellipsis',
@@ -115,61 +138,53 @@ class NeonDatePicker extends StatelessComponent {
                   'text-align': 'left',
                 },
               ),
-              [Component.text(props.displayText)],
+              <Component>[Component.text(props.displayText)],
             ),
             if (hasValue && props.clearable)
               dom.span(
                 classes: 'neon-date-picker-clear',
-                attributes: {
+                attributes: <String, String>{
                   'role': 'button',
                   'aria-label': 'Clear date',
                   'data-state': 'clearable',
+                  ...interactionAttrs(ArcaneInteraction.calendarToday(calendarId)),
                 },
                 styles: const dom.Styles(
-                  raw: {
+                  raw: <String, String>{
                     'display': 'flex',
                     'color': 'var(--muted-foreground)',
                     'cursor': 'pointer',
                   },
                 ),
-                events: props.onClear == null
-                    ? null
-                    : {
-                        'click': (e) {
-                          e.stopPropagation();
-                          props.onClear!();
-                        },
-                      },
-                [ArcaneIcon.x(size: IconSize.xs)],
+                <Component>[ArcaneIcon.x(size: IconSize.xs)],
               ),
           ],
         ),
-        if (props.isOpen && props.calendarProps != null)
-          dom.div(
-            classes: 'neon-date-picker-dropdown',
-            attributes: {'data-state': 'open'},
-            styles: const dom.Styles(
-              raw: {
-                'position': 'absolute',
-                'top': '100%',
-                'left': '0',
-                'margin-top': '0.5rem',
-                'z-index': '50',
-                'border-radius': 'var(--radius)',
-                'box-shadow': '0 16px 36px rgba(0, 0, 0, 0.42)',
-              },
-            ),
-            [NeonCalendar(props.calendarProps!)],
+        dom.div(
+          classes: 'neon-date-picker-dropdown neon-date-picker',
+          attributes: popoverAttrs,
+          styles: const dom.Styles(
+            raw: <String, String>{
+              'position': 'absolute',
+              'top': '100%',
+              'left': '0',
+              'margin-top': '0.5rem',
+              'z-index': '50',
+            },
           ),
+          <Component>[
+            if (props.calendarProps != null) NeonCalendar(props.calendarProps!),
+          ],
+        ),
         if (hasError)
           dom.span(
             styles: const dom.Styles(
-              raw: {
+              raw: <String, String>{
                 'font-size': 'var(--font-size-sm)',
                 'color': 'var(--destructive)',
               },
             ),
-            [Component.text(props.error!)],
+            <Component>[Component.text(props.error!)],
           ),
       ],
     );

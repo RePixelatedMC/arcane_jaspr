@@ -1,6 +1,8 @@
 import 'package:jaspr/dom.dart' as dom;
 import 'package:jaspr/jaspr.dart';
 
+import 'package:arcane_jaspr/core/interaction/interaction.dart';
+import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/radio_group_props.dart';
 
 /// Neon radio group renderer with restrained dark styling.
@@ -11,6 +13,19 @@ class NeonRadioGroup<T> extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
+    final String groupId = props.id ?? props.name ?? 'neon-radio-${identityHashCode(this)}';
+    final String? currentGroupValue = props.value?.toString();
+    final Map<String, String> rootAttrs = groupAttrs(
+      groupId: groupId,
+      mode: 'single',
+      value: currentGroupValue ?? '',
+      required: props.required,
+      disabled: props.disabled,
+      changeAction: props.onChangeAction != null
+          ? encodeArcaneAction(props.onChangeAction!)
+          : null,
+    );
+
     final Map<String, String> layoutStyles = switch (props.layout) {
       RadioGroupLayout.vertical => {
         'display': 'flex',
@@ -31,11 +46,14 @@ class NeonRadioGroup<T> extends StatelessComponent {
 
     return dom.div(
       classes: 'neon-radio-group ${props.disabled ? 'disabled' : ''}',
-      attributes: {
-        'data-disabled': '${props.disabled}',
-        'data-layout': props.layout.name,
-        'data-variant': props.variant.name,
-      },
+      attributes: mergeAttrs(<Map<String, String>>[
+        <String, String>{
+          'data-disabled': '${props.disabled}',
+          'data-layout': props.layout.name,
+          'data-variant': props.variant.name,
+        },
+        rootAttrs,
+      ]),
       styles: dom.Styles(
         raw: {'width': '100%', 'opacity': props.disabled ? '0.55' : '1'},
       ),
@@ -45,9 +63,12 @@ class NeonRadioGroup<T> extends StatelessComponent {
             classes: 'neon-radio-group-label',
             styles: const dom.Styles(
               raw: {
-                'font-size': 'var(--font-size-sm)',
-                'font-weight': 'var(--font-weight-medium)',
-                'color': 'var(--foreground)',
+                'font-family': 'var(--font-heading)',
+                'font-size': 'var(--font-size-xs)',
+                'font-weight': 'var(--font-weight-semibold)',
+                'letter-spacing': '0.08em',
+                'text-transform': 'uppercase',
+                'color': 'var(--muted-foreground)',
                 'margin-bottom': '0.65rem',
               },
             ),
@@ -70,7 +91,7 @@ class NeonRadioGroup<T> extends StatelessComponent {
           styles: dom.Styles(raw: layoutStyles),
           [
             for (final RadioOptionProps<T> option in props.options)
-              _buildOption(option),
+              _buildOption(option, groupId),
           ],
         ),
         if (props.error != null)
@@ -101,23 +122,40 @@ class NeonRadioGroup<T> extends StatelessComponent {
     );
   }
 
-  Component _buildOption(RadioOptionProps<T> option) {
+  Component _buildOption(RadioOptionProps<T> option, String groupId) {
     final bool isSelected = props.value == option.value;
     final bool isDisabled = props.disabled || option.disabled;
+    final String itemValue = option.value.toString();
+    final Map<String, String> itemAttrs = mergeAttrs(<Map<String, String>>[
+      groupItemAttrs(
+        groupId: groupId,
+        value: itemValue,
+        selected: isSelected,
+        disabled: isDisabled,
+      ),
+      if (!isDisabled)
+        interactionAttrs(
+          ArcaneInteraction.selectValue(groupId, itemValue),
+        ),
+    ]);
 
     return switch (props.variant) {
       RadioGroupVariant.standard => _standardOption(
         option,
         isSelected,
         isDisabled,
+        itemAttrs,
       ),
-      RadioGroupVariant.cards => _cardOption(option, isSelected, isDisabled),
+      RadioGroupVariant.cards =>
+          _cardOption(option, isSelected, isDisabled, itemAttrs),
       RadioGroupVariant.buttons => _buttonOption(
         option,
         isSelected,
         isDisabled,
+        itemAttrs,
       ),
-      RadioGroupVariant.chips => _chipOption(option, isSelected, isDisabled),
+      RadioGroupVariant.chips =>
+          _chipOption(option, isSelected, isDisabled, itemAttrs),
     };
   }
 
@@ -125,14 +163,18 @@ class NeonRadioGroup<T> extends StatelessComponent {
     RadioOptionProps<T> option,
     bool isSelected,
     bool isDisabled,
+    Map<String, String> itemAttrs,
   ) {
     return dom.label(
       classes:
           'neon-radio-option ${isSelected ? 'selected' : ''} ${isDisabled ? 'disabled' : ''}',
-      attributes: {
-        'data-state': isSelected ? 'checked' : 'unchecked',
-        'data-disabled': '$isDisabled',
-      },
+      attributes: mergeAttrs(<Map<String, String>>[
+        <String, String>{
+          'data-state': isSelected ? 'checked' : 'unchecked',
+          'data-disabled': '$isDisabled',
+        },
+        itemAttrs,
+      ]),
       styles: dom.Styles(
         raw: {
           'display': 'flex',
@@ -155,12 +197,18 @@ class NeonRadioGroup<T> extends StatelessComponent {
               'border-radius': '50%',
               'border': isSelected
                   ? '2px solid var(--neon-accent)'
-                  : '2px solid var(--border)',
+                  : '2px solid var(--neon-control-border)',
               'background': 'var(--neon-surface-1)',
+              'box-shadow': isSelected
+                  ? '0 0 12px color-mix(in srgb, var(--neon-accent) 32%, transparent)'
+                  : 'inset 0 1px 0 var(--neon-inset)',
               'display': 'flex',
               'align-items': 'center',
               'justify-content': 'center',
               'margin-top': '2px',
+              'transition':
+                  'border-color 200ms ease, box-shadow 200ms ease',
+              'flex-shrink': '0',
             },
           ),
           [
@@ -187,28 +235,37 @@ class NeonRadioGroup<T> extends StatelessComponent {
     RadioOptionProps<T> option,
     bool isSelected,
     bool isDisabled,
+    Map<String, String> itemAttrs,
   ) {
     return dom.div(
       classes:
           'neon-radio-card ${isSelected ? 'selected' : ''} ${isDisabled ? 'disabled' : ''}',
-      attributes: {
-        'data-state': isSelected ? 'checked' : 'unchecked',
-        'data-disabled': '$isDisabled',
-      },
+      attributes: mergeAttrs(<Map<String, String>>[
+        <String, String>{
+          'data-state': isSelected ? 'checked' : 'unchecked',
+          'data-disabled': '$isDisabled',
+        },
+        itemAttrs,
+      ]),
       styles: dom.Styles(
         raw: {
           'display': 'flex',
           'align-items': 'flex-start',
           'gap': '0.7rem',
           'padding': '0.9rem 1rem',
-          'border-radius': 'var(--radius)',
+          'clip-path': 'var(--neon-clip-sm)',
           'border': isSelected
-              ? '1px solid var(--neon-accent-border)'
-              : '1px solid var(--border)',
+              ? '1px solid var(--neon-control-border-strong)'
+              : '1px solid var(--neon-control-border)',
           'background': isSelected
-              ? 'color-mix(in srgb, var(--neon-accent) 12%, var(--neon-surface-2))'
+              ? 'color-mix(in srgb, var(--neon-accent) 14%, var(--neon-surface-2))'
               : 'var(--neon-surface-1)',
+          'box-shadow': isSelected
+              ? '0 0 18px color-mix(in srgb, var(--neon-accent) 22%, transparent), inset 0 1px 0 var(--neon-inset)'
+              : 'inset 0 1px 0 var(--neon-inset)',
           'cursor': isDisabled ? 'not-allowed' : 'pointer',
+          'transition':
+              'background 200ms ease, border-color 200ms ease, box-shadow 200ms ease',
         },
       ),
       events: isDisabled
@@ -222,16 +279,20 @@ class NeonRadioGroup<T> extends StatelessComponent {
     RadioOptionProps<T> option,
     bool isSelected,
     bool isDisabled,
+    Map<String, String> itemAttrs,
   ) {
     return dom.button(
       classes:
           'neon-radio-button ${isSelected ? 'selected' : ''} ${isDisabled ? 'disabled' : ''}',
-      attributes: {
-        'type': 'button',
-        'data-state': isSelected ? 'checked' : 'unchecked',
-        'data-disabled': '$isDisabled',
-        if (isDisabled) 'disabled': 'true',
-      },
+      attributes: mergeAttrs(<Map<String, String>>[
+        <String, String>{
+          'type': 'button',
+          'data-state': isSelected ? 'checked' : 'unchecked',
+          'data-disabled': '$isDisabled',
+          if (isDisabled) 'disabled': 'true',
+        },
+        itemAttrs,
+      ]),
       styles: dom.Styles(
         raw: {
           'display': 'inline-flex',
@@ -239,15 +300,23 @@ class NeonRadioGroup<T> extends StatelessComponent {
           'justify-content': 'center',
           'gap': '0.55rem',
           'padding': '0.6rem 1rem',
-          'border-radius': 'var(--radius)',
+          'clip-path': 'var(--neon-clip-sm)',
           'border': isSelected
-              ? '1px solid var(--neon-accent-border)'
-              : '1px solid var(--border)',
+              ? '1px solid var(--neon-control-border-strong)'
+              : '1px solid var(--neon-control-border)',
           'background': isSelected
-              ? 'linear-gradient(180deg, color-mix(in srgb, var(--neon-accent) 20%, var(--neon-surface-2)), var(--neon-surface-2))'
+              ? 'color-mix(in srgb, var(--neon-accent) 18%, var(--neon-surface-2))'
               : 'var(--neon-surface-1)',
           'color': isSelected ? 'var(--neon-accent)' : 'var(--foreground)',
+          'font-family': 'var(--font-heading)',
+          'font-weight': 'var(--font-weight-semibold)',
+          'letter-spacing': '0.04em',
+          'box-shadow': isSelected
+              ? '0 0 18px color-mix(in srgb, var(--neon-accent) 24%, transparent), inset 0 1px 0 var(--neon-inset)'
+              : 'inset 0 1px 0 var(--neon-inset)',
           'cursor': isDisabled ? 'not-allowed' : 'pointer',
+          'transition':
+              'background 200ms ease, border-color 200ms ease, color 200ms ease, box-shadow 200ms ease',
         },
       ),
       events: isDisabled
@@ -261,31 +330,44 @@ class NeonRadioGroup<T> extends StatelessComponent {
     RadioOptionProps<T> option,
     bool isSelected,
     bool isDisabled,
+    Map<String, String> itemAttrs,
   ) {
     return dom.button(
       classes:
           'neon-radio-chip ${isSelected ? 'selected' : ''} ${isDisabled ? 'disabled' : ''}',
-      attributes: {
-        'type': 'button',
-        'data-state': isSelected ? 'checked' : 'unchecked',
-        'data-disabled': '$isDisabled',
-        if (isDisabled) 'disabled': 'true',
-      },
+      attributes: mergeAttrs(<Map<String, String>>[
+        <String, String>{
+          'type': 'button',
+          'data-state': isSelected ? 'checked' : 'unchecked',
+          'data-disabled': '$isDisabled',
+          if (isDisabled) 'disabled': 'true',
+        },
+        itemAttrs,
+      ]),
       styles: dom.Styles(
         raw: {
           'display': 'inline-flex',
           'align-items': 'center',
           'gap': '0.45rem',
-          'padding': '0.45rem 0.8rem',
-          'border-radius': '999px',
+          'padding': '0.4rem 0.85rem',
+          'clip-path': 'var(--neon-clip-xs)',
           'border': isSelected
-              ? '1px solid var(--neon-accent-border)'
-              : '1px solid var(--border)',
+              ? '1px solid var(--neon-control-border-strong)'
+              : '1px solid var(--neon-control-border)',
           'background': isSelected
-              ? 'color-mix(in srgb, var(--neon-accent) 14%, var(--neon-surface-2))'
+              ? 'color-mix(in srgb, var(--neon-accent) 16%, var(--neon-surface-2))'
               : 'var(--neon-surface-1)',
           'color': isSelected ? 'var(--neon-accent)' : 'var(--foreground)',
+          'font-family': 'var(--font-heading)',
+          'font-size': 'var(--font-size-xs)',
+          'font-weight': 'var(--font-weight-semibold)',
+          'letter-spacing': '0.04em',
+          'box-shadow': isSelected
+              ? '0 0 14px color-mix(in srgb, var(--neon-accent) 22%, transparent)'
+              : 'inset 0 1px 0 var(--neon-inset)',
           'cursor': isDisabled ? 'not-allowed' : 'pointer',
+          'transition':
+              'background 200ms ease, border-color 200ms ease, color 200ms ease, box-shadow 200ms ease',
         },
       ),
       events: isDisabled

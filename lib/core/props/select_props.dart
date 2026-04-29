@@ -1,6 +1,7 @@
 import 'package:arcane_jaspr/flutter.dart';
 import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
+import '../interaction/interaction.dart';
 import '../shared/shared.dart';
 
 export '../shared/shared.dart' show ComponentSize;
@@ -64,6 +65,9 @@ class SelectProps<T> {
   final void Function(T value)? onSelect;
   final void Function()? onClear;
   final void Function(String query)? onSearchChange;
+  final String? id;
+  final String? group;
+  final ArcaneInteraction? onSelectAction;
 
   const SelectProps({
     required this.options,
@@ -97,6 +101,9 @@ class SelectProps<T> {
     this.onSelect,
     this.onClear,
     this.onSearchChange,
+    this.id,
+    this.group,
+    this.onSelectAction,
   });
 }
 

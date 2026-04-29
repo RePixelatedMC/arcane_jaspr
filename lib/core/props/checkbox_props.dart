@@ -5,6 +5,7 @@ export '../shared/shared.dart' show ComponentSize, ColorVariant;
 
 /// Checkbox component properties.
 class CheckboxProps {
+  final String id;
   final bool checked;
   final String? label;
   final String? description;
@@ -12,8 +13,11 @@ class CheckboxProps {
   final ColorVariant color;
   final bool disabled;
   final void Function(bool)? onChanged;
+  final String? group;
+  final String? value;
 
   const CheckboxProps({
+    required this.id,
     required this.checked,
     this.label,
     this.description,
@@ -21,9 +25,12 @@ class CheckboxProps {
     this.color = ColorVariant.primary,
     this.disabled = false,
     this.onChanged,
+    this.group,
+    this.value,
   });
 
   CheckboxProps copyWith({
+    String? id,
     bool? checked,
     String? label,
     String? description,
@@ -31,8 +38,11 @@ class CheckboxProps {
     ColorVariant? color,
     bool? disabled,
     void Function(bool)? onChanged,
+    String? group,
+    String? value,
   }) {
     return CheckboxProps(
+      id: id ?? this.id,
       checked: checked ?? this.checked,
       label: label ?? this.label,
       description: description ?? this.description,
@@ -40,6 +50,8 @@ class CheckboxProps {
       color: color ?? this.color,
       disabled: disabled ?? this.disabled,
       onChanged: onChanged ?? this.onChanged,
+      group: group ?? this.group,
+      value: value ?? this.value,
     );
   }
 }

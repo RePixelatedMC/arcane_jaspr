@@ -1,6 +1,8 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
+import 'package:arcane_jaspr/core/interaction/interaction.dart';
+import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/radio_group_props.dart';
 
 /// ShadCN Radio Group renderer.
@@ -22,14 +24,30 @@ class ShadcnRadioGroup<T> extends StatelessComponent {
   Component build(BuildContext context) {
     final bool hasError = props.error != null;
     final String groupName = props.name ?? 'radio_${identityHashCode(this)}';
+    final String groupId = props.id ?? props.name ?? groupName;
+    final String? currentGroupValue = props.value?.toString();
+
+    final Map<String, String> rootAttrs = groupAttrs(
+      groupId: groupId,
+      mode: 'single',
+      value: currentGroupValue ?? '',
+      required: props.required,
+      disabled: props.disabled,
+      changeAction: props.onChangeAction != null
+          ? encodeArcaneAction(props.onChangeAction!)
+          : null,
+    );
 
     return dom.div(
       classes: 'arcane-radio-group',
-      attributes: {
-        'role': 'radiogroup',
-        if (props.label != null) 'aria-labelledby': '${groupName}_label',
-        'data-disabled': '${props.disabled}',
-      },
+      attributes: mergeAttrs(<Map<String, String>>[
+        <String, String>{
+          'role': 'radiogroup',
+          if (props.label != null) 'aria-labelledby': '${groupName}_label',
+          'data-disabled': '${props.disabled}',
+        },
+        rootAttrs,
+      ]),
       styles: const dom.Styles(
         raw: {
           'display': 'flex',
@@ -82,7 +100,7 @@ class ShadcnRadioGroup<T> extends StatelessComponent {
           ),
           [
             for (final option in props.options)
-              _buildOption(option, groupName, hasError),
+              _buildOption(option, groupName, groupId, hasError),
           ],
         ),
 
@@ -116,10 +134,24 @@ class ShadcnRadioGroup<T> extends StatelessComponent {
   Component _buildOption(
     RadioOptionProps<T> option,
     String groupName,
+    String groupId,
     bool hasError,
   ) {
     final bool isSelected = props.value == option.value;
     final bool isDisabled = props.disabled || option.disabled;
+    final String itemValue = option.value.toString();
+    final Map<String, String> itemAttrs = mergeAttrs(<Map<String, String>>[
+      groupItemAttrs(
+        groupId: groupId,
+        value: itemValue,
+        selected: isSelected,
+        disabled: isDisabled,
+      ),
+      if (!isDisabled)
+        interactionAttrs(
+          ArcaneInteraction.selectValue(groupId, itemValue),
+        ),
+    ]);
 
     return switch (props.variant) {
       RadioGroupVariant.standard => _buildStandardRadio(
@@ -128,6 +160,7 @@ class ShadcnRadioGroup<T> extends StatelessComponent {
         isSelected,
         isDisabled,
         hasError,
+        itemAttrs,
       ),
       RadioGroupVariant.cards => _buildCardRadio(
         option,
@@ -135,18 +168,21 @@ class ShadcnRadioGroup<T> extends StatelessComponent {
         isSelected,
         isDisabled,
         hasError,
+        itemAttrs,
       ),
       RadioGroupVariant.buttons => _buildButtonRadio(
         option,
         groupName,
         isSelected,
         isDisabled,
+        itemAttrs,
       ),
       RadioGroupVariant.chips => _buildChipRadio(
         option,
         groupName,
         isSelected,
         isDisabled,
+        itemAttrs,
       ),
     };
   }
@@ -157,14 +193,18 @@ class ShadcnRadioGroup<T> extends StatelessComponent {
     bool isSelected,
     bool isDisabled,
     bool hasError,
+    Map<String, String> itemAttrs,
   ) {
     return Component.element(
       tag: 'label',
       classes: 'arcane-radio-item',
-      attributes: {
-        'data-state': isSelected ? 'checked' : 'unchecked',
-        'data-disabled': '$isDisabled',
-      },
+      attributes: mergeAttrs(<Map<String, String>>[
+        <String, String>{
+          'data-state': isSelected ? 'checked' : 'unchecked',
+          'data-disabled': '$isDisabled',
+        },
+        itemAttrs,
+      ]),
       styles: dom.Styles(
         raw: {
           'display': 'flex',
@@ -306,14 +346,18 @@ class ShadcnRadioGroup<T> extends StatelessComponent {
     bool isSelected,
     bool isDisabled,
     bool hasError,
+    Map<String, String> itemAttrs,
   ) {
     return Component.element(
       tag: 'label',
       classes: 'arcane-radio-card',
-      attributes: {
-        'data-state': isSelected ? 'checked' : 'unchecked',
-        'data-disabled': '$isDisabled',
-      },
+      attributes: mergeAttrs(<Map<String, String>>[
+        <String, String>{
+          'data-state': isSelected ? 'checked' : 'unchecked',
+          'data-disabled': '$isDisabled',
+        },
+        itemAttrs,
+      ]),
       styles: dom.Styles(
         raw: {
           'display': 'flex',
@@ -431,14 +475,18 @@ class ShadcnRadioGroup<T> extends StatelessComponent {
     String groupName,
     bool isSelected,
     bool isDisabled,
+    Map<String, String> itemAttrs,
   ) {
     return Component.element(
       tag: 'label',
       classes: 'arcane-radio-button',
-      attributes: {
-        'data-state': isSelected ? 'checked' : 'unchecked',
-        'data-disabled': '$isDisabled',
-      },
+      attributes: mergeAttrs(<Map<String, String>>[
+        <String, String>{
+          'data-state': isSelected ? 'checked' : 'unchecked',
+          'data-disabled': '$isDisabled',
+        },
+        itemAttrs,
+      ]),
       styles: dom.Styles(
         raw: {
           'display': 'inline-flex',
@@ -498,14 +546,18 @@ class ShadcnRadioGroup<T> extends StatelessComponent {
     String groupName,
     bool isSelected,
     bool isDisabled,
+    Map<String, String> itemAttrs,
   ) {
     return Component.element(
       tag: 'label',
       classes: 'arcane-radio-chip',
-      attributes: {
-        'data-state': isSelected ? 'checked' : 'unchecked',
-        'data-disabled': '$isDisabled',
-      },
+      attributes: mergeAttrs(<Map<String, String>>[
+        <String, String>{
+          'data-state': isSelected ? 'checked' : 'unchecked',
+          'data-disabled': '$isDisabled',
+        },
+        itemAttrs,
+      ]),
       styles: dom.Styles(
         raw: {
           'display': 'inline-flex',

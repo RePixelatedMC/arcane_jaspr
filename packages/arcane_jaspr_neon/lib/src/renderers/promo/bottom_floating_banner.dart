@@ -122,11 +122,11 @@ class _NeonBottomFloatingBannerState extends State<NeonBottomFloatingBanner> {
           'background-color': 'rgba(10, 10, 10, 0.95)',
           'backdrop-filter': 'blur(12px)',
           '-webkit-backdrop-filter': 'blur(12px)',
-          'border': '1px solid var(--primary)',
+          'border': '1px solid var(--neon-accent)',
           'border-radius': 'var(--radius-lg)',
           // Neon: accent glow
           'box-shadow':
-              '0 0 40px rgba(var(--primary-rgb), 0.25), 0 25px 50px -12px rgba(0, 0, 0, 0.5)',
+              '0 0 40px color-mix(in srgb, var(--neon-accent) 25%, transparent), 0 25px 50px -12px rgba(0, 0, 0, 0.5)',
         },
       ),
       [
@@ -171,8 +171,8 @@ class _NeonBottomFloatingBannerState extends State<NeonBottomFloatingBanner> {
                 'flex-direction': 'column',
                 'align-items': 'center',
                 'padding': '0.75rem 1rem',
-                'background': 'rgba(var(--primary-rgb), 0.1)',
-                'border': '1px solid rgba(var(--primary-rgb), 0.2)',
+                'background': 'color-mix(in srgb, var(--neon-accent) 10%, transparent)',
+                'border': '1px solid color-mix(in srgb, var(--neon-accent) 20%, transparent)',
                 'border-radius': 'var(--radius)',
               },
             ),
@@ -195,7 +195,7 @@ class _NeonBottomFloatingBannerState extends State<NeonBottomFloatingBanner> {
                         'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
                     'font-size': 'var(--font-size-lg)',
                     'font-weight': 'var(--font-weight-bold)',
-                    'color': 'var(--primary)',
+                    'color': 'var(--neon-accent)',
                   },
                 ),
                 [Component.text(_formatCountdown(_remainingTime!))],
@@ -209,14 +209,14 @@ class _NeonBottomFloatingBannerState extends State<NeonBottomFloatingBanner> {
             styles: const dom.Styles(
               raw: {
                 'padding': '0.5rem 1rem',
-                'background': 'rgba(var(--primary-rgb), 0.15)',
-                'border': '1px dashed var(--primary)',
+                'background': 'color-mix(in srgb, var(--neon-accent) 15%, transparent)',
+                'border': '1px dashed var(--neon-accent)',
                 'border-radius': 'var(--radius-sm)',
                 'font-family':
                     'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
                 'font-size': 'var(--font-size-sm)',
                 'font-weight': 'var(--font-weight-semibold)',
-                'color': 'var(--primary)',
+                'color': 'var(--neon-accent)',
                 'letter-spacing': '0',
               },
             ),
@@ -230,7 +230,7 @@ class _NeonBottomFloatingBannerState extends State<NeonBottomFloatingBanner> {
             styles: const dom.Styles(
               raw: {
                 'padding': '0.75rem 1.5rem',
-                'background': 'var(--primary)',
+                'background': 'var(--neon-accent)',
                 'border': 'none',
                 'border-radius': 'var(--radius)',
                 'color': '#ffffff',
@@ -239,7 +239,7 @@ class _NeonBottomFloatingBannerState extends State<NeonBottomFloatingBanner> {
                 'text-decoration': 'none',
                 'cursor': 'pointer',
                 'transition': 'all var(--transition)',
-                'box-shadow': '0 14px 15px rgba(var(--primary-rgb), 0.4)',
+                'box-shadow': '0 14px 15px color-mix(in srgb, var(--neon-accent) 40%, transparent)',
               },
             ),
             events: component.props.onCtaClick != null

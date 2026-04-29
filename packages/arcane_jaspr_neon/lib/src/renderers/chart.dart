@@ -24,9 +24,11 @@ class NeonChart extends StatelessComponent {
           'flex-direction': 'column',
           'gap': '0.875rem',
           'padding': '1.25rem',
-          'border': '1px solid var(--border)',
-          'border-radius': '0.875rem',
-          'background': 'rgba(10, 10, 10, 0.9)',
+          'border': '1px solid var(--neon-panel-border)',
+          'clip-path': 'var(--neon-clip-md)',
+          'background': 'var(--neon-panel-surface)',
+          'box-shadow':
+              'var(--neon-shadow-md), inset 0 1px 0 var(--neon-inset)',
           'backdrop-filter': 'blur(6px)',
         },
       ),
@@ -35,8 +37,10 @@ class NeonChart extends StatelessComponent {
           dom.span(
             styles: const dom.Styles(
               raw: {
-                'font-size': '1rem',
-                'font-weight': '600',
+                'font-family': 'var(--font-heading)',
+                'font-size': 'var(--font-size-md)',
+                'font-weight': 'var(--font-weight-semibold)',
+                'letter-spacing': '0.04em',
                 'color': 'var(--card-foreground)',
               },
             ),
@@ -46,7 +50,7 @@ class NeonChart extends StatelessComponent {
           dom.span(
             styles: const dom.Styles(
               raw: {
-                'font-size': '0.875rem',
+                'font-size': 'var(--font-size-sm)',
                 'color': 'var(--muted-foreground)',
               },
             ),
@@ -66,7 +70,7 @@ class NeonChart extends StatelessComponent {
                 styles: const dom.Styles(
                   raw: {
                     'width': '5rem',
-                    'font-size': '0.75rem',
+                    'font-size': 'var(--font-size-xs)',
                     'color': 'var(--muted-foreground)',
                   },
                 ),
@@ -77,9 +81,11 @@ class NeonChart extends StatelessComponent {
                   raw: {
                     'height': '0.5rem',
                     'flex': '1',
-                    'border-radius': '9999px',
+                    'clip-path': 'var(--neon-clip-xs)',
                     'background':
-                        'color-mix(in srgb, var(--foreground) 14%, transparent)',
+                        'color-mix(in srgb, var(--foreground) 10%, transparent)',
+                    'border':
+                        '1px solid color-mix(in srgb, var(--neon-accent) 18%, transparent)',
                     'overflow': 'hidden',
                   },
                 ),
@@ -92,7 +98,7 @@ class NeonChart extends StatelessComponent {
                             '${((point.value / maxValue) * 100).toStringAsFixed(2)}%',
                         'background': props.color,
                         'box-shadow':
-                            '0 0 12px color-mix(in srgb, var(--primary) 40%, transparent)',
+                            '0 0 14px color-mix(in srgb, var(--neon-accent) 38%, transparent)',
                       },
                     ),
                     const [],
@@ -102,8 +108,9 @@ class NeonChart extends StatelessComponent {
               dom.span(
                 styles: const dom.Styles(
                   raw: {
-                    'font-size': '0.75rem',
-                    'font-weight': '500',
+                    'font-size': 'var(--font-size-xs)',
+                    'font-weight': 'var(--font-weight-medium)',
+                    'font-variant-numeric': 'tabular-nums',
                     'color': 'var(--foreground)',
                   },
                 ),

@@ -1,9 +1,11 @@
 import 'package:arcane_jaspr/component/input/button.dart';
+import 'package:arcane_jaspr/core/interaction/interaction.dart';
 import 'package:arcane_jaspr/flutter.dart';
 
 class IconButton extends StatelessWidget {
   final Widget icon;
   final void Function()? onPressed;
+  final ArcaneInteraction? action;
   final ButtonVariant variant;
   final ButtonSize size;
   final bool disabled;
@@ -13,6 +15,7 @@ class IconButton extends StatelessWidget {
   const IconButton({
     required this.icon,
     this.onPressed,
+    this.action,
     this.variant = ButtonVariant.ghost,
     this.size = ButtonSize.icon,
     this.disabled = false,
@@ -24,6 +27,7 @@ class IconButton extends StatelessWidget {
   const IconButton.primary({
     required this.icon,
     this.onPressed,
+    this.action,
     this.size = ButtonSize.icon,
     this.disabled = false,
     this.loading = false,
@@ -34,6 +38,7 @@ class IconButton extends StatelessWidget {
   const IconButton.secondary({
     required this.icon,
     this.onPressed,
+    this.action,
     this.size = ButtonSize.icon,
     this.disabled = false,
     this.loading = false,
@@ -44,6 +49,7 @@ class IconButton extends StatelessWidget {
   const IconButton.outline({
     required this.icon,
     this.onPressed,
+    this.action,
     this.size = ButtonSize.icon,
     this.disabled = false,
     this.loading = false,
@@ -54,6 +60,7 @@ class IconButton extends StatelessWidget {
   const IconButton.ghost({
     required this.icon,
     this.onPressed,
+    this.action,
     this.size = ButtonSize.icon,
     this.disabled = false,
     this.loading = false,
@@ -64,6 +71,7 @@ class IconButton extends StatelessWidget {
   const IconButton.destructive({
     required this.icon,
     this.onPressed,
+    this.action,
     this.size = ButtonSize.icon,
     this.disabled = false,
     this.loading = false,
@@ -74,6 +82,7 @@ class IconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Button(
     onPressed: onPressed,
+    action: action,
     variant: variant,
     size: size,
     disabled: disabled,

@@ -54,14 +54,14 @@ class _NeonExpandingFabPromoState extends State<NeonExpandingFabPromo> {
             'align-items': 'center',
             'justify-content': 'center',
             'background':
-                'linear-gradient(135deg, var(--primary) 0%, rgba(var(--primary-rgb), 0.7) 100%)',
-            'border': '1px solid rgba(var(--primary-rgb), 0.5)',
+                'linear-gradient(135deg, var(--neon-accent) 0%, color-mix(in srgb, var(--neon-accent) 70%, transparent) 100%)',
+            'border': '1px solid color-mix(in srgb, var(--neon-accent) 50%, transparent)',
             'border-radius': '50%',
             'color': '#ffffff',
             'cursor': 'pointer',
             // Neon: intense glow
             'box-shadow':
-                '0 0 30px rgba(var(--primary-rgb), 0.5), 0 14px 60px rgba(var(--primary-rgb), 0.25), 0 8px 32px rgba(0, 0, 0, 0.4)',
+                '0 0 30px color-mix(in srgb, var(--neon-accent) 50%, transparent), 0 14px 60px color-mix(in srgb, var(--neon-accent) 25%, transparent), 0 8px 32px rgba(0, 0, 0, 0.4)',
             'transition': 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
           },
         ),
@@ -90,11 +90,11 @@ class _NeonExpandingFabPromoState extends State<NeonExpandingFabPromo> {
           'background-color': 'rgba(10, 10, 10, 0.95)',
           'backdrop-filter': 'blur(12px)',
           '-webkit-backdrop-filter': 'blur(12px)',
-          'border': '1px solid var(--primary)',
+          'border': '1px solid var(--neon-accent)',
           'border-radius': 'var(--radius-xl)',
           // Neon: accent glow
           'box-shadow':
-              '0 0 40px rgba(var(--primary-rgb), 0.3), 0 25px 50px -12px rgba(0, 0, 0, 0.5)',
+              '0 0 40px color-mix(in srgb, var(--neon-accent) 30%, transparent), 0 25px 50px -12px rgba(0, 0, 0, 0.5)',
           'padding': '1.5rem',
         },
       ),
@@ -116,12 +116,12 @@ class _NeonExpandingFabPromoState extends State<NeonExpandingFabPromo> {
                 styles: const dom.Styles(
                   raw: {
                     'padding': '0.5rem 1rem',
-                    'background': 'var(--primary)',
+                    'background': 'var(--neon-accent)',
                     'border-radius': 'var(--radius)',
                     'font-size': 'var(--font-size-lg)',
                     'font-weight': 'var(--font-weight-bold)',
                     'color': '#ffffff',
-                    'box-shadow': '0 14px 15px rgba(var(--primary-rgb), 0.4)',
+                    'box-shadow': '0 14px 15px color-mix(in srgb, var(--neon-accent) 40%, transparent)',
                   },
                 ),
                 [Component.text(component.props.discount!)],
@@ -210,8 +210,8 @@ class _NeonExpandingFabPromoState extends State<NeonExpandingFabPromo> {
             styles: const dom.Styles(
               raw: {
                 'padding': '0.75rem',
-                'background': 'rgba(var(--primary-rgb), 0.1)',
-                'border': '1px dashed rgba(var(--primary-rgb), 0.3)',
+                'background': 'color-mix(in srgb, var(--neon-accent) 10%, transparent)',
+                'border': '1px dashed color-mix(in srgb, var(--neon-accent) 30%, transparent)',
                 'border-radius': 'var(--radius)',
                 'margin-bottom': '1rem',
                 'text-align': 'center',
@@ -235,7 +235,7 @@ class _NeonExpandingFabPromoState extends State<NeonExpandingFabPromo> {
                         'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
                     'font-size': 'var(--font-size-base)',
                     'font-weight': 'var(--font-weight-bold)',
-                    'color': 'var(--primary)',
+                    'color': 'var(--neon-accent)',
                     'letter-spacing': '0',
                   },
                 ),
@@ -253,7 +253,7 @@ class _NeonExpandingFabPromoState extends State<NeonExpandingFabPromo> {
                 'display': 'block',
                 'width': '100%',
                 'padding': '0.875rem',
-                'background': 'var(--primary)',
+                'background': 'var(--neon-accent)',
                 'border': 'none',
                 'border-radius': 'var(--radius)',
                 'color': '#ffffff',
@@ -263,7 +263,7 @@ class _NeonExpandingFabPromoState extends State<NeonExpandingFabPromo> {
                 'text-decoration': 'none',
                 'cursor': 'pointer',
                 'transition': 'all var(--transition)',
-                'box-shadow': '0 14px 15px rgba(var(--primary-rgb), 0.4)',
+                'box-shadow': '0 14px 15px color-mix(in srgb, var(--neon-accent) 40%, transparent)',
               },
             ),
             events: component.props.onCtaClick != null

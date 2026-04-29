@@ -16,13 +16,12 @@ class NeonAvatar extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    // Neon sizes - 1.25x larger than ShadCN
     final String sizeValue = switch (props.size) {
-      AvatarSize.xs => '28px', // vs ShadCN 24px
-      AvatarSize.sm => '40px', // vs ShadCN 32px
-      AvatarSize.md => '48px', // vs ShadCN 40px
-      AvatarSize.lg => '64px', // vs ShadCN 56px
-      AvatarSize.xl => '96px', // vs ShadCN 80px
+      AvatarSize.xs => '28px',
+      AvatarSize.sm => '40px',
+      AvatarSize.md => '48px',
+      AvatarSize.lg => '64px',
+      AvatarSize.xl => '96px',
     };
 
     final String fontSize = switch (props.size) {
@@ -33,14 +32,23 @@ class NeonAvatar extends StatelessComponent {
       AvatarSize.xl => '32px',
     };
 
-    // Neon shape border radius
-    final String borderRadius = switch (props.shape) {
-      AvatarShape.circle => '9999px',
-      AvatarShape.rounded => 'var(--radius)', // Neon larger radius
-      AvatarShape.square => 'var(--radius-sm)',
+    final String borderWidth = switch (props.size) {
+      AvatarSize.xs => '1px',
+      AvatarSize.sm => '1px',
+      AvatarSize.md => '1.5px',
+      AvatarSize.lg => '2px',
+      AvatarSize.xl => '2px',
     };
 
-    // Status indicator size
+    final bool isCircle = props.shape == AvatarShape.circle;
+    final String borderRadius = switch (props.shape) {
+      AvatarShape.circle => '9999px',
+      AvatarShape.rounded => 'var(--neon-radius-control)',
+      AvatarShape.square => 'var(--neon-cut-xs)',
+    };
+
+    final String? clipPath = isCircle ? null : 'var(--neon-clip-xs)';
+
     final String statusSize = switch (props.size) {
       AvatarSize.xs => '8px',
       AvatarSize.sm => '10px',
@@ -63,7 +71,6 @@ class NeonAvatar extends StatelessComponent {
       ),
       events: props.onTap == null ? null : {'click': (_) => props.onTap!()},
       [
-        // Avatar image or fallback
         dom.div(
           classes: 'neon-avatar-inner',
           styles: dom.Styles(
@@ -71,17 +78,19 @@ class NeonAvatar extends StatelessComponent {
               'width': '100%',
               'height': '100%',
               'border-radius': borderRadius,
+              if (clipPath != null) 'clip-path': clipPath,
               'overflow': 'hidden',
-              'background-color': 'var(--muted)',
+              'background':
+                  'linear-gradient(160deg, color-mix(in srgb, var(--neon-accent-cool) 18%, transparent), color-mix(in srgb, var(--neon-surface-2) 88%, transparent))',
               'display': 'flex',
               'align-items': 'center',
               'justify-content': 'center',
-              // Neon: use accent border if specified
               'border': props.borderColor != null
-                  ? '2px solid ${props.borderColor}'
-                  : '2px solid var(--border)',
+                  ? '$borderWidth solid ${props.borderColor}'
+                  : '$borderWidth solid color-mix(in srgb, var(--neon-accent) 22%, var(--neon-control-border))',
               'box-sizing': 'border-box',
-              'transition': 'all var(--transition)',
+              'transition':
+                  'border-color 0.18s ease, box-shadow 0.18s ease',
             },
           ),
           [
@@ -102,8 +111,9 @@ class NeonAvatar extends StatelessComponent {
                 styles: dom.Styles(
                   raw: {
                     'font-size': fontSize,
-                    'font-weight': 'var(--font-weight-semibold)',
-                    'color': 'var(--muted-foreground)',
+                    'font-weight': '600',
+                    'color': 'var(--neon-accent-cool)',
+                    'letter-spacing': '0.04em',
                     'text-transform': 'uppercase',
                     'user-select': 'none',
                   },
@@ -111,7 +121,6 @@ class NeonAvatar extends StatelessComponent {
                 [Component.text(props.initials!)],
               )
             else
-              // Default user icon placeholder
               dom.span(
                 styles: dom.Styles(
                   raw: {
@@ -124,7 +133,6 @@ class NeonAvatar extends StatelessComponent {
           ],
         ),
 
-        // Status indicator with Neon glow
         if (props.showStatus)
           dom.div(
             classes: 'neon-avatar-status',
@@ -137,11 +145,10 @@ class NeonAvatar extends StatelessComponent {
                 'height': statusSize,
                 'border-radius': 'var(--arcane-radius-full)',
                 'background-color': props.statusColor ?? 'var(--success)',
-                // Neon: ring with card background
-                'border': '2px solid var(--card)',
-                // Neon: subtle glow on status
+                'border':
+                    '2px solid color-mix(in srgb, var(--neon-panel-surface) 92%, transparent)',
                 'box-shadow':
-                    '0 14px 8px ${props.statusColor ?? 'var(--success)'}',
+                    '0 0 0 1px color-mix(in srgb, ${props.statusColor ?? 'var(--success)'} 28%, transparent), 0 0 12px color-mix(in srgb, ${props.statusColor ?? 'var(--success)'} 55%, transparent)',
               },
             ),
             [],

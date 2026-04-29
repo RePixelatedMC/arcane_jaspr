@@ -98,11 +98,11 @@ class _NeonProgressClaimBannerState extends State<NeonProgressClaimBanner> {
           'background-color': 'rgba(10, 10, 10, 0.95)',
           'backdrop-filter': 'blur(12px)',
           '-webkit-backdrop-filter': 'blur(12px)',
-          'border': '1px solid var(--primary)',
+          'border': '1px solid var(--neon-accent)',
           'border-radius': 'var(--radius-lg)',
           // Neon: accent glow
           'box-shadow':
-              '0 0 40px rgba(var(--primary-rgb), 0.25), 0 25px 50px -12px rgba(0, 0, 0, 0.5)',
+              '0 0 40px color-mix(in srgb, var(--neon-accent) 25%, transparent), 0 25px 50px -12px rgba(0, 0, 0, 0.5)',
           'padding': '1.25rem 1.5rem',
         },
       ),
@@ -185,10 +185,10 @@ class _NeonProgressClaimBannerState extends State<NeonProgressClaimBanner> {
                   'height': '100%',
                   'width': '${(progressPercent * 100).toStringAsFixed(1)}%',
                   'background':
-                      'linear-gradient(90deg, var(--primary), rgba(var(--primary-rgb), 0.7))',
+                      'linear-gradient(90deg, var(--neon-accent), color-mix(in srgb, var(--neon-accent) 70%, transparent))',
                   'border-radius': 'var(--arcane-radius-full)',
                   'transition': 'width 0.5s ease-out',
-                  'box-shadow': '0 14px 10px rgba(var(--primary-rgb), 0.4)',
+                  'box-shadow': '0 14px 10px color-mix(in srgb, var(--neon-accent) 40%, transparent)',
                 },
               ),
               [],
@@ -245,14 +245,14 @@ class _NeonProgressClaimBannerState extends State<NeonProgressClaimBanner> {
                 styles: const dom.Styles(
                   raw: {
                     'padding': '0.5rem 0.875rem',
-                    'background': 'rgba(var(--primary-rgb), 0.15)',
-                    'border': '1px dashed var(--primary)',
+                    'background': 'color-mix(in srgb, var(--neon-accent) 15%, transparent)',
+                    'border': '1px dashed var(--neon-accent)',
                     'border-radius': 'var(--radius-sm)',
                     'font-family':
                         'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
                     'font-size': 'var(--font-size-sm)',
                     'font-weight': 'var(--font-weight-bold)',
-                    'color': 'var(--primary)',
+                    'color': 'var(--neon-accent)',
                   },
                 ),
                 [Component.text(component.props.promoCode!)],
@@ -266,7 +266,7 @@ class _NeonProgressClaimBannerState extends State<NeonProgressClaimBanner> {
                   raw: {
                     'flex': '1',
                     'padding': '0.75rem 1rem',
-                    'background': 'var(--primary)',
+                    'background': 'var(--neon-accent)',
                     'border': 'none',
                     'border-radius': 'var(--radius)',
                     'color': '#ffffff',
@@ -276,7 +276,7 @@ class _NeonProgressClaimBannerState extends State<NeonProgressClaimBanner> {
                     'text-decoration': 'none',
                     'cursor': 'pointer',
                     'transition': 'all var(--transition)',
-                    'box-shadow': '0 14px 15px rgba(var(--primary-rgb), 0.4)',
+                    'box-shadow': '0 14px 15px color-mix(in srgb, var(--neon-accent) 40%, transparent)',
                   },
                 ),
                 events: component.props.onCtaClick != null

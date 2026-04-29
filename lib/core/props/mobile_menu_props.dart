@@ -1,5 +1,4 @@
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
 /// Mobile navigation item data.
 class MobileNavItem {
@@ -20,28 +19,38 @@ class MobileNavItem {
 
 /// Mobile menu component properties.
 class MobileMenuProps {
+  final String id;
   final List<MobileNavItem> items;
   final Widget? logo;
   final Widget? cta;
   final void Function()? onClose;
   final bool isOpen;
+  final bool escapeCloses;
+  final bool focusTrap;
+  final bool restoreFocus;
 
   const MobileMenuProps({
+    required this.id,
     required this.items,
     this.logo,
     this.cta,
     this.onClose,
     this.isOpen = false,
+    this.escapeCloses = true,
+    this.focusTrap = true,
+    this.restoreFocus = true,
   });
 }
 
 /// Hamburger button component properties.
 class HamburgerButtonProps {
+  final String? targetMenuId;
   final bool isOpen;
   final void Function()? onTap;
   final double size;
 
   const HamburgerButtonProps({
+    this.targetMenuId,
     this.isOpen = false,
     this.onTap,
     this.size = 24,

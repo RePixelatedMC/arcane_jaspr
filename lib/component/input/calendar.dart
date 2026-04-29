@@ -25,6 +25,7 @@ class DateRange {
 
 /// A calendar component for date selection.
 class ArcaneCalendar extends StatefulWidget {
+  final String? id;
   final DateTime? selected;
   final void Function(DateTime)? onSelect;
   final DateTime? month;
@@ -40,6 +41,7 @@ class ArcaneCalendar extends StatefulWidget {
   final void Function(DateRange)? onRangeSelect;
 
   const ArcaneCalendar({
+    this.id,
     this.selected,
     this.onSelect,
     this.month,
@@ -133,6 +135,7 @@ class _ArcaneCalendarState extends State<ArcaneCalendar> {
   @override
   Widget build(BuildContext context) {
     return context.renderers.calendar(CalendarProps(
+      id: component.id,
       selected: component.selected,
       displayMonth: _displayMonth,
       minDate: component.minDate,

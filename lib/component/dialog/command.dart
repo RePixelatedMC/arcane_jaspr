@@ -8,6 +8,7 @@ export '../../core/props/command_props.dart'
 
 /// Command palette for quick actions and navigation.
 class ArcaneCommand extends StatefulWidget {
+  final String? id;
   final bool isOpen;
   final void Function()? onClose;
   final List<CommandGroup> groups;
@@ -15,15 +16,24 @@ class ArcaneCommand extends StatefulWidget {
   final String emptyMessage;
   final void Function(String)? onSearch;
   final bool Function(CommandItem, String)? filterFn;
+  final bool escapeCloses;
+  final bool scrimCloses;
+  final bool focusTrap;
+  final bool restoreFocus;
 
   const ArcaneCommand({
     required this.groups,
+    this.id,
     this.isOpen = false,
     this.onClose,
     this.placeholder = 'Type a command or search...',
     this.emptyMessage = 'No results found.',
     this.onSearch,
     this.filterFn,
+    this.escapeCloses = true,
+    this.scrimCloses = true,
+    this.focusTrap = true,
+    this.restoreFocus = true,
     super.key,
   });
 
@@ -97,6 +107,7 @@ class _ArcaneCommandState extends State<ArcaneCommand> {
         .toList();
 
     return context.renderers.command(CommandProps(
+      id: component.id,
       isOpen: component.isOpen,
       onClose: component.onClose,
       groups: groupProps,
@@ -106,6 +117,10 @@ class _ArcaneCommandState extends State<ArcaneCommand> {
       filteredItems: filteredItemProps,
       onSearch: _handleSearch,
       onSelectItem: _selectItem,
+      escapeCloses: component.escapeCloses,
+      scrimCloses: component.scrimCloses,
+      focusTrap: component.focusTrap,
+      restoreFocus: component.restoreFocus,
     ));
   }
 }

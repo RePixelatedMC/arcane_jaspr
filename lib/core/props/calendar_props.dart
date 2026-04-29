@@ -18,6 +18,7 @@ class DateRangeValue {
 
 /// Calendar component properties.
 class CalendarProps {
+  final String? id;
   final DateTime? selected;
   final DateTime displayMonth;
   final DateTime? minDate;
@@ -35,6 +36,7 @@ class CalendarProps {
   final void Function(DateTime date)? onSelectDate;
 
   const CalendarProps({
+    this.id,
     this.selected,
     required this.displayMonth,
     this.minDate,

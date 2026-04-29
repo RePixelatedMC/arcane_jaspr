@@ -30,6 +30,8 @@ enum FloatingPosition {
 /// Combines features from Tooltip, Popover, and Hovercard into a single
 /// flexible component that can render floating content in various ways.
 class FloatingProps {
+  final String? id;
+
   /// The trigger element that activates the floating content.
   final Widget trigger;
 
@@ -82,6 +84,7 @@ class FloatingProps {
   final bool closeOnEscape;
 
   const FloatingProps({
+    this.id,
     required this.trigger,
     this.content,
     this.textContent,
@@ -105,6 +108,7 @@ class FloatingProps {
   bool get isTextTooltip => textContent != null && content == null;
 
   FloatingProps copyWith({
+    String? id,
     Widget? trigger,
     Widget? content,
     String? textContent,
@@ -124,6 +128,7 @@ class FloatingProps {
     bool? closeOnEscape,
   }) {
     return FloatingProps(
+      id: id ?? this.id,
       trigger: trigger ?? this.trigger,
       content: content ?? this.content,
       textContent: textContent ?? this.textContent,

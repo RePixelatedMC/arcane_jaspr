@@ -1,6 +1,8 @@
 import 'package:arcane_jaspr/flutter.dart';
 import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
+import '../interaction/interaction.dart';
+
 enum CycleButtonSize {
   small,
   medium,
@@ -36,6 +38,7 @@ class CycleButtonProps<T> {
   final List<CycleOption<T>> options;
   final T value;
   final void Function(T value)? onChanged;
+  final ArcaneInteraction? onChangeAction;
   final CycleButtonVariant variant;
   final CycleButtonSize size;
   final bool disabled;
@@ -46,6 +49,7 @@ class CycleButtonProps<T> {
     required this.options,
     required this.value,
     this.onChanged,
+    this.onChangeAction,
     this.variant = CycleButtonVariant.outline,
     this.size = CycleButtonSize.medium,
     this.disabled = false,
@@ -57,6 +61,7 @@ class CycleButtonProps<T> {
     List<CycleOption<T>>? options,
     T? value,
     void Function(T value)? onChanged,
+    ArcaneInteraction? onChangeAction,
     CycleButtonVariant? variant,
     CycleButtonSize? size,
     bool? disabled,
@@ -67,6 +72,7 @@ class CycleButtonProps<T> {
       options: options ?? this.options,
       value: value ?? this.value,
       onChanged: onChanged ?? this.onChanged,
+      onChangeAction: onChangeAction ?? this.onChangeAction,
       variant: variant ?? this.variant,
       size: size ?? this.size,
       disabled: disabled ?? this.disabled,
@@ -80,6 +86,7 @@ class CycleButtonProps<T> {
 class ToggleButtonProps {
   final bool value;
   final void Function(bool value)? onChanged;
+  final ArcaneInteraction? onChangeAction;
   final String? label;
   final Widget? icon;
   final CycleButtonSize size;
@@ -90,6 +97,7 @@ class ToggleButtonProps {
   const ToggleButtonProps({
     required this.value,
     this.onChanged,
+    this.onChangeAction,
     this.label,
     this.icon,
     this.size = CycleButtonSize.medium,
@@ -101,6 +109,7 @@ class ToggleButtonProps {
   ToggleButtonProps copyWith({
     bool? value,
     void Function(bool value)? onChanged,
+    ArcaneInteraction? onChangeAction,
     String? label,
     Widget? icon,
     CycleButtonSize? size,
@@ -111,6 +120,7 @@ class ToggleButtonProps {
     return ToggleButtonProps(
       value: value ?? this.value,
       onChanged: onChanged ?? this.onChanged,
+      onChangeAction: onChangeAction ?? this.onChangeAction,
       label: label ?? this.label,
       icon: icon ?? this.icon,
       size: size ?? this.size,

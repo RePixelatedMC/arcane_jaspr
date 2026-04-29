@@ -20,6 +20,7 @@ export '../../core/props/floating_props.dart'
 /// Use the named constructors for common patterns or the default constructor
 /// for full control.
 class ArcaneHoverCard extends StatefulWidget {
+  final String? id;
   final Widget trigger;
   final Widget? content;
   final String? textContent;
@@ -36,6 +37,7 @@ class ArcaneHoverCard extends StatefulWidget {
   final bool closeOnEscape;
 
   const ArcaneHoverCard({
+    this.id,
     required this.trigger,
     this.content,
     this.textContent,
@@ -57,6 +59,7 @@ class ArcaneHoverCard extends StatefulWidget {
   ///
   /// Best for providing hints or descriptions for UI elements.
   const ArcaneHoverCard.tooltip({
+    this.id,
     required Widget child,
     required String this.textContent,
     this.position = FloatingPosition.top,
@@ -76,6 +79,7 @@ class ArcaneHoverCard extends StatefulWidget {
 
   /// Creates a tooltip with custom component content.
   const ArcaneHoverCard.tooltipCustom({
+    this.id,
     required Widget child,
     required Widget this.content,
     this.position = FloatingPosition.top,
@@ -98,6 +102,7 @@ class ArcaneHoverCard extends StatefulWidget {
   /// Best for menus, forms, or interactive content that should
   /// persist until dismissed.
   const ArcaneHoverCard.popover({
+    this.id,
     required this.trigger,
     required Widget this.content,
     this.position = FloatingPosition.bottom,
@@ -119,6 +124,7 @@ class ArcaneHoverCard extends StatefulWidget {
   /// Best for preview cards that show additional info on hover,
   /// like user profile previews or link previews.
   const ArcaneHoverCard.hovercard({
+    this.id,
     required this.trigger,
     required Widget this.content,
     this.position = FloatingPosition.top,
@@ -214,6 +220,7 @@ class _ArcaneHoverCardState extends State<ArcaneHoverCard> {
         component.textContent != null && component.content == null;
 
     return context.renderers.floating(FloatingProps(
+      id: component.id,
       trigger: component.trigger,
       content: component.content,
       textContent: component.textContent,
