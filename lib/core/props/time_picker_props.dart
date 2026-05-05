@@ -1,8 +1,7 @@
+import 'package:arcane_jaspr/core/shared/shared.dart';
 import 'package:jaspr/jaspr.dart';
 
-import '../shared/shared.dart';
-
-export '../shared/shared.dart' show ComponentSize;
+export 'package:arcane_jaspr/core/shared/shared.dart' show ComponentSize;
 
 /// Represents a time of day with hour and minute.
 class TimeOfDay {
@@ -33,10 +32,7 @@ class TimeOfDay {
   }
 
   TimeOfDay copyWith({int? hour, int? minute}) {
-    return TimeOfDay(
-      hour: hour ?? this.hour,
-      minute: minute ?? this.minute,
-    );
+    return TimeOfDay(hour: hour ?? this.hour, minute: minute ?? this.minute);
   }
 
   @override
@@ -64,6 +60,17 @@ class TimePickerProps {
   final ComponentSize size;
   final bool use24Hour;
   final int minuteInterval;
+  final bool isOpen;
+  final int selectedHour;
+  final int selectedMinute;
+  final bool isPM;
+  final void Function()? onToggle;
+  final void Function()? onClear;
+  final void Function(int hour)? onSelectHour;
+  final void Function(int minute)? onSelectMinute;
+  final void Function()? onTogglePeriod;
+  final void Function()? onCancel;
+  final void Function()? onConfirm;
 
   const TimePickerProps({
     required this.value,
@@ -73,10 +80,21 @@ class TimePickerProps {
     required this.size,
     required this.use24Hour,
     required this.minuteInterval,
+    required this.isOpen,
+    required this.selectedHour,
+    required this.selectedMinute,
+    required this.isPM,
     this.id,
     this.placeholder,
     this.label,
     this.error,
+    this.onToggle,
+    this.onClear,
+    this.onSelectHour,
+    this.onSelectMinute,
+    this.onTogglePeriod,
+    this.onCancel,
+    this.onConfirm,
   });
 }
 

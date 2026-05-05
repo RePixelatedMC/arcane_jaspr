@@ -163,6 +163,10 @@ function _calResolveRoot(target){
   }
   return _calRoot(target);
 }
+function _calClosePicker(id){
+  const picker = document.querySelector('[data-arcane-surface][data-arcane-calendar-anchor="' + cssEscape(id) + '"]');
+  if (picker) closeSurface(surfaceType(picker), surfaceId(picker));
+}
 function calendarPrev(target){
   const root = _calResolveRoot(target);
   if (!root) return;
@@ -216,15 +220,13 @@ function calendarSelect(target, value){
       root.removeAttribute('data-arcane-pending-start');
       renderCalendar(root);
       _calEmitChange(root, _calFmtDate(startD) + '/' + _calFmtDate(endD));
-      const picker = document.querySelector('[data-arcane-overlay-id][data-arcane-calendar-anchor="' + cssEscape(id) + '"]');
-      if (picker) closeSurface(picker);
+      _calClosePicker(id);
     }
   } else {
     root.setAttribute('data-arcane-selected', value);
     renderCalendar(root);
     _calEmitChange(root, value);
-    const picker = document.querySelector('[data-arcane-overlay-id][data-arcane-calendar-anchor="' + cssEscape(id) + '"]');
-    if (picker) closeSurface(picker);
+    _calClosePicker(id);
   }
 }
 function bindCalendars(){

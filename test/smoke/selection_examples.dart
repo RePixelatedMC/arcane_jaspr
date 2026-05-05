@@ -1,4 +1,5 @@
 import 'package:arcane_jaspr/arcane_jaspr.dart';
+import 'package:arcane_jaspr_shadcn/arcane_jaspr_shadcn.dart';
 
 class SelectionExamples extends StatefulWidget {
   const SelectionExamples({super.key});
@@ -15,7 +16,7 @@ class _SelectionExamplesState extends State<SelectionExamples> {
   Widget build(BuildContext context) => ArcaneApp(
     stylesheet: const ShadcnStylesheet(theme: ShadcnTheme.midnight),
     brightness: Brightness.dark,
-    child: Screen(
+    home: Screen(
       title: 'Selection',
       subtitle: 'Selector, radio cards, and data table',
       child: Collection(

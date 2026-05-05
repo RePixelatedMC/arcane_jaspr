@@ -1,4 +1,5 @@
 import 'package:arcane_jaspr/arcane_jaspr.dart';
+import 'package:arcane_jaspr_shadcn/arcane_jaspr_shadcn.dart';
 
 class MarkdownTableExample extends StatelessWidget {
   const MarkdownTableExample({super.key});
@@ -7,16 +8,14 @@ class MarkdownTableExample extends StatelessWidget {
   Widget build(BuildContext context) => ArcaneApp(
     stylesheet: const ShadcnStylesheet(theme: ShadcnTheme.midnight),
     brightness: Brightness.dark,
-    child: Screen(
+    home: Screen(
       title: 'Markdown',
       child: Collection(
         children: const [
           Section(
             titleText: 'Rendered Markdown',
             card: true,
-            children: [
-              Markdown('# Arcane\n\n- Flutter-like\n- Jaspr-native'),
-            ],
+            children: [Markdown('# Arcane\n\n- Flutter-like\n- Jaspr-native')],
           ),
           Section(
             titleText: 'Markdown Table',

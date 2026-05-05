@@ -1,16 +1,14 @@
+import 'package:arcane_jaspr/core/props/time_picker_props.dart';
+import 'package:arcane_jaspr/core/theme_provider.dart';
 import 'package:arcane_jaspr/flutter.dart';
-import 'package:jaspr/jaspr.dart' hide BuildContext, InheritedComponent, Key, State, StatefulComponent, StatelessComponent, UniqueKey, ValueKey, runApp;
 
-import '../../core/theme_provider.dart';
+export 'package:arcane_jaspr/core/props/time_picker_props.dart';
 
-export '../../core/props/time_picker_props.dart';
-
-/// A time picker input with dropdown selection. The runtime drives all
-/// open/close, hour/minute selection, and display updates from the
-/// emitted DOM, so this widget is purely declarative.
-class ArcaneTimePicker extends StatelessWidget {
+/// A time picker input with dropdown selection.
+class ArcaneTimePicker extends StatefulWidget {
   final String? id;
   final TimeOfDay? value;
+  final void Function(TimeOfDay?)? onChanged;
   final String? label;
   final String? placeholder;
   final bool use24Hour;
@@ -24,6 +22,7 @@ class ArcaneTimePicker extends StatelessWidget {
   const ArcaneTimePicker({
     this.id,
     this.value,
+    this.onChanged,
     this.label,
     this.placeholder,
     this.use24Hour = false,
@@ -36,27 +35,149 @@ class ArcaneTimePicker extends StatelessWidget {
     super.key,
   });
 
-  String get _displayText {
-    if (value == null) {
-      return placeholder ?? 'Select time...';
+  @override
+  State<ArcaneTimePicker> createState() => _ArcaneTimePickerState();
+}
+
+class _ArcaneTimePickerState extends State<ArcaneTimePicker> {
+  bool _isOpen = false;
+  late TimeOfDay _workingTime;
+
+  @override
+  void initState() {
+    super.initState();
+    _workingTime = _baseTime;
+  }
+
+  @override
+  void didUpdateComponent(covariant ArcaneTimePicker oldComponent) {
+    super.didUpdateComponent(oldComponent);
+    if (!_isOpen && component.value != oldComponent.value) {
+      _workingTime = _baseTime;
     }
-    return value!.format(use24Hour: use24Hour);
+  }
+
+  TimeOfDay get _baseTime => component.value ?? TimeOfDay.now();
+
+  int get _minuteInterval {
+    if (component.minuteInterval <= 0) {
+      return 1;
+    }
+    if (component.minuteInterval > 60) {
+      return 60;
+    }
+    return component.minuteInterval;
+  }
+
+  String get _displayText {
+    if (component.value == null) {
+      return component.placeholder ?? 'Select time...';
+    }
+    return component.value!.format(use24Hour: component.use24Hour);
+  }
+
+  int get _selectedHour {
+    if (component.use24Hour) {
+      return _workingTime.hour;
+    }
+    return _workingTime.hourOfPeriod;
+  }
+
+  void _toggleOpen() {
+    if (component.disabled) {
+      return;
+    }
+    setState(() {
+      if (!_isOpen) {
+        _workingTime = _baseTime;
+      }
+      _isOpen = !_isOpen;
+    });
+  }
+
+  void _clear() {
+    component.onChanged?.call(null);
+    setState(() {
+      _workingTime = _baseTime;
+      _isOpen = false;
+    });
+  }
+
+  void _selectHour(int hour) {
+    int resolvedHour = hour;
+    if (!component.use24Hour) {
+      if (_workingTime.isPM) {
+        resolvedHour = hour == 12 ? 12 : hour + 12;
+      } else {
+        resolvedHour = hour == 12 ? 0 : hour;
+      }
+    }
+    setState(() {
+      _workingTime = _workingTime.copyWith(hour: resolvedHour);
+    });
+  }
+
+  void _selectMinute(int minute) {
+    setState(() {
+      _workingTime = _workingTime.copyWith(minute: minute);
+    });
+  }
+
+  void _togglePeriod() {
+    int hour = _workingTime.hour;
+    if (_workingTime.isPM) {
+      hour -= 12;
+    } else {
+      hour += 12;
+    }
+    setState(() {
+      _workingTime = _workingTime.copyWith(hour: hour);
+    });
+  }
+
+  void _cancel() {
+    setState(() {
+      _workingTime = _baseTime;
+      _isOpen = false;
+    });
+  }
+
+  void _confirm() {
+    component.onChanged?.call(_workingTime);
+    setState(() {
+      _isOpen = false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return context.renderers.timePicker(TimePickerProps(
-      id: id,
-      value: value,
-      displayText: _displayText,
-      placeholder: placeholder,
-      label: label,
-      disabled: disabled,
-      error: error,
-      clearable: clearable,
-      size: size,
-      use24Hour: use24Hour,
-      minuteInterval: minuteInterval,
-    ));
+    String resolvedId =
+        component.id ?? 'timepicker-${identityHashCode(component)}';
+    return context.renderers.timePicker(
+      TimePickerProps(
+        id: resolvedId,
+        value: component.value,
+        displayText: _displayText,
+        placeholder: component.placeholder,
+        label: component.label,
+        disabled: component.disabled,
+        error: component.error,
+        clearable: component.clearable,
+        size: component.size,
+        use24Hour: component.use24Hour,
+        minuteInterval: _minuteInterval,
+        isOpen: _isOpen,
+        selectedHour: _selectedHour,
+        selectedMinute: _workingTime.minute,
+        isPM: _workingTime.isPM,
+        onToggle: _toggleOpen,
+        onClear: _clear,
+        onSelectHour: _selectHour,
+        onSelectMinute: _selectMinute,
+        onTogglePeriod: _togglePeriod,
+        onCancel: _cancel,
+        onConfirm: _confirm,
+      ),
+    );
   }
 }

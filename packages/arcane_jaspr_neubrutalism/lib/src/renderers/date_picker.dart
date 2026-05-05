@@ -51,6 +51,7 @@ class NeubrutalismDatePicker extends StatelessComponent {
         anchorId: triggerAnchorId,
         anchorPlacement: 'bottom-start',
         anchorOffset: '8',
+        initiallyOpen: props.isOpen,
         focusTrap: false,
       ),
       calendarPickerAttrs(calendarId),
@@ -91,6 +92,10 @@ class NeubrutalismDatePicker extends StatelessComponent {
             ...triggerAttrs,
             if (props.disabled) 'disabled': 'true',
           },
+          events: <String, EventCallback>{
+            if (!props.disabled && props.onToggle != null)
+              'click': (_) => props.onToggle?.call(),
+          },
           styles: dom.Styles(
             raw: <String, String>{
               'display': 'flex',
@@ -109,7 +114,8 @@ class NeubrutalismDatePicker extends StatelessComponent {
                   ? 'var(--nb-ink, var(--foreground))'
                   : 'var(--muted-foreground)',
               'cursor': props.disabled ? 'not-allowed' : 'pointer',
-              'transition': 'transform var(--nb-transition, 120ms ease), box-shadow var(--nb-transition, 120ms ease)',
+              'transition':
+                  'transform var(--nb-transition, 120ms ease), box-shadow var(--nb-transition, 120ms ease)',
               'box-shadow':
                   'var(--nb-shadow-md, 5px 5px 0 0 var(--nb-shadow-color, #000))',
               if (props.disabled) 'opacity': '0.5',
@@ -147,7 +153,16 @@ class NeubrutalismDatePicker extends StatelessComponent {
                   'role': 'button',
                   'aria-label': 'Clear date',
                   'data-state': 'clearable',
-                  ...interactionAttrs(ArcaneInteraction.calendarToday(calendarId)),
+                  ...interactionAttrs(
+                    ArcaneInteraction.calendarToday(calendarId),
+                  ),
+                },
+                events: <String, EventCallback>{
+                  if (props.onClear != null)
+                    'click': (event) {
+                      event.stopPropagation();
+                      props.onClear?.call();
+                    },
                 },
                 styles: const dom.Styles(
                   raw: <String, String>{

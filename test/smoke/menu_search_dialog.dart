@@ -1,10 +1,12 @@
 import 'package:arcane_jaspr/arcane_jaspr.dart';
+import 'package:arcane_jaspr_shadcn/arcane_jaspr_shadcn.dart';
 
 class MenuSearchDialogExample extends StatefulWidget {
   const MenuSearchDialogExample({super.key});
 
   @override
-  State<MenuSearchDialogExample> createState() => _MenuSearchDialogExampleState();
+  State<MenuSearchDialogExample> createState() =>
+      _MenuSearchDialogExampleState();
 }
 
 class _MenuSearchDialogExampleState extends State<MenuSearchDialogExample> {
@@ -14,7 +16,7 @@ class _MenuSearchDialogExampleState extends State<MenuSearchDialogExample> {
   Widget build(BuildContext context) => ArcaneApp(
     stylesheet: const ShadcnStylesheet(theme: ShadcnTheme.midnight),
     brightness: Brightness.dark,
-    child: Screen(
+    home: Screen(
       title: 'Discovery',
       actions: [
         PopupMenu(
@@ -40,11 +42,11 @@ class _MenuSearchDialogExampleState extends State<MenuSearchDialogExample> {
                   });
                 },
                 results: const [
-                  const SearchResult(
+                  SearchResult(
                     title: 'ArcaneJaspr',
                     subtitle: 'Primary package',
                   ),
-                  const SearchResult(
+                  SearchResult(
                     title: 'Arcane Lexicon',
                     subtitle: 'Knowledge base renderer',
                   ),
@@ -56,14 +58,8 @@ class _MenuSearchDialogExampleState extends State<MenuSearchDialogExample> {
             titleText: 'Dialogs',
             card: true,
             children: const [
-              DialogText(
-                title: 'Rename project',
-                onConfirm: _noopConfirm,
-              ),
-              DialogDate(
-                title: 'Pick a launch date',
-                onConfirm: _noopDate,
-              ),
+              DialogText(title: 'Rename project', onConfirm: _noopConfirm),
+              DialogDate(title: 'Pick a launch date', onConfirm: _noopDate),
             ],
           ),
         ],

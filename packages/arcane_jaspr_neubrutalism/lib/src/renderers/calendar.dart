@@ -1,8 +1,8 @@
 import 'package:jaspr/dom.dart' as dom;
 import 'package:jaspr/jaspr.dart';
 
-import 'package:arcane_jaspr/core/interaction/interaction_attrs.dart';
 import 'package:arcane_jaspr/core/props/calendar_props.dart';
+import 'package:arcane_jaspr/core/rendering/calendar_markup.dart';
 
 /// Neubrutalism calendar component with restrained dark styling.
 class NeubrutalismCalendar extends StatelessComponent {
@@ -10,35 +10,15 @@ class NeubrutalismCalendar extends StatelessComponent {
 
   const NeubrutalismCalendar(this.props, {super.key});
 
-  String _resolvedId() => props.id ?? 'cal-${identityHashCode(props)}';
-
   @override
   Component build(BuildContext context) {
-    final String calendarId = _resolvedId();
-    final Map<String, String> attrs = mergeAttrs(<Map<String, String>>[
-      calendarAttrs(
-        calendarId: calendarId,
-        year: props.displayMonth.year,
-        month: props.displayMonth.month - 1,
-        mode: props.mode == CalendarModeVariant.range ? 'range' : 'single',
-        selected: props.selected,
-        rangeStart: props.selectedRange?.start,
-        rangeEnd: props.selectedRange?.end,
-        minDate: props.minDate,
-        maxDate: props.maxDate,
-        showWeekNumbers: props.showWeekNumbers,
-        showToday: props.showToday,
-        firstDayOfWeek: props.firstDayOfWeek,
-      ),
-      <String, String>{
-        'role': 'application',
-        'aria-label': 'Calendar',
-      },
-    ]);
-
-    return dom.div(
-      classes: 'arcane-calendar arcane-calendar--neubrutalism neubrutalism-calendar',
-      attributes: attrs,
+    return buildCalendarMarkup(
+      props,
+      classes:
+          'arcane-calendar arcane-calendar--neubrutalism neubrutalism-calendar',
+      navButtonClasses: 'neubrutalism-calendar-nav-btn',
+      todayButtonClasses: 'neubrutalism-calendar-today-btn',
+      dayButtonClasses: 'neubrutalism-calendar-day',
       styles: const dom.Styles(
         raw: <String, String>{
           'display': 'flex',
@@ -50,10 +30,9 @@ class NeubrutalismCalendar extends StatelessComponent {
           'box-shadow':
               'var(--nb-shadow-md, 5px 5px 0 0 var(--nb-shadow-color, #000))',
           'color': 'var(--nb-ink, var(--foreground))',
-          'width': 'fit-content',
+          'width': 'min(100%, 20rem)',
         },
       ),
-      const <Component>[],
     );
   }
 }

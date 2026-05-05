@@ -1,4 +1,5 @@
 import 'package:arcane_jaspr/arcane_jaspr.dart';
+import 'package:arcane_jaspr_shadcn/arcane_jaspr_shadcn.dart';
 
 class FormsAndMenuExample extends StatefulWidget {
   const FormsAndMenuExample({super.key});
@@ -45,12 +46,12 @@ class _FormsAndMenuExampleState extends State<FormsAndMenuExample> {
   Widget build(BuildContext context) => ArcaneApp(
     stylesheet: const ShadcnStylesheet(theme: ShadcnTheme.midnight),
     brightness: Brightness.dark,
-    child: Screen(
+    home: Screen(
       title: 'Planner',
       subtitle: 'Form and menu smoke coverage',
       actions: [
         PopupMenu(
-          items: [
+          items: const [
             MenuItemAction(label: 'New'),
             MenuItemAction(label: 'Duplicate'),
             MenuItemSeparator(),
@@ -71,14 +72,8 @@ class _FormsAndMenuExampleState extends State<FormsAndMenuExample> {
                 name: 'Email',
                 placeholder: 'name@example.com',
               ),
-              ArcaneDateField(
-                provider: _dateProvider,
-                name: 'Meeting date',
-              ),
-              ArcaneTimeField(
-                provider: _timeProvider,
-                name: 'Meeting time',
-              ),
+              ArcaneDateField(provider: _dateProvider, name: 'Meeting date'),
+              ArcaneTimeField(provider: _timeProvider, name: 'Meeting time'),
               ArcaneEnumField(
                 provider: _roleProvider,
                 name: 'Owner role',

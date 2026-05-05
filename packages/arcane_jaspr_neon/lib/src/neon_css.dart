@@ -1102,6 +1102,9 @@ $arcaneMapCss
 }
 
 #arcane-root[class*="neon-"] .arcane-demo-preview-scope {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   border-radius: var(--neon-radius-panel);
   clip-path: var(--neon-panel-clip);
   border-color: var(--neon-panel-border);
@@ -1116,6 +1119,12 @@ $arcaneMapCss
     inset 0 1px 0 rgba(255,255,255,0.12),
     0 18px 42px rgba(0,0,0,0.28),
     0 0 30px color-mix(in srgb, var(--primary) 10%, transparent);
+}
+
+#arcane-root[class*="neon-"] .arcane-demo-preview-scope > .arcane-box {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 #arcane-root[class*="neon-"] .arcane-demo-preview-scope::before {
@@ -1218,8 +1227,10 @@ $arcaneMapCss
   color: var(--muted-foreground) !important;
 }
 #arcane-root[class*="neon-"] {
-  --kb-neon-shell-gap: 0.85rem;
-  --kb-neon-sidebar-width: 17.6rem;
+  --kb-neon-shell-gap: 0.55rem;
+  --kb-neon-sidebar-width: 14.25rem;
+  --kb-neon-article-width: 66rem;
+  --kb-neon-route-width: 12.25rem;
   --kb-neon-dock-top: 0.7rem;
   --kb-neon-dock-height: 2.75rem;
   --kb-neon-dock-clearance: 4.85rem;
@@ -1234,6 +1245,9 @@ $arcaneMapCss
   --kb-neon-node-soft: color-mix(in srgb, var(--neon-accent) 18%, transparent);
   --kb-neon-node-alt: color-mix(in srgb, var(--primary) 72%, var(--foreground));
   --kb-neon-hazard: color-mix(in srgb, var(--neon-magenta) 70%, var(--primary));
+  --kb-neon-punk-hot: color-mix(in srgb, var(--neon-orange) 58%, var(--neon-magenta));
+  --kb-neon-punk-cold: color-mix(in srgb, var(--neon-cyan) 68%, var(--primary));
+  --kb-neon-punk-spray: color-mix(in srgb, var(--neon-magenta) 16%, transparent);
   --kb-neon-clip-lg: polygon(0 1rem, 1rem 0, 100% 0, 100% calc(100% - 1rem), calc(100% - 1rem) 100%, 0 100%);
   --kb-neon-clip-md: polygon(0 0.7rem, 0.7rem 0, 100% 0, 100% calc(100% - 0.7rem), calc(100% - 0.7rem) 100%, 0 100%);
   --kb-neon-clip-sm: polygon(0 0.45rem, 0.45rem 0, 100% 0, 100% calc(100% - 0.45rem), calc(100% - 0.45rem) 100%, 0 100%);
@@ -1321,8 +1335,12 @@ html.light #arcane-root[class*="neon-"],
 
 #arcane-root[class*="neon-"] .kb-page-shell {
   background:
-    radial-gradient(circle at 8% 8%, color-mix(in srgb, var(--primary) 8%, transparent), transparent 30rem),
-    radial-gradient(circle at 88% 12%, color-mix(in srgb, var(--neon-cyan) 7%, transparent), transparent 32rem),
+    linear-gradient(115deg, transparent 0 58%, color-mix(in srgb, var(--kb-neon-punk-cold) 10%, transparent) 58% 58.45%, transparent 58.45% 100%),
+    repeating-linear-gradient(90deg, color-mix(in srgb, var(--kb-neon-punk-cold) 5%, transparent) 0 1px, transparent 1px 4.8rem),
+    repeating-linear-gradient(0deg, color-mix(in srgb, var(--foreground) 2.4%, transparent) 0 1px, transparent 1px 0.72rem),
+    radial-gradient(circle at 12% 7%, color-mix(in srgb, var(--primary) 14%, transparent), transparent 28rem),
+    radial-gradient(circle at 90% 9%, color-mix(in srgb, var(--neon-cyan) 10%, transparent), transparent 31rem),
+    radial-gradient(circle at 74% 88%, color-mix(in srgb, var(--neon-magenta) 7%, transparent), transparent 34rem),
     transparent;
 }
 
@@ -1346,612 +1364,263 @@ html.dark #arcane-root[class*="neon-"]::after {
 html.light #arcane-root[class*="neon-"] .kb-page-shell,
 #arcane-root.light[class*="neon-"] .kb-page-shell {
   background:
+    linear-gradient(115deg, transparent 0 58%, rgba(36, 78, 209, 0.1) 58% 58.45%, transparent 58.45% 100%),
+    repeating-linear-gradient(90deg, rgba(36, 78, 209, 0.045) 0 1px, transparent 1px 4.8rem),
     radial-gradient(circle at 10% 8%, rgba(132, 165, 242, 0.2), transparent 25rem),
-    radial-gradient(circle at 92% 12%, rgba(36, 78, 209, 0.12), transparent 26rem),
-    radial-gradient(circle at 78% 86%, rgba(255, 102, 0, 0.07), transparent 25rem),
+    radial-gradient(circle at 92% 12%, rgba(36, 78, 209, 0.13), transparent 26rem),
+    radial-gradient(circle at 78% 86%, rgba(122, 76, 224, 0.06), transparent 25rem),
     linear-gradient(135deg, #f3f6fb 0%, #eef3fd 46%, #fbfdff 100%);
 }
 
-#arcane-root[class*="neon-"] .arcane-scaffold {
-  display: grid !important;
-  grid-template-rows: auto minmax(0, 1fr) auto !important;
-  padding-top: 0 !important;
-}
-
-#arcane-root[class*="neon-"] .arcane-scaffold-header {
-  position: sticky !important;
-  top: 0 !important;
-  left: auto !important;
-  right: auto !important;
-  z-index: 20 !important;
-  height: auto !important;
-  min-height: 0 !important;
-  margin: 0 !important;
-  padding: 0.75rem var(--kb-neon-shell-gap) 0 !important;
-  border: 0 !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  pointer-events: none;
-}
-
-#arcane-root[class*="neon-"] .arcane-scaffold-navigation {
-  width: 100%;
-  pointer-events: none;
-}
-
-#arcane-root[class*="neon-"] .arcane-scaffold-body {
-  grid-template-columns: var(--kb-neon-sidebar-width) minmax(0, 1fr) !important;
-  align-items: start !important;
-  min-height: 0 !important;
-  padding: var(--kb-neon-shell-gap) !important;
-  gap: var(--kb-neon-shell-gap) !important;
-}
-
-#arcane-root[class*="neon-"] .arcane-scaffold-sidebar.arcane-scaffold-sidebar {
-  position: sticky !important;
-  left: auto !important;
-  right: auto !important;
-  bottom: auto !important;
-  top: calc(var(--kb-neon-dock-height) + (var(--kb-neon-shell-gap) * 1.5)) !important;
-  z-index: 6 !important;
-  align-self: start !important;
-  width: var(--kb-neon-sidebar-width) !important;
-  height: max-content !important;
-  max-height: none !important;
-  min-height: 0 !important;
+#arcane-root[class*="neon-"] .kb-scaffold {
+  min-height: 100vh !important;
   padding: 0 !important;
-  border: 1px solid var(--kb-neon-line-soft) !important;
-  border-radius: 0.55rem !important;
-  clip-path: var(--kb-neon-clip-lg) !important;
-  background:
-    linear-gradient(180deg, color-mix(in srgb, var(--kb-neon-panel-strong) 80%, transparent), var(--kb-neon-panel) 44%, color-mix(in srgb, var(--background) 70%, transparent)),
-    radial-gradient(circle at 10% 0%, color-mix(in srgb, var(--primary) 8%, transparent), transparent 16rem) !important;
-  box-shadow: var(--kb-neon-shadow-panel) !important;
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px) !important;
-  overflow: visible !important;
 }
 
-#arcane-root[class*="neon-"] .arcane-scaffold-sidebar .kb-sidebar {
-  position: relative !important;
-  top: auto !important;
-  width: 100% !important;
-  height: max-content !important;
-  min-height: 0;
-  max-height: none !important;
-  overflow: visible !important;
-}
-
-#arcane-root[class*="neon-"] .arcane-scaffold-sidebar .kb-sidebar-panel {
-  min-height: 0 !important;
-}
-
-#arcane-root[class*="neon-"] .arcane-scaffold-main.arcane-scaffold-main {
-  grid-column: 2 !important;
-  display: block !important;
-  padding: 0 !important;
-  min-width: 0 !important;
-  width: 100% !important;
-  max-width: none !important;
-  min-height: 0 !important;
-  margin-left: 0 !important;
-  border: 1px solid var(--kb-neon-line-soft) !important;
-  border-left-color: transparent !important;
-  border-radius: 0.55rem !important;
-  clip-path: var(--kb-neon-clip-lg) !important;
-  background:
-    linear-gradient(180deg, color-mix(in srgb, var(--kb-neon-panel-strong) 80%, transparent), var(--kb-neon-panel) 54%, color-mix(in srgb, var(--background) 70%, transparent)),
-    radial-gradient(circle at 96% 0%, color-mix(in srgb, var(--neon-magenta) 5%, transparent), transparent 18rem),
-    radial-gradient(circle at 0% 0%, color-mix(in srgb, var(--primary) 5%, transparent), transparent 16rem) !important;
-  box-shadow: var(--kb-neon-shadow-panel) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  overflow: visible !important;
-}
-
-#arcane-root[class*="neon-"] .arcane-scaffold-main.arcane-scaffold-main::before {
-  content: none !important;
-  display: none !important;
-}
-
-#arcane-root[class*="neon-"] .kb-topbar {
-  position: static;
-  width: 100%;
-  max-width: none;
-  margin-left: 0;
-  border: 0;
-  background: transparent;
-  box-shadow: none;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  pointer-events: auto;
-}
-
-#arcane-root[class*="neon-"] .kb-topbar-inner {
-  height: var(--kb-neon-dock-height);
-  min-height: var(--kb-neon-dock-height);
-  padding: 0.4rem 0.55rem;
-  gap: 0.55rem;
-  justify-content: space-between;
-  clip-path: var(--kb-neon-clip-md);
-  border: 1px solid var(--kb-neon-line);
-  border-radius: 0.42rem;
-  background:
-    linear-gradient(135deg, color-mix(in srgb, var(--kb-neon-panel-strong) 90%, transparent), color-mix(in srgb, var(--kb-neon-panel) 82%, transparent)),
-    linear-gradient(90deg, color-mix(in srgb, var(--primary) 10%, transparent), transparent 38%, color-mix(in srgb, var(--neon-magenta) 5%, transparent));
-  box-shadow: var(--kb-neon-shadow-panel);
-  backdrop-filter: blur(16px) saturate(1.04);
-  -webkit-backdrop-filter: blur(16px) saturate(1.04);
-}
-
-#arcane-root[class*="neon-"] .kb-topbar-left,
-#arcane-root[class*="neon-"] .kb-topbar-right {
-  flex: 0 1 auto;
-  gap: 0.45rem;
-  height: 100%;
-  padding: 0.22rem;
-  clip-path: var(--kb-neon-clip-sm);
-  border: 1px solid var(--kb-neon-line-soft);
-  border-radius: 0.32rem;
-  background:
-    linear-gradient(135deg, color-mix(in srgb, var(--kb-neon-panel-strong) 78%, transparent), color-mix(in srgb, var(--kb-neon-panel) 72%, transparent));
-  box-shadow: inset 0 -1px 0 color-mix(in srgb, var(--kb-neon-node) 18%, transparent);
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-}
-
-#arcane-root[class*="neon-"] .kb-topbar-left {
-  flex: 0 0 auto;
-  min-width: 0;
-  overflow: visible;
-}
-
-#arcane-root[class*="neon-"] .kb-topbar-right {
-  flex: 0 1 auto;
-  margin-left: auto;
-  justify-content: flex-end;
-}
-
-#arcane-root[class*="neon-"] .kb-style-switcher {
-  flex: 0 0 auto;
-  flex-wrap: nowrap;
-  padding-left: 0.45rem;
-  border-left: 1px solid var(--kb-neon-line-soft);
-}
-
-#arcane-root[class*="neon-"] .kb-topbar-nav {
-  margin-left: 0;
-  gap: 0.75rem;
-  padding-left: 0.5rem;
-  border-left: 1px solid var(--kb-neon-line-soft);
-}
-
-#arcane-root[class*="neon-"] .kb-topbar-brand {
-  flex: 0 0 auto;
-  width: auto;
-  min-width: 0;
-  height: 2.05rem;
-  padding: 0 0.7rem 0 0.42rem;
-  justify-content: flex-start;
-  gap: 0.52rem;
-  clip-path: var(--kb-neon-clip-sm);
-  border: 1px solid var(--kb-neon-line);
-  background:
-    linear-gradient(90deg, color-mix(in srgb, var(--primary) 10%, transparent), var(--kb-neon-panel-strong) 68%, color-mix(in srgb, var(--neon-cyan) 5%, transparent));
-  color: var(--kb-neon-node-alt);
-  text-transform: uppercase;
-  letter-spacing: 0;
-  box-shadow: var(--kb-neon-shadow-soft);
-}
-
-#arcane-root[class*="neon-"] .kb-topbar-brand-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 auto;
-  width: 1.35rem;
-  height: 1.35rem;
-  clip-path: var(--kb-neon-clip-sm);
-  border: 1px solid var(--kb-neon-line);
-  background:
-    linear-gradient(135deg, var(--kb-neon-node-soft), color-mix(in srgb, var(--kb-neon-panel-strong) 80%, transparent));
-  box-shadow:
-    inset 0 -1px 0 var(--kb-neon-node),
-    0 0 14px color-mix(in srgb, var(--kb-neon-node) 12%, transparent);
-}
-
-#arcane-root[class*="neon-"] .kb-topbar-brand-label {
-  display: inline;
-  min-width: 0;
-  overflow: visible;
-  color: var(--kb-neon-node-alt);
-  font-size: 0.76rem;
-  font-weight: 760;
-  line-height: 1;
-  text-overflow: clip;
-  text-shadow: 0 0 14px color-mix(in srgb, var(--primary) 18%, transparent);
-  white-space: nowrap;
-}
-
-#arcane-root[class*="neon-"] .kb-topbar-github,
-#arcane-root[class*="neon-"] .kb-theme-toggle,
-#arcane-root[class*="neon-"] .kb-stylesheet-select,
-#arcane-root[class*="neon-"] .kb-palette-select,
-#arcane-root[class*="neon-"] .kb-hamburger {
-  clip-path: var(--kb-neon-clip-sm);
-  border-radius: 0.25rem;
-  border: 1px solid var(--kb-neon-line-soft);
-  background:
-    linear-gradient(135deg, var(--kb-neon-node-soft), var(--kb-neon-panel));
-  color: var(--kb-neon-ink);
-  letter-spacing: 0;
-}
-
-#arcane-root[class*="neon-"] .kb-topbar-link {
-  position: relative;
-  height: auto;
-  padding: 0.2rem 0;
-  clip-path: none;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  color: color-mix(in srgb, var(--kb-neon-ink) 78%, var(--muted-foreground));
-  box-shadow: none;
-  font-size: 0.76rem;
-  font-weight: 760;
-  line-height: 1;
-  letter-spacing: 0.02em;
-  text-decoration: none;
-  text-shadow: 0 0 12px color-mix(in srgb, var(--primary) 10%, transparent);
-  text-transform: uppercase;
-}
-
-#arcane-root[class*="neon-"] .kb-topbar-link::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -0.55rem;
-  height: 1px;
-  background: transparent;
-  box-shadow: none;
-}
-
-#arcane-root[class*="neon-"] .kb-topbar-github,
-#arcane-root[class*="neon-"] .kb-theme-toggle,
-#arcane-root[class*="neon-"] .kb-hamburger {
-  width: 2.05rem;
-  height: 2.05rem;
-}
-
-#arcane-root[class*="neon-"] .kb-topbar .kb-hamburger {
-  display: none !important;
-}
-
-@media (max-width: 900px) {
-  #arcane-root[class*="neon-"] .kb-topbar .kb-hamburger {
-    display: inline-flex !important;
-  }
-}
-
-#arcane-root[class*="neon-"] .kb-stylesheet-select,
-#arcane-root[class*="neon-"] .kb-palette-select {
-  height: 2.05rem;
-  min-width: 6.5rem;
-}
-
-#arcane-root[class*="neon-"] .kb-palette-select {
-  min-width: 5.5rem;
-}
-
-#arcane-root[class*="neon-"] .kb-topbar-github:hover,
-#arcane-root[class*="neon-"] .kb-theme-toggle:hover,
-#arcane-root[class*="neon-"] .kb-stylesheet-select:hover,
-#arcane-root[class*="neon-"] .kb-palette-select:hover,
-#arcane-root[class*="neon-"] .kb-hamburger:hover {
-  background:
-    linear-gradient(90deg, var(--kb-neon-node-soft), color-mix(in srgb, var(--primary) 12%, transparent));
-  border-color: var(--kb-neon-line);
-  color: var(--kb-neon-node-alt);
-  box-shadow:
-    inset 0 -2px 0 var(--kb-neon-node),
-    var(--kb-neon-shadow-soft);
-}
-
-#arcane-root[class*="neon-"] .kb-topbar-link:hover,
-#arcane-root[class*="neon-"] .kb-topbar-link.active {
-  background: transparent;
-  border-color: transparent;
-  color: var(--kb-neon-node-alt);
-  box-shadow: none;
-  text-shadow:
-    0 0 12px color-mix(in srgb, var(--primary) 42%, transparent),
-    0 0 26px color-mix(in srgb, var(--neon-accent-cool) 22%, transparent);
-}
-
-#arcane-root[class*="neon-"] .kb-topbar-link.active::after {
-  background: linear-gradient(90deg, var(--primary), var(--neon-accent-cool));
-  box-shadow: 0 0 12px color-mix(in srgb, var(--primary) 38%, transparent);
-}
-
-#arcane-root[class*="neon-"] .kb-search-input {
-  width: 100%;
-  height: 2.05rem;
-  clip-path: var(--kb-neon-clip-sm);
-  border-radius: 0.25rem;
-  border: 1px solid var(--kb-neon-line);
-  background:
-    linear-gradient(135deg, color-mix(in srgb, var(--kb-neon-panel-strong) 88%, transparent), color-mix(in srgb, var(--kb-neon-panel) 86%, transparent));
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.08),
-    0 0 0 1px color-mix(in srgb, var(--kb-neon-node) 4%, transparent);
-}
-
-#arcane-root[class*="neon-"] .kb-topbar-right .kb-search {
-  flex: 0 0 auto;
-  width: clamp(13rem, 22vw, 18rem);
-}
-
-#arcane-root[class*="neon-"] .search-results {
-  clip-path: var(--kb-neon-clip-md);
-  border-radius: 0.375rem;
-  border: 1px solid var(--kb-neon-line);
-  background:
-    linear-gradient(135deg, color-mix(in srgb, var(--kb-neon-panel-strong) 92%, transparent), color-mix(in srgb, var(--kb-neon-panel) 90%, transparent));
-  box-shadow: var(--kb-neon-shadow-panel);
-}
-
-#arcane-root[class*="neon-"] .kb-content-area {
-  display: grid !important;
-  grid-template-columns: minmax(0, 1fr) minmax(12rem, 13.75rem) !important;
-  align-items: flex-start !important;
-  width: 100% !important;
-  max-width: none !important;
-  margin: 0 !important;
-  gap: clamp(1rem, 1.8vw, 1.55rem) !important;
-  padding: clamp(1rem, 1.8vw, 1.55rem) !important;
-}
-
-#arcane-root[class*="neon-"] .kb-article-panel {
-  position: relative;
-  min-width: 0 !important;
-  width: 100% !important;
-  max-width: min(100%, 64rem) !important;
-  padding: clamp(0.25rem, 0.9vw, 0.75rem);
-  clip-path: none;
-  border-radius: 0;
-  border: 0;
-  background: transparent;
-  box-shadow: none;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-}
-
-#arcane-root[class*="neon-"] .kb-article-panel::before {
-  content: none;
+#arcane-root[class*="neon-"] .neon-kb-mobile-dock {
   display: none;
 }
 
-#arcane-root[class*="neon-"] .kb-page-metadata,
-#arcane-root[class*="neon-"] .kb-tags-footer,
-#arcane-root[class*="neon-"] .kb-page-nav {
-  border-color: color-mix(in srgb, var(--neon-cyan) 18%, var(--border));
+#arcane-root[class*="neon-"] .neon-kb-stage {
+  display: grid !important;
+  grid-template-columns: minmax(12.5rem, var(--kb-neon-sidebar-width)) minmax(0, calc(var(--kb-neon-article-width) + var(--kb-neon-route-width) + 1.7rem)) !important;
+  align-items: start !important;
+  justify-content: center !important;
+  gap: clamp(1rem, 1.8vw, 1.65rem) !important;
+  width: 100% !important;
+  max-width: calc(var(--kb-neon-sidebar-width) + var(--kb-neon-article-width) + var(--kb-neon-route-width) + 4.4rem) !important;
+  margin: 0 auto !important;
+  padding: clamp(0.9rem, 1.6vw, 1.55rem) clamp(0.75rem, 1.8vw, 1.6rem) 4.5rem !important;
 }
 
-#arcane-root[class*="neon-"] .kb-page-nav-link {
-  clip-path: var(--kb-neon-clip-md);
-  border-radius: 0.375rem;
-  border-color: var(--kb-neon-line);
-  background:
-    linear-gradient(135deg, color-mix(in srgb, var(--primary) 5%, transparent), var(--kb-neon-panel-strong)),
-    linear-gradient(90deg, var(--kb-neon-line-soft) 1px, transparent 1px);
-  background-size: auto, 18px 18px;
-  box-shadow: var(--kb-neon-shadow-soft);
+#arcane-root[class*="neon-"] .neon-kb-nav-rail {
+  position: sticky;
+  top: clamp(0.65rem, 1.4vw, 1.05rem);
+  z-index: 12;
+  min-width: 0;
+  align-self: start;
 }
 
-#arcane-root[class*="neon-"] .kb-page-nav-link:hover {
-  border-color: var(--kb-neon-line);
+#arcane-root[class*="neon-"] .neon-kb-nav-rail .kb-sidebar {
+  position: relative !important;
+  top: auto !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-height: calc(100vh - 2rem) !important;
+  overflow: visible !important;
+}
+
+#arcane-root[class*="neon-"] .neon-kb-nav-rail .kb-sidebar-panel {
+  position: relative !important;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  min-height: 0 !important;
+  max-height: calc(100vh - 2rem) !important;
+  overflow: hidden !important;
+  clip-path: polygon(0.75rem 0, calc(100% - 0.85rem) 0, 100% 0.85rem, 100% calc(100% - 0.7rem), calc(100% - 0.7rem) 100%, 0 100%, 0 0.75rem) !important;
+  border: 1px solid color-mix(in srgb, var(--kb-neon-node) 26%, var(--border)) !important;
+  border-left: 1px solid color-mix(in srgb, var(--kb-neon-punk-cold) 44%, var(--kb-neon-node)) !important;
+  border-radius: 0 !important;
   background:
-    linear-gradient(135deg, var(--kb-neon-node-soft), color-mix(in srgb, var(--primary) 7%, transparent));
-  box-shadow: var(--kb-neon-shadow-soft);
+    linear-gradient(180deg, color-mix(in srgb, var(--kb-neon-panel-strong) 86%, transparent), color-mix(in srgb, var(--background) 78%, transparent)),
+    radial-gradient(circle at 0 0, color-mix(in srgb, var(--kb-neon-punk-cold) 14%, transparent), transparent 11rem) !important;
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--foreground) 6%, transparent),
+    inset 1px 0 0 color-mix(in srgb, var(--kb-neon-node) 20%, transparent),
+    0 18px 42px color-mix(in srgb, #000000 24%, transparent),
+    0 0 24px color-mix(in srgb, var(--kb-neon-node) 7%, transparent) !important;
+}
+
+#arcane-root[class*="neon-"] .neon-kb-nav-rail .kb-sidebar-panel::before {
+  content: '';
+  position: absolute;
+  top: 4.1rem;
+  bottom: 0.9rem;
+  left: 1.03rem;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--kb-neon-node) 38%, transparent), transparent);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+#arcane-root[class*="neon-"] .neon-kb-nav-rail .kb-sidebar-panel::after {
+  content: '';
+  position: absolute;
+  top: 0.55rem;
+  right: 0.72rem;
+  width: 2.7rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--kb-neon-node), transparent);
+  box-shadow: 0 0 14px color-mix(in srgb, var(--kb-neon-node) 22%, transparent);
+  pointer-events: none;
+}
+
+#arcane-root[class*="neon-"] .neon-kb-nav-head {
+  position: relative;
+  z-index: 1;
+  padding: 0.72rem 0.7rem 0.64rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--kb-neon-node) 18%, transparent);
+  background: linear-gradient(90deg, color-mix(in srgb, var(--kb-neon-node) 12%, transparent), transparent 76%);
+}
+
+#arcane-root[class*="neon-"] .neon-kb-nav-brand {
+  display: grid;
+  grid-template-columns: 2.1rem minmax(0, 1fr);
+  align-items: center;
+  gap: 0.62rem;
+  color: var(--foreground);
+  text-decoration: none;
+}
+
+#arcane-root[class*="neon-"] .neon-kb-brand-glyph {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.85rem;
+  height: 1.85rem;
+  clip-path: polygon(0.28rem 0, 100% 0, 100% calc(100% - 0.28rem), calc(100% - 0.28rem) 100%, 0 100%, 0 0.28rem);
+  border: 1px solid color-mix(in srgb, var(--kb-neon-node) 62%, transparent);
+  background: color-mix(in srgb, var(--kb-neon-node) 16%, var(--background));
+  color: var(--kb-neon-node-alt);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 820;
+  line-height: 1;
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--foreground) 6%, transparent),
+    0 0 16px color-mix(in srgb, var(--kb-neon-node) 18%, transparent);
+}
+
+#arcane-root[class*="neon-"] .neon-kb-brand-stack {
+  display: grid;
+  min-width: 0;
+  gap: 0.18rem;
+}
+
+#arcane-root[class*="neon-"] .neon-kb-brand-name {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--kb-neon-ink);
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 820;
+  letter-spacing: 0;
+  line-height: 1;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+#arcane-root[class*="neon-"] .neon-kb-brand-code {
+  color: color-mix(in srgb, var(--kb-neon-node) 74%, var(--kb-neon-muted));
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 760;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+#arcane-root[class*="neon-"] .sidebar-brand,
+#arcane-root[class*="neon-"] .sidebar-brand-subtitle {
+  display: none !important;
 }
 
 #arcane-root[class*="neon-"] .sidebar-header {
-  position: sticky;
-  top: 0;
-  z-index: 4;
-  border-bottom-color: var(--kb-neon-line);
-  background:
-    linear-gradient(135deg, var(--kb-neon-node-soft), transparent 64%),
-    linear-gradient(180deg, color-mix(in srgb, var(--kb-neon-panel-strong) 76%, transparent), transparent);
-  backdrop-filter: blur(12px) saturate(1.08);
-  -webkit-backdrop-filter: blur(12px) saturate(1.08);
-}
-
-#arcane-root[class*="neon-"] .sidebar-brand-title {
-  color: var(--kb-neon-node-alt);
-  text-transform: uppercase;
-  letter-spacing: 0;
-  text-shadow: 0 0 18px color-mix(in srgb, var(--primary) 16%, transparent);
-}
-
-#arcane-root[class*="neon-"] .sidebar-section-header,
-#arcane-root[class*="neon-"] .sidebar-summary {
-  color: var(--kb-neon-ink);
-  text-transform: uppercase;
-  letter-spacing: 0;
+  display: none !important;
 }
 
 #arcane-root[class*="neon-"] .sidebar-nav {
-  padding: 0.7rem !important;
-  gap: 0.35rem !important;
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 0.32rem !important;
+  max-height: calc(100vh - 6.4rem);
+  overflow-y: auto;
+  padding: 0.62rem 0.52rem 0.82rem !important;
+}
+
+#arcane-root[class*="neon-"] .sidebar-section-header {
+  color: color-mix(in srgb, var(--foreground) 74%, var(--kb-neon-node));
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  font-weight: 760;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 #arcane-root[class*="neon-"] .sidebar-tree {
-  margin-left: 0;
-  padding-left: 0.9rem;
-  gap: 0.15rem;
+  margin-left: 0 !important;
+  padding-left: 0.48rem !important;
+  gap: 0.1rem !important;
 }
 
 #arcane-root[class*="neon-"] .sidebar-tree .sidebar-tree {
-  position: relative;
-  padding-left: 1.12rem;
+  padding-left: 0.42rem !important;
 }
 
 #arcane-root[class*="neon-"] .sidebar-tree > .sidebar-tree-item,
 #arcane-root[class*="neon-"] .sidebar-tree > .sidebar-section {
   position: relative;
+  margin: 0.14rem 0 !important;
 }
 
 #arcane-root[class*="neon-"] .sidebar-tree > .sidebar-tree-item::before,
-#arcane-root[class*="neon-"] .sidebar-tree > .sidebar-section::before {
-  content: '';
-  position: absolute;
-  left: -0.72rem;
-  top: 1.05rem;
-  width: 0.42rem !important;
-  height: 0.42rem !important;
-  background: var(--kb-neon-panel-strong) !important;
-  border: 1px solid var(--kb-neon-line) !important;
-  transform: rotate(45deg);
-  box-shadow: 0 0 0 3px var(--kb-neon-node-soft);
-  z-index: 2;
-}
-
 #arcane-root[class*="neon-"] .sidebar-tree > .sidebar-tree-item::after,
-#arcane-root[class*="neon-"] .sidebar-tree > .sidebar-section::after {
-  content: '';
-  position: absolute;
-  left: -0.52rem !important;
-  top: 1.55rem !important;
-  bottom: -0.55rem !important;
-  width: 1px !important;
-  height: auto !important;
-  background: linear-gradient(180deg, var(--kb-neon-line), transparent) !important;
-  opacity: 0.76;
-  z-index: 1;
-}
-
-#arcane-root[class*="neon-"] .sidebar-tree > .sidebar-tree-item:last-child::after,
-#arcane-root[class*="neon-"] .sidebar-tree > .sidebar-section:last-child::after {
-  display: none !important;
-}
-
-#arcane-root[class*="neon-"] .sidebar-tree > .sidebar-section::before {
-  border-color: color-mix(in srgb, var(--kb-neon-hazard) 42%, var(--kb-neon-line)) !important;
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--kb-neon-hazard) 10%, transparent);
-}
-
-#arcane-root[class*="neon-"] .sidebar-tree .sidebar-section {
-  border: 0 !important;
-  background: transparent !important;
-  margin: 0.1rem 0 0.1rem 0;
-  padding: 0;
-}
-
-#arcane-root[class*="neon-"] .sidebar-tree .sidebar-details[open] > .sidebar-tree {
-  margin-top: 0.16rem;
-}
-
+#arcane-root[class*="neon-"] .sidebar-tree > .sidebar-section::before,
+#arcane-root[class*="neon-"] .sidebar-tree > .sidebar-section::after,
 #arcane-root[class*="neon-"] .sidebar-tree .sidebar-details[open] > .sidebar-tree::before {
-  content: '' !important;
-  display: block !important;
-  position: absolute;
-  left: 0.42rem;
-  top: 0.1rem;
-  bottom: 0.5rem;
-  width: 1px;
-  background:
-    linear-gradient(180deg, transparent, var(--kb-neon-line) 18%, var(--kb-neon-line) 74%, transparent);
-  opacity: 0.72;
+  content: none !important;
+  display: none !important;
 }
 
 #arcane-root[class*="neon-"] .sidebar-link,
 #arcane-root[class*="neon-"] .sidebar-summary {
   position: relative;
-  clip-path: var(--kb-neon-clip-sm);
-  border-radius: 0.25rem;
-  border: 1px solid transparent;
+  min-height: 1.95rem;
+  margin: 0 !important;
+  padding: 0.42rem 0.56rem 0.42rem 0.88rem !important;
+  clip-path: polygon(0.3rem 0, calc(100% - 0.16rem) 0, 100% calc(100% - 0.34rem), calc(100% - 0.34rem) 100%, 0 100%, 0 0.3rem) !important;
+  border: 1px solid transparent !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: var(--kb-neon-muted);
+  font-size: 0.82rem;
+  line-height: 1.15;
   transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
 }
 
-#arcane-root[class*="neon-"] .sidebar-tree .sidebar-link,
-#arcane-root[class*="neon-"] .sidebar-tree .sidebar-summary {
-  min-height: 2rem;
-  margin: 0;
-  padding: 0.45rem 0.65rem 0.45rem 1.25rem !important;
-  color: var(--kb-neon-muted);
-  background:
-    linear-gradient(90deg, transparent, color-mix(in srgb, var(--kb-neon-panel-faint) 76%, transparent));
-  border-color: transparent;
-  border-left: 0 !important;
-}
-
-#arcane-root[class*="neon-"] .sidebar-tree .sidebar-summary {
+#arcane-root[class*="neon-"] .sidebar-summary {
+  color: color-mix(in srgb, var(--kb-neon-ink) 82%, var(--kb-neon-node));
   font-size: 0.72rem;
-  font-weight: 650;
-  color: color-mix(in srgb, var(--kb-neon-ink) 74%, var(--kb-neon-node-alt));
-  background:
-    linear-gradient(90deg, color-mix(in srgb, var(--kb-neon-hazard) 8%, transparent), var(--kb-neon-panel-faint));
-  border-color: color-mix(in srgb, var(--kb-neon-hazard) 18%, transparent);
+  font-weight: 760;
+  text-transform: uppercase;
 }
 
 #arcane-root[class*="neon-"] .sidebar-tree .sidebar-link::before,
 #arcane-root[class*="neon-"] .sidebar-tree .sidebar-summary::before {
   content: '';
   position: absolute;
-  left: 0.42rem;
+  left: 0.32rem;
   top: 50%;
-  width: 0.36rem;
-  height: 0.36rem;
-  border: 1px solid var(--kb-neon-line);
-  background: color-mix(in srgb, var(--kb-neon-panel-strong) 82%, transparent);
+  width: 0.28rem;
+  height: 0.28rem;
+  border: 1px solid color-mix(in srgb, var(--kb-neon-node) 38%, transparent);
+  background: color-mix(in srgb, var(--background) 72%, transparent);
   transform: translateY(-50%) rotate(45deg);
-  box-shadow: 0 0 8px color-mix(in srgb, var(--kb-neon-node) 12%, transparent);
-}
-
-#arcane-root[class*="neon-"] .sidebar-tree .sidebar-link::after,
-#arcane-root[class*="neon-"] .sidebar-tree .sidebar-summary::after {
-  content: '';
-  position: absolute;
-  left: 0.77rem;
-  top: 50%;
-  width: 0.26rem;
-  height: 1px;
-  background: var(--kb-neon-line);
-  transform: translateY(-50%);
-  opacity: 0.78;
-}
-
-#arcane-root[class*="neon-"] .sidebar-tree .sidebar-tree .sidebar-link::before {
-  width: 0.3rem;
-  height: 0.3rem;
-  border-radius: 999px;
-  transform: translateY(-50%);
-}
-
-#arcane-root[class*="neon-"] .sidebar-tree .sidebar-tree .sidebar-summary::before {
-  width: 0.34rem;
-  height: 0.34rem;
-  border-color: color-mix(in srgb, var(--kb-neon-hazard) 36%, var(--kb-neon-line));
-  background:
-    linear-gradient(135deg, color-mix(in srgb, var(--kb-neon-hazard) 18%, transparent), color-mix(in srgb, var(--kb-neon-panel-strong) 78%, transparent));
 }
 
 #arcane-root[class*="neon-"] .sidebar-link:hover,
 #arcane-root[class*="neon-"] .sidebar-summary:hover,
 #arcane-root[class*="neon-"] .sidebar-link.active {
+  border-color: color-mix(in srgb, var(--kb-neon-node) 34%, transparent) !important;
   background:
-    linear-gradient(90deg, var(--kb-neon-node-soft), color-mix(in srgb, var(--primary) 7%, transparent));
-  border-color: color-mix(in srgb, var(--kb-neon-node) 56%, var(--kb-neon-line));
+    linear-gradient(90deg, color-mix(in srgb, var(--kb-neon-node) 14%, transparent), color-mix(in srgb, var(--kb-neon-panel-faint) 64%, transparent)) !important;
   color: var(--kb-neon-node-alt);
   box-shadow:
-    inset 0 -1px 0 var(--kb-neon-node),
-    0 0 0 1px color-mix(in srgb, var(--kb-neon-node) 18%, transparent),
-    0 0 18px color-mix(in srgb, var(--kb-neon-node) 14%, transparent),
-    var(--kb-neon-shadow-soft);
+    inset 2px 0 0 color-mix(in srgb, var(--kb-neon-punk-cold) 74%, transparent),
+    0 0 18px color-mix(in srgb, var(--kb-neon-node) 10%, transparent);
 }
 
 #arcane-root[class*="neon-"] .sidebar-link:hover::before,
@@ -1959,395 +1628,307 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
 #arcane-root[class*="neon-"] .sidebar-link.active::before {
   border-color: var(--kb-neon-node);
   background: var(--kb-neon-node);
-  box-shadow:
-    0 0 0 3px var(--kb-neon-node-soft),
-    0 0 14px color-mix(in srgb, var(--kb-neon-node) 34%, transparent);
-}
-
-html.light #arcane-root[class*="neon-"] .arcane-scaffold-main.arcane-scaffold-main,
-#arcane-root.light[class*="neon-"] .arcane-scaffold-main.arcane-scaffold-main {
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(243, 246, 251, 0.78) 58%, rgba(255, 255, 255, 0.88)),
-    radial-gradient(circle at 96% 0%, rgba(255, 102, 0, 0.055), transparent 17rem),
-    radial-gradient(circle at 0% 0%, rgba(132, 165, 242, 0.16), transparent 18rem) !important;
-  border-color: rgba(36, 78, 209, 0.13) !important;
-  box-shadow:
-    0 18px 42px rgba(36, 78, 209, 0.1),
-    0 1px 0 rgba(255, 255, 255, 0.95) !important;
-}
-
-html.light #arcane-root[class*="neon-"] .kb-topbar-inner,
-#arcane-root.light[class*="neon-"] .kb-topbar-inner {
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(243, 246, 251, 0.78)),
-    linear-gradient(90deg, rgba(132, 165, 242, 0.12), transparent 42%, rgba(255, 102, 0, 0.045));
-  border-color: rgba(36, 78, 209, 0.18);
-  box-shadow:
-    0 14px 34px rgba(36, 78, 209, 0.11),
-    0 1px 0 rgba(255, 255, 255, 0.95);
-}
-
-html.light #arcane-root[class*="neon-"] .kb-topbar-brand,
-#arcane-root.light[class*="neon-"] .kb-topbar-brand {
-  background:
-    linear-gradient(90deg, rgba(132, 165, 242, 0.22), rgba(255, 255, 255, 0.88) 58%, rgba(255, 102, 0, 0.055));
-  border-color: rgba(36, 78, 209, 0.24);
-  color: #173a9f;
-}
-
-html.light #arcane-root[class*="neon-"] .kb-topbar-github,
-html.light #arcane-root[class*="neon-"] .kb-theme-toggle,
-html.light #arcane-root[class*="neon-"] .kb-stylesheet-select,
-html.light #arcane-root[class*="neon-"] .kb-palette-select,
-html.light #arcane-root[class*="neon-"] .kb-hamburger,
-#arcane-root.light[class*="neon-"] .kb-topbar-github,
-#arcane-root.light[class*="neon-"] .kb-theme-toggle,
-#arcane-root.light[class*="neon-"] .kb-stylesheet-select,
-#arcane-root.light[class*="neon-"] .kb-palette-select,
-#arcane-root.light[class*="neon-"] .kb-hamburger {
-  background:
-    linear-gradient(135deg, rgba(132, 165, 242, 0.12), rgba(255, 255, 255, 0.82));
-  border-color: rgba(36, 78, 209, 0.14);
-  color: #101a3a;
-}
-
-html.light #arcane-root[class*="neon-"] .kb-topbar-link,
-#arcane-root.light[class*="neon-"] .kb-topbar-link {
-  background: transparent;
-  color: #314069;
-  text-shadow: none;
-}
-
-html.light #arcane-root[class*="neon-"] .kb-topbar-link:hover,
-html.light #arcane-root[class*="neon-"] .kb-topbar-link.active,
-#arcane-root.light[class*="neon-"] .kb-topbar-link:hover,
-#arcane-root.light[class*="neon-"] .kb-topbar-link.active {
-  color: #173a9f;
-  text-shadow: 0 0 18px rgba(36, 78, 209, 0.16);
-}
-
-html.light #arcane-root[class*="neon-"] .kb-search-input,
-#arcane-root.light[class*="neon-"] .kb-search-input {
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(243, 246, 251, 0.86));
-  border-color: rgba(36, 78, 209, 0.24);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.88),
-    0 0 0 1px rgba(132, 165, 242, 0.1);
-}
-
-html.light #arcane-root[class*="neon-"] .search-results,
-#arcane-root.light[class*="neon-"] .search-results {
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(243, 246, 251, 0.92));
-  border-color: rgba(36, 78, 209, 0.2);
-}
-
-html.light #arcane-root[class*="neon-"] .arcane-scaffold-sidebar.arcane-scaffold-sidebar,
-#arcane-root.light[class*="neon-"] .arcane-scaffold-sidebar.arcane-scaffold-sidebar {
-  background:
-    radial-gradient(circle at 14% 0%, rgba(132, 165, 242, 0.22), transparent 15rem),
-    radial-gradient(circle at 92% 100%, rgba(255, 102, 0, 0.055), transparent 16rem),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(243, 246, 251, 0.86) 54%, rgba(255, 255, 255, 0.9)) !important;
-  border-color: rgba(36, 78, 209, 0.16) !important;
-  box-shadow:
-    0 18px 42px rgba(36, 78, 209, 0.11),
-    0 0 18px rgba(132, 165, 242, 0.08) !important;
-}
-
-html.light #arcane-root[class*="neon-"] .arcane-scaffold-sidebar .sidebar-header,
-#arcane-root.light[class*="neon-"] .arcane-scaffold-sidebar .sidebar-header {
-  border-bottom-color: rgba(36, 78, 209, 0.15);
-  background:
-    linear-gradient(135deg, rgba(132, 165, 242, 0.18), transparent 62%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.82), transparent);
-}
-
-html.light #arcane-root[class*="neon-"] .arcane-scaffold-sidebar .sidebar-brand-title,
-#arcane-root.light[class*="neon-"] .arcane-scaffold-sidebar .sidebar-brand-title {
-  color: #173a9f;
-  text-shadow: 0 0 12px rgba(36, 78, 209, 0.1);
-}
-
-html.light #arcane-root[class*="neon-"] .arcane-scaffold-sidebar .sidebar-brand-subtitle,
-html.light #arcane-root[class*="neon-"] .arcane-scaffold-sidebar .sidebar-section-header,
-#arcane-root.light[class*="neon-"] .arcane-scaffold-sidebar .sidebar-brand-subtitle,
-#arcane-root.light[class*="neon-"] .arcane-scaffold-sidebar .sidebar-section-header {
-  color: rgba(25, 42, 89, 0.7);
-}
-
-html.light #arcane-root[class*="neon-"] .arcane-scaffold-sidebar .sidebar-summary,
-#arcane-root.light[class*="neon-"] .arcane-scaffold-sidebar .sidebar-summary {
-  color: rgba(16, 26, 58, 0.88);
-}
-
-html.light #arcane-root[class*="neon-"] .arcane-scaffold-sidebar .sidebar-tree .sidebar-link,
-#arcane-root.light[class*="neon-"] .arcane-scaffold-sidebar .sidebar-tree .sidebar-link {
-  color: rgba(25, 42, 89, 0.72);
-  background:
-    linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.68));
-}
-
-html.light #arcane-root[class*="neon-"] .arcane-scaffold-sidebar .sidebar-tree .sidebar-summary,
-#arcane-root.light[class*="neon-"] .arcane-scaffold-sidebar .sidebar-tree .sidebar-summary {
-  color: rgba(23, 58, 159, 0.92);
-  background:
-    linear-gradient(90deg, rgba(255, 102, 0, 0.065), rgba(255, 255, 255, 0.72));
-  border-color: rgba(255, 102, 0, 0.14);
-}
-
-html.light #arcane-root[class*="neon-"] .arcane-scaffold-sidebar .sidebar-link:hover,
-html.light #arcane-root[class*="neon-"] .arcane-scaffold-sidebar .sidebar-summary:hover,
-html.light #arcane-root[class*="neon-"] .arcane-scaffold-sidebar .sidebar-link.active,
-#arcane-root.light[class*="neon-"] .arcane-scaffold-sidebar .sidebar-link:hover,
-#arcane-root.light[class*="neon-"] .arcane-scaffold-sidebar .sidebar-summary:hover,
-#arcane-root.light[class*="neon-"] .arcane-scaffold-sidebar .sidebar-link.active {
-  color: #173a9f;
-  background:
-    linear-gradient(90deg, rgba(132, 165, 242, 0.26), rgba(255, 255, 255, 0.8));
-  border-color: rgba(36, 78, 209, 0.36);
-  box-shadow:
-    inset 0 -1px 0 rgba(36, 78, 209, 0.34),
-    0 0 0 1px rgba(132, 165, 242, 0.14),
-    0 0 14px rgba(36, 78, 209, 0.09);
-}
-
-html.light #arcane-root[class*="neon-"] .arcane-scaffold-sidebar .sidebar-tree > .sidebar-tree-item::before,
-html.light #arcane-root[class*="neon-"] .arcane-scaffold-sidebar .sidebar-tree > .sidebar-section::before,
-#arcane-root.light[class*="neon-"] .arcane-scaffold-sidebar .sidebar-tree > .sidebar-tree-item::before,
-#arcane-root.light[class*="neon-"] .arcane-scaffold-sidebar .sidebar-tree > .sidebar-section::before {
-  background: rgba(255, 255, 255, 0.9) !important;
-  border-color: rgba(36, 78, 209, 0.34) !important;
-  box-shadow: 0 0 0 3px rgba(132, 165, 242, 0.1);
-}
-
-html.light #arcane-root[class*="neon-"] .arcane-scaffold-sidebar .sidebar-tree > .sidebar-tree-item::after,
-html.light #arcane-root[class*="neon-"] .arcane-scaffold-sidebar .sidebar-tree > .sidebar-section::after,
-#arcane-root.light[class*="neon-"] .arcane-scaffold-sidebar .sidebar-tree > .sidebar-tree-item::after,
-#arcane-root.light[class*="neon-"] .arcane-scaffold-sidebar .sidebar-tree > .sidebar-section::after {
-  background: linear-gradient(180deg, rgba(36, 78, 209, 0.22), transparent) !important;
-}
-
-html.light #arcane-root[class*="neon-"] .arcane-scaffold-sidebar .sidebar-tree .sidebar-link::before,
-html.light #arcane-root[class*="neon-"] .arcane-scaffold-sidebar .sidebar-tree .sidebar-summary::before,
-#arcane-root.light[class*="neon-"] .arcane-scaffold-sidebar .sidebar-tree .sidebar-link::before,
-#arcane-root.light[class*="neon-"] .arcane-scaffold-sidebar .sidebar-tree .sidebar-summary::before {
-  background: rgba(255, 255, 255, 0.92);
-  border-color: rgba(36, 78, 209, 0.3);
-}
-
-html.light #arcane-root[class*="neon-"] .arcane-scaffold-sidebar .sidebar-tree .sidebar-link::after,
-html.light #arcane-root[class*="neon-"] .arcane-scaffold-sidebar .sidebar-tree .sidebar-summary::after,
-#arcane-root.light[class*="neon-"] .arcane-scaffold-sidebar .sidebar-tree .sidebar-link::after,
-#arcane-root.light[class*="neon-"] .arcane-scaffold-sidebar .sidebar-tree .sidebar-summary::after {
-  background: rgba(36, 78, 209, 0.24);
-}
-
-html.light #arcane-root[class*="neon-"] .arcane-scaffold-sidebar .sidebar-icon,
-html.light #arcane-root[class*="neon-"] .arcane-scaffold-sidebar .sidebar-chevron,
-html.light #arcane-root[class*="neon-"] .arcane-scaffold-sidebar .sidebar-chevron-icon,
-#arcane-root.light[class*="neon-"] .arcane-scaffold-sidebar .sidebar-icon,
-#arcane-root.light[class*="neon-"] .arcane-scaffold-sidebar .sidebar-chevron,
-#arcane-root.light[class*="neon-"] .arcane-scaffold-sidebar .sidebar-chevron-icon {
-  color: currentColor;
-  opacity: 0.9;
-}
-
-html.light #arcane-root[class*="neon-"] .arcane-scaffold-sidebar .kb-stylesheet-select,
-#arcane-root.light[class*="neon-"] .arcane-scaffold-sidebar .kb-stylesheet-select {
-  color: #173a9f;
-  background: rgba(255, 255, 255, 0.88);
-  border-color: rgba(36, 78, 209, 0.2);
-}
-
-#arcane-root[class*="neon-"] .sidebar-tree > .sidebar-tree-item:has(.sidebar-link.active)::before {
-  background: var(--kb-neon-node) !important;
-  border-color: var(--kb-neon-node) !important;
-  box-shadow:
-    0 0 0 3px var(--kb-neon-node-soft),
-    0 0 16px color-mix(in srgb, var(--kb-neon-node) 30%, transparent);
-}
-
-#arcane-root[class*="neon-"] .kb-toc-panel {
-  width: 100% !important;
-  top: calc(var(--kb-neon-dock-height) + 2rem) !important;
-  max-height: none !important;
-  overflow: visible !important;
-}
-
-#arcane-root[class*="neon-"] .kb-toc-panel .toc {
-  position: relative;
-  padding: 0.7rem;
-  clip-path: var(--kb-neon-clip-md);
-  border-radius: 0.375rem;
-  border: 1px solid var(--kb-neon-line);
-  background:
-    linear-gradient(155deg, color-mix(in srgb, var(--neon-magenta) 3%, transparent), var(--kb-neon-panel-strong) 48%, var(--kb-neon-panel));
-  box-shadow: var(--kb-neon-shadow-panel);
-}
-
-#arcane-root[class*="neon-"] .kb-toc-panel .toc::before {
-  content: '';
-  position: absolute;
-  top: 0.75rem;
-  bottom: 0.75rem;
-  left: 0.72rem;
-  width: 1px;
-  background: linear-gradient(180deg, transparent, var(--kb-neon-line), transparent);
-  opacity: 0.9;
-}
-
-#arcane-root[class*="neon-"] .kb-toc-panel .toc-title {
-  position: relative;
-  margin: 0 0 0.65rem 0.45rem;
-  padding: 0 0 0.55rem 0.7rem;
-  border-bottom: 1px solid var(--kb-neon-line-soft);
-  color: var(--kb-neon-node-alt);
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0;
-}
-
-#arcane-root[class*="neon-"] .kb-toc-panel .toc-content > ul,
-#arcane-root[class*="neon-"] .kb-toc-panel .toc-content ul ul {
-  padding-left: 0;
-  margin-left: 0;
-}
-
-#arcane-root[class*="neon-"] .kb-toc-panel .toc-content li::before,
-#arcane-root[class*="neon-"] .kb-toc-panel .toc-content li::after {
-  display: none !important;
-}
-
-#arcane-root[class*="neon-"] .kb-toc-panel .toc-content a {
-  position: relative;
-  margin: 0.12rem 0 0.12rem 0.5rem;
-  padding: 0.42rem 0.55rem 0.42rem 1rem !important;
-  clip-path: var(--kb-neon-clip-sm);
-  border-radius: 0.25rem;
-  border: 1px solid transparent;
-  color: var(--kb-neon-muted);
-  background: transparent;
-  line-height: 1.25;
-}
-
-#arcane-root[class*="neon-"] .kb-toc-panel .toc-content ul ul a {
-  margin-left: 1rem;
-  font-size: 0.75rem;
-}
-
-#arcane-root[class*="neon-"] .kb-toc-panel .toc-content a::before {
-  content: '';
-  position: absolute;
-  left: 0.34rem;
-  top: 50%;
-  width: 0.36rem;
-  height: 0.36rem;
-  background: var(--kb-neon-panel-strong);
-  border: 1px solid var(--kb-neon-line);
-  transform: translateY(-50%);
-}
-
-#arcane-root[class*="neon-"] .kb-toc-panel .toc-content a:hover,
-#arcane-root[class*="neon-"] .kb-toc-panel .toc-content a.toc-active {
-  background:
-    linear-gradient(90deg, var(--kb-neon-node-soft), color-mix(in srgb, var(--primary) 6%, transparent));
-  border-color: var(--kb-neon-line-soft);
-  color: var(--kb-neon-node-alt);
-  box-shadow: inset 0 -1px 0 var(--kb-neon-node);
-}
-
-#arcane-root[class*="neon-"] .kb-toc-panel .toc-content a.toc-active::before {
-  background: var(--kb-neon-node);
-  border-color: var(--kb-neon-node);
   box-shadow: 0 0 12px color-mix(in srgb, var(--kb-neon-node) 30%, transparent);
 }
 
-html.light #arcane-root[class*="neon-"] .kb-toc-panel .toc,
-#arcane-root.light[class*="neon-"] .kb-toc-panel .toc {
+#arcane-root[class*="neon-"] .neon-kb-main-frame {
+  min-width: 0 !important;
+  width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+#arcane-root[class*="neon-"] .neon-kb-content-area {
+  position: relative;
+  display: grid !important;
+  grid-template-columns: minmax(0, var(--kb-neon-article-width)) minmax(10.5rem, var(--kb-neon-route-width)) !important;
+  grid-template-rows: 3.45rem auto !important;
+  align-items: start !important;
+  gap: 0 clamp(1.05rem, 1.8vw, 1.7rem) !important;
+  width: 100% !important;
+  max-width: calc(var(--kb-neon-article-width) + var(--kb-neon-route-width) + 1.7rem) !important;
+  margin: 0 auto !important;
+  padding: 0 0 4.8rem !important;
+}
+
+#arcane-root[class*="neon-"] .neon-kb-command-layer {
+  grid-column: 1;
+  grid-row: 1;
+  position: sticky;
+  top: clamp(0.55rem, 1.2vw, 0.85rem);
+  z-index: 32;
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  min-width: 0;
+  height: 3.45rem;
+  pointer-events: none;
+}
+
+#arcane-root[class*="neon-"] .neon-kb-command-drawer {
+  position: relative;
+  z-index: 1;
+  display: grid !important;
+  grid-template-columns: minmax(11.5rem, 1fr) minmax(21rem, 32rem) minmax(5.6rem, 1fr);
+  align-items: center;
+  width: 100%;
+  gap: clamp(0.38rem, 0.7vw, 0.68rem);
+  pointer-events: none;
+  overflow: visible;
+  border: 0;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+#arcane-root[class*="neon-"] .neon-kb-command-drawer::before {
+  display: none;
+}
+
+#arcane-root[class*="neon-"] .neon-kb-command-drawer::after {
+  display: none;
+}
+
+#arcane-root[class*="neon-"] .neon-kb-floating-search {
+  grid-column: 2;
+  justify-self: stretch;
+  min-width: 0;
+  pointer-events: auto;
+}
+
+#arcane-root[class*="neon-"] .neon-kb-floating-controls {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  pointer-events: auto;
+}
+
+#arcane-root[class*="neon-"] .neon-kb-floating-controls-left {
+  grid-column: 1;
+  justify-self: end;
+}
+
+#arcane-root[class*="neon-"] .neon-kb-floating-controls-right {
+  grid-column: 3;
+  justify-self: start;
+}
+
+#arcane-root[class*="neon-"] .neon-kb-command-drawer .kb-search {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  height: 2.42rem;
+  margin: 0;
+  clip-path: polygon(0.62rem 0, calc(100% - 0.34rem) 0, 100% 0.34rem, 100% calc(100% - 0.62rem), calc(100% - 0.62rem) 100%, 0.28rem 100%, 0 70%, 0 0.62rem);
+  border: 1px solid color-mix(in srgb, var(--kb-neon-node) 48%, var(--border)) !important;
   background:
-    linear-gradient(155deg, rgba(255, 102, 0, 0.035), rgba(255, 255, 255, 0.9) 45%, rgba(243, 246, 251, 0.84));
-  border-color: rgba(36, 78, 209, 0.16);
+    linear-gradient(90deg, color-mix(in srgb, var(--kb-neon-punk-cold) 18%, transparent), transparent 58%),
+    linear-gradient(180deg, color-mix(in srgb, var(--foreground) 7%, transparent), transparent 46%),
+    color-mix(in srgb, var(--kb-neon-panel-strong) 76%, var(--background)) !important;
   box-shadow:
-    0 16px 34px rgba(36, 78, 209, 0.1),
-    0 1px 0 rgba(255, 255, 255, 0.95);
+    inset 0 1px 0 color-mix(in srgb, var(--foreground) 7%, transparent),
+    inset 0 -1px 0 color-mix(in srgb, var(--kb-neon-node) 18%, transparent),
+    0 12px 28px color-mix(in srgb, #000000 24%, transparent),
+    0 0 24px color-mix(in srgb, var(--kb-neon-node) 13%, transparent);
+  backdrop-filter: blur(18px) saturate(1.08);
+  -webkit-backdrop-filter: blur(18px) saturate(1.08);
 }
 
-html.light #arcane-root[class*="neon-"] .kb-toc-panel .toc::before,
-#arcane-root.light[class*="neon-"] .kb-toc-panel .toc::before {
-  background: linear-gradient(180deg, transparent, rgba(36, 78, 209, 0.22), transparent);
+#arcane-root[class*="neon-"] .kb-search-input {
+  width: 100%;
+  height: 100%;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: var(--foreground);
+  padding-left: 2.18rem;
+  font-family: var(--font-body);
+  font-size: 0.86rem;
+  font-weight: 560;
+  box-shadow: none !important;
 }
 
-html.light #arcane-root[class*="neon-"] .kb-toc-panel .toc-content a:hover,
-html.light #arcane-root[class*="neon-"] .kb-toc-panel .toc-content a.toc-active,
-#arcane-root.light[class*="neon-"] .kb-toc-panel .toc-content a:hover,
-#arcane-root.light[class*="neon-"] .kb-toc-panel .toc-content a.toc-active {
+#arcane-root[class*="neon-"] .kb-search-input-wrap {
+  height: 100%;
+}
+
+#arcane-root[class*="neon-"] .kb-search-icon {
+  color: color-mix(in srgb, var(--kb-neon-node) 78%, var(--foreground));
+}
+
+#arcane-root[class*="neon-"] .neon-kb-command-controls {
+  display: flex;
+  align-items: stretch;
+  gap: 0.52rem;
+  min-width: 0;
+}
+
+#arcane-root[class*="neon-"] .kb-style-switcher {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  flex-wrap: nowrap;
+  height: 2.42rem;
+  gap: 1px;
+  padding: 0.18rem;
+  clip-path: polygon(0.58rem 0, 100% 0, 100% calc(100% - 0.58rem), calc(100% - 0.58rem) 100%, 0 100%, 0 0.58rem);
+  border: 1px solid color-mix(in srgb, var(--kb-neon-node) 42%, var(--border));
+  border-radius: 0;
   background:
-    linear-gradient(90deg, rgba(132, 165, 242, 0.24), rgba(255, 255, 255, 0.72));
-  border-color: rgba(36, 78, 209, 0.18);
-  color: #173a9f;
-  box-shadow: inset 0 -1px 0 rgba(36, 78, 209, 0.28);
+    linear-gradient(90deg, color-mix(in srgb, var(--kb-neon-punk-hot) 10%, transparent), transparent 72%),
+    color-mix(in srgb, var(--kb-neon-panel-strong) 76%, var(--background));
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--foreground) 6%, transparent),
+    inset 0 -1px 0 color-mix(in srgb, var(--kb-neon-node) 14%, transparent),
+    0 12px 28px color-mix(in srgb, #000000 22%, transparent),
+    0 0 18px color-mix(in srgb, var(--kb-neon-node) 9%, transparent);
+  backdrop-filter: blur(18px) saturate(1.08);
+  -webkit-backdrop-filter: blur(18px) saturate(1.08);
 }
 
-html.light #arcane-root[class*="neon-"] .prose a,
-#arcane-root.light[class*="neon-"] .prose a {
-  color: #244ed1;
+#arcane-root[class*="neon-"] .neon-kb-command-controls .kb-style-switcher {
+  flex: 1 1 auto;
 }
 
-html.light #arcane-root[class*="neon-"] .prose h1,
-html.light #arcane-root[class*="neon-"] .prose h2,
-html.light #arcane-root[class*="neon-"] .prose h3,
-#arcane-root.light[class*="neon-"] .prose h1,
-#arcane-root.light[class*="neon-"] .prose h2,
-#arcane-root.light[class*="neon-"] .prose h3 {
-  color: #101a3a;
+#arcane-root[class*="neon-"] .neon-kb-floating-controls .kb-style-switcher {
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--kb-neon-punk-hot) 10%, transparent), transparent 72%),
+    color-mix(in srgb, var(--kb-neon-panel-strong) 76%, var(--background));
+}
+
+#arcane-root[class*="neon-"] .kb-stylesheet-select,
+#arcane-root[class*="neon-"] .kb-palette-select {
+  height: 2.04rem;
+  min-width: 6.15rem;
+  outline: 0;
+  padding: 0 1.36rem 0 0.64rem;
+  appearance: none;
+  -webkit-appearance: none;
+  clip-path: polygon(0.36rem 0, 100% 0, 100% calc(100% - 0.36rem), calc(100% - 0.36rem) 100%, 0 100%, 0 0.36rem);
+  border: 1px solid color-mix(in srgb, var(--kb-neon-node) 26%, transparent) !important;
+  border-radius: 0 !important;
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--kb-neon-node) 12%, transparent), transparent 55%),
+    linear-gradient(45deg, transparent 50%, currentColor 50%),
+    linear-gradient(135deg, currentColor 50%, transparent 50%),
+    color-mix(in srgb, var(--background) 58%, transparent) !important;
+  background-position:
+    0 0,
+    calc(100% - 0.82rem) 52%,
+    calc(100% - 0.58rem) 52%,
+    0 0 !important;
+  background-repeat: no-repeat !important;
+  background-size: auto, 0.28rem 0.28rem, 0.28rem 0.28rem, auto !important;
+  color: var(--foreground);
+  font-family: var(--font-heading);
+  font-size: 0.76rem;
+  font-weight: 680;
+  letter-spacing: 0;
+}
+
+#arcane-root[class*="neon-"] .kb-palette-select {
+  min-width: 5.25rem;
+}
+
+#arcane-root[class*="neon-"] .neon-kb-command-actions {
+  display: flex;
+  align-items: stretch;
+  gap: 0.4rem;
+}
+
+#arcane-root[class*="neon-"] .kb-topbar-github,
+#arcane-root[class*="neon-"] .kb-theme-toggle,
+#arcane-root[class*="neon-"] .kb-hamburger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.42rem;
+  height: 2.42rem;
+  clip-path: polygon(0.46rem 0, 100% 0, 100% calc(100% - 0.46rem), calc(100% - 0.46rem) 100%, 0 100%, 0 0.46rem);
+  border-radius: 0 !important;
+  border: 1px solid color-mix(in srgb, var(--kb-neon-node) 42%, var(--border)) !important;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--kb-neon-punk-cold) 12%, transparent), transparent 58%),
+    color-mix(in srgb, var(--kb-neon-panel-strong) 76%, var(--background)) !important;
+  color: var(--foreground);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--foreground) 6%, transparent),
+    inset 0 -1px 0 color-mix(in srgb, var(--kb-neon-node) 14%, transparent),
+    0 12px 28px color-mix(in srgb, #000000 22%, transparent),
+    0 0 18px color-mix(in srgb, var(--kb-neon-node) 9%, transparent) !important;
+  backdrop-filter: blur(18px) saturate(1.08);
+  -webkit-backdrop-filter: blur(18px) saturate(1.08);
+}
+
+#arcane-root[class*="neon-"] .kb-theme-toggle:hover,
+#arcane-root[class*="neon-"] .kb-topbar-github:hover,
+#arcane-root[class*="neon-"] .kb-hamburger:hover,
+#arcane-root[class*="neon-"] .kb-stylesheet-select:hover,
+#arcane-root[class*="neon-"] .kb-palette-select:hover {
+  border-color: color-mix(in srgb, var(--kb-neon-node) 42%, transparent) !important;
+  background: color-mix(in srgb, var(--kb-neon-node) 12%, var(--background)) !important;
+  color: var(--kb-neon-node-alt);
+}
+
+#arcane-root[class*="neon-"] .neon-kb-article-lane {
+  grid-column: 1;
+  grid-row: 2;
+  min-width: 0;
+  width: 100%;
+}
+
+#arcane-root[class*="neon-"] .neon-kb-content-stack {
+  display: grid;
+  align-items: start;
+  min-width: 0;
+  width: 100%;
+  gap: 1rem;
+}
+
+#arcane-root[class*="neon-"] .kb-article-panel {
+  position: relative;
+  min-width: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+  padding: clamp(0.2rem, 0.6vw, 0.5rem) !important;
+  clip-path: none !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+#arcane-root[class*="neon-"] .kb-article-panel::before {
+  content: none !important;
+  display: none !important;
+}
+
+#arcane-root[class*="neon-"] .kb-page-title {
+  position: relative;
+  display: inline-block;
   text-shadow: none;
 }
 
-html.light #arcane-root[class*="neon-"] .prose h2,
-html.light #arcane-root[class*="neon-"] .prose h3,
-#arcane-root.light[class*="neon-"] .prose h2,
-#arcane-root.light[class*="neon-"] .prose h3 {
-  border-bottom-color: rgba(36, 78, 209, 0.14);
+#arcane-root[class*="neon-"] .kb-page-title::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: -0.8rem;
+  bottom: -0.36rem;
+  height: 0.14rem;
+  background: linear-gradient(90deg, var(--kb-neon-node), color-mix(in srgb, var(--kb-neon-punk-cold) 58%, transparent), transparent);
+  clip-path: polygon(0 0, 100% 0, calc(100% - 0.42rem) 100%, 0.3rem 100%);
+  opacity: 0.88;
 }
 
-html.light #arcane-root[class*="neon-"] .prose table,
-#arcane-root.light[class*="neon-"] .prose table {
-  border-color: rgba(36, 78, 209, 0.15);
-  box-shadow: 0 8px 22px rgba(36, 78, 209, 0.055);
-}
-
-html.light #arcane-root[class*="neon-"] .prose th,
-#arcane-root.light[class*="neon-"] .prose th {
-  background: linear-gradient(180deg, rgba(231, 238, 252, 0.95), rgba(214, 225, 250, 0.88));
-  border-color: rgba(36, 78, 209, 0.16);
-  color: #173a9f;
-}
-
-html.light #arcane-root[class*="neon-"] .prose td,
-#arcane-root.light[class*="neon-"] .prose td {
-  background: rgba(255, 255, 255, 0.58);
-  border-color: rgba(36, 78, 209, 0.11);
-}
-
-html.light #arcane-root[class*="neon-"] .prose code:not(pre code),
-html.light #arcane-root[class*="neon-"] .kb-kbd,
-html.light #arcane-root[class*="neon-"] .kb-tag,
-#arcane-root.light[class*="neon-"] .prose code:not(pre code),
-#arcane-root.light[class*="neon-"] .kb-kbd,
-#arcane-root.light[class*="neon-"] .kb-tag {
-  background: rgba(231, 238, 252, 0.86);
-  border-color: rgba(36, 78, 209, 0.16);
-  color: #173a9f;
-}
-
-html.light #arcane-root[class*="neon-"] .kb-page-metadata,
-html.light #arcane-root[class*="neon-"] .kb-tags-footer,
-html.light #arcane-root[class*="neon-"] .kb-page-nav,
-#arcane-root.light[class*="neon-"] .kb-page-metadata,
-#arcane-root.light[class*="neon-"] .kb-tags-footer,
-#arcane-root.light[class*="neon-"] .kb-page-nav {
-  border-color: rgba(36, 78, 209, 0.13);
+#arcane-root[class*="neon-"] .kb-page-metadata,
+#arcane-root[class*="neon-"] .kb-tags-footer,
+#arcane-root[class*="neon-"] .kb-page-nav {
+  border-color: color-mix(in srgb, var(--kb-neon-node) 16%, var(--border));
 }
 
 #arcane-root[class*="neon-"] .prose {
@@ -2357,9 +1938,9 @@ html.light #arcane-root[class*="neon-"] .kb-page-nav,
 #arcane-root[class*="neon-"] .prose h1,
 #arcane-root[class*="neon-"] .prose h2,
 #arcane-root[class*="neon-"] .prose h3 {
-  text-transform: uppercase;
   letter-spacing: 0;
-  scroll-margin-top: var(--kb-neon-dock-clearance);
+  scroll-margin-top: calc(var(--kb-neon-dock-height) + 1.5rem);
+  text-transform: uppercase;
 }
 
 #arcane-root[class*="neon-"] .prose pre,
@@ -2386,77 +1967,417 @@ html.light #arcane-root[class*="neon-"] .kb-page-nav,
   border-radius: 0.125rem;
 }
 
-@media (max-width: 1200px) {
-  #arcane-root[class*="neon-"] .kb-content-area {
+#arcane-root[class*="neon-"] .kb-page-nav {
+  position: relative;
+  gap: 0.8rem !important;
+  padding-top: 1.15rem !important;
+  border-top: 0 !important;
+}
+
+#arcane-root[class*="neon-"] .kb-page-nav::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--kb-neon-node) 44%, transparent), transparent);
+  box-shadow: 0 0 16px color-mix(in srgb, var(--kb-neon-node) 12%, transparent);
+}
+
+#arcane-root[class*="neon-"] .kb-page-nav-link {
+  position: relative;
+  flex: 0 1 calc(50% - 0.5rem) !important;
+  max-width: 25rem;
+  min-height: 5rem;
+  overflow: hidden;
+  clip-path: var(--kb-neon-clip-md);
+  border-radius: 0.48rem;
+  border-color: color-mix(in srgb, var(--kb-neon-node) 22%, var(--border));
+  background:
+    radial-gradient(circle at 12% 0%, color-mix(in srgb, var(--kb-neon-node) 14%, transparent), transparent 11rem),
+    linear-gradient(135deg, color-mix(in srgb, var(--kb-neon-panel-strong) 92%, transparent), color-mix(in srgb, var(--background) 86%, transparent)) !important;
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--foreground) 8%, transparent),
+    0 14px 30px color-mix(in srgb, #000000 20%, transparent),
+    0 0 24px color-mix(in srgb, var(--kb-neon-node) 7%, transparent);
+}
+
+#arcane-root[class*="neon-"] .kb-page-nav-link::before {
+  content: '';
+  position: absolute;
+  top: 0.75rem;
+  width: 3.75rem;
+  height: 2px;
+  background: linear-gradient(90deg, var(--kb-neon-node), color-mix(in srgb, var(--kb-neon-punk-cold) 58%, transparent));
+  box-shadow: 0 0 16px color-mix(in srgb, var(--kb-neon-node) 22%, transparent);
+}
+
+#arcane-root[class*="neon-"] .kb-page-nav-prev::before {
+  left: 0.95rem;
+}
+
+#arcane-root[class*="neon-"] .kb-page-nav-next::before {
+  right: 0.95rem;
+}
+
+#arcane-root[class*="neon-"] .kb-page-nav-link:hover {
+  border-color: color-mix(in srgb, var(--kb-neon-node) 46%, var(--border));
+  background:
+    radial-gradient(circle at 12% 0%, color-mix(in srgb, var(--kb-neon-node) 22%, transparent), transparent 12rem),
+    linear-gradient(135deg, color-mix(in srgb, var(--kb-neon-node-soft) 68%, transparent), color-mix(in srgb, var(--kb-neon-panel-strong) 90%, transparent)) !important;
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--foreground) 10%, transparent),
+    0 16px 34px color-mix(in srgb, #000000 24%, transparent),
+    0 0 28px color-mix(in srgb, var(--kb-neon-node) 12%, transparent);
+}
+
+#arcane-root[class*="neon-"] .neon-kb-route-index {
+  grid-column: 2;
+  grid-row: 2;
+  position: sticky;
+  top: 4.35rem;
+  display: block;
+  align-self: start;
+  width: 100%;
+  max-height: calc(100vh - 5.25rem);
+  overflow-y: auto;
+  padding-bottom: 1rem;
+}
+
+#arcane-root[class*="neon-"] .neon-kb-route-index .kb-toc-panel {
+  position: static !important;
+  top: auto !important;
+  width: 100% !important;
+  max-height: none !important;
+  overflow: visible !important;
+  padding: 0 !important;
+  clip-path: none !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+#arcane-root[class*="neon-"] .neon-kb-route-index .toc {
+  position: relative;
+  padding: 0.18rem 0 0.24rem 0.78rem;
+  clip-path: none;
+  border: 0;
+  border-left: 1px solid color-mix(in srgb, var(--kb-neon-node) 26%, transparent);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+#arcane-root[class*="neon-"] .neon-kb-route-index .toc::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -1px;
+  width: 1px;
+  background: linear-gradient(180deg, var(--kb-neon-node), transparent 82%);
+  opacity: 0.72;
+}
+
+#arcane-root[class*="neon-"] .neon-kb-route-index .toc-title {
+  margin: 0 0 0.8rem;
+  padding: 0 0 0.55rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--kb-neon-node) 18%, transparent);
+  color: var(--foreground);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 780;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+#arcane-root[class*="neon-"] .neon-kb-route-index .toc-content > ul,
+#arcane-root[class*="neon-"] .neon-kb-route-index .toc-content ul ul {
+  padding-left: 0;
+  margin-left: 0;
+}
+
+#arcane-root[class*="neon-"] .neon-kb-route-index .toc-content li::before,
+#arcane-root[class*="neon-"] .neon-kb-route-index .toc-content li::after {
+  display: none !important;
+}
+
+#arcane-root[class*="neon-"] .neon-kb-route-index .toc-content a {
+  position: relative;
+  margin: 0.1rem 0;
+  padding: 0.36rem 0.34rem 0.36rem 0.85rem !important;
+  border: 0;
+  background: transparent;
+  color: var(--kb-neon-muted);
+  font-size: 0.78rem;
+  line-height: 1.25;
+}
+
+#arcane-root[class*="neon-"] .neon-kb-route-index .toc-content ul ul a {
+  margin-left: 0.48rem;
+  font-size: 0.74rem;
+}
+
+#arcane-root[class*="neon-"] .neon-kb-route-index .toc-content a::before {
+  content: '';
+  position: absolute;
+  left: 0.12rem;
+  top: 50%;
+  width: 0.32rem;
+  height: 0.32rem;
+  border: 1px solid color-mix(in srgb, var(--kb-neon-node) 42%, transparent);
+  background: transparent;
+  transform: translateY(-50%);
+}
+
+#arcane-root[class*="neon-"] .neon-kb-route-index .toc-content a:hover,
+#arcane-root[class*="neon-"] .neon-kb-route-index .toc-content a.toc-active {
+  color: var(--kb-neon-node-alt);
+  background: linear-gradient(90deg, color-mix(in srgb, var(--kb-neon-node) 10%, transparent), transparent);
+}
+
+#arcane-root[class*="neon-"] .neon-kb-route-index .toc-content a.toc-active::before {
+  background: var(--kb-neon-node);
+  border-color: var(--kb-neon-node);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--kb-neon-node) 30%, transparent);
+}
+
+html.light #arcane-root[class*="neon-"] .neon-kb-nav-rail .kb-sidebar-panel,
+#arcane-root.light[class*="neon-"] .neon-kb-nav-rail .kb-sidebar-panel,
+html.light #arcane-root[class*="neon-"] .neon-kb-command-drawer .kb-search,
+html.light #arcane-root[class*="neon-"] .kb-style-switcher,
+html.light #arcane-root[class*="neon-"] .kb-theme-toggle,
+html.light #arcane-root[class*="neon-"] .kb-topbar-github,
+html.light #arcane-root[class*="neon-"] .kb-hamburger,
+#arcane-root.light[class*="neon-"] .neon-kb-command-drawer .kb-search,
+#arcane-root.light[class*="neon-"] .kb-style-switcher,
+#arcane-root.light[class*="neon-"] .kb-theme-toggle,
+#arcane-root.light[class*="neon-"] .kb-topbar-github,
+#arcane-root.light[class*="neon-"] .kb-hamburger {
+  border-color: rgba(36, 78, 209, 0.34) !important;
+  background:
+    linear-gradient(135deg, rgba(36, 78, 209, 0.11), transparent 58%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(226, 235, 255, 0.86)) !important;
+  color: #101a3a;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.92),
+    inset 0 -1px 0 rgba(36, 78, 209, 0.14),
+    0 12px 26px rgba(36, 78, 209, 0.1),
+    0 0 18px rgba(36, 78, 209, 0.08) !important;
+}
+
+html.light #arcane-root[class*="neon-"] .kb-stylesheet-select,
+html.light #arcane-root[class*="neon-"] .kb-palette-select,
+#arcane-root.light[class*="neon-"] .kb-stylesheet-select,
+#arcane-root.light[class*="neon-"] .kb-palette-select {
+  border-color: rgba(36, 78, 209, 0.18) !important;
+  background:
+    linear-gradient(90deg, rgba(36, 78, 209, 0.1), transparent 62%),
+    linear-gradient(45deg, transparent 50%, currentColor 50%),
+    linear-gradient(135deg, currentColor 50%, transparent 50%),
+    rgba(242, 246, 255, 0.7) !important;
+  background-position:
+    0 0,
+    calc(100% - 0.82rem) 52%,
+    calc(100% - 0.58rem) 52%,
+    0 0 !important;
+  background-repeat: no-repeat !important;
+  background-size: auto, 0.28rem 0.28rem, 0.28rem 0.28rem, auto !important;
+  color: #101a3a;
+}
+
+html.light #arcane-root[class*="neon-"] .kb-search-input,
+#arcane-root.light[class*="neon-"] .kb-search-input {
+  color: #111827;
+}
+
+html.light #arcane-root[class*="neon-"] .sidebar-link,
+#arcane-root.light[class*="neon-"] .sidebar-link,
+html.light #arcane-root[class*="neon-"] .neon-kb-route-index .toc-content a,
+#arcane-root.light[class*="neon-"] .neon-kb-route-index .toc-content a {
+  color: rgba(16, 26, 58, 0.72);
+}
+
+html.light #arcane-root[class*="neon-"] .sidebar-summary,
+#arcane-root.light[class*="neon-"] .sidebar-summary,
+html.light #arcane-root[class*="neon-"] .neon-kb-route-index .toc-title,
+#arcane-root.light[class*="neon-"] .neon-kb-route-index .toc-title {
+  color: #101a3a;
+}
+
+html.light #arcane-root[class*="neon-"] .sidebar-link:hover,
+html.light #arcane-root[class*="neon-"] .sidebar-summary:hover,
+html.light #arcane-root[class*="neon-"] .sidebar-link.active,
+#arcane-root.light[class*="neon-"] .sidebar-link:hover,
+#arcane-root.light[class*="neon-"] .sidebar-summary:hover,
+#arcane-root.light[class*="neon-"] .sidebar-link.active,
+html.light #arcane-root[class*="neon-"] .neon-kb-route-index .toc-content a:hover,
+html.light #arcane-root[class*="neon-"] .neon-kb-route-index .toc-content a.toc-active,
+#arcane-root.light[class*="neon-"] .neon-kb-route-index .toc-content a:hover,
+#arcane-root.light[class*="neon-"] .neon-kb-route-index .toc-content a.toc-active {
+  color: #173a9f;
+  background: linear-gradient(90deg, rgba(132, 165, 242, 0.22), rgba(255, 255, 255, 0.64)) !important;
+}
+
+html.light #arcane-root[class*="neon-"] .prose a,
+#arcane-root.light[class*="neon-"] .prose a {
+  color: #244ed1;
+}
+
+html.light #arcane-root[class*="neon-"] .prose h1,
+html.light #arcane-root[class*="neon-"] .prose h2,
+html.light #arcane-root[class*="neon-"] .prose h3,
+#arcane-root.light[class*="neon-"] .prose h1,
+#arcane-root.light[class*="neon-"] .prose h2,
+#arcane-root.light[class*="neon-"] .prose h3 {
+  color: #101a3a;
+  text-shadow: none;
+}
+
+html.light #arcane-root[class*="neon-"] .prose code:not(pre code),
+html.light #arcane-root[class*="neon-"] .kb-kbd,
+html.light #arcane-root[class*="neon-"] .kb-tag,
+#arcane-root.light[class*="neon-"] .prose code:not(pre code),
+#arcane-root.light[class*="neon-"] .kb-kbd,
+#arcane-root.light[class*="neon-"] .kb-tag {
+  background: rgba(231, 238, 252, 0.86);
+  border-color: rgba(36, 78, 209, 0.16);
+  color: #173a9f;
+}
+
+@media (max-width: 1250px) {
+  #arcane-root[class*="neon-"] .neon-kb-content-area {
     grid-template-columns: minmax(0, 1fr) !important;
   }
 
-  #arcane-root[class*="neon-"] .kb-toc-panel {
+  #arcane-root[class*="neon-"] .neon-kb-command-layer,
+  #arcane-root[class*="neon-"] .neon-kb-article-lane {
+    grid-column: 1;
+  }
+
+  #arcane-root[class*="neon-"] .neon-kb-route-index {
     display: none !important;
   }
 }
 
-@media (max-width: 1100px) {
-  #arcane-root[class*="neon-"] .arcane-scaffold-header {
-    margin: 0 !important;
+@media (max-width: 980px) {
+  #arcane-root[class*="neon-"] .neon-kb-stage {
+    grid-template-columns: minmax(0, 1fr) !important;
     padding: 0.75rem !important;
+  }
+
+  #arcane-root[class*="neon-"] .neon-kb-nav-rail {
+    position: static;
+  }
+
+  #arcane-root[class*="neon-"] .neon-kb-nav-rail .kb-sidebar {
+    position: fixed !important;
     top: 0 !important;
+    left: 0 !important;
+    z-index: 70 !important;
+    width: min(20.5rem, 88vw) !important;
+    height: 100vh !important;
+    transform: translateX(-105%);
+    transition: transform 0.18s ease;
   }
 
-  #arcane-root[class*="neon-"] .kb-topbar {
-    width: 100%;
-    max-width: none;
+  #arcane-root[class*="neon-"] .neon-kb-nav-rail .kb-sidebar.open {
+    transform: translateX(0);
   }
 
-  #arcane-root[class*="neon-"] .kb-topbar-inner {
-    justify-content: space-between;
+  #arcane-root[class*="neon-"] .neon-kb-nav-rail .kb-sidebar-panel {
+    max-height: 100vh !important;
+    min-height: 100vh !important;
   }
 
-  #arcane-root[class*="neon-"] .kb-topbar-left {
-    flex-basis: auto;
+  #arcane-root[class*="neon-"] .neon-kb-mobile-dock {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    min-height: var(--kb-neon-dock-height);
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--kb-neon-line);
+    background:
+      linear-gradient(90deg, color-mix(in srgb, var(--kb-neon-node) 10%, transparent), transparent 16rem),
+      color-mix(in srgb, var(--background) 92%, #050816);
+    box-shadow: 0 10px 24px color-mix(in srgb, #000000 26%, transparent);
+  }
+
+  #arcane-root[class*="neon-"] .neon-kb-mobile-dock .kb-topbar-brand {
+    flex: 1 1 auto;
     min-width: 0;
   }
 
-  #arcane-root[class*="neon-"] .arcane-scaffold-body {
-    grid-template-columns: minmax(0, 1fr) !important;
-  }
-
-  #arcane-root[class*="neon-"] .arcane-scaffold-sidebar.arcane-scaffold-sidebar {
-    position: relative !important;
-    left: auto !important;
-    top: auto !important;
-    width: min(21rem, 92vw) !important;
-    height: auto !important;
-    max-height: none !important;
-  }
-
-  #arcane-root[class*="neon-"] .arcane-scaffold-main.arcane-scaffold-main {
-    grid-column: 1 !important;
-  }
-
-  #arcane-root[class*="neon-"] .kb-content-area {
-    padding-top: 0.55rem;
-  }
-}
-
-@media (max-width: 900px) {
-  #arcane-root[class*="neon-"] .arcane-scaffold-sidebar {
-    width: min(21rem, 92vw) !important;
+  #arcane-root[class*="neon-"] .neon-kb-mobile-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
   }
 
   #arcane-root[class*="neon-"] .kb-topbar-brand {
-    flex: 0 0 auto;
-    width: 2.05rem;
-    padding: 0;
+    display: inline-flex;
+    align-items: center;
     justify-content: center;
+    min-width: 0;
   }
 
   #arcane-root[class*="neon-"] .kb-topbar-brand-label {
     display: none;
   }
+}
 
-  #arcane-root[class*="neon-"] .kb-topbar-link {
-    padding: 0.2rem 0;
+@media (max-width: 760px) {
+  #arcane-root[class*="neon-"] .neon-kb-content-area {
+    grid-template-rows: 5.9rem auto !important;
+  }
+
+  #arcane-root[class*="neon-"] .neon-kb-command-layer {
+    height: 5.9rem;
+    top: 0.5rem;
+  }
+
+  #arcane-root[class*="neon-"] .neon-kb-command-drawer {
+    grid-template-columns: minmax(0, 1fr) auto;
+    width: min(100%, calc(100vw - 1.5rem));
+  }
+
+  #arcane-root[class*="neon-"] .neon-kb-floating-search {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+
+  #arcane-root[class*="neon-"] .neon-kb-floating-controls-left {
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: start;
+  }
+
+  #arcane-root[class*="neon-"] .neon-kb-floating-controls-right {
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: end;
+  }
+
+  #arcane-root[class*="neon-"] .neon-kb-command-actions {
+    display: flex;
+  }
+
+  #arcane-root[class*="neon-"] .kb-style-switcher {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    height: auto;
+  }
+
+  #arcane-root[class*="neon-"] .kb-stylesheet-select,
+  #arcane-root[class*="neon-"] .kb-palette-select {
+    width: 100%;
   }
 }
 
@@ -2708,6 +2629,11 @@ html.light #arcane-root[class*="neon-"] .kb-page-nav,
   padding: 0.625rem 0.75rem;
   background: color-mix(in srgb, var(--neon-accent) 3%, transparent);
   border-bottom: 1px solid var(--neon-panel-border);
+}
+
+#arcane-root[class*="neon-"] .neon-kb-command-dock,
+#arcane-root[class*="neon-"] .neon-kb-command-center {
+  display: none !important;
 }
 
 [class*="neon-"] .sidebar-search input,
@@ -3112,6 +3038,23 @@ html.light #arcane-root[class*="neon-"] .kb-page-nav,
   border-color: color-mix(in srgb, var(--primary) 24%, transparent);
   box-shadow: 0 0 8px color-mix(in srgb, var(--primary) 6%, transparent);
 }
+
+#arcane-root[class*="neon-"] .sidebar-tree .sidebar-tree-item::after,
+#arcane-root[class*="neon-"] .sidebar-tree .sidebar-section::after,
+#arcane-root[class*="neon-"] .sidebar-details[open] > .sidebar-tree::before {
+  content: none !important;
+  display: none !important;
+}
+
+#arcane-root[class*="neon-"] .sidebar-tree-nav > .sidebar-tree > .sidebar-section > .sidebar-details > .sidebar-tree,
+#arcane-root[class*="neon-"] .sidebar-tree .sidebar-tree {
+  padding-left: 0.42rem !important;
+}
+
+#arcane-root[class*="neon-"] .sidebar-tree .sidebar-tree .sidebar-tree {
+  padding-left: 0.24rem !important;
+}
+
 /* ============================================
    ARCANE MAP - Neon Style
    ============================================ */

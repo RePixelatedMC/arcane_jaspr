@@ -52,6 +52,7 @@ class NeonDatePicker extends StatelessComponent {
         anchorPlacement: 'bottom-start',
         anchorOffset: '8',
         focusTrap: false,
+        initiallyOpen: props.isOpen,
       ),
       calendarPickerAttrs(calendarId),
     ]);
@@ -90,6 +91,10 @@ class NeonDatePicker extends StatelessComponent {
           attributes: <String, String>{
             ...triggerAttrs,
             if (props.disabled) 'disabled': 'true',
+          },
+          events: <String, EventCallback>{
+            if (!props.disabled && props.onToggle != null)
+              'click': (_) => props.onToggle?.call(),
           },
           styles: dom.Styles(
             raw: <String, String>{
@@ -147,7 +152,16 @@ class NeonDatePicker extends StatelessComponent {
                   'role': 'button',
                   'aria-label': 'Clear date',
                   'data-state': 'clearable',
-                  ...interactionAttrs(ArcaneInteraction.calendarToday(calendarId)),
+                  ...interactionAttrs(
+                    ArcaneInteraction.calendarToday(calendarId),
+                  ),
+                },
+                events: <String, EventCallback>{
+                  if (props.onClear != null)
+                    'click': (event) {
+                      event.stopPropagation();
+                      props.onClear?.call();
+                    },
                 },
                 styles: const dom.Styles(
                   raw: <String, String>{

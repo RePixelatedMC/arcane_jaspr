@@ -500,8 +500,17 @@ html:has(#arcane-root[class*="shadcn-"]) body::-webkit-scrollbar-thumb:hover,
 }
 
 #arcane-root[class*="shadcn-"] .arcane-demo-preview-scope {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   border-width: 1px !important;
   background: color-mix(in srgb, var(--card) 96%, var(--background)) !important;
+}
+
+#arcane-root[class*="shadcn-"] .arcane-demo-preview-scope > .arcane-box {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 #arcane-root[class*="shadcn-"] .arcane-demo-missing {

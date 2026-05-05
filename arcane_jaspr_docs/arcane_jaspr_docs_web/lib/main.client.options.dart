@@ -6,6 +6,8 @@
 
 import 'package:jaspr/client.dart';
 
+import 'package:arcane_neon_web/components/interactive_demo.dart'
+    deferred as _interactive_demo;
 import 'package:jaspr_content/components/_internal/tab_bar.dart'
     deferred as _tab_bar;
 
@@ -27,6 +29,12 @@ import 'package:jaspr_content/components/_internal/tab_bar.dart'
 /// ```
 ClientOptions get defaultClientOptions => ClientOptions(
   clients: {
+    'interactive_demo': ClientLoader(
+      (p) => _interactive_demo.InteractiveDemo(
+        componentType: p['componentType'] as String,
+      ),
+      loader: _interactive_demo.loadLibrary,
+    ),
     'jaspr_content:tab_bar': ClientLoader(
       (p) => _tab_bar.TabBar(
         initialValue: p['initialValue'] as String,

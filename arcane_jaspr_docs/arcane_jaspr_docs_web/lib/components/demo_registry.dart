@@ -959,6 +959,158 @@ ArcaneToggleGroup(
 )''',
     previewBuilder: _buildStylingDemo,
   ),
+  DemoDefinition(
+    componentType: 'tokens',
+    symbolName: 'Background',
+    sourcePath: 'lib/util/style_types/colors.dart',
+    code: '''ArcaneBox(
+  style: const ArcaneStyleData(
+    padding: PaddingPreset.lg,
+    background: Background.surface,
+    border: BorderPreset.standard,
+    borderRadius: Radius.lg,
+  ),
+  children: const [
+    ArcaneStatusBadge.primary('Primary'),
+    ArcaneStatusBadge.success('Success'),
+    ArcaneStatusBadge.warning('Warning'),
+  ],
+)''',
+    previewBuilder: _buildTokensDemo,
+  ),
+  DemoDefinition(
+    componentType: 'theming',
+    symbolName: 'ArcaneStyleData',
+    sourcePath: 'lib/util/style_types/arcane_style_data.dart',
+    code: '''ArcaneBox(
+  style: const ArcaneStyleData(
+    padding: PaddingPreset.lg,
+    background: Background.card,
+    border: BorderPreset.accent,
+    borderRadius: Radius.lg,
+  ),
+  children: [
+    Button.primary(label: 'Primary', onPressed: () {}),
+    Button.secondary(label: 'Secondary', onPressed: () {}),
+  ],
+)''',
+    previewBuilder: _buildThemingDemo,
+  ),
+  DemoDefinition(
+    componentType: 'aliases',
+    symbolName: 'ArcaneBox',
+    sourcePath: 'lib/arcane_jaspr.dart',
+    code: '''ArcaneBox(
+  style: const ArcaneStyleData(
+    display: Display.flex,
+    gap: Gap.sm,
+    alignItems: AlignItems.center,
+  ),
+  children: [
+    Button.primary(label: 'Save', onPressed: () {}),
+    Button.secondary(label: 'Cancel', onPressed: () {}),
+  ],
+)''',
+    previewBuilder: _buildAliasesDemo,
+  ),
+  DemoDefinition(
+    componentType: 'borders',
+    symbolName: 'BorderPreset',
+    sourcePath: 'lib/util/style_types/borders.dart',
+    code: '''ArcaneBox(
+  style: const ArcaneStyleData(
+    padding: PaddingPreset.lg,
+    border: BorderPreset.accentThick,
+    borderRadius: Radius.lg,
+    background: Background.surface,
+  ),
+  children: const [Text.body('Theme-owned borders')],
+)''',
+    previewBuilder: _buildBordersDemo,
+  ),
+  DemoDefinition(
+    componentType: 'colors',
+    symbolName: 'Background',
+    sourcePath: 'lib/util/style_types/colors.dart',
+    code: '''ArcaneBox(
+  style: const ArcaneStyleData(
+    background: Background.accentContainer,
+    padding: PaddingPreset.lg,
+    borderRadius: Radius.lg,
+  ),
+  children: const [Text.heading3('Palette aware')],
+)''',
+    previewBuilder: _buildColorsDemo,
+  ),
+  DemoDefinition(
+    componentType: 'display',
+    symbolName: 'Display',
+    sourcePath: 'lib/util/style_types/layout.dart',
+    code: '''ArcaneBox(
+  style: const ArcaneStyleData(
+    display: Display.flex,
+    flexWrap: FlexWrap.wrap,
+    gap: Gap.sm,
+  ),
+  children: const [
+    ArcaneStatusBadge.secondary('One'),
+    ArcaneStatusBadge.secondary('Two'),
+    ArcaneStatusBadge.secondary('Three'),
+  ],
+)''',
+    previewBuilder: _buildDisplayDemo,
+  ),
+  DemoDefinition(
+    componentType: 'effects',
+    symbolName: 'Shadow',
+    sourcePath: 'lib/util/style_types/effects.dart',
+    code: '''ArcaneBox(
+  style: const ArcaneStyleData(
+    padding: PaddingPreset.lg,
+    background: Background.surface,
+    border: BorderPreset.standard,
+    borderRadius: Radius.lg,
+    shadow: Shadow.glowAccent,
+  ),
+  children: const [Text.body('Theme-specific effects')],
+)''',
+    previewBuilder: _buildEffectsDemo,
+  ),
+  DemoDefinition(
+    componentType: 'spacing',
+    symbolName: 'Gap',
+    sourcePath: 'lib/util/style_types/spacing.dart',
+    code: '''ArcaneBox(
+  style: const ArcaneStyleData(
+    display: Display.flex,
+    flexDirection: FlexDirection.column,
+    gap: Gap.md,
+  ),
+  children: [
+    Button.primary(label: 'First', onPressed: () {}),
+    Button.secondary(label: 'Second', onPressed: () {}),
+  ],
+)''',
+    previewBuilder: _buildSpacingDemo,
+  ),
+  DemoDefinition(
+    componentType: 'typography-styles',
+    symbolName: 'Text',
+    sourcePath: 'lib/component/typography/text.dart',
+    code: '''ArcaneBox(
+  style: const ArcaneStyleData(
+    display: Display.flex,
+    flexDirection: FlexDirection.column,
+    gap: Gap.xs,
+  ),
+  children: const [
+    Text.heading2('Heading'),
+    Text.subheading('Subheading'),
+    Text.body('Body copy adapts per stylesheet.'),
+  ],
+)''',
+    previewBuilder: _buildTypographyStylesDemo,
+  ),
 ];
 
 Map<String, DemoDefinition> demoRegistry =
@@ -1267,14 +1419,19 @@ Widget _buildDatePickerDemo(DemoStateController state) {
     initial: DateTime(2026, 4, 24),
   );
   return _surface(
-    ArcaneDatePicker(
-      value: startDate,
-      label: 'Start date',
-      onChanged: (value) {
-        if (value != null) {
-          state.setDate('date-picker-start', value);
-        }
-      },
+    ArcaneBox(
+      style: const ArcaneStyleData(width: Size.full, maxWidthCustom: '20rem'),
+      children: [
+        ArcaneDatePicker(
+          value: startDate,
+          label: 'Start date',
+          onChanged: (value) {
+            if (value != null) {
+              state.setDate('date-picker-start', value);
+            }
+          },
+        ),
+      ],
     ),
   );
 }
@@ -1818,6 +1975,267 @@ Widget _buildStylingDemo(DemoStateController state) {
       ],
     ),
     minHeight: '300px',
+  );
+}
+
+Widget _buildTokensDemo(DemoStateController state) {
+  return _surface(
+    ArcaneBox(
+      style: const ArcaneStyleData(
+        width: Size.full,
+        maxWidthCustom: '520px',
+        padding: PaddingPreset.lg,
+        display: Display.flex,
+        flexDirection: FlexDirection.column,
+        gap: Gap.md,
+        background: Background.surface,
+        border: BorderPreset.standard,
+        borderRadius: Radius.lg,
+      ),
+      children: [
+        const Text.heading3('Token-driven surface'),
+        const Text.body(
+          'The same tokens resolve through the active stylesheet and palette.',
+        ),
+        _demoRow(
+          const ArcaneStatusBadge.primary('Primary'),
+          const ArcaneStatusBadge.success('Success'),
+          const ArcaneStatusBadge.warning('Warning'),
+        ),
+        _demoRow(
+          Button.primary(label: 'Confirm', onPressed: () {}),
+          Button.secondary(label: 'Cancel', onPressed: () {}),
+        ),
+      ],
+    ),
+    minHeight: '300px',
+  );
+}
+
+Widget _buildThemingDemo(DemoStateController state) {
+  return _surface(
+    ArcaneBox(
+      style: const ArcaneStyleData(
+        width: Size.full,
+        maxWidthCustom: '500px',
+        padding: PaddingPreset.lg,
+        display: Display.flex,
+        flexDirection: FlexDirection.column,
+        gap: Gap.md,
+        background: Background.card,
+        border: BorderPreset.accent,
+        borderRadius: Radius.lg,
+        shadow: Shadow.sm,
+      ),
+      children: [
+        const Text.heading3('Theme-owned controls'),
+        const Text.body(
+          'Buttons, badges, and surfaces inherit the active renderer.',
+        ),
+        _demoRow(
+          Button.primary(label: 'Primary', onPressed: () {}),
+          Button.secondary(label: 'Secondary', onPressed: () {}),
+        ),
+      ],
+    ),
+    minHeight: '280px',
+  );
+}
+
+Widget _buildAliasesDemo(DemoStateController state) {
+  return _surface(
+    ArcaneBox(
+      style: const ArcaneStyleData(
+        width: Size.full,
+        maxWidthCustom: '460px',
+        padding: PaddingPreset.lg,
+        display: Display.flex,
+        flexDirection: FlexDirection.column,
+        gap: Gap.sm,
+        background: Background.backgroundSecondary,
+        border: BorderPreset.subtle,
+        borderRadius: Radius.lg,
+      ),
+      children: [
+        const Text.heading3('Widget aliases'),
+        const Text.body('Compose layout with the same surface primitives.'),
+        _demoRow(
+          Button.primary(label: 'Save', onPressed: () {}),
+          Button.secondary(label: 'Cancel', onPressed: () {}),
+        ),
+      ],
+    ),
+    minHeight: '260px',
+  );
+}
+
+Widget _buildBordersDemo(DemoStateController state) {
+  return _surface(
+    _demoRow(
+      _styleTile('Subtle', BorderPreset.subtle, Radius.sm, Shadow.none),
+      _styleTile('Accent', BorderPreset.accentThick, Radius.lg, Shadow.sm),
+      _styleTile(
+        'Dashed',
+        BorderPreset.dashedStandard,
+        Radius.none,
+        Shadow.none,
+      ),
+    ),
+    minHeight: '240px',
+  );
+}
+
+Widget _buildColorsDemo(DemoStateController state) {
+  return _surface(
+    _demoRow(
+      _colorTile('Surface', Background.surface),
+      _colorTile('Primary', Background.primary),
+      _colorTile('Info', Background.info),
+    ),
+    minHeight: '240px',
+  );
+}
+
+Widget _buildDisplayDemo(DemoStateController state) {
+  return _surface(
+    ArcaneBox(
+      style: const ArcaneStyleData(
+        width: Size.full,
+        maxWidthCustom: '520px',
+        padding: PaddingPreset.lg,
+        display: Display.flex,
+        flexWrap: FlexWrap.wrap,
+        alignItems: AlignItems.center,
+        justifyContent: JustifyContent.center,
+        gap: Gap.sm,
+        background: Background.surface,
+        border: BorderPreset.standard,
+        borderRadius: Radius.lg,
+      ),
+      children: const [
+        ArcaneStatusBadge.secondary('Wrap'),
+        ArcaneStatusBadge.secondary('Align'),
+        ArcaneStatusBadge.secondary('Justify'),
+        ArcaneStatusBadge.secondary('Gap'),
+      ],
+    ),
+    minHeight: '220px',
+  );
+}
+
+Widget _buildEffectsDemo(DemoStateController state) {
+  bool glow = state.boolValue('effects-glow', initial: true);
+  return _surface(
+    ArcaneBox(
+      style: ArcaneStyleData(
+        width: Size.full,
+        maxWidthCustom: '460px',
+        padding: PaddingPreset.lg,
+        display: Display.flex,
+        flexDirection: FlexDirection.column,
+        gap: Gap.md,
+        background: Background.surface,
+        border: BorderPreset.standard,
+        borderRadius: Radius.lg,
+        shadow: glow ? Shadow.glowAccent : Shadow.md,
+      ),
+      children: [
+        const Text.heading3('Theme effects'),
+        const Text.body('Effects remain tied to the active stylesheet.'),
+        Button.secondary(
+          label: glow ? 'Use shadow' : 'Use glow',
+          onPressed: () => state.toggleBool('effects-glow', initial: true),
+        ),
+      ],
+    ),
+    minHeight: '300px',
+  );
+}
+
+Widget _buildSpacingDemo(DemoStateController state) {
+  return _surface(
+    ArcaneBox(
+      style: const ArcaneStyleData(
+        width: Size.full,
+        maxWidthCustom: '420px',
+        padding: PaddingPreset.lg,
+        display: Display.flex,
+        flexDirection: FlexDirection.column,
+        gap: Gap.md,
+        background: Background.surface,
+        border: BorderPreset.standard,
+        borderRadius: Radius.lg,
+      ),
+      children: [
+        Button.primary(label: 'First action', onPressed: () {}),
+        Button.secondary(label: 'Second action', onPressed: () {}),
+        Button.ghost(label: 'Quiet action', onPressed: () {}),
+      ],
+    ),
+    minHeight: '300px',
+  );
+}
+
+Widget _buildTypographyStylesDemo(DemoStateController state) {
+  return _surface(
+    ArcaneBox(
+      style: const ArcaneStyleData(
+        width: Size.full,
+        maxWidthCustom: '500px',
+        padding: PaddingPreset.lg,
+        display: Display.flex,
+        flexDirection: FlexDirection.column,
+        gap: Gap.sm,
+        background: Background.surface,
+        border: BorderPreset.standard,
+        borderRadius: Radius.lg,
+      ),
+      children: const [
+        Text.heading2('Heading'),
+        Text.subheading('Subheading'),
+        Text.body('Body copy adapts per stylesheet without page-specific CSS.'),
+        Text.bodySmall('Small copy and captions keep their hierarchy.'),
+      ],
+    ),
+    minHeight: '300px',
+  );
+}
+
+Widget _styleTile(
+  String label,
+  BorderPreset border,
+  Radius radius,
+  Shadow shadow,
+) {
+  return ArcaneBox(
+    style: ArcaneStyleData(
+      minWidth: '120px',
+      padding: PaddingPreset.lg,
+      display: Display.flex,
+      alignItems: AlignItems.center,
+      justifyContent: JustifyContent.center,
+      background: Background.surface,
+      border: border,
+      borderRadius: radius,
+      shadow: shadow,
+    ),
+    children: [Text.body(label)],
+  );
+}
+
+Widget _colorTile(String label, Background background) {
+  return ArcaneBox(
+    style: ArcaneStyleData(
+      minWidth: '120px',
+      padding: PaddingPreset.lg,
+      display: Display.flex,
+      alignItems: AlignItems.center,
+      justifyContent: JustifyContent.center,
+      background: background,
+      border: BorderPreset.standard,
+      borderRadius: Radius.lg,
+    ),
+    children: [Text.body(label, color: TextColor.primary)],
   );
 }
 

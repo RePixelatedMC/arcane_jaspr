@@ -37,6 +37,9 @@ const String _runtimeBaseCss = r'''
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  width: min(100%, 20rem);
+  min-width: min(18rem, 100%);
+  box-sizing: border-box;
 }
 [data-arcane-calendar] .arcane-calendar-header {
   display: flex;
@@ -62,7 +65,7 @@ const String _runtimeBaseCss = r'''
 [data-arcane-calendar] .arcane-calendar-weekdays {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 0.125rem;
+  gap: 0.25rem;
   font-size: 0.75rem;
   text-transform: uppercase;
   opacity: 0.7;
@@ -74,7 +77,7 @@ const String _runtimeBaseCss = r'''
 [data-arcane-calendar] .arcane-calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 0.125rem;
+  gap: 0.25rem;
 }
 [data-arcane-calendar][data-arcane-show-week-numbers="true"] .arcane-calendar-grid {
   grid-template-columns: 2rem repeat(7, 1fr);
@@ -86,14 +89,22 @@ const String _runtimeBaseCss = r'''
   padding: 0.25rem 0;
 }
 [data-arcane-calendar] .arcane-calendar-day {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-width: 2.25rem;
+  min-height: 2.25rem;
+  aspect-ratio: 1 / 1;
   background: transparent;
   border: 1px solid transparent;
   border-radius: 0.25rem;
-  padding: 0.375rem 0;
+  padding: 0;
   cursor: pointer;
   font: inherit;
   color: inherit;
   text-align: center;
+  box-sizing: border-box;
 }
 [data-arcane-calendar] .arcane-calendar-day:hover:not(:disabled) {
   background: var(--muted, rgba(127,127,127,0.1));
@@ -146,7 +157,6 @@ String buildArcaneInteractivityRuntime({bool minify = false}) {
 
 String buildArcaneInteractivityCss() => _runtimeBaseCss;
 
-String get arcaneInteractivityRuntimeJs =>
-    buildArcaneInteractivityRuntime();
+String get arcaneInteractivityRuntimeJs => buildArcaneInteractivityRuntime();
 
 String get arcaneInteractivityRuntimeCss => buildArcaneInteractivityCss();

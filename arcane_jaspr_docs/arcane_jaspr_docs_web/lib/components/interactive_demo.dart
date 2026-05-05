@@ -9,6 +9,7 @@ import 'package:arcane_neon_web/components/interactive_demo_stylesheet_stub.dart
     if (dart.library.js_interop) 'package:arcane_neon_web/components/interactive_demo_stylesheet_web.dart';
 import 'package:jaspr/dom.dart' as dom;
 import 'package:jaspr/jaspr.dart' as jaspr;
+import 'package:jaspr/jaspr.dart' show client;
 
 const Map<String, ArcaneStylesheet> clientShadcnStylesheets =
     <String, ArcaneStylesheet>{
@@ -50,7 +51,7 @@ const ArcaneStylesheet selectedClientStylesheet = ShadcnStylesheet(
   theme: ShadcnTheme.midnight,
 );
 
-@jaspr.client
+@client
 class InteractiveDemo extends StatefulWidget {
   final String componentType;
 

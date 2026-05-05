@@ -19,7 +19,7 @@ class ArcaneJasprDemoRunner {
   Future<int> run() async {
     Directory packageRootDirectory = await _packageRootDirectory();
     Directory demoDirectory = Directory(
-      '${packageRootDirectory.path}/arcane_jaspr_neon/arcane_neon_web',
+      '${packageRootDirectory.path}/arcane_jaspr_docs/arcane_jaspr_docs_web',
     );
 
     if (!demoDirectory.existsSync()) {
@@ -299,7 +299,7 @@ class _DemoProcessCleaner {
 
   bool _commandMentionsWorkingDirectory(String command) =>
       command.contains(workingDirectory.path) ||
-      command.contains('/arcane_jaspr_neon/arcane_neon_web/');
+      command.contains('/arcane_jaspr_docs/arcane_jaspr_docs_web/');
 
   Set<int> _withDescendants(
     Map<int, _ProcessInfo> processes,

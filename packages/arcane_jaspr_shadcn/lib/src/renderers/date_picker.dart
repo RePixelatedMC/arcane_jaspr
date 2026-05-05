@@ -53,15 +53,14 @@ class ShadcnDatePicker extends StatelessComponent {
         anchorPlacement: 'bottom-start',
         anchorOffset: '4',
         focusTrap: false,
+        initiallyOpen: props.isOpen,
       ),
       calendarPickerAttrs(calendarId),
     ]);
 
     return dom.div(
       classes: 'arcane-date-picker',
-      attributes: <String, String>{
-        'data-disabled': '${props.disabled}',
-      },
+      attributes: <String, String>{'data-disabled': '${props.disabled}'},
       styles: const dom.Styles(
         raw: <String, String>{
           'position': 'relative',
@@ -88,6 +87,10 @@ class ShadcnDatePicker extends StatelessComponent {
             ...triggerAttrs,
             if (props.disabled) 'disabled': 'true',
             'data-error': '$hasError',
+          },
+          events: <String, EventCallback>{
+            if (!props.disabled && props.onToggle != null)
+              'click': (_) => props.onToggle?.call(),
           },
           styles: dom.Styles(
             raw: <String, String>{
@@ -139,7 +142,16 @@ class ShadcnDatePicker extends StatelessComponent {
                 attributes: <String, String>{
                   'role': 'button',
                   'aria-label': 'Clear date',
-                  ...interactionAttrs(ArcaneInteraction.calendarToday(calendarId)),
+                  ...interactionAttrs(
+                    ArcaneInteraction.calendarToday(calendarId),
+                  ),
+                },
+                events: <String, EventCallback>{
+                  if (props.onClear != null)
+                    'click': (event) {
+                      event.stopPropagation();
+                      props.onClear?.call();
+                    },
                 },
                 styles: const dom.Styles(
                   raw: <String, String>{
@@ -166,7 +178,8 @@ class ShadcnDatePicker extends StatelessComponent {
             },
           ),
           <Component>[
-            if (props.calendarProps != null) ShadcnCalendar(props.calendarProps!),
+            if (props.calendarProps != null)
+              ShadcnCalendar(props.calendarProps!),
           ],
         ),
         if (hasError)
