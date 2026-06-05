@@ -985,8 +985,6 @@ ${theme == NeonTheme.rainbow ? rainbowCss : ''}
 
 $arcaneSidebarTreeStyles
 
-$arcaneSidebarComponentStyles
-
 $arcaneTocTreeLinesCss
 
 $arcaneMapCss
@@ -1575,7 +1573,6 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
   display: none !important;
 }
 
-#arcane-root[class*="neon-"] .sidebar-link,
 #arcane-root[class*="neon-"] .sidebar-summary {
   position: relative;
   min-height: 1.95rem;
@@ -1598,7 +1595,6 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
   text-transform: uppercase;
 }
 
-#arcane-root[class*="neon-"] .sidebar-tree .sidebar-link::before,
 #arcane-root[class*="neon-"] .sidebar-tree .sidebar-summary::before {
   content: '';
   position: absolute;
@@ -1611,9 +1607,7 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
   transform: translateY(-50%) rotate(45deg);
 }
 
-#arcane-root[class*="neon-"] .sidebar-link:hover,
-#arcane-root[class*="neon-"] .sidebar-summary:hover,
-#arcane-root[class*="neon-"] .sidebar-link.active {
+#arcane-root[class*="neon-"] .sidebar-summary:hover {
   border-color: color-mix(in srgb, var(--kb-neon-node) 34%, transparent) !important;
   background:
     linear-gradient(90deg, color-mix(in srgb, var(--kb-neon-node) 14%, transparent), color-mix(in srgb, var(--kb-neon-panel-faint) 64%, transparent)) !important;
@@ -1623,9 +1617,7 @@ html.light #arcane-root[class*="neon-"] .kb-page-shell,
     0 0 18px color-mix(in srgb, var(--kb-neon-node) 10%, transparent);
 }
 
-#arcane-root[class*="neon-"] .sidebar-link:hover::before,
-#arcane-root[class*="neon-"] .sidebar-summary:hover::before,
-#arcane-root[class*="neon-"] .sidebar-link.active::before {
+#arcane-root[class*="neon-"] .sidebar-summary:hover::before {
   border-color: var(--kb-neon-node);
   background: var(--kb-neon-node);
   box-shadow: 0 0 12px color-mix(in srgb, var(--kb-neon-node) 30%, transparent);
@@ -2195,8 +2187,6 @@ html.light #arcane-root[class*="neon-"] .kb-search-input,
   color: #111827;
 }
 
-html.light #arcane-root[class*="neon-"] .sidebar-link,
-#arcane-root.light[class*="neon-"] .sidebar-link,
 html.light #arcane-root[class*="neon-"] .neon-kb-route-index .toc-content a,
 #arcane-root.light[class*="neon-"] .neon-kb-route-index .toc-content a {
   color: rgba(16, 26, 58, 0.72);
@@ -2209,12 +2199,8 @@ html.light #arcane-root[class*="neon-"] .neon-kb-route-index .toc-title,
   color: #101a3a;
 }
 
-html.light #arcane-root[class*="neon-"] .sidebar-link:hover,
 html.light #arcane-root[class*="neon-"] .sidebar-summary:hover,
-html.light #arcane-root[class*="neon-"] .sidebar-link.active,
-#arcane-root.light[class*="neon-"] .sidebar-link:hover,
 #arcane-root.light[class*="neon-"] .sidebar-summary:hover,
-#arcane-root.light[class*="neon-"] .sidebar-link.active,
 html.light #arcane-root[class*="neon-"] .neon-kb-route-index .toc-content a:hover,
 html.light #arcane-root[class*="neon-"] .neon-kb-route-index .toc-content a.toc-active,
 #arcane-root.light[class*="neon-"] .neon-kb-route-index .toc-content a:hover,
@@ -2689,8 +2675,8 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
   transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease;
 }
 
-[class*="neon-"] .sidebar-section:hover:not(:has(.sidebar-section:hover)):not(:has(.sidebar-link:hover)) > .sidebar-details > .sidebar-summary,
-.neon .sidebar-section:hover:not(:has(.sidebar-section:hover)):not(:has(.sidebar-link:hover)) > .sidebar-details > .sidebar-summary {
+[class*="neon-"] .sidebar-section:hover:not(:has(.sidebar-section:hover)):not(:has(.sidebar-tree-item:hover)) > .sidebar-details > .sidebar-summary,
+.neon .sidebar-section:hover:not(:has(.sidebar-section:hover)):not(:has(.sidebar-tree-item:hover)) > .sidebar-details > .sidebar-summary {
   color: var(--neon-accent-cool);
   background: color-mix(in srgb, var(--neon-accent) 10%, transparent);
   border-color: var(--neon-panel-border-hot);
@@ -2706,8 +2692,8 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
     0 0 18px color-mix(in srgb, var(--kb-neon-node) 14%, transparent);
 }
 
-[class*="neon-"] .sidebar-section:hover:not(:has(.sidebar-section:hover)):not(:has(.sidebar-link:hover)) > .sidebar-details[open] > .sidebar-summary,
-.neon .sidebar-section:hover:not(:has(.sidebar-section:hover)):not(:has(.sidebar-link:hover)) > .sidebar-details[open] > .sidebar-summary {
+[class*="neon-"] .sidebar-section:hover:not(:has(.sidebar-section:hover)):not(:has(.sidebar-tree-item:hover)) > .sidebar-details[open] > .sidebar-summary,
+.neon .sidebar-section:hover:not(:has(.sidebar-section:hover)):not(:has(.sidebar-tree-item:hover)) > .sidebar-details[open] > .sidebar-summary {
   color: var(--kb-neon-node-alt);
   background: color-mix(in srgb, var(--kb-neon-node) 20%, transparent);
   border-color: color-mix(in srgb, var(--kb-neon-node) 58%, transparent);
@@ -2824,8 +2810,8 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
   display: none;
 }
 
-[class*="neon-"] .sidebar-tree .sidebar-section:hover:not(:has(.sidebar-section:hover)):not(:has(.sidebar-link:hover)),
-.neon .sidebar-tree .sidebar-section:hover:not(:has(.sidebar-section:hover)):not(:has(.sidebar-link:hover)) {
+[class*="neon-"] .sidebar-tree .sidebar-section:hover:not(:has(.sidebar-section:hover)):not(:has(.sidebar-tree-item:hover)),
+.neon .sidebar-tree .sidebar-section:hover:not(:has(.sidebar-section:hover)):not(:has(.sidebar-tree-item:hover)) {
   background: color-mix(in srgb, var(--neon-accent) 5%, transparent);
 }
 
@@ -2897,90 +2883,6 @@ html.light #arcane-root[class*="neon-"] .kb-tag,
   display: none;
 }
 
-[class*="neon-"] .sidebar-tree .sidebar-link,
-.neon .sidebar-tree .sidebar-link {
-  font-size: 0.8125rem;
-  padding: 0.5rem 0.75rem 0.5rem 1.25rem !important;
-  margin: 0.125rem 0;
-  border-left: none !important;
-}
-
-[class*="neon-"] .sidebar-link,
-.neon .sidebar-link {
-  font-family: var(--font-sans);
-  padding: 0.5rem 0.75rem;
-  border-left: 2px solid transparent;
-  border-radius: 0 var(--neon-radius-control, 0.375rem) var(--neon-radius-control, 0.375rem) 0;
-  background: transparent;
-  transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease;
-}
-
-[class*="neon-"] .sidebar-link:hover,
-.neon .sidebar-link:hover {
-  color: var(--neon-accent-cool);
-  background: color-mix(in srgb, var(--neon-accent) 7%, transparent);
-  border-left-color: color-mix(in srgb, var(--neon-accent-cool) 45%, transparent);
-}
-
-[class*="neon-"] .sidebar-link.active,
-.neon .sidebar-link.active {
-  color: var(--kb-neon-node-alt);
-  font-weight: 600;
-  background: color-mix(in srgb, var(--kb-neon-node) 14%, transparent);
-  border-left-color: var(--kb-neon-node);
-  box-shadow: inset 2px 0 0 var(--kb-neon-node);
-}
-/* Neon styling for ArcaneSidebar tree lines */
-[class*="neon-"] .arcane-sidebar-submenu-content > .arcane-sidebar-item::before,
-[class*="neon-"] .arcane-sidebar-group-items > .arcane-sidebar-item::before,
-.neon .arcane-sidebar-submenu-content > .arcane-sidebar-item::before,
-.neon .arcane-sidebar-group-items > .arcane-sidebar-item::before {
-  background: var(--primary);
-  opacity: 0.6;
-  height: 2px;
-}
-
-[class*="neon-"] .arcane-sidebar-submenu-content > .arcane-sidebar-item:not(:last-child)::after,
-[class*="neon-"] .arcane-sidebar-group-items > .arcane-sidebar-item:not(:last-child)::after,
-.neon .arcane-sidebar-submenu-content > .arcane-sidebar-item:not(:last-child)::after,
-.neon .arcane-sidebar-group-items > .arcane-sidebar-item:not(:last-child)::after {
-  background: var(--primary);
-  width: 2px;
-  box-shadow: none;
-}
-
-[class*="neon-"] .arcane-sidebar-submenu-content > .arcane-sidebar-item:last-child::after,
-[class*="neon-"] .arcane-sidebar-group-items > .arcane-sidebar-item:last-child::after,
-.neon .arcane-sidebar-submenu-content > .arcane-sidebar-item:last-child::after,
-.neon .arcane-sidebar-group-items > .arcane-sidebar-item:last-child::after {
-  background: var(--primary);
-  width: 2px;
-  box-shadow: none;
-}
-
-/* Neon link styling for ArcaneSidebar items */
-[class*="neon-"] .arcane-sidebar-item,
-.neon .arcane-sidebar-item {
-  border-left: 3px solid transparent;
-  border-radius: 0 var(--radius-md) var(--radius-md) 0 !important;
-  transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
-}
-
-[class*="neon-"] .arcane-sidebar-item:hover,
-.neon .arcane-sidebar-item:hover {
-  color: var(--primary) !important;
-  background: color-mix(in srgb, var(--primary) 10%, transparent) !important;
-  border-left-color: color-mix(in srgb, var(--primary) 50%, transparent);
-}
-
-[class*="neon-"] .arcane-sidebar-item.selected,
-.neon .arcane-sidebar-item.selected {
-  color: var(--primary) !important;
-  font-weight: 600;
-  background: color-mix(in srgb, var(--primary) 15%, transparent) !important;
-  border-left-color: var(--primary);
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--primary) 14%, transparent);
-}
 /* ============================================
    TABLE OF CONTENTS - Neon Gaming Style
    Cyberpunk with glowing tree lines

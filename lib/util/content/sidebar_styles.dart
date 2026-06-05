@@ -240,6 +240,14 @@ const String arcaneSidebarTreeStyles = '''
   position: relative;
 }
 
+/* Sidebar item button (migrated from .sidebar-link): left-align the
+   label instead of the Button's default centered content. The button sets
+   justify-content: center inline, so !important is required to override it. */
+.sidebar-tree-item > .arcane-button[sidebar-item="true"] {
+  justify-content: flex-start !important;
+  text-align: left;
+}
+
 /* Horizontal branch line */
 .sidebar-tree-item::before {
   content: '';
@@ -304,29 +312,6 @@ const String arcaneSidebarTreeStyles = '''
   margin-left: 0.5rem;
   padding-left: 0.75rem;
   margin-top: 0;
-}
-
-/* Navigation link styling */
-.sidebar-link {
-  display: block;
-  padding: 0.375rem 0.625rem;
-  font-size: 0.8125rem;
-  color: var(--muted-foreground);
-  text-decoration: none;
-  border-radius: var(--radius-sm);
-  transition: color 0.15s ease, background 0.15s ease;
-}
-
-.sidebar-link:hover {
-  color: var(--foreground);
-  background: var(--muted);
-}
-
-/* Active state */
-.sidebar-link.active {
-  color: var(--accent-foreground);
-  font-weight: 500;
-  background: var(--accent);
 }
 
 /* Collapsible section styles */
@@ -410,88 +395,4 @@ const String arcaneSidebarTreeStyles = '''
 aside a:hover {
   background: var(--muted) !important;
 }
-''';
-
-
-/// ArcaneSidebar component tree-line styles.
-///
-/// Tree-line styling for ArcaneSidebar components.
-const String arcaneSidebarComponentStyles = '''
-/* ============================================
-   ARCANE SIDEBAR COMPONENTS - Tree Lines
-   Tree-line styling for ArcaneSidebar components
-   ============================================ */
-
-/* Submenu content and group items containers get tree-line treatment */
-.arcane-sidebar-submenu-content,
-.arcane-sidebar-group-items {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Each sidebar item in a submenu or group gets tree connectors */
-.arcane-sidebar-submenu-content > .arcane-sidebar-item,
-.arcane-sidebar-group-items > .arcane-sidebar-item {
-  position: relative;
-}
-
-/* Horizontal branch line */
-.arcane-sidebar-submenu-content > .arcane-sidebar-item::before,
-.arcane-sidebar-group-items > .arcane-sidebar-item::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 50%;
-  width: 0.5rem;
-  height: 1px;
-  background: var(--border);
-}
-
-/* Vertical line segment - connects this item to the next */
-.arcane-sidebar-submenu-content > .arcane-sidebar-item:not(:last-child)::after,
-.arcane-sidebar-group-items > .arcane-sidebar-item:not(:last-child)::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  background: var(--border);
-}
-
-/* Last item - L-bend connector */
-.arcane-sidebar-submenu-content > .arcane-sidebar-item:last-child::after,
-.arcane-sidebar-group-items > .arcane-sidebar-item:last-child::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 50%;
-  width: 1px;
-  background: var(--border);
-}
-
-/* Single child - hide tree lines */
-.arcane-sidebar-submenu-content:has(> .arcane-sidebar-item:only-child) > .arcane-sidebar-item::before,
-.arcane-sidebar-submenu-content:has(> .arcane-sidebar-item:only-child) > .arcane-sidebar-item::after,
-.arcane-sidebar-group-items:has(> .arcane-sidebar-item:only-child) > .arcane-sidebar-item::before,
-.arcane-sidebar-group-items:has(> .arcane-sidebar-item:only-child) > .arcane-sidebar-item::after {
-  display: none;
-}
-
-/* Adjust padding to accommodate tree lines */
-.arcane-sidebar-submenu-content > .arcane-sidebar-item,
-.arcane-sidebar-group-items > .arcane-sidebar-item {
-  padding-left: 1rem !important;
-}
-
-''';
-
-/// All sidebar styles combined.
-const String arcaneAllSidebarStyles =
-    '''
-$arcaneSidebarTreeStyles
-
-$arcaneSidebarComponentStyles
 ''';

@@ -1076,21 +1076,6 @@ html.dark #arcane-root[class*="neubrutalism-"] textarea {
   color: var(--foreground) !important;
 }
 
-#arcane-root[class*="neubrutalism-"] .neubrutalism-sidebar-link:hover,
-#arcane-root[class*="neubrutalism-"] .sidebar-link:hover {
-  background-color: var(--nb-accent) !important;
-  color: var(--nb-on-accent) !important;
-}
-
-#arcane-root[class*="neubrutalism-"] .neubrutalism-sidebar-link.active,
-#arcane-root[class*="neubrutalism-"] .sidebar-link.active {
-  background-color: var(--nb-accent) !important;
-  color: var(--nb-on-accent) !important;
-  border: var(--nb-border-thin) solid var(--nb-line) !important;
-  box-shadow: var(--nb-shadow-xs);
-  font-weight: 700;
-}
-
 #arcane-root[class*="neubrutalism-"] .neubrutalism-loading-spinner,
 #arcane-root[class*="neubrutalism-"] .neubrutalism-circular-progress {
   border-color: var(--nb-paper) !important;
@@ -1920,8 +1905,6 @@ html.dark #arcane-root[class*="neubrutalism-"] .prose .hljs-built_in { color: #7
 
 $arcaneSidebarTreeStyles
 
-$arcaneSidebarComponentStyles
-
 $arcaneMapCss
 
 $arcaneTocTreeLinesCss
@@ -2362,8 +2345,6 @@ html.dark #arcane-root[class*="neubrutalism-"] .kb-search-input {
 #arcane-root[class*="neubrutalism-"] .sidebar-tree::after,
 #arcane-root[class*="neubrutalism-"] .sidebar-tree-item::before,
 #arcane-root[class*="neubrutalism-"] .sidebar-tree-item::after,
-#arcane-root[class*="neubrutalism-"] .sidebar-link::before,
-#arcane-root[class*="neubrutalism-"] .sidebar-link::after,
 #arcane-root[class*="neubrutalism-"] .sidebar-summary::before,
 #arcane-root[class*="neubrutalism-"] .sidebar-summary::after {
   content: none !important;
@@ -2371,8 +2352,7 @@ html.dark #arcane-root[class*="neubrutalism-"] .kb-search-input {
 }
 
 #arcane-root[class*="neubrutalism-"] .sidebar-section-header,
-#arcane-root[class*="neubrutalism-"] .sidebar-summary,
-#arcane-root[class*="neubrutalism-"] .sidebar-link {
+#arcane-root[class*="neubrutalism-"] .sidebar-summary {
   position: relative !important;
   display: flex !important;
   align-items: center !important;
@@ -2413,22 +2393,15 @@ html.dark #arcane-root[class*="neubrutalism-"] .kb-search-input {
   cursor: pointer !important;
 }
 
-#arcane-root[class*="neubrutalism-"] .sidebar-link {
-  padding: 0.75rem 0.8rem 0.75rem 1.2rem !important;
-}
-
-#arcane-root[class*="neubrutalism-"] .sidebar-tree .sidebar-tree .sidebar-summary,
-#arcane-root[class*="neubrutalism-"] .sidebar-tree .sidebar-tree .sidebar-link {
+#arcane-root[class*="neubrutalism-"] .sidebar-tree .sidebar-tree .sidebar-summary {
   padding-left: 1.9rem !important;
 }
 
-#arcane-root[class*="neubrutalism-"] .sidebar-tree .sidebar-tree .sidebar-tree .sidebar-summary,
-#arcane-root[class*="neubrutalism-"] .sidebar-tree .sidebar-tree .sidebar-tree .sidebar-link {
+#arcane-root[class*="neubrutalism-"] .sidebar-tree .sidebar-tree .sidebar-tree .sidebar-summary {
   padding-left: 2.55rem !important;
 }
 
-#arcane-root[class*="neubrutalism-"] .sidebar-tree .sidebar-tree .sidebar-tree .sidebar-tree .sidebar-summary,
-#arcane-root[class*="neubrutalism-"] .sidebar-tree .sidebar-tree .sidebar-tree .sidebar-tree .sidebar-link {
+#arcane-root[class*="neubrutalism-"] .sidebar-tree .sidebar-tree .sidebar-tree .sidebar-tree .sidebar-summary {
   padding-left: 3.2rem !important;
 }
 
@@ -2439,17 +2412,10 @@ html.dark #arcane-root[class*="neubrutalism-"] .kb-search-input {
   opacity: 1 !important;
 }
 
-#arcane-root[class*="neubrutalism-"] .sidebar-link:hover,
-#arcane-root[class*="neubrutalism-"] .sidebar-summary:hover,
-#arcane-root[class*="neubrutalism-"] .sidebar-link.active {
+#arcane-root[class*="neubrutalism-"] .sidebar-summary:hover {
   transform: translate(2px, 2px) !important;
   background: var(--main) !important;
   color: var(--main-foreground) !important;
-}
-
-#arcane-root[class*="neubrutalism-"] .sidebar-link.active {
-  box-shadow: inset -6px 0 0 var(--nb-line) !important;
-  font-weight: 950 !important;
 }
 
 #arcane-root[class*="neubrutalism-"] .arcane-scaffold-secondary {

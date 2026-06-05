@@ -1,3 +1,4 @@
+import 'package:arcane_jaspr/component/input/button.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
@@ -140,8 +141,9 @@ class ShadcnSidebar extends StatelessComponent {
   }
 }
 
-/// ShadCN-style sidebar item using codex structure
-/// Renders as: <div class="sidebar-tree-item"><a class="sidebar-link">...</a></div>
+/// ShadCN-style sidebar item.
+/// Renders a [Button] (secondary variant when selected, ghost otherwise)
+/// wrapped in a `sidebar-tree-item` div.
 class ShadcnSidebarItem extends StatelessComponent {
   final SidebarItemProps props;
 
@@ -149,24 +151,20 @@ class ShadcnSidebarItem extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    final linkClasses = 'sidebar-link${props.selected ? ' active' : ''}';
-
-    // Use anchor if href is provided
-    if (props.href != null) {
-      return dom.div(classes: 'sidebar-tree-item', [
-        dom.a(href: props.href!, classes: linkClasses, [
-          Component.text(props.label),
-        ]),
-      ]);
-    }
-
-    // Otherwise use button (for actions without navigation)
     return dom.div(classes: 'sidebar-tree-item', [
-      dom.button(
-        classes: linkClasses,
-        attributes: {'type': 'button'},
-        events: props.onTap != null ? {'click': (_) => props.onTap!()} : null,
-        [Component.text(props.label)],
+      Button(
+        href: props.href,
+        label: props.label,
+        icon: props.icon,
+        onPressed: props.onTap,
+        variant: props.selected ? ButtonVariant.secondary : ButtonVariant.ghost,
+        size: ButtonSize.sm,
+        disabled: props.disabled,
+        fullWidth: true,
+        attributes: {
+          'sidebar-item': 'true',
+          'sidebar-active': '${props.selected}',
+        },
       ),
     ]);
   }

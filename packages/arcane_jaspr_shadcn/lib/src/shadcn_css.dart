@@ -367,8 +367,7 @@ html:has(#arcane-root[class*="shadcn-"]) body::-webkit-scrollbar-thumb:hover,
   box-shadow: none;
 }
 
-#arcane-root[class*="shadcn-"] .sidebar-summary,
-#arcane-root[class*="shadcn-"] .sidebar-link {
+#arcane-root[class*="shadcn-"] .sidebar-summary {
   border-radius: calc(var(--radius) - 2px);
   color: color-mix(in srgb, var(--foreground) 78%, var(--muted-foreground));
   outline: 1px solid transparent;
@@ -376,16 +375,10 @@ html:has(#arcane-root[class*="shadcn-"]) body::-webkit-scrollbar-thumb:hover,
 }
 
 #arcane-root[class*="shadcn-"] .sidebar-summary:hover,
-#arcane-root[class*="shadcn-"] .sidebar-details[open] > .sidebar-summary,
-#arcane-root[class*="shadcn-"] .sidebar-link:hover,
-#arcane-root[class*="shadcn-"] .sidebar-link.active {
+#arcane-root[class*="shadcn-"] .sidebar-details[open] > .sidebar-summary {
   background: var(--shadcn-control-hover);
   color: var(--foreground);
   outline-color: var(--shadcn-subtle-line);
-}
-
-#arcane-root[class*="shadcn-"] .sidebar-link.active {
-  box-shadow: none;
 }
 
 #arcane-root[class*="shadcn-"] .sidebar-tree > .sidebar-section::before,
@@ -1010,8 +1003,6 @@ $neutralOverrides
 }
 
 $arcaneSidebarTreeStyles
-
-$arcaneSidebarComponentStyles
 
 $arcaneMapCss
 
