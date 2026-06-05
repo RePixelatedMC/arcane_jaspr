@@ -5,10 +5,10 @@ on:
     branches: [master]
     paths:
       - 'arcane_jaspr_docs/**'
-      - '../../../../lib'
+      - 'lib/**'
       - 'packages/**'
-      - '../../../../tool'
-      - '../../../../pubspec.yaml'
+      - 'tool/**'
+      - 'pubspec.yaml'
       - '.github/workflows/deploy.yml'
       - '.github/scripts/**'
   workflow_dispatch:
