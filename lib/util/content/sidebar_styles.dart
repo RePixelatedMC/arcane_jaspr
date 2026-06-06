@@ -142,6 +142,9 @@ const String arcaneSidebarTreeStyles = '''
    SIDEBAR SECTIONS - ShadCN Visual Styles
    ============================================ */
 .sidebar-section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--muted-foreground);
@@ -240,12 +243,73 @@ const String arcaneSidebarTreeStyles = '''
   position: relative;
 }
 
-/* Sidebar item button (migrated from .sidebar-link): left-align the
-   label instead of the Button's default centered content. The button sets
-   justify-content: center inline, so !important is required to override it. */
-.sidebar-tree-item > .arcane-button[sidebar-item="true"] {
-  justify-content: flex-start !important;
+/* Sidebar nav item  */
+.sidebar-tree-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 0.5rem);
+  width: 100%;
+  height: 2.25rem;
+  padding: 0 0.75rem;
+  border: none;
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--foreground);
+  font-family: inherit;
+  font-size: var(--font-size-sm, 0.875rem);
+  font-weight: var(--font-weight-medium, 500);
+  line-height: 1.25rem;
   text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: color var(--transition), background-color var(--transition);
+}
+
+.sidebar-tree-link:hover {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.sidebar-tree-link[data-active="true"] {
+  background: var(--secondary);
+  color: var(--secondary-foreground);
+  font-weight: var(--font-weight-semibold, 600);
+}
+
+.sidebar-tree-link[data-disabled="true"],
+.sidebar-tree-link:disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+/* Icon sizing */
+.sidebar-tree-link > svg {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+
+/* Label  */
+.sidebar-tree-link-label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sidebar-tree-link-badge {
+  margin-left: auto;
+  flex-shrink: 0;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  padding: 0.0625rem 0.375rem;
+  border-radius: var(--radius-sm, 0.25rem);
+  background: var(--muted);
+  color: var(--muted-foreground);
 }
 
 /* Horizontal branch line */

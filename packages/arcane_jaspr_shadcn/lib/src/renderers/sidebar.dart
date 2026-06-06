@@ -1,4 +1,3 @@
-import 'package:arcane_jaspr/component/input/button.dart';
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr/dom.dart' as dom;
 
@@ -142,8 +141,6 @@ class ShadcnSidebar extends StatelessComponent {
 }
 
 /// ShadCN-style sidebar item.
-/// Renders a [Button] (secondary variant when selected, ghost otherwise)
-/// wrapped in a `sidebar-tree-item` div.
 class ShadcnSidebarItem extends StatelessComponent {
   final SidebarItemProps props;
 
@@ -151,23 +148,50 @@ class ShadcnSidebarItem extends StatelessComponent {
 
   @override
   Component build(BuildContext context) {
-    return dom.div(classes: 'sidebar-tree-item', [
-      Button(
-        href: props.href,
-        label: props.label,
-        icon: props.icon,
-        onPressed: props.onTap,
-        variant: props.selected ? ButtonVariant.secondary : ButtonVariant.ghost,
-        size: ButtonSize.sm,
-        disabled: props.disabled,
-        fullWidth: true,
-        attributes: {
-          'sidebar-item': 'true',
-          'sidebar-active': '${props.selected}',
-        },
-      ),
-    ]);
+    return dom.div(classes: 'sidebar-tree-item', [sidebarTreeLink(props)]);
   }
+}
+
+Component sidebarTreeLink(SidebarItemProps props) {
+  final List<Component> content = [
+    if (props.icon != null) props.icon!,
+    dom.span(classes: 'sidebar-tree-link-label', [Component.text(props.label)]),
+    if (props.badge != null)
+      dom.span(classes: 'sidebar-tree-link-badge', [
+        Component.text(props.badge!),
+      ]),
+  ];
+
+  final Map<String, String> stateAttrs = {
+    'data-active': '${props.selected}',
+    if (props.disabled) 'data-disabled': 'true',
+    if (props.tooltip != null) 'title': props.tooltip!,
+  };
+
+  final void Function()? onTap = props.onTap;
+
+  if (props.href != null && !props.disabled) {
+    return dom.a(
+      classes: 'sidebar-tree-link',
+      href: props.href!,
+      attributes: stateAttrs,
+      events: onTap != null ? {'click': (_) => onTap()} : null,
+      content,
+    );
+  }
+
+  return dom.button(
+    classes: 'sidebar-tree-link',
+    attributes: {
+      'type': 'button',
+      if (props.disabled) 'disabled': 'true',
+      ...stateAttrs,
+    },
+    events: (!props.disabled && onTap != null)
+        ? {'click': (_) => onTap()}
+        : null,
+    content,
+  );
 }
 
 /// ShadCN-style sidebar group

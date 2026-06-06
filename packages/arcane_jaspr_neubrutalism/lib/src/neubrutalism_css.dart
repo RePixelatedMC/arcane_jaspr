@@ -2337,6 +2337,41 @@ html.dark #arcane-root[class*="neubrutalism-"] .kb-search-input {
   box-shadow: none !important;
 }
 
+/* Sidebar nav link */
+#arcane-root[class*="neubrutalism-"] .sidebar-tree-link {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--foreground);
+  /* Opt out of the global neubrutalism anchor underline — this is nav chrome,
+     not a prose link. */
+  text-decoration: none;
+  border: var(--nb-border-thin, 2px) solid transparent;
+  border-radius: var(--nb-radius-soft) !important;
+  transition: transform var(--nb-transition), box-shadow var(--nb-transition), background var(--nb-transition), color var(--nb-transition);
+}
+
+#arcane-root[class*="neubrutalism-"] .sidebar-tree-link:hover {
+  /* Override the global a:hover (accent fill + on-accent text); keep the link
+     readable over the subtle hover tint. */
+  background: color-mix(in srgb, var(--nb-line) 8%, transparent);
+  color: var(--foreground);
+  border-color: var(--nb-line);
+  box-shadow: var(--nb-shadow-sm);
+  transform: translate(-1px, -1px);
+}
+
+#arcane-root[class*="neubrutalism-"] .sidebar-tree-link[data-active="true"] {
+  background: var(--nb-accent, var(--primary));
+  color: var(--nb-on-accent, var(--primary-foreground));
+  border-color: var(--nb-line);
+  box-shadow: var(--nb-shadow-md);
+}
+
+#arcane-root[class*="neubrutalism-"] .sidebar-tree-link[data-active="true"]:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: var(--nb-shadow-lg);
+}
+
 #arcane-root[class*="neubrutalism-"] .sidebar-section::before,
 #arcane-root[class*="neubrutalism-"] .sidebar-section::after,
 #arcane-root[class*="neubrutalism-"] .sidebar-details::before,

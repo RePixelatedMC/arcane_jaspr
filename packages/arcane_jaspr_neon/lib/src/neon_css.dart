@@ -678,6 +678,31 @@ html.light #arcane-root[class*="neon-"] .neon-breadcrumb-current,
   box-shadow: inset 2px 0 0 var(--neon-accent), var(--neon-glow-sm);
 }
 
+/* Sidebar nav link  */
+#arcane-root[class*="neon-"] .sidebar-tree-link {
+  border: 1px solid transparent;
+  border-radius: var(--neon-radius-control);
+  clip-path: var(--neon-clip-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.75rem;
+  transition: background 0.14s ease, border-color 0.14s ease, color 0.14s ease, box-shadow 0.14s ease;
+}
+
+#arcane-root[class*="neon-"] .sidebar-tree-link:hover {
+  border-color: color-mix(in srgb, var(--neon-accent) 32%, transparent);
+  background: color-mix(in srgb, var(--neon-accent) 10%, transparent);
+  color: var(--foreground);
+}
+
+#arcane-root[class*="neon-"] .sidebar-tree-link[data-active="true"] {
+  border-color: var(--neon-panel-border-hot);
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--neon-accent) 14%, transparent), color-mix(in srgb, var(--neon-accent-cool) 8%, transparent));
+  color: var(--foreground);
+  box-shadow: inset 2px 0 0 var(--neon-accent), var(--neon-glow-sm);
+}
+
 #arcane-root[class*="neon-"] .neon-separator,
 #arcane-root[class*="neon-"] .neon-dropdown-divider,
 #arcane-root[class*="neon-"] .neon-context-menu-separator,
